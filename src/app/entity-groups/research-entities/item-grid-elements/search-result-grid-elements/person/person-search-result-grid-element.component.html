@@ -3,9 +3,10 @@
     <div class="position-absolute ml-1">
       <ng-content></ng-content>
     </div>
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-      rel="noopener noreferrer" [routerLink]="[itemPageRoute]" class="card-img-top full-width"
-      [attr.title]="'search.results.view-result' | translate">
+    <a *ngIf="linkType != linkTypes.None"
+       [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
+       rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
+       class="card-img-top full-width" [attr.title]="'search.results.view-result' | translate">
       <div>
         <ds-thumbnail [thumbnail]="thumbnail$ | async" [limitWidth]="false">
         </ds-thumbnail>
@@ -20,7 +21,7 @@
     <div class="card-body">
       <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
       <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
-        <h4 class="card-title" [innerHTML]="getPersonName()"></h4>
+        <h4 class="card-title" [innerHTML]="dsoTitle"></h4>
       </ds-truncatable-part>
       <p *ngIf="dso.hasMetadata('person.email')" class="item-email card-text text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">
@@ -33,9 +34,9 @@
         </ds-truncatable-part>
       </p>
       <div *ngIf="linkType != linkTypes.None" class="text-center">
-        <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
-          [routerLink]="[itemPageRoute]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' |
-          translate}}</a>
+        <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
+           rel="noopener noreferrer" [routerLink]="[itemPageRoute]"
+           class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
       </div>
     </div>
   </ds-truncatable>

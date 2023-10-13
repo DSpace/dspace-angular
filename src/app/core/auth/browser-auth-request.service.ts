@@ -4,6 +4,7 @@ import { PostRequest } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { Observable, of as observableOf } from 'rxjs';
 
 /**
  * Client side version of the service to send authentication requests
@@ -20,15 +21,13 @@ export class BrowserAuthRequestService extends AuthRequestService {
   }
 
   /**
-   * Factory function to create the request object to send. This needs to be a POST client side and
-   * a GET server side. Due to CSRF validation, the server isn't allowed to send a POST, so we allow
-   * only the server IP to send a GET to this endpoint.
+   * Factory function to create the request object to send.
    *
    * @param href The href to send the request to
    * @protected
    */
-  protected createShortLivedTokenRequest(href: string): PostRequest {
-    return new PostRequest(this.requestService.generateRequestId(), href);
+  protected createShortLivedTokenRequest(href: string): Observable<PostRequest> {
+    return observableOf(new PostRequest(this.requestService.generateRequestId(), href));
   }
 
 }

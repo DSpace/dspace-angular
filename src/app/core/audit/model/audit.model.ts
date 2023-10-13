@@ -1,4 +1,4 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { autoserialize, deserialize } from 'cerialize';
 import { AUDIT } from './audit.resource-type';

@@ -1,18 +1,15 @@
-import { Injectable } from '@angular/core';
-
 import { BehaviorSubject } from 'rxjs';
 
-import { ExportImageType } from './export.service';
+import { ExportImageType, ExportService } from './export.service';
 
-@Injectable()
-export class ServerExportService {
+export class ServerExportService implements ExportService {
   /**
    * Creates excel from the table element reference.
    *
    * @param type of export.
    * @param fileName is the file name to save as.
    * @param elementIdOrContent is the content that is being exported.
-   * @param download option if its going to be downloaded.
+   * @param download option if it'ss going to be downloaded.
    */
   exportAsFile(type: any, elementIdOrContent: string, fileName: string, download: boolean = true) {
     return;
@@ -27,6 +24,17 @@ export class ServerExportService {
    * @param isLoading A boolean representing the exporting process status.
    */
   exportAsImage(domNode: HTMLElement, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>) {
+    return;
+  }
+
+  /**
+   * Creates an image from the given base64 string.
+   * @param base64 the base64 string
+   * @param type image type (png or jpeg)
+   * @param fileName
+   * @param isLoading
+   */
+  exportImageWithBase64(base64: string, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>) {
     return;
   }
 }

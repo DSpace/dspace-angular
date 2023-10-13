@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CrisItemPageResolver } from './cris-item-page.resolver';
 import { CrisItemPageComponent } from './cris-item-page.component';
 import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
-import { MenuItemType } from '../shared/menu/initial-menus-state';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
         public: [{
           id: 'statistics_item_:id',
           active: true,
-          visible: true,
+          visible: false,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.statistics',
@@ -45,7 +45,7 @@ const routes: Routes = [
         public: [{
           id: 'statistics_item_:id',
           active: true,
-          visible: true,
+          visible: false,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.statistics',

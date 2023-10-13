@@ -1,16 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SharedModule } from '../shared.module';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
+import { VarDirective } from '../utils/var.directive';
 import SpyObj = jasmine.SpyObj;
 
 describe('MetadataLinkViewComponent', () => {
@@ -18,17 +20,6 @@ describe('MetadataLinkViewComponent', () => {
   let fixture: ComponentFixture<MetadataLinkViewComponent>;
   let itemService: SpyObj<ItemDataService>;
   const validAuthority = uuidv4();
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ SharedModule, RouterTestingModule ],
-      declarations: [ MetadataLinkViewComponent ],
-      providers: [
-        { provide: ItemDataService, useValue: itemService },
-      ]
-    })
-    .compileComponents();
-  });
 
   const testPerson = Object.assign(new Item(), {
     id: '1',
@@ -51,13 +42,14 @@ describe('MetadataLinkViewComponent', () => {
           value: '0000-0001-8918-3592'
         })
       ],
-      'cris.orcid.authenticated': [
+      'dspace.orcid.authenticated': [
         Object.assign(new MetadataValue(), {
           language: null,
           value: 'authenticated'
         })
       ]
-    }
+    },
+    entityType: 'Person'
   });
 
   const testOrgunit = Object.assign(new Item(), {
@@ -75,30 +67,45 @@ describe('MetadataLinkViewComponent', () => {
           authority: '1'
         })
       ],
-    }
+    },
+    entityType: 'OrgUnit'
   });
 
   const testMetadataValueWithoutAuthority = Object.assign(new MetadataValue(), {
-    authority:null,
-    confidence:-1,
-    language:null,
-    place:0,
-    uuid:'56e99d82-2cae-4cce-8d12-39899dea7c72',
-    value:'Università degli Studi di Milano Bicocca',
+    authority: null,
+    confidence: -1,
+    language: null,
+    place: 0,
+    uuid: '56e99d82-2cae-4cce-8d12-39899dea7c72',
+    value: 'Università degli Studi di Milano Bicocca',
   });
 
   const testMetadataValueWithAuthority = Object.assign(new MetadataValue(), {
     authority: validAuthority,
     confidence: 600,
-    language:null,
-    place:0,
-    uuid:'56e99d82-2cae-4cce-8d12-39899dea7c72',
-    value:'Università degli Studi di Milano Bicocca',
+    language: null,
+    place: 0,
+    uuid: '56e99d82-2cae-4cce-8d12-39899dea7c72',
+    value: 'Università degli Studi di Milano Bicocca',
   });
 
   itemService = jasmine.createSpyObj('ItemDataService', {
     findById: jasmine.createSpy('findById')
   });
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        NgbTooltipModule,
+        RouterTestingModule
+      ],
+      declarations: [MetadataLinkViewComponent, EntityIconDirective, VarDirective],
+      providers: [
+        { provide: ItemDataService, useValue: itemService },
+      ]
+    })
+      .compileComponents();
+  }));
 
   describe('Check metadata without authority', () => {
     beforeEach(() => {
@@ -114,47 +121,93 @@ describe('MetadataLinkViewComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should not have link', () => {
-      const link = fixture.debugElement.query(By.css('a'));
+    it('should render the span element', () => {
+      const text = fixture.debugElement.query(By.css('[data-test="textWithoutIcon"]'));
+      const link = fixture.debugElement.query(By.css('[data-test="linkToAuthority"]'));
 
+      expect(text).toBeTruthy();
       expect(link).toBeNull();
-    });
-
-    it('should not have icon', () => {
-      const icon = fixture.debugElement.query(By.css('.orcid-icon'));
-
-      expect(icon).toBeNull();
     });
 
   });
 
   describe('Check metadata with authority', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(MetadataLinkViewComponent);
-      itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
-      component = fixture.componentInstance;
-      component.item = testPerson;
-      component.metadata = testMetadataValueWithAuthority;
-      fixture.detectChanges();
+    describe('when item is found with orcid', () => {
+      beforeEach(() => {
+        fixture = TestBed.createComponent(MetadataLinkViewComponent);
+        itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
+        component = fixture.componentInstance;
+        component.item = testPerson;
+        component.metadata = testMetadataValueWithAuthority;
+        fixture.detectChanges();
+      });
+
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('should render the link element', () => {
+        const link = fixture.debugElement.query(By.css('[data-test="linkToAuthority"]'));
+
+        expect(link).toBeTruthy();
+      });
+
+      it('should render the orcid icon', () => {
+        const icon = fixture.debugElement.query(By.css('[data-test="orcidIcon"]'));
+
+        expect(icon).toBeTruthy();
+      });
     });
 
-    it('should create', () => {
-      expect(component).toBeTruthy();
+    describe('when item is found without orcid', () => {
+      beforeEach(() => {
+        fixture = TestBed.createComponent(MetadataLinkViewComponent);
+        itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testOrgunit));
+        component = fixture.componentInstance;
+        component.item = testPerson;
+        component.metadata = testMetadataValueWithAuthority;
+        fixture.detectChanges();
+      });
+
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('should render the link element', () => {
+        const link = fixture.debugElement.query(By.css('[data-test="linkToAuthority"]'));
+
+        expect(link).toBeTruthy();
+      });
+
+      it('should not render the orcid icon', () => {
+        const icon = fixture.debugElement.query(By.css('[data-test="orcidIcon"]'));
+
+        expect(icon).toBeFalsy();
+      });
     });
 
-    it('should have link', () => {
-      const link = fixture.debugElement.query(By.css('a'));
+    describe('when item is not found', () => {
+      beforeEach(() => {
+        fixture = TestBed.createComponent(MetadataLinkViewComponent);
+        itemService.findById.and.returnValue(createFailedRemoteDataObject$());
+        component = fixture.componentInstance;
+        component.item = testPerson;
+        component.metadata = testMetadataValueWithAuthority;
+        fixture.detectChanges();
+      });
 
-      expect(link).toBeTruthy();
-    });
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
 
-    it('should have icon', () => {
-      const icon = fixture.debugElement.query(By.css('.orcid-icon'));
+      it('should render the span element', () => {
+        const text = fixture.debugElement.query(By.css('[data-test="textWithIcon"]'));
+        const link = fixture.debugElement.query(By.css('[data-test="linkToAuthority"]'));
 
-      expect(icon).toBeTruthy();
+        expect(text).toBeTruthy();
+        expect(link).toBeNull();
+      });
     });
   });
-
-
 
 });

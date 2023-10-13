@@ -12,19 +12,20 @@ describe('RootDataService', () => {
   let halService: HALEndpointService;
   let restService;
   let rootEndpoint;
+  let findByHrefSpy;
 
   beforeEach(() => {
     rootEndpoint = 'root-endpoint';
     halService = jasmine.createSpyObj('halService', {
-      getRootHref: rootEndpoint
+      getRootHref: rootEndpoint,
     });
     restService = jasmine.createSpyObj('halService', {
-      get: jasmine.createSpy('get')
+      get: jasmine.createSpy('get'),
     });
-    service = new RootDataService(null, null, null, null, halService, null, null, null, restService);
-    (service as any).dataService = jasmine.createSpyObj('dataService', {
-      findByHref: createSuccessfulRemoteDataObject$({})
-    });
+    service = new RootDataService(null, null, null, halService, restService);
+
+    findByHrefSpy = spyOn(service as any, 'findByHref');
+    findByHrefSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
   });
 
   describe('findRoot', () => {
@@ -36,7 +37,7 @@ describe('RootDataService', () => {
 
     it('should call findByHref using the root endpoint', (done) => {
       result$.subscribe(() => {
-        expect((service as any).dataService.findByHref).toHaveBeenCalledWith(rootEndpoint, true, true);
+        expect(findByHrefSpy).toHaveBeenCalledWith(rootEndpoint, true, true);
         done();
       });
     });

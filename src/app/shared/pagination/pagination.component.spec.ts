@@ -32,8 +32,8 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { createTestComponent } from '../testing/utils.test';
 import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { FindListOptions } from '../../core/data/request.models';
 import { BehaviorSubject } from 'rxjs';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));

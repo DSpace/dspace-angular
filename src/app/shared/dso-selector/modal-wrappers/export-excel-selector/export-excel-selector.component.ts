@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { COLLECTION_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { Process } from '../../../../process-page/processes/process.model';
@@ -45,7 +45,7 @@ export class ExportExcelSelectorComponent extends DSOSelectorModalWrapperCompone
       { name: '-c', value: dso.id }
     ];
 
-    this.scriptService.invoke('collection-export', stringParameters, [])
+    this.scriptService.invoke(COLLECTION_EXPORT_SCRIPT_NAME, stringParameters, [])
       .pipe(getFirstCompletedRemoteData())
       .subscribe((rd: RemoteData<Process>) => {
         if (rd.isSuccess) {

@@ -6,7 +6,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 
 /**
  * This component represents a badge with correction item information.
@@ -28,7 +28,7 @@ export class ItemCorrectionComponent implements OnInit {
    */
   isCorrectionOfItem$: Observable<boolean>;
 
-  constructor(private relationshipService: RelationshipService) {
+  constructor(private relationshipService: RelationshipDataService) {
   }
   /**
    * Check if item is a correction of an existing one

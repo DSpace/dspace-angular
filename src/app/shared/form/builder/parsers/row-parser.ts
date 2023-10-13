@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import { isEmpty } from '../../../empty.util';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
@@ -41,6 +41,7 @@ export class RowParser {
                initFormValues: any,
                submissionScope,
                readOnly: boolean,
+               typeField: string,
                isInnerForm: boolean = false,
                securityConfig: any = null): DynamicRowGroupModel {
     let fieldModel: any = null;
@@ -59,6 +60,7 @@ export class RowParser {
       readOnly: readOnly,
       submissionScope: submissionScope,
       collectionUUID: scopeUUID,
+      typeField: typeField,
       isInnerForm: isInnerForm
     };
 
@@ -106,6 +108,7 @@ export class RowParser {
             });
           } else {
             setLayout(fieldModel, 'grid', 'host', layoutFieldClass);
+
             config.group.push(fieldModel);
           }
         }

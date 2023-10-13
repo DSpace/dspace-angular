@@ -7,3 +7,7 @@
 .scope-button {
   max-width: var(--ds-search-form-scope-max-width);
 }
+
+.form-group { // add margin to parent components
+  margin-bottom: 0;
+}

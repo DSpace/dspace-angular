@@ -16,10 +16,11 @@ import {
   RequestSuccessAction,
   ResetResponseTimestampsAction
 } from './request.actions';
-import { RequestError, RestRequest } from './request.models';
-import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { ParsedResponse } from '../cache/response.models';
+import { RequestError } from './request-error.model';
+import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
+import { RequestEntry } from './request-entry.model';
 
 @Injectable()
 export class RequestEffects {
@@ -33,7 +34,7 @@ export class RequestEffects {
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
     map((entry: RequestEntry) => entry.request),
-    mergeMap((request: RestRequest) => {
+    mergeMap((request: RestRequestWithResponseParser) => {
       let body = request.body;
       if (isNotEmpty(request.body) && !request.isMultipart) {
         const serializer = new DSpaceSerializer(getClassForType(request.body.type));

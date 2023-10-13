@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
-import { LogOutAction, RefreshTokenAndRedirectAction } from '../../core/auth/auth.actions';
+import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
@@ -113,7 +113,7 @@ describe('EndUserAgreementComponent', () => {
           });
 
           it('should refresh the token and navigate the user to the redirect url', () => {
-            expect(store.dispatch).toHaveBeenCalledWith(new RefreshTokenAndRedirectAction(token, redirectUrl));
+            expect(store.dispatch).toHaveBeenCalledWith(new RefreshEpersonAndTokenRedirectAction(token, redirectUrl));
           });
         });
 

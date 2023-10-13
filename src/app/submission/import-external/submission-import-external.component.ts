@@ -5,7 +5,7 @@ import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { ExternalSourceService } from '../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { RemoteData } from '../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
@@ -21,6 +21,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { getFinishedRemoteData } from '../../core/shared/operators';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -71,7 +72,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * The initial pagination options
    */
   public initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'spc',
+    id: this.uuidService.generate(),
     pageSize: 10
   });
   /**
@@ -93,17 +94,18 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   /**
    * Initialize the component variables.
    * @param {SearchConfigurationService} searchConfigService
-   * @param {ExternalSourceService} externalService
+   * @param {ExternalSourceDataService} externalService
    * @param {RouteService} routeService
    * @param {Router} router
    * @param {NgbModal} modalService
    */
   constructor(
     public searchConfigService: SearchConfigurationService,
-    private externalService: ExternalSourceService,
+    private externalService: ExternalSourceDataService,
     private routeService: RouteService,
     private router: Router,
     private modalService: NgbModal,
+    private uuidService: UUIDService
   ) {
   }
 

@@ -114,7 +114,7 @@ export class FormFieldModel {
   style: string;
 
   /**
-   * Containing the value for this metadata field
+   * Containing types to bind for this field
    */
   @autoserialize
   typeBind: string[];

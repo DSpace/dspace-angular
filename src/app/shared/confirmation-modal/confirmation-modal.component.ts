@@ -1,6 +1,5 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({
@@ -24,7 +23,7 @@ export class ConfirmationModalComponent {
    * An event fired when the cancel or confirm button is clicked, with respectively false or true
    */
   @Output()
-  response: Subject<boolean> = new Subject();
+  response = new EventEmitter<boolean>();
 
   constructor(protected activeModal: NgbActiveModal) {
   }
@@ -33,7 +32,7 @@ export class ConfirmationModalComponent {
    * Confirm the action that led to the modal
    */
   confirmPressed() {
-    this.response.next(true);
+    this.response.emit(true);
     this.close();
   }
 
@@ -41,7 +40,7 @@ export class ConfirmationModalComponent {
    * Cancel the action that led to the modal and close modal
    */
   cancelPressed() {
-    this.response.next(false);
+    this.response.emit(false);
     this.close();
   }
 

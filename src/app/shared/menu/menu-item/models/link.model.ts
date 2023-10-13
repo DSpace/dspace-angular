@@ -1,5 +1,5 @@
 import { MenuItemModel } from './menu-item.model';
-import { MenuItemType } from '../../initial-menus-state';
+import { MenuItemType } from '../../menu-item-type.model';
 import { Params } from '@angular/router';
 
 /**
@@ -7,6 +7,7 @@ import { Params } from '@angular/router';
  */
 export class LinkMenuItemModel implements MenuItemModel {
   type = MenuItemType.LINK;
+  disabled: boolean;
   text: string;
   link: string;
   queryParams?: Params | null;

@@ -1,10 +1,12 @@
-import { map, tap, filter } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import * as fromRouter from '@ngrx/router-store';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 import { SidebarCollapseAction } from './sidebar.actions';
 import { URLBaser } from '../../core/url-baser/url-baser';
+import { HostWindowService } from '../host-window.service';
+import { NoOpAction } from '../ngrx/no-op.action';
 
 /**
  * Makes sure that if the user navigates to another route, the sidebar is collapsed
@@ -14,15 +16,16 @@ export class SidebarEffects {
   private previousPath: string;
    routeChange$ = createEffect(() => this.actions$
     .pipe(
-      ofType(fromRouter.ROUTER_NAVIGATION),
+      ofType(ROUTER_NAVIGATION),
       filter((action) => this.previousPath !== this.getBaseUrl(action)),
       tap((action) => {
         this.previousPath = this.getBaseUrl(action);
       }),
-      map(() => new SidebarCollapseAction())
+      switchMap(() => this.windowService.isXsOrSm()),
+      map((isXsOrSm: boolean) => isXsOrSm ? new SidebarCollapseAction() : new NoOpAction())
     ));
 
-  constructor(private actions$: Actions) {
+  constructor(private actions$: Actions, private windowService: HostWindowService) {
 
   }
 

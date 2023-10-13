@@ -11,6 +11,7 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { AlertType } from '../../alert/aletr-type';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -38,6 +39,16 @@ export class SearchResultsComponent {
   @Input() linkType: CollectionElementLinkType;
 
   /**
+   * Contains a notice to show before result list if any
+   */
+  @Input() searchResultNotice: string = null;
+
+  /**
+   * The alert type to use for the notice
+   */
+  @Input() searchResultNoticeType: AlertType = AlertType.Info;
+
+  /**
    * The actual search result objects
    */
   @Input() searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
@@ -46,6 +57,11 @@ export class SearchResultsComponent {
    * The current configuration of the search
    */
   @Input() searchConfig: PaginatedSearchOptions;
+
+  /**
+   * A boolean representing if show csv export button
+   */
+  @Input() showCsvExport = false;
 
   /**
    * The current sorting configuration of the search
@@ -84,6 +100,16 @@ export class SearchResultsComponent {
    * The config option used for selection functionality
    */
   @Input() selectionConfig: SelectionConfig = null;
+
+  /**
+   * A boolean representing if show search result notice
+   */
+  @Input() showSearchResultNotice = false;
+
+  /**
+   * Emit when one of the listed object has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
@@ -126,4 +152,13 @@ export class SearchResultsComponent {
 
     return result;
   }
+
+  /**
+   * Catch the custom event and emit it again
+   * @param $event
+   */
+  emitCustomEvent($event: any) {
+    this.customEvent.emit($event);
+  }
+
 }

@@ -9,7 +9,6 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core/core.reducers';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
@@ -20,6 +19,7 @@ import {
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { CoreState } from '../../core/core-state.model';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -40,6 +40,11 @@ export class CreateProfileComponent implements OnInit {
 
   userInfoForm: FormGroup;
   activeLangs: LangConfig[];
+
+  /**
+   * Prefix for the notification messages of this security form
+   */
+  NOTIFICATIONS_PREFIX = 'register-page.create-profile.submit.';
 
   constructor(
     private translateService: TranslateService,
@@ -178,13 +183,12 @@ export class CreateProfileComponent implements OnInit {
         })
       ).subscribe((rd: RemoteData<EPerson>) => {
         if (rd.hasSucceeded) {
-          this.notificationsService.success(this.translateService.get('register-page.create-profile.submit.success.head'),
-            this.translateService.get('register-page.create-profile.submit.success.content'));
+          this.notificationsService.success(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.head'),
+            this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.content'));
           this.store.dispatch(new AuthenticateAction(this.email, this.password));
           this.router.navigate(['/home']);
         } else {
-          this.notificationsService.error(this.translateService.get('register-page.create-profile.submit.error.head'),
-            this.translateService.get('register-page.create-profile.submit.error.content'));
+          this.notificationsService.error(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'error.head'), rd.errorMessage);
         }
       });
     }

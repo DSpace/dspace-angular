@@ -10,14 +10,19 @@ import {
   Output
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { hasValue } from '../empty.util';
-import { reduce, startWith, switchMap } from 'rxjs/operators';
+import { hasValue, isNotNull } from '../empty.util';
+import { map, reduce, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
-import { FindListOptions } from '../../core/data/request.models';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { EntityTypeService } from '../../core/data/entity-type.service';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import {
+  ItemExportFormatMolteplicity,
+  ItemExportFormatService
+} from '../../core/itemexportformat/item-export-format.service';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-entity-dropdown',
@@ -83,12 +88,14 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * Initialize instance variables
    *
    * @param {ChangeDetectorRef} changeDetectorRef
-   * @param {EntityTypeService} entityTypeService
+   * @param {EntityTypeDataService} entityTypeService
+   * @param {ItemExportFormatService} itemExportFormatService
    * @param {ElementRef} el
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private entityTypeService: EntityTypeService,
+    private entityTypeService: EntityTypeDataService,
+    private itemExportFormatService: ItemExportFormatService,
     private el: ElementRef
   ) { }
 
@@ -122,7 +129,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * @param event
    */
   public onScroll(event) {
-    this.scrollableBottom = (event.target.scrollTop + event.target.clientHeight === event.target.scrollHeight);
+    this.scrollableBottom = ((event.target.scrollTop + event.target.clientHeight) === event.target.scrollHeight);
     this.scrollableTop = (event.target.scrollTop === 0);
   }
 
@@ -151,33 +158,50 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    */
   public populateEntityList(page: number) {
     this.isLoadingList.next(true);
-    // Set the pagination info
-    const findOptions: FindListOptions = {
-      elementsPerPage: 10,
-      currentPage: page
-    };
     let searchListEntity$;
     if (this.isSubmission) {
-      searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipType(findOptions);
+      // Set the pagination info
+      const findOptions: FindListOptions = {
+        elementsPerPage: 10,
+        currentPage: page
+      };
+      searchListEntity$ =
+        this.entityTypeService.getAllAuthorizedRelationshipType(findOptions)
+          .pipe(
+            getFirstSucceededRemoteWithNotEmptyData(),
+            tap(entityType => {
+              if ((this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements) {
+                this.hasNextPage = false;
+              }
+            })
+          );
     } else {
-      searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
+      searchListEntity$ =
+        this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE)
+          .pipe(
+            take(1),
+            map((formatTypes: any) => {
+              const entityList: ItemType[] = Object.keys(formatTypes)
+                .filter((entityType: string) => isNotNull(entityType) && entityType !== 'null')
+                .map((entityType: string) => ({
+                  id: entityType,
+                  label: entityType
+                } as any));
+              return createSuccessfulRemoteDataObject(buildPaginatedList(null, entityList));
+            }),
+            tap(() => this.hasNextPage = false)
+          );
     }
     this.searchListEntity$ = searchListEntity$.pipe(
-        getFirstSucceededRemoteWithNotEmptyData(),
-        switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
-          if ( (this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements ) {
-            this.hasNextPage = false;
-          }
-          return entityType.payload.page;
-        }),
-        reduce((acc: any, value: any) => [...acc, value], []),
-        startWith([])
+      switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => entityType.payload.page),
+      reduce((acc: any, value: any) => [...acc, value], []),
+      startWith([])
     );
     this.subs.push(
-      this.searchListEntity$.subscribe(
-        (next) => { this.searchListEntity.push(...next); }, undefined,
-        () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
-      )
+      this.searchListEntity$.subscribe({
+        next: (result: ItemType[]) => { this.searchListEntity.push(...result); },
+        complete: () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
+      })
     );
   }
 

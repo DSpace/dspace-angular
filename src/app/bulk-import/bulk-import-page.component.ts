@@ -12,11 +12,12 @@ import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { RequestService } from '../core/data/request.service';
 import { Collection } from '../core/shared/collection.model';
-import { getFirstCompletedRemoteData, redirectOn4xx } from '../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { ProcessParameter } from '../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { AuthService } from '../core/auth/auth.service';
 import { Process } from '../process-page/processes/process.model';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 
 /**
  * Page to perform an items bulk imports into the given collection.

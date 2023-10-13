@@ -9,6 +9,9 @@ import { TopLevelCommunityListComponent } from './top-level-community-list/top-l
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
+import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
+import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { OpenaireModule } from '../openaire/openaire.module';
 import { ExploreModule } from '../shared/explore/explore.module';
 
@@ -18,12 +21,15 @@ const DECLARATIONS = [
   TopLevelCommunityListComponent,
   ThemedHomeNewsComponent,
   HomeNewsComponent,
+  RecentItemListComponent
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule.withEntryComponents(),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents(),
     ExploreModule,
     HomePageRoutingModule,
     OpenaireModule,

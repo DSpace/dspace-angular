@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { compare, Operation } from 'fast-json-patch';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { Item } from '../shared/item.model';
 import { ChangeAnalyzer } from './change-analyzer';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -13,6 +12,8 @@ import { HALLink } from '../shared/hal-link.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Bundle } from '../shared/bundle.model';
+import { CoreState } from '../core-state.model';
+import { testPatchDataImplementation } from './base/patch-data.spec';
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {
@@ -64,9 +65,6 @@ describe('BundleDataService', () => {
       store,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator,
     );
   }
 
@@ -74,14 +72,20 @@ describe('BundleDataService', () => {
     service = initTestService();
   });
 
+  describe('composition', () => {
+    const initService = () => new BundleDataService(null, null, null, null, null);
+
+    testPatchDataImplementation(initService);
+  });
+
   describe('findAllByItem', () => {
     beforeEach(() => {
-      spyOn(service, 'findAllByHref');
+      spyOn(service, 'findListByHref');
       service.findAllByItem(item);
     });
 
-    it('should call findAllByHref with the item\'s bundles link', () => {
-      expect(service.findAllByHref).toHaveBeenCalledWith(bundleLink, undefined, true, true);
+    it('should call findListByHref with the item\'s bundles link', () => {
+      expect(service.findListByHref).toHaveBeenCalledWith(bundleLink, undefined, true, true);
     });
   });
 

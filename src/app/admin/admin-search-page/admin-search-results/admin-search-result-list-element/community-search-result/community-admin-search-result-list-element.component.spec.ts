@@ -13,6 +13,8 @@ import { Community } from '../../../../../core/shared/community.model';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 describe('CommunityAdminSearchResultListElementComponent', () => {
   let component: CommunityAdminSearchResultListElementComponent;
@@ -36,7 +38,8 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
       ],
       declarations: [CommunityAdminSearchResultListElementComponent],
       providers: [{ provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock }],
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

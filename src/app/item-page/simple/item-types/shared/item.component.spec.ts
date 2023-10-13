@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -12,7 +12,7 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -23,33 +23,58 @@ import { UUIDService } from '../../../../core/shared/uuid.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject$
+} from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
-import { ItemComponent } from './item.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { RouteService } from '../../../../core/services/route.service';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import {
+  BrowseDefinitionDataServiceStub
+} from '../../../../shared/testing/browse-definition-data-service.stub';
 
-export const iiifEnabled = Object.assign(new MetadataValue(),{
-  'value': 'true',
-  'language': null,
-  'authority': null,
-  'confidence': -1,
-  'place': 0
-});
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { Router } from '@angular/router';
+import { ItemComponent } from './item.component';
 
-export const iiifSearchEnabled = Object.assign(new MetadataValue(), {
-  'value': 'true',
-  'language': null,
-  'authority': null,
-  'confidence': -1,
-  'place': 0
-});
+export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
+  return Object.assign(new MetadataValue(), {
+    'value': enabled,
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+}
 
-export const mockRouteService = jasmine.createSpyObj('RouteService', ['getPreviousUrl']);
+export function getIIIFEnabled(enabled: boolean): MetadataValue {
+  return Object.assign(new MetadataValue(), {
+    'value': enabled,
+    'language': null,
+    'authority': null,
+    'confidence': -1,
+    'place': 0
+  });
+}
+
+export const mockRouteService = {
+  getPreviousUrl(): Observable<string> {
+    return observableOf('');
+  }
+};
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -69,18 +94,26 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           return createSuccessfulRemoteDataObject$(new Bitstream());
         }
       };
+
+      const authorizationService = jasmine.createSpyObj('authorizationService', {
+        isAuthorized: observableOf(true)
+      });
+
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
+        imports: [
+            TranslateModule.forRoot({
+              loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+              }
+            }),
+            RouterTestingModule,
+        ],
         declarations: [component, GenericItemPageFieldComponent, TruncatePipe],
         providers: [
           { provide: ItemDataService, useValue: {} },
           { provide: TruncatableService, useValue: {} },
-          { provide: RelationshipService, useValue: {} },
+          { provide: RelationshipDataService, useValue: {} },
           { provide: ObjectCacheService, useValue: {} },
           { provide: UUIDService, useValue: {} },
           { provide: Store, useValue: {} },
@@ -89,10 +122,17 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: HALEndpointService, useValue: {} },
           { provide: HttpClient, useValue: {} },
           { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-          { provide: RouteService, useValue: {} }
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
+          { provide: RouteService, useValue: mockRouteService },
+          { provide: AuthorizationDataService, useValue: authorizationService },
+          { provide: ResearcherProfileDataService, useValue: {} },
+          { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
@@ -349,6 +389,112 @@ describe('ItemComponent', () => {
 
     it('should return false when the sizes don\'t match', () => {
       expect(compare(arr1 as any, arrWithOneMore as any)).toBeFalsy();
+    });
+  });
+
+  const mockItem: Item = Object.assign(new Item(), {
+    bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+    metadata: {
+      'publicationissue.issueNumber': [
+        {
+          language: 'en_US',
+          value: '1234'
+        }
+      ],
+      'dc.description': [
+        {
+          language: 'en_US',
+          value: 'desc'
+        }
+      ]
+    },
+  });
+  describe('back to results', () => {
+    let comp: ItemComponent;
+    let fixture: ComponentFixture<any>;
+    let router: Router;
+
+    const searchUrl = '/search?query=test&spc.page=2';
+    const browseUrl = '/browse/title?scope=0cc&bbm.page=3';
+    const recentSubmissionsUrl = '/collections/be7b8430-77a5-4016-91c9-90863e50583a?cp.page=3';
+
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock
+            }
+          }),
+          RouterTestingModule,
+        ],
+        declarations: [ItemComponent, GenericItemPageFieldComponent, TruncatePipe ],
+        providers: [
+          { provide: ItemDataService, useValue: {} },
+          { provide: TruncatableService, useValue: {} },
+          { provide: RelationshipDataService, useValue: {} },
+          { provide: ObjectCacheService, useValue: {} },
+          { provide: UUIDService, useValue: {} },
+          { provide: Store, useValue: {} },
+          { provide: RemoteDataBuildService, useValue: {} },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: HALEndpointService, useValue: {} },
+          { provide: HttpClient, useValue: {} },
+          { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
+          { provide: NotificationsService, useValue: {} },
+          { provide: DefaultChangeAnalyzer, useValue: {} },
+          { provide: BitstreamDataService, useValue: {} },
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
+          { provide: RouteService, useValue: mockRouteService },
+          { provide: AuthorizationDataService, useValue: {} },
+          { provide: ResearcherProfileDataService, useValue: {} },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(ItemComponent, {
+        set: {changeDetection: ChangeDetectionStrategy.Default}
+      });
+    }));
+
+    beforeEach(waitForAsync(() => {
+      router = TestBed.inject(Router);
+      spyOn(router, 'navigateByUrl');
+      TestBed.compileComponents();
+      fixture = TestBed.createComponent(ItemComponent);
+      comp = fixture.componentInstance;
+      comp.object = mockItem;
+      fixture.detectChanges();
+    }));
+
+    it('should hide back button',() => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf('/item'));
+      comp.showBackButton.subscribe((val) => {
+        expect(val).toBeFalse();
+      });
+    });
+    it('should show back button for search', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
+      comp.ngOnInit();
+      comp.showBackButton.subscribe((val) => {
+        expect(val).toBeTrue();
+      });
+    });
+    it('should show back button for browse', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(browseUrl));
+      comp.ngOnInit();
+      comp.showBackButton.subscribe((val) => {
+        expect(val).toBeTrue();
+      });
+    });
+    it('should show back button for recent submissions', () => {
+      spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(recentSubmissionsUrl));
+      comp.ngOnInit();
+      comp.showBackButton.subscribe((val) => {
+        expect(val).toBeTrue();
+      });
     });
   });
 

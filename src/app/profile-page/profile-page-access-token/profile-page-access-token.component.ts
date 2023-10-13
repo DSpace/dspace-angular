@@ -46,9 +46,7 @@ export class ProfilePageAccessTokenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
     this.tokenAlreadyExists.next(this.user.machineTokenGenerated);
-    console.log(this.tokenAlreadyExists.value);
   }
 
   /**
@@ -108,7 +106,6 @@ export class ProfilePageAccessTokenComponent implements OnInit {
       if (response.hasSucceeded) {
         this.generatedToken.next(response.payload.value);
         this.tokenAlreadyExists.next(true);
-        console.log(response, response.hasSucceeded);
       } else {
         this.notificationService.error(null, this.translate.instant('profile.card.access-token.create.error'));
       }

@@ -1,9 +1,9 @@
 export enum AuthMethodType {
   Password = 'password',
   Shibboleth = 'shibboleth',
-  Ldap = 'ldap',
+  Ldap = 'password',
   Ip = 'ip',
   X509 = 'x509',
   Oidc = 'oidc',
-  Orcid = 'orcid'
+  Orcid = 'orcid',
 }

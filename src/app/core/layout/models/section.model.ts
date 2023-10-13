@@ -1,5 +1,5 @@
 import { typedObject } from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { SECTION } from './section.resource-type';
 import { autoserialize, deserialize } from 'cerialize';
 import { HALLink } from '../../shared/hal-link.model';
@@ -28,6 +28,9 @@ export class Section extends CacheableObject {
 
   @autoserialize
   componentRows: SectionComponent[][];
+
+  @autoserialize
+  nestedSections: Section[];
 
   /**
    * The {@link HALLink}s for this section

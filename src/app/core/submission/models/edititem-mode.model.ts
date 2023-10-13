@@ -1,4 +1,4 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
@@ -40,17 +40,6 @@ export class EditItemMode extends CacheableObject {
    */
   @autoserialize
   label: string;
-
-  /**
-   * Security level of this EditItem Mode
-   * Allowed value are:
-   *  1 = Admin
-   *  2 = Owner
-   *  3 = Admin+Owner
-   *  4 = Custom
-   */
-  @autoserialize
-  security: number;
 
   /**
    * Name of the Submission Definition used

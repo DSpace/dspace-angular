@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { isNotNull } from '../../../../shared/empty.util';
 
 /**
@@ -114,7 +113,6 @@ export abstract class CrisLayoutTabsComponent {
     if (isNotNull(this.route.snapshot.paramMap.get('tab'))) {
       this.location.replaceState(getItemPageRoute(this.item) + '/' + tab.shortname);
     }
-    // this.router.navigateByUrl(getItemPageRoute(this.item) + '/' + tab.shortname);
   }
 
 }

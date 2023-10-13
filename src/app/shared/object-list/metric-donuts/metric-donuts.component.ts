@@ -1,12 +1,25 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+  ViewEncapsulation
+} from '@angular/core';
+
+import { BehaviorSubject, Observable, of } from 'rxjs';
+
 import { Metric } from '../../../core/shared/metric.model';
-import { hasValue } from '../../empty.util';
-import { getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
+import { isEmpty } from '../../empty.util';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { followLink } from '../../utils/follow-link-config.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 export const allowedDonuts = ['altmetric', 'dimensions', 'plumX'];
 
@@ -21,27 +34,45 @@ export const allowedDonuts = ['altmetric', 'dimensions', 'plumX'];
  */
 export class MetricDonutsComponent implements OnInit {
 
+  /**
+   * The item object for which to show the metrics donuts
+   */
   @Input() item: Item;
 
-  constructor(private linkService: LinkService) {
+  /**
+   * The list of metric donuts to load
+   */
+  metrics$: BehaviorSubject<Metric[]> = new BehaviorSubject<Metric[]>([]);
+
+  constructor(private linkService: LinkService, @Inject(PLATFORM_ID) protected platformId: Object) {
   }
 
   ngOnInit() {
     this.linkService.resolveLink(this.item, followLink('metrics'));
+    if (isPlatformBrowser(this.platformId)) {
+      this.retrieveMetrics().subscribe((metrics: Metric[]) => {
+        this.metrics$.next(metrics);
+      });
+    }
   }
 
   /**
-   * Filter metrics with a positive metricCount value.
+   * Retrieve metrics from item object.
    */
-  donuts(): Observable<Metric[]> {
-    if (!hasValue(this.item.metrics)) {
+  private retrieveMetrics(): Observable<Metric[]> {
+    if (isEmpty(this.item.metrics)) {
       return of([]);
+    } else {
+      return this.item.metrics.pipe(
+        getFirstCompletedRemoteData(),
+        map((metricsRD: RemoteData<PaginatedList<Metric>>) => {
+          if (metricsRD.hasSucceeded) {
+            return metricsRD.payload.page.filter(metric => allowedDonuts.includes(metric.metricType));
+          } else {
+            return [];
+          }
+        }));
     }
-    return this.item.metrics.pipe(
-      getFirstSucceededRemoteListPayload(),
-      map((metrics: Metric[]) => {
-        return metrics.filter(metric => allowedDonuts.includes(metric.metricType));
-      }));
   }
 
   identify(index, item) {

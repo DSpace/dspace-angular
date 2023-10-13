@@ -3,7 +3,7 @@ import { typedObject } from '../../cache/builders/build-decorators';
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 
 /**

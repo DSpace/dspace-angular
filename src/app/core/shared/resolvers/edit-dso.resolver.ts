@@ -4,8 +4,9 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { DataService } from '../../data/data.service';
+
 import { ChildHALResource } from '../child-hal-resource.model';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
 
 /**
  * This class represents a resolver that requests a specific DSpaceObject before the route is activated
@@ -13,7 +14,7 @@ import { ChildHALResource } from '../child-hal-resource.model';
 @Injectable()
 export abstract class EditDsoResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<Observable<RemoteData<T>>> {
   constructor(
-    protected dataService: DataService<T>,
+    protected dataService: IdentifiableDataService<T>,
   ) {
   }
 
@@ -25,7 +26,7 @@ export abstract class EditDsoResolver<T extends ChildHALResource & DSpaceObject>
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<T>> {
-    const itemRD$ = this.dataService.findByIdWithProjection(route.params.id,
+    const itemRD$ = this.dataService.findByIdWithProjections(route.params.id,
       ['allLanguages'],
       true,
       false,

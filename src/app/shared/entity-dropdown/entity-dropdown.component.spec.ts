@@ -4,10 +4,13 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
-import { EntityTypeService } from '../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { createPaginatedList } from '../testing/utils.test';
+import { ItemExportFormatService } from '../../core/itemexportformat/item-export-format.service';
+import { of } from 'rxjs/internal/observable/of';
+import { ItemExportFormat, ItemExportFormatMap } from '../../core/itemexportformat/model/item-export-format.model';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
@@ -50,8 +53,28 @@ const listElementMock: ItemType = Object.assign(
   id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
   label: 'Entity_1',
   uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
-}
-);
+});
+
+const format = Object.assign(new ItemExportFormat(), { id: 'publication-xml'});
+
+const entityFormatList: ItemExportFormatMap = {
+  'Entity_1': [
+    Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication'}),
+    Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication'}),
+  ],
+  'Entity_2': [
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+  ],
+  'Entity_3': [
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+  ],
+  'Entity_4': [
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+  ],
+  'Entity_5': [
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+  ],
+};
 
 describe('EntityDropdownComponent', () => {
   let component: EntityDropdownComponent;
@@ -64,6 +87,9 @@ describe('EntityDropdownComponent', () => {
     getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport')
   });
 
+  const itemExportFormatServiceMock: any = jasmine.createSpyObj('ItemExportFormatService', {
+    byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity')
+  });
 
   let translatePipeSpy: jasmine.Spy;
 
@@ -75,7 +101,8 @@ describe('EntityDropdownComponent', () => {
       imports: [],
       declarations: [EntityDropdownComponent, MockTranslatePipe],
       providers: [
-        { provide: EntityTypeService, useValue: entityTypeServiceMock },
+        { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
+        { provide: ItemExportFormatService, useValue: itemExportFormatServiceMock },
         ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -90,6 +117,7 @@ describe('EntityDropdownComponent', () => {
     componentAsAny = fixture.componentInstance;
     componentAsAny.entityTypeService.getAllAuthorizedRelationshipType.and.returnValue(paginatedEntitiesRD$);
     componentAsAny.entityTypeService.getAllAuthorizedRelationshipTypeImport.and.returnValue(paginatedEntitiesRD$);
+    componentAsAny.itemExportFormatService.byEntityTypeAndMolteplicity.and.returnValue(of(entityFormatList));
     component.isSubmission = true;
 
     translatePipeSpy = spyOn(MockTranslatePipe.prototype, 'transform');
@@ -156,12 +184,12 @@ describe('EntityDropdownComponent', () => {
     expect(component.searchListEntity).toEqual([]);
   });
 
-  it('should invoke the method getAllAuthorizedRelationshipTypeImport of EntityTypeService when isSubmission is false', () => {
+  it('should invoke the method byEntityTypeAndMolteplicity of EntityTypeService when isSubmission is false', () => {
     component.isSubmission = false;
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
 
-    expect((component as any).entityTypeService.getAllAuthorizedRelationshipTypeImport).toHaveBeenCalled();
+    expect((component as any).itemExportFormatService.byEntityTypeAndMolteplicity).toHaveBeenCalled();
   });
 });

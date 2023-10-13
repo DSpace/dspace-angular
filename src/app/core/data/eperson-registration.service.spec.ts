@@ -1,7 +1,6 @@
 import { RequestService } from './request.service';
 import { EpersonRegistrationService } from './eperson-registration.service';
 import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from './request.reducer';
 import { cold } from 'jasmine-marbles';
 import { PostRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
@@ -9,6 +8,9 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { RequestEntry } from './request-entry.model';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe('EpersonRegistrationService', () => {
   let testScheduler;
@@ -79,15 +81,30 @@ describe('EpersonRegistrationService', () => {
     it('should send an email registration', () => {
 
       const expected = service.registerEmail('test@mail.org');
+      let headers = new HttpHeaders();
+      const options: HttpOptions = Object.create({});
+      options.headers = headers;
 
-      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration));
+      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
+      expect(expected).toBeObservable(cold('(a|)', { a: rd }));
+    });
+
+    it('should send an email registration with captcha', () => {
+
+      const expected = service.registerEmail('test@mail.org', 'afreshcaptchatoken');
+      let headers = new HttpHeaders();
+      const options: HttpOptions = Object.create({});
+      headers = headers.append('x-recaptcha-token', 'afreshcaptchatoken');
+      options.headers = headers;
+
+      expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
       expect(expected).toBeObservable(cold('(a|)', { a: rd }));
     });
   });
 
   describe('searchByToken', () => {
     it('should return a registration corresponding to the provided token', () => {
-      const expected = service.searchByToken('test-token');
+      const expected = service.searchByTokenAndUpdateData('test-token');
 
       expect(expected).toBeObservable(cold('(a|)', {
         a: jasmine.objectContaining({
@@ -107,7 +124,7 @@ describe('EpersonRegistrationService', () => {
       testScheduler.run(({ cold, expectObservable }) => {
         rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));
 
-        service.searchByToken('test-token');
+        service.searchByTokenAndUpdateData('test-token');
 
         expect(requestService.send).toHaveBeenCalledWith(
           jasmine.objectContaining({

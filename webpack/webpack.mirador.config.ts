@@ -1,4 +1,5 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -10,19 +11,20 @@ module.exports = {
     path: path.resolve(__dirname, '..' , 'dist/iiif/mirador'),
     filename: '[name].js'
   },
-  module: {
-    rules: [
-      {
-        test: /\.html$/i,
-        loader: 'html-loader',
-      },
-    ],
-  },
   devServer: {
     contentBase: '../dist/iiif/mirador',
   },
-  plugins: [new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: './src/mirador-viewer/mirador.html'
+  resolve: {
+    fallback: {
+      url: false
+    }},
+  plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /@blueprintjs\/(core|icons)/, // ignore optional UI framework dependencies
+    }),
+    new CopyWebpackPlugin({
+    patterns: [
+      {from: './src/mirador-viewer/mirador.html', to: './index.html'}
+    ]
   })]
 };

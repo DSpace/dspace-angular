@@ -20,7 +20,7 @@ import { hasValue } from '../../shared/empty.util';
 import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
 import { MetadataValue } from '../shared/metadata.models';
 import { Metadata } from '../shared/metadata.utils';
-import { isArray } from 'lodash';
+import isArray from 'lodash/isArray';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.

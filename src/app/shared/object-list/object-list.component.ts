@@ -79,12 +79,22 @@ export class ObjectListComponent {
   /**
    * Config used for the import button
    */
-  @Input() importConfig: { importLabel: string };
+  @Input() importConfig: { buttonLabel: string };
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
 
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
   @Input() showPaginator = true;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
 
   /**
    * Emit when one of the listed object has changed.
@@ -225,10 +235,11 @@ export class ObjectListComponent {
       this.prev.emit(true);
   }
 
- /**
-  * Go to the next page
-  */
+  /**
+   * Go to the next page
+   */
   goNext() {
       this.next.emit(true);
   }
+
 }

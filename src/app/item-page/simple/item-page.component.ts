@@ -1,18 +1,18 @@
-import { map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-
 import { Item } from '../../core/shared/item.model';
-
 import { fadeInOut } from '../../shared/animations/fade';
-import { getAllSucceededRemoteDataPayload, redirectOn4xx } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { redirectOn204, redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
@@ -57,6 +57,8 @@ export class ItemPageComponent implements OnInit {
    */
   isAdmin$: Observable<boolean>;
 
+  itemUrl: string;
+
   /**
    * The configured tabs for layout of current item
    */
@@ -68,7 +70,8 @@ export class ItemPageComponent implements OnInit {
     private items: ItemDataService,
     private authService: AuthService,
     private authorizationService: AuthorizationDataService
-  ) { }
+  ) {
+  }
 
   /**
    * Initialize instance variables
@@ -76,7 +79,8 @@ export class ItemPageComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn204<Item>(this.router, this.authService),
+      redirectOn4xx<Item>(this.router, this.authService)
     );
     this.tabsRD$ = this.route.data.pipe(
       map((data) => data.tabs as RemoteData<PaginatedList<CrisLayoutTab>>),
@@ -87,5 +91,6 @@ export class ItemPageComponent implements OnInit {
     );
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
+
   }
 }
