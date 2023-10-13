@@ -87,7 +87,7 @@ describe('SubgroupsListComponent', () => {
         return '/access-control/groups/' + group.id;
       },
       // This method is used to get all groups which are NOT currently a subgroup member
-      searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
+      searchNonMemberGroups(query: string, group: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), groupNonMembers));
         }

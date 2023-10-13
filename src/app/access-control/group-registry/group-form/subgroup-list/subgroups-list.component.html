@@ -62,10 +62,7 @@
           <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload) }}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <span *ngIf="(isActiveGroup(group) | async)">{{ messagePrefix + '.table.edit.currentGroup' | translate }}</span>
-
-              <button *ngIf="!(isActiveGroup(group) | async)"
-                      (click)="addSubgroupToGroup(group)"
+              <button (click)="addSubgroupToGroup(group)"
                       class="btn btn-outline-primary btn-sm addButton"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(group) } }}">
                 <i class="fas fa-plus fa-fw"></i>
