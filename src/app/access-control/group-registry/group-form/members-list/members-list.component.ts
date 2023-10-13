@@ -252,9 +252,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
         switchMap((paginationOptions) => {
           const query: string = data.query;
           if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
-            this.router.navigate([], {
-              queryParamsHandling: 'merge'
-            });
             this.currentSearchQuery = query;
             this.paginationService.resetPage(this.configSearch.id);
           }
