@@ -3,12 +3,13 @@ import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import {
+  getAllCompletedRemoteData,
   getFirstCompletedRemoteData
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -179,24 +180,36 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * @param data  Contains query param
    */
   search(data: any) {
-    const query: string = data.query;
-    if (query != null && this.currentSearchQuery !== query) {
-      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
-      this.currentSearchQuery = query;
-      this.configSearch.currentPage = 1;
-    }
-    this.searchDone = true;
-
     this.unsubFrom(SubKey.SearchResults);
-    this.subs.set(SubKey.SearchResults, this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
-      switchMap((config) => this.groupDataService.searchNonMemberGroups(this.currentSearchQuery, this.groupBeingEdited.id, {
-        currentPage: config.currentPage,
-        elementsPerPage: config.pageSize
-      }, false, true, followLink('object')
-      ))
-    ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
-      this.searchResults$.next(rd);
-    }));
+    this.subs.set(SubKey.SearchResults,
+      this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
+        switchMap((paginationOptions) => {
+          const query: string = data.query;
+          if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
+            this.router.navigate([], {
+              queryParamsHandling: 'merge'
+            });
+            this.currentSearchQuery = query;
+            this.paginationService.resetPage(this.configSearch.id);
+          }
+          this.searchDone = true;
+
+          return this.groupDataService.searchNonMemberGroups(this.currentSearchQuery, this.groupBeingEdited.id, {
+            currentPage: paginationOptions.currentPage,
+            elementsPerPage: paginationOptions.pageSize
+          }, false, true, followLink('object'));
+        }),
+        getAllCompletedRemoteData(),
+        map((rd: RemoteData<any>) => {
+          if (rd.hasFailed) {
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', { cause: rd.errorMessage }));
+          } else {
+            return rd;
+          }
+        }))
+        .subscribe((rd: RemoteData<PaginatedList<Group>>) => {
+          this.searchResults$.next(rd);
+        }));
   }
 
   /**
