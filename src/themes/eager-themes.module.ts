@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';
 import { EagerThemeModule as OaktrustEagerThemeModule } from './tamu/eager-theme.module';
 import { EagerThemeModule as CapstoneThemeModule } from './capstone/eager-theme.module';
+import { EagerThemeModule as EnergySystemsLaboratoryEagerThemeModule } from './esl/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.
@@ -16,7 +17,8 @@ import { EagerThemeModule as CapstoneThemeModule } from './capstone/eager-theme.
     // DSpaceEagerThemeModule,
     // CustomEagerThemeModule,
     OaktrustEagerThemeModule,
-    CapstoneThemeModule
+    CapstoneThemeModule,
+    EnergySystemsLaboratoryEagerThemeModule,
   ],
 })
 export class EagerThemesModule {

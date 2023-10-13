@@ -59,7 +59,7 @@ import { BrowseByPageModule } from '../../app/browse-by/browse-by-page.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
-import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
+import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 
 const DECLARATIONS = [
 ];

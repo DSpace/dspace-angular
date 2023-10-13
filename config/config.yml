@@ -8,6 +8,9 @@ themes:
   - name: capstone
     extends: tamu
     handle: '1969.1/94971'
+  - name: esl
+    extends: tamu
+    handle: '1969.1/1656'
   - name: tamu
     headTags:
     - tagName: link
