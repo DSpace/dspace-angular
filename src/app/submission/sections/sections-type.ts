@@ -9,6 +9,7 @@ export enum SectionsType {
   AccessesCondition = 'accessCondition',
   SherpaPolicies = 'sherpaPolicy',
   Identifiers = 'identifiers',
+  Collection = 'collection',
   DetectDuplicate = 'detect-duplicate',
   Correction = 'correction'
 }

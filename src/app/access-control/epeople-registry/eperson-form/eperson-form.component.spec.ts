@@ -31,6 +31,8 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -207,6 +209,7 @@ describe('EPersonFormComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+        { provide: UUIDService, useValue: getMockUUIDService() },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

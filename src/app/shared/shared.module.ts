@@ -17,8 +17,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
-  ExportMetadataSelectorComponent
-} from './dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+  ExportMetadataCsvSelectorComponent
+} from './dso-selector/modal-wrappers/export-metadata-csv-selector/export-metadata-csv-selector.component';
+import { ExportMetadataXlsSelectorComponent } from './dso-selector/modal-wrappers/export-metadata-xls-selector/export-metadata-xls-selector.component';
 import {
   ExportBatchSelectorComponent
 } from './dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
@@ -434,7 +435,8 @@ const COMPONENTS = [
   ModifyItemOverviewComponent,
   ImpersonateNavbarComponent,
   EntityDropdownComponent,
-  ExportMetadataSelectorComponent,
+  ExportMetadataCsvSelectorComponent,
+  ExportMetadataXlsSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
@@ -469,7 +471,7 @@ const COMPONENTS = [
   MetadataLinkViewComponent,
   ExportExcelSelectorComponent,
   ThemedBrowseMostElementsComponent,
-  SearchChartBarHorizontalComponent
+  SearchChartBarHorizontalComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -520,7 +522,8 @@ const ENTRY_COMPONENTS = [
   FileDownloadLinkComponent,
   ThemedFileDownloadLinkComponent,
   CurationFormComponent,
-  ExportMetadataSelectorComponent,
+  ExportMetadataCsvSelectorComponent,
+  ExportMetadataXlsSelectorComponent,
   ImportBatchSelectorComponent,
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
@@ -543,7 +546,7 @@ const ENTRY_COMPONENTS = [
   ThemedBrowseMostElementsComponent,
   SearchChartBarHorizontalComponent,
   RelationshipsListComponent,
-  AdditionalMetadataComponent
+  AdditionalMetadataComponent,
 ];
 
 const PROVIDERS = [

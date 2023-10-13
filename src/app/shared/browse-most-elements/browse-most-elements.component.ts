@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
+
 import { SearchService } from '../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -7,11 +8,13 @@ import { Context } from '../../core/shared/context.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { followLink } from '../utils/follow-link-config.model';
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-browse-most-elements',
   styleUrls: ['./browse-most-elements.component.scss'],
-  templateUrl: './browse-most-elements.component.html',
+  templateUrl: './browse-most-elements.component.html'
 })
 
 export class BrowseMostElementsComponent implements OnInit {
@@ -32,11 +35,17 @@ export class BrowseMostElementsComponent implements OnInit {
 
   searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
 
-  constructor(private searchService: SearchService, private cdr: ChangeDetectorRef) { /* */ }
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    private searchService: SearchService,
+    private cdr: ChangeDetectorRef) {
+
+  }
 
   ngOnInit() {
-
-    this.searchService.search(this.paginatedSearchOptions).pipe(
+    const showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
+    const followLinks = showThumbnails ? [followLink('thumbnail')] : [];
+    this.searchService.search(this.paginatedSearchOptions, null, true, true, ...followLinks).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((response: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
       this.searchResults = response as any;

@@ -132,8 +132,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
   isMandatoryFieldEmpty() {
-    const model = this.getMandatoryFieldModel();
-    return model.value == null;
+    const models = this.getMandatoryFields();
+    return models.some(model => !model.value);
   }
 
   hasMandatoryFieldAuthority() {
@@ -269,6 +269,14 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     return mandatoryFieldModel;
   }
 
+  private getMandatoryFields(): DsDynamicInputModel[] {
+    return this.formModel
+      .map(row => (row as DynamicFormGroupModel).group)
+      .reduce((previousValue, currentValue) => previousValue.concat(currentValue))
+      .map(model => model as DsDynamicInputModel)
+      .filter(model => !!model.validators && 'required' in model.validators);
+  }
+
   private modifyChip() {
     if (!this.formRef.formGroup.valid) {
       this.formService.validateAllFormFields(this.formRef.formGroup);
@@ -288,7 +296,12 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       modelRow.group.forEach((control: DynamicInputModel) => {
         const controlValue: any = (control?.value as any)?.value || control?.value || PLACEHOLDER_PARENT_METADATA;
         const controlAuthority: any = (control?.value as any)?.authority || null;
-        item[control.name] = new FormFieldMetadataValueObject(controlValue, (control as any)?.language, (control as any)?.securityLevel, controlAuthority);
+        item[control.name] =
+          new FormFieldMetadataValueObject(
+            controlValue, (control as any)?.language, (control as any)?.securityLevel, controlAuthority,
+            null, 0, null,
+            (control?.value as any)?.otherInformation || null
+          );
       });
     });
     return item;

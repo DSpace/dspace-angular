@@ -27,14 +27,14 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
  * Used to choose a dso from to export metadata of
  */
 @Component({
-  selector: 'ds-export-metadata-selector',
+  selector: 'ds-export-metadata-csv-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
 })
-export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+export class ExportMetadataCsvSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   configuration = 'backend';
   objectType = DSpaceObjectType.DSPACEOBJECT;
   selectorTypes = [DSpaceObjectType.COLLECTION, DSpaceObjectType.COMMUNITY];
-  action = SelectorActionType.EXPORT_METADATA;
+  action = SelectorActionType.EXPORT_METADATA_CSV;
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router,
               protected notificationsService: NotificationsService, protected translationService: TranslateService,
@@ -52,10 +52,10 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
     if (dso instanceof Collection || dso instanceof Community) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
       modalRef.componentInstance.dso = dso;
-      modalRef.componentInstance.headerLabel = 'confirmation-modal.export-metadata.header';
-      modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata.info';
-      modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata.cancel';
-      modalRef.componentInstance.confirmLabel = 'confirmation-modal.export-metadata.confirm';
+      modalRef.componentInstance.headerLabel = 'confirmation-modal.export-metadata-csv.header';
+      modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata-csv.info';
+      modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata-csv.cancel';
+      modalRef.componentInstance.confirmLabel = 'confirmation-modal.export-metadata-csv.confirm';
       modalRef.componentInstance.confirmIcon = 'fas fa-file-export';
       const resp$ =  modalRef.componentInstance.response.pipe(switchMap((confirm: boolean) => {
         if (confirm) {
@@ -66,7 +66,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
             })
           );
         } else {
-          const modalRefExport = this.modalService.open(ExportMetadataSelectorComponent);
+          const modalRefExport = this.modalService.open(ExportMetadataCsvSelectorComponent);
           modalRefExport.componentInstance.dsoRD = createSuccessfulRemoteDataObject(dso);
         }
       }));

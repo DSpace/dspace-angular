@@ -24,6 +24,7 @@ import { dataService } from '../base/data-service.decorator';
 
 export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
+export const COLLECTION_EXPORT_SCRIPT_NAME = 'collection-export';
 export const BATCH_IMPORT_SCRIPT_NAME = 'import';
 export const BATCH_EXPORT_SCRIPT_NAME = 'export';
 export const ITEM_EXPORT_SCRIPT_NAME = 'item-export';

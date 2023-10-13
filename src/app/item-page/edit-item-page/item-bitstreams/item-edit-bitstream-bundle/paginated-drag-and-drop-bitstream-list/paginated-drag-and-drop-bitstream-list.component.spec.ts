@@ -18,6 +18,8 @@ import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
+import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../../../shared/mocks/uuid.service.mock';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
@@ -122,7 +124,8 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
         { provide: RequestService, useValue: requestService },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

@@ -15,6 +15,8 @@ import { ItemDataService } from '../../../../../../../core/data/item-data.servic
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
+import { UUIDService } from '../../../../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../../../../mocks/uuid.service.mock';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: ExternalSourceEntryImportModalComponent;
@@ -74,7 +76,8 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
         { provide: SelectableListService, useValue: selectService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ItemDataService, useValue: itemService },
-        { provide: NgbActiveModal, useValue: modalStub }
+        { provide: NgbActiveModal, useValue: modalStub },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
