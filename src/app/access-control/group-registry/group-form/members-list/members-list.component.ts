@@ -124,7 +124,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   // Current search in edit group - epeople search form
   currentSearchQuery: string;
-  currentSearchScope: string;
 
   // Whether or not user has done a EPeople search yet
   searchDone: boolean;
@@ -143,12 +142,10 @@ export class MembersListComponent implements OnInit, OnDestroy {
     public dsoNameService: DSONameService,
   ) {
     this.currentSearchQuery = '';
-    this.currentSearchScope = 'metadata';
   }
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group(({
-      scope: 'metadata',
       query: '',
     }));
     this.subs.set(SubKey.ActiveGroup, this.groupDataService.getActiveGroup().subscribe((activeGroup: Group) => {
@@ -213,6 +210,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteMemberFromGroup(activeGroup, eperson);
         this.showNotifications('deleteMember', response, this.dsoNameService.getName(eperson), activeGroup);
+        // Reload search results (if there is an active query).
+        // This will potentially add this deleted subgroup into the list of search results.
+        if (this.currentSearchQuery != null) {
+          this.search({query: this.currentSearchQuery});
+        }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -228,6 +230,11 @@ export class MembersListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         const response = this.groupDataService.addMemberToGroup(activeGroup, eperson);
         this.showNotifications('addMember', response, this.dsoNameService.getName(eperson), activeGroup);
+        // Reload search results (if there is an active query).
+        // This will potentially add this deleted subgroup into the list of search results.
+        if (this.currentSearchQuery != null) {
+          this.search({query: this.currentSearchQuery});
+        }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -235,17 +242,15 @@ export class MembersListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Search in the EPeople by name, email or metadata
-   * @param data  Contains scope and query param
+   * Search all EPeople who are NOT a member of the current group by name, email or metadata
+   * @param data  Contains query param
    */
   search(data: any) {
     this.unsubFrom(SubKey.SearchResults);
     this.subs.set(SubKey.SearchResults,
       this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
         switchMap((paginationOptions) => {
-
           const query: string = data.query;
-          const scope: string = data.scope;
           if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
             this.router.navigate([], {
               queryParamsHandling: 'merge'
@@ -253,19 +258,12 @@ export class MembersListComponent implements OnInit, OnDestroy {
             this.currentSearchQuery = query;
             this.paginationService.resetPage(this.configSearch.id);
           }
-          if (scope != null && this.currentSearchScope !== scope && this.groupBeingEdited) {
-            this.router.navigate([], {
-              queryParamsHandling: 'merge'
-            });
-            this.currentSearchScope = scope;
-            this.paginationService.resetPage(this.configSearch.id);
-          }
           this.searchDone = true;
 
-          return this.ePersonDataService.searchByScope(this.currentSearchScope, this.currentSearchQuery, {
+          return this.ePersonDataService.searchNonMembers(this.currentSearchQuery, this.groupBeingEdited.id, {
             currentPage: paginationOptions.currentPage,
             elementsPerPage: paginationOptions.pageSize
-          });
+          }, false, true);
         }),
         getAllCompletedRemoteData(),
         map((rd: RemoteData<any>) => {

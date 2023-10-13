@@ -56,7 +56,7 @@ describe('MembersListComponent', () => {
         return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
       // This method is used to search across *non-members*
-      searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
+      searchNonMembers(query: string, group: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (query === '') {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), epersonNonMembers));
         }
