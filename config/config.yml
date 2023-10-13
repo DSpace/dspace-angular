@@ -11,6 +11,9 @@ themes:
   - name: esl
     extends: tamu
     handle: '1969.1/1656'
+  - name: periodicals
+    extends: tamu
+    regex: '1969.1\/94990|1969.1\/6062'
   - name: tamu
     headTags:
     - tagName: link
