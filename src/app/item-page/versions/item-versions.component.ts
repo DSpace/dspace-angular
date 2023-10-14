@@ -23,7 +23,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { hasValue, hasValueOperator } from '../../shared/empty.util';
 import { PaginationService } from '../../core/pagination/pagination.service';

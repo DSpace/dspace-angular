@@ -3880,20 +3880,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "আপনার জমাগুলো",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "সংরক্ষণাগারভুক্ত",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "সংরক্ষণাগারভুক্ত",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "বৈধতা",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "বৈধতা",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "নিয়ামক জন্য অপেক্ষা করছে",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "নিয়ামক জন্য অপেক্ষা করছে",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "ওয়ার্কফ্লো",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "ওয়ার্কফ্লো",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "কর্মক্ষেত্র",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "কর্মক্ষেত্র",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "আমার ডিস্পেস",
