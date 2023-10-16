@@ -74,6 +74,11 @@
                 "input": "src/themes/esl/styles/theme.scss",
                 "inject": false,
                 "bundleName": "esl-theme"
+              },
+              {
+                "input": "src/themes/periodicals/styles/theme.scss",
+                "inject": false,
+                "bundleName": "periodicals-theme"
               }
             ],
             "scripts": [],
