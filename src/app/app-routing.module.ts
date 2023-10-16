@@ -43,6 +43,7 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { HANDLE_TABLE_MODULE_PATH } from './handle-page/handle-page-routing-paths';
+import { STATIC_PAGE_PATH } from './static-page/static-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -247,7 +248,6 @@ import { HANDLE_TABLE_MODULE_PATH } from './handle-page/handle-page-routing-path
           {
             path: LICENSES_MODULE_PATH,
             loadChildren: () => import('./clarin-licenses/clarin-license.module').then((m) => m.ClarinLicenseModule),
-            canActivate: [SiteAdministratorGuard],
           },
           {
             path: CONTRACT_PAGE_MODULE_PATH,
@@ -260,6 +260,10 @@ import { HANDLE_TABLE_MODULE_PATH } from './handle-page/handle-page-routing-path
             loadChildren: () => import('./handle-page/handle-page.module').then((m) => m.HandlePageModule),
             canActivate: [SiteAdministratorGuard],
           },
+          {
+            path: STATIC_PAGE_PATH,
+            loadChildren: () => import('./static-page/static-page.module').then((m) => m.StaticPageModule),
+          },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent }
         ]
       }
@@ -271,7 +275,7 @@ import { HANDLE_TABLE_MODULE_PATH } from './handle-page/handle-page-routing-path
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-})
+}),
   ],
   exports: [RouterModule],
 })

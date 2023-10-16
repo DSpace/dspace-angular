@@ -47,6 +47,7 @@ import {
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { getLicensesManageTablePath, getLicensesModulePath } from './app-routing-paths';
 
 /**
  * Creates all of the app's menus
@@ -394,7 +395,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.licenses',
-            link: '/licenses'
+            link: getLicensesModulePath() + getLicensesManageTablePath()
           } as LinkMenuItemModel,
           icon: 'scroll',
           index: 12
