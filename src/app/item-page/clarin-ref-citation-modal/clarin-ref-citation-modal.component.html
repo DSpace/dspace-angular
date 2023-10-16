@@ -11,7 +11,7 @@
       {{'item.refbox.modal.copy.instruction.2' | translate}}
     </p>
     <div class="textarea" ></div>
-    <textarea #copyCitationModal readonly class="clarin-ref-box-citation-textarea" (mouseover)="selectContent()">{{citationText}}</textarea>
+    <textarea #copyCitationModal readonly class="clarin-ref-box-citation-textarea">{{citationText}}</textarea>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Save click')">

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './clarin-ref-citation-modal.component.html',
   styleUrls: ['./clarin-ref-citation-modal.component.scss']
 })
-export class ClarinRefCitationModalComponent {
+export class ClarinRefCitationModalComponent implements AfterViewInit {
 
   constructor(public activeModal: NgbActiveModal) {
   }
@@ -30,6 +30,12 @@ export class ClarinRefCitationModalComponent {
    */
   @Input()
   citationText = '';
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.selectContent();
+    }, 100);
+  }
 
   selectContent() {
     this.citationContentRef?.nativeElement?.select();
