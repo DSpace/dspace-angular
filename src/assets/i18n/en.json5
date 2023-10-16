@@ -716,6 +716,18 @@
   "bitstream.download.page.back": "Back" ,
 
 
+  "clarin.license.all-page.title": "Available Licenses",
+
+  "clarin.license.all-page.source": "Source:",
+
+  "clarin.license.all-page.labels": "Labels:",
+
+  "clarin.license.all-page.extra-information": "Extra information required:",
+
+  "clarin.license.all-page.extra-information.default": "NONE",
+
+
+
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
 
   "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
@@ -2073,7 +2085,9 @@
 
 
 
-  "licenses.breadcrumbs": "License administration",
+  "licenses.manage-table.breadcrumbs": "License administration",
+
+  "licenses.breadcrumbs": "Licenses",
 
 
 

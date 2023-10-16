@@ -2604,6 +2604,21 @@
   // "clarin.license.agreement.notification.cannot.send.email" : "Error: cannot send the email."
   "clarin.license.agreement.notification.cannot.send.email" : "Error: Nelze odeslat email.",
 
+//  "clarin.license.all-page.title": "Available Licenses",
+  "clarin.license.all-page.title": "Dostupné licence",
+
+//  "clarin.license.all-page.source": "Source:",
+  "clarin.license.all-page.source": "Zdroj:",
+
+//  "clarin.license.all-page.labels": "Labels:",
+  "clarin.license.all-page.labels": "Štítky:",
+
+//  "clarin.license.all-page.extra-information": "Extra information required:",
+  "clarin.license.all-page.extra-information": "Vyžadovány dodatečné informace:",
+
+//  "clarin.license.all-page.extra-information.default": "NONE",
+  "clarin.license.all-page.extra-information.default": "Žádné",
+
   // "bitstream.edit.authorizations.link" : "Edit bitstream's Policies"
   "bitstream.edit.authorizations.link" : "Upravit zásady bitstreamu",
 
@@ -4228,7 +4243,10 @@
   "handle-table.change-handle-prefix.notify.error.empty-table" : "Chyba serveru - Nelze změnit globální předponu, protože neexistuje žádný Handle.",
 
   // "licenses.breadcrumbs" : "License administration"
-  "licenses.breadcrumbs" : "Správa licencí",
+  "licenses.breadcrumbs" : "License",
+
+  // "licenses.breadcrumbs" : "License administration"
+  "licenses.manage-table.breadcrumbs" : "Správa licencí",
 
   // "info.end-user-agreement.accept" : "I have read and I agree to the End User Agreement"
   "info.end-user-agreement.accept" : "Přečetl/a jsem si smlouvu s koncovým uživatelem a souhlasím s ní.",

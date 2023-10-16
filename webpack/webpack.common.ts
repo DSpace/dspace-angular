@@ -62,6 +62,10 @@ export const copyWebpackOptions = {
     {
       from: path.join(__dirname, '..', 'src', 'aai', 'discojuice', 'discojuice.js'),
       to: 'discojuice.js'
+    },
+    {
+      from: path.join(__dirname, '..', 'src', 'static-files'),
+      to: 'static-files'
     }
   ]
 };
