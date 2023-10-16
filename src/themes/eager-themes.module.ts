@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // import { EagerThemeModule as CustomEagerThemeModule } from './custom/eager-theme.module';
 import { EagerThemeModule as CapstoneThemeModule } from './capstone/eager-theme.module';
 import { EagerThemeModule as EnergySystemsLaboratoryEagerThemeModule } from './esl/eager-theme.module';
+import { EagerThemeModule as ImageGalleryEagerThemeModule } from './image-gallery/eager-theme.module';
 import { EagerThemeModule as PeriodicalsEagerThemeModule } from './periodicals/eager-theme.module';
 import { EagerThemeModule as OaktrustEagerThemeModule } from './tamu/eager-theme.module';
 
@@ -17,11 +18,13 @@ import { EagerThemeModule as OaktrustEagerThemeModule } from './tamu/eager-theme
   imports: [
     // DSpaceEagerThemeModule,
     // CustomEagerThemeModule,
-    OaktrustEagerThemeModule,
     CapstoneThemeModule,
     EnergySystemsLaboratoryEagerThemeModule,
+    ImageGalleryEagerThemeModule,
+    OaktrustEagerThemeModule,
     PeriodicalsEagerThemeModule,
   ],
 })
 export class EagerThemesModule {
+
 }

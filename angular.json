@@ -79,6 +79,11 @@
                 "input": "src/themes/periodicals/styles/theme.scss",
                 "inject": false,
                 "bundleName": "periodicals-theme"
+              },
+              {
+                "input": "src/themes/image-gallery/styles/theme.scss",
+                "inject": false,
+                "bundleName": "image-gallery-theme"
               }
             ],
             "scripts": [],
