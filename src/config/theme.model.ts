@@ -6,6 +6,8 @@ import { getDSORoute } from '../app/app-routing-paths';
 import { HandleObject } from '../app/core/shared/handle-object.model';
 import { Injector } from '@angular/core';
 import { HandleService } from '../app/shared/handle.service';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 export interface NamedThemeConfig extends Config {
   name: string;
@@ -55,8 +57,8 @@ export class Theme {
   constructor(public config: NamedThemeConfig) {
   }
 
-  matches(url: string, dso: DSpaceObject): boolean {
-    return true;
+  matches(url: string, dso: DSpaceObject): Observable<boolean> {
+    return observableOf(true);
   }
 }
 
@@ -68,7 +70,7 @@ export class RegExTheme extends Theme {
     this.regex = new RegExp(this.config.regex);
   }
 
-  matches(url: string, dso: DSpaceObject): boolean {
+  matches(url: string, dso: DSpaceObject): Observable<boolean> {
     let match;
     const route = getDSORoute(dso);
 
@@ -80,25 +82,33 @@ export class RegExTheme extends Theme {
       match = url.match(this.regex);
     }
 
-    return hasValue(match);
+    return observableOf(hasValue(match));
   }
 }
 
 export class HandleTheme extends Theme {
 
-  private normalizedHandle;
+  private normalizedHandle$: Observable<string | null>;
 
   constructor(public config: HandleThemeConfig,
               protected handleService: HandleService
               ) {
     super(config);
-    this.normalizedHandle = this.handleService.normalizeHandle(this.config.handle);
-
+    this.normalizedHandle$ = this.handleService.normalizeHandle(this.config.handle).pipe(
+      take(1),
+    );
   }
 
-  matches<T extends DSpaceObject & HandleObject>(url: string, dso: T): boolean {
-    return hasValue(dso) && hasValue(dso.handle)
-      && this.handleService.normalizeHandle(dso.handle) === this.normalizedHandle;
+  matches<T extends DSpaceObject & HandleObject>(url: string, dso: T): Observable<boolean> {
+    return combineLatest([
+      this.handleService.normalizeHandle(dso?.handle),
+      this.normalizedHandle$,
+    ]).pipe(
+      map(([handle, normalizedHandle]: [string | null, string | null]) => {
+        return hasValue(dso) && hasValue(dso.handle) && handle === normalizedHandle;
+      }),
+      take(1),
+    );
   }
 }
 
@@ -107,8 +117,8 @@ export class UUIDTheme extends Theme {
     super(config);
   }
 
-  matches(url: string, dso: DSpaceObject): boolean {
-    return hasValue(dso) && dso.uuid === this.config.uuid;
+  matches(url: string, dso: DSpaceObject): Observable<boolean> {
+    return observableOf(hasValue(dso) && dso.uuid === this.config.uuid);
   }
 }
 
