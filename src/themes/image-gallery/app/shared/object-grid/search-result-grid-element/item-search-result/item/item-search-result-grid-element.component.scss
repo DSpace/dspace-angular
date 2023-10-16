@@ -1,0 +1,14 @@
+:host {
+  .card {
+    background-color: #E8E8E8;
+  }
+
+  ::ng-deep {
+    div.card div.thumbnail {
+      margin: 15px 15px 0px 15px;
+    }
+    div.card div.thumbnail > .thumbnail-content {
+      object-fit: contain;
+    }
+  }
+}
