@@ -4908,11 +4908,9 @@
 
   "repository.image.logo": "Repository logo",
 
-  "repository.title.prefix": "DSpace Cris Angular :: ",
+  "repository.title": "{{ repositoryName }}",
 
-
-  "repository.title.prefixDSpace": "DSpace Angular ::",
-
+  "repository.title.prefix": "{{ repositoryName }} Angular :: ",
 
   "resource-policies.add.button": "Add",
 
