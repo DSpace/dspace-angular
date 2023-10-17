@@ -5520,6 +5520,10 @@
 
   "statistics.table.mainReports.title.TopCities": "Top city views",
 
+  "form.other-information.oairecerif-author-affiliation" : "Affiliation",
+
+  "form.other-information.oairecerif-editor-affiliation" : "Affiliation",
+
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
   "statistics.table.downloadReports.title.TopItems": "Most downloaded",
