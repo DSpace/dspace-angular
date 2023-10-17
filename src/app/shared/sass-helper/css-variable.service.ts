@@ -35,8 +35,6 @@ export class CSSVariableService {
     return styleSheet.hasOwnProperty('cssRules') && styleSheet.cssRules;
   };
 
-
-
   /*
    Determine if the given rule is a CSSStyleRule
    See: https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants
