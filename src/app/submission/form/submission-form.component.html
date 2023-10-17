@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div *ngIf="!(isLoading() | async)" class="submission-form-header mb-3 d-flex flex-wrap">
+    <div *ngIf="!(isLoading() | async)" class="submission-form-header mb-3 d-flex flex-wrap position-sticky">
         <div *ngIf="(uploadEnabled$ | async)" class="w-100">
             <ds-submission-upload-files [submissionId]="submissionId"
                                         [collectionId]="collectionId"
