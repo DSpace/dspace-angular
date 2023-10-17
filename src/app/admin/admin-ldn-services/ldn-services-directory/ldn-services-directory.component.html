@@ -23,12 +23,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let ldnService of (ldnServicesRD$| async)?.payload?.page">
+                <tr *ngFor="let ldnService of (ldnServicesRD$ | async)?.payload?.page">
                     <td>{{ ldnService.name }}</td>
                     <td>{{ ldnService.description }}</td>
                     <td>
                         <span [ngClass]="{ 'status-enabled': ldnService.enabled, 'status-disabled': !ldnService.enabled }"
-                              class="status-indicator" (click)="toggleStatus(ldnService)"
+                              class="status-indicator" (click)="toggleStatus(ldnService, ldnServicesService)"
                               [title]="ldnService.enabled ? ('ldn-service.overview.table.clickToDisable' | translate) : ('ldn-service.overview.table.clickToEnable' | translate)">
                             {{ ldnService.enabled ? ('ldn-service.overview.table.enabled' | translate) : ('ldn-service.overview.table.disabled' | translate) }}
                         </span>
@@ -70,7 +70,7 @@
             <div class="mt-4">
                 <button (click)="closeModal()"
                         class="btn btn-primary mr-2">{{ 'service.detail.delete.cancel' | translate }}</button>
-                <button (click)="deleteSelected()" class="btn btn-danger"
+                <button (click)="deleteSelected(this.selectedServiceId.toString(), ldnServicesService)" class="btn btn-danger"
                         id="delete-confirm">{{ 'service.overview.delete' | translate }}
                 </button>
             </div>

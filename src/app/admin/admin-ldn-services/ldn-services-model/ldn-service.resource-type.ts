@@ -7,3 +7,4 @@
 import { ResourceType } from '../../../core/shared/resource-type';
 
 export const LDN_SERVICE = new ResourceType('ldnservice');
+export const LDN_SERVICE_CONSTRAINT = new ResourceType('ldnservice');

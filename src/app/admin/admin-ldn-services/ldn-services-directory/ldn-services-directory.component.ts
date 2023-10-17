@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -11,170 +10,122 @@ import { LdnServicesService } from 'src/app/admin/admin-ldn-services/ldn-service
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../shared/empty.util';
-import { HttpClient } from '@angular/common/http';
-import { getFirstCompletedRemoteData } from "../../../core/shared/operators";
+import { Operation } from 'fast-json-patch';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+
 @Component({
-    selector: 'ds-ldn-services-directory',
-    templateUrl: './ldn-services-directory.component.html',
-    styleUrls: ['./ldn-services-directory.component.scss'],
+  selector: 'ds-ldn-services-directory',
+  templateUrl: './ldn-services-directory.component.html',
+  styleUrls: ['./ldn-services-directory.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 
-    selectedServiceId: number | null = null;
-    servicesData: any[] = [];
-    @ViewChild('deleteModal', {static: true}) deleteModal: TemplateRef<any>;
-    ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
-    config: FindListOptions = Object.assign(new FindListOptions(), {
-        elementsPerPage: 20
+  selectedServiceId: string | number | null = null;
+  servicesData: any[] = [];
+  @ViewChild('deleteModal', {static: true}) deleteModal: TemplateRef<any>;
+  ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
+  config: FindListOptions = Object.assign(new FindListOptions(), {
+    elementsPerPage: 20
+  });
+  pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'po',
+    pageSize: 20
+  });
+  isProcessingSub: Subscription;
+  private modalRef: any;
+
+  constructor(
+      protected ldnServicesService: LdnServicesService,
+      protected paginationService: PaginationService,
+      protected modalService: NgbModal,
+      private cdRef: ChangeDetectorRef,
+      private notificationService: NotificationsService,
+      private translateService: TranslateService,
+      private router: Router,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.setLdnServices();
+  }
+
+  setLdnServices() {
+    this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
+        switchMap((config) => this.ldnServicesService.findAll(config, true, false).pipe(
+            getFirstCompletedRemoteData()
+        ))
+    );
+
+    this.ldnServicesRD$.subscribe((rd: RemoteData<PaginatedList<LdnService>>) => {
+      console.log(rd);
+      if (rd.hasSucceeded) {
+        this.notificationService.success(this.translateService.get('notification.loaded.success'));
+      } else {
+        this.notificationService.error(this.translateService.get('notification.loaded.failure'));
+      }
     });
-    pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-        id: 'po',
-        pageSize: 20
-    });
-    isProcessingSub: Subscription;
-    private modalRef: any;
+  }
 
-
-
-
-    constructor(
-        protected processLdnService: LdnServicesService,
-        private ldnServicesService: LdnServicesService,
-        protected paginationService: PaginationService,
-        protected modalService: NgbModal,
-        public ldnDirectoryService: LdnDirectoryService,
-        private http: HttpClient,
-        private cdRef: ChangeDetectorRef
-    ) {
+  ngOnDestroy(): void {
+    this.paginationService.clearPagination(this.pageConfig.id);
+    if (hasValue(this.isProcessingSub)) {
+      this.isProcessingSub.unsubscribe();
     }
+  }
 
-    ngOnInit(): void {
-        this.setLdnServices2();
-        this.setLdnServices();
-        /*this.ldnDirectoryService.listLdnServices();*/
-        /*this.ldnServicesRD$.subscribe(data => {
-            console.log('searchByLdnUrl()', data);
-        });*/
+  openDeleteModal(content) {
+    this.modalRef = this.modalService.open(content);
+  }
 
-        /*this.ldnServicesRD$.pipe(
-            tap(data => {
-                console.log('ldnServicesRD$ data:', data);
-            })
-        ).subscribe(() => {
-            this.searchByLdnUrl();
-        });*/
+  closeModal() {
+    this.modalRef.close();
+    this.cdRef.detectChanges();
+  }
 
-    }
+  selectServiceToDelete(serviceId: number) {
+    this.selectedServiceId = serviceId;
+    this.openDeleteModal(this.deleteModal);
+  }
 
-    setLdnServices() {
-        this.ldnServicesService.findAll().pipe(getFirstCompletedRemoteData()).subscribe((remoteData) => {
-
-            if (remoteData.hasSucceeded) {
-                const ldnservices = remoteData.payload.page;
-                console.log(ldnservices);
-            } else {
-                console.error('Error fetching LDN services:', remoteData.errorMessage);
-            }
-        });
-    }
-
-    setLdnServices2() {
-        this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
-            switchMap((config) => this.ldnServicesService.findAll(config, true, false))
-
-        );
-    }
-
-    ngOnDestroy(): void {
-        this.paginationService.clearPagination(this.pageConfig.id);
-        if (hasValue(this.isProcessingSub)) {
-            this.isProcessingSub.unsubscribe();
+  deleteSelected(serviceId: string, ldnServicesService: LdnServicesService): void {
+    if (this.selectedServiceId !== null) {
+      ldnServicesService.delete(serviceId).pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<LdnService>) => {
+        if (rd.hasSucceeded) {
+          this.servicesData = this.servicesData.filter(service => service.id !== serviceId);
+          this.cdRef.detectChanges();
+          this.closeModal();
+          this.notificationService.success(this.translateService.get('notification.created.success'));
+        } else {
+          this.notificationService.error(this.translateService.get('notification.created.failure'));
+          this.cdRef.detectChanges();
         }
+      });
     }
-
-    openDeleteModal(content) {
-        this.modalRef = this.modalService.open(content);
-    }
-
-    closeModal() {
-        this.modalRef.close();
-        this.cdRef.detectChanges();
-    }
+  }
 
 
-    findAllServices(): void {
-        this.retrieveAll().subscribe(
-            (response) => {
-                this.servicesData = response._embedded.ldnservices;
-                console.log('ServicesData =', this.servicesData);
-                this.cdRef.detectChanges();
-            },
-            (error) => {
-                console.error('Error:', error);
-            }
-        );
-    }
-
-    retrieveAll(): Observable<any> {
-        const url = 'http://localhost:8080/server/api/ldn/ldnservices';
-        return this.http.get(url);
-    }
-
-
-
-
-    deleteSelected() {
-        if (this.selectedServiceId !== null) {
-            const deleteUrl = `http://localhost:8080/server/api/ldn/ldnservices/${this.selectedServiceId}`;
-            this.http.delete(deleteUrl).subscribe(
-                () => {
-                    this.closeModal();
-                    this.findAllServices();
-                },
-                (error) => {
-                    console.error('Error deleting service:', error);
-                }
-            );
+  toggleStatus(ldnService: any, ldnServicesService: LdnServicesService): void {
+    const newStatus = !ldnService.enabled;
+    let status = ldnService.enabled;
+    const patchOperation: Operation = {
+      op: 'replace',
+      path: '/enabled',
+      value: newStatus,
+    };
+    ldnServicesService.patch(ldnService, [patchOperation]).pipe(getFirstCompletedRemoteData()).subscribe(
+        () => {
+          if (status !== newStatus) {
+            this.notificationService.success(this.translateService.get('ldn-enable-service.notification.success.title'),
+                this.translateService.get('ldn-enable-service.notification.success.content'));
+          } else {
+            this.notificationService.error(this.translateService.get('ldn-enable-service.notification.error.title'),
+                this.translateService.get('ldn-enable-service.notification.error.content'));
+          }
         }
-    }
-
-    selectServiceToDelete(serviceId: number) {
-        this.selectedServiceId = serviceId;
-        this.openDeleteModal(this.deleteModal);
-    }
-
-    toggleStatus(ldnService: any): void {
-        const newStatus = !ldnService.enabled;
-
-        const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${ldnService.id}`;
-        const patchOperation = {
-            op: 'replace',
-            path: '/enabled',
-            value: newStatus,
-        };
-
-        this.http.patch(apiUrl, [patchOperation]).subscribe(
-            () => {
-                console.log('Status updated successfully.');
-                ldnService.enabled = newStatus;
-                this.cdRef.detectChanges();
-            },
-            (error) => {
-                console.error('Error updating status:', error);
-            }
-        );
-    }
-
-    fetchServiceData(serviceId: string): void {
-        const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
-
-        this.http.get(apiUrl).subscribe(
-            (data: any) => {
-                console.log(data);
-            },
-            (error) => {
-                console.error('Error fetching service data:', error);
-            }
-        );
-    }
+    );
+  }
 }

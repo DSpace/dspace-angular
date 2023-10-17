@@ -1,12 +1,16 @@
 import { ResourceType } from '../../../core/shared/resource-type';
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { autoserialize, deserialize } from 'cerialize';
+import { autoserialize, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
 import { LDN_SERVICE } from './ldn-service.resource-type';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { NotifyServicePattern } from './ldn-service-patterns.model';
+
+
 
 
 @typedObject
+@inheritSerialization(CacheableObject)
 export class LdnService extends CacheableObject {
     static type = LDN_SERVICE;
 
@@ -15,7 +19,10 @@ export class LdnService extends CacheableObject {
     type: ResourceType;
 
     @autoserialize
-    id?: number;
+    id: number;
+
+    @deserializeAs('id')
+    uuid: string;
 
     @autoserialize
     name: string;
@@ -48,14 +55,4 @@ export class LdnService extends CacheableObject {
     get self(): string {
         return this._links.self.href;
     }
-}
-
-
-class NotifyServicePattern {
-    @autoserialize
-    pattern: string;
-    @autoserialize
-    constraint?: string;
-    @autoserialize
-    automatic?: boolean;
 }

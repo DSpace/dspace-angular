@@ -6,6 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { LdnServiceNewComponent } from './ldn-service-new/ldn-service-new.component';
 import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.component';
 import { LdnServiceFormEditComponent } from './ldn-service-form-edit/ldn-service-form-edit.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -14,6 +15,7 @@ import { LdnServiceFormEditComponent } from './ldn-service-form-edit/ldn-service
     CommonModule,
     SharedModule,
     AdminLdnServicesRoutingModule,
+    FormsModule
   ],
   declarations: [
     LdnServicesOverviewComponent,

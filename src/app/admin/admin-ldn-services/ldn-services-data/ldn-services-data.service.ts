@@ -1,4 +1,4 @@
- import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { dataService } from '../../../core/data/base/data-service.decorator';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
@@ -19,50 +19,63 @@ import { map, take } from 'rxjs/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { MultipartPostRequest } from '../../../core/data/request.models';
 import { RestRequest } from '../../../core/data/rest-request.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
+
 
 import { LdnService } from '../ldn-services-model/ldn-services.model';
-import { LdnServiceConstraint } from '../ldn-services-model/ldn-service-constraint.model';
- import { PatchData, PatchDataImpl } from '../../../core/data/base/patch-data';
- import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
+
+import { PatchData, PatchDataImpl } from '../../../core/data/base/patch-data';
+import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
+import { CreateData, CreateDataImpl } from '../../../core/data/base/create-data';
+import { ldnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
+import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
+import { hasValue } from 'src/app/shared/empty.util';
 
- @Injectable()
- @dataService(LDN_SERVICE)
- export class LdnServicesService extends IdentifiableDataService<LdnService> implements FindAllData<LdnService>, DeleteData<LdnService>, PatchData<LdnService> {
-   private findAllData: FindAllDataImpl<LdnService>;
-   private deleteData: DeleteDataImpl<LdnService>;
-   private patchData: PatchDataImpl<LdnService>;
-   private comparator: ChangeAnalyzer<LdnService>;
+@Injectable()
+@dataService(LDN_SERVICE)
+export class LdnServicesService extends IdentifiableDataService<LdnService> implements FindAllData<LdnService>, DeleteData<LdnService>, PatchData<LdnService>, CreateData<LdnService> {
+  createData: CreateDataImpl<LdnService>;
+  private findAllData: FindAllDataImpl<LdnService>;
+  private deleteData: DeleteDataImpl<LdnService>;
+  private patchData: PatchDataImpl<LdnService>;
+  private comparator: ChangeAnalyzer<LdnService>;
 
-   constructor(
-       protected requestService: RequestService,
-       protected rdbService: RemoteDataBuildService,
-       protected objectCache: ObjectCacheService,
-       protected halService: HALEndpointService,
-       protected notificationsService: NotificationsService,
-   ) {
-     super('ldnservices', requestService, rdbService, objectCache, halService);
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+  ) {
+    super('ldnservices', requestService, rdbService, objectCache, halService);
 
-     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
-     this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.comparator, this.responseMsToLive, this.constructIdEndpoint);
-   }
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.comparator, this.responseMsToLive, this.constructIdEndpoint);
+    this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
+  }
 
-   patch(object: LdnService, operations: Operation[]): Observable<RemoteData<LdnService>> {
-        throw new Error('Method not implemented.');
-    }
-    update(object: LdnService): Observable<RemoteData<LdnService>> {
-        throw new Error('Method not implemented.');
-    }
-    commitUpdates(method?: RestRequestMethod): void {
-        throw new Error('Method not implemented.');
-    }
-    createPatchFromCache(object: LdnService): Observable<Operation[]> {
-        throw new Error('Method not implemented.');
-    }
+
+  create(object: LdnService): Observable<RemoteData<LdnService>> {
+    return this.createData.create(object);
+  }
+
+  patch(object: LdnService, operations: Operation[]): Observable<RemoteData<LdnService>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  update(object: LdnService): Observable<RemoteData<LdnService>> {
+    return this.patchData.update(object);
+  }
+
+  commitUpdates(method?: RestRequestMethod): void {
+    return this.patchData.commitUpdates(method);
+  }
+
+  createPatchFromCache(object: LdnService): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
+  }
 
   findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
@@ -76,21 +89,22 @@ import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 
-  public invoke(serviceName: string, parameters: LdnServiceConstraint[], files: File[]): Observable<RemoteData<LdnService>> {
+  public invoke(serviceName: string, serviceId: string, parameters: ldnServiceConstrain[], files: File[]): Observable<RemoteData<LdnService>> {
     const requestId = this.requestService.generateRequestId();
     this.getBrowseEndpoint().pipe(
-        take(1),
-        map((endpoint: string) => new URLCombiner(endpoint, serviceName, 'processes').toString()),
-        map((endpoint: string) => {
-          const body = this.getInvocationFormData(parameters, files);
-          return new MultipartPostRequest(requestId, endpoint, body);
-        })
+      take(1),
+      map((endpoint: string) => new URLCombiner(endpoint, serviceName, 'processes', serviceId).toString()),
+      map((endpoint: string) => {
+        const body = this.getInvocationFormData(parameters, files);
+        return new MultipartPostRequest(requestId, endpoint, body);
+      })
     ).subscribe((request: RestRequest) => this.requestService.send(request));
 
     return this.rdbService.buildFromRequestUUID<LdnService>(requestId);
   }
 
-  private getInvocationFormData(constrain: LdnServiceConstraint[], files: File[]): FormData {
+
+  private getInvocationFormData(constrain: ldnServiceConstrain[], files: File[]): FormData {
     const form: FormData = new FormData();
     form.set('properties', JSON.stringify(constrain));
     files.forEach((file: File) => {

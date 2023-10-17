@@ -1,396 +1,381 @@
-import { ChangeDetectorRef, Component, Input, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.service';
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
-import { LdnServiceConstraint } from '../ldn-services-model/ldn-service-constraint.model';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
-import { ActivatedRoute } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { Operation } from 'fast-json-patch';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
-    selector: 'ds-ldn-service-form-edit',
-    templateUrl: './ldn-service-form-edit.component.html',
-    styleUrls: ['./ldn-service-form-edit.component.scss'],
-    animations: [
-        trigger('toggleAnimation', [
-            state('true', style({})),
-            state('false', style({})),
-            transition('true <=> false', animate('300ms ease-in')),
-        ]),
-    ],
+  selector: 'ds-ldn-service-form-edit',
+  templateUrl: './ldn-service-form-edit.component.html',
+  styleUrls: ['./ldn-service-form-edit.component.scss'],
+  animations: [
+    trigger('toggleAnimation', [
+      state('true', style({})),
+      state('false', style({})),
+      transition('true <=> false', animate('300ms ease-in')),
+    ]),
+  ],
 })
-export class LdnServiceFormEditComponent {
-    formModel: FormGroup;
-    @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
+export class LdnServiceFormEditComponent implements OnInit {
+  formModel: FormGroup;
+  @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
 
-    showItemFilterDropdown = false;
+  public inboundPatterns: object[] = notifyPatterns;
+  public outboundPatterns: object[] = notifyPatterns;
+  public itemFilterList: any[];
+  @Input() public name: string;
+  @Input() public description: string;
+  @Input() public url: string;
+  @Input() public ldnUrl: string;
+  @Input() public inboundPattern: string;
+  @Input() public outboundPattern: string;
+  @Input() public constraint: string;
+  @Input() public automatic: boolean;
+  @Input() public headerKey: string;
+  private originalInboundPatterns: any[] = [];
+  private originalOutboundPatterns: any[] = [];
+  private modalRef: any;
+  private service: LdnService;
+  protected serviceId: string;
 
-    private originalInboundPatterns: any[] = [];
-    private originalOutboundPatterns: any[] = [];
-    public inboundPatterns: object[] = notifyPatterns;
-    public outboundPatterns: object[] = notifyPatterns;
-    public itemFilterList: LdnServiceConstraint[];
-    private modalRef: any;
+  constructor(
+    protected ldnServicesService: LdnServicesService,
+    private ldnDirectoryService: LdnDirectoryService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private cdRef: ChangeDetectorRef,
+    protected modalService: NgbModal,
+    private notificationService: NotificationsService,
+    private translateService: TranslateService,
+  ) {
 
-    @Input() public name: string;
-    @Input() public description: string;
-    @Input() public url: string;
-    @Input() public ldnUrl: string;
-    @Input() public inboundPattern: string;
-    @Input() public outboundPattern: string;
-    @Input() public constraint: string;
-    @Input() public automatic: boolean;
+    this.formModel = this.formBuilder.group({
+      id: [''],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      url: ['', Validators.required],
+      ldnUrl: ['', Validators.required],
+      inboundPattern: [''],
+      outboundPattern: [''],
+      constraintPattern: [''],
+      enabled: [''],
+      notifyServiceInboundPatterns: this.formBuilder.array([this.createInboundPatternFormGroup()]),
+      notifyServiceOutboundPatterns: this.formBuilder.array([this.createOutboundPatternFormGroup()]),
+      type: LDN_SERVICE.value,
+    });
+  }
 
-    @Input() public headerKey: string;
-    private serviceId: string;
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.serviceId = params.serviceId;
+      if (this.serviceId) {
+        this.fetchServiceData(this.serviceId);
+      }
+    });
+    this.ldnDirectoryService.getItemFilters().subscribe((itemFilters) => {
+      this.itemFilterList = itemFilters._embedded.itemfilters.map((filter: { id: string; }) => ({
+        name: filter.id
+      }));
+      this.cdRef.detectChanges();
+    });
+  }
 
-    constructor(
-        private ldnServicesService: LdnServicesService,
-        private ldnDirectoryService: LdnDirectoryService,
-        private formBuilder: FormBuilder,
-        private http: HttpClient,
-        private router: Router,
-        private route: ActivatedRoute,
-        private cdRef: ChangeDetectorRef,
-        protected modalService: NgbModal,
-        private notificationService: NotificationsService,
-        private translateService: TranslateService,
+  fetchServiceData(serviceId: string): void {
+    this.ldnServicesService.findById(serviceId).pipe(
+        getFirstCompletedRemoteData()
+    ).subscribe(
+      (data: RemoteData<LdnService>) => {
+        if (data.hasSucceeded) {
+          this.service = data.payload;
 
-    ) {
+          console.log(this.service);
 
-        this.formModel = this.formBuilder.group({
-            id: [''],
-            name: ['', Validators.required],
-            description: ['', Validators.required],
-            url: ['', Validators.required],
-            ldnUrl: ['', Validators.required],
-            inboundPattern: [''],
-            outboundPattern: [''],
-            constraintPattern: [''],
-            enabled: [''],
-            notifyServiceInboundPatterns: this.formBuilder.array([this.createInboundPatternFormGroup()]),
-            notifyServiceOutboundPatterns: this.formBuilder.array([this.createOutboundPatternFormGroup()]),
-            type: LDN_SERVICE.value,
-        });
-    }
+          this.formModel.patchValue({
+            id: this.service.id,
+            name: this.service.name,
+            description: this.service.description,
+            url: this.service.url,
+            ldnUrl: this.service.ldnUrl,
+            type: this.service.type,
+            enabled: this.service.enabled
+          });
 
-    ngOnInit(): void {
-        this.route.params.subscribe((params) => {
-            this.serviceId = params.serviceId;
-            if (this.serviceId) {
-                this.fetchServiceData(this.serviceId);
-            }
-        });
-        this.ldnDirectoryService.getItemFilters().subscribe((itemFilters) => {
-            this.itemFilterList = itemFilters._embedded.itemfilters.map((filter: { id: string; }) => ({
-                name: filter.id
-            }));
+          const inboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+          inboundPatternsArray.clear();
+
+          this.service.notifyServiceInboundPatterns.forEach((pattern: any) => {
+            const patternFormGroup = this.initializeInboundPatternFormGroup();
+            patternFormGroup.patchValue(pattern);
+            inboundPatternsArray.push(patternFormGroup);
             this.cdRef.detectChanges();
+          });
 
-        });
-    }
+          const outboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+          outboundPatternsArray.clear();
 
-    private getOriginalPattern(formArrayName: string, patternId: number): any {
-        let originalPatterns: any[] = [];
+          this.service.notifyServiceOutboundPatterns.forEach((pattern: any) => {
+            const patternFormGroup = this.initializeOutboundPatternFormGroup();
+            patternFormGroup.patchValue(pattern);
+            outboundPatternsArray.push(patternFormGroup);
 
-        if (formArrayName === 'notifyServiceInboundPatterns') {
-            originalPatterns = this.originalInboundPatterns;
-        } else if (formArrayName === 'notifyServiceOutboundPatterns') {
-            originalPatterns = this.originalOutboundPatterns;
+            this.cdRef.detectChanges();
+          });
+          this.originalInboundPatterns = [...this.service.notifyServiceInboundPatterns];
+          this.originalOutboundPatterns = [...this.service.notifyServiceOutboundPatterns];
+        } else {
+          console.error('Error fetching service data:', data.errorMessage);
         }
+      },
+      (error) => {
+        console.error('Error fetching service data:', error);
+      }
+    );
+  }
 
-        return originalPatterns.find((pattern) => pattern.id === patternId);
+  generatePatchOperations(): any[] {
+    const patchOperations: any[] = [];
+
+    this.createReplaceOperation(patchOperations, 'name', '/name');
+    this.createReplaceOperation(patchOperations, 'description', '/description');
+    this.createReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
+    this.createReplaceOperation(patchOperations, 'url', '/url');
+
+    this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
+
+    this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
+
+    return patchOperations;
+  }
+
+  submitForm() {
+    this.openConfirmModal(this.confirmModal);
+  }
+
+  addInboundPattern() {
+    const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+    notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
+  }
+
+  removeInboundPattern(index: number): void {
+    const patternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+    const patternGroup = patternsArray.at(index) as FormGroup;
+    const patternValue = patternGroup.value;
+
+    if (index < 0 || index >= patternsArray.length || patternValue.isNew) {
+      patternsArray.removeAt(index);
+      return;
     }
 
-    private patternsAreEqual(patternA: any, patternB: any): boolean {
-        return (
-            patternA.pattern === patternB.pattern &&
-            patternA.constraint === patternB.constraint &&
-            patternA.automatic === patternB.automatic
-        );
-    }
+    const patchOperation: Operation = {
+      op: 'remove',
+      path: `notifyServiceInboundPatterns[${index}]`
+    };
 
-    fetchServiceData(serviceId: string): void {
-        const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
-
-        this.http.get(apiUrl).subscribe(
-            (data: any) => {
-                console.log(data);
-
-                this.formModel.patchValue({
-                    id: data.id,
-                    name: data.name,
-                    description: data.description,
-                    url: data.url,
-                    ldnUrl: data.ldnUrl,
-                    type: data.type,
-                    enabled: data.enabled
-                });
-
-                const inboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-                inboundPatternsArray.clear(); // Clear existing rows
-
-                data.notifyServiceInboundPatterns.forEach((pattern: any) => {
-                    console.log(pattern);
-                    const patternFormGroup = this.initializeInboundPatternFormGroup();
-                    console.log();
-                    patternFormGroup.patchValue(pattern);
-                    inboundPatternsArray.push(patternFormGroup);
-                    this.cdRef.detectChanges();
-                });
-
-                const outboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-                outboundPatternsArray.clear();
-
-                data.notifyServiceOutboundPatterns.forEach((pattern: any) => {
-                    const patternFormGroup = this.initializeOutboundPatternFormGroup();
-                    patternFormGroup.patchValue(pattern);
-                    outboundPatternsArray.push(patternFormGroup);
-
-                    this.cdRef.detectChanges();
-                });
-                this.originalInboundPatterns = [...data.notifyServiceInboundPatterns];
-
-                this.originalOutboundPatterns = [...data.notifyServiceOutboundPatterns];
-            },
-            (error) => {
-                console.error('Error fetching service data:', error);
-            }
-        );
-    }
-
-
-    generatePatchOperations(): any[] {
-        const patchOperations: any[] = [];
-
-        this.addReplaceOperation(patchOperations, 'name', '/name');
-        this.addReplaceOperation(patchOperations, 'description', '/description');
-        this.addReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
-        this.addReplaceOperation(patchOperations, 'url', '/url');
-
-        this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
-
-        this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
-
-        return patchOperations;
-    }
-
-    private addReplaceOperation(patchOperations: any[], formControlName: string, path: string): void {
-        if (this.formModel.get(formControlName).dirty) {
-            patchOperations.push({
-                op: 'replace',
-                path,
-                value: this.formModel.get(formControlName).value,
-            });
+    this.ldnServicesService.patch(this.service, [patchOperation]).pipe(
+        getFirstCompletedRemoteData()
+    ).subscribe(
+        (data: RemoteData<LdnService>) => {
+          if (data.hasSucceeded) {
+            this.notificationService.success(this.translateService.get('ldn-service.notification.remove-inbound-pattern.success.title'),
+                this.translateService.get('ldn-service.notification.remove-inbound-pattern.success.content'));
+          } else {
+            this.notificationService.error(this.translateService.get('ldn-service.notification.remove-inbound-pattern.error.title'),
+                this.translateService.get('ldn-service.notification.remove-inbound-pattern.error.content'));
+          }
+          patternsArray.removeAt(index);
+          this.cdRef.detectChanges();
+        },
+        (error) => {
+          console.error('Error removing pattern:', error);
         }
+    );
+  }
+
+
+
+  addOutboundPattern() {
+    const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+    notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
+  }
+
+  removeOutboundPattern(index: number): void {
+    const patternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+    const patternGroup = patternsArray.at(index) as FormGroup;
+    const patternValue = patternGroup.value;
+
+    if (index < 0 || index >= patternsArray.length || patternValue.isNew) {
+      patternsArray.removeAt(index);
+      return;
     }
 
-    private handlePatterns(patchOperations: any[], formArrayName: string): void {
-        const patternsArray = this.formModel.get(formArrayName) as FormArray;
+    const patchOperation: Operation = {
+      op: 'remove',
+      path: `notifyServiceOutboundPatterns[${index}]`
+    };
 
-        if (patternsArray.dirty) {
-            for (let i = 0; i < patternsArray.length; i++) {
-                const patternGroup = patternsArray.at(i) as FormGroup;
-                const patternValue = patternGroup.value;
-
-                if (patternValue.isNew) {
-                  console.log(this.getOriginalPatternsForFormArray(formArrayName));
-                  console.log(patternGroup);
-                  delete patternValue.isNew;
-                    const addOperation = {
-                        op: 'add',
-                        path: `${formArrayName}/-`,
-                        value: patternValue,
-                    };
-                    patchOperations.push(addOperation);
-                } else if (patternGroup.dirty) {
-                    const replaceOperation = {
-                        op: 'replace',
-                        path: `${formArrayName}[${i}]`,
-                        value: patternValue,
-                    };
-                    patchOperations.push(replaceOperation);
-                    console.log(patternValue.id);
-                }
-            }
+    this.ldnServicesService.patch(this.service, [patchOperation]).pipe(
+        getFirstCompletedRemoteData()
+    ).subscribe(
+        (data: RemoteData<LdnService>) => {
+          if (data.hasSucceeded) {
+            this.notificationService.success(this.translateService.get('ldn-service.notification.remove-outbound-pattern.success.title'),
+                this.translateService.get('ldn-service.notification.remove-outbound-pattern.success.content'));
+          } else {
+            this.notificationService.error(this.translateService.get('ldn-service.notification.remove-outbound-pattern.error.title'),
+                this.translateService.get('ldn-service.notification.remove-outbound-pattern.error.content'));
+          }
+          patternsArray.removeAt(index);
+          this.cdRef.detectChanges();
+        },
+        (error) => {
+          console.error('Error removing pattern:', error);
         }
+    );
+  }
+
+
+  toggleAutomatic(i: number) {
+    const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
+    if (automaticControl) {
+      automaticControl.setValue(!automaticControl.value);
     }
-
-    private getOriginalPatternsForFormArray(formArrayName: string): any[] {
-        if (formArrayName === 'notifyServiceInboundPatterns') {
-            return this.originalInboundPatterns;
-        } else if (formArrayName === 'notifyServiceOutboundPatterns') {
-            return this.originalOutboundPatterns;
-        }
-        return [];
-    }
-
-    submitForm() {
-        this.openConfirmModal(this.confirmModal);
-    }
-
-
-    addInboundPattern() {
-        const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-        notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
-    }
-
-    removeInboundPattern(index: number) {
-        const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-        if (index >= 0 && index < notifyServiceInboundPatternsArray.length) {
-            const serviceId = this.formModel.get('id').value;
-
-            const patchOperation = [
-                {
-                    op: 'remove',
-                    path: `notifyServiceInboundPatterns[${index}]`
-                }
-            ];
-
-            const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
-
-            this.http.patch(apiUrl, patchOperation).subscribe(
-                (response) => {
-                    console.log('Pattern removed successfully:', response);
-
-                    notifyServiceInboundPatternsArray.removeAt(index);
-                },
-                (error) => {
-                    console.error('Error removing pattern:', error);
-                }
-            );
-        }
-    }
-
-    addOutboundPattern() {
-        const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-        notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
-    }
-
-    removeOutboundPattern(index: number) {
-        const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-        if (index >= 0 && index < notifyServiceOutboundPatternsArray.length) {
-            const serviceId = this.formModel.get('id').value;
-
-
-            const patchOperation = [
-                {
-                    op: 'remove',
-                    path: `notifyServiceOutboundPatterns[${index}]`
-                }
-            ];
-
-            const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
-
-            this.http.patch(apiUrl, patchOperation).subscribe(
-                (response) => {
-                    console.log('Pattern removed successfully:', response);
-
-                    notifyServiceOutboundPatternsArray.removeAt(index);
-                },
-                (error) => {
-                    console.error('Error removing pattern:', error);
-                }
-            );
-        }
-    }
-
-    private sendBack() {
-        this.router.navigateByUrl('admin/ldn/services');
-    }
-
-    private createOutboundPatternFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            pattern: '',
-            constraint: '',
-            isNew: true,
-        });
-    }
-
-    private createInboundPatternFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            pattern: '',
-            constraint: '',
-            automatic: '',
-            isNew: true
-        });
-    }
-
-    private initializeOutboundPatternFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            pattern: '',
-            constraint: '',
-        });
-    }
-
-    private initializeInboundPatternFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            pattern: '',
-            constraint: '',
-            automatic: '',
-        });
-    }
-
-    toggleAutomatic(i: number) {
-        const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
-        if (automaticControl) {
-            automaticControl.setValue(!automaticControl.value);
-        }
-    }
+  }
 
   toggleEnabled() {
     const newStatus = !this.formModel.get('enabled').value;
     const serviceId = this.formModel.get('id').value;
-    const status = this.formModel.get('enabled').value;
 
-    const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${serviceId}`;
-    const patchOperation = {
+    const patchOperation: Operation = {
       op: 'replace',
       path: '/enabled',
       value: newStatus,
     };
 
-    this.http.patch(apiUrl, [patchOperation]).subscribe(
-      () => {
-        console.log('Status updated successfully.');
-        this.formModel.get('enabled').setValue(newStatus);
-        console.log(this.formModel.get('enabled'));
-        this.cdRef.detectChanges();
-      },
-      (error) => {
-        console.error('Error updating status:', error);
-      }
+    this.ldnServicesService.patch(this.service, [patchOperation]).pipe(
+        getFirstCompletedRemoteData()
+    ).subscribe(
+        () => {
+          console.log('Status updated successfully.');
+          this.formModel.get('enabled').setValue(newStatus);
+          this.cdRef.detectChanges();
+        },
+        (error) => {
+          console.error('Error updating status:', error);
+        }
     );
   }
+
+
   closeModal() {
-        this.modalRef.close();
-        this.cdRef.detectChanges();
+    this.modalRef.close();
+    this.cdRef.detectChanges();
   }
+
   openConfirmModal(content) {
-        this.modalRef = this.modalService.open(content);
+    this.modalRef = this.modalService.open(content);
   }
-  createService(){
-     const apiUrl = `http://localhost:8080/server/api/ldn/ldnservices/${this.serviceId}`;
-     const patchOperations = this.generatePatchOperations();
-     this.http.patch(apiUrl, patchOperations).subscribe(
-         (response) => {
-             console.log('Service updated successfully:', response);
-             this.sendBack();
-             this.closeModal();
-             this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
-             this.translateService.get('admin.registries.services-formats.modify.success.content'));
-            },
-            (error) => {
-              this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
+
+  patchService() {
+    const patchOperations = this.generatePatchOperations();
+
+    this.ldnServicesService.patch(this.service, patchOperations).subscribe(
+        (response) => {
+          console.log('Service updated successfully:', response);
+          this.closeModal();
+          this.sendBack();
+          this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
+              this.translateService.get('admin.registries.services-formats.modify.success.content'));
+        },
+        (error) => {
+          this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
               this.translateService.get('admin.registries.services-formats.modify.failure.content'));
-              console.error('Error updating service:', error);
-            }
-        );
+          console.error('Error updating service:', error);
+        }
+    );
+  }
+
+  private createReplaceOperation(patchOperations: any[], formControlName: string, path: string): void {
+    if (this.formModel.get(formControlName).dirty) {
+      patchOperations.push({
+        op: 'replace',
+        path,
+        value: this.formModel.get(formControlName).value,
+      });
+    }
+  }
+
+  private handlePatterns(patchOperations: any[], formArrayName: string): void {
+    const patternsArray = this.formModel.get(formArrayName) as FormArray;
+
+    for (let i = 0; i < patternsArray.length; i++) {
+      const patternGroup = patternsArray.at(i) as FormGroup;
+      const patternValue = patternGroup.value;
+
+      if (patternGroup.dirty) {
+        if (patternValue.isNew) {
+          delete patternValue.isNew;
+          const addOperation = {
+            op: 'add',
+            path: `${formArrayName}/-`,
+            value: patternValue,
+          };
+          patchOperations.push(addOperation);
+        } else {
+          const replaceOperation = {
+            op: 'replace',
+            path: `${formArrayName}[${i}]`,
+            value: patternValue,
+          };
+          patchOperations.push(replaceOperation);
+        }
+      }
+    }
+  }
+
+  private sendBack() {
+    this.router.navigateByUrl('admin/ldn/services');
+  }
+
+  private createOutboundPatternFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      pattern: '',
+      constraint: '',
+      isNew: true,
+    });
+  }
+
+  private createInboundPatternFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      pattern: '',
+      constraint: '',
+      automatic: false,
+      isNew: true
+    });
+  }
+
+  private initializeOutboundPatternFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      pattern: '',
+      constraint: '',
+    });
+  }
+
+  private initializeInboundPatternFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      pattern: '',
+      constraint: '',
+      automatic: '',
+    });
   }
 }

@@ -112,7 +112,7 @@
 
 
         <div class="col-sm-1">
-          <button (click)="removeInboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
+          <button type="button" (click)="removeInboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
             <i class="fas fa-trash"></i>
           </button>
         </div>
@@ -176,7 +176,7 @@
         </div>
 
         <div class="col-sm-1">
-          <button (click)="removeOutboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
+          <button type="button" (click)="removeOutboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
             <i class="fas fa-trash"></i>
           </button>
         </div>
@@ -215,7 +215,7 @@
         {{ 'service.overview.delete.body' | translate }}
       </div>
       <div class="mt-4">
-        <button (click)="this.createService()"
+        <button (click)="this.patchService()"
                 class="btn btn-primary mr-2 custom-btn">{{ 'service.detail.update' | translate }}</button>
         <button (click)="closeModal()" class="btn btn-danger"
                 id="delete-confirm">{{ 'service.detail.return' | translate }}
