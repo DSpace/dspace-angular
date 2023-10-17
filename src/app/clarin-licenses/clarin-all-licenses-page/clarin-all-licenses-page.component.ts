@@ -4,6 +4,8 @@ import { ClarinLicense } from '../../core/shared/clarin/clarin-license.model';
 import { ClarinLicenseDataService } from '../../core/data/clarin/clarin-license-data.service';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { ClarinLicenseRequiredInfo } from '../../core/shared/clarin/clarin-license.resource-type';
+import { ClarinLicenseRequiredInfoSerializer } from '../../core/shared/clarin/clarin-license-required-info-serializer';
 
 @Component({
   selector: 'ds-clarin-all-licenses-page',
@@ -66,6 +68,18 @@ export class ClarinAllLicensesPageComponent implements OnInit {
 
     // Concat two array into one.
     return pubLicenseArray.concat(acaResLicenseArray);
+  }
+
+  /**
+   * ClarinLicense has RequiredInfo stored as string in the database, convert this string value into
+   * list of ClarinLicenseRequiredInfo objects.
+   */
+  public getRequiredInfo(clarinLicense: ClarinLicense): ClarinLicenseRequiredInfo[] {
+    let requiredInfo = clarinLicense.requiredInfo;
+    if (typeof requiredInfo === 'string') {
+      requiredInfo = ClarinLicenseRequiredInfoSerializer.Deserialize(requiredInfo);
+    }
+    return requiredInfo;
   }
 
 }

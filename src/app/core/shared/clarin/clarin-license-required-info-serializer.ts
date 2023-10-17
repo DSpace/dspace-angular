@@ -30,7 +30,7 @@ export const ClarinLicenseRequiredInfoSerializer = {
     return requiredInfoString;
   },
 
-  Deserialize(requiredInfoString: string): string[] {
+  Deserialize(requiredInfoString: string): ClarinLicenseRequiredInfo[] {
     const requiredInfoArray = requiredInfoString.split(',');
     if (isEmpty(requiredInfoArray)) {
       return [];

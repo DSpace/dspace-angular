@@ -57,7 +57,7 @@ export class ClarinLicense extends ListableObject implements HALResource {
    * The requiredInfo of this Clarin License object
    */
   @autoserializeAs(ClarinLicenseRequiredInfoSerializer)
-  requiredInfo: string;
+  requiredInfo: any;
 
   /**
    * The non extended clarinLicenseLabel of this Clarin License object. Clarin License could have only one
