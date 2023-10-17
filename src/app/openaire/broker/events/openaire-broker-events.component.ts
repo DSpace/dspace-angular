@@ -242,7 +242,7 @@ export class OpenaireBrokerEventsComponent implements OnInit {
     this.subs.push(
       this.openaireBrokerEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(getFirstCompletedRemoteData())
         .subscribe((rd: RemoteData<OpenaireBrokerEventObject>) => {
-          if (rd.isSuccess && rd.statusCode === 200) {
+          if (rd.hasSucceeded) {
             this.notificationsService.success(
               this.translateService.instant('openaire.broker.event.action.saved')
             );
