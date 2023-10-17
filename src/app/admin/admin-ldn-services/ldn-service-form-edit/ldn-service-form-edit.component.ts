@@ -29,6 +29,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 export class LdnServiceFormEditComponent implements OnInit {
   formModel: FormGroup;
   @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
+  @ViewChild('resetFormModal', {static: true}) resetFormModal: TemplateRef<any>;
 
   public inboundPatterns: object[] = notifyPatterns;
   public outboundPatterns: object[] = notifyPatterns;
@@ -286,6 +287,10 @@ export class LdnServiceFormEditComponent implements OnInit {
     this.modalRef = this.modalService.open(content);
   }
 
+  openResetFormModal(content) {
+    this.modalRef = this.modalService.open(content);
+  }
+
   patchService() {
     const patchOperations = this.generatePatchOperations();
 
@@ -345,6 +350,11 @@ export class LdnServiceFormEditComponent implements OnInit {
 
   private sendBack() {
     this.router.navigateByUrl('admin/ldn/services');
+  }
+
+  resetFormAndLeave() {
+    this.sendBack();
+    this.closeModal();
   }
 
   private createOutboundPatternFormGroup(): FormGroup {
