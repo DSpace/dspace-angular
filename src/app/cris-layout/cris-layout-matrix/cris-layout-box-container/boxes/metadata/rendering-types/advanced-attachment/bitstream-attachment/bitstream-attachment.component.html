@@ -42,11 +42,21 @@
 
           <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
             <ng-container *ngIf="attachmentConf.name == 'format'">
+              <p *ngIf="!(getFormat(attachment) | async) "class="text-muted">
+                {{'cris-layout.advanced-attachment.label.not-present' | translate}}
+              </p>
               <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
             </ng-container>
 
             <ng-container *ngIf="attachmentConf.name == 'size'">
               <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
+            </ng-container>
+
+            <ng-container *ngIf="attachmentConf.name == 'checksum'">
+              <p *ngIf="!(getChecksum(attachment)?.value) "class="text-muted">
+                {{'cris-layout.advanced-attachment.label.not-present' | translate}}
+              </p>
+              <p class="word-break m-0">({{getChecksum(attachment).checkSumAlgorithm}}):{{ getChecksum(attachment).value }}</p>
             </ng-container>
           </ng-container>
 
