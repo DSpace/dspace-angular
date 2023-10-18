@@ -8,7 +8,7 @@ import { NotifyServicePattern } from './ldn-service-patterns.model';
 
 
 
-
+/** An LdnService  and its properties. */
 @typedObject
 @inheritSerialization(CacheableObject)
 export class LdnService extends CacheableObject {

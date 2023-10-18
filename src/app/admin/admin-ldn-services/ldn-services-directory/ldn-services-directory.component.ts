@@ -5,13 +5,13 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { LdnServicesService } from 'src/app/admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../shared/empty.util';
 import { Operation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -55,8 +55,9 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 
   setLdnServices() {
     this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
-        switchMap((config) => this.ldnServicesService.findAll(config, true, false).pipe(
+        switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
             getFirstCompletedRemoteData()
+
         ))
     );
 
@@ -96,6 +97,14 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
       ldnServicesService.delete(serviceId).pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<LdnService>) => {
         if (rd.hasSucceeded) {
           this.servicesData = this.servicesData.filter(service => service.id !== serviceId);
+          this.ldnServicesRD$ = this.ldnServicesRD$.pipe(
+              map((remoteData: RemoteData<PaginatedList<LdnService>>) => {
+                if (remoteData.hasSucceeded) {
+                  remoteData.payload.page = remoteData.payload.page.filter(service => service.id.toString() !== serviceId);
+                }
+                return remoteData;
+              })
+          );
           this.cdRef.detectChanges();
           this.closeModal();
           this.notificationService.success(this.translateService.get('notification.created.success'));

@@ -86,8 +86,8 @@
           <ng-container *ngIf="inboundPattern.value">
             <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
               <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-              <option *ngFor="let itemFilter of itemFilterList"
-                      [value]="itemFilter.name">{{ itemFilter.name }}</option>
+              <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
+                      [value]="itemFilter.id">{{ itemFilter.id }}</option>
             </select>
           </ng-container>
         </div>
@@ -149,12 +149,13 @@
           </select>
         </div>
         <div class="col">
-          <select *ngIf="outboundPattern.value" formControlName="constraint" id="constraint{{i}}"
-                  name="constraint{{i}}">
+          <ng-container *ngIf="outboundPattern.value">
+          <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
             <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-            <option *ngFor="let itemFilter of itemFilterList"
-                    [value]="itemFilter.name">{{ itemFilter.name }}</option>
+            <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
+                    [value]="itemFilter.id">{{ itemFilter.id }}</option>
           </select>
+            </ng-container>
         </div>
 
         <div [style.visibility]="'hidden'" class="col-sm1">
@@ -182,6 +183,69 @@
     &nbsp;
   </div>
   <button class="btn btn-primary" type="submit">{{ 'ldn-new-service.form.label.submit' | translate }}</button>
+  <div class="">
+    <button type="button" class="btn btn-danger" (click)="this.openResetFormModal(this.resetFormModal)">
+      <i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}
+    </button>
+  </div>
 </form>
+
+<ng-template #confirmModal>
+
+  <div>
+
+    <div class="modal-header">
+      <div>
+        <h4>{{'service.create..modal' | translate }}</h4>
+      </div>
+      <button (click)="closeModal()" aria-label="Close"
+              class="close" type="button">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div>
+        {{ 'service.create.body' | translate }}
+      </div>
+      <div class="mt-4">
+        <button (click)="createService()"
+                class="btn btn-primary mr-2 custom-btn">{{ 'service.confirm.create' | translate }}</button>
+        <button (click)="closeModal()" class="btn btn-danger"
+                id="delete-confirm">{{ 'service.refuse.create' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #resetFormModal>
+
+  <div>
+
+    <div class="modal-header">
+      <div>
+        <h4>{{'service.create.reset-form.modal' | translate }}</h4>
+      </div>
+      <button (click)="closeModal()" aria-label="Close"
+              class="close" type="button">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div>
+        {{ 'service.create.reset-form.body' | translate }}
+      </div>
+      <div class="mt-4">
+        <button (click)="resetFormAndLeave()"
+                class="btn btn-primary mr-2 custom-btn" id="reset-confirm">{{ 'service.overview.reset-form.reset-confirm' | translate }}</button>
+        <button (click)="closeModal()" class="btn btn-danger"
+                id="reset-delete">{{ 'service.overview.reset-form.reset-return' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 

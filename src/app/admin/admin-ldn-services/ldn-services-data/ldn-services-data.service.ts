@@ -32,6 +32,9 @@ import { ldnServiceConstrain } from '../ldn-services-model/ldn-service.constrain
 import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { hasValue } from 'src/app/shared/empty.util';
 
+/**
+ * A service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint
+ */
 @Injectable()
 @dataService(LDN_SERVICE)
 export class LdnServicesService extends IdentifiableDataService<LdnService> implements FindAllData<LdnService>, DeleteData<LdnService>, PatchData<LdnService>, CreateData<LdnService> {

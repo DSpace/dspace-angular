@@ -1,4 +1,4 @@
-<form (ngSubmit)="submitForm()" [formGroup]="formModel">
+<form (ngSubmit)="onSubmit()" [formGroup]="formModel">
 
   <!-- In the toggle section -->
   <div class="toggle-switch-container">
@@ -95,8 +95,8 @@
           <ng-container *ngIf="inboundPattern.value">
             <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
               <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-              <option *ngFor="let itemFilter of itemFilterList"
-                      [value]="itemFilter.name">{{ itemFilter.name }}</option>
+              <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
+                      [value]="itemFilter.id">{{ itemFilter.id }}</option>
             </select>
           </ng-container>
         </div>
@@ -159,12 +159,13 @@
           </select>
         </div>
         <div class="col">
-          <select *ngIf="outboundPattern.value" formControlName="constraint" id="constraint{{i}}"
-                  name="constraint{{i}}">
-            <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-            <option *ngFor="let itemFilter of itemFilterList"
-                    [value]="itemFilter.name">{{ itemFilter.name }}</option>
-          </select>
+          <ng-container *ngIf="outboundPattern.value">
+            <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
+              <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
+              <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
+                      [value]="itemFilter.id">{{ itemFilter.id }}</option>
+            </select>
+            </ng-container>
         </div>
 
         <div [style.visibility]="'hidden'" class="col-sm1">
@@ -249,7 +250,7 @@
         {{ 'service.overview.reset-form.body' | translate }}
       </div>
       <div class="mt-4">
-        <button (click)="this.resetFormAndLeave()"
+        <button (click)="resetFormAndLeave()"
                 class="btn btn-primary mr-2 custom-btn" id="reset-confirm">{{ 'service.overview.reset-form.reset-confirm' | translate }}</button>
         <button (click)="closeModal()" class="btn btn-danger"
                 id="reset-delete">{{ 'service.overview.reset-form.reset-return' | translate }}

@@ -189,6 +189,8 @@ import { SuggestionTarget } from './suggestion-notifications/reciter-suggestions
 import { SuggestionSource } from './suggestion-notifications/reciter-suggestions/models/suggestion-source.model';
 import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { LdnItemfiltersService } from '../admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service';
+import { Itemfilter } from "../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters";
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -313,6 +315,7 @@ const PROVIDERS = [
   OrcidHistoryDataService,
   SupervisionOrderDataService,
   LdnServicesService,
+  LdnItemfiltersService
 ];
 
 /**
@@ -394,7 +397,8 @@ export const models =
     BulkAccessConditionOptions,
     SuggestionTarget,
     SuggestionSource,
-      LdnService
+    LdnService,
+    Itemfilter
 
   ];
 

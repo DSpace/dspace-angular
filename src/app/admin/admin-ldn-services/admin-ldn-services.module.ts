@@ -7,6 +7,7 @@ import { LdnServiceNewComponent } from './ldn-service-new/ldn-service-new.compon
 import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.component';
 import { LdnServiceFormEditComponent } from './ldn-service-form-edit/ldn-service-form-edit.component';
 import { FormsModule } from '@angular/forms';
+import { LdnItemfiltersService } from './ldn-services-data/ldn-itemfilters-data.service';
 
 
 
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     LdnServiceNewComponent,
     LdnServiceFormComponent,
     LdnServiceFormEditComponent,
-  ]
+  ],
+  providers: [LdnItemfiltersService]
 })
 export class AdminLdnServicesModule { }

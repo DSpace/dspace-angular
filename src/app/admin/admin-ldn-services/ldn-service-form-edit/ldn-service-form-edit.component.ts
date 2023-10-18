@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild } f
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.service';
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -13,6 +12,13 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { Operation } from 'fast-json-patch';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
+import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { Observable } from 'rxjs';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-ldn-service-form-edit',
@@ -33,7 +39,14 @@ export class LdnServiceFormEditComponent implements OnInit {
 
   public inboundPatterns: object[] = notifyPatterns;
   public outboundPatterns: object[] = notifyPatterns;
-  public itemFilterList: any[];
+  itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
+  config: FindListOptions = Object.assign(new FindListOptions(), {
+    elementsPerPage: 20
+  });
+  pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'po',
+    pageSize: 20
+  });
   @Input() public name: string;
   @Input() public description: string;
   @Input() public url: string;
@@ -51,7 +64,7 @@ export class LdnServiceFormEditComponent implements OnInit {
 
   constructor(
     protected ldnServicesService: LdnServicesService,
-    private ldnDirectoryService: LdnDirectoryService,
+    private ldnItemfiltersService: LdnItemfiltersService,
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -59,6 +72,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     protected modalService: NgbModal,
     private notificationService: NotificationsService,
     private translateService: TranslateService,
+    protected paginationService: PaginationService
   ) {
 
     this.formModel = this.formBuilder.group({
@@ -84,13 +98,22 @@ export class LdnServiceFormEditComponent implements OnInit {
         this.fetchServiceData(this.serviceId);
       }
     });
-    this.ldnDirectoryService.getItemFilters().subscribe((itemFilters) => {
-      this.itemFilterList = itemFilters._embedded.itemfilters.map((filter: { id: string; }) => ({
-        name: filter.id
-      }));
-      this.cdRef.detectChanges();
-    });
+    this.setItemfilters();
   }
+
+  setItemfilters() {
+    this.itemfiltersRD$ =  this.ldnItemfiltersService.findAll().pipe(
+        getFirstCompletedRemoteData());
+   console.log(this.itemfiltersRD$);
+    this.itemfiltersRD$.subscribe((rd: RemoteData<PaginatedList<Itemfilter>>) => {
+      if (rd.hasSucceeded) {
+        console.log(rd);
+      }
+    });
+}
+
+
+
 
   fetchServiceData(serviceId: string): void {
     this.ldnServicesService.findById(serviceId).pipe(
@@ -99,8 +122,6 @@ export class LdnServiceFormEditComponent implements OnInit {
       (data: RemoteData<LdnService>) => {
         if (data.hasSucceeded) {
           this.service = data.payload;
-
-          console.log(this.service);
 
           this.formModel.patchValue({
             id: this.service.id,
@@ -159,7 +180,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     return patchOperations;
   }
 
-  submitForm() {
+  onSubmit() {
     this.openConfirmModal(this.confirmModal);
   }
 
@@ -294,9 +315,11 @@ export class LdnServiceFormEditComponent implements OnInit {
   patchService() {
     const patchOperations = this.generatePatchOperations();
 
-    this.ldnServicesService.patch(this.service, patchOperations).subscribe(
-        (response) => {
-          console.log('Service updated successfully:', response);
+    this.ldnServicesService.patch(this.service, patchOperations).pipe(
+        getFirstCompletedRemoteData()
+    ).subscribe(
+        () => {
+
           this.closeModal();
           this.sendBack();
           this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
