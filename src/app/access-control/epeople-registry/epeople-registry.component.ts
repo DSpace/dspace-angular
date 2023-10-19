@@ -215,7 +215,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               if (restResponse.hasSucceeded) {
                 this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', {name: this.dsoNameService.getName(ePerson)}));
               } else {
-                this.notificationsService.error(`Error occurred when trying to delete EPerson with id: ${ePerson.id} with code: ${restResponse.statusCode} and message: ${restResponse.errorMessage}`);
+                this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { id: ePerson.id, statusCode: restResponse.statusCode, errorMessage: restResponse.errorMessage }));
               }
             });
           }
