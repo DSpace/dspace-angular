@@ -8,7 +8,7 @@ export function getEPersonsRoute(): string {
 }
 
 export function getEPersonEditRoute(id: string): string {
-  return new URLCombiner(getEPersonsRoute(), id).toString();
+  return new URLCombiner(getEPersonsRoute(), id, 'edit').toString();
 }
 
 export const GROUP_PATH = 'groups';
@@ -18,5 +18,5 @@ export function getGroupsRoute() {
 }
 
 export function getGroupEditRoute(id: string) {
-  return new URLCombiner(getGroupsRoute(), id).toString();
+  return new URLCombiner(getGroupsRoute(), id, 'edit').toString();
 }

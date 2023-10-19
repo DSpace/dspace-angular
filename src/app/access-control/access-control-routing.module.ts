@@ -38,7 +38,7 @@ import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
         canActivate: [SiteAdministratorGuard],
       },
       {
-        path: `${EPERSON_PATH}/:id`,
+        path: `${EPERSON_PATH}/:id/edit`,
         component: EPersonFormComponent,
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
@@ -66,7 +66,7 @@ import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
         canActivate: [GroupAdministratorGuard]
       },
       {
-        path: `${GROUP_PATH}/:groupId`,
+        path: `${GROUP_PATH}/:groupId/edit`,
         component: GroupFormComponent,
         resolve: {
           breadcrumb: I18nBreadcrumbResolver
