@@ -4582,6 +4582,7 @@
 
   "audit.object.overview.title": "Subject Audit Logs Overview",
 
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
 
   "audit.detail.title" : "Audit Detail",
 
