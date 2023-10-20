@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -27,6 +27,9 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -37,6 +40,19 @@ import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
   templateUrl: './section-upload-file.component.html',
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
+  /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+  @Input() set isPrimaryBitstream(status: boolean | null) {
+    this.initialPrimaryStatus = status;
+    this.isPrimary = status;
+  }
+
+
+  private initialPrimaryStatus = false;
+  isPrimary = false;
 
   /**
    * The list of available access condition
@@ -137,6 +153,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   protected pathCombiner: JsonPatchOperationPathCombiner;
 
+    /**
+   * The [JsonPatchOperationPathCombiner] object
+   * @type {JsonPatchOperationPathCombiner}
+   */
+    protected primaryBitstreamPathCombiner: JsonPatchOperationPathCombiner;
+
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
@@ -165,6 +187,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private cdr: ChangeDetectorRef,
     private formService: FormService,
     private halService: HALEndpointService,
+    private notificationsService: NotificationsService,
     private modalService: NgbModal,
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
@@ -197,7 +220,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   ngOnInit() {
     this.formId = this.formService.getUniqueId(this.fileId);
-    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
     this.loadFormMetadata();
   }
 
@@ -226,6 +249,23 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     });
   }
 
+  private updatePrimaryBitstream(primaryBitstream: boolean): void {
+    const path = this.pathCombiner.getPath('primary');
+
+    if (this.isPrimary === null && primaryBitstream) {
+      this.operationsBuilder.add(path, this.fileId, false, true);
+      return;
+    }
+
+    if (this.isPrimary !== primaryBitstream) {
+      if (primaryBitstream) {
+        this.operationsBuilder.replace(path, this.fileId, true);
+        return;
+      }
+      this.operationsBuilder.remove(path);
+    }
+  }
+
   editBitstreamData() {
 
     const options: NgbModalOptions = {
@@ -247,7 +287,52 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     activeModal.componentInstance.formMetadata = this.formMetadata;
     activeModal.componentInstance.pathCombiner = this.pathCombiner;
     activeModal.componentInstance.submissionId = this.submissionId;
+    activeModal.componentInstance.isPrimary = this.isPrimary;
 
+    activeModal.componentInstance.saveBitstreamDataEvent$.pipe(
+    // TODO: uncoment
+    tap((data: any) => {
+      this.updatePrimaryBitstream(data.primaryBitstream[0]);
+    }),
+      switchMap(() => this.patchFileOperations())
+    ).subscribe((result: SubmissionObject[]) => {
+      this.uploadFileData(result);
+      activeModal.componentInstance.isSaving = false;
+      activeModal.close();
+    });
+  }
+
+  private uploadFileData(result: SubmissionObject[]) {
+    const section = result[0].sections[this.sectionId];
+    if (!section) {
+      return;
+    }
+    let uploadSection = (section as WorkspaceitemSectionUploadObject);
+    uploadSection = {...uploadSection, primary: this.fileId};
+
+    // TODO: update only if primary bitstream changed
+    // TODO: if the result contains primary id of this file of null then update
+    this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, this.fileId);
+
+    Object.keys(uploadSection.files)
+      .filter((key) => uploadSection.files[key].uuid === this.fileId)
+      .forEach((key) => {
+        this.uploadService.updateFileData(
+        this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]);
+    });
+  }
+
+  private patchFileOperations() {
+    return this.operationsService.jsonPatchByResourceID(
+      this.submissionService.getSubmissionObjectLinkName(),
+      this.submissionId,
+      this.pathCombiner.rootElement,
+      this.pathCombiner.subRootElement);
+  }
+
+  togglePrimaryBitstream() {
+    this.updatePrimaryBitstream(!this.isPrimary);
+    this.submissionService.dispatchSaveSection(this.submissionId, this.sectionId);
   }
 
   ngOnDestroy(): void {
@@ -273,7 +358,13 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * Delete bitstream from submission
    */
   protected deleteFile() {
-    this.operationsBuilder.remove(this.pathCombiner.getPath());
+    this.operationsBuilder.remove(this.pathCombiner.getPath(['files', this.fileIndex]));
+
+    if (this.isPrimary) {
+      // TODO: uncoment
+      // this.operationsBuilder.remove(this.pathCombiner.getPath('primary'));
+    }
+
     this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
       this.submissionId,

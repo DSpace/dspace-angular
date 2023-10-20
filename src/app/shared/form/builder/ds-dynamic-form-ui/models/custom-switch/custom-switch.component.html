@@ -13,7 +13,7 @@
          (blur)="onBlur($event)"
          (change)="onChange($event)"
          (focus)="onFocus($event)"/>
-  <label class="form-check-label custom-control-label" [for]="bindId && model.id">
+  <label class="form-check-label custom-control-label"  [for]="bindId && model.id">
     <span [innerHTML]="model.label"
           [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></span>
   </label>
