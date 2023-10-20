@@ -5972,6 +5972,8 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
 
+  "submission.sections.external-source.duplicate-matches.header": "Duplication matches",
+
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
 
   "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",

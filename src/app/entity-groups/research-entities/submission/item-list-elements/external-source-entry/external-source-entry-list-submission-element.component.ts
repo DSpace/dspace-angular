@@ -6,6 +6,7 @@ import { Context } from '../../../../../core/shared/context.model';
 import { Component, OnInit } from '@angular/core';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { getItemModuleRoute } from '../../../../../item-page/item-page-routing-paths';
 
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -42,6 +43,11 @@ export class ExternalSourceEntryListSubmissionElementComponent extends AbstractL
    * The metadata value for identifiers
    */
   identifiers: MetadataValue[];
+
+  /**
+   * The path to the item page
+   */
+  itemPagePath = getItemModuleRoute() ;
 
   ngOnInit(): void {
     this.uri = Metadata.first(this.object.metadata, 'dc.identifier.uri');

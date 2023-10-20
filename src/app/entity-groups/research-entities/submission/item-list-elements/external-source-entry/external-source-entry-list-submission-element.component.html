@@ -27,4 +27,25 @@
       </ds-truncatable-part>
     </ds-truncatable>
   </div>
+
+  <div class="row" *ngIf="object.matchObjects.length > 0">
+    <div class="col-md-12 p-0">
+      <hr>
+      <h6 class="font-italic text-muted">
+        {{'submission.sections.external-source.duplicate-matches.header' | translate}}
+      </h6>
+      <div class="row mx-0">
+        <span *ngFor="let match of object.matchObjects; let isLast = last;" class="d-flex">
+          <a data-test="matchObjectsLink" target="_blank" [routerLink]="[itemPagePath, match.uuid]" class="d-flex" [ngbTooltip]="match.name">
+            <span class="text-wrap">
+              {{ match.name }}
+            </span>
+            <span class="text-muted small">({{match.uuid}})</span>
+          </a>
+          <span *ngIf="!isLast" class="px-1">,</span>
+        </span>
+      </div>
+      <hr>
+    </div>
+  </div>
 </div>

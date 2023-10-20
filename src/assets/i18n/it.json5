@@ -8831,6 +8831,10 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Selezionare una corrispondenza locale:",
 
+  //  "submission.sections.external-source.duplicate-matches.header": "Duplication matches",
+  // TODO New key - Add a translation
+  "submission.sections.external-source.duplicate-matches.header": "Duplication matches",
+
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deseleziona tutto",
 
