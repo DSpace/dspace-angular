@@ -235,6 +235,9 @@ languages:
   - code: el
     label: Ελληνικά
     active: true
+  - code: sr-cyr
+    label: Српски
+    active: true
   - code: uk
     label: Yкраї́нська
     active: true
