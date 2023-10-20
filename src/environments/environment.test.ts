@@ -541,7 +541,8 @@ export const environment: BuildConfig = {
         entityType: 'default',
         metadataConfiguration: []
       }
-    ]
+    ],
+    authorMetadata: ['dc.contributor.author', 'dc.contributor.editor', 'dc.contributor.contributor', 'dc.creator'],
   },
 
   breadcrumbCharLimit: 10,

@@ -8,6 +8,7 @@ import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-item-select',
@@ -33,6 +34,8 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
   itemPageRoutes$: Observable<{
     [itemId: string]: string
   }>;
+
+  authorMetadata = environment.searchResult.authorMetadata;
 
   constructor(protected objectSelectService: ObjectSelectService,
               protected authorizationService: AuthorizationDataService ) {
