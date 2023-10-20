@@ -706,7 +706,7 @@
   "curation.form.submit.error.invalid-handle": "Није могуће одредити handle за овај објекат",
   "curation.form.handle.label": "Handle:",
   "curation.form.handle.hint": "Савет: Унесите [your-handle-prefix]/0 да бисте покренули задатак на целом сајту (ову могућност не подржавају сви задаци)",
-  "deny-request-copy.email.message": "Поштовани {{ recipientName }}, \н Као одговор на ваш захтев, са жаљењем вас обавештавам да није могуће послати копију фајла коју сте тражили, у вези са документом: \"{{ itemUrl }}\" ({{ itemName }}), чији сам аутор. \н Срдачан поздрав, \н{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Поштовани {{ recipientName }}, \n Као одговор на ваш захтев, са жаљењем вас обавештавам да није могуће послати копију фајла коју сте тражили, у вези са документом: \"{{ itemUrl }}\" ({{ itemName }}), чији сам аутор. \n Срдачан поздрав, \n{{ authorName }} <{{ authorEmail }}>",
   "deny-request-copy.email.subject": "Затражите копију документа",
   "deny-request-copy.error": "Дошло је до грешке",
   "deny-request-copy.header": "Одбијен захтев за копирање документа",
