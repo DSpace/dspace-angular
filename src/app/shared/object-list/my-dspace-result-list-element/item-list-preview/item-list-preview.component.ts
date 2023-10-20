@@ -10,6 +10,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * This component show metadata for the given item object in the list view.
@@ -58,6 +59,8 @@ export class ItemListPreviewComponent implements OnInit {
   showThumbnails: boolean;
 
   dsoTitle: string;
+
+  authorMetadata = environment.searchResult.authorMetadata;
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,

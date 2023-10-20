@@ -22,6 +22,7 @@ import { ConfigurationProperty } from '../../../../../core/shared/configuration-
 import { isEmpty, isNotNull, isUndefined } from '../../../../empty.util';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
+import { environment } from '../../../../../../environments/environment';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
@@ -46,6 +47,8 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
    * The thumbnail of item as an Observable due its dynamic property
    */
   thumbnail$: Observable<Bitstream> = of(null);
+
+  authorMetadata = environment.searchResult.authorMetadata;
 
   constructor(
     protected truncatableService: TruncatableService,
