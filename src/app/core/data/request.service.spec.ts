@@ -661,7 +661,9 @@ describe('RequestService', () => {
       spyOn(service, 'getByHref').and.returnValue(observableOf(staleRE));
       spyOn(store, 'dispatch');
       service.setStaleByHref(href).subscribe(() => {
-        expect(store.dispatch).toHaveBeenCalledWith(new RequestStaleAction(uuid));
+        const requestStaleAction = new RequestStaleAction(uuid);
+        requestStaleAction.lastUpdated = jasmine.any(Number) as any;
+        expect(store.dispatch).toHaveBeenCalledWith(requestStaleAction);
         done();
       });
     });
