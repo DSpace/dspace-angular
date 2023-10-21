@@ -13,7 +13,7 @@
   <ng-content></ng-content>
   <div class="d-flex flex-row-reverse">
     <button (click)="submit()"
-            [disabled]="!message || message.length === 0 || !subject || subject.length === 0"
+            [disabled]="!subject || subject.length === 0"
             class="btn btn-primary"
             title="{{'grant-deny-request-copy.email.send' | translate }}">
       <i class="fas fa-envelope"></i> {{'grant-deny-request-copy.email.send' | translate }}
