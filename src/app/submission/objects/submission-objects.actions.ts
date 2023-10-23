@@ -766,7 +766,7 @@ export class EditFilePrimaryBitstreamAction implements Action {
   payload: {
     submissionId: string;
     sectionId: string;
-    fileId: string;
+    fileId: string | null;
   };
 
   /**
@@ -779,7 +779,7 @@ export class EditFilePrimaryBitstreamAction implements Action {
    * @param fileId
    *    the file's ID
    */
-  constructor(submissionId: string, sectionId: string, fileId: string) {
+  constructor(submissionId: string, sectionId: string, fileId: string | null) {
     this.payload = { submissionId, sectionId, fileId: fileId };
   }
 }

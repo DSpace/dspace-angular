@@ -25,6 +25,7 @@ import {
   mockUploadConfigResponse,
   mockUploadConfigResponseNotRequired,
   mockUploadFiles,
+  mockUploadFilesData,
 } from '../../../shared/mocks/submission.mock';
 import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
 import { SectionUploadService } from './section-upload.service';
@@ -160,6 +161,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
+      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
     };
 
     TestBed.configureTestingModule({
@@ -230,7 +232,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     });
 
     it('should init component properly', () => {
-
+      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new Collection(), mockCollection, {
@@ -246,14 +248,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
-      bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
-
       comp.onSectionInit();
-
-      const expectedGroupsMap = new Map([
-        [mockUploadConfigResponse.accessConditionOptions[1].name, [mockGroup as any]],
-        [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
-      ]);
 
       expect(comp.collectionId).toBe(collectionId);
       expect(comp.collectionName).toBe(mockCollection.name);
@@ -262,12 +257,12 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.required$.getValue()).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.fileList).toEqual([]);
-      expect(compAsAny.fileIndexes).toEqual([]);
       expect(compAsAny.fileNames).toEqual([]);
-
+      expect(compAsAny.primaryBitstreamUUID).toEqual(null);
     });
 
     it('should init file list properly', () => {
+      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
@@ -282,7 +277,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
-      bitstreamService.getUploadedFileList.and.returnValue(observableOf(mockUploadFiles));
+      bitstreamService.getUploadedFilesData.and.returnValue(observableOf(mockUploadFilesData));
 
       comp.onSectionInit();
 
@@ -298,12 +293,14 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.required$.getValue()).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.fileList).toEqual(mockUploadFiles);
-      expect(compAsAny.fileIndexes).toEqual(['123456-test-upload']);
+      expect(compAsAny.primaryBitstreamUUID).toEqual(null);
       expect(compAsAny.fileNames).toEqual(['123456-test-upload.jpg']);
 
     });
 
     it('should properly read the section status when required is true', () => {
+      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
+
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
@@ -324,7 +321,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       comp.onSectionInit();
 
-      expect(comp.required$.getValue()).toBe(true);
+       expect(comp.required$.getValue()).toBe(true);
 
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
         c: false,
@@ -335,6 +332,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     it('should properly read the section status when required is false', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
+      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
