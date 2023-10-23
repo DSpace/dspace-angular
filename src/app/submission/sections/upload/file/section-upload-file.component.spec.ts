@@ -66,7 +66,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   const fileName = '123456-test-upload.jpg';
   const fileId = '123456-test-upload';
   const fileData: any = mockUploadFiles[0];
-  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
+  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId);
 
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
     add: jasmine.createSpy('add'),
@@ -201,6 +201,23 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       });
     });
 
+    it('should delete primary if file we delete is primary', () => {
+      compAsAny.isPrimary = true;
+      compAsAny.pathCombiner = pathCombiner;
+      operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
+      compAsAny.deleteFile();
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('primary'));
+      expect(uploadService.updateFilePrimaryBitstream).toHaveBeenCalledWith(submissionId, sectionId, null);
+    });
+
+    it('should NOT delete primary if file we delete is NOT primary', () => {
+      compAsAny.isPrimary = false;
+      compAsAny.pathCombiner = pathCombiner;
+      operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
+      compAsAny.deleteFile();
+      expect(uploadService.updateFilePrimaryBitstream).not.toHaveBeenCalledTimes(1);
+    });
+
     it('should delete file properly', () => {
       compAsAny.pathCombiner = pathCombiner;
       operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
@@ -209,7 +226,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       compAsAny.deleteFile();
 
       expect(uploadService.removeUploadedFile).toHaveBeenCalledWith(submissionId, sectionId, fileId);
-      expect(operationsBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath());
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath(['files', fileIndex]));
+
       expect(operationsService.jsonPatchByResourceID).toHaveBeenCalledWith(
         'workspaceitems',
         submissionId,

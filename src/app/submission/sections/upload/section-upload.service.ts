@@ -15,6 +15,8 @@ import { submissionSectionDataFromIdSelector, submissionUploadedFileFromUuidSele
 import { isUndefined } from '../../../shared/empty.util';
 import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
 
 /**
  * A service that provides methods to handle submission's bitstream state.
@@ -26,8 +28,25 @@ export class SectionUploadService {
    * Initialize service variables
    *
    * @param {Store<SubmissionState>} store
+   * @param {JsonPatchOperationsBuilder} operationsBuilder
    */
-  constructor(private store: Store<SubmissionState>) {}
+  constructor(private store: Store<SubmissionState>, private operationsBuilder: JsonPatchOperationsBuilder) {}
+
+
+  public updatePrimaryBitstreamOperation(path: JsonPatchOperationPathObject, intitialPrimary: boolean | null, primary: boolean | null, fileId: string): void {
+    if (intitialPrimary === null && primary) {
+      this.operationsBuilder.add(path, fileId, false, true);
+      return;
+    }
+
+    if (intitialPrimary !== primary) {
+      if (primary) {
+        this.operationsBuilder.replace(path, fileId, true);
+        return;
+      }
+      this.operationsBuilder.remove(path);
+    }
+  }
 
   /**
    * Return submission's bitstream data from state
@@ -132,7 +151,7 @@ export class SectionUploadService {
    * @param fileUUID
    *    The bitstream UUID
    */
-   public updateFilePrimaryBitstream(submissionId: string, sectionId: string, fileUUID: string) {
+   public updateFilePrimaryBitstream(submissionId: string, sectionId: string, fileUUID: string | null) {
     this.store.dispatch(
       new EditFilePrimaryBitstreamAction(submissionId, sectionId, fileUUID)
     );

@@ -29,7 +29,6 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
   BITSTREAM_FORM_PRIMARY,
-  BITSTREAM_FORM_PRIMARY_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './section-upload-file-edit.model';
@@ -42,7 +41,7 @@ import { SubmissionService } from '../../../../submission.service';
 import { FormService } from '../../../../../shared/form/form.service';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, mergeMap, take, tap } from 'rxjs/operators';
+import { filter, mergeMap, take } from 'rxjs/operators';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 
 
@@ -54,10 +53,12 @@ import {
   JsonPatchOperationPathCombiner
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SectionUploadService } from '../../section-upload.service';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -168,12 +169,6 @@ export class SubmissionSectionUploadFileEditComponent
 
   protected subscriptions: Subscription[] = [];
 
-  private onSaveBitstreamData$: Subject<any> = new Subject();
-
-  get saveBitstreamDataEvent$(): Observable<void> {
-    return this.onSaveBitstreamData$.asObservable();
-  }
-
   /**
    * Initialize instance variables
    *
@@ -206,8 +201,8 @@ export class SubmissionSectionUploadFileEditComponent
    */
   public initModelData(formModel: DynamicFormControlModel[]) {
 
-    const primaryBitstreammodel: any = this.formBuilderService.findById('primaryBitstream', formModel, this.fileIndex);
-    primaryBitstreammodel.value = this.isPrimary || false;
+    const primaryBitstreamModel: any = this.formBuilderService.findById('primary', formModel, this.fileIndex);
+    primaryBitstreamModel.value = this.isPrimary || false;
 
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
@@ -417,12 +412,14 @@ export class SubmissionSectionUploadFileEditComponent
 
     // validate form
     this.formService.validateAllFormFields(this.formRef.formGroup);
-    const subscription = this.formService.isValid(this.formId).pipe(
+    const saveBitstreamDataSubscription = this.formService.isValid(this.formId).pipe(
       take(1),
       filter((isValid) => isValid),
       mergeMap(() => this.formService.getFormData(this.formId)),
       take(1),
-      tap((formData: any) => {
+      mergeMap((formData: any) => {
+        this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
         // collect bitstream metadata
         Object.keys((formData.metadata))
           .filter((key) => isNotEmpty(formData.metadata[key]))
@@ -494,9 +491,31 @@ export class SubmissionSectionUploadFileEditComponent
         if (isNotEmpty(accessConditionsToSave)) {
           this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'accessConditions']), accessConditionsToSave, true);
         }
-      })
-    ).subscribe((formData) => this.onSaveBitstreamData$.next(formData));
-    this.subscriptions.push(subscription);
+       // dispatch a PATCH request to save metadata
+       return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        this.submissionId,
+        this.pathCombiner.rootElement,
+        this.pathCombiner.subRootElement);
+    })
+    ).subscribe((result: SubmissionObject[]) => {
+      const section = result[0].sections[this.sectionId];
+      if (!section) {
+        return;
+      }
+      const uploadSection = (section as WorkspaceitemSectionUploadObject);
+
+      this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
+
+      Object.keys(uploadSection.files)
+        .filter((key) => uploadSection.files[key].uuid === this.fileId)
+        .forEach((key) => this.uploadService.updateFileData(
+          this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
+        );
+      this.isSaving = false;
+      this.activeModal.close();
+    });
+    this.subscriptions.push(saveBitstreamDataSubscription);
   }
 
   private unsubscribeAll() {

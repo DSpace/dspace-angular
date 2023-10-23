@@ -64,8 +64,8 @@ export const BITSTREAM_FORM_PRIMARY_LAYOUT: DynamicFormControlLayout = {
 };
 
 export const BITSTREAM_FORM_PRIMARY: DynamicSwitchModelConfig = {
-  id: 'primaryBitstream',
-  name: 'primaryBitstream',
+  id: 'primary',
+  name: 'primary',
   label: 'Primary bitstream',
 };
 
