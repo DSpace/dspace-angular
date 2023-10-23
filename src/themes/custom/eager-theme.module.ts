@@ -54,6 +54,7 @@ import {
   ItemSearchResultListElementComponent
 } from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
+import { LangSwitchComponent } from './app/shared/lang-switch/lang-switch.component';
 
 
 /**
@@ -91,6 +92,7 @@ const DECLARATIONS = [
   EditCollectionSelectorComponent,
   EditCommunitySelectorComponent,
   EditItemSelectorComponent,
+  LangSwitchComponent,
 ];
 
 @NgModule({

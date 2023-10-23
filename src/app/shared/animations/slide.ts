@@ -55,7 +55,7 @@ export const slideSidebarPadding = trigger('slideSidebarPadding', [
 
 export const expandSearchInput = trigger('toggleAnimation', [
   state('collapsed', style({
-    width: '30px',
+    width: '0',
     opacity: '0'
   })),
   state('expanded', style({
