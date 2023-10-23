@@ -27,25 +27,39 @@
       </ds-truncatable-part>
     </ds-truncatable>
   </div>
-
-  <div class="row" *ngIf="object.matchObjects.length > 0">
-    <div class="col-md-12 p-0">
-      <hr>
-      <h6 class="font-italic text-muted">
-        {{'submission.sections.external-source.duplicate-matches.header' | translate}}
-      </h6>
-      <div class="row mx-0">
-        <span *ngFor="let match of object.matchObjects; let isLast = last;" class="d-flex">
-          <a data-test="matchObjectsLink" target="_blank" [routerLink]="[itemPagePath, match.uuid]" class="d-flex" [ngbTooltip]="match.name">
-            <span class="text-wrap">
-              {{ match.name }}
+  <div *ngIf="object?.matchObjects?.length > 0">
+    <ngb-accordion #acc="ngbAccordion">
+      <ngb-panel [id]="object.id">
+        <ng-template ngbPanelHeader>
+          <div class="w-100 d-flex collapse-toggle" ngbPanelToggle (click)="acc.toggle(object.id)">
+            <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
+              [attr.aria-expanded]="!acc.isExpanded(object.id)" aria-controls="collapsePanels">
+              <span class="badge badge-secondary">
+                {{ object.matchObjects.length }}
+              </span>
+              {{'submission.sections.external-source.duplicate-matches.header' | translate}}
+            </button>
+          </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <span *ngFor="let match of object.matchObjects; let isLast = last;" class="d-flex mb-1 align-items-center">
+            <a data-test="matchObjectsLink" target="_blank" [routerLink]="[itemPagePath, match.uuid]" class="d-flex"
+              [title]="match.name">
+              <span class="text-wrap">
+                {{ match.name }}
+              </span>
+              <span *ngIf="match.handle" class="text-muted small">({{match.handle}})</span>
+              <span *ngIf="!match.handle" class="text-muted small">({{match.uuid}})</span>
+            </a>
+            <span class="badge badge-warning ml-2" *ngIf="match.isWithdrawn">
+              {{ "submission.sections.external-source.duplicate-matches.item.isWithdrawn" | translate }}
             </span>
-            <span class="text-muted small">({{match.uuid}})</span>
-          </a>
-          <span *ngIf="!isLast" class="px-1">,</span>
-        </span>
-      </div>
-      <hr>
-    </div>
+            <span class="badge badge-warning ml-2" *ngIf="!match.isArchived">
+              {{ "submission.sections.external-source.duplicate-matches.item.not-archived" | translate }}
+            </span>
+          </span>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
   </div>
 </div>

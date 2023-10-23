@@ -5972,7 +5972,11 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
 
-  "submission.sections.external-source.duplicate-matches.header": "Duplication matches",
+  "submission.sections.external-source.duplicate-matches.header": "Potential duplicate matches",
+
+  "submission.sections.external-source.duplicate-matches.item.not-archived": "Not archived",
+
+  "submission.sections.external-source.duplicate-matches.item.isWithdrawn": "Withdrawn",
 
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
 

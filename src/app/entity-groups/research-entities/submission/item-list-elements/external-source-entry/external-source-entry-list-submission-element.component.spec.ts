@@ -4,6 +4,7 @@ import { ExternalSourceEntry } from '../../../../../core/shared/external-source-
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   let component: ExternalSourceEntryListSubmissionElementComponent;
@@ -108,7 +109,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ExternalSourceEntryListSubmissionElementComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), NgbAccordionModule],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -145,7 +146,9 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   });
 
   it('should display the entry\'s duplicate match titles when matchObjects has items', () => {
-    const matchElements = fixture.nativeElement.querySelectorAll('[data-test="matchObjectsLink"]');
-    expect(matchElements[0].textContent.trim()).toEqual('Public item (7fd133e7-feaa-4be9-a1d2-5258694556ae)');
+    const accordionHeaderBtn = fixture.nativeElement.querySelector('.btn-link');
+    accordionHeaderBtn.click();
+    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('[data-test="matchObjectsLink"]');
+    expect(matchObjectsLinks[0].textContent.trim()).toEqual('Public item (123456789/4)');
   });
 });

@@ -28,7 +28,7 @@
                                             [importConfig]="importConfig"
                                             (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
 
-            <div *ngIf="object.matchObjects.length > 0" class="pt-1">
+            <div *ngIf="object?.matchObjects?.length > 0" class="pt-1">
               <i class="fa-solid fa-file-circle-exclamation fa-lg text-warning"></i>
             </div>
           </div>
