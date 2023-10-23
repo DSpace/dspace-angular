@@ -2,44 +2,4 @@
   // "repository.title.prefix": "DSpace Angular :: ",
   "repository.title.prefix": "Calypso :: ",
 
-// Les items de menu pour parcourir (browse) tout le contenu
-  "menu.section.browse_global": "Tout Calypso",
-  "menu.section.browse_global_by_title": "Titres",
-  "menu.section.browse_global_by_dateissued": "Dates de publication",
-  "menu.section.browse_global_by_author": "Auteurs",
-  "menu.section.browse_global_by_contributor": "Contributeurs",
-  "menu.section.browse_global_by_subject": "Sujets",
-  "menu.section.browse_global_by_titleindex": "Index des titres",
-
-  // Les libellés pour parcourir dans une collection
-  "browse.comcol.head": "Parcourir par",
-  "browse.comcol.by.title": "Titres",
-  "browse.comcol.by.dateissued": "Dates de publication",
-  "browse.comcol.by.author": "Auteurs",
-  "browse.comcol.by.contributor": "Contributeur",
-  "browse.comcol.by.subject": "Sujets",
-  "browse.comcol.by.titleindex": "Index des titres",
-
-  // Le nom des champs lorsqu'on parcourt
-  "browse.metadata.title": "titre",
-  "browse.metadata.dateissued": "date de publication",
-  "browse.metadata.author": "auteur",
-  "browse.metadata.contributor": "Contributeur",
-  "browse.metadata.subject": "sujet",
-  "browse.metadata.discipline": "programme",
-  "browse.metadata.titleindex": "l'index des titres",
-
-  // Le nom des fils d'ariane lorsqu'on parcourt
-  "browse.metadata.title.breadcrumbs": "Parcourir par titre",
-  "browse.metadata.dateissued.breadcrumbs": "Parcourir par date de publication",
-  "browse.metadata.author.breadcrumbs": "Parcourir par auteur",
-  "browse.metadata.contributor.breadcrumbs": "Parcourir par Contributeur",
-  "browse.metadata.subject.breadcrumbs": "Parcourir par sujet",
-  "browse.metadata.titleindex.breadcrumbs": "Parcourir l'index des titres",
-
-  // Le titre de page lorsqu'on parcourt... c'était "Parcourir la collection"
-  "browse.title": "Parcourir {{ collection }} par {{ field }} {{ value }}",
-  "browse.title.page": "Parcourir {{ collection }} par {{ field }} {{ value }}",
-
-
 }
