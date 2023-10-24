@@ -3257,20 +3257,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Gönderimleriniz",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arşivlendi",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arşivlendi",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Doğrulama",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Doğrulama",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Kontrolör bekleniyor",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Kontrolör bekleniyor",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "İş akışı",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "İş akışı",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Çalışma alanı",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Çalışma alanı",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",

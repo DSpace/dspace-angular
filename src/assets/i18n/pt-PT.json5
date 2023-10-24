@@ -2054,8 +2054,8 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Scan de vírus",
 
-  // "curation-task.task.register-doi.label": "Register DOI",
-  "curation-task.task.register-doi.label": "Registo DOI",
+  // "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "Registo DOI",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Tarefa:",
@@ -2259,7 +2259,7 @@
   "confirmation-modal.delete-eperson.header": "Apagar Utilizador \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.info": "Pretende apagar o utilizar \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.info": "Pretende apagar o utilizador \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Cancelar",
@@ -2666,7 +2666,7 @@
   "health-page.property.status": "Código Estado",
 
   // "health-page.section.db.title": "Database",
-  "health-page.section.db.title": "Base Dados",
+  "health-page.section.db.title": "Base de Dados",
 
   // "health-page.section.geoIp.title": "GeoIp",
   "health-page.section.geoIp.title": "GeoIp",
@@ -7713,20 +7713,20 @@
   // "browse.metadata.srsc": "Subject Category",
   "browse.metadata.srsc": "vocabulário controlado (SRSC)",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Depositado",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Depositado",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Em validação",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Em validação",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for Controller",
-  "mydspace.status.waiting-for-controller": "Aguarda validador",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for Controller",
+  "mydspace.status.mydspaceWaitingController": "Aguarda validador",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Em fluxo de trabalho",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Em fluxo de trabalho",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Depósito por terminar",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Depósito por terminar",
 
   // "search.filters.namedresourcetype.Archived": "Archived",
   "search.filters.namedresourcetype.Archived": "Depositado",

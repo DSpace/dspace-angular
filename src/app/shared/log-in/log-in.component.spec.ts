@@ -50,7 +50,7 @@ describe('LogInComponent', () => {
     });
 
     // refine the test module by declaring the test component
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         FormsModule,
         ReactiveFormsModule,

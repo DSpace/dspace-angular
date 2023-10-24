@@ -7,7 +7,7 @@ nav.navbar {
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
   .navbar {
-    width: 100%;
+    width: 100vw;
     background-color: var(--bs-white);
     position: absolute;
     overflow: hidden;
@@ -53,4 +53,10 @@ a.navbar-brand img {
   ::ng-deep a.nav-link:hover {
     color: var(--ds-navbar-link-color-hover);
   }
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: calc(var(--bs-spacer) / 3);
+  align-items: center;
 }
