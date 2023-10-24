@@ -58,7 +58,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayo
   }
 };
 export const BITSTREAM_FORM_PRIMARY_LAYOUT: DynamicFormControlLayout = {
-  grid: {
+  element: {
     host: 'col-6'
   }
 };
@@ -66,7 +66,7 @@ export const BITSTREAM_FORM_PRIMARY_LAYOUT: DynamicFormControlLayout = {
 export const BITSTREAM_FORM_PRIMARY: DynamicSwitchModelConfig = {
   id: 'primary',
   name: 'primary',
-  label: 'Primary bitstream',
+  label: 'bitstream.edit.form.primaryBitstream.label'
 };
 
 

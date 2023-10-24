@@ -29,6 +29,7 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
   BITSTREAM_FORM_PRIMARY,
+  BITSTREAM_FORM_PRIMARY_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './section-upload-file-edit.model';
@@ -305,7 +306,7 @@ export class SubmissionSectionUploadFileEditComponent
     });
     const formModel: DynamicFormControlModel[] = [];
 
-    formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_PRIMARY, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));
+    formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_PRIMARY, BITSTREAM_FORM_PRIMARY_LAYOUT));
 
     const metadataGroupModelConfig = Object.assign({}, BITSTREAM_METADATA_FORM_GROUP_CONFIG);
     metadataGroupModelConfig.group = this.formBuilderService.modelFromConfiguration(

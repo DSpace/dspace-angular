@@ -14,7 +14,7 @@
          (change)="onChange($event)"
          (focus)="onFocus($event)"/>
   <label class="form-check-label custom-control-label"  [for]="bindId && model.id">
-    <span [innerHTML]="model.label"
+    <span [innerHTML]="model.label | translate"
           [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></span>
   </label>
 </div>
