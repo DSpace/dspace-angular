@@ -10,7 +10,10 @@ import { ConfigurationProperty } from '../../shared/configuration-property.model
 })
 export class NotifyInfoService {
 
-  private relationLink = 'http://www.w3.org/ns/ldp#inbox';
+    /**
+     *  The relation link for the inbox
+     */
+    private _inboxRelationLink = 'http://www.w3.org/ns/ldp#inbox';
 
     constructor(
         private configService: ConfigurationDataService,
@@ -27,7 +30,11 @@ export class NotifyInfoService {
         );
     }
 
-    getCoarLdnLocalInboxUrl(): Observable<string[]> {
+    /**
+     * Get the url of the local inbox from the REST configuration
+     * @returns the url of the local inbox
+     */
+    getCoarLdnLocalInboxUrls(): Observable<string[]> {
       return this.configService.findByPropertyName('ldn.notify.local-inbox-endpoint').pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
@@ -49,7 +56,11 @@ export class NotifyInfoService {
         return `${ssl ? 'https' : 'http'}://${host}:${port}${namespace}`;
     }
 
-    getRelationLink(): string{
-      return this.relationLink;
+    /**
+     * Method to get the relation link for the inbox
+     * @returns the relation link for the inbox
+     */
+    getInboxRelationLink(): string {
+      return this._inboxRelationLink;
     }
 }

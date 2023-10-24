@@ -23,6 +23,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -122,6 +123,7 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: NotifyInfoService, useValue: {} },
         { provide: PLATFORM_ID, useValue: 'server' }
       ],
       schemas: [NO_ERRORS_SCHEMA]
