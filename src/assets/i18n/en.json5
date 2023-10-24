@@ -962,6 +962,7 @@
   "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.content": "The service has not been deleted",
+  "service.overview.reset-form.reset-return": "Return",
   "service.overview.delete": "Delete service",
   "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.form.label.name": "Name",

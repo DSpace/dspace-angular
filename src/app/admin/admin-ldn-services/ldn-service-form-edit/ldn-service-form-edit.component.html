@@ -267,11 +267,12 @@
                 {{ 'service.overview.reset-form.body' | translate }}
             </div>
             <div class="mt-4">
-                <button (click)="resetFormAndLeave()"
-                        class="btn btn-primary mr-2 custom-btn"
-                        id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}</button>
-                <button (click)="closeModal()" class="btn btn-danger"
+                <button (click)="closeModal()" class="mr-2 btn btn-danger"
                         id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
+                </button>
+                <button (click)="resetFormAndLeave()"
+                        class="btn btn-primary custom-btn"
+                        id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
                 </button>
             </div>
         </div>

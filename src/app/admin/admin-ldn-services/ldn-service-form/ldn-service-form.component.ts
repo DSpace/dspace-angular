@@ -149,9 +149,9 @@ export class LdnServiceFormComponent implements OnInit {
             getFirstCompletedRemoteData()
         ).subscribe((rd: RemoteData<LdnService>) => {
             if (rd.hasSucceeded) {
-                this.notificationsService.success(this.translateService.get('ldn-service-notification.created.success.title'));
-                (this.translateService.get('ldn-service-notification.created.success.title'),
-                    this.translateService.get('ldn-service-notification.created.success.body'));
+                this.notificationsService.success(this.translateService.get('ldn-service-notification.created.success.title'),
+                this.translateService.get('ldn-service-notification.created.success.body'));
+
                 this.sendBack();
                 this.closeModal();
             } else {
