@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import {
   MetadataRepresentation,
   MetadataRepresentationType
 } from '../../../core/shared/metadata-representation/metadata-representation.model';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import {
+  ItemMetadataRepresentation
+} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { EMPTY } from 'rxjs/internal/observable/empty';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 
 @Component({
@@ -22,7 +23,7 @@ import { MetadataSecurityConfiguration } from '../../../core/submission/models/m
 /**
  * Component displaying a single editable row for a metadata value
  */
-export class DsoEditMetadataValueComponent implements OnInit {
+export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   /**
    * The parent {@link DSpaceObject} to display a metadata form for
    * Also used to determine metadata-representations in case of virtual metadata
@@ -37,7 +38,7 @@ export class DsoEditMetadataValueComponent implements OnInit {
   /**
    * The metadata security configuration for the entity.
    */
-  @Input() metadataSecurityConfiguration: Observable<MetadataSecurityConfiguration>;
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
 
   /**
    * The metadata field to display a value for
@@ -122,13 +123,31 @@ export class DsoEditMetadataValueComponent implements OnInit {
    * The name of the item represented by this virtual metadata value (otherwise null)
    */
   mdRepresentationName$: Observable<string | null>;
+  mdSecurityConfigLevel$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
 
   constructor(protected relationshipService: RelationshipDataService,
               protected dsoNameService: DSONameService) {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.mdField) {
+      this.initSecurityLevel();
+    }
+  }
+
   ngOnInit(): void {
     this.initVirtualProperties();
+    this.initSecurityLevel();
+  }
+
+  initSecurityLevel(): void {
+    let appliedSecurity: number[] = [];
+    if (this.metadataSecurityConfiguration && this.metadataSecurityConfiguration?.metadataCustomSecurity[this.mdField]) {
+      appliedSecurity = this.metadataSecurityConfiguration.metadataCustomSecurity[this.mdField];
+    } else if (this.metadataSecurityConfiguration && this.metadataSecurityConfiguration?.metadataSecurityDefault){
+      appliedSecurity = this.metadataSecurityConfiguration.metadataSecurityDefault;
+    }
+    this.mdSecurityConfigLevel$.next(appliedSecurity);
   }
 
   /**

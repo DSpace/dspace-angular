@@ -15,19 +15,18 @@ import { ITEM } from '../../core/shared/item.resource-type';
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { Operation } from 'fast-json-patch';
 import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { mockSecurityConfig } from '../../shared/mocks/submission.mock';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
 const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
-const submissionObject: any = mockSubmissionObject;
 
 const metadataSecurityConfigDataServiceSpy = jasmine.createSpyObj('metadataSecurityConfigDataService', {
-  findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),
+  findById: createSuccessfulRemoteDataObject$(mockSecurityConfig),
 });
 
 @Injectable()
@@ -97,6 +96,10 @@ describe('DsoEditMetadataComponent', () => {
     component = fixture.componentInstance;
     component.dso = dso;
     fixture.detectChanges();
+  });
+
+  it('should set security configuration object', () => {
+    expect(component.securitySettings$.value).toEqual(mockSecurityConfig);
   });
 
   describe('when no changes have been made', () => {

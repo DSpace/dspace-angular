@@ -106,8 +106,8 @@ export class ConcatFieldParser extends FieldParser {
     (model1 as any).toggleSecurityVisibility = false;
     (model2 as any).toggleSecurityVisibility = false;
     // attach the security config for children
-    (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
-    (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    // (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    // (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
@@ -116,7 +116,7 @@ export class ConcatFieldParser extends FieldParser {
         control: 'form-row',
       }
     };
-    this.initSecurityValue(concatGroup);
+    this.initSecurityValue(concatGroup, fieldValue);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
 

@@ -6,6 +6,8 @@ import { SubmissionObjectState } from '../../submission/objects/submission-objec
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
+import { METADATA_SECURITY_TYPE } from 'src/app/core/submission/models/metadata-security-config.resource-type';
 
 export const mockSectionsData = {
   traditionalpageone: {
@@ -334,6 +336,18 @@ export const mockSubmissionRestResponse = [
   }
 ];
 
+export const mockSecurityConfig: MetadataSecurityConfiguration = {
+  'uuid' : 'Person',
+  'metadataSecurityDefault' : [ 0, 1, 2 ],
+  'metadataCustomSecurity' : {'person.birthDate': [ 0, 1 ]},
+  'type' : METADATA_SECURITY_TYPE,
+  '_links' : {
+    'self' : {
+      'href' : 'http://localhost:8080/server/api/core/securitysettings/Person'
+    }
+  }
+};
+
 export const mockSubmissionObject = {
   collection: {
     handle: '10673/2',
@@ -589,20 +603,7 @@ export const mockSubmissionObject = {
       ]
     }
   ],
-  metadataSecurityConfiguration: {
-    'uuid': null,
-    'metadataSecurityDefault': [
-      0,
-      1
-    ],
-    'metadataCustomSecurity': {},
-    'type': 'securitysetting',
-    '_links': {
-      'self': {
-        'href': 'http://localhost:8080/server/api/core/securitysettings'
-      }
-    }
-  },
+  metadataSecurityConfiguration: mockSecurityConfig,
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },

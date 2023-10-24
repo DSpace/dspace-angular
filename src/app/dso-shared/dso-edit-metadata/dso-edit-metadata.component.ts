@@ -1,10 +1,10 @@
-import { Item } from './../../core/shared/item.model';
-import { MetadataSecurityConfigurationService } from './../../core/submission/metadatasecurityconfig-data.service';
+import { Item } from '../../core/shared/item.model';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { Component, Inject, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AlertType } from '../../shared/alert/aletr-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DsoEditMetadataChangeType, DsoEditMetadataForm } from './dso-edit-metadata-form';
-import { map } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute, Data } from '@angular/router';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -23,6 +23,7 @@ import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorato
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -118,7 +119,15 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    */
   hasSecurityMetadata = false;
 
-  securitySetings: MetadataSecurityConfiguration;
+  /**
+   * Contains metadata security configuration object
+   */
+  isFormInitialized$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
+   * Contains metadata security configuration object
+   */
+  securitySettings$: BehaviorSubject<MetadataSecurityConfiguration> = new BehaviorSubject(null);
 
   constructor(protected route: ActivatedRoute,
               protected notificationsService: NotificationsService,
@@ -137,15 +146,23 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
     if (hasNoValue(this.dso)) {
       this.dsoUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
         map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
-        map((data: any) => data.dso)
-      ).subscribe((rd: RemoteData<DSpaceObject>) => {
-        this.dso = rd.payload;
+        map((data: any) => data.dso),
+        tap((rd: RemoteData<DSpaceObject>) => this.dso = rd.payload),
+        switchMap(() => this.getSecuritySettings())
+      ).subscribe((securitySettings: MetadataSecurityConfiguration) => {
+        this.securitySettings$.next(securitySettings);
         this.initDataService();
         this.initForm();
+        this.isFormInitialized$.next(true);
       });
     } else {
-      this.initDataService();
-      this.initForm();
+      this.dsoUpdateSubscription = this.getSecuritySettings()
+        .subscribe((securitySettings: MetadataSecurityConfiguration) => {
+          this.securitySettings$.next(securitySettings);
+          this.initDataService();
+          this.initForm();
+          this.isFormInitialized$.next(true);
+      });
     }
     this.savingOrLoadingFieldValidation$ = observableCombineLatest([this.saving$, this.loadingFieldValidation$]).pipe(
       map(([saving, loading]: [boolean, boolean]) => saving || loading),
@@ -161,11 +178,12 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       const entityType: string = (this.dso as Item).entityType;
       return this.metadataSecurityConfigurationService.findById(entityType).pipe(
         getFirstCompletedRemoteData(),
-        map((securitySettings: RemoteData<MetadataSecurityConfiguration>) => {
-          this.securitySetings = securitySettings.payload;
-          return securitySettings.payload;
+        map((securitySettingsRD: RemoteData<MetadataSecurityConfiguration>) => {
+          return securitySettingsRD.hasSucceeded ? securitySettingsRD.payload : null;
         })
       );
+    } else {
+      of(null);
     }
   }
 
@@ -321,7 +339,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       } else {
         // metadata field is set, so set the security level for the new metadata field
         obj.change = DsoEditMetadataChangeType.ADD;
-        const customSecurity = this.securitySetings.metadataCustomSecurity[this.newMdField];
+        const customSecurity = this.securitySettings$.value.metadataCustomSecurity[this.newMdField];
         const lastCustomSecurityLevel = customSecurity[customSecurity.length - 1];
 
         obj.newValue.securityLevel = this.newMdFieldWithSecurityLevelValue ?? lastCustomSecurityLevel;
@@ -337,7 +355,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
     if (!this.hasSecurityMetadata) {
       // for newly added metadata fields, set the security level to the default security level
       // (in case there is no custom security level for the metadata field)
-      const defaultSecurity = this.securitySetings.metadataSecurityDefault;
+      const defaultSecurity = this.securitySettings$.value.metadataSecurityDefault;
       const lastDefaultSecurityLevel = defaultSecurity[defaultSecurity.length - 1];
 
       this.form.fields[this.newMdField][this.form.fields[this.newMdField].length - 1].newValue.securityLevel = lastDefaultSecurityLevel;
