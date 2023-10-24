@@ -15,7 +15,7 @@
     <input class="form-control" type="text" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.language"
            [dsDebounce]="300" (onDebounce)="confirm.emit(false)" />
   </div>
-  <div class="ds-flex-cell ds-lang-cell d-flex justify-content-center" role="cell">
+  <div class="flex-grow-1 ds-flex-cell ds-security-cell d-flex justify-content-center" role="cell">
     <div class="btn-group edit-field">
      <ds-edit-metadata-security *ngIf="mdField && mdSecurityConfigLevel$.value.length > 1"
                                 [securityLevel]="mdValue.newValue.securityLevel"
