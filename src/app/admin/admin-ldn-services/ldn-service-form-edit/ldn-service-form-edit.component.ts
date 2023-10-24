@@ -200,23 +200,6 @@ export class LdnServiceFormEditComponent implements OnInit {
         notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
     }
 
-    removeOutboundPattern(index: number): void {
-        const patternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-        const patternGroup = patternsArray.at(index) as FormGroup;
-        const patternValue = patternGroup.value;
-
-        if (index < 0 || index >= patternsArray.length || patternValue.isNew) {
-            patternsArray.removeAt(index);
-            return;
-        }
-
-
-        this.deletedOutboundPatterns.push(index);
-
-        patternsArray.removeAt(index);
-        this.cdRef.detectChanges();
-    }
-
 
     toggleAutomatic(i: number) {
         const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
@@ -316,13 +299,19 @@ export class LdnServiceFormEditComponent implements OnInit {
 
         for (const index of this.markedForDeletionInboundPattern) {
             if (index >= 0 && index < patternsArray.length) {
-                this.deletedInboundPatterns.push(index);
-                patternsArray.removeAt(index);
+                const patternGroup = patternsArray.at(index) as FormGroup;
+                const patternValue = patternGroup.value;
+                if (patternValue.isNew) {
+                    patternsArray.removeAt(index);
+                } else {
+                    this.deletedInboundPatterns.push(index);
+                }
             }
         }
 
         this.markedForDeletionInboundPattern = [];
     }
+
 
     deleteMarkedOutboundPatterns() {
         this.markedForDeletionOutboundPattern.sort((a, b) => b - a);
@@ -330,8 +319,14 @@ export class LdnServiceFormEditComponent implements OnInit {
 
         for (const index of this.markedForDeletionOutboundPattern) {
             if (index >= 0 && index < patternsArray.length) {
-                this.deletedOutboundPatterns.push(index);
-                patternsArray.removeAt(index);
+                const patternGroup = patternsArray.at(index) as FormGroup;
+                const patternValue = patternGroup.value;
+                if (patternValue.isNew) {
+                    patternsArray.removeAt(index);
+                } else {
+
+                    this.deletedOutboundPatterns.push(index);
+                }
             }
         }
 
