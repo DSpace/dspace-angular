@@ -197,7 +197,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       }),
 
 
-      // retrieve submission's bitstreams from state
+      // retrieve submission's bitstream data from state
       combineLatest([this.configMetadataForm$,
         this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id)]).pipe(
         filter(([configMetadataForm, { files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {

@@ -32,7 +32,19 @@ export class SectionUploadService {
    */
   constructor(private store: Store<SubmissionState>, private operationsBuilder: JsonPatchOperationsBuilder) {}
 
-
+ /**
+   * Define and add an operation based on a change
+   *
+   * @param path
+   *    The path to endpoint
+   * @param intitialPrimary
+   *    The initial primary indicator
+   * @param primary
+   *    the new primary indicator
+    * @param fileId
+   *    The file id
+   * @returns {void}
+   */
   public updatePrimaryBitstreamOperation(path: JsonPatchOperationPathObject, intitialPrimary: boolean | null, primary: boolean | null, fileId: string): void {
     if (intitialPrimary === null && primary) {
       this.operationsBuilder.add(path, fileId, false, true);
