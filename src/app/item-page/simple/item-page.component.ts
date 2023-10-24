@@ -32,7 +32,7 @@ import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.s
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 

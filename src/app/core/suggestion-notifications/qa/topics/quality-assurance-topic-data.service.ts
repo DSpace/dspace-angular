@@ -16,6 +16,7 @@ import { IdentifiableDataService } from '../../../data/base/identifiable-data.se
 import { dataService } from '../../../data/base/data-service.decorator';
 import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
+import { hasValue } from 'src/app/shared/empty.util';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -59,6 +60,34 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
    *    The list of Quality Assurance topics.
    */
   public getTopics(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Retrieves a paginated list of QualityAssuranceTopicObjects by target and source.
+   * @param target The target to search for (the item's uuid).
+   * @param source The source to search for (optional).
+   * @param options The find list options (optional).
+   * @param useCachedVersionIfAvailable Whether to use a cached version if available (optional, default is true).
+   * @param reRequestOnStale Whether to re-request if the cached version is stale (optional, default is true).
+   * @param linksToFollow The links to follow (optional).
+   * @returns An observable of RemoteData<PaginatedList<QualityAssuranceTopicObject>>.
+   */
+  public getTopicsByTargetAndSource(target: string, source?: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
+    options.searchParams = [
+      {
+        fieldName: 'target',
+        fieldValue: target
+      }
+    ];
+
+    if (hasValue(source)) {
+      options.searchParams.push({
+        fieldName: 'source',
+        fieldValue: source
+      });
+    }
+
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
