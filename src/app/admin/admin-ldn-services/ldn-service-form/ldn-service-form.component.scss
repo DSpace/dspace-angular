@@ -1,7 +1,6 @@
 form {
   max-width: 800px;
   font-size: 14px;
-  margin-left: 100px;
   position: relative;
 
 }
@@ -118,7 +117,13 @@ form button.btn.btn-primary[type="submit"] {
   right: -10px;
 }
 
-
+.submission-form-footer {
+  border-radius: var(--bs-card-border-radius);
+  bottom: 0;
+  background-color: var(--bs-gray-400);
+  padding: calc(var(--bs-spacer) / 2);
+  z-index: var(--ds-submission-footer-z-index);
+}
 
 
 

@@ -1,7 +1,6 @@
 form {
   max-width: 800px;
   font-size: 14px;
-  margin-left: 100px;
   position: relative;
 
 }
@@ -98,6 +97,8 @@ textarea {
 
 .toggle-switch {
   cursor: pointer;
+  margin-top: 3px;
+  margin-right: 3px
 }
 
 .label-box{
@@ -114,12 +115,20 @@ textarea {
 
 form button.btn.btn-primary[type="submit"] {
   position: absolute;
-  bottom: 0px;
-  right: -10px;
+  right: 8px;
 }
 
+.submission-form-footer {
+  border-radius: var(--bs-card-border-radius);
+  bottom: 0;
+  background-color: var(--bs-gray-400);
+  padding: calc(var(--bs-spacer) / 2);
+  z-index: var(--ds-submission-footer-z-index);
+}
 
-
+.marked-for-deletion {
+  background-color: #ffcccc;
+}
 
 
 

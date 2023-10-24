@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
-import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.service';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -27,7 +26,7 @@ import { Observable } from 'rxjs';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -110,43 +109,11 @@ export class LdnServiceFormComponent implements OnInit {
   setItemfilters() {
     this.itemfiltersRD$ =  this.ldnItemfiltersService.findAll().pipe(
         getFirstCompletedRemoteData());
-    console.log(this.itemfiltersRD$);
     this.itemfiltersRD$.subscribe((rd: RemoteData<PaginatedList<Itemfilter>>) => {
       if (rd.hasSucceeded) {
-        console.log(rd);
       }
     });
   }
-  /*createLdnService(values: any) {
-      this.formModel.get('name').markAsTouched();
-      this.formModel.get('url').markAsTouched();
-      this.formModel.get('ldnUrl').markAsTouched();
-
-      const ldnServiceData = this.ldnServicesService.create(this.formModel.value);
-
-      ldnServiceData.subscribe((ldnNewService) => {
-          console.log(ldnNewService);
-          const name = ldnNewService.payload.name;
-          const url = ldnNewService.payload.url;
-          const ldnUrl = ldnNewService.payload.ldnUrl;
-
-          if (!name || !url || !ldnUrl) {
-              return;
-          }
-
-          ldnServiceData.pipe(
-              getFirstCompletedRemoteData()
-          ).subscribe((rd: RemoteData<LdnService>) => {
-              if (rd.hasSucceeded) {
-                  this.notificationsService.success(this.translateService.get('notification.created.success'));
-                  this.onSubmit.emit(values);
-              } else {
-                  this.notificationsService.error(this.translateService.get('notification.created.failure', ));
-                  this.cancelForm.emit();
-              }
-          });
-      });
-  }*/
 
   onSubmit() {
     this.openConfirmModal(this.confirmModal);
@@ -159,7 +126,7 @@ export class LdnServiceFormComponent implements OnInit {
   openResetFormModal(content) {
     this.modalRef = this.modalService.open(content);
   }
-  createService(){
+  createService() {
     this.formModel.get('name').markAsTouched();
     this.formModel.get('url').markAsTouched();
     this.formModel.get('ldnUrl').markAsTouched();
@@ -175,20 +142,33 @@ export class LdnServiceFormComponent implements OnInit {
 
     const values = this.formModel.value;
 
+    const inboundPatternValue = this.formModel.get('inboundPattern').value;
+    const outboundPatternValue = this.formModel.get('outboundPattern').value;
+
+    if (inboundPatternValue === '') {
+      values.notifyServiceInboundPatterns = [];
+    }
+    if (outboundPatternValue === '') {
+      values.notifyServiceOutboundPatterns = [];
+    }
+
     const ldnServiceData = this.ldnServicesService.create(values);
 
     ldnServiceData.pipe(
         getFirstCompletedRemoteData()
     ).subscribe((rd: RemoteData<LdnService>) => {
       if (rd.hasSucceeded) {
-        this.notificationsService.success(this.translateService.get('notification.created.success'));
+        this.notificationsService.success(this.translateService.get('ldn-service-notification.created.success.title'));
+        (this.translateService.get('ldn-service-notification.created.success.title'),
+            this.translateService.get('ldn-service-notification.created.success.body'));
         this.sendBack();
+        this.closeModal();
       } else {
         this.notificationsService.error(this.translateService.get('notification.created.failure'));
       }
     });
-
   }
+
 
   resetFormAndLeave() {
     this.sendBack();

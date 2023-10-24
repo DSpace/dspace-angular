@@ -1,5 +1,8 @@
+<div class="container">
 <form (ngSubmit)="onSubmit()" [formGroup]="formModel">
-
+  <div class="d-flex">
+    <h2 class="flex-grow-1">{{ 'ldn-edit-registered-service.title' | translate }}</h2>
+  </div>
   <!-- In the toggle section -->
   <div class="toggle-switch-container">
     <label class="status-label" for="enabled">{{ 'ldn-service-status' | translate }}</label>
@@ -81,7 +84,9 @@
     <ng-container [formGroupName]="i">
 
 
-      <div class="row">
+
+
+      <div [class.marked-for-deletion]="markedForDeletion.includes(i)" class="row mb-1">
         <div class="col">
           <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
                   name="additionalInboundPattern{{i}}" required>
@@ -111,12 +116,16 @@
         </div>
 
 
-        <div class="col-sm-1">
-          <button type="button" (click)="removeInboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
+        <div class="col-sm-1 btn-group">
+          <button type="button" (click)="markForDeletion(i)" class="btn btn-outline-dark trash-button">
             <i class="fas fa-trash"></i>
+          </button>
+          <button *ngIf="markedForDeletion.includes(i)" type="button" (click)="unmarkForDeletion(i)" class="btn btn-outline-dark undo-button">
+            <i class="fas fa-undo"></i>
           </button>
         </div>
       </div>
+
     </ng-container>
   </div>
 
@@ -148,7 +157,7 @@
     <ng-container [formGroupName]="i">
 
       <!-- Input elements in a separate row -->
-      <div class="row">
+      <div class="row mb-1">
         <div class="col">
           <select #outboundPattern formControlName="pattern" id="additionalOutboundPattern{{i}}"
                   name="additionalOutboundPattern{{i}}"
@@ -177,7 +186,7 @@
         </div>
 
         <div class="col-sm-1">
-          <button type="button" (click)="removeOutboundPattern(i)" class="btn btn-outline-dark trash-button ml-2">
+          <button type="button" (click)="removeOutboundPattern(i)" class="btn btn-outline-dark trash-button">
             <i class="fas fa-trash"></i>
           </button>
         </div>
@@ -193,22 +202,25 @@
   <div class="mb-5">
     &nbsp;
   </div>
-
-  <button class="btn btn-primary" type="submit">{{ 'ldn-new-service.form.label.submit' | translate }}</button>
-  <div class="">
-    <button type="button" class="btn btn-danger" (click)="this.openResetFormModal(this.resetFormModal)">
-      <i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}
+  <div class="submission-form-footer mt-1 mb-1 position-sticky" role="group" aria-label="Basic example">
+    <button class="btn btn-primary" type="submit">
+      <span><i class="fas fa-save"></i> {{ 'ldn-new-service.form.label.submit' | translate }}</span>
     </button>
+    <div class="d-flex">
+      <button type="button" class="btn btn-danger" (click)="this.openResetFormModal(this.resetFormModal)">
+        <span><i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}</span>
+      </button>
+    </div>
   </div>
 </form>
-
+</div>
 <ng-template #confirmModal>
 
   <div>
 
     <div class="modal-header">
       <div>
-        <h4>{{'service.overview.create.modal' | translate }}</h4>
+        <h4>{{'service.overview.edit.modal' | translate }}</h4>
       </div>
       <button (click)="closeModal()" aria-label="Close"
               class="close" type="button">
@@ -218,13 +230,14 @@
 
     <div class="modal-body">
       <div>
-        {{ 'service.overview.delete.body' | translate }}
+        {{ 'service.overview.edit.body' | translate }}
       </div>
       <div class="mt-4">
-        <button (click)="this.patchService()"
-                class="btn btn-primary mr-2 custom-btn">{{ 'service.detail.update' | translate }}</button>
-        <button (click)="closeModal()" class="btn btn-danger"
+        <button (click)="closeModal()" class="btn btn-danger mr-2"
                 id="delete-confirm">{{ 'service.detail.return' | translate }}
+        </button>
+        <button (click)="this.patchService()"
+                class="btn btn-primary custom-btn">{{ 'service.detail.update' | translate }}
         </button>
       </div>
     </div>
@@ -251,11 +264,12 @@
       </div>
       <div class="mt-4">
         <button (click)="resetFormAndLeave()"
-                class="btn btn-primary mr-2 custom-btn" id="reset-confirm">{{ 'service.overview.reset-form.reset-confirm' | translate }}</button>
+                class="btn btn-primary mr-2 custom-btn" id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}</button>
         <button (click)="closeModal()" class="btn btn-danger"
-                id="reset-delete">{{ 'service.overview.reset-form.reset-return' | translate }}
+                id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
         </button>
       </div>
     </div>
   </div>
 </ng-template>
+

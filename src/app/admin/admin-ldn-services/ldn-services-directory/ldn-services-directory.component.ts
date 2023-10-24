@@ -11,10 +11,10 @@ import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../shared/empty.util';
 import { Operation } from 'fast-json-patch';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {  getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'ds-ldn-services-directory',
@@ -38,6 +38,7 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
   isProcessingSub: Subscription;
   private modalRef: any;
 
+
   constructor(
       protected ldnServicesService: LdnServicesService,
       protected paginationService: PaginationService,
@@ -45,7 +46,6 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
       private cdRef: ChangeDetectorRef,
       private notificationService: NotificationsService,
       private translateService: TranslateService,
-      private router: Router,
   ) {
   }
 
@@ -57,18 +57,8 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
         switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
             getFirstCompletedRemoteData()
-
         ))
     );
-
-    this.ldnServicesRD$.subscribe((rd: RemoteData<PaginatedList<LdnService>>) => {
-      console.log(rd);
-      if (rd.hasSucceeded) {
-        this.notificationService.success(this.translateService.get('notification.loaded.success'));
-      } else {
-        this.notificationService.error(this.translateService.get('notification.loaded.failure'));
-      }
-    });
   }
 
   ngOnDestroy(): void {
@@ -107,9 +97,11 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
           );
           this.cdRef.detectChanges();
           this.closeModal();
-          this.notificationService.success(this.translateService.get('notification.created.success'));
+          this.notificationService.success(this.translateService.get('ldn-service-delete.notification.success.title'),
+              this.translateService.get('ldn-service-delete.notification.success.content'));
         } else {
-          this.notificationService.error(this.translateService.get('notification.created.failure'));
+          this.notificationService.error(this.translateService.get('ldn-service-delete.notification.error.title'),
+              this.translateService.get('ldn-service-delete.notification.error.content'));
           this.cdRef.detectChanges();
         }
       });
@@ -117,24 +109,32 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
   }
 
 
+
+
   toggleStatus(ldnService: any, ldnServicesService: LdnServicesService): void {
     const newStatus = !ldnService.enabled;
-    let status = ldnService.enabled;
+    const originalStatus = ldnService.enabled;
+
     const patchOperation: Operation = {
       op: 'replace',
       path: '/enabled',
       value: newStatus,
     };
+
     ldnServicesService.patch(ldnService, [patchOperation]).pipe(getFirstCompletedRemoteData()).subscribe(
-        () => {
-          if (status !== newStatus) {
+        (rd: RemoteData<LdnService>) => {
+          if (rd.hasSucceeded) {
+            ldnService.enabled = newStatus;
             this.notificationService.success(this.translateService.get('ldn-enable-service.notification.success.title'),
                 this.translateService.get('ldn-enable-service.notification.success.content'));
           } else {
+            ldnService.enabled = originalStatus;
             this.notificationService.error(this.translateService.get('ldn-enable-service.notification.error.title'),
                 this.translateService.get('ldn-enable-service.notification.error.content'));
           }
         }
     );
   }
+
+
 }
