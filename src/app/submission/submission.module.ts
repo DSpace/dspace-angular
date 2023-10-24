@@ -67,6 +67,7 @@ import {
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
+import { LdnServiceComponent } from './sections/ldn-service/ldn-service.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -76,6 +77,7 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionSherpaPoliciesComponent,
+  LdnServiceComponent
 ];
 
 const DECLARATIONS = [
@@ -114,6 +116,7 @@ const DECLARATIONS = [
     CoreModule.forRoot(),
     SharedModule,
     StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+    EffectsModule.forFeature(),
     EffectsModule.forFeature(submissionEffects),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),

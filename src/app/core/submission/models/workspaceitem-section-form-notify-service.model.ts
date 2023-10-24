@@ -1,17 +1,21 @@
 import {NotifyServiceObject} from './notify-service-submission.model'
+import { LdnService } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 /**
- * An interface to represent the submission's item accesses condition.
+ * An interface to represent the submission's item ldn-services condition.
  */
 export interface WorkspaceitemSectionNotifyServiceRequestItemDissemination extends NotifyServiceObject {
   /**
-   * The access condition id
+   * The ldn-review service
    */
-  id: string;
+  reviewService: LdnService;
 
   /**
-   * Boolean that indicates whether the current item must be findable via search or browse.
+   * The ldn-endorse service
    */
-  discoverable: boolean;
+  endorseService: LdnService;
 
-
+  /**
+   * The ldn-ingest service
+   */
+  ingestService: LdnService;
 }
