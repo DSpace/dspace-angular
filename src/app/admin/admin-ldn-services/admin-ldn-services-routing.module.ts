@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { I18nBreadcrumbResolver } from 'src/app/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { LdnServicesOverviewComponent } from './ldn-services-directory/ldn-services-directory.component';
-import { LdnServicesGuard } from './ldn-services-guard/ldn-services-guard.service';
 import { LdnServiceNewComponent } from './ldn-service-new/ldn-service-new.component';
 import { LdnServiceFormEditComponent } from './ldn-service-form-edit/ldn-service-form-edit.component';
 
@@ -15,7 +14,6 @@ import { LdnServiceFormEditComponent } from './ldn-service-form-edit/ldn-service
                 component: LdnServicesOverviewComponent,
                 resolve: {breadcrumb: I18nBreadcrumbResolver},
                 data: {title: 'ldn-registered-services.title', breadcrumbKey: 'ldn-registered-services.new'},
-                canActivate: [LdnServicesGuard]
             },
             {
                 path: 'new',

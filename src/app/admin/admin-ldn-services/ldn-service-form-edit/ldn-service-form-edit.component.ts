@@ -56,7 +56,8 @@ export class LdnServiceFormEditComponent implements OnInit {
     @Input() public constraint: string;
     @Input() public automatic: boolean;
     @Input() public headerKey: string;
-    markedForDeletion: number[] = [];
+    markedForDeletionInboundPattern: number[] = [];
+    markedForDeletionOutboundPattern: number[] = [];
     protected serviceId: string;
     private originalInboundPatterns: any[] = [];
     private originalOutboundPatterns: any[] = [];
@@ -259,7 +260,8 @@ export class LdnServiceFormEditComponent implements OnInit {
     }
 
     patchService() {
-        this.deleteMarkedPatterns();
+        this.deleteMarkedInboundPatterns();
+        this.deleteMarkedOutboundPatterns();
         const patchOperations = this.generatePatchOperations();
 
 
@@ -282,31 +284,58 @@ export class LdnServiceFormEditComponent implements OnInit {
         this.closeModal();
     }
 
-    markForDeletion(index: number) {
-        if (!this.markedForDeletion.includes(index)) {
-            this.markedForDeletion.push(index);
+    markForInboundPatternDeletion(index: number) {
+        if (!this.markedForDeletionInboundPattern.includes(index)) {
+            this.markedForDeletionInboundPattern.push(index);
         }
     }
 
-    unmarkForDeletion(index: number) {
-        const i = this.markedForDeletion.indexOf(index);
+    unmarkForInboundPatternDeletion(index: number) {
+        const i = this.markedForDeletionInboundPattern.indexOf(index);
         if (i !== -1) {
-            this.markedForDeletion.splice(i, 1);
+            this.markedForDeletionInboundPattern.splice(i, 1);
         }
     }
 
-    deleteMarkedPatterns() {
-        this.markedForDeletion.sort((a, b) => b - a);
+    markForOutboundPatternDeletion(index: number) {
+        if (!this.markedForDeletionOutboundPattern.includes(index)) {
+            this.markedForDeletionOutboundPattern.push(index);
+        }
+    }
+
+    unmarkForOutboundPatternDeletion(index: number) {
+        const i = this.markedForDeletionOutboundPattern.indexOf(index);
+        if (i !== -1) {
+            this.markedForDeletionOutboundPattern.splice(i, 1);
+        }
+    }
+
+    deleteMarkedInboundPatterns() {
+        this.markedForDeletionInboundPattern.sort((a, b) => b - a);
         const patternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
 
-        for (const index of this.markedForDeletion) {
+        for (const index of this.markedForDeletionInboundPattern) {
             if (index >= 0 && index < patternsArray.length) {
                 this.deletedInboundPatterns.push(index);
                 patternsArray.removeAt(index);
             }
         }
 
-        this.markedForDeletion = [];
+        this.markedForDeletionInboundPattern = [];
+    }
+
+    deleteMarkedOutboundPatterns() {
+        this.markedForDeletionOutboundPattern.sort((a, b) => b - a);
+        const patternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+
+        for (const index of this.markedForDeletionOutboundPattern) {
+            if (index >= 0 && index < patternsArray.length) {
+                this.deletedOutboundPatterns.push(index);
+                patternsArray.removeAt(index);
+            }
+        }
+
+        this.markedForDeletionOutboundPattern = [];
     }
 
     private createReplaceOperation(patchOperations: any[], formControlName: string, path: string): void {

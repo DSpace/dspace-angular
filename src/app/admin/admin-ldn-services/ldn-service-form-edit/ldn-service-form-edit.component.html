@@ -84,7 +84,7 @@
             <ng-container [formGroupName]="i">
 
 
-                <div [class.marked-for-deletion]="markedForDeletion.includes(i)" class="row mb-1">
+                <div [class.marked-for-deletion]="markedForDeletionInboundPattern.includes(i)" class="row mb-1">
                     <div class="col">
                         <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
                                 name="additionalInboundPattern{{i}}" required>
@@ -116,10 +116,10 @@
 
 
                     <div class="col-sm-1 btn-group">
-                        <button (click)="markForDeletion(i)" class="btn btn-outline-dark trash-button" type="button">
+                        <button (click)="markForInboundPatternDeletion(i)" class="btn btn-outline-dark trash-button" type="button">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <button (click)="unmarkForDeletion(i)" *ngIf="markedForDeletion.includes(i)" class="btn btn-outline-dark undo-button"
+                        <button (click)="unmarkForInboundPatternDeletion(i)" *ngIf="markedForDeletionInboundPattern.includes(i)" class="btn btn-outline-dark undo-button"
                                 type="button">
                             <i class="fas fa-undo"></i>
                         </button>
@@ -157,7 +157,7 @@
             <ng-container [formGroupName]="i">
 
                 <!-- Input elements in a separate row -->
-                <div class="row mb-1">
+                <div [class.marked-for-deletion]="markedForDeletionOutboundPattern.includes(i)" class="row mb-1">
                     <div class="col">
                         <select #outboundPattern formControlName="pattern" id="additionalOutboundPattern{{i}}"
                                 name="additionalOutboundPattern{{i}}"
@@ -185,10 +185,13 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-1">
-                        <button (click)="removeOutboundPattern(i)" class="btn btn-outline-dark trash-button"
-                                type="button">
+                    <div class="col-sm-1 btn-group">
+                        <button (click)="markForOutboundPatternDeletion(i)" class="btn btn-outline-dark trash-button" type="button">
                             <i class="fas fa-trash"></i>
+                        </button>
+                        <button (click)="unmarkForOutboundPatternDeletion(i)" *ngIf="markedForDeletionOutboundPattern.includes(i)" class="btn btn-outline-dark undo-button"
+                                type="button">
+                            <i class="fas fa-undo"></i>
                         </button>
                     </div>
                 </div>
