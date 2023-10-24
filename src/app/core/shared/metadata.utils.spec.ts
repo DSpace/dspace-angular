@@ -174,6 +174,54 @@ describe('Metadata', () => {
     });
   });
 
+  describe('hasValue method', () => {
+    const testHasValue = (value, expected) =>
+      testMethod(Metadata.hasValue, 'boolean', value, null, expected);
+
+    describe('with undefined value', () => {
+      testHasValue(undefined, false);
+    });
+    describe('with null value', () => {
+      testHasValue(null, false);
+    });
+    describe('with string value', () => {
+      testHasValue('test', true);
+    });
+    describe('with empty string value', () => {
+      testHasValue('', false);
+    });
+    describe('with undefined value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: undefined
+      };
+      testHasValue(value, false);
+    });
+    describe('with null value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: null
+      };
+      testHasValue(value, false);
+    });
+    describe('with empty string for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: ''
+      };
+      testHasValue(value, false);
+    });
+    describe('with value for a MetadataValue object', () => {
+      const value: Partial<MetadataValue> = {
+        value: 'test'
+      };
+      testHasValue(value, true);
+    });
+    describe('with a generic object', () => {
+      const value: Object = {
+        test: 'test'
+      };
+      testHasValue(value, true);
+    });
+  });
+
   describe('valueMatches method', () => {
 
     const testValueMatches = (value: MetadataValue, expected: boolean, filter?: MetadataValueFilter) => {
