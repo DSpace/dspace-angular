@@ -67,7 +67,3 @@ export const notifyPatterns = [
 ];
 
 
-const pattern = notifyPatterns[0];
-console.log(`Pattern Name: ${pattern.name}`);
-console.log(`Pattern Description: ${pattern.description}`);
-console.log(`Pattern Category: ${pattern.category}`);

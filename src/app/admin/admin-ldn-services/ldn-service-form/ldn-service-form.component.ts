@@ -1,14 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
-import { LdnServiceConstraint } from '../ldn-services-model/ldn-service-constraint.model';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
-import { LdnDirectoryService } from '../ldn-services-services/ldn-directory.service';
 import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
+import { Observable } from 'rxjs';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
     selector: 'ds-ldn-service-form',
@@ -16,27 +35,26 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     styleUrls: ['./ldn-service-form.component.scss'],
     animations: [
         trigger('toggleAnimation', [
-            state('true', style({})), // Define animation states (empty style)
+            state('true', style({})),
             state('false', style({})),
-            transition('true <=> false', animate('300ms ease-in')), // Define animation transition with duration
+            transition('true <=> false', animate('300ms ease-in')),
         ]),
     ],
 })
 export class LdnServiceFormComponent implements OnInit {
     formModel: FormGroup;
-
-
-
-    //showItemFilterDropdown = false;
-
+    @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
+    @ViewChild('resetFormModal', {static: true}) resetFormModal: TemplateRef<any>;
     public inboundPatterns: object[] = notifyPatterns;
     public outboundPatterns: object[] = notifyPatterns;
-    public itemFilterList: LdnServiceConstraint[];
-    //additionalOutboundPatterns: FormGroup[] = [];
-    //additionalInboundPatterns: FormGroup[] = [];
-
-
-    //@Input() public status: boolean;
+    itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
+    config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 20
+    });
+    pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+        id: 'po',
+        pageSize: 20
+    });
     @Input() public name: string;
     @Input() public description: string;
     @Input() public url: string;
@@ -45,21 +63,20 @@ export class LdnServiceFormComponent implements OnInit {
     @Input() public outboundPattern: string;
     @Input() public constraint: string;
     @Input() public automatic: boolean;
-
     @Input() public headerKey: string;
-
-    /*
-    get notifyServiceInboundPatternsFormArray(): FormArray {
-        return  this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-    }
-    */
+    @Output() submitForm: EventEmitter<any> = new EventEmitter();
+    @Output() cancelForm: EventEmitter<any> = new EventEmitter();
+    private modalRef: any;
 
     constructor(
         private ldnServicesService: LdnServicesService,
-        private ldnDirectoryService: LdnDirectoryService,
+        private ldnItemfiltersService: LdnItemfiltersService,
         private formBuilder: FormBuilder,
-        private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private notificationsService: NotificationsService,
+        private translateService: TranslateService,
+        private cdRef: ChangeDetectorRef,
+        protected modalService: NgbModal,
     ) {
 
         this.formModel = this.formBuilder.group({
@@ -79,16 +96,28 @@ export class LdnServiceFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.ldnDirectoryService.getItemFilters().subscribe((itemFilters) => {
-            console.log(itemFilters);
-            this.itemFilterList = itemFilters._embedded.itemfilters.map((filter: { id: string; }) => ({
-                name: filter.id
-            }));
-        });
+        this.setItemfilters();
 
     }
 
-    submitForm() {
+    setItemfilters() {
+        this.itemfiltersRD$ = this.ldnItemfiltersService.findAll().pipe(
+            getFirstCompletedRemoteData());
+    }
+
+    onSubmit() {
+        this.openConfirmModal(this.confirmModal);
+    }
+
+    openConfirmModal(content) {
+        this.modalRef = this.modalService.open(content);
+    }
+
+    openResetFormModal(content) {
+        this.modalRef = this.modalService.open(content);
+    }
+
+    createService() {
         this.formModel.get('name').markAsTouched();
         this.formModel.get('url').markAsTouched();
         this.formModel.get('ldnUrl').markAsTouched();
@@ -98,31 +127,48 @@ export class LdnServiceFormComponent implements OnInit {
         const ldnUrl = this.formModel.get('ldnUrl').value;
 
         if (!name || !url || !ldnUrl) {
+            this.closeModal();
             return;
         }
 
-        this.formModel.removeControl('inboundPattern');
-        this.formModel.removeControl('outboundPattern');
-        this.formModel.removeControl('constraintPattern');
-        console.log('JSON Data:', this.formModel.value);
+        const values = this.formModel.value;
 
-        const apiUrl = 'http://localhost:8080/server/api/ldn/ldnservices';
+        const inboundPatternValue = this.formModel.get('inboundPattern').value;
+        const outboundPatternValue = this.formModel.get('outboundPattern').value;
 
-        this.http.post(apiUrl, this.formModel.value).subscribe(
-            (response) => {
-                console.log('Service created successfully:', response);
-                this.formModel.reset();
+        if (inboundPatternValue === '') {
+            values.notifyServiceInboundPatterns = [];
+        }
+        if (outboundPatternValue === '') {
+            values.notifyServiceOutboundPatterns = [];
+        }
+
+        const ldnServiceData = this.ldnServicesService.create(values);
+
+        ldnServiceData.pipe(
+            getFirstCompletedRemoteData()
+        ).subscribe((rd: RemoteData<LdnService>) => {
+            if (rd.hasSucceeded) {
+                this.notificationsService.success(this.translateService.get('ldn-service-notification.created.success.title'),
+                this.translateService.get('ldn-service-notification.created.success.body'));
+
                 this.sendBack();
-            },
-            (error) => {
-                console.error('Error creating service:', error);
+                this.closeModal();
+            } else {
+                this.notificationsService.error(this.translateService.get('notification.created.failure'));
             }
-        );
+        });
     }
 
 
-    private sendBack() {
-        this.router.navigateByUrl('admin/ldn/services');
+    resetFormAndLeave() {
+        this.sendBack();
+        this.closeModal();
+    }
+
+    closeModal() {
+        this.modalRef.close();
+        this.cdRef.detectChanges();
     }
 
     addInboundPattern() {
@@ -130,9 +176,9 @@ export class LdnServiceFormComponent implements OnInit {
         notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
     }
 
-    removeInboundPattern(patternGroup: FormGroup) {
+    removeInboundPattern(index: number) {
         const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-        notifyServiceInboundPatternsArray.removeAt(notifyServiceInboundPatternsArray.controls.indexOf(patternGroup));
+        notifyServiceInboundPatternsArray.removeAt(index);
     }
 
     addOutboundPattern() {
@@ -140,10 +186,22 @@ export class LdnServiceFormComponent implements OnInit {
         notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
     }
 
-    removeOutboundPattern(patternGroup: FormGroup) {
+    removeOutboundPattern(index: number) {
         const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-        notifyServiceOutboundPatternsArray.removeAt(notifyServiceOutboundPatternsArray.controls.indexOf(patternGroup));
+        notifyServiceOutboundPatternsArray.removeAt(index);
     }
+
+    toggleAutomatic(i: number) {
+        const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
+        if (automaticControl) {
+            automaticControl.setValue(!automaticControl.value);
+        }
+    }
+
+    private sendBack() {
+        this.router.navigateByUrl('admin/ldn/services');
+    }
+
 
     private createOutboundPatternFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -158,13 +216,6 @@ export class LdnServiceFormComponent implements OnInit {
             constraint: [''],
             automatic: false
         });
-    }
-
-    toggleAutomatic(i: number) {
-        const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
-        if (automaticControl) {
-            automaticControl.setValue(!automaticControl.value);
-        }
     }
 
 
