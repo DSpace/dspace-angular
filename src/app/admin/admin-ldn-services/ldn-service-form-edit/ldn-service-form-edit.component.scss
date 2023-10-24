@@ -1,8 +1,6 @@
 form {
-  max-width: 800px;
   font-size: 14px;
   position: relative;
-
 }
 
 input[type="text"],
@@ -127,7 +125,7 @@ form button.btn.btn-primary[type="submit"] {
 }
 
 .marked-for-deletion {
-  background-color: #ffcccc;
+  background-color: lighten($red, 30%);
 }
 
 
