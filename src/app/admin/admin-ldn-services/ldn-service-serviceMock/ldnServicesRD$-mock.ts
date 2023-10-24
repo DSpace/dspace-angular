@@ -37,8 +37,6 @@ export const mockLdnService: LdnService = {
 };
 
 
-
-
 const mockLdnServices = {
     payload: {
         elementsPerPage: 20,
@@ -52,7 +50,7 @@ const mockLdnServices = {
         page: [mockLdnService],
         type: LDN_SERVICE,
         self: undefined,
-        getPageLength: function() {
+        getPageLength: function () {
             return this.page.length;
         },
         _links: {
@@ -65,8 +63,6 @@ const mockLdnServices = {
     hasSucceeded: true,
     msToLive: 0,
 };
-
-
 
 
 // Create a mock ldnServicesRD$ observable

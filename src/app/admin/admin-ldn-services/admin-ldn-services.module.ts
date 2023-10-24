@@ -10,20 +10,20 @@ import { FormsModule } from '@angular/forms';
 import { LdnItemfiltersService } from './ldn-services-data/ldn-itemfilters-data.service';
 
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    AdminLdnServicesRoutingModule,
-    FormsModule
-  ],
-  declarations: [
-    LdnServicesOverviewComponent,
-    LdnServiceNewComponent,
-    LdnServiceFormComponent,
-    LdnServiceFormEditComponent,
-  ],
-  providers: [LdnItemfiltersService]
+    imports: [
+        CommonModule,
+        SharedModule,
+        AdminLdnServicesRoutingModule,
+        FormsModule
+    ],
+    declarations: [
+        LdnServicesOverviewComponent,
+        LdnServiceNewComponent,
+        LdnServiceFormComponent,
+        LdnServiceFormEditComponent,
+    ],
+    providers: [LdnItemfiltersService]
 })
-export class AdminLdnServicesModule { }
+export class AdminLdnServicesModule {
+}

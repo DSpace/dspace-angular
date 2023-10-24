@@ -1,7 +1,6 @@
-import { autoserialize, inheritSerialization, deserialize } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { LDN_SERVICE_CONSTRAINT_FILTER } from './ldn-service.resource-type';
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { ResourceType } from '../../../core/shared/resource-type';

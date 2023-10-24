@@ -17,7 +17,6 @@ import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 
-
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint
  */
@@ -38,11 +37,11 @@ export class LdnItemfiltersService extends IdentifiableDataService<Itemfilter> i
         this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     }
 
-  getEndpoint() {
-    return this.halService.getEndpoint(this.linkPath);
-  }
+    getEndpoint() {
+        return this.halService.getEndpoint(this.linkPath);
+    }
 
-  findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Itemfilter>[]): Observable<RemoteData<PaginatedList<Itemfilter>>> {
-    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
+    findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Itemfilter>[]): Observable<RemoteData<PaginatedList<Itemfilter>>> {
+        return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    }
 }

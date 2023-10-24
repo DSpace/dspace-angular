@@ -21,371 +21,365 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
-  selector: 'ds-ldn-service-form-edit',
-  templateUrl: './ldn-service-form-edit.component.html',
-  styleUrls: ['./ldn-service-form-edit.component.scss'],
-  animations: [
-    trigger('toggleAnimation', [
-      state('true', style({})),
-      state('false', style({})),
-      transition('true <=> false', animate('300ms ease-in')),
-    ]),
-  ],
+    selector: 'ds-ldn-service-form-edit',
+    templateUrl: './ldn-service-form-edit.component.html',
+    styleUrls: ['./ldn-service-form-edit.component.scss'],
+    animations: [
+        trigger('toggleAnimation', [
+            state('true', style({})),
+            state('false', style({})),
+            transition('true <=> false', animate('300ms ease-in')),
+        ]),
+    ],
 })
 export class LdnServiceFormEditComponent implements OnInit {
-  formModel: FormGroup;
-  @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
-  @ViewChild('resetFormModal', {static: true}) resetFormModal: TemplateRef<any>;
+    formModel: FormGroup;
+    @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
+    @ViewChild('resetFormModal', {static: true}) resetFormModal: TemplateRef<any>;
 
-  public inboundPatterns: object[] = notifyPatterns;
-  public outboundPatterns: object[] = notifyPatterns;
-  itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 20
-  });
-  pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'po',
-    pageSize: 20
-  });
-  @Input() public name: string;
-  @Input() public description: string;
-  @Input() public url: string;
-  @Input() public ldnUrl: string;
-  @Input() public inboundPattern: string;
-  @Input() public outboundPattern: string;
-  @Input() public constraint: string;
-  @Input() public automatic: boolean;
-  @Input() public headerKey: string;
-  private originalInboundPatterns: any[] = [];
-  private originalOutboundPatterns: any[] = [];
-  private deletedInboundPatterns: number[] = [];
-  private deletedOutboundPatterns: number[] = [];
-  private modalRef: any;
-  private service: LdnService;
-  protected serviceId: string;
-  markedForDeletion: number[] = [];
-
-
-  constructor(
-    protected ldnServicesService: LdnServicesService,
-    private ldnItemfiltersService: LdnItemfiltersService,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private cdRef: ChangeDetectorRef,
-    protected modalService: NgbModal,
-    private notificationService: NotificationsService,
-    private translateService: TranslateService,
-    protected paginationService: PaginationService
-  ) {
-
-    this.formModel = this.formBuilder.group({
-      id: [''],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      url: ['', Validators.required],
-      ldnUrl: ['', Validators.required],
-      inboundPattern: [''],
-      outboundPattern: [''],
-      constraintPattern: [''],
-      enabled: [''],
-      notifyServiceInboundPatterns: this.formBuilder.array([this.createInboundPatternFormGroup()]),
-      notifyServiceOutboundPatterns: this.formBuilder.array([this.createOutboundPatternFormGroup()]),
-      type: LDN_SERVICE.value,
+    public inboundPatterns: object[] = notifyPatterns;
+    public outboundPatterns: object[] = notifyPatterns;
+    itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
+    config: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 20
     });
-  }
-
-  ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.serviceId = params.serviceId;
-      if (this.serviceId) {
-        this.fetchServiceData(this.serviceId);
-      }
+    pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+        id: 'po',
+        pageSize: 20
     });
-    this.setItemfilters();
-  }
+    @Input() public name: string;
+    @Input() public description: string;
+    @Input() public url: string;
+    @Input() public ldnUrl: string;
+    @Input() public inboundPattern: string;
+    @Input() public outboundPattern: string;
+    @Input() public constraint: string;
+    @Input() public automatic: boolean;
+    @Input() public headerKey: string;
+    markedForDeletion: number[] = [];
+    protected serviceId: string;
+    private originalInboundPatterns: any[] = [];
+    private originalOutboundPatterns: any[] = [];
+    private deletedInboundPatterns: number[] = [];
+    private deletedOutboundPatterns: number[] = [];
+    private modalRef: any;
+    private service: LdnService;
 
-  setItemfilters() {
-    this.itemfiltersRD$ =  this.ldnItemfiltersService.findAll().pipe(
-        getFirstCompletedRemoteData());
-  }
+    constructor(
+        protected ldnServicesService: LdnServicesService,
+        private ldnItemfiltersService: LdnItemfiltersService,
+        private formBuilder: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private cdRef: ChangeDetectorRef,
+        protected modalService: NgbModal,
+        private notificationService: NotificationsService,
+        private translateService: TranslateService,
+        protected paginationService: PaginationService
+    ) {
+
+        this.formModel = this.formBuilder.group({
+            id: [''],
+            name: ['', Validators.required],
+            description: ['', Validators.required],
+            url: ['', Validators.required],
+            ldnUrl: ['', Validators.required],
+            inboundPattern: [''],
+            outboundPattern: [''],
+            constraintPattern: [''],
+            enabled: [''],
+            notifyServiceInboundPatterns: this.formBuilder.array([this.createInboundPatternFormGroup()]),
+            notifyServiceOutboundPatterns: this.formBuilder.array([this.createOutboundPatternFormGroup()]),
+            type: LDN_SERVICE.value,
+        });
+    }
+
+    ngOnInit(): void {
+        this.route.params.subscribe((params) => {
+            this.serviceId = params.serviceId;
+            if (this.serviceId) {
+                this.fetchServiceData(this.serviceId);
+            }
+        });
+        this.setItemfilters();
+    }
+
+    setItemfilters() {
+        this.itemfiltersRD$ = this.ldnItemfiltersService.findAll().pipe(
+            getFirstCompletedRemoteData());
+    }
 
 
+    fetchServiceData(serviceId: string): void {
+        this.ldnServicesService.findById(serviceId).pipe(
+            getFirstCompletedRemoteData()
+        ).subscribe(
+            (data: RemoteData<LdnService>) => {
+                if (data.hasSucceeded) {
+                    this.service = data.payload;
 
+                    this.formModel.patchValue({
+                        id: this.service.id,
+                        name: this.service.name,
+                        description: this.service.description,
+                        url: this.service.url,
+                        ldnUrl: this.service.ldnUrl,
+                        type: this.service.type,
+                        enabled: this.service.enabled
+                    });
 
-  fetchServiceData(serviceId: string): void {
-    this.ldnServicesService.findById(serviceId).pipe(
-        getFirstCompletedRemoteData()
-    ).subscribe(
-      (data: RemoteData<LdnService>) => {
-        if (data.hasSucceeded) {
-          this.service = data.payload;
+                    const inboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+                    inboundPatternsArray.clear();
 
-          this.formModel.patchValue({
-            id: this.service.id,
-            name: this.service.name,
-            description: this.service.description,
-            url: this.service.url,
-            ldnUrl: this.service.ldnUrl,
-            type: this.service.type,
-            enabled: this.service.enabled
-          });
+                    this.service.notifyServiceInboundPatterns.forEach((pattern: any) => {
+                        const patternFormGroup = this.initializeInboundPatternFormGroup();
+                        patternFormGroup.patchValue(pattern);
+                        inboundPatternsArray.push(patternFormGroup);
+                        this.cdRef.detectChanges();
+                    });
 
-          const inboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-          inboundPatternsArray.clear();
+                    const outboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+                    outboundPatternsArray.clear();
 
-          this.service.notifyServiceInboundPatterns.forEach((pattern: any) => {
-            const patternFormGroup = this.initializeInboundPatternFormGroup();
-            patternFormGroup.patchValue(pattern);
-            inboundPatternsArray.push(patternFormGroup);
-            this.cdRef.detectChanges();
-          });
+                    this.service.notifyServiceOutboundPatterns.forEach((pattern: any) => {
+                        const patternFormGroup = this.initializeOutboundPatternFormGroup();
+                        patternFormGroup.patchValue(pattern);
+                        outboundPatternsArray.push(patternFormGroup);
 
-          const outboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-          outboundPatternsArray.clear();
+                        this.cdRef.detectChanges();
+                    });
+                    this.originalInboundPatterns = [...this.service.notifyServiceInboundPatterns];
+                    this.originalOutboundPatterns = [...this.service.notifyServiceOutboundPatterns];
+                }
+            },
+        );
+    }
 
-          this.service.notifyServiceOutboundPatterns.forEach((pattern: any) => {
-            const patternFormGroup = this.initializeOutboundPatternFormGroup();
-            patternFormGroup.patchValue(pattern);
-            outboundPatternsArray.push(patternFormGroup);
+    generatePatchOperations(): any[] {
+        const patchOperations: any[] = [];
 
-            this.cdRef.detectChanges();
-          });
-          this.originalInboundPatterns = [...this.service.notifyServiceInboundPatterns];
-          this.originalOutboundPatterns = [...this.service.notifyServiceOutboundPatterns];
+        this.createReplaceOperation(patchOperations, 'name', '/name');
+        this.createReplaceOperation(patchOperations, 'description', '/description');
+        this.createReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
+        this.createReplaceOperation(patchOperations, 'url', '/url');
+
+        this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
+        this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
+
+        this.deletedInboundPatterns.forEach(index => {
+            const removeOperation: Operation = {
+                op: 'remove',
+                path: `notifyServiceInboundPatterns[${index}]`
+            };
+            patchOperations.push(removeOperation);
+        });
+
+        this.deletedOutboundPatterns.forEach(index => {
+            const removeOperation: Operation = {
+                op: 'remove',
+                path: `notifyServiceOutboundPatterns[${index}]`
+            };
+            patchOperations.push(removeOperation);
+        });
+
+        return patchOperations;
+    }
+
+    onSubmit() {
+        this.openConfirmModal(this.confirmModal);
+    }
+
+    addInboundPattern() {
+        const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+        notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
+    }
+
+    addOutboundPattern() {
+        const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+        notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
+    }
+
+    removeOutboundPattern(index: number): void {
+        const patternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+        const patternGroup = patternsArray.at(index) as FormGroup;
+        const patternValue = patternGroup.value;
+
+        if (index < 0 || index >= patternsArray.length || patternValue.isNew) {
+            patternsArray.removeAt(index);
+            return;
         }
-      },
-    );
-  }
-
-  generatePatchOperations(): any[] {
-    const patchOperations: any[] = [];
-
-    this.createReplaceOperation(patchOperations, 'name', '/name');
-    this.createReplaceOperation(patchOperations, 'description', '/description');
-    this.createReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
-    this.createReplaceOperation(patchOperations, 'url', '/url');
-
-    this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
-    this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
-
-    this.deletedInboundPatterns.forEach(index => {
-      const removeOperation: Operation = {
-        op: 'remove',
-        path: `notifyServiceInboundPatterns[${index}]`
-      };
-      patchOperations.push(removeOperation);
-    });
-
-    this.deletedOutboundPatterns.forEach(index => {
-      const removeOperation: Operation = {
-        op: 'remove',
-        path: `notifyServiceOutboundPatterns[${index}]`
-      };
-      patchOperations.push(removeOperation);
-    });
-
-    return patchOperations;
-  }
-
-  onSubmit() {
-    this.openConfirmModal(this.confirmModal);
-  }
-
-  addInboundPattern() {
-    const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-    notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
-  }
-
-  addOutboundPattern() {
-    const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-    notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
-  }
-
-  removeOutboundPattern(index: number): void {
-    const patternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-    const patternGroup = patternsArray.at(index) as FormGroup;
-    const patternValue = patternGroup.value;
-
-    if (index < 0 || index >= patternsArray.length || patternValue.isNew) {
-      patternsArray.removeAt(index);
-      return;
-    }
 
 
-    this.deletedOutboundPatterns.push(index);
+        this.deletedOutboundPatterns.push(index);
 
-    patternsArray.removeAt(index);
-    this.cdRef.detectChanges();
-  }
-
-
-  toggleAutomatic(i: number) {
-    const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
-    if (automaticControl) {
-      automaticControl.setValue(!automaticControl.value);
-    }
-  }
-
-  toggleEnabled() {
-    const newStatus = !this.formModel.get('enabled').value;
-
-    const patchOperation: Operation = {
-      op: 'replace',
-      path: '/enabled',
-      value: newStatus,
-    };
-
-    this.ldnServicesService.patch(this.service, [patchOperation]).pipe(
-        getFirstCompletedRemoteData()
-    ).subscribe(
-        () => {
-
-          this.formModel.get('enabled').setValue(newStatus);
-          this.cdRef.detectChanges();
-        }
-    );
-  }
-
-
-  closeModal() {
-    this.modalRef.close();
-    this.cdRef.detectChanges();
-  }
-
-  openConfirmModal(content) {
-    this.modalRef = this.modalService.open(content);
-  }
-
-  openResetFormModal(content) {
-    this.modalRef = this.modalService.open(content);
-  }
-
-  patchService() {
-    this.deleteMarkedPatterns();
-    const patchOperations = this.generatePatchOperations();
-
-
-    this.ldnServicesService.patch(this.service, patchOperations).pipe(
-        getFirstCompletedRemoteData()
-    ).subscribe(
-        () => {
-
-          this.closeModal();
-          this.sendBack();
-          this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
-              this.translateService.get('admin.registries.services-formats.modify.success.content'));
-        },
-        (error) => {
-          this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
-              this.translateService.get('admin.registries.services-formats.modify.failure.content'));
-        }
-    );
-
-  }
-
-  private createReplaceOperation(patchOperations: any[], formControlName: string, path: string): void {
-    if (this.formModel.get(formControlName).dirty) {
-      patchOperations.push({
-        op: 'replace',
-        path,
-        value: this.formModel.get(formControlName).value,
-      });
-    }
-  }
-
-  private handlePatterns(patchOperations: any[], formArrayName: string): void {
-    const patternsArray = this.formModel.get(formArrayName) as FormArray;
-
-    for (let i = 0; i < patternsArray.length; i++) {
-      const patternGroup = patternsArray.at(i) as FormGroup;
-      const patternValue = patternGroup.value;
-
-      if (patternGroup.dirty) {
-        if (patternValue.isNew) {
-          delete patternValue.isNew;
-          const addOperation = {
-            op: 'add',
-            path: `${formArrayName}/-`,
-            value: patternValue,
-          };
-          patchOperations.push(addOperation);
-        } else {
-          const replaceOperation = {
-            op: 'replace',
-            path: `${formArrayName}[${i}]`,
-            value: patternValue,
-          };
-          patchOperations.push(replaceOperation);
-        }
-      }
-    }
-  }
-
-  private sendBack() {
-    this.router.navigateByUrl('admin/ldn/services');
-  }
-
-  resetFormAndLeave() {
-    this.sendBack();
-    this.closeModal();
-  }
-
-  private createOutboundPatternFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      pattern: '',
-      constraint: '',
-      isNew: true,
-    });
-  }
-
-  private createInboundPatternFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      pattern: '',
-      constraint: '',
-      automatic: false,
-      isNew: true
-    });
-  }
-
-  private initializeOutboundPatternFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      pattern: '',
-      constraint: '',
-    });
-  }
-
-  private initializeInboundPatternFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      pattern: '',
-      constraint: '',
-      automatic: '',
-    });
-  }
-  markForDeletion(index: number) {
-    if (!this.markedForDeletion.includes(index)) {
-      this.markedForDeletion.push(index);
-    }
-  }
-
-  unmarkForDeletion(index: number) {
-    const i = this.markedForDeletion.indexOf(index);
-    if (i !== -1) {
-      this.markedForDeletion.splice(i, 1);
-    }
-  }
-
-  deleteMarkedPatterns() {
-    this.markedForDeletion.sort((a, b) => b - a);
-    const patternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
-
-    for (const index of this.markedForDeletion) {
-      if (index >= 0 && index < patternsArray.length) {
-        this.deletedInboundPatterns.push(index);
         patternsArray.removeAt(index);
-      }
+        this.cdRef.detectChanges();
     }
 
-    this.markedForDeletion = [];
-  }
+
+    toggleAutomatic(i: number) {
+        const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
+        if (automaticControl) {
+            automaticControl.setValue(!automaticControl.value);
+        }
+    }
+
+    toggleEnabled() {
+        const newStatus = !this.formModel.get('enabled').value;
+
+        const patchOperation: Operation = {
+            op: 'replace',
+            path: '/enabled',
+            value: newStatus,
+        };
+
+        this.ldnServicesService.patch(this.service, [patchOperation]).pipe(
+            getFirstCompletedRemoteData()
+        ).subscribe(
+            () => {
+
+                this.formModel.get('enabled').setValue(newStatus);
+                this.cdRef.detectChanges();
+            }
+        );
+    }
+
+
+    closeModal() {
+        this.modalRef.close();
+        this.cdRef.detectChanges();
+    }
+
+    openConfirmModal(content) {
+        this.modalRef = this.modalService.open(content);
+    }
+
+    openResetFormModal(content) {
+        this.modalRef = this.modalService.open(content);
+    }
+
+    patchService() {
+        this.deleteMarkedPatterns();
+        const patchOperations = this.generatePatchOperations();
+
+
+        this.ldnServicesService.patch(this.service, patchOperations).pipe(
+            getFirstCompletedRemoteData()
+        ).subscribe(
+            () => {
+
+                this.closeModal();
+                this.sendBack();
+                this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
+                    this.translateService.get('admin.registries.services-formats.modify.success.content'));
+            }
+        );
+
+    }
+
+    resetFormAndLeave() {
+        this.sendBack();
+        this.closeModal();
+    }
+
+    markForDeletion(index: number) {
+        if (!this.markedForDeletion.includes(index)) {
+            this.markedForDeletion.push(index);
+        }
+    }
+
+    unmarkForDeletion(index: number) {
+        const i = this.markedForDeletion.indexOf(index);
+        if (i !== -1) {
+            this.markedForDeletion.splice(i, 1);
+        }
+    }
+
+    deleteMarkedPatterns() {
+        this.markedForDeletion.sort((a, b) => b - a);
+        const patternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+
+        for (const index of this.markedForDeletion) {
+            if (index >= 0 && index < patternsArray.length) {
+                this.deletedInboundPatterns.push(index);
+                patternsArray.removeAt(index);
+            }
+        }
+
+        this.markedForDeletion = [];
+    }
+
+    private createReplaceOperation(patchOperations: any[], formControlName: string, path: string): void {
+        if (this.formModel.get(formControlName).dirty) {
+            patchOperations.push({
+                op: 'replace',
+                path,
+                value: this.formModel.get(formControlName).value,
+            });
+        }
+    }
+
+    private handlePatterns(patchOperations: any[], formArrayName: string): void {
+        const patternsArray = this.formModel.get(formArrayName) as FormArray;
+
+        for (let i = 0; i < patternsArray.length; i++) {
+            const patternGroup = patternsArray.at(i) as FormGroup;
+            const patternValue = patternGroup.value;
+
+            if (patternGroup.dirty) {
+                if (patternValue.isNew) {
+                    delete patternValue.isNew;
+                    const addOperation = {
+                        op: 'add',
+                        path: `${formArrayName}/-`,
+                        value: patternValue,
+                    };
+                    patchOperations.push(addOperation);
+                } else {
+                    const replaceOperation = {
+                        op: 'replace',
+                        path: `${formArrayName}[${i}]`,
+                        value: patternValue,
+                    };
+                    patchOperations.push(replaceOperation);
+                }
+            }
+        }
+    }
+
+    private sendBack() {
+        this.router.navigateByUrl('admin/ldn/services');
+    }
+
+    private createOutboundPatternFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            pattern: '',
+            constraint: '',
+            isNew: true,
+        });
+    }
+
+    private createInboundPatternFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            pattern: '',
+            constraint: '',
+            automatic: false,
+            isNew: true
+        });
+    }
+
+    private initializeOutboundPatternFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            pattern: '',
+            constraint: '',
+        });
+    }
+
+    private initializeInboundPatternFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            pattern: '',
+            constraint: '',
+            automatic: '',
+        });
+    }
 }

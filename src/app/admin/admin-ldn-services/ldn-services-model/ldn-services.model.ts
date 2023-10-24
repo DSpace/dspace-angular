@@ -7,7 +7,6 @@ import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { NotifyServicePattern } from './ldn-service-patterns.model';
 
 
-
 /** An LdnService  and its properties. */
 @typedObject
 @inheritSerialization(CacheableObject)

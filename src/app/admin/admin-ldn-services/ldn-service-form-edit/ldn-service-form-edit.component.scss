@@ -27,12 +27,13 @@ textarea {
   resize: none;
 }
 
-.add-pattern-link{
+.add-pattern-link {
   color: #0048ff;
   cursor: pointer;
   margin-left: 10px;
 }
-.remove-pattern-link{
+
+.remove-pattern-link {
   color: #e34949;
   cursor: pointer;
   margin-left: 10px;
@@ -75,7 +76,6 @@ textarea {
 }
 
 
-
 .toggle-switch .slider {
   width: 22px;
   height: 22px;
@@ -101,16 +101,16 @@ textarea {
   margin-right: 3px
 }
 
-.label-box{
-     margin-left:11px;
+.label-box {
+  margin-left: 11px;
 }
 
-.label-box-2{
-  margin-left:14px;
+.label-box-2 {
+  margin-left: 14px;
 }
 
-.label-box-3{
-  margin-left:5px;
+.label-box-3 {
+  margin-left: 5px;
 }
 
 form button.btn.btn-primary[type="submit"] {
