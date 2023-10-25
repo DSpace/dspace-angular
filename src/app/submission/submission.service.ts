@@ -298,6 +298,7 @@ export class SubmissionService {
             sectionObject.id = sectionId;
             sectionObject.sectionType = sections[sectionId].sectionType;
             availableSections.push(sectionObject);
+            console.log(sectionObject);
           });
         return availableSections;
       }),

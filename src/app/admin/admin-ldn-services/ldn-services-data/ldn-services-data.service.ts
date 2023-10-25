@@ -28,7 +28,7 @@ import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
 import { CreateData, CreateDataImpl } from '../../../core/data/base/create-data';
-import { ldnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
+import { LdnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
 import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { hasValue } from 'src/app/shared/empty.util';
 
@@ -92,7 +92,7 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
         return this.deleteData.deleteByHref(href, copyVirtualMetadata);
     }
 
-    public invoke(serviceName: string, serviceId: string, parameters: ldnServiceConstrain[], files: File[]): Observable<RemoteData<LdnService>> {
+    public invoke(serviceName: string, serviceId: string, parameters: LdnServiceConstrain[], files: File[]): Observable<RemoteData<LdnService>> {
         const requestId = this.requestService.generateRequestId();
         this.getBrowseEndpoint().pipe(
             take(1),
@@ -115,7 +115,7 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
         );
     }
 
-    private getInvocationFormData(constrain: ldnServiceConstrain[], files: File[]): FormData {
+    private getInvocationFormData(constrain: LdnServiceConstrain[], files: File[]): FormData {
         const form: FormData = new FormData();
         form.set('properties', JSON.stringify(constrain));
         files.forEach((file: File) => {

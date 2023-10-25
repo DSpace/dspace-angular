@@ -1,0 +1,31 @@
+<div class="container">
+
+  <ds-alert [content]="'submission.sections.notify.info'"
+            [dismissible]="true"
+            [type]="AlertTypeEnum.Info"></ds-alert>
+  <div class="dropdown-section">
+    <div class="dropdown">
+      <label>Request a Review at the following service</label>
+      <select [(ngModel)]="requestReview">
+        <option *ngFor="let reviewPatternService of (ldnServicesRD$ | async)?.payload?.page"
+                [value]="reviewPatternService">{{ reviewPatternService.name }}</option>
+      </select>
+    </div>
+
+    <div class="dropdown">
+      <label>Request an Endorsement at the following service</label>
+      <select [(ngModel)]="requestEndorsement">
+        <option *ngFor="let endorsementPatternService of (coarNotifyConfigRD$ | async)?.payload?.page"
+                [value]="endorsementPatternService">{{ endorsementPatternService.patterns }}</option>
+      </select>
+    </div>
+
+    <div class="dropdown">
+      <label>Dropdown 3</label>
+      <select [(ngModel)]="requestIngest">
+        <option *ngFor="let ingestPatternService of (ldnServicesRD$ | async)?.payload?.page"
+                [value]="ingestPatternService">{{ ingestPatternService.name }}</option>
+      </select>
+    </div>
+  </div>
+</div>

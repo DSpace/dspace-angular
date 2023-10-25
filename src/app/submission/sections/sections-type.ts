@@ -9,5 +9,5 @@ export enum SectionsType {
   SherpaPolicies = 'sherpaPolicy',
   Identifiers = 'identifiers',
   Collection = 'collection',
-  LdnService = 'ldn-service'
+  CoarNotify = 'coarnotify'
 }

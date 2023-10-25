@@ -67,7 +67,11 @@ import {
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
-import { LdnServiceComponent } from './sections/ldn-service/ldn-service.component';
+import { SubmissionSectionCoarNotifyComponent } from './sections/section-coar-notify/section-coar-notify.component';
+import {
+  CoarNotifyConfigDataService
+} from './sections/section-coar-notify/coar-notify-config-data.service';
+import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -77,7 +81,7 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionSherpaPoliciesComponent,
-  LdnServiceComponent
+  SubmissionSectionCoarNotifyComponent
 ];
 
 const DECLARATIONS = [
@@ -138,6 +142,8 @@ const DECLARATIONS = [
     SubmissionAccessesConfigDataService,
     SectionAccessesService,
     SectionFormOperationsService,
+    CoarNotifyConfigDataService,
+    LdnServicesService
   ]
 })
 

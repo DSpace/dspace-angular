@@ -38,9 +38,14 @@
                                              [sectionData]="object">
             </ds-submission-section-container>
         </ng-container>
+        <!--ds-submission-section-container [collectionId]="collectionId"
+                                         [submissionId]="submissionId"
+                                         [sectionData]="object">
+        </ds-submission-section-container-->
     </div>
     <div *ngIf="!(isLoading() | async)" class="submission-form-footer mt-3 mb-3 position-sticky">
       <p>ds-submission-form-footer</p>
         <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer>
     </div>
 </div>
+
