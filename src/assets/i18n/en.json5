@@ -2166,6 +2166,8 @@
 
   "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
 
+  "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+
   "item.edit.move.move": "Move",
 
   "item.edit.move.processing": "Moving...",
