@@ -131,17 +131,11 @@ export class LdnServiceFormComponent implements OnInit {
             return;
         }
 
+        this.formModel.value.notifyServiceInboundPatterns = this.formModel.value.notifyServiceInboundPatterns.filter((pattern: { pattern: string; }) => pattern.pattern !== '');
+        this.formModel.value.notifyServiceOutboundPatterns = this.formModel.value.notifyServiceOutboundPatterns.filter((pattern: { pattern: string; }) => pattern.pattern !== '');
+
+        console.log(this.formModel.value);
         const values = this.formModel.value;
-
-        const inboundPatternValue = this.formModel.get('inboundPattern').value;
-        const outboundPatternValue = this.formModel.get('outboundPattern').value;
-
-        if (inboundPatternValue === '') {
-            values.notifyServiceInboundPatterns = [];
-        }
-        if (outboundPatternValue === '') {
-            values.notifyServiceOutboundPatterns = [];
-        }
 
         const ldnServiceData = this.ldnServicesService.create(values);
 
