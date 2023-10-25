@@ -57,12 +57,11 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
 
-  selectedServiceValues: any[] = [];
 
-  /**
-   * The AlertType enumeration
-   * @type {AlertType}
-   */
+  patterns: string[] = [];
+  selectedServices: { [key: string]: LdnService } = {};
+  patternsLoaded = false;
+
   public AlertTypeEnum = AlertType;
   /**
    * The form model
@@ -171,7 +170,15 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   setCoarNotifyConfig() {
     this.coarNotifyConfigRD$ = this.coarNotifyConfigDataService.findAll().pipe(
-      getFirstCompletedRemoteData());
+        getFirstCompletedRemoteData()
+    );
+
+    this.coarNotifyConfigRD$.subscribe((data) => {
+      if (data.hasSucceeded) {
+        this.patterns = data.payload.page[0].patterns;
+        this.patternsLoaded = true;
+      }
+    });
   }
 
   /**
@@ -181,10 +188,10 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   onCustomEvent(event: DynamicFormControlEvent) {
     this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      null);
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        null);
   }
 
   /**
@@ -223,10 +230,10 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     }
 
     this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      this.hasStoredValue(fieldId, fieldIndex));
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(fieldId, fieldIndex));
 
   }
 
@@ -241,8 +248,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   hasStoredValue(fieldId, index): boolean {
     if (isNotEmpty(this.sectionData.data)) {
       return this.sectionData.data.hasOwnProperty(fieldId) &&
-        isNotEmpty(this.sectionData.data[fieldId][index]) &&
-        !this.isFieldToRemove(fieldId, index);
+          isNotEmpty(this.sectionData.data[fieldId][index]) &&
+          !this.isFieldToRemove(fieldId, index);
     } else {
       return false;
     }
@@ -284,8 +291,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   onSectionDestroy() {
     this.subs
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
+        .filter((subscription) => hasValue(subscription))
+        .forEach((subscription) => subscription.unsubscribe());
   }
 
   /**
@@ -293,9 +300,19 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * Retriev available NotifyConfigs
    */
   fetchLdnServices() {
-    this.ldnServicesRD$ =  this.ldnServicesService.findAll().pipe(
+    this.ldnServicesRD$ = this.ldnServicesService.findAll().pipe(
         getFirstCompletedRemoteData()
-      );
+    );
+
+    this.ldnServicesRD$.subscribe((data) => {
+      if (this.patternsLoaded) {
+        this.patterns.forEach((pattern) => {
+          this.selectedServices[pattern] = data.payload.page.find((service) =>
+              this.hasInboundPattern(service, `Request ${pattern}`)
+          );
+        });
+      }
+    });
   }
 
   protected getSectionStatus(): Observable<boolean> {
