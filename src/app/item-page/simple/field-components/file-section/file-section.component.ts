@@ -39,6 +39,8 @@ export class FileSectionComponent implements OnInit {
 
   pageSize: number;
 
+  primaryBitsreamId: string;
+
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
@@ -50,7 +52,17 @@ export class FileSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getPrimaryBitstreamId();
     this.getNextPage();
+  }
+
+  private getPrimaryBitstreamId() {
+    this.bitstreamDataService.findPrimaryBitstreamByItemAndName(this.item, 'ORIGINAL', true, true).subscribe((primaryBitstream: Bitstream | null) => {
+      if (!primaryBitstream) {
+        return;
+      }
+      this.primaryBitsreamId = primaryBitstream?.id;
+    });
   }
 
   /**

@@ -1,9 +1,9 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, EMPTY } from 'rxjs';
 import { find, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig, followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
@@ -34,6 +34,7 @@ import { NoContent } from '../shared/NoContent.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
 import { Operation, RemoveOperation } from 'fast-json-patch';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -199,6 +200,37 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
    */
   public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<string> {
     return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
+  }
+
+
+  /**
+   *
+   * Make a request to get primary bitstream
+   * in all current use cases, and having it simplifies this method
+   *
+   * @param item                        the {@link Item} the {@link Bundle} is a part of
+   * @param bundleName                  the name of the {@link Bundle} we want to find
+   *                                    {@link Bitstream}s for
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @return {Observable<Bitstream | null>}
+   *    Return an observable that constains primary bitstream information or null
+   */
+  public findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<Bitstream | null> {
+    return this.bundleService.findByItemAndName(item, bundleName, useCachedVersionIfAvailable, reRequestOnStale, followLink('primaryBitstream')).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd: RemoteData<Bundle>) => {
+        if (!rd.hasSucceeded) {
+          return EMPTY;
+        }
+        return rd.payload.primaryBitstream.pipe(
+          getFirstCompletedRemoteData(),
+          map((rdb: RemoteData<Bitstream>) => rdb.hasSucceeded ? rdb.payload : null)
+        );
+      })
+    );
   }
 
   /**
