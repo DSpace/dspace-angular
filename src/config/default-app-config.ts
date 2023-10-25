@@ -238,6 +238,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'bn', label: 'বাংলা', active: true },
     { code: 'hi', label: 'हिंदी', active: true},
     { code: 'el', label: 'Ελληνικά', active: true },
+    { code: 'sr-cyr', label: 'Српски', active: true},
     { code: 'uk', label: 'Yкраї́нська', active: true}
   ];
 
