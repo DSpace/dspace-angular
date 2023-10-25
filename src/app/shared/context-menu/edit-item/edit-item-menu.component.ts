@@ -101,7 +101,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     }
   }
   getData(): void {
-    this.sub = this.editItemService.searchEditModesById(this.contextMenuObject.id, false).pipe(
+    this.sub = this.editItemService.searchEditModesById(this.contextMenuObject.id).pipe(
       getAllSucceededRemoteDataPayload(),
       getPaginatedListPayload(),
       startWith([])
