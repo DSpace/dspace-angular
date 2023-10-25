@@ -3319,6 +3319,16 @@
 
   "item.preview.oairecerif.oamandate" : "OA Mandate",
 
+  "item.preview.oairecerif.identifier.url": "Link",
+
+  "item.preview.organization.identifier.ror": "ROR ID",
+
+  "item.preview.organization.foundingDate": "Founding Date",
+
+  "item.preview.organization.address.addressCountry": "Country",
+
+  "item.preview.organization.parentOrganization": "Parent Organization",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
@@ -5520,6 +5530,10 @@
 
   "statistics.table.mainReports.title.TopCities": "Top city views",
 
+  "form.other-information.oairecerif-author-affiliation" : "Affiliation",
+
+  "form.other-information.oairecerif-editor-affiliation" : "Affiliation",
+
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
   "statistics.table.downloadReports.title.TopItems": "Most downloaded",
@@ -5775,6 +5789,8 @@
   "submission.import-external.source.openaire": "OpenAIRE by Author",
 
   "submission.import-external.source.openaireTitle": "OpenAIRE by Title",
+
+  "submission.import-external.source.rorOrgUnits": "ROR",
 
   "submission.import-external.preview.title.Equipment": "Equipment Preview",
 
@@ -6414,7 +6430,7 @@
 
   "submission.sections.license.required": "You must accept the license",
 
-  "submission.sections.license.notgranted":  "You must accept the license",
+  "submission.sections.license.notgranted":  "",
 
 
   "submission.sections.sherpa.publication.information": "Publication information",

@@ -18,30 +18,27 @@
           <span class="text-muted">
             <ds-truncatable-part [id]="item.id" [minLines]="1">
               (<span *ngIf="item.hasMetadata('dc.publisher')" class="item-list-publisher"
-                [innerHTML]="item.firstMetadataValue('dc.publisher') + ', '"></span>
-          <span class="item-list-date" [innerHTML]="item.firstMetadataValue('dc.date.issued') || ('mydspace.results.no-date' | translate)"></span>)
-          <ng-container *ngVar="['dc.contributor.author', 'dc.creator', 'dc.contributor.*'] as mdList">
-            <span *ngIf="item.hasMetadata(mdList);"
-                  class="item-list-authors">
-                <span *ngIf="item.allMetadataValues(mdList).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
-                <span *ngFor="let author of item.allMetadata(mdList); let i=index; let last=last;">
-                  <ds-metadata-link-view *ngIf="!!item && !!author" [item]="item" [metadata]="author" [metadataName]="mdList"></ds-metadata-link-view>
+                     [innerHTML]="item.firstMetadataValue('dc.publisher') + ', '"></span>
+              <span class="item-list-date" [innerHTML]="item.firstMetadataValue('dc.date.issued') || ('mydspace.results.no-date' | translate)"></span>)
+              <span *ngIf="item.hasMetadata(authorMetadata);" class="item-list-authors">
+                <span *ngIf="item.allMetadataValues(authorMetadata).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
+                <span *ngFor="let author of item.allMetadata(authorMetadata); let i=index; let last=last;">
+                  <ds-metadata-link-view *ngIf="!!item && !!author" [item]="item" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view>
                 </span>
-            </span>
-          </ng-container>
+              </span>
             </ds-truncatable-part>
           </span>
 
           <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
             <span [ngClass]="{'text-muted': !item.firstMetadataValue('dc.description.abstract')}"
-              [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
+                  [innerHTML]="(item.firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
           </ds-truncatable-part>
 
-      <ds-additional-metadata [object]="item"></ds-additional-metadata>
+          <ds-additional-metadata [object]="item"></ds-additional-metadata>
 
         </div>
       </ds-truncatable>
-  <ds-item-correction [item]="item"></ds-item-correction>
+      <ds-item-correction [item]="item"></ds-item-correction>
       <ds-item-submitter *ngIf="showSubmitter" [object]="object.indexableObject"></ds-item-submitter>
       <ds-item-collection [object]="object.indexableObject"></ds-item-collection>
     </div>
