@@ -134,7 +134,6 @@ export class LdnServiceFormComponent implements OnInit {
         this.formModel.value.notifyServiceInboundPatterns = this.formModel.value.notifyServiceInboundPatterns.filter((pattern: { pattern: string; }) => pattern.pattern !== '');
         this.formModel.value.notifyServiceOutboundPatterns = this.formModel.value.notifyServiceOutboundPatterns.filter((pattern: { pattern: string; }) => pattern.pattern !== '');
 
-        console.log(this.formModel.value);
         const values = this.formModel.value;
 
         const ldnServiceData = this.ldnServicesService.create(values);
