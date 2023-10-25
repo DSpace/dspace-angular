@@ -3,11 +3,13 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { of } from 'rxjs/internal/observable/of';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import {
+  ItemMetadataRepresentation
+} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { By } from '@angular/platform-browser';
@@ -83,9 +85,6 @@ describe('DsoEditMetadataValueComponent', () => {
 
   it('should call initSecurityLevel when field changes', () => {
     component.mdField = 'test';
-    component.ngOnChanges({
-      mdField: new SimpleChange(null, 'test', true)
-    });
     expect(component.initSecurityLevel).toHaveBeenCalled();
     expect(component.mdSecurityConfigLevel$.value).toEqual([0, 1, 2]);
   });

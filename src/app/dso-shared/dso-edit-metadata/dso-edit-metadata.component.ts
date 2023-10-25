@@ -6,24 +6,20 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DsoEditMetadataChangeType, DsoEditMetadataForm } from './dso-edit-metadata-form';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute, Data } from '@angular/router';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { getFirstCompletedRemoteData} from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
-import { Observable } from 'rxjs/internal/Observable';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
-import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'ds-dso-edit-metadata',

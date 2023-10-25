@@ -1,4 +1,4 @@
-import {Inject} from '@angular/core';
+import { Inject } from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
@@ -106,8 +106,8 @@ export class ConcatFieldParser extends FieldParser {
     (model1 as any).toggleSecurityVisibility = false;
     (model2 as any).toggleSecurityVisibility = false;
     // attach the security config for children
-    // (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
-    // (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    (model1 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
+    (model2 as any).securityConfigLevel = (concatGroup as any).securityConfigLevel;
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 

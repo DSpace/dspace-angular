@@ -17,10 +17,10 @@
   </div>
   <div class="flex-grow-1 ds-flex-cell ds-security-cell d-flex justify-content-center" role="cell">
     <div class="btn-group edit-field">
-     <ds-edit-metadata-security *ngIf="mdField && mdSecurityConfigLevel$.value.length > 1"
+      <ds-edit-metadata-security *ngIf="canShowMetadataSecurity$ | async"
                                 [securityLevel]="mdValue.newValue.securityLevel"
                                 [isNewMdField]="isNewMdField"
-                                [securityConfigLevel]="mdSecurityConfigLevel$.value"
+                                 [securityConfigLevel]="mdSecurityConfigLevel$ | async"
                                 (changeSecurityLevel)="changeSelectedSecurity($event)"
                                 (hasSecurityLevel)="hasSecurityMetadata($event)">
       </ds-edit-metadata-security>

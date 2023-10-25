@@ -1,6 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  distinctUntilChanged,
+  EMPTY,
+  Observable,
+  shareReplay,
+  Subscription
+} from 'rxjs';
 import {
   MetadataRepresentation,
   MetadataRepresentationType
@@ -14,6 +22,7 @@ import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
+import { hasValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -23,7 +32,7 @@ import { MetadataSecurityConfiguration } from '../../../core/submission/models/m
 /**
  * Component displaying a single editable row for a metadata value
  */
-export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
+export class DsoEditMetadataValueComponent implements OnInit, OnDestroy {
   /**
    * The parent {@link DSpaceObject} to display a metadata form for
    * Also used to determine metadata-representations in case of virtual metadata
@@ -38,12 +47,31 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   /**
    * The metadata security configuration for the entity.
    */
-  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
+  @Input()
+  set metadataSecurityConfiguration(metadataSecurityConfiguration: MetadataSecurityConfiguration) {
+    this._metadataSecurityConfiguration$.next(metadataSecurityConfiguration);
+  }
+
+  get metadataSecurityConfiguration() {
+    return this._metadataSecurityConfiguration$.value;
+  }
+
+  protected readonly _metadataSecurityConfiguration$ =
+      new BehaviorSubject<MetadataSecurityConfiguration | null>(null);
 
   /**
    * The metadata field to display a value for
    */
-  @Input() mdField: string;
+  @Input()
+  set mdField(mdField: string) {
+    this._mdField$.next(mdField);
+  }
+
+  get mdField() {
+    return this._mdField$.value;
+  }
+
+  protected readonly _mdField$ = new BehaviorSubject<string | null>(null);
 
   /**
    * Flag whether this is a new metadata field or exists already
@@ -123,29 +151,52 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * The name of the item represented by this virtual metadata value (otherwise null)
    */
   mdRepresentationName$: Observable<string | null>;
-  mdSecurityConfigLevel$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
+  readonly mdSecurityConfigLevel$: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([]);
+
+  canShowMetadataSecurity$: Observable<boolean>;
+
+  private sub: Subscription;
 
   constructor(protected relationshipService: RelationshipDataService,
               protected dsoNameService: DSONameService) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.mdField) {
-      this.initSecurityLevel();
+  ngOnInit(): void {
+    this.initVirtualProperties();
+
+    this.sub = combineLatest([
+      this._mdField$,
+      this._metadataSecurityConfiguration$
+    ]).subscribe(([mdField, metadataSecurityConfig]) => this.initSecurityLevel(mdField, metadataSecurityConfig));
+
+    this.canShowMetadataSecurity$ =
+        combineLatest([
+          this._mdField$.pipe(distinctUntilChanged()),
+          this.mdSecurityConfigLevel$
+        ]).pipe(
+            map(([mdField, securityConfigLevel]) => hasValue(mdField) && this.hasSecurityChoice(securityConfigLevel)),
+            shareReplay(1),
+        );
+  }
+
+  private hasSecurityChoice(securityConfigLevel: number[]) {
+    return securityConfigLevel?.length > 1;
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
     }
   }
 
-  ngOnInit(): void {
-    this.initVirtualProperties();
-    this.initSecurityLevel();
-  }
-
-  initSecurityLevel(): void {
+  initSecurityLevel(mdField: string, metadataSecurityConfig: MetadataSecurityConfiguration) {
     let appliedSecurity: number[] = [];
-    if (this.metadataSecurityConfiguration && this.metadataSecurityConfiguration?.metadataCustomSecurity[this.mdField]) {
-      appliedSecurity = this.metadataSecurityConfiguration.metadataCustomSecurity[this.mdField];
-    } else if (this.metadataSecurityConfiguration && this.metadataSecurityConfiguration?.metadataSecurityDefault){
-      appliedSecurity = this.metadataSecurityConfiguration.metadataSecurityDefault;
+    if (hasValue(metadataSecurityConfig)) {
+      if (metadataSecurityConfig?.metadataCustomSecurity[mdField]) {
+        appliedSecurity = metadataSecurityConfig.metadataCustomSecurity[mdField];
+      } else if (metadataSecurityConfig?.metadataSecurityDefault) {
+        appliedSecurity = metadataSecurityConfig.metadataSecurityDefault;
+      }
     }
     this.mdSecurityConfigLevel$.next(appliedSecurity);
   }
