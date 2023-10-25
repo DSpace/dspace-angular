@@ -56,7 +56,7 @@ export class ExternalSourceEntry extends ListableObject {
   /**
    * The list of objects that match this entry
    */
-  @autoserialize
+  @autoserializeAs(Item)
   matchObjects: Item[];
 
   /**

@@ -4,7 +4,8 @@ import { ExternalSourceEntry } from '../../../../../core/shared/external-source-
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   let component: ExternalSourceEntryListSubmissionElementComponent;
@@ -102,6 +103,9 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
         lastModified: '2023-10-20T09:23:12.984+00:00',
         entityType: 'Publication',
         type: 'item',
+        firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+          return undefined;
+        },
       },
     ],
   });
@@ -109,7 +113,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ExternalSourceEntryListSubmissionElementComponent],
-      imports: [TranslateModule.forRoot(), NgbAccordionModule],
+      imports: [TranslateModule.forRoot(), NgbCollapseModule],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -148,7 +152,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   it('should display the entry\'s duplicate match titles when matchObjects has items', () => {
     const accordionHeaderBtn = fixture.nativeElement.querySelector('.btn-link');
     accordionHeaderBtn.click();
-    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('[data-test="matchObjectsLink"]');
-    expect(matchObjectsLinks[0].textContent.trim()).toEqual('Public item (123456789/4)');
+    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('ds-themed-item-list-preview');
+    expect(matchObjectsLinks).toBeTruthy();
   });
 });

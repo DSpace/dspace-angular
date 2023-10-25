@@ -28,38 +28,34 @@
     </ds-truncatable>
   </div>
   <div *ngIf="object?.matchObjects?.length > 0">
-    <ngb-accordion #acc="ngbAccordion">
-      <ngb-panel [id]="object.id">
-        <ng-template ngbPanelHeader>
-          <div class="w-100 d-flex collapse-toggle" ngbPanelToggle (click)="acc.toggle(object.id)">
-            <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
-              [attr.aria-expanded]="!acc.isExpanded(object.id)" aria-controls="collapsePanels">
-              <span class="badge badge-secondary">
-                {{ object.matchObjects.length }}
-              </span>
-              {{'submission.sections.external-source.duplicate-matches.header' | translate}}
-            </button>
-          </div>
-        </ng-template>
-        <ng-template ngbPanelContent>
-          <span *ngFor="let match of object.matchObjects; let isLast = last;" class="d-flex mb-1 align-items-center">
-            <a data-test="matchObjectsLink" target="_blank" [routerLink]="[itemPagePath, match.uuid]" class="d-flex"
-              [title]="match.name">
-              <span class="text-wrap">
-                {{ match.name }}
-              </span>
-              <span *ngIf="match.handle" class="text-muted small">({{match.handle}})</span>
-              <span *ngIf="!match.handle" class="text-muted small">({{match.uuid}})</span>
+    <p>
+      <button type="button" class="btn btn-link p-0" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">
+        <span class="badge badge-secondary">
+          {{ object.matchObjects.length }}
+        </span>
+        {{'submission.sections.external-source.duplicate-matches.header' | translate}}
+      </button>
+    </p>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" [id]="object.id">
+      <div class="card p-1">
+        <ng-container
+          *ngFor="let match of object.matchObjects | slice: (pageConfig.currentPage-1) * pageConfig.pageSize : pageConfig.currentPage * pageConfig.pageSize">
+          <ds-themed-item-list-preview [item]="match" [object]="itemPreviewObject" [metadataList]="metadataList">
+          </ds-themed-item-list-preview>
+          <div class="offset-2">
+            <a class="btn btn-primary mt-1" ngbTooltip="{{'submission.workflow.generic.view-help' | translate}}"
+              [routerLink]="getItemRoute(match)" target="_blank">
+              <i class="fa fa-info-circle"></i> {{"submission.workflow.generic.view" | translate}}
             </a>
-            <span class="badge badge-warning ml-2" *ngIf="match.isWithdrawn">
-              {{ "submission.sections.external-source.duplicate-matches.item.isWithdrawn" | translate }}
-            </span>
-            <span class="badge badge-warning ml-2" *ngIf="!match.isArchived">
-              {{ "submission.sections.external-source.duplicate-matches.item.not-archived" | translate }}
-            </span>
-          </span>
-        </ng-template>
-      </ngb-panel>
-    </ngb-accordion>
+          </div>
+          <hr>
+        </ng-container>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination [(page)]="pageConfig.currentPage" [pageSize]="pageConfig.pageSize"
+            [collectionSize]="object.matchObjects.length">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

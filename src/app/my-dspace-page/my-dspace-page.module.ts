@@ -46,8 +46,8 @@ const DECLARATIONS = [
   ],
   declarations: DECLARATIONS,
   providers: [
+    MyDSpaceConfigurationService,
     MyDSpaceGuard,
-    MyDSpaceConfigurationService
   ],
   exports: DECLARATIONS,
 })

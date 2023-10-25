@@ -16,7 +16,6 @@ import { WorkflowItemSearchResultListElementComponent } from '../shared/object-l
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { ClaimedApprovedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-approved-search-result/claimed-approved-search-result-list-element.component';
 import { ClaimedDeclinedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-search-result/claimed-declined-search-result-list-element.component';
-import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ItemCollectionComponent } from '../shared/object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemDetailPreviewComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 import { ItemDetailPreviewFieldComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
@@ -26,6 +25,7 @@ import { MyDSpaceItemStatusComponent } from '../shared/object-collection/shared/
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { MyDSpaceActionsModule } from '../shared/mydspace-actions/mydspace-actions.module';
 import { ClaimedDeclinedTaskSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-task-search-result/claimed-declined-task-search-result-list-element.component';
+import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 
 const ENTRY_COMPONENTS = [
   WorkspaceItemSearchResultListElementComponent,
@@ -59,9 +59,9 @@ const DECLARATIONS = [
     SharedModule,
     MyDspacePageRoutingModule,
     MyDSpaceActionsModule,
-    ResearchEntitiesModule.withEntryComponents(),
     JournalEntitiesModule.withEntryComponents(),
   ],
+  providers: [MyDSpaceConfigurationService],
   declarations: [
     ...DECLARATIONS,
   ],
