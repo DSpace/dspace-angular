@@ -1,11 +1,12 @@
 import { DynamicFormsCoreModule, DynamicFormService } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
+import { DebugElement} from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { DynamicCustomSwitchModel } from './custom-switch.model';
 import { CustomSwitchComponent } from './custom-switch.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CustomSwitchComponent', () => {
 
@@ -20,9 +21,10 @@ describe('CustomSwitchComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         ReactiveFormsModule,
         NoopAnimationsModule,
-        DynamicFormsCoreModule.forRoot()
+        DynamicFormsCoreModule.forRoot(),
       ],
       declarations: [CustomSwitchComponent]
 
