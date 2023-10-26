@@ -35,7 +35,7 @@ export class NotifyInfoService {
      * @returns the url of the local inbox
      */
     getCoarLdnLocalInboxUrls(): Observable<string[]> {
-      return this.configService.findByPropertyName('ldn.notify.local-inbox-endpoint').pipe(
+      return this.configService.findByPropertyName('ldn.notify.inbox').pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
         map((response: ConfigurationProperty) => {
