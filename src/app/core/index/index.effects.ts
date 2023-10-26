@@ -46,7 +46,7 @@ export class UUIDIndexEffects {
       ofType(ObjectCacheActionTypes.ADD),
       map((action: AddToObjectCacheAction) => {
         const alternativeLink = action.payload.alternativeLink;
-        const selfLink = hasValue(action.payload.objectToCache) ? action.payload.objectToCache._links.self.href : alternativeLink;
+        const selfLink = hasValue(action.payload.objectToCache?._links?.self) ? action.payload.objectToCache._links.self.href : alternativeLink;
         if (hasValue(alternativeLink) && alternativeLink !== selfLink) {
           return new AddToIndexAction(
             IndexName.ALTERNATIVE_OBJECT_LINK,

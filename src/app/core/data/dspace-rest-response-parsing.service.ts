@@ -110,7 +110,11 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
                 embedAltUrl = new URLCombiner(embedAltUrl, `?size=${match.size}`).toString();
               }
               if (data._embedded[property] == null) {
+                // Embedded object is null, meaning it exists (not undefined), but had an empty response (204) -> cache it as null
                 this.addToObjectCache(null, request, data, embedAltUrl);
+              } else if (!isCacheableObject(data._embedded[property])) {
+                // Embedded object exists, but doesn't contain a self link -> cache it using the alternative link instead
+                this.objectCache.add(data._embedded[property], hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, embedAltUrl);
               }
               this.process<ObjectDomain>(data._embedded[property], request, embedAltUrl);
             });

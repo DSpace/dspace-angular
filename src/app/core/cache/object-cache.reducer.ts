@@ -166,7 +166,7 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  *    the new state, with the object added, or overwritten.
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
-  const cacheLink = hasValue(action.payload.objectToCache) ? action.payload.objectToCache._links.self.href : action.payload.alternativeLink;
+  const cacheLink = hasValue(action.payload.objectToCache?._links?.self) ? action.payload.objectToCache._links.self.href : action.payload.alternativeLink;
   const existing = state[cacheLink] || {} as any;
   const newAltLinks = hasValue(action.payload.alternativeLink) ? [action.payload.alternativeLink] : [];
   if (hasValue(cacheLink)) {
