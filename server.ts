@@ -34,7 +34,7 @@ import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
 
-import { existsSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
@@ -212,6 +212,11 @@ export function app() {
    * Checking server status
    */
   server.get('/app/health', healthCheck);
+
+  /**
+   * Checking client status
+   */
+  server.get('/app/client/health', clientHealthCheck);
 
   /**
    * Default sending all incoming requests to ngApp() function, after first checking for a cached
@@ -543,6 +548,16 @@ function start() {
   } else {
     run();
   }
+}
+
+/*
+ * The callback function to serve client health check requests
+ */
+function clientHealthCheck(req, res) {
+    const isServerHealthy = true;
+    if (isServerHealthy) {
+      res.status(200).json({ status: 'UP' });
+    }
 }
 
 /*
