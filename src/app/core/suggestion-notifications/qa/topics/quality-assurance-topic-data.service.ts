@@ -17,6 +17,7 @@ import { dataService } from '../../../data/base/data-service.decorator';
 import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 import { hasValue } from 'src/app/shared/empty.util';
+import { SearchData, SearchDataImpl } from 'src/app/core/data/base/search-data';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -26,6 +27,9 @@ import { hasValue } from 'src/app/shared/empty.util';
 export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 
   private findAllData: FindAllData<QualityAssuranceTopicObject>;
+  private searchData: SearchData<QualityAssuranceTopicObject>;
+
+  private searchByTargetMethod = 'byTarget';
 
   /**
    * Initialize service variables
@@ -44,6 +48,7 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
   ) {
     super('qualityassurancetopics', requestService, rdbService, objectCache, halService);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -88,7 +93,7 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
       });
     }
 
-    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.searchData.searchBy(this.searchByTargetMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
