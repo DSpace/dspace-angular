@@ -1982,6 +1982,8 @@
 
   "info.coar-notify.breadcrumbs": "Notify Support",
 
+  "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
+
   "info.feedback.head": "Feedback",
 
   "info.feedback.title": "Feedback",

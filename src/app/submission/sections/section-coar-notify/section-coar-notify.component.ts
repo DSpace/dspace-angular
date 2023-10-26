@@ -61,6 +61,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   patterns: string[] = [];
   selectedServices: { [key: string]: LdnService } = {};
   patternsLoaded = false;
+  selectedService: any;
+
 
   public AlertTypeEnum = AlertType;
   /**
@@ -179,6 +181,18 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
         this.patternsLoaded = true;
       }
     });
+  }
+
+
+  addService() {
+    this.patterns.push('');
+  }
+
+
+  removeService(index: number) {
+    if (index >= 0 && index < this.patterns.length) {
+      this.patterns.splice(index, 1);
+    }
   }
 
   /**
@@ -301,25 +315,43 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   fetchLdnServices() {
     this.ldnServicesRD$ = this.ldnServicesService.findAll().pipe(
-        getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData()
     );
 
     this.ldnServicesRD$.subscribe((data) => {
       if (this.patternsLoaded) {
         this.patterns.forEach((pattern) => {
           this.selectedServices[pattern] = data.payload.page.find((service) =>
-              this.hasInboundPattern(service, `Request ${pattern}`)
+            this.hasInboundPattern(service, pattern)
           );
+
+          //console.log('Pattern:', pattern);
+          //console.log('Service:', this.selectedServices[pattern]);
+
+          if (this.selectedServices[pattern]) {
+            //console.log('Name:', this.selectedServices[pattern].name);
+            //console.log('Description:', this.selectedServices[pattern].description);
+          }
         });
       }
     });
   }
+
 
   protected getSectionStatus(): Observable<boolean> {
     return undefined;
   }
 
   hasInboundPattern(service: any, patternType: string): boolean {
-    return service.notifyServiceInboundPatterns.some(pattern => pattern.pattern === patternType);
+    //console.log('Pattern Type:', patternType);
+    //console.log('Inbound Patterns in Service:', service.notifyServiceInboundPatterns);
+
+    const hasPattern = service.notifyServiceInboundPatterns.some((pattern: { pattern: string; }) => {
+      //console.log('Checking Pattern:', pattern.pattern);
+      return pattern.pattern === patternType;
+    });
+
+    //console.log('Has Inbound Pattern:', hasPattern);
+    return hasPattern;
   }
 }

@@ -84,6 +84,10 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
         return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
     }
 
+   /*findByPattern(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
+    return this.findAllData.find
+   }*/
+
     public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
         return this.deleteData.delete(objectId, copyVirtualMetadata);
     }
