@@ -3,7 +3,7 @@
     <div class="file-section">
       <ds-themed-file-download-link *ngFor="let file of bitstreams; let last=last;" [bitstream]="file" [item]="item">
         <span>
-          <span *ngIf="primaryBitsreamId === file.id" class="badge badge-primary">Primary</span> 
+          <span *ngIf="primaryBitsreamId === file.id" class="badge badge-primary">{{ 'item.page.bitstreams.primary' | translate }}</span> 
           {{ dsoNameService.getName(file) }}
         </span>
         <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
