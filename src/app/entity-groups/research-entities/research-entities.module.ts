@@ -32,6 +32,7 @@ import { ItemSharedModule } from '../../item-page/item-shared.module';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 import { DsoPageModule } from '../../shared/dso-page/dso-page.module';
 import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
+import { MyDspaceSearchModule } from '../../my-dspace-page/my-dspace-search.module';
 
 const ENTRY_COMPONENTS = [
 // put only entry components that use custom decorator
@@ -77,6 +78,7 @@ const COMPONENTS = [
     DsoPageModule,
     NgbTooltipModule,
     ContextMenuModule.withEntryComponents(),
+    MyDspaceSearchModule,
   ],
   declarations: [
     ...COMPONENTS,
