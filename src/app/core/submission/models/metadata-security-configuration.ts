@@ -5,13 +5,17 @@ import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { METADATA_SECURITY_TYPE } from './metadata-security-config.resource-type';
 
+interface MetadataCustomSecurityEntries {
+  [metadata: string]: number[];
+}
 /**
  * A model class for a security configuration of metadata.
  */
 @typedObject
 export class MetadataSecurityConfiguration extends CacheableObject {
-  static type = new ResourceType('securitysetting');
+  static type = METADATA_SECURITY_TYPE;
   /**
    * The universally unique identifier of this WorkspaceItem
    * This UUID is generated client-side and isn't used by the backend.
@@ -28,7 +32,7 @@ export class MetadataSecurityConfiguration extends CacheableObject {
    * List of security configurations for all of the metadatas of the entity type
    */
   @autoserialize
-  metadataCustomSecurity: Map<string, number[]>;
+  metadataCustomSecurity: MetadataCustomSecurityEntries;
   /**
    * The object type
    */

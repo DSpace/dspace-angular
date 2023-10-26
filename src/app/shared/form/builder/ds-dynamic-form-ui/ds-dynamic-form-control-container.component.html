@@ -61,11 +61,11 @@
             <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
           </select>
         </div>
-        <div *ngIf="model.hasSecurityToggle" class="col-xs-2">
+        <div *ngIf="model.hasSecurityToggle" class="col-xs-2" [class.date-field-security]="model.type == 'DATE'">
           <ds-edit-metadata-security *ngIf="model.toggleSecurityVisibility"
+                                     [readOnly]="model.readOnly"
                                      [securityConfigLevel]="model.securityConfigLevel"
-                                     [securityLevel]="model.securityLevel != undefined && model.securityLevel!=null ? model.securityLevel :
-                                  (model.metadataValue ? model.metadataValue.securityLevel : securityLevel != null && securityLevel != undefined  ? securityLevel : null)"
+                                     [securityLevel]="securityLevel"
                                      (changeSecurityLevel)="addSecurityLevelToMetadata($event)">
           </ds-edit-metadata-security>
         </div>

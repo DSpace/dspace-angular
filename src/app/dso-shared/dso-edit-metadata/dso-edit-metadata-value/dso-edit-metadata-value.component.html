@@ -15,14 +15,14 @@
     <input class="form-control" type="text" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.language"
            [dsDebounce]="300" (onDebounce)="confirm.emit(false)" />
   </div>
-  <div class="ds-flex-cell ds-lang-cell d-flex justify-content-center" role="cell">
+  <div class="flex-grow-1 ds-flex-cell ds-security-cell d-flex justify-content-center" role="cell">
     <div class="btn-group edit-field">
-     <ds-edit-metadata-security *ngIf="mdField &&  metadataSecurityConfiguration && (metadataSecurityConfiguration| async )?.metadataCustomSecurity[mdField]?.length > 0"
-                                 [securityLevel]="mdValue.newValue.securityLevel"
-                                 [isNewMdField]="isNewMdField"
-                                 [securityConfigLevel]="(metadataSecurityConfiguration| async )?.metadataCustomSecurity[mdField]"
-                                 (changeSecurityLevel)="changeSelectedSecurity($event)"
-                                 (hasSecurityLevel)="hasSecurityMetadata($event)">
+      <ds-edit-metadata-security *ngIf="canShowMetadataSecurity$ | async"
+                                [securityLevel]="mdValue.newValue.securityLevel"
+                                [isNewMdField]="isNewMdField"
+                                 [securityConfigLevel]="mdSecurityConfigLevel$ | async"
+                                (changeSecurityLevel)="changeSelectedSecurity($event)"
+                                (hasSecurityLevel)="hasSecurityMetadata($event)">
       </ds-edit-metadata-security>
     </div>
   </div>
