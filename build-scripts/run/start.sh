@@ -23,3 +23,6 @@ docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/cli.yml run
 docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/cli.yml run --rm dspace-cli user --add -m user@test.edu -g meno -s priezvisko -l en -p user -o dataquest
 docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/cli.yml run --rm dspace-cli version
 popd
+
+
+docker cp assetstore dspace${INSTANCE}:/dspace/
