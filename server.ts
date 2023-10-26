@@ -32,6 +32,7 @@ import isbot from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
+import { createHttpTerminator } from 'http-terminator';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -320,22 +321,23 @@ function initCache() {
   if (botCacheEnabled()) {
     // Initialize a new "least-recently-used" item cache (where least recently used pages are removed first)
     // See https://www.npmjs.com/package/lru-cache
-    // When enabled, each page defaults to expiring after 1 day
+    // When enabled, each page defaults to expiring after 1 day (defined in default-app-config.ts)
     botCache = new LRU( {
       max: environment.cache.serverSide.botCache.max,
-      ttl: environment.cache.serverSide.botCache.timeToLive || 24 * 60 * 60 * 1000, // 1 day
-      allowStale: environment.cache.serverSide.botCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.botCache.timeToLive,
+      allowStale: environment.cache.serverSide.botCache.allowStale
     });
   }
 
   if (anonymousCacheEnabled()) {
     // NOTE: While caches may share SSR pages, this cache must be kept separately because the timeToLive
     // may expire pages more frequently.
-    // When enabled, each page defaults to expiring after 10 seconds (to minimize anonymous users seeing out-of-date content)
+    // When enabled, each page defaults to expiring after 10 seconds (defined in default-app-config.ts)
+    // to minimize anonymous users seeing out-of-date content
     anonymousCache = new LRU( {
       max: environment.cache.serverSide.anonymousCache.max,
-      ttl: environment.cache.serverSide.anonymousCache.timeToLive || 10 * 1000, // 10 seconds
-      allowStale: environment.cache.serverSide.anonymousCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.anonymousCache.timeToLive,
+      allowStale: environment.cache.serverSide.anonymousCache.allowStale
     });
   }
 }
@@ -487,7 +489,7 @@ function saveToCache(req, page: any) {
  */
 function hasNotSucceeded(statusCode) {
   const rgx = new RegExp(/^20+/);
-  return !rgx.test(statusCode)
+  return !rgx.test(statusCode);
 }
 
 function retrieveHeaders(response) {
@@ -525,23 +527,46 @@ function serverStarted() {
  * @param keys SSL credentials
  */
 function createHttpsServer(keys) {
-  createServer({
+  const listener = createServer({
     key: keys.serviceKey,
     cert: keys.certificate
   }, app).listen(environment.ui.port, environment.ui.host, () => {
     serverStarted();
   });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({server: listener});
+  process.on('SIGINT', () => {
+      void (async ()=> {
+        console.debug('Closing HTTPS server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTPS server closed');
+      })();
+      });
 }
 
+/**
+ * Create an HTTP server with the configured port and host.
+ */
 function run() {
   const port = environment.ui.port || 4000;
   const host = environment.ui.host || '/';
 
   // Start up the Node server
   const server = app();
-  server.listen(port, host, () => {
+  const listener = server.listen(port, host, () => {
     serverStarted();
   });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({server: listener});
+  process.on('SIGINT', () => {
+      void (async () => {
+        console.debug('Closing HTTP server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTP server closed.');return undefined;
+        })();
+      });
 }
 
 function start() {

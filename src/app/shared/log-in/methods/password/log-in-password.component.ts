@@ -15,6 +15,9 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 /**
  * /users/sign-in
@@ -66,21 +69,18 @@ export class LogInPasswordComponent implements OnInit {
   public form: UntypedFormGroup;
 
   /**
-   * @constructor
-   * @param {AuthMethod} injectedAuthMethodModel
-   * @param {boolean} isStandalonePage
-   * @param {AuthService} authService
-   * @param {HardRedirectService} hardRedirectService
-   * @param {FormBuilder} formBuilder
-   * @param {Store<State>} store
+   * Whether the current user (or anonymous) is authorized to register an account
    */
+  public canRegister$: Observable<boolean>;
+
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
     private formBuilder: UntypedFormBuilder,
-    private store: Store<CoreState>
+    protected store: Store<CoreState>,
+    protected authorizationService: AuthorizationDataService,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -115,6 +115,15 @@ export class LogInPasswordComponent implements OnInit {
       })
     );
 
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
+  }
+
+  getRegisterRoute() {
+    return getRegisterRoute();
+  }
+
+  getForgotRoute() {
+    return getForgotPasswordRoute();
   }
 
   /**
