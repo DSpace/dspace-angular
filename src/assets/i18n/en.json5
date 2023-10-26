@@ -248,6 +248,14 @@
 
   "admin.access-control.epeople.title": "EPeople",
 
+  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+
+  "admin.access-control.epeople.edit.title": "New EPerson",
+
+  "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+
+  "admin.access-control.epeople.add.title": "Add EPerson",
+
   "admin.access-control.epeople.head": "EPeople",
 
   "admin.access-control.epeople.search.head": "Search",
@@ -326,7 +334,7 @@
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
 
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
 
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
 
