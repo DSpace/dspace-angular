@@ -17,7 +17,7 @@ import { DuplicateMatchMetadataDetailConfig } from 'src/app/submission/sections/
   templateUrl: '../../../theme-support/themed.component.html'
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter', 'workflowItem'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter', 'workflowItem', 'metadataList'];
 
   @Input() item: Item;
 
