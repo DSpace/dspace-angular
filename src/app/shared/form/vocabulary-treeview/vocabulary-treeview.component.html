@@ -1,4 +1,4 @@
-<ds-alert *ngIf="description | async" [content]="description | async" [type]="'alert-info'"></ds-alert>
+<ds-alert [content]="'vocabulary-treeview.info' | translate" [type]="'alert-info'"></ds-alert>
 <div class="treeview-header row">
   <div class="col-12">
     <div class="input-group">
@@ -23,7 +23,7 @@
     <!-- Leaf node -->
     <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
         <button type="button" class="btn btn-default" cdkTreeNodeToggle>
-          <span class="fas fa-angle-right invisible" aria-hidden="true"></span>
+          <span class="fas fa-fw fa-angle-right invisible" aria-hidden="true"></span>
         </button>
           <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
                  [class.text-success]="node.isSelected"
@@ -55,7 +55,7 @@
         <button type="button" class="btn btn-default" cdkTreeNodeToggle
                 [attr.aria-label]="'toggle ' + node.name"
                 (click)="loadChildren(node)">
-          <span class="fas {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"
+          <span class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"
                 aria-hidden="true"></span>
         </button>
 

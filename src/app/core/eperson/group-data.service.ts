@@ -40,6 +40,7 @@ import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
+import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -264,15 +265,15 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
    * @param group Group we want edit page for
    */
   public getGroupEditPageRouterLink(group: Group): string {
-    return this.getGroupEditPageRouterLinkWithID(group.id);
+    return getGroupEditRoute(group.id);
   }
 
   /**
    * Get Edit page of group
    * @param groupID Group ID we want edit page for
    */
-  public getGroupEditPageRouterLinkWithID(groupId: string): string {
-    return '/access-control/groups/' + groupId;
+  public getGroupEditPageRouterLinkWithID(groupID: string): string {
+    return getGroupEditRoute(groupID);
   }
 
   /**
