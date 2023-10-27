@@ -8155,15 +8155,11 @@
   // "repository.image.logo": "Repository logo",
   "repository.image.logo":"Logo repozytorium",
 
-  // "repository.title.prefix": "DSpace Cris Angular :: ",
-  // TODO New key - Add a translation
-  "repository.title.prefix": "DSpace Cris Angular :: ",
+  // "repository.title": "{{ repositoryName }}",
+  "repository.title": "{{ repositoryName }}",
 
-
-  // "repository.title.prefixDSpace": "DSpace Angular ::",
-  // TODO New key - Add a translation
-  "repository.title.prefixDSpace": "DSpace Angular ::",
-
+  // "repository.title.prefix": "{{ repositoryName }} Angular :: ",
+  "repository.title.prefix": "{{ repositoryName }} Angular :: ",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button":"Dodaj",

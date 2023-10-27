@@ -1,4 +1,4 @@
-import {Inject} from '@angular/core';
+import { Inject } from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
@@ -116,7 +116,7 @@ export class ConcatFieldParser extends FieldParser {
         control: 'form-row',
       }
     };
-    this.initSecurityValue(concatGroup);
+    this.initSecurityValue(concatGroup, fieldValue);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
 

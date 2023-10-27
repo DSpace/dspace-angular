@@ -7,10 +7,13 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { of } from 'rxjs/internal/observable/of';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import {
+  ItemMetadataRepresentation
+} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { By } from '@angular/platform-browser';
+import { mockSecurityConfig } from '../../../shared/mocks/submission.mock';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -63,12 +66,27 @@ describe('DsoEditMetadataValueComponent', () => {
     fixture = TestBed.createComponent(DsoEditMetadataValueComponent);
     component = fixture.componentInstance;
     component.mdValue = editMetadataValue;
+    component.metadataSecurityConfiguration = mockSecurityConfig;
+    component.mdField = 'person.birthDate';
     component.saving$ = of(false);
+    spyOn(component, 'initSecurityLevel').and.callThrough();
     fixture.detectChanges();
   });
 
   it('should not show a badge', () => {
     expect(fixture.debugElement.query(By.css('ds-type-badge'))).toBeNull();
+  });
+
+  it('should call initSecurityLevel on init', () => {
+    expect(fixture.debugElement.query(By.css('ds-type-badge'))).toBeNull();
+    expect(component.initSecurityLevel).toHaveBeenCalled();
+    expect(component.mdSecurityConfigLevel$.value).toEqual([0, 1]);
+  });
+
+  it('should call initSecurityLevel when field changes', () => {
+    component.mdField = 'test';
+    expect(component.initSecurityLevel).toHaveBeenCalled();
+    expect(component.mdSecurityConfigLevel$.value).toEqual([0, 1, 2]);
   });
 
   describe('when no changes have been made', () => {

@@ -3319,6 +3319,16 @@
 
   "item.preview.oairecerif.oamandate" : "OA Mandate",
 
+  "item.preview.oairecerif.identifier.url": "Link",
+
+  "item.preview.organization.identifier.ror": "ROR ID",
+
+  "item.preview.organization.foundingDate": "Founding Date",
+
+  "item.preview.organization.address.addressCountry": "Country",
+
+  "item.preview.organization.parentOrganization": "Parent Organization",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
@@ -5779,6 +5789,8 @@
   "submission.import-external.source.openaire": "OpenAIRE by Author",
 
   "submission.import-external.source.openaireTitle": "OpenAIRE by Title",
+
+  "submission.import-external.source.rorOrgUnits": "ROR",
 
   "submission.import-external.preview.title.Equipment": "Equipment Preview",
 
