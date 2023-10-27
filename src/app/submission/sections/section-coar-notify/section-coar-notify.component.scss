@@ -2,14 +2,21 @@
   color: #0048ff;
   cursor: pointer;
 }
-.ds-alert-coar{
+
+.ds-alert-coar {
   position: relative
 }
 
-.coar-img-submission{
-  position: absolute; top: 0; left: 0; width: 50px; height: 50px;
+.coar-img-submission {
+  max-height: var(--ds-header-logo-height);
 }
 
-.ds-alert-box{
+.icon-check {
+  color: rgba(6, 68, 6, 0.42);
+  font-size: var(--ds-header-logo-height);
+}
+
+
+.ds-alert-box {
 
 }

@@ -10,7 +10,7 @@ import { SubmissionFormFooterComponent } from './form/footer/submission-form-foo
 import { SubmissionFormComponent } from './form/submission-form.component';
 import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
 import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers, SubmissionState } from './submission.reducers';
@@ -115,21 +115,22 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule.forRoot(),
-    SharedModule,
-    StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-    EffectsModule.forFeature(),
-    EffectsModule.forFeature(submissionEffects),
-    JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents(),
-    FormModule,
-    NgbModalModule,
-    NgbCollapseModule,
-    NgbAccordionModule,
-    UploadModule,
-  ],
+    imports: [
+        CommonModule,
+        CoreModule.forRoot(),
+        SharedModule,
+        StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+        EffectsModule.forFeature(),
+        EffectsModule.forFeature(submissionEffects),
+        JournalEntitiesModule.withEntryComponents(),
+        ResearchEntitiesModule.withEntryComponents(),
+        FormModule,
+        NgbModalModule,
+        NgbCollapseModule,
+        NgbAccordionModule,
+        UploadModule,
+        NgOptimizedImage,
+    ],
   declarations: DECLARATIONS,
   exports: [
     ...DECLARATIONS,

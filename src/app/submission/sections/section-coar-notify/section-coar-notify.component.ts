@@ -23,15 +23,14 @@ import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-servic
 import { isLoading } from '../../../core/data/request-entry-state.model';
 import { LdnService } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { SECTION_COAR_FORM_LAYOUT, SECTION_COAR_FORM_MODEL } from './section-coar-notify-model';
-import {
-  CoarNotifyConfigDataService
-} from './coar-notify-config-data.service';
+import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { UntypedFormGroup } from '@angular/forms';
 import { AlertType } from '../../../shared/alert/aletr-type';
+import { filter, map, take } from "rxjs/operators";
 
 export interface CoarNotifyDropdownSelector {
   ldnService: LdnService;
@@ -60,8 +59,11 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   patterns: string[] = [];
   selectedServices: { [key: string]: LdnService } = {};
+  patternServices: { [key: string]: LdnService } = {};
+
   patternsLoaded = false;
-  selectedService: any;
+  patternObservables: Observable<RemoteData<PaginatedList<LdnService>>[]>;
+
 
 
   public AlertTypeEnum = AlertType;
@@ -172,7 +174,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   setCoarNotifyConfig() {
     this.coarNotifyConfigRD$ = this.coarNotifyConfigDataService.findAll().pipe(
-        getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData()
     );
 
     this.coarNotifyConfigRD$.subscribe((data) => {
@@ -202,10 +204,10 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   onCustomEvent(event: DynamicFormControlEvent) {
     this.formOperationsService.dispatchOperationsFromEvent(
-        this.pathCombiner,
-        event,
-        this.previousValue,
-        null);
+      this.pathCombiner,
+      event,
+      this.previousValue,
+      null);
   }
 
   /**
@@ -244,10 +246,10 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     }
 
     this.formOperationsService.dispatchOperationsFromEvent(
-        this.pathCombiner,
-        event,
-        this.previousValue,
-        this.hasStoredValue(fieldId, fieldIndex));
+      this.pathCombiner,
+      event,
+      this.previousValue,
+      this.hasStoredValue(fieldId, fieldIndex));
 
   }
 
@@ -262,8 +264,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   hasStoredValue(fieldId, index): boolean {
     if (isNotEmpty(this.sectionData.data)) {
       return this.sectionData.data.hasOwnProperty(fieldId) &&
-          isNotEmpty(this.sectionData.data[fieldId][index]) &&
-          !this.isFieldToRemove(fieldId, index);
+        isNotEmpty(this.sectionData.data[fieldId][index]) &&
+        !this.isFieldToRemove(fieldId, index);
     } else {
       return false;
     }
@@ -305,8 +307,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   onSectionDestroy() {
     this.subs
-        .filter((subscription) => hasValue(subscription))
-        .forEach((subscription) => subscription.unsubscribe());
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
   /**
@@ -314,44 +316,73 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * Retriev available NotifyConfigs
    */
   fetchLdnServices() {
-    this.ldnServicesRD$ = this.ldnServicesService.findAll().pipe(
-      getFirstCompletedRemoteData()
-    );
+    if (!this.ldnServicesRD$) {
+      this.ldnServicesRD$ = this.ldnServicesService.findAll().pipe(
+        getFirstCompletedRemoteData()
+      );
+    }
 
     this.ldnServicesRD$.subscribe((data) => {
       if (this.patternsLoaded) {
         this.patterns.forEach((pattern) => {
-          this.selectedServices[pattern] = data.payload.page.find((service) =>
-            this.hasInboundPattern(service, pattern)
-          );
+          const servicesWithPattern = this.getServicesWithPattern(pattern, data?.payload?.page);
 
-          //console.log('Pattern:', pattern);
-          //console.log('Service:', this.selectedServices[pattern]);
+          if (servicesWithPattern.length > 0) {
+            this.selectedServices[pattern] = servicesWithPattern[0];
+          }
+
+          console.log('Pattern:', pattern);
+          console.log('Service:', this.selectedServices[pattern]);
 
           if (this.selectedServices[pattern]) {
-            //console.log('Name:', this.selectedServices[pattern].name);
-            //console.log('Description:', this.selectedServices[pattern].description);
+            console.log('Name:', this.selectedServices[pattern].name);
+            console.log('Description:', this.selectedServices[pattern].description);
           }
         });
       }
     });
   }
 
+  getServicesWithPattern(pattern: string, services: LdnService[] | null): LdnService[] {
+    if (services) {
+      return services.filter((service) => this.hasInboundPattern(service, pattern));
+    }
+    return [];
+  }
+
+
+  filterServices(pattern: string): LdnService[] {
+    let ldnServices: LdnService[] = [];
+
+    this.ldnServicesRD$.pipe(
+      filter((rd) => rd.hasSucceeded),
+      map((rd) => rd.payload.page)
+    ).subscribe((services) => {
+      ldnServices = services.filter((service) => this.hasInboundPattern(service, pattern));
+    });
+
+    return ldnServices;
+  }
+
+
+
+
+
+  hasInboundPattern(service: any, patternType: string): boolean {
+    console.log('Pattern Type:', patternType);
+    console.log('Inbound Patterns in Service:', service.notifyServiceInboundPatterns);
+
+    const hasPattern = service.notifyServiceInboundPatterns.some((pattern: { pattern: string; }) => {
+      console.log('Checking Pattern:', pattern.pattern);
+      return pattern.pattern === patternType;
+    });
+
+    console.log('Has Inbound Pattern:', hasPattern);
+    return hasPattern;
+  }
 
   protected getSectionStatus(): Observable<boolean> {
     return undefined;
   }
 
-  hasInboundPattern(service: any, patternType: string): boolean {
-    //console.log('Pattern Type:', patternType);
-    //console.log('Inbound Patterns in Service:', service.notifyServiceInboundPatterns);
-
-    const hasPattern = service.notifyServiceInboundPatterns.some((pattern: { pattern: string; }) => {
-      //console.log('Checking Pattern:', pattern.pattern);
-      return pattern.pattern === patternType;
-    });
-
-    //console.log('Has Inbound Pattern:', hasPattern);
-    return hasPattern;
-  }
 }
