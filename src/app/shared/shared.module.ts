@@ -192,6 +192,7 @@ import {
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { ThemedLogInComponent } from './log-in/themed-log-in.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
@@ -339,6 +340,7 @@ const COMPONENTS = [
   LoadingComponent,
   ThemedLoadingComponent,
   LogInComponent,
+  ThemedLogInComponent,
   LogOutComponent,
   ObjectListComponent,
   ThemedObjectListComponent,
