@@ -1,0 +1,15 @@
+:host{
+	.btn:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus, .custom-control-input:focus ~ .custom-control-label::before{
+		box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.25), 0 0 0 0.2rem rgba(27, 41, 55, 0.6);
+	}
+
+	.btn.btn-success:focus{
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.2rem rgba(0, 100, 0, 0.7)
+	}
+	.btn.btn-danger:focus{
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.2rem rgba(200, 0, 0, 0.7)
+	}
+	.btn.btn-warning:focus{
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.2rem rgba(89, 81, 0, 0.7)
+	}
+}

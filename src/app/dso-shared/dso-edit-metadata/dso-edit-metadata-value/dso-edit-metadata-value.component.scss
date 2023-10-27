@@ -14,3 +14,19 @@
 .cdk-drag-placeholder {
   opacity: 0;
 }
+
+.btn.btn-outline-warning:not(:disabled):hover {
+  background-color: #7f480c;
+}
+.btn.btn-success:not(:disabled):focus, .btn.btn-outline-success:not(:disabled):focus{
+  outline: 2px solid rgba(43, 99, 47, 1)
+}
+.btn.btn-danger:not(:disabled):focus, .btn.btn-outline-danger:not(:disabled):focus{
+  outline: 2px solid rgba(190, 114, 114, 1);
+}
+.btn.btn-warning:not(:disabled):focus, .btn.btn-outline-warning:not(:disabled):focus {
+  outline: 2px solid rgba(88, 87, 65, 1);
+}
+.btn.btn-primary:not(:disabled):focus, .btn.btn-outline-primary:not(:disabled):focus {
+  outline: 2px solid rgba(130, 135, 139, 1);
+}

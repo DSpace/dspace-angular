@@ -26,7 +26,7 @@
     }
 
   .noUi-connect {
-      background: var(--ds-slider-color);
+      background: var(--ds-range-filter-connect-color);
   }
 
   .noUi-target {
@@ -36,5 +36,11 @@
   .noUi-connect {
     margin: 0 calc(-1 * (var(--ds-slider-handle-width) / 2));
     width: calc(100% + var(--ds-slider-handle-width));
+  }
+  .noUi-handle {
+      border-color: var(--ds-range-filter-border-color);
+      &::before, &::after {
+          background-color: var(--ds-range-filter-border-color);
+      }
   }
 }
