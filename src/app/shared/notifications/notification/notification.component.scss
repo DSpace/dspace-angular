@@ -30,3 +30,9 @@
 .alert-warning .notification-progress-loader span {
   background: var(--ds-notification-bg-warning);
 }
+.alert-success{
+	color: var(--ds-notification-success-color);
+}
+.alert-danger {
+  color: var(--ds-notification-danger-color);
+}
