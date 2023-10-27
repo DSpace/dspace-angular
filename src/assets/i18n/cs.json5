@@ -5214,6 +5214,12 @@
   // "item.version.history.table.version" : "Version"
   "item.version.history.table.version" : "Verze",
 
+//  "item.version.history.table.name": "Name",
+  "item.version.history.table.name": "Název",
+
+//  "item.version.history.table.handle": "Handle",
+  "item.version.history.table.handle": "Handle",
+
   // "item.version.history.table.item" : "Item"
   "item.version.history.table.item" : "Položka",
 
