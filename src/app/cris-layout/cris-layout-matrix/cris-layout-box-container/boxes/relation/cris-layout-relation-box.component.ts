@@ -57,7 +57,7 @@ export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent 
     this.searchFilter = `scope=${this.item.id}`;
     this.configuration = (this.box.configuration as RelationBoxConfiguration)['discovery-configuration'];
     this.isResearchoutputs =
-      this.configuration.endsWith('researchoutputs') || this.configuration.endsWith('Publication');
+      this.configuration?.endsWith('researchoutputs') || this.configuration?.endsWith('Publication');
     this.isResearcherProfileOwner$ = this.isResearcherProfileOwner();
     this.showSearchResultNotice$ = this.getShowSearchResultNotice();
     this.searchResultNotice$ = this.getSearchResultNotice();
