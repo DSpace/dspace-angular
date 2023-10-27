@@ -1,5 +1,9 @@
-<ng-container *ngIf="events.length > 0">
-  asdfasdf
-  <ds-alert [type]="AlertTypeInfo" [content]="'asdf' | translate"></ds-alert>
+<ng-container *ngIf="(events$ | async)?.length > 0">
+  <div class="alert alert-info d-flex flex-row">
+    <img class="notify-logo" src="assets/images/notify-coar-icon.png" alt="Repository logo">
+    <div class="w-100 d-flex justify-content-between">
+      <div class="pl-4 align-self-center">{{'item.qa-event-notification.check.notification-info' | translate : {num: (events$ | async)?.length} }} </div>
+      <button [routerLink]="['/admin/notifications/quality-assurance', source, item.id]" class="btn btn-primary align-self-center">{{'item.qa-event-notification-info.check.button' |  translate }}</button>
+    </div>
+  </div>
 </ng-container>
-asfasdfasdf

@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { QualityAssuranceSourceDataService } from '../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { map } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../core/shared/operators';
+import { Observable, of, tap } from 'rxjs';
 import { QualityAssuranceSourceObject } from 'src/app/core/suggestion-notifications/qa/models/quality-assurance-source.model';
 
 @Component({
@@ -12,7 +10,9 @@ import { QualityAssuranceSourceObject } from 'src/app/core/suggestion-notificati
   styleUrls: ['./my-dspace-qa-events-notifications.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyDspaceQaEventsNotificationsComponent {
+export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
+
+  sources$: Observable<QualityAssuranceSourceObject[]> = of([]);
 
   constructor(private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService) { }
 
@@ -21,19 +21,16 @@ export class MyDspaceQaEventsNotificationsComponent {
   }
 
   getSources() {
-    this.qualityAssuranceSourceDataService.getSource('coar-notify')
+    this.sources$ = this.qualityAssuranceSourceDataService.getSources()
     .pipe(
       getFirstCompletedRemoteData(),
-      map((rd: RemoteData<QualityAssuranceSourceObject>) => {
-        if (rd.hasSucceeded) {
-          return rd.payload;
-        } else {
-          throw new Error('Can\'t retrieve Quality Assurance source');
+      tap((rd) => {
+        if (rd.hasFailed) {
+          throw new Error('Can\'t retrieve Quality Assurance sources');
         }
-      })
-    )
-    .subscribe((sources) => {
-      console.log(sources);
-    });
+      }),
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+    );
   }
 }

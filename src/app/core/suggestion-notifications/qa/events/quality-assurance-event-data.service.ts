@@ -86,27 +86,11 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
 
   /**
    * Service for retrieving Quality Assurance events by topic and target.
-   * @param topic The topic of the events to retrieve.
-   * @param target (Optional) The target of the events to retrieve (the item's uuid).
    * @param options (Optional) The search options to use when retrieving the events.
    * @param linksToFollow (Optional) The links to follow when retrieving the events.
    * @returns An observable of the remote data containing the paginated list of Quality Assurance events.
    */
-  public getEventsByTopicAndTarget(topic: string, target?: string,  options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceEventObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceEventObject>>> {
-    options.searchParams = [
-      {
-        fieldName: 'topic',
-        fieldValue: topic
-      }
-    ];
-
-    if (hasValue(target)) {
-      options.searchParams.push({
-        fieldName: 'target',
-        fieldValue: target
-      });
-    }
-
+  public searchEventsByTopic(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceEventObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceEventObject>>> {
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }
 

@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
 import { QualityAssuranceEventDataService } from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceTopicDataService } from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
-import { QualityAssuranceTopicObject } from 'src/app/core/suggestion-notifications/qa/models/quality-assurance-topic.model';
-import { Observable, concatMap, from, map, mergeMap, of, switchMap, tap } from 'rxjs';
-import { QualityAssuranceEventObject } from 'src/app/core/suggestion-notifications/qa/models/quality-assurance-event.model';
-import { AlertType } from 'src/app/shared/alert/aletr-type';
+import { QualityAssuranceTopicObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import { Observable, concatMap, from, mergeMap } from 'rxjs';
+import { QualityAssuranceEventObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+import { AlertType } from '../../../shared/alert/aletr-type';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -15,44 +17,73 @@ import { AlertType } from 'src/app/shared/alert/aletr-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [QualityAssuranceTopicDataService, QualityAssuranceEventDataService]
 })
-export class QaEventNotificationComponent {
+/**
+ * Component for displaying quality assurance event notifications for an item.
+ */
+export class QaEventNotificationComponent implements OnInit {
 
+  /**
+   * The item to display quality assurance event notifications for.
+   */
   @Input() item: Item;
 
-  events: QualityAssuranceEventObject[] = [];
+  /**
+   * An observable of quality assurance events for the item.
+   */
+  events$: Observable<QualityAssuranceEventObject[]>;
 
+  /**
+   * The type of alert to display for the notification.
+   */
   AlertTypeInfo = AlertType.Info;
+
+  /**
+   * The source of the quality assurance events.
+   */
+  source = 'coar-notify';
 
   constructor(
     private qualityAssuranceEventDataService: QualityAssuranceEventDataService,
     private qualityAssuranceTopicDataService: QualityAssuranceTopicDataService,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getEventsByTopicsAndTarget();
   }
 
-  getEventsByTopicsAndTarget(): void {
-    // TODO: add source 'coar-notify'
- this.qualityAssuranceTopicDataService.getTopicsByTargetAndSource(this.item.id).pipe(
+  /**
+   * Retrieves quality assurance events by topics and target.
+   * First, it retrieves the topics by target and source.
+   *  -> target: item.id
+   *  -> source: 'coar-notify'
+   * Then, it retrieves the events by topic and target.
+   */
+  getEventsByTopicsAndTarget() {
+    const findListTopicOptions: FindListOptions = {
+      searchParams: [new RequestParam('source', this.source), new RequestParam('target', this.item.id)]
+    };
+
+    // const findListEventOptions: FindListOptions = {
+    //   searchParams: [new RequestParam('topic', topic.name), new RequestParam('target', this.item.id)]
+    // };
+
+    this.events$ = this.qualityAssuranceTopicDataService.getTopics(findListTopicOptions).pipe(
         getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
         getPaginatedListPayload(),
-        tap((topics: QualityAssuranceTopicObject[]) => console.log(topics, 'topics')),
         mergeMap((topics: QualityAssuranceTopicObject[]) => {
           return from(topics).pipe(
            concatMap((topic: QualityAssuranceTopicObject) => {
-              return this.qualityAssuranceEventDataService.getEventsByTopicAndTarget(topic.name, this.item.id).pipe(
-                tap((events: any) => console.log(events, 'events')),
-              );
+            const findListEventOptions: FindListOptions = {
+              searchParams: [new RequestParam('topic', topic.name), new RequestParam('target', this.item.id)]
+            };
+              return this.qualityAssuranceEventDataService.searchEventsByTopic(findListEventOptions);
             } )
           );
         }),
         getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
         getPaginatedListPayload(),
-      ).subscribe((events: QualityAssuranceEventObject[]) => {
-      this.events = events;
-      console.log(events, 'events2')});
+      );
   }
 }

@@ -61,6 +61,12 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   public sourceId: string;
 
   /**
+   * This property represents a targetId (item-id) which is used to retrive a topic
+   * @type {string}
+   */
+  public targetId: string;
+
+  /**
    * Initialize the component variables.
    * @param {PaginationService} paginationService
    * @param {ActivatedRoute} activatedRoute
@@ -80,7 +86,9 @@ export class QualityAssuranceTopicsComponent implements OnInit {
    */
   ngOnInit(): void {
     this.sourceId = this.activatedRoute.snapshot.paramMap.get('sourceId');
+    this.targetId = this.activatedRoute.snapshot.paramMap.get('targetId');
     this.qualityAssuranceTopicsService.setSourceId(this.sourceId);
+    this.qualityAssuranceTopicsService.setTargetId(this.targetId);
     this.topics$ = this.notificationsStateService.getQualityAssuranceTopics();
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceTopicsTotals();
   }
