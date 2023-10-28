@@ -59,6 +59,31 @@
                 "input": "src/themes/dspace/styles/theme.scss",
                 "inject": false,
                 "bundleName": "dspace-theme"
+              },
+              {
+                "input": "src/themes/tamu/styles/theme.scss",
+                "inject": false,
+                "bundleName": "tamu-theme"
+              },
+              {
+                "input": "src/themes/capstone/styles/theme.scss",
+                "inject": false,
+                "bundleName": "capstone-theme"
+              },
+              {
+                "input": "src/themes/esl/styles/theme.scss",
+                "inject": false,
+                "bundleName": "esl-theme"
+              },
+              {
+                "input": "src/themes/periodicals/styles/theme.scss",
+                "inject": false,
+                "bundleName": "periodicals-theme"
+              },
+              {
+                "input": "src/themes/image-gallery/styles/theme.scss",
+                "inject": false,
+                "bundleName": "image-gallery-theme"
               }
             ],
             "scripts": [],
