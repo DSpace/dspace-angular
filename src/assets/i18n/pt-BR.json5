@@ -962,23 +962,23 @@
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add", (Auto-Translated)
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remover / adicionar",
 
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name "{{name}}"", (Auto-Translated)
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remova o membro com o nome "{{name}}"",
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remova o membro com o nome \"{{name}}\"",
 
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: "{{name}}"", (Auto-Translated)
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Membro adicionado com sucesso: "{{name}}"",
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Membro adicionado com sucesso: \"{{name}}\"",
 
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: "{{name}}"", (Auto-Translated)
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Falha ao adicionar membro: "{{name}}"",
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Falha ao adicionar membro: \"{{name}}\"",
 
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: "{{name}}"", (Auto-Translated)
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Membro excluído com sucesso: "{{name}}"",
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Membro excluído com sucesso: \"{{name}}\"",
 
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: "{{name}}"", (Auto-Translated)
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Falha ao excluir membro: "{{name}}"",
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Falha ao excluir membro: \"{{name}}\"",
 
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name "{{name}}"", (Auto-Translated)
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Adicionar membro com o nome "{{name}}"",
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Adicionar membro com o nome \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.", (Auto-Translated)
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "Nenhum grupo ativo atual, envie um nome primeiro.",
@@ -2321,8 +2321,8 @@
   // "confirmation-modal.delete-subscription.header": "Delete Subscription", (Auto-Translated)
   "confirmation-modal.delete-subscription.header": "Excluir assinatura",
 
-  // "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for "{{ dsoName }}"", (Auto-Translated)
-  "confirmation-modal.delete-subscription.info": "Tem certeza de que deseja excluir a assinatura para "{{ dsoName }}"",
+  // "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"", (Auto-Translated)
+  "confirmation-modal.delete-subscription.info": "Tem certeza de que deseja excluir a assinatura para \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-subscription.cancel": "Cancel", (Auto-Translated)
   "confirmation-modal.delete-subscription.cancel": "Cancelar",
@@ -3555,11 +3555,11 @@
   // "workflow-item.search.result.delete-supervision.modal.confirm": "Delete", (Auto-Translated)
   "workflow-item.search.result.delete-supervision.modal.confirm": "Excluir",
 
-  // "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order "{{name}}"", (Auto-Translated)
-  "workflow-item.search.result.notification.deleted.success": "Ordem de supervisão excluída com sucesso "{{name}}"",
+  // "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"", (Auto-Translated)
+  "workflow-item.search.result.notification.deleted.success": "Ordem de supervisão excluída com sucesso \"{{name}}\"",
 
-  // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order "{{name}}"", (Auto-Translated)
-  "workflow-item.search.result.notification.deleted.failure": "Falha ao excluir a ordem de supervisão "{{name}}"",
+  // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"", (Auto-Translated)
+  "workflow-item.search.result.notification.deleted.failure": "Falha ao excluir a ordem de supervisão \"{{name}}\"",
 
   // "workflow-item.search.result.list.element.supervised-by": "Supervised by:", (Auto-Translated)
   "workflow-item.search.result.list.element.supervised-by": "Supervisionado por:",
