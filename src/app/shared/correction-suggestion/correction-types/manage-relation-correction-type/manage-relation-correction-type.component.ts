@@ -1,28 +1,32 @@
-import { NotificationsService } from './../../../notifications/notifications.service';
-import { OpenaireBrokerEventObject } from './../../../../core/openaire/broker/models/openaire-broker-event.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from './../../../../core/shared/operators';
-import { ItemDataService } from './../../../../core/data/item-data.service';
-import { OpenaireBrokerEventRestService } from './../../../../core/openaire/broker/events/openaire-broker-event-rest.service';
-import { Context } from './../../../../core/shared/context.model';
-import { CollectionElementLinkType } from './../../../object-collection/collection-element-link.type';
-import { DSpaceObject } from './../../../../core/shared/dspace-object.model';
-import { SearchResult } from './../../../search/models/search-result.model';
-import { RemoteData } from './../../../../core/data/remote-data';
-import { PaginatedList } from './../../../../core/data/paginated-list.model';
-import { PaginatedSearchOptions } from './../../../search/models/paginated-search-options.model';
-import { SelectableListService } from './../../../object-list/selectable-list/selectable-list.service';
-import { SearchService } from './../../../../core/shared/search/search.service';
-import { PaginationComponentOptions } from './../../../pagination/pagination-component-options.model';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { OpenaireBrokerEventObject } from '../../../../core/openaire/broker/models/openaire-broker-event.model';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import {
+  OpenaireBrokerEventRestService
+} from '../../../../core/openaire/broker/events/openaire-broker-event-rest.service';
+import { Context } from '../../../../core/shared/context.model';
+import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { SearchResult } from '../../../search/models/search-result.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { renderCorrectionFor } from '../../correction-suggestion-page.decorator';
 import { CorrectionType } from '../../../../core/submission/models/correction-type-mode.model';
-import { CorrectionTypeForms } from './../correction-type-forms';
+import { CorrectionTypeForms } from '../correction-type-forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription, of as observableOf, switchMap } from 'rxjs';
-import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
-import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
+import { Observable, of as observableOf, Subscription, switchMap } from 'rxjs';
+import { hasValue, isNotEmpty } from '../../../empty.util';
+import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { Item } from '../../../../core/shared/item.model';
-import { ImportType } from '../../../../openaire/broker/project-entry-import-modal/project-entry-import-modal.component';
+import {
+  ImportType
+} from '../../../../openaire/broker/project-entry-import-modal/project-entry-import-modal.component';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -236,7 +240,7 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
    * Navigate back to the previous page
    */
   back() {
-    this.router.navigate(['../'], { relativeTo: this.aroute });
+    this.router.navigate(['../../'], { relativeTo: this.aroute });
   }
 
   /**

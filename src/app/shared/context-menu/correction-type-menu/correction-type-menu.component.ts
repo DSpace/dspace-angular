@@ -1,17 +1,15 @@
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from './../../../core/shared/operators';
-import { CorrectionTypeDataService } from './../../../core/submission/correctiontype-data.service';
-import { DSpaceObject } from './../../../core/shared/dspace-object.model';
+import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../core/shared/operators';
+import { CorrectionTypeDataService } from '../../../core/submission/correctiontype-data.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { BehaviorSubject, map, Observable, startWith, Subscription } from 'rxjs';
 import { CorrectionType } from '../../../core/submission/models/correction-type-mode.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { getCorrectionTypePageRoute } from '../../../app-routing-paths';
+import { CORRECTION_TYPE_PATH } from '../../../app-routing-paths';
 
 @Component({
   selector: 'ds-correction-type-menu',
@@ -42,8 +40,6 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private correctionTypeService: CorrectionTypeDataService,
-    private notificationService: NotificationsService,
-    private authorizeService: AuthorizationDataService
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.CorrectionType);
   }
@@ -56,7 +52,7 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
    * Check if edit mode is available
    */
   getCorrectionTypes(): Observable<CorrectionType[]> {
-    return this.correctionTypes$;
+    return this.correctionTypes$.asObservable();
   }
 
   /**
@@ -84,11 +80,11 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
 
   /**
    * Get the route to the correction type page
-   * @param id correction type id
+   * @param typeId correction type id
    * @returns the route to the correction type page
    */
-  getTypeRoute(id: string): string {
-    return getCorrectionTypePageRoute(this.contextMenuObject.id, id);
+  getTypeRoute(typeId: string): string[] {
+    return ['./', CORRECTION_TYPE_PATH, typeId];
   }
 
   /**

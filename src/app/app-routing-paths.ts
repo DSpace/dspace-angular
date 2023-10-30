@@ -138,7 +138,4 @@ export function getEditItemPageRoute() {
   return `/${EDIT_ITEM_PATH}`;
 }
 export const CORRECTION_TYPE_PATH = 'corrections';
-export function getCorrectionTypePageRoute(itemUuid: string, typeId: string) {
-  return `/items/${itemUuid}/${CORRECTION_TYPE_PATH}/${typeId}`;
-}
 

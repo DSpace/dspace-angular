@@ -5,7 +5,7 @@ import { CorrectionSuggestionComponent } from './correction-suggestion.component
 
 const routes: Routes = [
   {
-    path: ':uuid/corrections/:correctionType',
+    path: ':correctionType',
     component: CorrectionSuggestionComponent,
     resolve: {
       breadcrumb: ItemBreadcrumbResolver,
