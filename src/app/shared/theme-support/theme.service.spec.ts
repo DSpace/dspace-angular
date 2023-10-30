@@ -4,7 +4,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { hot } from 'jasmine-marbles';
 import { SetThemeAction } from './theme.actions';
-import { Theme } from '../../../config/theme.model';
+import { Theme } from './theme.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Community } from '../../core/shared/community.model';
 import { COMMUNITY } from '../../core/shared/community.resource-type';

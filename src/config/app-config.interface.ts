@@ -9,7 +9,7 @@ import { FormConfig } from './form-config.interfaces';
 import { LangConfig } from './lang-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
-import { ThemeConfig } from './theme.model';
+import { ThemeConfig } from './theme.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';

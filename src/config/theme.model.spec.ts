@@ -1,4 +1,4 @@
-import { HandleTheme, RegExTheme, Theme, UUIDTheme } from './theme.model';
+import { HandleTheme, RegExTheme, Theme, UUIDTheme } from '../app/shared/theme-support/theme.model';
 import { getCommunityModuleRoute } from '../app/community-page/community-page-routing-paths';
 import { Community } from '../app/core/shared/community.model';
 import { COMMUNITY } from '../app/core/shared/community.resource-type';
