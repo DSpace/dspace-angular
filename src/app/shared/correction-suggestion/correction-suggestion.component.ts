@@ -1,10 +1,10 @@
 import { getRemoteDataPayload } from './../../core/shared/operators';
 import { CorrectionTypeDataService } from './../../core/submission/correctiontype-data.service';
 import { Component, ComponentFactoryResolver, Injector, OnInit } from '@angular/core';
-import { CorrectionTypeMode } from '../../core/submission/models/correction-type-mode.model';
+import { CorrectionType } from '../../core/submission/models/correction-type-mode.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCorrectionComponent } from './correction-suggestion-page.decorator';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { hasValue } from '../empty.util';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 
@@ -18,7 +18,7 @@ export class CorrectionSuggestionComponent implements OnInit {
   /**
    * The correction type object
    */
-  public correctionTypeObject: CorrectionTypeMode;
+  public correctionTypeObject: CorrectionType;
 
   /**
    * The correction type id
@@ -41,9 +41,7 @@ export class CorrectionSuggestionComponent implements OnInit {
     private correctionTypeDataService: CorrectionTypeDataService,
     private injector: Injector,
   ) {
-    this.aroute.params.subscribe((params: Params) => {
-      this.correctionTypeId = params.correctionType;
-    });
+    this.correctionTypeId = this.aroute.snapshot.params.correctionType;
   }
 
   ngOnInit(): void {
@@ -61,7 +59,7 @@ export class CorrectionSuggestionComponent implements OnInit {
           getFirstCompletedRemoteData(),
           getRemoteDataPayload(),
         )
-        .subscribe((correctionType: CorrectionTypeMode) => {
+        .subscribe((correctionType: CorrectionType) => {
           if (hasValue(correctionType)) {
             this.correctionTypeObject = correctionType;
             this.creationForm = correctionType.creationForm;

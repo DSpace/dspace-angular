@@ -5,7 +5,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { BehaviorSubject, Observable, Subscription, map, startWith} from 'rxjs';
-import { CorrectionTypeMode } from '../../../core/submission/models/correction-type-mode.model';
+import { CorrectionType } from '../../../core/submission/models/correction-type-mode.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { hasValue, isNotEmpty } from '../../empty.util';
@@ -28,7 +28,7 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
    * List of Edit Modes available on this item
    * for the current user
    */
-  private correctionTypes$: BehaviorSubject<CorrectionTypeMode[]> = new BehaviorSubject<CorrectionTypeMode[]>([]);
+  private correctionTypes$: BehaviorSubject<CorrectionType[]> = new BehaviorSubject<CorrectionType[]>([]);
 
   /**
    * Variable to track subscription and unsubscribe it onDestroy
@@ -53,7 +53,7 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
   /**
    * Check if edit mode is available
    */
-  getCorrectionTypes(): Observable<CorrectionTypeMode[]> {
+  getCorrectionTypes(): Observable<CorrectionType[]> {
     return this.correctionTypes$;
   }
 
@@ -75,7 +75,7 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
       getAllSucceededRemoteDataPayload(),
       getPaginatedListPayload(),
       startWith([])
-    ).subscribe((types: CorrectionTypeMode[]) => {
+    ).subscribe((types: CorrectionType[]) => {
       this.correctionTypes$.next(types);
     });
   }

@@ -15,9 +15,9 @@ import { SearchService } from './../../../../core/shared/search/search.service';
 import { PaginationComponentOptions } from './../../../pagination/pagination-component-options.model';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { renderCorrectionFor } from '../../correction-suggestion-page.decorator';
-import { CorrectionTypeMode } from '../../../../core/submission/models/correction-type-mode.model';
+import { CorrectionType } from '../../../../core/submission/models/correction-type-mode.model';
 import { CorrectionTypeForms } from './../correction-type-forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, of as observableOf, switchMap } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
@@ -36,7 +36,7 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
   /**
    * The correction type object
    */
-  correctionType: CorrectionTypeMode;
+  correctionType: CorrectionType;
 
   /**
    * The item uuid from the parent object
@@ -113,20 +113,18 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
   selectedImportType = ImportType.None;
 
   constructor(
-    @Inject('correctionTypeObjectProvider') private correctionTypeObject: CorrectionTypeMode,
-    public searchService: SearchService,
+    @Inject('correctionTypeObjectProvider') private correctionTypeObject: CorrectionType,
+    private searchService: SearchService,
     private selectService: SelectableListService,
     private aroute: ActivatedRoute,
     private openaireBrokerEventRestService: OpenaireBrokerEventRestService,
     private itemService: ItemDataService,
     private notificationsService: NotificationsService,
     private router: Router,
-    private translate: TranslateService
+    private translateService: TranslateService
   ) {
     this.correctionType = correctionTypeObject;
-    this.aroute.params.subscribe((params: Params) => {
-      this.itemUuid = params.uuid;
-    });
+    this.itemUuid = this.aroute.snapshot.params.uuid;
   }
 
   /**
@@ -224,11 +222,11 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
         if (res.hasSucceeded) {
           this.selectedImportType = ImportType.None;
           const message = 'correction-type.manage-relation.' + this.correctionTypeObject.id + '.notification.success';
-          this.notificationsService.success(this.translate.instant(message));
+          this.notificationsService.success(this.translateService.get(message));
           this.deselectAllLists();
           this.back();
         } else {
-          this.notificationsService.error(this.translate.instant('correction-type.manage-relation.action.notification.error'));
+          this.notificationsService.error(this.translateService.get('correction-type.manage-relation.action.notification.error'));
         }
       });
     }

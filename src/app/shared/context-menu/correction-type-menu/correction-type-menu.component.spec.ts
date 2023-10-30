@@ -13,7 +13,7 @@ import { CorrectionTypeDataService } from '../../../core/submission/correctionty
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { By } from '@angular/platform-browser';
-import { CorrectionTypeMode } from '../../../core/submission/models/correction-type-mode.model';
+import { CorrectionType } from '../../../core/submission/models/correction-type-mode.model';
 
 describe('CorrectionTypeMenuComponent', () => {
   let component: CorrectionTypeMenuComponent;
@@ -23,7 +23,7 @@ describe('CorrectionTypeMenuComponent', () => {
   let correctionTypeService: any;
   let dso: DSpaceObject;
   const notificationService = new NotificationsServiceStub();
-  const correctionType: CorrectionTypeMode = Object.assign(new CorrectionTypeMode(), {
+  const correctionType: CorrectionType = Object.assign(new CorrectionType(), {
      id: 'addpersonalpath',
      creationForm:'manageRelation',
      discoveryConfiguration: 'RELATION.PersonPath.Items',

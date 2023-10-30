@@ -6,7 +6,7 @@ import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { HALLink } from '../../shared/hal-link.model';
 
 @typedObject
-export class CorrectionTypeMode extends CacheableObject {
+export class CorrectionType extends CacheableObject {
   static type = new ResourceType('correctiontype');
 
   /**

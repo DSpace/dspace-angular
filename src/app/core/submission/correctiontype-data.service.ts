@@ -8,7 +8,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
-import { CorrectionTypeMode } from './models/correction-type-mode.model';
+import { CorrectionType } from './models/correction-type-mode.model';
 import { Observable, map } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -20,12 +20,12 @@ import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../sh
  * A service that provides methods to make REST requests with correctiontypes endpoint.
  */
 @Injectable()
-@dataService(CorrectionTypeMode.type)
-export class CorrectionTypeDataService extends IdentifiableDataService<CorrectionTypeMode> {
+@dataService(CorrectionType.type)
+export class CorrectionTypeDataService extends IdentifiableDataService<CorrectionType> {
   protected linkPath = 'correctiontypes';
   protected searchByTopic = 'findByTopic';
   protected searchFindByItem = 'findByItem';
-  private searchData: SearchDataImpl<CorrectionTypeMode>;
+  private searchData: SearchDataImpl<CorrectionType>;
 
   constructor(
     protected requestService: RequestService,
@@ -44,9 +44,9 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
    * @param id the id of the correction type
    * @param useCachedVersionIfAvailable use the cached version if available
    * @param reRequestOnStale re-request on stale
-   * @returns {Observable<RemoteData<CorrectionTypeMode>>} the correction type
+   * @returns {Observable<RemoteData<CorrectionType>>} the correction type
    */
-  getCorrectionTypeById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<CorrectionTypeMode>> {
+  getCorrectionTypeById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<CorrectionType>> {
     return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale);
   }
 
@@ -56,7 +56,7 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
    * @param useCachedVersionIfAvailable use the cached version if available
    * @returns the list of correction types for the item
    */
-  findByItem(itemUuid: string, useCachedVersionIfAvailable): Observable<RemoteData<PaginatedList<CorrectionTypeMode>>> {
+  findByItem(itemUuid: string, useCachedVersionIfAvailable): Observable<RemoteData<PaginatedList<CorrectionType>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', itemUuid)];
     return this.searchData.searchBy(this.searchFindByItem, options, useCachedVersionIfAvailable);
@@ -69,7 +69,7 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
    * @param reRequestOnStale re-request on stale
    * @returns the correction type for the topic
    */
-  findByTopic(topic: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<CorrectionTypeMode> {
+  findByTopic(topic: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<CorrectionType> {
     const options = new FindListOptions();
     options.searchParams = [
       {
@@ -81,7 +81,7 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
     return this.searchData.searchBy(this.searchByTopic, options, useCachedVersionIfAvailable, reRequestOnStale).pipe(
       getAllSucceededRemoteDataPayload(),
       getPaginatedListPayload(),
-      map((list: CorrectionTypeMode[]) => {
+      map((list: CorrectionType[]) => {
         return list[0];
       })
     );
