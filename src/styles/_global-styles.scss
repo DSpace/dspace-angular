@@ -26,8 +26,6 @@ body {
 .main-content {
     z-index: var(--ds-main-z-index);
     flex: 1 1 100%;
-    margin-top: var(--ds-content-spacing);
-    margin-bottom: var(--ds-content-spacing);
 }
 
 .alert.hide {
@@ -317,3 +315,11 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
   padding-top: 0.125rem !important;
   padding-bottom: 0.125rem !important;
 }
+
+// Margin utility classes based on DSpace content spacing
+.mt-cs { margin-top: var(--ds-content-spacing); }
+.mb-cs { margin-bottom: var(--ds-content-spacing); }
+.my-cs { margin-top: var(--ds-content-spacing); margin-bottom: var(--ds-content-spacing); }
+.mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
+.mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
+.my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }

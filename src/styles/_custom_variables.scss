@@ -1,5 +1,5 @@
 :root {
-  --ds-content-spacing: #{$spacer * 1.5};
+  --ds-content-spacing: #{$spacer}; // equivalent to Bootstrap spaces of size 3
 
   --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};
 
