@@ -1,6 +1,6 @@
 import { NotificationsService } from './../../../notifications/notifications.service';
 import { OpenaireBrokerEventObject } from './../../../../core/openaire/broker/models/openaire-broker-event.model';
-import { getFirstSucceededRemoteDataPayload } from './../../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from './../../../../core/shared/operators';
 import { ItemDataService } from './../../../../core/data/item-data.service';
 import { OpenaireBrokerEventRestService } from './../../../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { Context } from './../../../../core/shared/context.model';
@@ -23,6 +23,7 @@ import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ImportType } from '../../../../openaire/broker/project-entry-import-modal/project-entry-import-modal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-manage-relation-correction-type',
@@ -119,7 +120,8 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
     private openaireBrokerEventRestService: OpenaireBrokerEventRestService,
     private itemService: ItemDataService,
     private notificationsService: NotificationsService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     this.correctionType = correctionTypeObject;
     this.aroute.params.subscribe((params: Params) => {
@@ -134,8 +136,8 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'correction-suggestion-manage-relation', pageSize: this.pageSize });
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
-        configuration: this.correctionType.discoveryConfiguration,
-        scope: this.itemUuid,
+        configuration: 'default', //this.correctionType.discoveryConfiguration,
+        scope: null,
         pagination: this.pagination
       }
     ));
@@ -147,7 +149,6 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
       )
     );
   }
-
 
   /**
    * Perform a project search by title.
@@ -215,19 +216,19 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
       this.itemService.findById(this.itemUuid).pipe(
         getFirstSucceededRemoteDataPayload(),
         switchMap((item: Item) => {
-          console.log(item);
-          const data: string = item._links.self.href + '\n' + selectedItemLink + '\n' + this.correctionTypeObject._links.self.href;
+          const data: string = this.correctionTypeObject._links.self.href + '\n' + item._links.self.href + '\n' + selectedItemLink;
           return this.openaireBrokerEventRestService.postData(data);
-        })
+        }),
+        getFirstCompletedRemoteData()
       ).subscribe((res: RemoteData<OpenaireBrokerEventObject>) => {
         if (res.hasSucceeded) {
           this.selectedImportType = ImportType.None;
-          // TODO: show success message based on the type of correction
-          this.notificationsService.success('Correction suggestion submitted', 'The correction suggestion has been submitted');
+          const message = 'correction-type.manage-relation.' + this.correctionTypeObject.id + '.notification.success';
+          this.notificationsService.success(this.translate.instant(message));
           this.deselectAllLists();
           this.back();
         } else {
-          this.notificationsService.error('Error submitting correction suggestion', 'The correction suggestion could not be submitted');
+          this.notificationsService.error(this.translate.instant('correction-type.manage-relation.action.notification.error'));
         }
       });
     }

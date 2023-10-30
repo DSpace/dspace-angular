@@ -25,6 +25,7 @@ import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
 import { hasValue } from '../../../../shared/empty.util';
 import { DeleteByIDRequest, PostRequest } from '../../../data/request.models';
+import { HttpHeaders } from '@angular/common/http';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -212,7 +213,7 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
 
     return href$.pipe(
       switchMap((href: string) => {
-        const request = new PostRequest(requestId, href, data);
+        const request = new PostRequest(requestId, href, data, { headers: new HttpHeaders().set('Content-Type', 'text/uri-list') });
         if (hasValue(this.responseMsToLive)) {
           request.responseMsToLive = this.responseMsToLive;
         }

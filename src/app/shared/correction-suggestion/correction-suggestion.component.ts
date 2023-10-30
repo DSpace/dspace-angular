@@ -6,7 +6,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCorrectionComponent } from './correction-suggestion-page.decorator';
 import { ActivatedRoute, Params } from '@angular/router';
 import { hasValue } from '../empty.util';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-correction-suggestion',
