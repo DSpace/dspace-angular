@@ -69,8 +69,7 @@
             <pre>{{ fileInput.fileInfo[0]?.content }}</pre>
           </ng-container>
           <ng-container *ngIf="fileInput.format === 'text/html'">
-            <iframe width="100%" height="500" frameborder="0"src="https://fr.wikipedia.org/wiki/Main_Page">
-            </iframe>
+            <div [innerHTML]="fileInput.fileInfo[0]?.content"></div>
           </ng-container>
         </ul>
       </div>

@@ -33,11 +33,15 @@ export class FileDescriptionComponent {
     return this.fileInput?.format === 'text/plain';
   }
 
+  public isHtml() {
+    return this.fileInput?.format === 'text/html';
+  }
+
   /**
    * Show scrollbar in the `.txt` preview, but it should be hidden in the other formats.
    */
   public dynamicOverflow() {
-    return this.isTxt() ? 'overflow: scroll' : 'overflow: hidden';
+    return (this.isTxt() || this.isHtml()) ? 'overflow: scroll' : 'overflow: hidden';
   }
 
   /**
