@@ -68,6 +68,18 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
   }
 
   /**
+   * Search for Quality Assurance topics.
+   * @param options The search options.
+   * @param useCachedVersionIfAvailable Whether to use cached version if available.
+   * @param reRequestOnStale Whether to re-request on stale.
+   * @param linksToFollow The links to follow.
+   * @returns An observable of remote data containing a paginated list of Quality Assurance topics.
+   */
+  public searchTopics(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
+    return this.searchData.searchBy(this.searchByTargetMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Clear FindAll topics requests from cache
    */
   public clearFindAllTopicsRequests() {

@@ -63,11 +63,7 @@ export class QaEventNotificationComponent implements OnInit {
       searchParams: [new RequestParam('source', this.source), new RequestParam('target', this.item.id)]
     };
 
-    // const findListEventOptions: FindListOptions = {
-    //   searchParams: [new RequestParam('topic', topic.name), new RequestParam('target', this.item.id)]
-    // };
-
-    this.events$ = this.qualityAssuranceTopicDataService.getTopics(findListTopicOptions).pipe(
+    this.events$ = this.qualityAssuranceTopicDataService.searchTopics(findListTopicOptions).pipe(
         getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
         getPaginatedListPayload(),

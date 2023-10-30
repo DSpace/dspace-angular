@@ -12,6 +12,9 @@ import { QualityAssuranceSourceObject } from 'src/app/core/suggestion-notificati
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 
+  /**
+   * An Observable that emits an array of QualityAssuranceSourceObject.
+   */
   sources$: Observable<QualityAssuranceSourceObject[]> = of([]);
 
   constructor(private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService) { }
@@ -20,6 +23,11 @@ export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
     this.getSources();
   }
 
+  /**
+   * Retrieves the sources for Quality Assurance.
+   * @returns An Observable of the sources for Quality Assurance.
+   * @throws An error if the retrieval of Quality Assurance sources fails.
+   */
   getSources() {
     this.sources$ = this.qualityAssuranceSourceDataService.getSources()
     .pipe(
