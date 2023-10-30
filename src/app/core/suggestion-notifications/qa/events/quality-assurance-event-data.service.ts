@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { find, take } from 'rxjs/operators';
+import { find, switchMap, take } from 'rxjs/operators';
 import { ReplaceOperation } from 'fast-json-patch';
 
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
@@ -199,5 +199,26 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
     });
 
     return this.rdbService.buildFromRequestUUID<QualityAssuranceEventObject>(requestId);
+  }
+
+  /**
+   * Perform a post on an endpoint related to correction type
+   * @param data the data to post
+   * @returns the RestResponse as an Observable
+   */
+  postData(data: string): Observable<RemoteData<OpenaireBrokerEventObject>> {
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.getBrowseEndpoint();
+
+    return href$.pipe(
+      switchMap((href: string) => {
+        const request = new PostRequest(requestId, href, data);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.send(request);
+        return this.rdbService.buildFromRequestUUID<OpenaireBrokerEventObject>(requestId);
+      })
+    );
   }
 }

@@ -238,6 +238,11 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             canActivate: [AuthenticatedGuard]
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+          {
+            path: 'items',
+            loadChildren: () => import('./shared/correction-suggestion/correction-suggestion.module')
+              .then((m) => m.CorrectionSuggestionModule)
+          },
         ]
       }
     ], {

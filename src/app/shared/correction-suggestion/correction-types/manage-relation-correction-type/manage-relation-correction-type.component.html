@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <h4>
+    {{ ( 'correction-type.manage-relation.' + (correctionType.topic | lowercase) + '.searchHeader' | translate) }}
+  </h4>
+</div>
+<div class="pt-3">
+  <div id="project-entities" class="mb-3">
+
+    <div id="project-search" class="input-group mb-3">
+      <input type="text" class="form-control" (keyup.enter)="search(projectTitle)" [(ngModel)]="projectTitle"
+        [placeholder]="'correction-type.manage-relation.search.placeholder' | translate" aria-label="" aria-describedby="">
+      <div class="input-group-append">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="projectTitle === ''"
+          (click)="projectTitle = ''">{{('correction-type.manage-relation.search.btn.clear'|translate)}}</button>
+        <button type="button" class="btn btn-primary" [disabled]="projectTitle === ''"
+          (click)="search(projectTitle)">{{('correction-type.manage-relation.search.btn.search'|translate)}}</button>
+      </div>
+    </div>
+
+    <ds-loading *ngIf="(isLoading$ | async)" message="{{'loading.search-results' | translate}}"></ds-loading>
+    <ds-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && !(isLoading$ | async)"
+                        [searchResults]="(localEntitiesRD$ | async)"
+                        [sortConfig]="this.searchOptions?.sort"
+                        [searchConfig]="this.searchOptions"
+                        [selectable]="true"
+                        [disableHeader]="true"
+                        [hidePaginationDetail]="false"
+                        [selectionConfig]="{ repeatable: false, listId: entityListId }"
+                        [linkType]="linkTypes.ExternalLink"
+                        [context]="context"
+                        (deselectObject)="deselectEntity()"
+                        (selectObject)="selectEntity($event)">
+    </ds-search-results>
+
+    <div *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length < 1 && !(isLoading$ | async)">
+      <ds-alert [type]="'alert-info'">
+        <p class="lead mb-0">{{( 'correction-type.manage-relation.search.notFound' | translate)}}</p>
+      </ds-alert>
+    </div>
+
+  </div>
+  <div class="flex-row d-flex justify-content-between">
+    <div>
+      <button type="button" class="btn btn-outline-secondary" (click)="back()">
+        {{ ( 'correction-type.manage-relation.' + (correctionType.topic | lowercase) + '.cancel' | translate) }}
+      </button>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary"  [disabled]="selectedImportType === importType.None" (click)="performAction()">
+        {{ ( 'correction-type.manage-relation.' + (correctionType.topic | lowercase) + '.submit' | translate) }}
+      </button>
+    </div>
+  </div>
+</div>

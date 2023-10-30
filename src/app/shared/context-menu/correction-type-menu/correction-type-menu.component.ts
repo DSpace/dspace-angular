@@ -4,8 +4,7 @@ import { DSpaceObject } from './../../../core/shared/dspace-object.model';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { BehaviorSubject, Observable, Subscription, map, startWith, tap } from 'rxjs';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject, Observable, Subscription, map, startWith} from 'rxjs';
 import { CorrectionTypeMode } from '../../../core/submission/models/correction-type-mode.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
@@ -26,17 +25,6 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
   public static menuEntryType: ContextMenuEntryType = ContextMenuEntryType.CorrectionType;
 
   /**
-   * A boolean representing if a request operation is pending
-   * @type {BehaviorSubject<boolean>}
-   */
-  public processing$ = new BehaviorSubject<boolean>(false);
-
-  /**
-   * Reference to NgbModal
-   */
-  public modalRef: NgbModalRef;
-
-  /**
    * List of Edit Modes available on this item
    * for the current user
    */
@@ -51,9 +39,9 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private correctionTypeService: CorrectionTypeDataService,
-    public notificationService: NotificationsService
+    public notificationService: NotificationsService,
   ) {
-    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditSubmission);
+    super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.CorrectionType);
   }
 
   ngOnInit(): void {
@@ -78,19 +66,26 @@ export class CorrectionTypeMenuComponent extends ContextMenuEntryComponent imple
     );
   }
 
+  /**
+   * Get correction types
+   * useCachedVersionIfAvailable = false to force refreshing the list
+   */
   getData(): void {
-    this.sub = this.correctionTypeService.findByItem(this.contextMenuObject.id, true).pipe(
-      tap((types) => console.log(types)),
+    this.sub = this.correctionTypeService.findByItem(this.contextMenuObject.id, false).pipe(
       getAllSucceededRemoteDataPayload(),
       getPaginatedListPayload(),
       startWith([])
     ).subscribe((types: CorrectionTypeMode[]) => {
-      console.log(types);
       this.correctionTypes$.next(types);
     });
   }
 
-  getTypeRoute(id: string) {
+  /**
+   * Get the route to the correction type page
+   * @param id correction type id
+   * @returns the route to the correction type page
+   */
+  getTypeRoute(id: string): string {
     return getCorrectionTypePageRoute(this.contextMenuObject.id, id);
   }
 
