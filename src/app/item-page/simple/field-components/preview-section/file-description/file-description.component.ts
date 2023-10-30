@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MetadataBitstream } from 'src/app/core/metadata/metadata-bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
+import {Router} from '@angular/router';
 
 const allowedPreviewFormats = ['text/plain', 'text/html', 'application/zip'];
 @Component({
@@ -12,11 +13,20 @@ export class FileDescriptionComponent {
   @Input()
   fileInput: MetadataBitstream;
 
-  constructor(protected halService: HALEndpointService) { }
+  constructor(protected halService: HALEndpointService, private router: Router) { }
 
   public downloadFiles() {
     console.log('${this.fileInput.href}', `${this.fileInput.href}`);
-    window.location.href = this.halService.getRootHref().replace('/server/api', '') + `${this.fileInput.href}`;
+    console.log('gile', this.fileInput);
+    // console.log('this.halService.getRootHref()', );
+    // const href$ = this.halService.getEndpoint('bitstreams');
+    this.router.navigateByUrl('bitstreams/' + this.fileInput.id + '/download');
+    // href$.pipe(
+    //   find((href: string) => hasValue(href)),
+    // ).subscribe((endpoint: string) => {
+    //   console.log('endpoint', endpoint + '/' + this.fileInput.id + '/download');
+    // });
+    // window.location.href = this.halService.getRootHref()
   }
 
   public isTxt() {
