@@ -30,7 +30,7 @@ import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { UntypedFormGroup } from '@angular/forms';
 import { AlertType } from '../../../shared/alert/aletr-type';
-import { filter, map, take } from "rxjs/operators";
+import { filter, map } from 'rxjs/operators';
 
 export interface CoarNotifyDropdownSelector {
   ldnService: LdnService;
@@ -58,7 +58,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
 
   patterns: string[] = [];
-  selectedServices: { [key: string]: LdnService } = {};
+  selectedServicesByPattern: { [key: string]: LdnService } = {};
   patternServices: { [key: string]: LdnService } = {};
 
   patternsLoaded = false;
@@ -159,13 +159,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     this.formModel = this.formBuilderService.fromJSON(SECTION_COAR_FORM_MODEL);
     this.setCoarNotifyConfig();
     this.fetchLdnServices();
-    this.coarNotifyConfigRD$.subscribe(data => {
-      console.log(data);
-    });
-    this.ldnServicesRD$.subscribe(data => {
-      console.log(data);
-    });
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
+
   }
 
   /**
@@ -185,6 +180,9 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     });
   }
 
+  compareById(service1, service2){
+    return service1 && service2 && service1.id === service2.id;
+  }
 
   addService() {
     this.patterns.push('');
@@ -302,6 +300,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     }
   }
 
+
+
   /**
    * Unsubscribe from all subscriptions
    */
@@ -313,7 +313,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   /**
    * Method called when section is initialized
-   * Retriev available NotifyConfigs
+   * Retriev available LdnServices
    */
   fetchLdnServices() {
     if (!this.ldnServicesRD$) {
@@ -321,47 +321,24 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
         getFirstCompletedRemoteData()
       );
     }
-
-    this.ldnServicesRD$.subscribe((data) => {
-      if (this.patternsLoaded) {
-        this.patterns.forEach((pattern) => {
-          const servicesWithPattern = this.getServicesWithPattern(pattern, data?.payload?.page);
-
-          if (servicesWithPattern.length > 0) {
-            this.selectedServices[pattern] = servicesWithPattern[0];
-          }
-
-          console.log('Pattern:', pattern);
-          console.log('Service:', this.selectedServices[pattern]);
-
-          if (this.selectedServices[pattern]) {
-            console.log('Name:', this.selectedServices[pattern].name);
-            console.log('Description:', this.selectedServices[pattern].description);
-          }
-        });
-      }
-    });
   }
 
-  getServicesWithPattern(pattern: string, services: LdnService[] | null): LdnService[] {
-    if (services) {
-      return services.filter((service) => this.hasInboundPattern(service, pattern));
-    }
-    return [];
-  }
+  /**
+   * Method called when dropdowns for the section are initialized
+   * Retrieve services with corresponding patterns to the dropdowns.
+   */
+  filterServices(pattern: string) {
 
-
-  filterServices(pattern: string): LdnService[] {
-    let ldnServices: LdnService[] = [];
-
-    this.ldnServicesRD$.pipe(
+    return this.ldnServicesRD$.pipe(
       filter((rd) => rd.hasSucceeded),
-      map((rd) => rd.payload.page)
-    ).subscribe((services) => {
-      ldnServices = services.filter((service) => this.hasInboundPattern(service, pattern));
-    });
+      map((rd) => rd.payload.page.filter((service) =>
+        this.hasInboundPattern(service, pattern)))
+    );
+      //.subscribe((services) => {
+      //ldnServices = services.filter((service) => this.hasInboundPattern(service, pattern));
+      //});
 
-    return ldnServices;
+      //return ldnServices;
   }
 
 
@@ -369,16 +346,10 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
 
   hasInboundPattern(service: any, patternType: string): boolean {
-    console.log('Pattern Type:', patternType);
-    console.log('Inbound Patterns in Service:', service.notifyServiceInboundPatterns);
 
-    const hasPattern = service.notifyServiceInboundPatterns.some((pattern: { pattern: string; }) => {
-      console.log('Checking Pattern:', pattern.pattern);
+    return service.notifyServiceInboundPatterns.some((pattern: { pattern: string; }) => {
       return pattern.pattern === patternType;
     });
-
-    console.log('Has Inbound Pattern:', hasPattern);
-    return hasPattern;
   }
 
   protected getSectionStatus(): Observable<boolean> {

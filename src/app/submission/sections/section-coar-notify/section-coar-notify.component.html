@@ -1,10 +1,11 @@
 <div>
-  <ng-container *ngIf="patternsLoaded">
+  <ng-container>
     <div *ngFor="let pattern of patterns; let i = index" class="col mt-3">
       <label class="mt-2 row">Request {{ pattern }} at the following service</label>
       <div class="row">
-        <select [(ngModel)]="selectedServices[pattern]" class="form-control col">
-          <option *ngFor="let service of filterServices(pattern)" [ngValue]="service">
+        <select [(ngModel)]="selectedServicesByPattern[pattern]" [compareWith]="compareById" class="form-control col">
+          <option [ngValue]="null" selected>Select a service</option>
+          <option *ngFor="let service of (filterServices(pattern) | async)" [ngValue]="service">
             {{ service.name }}
           </option>
         </select>
@@ -14,9 +15,9 @@
           </button>
         </div>
       </div>
-      <small class="row">Select a service for {{ pattern }} of this item</small>
-      <div class="row">
-        <div *ngIf="selectedServices[pattern]" class="alert alert-success col">
+      <small class="row" *ngIf="!selectedServicesByPattern[pattern]">Select a service for {{ pattern }} of this item</small>
+      <div class="row mt-1">
+        <div *ngIf="selectedServicesByPattern[pattern]" class="alert alert-success col">
           <div class="row ml-2 mt-2 mb-1">
             <img alt="Coar-Notify-Pattern" class="coar-img-submission "
                  src="../../../../assets/images/notify_logo.png">
@@ -27,7 +28,7 @@
             <img alt="Coar-Notify-Pattern" class="coar-img-submission invisible"
                  src="../../../../assets/images/notify_logo.png">
             <i class="fa-solid fa-circle-check icon-check ml-2 invisible"></i>
-            <div class="mt-1 ml-4" >{{ selectedServices[pattern].name }}: {{ selectedServices[pattern].description }}</div>
+            <div class="mt-1 ml-4" >{{ selectedServicesByPattern[pattern].name }}: {{ selectedServicesByPattern[pattern].description }}</div>
           </div>
         </div>
         <div class="col-sm-1 invisible">
