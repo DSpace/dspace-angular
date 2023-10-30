@@ -1,15 +1,16 @@
-import { ItemBreadcrumbResolver } from './../../core/breadcrumbs/item-breadcrumb.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CorrectionSuggestionComponent } from './correction-suggestion.component';
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 const routes: Routes = [
   {
     path: ':correctionType',
     component: CorrectionSuggestionComponent,
     resolve: {
-      breadcrumb: ItemBreadcrumbResolver,
-    }
+      breadcrumb: I18nBreadcrumbResolver
+    },
+    data: { title: 'item-correction-suggestion.correction-type', breadcrumbKey: 'item-correction-suggestion.correction-type' },
   }
 ];
 
@@ -17,7 +18,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
   providers: [
-    ItemBreadcrumbResolver
+    I18nBreadcrumbResolver
   ]
 })
 export class CorrectionSuggestionRoutingModule { }

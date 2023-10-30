@@ -49,6 +49,12 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             canActivate: [AuthenticatedGuard]
           },
           {
+            path: `full/${CORRECTION_TYPE_PATH}` ,
+            loadChildren: () => import('../shared/correction-suggestion/correction-suggestion.module')
+              .then((m) => m.CorrectionSuggestionModule),
+            canActivate: [AuthenticatedGuard]
+          },
+          {
             path: ITEM_EDIT_PATH,
             loadChildren: () => import('./edit-item-page/edit-item-page.module')
               .then((m) => m.EditItemPageModule),

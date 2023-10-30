@@ -1,6 +1,6 @@
 import { getRemoteDataPayload } from './../../core/shared/operators';
 import { CorrectionTypeDataService } from './../../core/submission/correctiontype-data.service';
-import { Component, ComponentFactoryResolver, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, Injector, OnInit } from '@angular/core';
 import { CorrectionType } from '../../core/submission/models/correction-type-mode.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getCorrectionComponent } from './correction-suggestion-page.decorator';
@@ -40,6 +40,7 @@ export class CorrectionSuggestionComponent implements OnInit {
     private aroute: ActivatedRoute,
     private correctionTypeDataService: CorrectionTypeDataService,
     private injector: Injector,
+    private chd: ChangeDetectorRef,
   ) {
     this.correctionTypeId = this.aroute.snapshot.params.correctionType;
   }
@@ -65,6 +66,7 @@ export class CorrectionSuggestionComponent implements OnInit {
             this.creationForm = correctionType.creationForm;
             this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
             this.injectData();
+            this.chd.detectChanges();
           }
         });
     }

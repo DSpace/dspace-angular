@@ -55,12 +55,11 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
   /**
    * Pagination options
    */
-  pagination: PaginationComponentOptions;
-
-  /**
-   * The number of results per page
-   */
-  pageSize = 3;
+  pagination: PaginationComponentOptions =  Object.assign(new PaginationComponentOptions(), {
+    id: 'csmr',
+    pageSize: 3,
+    currentPage: 1
+  });
 
   /**
    * Entities to show in the list
@@ -125,7 +124,7 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
     private itemService: ItemDataService,
     private notificationsService: NotificationsService,
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {
     this.correctionType = correctionTypeObject;
     this.itemUuid = this.aroute.snapshot.params.id;
@@ -135,7 +134,6 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
    * Get the search results
    */
   ngOnInit(): void {
-    this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'correction-suggestion-manage-relation', pageSize: this.pageSize });
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
         configuration: this.correctionType.discoveryConfiguration,
@@ -146,8 +144,12 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
 
     this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
     this.subs.push(
-      this.localEntitiesRD$.subscribe(
-        () => this.isLoading$ = observableOf(false)
+      this.localEntitiesRD$.pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe(
+        () => {
+          this.isLoading$ = observableOf(false);
+        }
       )
     );
   }
@@ -169,7 +171,9 @@ export class ManageRelationCorrectionTypeComponent implements OnInit, OnDestroy 
       ));
       this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
       this.subs.push(
-        this.localEntitiesRD$.subscribe(
+        this.localEntitiesRD$.pipe(
+          getFirstCompletedRemoteData(),
+        ).subscribe(
           () => this.isLoading$ = observableOf(false)
         )
       );
