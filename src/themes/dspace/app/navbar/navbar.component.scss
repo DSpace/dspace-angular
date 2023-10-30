@@ -4,6 +4,10 @@ nav.navbar {
   align-items: baseline;
 }
 
+.navbar-nav {
+  background-color: var(--ds-navbar-bg);
+}
+
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
   .navbar {
@@ -49,8 +53,15 @@ a.navbar-brand img {
 .navbar-nav {
   ::ng-deep a.nav-link {
     color: var(--ds-navbar-link-color);
+
+    &:hover, &:focus {
+      color: var(--ds-navbar-link-color-hover);
+    }
   }
-  ::ng-deep a.nav-link:hover {
-    color: var(--ds-navbar-link-color-hover);
-  }
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: calc(var(--bs-spacer) / 3);
+  align-items: center;
 }

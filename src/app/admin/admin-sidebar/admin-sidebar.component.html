@@ -26,10 +26,10 @@
               </div>
             </li>
 
-            <ng-container *ngFor="let section of (sections | async)">
+            <li *ngFor="let section of (sections | async)">
                 <ng-container
                         *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
-            </ng-container>
+            </li>
         </ul>
     </div>
     <div class="navbar-nav">

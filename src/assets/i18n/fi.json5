@@ -742,8 +742,7 @@
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Voit lisätä tai poistaa ryhmän käyttäjän joko napsauttamalla 'Selaa kaikkia' -painiketta tai käyttämällä alla olevaa hakupalkkia käyttäjien etsimiseen (käytä hakupalkin vasemmalla puolella olevaa pudotusvalikkoa valitaksesi, haetaanko metatietojen vai sähköpostin perusteella). Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevaan luetteloon, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  // TODO New key - Add a translation - ree made ticket 2321 to DSpace's github
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä tai poistaa alaryhmän tähän ryhmään tai tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia käyttäjien etsimiseen. Napsauta sitten luettelossa plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä tai poistaa alaryhmän tähän ryhmään tai tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia ryhmien etsimiseen. Napsauta sitten luettelossa plus-kuvaketta jokaisen ryhmän kohdalla, jonka haluat lisätä, tai roskakorikuvaketta jokaisen ryhmän kohdalla, jonka haluat poistaa. Luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Ylläpitäjän haku",
@@ -7607,8 +7606,7 @@
   "person.page.orcid.scope.authenticate": "Hae ORCID-tunnisteesi",
 
   // "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
-  // TODO New key - Add a translation
-  "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+  "person.page.orcid.scope.read-limited": "Lue omat tietosi Trusted Parties -näkyvyysasetuksilla",
 
   // "person.page.orcid.scope.activities-update": "Add/update your research activities",
   "person.page.orcid.scope.activities-update": "Lisää/päivitä tutkimustoimiasi",

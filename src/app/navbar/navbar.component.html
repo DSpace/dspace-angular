@@ -6,11 +6,11 @@
             <div id="collapsingNav">
                 <ul class="navbar-nav navbar-navigation mr-auto shadow-none">
                     <li *ngIf="(isXsOrSm$ | async) && (isAuthenticated$ | async)">
-                        <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
+                        <ds-themed-user-menu [inExpandableNavbar]="true"></ds-themed-user-menu>
                     </li>
-                    <ng-container *ngFor="let section of (sections | async)">
+                    <li *ngFor="let section of (sections | async)">
                         <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
-                    </ng-container>
+                    </li>
                 </ul>
             </div>
         </div>
