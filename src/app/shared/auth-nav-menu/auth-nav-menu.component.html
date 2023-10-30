@@ -2,7 +2,7 @@
   <li *ngIf="!(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item"
       (click)="$event.stopPropagation();">
     <div ngbDropdown #loginDrop display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
-      <a href="javascript:void(0);" class="dropdownLogin px-1" [attr.aria-label]="'nav.login' |translate"
+      <a href="javascript:void(0);" class="dropdownLogin px-0.5" [attr.aria-label]="'nav.login' |translate"
          (click)="$event.preventDefault()" [attr.data-test]="'login-menu' | dsBrowserOnly"
          ngbDropdownToggle>{{ 'nav.login' | translate }}</a>
       <div class="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
@@ -13,7 +13,7 @@
     </div>
   </li>
   <li *ngIf="!(isAuthenticated | async) && (isXsOrSm$ | async)" class="nav-item">
-    <a routerLink="/login" routerLinkActive="active" class="loginLink px-1">
+    <a routerLink="/login" routerLinkActive="active" class="loginLink px-0.5">
       {{ 'nav.login' | translate }}<span class="sr-only">(current)</span>
     </a>
   </li>
