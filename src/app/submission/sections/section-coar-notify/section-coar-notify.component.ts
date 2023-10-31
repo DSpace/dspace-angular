@@ -55,10 +55,11 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   coarNotifyConfigRD$: Observable<RemoteData<PaginatedList<SubmissionCoarNotifyConfig>>>;
 
   ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
+  newService: LdnService = new LdnService();
 
 
   patterns: string[] = [];
-  selectedServicesByPattern: { [key: string]: LdnService } = {};
+  selectedServicesByPattern: { [key: string]: LdnService[] } = {};
   patternServices: { [key: string]: LdnService } = {};
 
   patternsLoaded = false;
@@ -161,6 +162,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     this.fetchLdnServices();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
+
   }
 
   /**
@@ -182,17 +184,6 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   compareById(service1, service2){
     return service1 && service2 && service1.id === service2.id;
-  }
-
-  addService() {
-    this.patterns.push('');
-  }
-
-
-  removeService(index: number) {
-    if (index >= 0 && index < this.patterns.length) {
-      this.patterns.splice(index, 1);
-    }
   }
 
   /**
@@ -220,6 +211,22 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
     } else {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
+    }
+  }
+
+  addService(pattern: string, newService: LdnService) {
+    // Your logic to add a new service to the selected services for the pattern
+    // Example: Push the newService to the array corresponding to the pattern
+    if (!this.selectedServicesByPattern[pattern]) {
+      this.selectedServicesByPattern[pattern] = [];
+    }
+    this.selectedServicesByPattern[pattern].push(newService);
+  }
+
+  removeService(pattern: string, serviceIndex: number) {
+    if (this.selectedServicesByPattern[pattern]) {
+      // Remove the service at the specified index from the array
+      this.selectedServicesByPattern[pattern].splice(serviceIndex, 1);
     }
   }
 
@@ -318,27 +325,20 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   fetchLdnServices() {
     if (!this.ldnServicesRD$) {
       this.ldnServicesRD$ = this.ldnServicesService.findAll().pipe(
-        getFirstCompletedRemoteData()
+          getFirstCompletedRemoteData()
       );
     }
   }
-
   /**
    * Method called when dropdowns for the section are initialized
    * Retrieve services with corresponding patterns to the dropdowns.
    */
   filterServices(pattern: string) {
-
     return this.ldnServicesRD$.pipe(
-      filter((rd) => rd.hasSucceeded),
-      map((rd) => rd.payload.page.filter((service) =>
-        this.hasInboundPattern(service, pattern)))
+        filter((rd) => rd.hasSucceeded),
+        map((rd) => rd.payload.page.filter((service) =>
+            this.hasInboundPattern(service, pattern)))
     );
-      //.subscribe((services) => {
-      //ldnServices = services.filter((service) => this.hasInboundPattern(service, pattern));
-      //});
-
-      //return ldnServices;
   }
 
 
@@ -346,8 +346,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
 
   hasInboundPattern(service: any, patternType: string): boolean {
-
-    return service.notifyServiceInboundPatterns.some((pattern: { pattern: string; }) => {
+    return service.notifyServiceInboundPatterns.some((pattern: { pattern: string }) => {
       return pattern.pattern === patternType;
     });
   }

@@ -1,44 +1,56 @@
 <div>
   <ng-container>
     <div *ngFor="let pattern of patterns; let i = index" class="col mt-3">
-      <label class="mt-2 row">Request {{ pattern }} at the following service</label>
-      <div class="row">
-        <select [(ngModel)]="selectedServicesByPattern[pattern]" [compareWith]="compareById" class="form-control col">
-          <option [ngValue]="null" selected>Select a service</option>
-          <option *ngFor="let service of (filterServices(pattern) | async)" [ngValue]="service">
-            {{ service.name }}
-          </option>
-        </select>
-        <div class="col-sm-1">
-          <button (click)="removeService(i)" class="btn btn-outline-dark trash-button">
-            <i class="fas fa-trash"></i>
-          </button>
+      <label class="mt-2 row">Request {{ pattern }} at the following services</label>
+      <div *ngFor="let service of selectedServicesByPattern[pattern]; let serviceIndex = index">
+        <div class="row">
+          <select [(ngModel)]="selectedServicesByPattern[pattern][serviceIndex]" [compareWith]="compareById" class="form-control col">
+            <option [ngValue]="null" selected>Select a service</option>
+            <option *ngFor="let serviceOption of (filterServices(pattern) | async)" [ngValue]="serviceOption">
+              {{ serviceOption.name }}
+            </option>
+          </select>
+          <div class="col-sm-1">
+            <button (click)="removeService(pattern, serviceIndex)" class="btn btn-outline-dark trash-button">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <small class="row" *ngIf="!selectedServicesByPattern[pattern][serviceIndex]">
+          Select a service for {{ pattern }} of this item
+        </small>
+        <div class="row mt-1">
+          <div *ngIf="selectedServicesByPattern[pattern][serviceIndex]" class="alert alert-success col">
+            <div class="row ml-2 mt-2 mb-1">
+              <img alt="Coar-Notify-Pattern" class="coar-img-submission "
+                   src="../../../../assets/images/notify_logo.png">
+              <i class="fa-solid fa-circle-check icon-check ml-2"></i>
+              <div class="mt-1 ml-4">
+                The selected service is compatible with the item according to its current status.
+              </div>
+            </div>
+            <div class="row ml-2 mt-2 mb-1">
+              <img alt="Coar-Notify-Pattern" class="coar-img-submission invisible"
+                   src="../../../../assets/images/notify_logo.png">
+              <i class="fa-solid fa-circle-check icon-check ml-2 invisible"></i>
+              <div class="mt-1 ml-4">
+                {{ selectedServicesByPattern[pattern][serviceIndex].name }}:
+                {{ selectedServicesByPattern[pattern][serviceIndex].description }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-1 invisible">
+            <button class="btn btn-outline-dark trash-button">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <small class="row" *ngIf="!selectedServicesByPattern[pattern]">Select a service for {{ pattern }} of this item</small>
       <div class="row mt-1">
-        <div *ngIf="selectedServicesByPattern[pattern]" class="alert alert-success col">
-          <div class="row ml-2 mt-2 mb-1">
-            <img alt="Coar-Notify-Pattern" class="coar-img-submission "
-                 src="../../../../assets/images/notify_logo.png">
-            <i class="fa-solid fa-circle-check icon-check ml-2"></i>
-            <div class="mt-1 ml-4">The selected service is compatible with the item according to its current status.</div>
-          </div>
-          <div class="row ml-2 mt-2 mb-1">
-            <img alt="Coar-Notify-Pattern" class="coar-img-submission invisible"
-                 src="../../../../assets/images/notify_logo.png">
-            <i class="fa-solid fa-circle-check icon-check ml-2 invisible"></i>
-            <div class="mt-1 ml-4" >{{ selectedServicesByPattern[pattern].name }}: {{ selectedServicesByPattern[pattern].description }}</div>
-          </div>
-        </div>
-        <div class="col-sm-1 invisible">
-          <button class="btn btn-outline-dark trash-button">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
+        <span (click)="addService(pattern, newService)" class="add-pattern-link mb-2">
+          {{ 'ldn-new-service.form.label.addPattern' | translate }}
+        </span>
       </div>
-      <span (click)="addService()"
-            class="add-pattern-link mb-2 row">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
     </div>
   </ng-container>
 </div>
