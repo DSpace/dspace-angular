@@ -59,11 +59,16 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <!--TAMU Customization - Display Sponsors-->
-    <ds-generic-item-page-field [item]="object"
-      [fields]="['dc.contributor.sponsor']"
-      [separator]="', '"
-      [label]="'relationships.isSponsorOf' | translate">
-    </ds-generic-item-page-field>
+    <div class="item-page-field">
+      <ds-metadata-values
+        [mdValues]="object?.allMetadata(['dc.contributor.sponsor'])"
+        [separator]="', '"
+        [label]="'relationships.isSponsorOf'"
+        [enableMarkdown]="'false'"
+        [urlRegex]="'false'"
+        [browseDefinition]="">
+      </ds-metadata-values>
+    </div>
     <!--End TAMU Customization - Display Sponsors-->
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
     <ds-generic-item-page-field [item]="object"
