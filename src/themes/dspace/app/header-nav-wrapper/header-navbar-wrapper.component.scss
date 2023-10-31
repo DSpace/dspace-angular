@@ -1,0 +1,7 @@
+:host {
+  // The header-navbar-wrapper should not have a z-index, otherwise it would cover the media viewer despite its higher z-index
+  position: relative;
+  div#header-navbar-wrapper {
+    border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid;
+  }
+}
