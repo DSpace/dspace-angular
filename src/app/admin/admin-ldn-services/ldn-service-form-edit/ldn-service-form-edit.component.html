@@ -79,12 +79,12 @@
         </div>
 
         <div *ngFor="let patternGroup of formModel.get('notifyServiceInboundPatterns')['controls']; let i = index"
-             formGroupName="notifyServiceInboundPatterns">
+             formGroupName="notifyServiceInboundPatterns" [class.marked-for-deletion]="markedForDeletionInboundPattern.includes(i)">
 
             <ng-container [formGroupName]="i">
 
 
-                <div [class.marked-for-deletion]="markedForDeletionInboundPattern.includes(i)" class="row mb-1">
+                <div  class="row mb-1">
                     <div class="col">
                         <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
                                 name="additionalInboundPattern{{i}}" required>
@@ -115,11 +115,14 @@
                     </div>
 
 
-                    <div class="col-sm-1 btn-group">
-                        <button (click)="markForInboundPatternDeletion(i)" class="btn btn-outline-dark trash-button" type="button">
+                    <div class="col-sm-2">
+                        <button (click)="markForInboundPatternDeletion(i)" class="btn btn-outline-dark"
+                                type="button">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <button (click)="unmarkForInboundPatternDeletion(i)" *ngIf="markedForDeletionInboundPattern.includes(i)" class="btn btn-outline-dark undo-button"
+
+
+                        <button (click)="unmarkForInboundPatternDeletion(i)" *ngIf="markedForDeletionInboundPattern.includes(i)" class="btn btn-warning ml-2"
                                 type="button">
                             <i class="fas fa-undo"></i>
                         </button>
@@ -152,12 +155,12 @@
         </div>
 
         <div *ngFor="let patternGroup of formModel.get('notifyServiceOutboundPatterns')['controls']; let i = index"
-             formGroupName="notifyServiceOutboundPatterns">
+             formGroupName="notifyServiceOutboundPatterns" [class.marked-for-deletion]="markedForDeletionOutboundPattern.includes(i)">
 
             <ng-container [formGroupName]="i">
 
                 <!-- Input elements in a separate row -->
-                <div [class.marked-for-deletion]="markedForDeletionOutboundPattern.includes(i)" class="row mb-1">
+                <div class="row mb-1">
                     <div class="col">
                         <select #outboundPattern formControlName="pattern" id="additionalOutboundPattern{{i}}"
                                 name="additionalOutboundPattern{{i}}"
@@ -185,11 +188,11 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-1 btn-group">
+                    <div class="col-sm-2">
                         <button (click)="markForOutboundPatternDeletion(i)" class="btn btn-outline-dark trash-button" type="button">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <button (click)="unmarkForOutboundPatternDeletion(i)" *ngIf="markedForDeletionOutboundPattern.includes(i)" class="btn btn-outline-dark undo-button"
+                        <button (click)="unmarkForOutboundPatternDeletion(i)" *ngIf="markedForDeletionOutboundPattern.includes(i)" class="btn btn-warning ml-2"
                                 type="button">
                             <i class="fas fa-undo"></i>
                         </button>
