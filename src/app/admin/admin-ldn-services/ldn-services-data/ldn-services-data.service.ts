@@ -26,11 +26,13 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
 import { PatchData, PatchDataImpl } from '../../../core/data/base/patch-data';
 import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
 import { Operation } from 'fast-json-patch';
-import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { CreateData, CreateDataImpl } from '../../../core/data/base/create-data';
 import { LdnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
-import { hasValue } from 'src/app/shared/empty.util';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { SearchDataImpl } from '../../../core/data/base/search-data';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint
@@ -43,6 +45,9 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
     private deleteData: DeleteDataImpl<LdnService>;
     private patchData: PatchDataImpl<LdnService>;
     private comparator: ChangeAnalyzer<LdnService>;
+    private searchData: SearchDataImpl<LdnService>;
+
+    private findByPatternEndpoint = 'byInboundPattern';
 
     constructor(
         protected requestService: RequestService,
@@ -54,6 +59,7 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
         super('ldnservices', requestService, rdbService, objectCache, halService);
 
         this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+        this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
         this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
         this.patchData = new PatchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.comparator, this.responseMsToLive, this.constructIdEndpoint);
         this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
@@ -84,9 +90,11 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
         return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
     }
 
-   /*findByPattern(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
-    return this.findAllData.find
-   }*/
+    findByInboundPattern(pattern: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
+      const params = [new RequestParam('pattern', pattern)];
+      const findListOptions = Object.assign(new FindListOptions(), options, { searchParams: params });
+      return this.searchData.searchBy(this.findByPatternEndpoint, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    }
 
     public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
         return this.deleteData.delete(objectId, copyVirtualMetadata);

@@ -1,56 +1,125 @@
 <div>
   <ng-container>
     <div *ngFor="let pattern of patterns; let i = index" class="col mt-3">
-      <label class="mt-2 row">Request {{ pattern }} at the following services</label>
-      <div *ngFor="let service of selectedServicesByPattern[pattern]; let serviceIndex = index">
+      <label class="mt-2 row"
+        >
+        {{'submission.section.section-coar-notify.control.label' | translate : {pattern : pattern} }}
+        </label
+      >
+      <div
+        *ngFor="
+          let service of ldnServiceByPattern[pattern];
+          let serviceIndex = index
+        "
+      >
         <div class="row">
-          <select [(ngModel)]="selectedServicesByPattern[pattern][serviceIndex]" [compareWith]="compareById" class="form-control col">
-            <option [ngValue]="null" selected>Select a service</option>
-            <option *ngFor="let serviceOption of (filterServices(pattern) | async)" [ngValue]="serviceOption">
-              {{ serviceOption.name }}
-            </option>
-          </select>
-          <div class="col-sm-1">
-            <button (click)="removeService(pattern, serviceIndex)" class="btn btn-outline-dark trash-button">
+          <div ngbDropdown #myDropdown="ngbDropdown" class="w-100">
+            <div class="position-relative right-addon" role="combobox">
+              <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+              aria-hidden="true"></i>
+              <input
+                type="text"
+                [readonly]="true"
+                ngbDropdownAnchor
+                class="form-control w-100 scrollable-dropdown-input"
+                [value]="ldnServiceByPattern[pattern][serviceIndex]?.name"
+                (click)="myDropdown.open()"
+              />
+            </div>
+            <div
+              ngbDropdownMenu
+              class="dropdown-menu scrollable-dropdown-menu w-100"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <div
+                class="scrollable-menu"
+                role="listbox"
+                infiniteScroll
+                [infiniteScrollDistance]="2"
+                [infiniteScrollThrottle]="50"
+                [scrollWindow]="false"
+              >
+                <button
+                  *ngIf="(filterServices(pattern) | async)?.length == 0"
+                  class="dropdown-item collection-item text-truncate w-100"
+                >
+                  {{'submission.section.section-coar-notify.dropdown.no-data' | translate}}
+                </button>
+                <button
+                  *ngIf="(filterServices(pattern) | async)?.length > 0"
+                  class="dropdown-item collection-item text-truncate w-100"
+                  (click)="onChange(pattern, serviceIndex, null)"
+                >
+                {{'submission.section.section-coar-notify.dropdown.select-none' | translate}}
+                </button>
+                <button
+                  *ngFor="let serviceOption of filterServices(pattern) | async"
+                  [ngClass]="{'bg-light': ldnServiceByPattern[pattern][serviceIndex]?.id == serviceOption.id}"
+                  class="dropdown-item collection-item text-truncate w-100"
+                  (click)="onChange(pattern, serviceIndex, serviceOption)"
+                >
+                  <b>
+                    {{ serviceOption.name }}
+                  </b>
+                  <br />
+                  {{ serviceOption.description }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- TODO: NEXT version
+             <div
+            class="col-sm-1"
+          >
+            <button
+              (click)="removeService(pattern, serviceIndex)"
+              class="btn btn-outline-dark trash-button"
+            >
               <i class="fas fa-trash"></i>
             </button>
+          </div> -->
+        </div>
+        <small
+          class="row text-muted"
+          *ngIf="!ldnServiceByPattern[pattern][serviceIndex]"
+        >
+          {{'submission.section.section-coar-notify.small.notification' | translate : {pattern : pattern} }}
+        </small>
+        <div
+          class="row mt-1"
+          *ngIf="ldnServiceByPattern[pattern][serviceIndex]"
+        >
+          <div
+            class="alert alert-info w-100 d-flex align-items-center flex-row"
+          >
+            <i class="fa-solid fa-circle-info fa-xl ml-2"></i>
+            <div class="mt-1 ml-4">
+              <b>{{ 'submission.section.section-coar-notify.selection.description' | translate }}</b>
+              <br />
+              {{ ldnServiceByPattern[pattern][serviceIndex].description }}
+            </div>
           </div>
         </div>
-        <small class="row" *ngIf="!selectedServicesByPattern[pattern][serviceIndex]">
-          Select a service for {{ pattern }} of this item
-        </small>
-        <div class="row mt-1">
-          <div *ngIf="selectedServicesByPattern[pattern][serviceIndex]" class="alert alert-success col">
-            <div class="row ml-2 mt-2 mb-1">
-              <img alt="Coar-Notify-Pattern" class="coar-img-submission "
-                   src="../../../../assets/images/notify_logo.png">
-              <i class="fa-solid fa-circle-check icon-check ml-2"></i>
-              <div class="mt-1 ml-4">
-                The selected service is compatible with the item according to its current status.
-              </div>
+        <div class="row mt-1" *ngIf="sectionData.errorsToShow.length > 0">
+          <!--TODO: get error message and display here -->
+          <div
+            class="alert alert-danger w-100 d-flex align-items-center flex-row"
+          >
+            <div class="mt-1 ml-4">
+              <span>
+                {{ 'submission.section.section-coar-notify.notification.error' | translate }}
+              </span>
             </div>
-            <div class="row ml-2 mt-2 mb-1">
-              <img alt="Coar-Notify-Pattern" class="coar-img-submission invisible"
-                   src="../../../../assets/images/notify_logo.png">
-              <i class="fa-solid fa-circle-check icon-check ml-2 invisible"></i>
-              <div class="mt-1 ml-4">
-                {{ selectedServicesByPattern[pattern][serviceIndex].name }}:
-                {{ selectedServicesByPattern[pattern][serviceIndex].description }}
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-1 invisible">
-            <button class="btn btn-outline-dark trash-button">
-              <i class="fas fa-trash"></i>
-            </button>
           </div>
         </div>
       </div>
-      <div class="row mt-1">
-        <span (click)="addService(pattern, newService)" class="add-pattern-link mb-2">
+      <!-- TODO: NEXT version
+        <div class="row mt-1">
+        <span (click)="addService(pattern, newService)" class="ds-form-add-more btn btn-link mb-2">
           {{ 'ldn-new-service.form.label.addPattern' | translate }}
         </span>
-      </div>
+      </div> -->
     </div>
   </ng-container>
 </div>

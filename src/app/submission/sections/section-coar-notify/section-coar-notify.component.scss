@@ -1,22 +1,3 @@
-.add-pattern-link {
-  color: #0048ff;
-  cursor: pointer;
-}
+@import '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component.scss';
+@import '../../../shared/form/form.component.scss';
 
-.ds-alert-coar {
-  position: relative
-}
-
-.coar-img-submission {
-  max-height: var(--ds-header-logo-height);
-}
-
-.icon-check {
-  color: rgba(6, 68, 6, 0.42);
-  font-size: var(--ds-header-logo-height);
-}
-
-
-.ds-alert-box {
-
-}

@@ -1,36 +1,22 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
-import { DynamicFormControlEvent, DynamicFormControlModel, DynamicFormLayout } from '@ng-dynamic-forms/core';
-import { Observable, Subscription } from 'rxjs';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { Observable, Subscription, of } from 'rxjs';
 import { SectionModelComponent } from '../models/section.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { FormComponent } from '../../../shared/form/form.component';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { FormService } from '../../../shared/form/form.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionsService } from '../sections.service';
-import { SubmissionService } from '../../submission.service';
-import { TranslateService } from '@ngx-translate/core';
 import { SectionDataObject } from '../models/section-data.model';
 
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { isLoading } from '../../../core/data/request-entry-state.model';
 import { LdnService } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { SECTION_COAR_FORM_LAYOUT, SECTION_COAR_FORM_MODEL } from './section-coar-notify-model';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
-import { UntypedFormGroup } from '@angular/forms';
-import { AlertType } from '../../../shared/alert/aletr-type';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 export interface CoarNotifyDropdownSelector {
   ldnService: LdnService;
@@ -42,56 +28,29 @@ export interface CoarNotifyDropdownSelector {
 @Component({
   selector: 'ds-submission-section-coar-notify',
   templateUrl: './section-coar-notify.component.html',
-  styleUrls: ['./section-coar-notify.component.scss']
+  styleUrls: ['./section-coar-notify.component.scss'],
+  providers: [NgbDropdown]
 })
 @renderSectionFor(SectionsType.CoarNotify)
-
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
-  requestReview: LdnService;
-  requestEndorsement: LdnService;
-  requestIngest: LdnService;
-
-  coarNotifyConfigRD$: Observable<RemoteData<PaginatedList<SubmissionCoarNotifyConfig>>>;
-
-  ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
-  newService: LdnService = new LdnService();
-
-
   patterns: string[] = [];
-  selectedServicesByPattern: { [key: string]: LdnService[] } = {};
-  patternServices: { [key: string]: LdnService } = {};
+  ldnServiceByPattern: { [key: string]: LdnService[] } = {};
+  /**
+   * A map representing all services for each pattern
+   * {
+   *  'pattern': {
+   *   'index': 'service.id'
+   *   }
+   * }
+   *
+   * @type {{ [key: string]: {[key: number]: number} }}
+   * @memberof SubmissionSectionCoarNotifyComponent
+   */
+  previousServices: { [key: string]: {[key: number]: number} } = {};
 
-  patternsLoaded = false;
-  patternObservables: Observable<RemoteData<PaginatedList<LdnService>>[]>;
+  private _ldnServicesPerPattern: Map<string, LdnService[]> = new Map();
 
-
-
-  public AlertTypeEnum = AlertType;
-  /**
-   * The form model
-   * @type {DynamicFormControlModel[]}
-   */
-  public formModel: DynamicFormControlModel[];
-  /**
-   * The form id
-   * @type {string}
-   */
-  public formId: string;
-  /**
-   * The [[DynamicFormLayout]] object
-   * @type {DynamicFormLayout}
-   */
-  public formLayout: DynamicFormLayout = SECTION_COAR_FORM_LAYOUT;
-  /**
-   * A FormGroup that combines all inputs
-   */
-  formGroup: UntypedFormGroup;
-  /**
-   * A boolean representing if div should start collapsed
-   */
-  public isCollapsed = false;
-  protected readonly AlertType = AlertType;
   /**
    * The [[JsonPatchOperationPathCombiner]] object
    * @type {JsonPatchOperationPathCombiner}
@@ -103,50 +62,17 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   protected fieldsOnTheirWayToBeRemoved: Map<string, number[]> = new Map();
   /**
-   * The [FormFieldPreviousValueObject] object
-   * @type {FormFieldPreviousValueObject}
-   */
-  protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
   protected subs: Subscription[] = [];
-  protected readonly isLoading = isLoading;
-  /**
-   * The FormComponent reference
-   */
-  @ViewChild('formRef') private formRef: FormComponent;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {ChangeDetectorRef} changeDetectorRef
-   * @param ldnServicesService
-   * @param {CollectionDataService} collectionDataService
-   * @param {FormBuilderService} formBuilderService
-   * @param {SectionFormOperationsService} formOperationsService
-   * @param {FormService} formService
-   * @param {JsonPatchOperationsBuilder} operationsBuilder
-   * @param {SectionsService} sectionService
-   * @param {SubmissionService} submissionService
-   * @param {TranslateService} translateService
-   * @param {CoarNotifyConfigDataService} coarNotifyConfigDataService
-   * @param {string} injectedCollectionId
-   * @param {SectionDataObject} injectedSectionData
-   * @param {string} injectedSubmissionId
-   */
-  constructor(protected changeDetectorRef: ChangeDetectorRef,
-              protected ldnServicesService: LdnServicesService,
-              protected collectionDataService: CollectionDataService,
-              protected formBuilderService: FormBuilderService,
+  constructor(protected ldnServicesService: LdnServicesService,
               protected formOperationsService: SectionFormOperationsService,
-              protected formService: FormService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
               protected sectionService: SectionsService,
-              protected submissionService: SubmissionService,
-              protected translateService: TranslateService,
               protected coarNotifyConfigDataService: CoarNotifyConfigDataService,
+              protected chd: ChangeDetectorRef,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -157,12 +83,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * Initialize all instance variables
    */
   onSectionInit() {
-    this.formModel = this.formBuilderService.fromJSON(SECTION_COAR_FORM_MODEL);
     this.setCoarNotifyConfig();
-    this.fetchLdnServices();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
-
-
   }
 
   /**
@@ -170,92 +92,105 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * Retriev available NotifyConfigs
    */
   setCoarNotifyConfig() {
-    this.coarNotifyConfigRD$ = this.coarNotifyConfigDataService.findAll().pipe(
+    this.subs.push(
+    this.coarNotifyConfigDataService.findAll().pipe(
       getFirstCompletedRemoteData()
-    );
-
-    this.coarNotifyConfigRD$.subscribe((data) => {
+    ).subscribe((data) => {
       if (data.hasSucceeded) {
         this.patterns = data.payload.page[0].patterns;
-        this.patternsLoaded = true;
+        this.initSelectedServicesByPattern();
+      }
+    }));
+  }
+
+  /**
+   * Handles the change event of a select element.
+   * @param pattern - The pattern of the select element.
+   * @param index - The index of the select element.
+   */
+  onChange(pattern: string, index: number, selectedService: LdnService | null) {
+    // do nothing if the selected value is the same as the previous one
+    if (this.ldnServiceByPattern[pattern][index]?.id === selectedService?.id) {
+      return;
+    }
+
+    // initialize the previousServices object for the pattern if it does not exist
+    if (!this.previousServices[pattern]) {
+      this.previousServices[pattern] = {};
+    }
+
+    if (hasNoValue(selectedService)) {
+      // on value change, remove the path when the selected value is null
+      // and remove the previous value stored for the same index and pattern
+      this.operationsBuilder.remove(this.pathCombiner.getPath([pattern, index.toString()]));
+      this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
+      this.ldnServiceByPattern[pattern][index] = null;
+      this.previousServices[pattern][index] = null;
+      return;
+    }
+    // store the previous value
+    this.previousServices[pattern][index] = this.ldnServiceByPattern[pattern][index]?.id;
+    // set the new value
+    this.ldnServiceByPattern[pattern][index] = selectedService;
+
+    const hasPrevValueStored = hasValue(this.previousServices[pattern][index]) && this.previousServices[pattern][index] !== selectedService.id;
+    if (hasPrevValueStored) {
+      // replace the path
+      // when there is a previous value stored and it is different from the new one
+      this.operationsBuilder.replace(this.pathCombiner.getPath([pattern, index.toString()]), selectedService.id, true);
+    } else {
+      // add the path when there is no previous value stored
+      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), [selectedService.id], false, true);
+    }
+    // set the previous value to the new value
+    this.previousServices[pattern][index] = this.ldnServiceByPattern[pattern][index].id;
+    this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
+    this.chd.detectChanges();
+  }
+
+  /**
+   * Initializes the selected services by pattern.
+   * Loops through each pattern and filters the services based on the pattern.
+   * If the section data has a value for the pattern, it adds the service to the selected services by pattern.
+   * If the section data does not have a value for the pattern, it adds a null service to the selected services by pattern,
+   * so that the select element is initialized with a null value and to display the default select input.
+   */
+  initSelectedServicesByPattern(): void {
+    this.patterns.forEach((pattern) => {
+      if (hasValue(this.sectionData.data[pattern])) {
+        this.subs.push(
+          this.filterServices(pattern)
+            .subscribe((services: LdnService[]) => {
+              const selectedServices = services.filter((service) => {
+                this._ldnServicesPerPattern.set(pattern, services);
+                const selection = (this.sectionData.data[pattern] as LdnService[]).find((s: LdnService) => s.id === service.id);
+                this.addService(pattern, selection);
+                return this.sectionData.data[pattern].includes(service.id);
+              });
+              this.ldnServiceByPattern[pattern] = selectedServices;
+            })
+        );
+      } else {
+        this.ldnServiceByPattern[pattern] = [];
+        this.addService(pattern, null);
       }
     });
-  }
-
-  compareById(service1, service2){
-    return service1 && service2 && service1.id === service2.id;
-  }
-
-  /**
-   * Handle the customEvent (ex. drag-drop move event).
-   * The customEvent is stored inside event.$event
-   * @param event
-   */
-  onCustomEvent(event: DynamicFormControlEvent) {
-    this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      null);
-  }
-
-  /**
-   * Method called when a form dfChange event is fired.
-   * Dispatch form operations based on changes.
-   */
-  onChange(event: DynamicFormControlEvent) {
-    const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    if (value) {
-      this.operationsBuilder.add(this.pathCombiner.getPath(path), value.value.toString(), false, true);
-      this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
-    } else {
-      this.operationsBuilder.remove(this.pathCombiner.getPath(path));
-    }
   }
 
   addService(pattern: string, newService: LdnService) {
     // Your logic to add a new service to the selected services for the pattern
     // Example: Push the newService to the array corresponding to the pattern
-    if (!this.selectedServicesByPattern[pattern]) {
-      this.selectedServicesByPattern[pattern] = [];
+    if (!this.ldnServiceByPattern[pattern]) {
+      this.ldnServiceByPattern[pattern] = [];
     }
-    this.selectedServicesByPattern[pattern].push(newService);
+    this.ldnServiceByPattern[pattern].push(newService);
   }
 
   removeService(pattern: string, serviceIndex: number) {
-    if (this.selectedServicesByPattern[pattern]) {
+    if (this.ldnServiceByPattern[pattern]) {
       // Remove the service at the specified index from the array
-      this.selectedServicesByPattern[pattern].splice(serviceIndex, 1);
+      this.ldnServiceByPattern[pattern].splice(serviceIndex, 1);
     }
-  }
-
-  /**
-   * Method called when a form remove event is fired.
-   * Dispatch form operations based on changes.
-   *
-   * @param event
-   *    the [[DynamicFormControlEvent]] emitted
-   */
-  onRemove(event: DynamicFormControlEvent): void {
-    const fieldId = this.formBuilderService.getId(event.model);
-    const fieldIndex = this.formOperationsService.getArrayIndexFromEvent(event);
-
-    // Keep track that this field will be removed
-    if (this.fieldsOnTheirWayToBeRemoved.has(fieldId)) {
-      const indexes = this.fieldsOnTheirWayToBeRemoved.get(fieldId);
-      indexes.push(fieldIndex);
-      this.fieldsOnTheirWayToBeRemoved.set(fieldId, indexes);
-    } else {
-      this.fieldsOnTheirWayToBeRemoved.set(fieldId, [fieldIndex]);
-    }
-
-    this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      this.hasStoredValue(fieldId, fieldIndex));
-
   }
 
   /**
@@ -289,27 +224,6 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   }
 
   /**
-   * Method called when a form dfFocus event is fired.
-   * Initialize [FormFieldPreviousValueObject] instance.
-   *
-   * @param event
-   *    the [[DynamicFormControlEvent]] emitted
-   */
-  onFocus(event: DynamicFormControlEvent): void {
-    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    const path = this.formBuilderService.getPath(event.model);
-    if (this.formBuilderService.hasMappedGroupValue(event.model)) {
-      this.previousValue.path = path;
-      this.previousValue.value = this.formOperationsService.getQualdropValueMap(event);
-    } else if (isNotEmpty(value) && ((typeof value === 'object' && isNotEmpty(value.value)) || (typeof value === 'string'))) {
-      this.previousValue.path = path;
-      this.previousValue.value = value;
-    }
-  }
-
-
-
-  /**
    * Unsubscribe from all subscriptions
    */
   onSectionDestroy() {
@@ -319,31 +233,24 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   }
 
   /**
-   * Method called when section is initialized
-   * Retriev available LdnServices
-   */
-  fetchLdnServices() {
-    if (!this.ldnServicesRD$) {
-      this.ldnServicesRD$ = this.ldnServicesService.findAll().pipe(
-          getFirstCompletedRemoteData()
-      );
-    }
-  }
-  /**
    * Method called when dropdowns for the section are initialized
    * Retrieve services with corresponding patterns to the dropdowns.
    */
-  filterServices(pattern: string) {
-    return this.ldnServicesRD$.pipe(
-        filter((rd) => rd.hasSucceeded),
-        map((rd) => rd.payload.page.filter((service) =>
-            this.hasInboundPattern(service, pattern)))
+  filterServices(pattern: string): Observable<LdnService[]> {
+    return this.ldnServicesService.findByInboundPattern(pattern).pipe(
+      getFirstCompletedRemoteData(),
+      tap((rd) => {
+        if (rd.hasFailed) {
+          throw new Error(`Failed to retrieve services for pattern ${pattern}`);
+        }
+      }),
+      filter((rd) => rd.hasSucceeded),
+      getRemoteDataPayload(),
+      getPaginatedListPayload(),
+      map((res: LdnService[]) => res.filter((service) =>
+        this.hasInboundPattern(service, pattern)))
     );
   }
-
-
-
-
 
   hasInboundPattern(service: any, patternType: string): boolean {
     return service.notifyServiceInboundPatterns.some((pattern: { pattern: string }) => {
@@ -352,7 +259,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   }
 
   protected getSectionStatus(): Observable<boolean> {
-    return undefined;
+    // TODO:  check if section is valid
+    return of(true);
   }
 
 }

@@ -3,7 +3,7 @@ import { autoserialize, deserialize, deserializeAs, inheritSerialization } from 
 
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { COAR_NOTIFY_WORKSPACEITEM } from "./section-coar-notify-service.resource-type";
+import { COAR_NOTIFY_WORKSPACEITEM } from './section-coar-notify-service.resource-type';
 
 
 /** An CoarNotify  and its properties. */
