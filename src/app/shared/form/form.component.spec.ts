@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
+  DynamicFormsCoreModule,
   DynamicFormValidationService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
@@ -23,6 +24,7 @@ import { FormFieldMetadataValueObject } from './builder/models/form-field-metada
 import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 
 let TEST_FORM_MODEL;
 
@@ -144,7 +146,7 @@ describe('FormComponent test suite', () => {
         StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot(),
         FormComponent,
-        TestComponent
+        TestComponent,
     ],
     providers: [
         ChangeDetectorRef,
@@ -155,8 +157,15 @@ describe('FormComponent test suite', () => {
         { provide: Store, useClass: StoreMock }
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
-});
-
+    })
+      .overrideComponent(FormComponent, {
+        remove: {
+          imports: [DsDynamicFormComponent]
+        },
+        add: {
+          changeDetection: ChangeDetectionStrategy.Default
+        }
+      });
   }));
 
   describe('', () => {
@@ -434,6 +443,7 @@ describe('FormComponent test suite', () => {
 
 // declare a test component
 @Component({
+    exportAs: 'formComponent',
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
@@ -441,7 +451,8 @@ describe('FormComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule]
+        NgbModule,
+        DynamicFormsCoreModule]
 })
 class TestComponent {
 

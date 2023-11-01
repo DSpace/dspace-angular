@@ -53,6 +53,14 @@ import { routeServiceStub } from '../../../../shared/testing/route-service.stub'
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
+import { AsyncPipe } from '@angular/common';
+import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
+import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
+import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+import { RelatedItemsComponent } from '../../related-items/related-items-component';
 
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
@@ -100,7 +108,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
     let fixture: ComponentFixture<any>;
     let relationshipService: jasmine.SpyObj<RelationshipDataService>;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(waitForAsync(async () => {
       const mockBitstreamDataService = {
         getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
           return createSuccessfulRemoteDataObject$(new Bitstream());
@@ -115,55 +123,73 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
       });
 
-      TestBed.configureTestingModule({
-    imports: [
-        TranslateModule.forRoot({
+      await TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot({
             loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }),
-        RouterTestingModule,
-        component, GenericItemPageFieldComponent, TruncatePipe
-    ],
-    providers: [
-        {
-          provide: APP_CONFIG,
-          useValue: {
-            browseBy: { showThumbnails: true },
-            markdown: { enabled: true }
-          }
-        },
-        provideMockStore(),
-        { provide: ItemDataService, useValue: {} },
-        { provide: TruncatableService, useValue: mockTruncatableService },
-        { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
-        { provide: RemoteDataBuildService, useValue: {} },
-        { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
-        { provide: HttpClient, useValue: {} },
-        { provide: DSOChangeAnalyzer, useValue: {} },
-        { provide: VersionHistoryDataService, useValue: {} },
-        { provide: VersionDataService, useValue: {} },
-        { provide: NotificationsService, useValue: {} },
-        { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: WorkspaceitemDataService, useValue: {} },
-        { provide: SearchService, useValue: {} },
-        { provide: RouteService, useValue: routeServiceStub },
-        { provide: AuthService, useValue: new AuthServiceStub() },
-        { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ResearcherProfileDataService, useValue: {} },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(component, {
-        add: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock,
+            },
+          }),
+          RouterTestingModule,
+          component,
+          GenericItemPageFieldComponent,
+          TruncatePipe,
+          AsyncPipe,
+        ],
+        providers: [
+          {
+            provide: APP_CONFIG,
+            useValue: {
+              browseBy: { showThumbnails: true },
+              markdown: { enabled: true },
+            },
+          },
+          provideMockStore(),
+          { provide: ItemDataService, useValue: {} },
+          { provide: TruncatableService, useValue: mockTruncatableService },
+          { provide: RelationshipDataService, useValue: relationshipService },
+          { provide: ObjectCacheService, useValue: {} },
+          { provide: UUIDService, useValue: {} },
+          { provide: RemoteDataBuildService, useValue: {} },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: HALEndpointService, useValue: {} },
+          { provide: HttpClient, useValue: {} },
+          { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
+          { provide: NotificationsService, useValue: {} },
+          { provide: DefaultChangeAnalyzer, useValue: {} },
+          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
+          { provide: RouteService, useValue: routeServiceStub },
+          { provide: AuthService, useValue: new AuthServiceStub() },
+          { provide: AuthorizationDataService, useValue: authorizationService },
+          { provide: ResearcherProfileDataService, useValue: {} },
+          {
+            provide: BrowseDefinitionDataService,
+            useValue: BrowseDefinitionDataServiceStub,
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      })
+        .overrideComponent(component, {
+          remove: {
+            imports: [
+              ThemedResultsBackButtonComponent,
+              ThemedItemPageTitleFieldComponent,
+              DsoEditMenuComponent,
+              MetadataFieldWrapperComponent,
+              ThemedThumbnailComponent,
+              RelatedItemsComponent,
+              TabbedRelatedEntitiesSearchComponent
+            ],
+          },
+          add: { changeDetection: ChangeDetectionStrategy.Default },
+        })
+        .compileComponents();
     }));
-
     beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(component);
       comp = fixture.componentInstance;
@@ -443,42 +469,42 @@ describe('ItemComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [
-        TranslateModule.forRoot({
+        imports: [
+          TranslateModule.forRoot({
             loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock
             }
-        }),
-        RouterTestingModule,
-        ItemComponent, GenericItemPageFieldComponent, TruncatePipe
-    ],
-    providers: [
-        { provide: ItemDataService, useValue: {} },
-        { provide: TruncatableService, useValue: mockTruncatableService },
-        { provide: RelationshipDataService, useValue: {} },
-        { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
-        { provide: RemoteDataBuildService, useValue: {} },
-        { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
-        { provide: HttpClient, useValue: {} },
-        { provide: DSOChangeAnalyzer, useValue: {} },
-        { provide: VersionHistoryDataService, useValue: {} },
-        { provide: VersionDataService, useValue: {} },
-        { provide: NotificationsService, useValue: {} },
-        { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BitstreamDataService, useValue: {} },
-        { provide: WorkspaceitemDataService, useValue: {} },
-        { provide: SearchService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService },
-        { provide: AuthorizationDataService, useValue: {} },
-        { provide: ResearcherProfileDataService, useValue: {} },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ItemComponent, {
-        set: {changeDetection: ChangeDetectionStrategy.Default}
+          }),
+          RouterTestingModule,
+          ItemComponent, GenericItemPageFieldComponent, TruncatePipe
+        ],
+        providers: [
+          { provide: ItemDataService, useValue: {} },
+          { provide: TruncatableService, useValue: mockTruncatableService },
+          { provide: RelationshipDataService, useValue: {} },
+          { provide: ObjectCacheService, useValue: {} },
+          { provide: UUIDService, useValue: {} },
+          { provide: Store, useValue: {} },
+          { provide: RemoteDataBuildService, useValue: {} },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: HALEndpointService, useValue: {} },
+          { provide: HttpClient, useValue: {} },
+          { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
+          { provide: NotificationsService, useValue: {} },
+          { provide: DefaultChangeAnalyzer, useValue: {} },
+          { provide: BitstreamDataService, useValue: {} },
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
+          { provide: RouteService, useValue: mockRouteService },
+          { provide: AuthorizationDataService, useValue: {} },
+          { provide: ResearcherProfileDataService, useValue: {} },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(ItemComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default }
       });
     }));
 
@@ -492,7 +518,7 @@ describe('ItemComponent', () => {
       fixture.detectChanges();
     }));
 
-    it('should hide back button',() => {
+    it('should hide back button', () => {
       spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf('/item'));
       comp.showBackButton.subscribe((val) => {
         expect(val).toBeFalse();

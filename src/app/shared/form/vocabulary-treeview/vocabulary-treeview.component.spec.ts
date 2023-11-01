@@ -22,6 +22,7 @@ import { authReducer } from '../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../app.reducer';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -80,7 +81,8 @@ describe('VocabularyTreeviewComponent test suite', () => {
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
         VocabularyTreeviewComponent,
-        TestComponent
+        TestComponent,
+        NoopAnimationsModule
     ],
     providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },

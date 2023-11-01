@@ -9,6 +9,8 @@ import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 
 let comp: GenericItemPageFieldComponent;
 let fixture: ComponentFixture<GenericItemPageFieldComponent>;
@@ -29,7 +31,8 @@ describe('GenericItemPageFieldComponent', () => {
         }), GenericItemPageFieldComponent, MetadataValuesComponent],
     providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(GenericItemPageFieldComponent, {

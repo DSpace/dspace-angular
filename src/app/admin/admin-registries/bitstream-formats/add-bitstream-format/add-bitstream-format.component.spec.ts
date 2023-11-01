@@ -14,6 +14,10 @@ import { NotificationsServiceStub } from '../../../../shared/testing/notificatio
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { FormService } from '../../../../shared/form/form.service';
+import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormatFormComponent } from '../format-form/format-form.component';
 
 describe('AddBitstreamFormatComponent', () => {
   let comp: AddBitstreamFormatComponent;
@@ -33,6 +37,15 @@ describe('AddBitstreamFormatComponent', () => {
   let notificationService: NotificationsServiceStub;
   let bitstreamFormatDataService: BitstreamFormatDataService;
 
+  const formBuilderServiceStub = {
+    createFormGroup: () => {
+      return {
+        patchValue: () => { },
+        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void { },
+      };
+    }
+  };
+
   const initAsync = () => {
     router = new RouterStub();
     notificationService = new NotificationsServiceStub();
@@ -42,14 +55,22 @@ describe('AddBitstreamFormatComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, AddBitstreamFormatComponent],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, AddBitstreamFormatComponent],
+      providers: [
         { provide: Router, useValue: router },
         { provide: NotificationsService, useValue: notificationService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+        { provide: FormService, useValue: getMockFormService() },
+        { provide: FormBuilderService, useValue: formBuilderServiceStub },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    .overrideComponent(AddBitstreamFormatComponent, {
+      remove: {
+        imports: [FormatFormComponent]
+      }
+    })
+    .compileComponents();
   };
 
   const initBeforeEach = () => {
@@ -81,14 +102,22 @@ describe('AddBitstreamFormatComponent', () => {
       });
 
       TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, AddBitstreamFormatComponent],
-    providers: [
-        { provide: Router, useValue: router },
-        { provide: NotificationsService, useValue: notificationService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, AddBitstreamFormatComponent],
+        providers: [
+          { provide: Router, useValue: router },
+          { provide: NotificationsService, useValue: notificationService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+          { provide: FormService, useValue: getMockFormService() },
+          { provide: FormBuilderService, useValue: formBuilderServiceStub },
+        ],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      })
+      .overrideComponent(AddBitstreamFormatComponent, {
+        remove: {
+          imports: [FormatFormComponent]
+        }
+      })
+      .compileComponents();
     }));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {

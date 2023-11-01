@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -59,8 +59,8 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 describe('ItemActionsComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot({
             loader: {
@@ -80,7 +80,8 @@ describe('ItemActionsComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+    remove: {imports: [RouterLink]},
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

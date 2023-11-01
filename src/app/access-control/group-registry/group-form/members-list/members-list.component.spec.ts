@@ -3,7 +3,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -30,6 +30,9 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -136,9 +139,16 @@ describe('MembersListComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+.overrideComponent(MembersListComponent, {
+  remove: {
+    imports: [PaginationComponent, ContextHelpDirective]
+  }
+})
+.compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,6 +8,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DsoInputSuggestionsComponent } from './dso-input-suggestions.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+import { ClickOutsideDirective } from '../../utils/click-outside.directive';
+import { DebounceDirective } from '../../utils/debounce.directive';
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('DsoInputSuggestionsComponent', () => {
 
@@ -35,12 +40,28 @@ describe('DsoInputSuggestionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, DsoInputSuggestionsComponent],
-    providers: [],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(DsoInputSuggestionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        NoopAnimationsModule,
+        FormsModule,
+        DsoInputSuggestionsComponent,
+      ],
+      providers: [{ provide: ThemeService, useValue: getMockThemeService() }],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(DsoInputSuggestionsComponent, {
+        remove: {
+          imports: [
+            ClickOutsideDirective,
+            DebounceDirective,
+            ListableObjectComponentLoaderComponent,
+          ],
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+      })
+
+      .compileComponents();
   }));
 
   beforeEach(() => {

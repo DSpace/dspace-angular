@@ -12,6 +12,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { PersonSearchResultGridElementComponent } from '../search-result-grid-elements/person/person-search-result-grid-element.component';
 
 const mockItem = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -47,14 +48,17 @@ describe('PersonGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, PersonGridElementComponent, TruncatePipe],
-    providers: [
+      imports: [NoopAnimationsModule, PersonGridElementComponent, TruncatePipe],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(PersonGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PersonGridElementComponent, {
+      remove: {
+        imports: [PersonSearchResultGridElementComponent]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

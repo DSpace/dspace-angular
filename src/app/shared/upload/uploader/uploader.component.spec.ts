@@ -2,8 +2,6 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-
 import { DragService } from '../../../core/drag.service';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderComponent } from './uploader.component';
@@ -33,7 +31,6 @@ describe('Chips component', () => {
     ],
     providers: [
         ChangeDetectorRef,
-        ScrollToService,
         UploaderComponent,
         DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },

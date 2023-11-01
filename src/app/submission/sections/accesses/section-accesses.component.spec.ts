@@ -34,12 +34,28 @@ import {
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
+  DynamicFormValidationService,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { AppState } from '../../../app.reducer';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
 import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
+import { provideMockStore } from '@ngrx/store/testing';
+import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { SubmissionService } from '../../submission.service';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
+import { mockDynamicFormValidationService } from '../../../shared/testing/dynamic-form-mock-services';
+
+function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
+  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
+    matchesCondition: jasmine.createSpy('matchesCondition'),
+    subscribeRelations: jasmine.createSpy('subscribeRelations')
+  });
+}
 
 describe('SubmissionSectionAccessesComponent', () => {
   let component: SubmissionSectionAccessesComponent;
@@ -93,15 +109,19 @@ describe('SubmissionSectionAccessesComponent', () => {
         { provide: SectionAccessesService, useValue: sectionAccessesService },
         { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-        { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: FormService, useValue: getMockFormService() },
         { provide: Store, useValue: storeStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
         { provide: 'sectionDataProvider', useValue: sectionData },
         { provide: 'submissionIdProvider', useValue: '1508' },
-        FormBuilderService
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService()},
+        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: SubmissionService, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
+        FormBuilderService,
+        provideMockStore({})
     ]
-})
+      })
         .compileComponents();
     });
 
@@ -172,11 +192,13 @@ describe('SubmissionSectionAccessesComponent', () => {
 
 
     beforeEach(async () => {
+      formService = getMockFormService();
       await TestBed.configureTestingModule({
     imports: [
         BrowserModule,
         TranslateModule.forRoot(),
-        SubmissionSectionAccessesComponent, FormComponent
+        SubmissionSectionAccessesComponent,
+        FormComponent,
     ],
     providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
@@ -186,25 +208,37 @@ describe('SubmissionSectionAccessesComponent', () => {
         { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
         { provide: TranslateService, useValue: getMockTranslateService() },
-        { provide: FormService, useValue: getMockFormService() },
+        { provide: FormService, useValue: formService },
         { provide: Store, useValue: storeStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
         { provide: 'sectionDataProvider', useValue: sectionData },
         { provide: 'submissionIdProvider', useValue: '1508' },
-    ]
-})
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService()},
+        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: SubmissionService, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+
+        ]
+      })
+      .overrideComponent(SubmissionSectionAccessesComponent, {
+        remove: {
+          imports: [
+
+          ]
+        }
+      })
         .compileComponents();
     });
 
-    beforeEach(inject([Store], (store: Store<AppState>) => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
-      formService = TestBed.inject(FormService);
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
       fixture.detectChanges();
-    }));
+    });
 
 
     it('should have formModel length should be 1', () => {

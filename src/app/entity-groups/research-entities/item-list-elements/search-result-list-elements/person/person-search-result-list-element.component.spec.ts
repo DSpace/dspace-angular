@@ -14,6 +14,12 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 
 let personListElementComponent: PersonSearchResultListElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListElementComponent>;
@@ -70,20 +76,23 @@ const enviromentNoThumbs = {
 describe('PersonSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), PersonSearchResultListElementComponent, TruncatePipe],
-    providers: [
-        { provide: TruncatableService, useValue: {} },
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }), PersonSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(PersonSearchResultListElementComponent, {
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PersonSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -138,21 +147,24 @@ describe('PersonSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), PersonSearchResultListElementComponent, TruncatePipe],
-    providers: [
-        { provide: TruncatableService, useValue: {} },
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }), PersonSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(PersonSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PersonSearchResultListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

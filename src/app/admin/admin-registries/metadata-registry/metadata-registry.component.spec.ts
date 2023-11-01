@@ -20,6 +20,16 @@ import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import { FormService } from '../../../shared/form/form.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
+import { RouterLink } from '@angular/router';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -67,19 +77,76 @@ describe('MetadataRegistryComponent', () => {
 
   paginationService = new PaginationServiceStub();
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
+  const formBuilderServiceStub = {
+    createFormGroup: () => {
+      return {
+        patchValue: () => { },
+        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void { },
+      };
+    }
+  };
+
+  const mockGroupService = jasmine.createSpyObj('groupService',
+  {
+    // findByHref: jasmine.createSpy('findByHref'),
+    // findAll: jasmine.createSpy('findAll'),
+    // searchGroups: jasmine.createSpy('searchGroups'),
+    getUUIDFromString: jasmine.createSpy('getUUIDFromString'),
+  },
+  {
+    linkPath: 'groups'
+  }
+);
+
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataRegistryComponent, PaginationComponent, EnumKeysPipe],
-    providers: [
+   TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        MetadataRegistryComponent,
+        PaginationComponent,
+        EnumKeysPipe,
+      ],
+      providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(MetadataRegistryComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+        {
+          provide: NotificationsService,
+          useValue: new NotificationsServiceStub(),
+        },
+        { provide: FormService, useValue: getMockFormService() },
+        { provide: GroupDataService, useValue: mockGroupService },
+        {
+          provide: ConfigurationDataService,
+          useValue: configurationDataService,
+        },
+        {
+          provide: SearchConfigurationService,
+          useValue: new SearchConfigurationServiceStub(),
+        },
+        { provide: FormBuilderService, useValue: formBuilderServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(MetadataRegistryComponent, {
+        remove: {
+          imports: [MetadataSchemaFormComponent, RouterLink]
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 
 describe('VocabularyTreeviewModalComponent', () => {
   let component: VocabularyTreeviewModalComponent;
@@ -12,12 +13,17 @@ describe('VocabularyTreeviewModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), VocabularyTreeviewModalComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), VocabularyTreeviewModalComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
-    ]
-})
-    .compileComponents();
+      ]
+    })
+      .overrideComponent(VocabularyTreeviewModalComponent, {
+        remove: {
+          imports: [VocabularyTreeviewComponent]
+        }
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

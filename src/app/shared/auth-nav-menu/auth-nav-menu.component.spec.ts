@@ -16,6 +16,8 @@ import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { of } from 'rxjs';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -77,18 +79,18 @@ describe('AuthNavMenuComponent', () => {
         }),
         TranslateModule.forRoot(),
         AuthNavMenuComponent
-    ],
-    declarations: [BrowserOnlyMockPipe],
-    providers: [
-        { provide: HostWindowService, useValue: window },
-        { provide: AuthService, useValue: authService }
-    ],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-    ]
-})
+        ],
+        declarations: [BrowserOnlyMockPipe],
+        providers: [
+          { provide: HostWindowService, useValue: window },
+          { provide: AuthService, useValue: authService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        ],
+        schemas: [
+          CUSTOM_ELEMENTS_SCHEMA
+        ]
+      })
         .compileComponents();
-
     }));
 
     beforeEach(() => {
@@ -273,7 +275,8 @@ describe('AuthNavMenuComponent', () => {
     ],
     providers: [
         { provide: HostWindowService, useValue: window },
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

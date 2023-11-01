@@ -17,6 +17,8 @@ import { ListableObject } from '../../../../../object-collection/shared/listable
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { PageSizeSelectorComponent } from '../../../../../../shared/page-size-selector/page-size-selector.component';
+import { ObjectCollectionComponent } from '../../../../../../shared/object-collection/object-collection.component';
 
 describe('DsDynamicLookupRelationSelectionTabComponent', () => {
   let component: DsDynamicLookupRelationSelectionTabComponent;
@@ -46,22 +48,28 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), DsDynamicLookupRelationSelectionTabComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), DsDynamicLookupRelationSelectionTabComponent, VarDirective],
+      providers: [
         {
-            provide: SearchConfigurationService, useValue: {
-                paginatedSearchOptions: observableOf(pSearchOptions)
-            },
+          provide: SearchConfigurationService, useValue: {
+            paginatedSearchOptions: observableOf(pSearchOptions)
+          },
         },
         {
-            provide: Router, useValue: router
+          provide: Router, useValue: router
         },
         {
-            provide: PaginationService, useValue: new PaginationServiceStub()
+          provide: PaginationService, useValue: new PaginationServiceStub()
         }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(DsDynamicLookupRelationSelectionTabComponent, {
+        remove: {
+          imports: [ObjectCollectionComponent,
+            PageSizeSelectorComponent,]
+        }
+      })
       .compileComponents();
   }));
 

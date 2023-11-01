@@ -5,6 +5,7 @@ import { ThemeService } from '../shared/theme-support/theme.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 
 describe('ImportExternalPageComponent', () => {
   let component: ImportExternalPageComponent;
@@ -15,7 +16,8 @@ describe('ImportExternalPageComponent', () => {
     imports: [ImportExternalPageComponent],
     providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      { provide: SearchConfigurationService, useValue: {}},
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

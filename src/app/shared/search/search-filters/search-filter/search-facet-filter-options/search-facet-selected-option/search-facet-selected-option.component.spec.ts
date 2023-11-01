@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
@@ -17,6 +17,7 @@ import { SearchFacetSelectedOptionComponent } from './search-facet-selected-opti
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
 
 describe('SearchFacetSelectedOptionComponent', () => {
   let comp: SearchFacetSelectedOptionComponent;
@@ -136,7 +137,8 @@ describe('SearchFacetSelectedOptionComponent', () => {
                 }
                 /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
             }
-        }
+        },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(SearchFacetSelectedOptionComponent, {

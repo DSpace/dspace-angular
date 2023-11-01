@@ -12,10 +12,11 @@ import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 
 let component: ClaimedTaskActionsEditMetadataComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsEditMetadataComponent>;
@@ -48,6 +49,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ClaimedTaskActionsEditMetadataComponent, {

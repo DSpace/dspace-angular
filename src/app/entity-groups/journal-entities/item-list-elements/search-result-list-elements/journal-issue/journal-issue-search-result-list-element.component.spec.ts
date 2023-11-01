@@ -183,12 +183,13 @@ describe('JournalIssueSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalIssueSearchResultListElementComponent, TruncatePipe],
+    imports: [JournalIssueSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot(),],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalIssueSearchResultListElementComponent, {

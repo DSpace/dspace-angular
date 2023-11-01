@@ -17,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ProcessFormComponent } from '../form/process-form.component';
 
 describe('NewProcessComponent', () => {
   let component: NewProcessComponent;
@@ -39,10 +41,11 @@ describe('NewProcessComponent', () => {
       {
         invoke: observableOf({
           response:
-            {
-              isSuccessful: true
-            }
-        })
+          {
+            isSuccessful: true
+          }
+        }),
+        findAll: createSuccessfulRemoteDataObject$(script),
       }
     );
   }
@@ -50,26 +53,31 @@ describe('NewProcessComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
         }),
         NewProcessComponent, VarDirective
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: RequestService, useValue: {} },
         { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
         { provide: LinkService, useValue: {} },
         { provide: ProcessDataService, useValue: {} },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(NewProcessComponent, {
+        remove: {
+          imports: [ProcessFormComponent]
+        }
+      })
       .compileComponents();
   }));
 

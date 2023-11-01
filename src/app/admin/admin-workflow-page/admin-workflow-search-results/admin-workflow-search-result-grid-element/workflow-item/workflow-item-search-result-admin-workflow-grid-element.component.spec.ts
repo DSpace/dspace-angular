@@ -29,6 +29,11 @@ import { getMockLinkService } from '../../../../../shared/mocks/link-service.moc
 import { of as observableOf } from 'rxjs';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
@@ -70,11 +75,16 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
             }
         },
         { provide: BitstreamDataService, useValue: {} },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
       .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
-        set: {
+        remove: {
+          imports: [WorkflowItemAdminWorkflowActionsComponent]
+        },
+        add: {
           entryComponents: [ItemGridElementComponent]
         }
       })

@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, of as observableOf } from 'rxjs';
-import { Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { SearchLabelComponent } from './search-label.component';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
@@ -15,6 +15,7 @@ import { PaginationComponentOptions } from '../../../pagination/pagination-compo
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
@@ -42,18 +43,21 @@ describe('SearchLabelComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchLabelComponent, ObjectKeysPipe],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchLabelComponent, ObjectKeysPipe],
+      providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: {} }
-        // { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(SearchLabelComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+        { provide: Router, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(SearchLabelComponent, {
+      remove: {
+        imports: [RouterLink]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

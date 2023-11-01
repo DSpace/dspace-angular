@@ -27,6 +27,8 @@ import { RouteService } from '../core/services/route.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NotificationsBoardComponent } from '../shared/notifications/notifications-board/notifications-board.component';
+import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
 describe('RootComponent', () => {
   let component: RootComponent;
@@ -62,7 +64,13 @@ describe('RootComponent', () => {
         RouteService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+})
+.overrideComponent(RootComponent, {
+  remove: {
+    imports: [NotificationsBoardComponent, SystemWideAlertBannerComponent]
+  }
+})
+.compileComponents();
   });
 
   beforeEach(() => {

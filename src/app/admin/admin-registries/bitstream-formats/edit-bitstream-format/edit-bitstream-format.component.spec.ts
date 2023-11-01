@@ -19,6 +19,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../../../shared/remote-data.utils';
+import { FormatFormComponent } from '../format-form/format-form.component';
 
 describe('EditBitstreamFormatComponent', () => {
   let comp: EditBitstreamFormatComponent;
@@ -52,15 +53,22 @@ describe('EditBitstreamFormatComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, EditBitstreamFormatComponent],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, EditBitstreamFormatComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: router },
         { provide: NotificationsService, useValue: notificationService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+      .overrideComponent(EditBitstreamFormatComponent, {
+        remove: {
+          imports: [FormatFormComponent]
+        }
+      })
+      .compileComponents();
   };
 
   const initBeforeEach = () => {
@@ -102,15 +110,21 @@ describe('EditBitstreamFormatComponent', () => {
       });
 
       TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, EditBitstreamFormatComponent],
-    providers: [
-        { provide: ActivatedRoute, useValue: routeStub },
-        { provide: Router, useValue: router },
-        { provide: NotificationsService, useValue: notificationService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, EditBitstreamFormatComponent],
+        providers: [
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: Router, useValue: router },
+          { provide: NotificationsService, useValue: notificationService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+        ],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      })
+        .overrideComponent(EditBitstreamFormatComponent, {
+          remove: {
+            imports: [FormatFormComponent]
+          }
+        })
+        .compileComponents();
     }));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {

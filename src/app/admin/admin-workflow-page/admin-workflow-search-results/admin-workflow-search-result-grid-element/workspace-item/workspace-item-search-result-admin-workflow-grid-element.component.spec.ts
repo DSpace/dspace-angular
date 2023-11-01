@@ -36,6 +36,11 @@ import {
 } from '../../../../../shared/testing/supervision-order.mock';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkspaceItemSearchResultAdminWorkflowGridElementComponent;
@@ -67,25 +72,28 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-    imports: [
-        NoopAnimationsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([]),
-        WorkspaceItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective
-    ],
-    providers: [
-        { provide: LinkService, useValue: linkService },
-        { provide: ThemeService, useValue: themeService },
-        {
+        imports: [
+          NoopAnimationsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule.withRoutes([]),
+          WorkspaceItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective
+        ],
+        providers: [
+          { provide: LinkService, useValue: linkService },
+          { provide: ThemeService, useValue: themeService },
+          {
             provide: TruncatableService, useValue: {
-                isCollapsed: () => observableOf(true),
+              isCollapsed: () => observableOf(true),
             }
-        },
-        { provide: BitstreamDataService, useValue: {} },
-        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+          },
+          { provide: BitstreamDataService, useValue: {} },
+          { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
+          { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+          { provide: AuthService, useValue: new AuthServiceMock() },
+          { provide: AuthorizationDataService, useValue: {} },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      })
       .overrideComponent(WorkspaceItemSearchResultAdminWorkflowGridElementComponent, {
         set: {
           entryComponents: [ItemGridElementComponent]

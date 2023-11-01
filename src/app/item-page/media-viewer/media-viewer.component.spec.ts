@@ -15,6 +15,10 @@ import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
@@ -77,6 +81,8 @@ describe('MediaViewerComponent', () => {
     ],
     providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).compileComponents();

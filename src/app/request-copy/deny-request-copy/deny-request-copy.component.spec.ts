@@ -21,6 +21,8 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 
 describe('DenyRequestCopyComponent', () => {
   let component: DenyRequestCopyComponent;
@@ -108,6 +110,7 @@ describe('DenyRequestCopyComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: ThemeService, useValue: getMockThemeService() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).compileComponents();

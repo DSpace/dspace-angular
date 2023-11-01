@@ -8,6 +8,10 @@ import { EntityTypeDataService } from '../../core/data/entity-type-data.service'
 import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { createPaginatedList } from '../testing/utils.test';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AsyncPipe } from '@angular/common';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({
@@ -75,14 +79,26 @@ describe('EntityDropdownComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [EntityDropdownComponent, MockTranslatePipe],
-    providers: [
+      imports: [
+        EntityDropdownComponent,
+        MockTranslatePipe,
+        InfiniteScrollModule,
+        ThemedLoadingComponent,
+        AsyncPipe,
+        TranslateModule.forRoot(),
+      ],
+      providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
-        ChangeDetectorRef
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
-      .compileComponents();
+        ChangeDetectorRef,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+    .overrideComponent(EntityDropdownComponent, {
+      add: {
+        imports: [MockTranslatePipe]
+      }
+        })
+    .compileComponents();
   }));
 
   beforeEach(() => {

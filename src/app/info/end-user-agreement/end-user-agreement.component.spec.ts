@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { LogOutAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -48,17 +49,23 @@ describe('EndUserAgreementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), EndUserAgreementComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), EndUserAgreementComponent],
+      providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
         { provide: Store, useValue: store },
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(EndUserAgreementComponent, {
+        remove: {
+          imports: [EndUserAgreementContentComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

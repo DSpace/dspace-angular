@@ -9,6 +9,9 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;
@@ -35,22 +38,31 @@ describe('ObjectDetailComponent', () => {
   });
   const mockRD = createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, testObjects));
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ObjectDetailComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ObjectDetailComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+        ObjectDetailComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ObjectDetailComponent, {
+        remove: {
+          imports: [
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ListableObjectComponentLoaderComponent,
+          ],
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

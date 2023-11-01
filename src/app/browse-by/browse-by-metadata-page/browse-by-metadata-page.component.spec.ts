@@ -30,6 +30,15 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
+import { RouteService } from 'src/app/core/services/route.service';
+import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
+import { HostWindowService } from 'src/app/shared/host-window.service';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -102,17 +111,36 @@ describe('BrowseByMetadataPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BrowseByMetadataPageComponent, EnumKeysPipe, VarDirective],
-    providers: [
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        BrowseByMetadataPageComponent,
+        EnumKeysPipe,
+        VarDirective,
+        NoopAnimationsModule
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: APP_CONFIG, useValue: environmentMock }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        { provide: APP_CONFIG, useValue: environmentMock },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: SelectableListService, useValue: {} },
+        { provide: HostWindowService, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(BrowseByMetadataPageComponent, {
+        remove: {
+          imports: [ThemedLoadingComponent, DsoEditMenuComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

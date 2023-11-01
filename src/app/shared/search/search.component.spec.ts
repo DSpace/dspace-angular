@@ -170,7 +170,7 @@ const routeServiceStub = {
   getQueryParamsWithPrefix: () => {
     return observableOf('');
   },
-  setParameter: () => {
+  setParameter: (key: any, value: any) => {
     return;
   }
 };
@@ -199,7 +199,8 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   searchConfigurationServiceStub.paginatedSearchOptions = new BehaviorSubject(new PaginatedSearchOptions({pagination: {id: 'default'} as any}));
 
   TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType, ...additionalDeclarations],
+    declarations: [...additionalDeclarations],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType],
     providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {
@@ -220,7 +221,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         },
         {
             provide: SidebarService,
-            useValue: SidebarServiceStub
+            useClass: SidebarServiceStub
         },
         {
             provide: SearchFilterService,

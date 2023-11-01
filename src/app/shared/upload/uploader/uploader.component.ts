@@ -12,7 +12,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 import uniqueId from 'lodash/uniqueId';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { UploaderOptions } from './uploader-options.model';
 import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
@@ -99,7 +98,6 @@ export class UploaderComponent {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
     private cookieService: CookieService

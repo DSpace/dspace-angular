@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { SearchServiceStub } from 'src/app/shared/testing/search-service.stub';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
+import { SearchService } from '../../core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { SearchServiceStub } from '../../shared/testing/search-service.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { RecentItemListComponent } from './recent-item-list.component';

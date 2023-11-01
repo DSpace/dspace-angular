@@ -9,6 +9,8 @@ import { RouteService } from '../../../core/services/route.service';
 import { of as observableOf } from 'rxjs';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 let browseEntryListElementComponent: BrowseEntryListElementComponent;
 let fixture: ComponentFixture<BrowseEntryListElementComponent>;
 
@@ -40,6 +42,7 @@ describe('BrowseEntryListElementComponent', () => {
         { provide: 'objectElementProvider', useValue: { mockValue } },
         { provide: PaginationService, useValue: paginationService },
         { provide: RouteService, useValue: routeService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(BrowseEntryListElementComponent, {

@@ -17,8 +17,13 @@ import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
+import { APP_CONFIG } from './../../../../../config/app-config.interface';
+import { environment } from './../.././../../../environments/environment';
+import { ThemeService } from './../.././../../shared/theme-support/theme.service';
+import { getMockThemeService } from './../.././../../shared/mocks/theme-service.mock';
+import { provideMockStore } from '@ngrx/store/testing';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from './../.././../../shared/testing/active-router.stub';
 
 describe('FileSectionComponent', () => {
   let comp: FileSectionComponent;
@@ -58,19 +63,30 @@ describe('FileSectionComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe],
+      providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: APP_CONFIG, useValue: environment }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        provideMockStore()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+    .overrideComponent(FileSectionComponent, {
+      remove: {
+        imports: [
+          MetadataFieldWrapperComponent
+        ]
+      }
+    })
+    .compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

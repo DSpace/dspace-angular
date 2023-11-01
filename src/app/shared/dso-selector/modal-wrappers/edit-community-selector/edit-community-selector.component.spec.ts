@@ -8,6 +8,7 @@ import { EditCommunitySelectorComponent } from './edit-community-selector.compon
 import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 
 describe('EditCommunitySelectorComponent', () => {
   let component: EditCommunitySelectorComponent;
@@ -49,7 +50,13 @@ describe('EditCommunitySelectorComponent', () => {
         }
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+.overrideComponent(EditCommunitySelectorComponent, {
+  remove: {
+    imports: [DSOSelectorComponent]
+  }
+})
+.compileComponents();
 
   }));
 

@@ -15,6 +15,10 @@ import { Collection } from '../../../core/shared/collection.model';
 import { RequestService } from '../../../core/data/request.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
+import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
+import { AuthService } from '../../../core/auth/auth.service';
+import { CommunityDataService } from '../../../core/data/community-data.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 
 describe('CollectionMetadataComponent', () => {
   let comp: CollectionMetadataComponent;
@@ -66,7 +70,10 @@ describe('CollectionMetadataComponent', () => {
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
-        { provide: Router, useValue: routerMock }
+        { provide: Router, useValue: routerMock },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: ObjectCacheService, useValue: {} },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).compileComponents();

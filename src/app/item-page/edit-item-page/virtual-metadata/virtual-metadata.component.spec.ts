@@ -9,6 +9,9 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('VirtualMetadataComponent', () => {
 
@@ -44,14 +47,21 @@ describe('VirtualMetadataComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), VirtualMetadataComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), VirtualMetadataComponent, VarDirective],
+      providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: APP_CONFIG, useValue: environment }
-    ], schemas: [
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ], schemas: [
         NO_ERRORS_SCHEMA
-    ]
-}).compileComponents();
+      ]
+    })
+      .overrideComponent(VirtualMetadataComponent, {
+        remove: {
+          imports: [ListableObjectComponentLoaderComponent]
+        }
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(VirtualMetadataComponent);
     comp = fixture.componentInstance;

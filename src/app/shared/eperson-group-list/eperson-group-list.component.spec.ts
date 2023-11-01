@@ -21,6 +21,9 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;
@@ -67,25 +70,33 @@ describe('EpersonGroupListComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         EpersonGroupListComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: EPersonDataService, useValue: mockEpersonService },
         { provide: GroupDataService, useValue: mockGroupService },
         { provide: RequestService, useValue: getMockRequestService() },
         { provide: PaginationService, useValue: paginationService },
         EpersonGroupListComponent,
         ChangeDetectorRef,
-        Injector
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA
-    ]
-}).compileComponents();
+        Injector,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(EpersonGroupListComponent, {
+        remove: {
+          imports: [
+            EpersonSearchBoxComponent,
+            GroupSearchBoxComponent,
+            PaginationComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {

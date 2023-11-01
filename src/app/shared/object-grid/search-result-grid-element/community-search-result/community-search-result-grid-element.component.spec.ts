@@ -23,6 +23,11 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { StoreMock } from '../../../../shared/testing/store.mock';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
+import { AuthService } from '../../../../core/auth/auth.service';
 
 let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
@@ -72,7 +77,7 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
+        { provide: Store, useValue: StoreMock },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: BitstreamDataService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
@@ -83,7 +88,9 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CommunitySearchResultGridElementComponent, {

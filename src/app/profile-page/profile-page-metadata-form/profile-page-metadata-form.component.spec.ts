@@ -11,7 +11,7 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import cloneDeep from 'lodash/cloneDeep';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { FormComponent } from '../../shared/form/form.component';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { of } from 'rxjs';
 
 describe('ProfilePageMetadataFormComponent', () => {

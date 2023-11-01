@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, DebugElement, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
@@ -16,6 +16,13 @@ import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorato
 import { Operation } from 'fast-json-patch';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
+import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
+import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
+import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
+import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
+import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
@@ -68,18 +75,48 @@ describe('DsoEditMetadataComponent', () => {
       },
     });
 
-    notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
+    notificationsService = jasmine.createSpyObj('notificationsService', [
+      'error',
+      'success',
+    ]);
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataComponent, VarDirective],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        DsoEditMetadataComponent,
+        VarDirective,
+      ],
+      providers: [
         TestDataService,
-        { provide: DATA_SERVICE_FACTORY, useValue: jasmine.createSpy('getDataServiceFor').and.returnValue(TestDataService) },
+        {
+          provide: DATA_SERVICE_FACTORY,
+          useValue: jasmine
+            .createSpy('getDataServiceFor')
+            .and.returnValue(TestDataService),
+        },
         { provide: NotificationsService, useValue: notificationsService },
         ArrayMoveChangeAnalyzer,
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(DsoEditMetadataComponent, {
+        remove: {
+          imports: [
+            DsoEditMetadataValueComponent,
+            DsoEditMetadataHeadersComponent,
+            MetadataFieldSelectorComponent,
+            DsoEditMetadataValueHeadersComponent,
+            DsoEditMetadataFieldValuesComponent,
+            AlertComponent,
+            LoadingComponent,
+          ],
+        },
+        add: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RegisterEmailComponent } from './register-email.component';
+import { RegisterEmailFormComponent } from '../../register-email-form/register-email-form.component';
 
 describe('RegisterEmailComponent', () => {
 
@@ -12,9 +13,15 @@ describe('RegisterEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+      .overrideComponent(RegisterEmailComponent, {
+        remove: {
+          imports: [RegisterEmailFormComponent]
+        }
+      })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailComponent);

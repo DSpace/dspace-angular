@@ -6,9 +6,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Observable } from 'rxjs';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { hasValue } from '../../../shared/empty.util';
-import { CurationFormComponent } from "../../../curation-form/curation-form.component";
-import { TranslateModule } from "@ngx-translate/core";
-import { AsyncPipe } from "@angular/common";
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * Component for managing a community's curation tasks

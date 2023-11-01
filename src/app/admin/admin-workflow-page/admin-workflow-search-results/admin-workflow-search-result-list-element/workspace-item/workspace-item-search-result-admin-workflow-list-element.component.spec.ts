@@ -31,6 +31,13 @@ import {
   supervisionOrderPaginatedListRD$
 } from '../../../../../shared/testing/supervision-order.mock';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {
   let component: WorkspaceItemSearchResultAdminWorkflowListElementComponent;
@@ -68,8 +75,12 @@ describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {
     ],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: AuthorizationDataService, useValue: {} },
         { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
         { provide: APP_CONFIG, useValue: environment }
     ],

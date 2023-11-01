@@ -22,7 +22,7 @@ import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-s
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { RouterStub } from '../../testing/router.stub';
 import { Item } from '../../../core/shared/item.model';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import { ResourcePolicyEvent, ResourcePolicyFormComponent } from '../form/resource-policy-form.component';
 import { GroupMock } from '../../testing/group-mock';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
@@ -107,7 +107,13 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     schemas: [
         NO_ERRORS_SCHEMA
     ]
-}).compileComponents();
+})
+.overrideComponent(ResourcePolicyCreateComponent, {
+  remove: {
+    imports: [ResourcePolicyFormComponent]
+  }
+})
+.compileComponents();
   }));
 
   describe('', () => {

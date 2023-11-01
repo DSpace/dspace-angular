@@ -17,6 +17,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 describe('OrcidQueueComponent test suite', () => {
   let component: OrcidQueueComponent;
@@ -126,7 +127,13 @@ describe('OrcidQueueComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+.overrideComponent(OrcidQueueComponent, {
+  remove: {
+    imports: [PaginationComponent]
+  }
+})
+.compileComponents();
 
     orcidQueueService = TestBed.inject(OrcidQueueDataService);
   }));

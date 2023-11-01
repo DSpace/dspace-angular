@@ -4,6 +4,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ItemAlertsComponent', () => {
   let component: ItemAlertsComponent;
@@ -12,7 +15,10 @@ describe('ItemAlertsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ItemAlertsComponent],
+    providers: [
+      { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+    ],
+    imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
     schemas: [NO_ERRORS_SCHEMA]
 })
       .compileComponents();

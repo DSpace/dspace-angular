@@ -24,6 +24,8 @@ import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { environment } from '../../../../environments/environment';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
+import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 
 describe('UploadBitstreamComponent', () => {
   let comp: UploadBitstreamComponent;
@@ -287,8 +289,8 @@ describe('UploadBitstreamComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, UploadBitstreamComponent, VarDirective],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, UploadBitstreamComponent, VarDirective],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
@@ -296,10 +298,16 @@ describe('UploadBitstreamComponent', () => {
         { provide: AuthService, useValue: authServiceStub },
         { provide: BundleDataService, useValue: bundleService },
         { provide: RequestService, useValue: requestService }
-    ], schemas: [
+      ], schemas: [
         NO_ERRORS_SCHEMA
-    ]
-}).compileComponents();
+      ]
+    })
+      .overrideComponent(UploadBitstreamComponent, {
+        remove: {
+          imports: [UploaderComponent, DsoInputSuggestionsComponent]
+        }
+      })
+      .compileComponents();
   }
 
   /**

@@ -4,6 +4,9 @@ import { CommunityListPageComponent } from './community-list-page.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ThemeService } from '../shared/theme-support/theme.service';
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import { CommunityListService } from './community-list-service';
 
 describe('CommunityListPageComponent', () => {
   let component: CommunityListPageComponent;
@@ -22,6 +25,8 @@ describe('CommunityListPageComponent', () => {
     ],
     providers: [
         CommunityListPageComponent,
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: CommunityListService, useValue: {} },
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

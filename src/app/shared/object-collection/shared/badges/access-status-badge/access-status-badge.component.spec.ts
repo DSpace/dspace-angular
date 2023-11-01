@@ -7,7 +7,7 @@ import { AccessStatusBadgeComponent } from './access-status-badge.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { By } from '@angular/platform-browser';
 import { AccessStatusObject } from './access-status.model';
-import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { environment } from 'src/environments/environment';
 
 describe('ItemAccessStatusBadgeComponent', () => {

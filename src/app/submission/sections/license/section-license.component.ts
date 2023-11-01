@@ -137,7 +137,9 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     const model = this.formBuilderService.findById('granted', this.formModel);
 
     // Translate checkbox label
-    model.label = this.translateService.instant(model.label);
+    if (model.label) {
+      model.label = this.translateService.instant(model.label);
+    }
 
     // Retrieve license accepted status
     (model as DynamicCheckboxModel).value = (this.sectionData.data as WorkspaceitemSectionLicenseObject).granted;

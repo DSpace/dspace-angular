@@ -7,6 +7,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SearchResultsComponent } from './search-results.component';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
+import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { ErrorComponent } from '../../error/error.component';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -16,10 +24,29 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, SearchResultsComponent],
-    declarations: [QueryParamsDirectiveStub],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+      imports: [
+        TranslateModule.forRoot(),
+        NoopAnimationsModule,
+        SearchResultsComponent,
+      ],
+      declarations: [QueryParamsDirectiveStub],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(SearchResultsComponent, {
+        remove: {
+          imports: [
+            SearchExportCsvComponent,
+            ObjectCollectionComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

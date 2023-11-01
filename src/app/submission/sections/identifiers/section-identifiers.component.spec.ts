@@ -39,6 +39,8 @@ import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/
 import { Item } from '../../../core/shared/item.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -120,6 +122,15 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     remove: jasmine.createSpy('remove'),
   });
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   const licenseText = 'License text';
   const mockCollection = Object.assign(new Collection(), {
     name: 'Community 1-Collection 1',
@@ -161,6 +172,7 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionIdentifiersComponent

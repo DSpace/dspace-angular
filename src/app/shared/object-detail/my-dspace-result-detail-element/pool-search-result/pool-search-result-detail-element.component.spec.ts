@@ -15,9 +15,11 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { By } from '@angular/platform-browser';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { Context } from 'src/app/core/shared/context.model';
+import { Context } from '../../../../core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
+import { PoolTaskActionsComponent } from '../../../../shared/mydspace-actions/pool-task/pool-task-actions.component';
 
 let component: PoolSearchResultDetailElementComponent;
 let fixture: ComponentFixture<PoolSearchResultDetailElementComponent>;
@@ -68,17 +70,20 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('PoolSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, PoolSearchResultDetailElementComponent, VarDirective],
-    providers: [
+      imports: [NoopAnimationsModule, PoolSearchResultDetailElementComponent, VarDirective],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
         { provide: LinkService, useValue: linkService },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(PoolSearchResultDetailElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PoolSearchResultDetailElementComponent, {
+      remove: {
+        imports: [ItemDetailPreviewComponent, PoolTaskActionsComponent]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
@@ -109,7 +114,7 @@ describe('PoolSearchResultDetailElementComponent', () => {
 
   it('should forward pool-task-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
-    const actionPayload: any = { reloadedObject: {}};
+    const actionPayload: any = { reloadedObject: {} };
     const actionsComponents = fixture.debugElement.query(By.css('ds-pool-task-actions'));
     actionsComponents.triggerEventHandler('processCompleted', actionPayload);
     tick();

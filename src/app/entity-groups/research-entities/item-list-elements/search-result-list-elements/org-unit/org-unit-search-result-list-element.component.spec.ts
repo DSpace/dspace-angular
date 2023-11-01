@@ -23,6 +23,9 @@ import {
 } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 
 let orgUnitListElementComponent: OrgUnitSearchResultListElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListElementComponent>;
@@ -87,6 +90,9 @@ describe('OrgUnitSearchResultListElementComponent', () => {
         }), OrgUnitSearchResultListElementComponent, TruncatePipe],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() }

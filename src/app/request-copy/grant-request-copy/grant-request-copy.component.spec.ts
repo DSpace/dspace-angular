@@ -21,6 +21,8 @@ import { Item } from '../../core/shared/item.model';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { GrantRequestCopyComponent } from './grant-request-copy.component';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 
 describe('GrantRequestCopyComponent', () => {
   let component: GrantRequestCopyComponent;
@@ -108,6 +110,7 @@ describe('GrantRequestCopyComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: ThemeService, useValue: getMockThemeService() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).compileComponents();

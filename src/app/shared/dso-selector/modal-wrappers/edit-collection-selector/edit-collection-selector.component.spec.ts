@@ -8,6 +8,7 @@ import { EditCollectionSelectorComponent } from './edit-collection-selector.comp
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 
 describe('EditCollectionSelectorComponent', () => {
   let component: EditCollectionSelectorComponent;
@@ -29,27 +30,33 @@ describe('EditCollectionSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), EditCollectionSelectorComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), EditCollectionSelectorComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                root: {
-                    snapshot: {
-                        data: {
-                            dso: collectionRD,
-                        },
-                    },
-                }
-            },
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: collectionRD,
+                },
+              },
+            }
+          },
         },
         {
-            provide: Router, useValue: router
+          provide: Router, useValue: router
         }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(EditCollectionSelectorComponent, {
+        remove: {
+          imports: [DSOSelectorComponent]
+        }
+      })
+      .compileComponents();
 
   }));
 

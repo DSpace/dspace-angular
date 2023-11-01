@@ -13,7 +13,9 @@ import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { Context } from 'src/app/core/shared/context.model';
+import { Context } from '../../../../core/shared/context.model';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
+import { WorkspaceitemActionsComponent } from '../../../../shared/mydspace-actions/workspaceitem/workspaceitem-actions.component';
 
 let component: WorkspaceItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultDetailElementComponent>;
@@ -59,16 +61,19 @@ mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: ob
 describe('WorkspaceItemSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, WorkspaceItemSearchResultDetailElementComponent],
-    providers: [
+      imports: [NoopAnimationsModule, WorkspaceItemSearchResultDetailElementComponent],
+      providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(WorkspaceItemSearchResultDetailElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(WorkspaceItemSearchResultDetailElementComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ItemDetailPreviewComponent, WorkspaceitemActionsComponent]
+      }
     }).compileComponents();
   }));
 

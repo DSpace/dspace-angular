@@ -11,6 +11,8 @@ import { SelectableObject } from '../../../shared/object-list/selectable-list/se
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 
 describe('BulkAccessBrowseComponent', () => {
   let component: BulkAccessBrowseComponent;
@@ -23,22 +25,25 @@ describe('BulkAccessBrowseComponent', () => {
   const selected1 = new SelectableObject(value1);
   const selected2 = new SelectableObject(value2);
 
-  const testSelection = { id: listID1, selection: [selected1, selected2] } ;
+  const testSelection = { id: listID1, selection: [selected1, selected2] };
 
   const selectableListService = jasmine.createSpyObj('SelectableListService', ['getSelectableList', 'deselectAll']);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbAccordionModule,
         NgbNavModule,
         TranslateModule.forRoot(),
         BulkAccessBrowseComponent
-    ],
-    providers: [{ provide: SelectableListService, useValue: selectableListService },],
-    schemas: [
+      ],
+      providers: [
+        { provide: SelectableListService, useValue: selectableListService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA
-    ]
-}).compileComponents();
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -73,7 +78,7 @@ describe('BulkAccessBrowseComponent', () => {
       'totalElements': 2,
       'totalPages': 1,
       'currentPage': 1
-    }), [selected1, selected2]) ;
+    }), [selected1, selected2]);
     const rd = createSuccessfulRemoteDataObject(list);
 
     expect(component.objectsSelected$.value).toEqual(rd);

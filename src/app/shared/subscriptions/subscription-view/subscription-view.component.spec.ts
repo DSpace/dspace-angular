@@ -26,6 +26,8 @@ import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 
 describe('SubscriptionViewComponent', () => {
   let component: SubscriptionViewComponent;
@@ -72,6 +74,7 @@ describe('SubscriptionViewComponent', () => {
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

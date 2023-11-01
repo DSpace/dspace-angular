@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { CommunityCurateComponent } from './community-curate.component';
 import { Community } from '../../../core/shared/community.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 describe('CommunityCurateComponent', () => {
   let comp: CommunityCurateComponent;
@@ -34,13 +35,19 @@ describe('CommunityCurateComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), CommunityCurateComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), CommunityCurateComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: DSONameService, useValue: dsoNameService }
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+      .overrideComponent(CommunityCurateComponent, {
+        remove: {
+          imports: [CurationFormComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -47,6 +47,18 @@ import {
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
 import { provideMockStore } from '@ngrx/store/testing';
+import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
+import { NgxMaskModule } from 'ngx-mask';
+
+function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
+  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
+    matchesCondition: jasmine.createSpy('matchesCondition'),
+    subscribeRelations: jasmine.createSpy('subscribeRelations')
+  });
+}
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -89,7 +101,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         TranslateModule.forRoot(),
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
-        TestComponent
+        TestComponent,
+        NgxMaskModule.forRoot(),
     ],
     providers: [
         { provide: FormService, useValue: getMockFormService() },
@@ -97,13 +110,15 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
-        provideMockStore(),
+        provideMockStore({}),
         FormBuilderService,
         ChangeDetectorRef,
         SubmissionSectionUploadFileEditComponent,
         NgbModal,
         NgbActiveModal,
         FormComponent,
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
+        { provide: APP_CONFIG, useValue: environment },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).compileComponents().then();

@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DsoEditMenuSectionComponent } from './dso-edit-menu-section.component';
 import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
-import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
+import { MenuItemType } from '../../../../shared/menu/menu-item-type.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 

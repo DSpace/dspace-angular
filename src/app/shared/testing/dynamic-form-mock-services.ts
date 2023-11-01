@@ -4,5 +4,6 @@ export const mockDynamicFormLayoutService = jasmine.createSpyObj('DynamicFormLay
 });
 
 export const mockDynamicFormValidationService = jasmine.createSpyObj('DynamicFormValidationService', {
-  showErrorMessages: jasmine.createSpy('showErrorMessages')
+  showErrorMessages: jasmine.createSpy('showErrorMessages'),
+  createErrorMessages: jasmine.createSpy('createErrorMessages'),
 });

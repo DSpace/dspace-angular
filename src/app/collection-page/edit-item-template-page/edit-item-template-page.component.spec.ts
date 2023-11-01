@@ -11,6 +11,10 @@ import { Collection } from '../../core/shared/collection.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 describe('EditItemTemplatePageComponent', () => {
   let comp: EditItemTemplatePageComponent;
@@ -28,13 +32,15 @@ describe('EditItemTemplatePageComponent', () => {
       findByCollectionID: createSuccessfulRemoteDataObject$({})
     });
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditItemTemplatePageComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditItemTemplatePageComponent],
+      providers: [
         { provide: ItemTemplateDataService, useValue: itemTemplateService },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

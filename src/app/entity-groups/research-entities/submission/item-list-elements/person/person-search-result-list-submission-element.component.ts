@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -9,8 +8,6 @@ import { Context } from '../../../../../core/shared/context.model';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { take } from 'rxjs/operators';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
@@ -47,11 +44,8 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
 
   constructor(protected truncatableService: TruncatableService,
               private relationshipService: RelationshipDataService,
-              private notificationsService: NotificationsService,
-              private translateService: TranslateService,
               private modalService: NgbModal,
               private itemDataService: ItemDataService,
-              private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
               public dsoNameService: DSONameService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig

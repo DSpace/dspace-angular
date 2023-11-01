@@ -10,6 +10,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CommunityAuthorizationsComponent } from './community-authorizations.component';
 import { Collection } from '../../../core/shared/collection.model';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 
 describe('CommunityAuthorizationsComponent', () => {
   let comp: CommunityAuthorizationsComponent<DSpaceObject>;
@@ -37,17 +38,23 @@ describe('CommunityAuthorizationsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         CommunityAuthorizationsComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         CommunityAuthorizationsComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(CommunityAuthorizationsComponent, {
+        remove: {
+          imports: [ResourcePoliciesComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

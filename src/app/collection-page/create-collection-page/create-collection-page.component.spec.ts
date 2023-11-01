@@ -15,6 +15,9 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { RequestService } from '../../core/data/request.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { CollectionFormComponent } from '../collection-form/collection-form.component';
 
 describe('CreateCollectionPageComponent', () => {
   let comp: CreateCollectionPageComponent;
@@ -22,21 +25,28 @@ describe('CreateCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, CreateCollectionPageComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, CreateCollectionPageComponent],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: {} },
         {
-            provide: CommunityDataService,
-            useValue: { findById: () => observableOf({ payload: { name: 'test' } }) }
+          provide: CommunityDataService,
+          useValue: { findById: () => observableOf({ payload: { name: 'test' } }) }
         },
         { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
         { provide: Router, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: RequestService, useValue: {} }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        { provide: RequestService, useValue: {} },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(CreateCollectionPageComponent, {
+        remove: {
+          imports: [CollectionFormComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

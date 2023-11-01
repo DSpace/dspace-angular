@@ -25,7 +25,11 @@ import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service
 import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { storeModuleConfig } from '../../../../../../app.reducer';
-
+import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
+import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
 export let FORM_GROUP_TEST_GROUP;
@@ -94,6 +98,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let groupComp: DsDynamicRelationGroupComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let groupFixture: ComponentFixture<DsDynamicRelationGroupComponent>;
+  let vocabularyServiceStub: any;
   let modelValue: any;
   let html;
   let control1: UntypedFormControl;
@@ -104,7 +109,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     init();
-
+    vocabularyServiceStub = new VocabularyServiceStub();
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
     imports: [
@@ -116,7 +121,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         TranslateModule.forRoot(),
         FormComponent,
         DsDynamicRelationGroupComponent,
-        TestComponent
+        TestComponent,
     ],
     providers: [
         ChangeDetectorRef,
@@ -126,11 +131,16 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: VocabularyService, useValue: new VocabularyServiceStub() },
-        { provide: Store, useClass: StoreMock }
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
+        { provide: Store, useClass: StoreMock },
+        { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
+        { provide: SubmissionObjectDataService, useValue: {}},
+        { provide: SubmissionService, useValue: {}},
+        { provide: APP_CONFIG, useValue: environment },
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-});
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+    .compileComponents();
 
   }));
 

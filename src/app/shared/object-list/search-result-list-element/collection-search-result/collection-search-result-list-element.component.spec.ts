@@ -12,6 +12,8 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { ThemeService } from './../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from './../../../../shared/mocks/theme-service.mock';
 
 let collectionSearchResultListElementComponent: CollectionSearchResultListElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultListElementComponent>;
@@ -60,7 +62,8 @@ describe('CollectionSearchResultListElementComponent', () => {
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CollectionSearchResultListElementComponent, {

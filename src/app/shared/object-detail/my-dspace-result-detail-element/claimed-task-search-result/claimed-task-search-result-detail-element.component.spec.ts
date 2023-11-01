@@ -25,6 +25,8 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
+import { ClaimedTaskActionsComponent } from '../../../../shared/mydspace-actions/claimed-task/claimed-task-actions.component';
 
 let component: ClaimedTaskSearchResultDetailElementComponent;
 let fixture: ComponentFixture<ClaimedTaskSearchResultDetailElementComponent>;
@@ -73,17 +75,20 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 });
 
 describe('ClaimedTaskSearchResultDetailElementComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, ClaimedTaskSearchResultDetailElementComponent, VarDirective],
-    providers: [
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule, ClaimedTaskSearchResultDetailElementComponent, VarDirective],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: LinkService, useValue: linkService },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
+      remove: {
+        imports: [ItemDetailPreviewComponent, ClaimedTaskActionsComponent]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

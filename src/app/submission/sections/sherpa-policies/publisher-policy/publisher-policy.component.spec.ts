@@ -6,6 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 
 describe('PublisherPolicyComponent', () => {
   let component: PublisherPolicyComponent;
@@ -21,8 +22,13 @@ describe('PublisherPolicyComponent', () => {
                 useClass: TranslateLoaderMock
             }
         }),
-        PublisherPolicyComponent
+        PublisherPolicyComponent,
     ]
+})
+.overrideComponent(PublisherPolicyComponent, {
+  remove: {
+    imports: [ContentAccordionComponent]
+  }
 })
       .compileComponents();
   });

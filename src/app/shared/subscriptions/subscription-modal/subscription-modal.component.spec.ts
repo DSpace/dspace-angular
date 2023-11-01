@@ -17,6 +17,8 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { By } from '@angular/platform-browser';
 import { subscriptionMock, subscriptionMock2 } from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 
 describe('SubscriptionModalComponent', () => {
   let component: SubscriptionModalComponent;
@@ -93,6 +95,7 @@ describe('SubscriptionModalComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: NotificationsService, useValue: notificationServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
     ],
     schemas: [
         NO_ERRORS_SCHEMA

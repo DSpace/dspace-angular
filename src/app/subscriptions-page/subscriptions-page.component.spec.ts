@@ -26,6 +26,9 @@ import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-
 import { PageInfo } from '../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 describe('SubscriptionsPageComponent', () => {
   let component: SubscriptionsPageComponent;
@@ -54,27 +57,32 @@ describe('SubscriptionsPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         BrowserModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
         }),
         NoopAnimationsModule,
         SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
         { provide: PaginationService, useValue: paginationService }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(SubscriptionsPageComponent, {
+        remove: {
+          imports: [ThemedLoadingComponent, PaginationComponent, AlertComponent]
+        }
+      })
       .compileComponents();
   }));
 

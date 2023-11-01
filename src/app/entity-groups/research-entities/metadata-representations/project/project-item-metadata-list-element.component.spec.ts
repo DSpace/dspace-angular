@@ -10,6 +10,8 @@ import { ProjectItemMetadataListElementComponent } from './project-item-metadata
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+import { RouterLink } from '@angular/router';
 
 const projectTitle = 'Lorem ipsum dolor sit amet';
 const mockItem = Object.assign(new Item(), { metadata: { 'dc.title': [{ value: projectTitle }] } });
@@ -23,16 +25,19 @@ describe('ProjectItemMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbModule,
         ProjectItemMetadataListElementComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ProjectItemMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ProjectItemMetadataListElementComponent, {
+      remove: {
+        imports: [TruncatableComponent, RouterLink,]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

@@ -33,6 +33,8 @@ import { getMockSectionUploadService } from '../../../../shared/mocks/section-up
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 
 
 
@@ -94,6 +96,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: ThemeService, useValue: getMockThemeService() },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,

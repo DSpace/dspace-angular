@@ -9,6 +9,7 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
+import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 
 describe('TabbedRelatedEntitiesSearchComponent', () => {
   let comp: TabbedRelatedEntitiesSearchComponent;
@@ -29,18 +30,26 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule, TabbedRelatedEntitiesSearchComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule, TabbedRelatedEntitiesSearchComponent, VarDirective],
+      providers: [
         {
-            provide: ActivatedRoute,
-            useValue: {
-                queryParams: observableOf({ tab: mockRelationType })
-            },
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: observableOf({ tab: mockRelationType })
+          },
         },
         { provide: Router, useValue: router }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(TabbedRelatedEntitiesSearchComponent, {
+        remove: {
+          imports: [
+            RelatedEntitiesSearchComponent
+          ]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -10,6 +10,7 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { of as observableOf } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 describe('MetadataSchemaFormComponent', () => {
   let component: MetadataSchemaFormComponent;
@@ -38,13 +39,19 @@ describe('MetadataSchemaFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataSchemaFormComponent, EnumKeysPipe],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataSchemaFormComponent, EnumKeysPipe],
+      providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: FormBuilderService, useValue: formBuilderServiceStub }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(MetadataSchemaFormComponent, {
+        remove: {
+          imports: [FormComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

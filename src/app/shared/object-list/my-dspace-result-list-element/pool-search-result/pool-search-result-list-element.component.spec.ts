@@ -29,6 +29,7 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { PoolTaskActionsComponent } from './../../../../shared/mydspace-actions/pool-task/pool-task-actions.component';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -92,10 +93,15 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock },
         { provide: ThemeService, useValue: getMockThemeService() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(PoolSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PoolSearchResultListElementComponent, {
+      remove: {
+        imports: [
+           PoolTaskActionsComponent
+        ]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

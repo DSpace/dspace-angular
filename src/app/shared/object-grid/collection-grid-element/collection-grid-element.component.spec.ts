@@ -7,6 +7,11 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { ThemeService } from '../../theme-support/theme.service';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 let collectionGridElementComponent: CollectionGridElementComponent;
 let fixture: ComponentFixture<CollectionGridElementComponent>;
@@ -47,7 +52,10 @@ describe('CollectionGridElementComponent', () => {
     providers: [
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: LinkService, useValue: linkService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CollectionGridElementComponent, {

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterEmailFormComponent } from '../../register-email-form/register-email-form.component';
 
 describe('ForgotEmailComponent', () => {
   let comp: ForgotEmailComponent;
@@ -11,9 +12,15 @@ describe('ForgotEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, ForgotEmailComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, ForgotEmailComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+      .overrideComponent(ForgotEmailComponent, {
+        remove: {
+          imports: [RegisterEmailFormComponent]
+        }
+      })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(ForgotEmailComponent);

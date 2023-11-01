@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -23,6 +23,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let mockDataService: PoolTaskDataService;
 let mockClaimedTaskDataService: ClaimedTaskDataService;
@@ -93,7 +94,8 @@ describe('PoolTaskActionsComponent', () => {
         { provide: PoolTaskDataService, useValue: mockDataService },
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(PoolTaskActionsComponent, {

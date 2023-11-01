@@ -16,7 +16,7 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-bu
 import { CoreState } from '../core-state.model';
 import { RequestEntry } from './request-entry.model';
 import { FindListOptions } from './find-list-options.model';
-import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';

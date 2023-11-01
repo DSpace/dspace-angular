@@ -18,6 +18,9 @@ import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
+import { PaginationComponent } from '../../../../../shared/pagination/pagination.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
@@ -115,17 +118,24 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), PaginatedDragAndDropBitstreamListComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), PaginatedDragAndDropBitstreamListComponent, VarDirective],
+      providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
         { provide: RequestService, useValue: requestService },
-        { provide: PaginationService, useValue: paginationService }
-    ], schemas: [
+        { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ], schemas: [
         NO_ERRORS_SCHEMA
-    ]
-}).compileComponents();
+      ]
+    })
+      .overrideComponent(PaginatedDragAndDropBitstreamListComponent, {
+        remove: {
+          imports: [PaginationComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

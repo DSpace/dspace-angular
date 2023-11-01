@@ -8,6 +8,7 @@ import { Community } from '../../../core/shared/community.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { RouterStub } from '../../testing/router.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
 
 describe('ScopeSelectorModalComponent', () => {
   let component: ScopeSelectorModalComponent;
@@ -26,30 +27,36 @@ describe('ScopeSelectorModalComponent', () => {
   const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ScopeSelectorModalComponent],
-    providers: [
+  beforeEach(waitForAsync(async () => {
+   await TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), ScopeSelectorModalComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                root: {
-                    snapshot: {
-                        data: {
-                            dso: communityRD,
-                        },
-                    },
-                }
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: communityRD,
+                },
+              },
             },
+          },
         },
         {
-            provide: Router, useValue: router
-        }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
-
+          provide: Router,
+          useValue: router,
+        },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ScopeSelectorModalComponent, {
+        remove: {
+          imports: [DSOSelectorComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

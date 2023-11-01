@@ -3,19 +3,23 @@ import { ObjectListComponent } from './object-list.component';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { SelectableListService } from './selectable-list/selectable-list.service';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 describe('ObjectListComponent', () => {
   let comp: ObjectListComponent;
   let fixture: ComponentFixture<ObjectListComponent>;
   const testEvent: any = { test: 'test' };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [ObjectListComponent],
-    providers: [{ provide: SelectableListService, useValue: {} }],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ObjectListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ObjectListComponent],
+      providers: [{ provide: SelectableListService, useValue: {} }],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ObjectListComponent, {
+      remove: {
+        imports: [PaginationComponent]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

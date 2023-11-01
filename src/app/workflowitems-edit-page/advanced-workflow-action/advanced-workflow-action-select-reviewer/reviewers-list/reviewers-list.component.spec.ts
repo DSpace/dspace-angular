@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA, SimpleChange, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -32,6 +32,9 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 
 describe('ReviewersListComponent', () => {
   let component: ReviewersListComponent;
@@ -150,9 +153,16 @@ describe('ReviewersListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+})
+.overrideComponent(ReviewersListComponent, {
+  remove: {
+    imports: [ContextHelpDirective, PaginationComponent]
+  }
+})
+.compileComponents();
   }));
 
   beforeEach(() => {

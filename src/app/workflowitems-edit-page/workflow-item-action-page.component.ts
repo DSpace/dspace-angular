@@ -46,7 +46,7 @@ export abstract class WorkflowItemActionPageDirective implements OnInit {
     this.type = this.getType();
     this.wfi$ = this.route.data.pipe(map((data: Data) => data.wfi as RemoteData<WorkflowItem>), getRemoteDataPayload());
     this.item$ = this.wfi$.pipe(switchMap((wfi: WorkflowItem) => (wfi.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
-    this.previousQueryParameters = (this.location.getState() as { [key: string]: any }).previousQueryParams;
+    this.previousQueryParameters = (this.location.getState() as { [key: string]: any })?.previousQueryParams;
   }
 
   /**

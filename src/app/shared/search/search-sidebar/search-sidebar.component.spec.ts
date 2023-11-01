@@ -3,7 +3,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SearchSidebarComponent } from './search-sidebar.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
+import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 
 describe('SearchSidebarComponent', () => {
   let comp: SearchSidebarComponent;
@@ -11,10 +13,22 @@ describe('SearchSidebarComponent', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NgbCollapseModule, SearchSidebarComponent],
-    schemas: [NO_ERRORS_SCHEMA]
-})
-      .compileComponents();  // compile template and css
+      imports: [
+        TranslateModule.forRoot(),
+        NgbCollapseModule,
+        SearchSidebarComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+    .overrideComponent(SearchSidebarComponent, {
+      remove:{
+        imports: [ThemedSearchFiltersComponent, ThemedSearchSettingsComponent],
+      },
+      add: {
+        changeDetection: ChangeDetectionStrategy.Default,
+      }
+    })
+    .compileComponents();  // compile template and css
   }));
 
   // synchronous beforeEach

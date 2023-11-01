@@ -77,11 +77,11 @@ describe('ProjectSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [ProjectSearchResultListElementComponent, TruncatePipe],
     providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ProjectSearchResultListElementComponent, {
@@ -149,7 +149,8 @@ describe('ProjectSearchResultListElementComponent', () => {
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ProjectSearchResultListElementComponent, {

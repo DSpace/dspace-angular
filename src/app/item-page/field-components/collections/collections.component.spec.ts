@@ -14,6 +14,8 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {
   id: id,
@@ -50,6 +52,7 @@ describe('CollectionsComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService() },
         { provide: CollectionDataService, useValue: collectionDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CollectionsComponent, {

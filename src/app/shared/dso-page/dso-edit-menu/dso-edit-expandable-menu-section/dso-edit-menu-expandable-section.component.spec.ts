@@ -10,7 +10,7 @@ import { of as observableOf } from 'rxjs';
 import { Component } from '@angular/core';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
 import { By } from '@angular/platform-browser';
-import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
+import { MenuItemType } from '../../../../shared/menu/menu-item-type.model';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {
   let component: DsoEditMenuExpandableSectionComponent;

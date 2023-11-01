@@ -4,6 +4,7 @@ import { Directive, Input } from '@angular/core';
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[routerLink]',
+  standalone: true
 })
 export class RouterLinkDirectiveStub {
   @Input() routerLink: any;

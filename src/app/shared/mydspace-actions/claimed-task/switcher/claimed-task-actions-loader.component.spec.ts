@@ -8,7 +8,7 @@ import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claime
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
@@ -17,6 +17,7 @@ import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 
 const searchService = getMockSearchService();
 
@@ -71,7 +72,8 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
-        { provide: PoolTaskDataService, useValue: {} }
+        { provide: PoolTaskDataService, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ]
 }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {

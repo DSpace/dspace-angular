@@ -23,6 +23,17 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { CollectionsComponent } from '../field-components/collections/collections.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -121,12 +132,27 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: PLATFORM_ID, useValue: 'server' }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(FullItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(FullItemPageComponent, {
+        remove: {
+          imports: [
+            ItemVersionsComponent,
+            ItemVersionsNoticeComponent,
+            ThemedLoadingComponent,
+            ThemedItemPageTitleFieldComponent,
+            DsoEditMenuComponent,
+            ViewTrackerComponent,
+            ThemedItemAlertsComponent,
+            CollectionsComponent,
+            ThemedFullFileSectionComponent
+          ]
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default }
+      }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

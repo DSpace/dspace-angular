@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { RouterStub } from '../../../../../testing/router.stub';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
@@ -63,33 +63,36 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetRangeOptionComponent, ShortNumberPipe],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetRangeOptionComponent, ShortNumberPipe],
+      providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         {
-            provide: SearchConfigurationService, useValue: {
-                searchOptions: observableOf({}),
-                paginationId: 'page-id'
-            }
+          provide: SearchConfigurationService, useValue: {
+            searchOptions: observableOf({}),
+            paginationId: 'page-id'
+          }
         },
         {
-            provide: SearchFilterService, useValue: {
-                isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
-                getPage: (paramName: string) => page,
-                /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-                incrementPage: (filterName: string) => {
-                },
-                resetPage: (filterName: string) => {
-                }
-                /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+          provide: SearchFilterService, useValue: {
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
+            getPage: (paramName: string) => page,
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+            incrementPage: (filterName: string) => {
+            },
+            resetPage: (filterName: string) => {
             }
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+          }
         }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(SearchFacetRangeOptionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(SearchFacetRangeOptionComponent, {
+      remove: {
+        imports: [RouterLink]
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

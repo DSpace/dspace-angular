@@ -24,6 +24,11 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowListElementComponent;
@@ -58,7 +63,10 @@ describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

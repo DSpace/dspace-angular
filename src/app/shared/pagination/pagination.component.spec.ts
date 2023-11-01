@@ -34,6 +34,7 @@ import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { BehaviorSubject } from 'rxjs';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { RSSComponent } from '../rss-feed/rss.component';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -171,6 +172,10 @@ describe('Pagination component', () => {
         PaginationComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).overrideComponent(PaginationComponent, {
+  remove: {
+    imports: [RSSComponent]
+  }
 });
 
   }));

@@ -30,7 +30,7 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
     selector: 'ds-simple-action',
     templateUrl: './abstract-simple-item-action.component.html',
     standalone: true,
-    imports: [CommonModule, FormsModule, NgbModule]
+    imports: [CommonModule, FormsModule, NgbModule, TranslateModule],
 })
 export class MySimpleItemActionComponent extends AbstractSimpleItemActionComponent {
 

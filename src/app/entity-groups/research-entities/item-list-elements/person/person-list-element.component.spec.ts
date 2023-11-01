@@ -8,6 +8,17 @@ import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -31,16 +42,17 @@ describe('PersonListElementComponent', () => {
   let comp;
   let fixture;
 
-  const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
-  };
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [PersonListElementComponent, TruncatePipe],
+    imports: [PersonListElementComponent, TruncatePipe, TranslateModule.forRoot()],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(PersonListElementComponent, {

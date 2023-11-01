@@ -24,6 +24,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -128,7 +129,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
             }
         },
         { provide: NgZone, useValue: new NgZone({}) },
-        NgbActiveModal
+        NgbActiveModal,
+        provideMockStore()
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

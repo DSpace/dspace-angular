@@ -1,7 +1,7 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -34,11 +34,16 @@ import { isNotEmptyOperator } from '../../empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RouterMock } from '../../mocks/router.mock';
-import { Store } from '@ngrx/store';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreMock } from '../../testing/store.mock';
+import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { SubmissionObjectDataService } from './../../../core/submission/submission-object-data.service';
+import { SubmissionService } from './../../../submission/submission.service';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
+import { NgxMaskModule } from 'ngx-mask';
+import { provideMockStore } from '@ngrx/store/testing';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -175,9 +180,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [
-        BrowserModule,
+   TestBed.configureTestingModule({
+      imports: [
         CommonModule,
         FormsModule,
         NgbModule,
@@ -185,27 +189,36 @@ describe('ResourcePolicyFormComponent test suite', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         FormComponent,
-        EpersonGroupListComponent,
         ResourcePolicyFormComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+        NgxMaskModule.forRoot(),
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: new RouterMock() },
-        { provide: Store, useValue: StoreMock },
+        // { provide: Store, useValue: StoreMock },
         { provide: EPersonDataService, useValue: epersonService },
         { provide: FormService, useValue: formService },
         { provide: GroupDataService, useValue: groupService },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: RequestService, useValue: getMockRequestService() },
         FormBuilderService,
-        ChangeDetectorRef,
-        ResourcePolicyFormComponent
-    ],
-    schemas: [
+        { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
+        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: SubmissionService, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
+        provideMockStore({})
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA
-    ]
-}).compileComponents();
+      ]
+    })
+    .overrideComponent(ResourcePolicyFormComponent, {
+      remove: {
+        imports: [EpersonGroupListComponent]
+      }
+    })
+    .compileComponents();
   }));
 
   describe('', () => {
@@ -227,7 +240,6 @@ describe('ResourcePolicyFormComponent test suite', () => {
     });
 
     it('should create ResourcePolicyFormComponent', inject([ResourcePolicyFormComponent], (app: ResourcePolicyFormComponent) => {
-
       expect(app).toBeDefined();
 
     }));
@@ -449,14 +461,14 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [BrowserModule,
-        CommonModule,
-        FormsModule,
-        NgbModule,
-        ReactiveFormsModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [BrowserModule,
+    CommonModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule]
 })
 class TestComponent {
 

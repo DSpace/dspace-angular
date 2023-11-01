@@ -19,9 +19,9 @@ import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
-import { ContextHelpDirective } from "../../../../shared/context-help.directive";
-import { PaginationComponent } from "../../../../shared/pagination/pagination.component";
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
  * Keys to keep track of specific subscriptions

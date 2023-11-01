@@ -9,6 +9,8 @@ import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 
 let comp: ItemPageDateFieldComponent;
 let fixture: ComponentFixture<ItemPageDateFieldComponent>;
@@ -19,18 +21,20 @@ const mockValue = 'test value';
 describe('ItemPageDateFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), ItemPageDateFieldComponent, MetadataValuesComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock
+        }
+      }), ItemPageDateFieldComponent, MetadataValuesComponent],
+      providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ItemPageDateFieldComponent, {
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ItemPageDateFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

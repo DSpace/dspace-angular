@@ -1,7 +1,7 @@
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -27,6 +27,7 @@ import { getMockSearchService } from '../../mocks/search-service.mock';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;
@@ -180,6 +181,7 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: RequestService, useValue: requestServce },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         NgbModal
     ],
     schemas: [NO_ERRORS_SCHEMA]

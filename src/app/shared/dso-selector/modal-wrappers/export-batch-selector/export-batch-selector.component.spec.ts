@@ -20,6 +20,8 @@ import {
 } from '../../../remote-data.utils';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
@@ -90,6 +92,7 @@ describe('ExportBatchSelectorComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: SearchService, useValue:  new SearchServiceStub()},
         {
             provide: ActivatedRoute,
             useValue: {

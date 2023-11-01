@@ -11,6 +11,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { HALResource } from '../../../core/shared/hal-resource.model';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -36,7 +37,7 @@ export function createSidebarSearchListElementTests(
       TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), componentClass, VarDirective],
     providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: LinkService, useValue: linkService },
         DSONameService,
         ...extraProviders

@@ -13,6 +13,9 @@ import { Process } from '../../process-page/processes/process.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 
 describe('BulkAccessComponent', () => {
   let component: BulkAccessComponent;
@@ -69,18 +72,26 @@ describe('BulkAccessComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
         BulkAccessComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: BulkAccessControlService, useValue: bulkAccessControlServiceMock },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
-        { provide: SelectableListService, useValue: selectableListServiceMock }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        { provide: SelectableListService, useValue: selectableListServiceMock },
+        { provide: ThemeService, useValue: getMockThemeService() }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(BulkAccessComponent, {
+        remove: {
+          imports: [
+            BulkAccessSettingsComponent,
+          ]
+        }
+      })
       .compileComponents();
   });
 

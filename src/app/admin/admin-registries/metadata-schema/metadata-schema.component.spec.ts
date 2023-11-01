@@ -25,6 +25,13 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -129,19 +136,56 @@ describe('MetadataSchemaComponent', () => {
 
   const paginationService = new PaginationServiceStub();
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataSchemaComponent, PaginationComponent, EnumKeysPipe, VarDirective],
-    providers: [
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        MetadataSchemaComponent,
+        PaginationComponent,
+        EnumKeysPipe,
+        VarDirective,
+      ],
+      providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        {
+          provide: NotificationsService,
+          useValue: new NotificationsServiceStub(),
+        },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub()  },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(MetadataSchemaComponent, {
+        remove: {
+          imports: [MetadataFieldFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

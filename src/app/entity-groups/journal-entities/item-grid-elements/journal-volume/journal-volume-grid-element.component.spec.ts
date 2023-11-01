@@ -12,6 +12,15 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 const mockItem = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -43,17 +52,24 @@ describe('JournalVolumeGridElementComponent', () => {
 
   const truncatableServiceStub: any = {
     isCollapsed: (id: number) => observableOf(true),
+    expand: (id: number) => null,
+    collapse: (id: number) => null
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, JournalVolumeGridElementComponent, TruncatePipe],
-    providers: [
+      imports: [NoopAnimationsModule, JournalVolumeGridElementComponent, TruncatePipe, TranslateModule.forRoot()],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(JournalVolumeGridElementComponent, {
+        { provide: BitstreamDataService, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalVolumeGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

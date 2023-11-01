@@ -18,18 +18,19 @@ describe('TruncatablePartComponent', () => {
   const id1 = '123';
   const id2 = '456';
 
-  let truncatableService;
-  const truncatableServiceStub: any = {
-    isCollapsed: (id: string) => {
-      if (id === id1) {
-        return observableOf(true);
-      } else {
-        return observableOf(false);
-      }
-    }
-  };
+  let truncatableService: any;
+
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
+    truncatableService = {
+      isCollapsed: (id: string) => {
+        if (id === id1) {
+          return observableOf(true);
+        } else {
+          return observableOf(false);
+        }
+      }
+    };
     void TestBed.configureTestingModule({
     imports: [NoopAnimationsModule,
         TranslateModule.forRoot({
@@ -40,7 +41,7 @@ describe('TruncatablePartComponent', () => {
         }), TruncatablePartComponent],
     providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: TruncatableService, useValue: truncatableService },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(TruncatablePartComponent, {

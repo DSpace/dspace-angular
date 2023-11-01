@@ -32,6 +32,12 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/ite
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -108,6 +114,9 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ItemDetailPreviewComponent, {

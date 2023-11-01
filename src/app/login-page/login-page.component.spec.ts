@@ -2,12 +2,14 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { LoginPageComponent } from './login-page.component';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { AuthService } from '../core/auth/auth.service';
+import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('LoginPageComponent', () => {
   let comp: LoginPageComponent;
@@ -16,25 +18,19 @@ describe('LoginPageComponent', () => {
     params: observableOf({})
   });
 
-  const store: Store<LoginPageComponent> = jasmine.createSpyObj('store', {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    dispatch: {},
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true)
-  });
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         LoginPageComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Store, useValue: store }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        provideMockStore({})
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

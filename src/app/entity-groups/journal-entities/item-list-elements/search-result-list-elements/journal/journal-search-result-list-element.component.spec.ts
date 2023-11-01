@@ -21,6 +21,7 @@ import {
 } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { TranslateModule } from '@ngx-translate/core';
 
 let journalListElementComponent: JournalSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalSearchResultListElementComponent>;
@@ -79,13 +80,13 @@ const enviromentNoThumbs = {
 describe('JournalSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalSearchResultListElementComponent, TruncatePipe],
+    imports: [JournalSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot(),],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalSearchResultListElementComponent, {
@@ -149,12 +150,13 @@ describe('JournalSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalSearchResultListElementComponent, TruncatePipe],
+    imports: [JournalSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot()],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalSearchResultListElementComponent, {

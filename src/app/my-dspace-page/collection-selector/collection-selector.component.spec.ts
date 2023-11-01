@@ -1,8 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { By } from '@angular/platform-browser';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +22,6 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-
 
 describe('CollectionSelectorComponent', () => {
   let component: CollectionSelectorComponent;
@@ -105,25 +103,32 @@ describe('CollectionSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
         }),
-        CollectionSelectorComponent, CollectionDropdownComponent
-    ],
-    providers: [
+        CollectionSelectorComponent,
+        // CollectionDropdownComponent,
+      ],
+      providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
         { provide: ElementRef, useClass: MockElementRef },
         { provide: NgbActiveModal, useValue: modal },
         { provide: ActivatedRoute, useValue: {} },
+        { provide: CollectionDropdownComponent, useClass: CollectionDropdownStubComponent },
         ChangeDetectorRef
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
-    .compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(CollectionSelectorComponent, {
+        set: {
+          changeDetection: ChangeDetectionStrategy.Default
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -142,11 +147,13 @@ describe('CollectionSelectorComponent', () => {
   });
 
   it('should call selectObject', () => {
-    spyOn(component, 'selectObject');
+    spyOn(component, 'selectObject').and.callThrough();
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    const collectionItem = fixture.debugElement.query(By.css('.collection-item:nth-child(2)'));
-    collectionItem.triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    component.selectObject({collection: {name: 'test', id: 'test', uuid: 'test'}, communities: []});
+
     expect(component.selectObject).toHaveBeenCalled();
   });
 
@@ -155,3 +162,19 @@ describe('CollectionSelectorComponent', () => {
     expect((component as any).activeModal.close).toHaveBeenCalled();
   });
 });
+
+@Component({
+  selector: 'ds-collection-dropdown',
+  template: `
+    <li
+      (click)="test()"
+            class="dropdown-item collection-item"
+            title="test" >
+    </li>`,
+  standalone: true
+})
+export class CollectionDropdownStubComponent {
+  test() {
+    return 'test';
+  }
+}

@@ -38,6 +38,9 @@ import { getMockSectionUploadService } from '../../../shared/mocks/section-uploa
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 
 function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SubmissionUploadsConfigService', {
@@ -178,11 +181,18 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         { provide: SectionUploadService, useValue: bitstreamService },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: ThemeService, useValue: getMockThemeService()},
         ChangeDetectorRef,
         SubmissionSectionUploadComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then();
+})
+.overrideComponent(SubmissionSectionUploadComponent, {
+  remove: {
+    imports: [AlertComponent]
+  }
+})
+.compileComponents().then();
   }));
 
   describe('', () => {

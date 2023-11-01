@@ -1,14 +1,16 @@
+/* eslint-disable max-classes-per-file */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 import { Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, Directive, NgModule, ViewContainerRef } from '@angular/core';
 import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 import {
   rendersAdvancedWorkflowTaskOption
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { By } from '@angular/platform-browser';
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';
 
@@ -17,17 +19,28 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   let fixture: ComponentFixture<AdvancedWorkflowActionsLoaderComponent>;
 
   let router: RouterStub;
+  let mockComponentFactoryResolver: any;
 
   beforeEach(async () => {
     router = new RouterStub();
+    mockComponentFactoryResolver = {
+      resolveComponentFactory: jasmine.createSpy('resolveComponentFactory').and.returnValue({
+        create: jasmine.createSpy('create')
+      })
+    };
 
     await TestBed.configureTestingModule({
-    imports: [AdvancedWorkflowActionsDirective,
-        AdvancedWorkflowActionsLoaderComponent],
-    providers: [
+      imports: [
+        AdvancedWorkflowActionsDirective,
+        RouterTestingModule,
+        AdvancedWorkflowActionsLoaderComponent,
+        AdvancedWorkflowActionTestComponent,
+      ],
+      providers: [
         { provide: Router, useValue: router },
-    ]
-}).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
+        { provide: ComponentFactoryResolver, useValue: mockComponentFactoryResolver },
+      ]
+    }).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [AdvancedWorkflowActionTestComponent],
@@ -76,6 +89,14 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '<span id="AdvancedWorkflowActionsLoaderComponent"></span>',
+  standalone: true
 })
 class AdvancedWorkflowActionTestComponent {
+}
+
+@Directive({
+  selector: '[dsAdvancedWorkflowActions]'
+})
+export class MockAdvancedWorkflowActionsDirective {
+  constructor(public viewContainerRef: ViewContainerRef) {}
 }

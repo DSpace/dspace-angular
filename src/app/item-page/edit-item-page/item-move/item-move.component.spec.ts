@@ -23,6 +23,7 @@ import {
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;
@@ -103,7 +104,13 @@ describe('ItemMoveComponent', () => {
     ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ]
-}).compileComponents();
+})
+.overrideComponent(ItemMoveComponent, {
+  remove: {
+    imports: [AuthorizedCollectionSelectorComponent]
+  }
+})
+.compileComponents();
     fixture = TestBed.createComponent(ItemMoveComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

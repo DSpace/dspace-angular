@@ -8,9 +8,16 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { of } from 'rxjs/internal/observable/of';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../core/shared/metadata.models';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
 import { By } from '@angular/platform-browser';
+import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -30,14 +37,16 @@ describe('DsoEditMetadataValueComponent', () => {
 
   function initServices(): void {
     relationshipService = jasmine.createSpyObj('relationshipService', {
-      resolveMetadataRepresentation: of(new ItemMetadataRepresentation(metadataValue)),
+      resolveMetadataRepresentation: of(
+        new ItemMetadataRepresentation(metadataValue)
+      ),
     });
     dsoNameService = jasmine.createSpyObj('dsoNameService', {
       getName: 'Related Name',
     });
   }
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
     metadataValue = Object.assign(new MetadataValue(), {
       value: 'Regular Name',
       language: 'en',
@@ -48,14 +57,25 @@ describe('DsoEditMetadataValueComponent', () => {
 
     initServices();
 
-    TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataValueComponent, VarDirective],
-    providers: [
+    await TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        DsoEditMetadataValueComponent,
+        VarDirective,
+      ],
+      providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: DSONameService, useValue: dsoNameService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(DsoEditMetadataValueComponent, {
+        remove: {
+          imports: [ThemedTypeBadgeComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -67,7 +87,9 @@ describe('DsoEditMetadataValueComponent', () => {
   });
 
   it('should not show a badge', () => {
-    expect(fixture.debugElement.query(By.css('ds-themed-type-badge'))).toBeNull();
+    expect(
+      fixture.debugElement.query(By.css('ds-themed-type-badge'))
+    ).toBeNull();
   });
 
   describe('when no changes have been made', () => {
@@ -133,7 +155,9 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('should show a badge', () => {
-      expect(fixture.debugElement.query(By.css('ds-themed-type-badge'))).toBeTruthy();
+      expect(
+        fixture.debugElement.query(By.css('ds-themed-type-badge'))
+      ).toBeTruthy();
     });
 
     assertButton(EDIT_BTN, true, true);
@@ -143,7 +167,11 @@ describe('DsoEditMetadataValueComponent', () => {
     assertButton(DRAG_BTN, true, false);
   });
 
-  function assertButton(name: string, exists: boolean, disabled: boolean = false): void {
+  function assertButton(
+    name: string,
+    exists: boolean,
+    disabled: boolean = false
+  ): void {
     describe(`${name} button`, () => {
       let btn: DebugElement;
 

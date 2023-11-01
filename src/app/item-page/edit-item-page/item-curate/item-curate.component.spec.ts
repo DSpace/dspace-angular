@@ -7,6 +7,7 @@ import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.ut
 import { ActivatedRoute } from '@angular/router';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../core/shared/item.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 describe('ItemCurateComponent', () => {
   let comp: ItemCurateComponent;
@@ -41,7 +42,13 @@ describe('ItemCurateComponent', () => {
         { provide: DSONameService, useValue: dsoNameService }
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+})
+.overrideComponent(ItemCurateComponent, {
+  remove: {
+    imports: [CurationFormComponent]
+  }
+})
+.compileComponents();
   }));
 
   beforeEach(() => {

@@ -18,6 +18,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
 import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 
@@ -182,7 +184,15 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
+        { provide: FormBuilderService, useValue: {} },
     ]
+})
+.overrideComponent(SubmissionSectionCcLicensesComponent, {
+  remove: {
+    imports:[
+      ThemedLoadingComponent,
+    ]
+  }
 })
       .compileComponents();
   }));

@@ -44,12 +44,12 @@ describe('ListableObjectComponentLoaderComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-          provideMockStore({}),
-          { provide: ThemeService, useValue: themeService },
-          { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } }
+        provideMockStore({}),
+        { provide: ThemeService, useValue: themeService },
+        { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } }
       ]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
-      add: {
+      set: {
         changeDetection: ChangeDetectionStrategy.Default,
       }
     }).compileComponents();

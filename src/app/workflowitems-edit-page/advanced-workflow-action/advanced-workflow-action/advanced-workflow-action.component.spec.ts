@@ -21,7 +21,7 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
 import { RequestService } from '../../../core/data/request.service';
 import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
-import { LocationStub } from '../../../shared/testing/location.stub';
+import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 
 const workflowId = '1';
 
@@ -30,23 +30,24 @@ describe('AdvancedWorkflowActionComponent', () => {
   let fixture: ComponentFixture<AdvancedWorkflowActionComponent>;
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
-  let location: LocationStub;
   let notificationService: NotificationsServiceStub;
   let workflowActionDataService: WorkflowActionDataServiceStub;
   let workflowItemDataService: WorkflowItemDataServiceStub;
+  let mockLocation;
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
-    location = new LocationStub();
     notificationService = new NotificationsServiceStub();
     workflowActionDataService = new WorkflowActionDataServiceStub();
     workflowItemDataService = new WorkflowItemDataServiceStub();
+    mockLocation = jasmine.createSpyObj(['getState']);
 
     await TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
         RouterTestingModule,
         TestComponent,
+        WorkflowItemActionPageDirective,
         MockComponent(DSOSelectorComponent)
     ],
     providers: [
@@ -64,14 +65,15 @@ describe('AdvancedWorkflowActionComponent', () => {
             },
         },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
-        { provide: Location, useValue: location },
+        { provide: Location, useValue: mockLocation },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
         { provide: RequestService, useClass: RequestServiceStub },
-    ]
-}).compileComponents();
+      ]
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -7,6 +7,8 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 
 import { ErrorComponent } from './error.component';
+import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ErrorComponent (inline template)', () => {
 
@@ -17,17 +19,19 @@ describe('ErrorComponent (inline template)', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
+        CommonModule,
+        NoopAnimationsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
         }),
         ErrorComponent
-    ],
-    providers: [TranslateService]
-}).compileComponents();  // compile template and css
+      ],
+      providers: [TranslateService]
+    }).compileComponents();  // compile template and css
   }));
 
   beforeEach(() => {

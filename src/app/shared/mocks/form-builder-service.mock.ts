@@ -41,5 +41,4 @@ export function getMockFormBuilderService(): FormBuilderService {
       }
     )
   });
-
 }

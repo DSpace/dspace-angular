@@ -13,7 +13,9 @@ import { of as observableOf } from 'rxjs';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { RequestService } from '../../core/data/request.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
 describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
@@ -51,24 +53,32 @@ describe('ProcessFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
         }),
         ProcessFormComponent
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
         { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(ProcessFormComponent, {
+        remove: {
+          imports: [
+            ScriptsSelectComponent
+          ]
+        }
+      })
       .compileComponents();
   }));
 

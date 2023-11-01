@@ -14,6 +14,8 @@ import { cold } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
 import { AuthService } from '../../../core/auth/auth.service';
 import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 describe('UserMenuComponent', () => {
 
@@ -70,7 +72,8 @@ describe('UserMenuComponent', () => {
         UserMenuComponent
     ],
     providers: [
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [
         NO_ERRORS_SCHEMA
@@ -116,8 +119,8 @@ describe('UserMenuComponent', () => {
       expect(component.user$).toBeObservable(cold('(c|)', {
         c: EPersonMock
       }));
-
-      expect(deUserMenu).toBeNull();
+      const span = deUserMenu.query(By.css('.dropdown-item-text'));
+      expect(span).toBeNull();
     });
 
   });

@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf, BehaviorSubject } from 'rxjs';
@@ -31,6 +31,9 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;
@@ -59,23 +62,36 @@ describe('SubgroupsListComponent', () => {
       getSubgroups(): Group {
         return this.activeGroup;
       },
-      findListByHref(_href: string): Observable<RemoteData<PaginatedList<Group>>> {
+      findListByHref(
+        _href: string
+      ): Observable<RemoteData<PaginatedList<Group>>> {
         return this.subgroups$.pipe(
           map((currentGroups: Group[]) => {
-            return createSuccessfulRemoteDataObject(buildPaginatedList<Group>(new PageInfo(), currentGroups));
+            return createSuccessfulRemoteDataObject(
+              buildPaginatedList<Group>(new PageInfo(), currentGroups)
+            );
           })
         );
       },
       getGroupEditPageRouterLink(group: Group): string {
         return '/access-control/groups/' + group.id;
       },
-      searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
+      searchGroups(
+        query: string
+      ): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allGroups));
+          return createSuccessfulRemoteDataObject$(
+            buildPaginatedList(new PageInfo(), allGroups)
+          );
         }
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
+        return createSuccessfulRemoteDataObject$(
+          buildPaginatedList(new PageInfo(), [])
+        );
       },
-      addSubGroupToGroup(parentGroup, subgroup: Group): Observable<RestResponse> {
+      addSubGroupToGroup(
+        parentGroup,
+        subgroup: Group
+      ): Observable<RestResponse> {
         this.subgroups$.next([...this.subgroups$.getValue(), subgroup]);
         return observableOf(new RestResponse(true, 200, 'Success'));
       },
@@ -85,38 +101,61 @@ describe('SubgroupsListComponent', () => {
       clearGroupLinkRequests() {
         // empty
       },
-      deleteSubGroupFromGroup(parentGroup, subgroup: Group): Observable<RestResponse> {
-        this.subgroups$.next(this.subgroups$.getValue().filter((group: Group) => {
-          if (group.id !== subgroup.id) {
-            return group;
-          }
-        }));
+      deleteSubGroupFromGroup(
+        parentGroup,
+        subgroup: Group
+      ): Observable<RestResponse> {
+        this.subgroups$.next(
+          this.subgroups$.getValue().filter((group: Group) => {
+            if (group.id !== subgroup.id) {
+              return group;
+            }
+          })
+        );
         return observableOf(new RestResponse(true, 200, 'Success'));
-      }
+      },
     };
     routerStub = new RouterMock();
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
-
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
-    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [
+        CommonModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserModule,
+        // ContextHelpDirective,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), SubgroupsListComponent],
-    providers: [SubgroupsListComponent,
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        SubgroupsListComponent,
+      ],
+      providers: [
+        SubgroupsListComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        {
+          provide: NotificationsService,
+          useValue: new NotificationsServiceStub(),
+        },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: routerStub },
         { provide: PaginationService, useValue: paginationService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+    .overrideComponent(SubgroupsListComponent, {
+      remove: {
+        imports: [ContextHelpDirective, PaginationComponent]
+      }
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {

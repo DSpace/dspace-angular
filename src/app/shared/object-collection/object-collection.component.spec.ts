@@ -6,6 +6,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { RouterStub } from '../testing/router.stub';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { provideMockStore } from '@ngrx/store/testing';
+import { ThemeService } from '../theme-support/theme.service';
+import { getMockThemeService } from '../mocks/theme-service.mock';
+import { ObjectDetailComponent } from '../object-detail/object-detail.component';
+import { ObjectGridComponent } from '../object-grid/object-grid.component';
+import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 
 describe('ObjectCollectionComponent', () => {
   let fixture: ComponentFixture<ObjectCollectionComponent>;
@@ -19,16 +25,25 @@ describe('ObjectCollectionComponent', () => {
       scope: scopeParam
     })
   };
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [ObjectCollectionComponent],
-    providers: [
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ObjectCollectionComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Router, useClass: RouterStub }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();  // compile template and css
+        { provide: Router, useClass: RouterStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        provideMockStore()
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+    .overrideComponent(ObjectCollectionComponent, {
+      remove: {
+       imports: [ ThemedObjectListComponent, ObjectGridComponent, ObjectDetailComponent]
+      }
+    })
+    .compileComponents();  // compile template and css
   }));
+
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ObjectCollectionComponent);

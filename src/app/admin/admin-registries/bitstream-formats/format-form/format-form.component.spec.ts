@@ -12,6 +12,7 @@ import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-f
 import { DynamicCheckboxModel, DynamicFormArrayModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { isEmpty } from '../../../../shared/empty.util';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 describe('FormatFormComponent', () => {
   let comp: FormatFormComponent;
@@ -40,12 +41,24 @@ describe('FormatFormComponent', () => {
 
   const initAsync = () => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), NgbModule, FormatFormComponent],
-    providers: [
-        { provide: Router, useValue: router },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule.forRoot(),
+        NgbModule,
+        FormatFormComponent,
+      ],
+      providers: [{ provide: Router, useValue: router }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideComponent(FormatFormComponent, {
+        remove: {
+          imports: [FormComponent],
+        },
+      })
+      .compileComponents();
   };
 
   const initBeforeEach = () => {

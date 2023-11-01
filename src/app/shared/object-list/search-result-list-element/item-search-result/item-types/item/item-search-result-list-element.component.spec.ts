@@ -68,7 +68,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
           }
         ]
       }
-    })
+    }),
 });
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
@@ -200,12 +200,12 @@ const enviromentNoThumbs = {
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
-      TranslateModule.forRoot(),
-      ItemSearchResultListElementComponent,
-      TruncatePipe
-    ],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        ItemSearchResultListElementComponent,
+        TruncatePipe
+      ],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
@@ -218,11 +218,11 @@ describe('ItemSearchResultListElementComponent', () => {
             'invalidateAuthorizationsRequestCache'
           ])
         }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ItemSearchResultListElementComponent, {
-      add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: { imports: [ThumbnailComponent,ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent]}
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [ThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent] }
     }).compileComponents();
   }));
 
@@ -396,15 +396,17 @@ describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [ItemSearchResultListElementComponent, TruncatePipe],
-    providers: [
-        { provide: TruncatableService, useValue: {} },
+      imports: [ItemSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot()],
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ItemSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

@@ -10,6 +10,7 @@ import { CommunityMetadataComponent } from './community-metadata.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { CommunityFormComponent } from '../../community-form/community-form.component';
 
 describe('CommunityMetadataComponent', () => {
   let comp: CommunityMetadataComponent;
@@ -17,14 +18,20 @@ describe('CommunityMetadataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, CommunityMetadataComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, CommunityMetadataComponent],
+      providers: [
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: { payload: {} } }) } } },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(CommunityMetadataComponent, {
+        remove: {
+          imports: [CommunityFormComponent],
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

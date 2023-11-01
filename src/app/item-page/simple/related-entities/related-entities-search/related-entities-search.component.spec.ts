@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Item } from '../../../../core/shared/item.model';
+import { ConfigurationSearchPageComponent } from '../../../../search-page/configuration-search-page.component';
 
 describe('RelatedEntitiesSearchComponent', () => {
   let comp: RelatedEntitiesSearchComponent;
@@ -19,9 +20,15 @@ describe('RelatedEntitiesSearchComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RelatedEntitiesSearchComponent],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RelatedEntitiesSearchComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
+      .overrideComponent(RelatedEntitiesSearchComponent, {
+        remove: {
+          imports: [ConfigurationSearchPageComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
