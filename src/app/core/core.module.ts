@@ -185,7 +185,6 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
-import { CorrectionTypeMode } from './submission/models/correction-type-mode.model';
 import { CorrectionTypeDataService } from './submission/correctiontype-data.service';
 
 /**
@@ -309,8 +308,8 @@ const PROVIDERS = [
   OrcidAuthService,
   OrcidQueueDataService,
   OrcidHistoryDataService,
-  SupervisionOrderDataService
-  CorrectionTypeDataService,
+  SupervisionOrderDataService,
+  CorrectionTypeDataService
 ];
 
 /**
@@ -390,7 +389,6 @@ export const models =
     Subscription,
     ItemRequest,
     BulkAccessConditionOptions
-    CorrectionTypeMode
   ];
 
 @NgModule({

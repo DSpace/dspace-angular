@@ -1,7 +1,0 @@
-<ng-container *ngIf="(hasCorrectionTypeAvailable() | async)">
-  <button ngbDropdownItem
-          *ngFor="let type of (getCorrectionTypes() | async)"
-          [routerLink]="getTypeRoute(type.id)"
-          [innerHTML]="('context-menu.actions.correction-type.btn.' + type.id | translate)">
-  </button>
-</ng-container>

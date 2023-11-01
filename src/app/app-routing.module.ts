@@ -237,13 +237,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
               .then((m) => m.SubscriptionsPageRoutingModule),
             canActivate: [AuthenticatedGuard]
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
-          {
-            path: 'items',
-            loadChildren: () => import('./shared/correction-suggestion/correction-suggestion.module')
-              .then((m) => m.CorrectionSuggestionModule),
-            canActivate: [AuthenticatedGuard]
-          },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent }
         ]
       }
     ], {

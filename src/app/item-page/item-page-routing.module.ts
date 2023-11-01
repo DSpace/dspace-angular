@@ -16,7 +16,6 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
-import { CORRECTION_TYPE_PATH, REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
@@ -41,18 +40,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
           {
             path: 'full',
             component: ThemedFullItemPageComponent,
-          },
-          {
-            path: CORRECTION_TYPE_PATH,
-            loadChildren: () => import('../shared/correction-suggestion/correction-suggestion.module')
-              .then((m) => m.CorrectionSuggestionModule),
-            canActivate: [AuthenticatedGuard]
-          },
-          {
-            path: `full/${CORRECTION_TYPE_PATH}` ,
-            loadChildren: () => import('../shared/correction-suggestion/correction-suggestion.module')
-              .then((m) => m.CorrectionSuggestionModule),
-            canActivate: [AuthenticatedGuard]
           },
           {
             path: ITEM_EDIT_PATH,

@@ -2562,6 +2562,12 @@
 
   "item.version.create.modal.header": "New version",
 
+  "item.qa.withdrawn.modal.header": "Send Withdrawn Item request",
+
+  "item.qa.reinstate.modal.header": "Send Reinstate Item request",
+
+  "item.qa.reinstate.create.modal.header": "New version",
+
   "item.version.create.modal.text": "Create a new version for this item",
 
   "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
@@ -2570,15 +2576,29 @@
 
   "item.version.create.modal.button.confirm.tooltip": "Create new version",
 
+  "item.qa.withdrawn-reinstate.modal.button.confirm.tooltip": "Send request",
+
+  "item.qa.withdrown-reinstate.create.modal.button.confirm": "Send Request",
+
   "item.version.create.modal.button.cancel": "Cancel",
+
+  "item.qa.withdrawn-reinstate.create.modal.button.cancel": "Cancel",
 
   "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
 
+  "item.qa.withdrawn-reinstate.create.modal.button.cancel.tooltip": "Do not send request",
+
   "item.version.create.modal.form.summary.label": "Summary",
+
+  "item.qa-withdrawn-reinstate.create.modal.form.summary.label": "Summary",
 
   "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
 
+  "item.qa.withdrown-reinstate.modal.form.summary.placeholder": "Indicates the reasons (optionaly)",
+
   "item.version.create.modal.submitted.header": "Creating new version...",
+
+  "item.qa.withdrawn.modal.submitted.header": "Sending withdrawn request...",
 
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 

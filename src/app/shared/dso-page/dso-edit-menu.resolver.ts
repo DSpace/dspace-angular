@@ -21,6 +21,8 @@ import { getDSORoute } from '../../app-routing-paths';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DsoWithdrawnModalService } from './dso-withdrawn-service/dso-withdrawn-modal.service';
+import { DsoReinstateModalService } from './dso-reinstate-service/dso-reinstate-modal.service';
 
 /**
  * Creates the menus for the dspace object pages
@@ -39,6 +41,8 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected researcherProfileService: ResearcherProfileDataService,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
+    protected dsoWithdrawnModalService: DsoWithdrawnModalService,
+    protected dsoReinstateModalService: DsoReinstateModalService
   ) {
   }
 
@@ -125,8 +129,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
         this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create'),
         this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, dso.self),
         this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
+        this.authorizationService.isAuthorized(FeatureID.WithdrawItem, dso.self),
+        this.authorizationService.isAuthorized(FeatureID.ReinstateItem, dso.self),
       ]).pipe(
-        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem]) => {
+        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem, canWithdrawItem, canReinstateItem]) => {
           const isPerson = this.getDsoType(dso) === 'person';
           return [
             {
@@ -170,6 +176,32 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               icon: 'hand-paper',
               index: 3
             },
+            {
+              id: 'withdrawn-item',
+              active: false,
+              visible: canWithdrawItem,
+              model: {
+                type: MenuItemType.ONCLICK,
+                function: () => {
+                  this.dsoWithdrawnModalService.openCreateWithdrawnModal(dso);
+                }
+              } as OnClickMenuItemModel,
+              icon: 'lock',
+              index: 4
+            },
+            {
+              id: 'reinstate-item',
+              active: false,
+              visible: canReinstateItem,
+              model: {
+                type: MenuItemType.ONCLICK,
+                function: () => {
+                  this.dsoReinstateModalService.openCreateReinstateModal(dso);
+                }
+              } as OnClickMenuItemModel,
+              icon: 'unlock-keyhole',
+              index: 5
+            }
           ];
         }),
       );

@@ -207,7 +207,7 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
    * @param data the data to post
    * @returns the RestResponse as an Observable
    */
-  postData(data: string): Observable<RemoteData<OpenaireBrokerEventObject>> {
+  postData(data: string): Observable<RemoteData<QualityAssuranceEventObject>> {
     const requestId = this.requestService.generateRequestId();
     const href$ = this.getBrowseEndpoint();
 
@@ -218,7 +218,7 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
           request.responseMsToLive = this.responseMsToLive;
         }
         this.requestService.send(request);
-        return this.rdbService.buildFromRequestUUID<OpenaireBrokerEventObject>(requestId);
+        return this.rdbService.buildFromRequestUUID<QualityAssuranceEventObject>(requestId);
       })
     );
   }

@@ -1,4 +1,3 @@
-import { CorrectionSuggestionModule } from './../../app/shared/correction-suggestion/correction-suggestion.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRegistriesModule } from '../../app/admin/admin-registries/admin-registries.module';
@@ -299,8 +298,7 @@ const DECLARATIONS = [
     SystemWideAlertModule,
     NgxGalleryModule,
     FormModule,
-    RequestCopyModule,
-    CorrectionSuggestionModule,
+    RequestCopyModule
   ],
   declarations: DECLARATIONS,
   exports: [

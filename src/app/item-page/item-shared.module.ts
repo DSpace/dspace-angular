@@ -16,10 +16,14 @@ import { RelatedItemsComponent } from './simple/related-items/related-items-comp
 import {
   ThemedMetadataRepresentationListComponent
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
+import {
+  ItemWithdrawnReinstateModalComponent
+} from '../shared/correction-suggestion/withdrawn-reinstate-modal.component';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,
   ItemVersionsSummaryModalComponent,
+  ItemWithdrawnReinstateModalComponent
 
 ];
 
