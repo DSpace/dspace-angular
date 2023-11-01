@@ -182,6 +182,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               visible: canWithdrawItem,
               model: {
                 type: MenuItemType.ONCLICK,
+                text:'item.page.withdrawn',
                 function: () => {
                   this.dsoWithdrawnModalService.openCreateWithdrawnModal(dso);
                 }
@@ -195,6 +196,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               visible: canReinstateItem,
               model: {
                 type: MenuItemType.ONCLICK,
+                text:'item.page.reinstate',
                 function: () => {
                   this.dsoReinstateModalService.openCreateReinstateModal(dso);
                 }
