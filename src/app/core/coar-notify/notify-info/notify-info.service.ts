@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../shared/operators';
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { map, Observable } from 'rxjs';
-import { DefaultAppConfig } from '../../../../config/default-app-config';
 import { ConfigurationProperty } from '../../shared/configuration-property.model';
 
 @Injectable({
@@ -42,18 +41,6 @@ export class NotifyInfoService {
           return response.values;
         })
       );
-    }
-
-    getCoarLdnRestApiUrl(): string {
-        const appConfig = new DefaultAppConfig();
-        const restConfig = appConfig.rest;
-
-        const ssl = restConfig.ssl;
-        const host = restConfig.host;
-        const port = restConfig.port;
-        const namespace = restConfig.nameSpace;
-
-        return `${ssl ? 'https' : 'http'}://${host}:${port}${namespace}`;
     }
 
     /**
