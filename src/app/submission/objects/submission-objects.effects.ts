@@ -210,7 +210,7 @@ export class SubmissionObjectEffects {
           action.payload.submissionId,
           'sections') as Observable<SubmissionObject[]>;
       } else {
-        response$ = this.submissionObjectService.findById(action.payload.submissionId, false, true).pipe(
+        response$ = this.submissionObjectService.findById(action.payload.submissionId, false, true, followLink('item'), followLink('collection')).pipe(
           getFirstSucceededRemoteDataPayload(),
           map((submissionObject: SubmissionObject) => [submissionObject])
         );
