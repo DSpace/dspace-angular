@@ -1,5 +1,5 @@
 <div *ngIf="!(this.submitted$ | async); else waiting">
-  <div *ngIf="(this.canWithdraw$ | async); else reinstateHeader" class="modal-header">
+  <div *ngIf="this.canWithdraw; else reinstateHeader" class="modal-header">
     {{'item.qa.withdrawn.modal.header' | translate}}
     <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
       <span aria-hidden="true">×</span>
@@ -8,7 +8,7 @@
   <div class="modal-body">
     <div class="form-group">
       <label for="summary">{{'item.qa-withdrawn-reinstate.create.modal.form.summary.label' | translate }}:</label>
-      <input type="text" id="summary" class="form-control" [(ngModel)]="summary"
+      <input type="text" id="summary" class="form-control" [(ngModel)]="reason"
              (keyup.enter)="onModalSubmit()"
              placeholder="{{'item.qa.withdrown-reinstate.modal.form.summary.placeholder' | translate }}"/>
     </div>
@@ -39,7 +39,7 @@
 </ng-template>
 
 <ng-template #reinstateHeader>
-  <div *ngIf="this.canReinstate$ | async" class="modal-header">
+  <div *ngIf="this.canReinstate" class="modal-header">
     {{'item.qa.reinstate.modal.header' | translate}}
     <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
       <span aria-hidden="true">×</span>

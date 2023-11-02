@@ -12,7 +12,8 @@ import {
 import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { filter } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,26 +32,27 @@ export class DsoWithdrawnModalService {
   /**
    * Open the create withdrawn modal for the provided dso
    */
-  openCreateWithdrawnModal(dso): void {
-    const selfHref = dso._links.self.href;
-
-    const data = 'https://localhost:8080/server/api/config/correctiontypes/withdrawnRequest' + '\n' + selfHref;
+  openCreateWithdrawnModal(dso, state: boolean): void {
+    const target = dso.id;
     // Open modal
     const activeModal = this.modalService.open(ItemWithdrawnReinstateModalComponent);
-    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).setDso(dso);
-    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).submitted$
+    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).setWithdraw(!state);
+    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).createQAEvent
        .pipe(
-          filter((val) => val)
+          take(1)
        ).subscribe(
-         () => {
-           this.sendQARequest(data);
+         (reasone) => {
+           this.sendQARequest(target, reasone);
            activeModal.close();
          }
        );
   }
 
-  sendQARequest(data: string): void {
-     this.qaEventDataService.postData(data)
+  sendQARequest(target: string, reason: string): void {
+     this.qaEventDataService.postData(target, 'request-withdrawn', '', reason)
+       .pipe (
+        getFirstCompletedRemoteData()
+       )
       .subscribe((res: RemoteData<QualityAssuranceEventObject>) => {
         if (res.hasSucceeded) {
           const message = 'withdrawn';

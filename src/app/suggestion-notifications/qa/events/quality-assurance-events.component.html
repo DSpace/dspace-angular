@@ -65,7 +65,8 @@
                     </p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/SUBJECT') !== -1">
-                    <p><span class="small">{{'quality-assurance.event.table.subjectValue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
+                    <p><span class="small">{{'quality-assurance.event.table.subjectValue' | translate}}
+                       </span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/ABSTRACT') !== -1">
                     <p class="abstract-container" [class.show]="showMore">

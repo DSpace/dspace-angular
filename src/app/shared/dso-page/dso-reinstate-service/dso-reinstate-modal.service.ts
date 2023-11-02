@@ -8,11 +8,12 @@ import {
   QualityAssuranceEventDataService
 } from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/withdrawn-reinstate-modal.component';
-import { filter } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import {
   QualityAssuranceEventObject
 } from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 
 @Injectable({
@@ -30,28 +31,30 @@ export class DsoReinstateModalService {
   ) {}
 
   /**
-   * Open the reinstate modal for the provided dso
+   * Open the reinstat modal for the provided dso
    */
-  openCreateReinstateModal(dso): void {
-    const selfHref = dso._links.self.href;
+  openCreateReinstateModal(dso, state: boolean): void {
+    const target = dso.id;
 
-    const data = 'https://localhost:8080/server/api/config/correctiontypes/reinstateRequest' + '\n' + selfHref;
     // Open modal
     const activeModal = this.modalService.open(ItemWithdrawnReinstateModalComponent);
-    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).setDso(dso);
-    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).submitted$
+    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).setReinstate(!state);
+    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).createQAEvent
       .pipe(
-        filter((val) => val)
+        take(1)
       ).subscribe(
-      () => {
-        this.sendQARequest(data);
+      (reason) => {
+        this.sendQARequest(target, reason);
         activeModal.close();
       }
     );
   }
 
-  sendQARequest(data: string): void {
-    this.qaEventDataService.postData(data)
+  sendQARequest(target: string, reason: string): void {
+    this.qaEventDataService.postData(target, 'request-reinstate','', reason)
+      .pipe (
+        getFirstCompletedRemoteData()
+      )
       .subscribe((res: RemoteData<QualityAssuranceEventObject>) => {
         if (res.hasSucceeded) {
           const message = 'reinstate';
@@ -63,3 +66,4 @@ export class DsoReinstateModalService {
   }
 
 }
+

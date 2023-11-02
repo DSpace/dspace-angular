@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { BehaviorSubject } from 'rxjs';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 @Component({
@@ -13,17 +11,17 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 })
 export class ItemWithdrawnReinstateModalComponent implements ModalBeforeDismiss {
 
-  summary: string;
+  reason: string;
 
-  canWithdraw$: Observable<boolean> = of(false);
-  canReinstate$: Observable<boolean> = of(false);
+  canWithdraw: boolean;
+  canReinstate: boolean;
   submitted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   @Output() createQAEvent: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     protected activeModal: NgbActiveModal,
-    protected authorizationService: AuthorizationDataService
+    protected authorizationService: AuthorizationDataService,
   ) {}
 
   onModalClose() {
@@ -37,11 +35,17 @@ export class ItemWithdrawnReinstateModalComponent implements ModalBeforeDismiss 
 
   onModalSubmit() {
     this.submitted$.next(true);
-    this.createQAEvent.emit(this.summary);
+    this.createQAEvent.emit(this.reason);
   }
 
-  public setDso(dso: DSpaceObject) {
-    this.canWithdraw$ = this.authorizationService.isAuthorized(FeatureID.WithdrawItem, dso.self);
-    this.canReinstate$ = this.authorizationService.isAuthorized(FeatureID.ReinstateItem, dso.self);
+  public setWithdraw(state: boolean) {
+    this.canWithdraw = state;
+    this.canReinstate = !state;
   }
+
+  public setReinstate(state: boolean) {
+    this.canReinstate = state;
+    this.canWithdraw = !state;
+  }
+
 }

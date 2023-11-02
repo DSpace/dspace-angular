@@ -184,7 +184,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 type: MenuItemType.ONCLICK,
                 text:'item.page.withdrawn',
                 function: () => {
-                  this.dsoWithdrawnModalService.openCreateWithdrawnModal(dso);
+                  this.dsoWithdrawnModalService.openCreateWithdrawnModal(dso, canWithdrawItem);
                 }
               } as OnClickMenuItemModel,
               icon: 'lock',
@@ -198,7 +198,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 type: MenuItemType.ONCLICK,
                 text:'item.page.reinstate',
                 function: () => {
-                  this.dsoReinstateModalService.openCreateReinstateModal(dso);
+                  this.dsoReinstateModalService.openCreateReinstateModal(dso, canReinstateItem);
                 }
               } as OnClickMenuItemModel,
               icon: 'unlock-keyhole',

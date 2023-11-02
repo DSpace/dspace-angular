@@ -25,7 +25,8 @@ import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
 import { hasValue } from '../../../../shared/empty.util';
 import { DeleteByIDRequest, PostRequest } from '../../../data/request.models';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -207,13 +208,21 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
    * @param data the data to post
    * @returns the RestResponse as an Observable
    */
-  postData(data: string): Observable<RemoteData<QualityAssuranceEventObject>> {
+  postData(target: string, correctionType: string, related: string, reason: string): Observable<RemoteData<QualityAssuranceEventObject>> {
     const requestId = this.requestService.generateRequestId();
     const href$ = this.getBrowseEndpoint();
 
     return href$.pipe(
       switchMap((href: string) => {
-        const request = new PostRequest(requestId, href, data, { headers: new HttpHeaders().set('Content-Type', 'text/uri-list') });
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json');
+        options.headers = headers;
+        let params = new HttpParams();
+        params = params.append('target', target)
+                       .append('correctionType', correctionType);
+        options.params = params;
+        const request = new PostRequest(requestId, href, {'reason': reason} , options);
         if (hasValue(this.responseMsToLive)) {
           request.responseMsToLive = this.responseMsToLive;
         }
