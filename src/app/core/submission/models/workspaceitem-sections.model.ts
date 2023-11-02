@@ -5,7 +5,6 @@ import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload
 import { WorkspaceitemSectionCcLicenseObject } from './workspaceitem-section-cc-license.model';
 import {WorkspaceitemSectionIdentifiersObject} from './workspaceitem-section-identifiers.model';
 import { WorkspaceitemSectionSherpaPoliciesObject } from './workspaceitem-section-sherpa-policies.model';
-import { WorkspaceitemSectionNotifyServiceRequestItemDissemination } from './workspaceitem-section-form-notify-service.model';
 
 /**
  * An interface to represent submission's section object.
@@ -26,7 +25,6 @@ export type WorkspaceitemSectionDataType
   | WorkspaceitemSectionAccessesObject
   | WorkspaceitemSectionSherpaPoliciesObject
   | WorkspaceitemSectionIdentifiersObject
-  | WorkspaceitemSectionNotifyServiceRequestItemDissemination
   | string;
 
 
