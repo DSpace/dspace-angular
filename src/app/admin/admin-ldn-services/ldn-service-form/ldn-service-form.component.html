@@ -10,6 +10,9 @@
                    [placeholder]="'ldn-new-service.form.placeholder.name' | translate" formControlName="name" id="name"
                    name="name"
                    type="text">
+            <div *ngIf="formModel.get('name').invalid && formModel.get('name').touched" class="error-text">
+                Name is required
+            </div>
         </div>
 
         <div class="mb-4">
@@ -34,6 +37,9 @@
                    [placeholder]="'ldn-new-service.form.placeholder.url' | translate" formControlName="url" id="url"
                    name="url"
                    type="text">
+            <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
+                URL is required
+            </div>
         </div>
 
         <div class="mb-4">
@@ -48,6 +54,26 @@
                    id="ldnUrl"
                    name="ldnUrl"
                    type="text">
+            <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" class="error-text">
+                LDN URL is required
+            </div>
+        </div>
+
+        <div class="mb-4">
+            &nbsp;
+        </div>
+
+        <!-- In the score section -->
+        <div class="mb-2">
+            <label for="score">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+            <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
+                   [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
+                   id="score"
+                   name="score"
+                   type="text">
+          <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
+            Please enter a valid score (between 0 and 1). Use the “.” as decimal separator
+          </div>
         </div>
 
         <div class="mb-4">
@@ -77,12 +103,15 @@
 
                 <div class="row mb-1">
                     <div class="col">
-                        <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
+                        <select [class.invalid-field]="!patternSelected()" #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
                                 name="additionalInboundPattern{{i}}" required>
                             <option value="">{{ 'ldn-new-service.form.label.placeholder.inboundPattern' | translate }}</option>
                             <option *ngFor="let pattern of inboundPatterns"
                                     [ngValue]="pattern.name">{{ pattern.name }}</option>
                         </select>
+                        <div *ngIf="!patternSelected()" class="error-text">
+                            Please select at least a pattern.
+                        </div>
                     </div>
 
 
@@ -145,13 +174,16 @@
                 <!-- Input elements in a separate row -->
                 <div class="row mb-1">
                     <div class="col">
-                        <select #outboundPattern formControlName="pattern" id="additionalOutboundPattern{{i}}"
+                        <select [class.invalid-field]="!patternSelected()"  #outboundPattern formControlName="pattern" id="additionalOutboundPattern{{i}}"
                                 name="additionalOutboundPattern{{i}}"
                                 required>
                             <option value="">{{ 'ldn-new-service.form.label.placeholder.outboundPattern' | translate }}</option>
                             <option *ngFor="let pattern of outboundPatterns"
                                     [ngValue]="pattern.name">{{ pattern.name }}</option>
                         </select>
+                        <div *ngIf="!patternSelected()" class="error-text">
+                            Please select at least a pattern.
+                        </div>
                     </div>
                     <div class="col">
                         <ng-container *ngIf="outboundPattern.value">

@@ -51,6 +51,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     @Input() public description: string;
     @Input() public url: string;
     @Input() public ldnUrl: string;
+    @Input() public score: number;
     @Input() public inboundPattern: string;
     @Input() public outboundPattern: string;
     @Input() public constraint: string;
@@ -85,6 +86,7 @@ export class LdnServiceFormEditComponent implements OnInit {
             description: ['', Validators.required],
             url: ['', Validators.required],
             ldnUrl: ['', Validators.required],
+            score: ['', [Validators.required, Validators.pattern('^0*(\.[0-9]+)?$|^1(\.0+)?$')]],
             inboundPattern: [''],
             outboundPattern: [''],
             constraintPattern: [''],
@@ -124,6 +126,7 @@ export class LdnServiceFormEditComponent implements OnInit {
                         name: this.service.name,
                         description: this.service.description,
                         url: this.service.url,
+                        score: this.service.score,
                         ldnUrl: this.service.ldnUrl,
                         type: this.service.type,
                         enabled: this.service.enabled
@@ -163,6 +166,8 @@ export class LdnServiceFormEditComponent implements OnInit {
         this.createReplaceOperation(patchOperations, 'description', '/description');
         this.createReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
         this.createReplaceOperation(patchOperations, 'url', '/url');
+        this.createReplaceOperation(patchOperations, 'score', '/score');
+
 
         this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
         this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');

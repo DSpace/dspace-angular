@@ -33,6 +33,9 @@ export class LdnService extends CacheableObject {
     url: string;
 
     @autoserialize
+    score: number;
+
+    @autoserialize
     enabled: boolean;
 
     @autoserialize
