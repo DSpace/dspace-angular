@@ -55,6 +55,14 @@ export class CollectionDataService extends ComColDataService<Collection> {
     super('collections', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
+  // TAMU Customization - find scoped collections
+  findScopeCollections(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+    return this.getEndpoint().pipe(
+      map(href => this.getFindByParentHref(options.scopeID)),
+      switchMap(href => this.findListByHref(href, options, true, true))
+    );
+  }
+
   /**
    * Get all collections the user is authorized to submit to
    *

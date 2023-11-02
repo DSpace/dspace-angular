@@ -125,9 +125,18 @@ export class CommunityListService {
   loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[]): Observable<FlatNode[]> {
     const currentPage = findOptions.currentPage;
     const topCommunities = [];
+    // TAMU Customization - gather scoped collections
+    const scopedCollections = [];
+
     for (let i = 1; i <= currentPage; i++) {
       const pagination: FindListOptions = Object.assign({}, findOptions, { currentPage: i });
       topCommunities.push(this.getTopCommunities(pagination));
+
+      // TAMU Customization - gather scoped collections
+      if (!!findOptions.scopeID) {
+        scopedCollections.push(this.getScopedCollections(pagination));
+      }
+
     }
     const topComs$ = observableCombineLatest([...topCommunities]).pipe(
       map((coms: PaginatedList<Community>[]) => {
@@ -140,6 +149,27 @@ export class CommunityListService {
         return buildPaginatedList(newPageInfo, newPage);
       })
     );
+
+    // TAMU Customization - process scoped collections
+    if (scopedCollections.length > 0) {
+      return observableCombineLatest(topComs$, observableCombineLatest([...scopedCollections])).pipe(
+        switchMap(([topComs, scopeCols]) => this.transformListOfCommunities(topComs, 0, null, expandedNodes).pipe(
+          map((nodes: FlatNode[]) => {
+            const colNodes = scopeCols.map(payload => {
+              let cNodes = payload.page.map((collection: Collection) => {
+                return toFlatNode(collection, observableOf(false), 0, false);
+              });
+              if (currentPage < payload.totalPages && currentPage === payload.currentPage) {
+                cNodes = [...cNodes, showMoreFlatNode(`collection-${uuidv4()}`, 0, null)];
+              }
+              return cNodes;
+            }).reduce((acc, e) => acc.concat(e), []);
+            return [...nodes, ...colNodes];
+          })
+        )),
+      );
+    }
+
     return topComs$.pipe(
       switchMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)),
       // distinctUntilChanged((a: FlatNode[], b: FlatNode[]) => a.length === b.length)
@@ -151,6 +181,8 @@ export class CommunityListService {
    */
   private getTopCommunities(options: FindListOptions): Observable<PaginatedList<Community>> {
     return this.communityDataService.findTop({
+        // TAMU Customization - propegate scope id
+        scopeID: options.scopeID,
         currentPage: options.currentPage,
         elementsPerPage: this.pageSize,
         sort: {
@@ -160,6 +192,26 @@ export class CommunityListService {
       },
       followLink('subcommunities', { findListOptions: this.configOnePage }),
       followLink('collections', { findListOptions: this.configOnePage }))
+      .pipe(
+        getFirstSucceededRemoteData(),
+        map((results) => results.payload),
+      );
+  }
+
+  // TAMU Customization - get scoped collections
+  /**
+   * Puts the initial scoped collections in a list to be called upon
+   */
+  private getScopedCollections(options: FindListOptions): Observable<PaginatedList<Collection>> {
+    return this.collectionDataService.findScopeCollections({
+        scopeID: options.scopeID,
+        currentPage: options.currentPage,
+        elementsPerPage: this.pageSize,
+        sort: {
+          field: options.sort.field,
+          direction: options.sort.direction
+        }
+      })
       .pipe(
         getFirstSucceededRemoteData(),
         map((results) => results.payload),

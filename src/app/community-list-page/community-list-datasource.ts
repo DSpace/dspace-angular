@@ -1,5 +1,5 @@
 import { hasValue } from '../shared/empty.util';
-import { CommunityListService} from './community-list-service';
+import { CommunityListService } from './community-list-service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';

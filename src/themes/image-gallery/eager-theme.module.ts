@@ -1,3 +1,4 @@
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CommunityPageModule } from '../../app/community-page/community-page.module';
@@ -10,6 +11,7 @@ import { ResultsBackButtonModule } from '../../app/shared/results-back-button/re
 import { SharedModule } from '../../app/shared/shared.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
+import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityPageComponent } from './app/community-page/community-page.component';
 import { ItemGridElementComponent } from './app/shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { ItemSearchResultGridElementComponent } from './app/shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
@@ -25,6 +27,7 @@ const ENTRY_COMPONENTS = [
 
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
+  CommunityListComponent,
   ItemGridElementComponent,
   ItemSearchResultGridElementComponent,
 ];
@@ -41,6 +44,7 @@ const DECLARATIONS = [
     DsoPageModule,
     StatisticsModule,
     CommunityPageModule,
+    CdkTreeModule,
   ],
   declarations: DECLARATIONS,
   providers: [
