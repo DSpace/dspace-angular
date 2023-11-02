@@ -81,7 +81,7 @@
                                 name="additionalInboundPattern{{i}}" required>
                             <option value="">{{ 'ldn-new-service.form.label.placeholder.inboundPattern' | translate }}</option>
                             <option *ngFor="let pattern of inboundPatterns"
-                                    [ngValue]="pattern.name">{{ pattern.name }}</option>
+                                    [ngValue]="pattern.id">{{ pattern.name | translate }} </option>
                         </select>
                     </div>
 
@@ -150,7 +150,7 @@
                                 required>
                             <option value="">{{ 'ldn-new-service.form.label.placeholder.outboundPattern' | translate }}</option>
                             <option *ngFor="let pattern of outboundPatterns"
-                                    [ngValue]="pattern.name">{{ pattern.name }}</option>
+                                    [ngValue]="pattern.id ">{{ pattern.name | translate }}</option>
                         </select>
                     </div>
                     <div class="col">

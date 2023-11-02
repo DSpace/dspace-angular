@@ -1,69 +1,76 @@
 export const notifyPatterns = [
-    {
-        name: 'Acknowledge and Accept',
-        description: 'This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.',
-        category: 'Acknowledgements'
-    },
-    {
-        name: 'Acknowledge and Reject',
-        description: 'This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.',
-        category: 'Acknowledgements'
-    },
-    {
-        name: 'Acknowledge and Tentatively Accept',
-        description: 'This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.',
-        category: 'Acknowledgements'
-    },
-    {
-        name: 'Acknowledge and Tentatively Reject',
-        description: 'This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.',
-        category: 'Acknowledgements'
-    },
-    {
-        name: 'Announce Endorsement',
-        description: 'This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.',
-        category: 'Announcements'
-    },
-    {
-        name: 'Announce Ingest',
-        description: 'This pattern is used to announce that a resource has been ingested.',
-        category: 'Announcements'
-    },
-    {
-        name: 'Announce Relationship',
-        description: 'This pattern is used to announce a relationship between two resources.',
-        category: 'Announcements'
-    },
-    {
-        name: 'Announce Review',
-        description: 'This pattern is used to announce the existence of a review, referencing the reviewed resource.',
-        category: 'Announcements'
-    },
-    {
-        name: 'Announce Service Result',
-        description: 'This pattern is used to announce the existence of a "service result", referencing the relevant resource.',
-        category: 'Announcements'
-    },
-    {
-        name: 'Request Endorsement',
-        description: 'This pattern is used to request endorsement of a resource owned by the origin system.',
-        category: 'Requests'
-    },
-    {
-        name: 'Request Ingest',
-        description: 'This pattern is used to request that the target system ingest a resource.',
-        category: 'Requests'
-    },
-    {
-        name: 'Request Review',
-        description: 'This pattern is used to request a review of a resource owned by the origin system.',
-        category: 'Requests'
-    },
-    {
-        name: 'Undo Offer',
-        description: 'This pattern is used to undo (retract) an offer previously made.',
-        category: 'Undo'
-    }
+  {
+    id: 'ask-accept',
+    name: 'ldn-service.form.label.pattern.acknowledge-and-accept.name',
+    description: 'ldn-service.form.label.pattern.acknowledge-and-accept.description',
+    category: 'ldn-service.form.label.pattern.acknowledge-and-accept.category'
+  },
+  {
+    id: 'ask-reject',
+    name: 'ldn-service.form.label.pattern.acknowledge-and-reject.name',
+    description: 'ldn-service.form.label.pattern.acknowledge-and-reject.description',
+    category: 'Acknowledgements'
+  },
+  {
+    id: 'ask-tentative',
+    name: 'ldn-service.form.label.pattern.acknowledge-and-tentatively-accept.name',
+    description: 'ldn-service.form.label.pattern.acknowledge-and-tentatively-accept.description',
+    category: 'Acknowledgements'
+  },
+  {
+    id: 'announce-endorsement',
+    name: 'ldn-service.form.label.pattern.announce-endorsement.name',
+    description: 'ldn-service.form.label.pattern.announce-endorsement.description',
+    category: 'Announcements'
+  },
+  {
+    id: 'announce-ingest',
+    name: 'ldn-service.form.label.pattern.announce-ingest.name',
+    description: 'ldn-service.form.label.pattern.announce-ingest.description',
+    category: 'Announcements'
+  },
+  {
+    id: 'announce-relationship',
+    name: 'ldn-service.form.label.pattern.announce-relationship.name',
+    description: 'ldn-service.form.label.pattern.announce-relationship.description',
+    category: 'Announcements'
+  },
+  {
+    id: 'announce-review',
+    name: 'ldn-service.form.label.pattern.announce-review.name',
+    description: 'ldn-service.form.label.pattern.announce-review.description',
+    category: 'Announcements'
+  },
+  {
+    id: 'announce-service-result',
+    name: 'ldn-service.form.label.pattern.announce-service-result.name',
+    description: 'ldn-service.form.label.pattern.announce-service-result.description',
+    category: 'Announcements'
+  },
+  {
+    id: 'request-endorsement',
+    name: 'ldn-service.form.label.pattern.request-endorsement.name',
+    description: 'ldn-service.form.label.pattern.request-endorsement.description',
+    category: 'Requests'
+  },
+  {
+    id: 'request-ingest',
+    name: 'ldn-service.form.label.pattern.request-ingest.name',
+    description: 'ldn-service.form.label.pattern.request-ingest.description',
+    category: 'Requests'
+  },
+  {
+    id: 'request-review',
+    name: 'ldn-service.form.label.pattern.request-review.name',
+    description: 'ldn-service.form.label.pattern.request-review.description',
+    category: 'Requests'
+  },
+  {
+    id: 'undo',
+    name: 'ldn-service.form.label.pattern.undo-offer.name',
+    description: 'ldn-service.form.label.pattern.undo-offer.description',
+    category: 'Undo'
+  }
 ];
 
 
