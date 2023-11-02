@@ -2,21 +2,25 @@
 
 </div>
 <ng-template #tableFromMetadata>
-  <h2 *ngIf="displayTitle">{{"item.version.history.head" | translate}}</h2>
-  <table class="table table-striped table-bordered align-middle my-2">
-    <thead>
-    <tr>
-      <th scope="col">{{'item.version.history.table.name' | translate}}</th>
-      <th scope="col">{{'item.version.history.table.handle' | translate}}</th>
-    </tr>
-    </thead>
-    <tbody *ngFor="let versionFromMetadata of (getVersionsFromMetadata(item) | async)">
-    <tr>
-      <td><a [href]="versionFromMetadata.handle">{{versionFromMetadata.name}}</a></td>
-      <td><a [href]="versionFromMetadata.handle">{{versionFromMetadata.handle}}</a></td>
-    </tr>
-    </tbody>
-  </table>
+  <div *ngVar="(getVersionsFromMetadata(item) | async) as versionsFromMetadata">
+    <div *ngIf="versionsFromMetadata?.length != 0">
+      <h2 *ngIf="displayTitle">{{"item.version.history.head" | translate}}</h2>
+      <table class="table table-striped table-bordered align-middle my-2">
+        <thead>
+        <tr>
+          <th scope="col">{{'item.version.history.table.name' | translate}}</th>
+          <th scope="col">{{'item.version.history.table.handle' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let versionFromMetadata of versionsFromMetadata">
+        <tr>
+          <td><a [href]="versionFromMetadata.handle">{{versionFromMetadata.name}}</a></td>
+          <td><a [href]="versionFromMetadata.handle">{{versionFromMetadata.handle}}</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </ng-template>
 <ng-template #tableFromDatabase>
   <div *ngVar="(versionsRD$ | async)?.payload as versions">
