@@ -3731,6 +3731,14 @@
   // TODO New key - Add a translation
   "item.qa-event-notification-info.check.button": "Check",
 
+  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  // "mydspace.qa-event-notification-info.check.button": "Check",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification-info.check.button": "Check",
+
   // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
   // TODO New key - Add a translation
   "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
