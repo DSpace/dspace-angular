@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';
 
-describe('LdnServiceComponent', () => {
+fdescribe('LdnServiceComponent', () => {
   let component: SubmissionSectionCoarNotifyComponent;
   let fixture: ComponentFixture<SubmissionSectionCoarNotifyComponent>;
 

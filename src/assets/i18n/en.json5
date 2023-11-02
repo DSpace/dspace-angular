@@ -5020,7 +5020,13 @@
 
   "submission.section.section-coar-notify.selection.description": "Selected service's description:",
 
-  "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item.Please check the description for details about which record can be managed by this service.",
+  "submission.section.section-coar-notify.selection.no-description": "No further information is available",
+
+  "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
+
+  "submission.section.section-coar-notify.info.no-pattern": "No patterns found in the submission.",
+
+  "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
 
   "submitter.empty": "N/A",
 

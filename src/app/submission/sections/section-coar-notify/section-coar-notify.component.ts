@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SectionModelComponent } from '../models/section.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
@@ -9,18 +9,15 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from '../models/section-data.model';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { LdnService } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-
-export interface CoarNotifyDropdownSelector {
-  ldnService: LdnService;
-}
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.
@@ -34,7 +31,14 @@ export interface CoarNotifyDropdownSelector {
 @renderSectionFor(SectionsType.CoarNotify)
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
+  /**
+   * Contains an array of string patterns.
+   */
   patterns: string[] = [];
+  /**
+   * An object that maps string keys to arrays of LdnService objects.
+   * Used to store LdnService objects by pattern.
+   */
   ldnServiceByPattern: { [key: string]: LdnService[] } = {};
   /**
    * A map representing all services for each pattern
@@ -48,8 +52,6 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * @memberof SubmissionSectionCoarNotifyComponent
    */
   previousServices: { [key: string]: {[key: number]: number} } = {};
-
-  private _ldnServicesPerPattern: Map<string, LdnService[]> = new Map();
 
   /**
    * The [[JsonPatchOperationPathCombiner]] object
@@ -84,6 +86,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   onSectionInit() {
     this.setCoarNotifyConfig();
+    this.getSectionServerErrorsAndSetErrorsToDisplay();
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
   }
 
@@ -93,14 +96,14 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   setCoarNotifyConfig() {
     this.subs.push(
-    this.coarNotifyConfigDataService.findAll().pipe(
-      getFirstCompletedRemoteData()
-    ).subscribe((data) => {
-      if (data.hasSucceeded) {
-        this.patterns = data.payload.page[0].patterns;
-        this.initSelectedServicesByPattern();
-      }
-    }));
+      this.coarNotifyConfigDataService.findAll().pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe((data) => {
+        if (data.hasSucceeded) {
+          this.patterns = data.payload.page[0].patterns;
+          this.initSelectedServicesByPattern();
+        }
+      }));
   }
 
   /**
@@ -162,7 +165,6 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
           this.filterServices(pattern)
             .subscribe((services: LdnService[]) => {
               const selectedServices = services.filter((service) => {
-                this._ldnServicesPerPattern.set(pattern, services);
                 const selection = (this.sectionData.data[pattern] as LdnService[]).find((s: LdnService) => s.id === service.id);
                 this.addService(pattern, selection);
                 return this.sectionData.data[pattern].includes(service.id);
@@ -177,6 +179,11 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     });
   }
 
+  /**
+   * Adds a new service to the selected services for the given pattern.
+   * @param pattern - The pattern to add the new service to.
+   * @param newService - The new service to add.
+   */
   addService(pattern: string, newService: LdnService) {
     // Your logic to add a new service to the selected services for the pattern
     // Example: Push the newService to the array corresponding to the pattern
@@ -186,50 +193,15 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     this.ldnServiceByPattern[pattern].push(newService);
   }
 
+  /**
+   * Removes the service at the specified index from the array corresponding to the pattern.
+   * (part of next phase of implementation)
+   */
   removeService(pattern: string, serviceIndex: number) {
     if (this.ldnServiceByPattern[pattern]) {
       // Remove the service at the specified index from the array
       this.ldnServiceByPattern[pattern].splice(serviceIndex, 1);
     }
-  }
-
-  /**
-   * Check if the specified form field has already a value stored
-   *
-   * @param fieldId
-   *    the section data retrieved from the serverù
-   * @param index
-   *    the section data retrieved from the server
-   */
-  hasStoredValue(fieldId, index): boolean {
-    if (isNotEmpty(this.sectionData.data)) {
-      return this.sectionData.data.hasOwnProperty(fieldId) &&
-        isNotEmpty(this.sectionData.data[fieldId][index]) &&
-        !this.isFieldToRemove(fieldId, index);
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Check if the specified field is on the way to be removed
-   *
-   * @param fieldId
-   *    the section data retrieved from the serverù
-   * @param index
-   *    the section data retrieved from the server
-   */
-  isFieldToRemove(fieldId, index) {
-    return this.fieldsOnTheirWayToBeRemoved.has(fieldId) && this.fieldsOnTheirWayToBeRemoved.get(fieldId).includes(index);
-  }
-
-  /**
-   * Unsubscribe from all subscriptions
-   */
-  onSectionDestroy() {
-    this.subs
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
   }
 
   /**
@@ -252,15 +224,71 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     );
   }
 
+  /**
+   * Checks if the given service has the specified inbound pattern type.
+   * @param service - The service to check.
+   * @param patternType - The inbound pattern type to look for.
+   * @returns True if the service has the specified inbound pattern type, false otherwise.
+   */
   hasInboundPattern(service: any, patternType: string): boolean {
     return service.notifyServiceInboundPatterns.some((pattern: { pattern: string }) => {
       return pattern.pattern === patternType;
     });
   }
 
-  protected getSectionStatus(): Observable<boolean> {
-    // TODO:  check if section is valid
-    return of(true);
+  /**
+   * Retrieves server errors for the current section and sets them to display.
+   * @returns An Observable that emits the validation errors for the current section.
+   */
+  private getSectionServerErrorsAndSetErrorsToDisplay() {
+    this.subs.push(
+      this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
+        take(1),
+        filter((validationErrors) => isNotEmpty(validationErrors)),
+      ).subscribe((validationErrors: SubmissionSectionError[]) => {
+        if (isNotEmpty(validationErrors)) {
+          validationErrors.forEach((error) => {
+            this.sectionService.setSectionError(this.submissionId, this.sectionData.id, error);
+          });
+        }
+      }));
   }
 
+  /**
+   * Returns an observable of the errors for the current section that match the given pattern and index.
+   * @param pattern - The pattern to match against the error paths.
+   * @param index - The index to match against the error paths.
+   * @returns An observable of the errors for the current section that match the given pattern and index.
+   */
+  public getShownSectionErrors$(pattern: string, index: number): Observable<SubmissionSectionError[]> {
+    return this.sectionService.getShownSectionErrors(this.submissionId, this.sectionData.id, this.sectionData.sectionType)
+      .pipe(
+        take(1),
+        filter((validationErrors) => isNotEmpty(validationErrors)),
+        map((validationErrors: SubmissionSectionError[]) => {
+          return validationErrors.filter((error) => {
+            const path = `${pattern}/${index}`;
+            return error.path.includes(path);
+          });
+        })
+      );
+  }
+
+  /**
+   * @returns An observable that emits a boolean indicating whether the section has any server errors or not.
+   */
+  protected getSectionStatus(): Observable<boolean> {
+    return this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
+      map((validationErrors) => isEmpty(validationErrors)
+      ));
+  }
+
+  /**
+   * Unsubscribe from all subscriptions
+   */
+  onSectionDestroy() {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
+  }
 }

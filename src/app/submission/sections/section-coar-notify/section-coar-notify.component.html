@@ -1,7 +1,7 @@
-<div>
-  <ng-container>
-    <div *ngFor="let pattern of patterns; let i = index" class="col mt-3">
-      <label class="mt-2 row"
+<div class="container-fluid">
+  <ng-container *ngIf="patterns.length > 0">
+    <div *ngFor="let pattern of patterns; let i = index" class="col">
+      <label class="row col-form-label"
         >
         {{'submission.section.section-coar-notify.control.label' | translate : {pattern : pattern} }}
         </label
@@ -21,6 +21,7 @@
                 type="text"
                 [readonly]="true"
                 ngbDropdownAnchor
+                [ngClass]="{'border-danger': (getShownSectionErrors$(pattern, serviceIndex) | async)?.length > 0}"
                 class="form-control w-100 scrollable-dropdown-input"
                 [value]="ldnServiceByPattern[pattern][serviceIndex]?.name"
                 (click)="myDropdown.open()"
@@ -68,17 +69,6 @@
               </div>
             </div>
           </div>
-          <!-- TODO: NEXT version
-             <div
-            class="col-sm-1"
-          >
-            <button
-              (click)="removeService(pattern, serviceIndex)"
-              class="btn btn-outline-dark trash-button"
-            >
-              <i class="fas fa-trash"></i>
-            </button>
-          </div> -->
         </div>
         <small
           class="row text-muted"
@@ -86,6 +76,11 @@
         >
           {{'submission.section.section-coar-notify.small.notification' | translate : {pattern : pattern} }}
         </small>
+        <ng-container *ngIf="(getShownSectionErrors$(pattern, serviceIndex) | async)?.length > 0">
+          <small class="row text-danger" *ngFor="let error of (getShownSectionErrors$(pattern, serviceIndex) | async)">
+            {{ error.message  | translate}}
+          </small>
+        </ng-container>
         <div
           class="row mt-1"
           *ngIf="ldnServiceByPattern[pattern][serviceIndex]"
@@ -94,19 +89,24 @@
             class="alert alert-info w-100 d-flex align-items-center flex-row"
           >
             <i class="fa-solid fa-circle-info fa-xl ml-2"></i>
-            <div class="mt-1 ml-4">
-              <b>{{ 'submission.section.section-coar-notify.selection.description' | translate }}</b>
-              <br />
-              {{ ldnServiceByPattern[pattern][serviceIndex].description }}
+            <div class="ml-4">
+              <div>{{ 'submission.section.section-coar-notify.selection.description' | translate }}</div>
+              <div *ngIf="ldnServiceByPattern[pattern][serviceIndex]?.description; else noDesc">
+                {{ ldnServiceByPattern[pattern][serviceIndex].description }}
+              </div>
+              <ng-template #noDesc>
+                <span class="text-muted">
+                  {{ 'submission.section.section-coar-notify.selection.no-description' | translate }}
+                </span>
+              </ng-template>
             </div>
           </div>
         </div>
-        <div class="row mt-1" *ngIf="sectionData.errorsToShow.length > 0">
-          <!--TODO: get error message and display here -->
+        <div class="row" *ngIf="(getShownSectionErrors$(pattern, serviceIndex) | async)?.length > 0">
           <div
             class="alert alert-danger w-100 d-flex align-items-center flex-row"
           >
-            <div class="mt-1 ml-4">
+            <div class="ml-4">
               <span>
                 {{ 'submission.section.section-coar-notify.notification.error' | translate }}
               </span>
@@ -114,12 +114,11 @@
           </div>
         </div>
       </div>
-      <!-- TODO: NEXT version
-        <div class="row mt-1">
-        <span (click)="addService(pattern, newService)" class="ds-form-add-more btn btn-link mb-2">
-          {{ 'ldn-new-service.form.label.addPattern' | translate }}
-        </span>
-      </div> -->
     </div>
+  </ng-container>
+  <ng-container *ngIf="patterns.length === 0">
+    <p>
+      {{'submission.section.section-coar-notify.info.no-pattern' | translate }}
+    </p>
   </ng-container>
 </div>
