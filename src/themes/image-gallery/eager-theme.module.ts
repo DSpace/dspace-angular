@@ -21,12 +21,12 @@ import { ItemSearchResultGridElementComponent } from './app/shared/object-grid/s
 const ENTRY_COMPONENTS = [
   CollectionPageComponent,
   CommunityPageComponent,
-  ItemGridElementComponent,
-  ItemSearchResultGridElementComponent,
 ];
 
 const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
+  ItemGridElementComponent,
+  ItemSearchResultGridElementComponent,
 ];
 
 @NgModule({
