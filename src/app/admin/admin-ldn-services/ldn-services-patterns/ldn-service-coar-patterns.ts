@@ -45,17 +45,17 @@ export const notifyPatterns = [
         category: 'Announcements'
     },
     {
-        name: 'endorsement',
+        name: 'Request Endorsement',
         description: 'This pattern is used to request endorsement of a resource owned by the origin system.',
         category: 'Requests'
     },
     {
-        name: 'ingest',
+        name: 'Request Ingest',
         description: 'This pattern is used to request that the target system ingest a resource.',
         category: 'Requests'
     },
     {
-        name: 'review',
+        name: 'Request Review',
         description: 'This pattern is used to request a review of a resource owned by the origin system.',
         category: 'Requests'
     },
