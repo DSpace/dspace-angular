@@ -255,16 +255,18 @@ export class LdnServiceFormEditComponent implements OnInit {
 
         this.ldnServicesService.patch(this.service, patchOperations).pipe(
             getFirstCompletedRemoteData()
-        ).subscribe(
-            () => {
-
-                this.closeModal();
-                this.sendBack();
-                this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
-                    this.translateService.get('admin.registries.services-formats.modify.success.content'));
-            }
-        );
-
+        ).subscribe((rd: RemoteData<LdnService>) => {
+          if (rd.hasSucceeded) {
+            this.closeModal();
+            this.sendBack();
+            this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
+              this.translateService.get('admin.registries.services-formats.modify.success.content'));
+          } else {
+            this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
+              this.translateService.get('admin.registries.services-formats.modify.failure.content'));
+            this.closeModal();
+          }
+        });
     }
 
     resetFormAndLeave() {
