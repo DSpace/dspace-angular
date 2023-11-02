@@ -719,9 +719,27 @@ export class ItemVersionsComponent implements OnInit {
           getFirstSucceededRemoteListPayload())
         .subscribe((itemList: Item[]) => {
           this.nameCache[handle] = this.dsoNameService.getName(itemList?.[0]);
+          this.updateVersionsFromMetadata(handle, this.nameCache[handle]);
         });
     }
     return this.nameCache[handle];
+  }
+
+  /**
+   * Update the name in the `versionsFromMetadata` for the current record with matching handle.
+   *
+   * @param handle of the record which will be updated
+   * @param name of the version record
+   */
+  updateVersionsFromMetadata(handle: string, name: string) {
+    const versionsCopy = this.versionsFromMetadata.value;
+    versionsCopy.forEach((versionFromMetadata: RelationNameHandle) => {
+      if (!isEqual(versionFromMetadata.handle, handle)) {
+        return;
+      }
+      versionFromMetadata.name = name;
+    });
+    this.versionsFromMetadata.next(versionsCopy);
   }
 
   ngOnDestroy(): void {
