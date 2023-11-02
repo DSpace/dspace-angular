@@ -101,5 +101,4 @@ export class QualityAssuranceSourceDataService extends IdentifiableDataService<Q
   public getSourcesByTarget(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceSourceObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceSourceObject>>> {
     return this.searchAllData.searchBy(this.searchByTargetMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
-
 }

@@ -2384,6 +2384,14 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "item.qa-event-notification-info.check.button": "Check",
+
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "mydspace.qa-event-notification-info.check.button": "Check",
+
   "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
 
   "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
