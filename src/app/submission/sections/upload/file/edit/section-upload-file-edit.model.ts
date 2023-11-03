@@ -59,8 +59,9 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayo
 };
 export const BITSTREAM_FORM_PRIMARY_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'col-6'
-  }
+    host: 'col-12',
+    container: 'text-right'
+  },
 };
 
 export const BITSTREAM_FORM_PRIMARY: DynamicSwitchModelConfig = {

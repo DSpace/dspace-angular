@@ -18,6 +18,16 @@
       </ds-alert>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-2">
+      <span class="text-left font-weight-bold">{{ 'bitstream.edit.form.primaryBitstream.label' | translate }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr/>
+    </div>
+  </div>
   <ng-container *ngFor="let fileEntry of fileList; let i = index;">
     <ds-themed-submission-upload-section-file
                                        [isPrimary]="primaryBitstreamUUID ? primaryBitstreamUUID === fileEntry.uuid : null"
