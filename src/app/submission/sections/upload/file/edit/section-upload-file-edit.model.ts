@@ -59,16 +59,15 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayo
 };
 export const BITSTREAM_FORM_PRIMARY_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'col-6',
-    textAlign: 'end'
+    host: 'col-12',
+    container: 'text-right'
   },
 };
 
 export const BITSTREAM_FORM_PRIMARY: DynamicSwitchModelConfig = {
   id: 'primary',
   name: 'primary',
-  label: 'bitstream.edit.form.primaryBitstream.label',
-  labelPosition: 'start',
+  label: 'bitstream.edit.form.primaryBitstream.label'
 };
 
 
