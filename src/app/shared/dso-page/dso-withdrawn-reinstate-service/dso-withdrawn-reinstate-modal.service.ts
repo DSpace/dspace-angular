@@ -14,17 +14,19 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { take } from 'rxjs/operators';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DsoWithdrawnModalService {
+export class DsoWithdrawnReinstateModalService {
 
   constructor(
     protected router: Router,
     protected modalService: NgbModal,
     protected itemService: ItemDataService,
     private notificationsService: NotificationsService,
+    protected authorizationService: AuthorizationDataService,
     private translateService: TranslateService,
     protected qaEventDataService: QualityAssuranceEventDataService
   ) {}
@@ -32,7 +34,7 @@ export class DsoWithdrawnModalService {
   /**
    * Open the create withdrawn modal for the provided dso
    */
-  openCreateWithdrawnModal(dso, state: boolean): void {
+  openCreateWithdrawnReinstateModal(dso, correctionType: string, state: boolean): void {
     const target = dso.id;
     // Open modal
     const activeModal = this.modalService.open(ItemWithdrawnReinstateModalComponent);
@@ -42,21 +44,24 @@ export class DsoWithdrawnModalService {
           take(1)
        ).subscribe(
          (reasone) => {
-           this.sendQARequest(target, reasone);
+           this.sendQARequest(target, correctionType, reasone);
            activeModal.close();
          }
        );
   }
 
-  sendQARequest(target: string, reason: string): void {
-     this.qaEventDataService.postData(target, 'request-withdrawn', '', reason)
+  sendQARequest(target: string, correctionType: string, reason: string): void {
+     this.qaEventDataService.postData(target, correctionType, '', reason)
        .pipe (
         getFirstCompletedRemoteData()
        )
       .subscribe((res: RemoteData<QualityAssuranceEventObject>) => {
         if (res.hasSucceeded) {
-          const message = 'withdrawn';
+          const withdrawnMessage = 'Withdrawn request sent.';
+          const reinstateMessage = 'Reinstate request sent.';
+          const message = (correctionType === 'request-withdrawn') ? withdrawnMessage : reinstateMessage;
           this.notificationsService.success(this.translateService.get(message));
+          this.authorizationService.invalidateAuthorizationsRequestCache();
         } else {
           this.notificationsService.error(this.translateService.get('correction-type.manage-relation.action.notification.error'));
         }

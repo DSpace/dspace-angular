@@ -151,9 +151,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public hasDetailColumn(): boolean {
     return (this.showTopic.indexOf('/PROJECT') !== -1 ||
-      this.showTopic.indexOf('/PID') !== -1 ||
-      this.showTopic.indexOf('/SUBJECT') !== -1 ||
-      this.showTopic.indexOf('/ABSTRACT') !== -1
+            this.showTopic.indexOf('/PID') !== -1 ||
+            this.showTopic.indexOf('/SUBJECT') !== -1 ||
+            this.showTopic.indexOf('/WITHDRAWN') !== -1 ||
+            this.showTopic.indexOf('/REINSTATE') !== -1 ||
+            this.showTopic.indexOf('/ABSTRACT') !== -1
     );
   }
 

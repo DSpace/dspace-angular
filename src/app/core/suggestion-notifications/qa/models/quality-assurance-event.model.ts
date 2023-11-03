@@ -28,6 +28,8 @@ export interface OpenaireQualityAssuranceEventMessageObject {
    */
   type: string;
 
+  reason: string;
+
   /**
    * The value suggested by Notifications
    */

@@ -2594,7 +2594,7 @@
 
   "item.version.create.modal.form.summary.label": "Summary",
 
-  "item.qa-withdrawn-reinstate.create.modal.form.summary.label": "Summary",
+  "item.qa-withdrawn-reinstate.create.modal.form.summary.label": "Reason",
 
   "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
 
@@ -3157,6 +3157,8 @@
   "quality-assurance.event.table.details": "Details",
 
   "quality-assurance.event.table.project-details": "Project details",
+
+  "quality-assurance.event.table.reasons": "Reasons",
 
   "quality-assurance.event.table.actions": "Actions",
 
