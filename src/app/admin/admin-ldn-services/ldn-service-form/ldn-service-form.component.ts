@@ -139,7 +139,6 @@ export class LdnServiceFormComponent implements OnInit {
         const hasOutboundPattern = this.checkPatterns(this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
 
         if (!name || !url || !ldnUrl || !score || (!hasInboundPattern && !hasOutboundPattern)) {
-            console.log('qualcosa non va');
             this.closeModal();
             return;
         }
