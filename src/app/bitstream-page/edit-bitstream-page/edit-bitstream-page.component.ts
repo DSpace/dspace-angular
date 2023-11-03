@@ -2,14 +2,35 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import {
+  combineLatest,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription
+} from 'rxjs';
+import {
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayout,
+  DynamicFormService,
+  DynamicInputModel,
+  DynamicSelectModel
+} from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import {
+  DynamicCustomSwitchModel
+} from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../../core/shared/operators';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload
+} from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
@@ -245,7 +266,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.selectedFormatModel,
+  inputModels = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.selectedFormatModel,
     this.newFormatModel];
 
   /**
@@ -256,8 +277,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     new DynamicFormGroupModel({
       id: 'fileNamePrimaryContainer',
       group: [
-        this.fileNameModel,
-        this.primaryBitstreamModel
+        this.primaryBitstreamModel,
+        this.fileNameModel
       ]
     }, {
       grid: {
@@ -295,7 +316,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     },
     primaryBitstream: {
       grid: {
-        host: 'col col-sm-4 d-inline-block switch border-0'
+        container: 'col-12'
+      },
+      element: {
+        container: 'text-right'
       }
     },
     description: {
