@@ -1982,6 +1982,8 @@
 
   "info.coar-notify.breadcrumbs": "Notify Support",
 
+  "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
+
   "info.feedback.head": "Feedback",
 
   "info.feedback.title": "Feedback",
@@ -4766,6 +4768,8 @@
 
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
+  "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
+
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
@@ -5011,6 +5015,24 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
+  "submission.section.section-coar-notify.control.label": "Request {{ pattern }} at the following services",
+
+  "submission.section.section-coar-notify.dropdown.no-data": "No data available",
+
+  "submission.section.section-coar-notify.dropdown.select-none": "Select none",
+
+  "submission.section.section-coar-notify.small.notification": "Select a service for {{ pattern }} of this item",
+
+  "submission.section.section-coar-notify.selection.description": "Selected service's description:",
+
+  "submission.section.section-coar-notify.selection.no-description": "No further information is available",
+
+  "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
+
+  "submission.section.section-coar-notify.info.no-pattern": "No patterns found in the submission.",
+
+  "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
 
   "submitter.empty": "N/A",
 

@@ -190,7 +190,11 @@ import { SuggestionSource } from './suggestion-notifications/reciter-suggestions
 import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { LdnItemfiltersService } from '../admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service';
-import { Itemfilter } from "../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters";
+import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
+import {
+  CoarNotifyConfigDataService
+} from '../submission/sections/section-coar-notify/coar-notify-config-data.service';
+import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -315,7 +319,8 @@ const PROVIDERS = [
   OrcidHistoryDataService,
   SupervisionOrderDataService,
   LdnServicesService,
-  LdnItemfiltersService
+  LdnItemfiltersService,
+  CoarNotifyConfigDataService
 ];
 
 /**
@@ -398,7 +403,8 @@ export const models =
     SuggestionTarget,
     SuggestionSource,
     LdnService,
-    Itemfilter
+    Itemfilter,
+    SubmissionCoarNotifyConfig
 
   ];
 
