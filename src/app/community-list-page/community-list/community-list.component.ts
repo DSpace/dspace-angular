@@ -111,19 +111,18 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   getNextPage(node: FlatNode): void {
     this.loadingNode = node;
     if (node.parent != null) {
-      if (node.id === 'collection') {
+      if (node.id.startsWith('collection')) {
         const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
         parentNodeInExpandedNodes.currentCollectionPage++;
       }
-      if (node.id === 'community') {
+      if (node.id.startsWith('community')) {
         const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
         parentNodeInExpandedNodes.currentCommunityPage++;
       }
-      this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
     } else {
       this.paginationConfig.currentPage++;
-      this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
     }
+    this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
   }
 
 }
