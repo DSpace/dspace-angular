@@ -17,16 +17,23 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { storeModuleConfig } from '../app.reducer';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
+import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
+import { of } from 'rxjs';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
 let de: DebugElement;
 let el: HTMLElement;
 
+let notifyInfoServiceStub: any;
+
 describe('Footer component', () => {
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
+    notifyInfoServiceStub = {
+      isCoarConfigEnabled: () => of(true)
+    };
     return TestBed.configureTestingModule({
       imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot({
         loader: {
@@ -38,6 +45,7 @@ describe('Footer component', () => {
       providers: [
         FooterComponent,
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        { provide: NotifyInfoService, useValue: notifyInfoServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

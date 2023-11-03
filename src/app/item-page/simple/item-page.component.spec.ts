@@ -75,6 +75,8 @@ describe('ItemPageComponent', () => {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
 
+  const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
+
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
@@ -99,7 +101,7 @@ describe('ItemPageComponent', () => {
     notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
       getInboxRelationLink: 'http://www.w3.org/ns/ldp#inbox',
       isCoarConfigEnabled: observableOf(true),
-      getCoarLdnLocalInboxUrls: observableOf(['http://test.org', 'http://test2.org']),
+      getCoarLdnLocalInboxUrls: observableOf(getCoarLdnLocalInboxUrls),
     });
 
     TestBed.configureTestingModule({
@@ -175,7 +177,7 @@ describe('ItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(4);
     });
 
 
@@ -184,7 +186,7 @@ describe('ItemPageComponent', () => {
       expect(comp.signpostingLinks).toEqual([mocklink, mocklink2]);
 
       // Check if linkHeadService.addTag() was called with the correct arguments
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length + getCoarLdnLocalInboxUrls.length);
       let expected: LinkDefinition = mockSignpostingLinks[0] as LinkDefinition;
       expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
       expected = {
@@ -195,8 +197,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should set Link header on the server', () => {
-
-      expect(serverResponseService.setHeader).toHaveBeenCalledWith('Link', '<http://test.org> ; rel="rel1" ; type="type1" , <http://test2.org> ; rel="rel2" ');
+      expect(serverResponseService.setHeader).toHaveBeenCalledWith('Link', '<http://test.org> ; rel="rel1" ; type="type1" , <http://test2.org> ; rel="rel2" , <http://InboxUrls.org> ; rel="http://www.w3.org/ns/ldp#inbox", <http://InboxUrls2.org> ; rel="http://www.w3.org/ns/ldp#inbox"');
     });
 
   });
@@ -224,9 +225,9 @@ describe('ItemPageComponent', () => {
       expect(objectLoader.nativeElement).toBeDefined();
     });
 
-    it('should add the signposting links', () => {
+    it('should add the signposti`ng links`', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(4);
     });
   });
 
@@ -243,7 +244,7 @@ describe('ItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(4);
     });
   });
 

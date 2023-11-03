@@ -16,7 +16,7 @@ export class NotifyInfoComponent implements OnInit {
    */
   coarRestApiUrl: Observable<string[]> = of([]);
 
-  constructor(public notifyInfoService: NotifyInfoService) {}
+  constructor(private notifyInfoService: NotifyInfoService) {}
 
   ngOnInit() {
     this.coarRestApiUrl = this.notifyInfoService.getCoarLdnLocalInboxUrls();

@@ -62,6 +62,7 @@ describe('FullItemPageComponent', () => {
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+  let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
   const mocklink = {
     href: 'http://test.org',
@@ -106,6 +107,12 @@ describe('FullItemPageComponent', () => {
       removeTag: jasmine.createSpy('removeTag'),
     });
 
+    notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
+      isCoarConfigEnabled: observableOf(true),
+      getCoarLdnLocalInboxUrls: observableOf(['http://test.org']),
+      getInboxRelationLink: observableOf('http://test.org'),
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -123,7 +130,7 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: NotifyInfoService, useValue: {} },
+        { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -180,7 +187,7 @@ describe('FullItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
   describe('when the item is withdrawn and the user is not an admin', () => {
@@ -209,7 +216,7 @@ describe('FullItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
 
@@ -226,7 +233,7 @@ describe('FullItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
 });
