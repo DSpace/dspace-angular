@@ -16,6 +16,7 @@ import { IdentifiableDataService } from '../../../data/base/identifiable-data.se
 import { dataService } from '../../../data/base/data-service.decorator';
 import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
+import { SearchData, SearchDataImpl } from '../../../../core/data/base/search-data';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -25,6 +26,9 @@ import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 
   private findAllData: FindAllData<QualityAssuranceTopicObject>;
+  private searchData: SearchData<QualityAssuranceTopicObject>;
+
+  private searchByTargetMethod = 'byTarget';
 
   /**
    * Initialize service variables
@@ -43,6 +47,7 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
   ) {
     super('qualityassurancetopics', requestService, rdbService, objectCache, halService);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -60,6 +65,18 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
    */
   public getTopics(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Search for Quality Assurance topics.
+   * @param options The search options.
+   * @param useCachedVersionIfAvailable Whether to use cached version if available.
+   * @param reRequestOnStale Whether to re-request on stale.
+   * @param linksToFollow The links to follow.
+   * @returns An observable of remote data containing a paginated list of Quality Assurance topics.
+   */
+  public searchTopics(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
+    return this.searchData.searchBy(this.searchByTargetMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

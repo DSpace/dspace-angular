@@ -13,6 +13,7 @@ import {
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.
@@ -34,6 +35,11 @@ export class QualityAssuranceTopicsService {
   sourceId: string;
 
   /**
+   * targetId used to get topics
+   */
+  targetId: string;
+
+  /**
    * Return the list of Quality Assurance topics managing pagination and errors.
    *
    * @param elementsPerPage
@@ -53,6 +59,10 @@ export class QualityAssuranceTopicsService {
       searchParams: [new RequestParam('source', this.sourceId)]
     };
 
+    if (hasValue(this.targetId)) {
+      findListOptions.searchParams.push(new RequestParam('target', this.targetId));
+    }
+
     return this.qualityAssuranceTopicRestService.getTopics(findListOptions).pipe(
       getFirstCompletedRemoteData(),
       map((rd: RemoteData<PaginatedList<QualityAssuranceTopicObject>>) => {
@@ -71,5 +81,13 @@ export class QualityAssuranceTopicsService {
    */
   setSourceId(sourceId: string) {
     this.sourceId = sourceId;
+  }
+
+  /**
+   * set targetId which is used to get topics
+   * @param targetId string
+   */
+  setTargetId(targetId: string) {
+    this.targetId = targetId;
   }
 }
