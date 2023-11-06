@@ -1,0 +1,96 @@
+{
+    "_embedded" : {
+      "usagereports" : [ {
+        "id" : "6d65c6a2-3fe7-44dd-bacb-79271257c35d_TotalVisits",
+        "points" : [ {
+          "id" : "e98b0f27-5c19-49a0-960d-eb6ad5287067",
+          "label" : "TestArticle1",
+          "values" : {
+            "views" : 120
+          },
+          "type" : "item"
+        }, {
+          "id" : "e7bd0d24-e83a-486a-bc0c-8aaaeb19dc7d",
+          "label" : "TestBook3",
+          "values" : {
+            "views" : 78
+          },
+          "type" : "item"
+        }, {
+          "id" : "9fe73193-dff8-4087-9ce2-e83e8a46ca0b",
+          "label" : "HEALTH-F2-2009-223175",
+          "values" : {
+            "views" : 57
+          },
+          "type" : "item"
+        }, {
+          "id" : "5d0098fc-344a-4067-a57d-457092b72e82",
+          "label" : "Dunstan, Sarah",
+          "values" : {
+            "views" : 33
+          },
+          "type" : "item"
+        }, {
+          "id" : "b1bc3a49-49b1-417a-ac90-8d5c7ba5e0ac",
+          "label" : "BOF PhD Scholarship of Francis Mumbanza Mundondo",
+          "values" : {
+            "views" : 29
+          },
+          "type" : "item"
+        }, {
+          "id" : "5a3f7c7a-d3df-419c-b8a2-f00ede62c60a",
+          "label" : "Vercauteren, Marcel",
+          "values" : {
+            "views" : 20
+          },
+          "type" : "item"
+        }, {
+          "id" : "506a7e54-8d7c-4d5b-8636-d5f6411483de",
+          "label" : "Abdominal and Paediatric Surgery",
+          "values" : {
+            "views" : 18
+          },
+          "type" : "item"
+        }, {
+          "id" : "2acb4234-21b3-4036-bc2c-9440756460fd",
+          "label" : "Dogma in Classifying Dengue Disease",
+          "values" : {
+            "views" : 16
+          },
+          "type" : "item"
+        }, {
+          "id" : "82b9dfd6-038e-4472-8749-0a1ce87aa869",
+          "label" : "The Diagnostic Sensitivity of Dengue Rapid Test Assays Is Significantly Enhanced by Using a Combined Antigen and Antibody Testing Approach",
+          "values" : {
+            "views" : 16
+          },
+          "type" : "item"
+        }, {
+          "id" : "664f4f47-7d6f-41c9-97a5-04082015c535",
+          "label" : "Consideration of Financial Satisfaction: What Consumers Know, Feel and Do from a Financial Perspective",
+          "values" : {
+            "views" : 15
+          },
+          "type" : "item"
+        } ],
+        "type" : "usagereport",
+        "report-type" : "TotalVisits",
+        "_links" : {
+          "self" : {
+            "href" : "http://localhost:8080/server/api/statistics/usagereports/6d65c6a2-3fe7-44dd-bacb-79271257c35d_TotalVisits"
+          }
+        }
+      } ]
+    },
+    "_links" : {
+      "self" : {
+        "href" : "http://localhost:8080/server/api/statistics/usagereports/search/object?page=-1&size=10&uri=http://localhost:8080/server/api/core/sites/6d65c6a2-3fe7-44dd-bacb-79271257c35d"
+      }
+    },
+    "page" : {
+      "size" : 10,
+      "totalElements" : 1,
+      "totalPages" : 1,
+      "number" : 0
+    }
+  }
