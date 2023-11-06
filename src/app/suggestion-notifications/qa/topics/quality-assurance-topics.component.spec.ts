@@ -51,7 +51,11 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
         { provide: PaginationService, useValue: paginationService },
         QualityAssuranceTopicsComponent,
         // tslint:disable-next-line: no-empty
-        { provide: QualityAssuranceTopicsService, useValue: { setSourceId: (sourceId: string) => { } }}
+        { provide: QualityAssuranceTopicsService, useValue: {
+          setSourceId: (sourceId: string) => { } ,
+          setTargetId: (targetId: string) => { }
+          }
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then(() => {

@@ -4,7 +4,6 @@ import { SectionModelComponent } from '../models/section.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from '../models/section-data.model';
@@ -70,7 +69,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   protected subs: Subscription[] = [];
 
   constructor(protected ldnServicesService: LdnServicesService,
-              protected formOperationsService: SectionFormOperationsService,
+              // protected formOperationsService: SectionFormOperationsService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
               protected sectionService: SectionsService,
               protected coarNotifyConfigDataService: CoarNotifyConfigDataService,

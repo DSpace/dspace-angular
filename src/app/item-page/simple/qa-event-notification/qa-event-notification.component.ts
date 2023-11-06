@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';

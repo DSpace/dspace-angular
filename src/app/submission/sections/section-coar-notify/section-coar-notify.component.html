@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <ng-container *ngIf="patterns.length > 0">
+  <ng-container *ngIf="patterns?.length > 0">
     <div *ngFor="let pattern of patterns; let i = index" class="col">
       <label class="row col-form-label"
         >
@@ -116,7 +116,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngIf="patterns.length === 0">
+  <ng-container *ngIf="patterns?.length === 0">
     <p>
       {{'submission.section.section-coar-notify.info.no-pattern' | translate }}
     </p>
