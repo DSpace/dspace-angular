@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
@@ -60,13 +61,14 @@ export class CollectionPageComponent implements OnInit {
   collectionPageRoute$: Observable<string>;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private collectionDataService: CollectionDataService,
     private searchService: SearchService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private paginationService: PaginationService,
-    private authorizationDataService: AuthorizationDataService,
+    private authorizationDataService: AuthorizationDataService
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'cp';
@@ -77,6 +79,10 @@ export class CollectionPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+    
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),
@@ -121,6 +127,10 @@ export class CollectionPageComponent implements OnInit {
       getAllSucceededRemoteDataPayload(),
       map((collection) => getCollectionPageRoute(collection.id))
     );
+  }
+
+  isServerRendered(): boolean {
+    return isPlatformServer(this.platformId);
   }
 
   isNotEmpty(object: any) {

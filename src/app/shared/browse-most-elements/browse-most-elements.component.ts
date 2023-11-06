@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
@@ -37,12 +38,17 @@ export class BrowseMostElementsComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(PLATFORM_ID) private platformId: Object,
     private searchService: SearchService,
     private cdr: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     const showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     const followLinks = showThumbnails ? [followLink('thumbnail')] : [];
     this.searchService.search(this.paginatedSearchOptions, null, true, true, ...followLinks).pipe(

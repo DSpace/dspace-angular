@@ -6,9 +6,11 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  PLATFORM_ID
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { isPlatformServer } from '@angular/common';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
@@ -215,6 +217,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showFilterToggle = false;
 
   /**
+   * Defines whether to show the toggle button to Show/Hide filter
+   */
+  @Input() renderOnServerSide = true;
+
+  /**
    * Defines whether to show the toggle button to Show/Hide chart
    */
   @Input() showChartsToggle = false;
@@ -333,6 +340,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
+    @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     protected router: Router) {
@@ -347,6 +355,14 @@ export class SearchComponent implements OnInit, OnDestroy {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    // if (!this.renderOnServerSide) {
+    //   return;
+    // }
+
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
