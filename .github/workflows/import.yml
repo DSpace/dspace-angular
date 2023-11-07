@@ -1,0 +1,35 @@
+name: Import DSpace v5
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: dspace-dep-1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: dataquest-dev/dspace-python-api
+          path: dspace-python-api
+          ref: 'refactor_jm'
+
+      - name: deploy dspace-import on dev-5
+        id: import
+        working-directory: dspace-python-api/scripts
+        run: |
+          docker stop dspace-import-db5 || true
+          DB5PORT=15432
+          cid=$(docker run -d --name dspace-import-db5 -v $pwd:/dq/scripts -v %cd%/../input/dump:/dq/dump \
+            -p 127.0.0.1:$DB5PORT:5432 -e POSTGRES_DB=empty -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=dspace postgres /bin/bash -c "cd /dq/scripts && ./init.dspacedb5.sh")
+          echo "cid=$cid" >> $GITHUB_OUTPUT
+          sleep 10
+          cd ../src
+          # cleanup resume
+          rm __temp/resume/*.json || true
+          echo python repo_import.py --resume=false
+
+      - name: cleanup
+        run: |
+          docker stop ${{ steps.import.outputs.cid }} || true
+        if: ${{ always() }}          
+          

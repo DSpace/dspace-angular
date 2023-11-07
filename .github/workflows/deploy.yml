@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: false
-      - name: deploy
+      - name: deploy to dev-5
         run: |
           cd $GITHUB_WORKSPACE/build-scripts/run/
           pwd
@@ -39,3 +39,15 @@ jobs:
 
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh dspace-5
+
+      - name: deploy dspace-import on dev-5
+        working-directory: build-scripts/run/
+        run: |
+          ENVFILE=/opt/dspace-envs/.env.dspace.imported.dev-5 ./start.sh dspace-5-import
+          sleep 120
+          curl -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
+          --request POST \
+          https://api.github.com/repos/dataquest-dev/ \
+          dspace-angular/actions/workflows/import.yml/dispatches \
+          --data "{\"ref\":\"refs/heads/dtq-dev\"}"
