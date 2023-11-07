@@ -15,7 +15,6 @@ import {
 } from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActivatedRoute } from '@angular/router';
-import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -76,19 +75,16 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   constructor(
     private paginationService: PaginationService,
     private activatedRoute: ActivatedRoute,
-    private notificationsStateService: SuggestionNotificationsStateService,
-    private qualityAssuranceTopicsService: QualityAssuranceTopicsService
+    private notificationsStateService: SuggestionNotificationsStateService
   ) {
+    this.sourceId = this.activatedRoute.snapshot.params.sourceId;
+    this.targetId = this.activatedRoute.snapshot.params.targetId;
   }
 
   /**
    * Component initialization.
    */
   ngOnInit(): void {
-    this.sourceId = this.activatedRoute.snapshot.paramMap.get('sourceId');
-    this.targetId = this.activatedRoute.snapshot.paramMap.get('targetId');
-    this.qualityAssuranceTopicsService.setSourceId(this.sourceId);
-    this.qualityAssuranceTopicsService.setTargetId(this.targetId);
     this.topics$ = this.notificationsStateService.getQualityAssuranceTopics();
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceTopicsTotals();
   }
@@ -101,7 +97,7 @@ export class QualityAssuranceTopicsComponent implements OnInit {
       this.notificationsStateService.isQualityAssuranceTopicsLoaded().pipe(
         take(1)
       ).subscribe(() => {
-        this.getQualityAssuranceTopics();
+        this.getQualityAssuranceTopics(this.sourceId, this.targetId);
       })
     );
   }
@@ -129,13 +125,15 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   /**
    * Dispatch the Quality Assurance topics retrival.
    */
-  public getQualityAssuranceTopics(): void {
+  public getQualityAssuranceTopics(source: string, target?: string): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
       distinctUntilChanged(),
     ).subscribe((options: PaginationComponentOptions) => {
       this.notificationsStateService.dispatchRetrieveQualityAssuranceTopics(
         options.pageSize,
-        options.currentPage
+        options.currentPage,
+        source,
+        target
       );
     });
   }

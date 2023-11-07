@@ -15,7 +15,7 @@
                      [collectionSize]="(totalElements$ | async)"
                      [hideGear]="false"
                      [hideSortOptions]="true"
-                     (paginationChange)="getQualityAssuranceTopics()">
+                     (paginationChange)="getQualityAssuranceTopics(sourceId, targetId)">
 
         <ds-loading class="container" *ngIf="(isTopicsProcessing() | async)" message="'quality-assurance.loading' | translate"></ds-loading>
         <ng-container *ngIf="!(isTopicsProcessing() | async)">
@@ -40,7 +40,7 @@
                       <button
                               class="btn btn-outline-primary btn-sm"
                               title="{{'quality-assurance.button.detail' | translate }}"
-                              [routerLink]="[topicElement.id]">
+                              [routerLink]="['/admin/notifications/quality-assurance',sourceId, topicElement.id]">
                         <span class="badge badge-info">{{topicElement.totalEvents}}</span>
                         <i class="fas fa-info fa-fw"></i>
                       </button>

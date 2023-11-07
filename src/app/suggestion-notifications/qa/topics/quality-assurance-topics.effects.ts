@@ -37,7 +37,9 @@ export class QualityAssuranceTopicsEffects {
     switchMap(([action, currentState]: [RetrieveAllTopicsAction, any]) => {
       return this.qualityAssuranceTopicService.getTopics(
         action.payload.elementsPerPage,
-        action.payload.currentPage
+        action.payload.currentPage,
+        action.payload.source,
+        action.payload.target
       ).pipe(
         map((topics: PaginatedList<QualityAssuranceTopicObject>) =>
           new AddTopicsAction(topics.page, topics.totalPages, topics.currentPage, topics.totalElements)

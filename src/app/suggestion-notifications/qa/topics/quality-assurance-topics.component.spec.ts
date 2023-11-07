@@ -16,7 +16,6 @@ import { SuggestionNotificationsStateService } from '../../suggestion-notificati
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 describe('QualityAssuranceTopicsComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceTopicsComponent>;
@@ -44,18 +43,13 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
       providers: [
         { provide: SuggestionNotificationsStateService, useValue: mockNotificationsStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
-          paramMap: {
-            get: () => 'openaire',
+          params: {
+            sourceId: 'openaire',
+            targetId: null
           },
         }}},
         { provide: PaginationService, useValue: paginationService },
         QualityAssuranceTopicsComponent,
-        // tslint:disable-next-line: no-empty
-        { provide: QualityAssuranceTopicsService, useValue: {
-          setSourceId: (sourceId: string) => { } ,
-          setTargetId: (targetId: string) => { }
-          }
-        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then(() => {
