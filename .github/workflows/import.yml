@@ -39,7 +39,7 @@ jobs:
           docker stop dspace-import-db5 || true
           echo "====="
           echo Starting import DB
-          DB5PORT=15432
+          export DB5PORT=15432
           # create otherwise it will be created with root owner
           mkdir -p $(pwd)/../input/dump || true
           cid=$(docker run -d --rm --name dspace-import-db5 -v $pwd:/dq/scripts -v $DATADIR/dump:/dq/dump -p 127.0.0.1:$DB5PORT:5432 -e POSTGRES_DB=empty -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=dspace postgres /bin/bash -c "cd /dq/scripts && ./init.dspacedb5.sh")
