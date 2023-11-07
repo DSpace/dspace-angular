@@ -287,6 +287,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {
   QualityAssuranceEventDataService
 } from '../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
+import { SplitPipe } from './utils/split.pipe';
 
 const MODULES = [
   CommonModule,
@@ -326,7 +327,8 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
-  ShortNumberPipe
+  ShortNumberPipe,
+  SplitPipe
 ];
 
 const COMPONENTS = [
