@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, Optional} from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { isPlatformServer } from '@angular/common';
+
+import { RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -21,7 +24,12 @@ import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 @Injectable()
 export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList<CrisLayoutTab>>> {
 
-  constructor(private tabService: TabDataService, private itemDataService: ItemDataService, private router: Router) { }
+  constructor(
+    @Optional() @Inject(RESPONSE) private response: any,
+    @Inject(PLATFORM_ID) private platformId: any,
+    private tabService: TabDataService,
+    private itemDataService: ItemDataService,
+    private router: Router) { }
 
   /**
    * Method for resolving the tabs of item based on the parameters in the current route
@@ -45,17 +53,16 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
               if (tabsRD.hasSucceeded && tabsRD?.payload?.page?.length > 0) {
                 // By splitting the url with uuid we can understand if the item is primary item page or a tab
                 const urlSplit = state.url.split(route.params.id);
+                const isValidTab = urlSplit[1] && tabsRD.payload.page.some(tab => `/${tab.shortname}` === urlSplit[1]);
                 // If a no or wrong tab is given redirect to the first tab available
-                if (!!tabsRD.payload && !!tabsRD.payload.page && tabsRD.payload.page.length > 0 && !urlSplit[1]) {
-                  const selectedTab = tabsRD.payload.page.filter((tab) => !tab.leading)[0];
-                  if (!!selectedTab) {
-                    let tabName = selectedTab.shortname;
-
-                    if (tabName.includes('::')) {
-                      tabName = tabName.split('::')[1];
+                if (!!tabsRD.payload && !!tabsRD.payload.page && tabsRD.payload.page.length > 0 && !isValidTab) {
+                  if (urlSplit[1]) {
+                    const itemPageRoute = getItemPageRoute(itemRD.payload);
+                    if (isPlatformServer(this.platformId)) {
+                      this.response.redirect(301, itemPageRoute);
+                    } else {
+                      this.router.navigateByUrl(itemPageRoute);
                     }
-
-                    this.router.navigateByUrl(getItemPageRoute(itemRD.payload) + '/' + tabName);
                   }
                 }
               }
