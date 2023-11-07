@@ -19,7 +19,7 @@ jobs:
         run: |
           docker stop dspace-import-db5 || true
           DB5PORT=15432
-          cid=$(docker run -d --name dspace-import-db5 -v $pwd:/dq/scripts -v %cd%/../input/dump:/dq/dump \
+          cid=$(docker run -d --name dspace-import-db5 -v $pwd:/dq/scripts -v $(pwd)/../input/dump:/dq/dump \
             -p 127.0.0.1:$DB5PORT:5432 -e POSTGRES_DB=empty -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=dspace postgres /bin/bash -c "cd /dq/scripts && ./init.dspacedb5.sh")
           echo "cid=$cid" >> $GITHUB_OUTPUT
           sleep 10
