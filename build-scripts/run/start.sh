@@ -1,7 +1,8 @@
 #!/bin/bash
-
+echo "testing existence of envfile"
 if [[ "x$ENVFILE" == "x" ]]; then
     export ENVFILE=$(pwd)/envs/.default
+    echo "setting up new envfile"
 fi
 
 source $ENVFILE
@@ -17,8 +18,8 @@ popd
 # Create admin user
 # set DOCKER_OWNER to match our image (see cli.yml)
 pushd ../..
-docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/matomo-w-db.yml pull
-docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/matomo-w-db.yml up -d --no-build
+#docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/matomo-w-db.yml pull
+#docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/matomo-w-db.yml up -d --no-build
 docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en -o dataquest
 docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/cli.yml run --rm dspace-cli user --add -m user@test.edu -g meno -s priezvisko -l en -p user -o dataquest
 docker compose --env-file $ENVFILE -p ${1:-unnamed_dspace} -f docker/cli.yml run --rm dspace-cli version

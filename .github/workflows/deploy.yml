@@ -45,9 +45,10 @@ jobs:
         run: |
           ENVFILE=/opt/dspace-envs/.env.dspace.imported.dev-5 ./start.sh dspace-5-import
           sleep 120
+          echo "done with start.sh, going to request import"
           curl -H "Accept: application/vnd.github.everest-preview+json" \
           -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
           --request POST \
-          https://api.github.com/repos/dataquest-dev/ \
+          https://api.github.com/repos/dataquest-dev/\
           dspace-angular/actions/workflows/import.yml/dispatches \
           --data "{\"ref\":\"refs/heads/dtq-dev\"}"
