@@ -1,6 +1,11 @@
 name: Erase database
 
 on:
+  workflow_call:
+    inputs:
+      INSTANCE:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       INSTANCE:
@@ -13,24 +18,23 @@ on:
 
 
 jobs:
-  restart_db:
+  recreate_db:
+    runs-on: dspace-dep-1
+    timeout-minutes: 5
     env:
       INSTANCE: ${{ inputs.INSTANCE }}
-    runs-on: dspace-dep-1
+      NAME: dspace-${{ inputs.INSTANCE }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: false
+
       - name: stop and remove containers
         run: |
-          docker stop dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE
-          docker rm dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE
+          docker stop dspacesolr$INSTANCE dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE || true
+          docker rm   dspacesolr$INSTANCE dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE || true
+
       - name: remove volumes
         if: '!cancelled()'
         run: |
-          docker volume rm dspace-${{env.INSTANCE}}_pgdata dspace-${{env.INSTANCE}}_assetstore
-      - name: redeploy
-        if: '!cancelled()'
-        run: |
-          curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" --request POST https://api.github.com/repos/dataquest-dev/dspace-angular/actions/workflows/deploy.yml/dispatches --data "{\"ref\":\"refs/heads/dtq-dev\"}"
-
+          # be sure to have INSTANCE set
+          if [[ "x${{ env.NAME }}" != "dspace-" ]]; then
+            docker volume rm $(docker volume ls --filter name="${{ env.NAME }}_" -q) || true
+          fi;

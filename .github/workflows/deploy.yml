@@ -3,14 +3,28 @@ name: Deploy DSpace
 
 on:
   workflow_dispatch:
+    inputs:
+      INSTANCE:
+        required: true
+        default: '*'
+        type: choice
+        options:
+          - '*'
+          - '5'
+          - '8'
+      IMPORT:
+        required: true
+        default: true
+        type: boolean
 
 jobs:
   deploy:
+    if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '5'
     runs-on: dspace-dep-1
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: false
+      - uses: actions/checkout@v4
+
       - name: deploy to dev-5
         run: |
           cd $GITHUB_WORKSPACE/build-scripts/run/
@@ -40,15 +54,32 @@ jobs:
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh dspace-5
 
+  pre-deploy-import:
+    if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8'
+    uses: dataquest-dev/dspace-angular/.github/workflows/erase_db.yml@dtq-dev
+    with:
+      INSTANCE: '8'
+
+  deploy-import:
+    if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8'
+    needs: pre-deploy-import
+    runs-on: dspace-dep-1
+    timeout-minutes: 5
+    env:
+      INSTANCE: '8'
+    steps:
+      - uses: actions/checkout@v4
+
       - name: deploy dspace-import on dev-5
         working-directory: build-scripts/run/
         run: |
-          ENVFILE=/opt/dspace-envs/.env.dspace.imported.dev-5 ./start.sh dspace-5-import
-          sleep 120
-          echo "done with start.sh, going to request import"
-          curl -H "Accept: application/vnd.github.everest-preview+json" \
-          -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
-          --request POST \
-          https://api.github.com/repos/dataquest-dev/\
-          dspace-angular/actions/workflows/import.yml/dispatches \
-          --data "{\"ref\":\"refs/heads/dtq-dev\"}"
+          ENVFILE=/opt/dspace-envs/.env.dspace.imported.dev-5 ./start.sh dspace-$INSTANCE
+          /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
+
+  post-deploy-import:
+    if: (github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8') && github.event.inputs.IMPORT != false
+    needs: deploy-import
+    uses: dataquest-dev/dspace-angular/.github/workflows/import.yml@dtq-dev
+    secrets: inherit
+    with:
+      INSTANCE: '8'
