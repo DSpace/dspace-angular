@@ -3,7 +3,7 @@
     <div *ngFor="let pattern of patterns; let i = index" class="col">
       <label class="row col-form-label"
         >
-        {{'submission.section.section-coar-notify.control.label' | translate : {pattern : pattern} }}
+        {{'submission.section.section-coar-notify.control.' + pattern + '.label' | translate }}
         </label
       >
       <div
