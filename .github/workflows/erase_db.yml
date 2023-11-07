@@ -2,11 +2,20 @@ name: Erase database
 
 on:
   workflow_dispatch:
+    inputs:
+      INSTANCE:
+        required: true
+        default: '5'
+        type: choice
+        options:
+          - '5'
+          - '8'
+
 
 jobs:
   restart_db:
     env:
-      INSTANCE: 5
+      INSTANCE: ${{ inputs.INSTANCE }}
     runs-on: dspace-dep-1
     steps:
       - uses: actions/checkout@v3
