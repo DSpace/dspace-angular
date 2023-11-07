@@ -35,6 +35,8 @@ jobs:
         working-directory: dspace-python-api/scripts
         run: |
           docker stop dspace-import-db5 || true
+          echo "====="
+          echo Starting import DB
           DB5PORT=15432
           # create otherwise it will be created with root owner
           mkdir -p $(pwd)/../input/dump || true
@@ -42,14 +44,16 @@ jobs:
             -p 127.0.0.1:$DB5PORT:5432 -e POSTGRES_DB=empty -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=dspace postgres /bin/bash -c "cd /dq/scripts && ./init.dspacedb5.sh")
           echo "cid=$cid" >> $GITHUB_OUTPUT
           sleep 10
-          cd ../src
+          echo "====="
+          docker logs dspace-import-db5 || true
+          echo "====="
+          cd ../
+          pip install -r requirements.txt || true
+          echo "====="
+          cd ./src
           # cleanup resume
           rm __temp/resume/*.json || true
-          # python repo_import.py --resume=false \
-          #   --config=backend.endpoint=http://dev-5.pc:88/server/api/ \
-          #   --config=db_dspace_7.port=5438 \
-          #   --config=db_dspace_5.port=$DB5PORT \
-          #   --config=db_utilities_5.port=$DB5PORT
+          python3 repo_import.py --resume=false --config=backend.endpoint=http://dev-5.pc:88/server/api/  --config=db_dspace_7.port=5438  --config=db_dspace_5.port=$DB5PORT  --config=db_utilities_5.port=$DB5PORT --config=input.datadir=/opt/dspace-data/clarin-dspace/data/ --config=input.icondir=/opt/dspace-data/clarin-dspace/icon/
 
       - name: cleanup
         run: |
