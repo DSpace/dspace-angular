@@ -129,10 +129,6 @@ export class CollectionPageComponent implements OnInit {
     );
   }
 
-  isServerRendered(): boolean {
-    return isPlatformServer(this.platformId);
-  }
-
   isNotEmpty(object: any) {
     return isNotEmpty(object);
   }

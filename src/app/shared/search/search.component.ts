@@ -6,11 +6,9 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output,
-  PLATFORM_ID
+  Output
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { isPlatformServer } from '@angular/common';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
@@ -340,10 +338,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
-    @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
-    protected router: Router) {
+    protected router: Router,) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -355,11 +352,7 @@ export class SearchComponent implements OnInit, OnDestroy {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    // if (!this.renderOnServerSide) {
-    //   return;
-    // }
-
-    if (isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide) {
       return;
     }
 
