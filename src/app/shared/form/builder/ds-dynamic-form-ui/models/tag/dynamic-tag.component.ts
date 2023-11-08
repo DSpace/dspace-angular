@@ -89,6 +89,18 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
         }
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
+      // Add user input as last item of the list
+      map((list: VocabularyEntry[]) => {
+        if (list && list.length > 0) {
+          if (isNotEmpty(this.currentValue)) {
+            let vocEntry = new VocabularyEntry();
+            vocEntry.display = this.currentValue;
+            vocEntry.value = this.currentValue;
+            list.push(vocEntry);
+        }
+        }
+        return list;
+      }),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed));
 
