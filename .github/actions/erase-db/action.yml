@@ -23,7 +23,6 @@ runs:
         docker stop dspacesolr$INSTANCE dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE || true
 
     - name: remove volumes
-      if: '!cancelled()'
       shell: bash
       env:
         NAME: ${{ inputs.NAME }}
