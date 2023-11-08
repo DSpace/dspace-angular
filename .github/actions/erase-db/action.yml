@@ -21,6 +21,7 @@ runs:
         INSTANCE: ${{ inputs.INSTANCE }}
       run: |
         docker stop dspacesolr$INSTANCE dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE || true
+        docker rm   dspacesolr$INSTANCE dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE || true
 
     - name: remove volumes
       shell: bash
