@@ -30,6 +30,6 @@ runs:
       run: |
           # be sure to have INSTANCE set
           if [[ "x${NAME}" != "dspace-" ]]; then
-            echo docker volume rm $(docker volume ls --filter name="${NAME}_" -q) || true
+            docker volume rm $(docker volume ls --filter name="${NAME}_" -q) || true
           fi;
 
