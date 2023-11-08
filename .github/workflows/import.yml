@@ -20,7 +20,7 @@ jobs:
       - uses: ./.github/actions/erase-db
         with:
           INSTANCE: ${{ env.INSTANCE }}
-          NAME: 'dspace-${{ env.INSTANCE }}'
+          NAME: dspace-${{ env.INSTANCE }}
 
       - name: deploy dspace-import on dev-5
         working-directory: build-scripts/run/
