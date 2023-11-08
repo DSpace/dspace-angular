@@ -68,7 +68,7 @@ jobs:
   deploy-import:
     if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8'
     runs-on: dspace-dep-1
-    timeout-minutes: 5
+    timeout-minutes: 120
     env:
       INSTANCE: '8'
       ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
