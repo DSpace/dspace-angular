@@ -21,7 +21,7 @@ import { SectionsType } from '../sections-type';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionDataObject } from '../models/section-data.model';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Group } from '../../../core/eperson/models/group.model';
 import { SectionsService } from '../sections.service';

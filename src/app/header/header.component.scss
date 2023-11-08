@@ -1,3 +1,7 @@
+header {
+  background-color: var(--ds-header-bg);
+}
+
 .navbar-brand img {
   max-height: var(--ds-header-logo-height);
   max-width: 100%;
@@ -20,3 +24,8 @@
   }
 }
 
+.navbar {
+  display: flex;
+  gap: calc(var(--bs-spacer) / 3);
+  align-items: center;
+}

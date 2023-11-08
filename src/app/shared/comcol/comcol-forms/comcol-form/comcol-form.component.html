@@ -42,7 +42,7 @@
          [formModel]="formModel"
          [displayCancel]="false"
          (submitForm)="onSubmit()">
-  <button before (click)="back.emit()" class="btn btn-outline-secondary">
+  <button before (click)="back.emit()" class="btn btn-outline-secondary" type="button">
     <i class="fas fa-arrow-left"></i> {{ type.value + '.edit.return' | translate }}
   </button>
 </ds-form>

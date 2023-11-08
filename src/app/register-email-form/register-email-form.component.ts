@@ -13,7 +13,7 @@ import {isNotEmpty} from '../shared/empty.util';
 import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
 import {map, startWith, take} from 'rxjs/operators';
 import {CAPTCHA_NAME, GoogleRecaptchaService} from '../core/google-recaptcha/google-recaptcha.service';
-import {AlertType} from '../shared/alert/aletr-type';
+import {AlertType} from '../shared/alert/alert-type';
 import {KlaroService} from '../shared/cookies/klaro.service';
 import {CookieService} from '../core/services/cookie.service';
 import { Subscription } from 'rxjs';

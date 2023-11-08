@@ -236,7 +236,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         loading: false,
         blocking: false,
-        authMethods: [new AuthMethod(AuthMethodType.Password)]
+        authMethods: [new AuthMethod(AuthMethodType.Password, 0)]
       });
 
     case AuthActionTypes.SET_REDIRECT_URL:
