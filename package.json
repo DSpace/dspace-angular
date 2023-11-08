@@ -22,7 +22,7 @@
     "test:headless": "ng test --source-map=true --watch=false --configuration test --browsers=ChromeHeadless --code-coverage",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix=true",
-    "e2e": "ng e2e",
+    "e2e": "cross-env NODE_ENV=production ng e2e",
     "clean:dev:config": "rimraf src/assets/config.json",
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf dist",
