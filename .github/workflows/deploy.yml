@@ -2,6 +2,17 @@
 name: Deploy DSpace
 
 on:
+  workflow_call:
+    inputs:
+      INSTANCE:
+        required: false
+        type: string
+        default: '*'
+      IMPORT:
+        required: false
+        default: true
+        type: boolean
+
   workflow_dispatch:
     inputs:
       INSTANCE:
@@ -54,32 +65,29 @@ jobs:
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh dspace-5
 
-  pre-deploy-import:
-    if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8'
-    uses: dataquest-dev/dspace-angular/.github/workflows/erase_db.yml@dtq-dev
-    with:
-      INSTANCE: '8'
-
   deploy-import:
     if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8'
-    needs: pre-deploy-import
     runs-on: dspace-dep-1
     timeout-minutes: 5
     env:
       INSTANCE: '8'
+      ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
     steps:
       - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/erase-db
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          NAME: 'dspace-${{ env.INSTANCE }}'
 
       - name: deploy dspace-import on dev-5
         working-directory: build-scripts/run/
         run: |
-          ENVFILE=/opt/dspace-envs/.env.dspace.imported.dev-5 ./start.sh dspace-$INSTANCE
+          ./start.sh dspace-$INSTANCE
           /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
 
-  post-deploy-import:
-    if: (github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8') && github.event.inputs.IMPORT != false
-    needs: deploy-import
-    uses: dataquest-dev/dspace-angular/.github/workflows/import.yml@dtq-dev
-    secrets: inherit
-    with:
-      INSTANCE: '8'
+      - uses: ./.github/actions/import-db
+        if: github.event.inputs.IMPORT != false
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          DATADIR: /opt/dspace-data/clarin-dspace/

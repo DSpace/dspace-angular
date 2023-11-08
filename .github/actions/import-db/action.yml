@@ -1,0 +1,64 @@
+name: 'Import dspace db'
+description: 'CI/CD import db'
+
+inputs:
+  DATADIR:
+    description: 'data dir with dump, icons'
+    required: true
+    type: string
+  INSTANCE:
+    description: 'port suffix'
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: info
+      shell: bash
+      run: |
+          docker ps -a
+
+    - uses: actions/checkout@v4
+      with:
+        repository: dataquest-dev/dspace-python-api
+        path: dspace-python-api
+        ref: 'refactor_jm'
+
+
+    - name: stop and remove containers
+      id: import
+      shell: bash
+      working-directory: dspace-python-api/scripts
+      env:
+        DATADIR: ${{ inputs.DATADIR }}
+        DB5PORT: 15432
+        DB5NAME: dspace-import-db5
+        DB7PORT: 543${{ inputs.INSTANCE }}
+        BEURL: http://dev-5.pc:8${{ inputs.INSTANCE }}/server/api/
+      run: |
+          docker stop $DB5NAME || true
+          echo "====="
+          echo Starting import DB
+          # create otherwise it will be created with root owner
+          cid=$(docker run -d --rm --name $DB5NAME -v $(pwd):/dq/scripts -v $DATADIR/dump:/dq/dump -p 127.0.0.1:$DB5PORT:5432 -e POSTGRES_DB=empty -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=dspace postgres /bin/bash -c "cd /dq/scripts && ./init.dspacedb5.sh")
+          echo "cid=$cid" >> $GITHUB_OUTPUT
+          sleep 10
+          echo "====="
+          docker logs $DB5NAME || true
+          echo "====="
+          cd ../
+          pip install -r requirements.txt || true
+          echo "====="
+          cd ./src
+          # cleanup resume
+          rm __temp/resume/*.json || true
+          python3 repo_import.py --resume=false --config=backend.endpoint=$BEURL --config=db_dspace_7.port=$DB7PORT --config=db_dspace_5.port=$DB5PORT --config=db_utilities_5.port=$DB5PORT --config=input.datadir=$DATADIR/data/ --config=input.icondir=$DATADIR/icon/
+
+    - name: cleanup
+      shell: bash
+      run: |
+        docker stop ${{ steps.import.outputs.cid }} || true
+      if: ${{ always() }}
+          
