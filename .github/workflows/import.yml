@@ -1,11 +1,6 @@
 name: Import DSpace v5
 
 on:
-  workflow_call:
-    inputs:
-      INSTANCE:
-        required: true
-        type: string
   workflow_dispatch:
     inputs:
       INSTANCE:
@@ -21,42 +16,20 @@ jobs:
     steps:
 
       - uses: actions/checkout@v4
-        with:
-          repository: dataquest-dev/dspace-python-api
-          path: dspace-python-api
-          ref: 'refactor_jm'
 
-      - name: info
-        run: |
-          docker ps -a
+      - uses: ./.github/actions/erase-db
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          NAME: 'dspace-${{ env.INSTANCE }}'
 
       - name: deploy dspace-import on dev-5
-        id: import
-        env:
-          DATADIR: /opt/dspace-data/clarin-dspace/
-        working-directory: dspace-python-api/scripts
+        working-directory: build-scripts/run/
         run: |
-          docker stop dspace-import-db5 || true
-          echo "====="
-          echo Starting import DB
-          export DB5PORT=15432
-          # create otherwise it will be created with root owner
-          cid=$(docker run -d --rm --name dspace-import-db5 -v $(pwd):/dq/scripts -v $DATADIR/dump:/dq/dump -p 127.0.0.1:$DB5PORT:5432 -e POSTGRES_DB=empty -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=dspace postgres /bin/bash -c "cd /dq/scripts && ./init.dspacedb5.sh")
-          echo "cid=$cid" >> $GITHUB_OUTPUT
-          sleep 10
-          echo "====="
-          docker logs dspace-import-db5 || true
-          echo "====="
-          cd ../
-          pip install -r requirements.txt || true
-          echo "====="
-          cd ./src
-          # cleanup resume
-          rm __temp/resume/*.json || true
-          python3 repo_import.py --resume=false --config=backend.endpoint=http://dev-5.pc:88/server/api/  --config=db_dspace_7.port=5438  --config=db_dspace_5.port=$DB5PORT  --config=db_utilities_5.port=$DB5PORT --config=input.datadir=$DATADIR/data/ --config=input.icondir=$DATADIR/icon/
+          ENVFILE=/opt/dspace-envs/.env.dspace.imported.dev-5 ./start.sh dspace-$INSTANCE
+          /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
 
-      - name: cleanup
-        run: |
-          docker stop ${{ steps.import.outputs.cid }} || true
-        if: ${{ always() }}          
-          
+      - uses: ./.github/actions/import-db
+        if: github.event.inputs.IMPORT != false
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          DATADIR: /opt/dspace-data/clarin-dspace/
