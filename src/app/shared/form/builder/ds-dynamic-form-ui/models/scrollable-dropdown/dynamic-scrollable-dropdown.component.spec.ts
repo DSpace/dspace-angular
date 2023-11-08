@@ -159,14 +159,15 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         let de: any = scrollableDropdownFixture.debugElement.query(By.css('input.form-control'));
         let btnEl = de.nativeElement;
 
-        btnEl.click();
+        const mousedownEvent = new MouseEvent('mousedown');
+
+        btnEl.dispatchEvent(mousedownEvent);
         scrollableDropdownFixture.detectChanges();
 
         de = scrollableDropdownFixture.debugElement.queryAll(By.css('button.dropdown-item'));
         btnEl = de[0].nativeElement;
 
-        btnEl.click();
-
+        btnEl.dispatchEvent(mousedownEvent);
         scrollableDropdownFixture.detectChanges();
 
         expect((scrollableDropdownComp.model as any).value).toEqual(selectedValue);
