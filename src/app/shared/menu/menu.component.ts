@@ -102,7 +102,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
           map((component: GenericConstructor<MenuSectionComponent>) => ({ section, component }))
         )),
-        distinctUntilChanged((x, y) => x.section.id === y.section.id)
+        distinctUntilChanged((x, y) => x.section.id === y.section.id && x.component.prototype === y.component.prototype),
       ).subscribe(({ section, component }) => {
         const nextMap = this.sectionMap$.getValue();
         nextMap.set(section.id, {
