@@ -1,6 +1,6 @@
 <div>
   <fieldset class="d-flex">
-    <legend [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
+    <legend *ngIf="!model.repeatable" [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
       {{model.placeholder}} <span *ngIf="model.required">*</span>
     </legend>
     <ds-number-picker
