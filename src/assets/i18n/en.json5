@@ -62,13 +62,13 @@
 
   "admin.edit-user-agreement.confirm.title": "Force acceptance",
 
-  "admin.edit-user-agreement.confirm.info":"Do you want to force all users to accept the new user agreement?",
+  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
 
-  "admin.edit-user-agreement.confirm.cancel":"Cancel",
+  "admin.edit-user-agreement.confirm.cancel": "Cancel",
 
-  "admin.edit-user-agreement.confirm.no":"No, update only",
+  "admin.edit-user-agreement.confirm.no": "No, update only",
 
-  "admin.edit-user-agreement.confirm.yes":"Yes, update and force",
+  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
 
   "admin.edit-user-agreement.save-button": "Save",
 
@@ -816,21 +816,21 @@
 
   "audit.overview.title": "Audit Logs Overview",
 
-  "audit.overview.table.id" : "Audit ID",
+  "audit.overview.table.id": "Audit ID",
 
-  "audit.overview.table.objectUUID" : "Object ID",
+  "audit.overview.table.objectUUID": "Object ID",
 
-  "audit.overview.table.objectType" : "Object Type",
+  "audit.overview.table.objectType": "Object Type",
 
-  "audit.overview.table.subjectUUID" : "Subject ID",
+  "audit.overview.table.subjectUUID": "Subject ID",
 
-  "audit.overview.table.subjectType" : "Subject Type",
+  "audit.overview.table.subjectType": "Subject Type",
 
-  "audit.overview.table.entityType" : "Audit Type",
+  "audit.overview.table.entityType": "Audit Type",
 
-  "audit.overview.table.eperson" : "EPerson",
+  "audit.overview.table.eperson": "EPerson",
 
-  "audit.overview.table.timestamp" : "Time",
+  "audit.overview.table.timestamp": "Time",
 
   "audit.overview.breadcrumbs": "Audit Logs Overview",
 
@@ -838,21 +838,21 @@
 
   "audit.object.overview.disabled.message": "Audit feature is currently disabled",
 
-  "audit.detail.title" : "Audit Detail",
+  "audit.detail.title": "Audit Detail",
 
-  "audit.detail.id" : "Audit Id",
+  "audit.detail.id": "Audit Id",
 
-  "audit.detail.subjectUUID" : "Subject ID",
+  "audit.detail.subjectUUID": "Subject ID",
 
-  "audit.detail.subjectType" : "Subject Type",
+  "audit.detail.subjectType": "Subject Type",
 
-  "audit.detail.eventType" : "Audit Type",
+  "audit.detail.eventType": "Audit Type",
 
-  "audit.detail.eperson" : "EPerson",
+  "audit.detail.eperson": "EPerson",
 
-  "audit.detail.timeStamp" : "Time",
+  "audit.detail.timeStamp": "Time",
 
-  "audit.detail.back" : "All Audit Logs",
+  "audit.detail.back": "All Audit Logs",
 
   "audit.detail.back.subject": "Subject Audit Logs",
 
@@ -1009,9 +1009,9 @@
 
   "browse.metadata.eqtitle": "Title",
 
-  "browse.metadata.ouname" : "Name",
+  "browse.metadata.ouname": "Name",
 
-  "browse.metadata.pjtitle" : "Title",
+  "browse.metadata.pjtitle": "Title",
 
   "browse.metadata.rodept": "Department",
 
@@ -1035,13 +1035,13 @@
 
   "browse.metadata.eqtitle.breadcrumbs": "Browse by Title",
 
-  "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
+  "browse.metadata.ouname.breadcrumbs": "Browse by Name",
 
-  "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
+  "browse.metadata.pjtitle.breadcrumbs": "Browse by Title",
 
   "browse.metadata.rodept.breadcrumbs": "Browse by Department",
 
-  "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
+  "browse.metadata.rpdept.breadcrumbs": "Browse by Department",
 
   "browse.metadata.rpname.breadcrumbs": "Browse by Name",
 
@@ -1114,19 +1114,19 @@
   "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
 
 
-  "bulk-import.abort-on-error" : "Abort on first error",
+  "bulk-import.abort-on-error": "Abort on first error",
 
   "bulk-import.back": "Back",
 
-  "bulk-import.breadcrumbs" : "Bulk import",
+  "bulk-import.breadcrumbs": "Bulk import",
 
-  "bulk-import.collection-name" : "Collection",
+  "bulk-import.collection-name": "Collection",
 
   "bulk-import.error": "An error occurred while creating the import process",
 
-  "bulk-import.file" : "Source file",
+  "bulk-import.file": "Source file",
 
-  "bulk-import.header" : "Bulk import",
+  "bulk-import.header": "Bulk import",
 
   "bulk-import.processing": "Processing...",
 
@@ -1134,7 +1134,7 @@
 
   "bulk-import.submit": "Start import",
 
-  "bulk-import.title" : "Bulk import",
+  "bulk-import.title": "Bulk import",
 
 
   "search.browse.item-back": "Back to Results",
@@ -1702,23 +1702,23 @@
 
   "context-menu.actions.subscription.notification.content": "Subscription Updated Successfully, click {{here}} to see subscrition summary.",
 
-  "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
+  "RELATION.Person.researchoutputs.search.results.head": "Research Outputs",
 
-  "RELATION.Person.projects.search.results.head" : "Projects",
+  "RELATION.Person.projects.search.results.head": "Projects",
 
-  "RELATION.OrgUnit.organizations.search.results.head" : "Organizations",
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
 
-  "RELATION.OrgUnit.rppublications.search.results.head" : "Researchers Publications",
+  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
 
-  "RELATION.OrgUnit.publications.search.results.head" : "Publications",
+  "RELATION.OrgUnit.publications.search.results.head": "Publications",
 
-  "RELATION.OrgUnit.rpprojects.search.results.head" : "Researchers Projects",
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
 
-  "RELATION.OrgUnit.projects.search.results.head" : "Projects",
+  "RELATION.OrgUnit.projects.search.results.head": "Projects",
 
-  "RELATION.Project.researchoutputs.search.results.head" : "Publications",
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
 
-  "RELATION.OrgUnit.people.search.results.head" : "People",
+  "RELATION.OrgUnit.people.search.results.head": "People",
 
   "datafile.listelement.badge": "Data File",
 
@@ -1853,7 +1853,7 @@
 
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
 
-   "curation-task.task.registerdoi.label": "Mint DOI",
+  "curation-task.task.registerdoi.label": "Mint DOI",
 
   "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
 
@@ -2055,7 +2055,7 @@
 
   "confirmation-modal.review-account-info.confirm": "Save",
 
-  "dataset.listelement.badge" : "Dataset",
+  "dataset.listelement.badge": "Dataset",
 
   "equipment.listelement.badge": "Equipment",
 
@@ -2127,141 +2127,141 @@
 
   "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
-  "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
+  "error.validation.fundingInvestigatorOrLeadOrganizationRequired": "At least one investigator or one lead organization is required",
 
   "error.validation.notRepeatable": "This field is not repeatable, please choose only one value and discard the others.",
 
-  "event.listelement.badge" : "Event",
+  "event.listelement.badge": "Event",
 
 
-  "explore.browse-section.title" : "Browse",
+  "explore.browse-section.title": "Browse",
 
-  "explore.counters-section.rprofiles" : "People",
+  "explore.counters-section.rprofiles": "People",
 
-  "explore.counters-section.publications" : "Research outputs",
+  "explore.counters-section.publications": "Research outputs",
 
-  "explore.counters-section.project_funding" : "Projects",
+  "explore.counters-section.project_funding": "Projects",
 
-  "explore.facet-section.title" : "Discover",
+  "explore.facet-section.title": "Discover",
 
-  "explore.index.all" : "All",
+  "explore.index.all": "All",
 
-  "explore.index.author" : "Author",
+  "explore.index.author": "Author",
 
-  "explore.index.graphitemtype" : "Graph by type",
+  "explore.index.graphitemtype": "Graph by type",
 
-  "explore.index.graphpubldate" : "Graph by date",
+  "explore.index.graphpubldate": "Graph by date",
 
-  "explore.index.birthDate" : "Birthday",
+  "explore.index.birthDate": "Birthday",
 
-  "explore.index.metric.view" : "Most viewed",
+  "explore.index.metric.view": "Most viewed",
 
-  "explore.index.metric.download" : "Most downloaded",
+  "explore.index.metric.download": "Most downloaded",
 
-  "explore.index.metric.scopus.citation" : "Most cited",
+  "explore.index.metric.scopus.citation": "Most cited",
 
-  "explore.index.chart.pie.itemtype_filter" : "Item Type",
+  "explore.index.chart.pie.itemtype_filter": "Item Type",
 
   "explore.index.chart.bar.dateIssued.year": "Year",
 
 
-  "explore.index.dateIssued" : "Date issued",
+  "explore.index.dateIssued": "Date issued",
 
-  "explore.index.dateissued" : "Date issued",
+  "explore.index.dateissued": "Date issued",
 
-  "explore.index.dc.date.accessioned" : "Recent Additions",
+  "explore.index.dc.date.accessioned": "Recent Additions",
 
-  "explore.index.dc.title" : "Title",
+  "explore.index.dc.title": "Title",
 
-  "explore.index.editor" : "Editor",
+  "explore.index.editor": "Editor",
 
-  "explore.index.eqtitle" : "Title",
+  "explore.index.eqtitle": "Title",
 
-  "explore.index.eqowner" : "Researcher",
+  "explore.index.eqowner": "Researcher",
 
-  "explore.index.eqorgunit" : "Organization",
+  "explore.index.eqorgunit": "Organization",
 
-  "explore.index.entityType" : "Entity type",
+  "explore.index.entityType": "Entity type",
 
-  "explore.index.familyName" : "Family name",
+  "explore.index.familyName": "Family name",
 
-  "explore.index.funding" : "Funding",
+  "explore.index.funding": "Funding",
 
-  "explore.index.givenName" : "Given name",
+  "explore.index.givenName": "Given name",
 
-  "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
+  "explore.index.has_content_in_original_bundle": "Has content in original bundle",
 
-  "explore.index.investigators" : "Researchers",
+  "explore.index.investigators": "Researchers",
 
-  "explore.index.isAuthorOfPublication" : "Publication's author",
+  "explore.index.isAuthorOfPublication": "Publication's author",
 
-  "explore.index.isJournalOfPublication" : "Publication's journal",
+  "explore.index.isJournalOfPublication": "Publication's journal",
 
-  "explore.index.isOrgUnitOfPerson" : "Person's organization",
+  "explore.index.isOrgUnitOfPerson": "Person's organization",
 
-  "explore.index.isOrgUnitOfProject" : "Project's organization",
+  "explore.index.isOrgUnitOfProject": "Project's organization",
 
-  "explore.index.isOrgUnitOfPublication" : "Publication's organization",
+  "explore.index.isOrgUnitOfPublication": "Publication's organization",
 
-  "explore.index.isPersonOfOrgUnit" : "Organization's person",
+  "explore.index.isPersonOfOrgUnit": "Organization's person",
 
-  "explore.index.isPersonOfProject" : "Project's person",
+  "explore.index.isPersonOfProject": "Project's person",
 
-  "explore.index.isProjectOfOrgUnit" : "Organization's project",
+  "explore.index.isProjectOfOrgUnit": "Organization's project",
 
-  "explore.index.isProjectOfPerson" : "Person's project",
+  "explore.index.isProjectOfPerson": "Person's project",
 
-  "explore.index.isProjectOfPublication" : "Publication's project",
+  "explore.index.isProjectOfPublication": "Publication's project",
 
-  "explore.index.isPublicationOfAuthor" : "Author's publication",
+  "explore.index.isPublicationOfAuthor": "Author's publication",
 
-  "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
+  "explore.index.isPublicationOfJournalIssue": "Journal issue's publication",
 
-  "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
+  "explore.index.isPublicationOfOrgUnit": "Organization's publication",
 
-  "explore.index.isPublicationOfProject" : "Project's publication",
+  "explore.index.isPublicationOfProject": "Project's publication",
 
-  "explore.index.itemidentifier" : "Item identifier",
+  "explore.index.itemidentifier": "Item identifier",
 
-  "explore.index.jobTitle" : "Job title",
+  "explore.index.jobTitle": "Job title",
 
-  "explore.index.knowsLanguage" : "Knows languages",
+  "explore.index.knowsLanguage": "Knows languages",
 
-  "explore.index.organization" : "Organization",
+  "explore.index.organization": "Organization",
 
-  "explore.index.organizationAddressCountry" : "Organization address country",
+  "explore.index.organizationAddressCountry": "Organization address country",
 
-  "explore.index.organizationAddressLocality" : "Organization address locality",
+  "explore.index.organizationAddressLocality": "Organization address locality",
 
-  "explore.index.organizationFoundingDate" : "Organization founding date",
+  "explore.index.organizationFoundingDate": "Organization founding date",
 
-  "explore.index.organizationLegalName" : "Organization legal name",
+  "explore.index.organizationLegalName": "Organization legal name",
 
-  "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
+  "explore.index.original_bundle_descriptions": "Original bundle descriptions",
 
-  "explore.index.original_bundle_filenames" : "Original bundle filenames",
+  "explore.index.original_bundle_filenames": "Original bundle filenames",
 
-  "explore.index.ouname" : "Name",
+  "explore.index.ouname": "Name",
 
-  "explore.index.projectOrgUnits" : "Organizations",
+  "explore.index.projectOrgUnits": "Organizations",
 
-  "explore.index.personOrgUnits" : "Organizations",
+  "explore.index.personOrgUnits": "Organizations",
 
-  "explore.index.pjtitle" : "Title",
+  "explore.index.pjtitle": "Title",
 
-  "explore.index.projectinvestigators" : "Project investigators",
+  "explore.index.projectinvestigators": "Project investigators",
 
-  "explore.index.rodept" : "Department",
+  "explore.index.rodept": "Department",
 
-  "explore.index.rpdept" : "Department",
+  "explore.index.rpdept": "Department",
 
-  "explore.index.rpname" : "Name",
+  "explore.index.rpname": "Name",
 
-  "explore.index.subject" : "Subject",
+  "explore.index.subject": "Subject",
 
-  "explore.index.title" : "Title",
+  "explore.index.title": "Title",
 
-  "explore.index.type" : "Type",
+  "explore.index.type": "Type",
 
   "explore.search-section.infrastructure.title": "Infrastructure",
 
@@ -2305,7 +2305,7 @@
   "file-section.error.header": "Error obtaining files for this item",
 
 
-  "footer.built-with":"Built with",
+  "footer.built-with": "Built with",
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
@@ -2465,9 +2465,9 @@
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
-  "funding.listelement.badge" : "Funding",
+  "funding.listelement.badge": "Funding",
 
-  "funding.page.titleprefix" : "Funding:",
+  "funding.page.titleprefix": "Funding:",
 
 
 
@@ -3059,13 +3059,13 @@
 
   "item.edit.unlink-orcid.head": "Disconnect from ORCID",
 
-  "item.edit.unlink-orcid.not-linked-to-orcid" : "The operation cannot be completed because the given item is not a profile linked to ORCID",
+  "item.edit.unlink-orcid.not-linked-to-orcid": "The operation cannot be completed because the given item is not a profile linked to ORCID",
 
   "item.edit.unlink-orcid.unlink": "Disconnect",
 
   "item.edit.unlink-orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
 
-  "item.edit.unlink-orcid.unlink.error" :"An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "item.edit.unlink-orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
 
   "item.edit.unlink-orcid.processing": "Processing",
 
@@ -3235,9 +3235,9 @@
 
   "item.page.claim.tooltip": "Claim this item as profile",
 
-  "item.preview.dc.description" : "Summary",
+  "item.preview.dc.description": "Summary",
 
-  "item.preview.dc.description.tableOfContents" : "Table of Contents",
+  "item.preview.dc.description.tableOfContents": "Table of Contents",
 
   "item.preview.dc.identifier.arxiv": "arXiv ID",
 
@@ -3247,21 +3247,21 @@
 
   "item.preview.dcterms.dateSubmitted": "Registration Date",
 
-  "item.preview.dc.identifier.isi" : "ISI",
+  "item.preview.dc.identifier.isi": "ISI",
 
-  "item.preview.dc.identifier.issn" : "ISSN",
+  "item.preview.dc.identifier.issn": "ISSN",
 
-  "item.preview.dc.identifier.scopus" : "Scopus ID",
+  "item.preview.dc.identifier.scopus": "Scopus ID",
 
-  "item.preview.dc.publisher" : "Publisher",
+  "item.preview.dc.publisher": "Publisher",
 
-  "item.preview.dc.relation.grantno" : "Grant no.",
+  "item.preview.dc.relation.grantno": "Grant no.",
 
-  "item.preview.dc.relation.ispartofseries" : "Serie",
+  "item.preview.dc.relation.ispartofseries": "Serie",
 
   "item.preview.dc.identifier.uri": "Identifier:",
 
-  "item.preview.dc.contributor.advisor" : "Advisor",
+  "item.preview.dc.contributor.advisor": "Advisor",
 
   "item.preview.dc.contributor.author": "Authors:",
 
@@ -3269,25 +3269,25 @@
 
   "item.preview.dc.contributor.editor": "Editors:",
 
-  "item.preview.dc.date.embargoEnd" : "Embargo End",
+  "item.preview.dc.date.embargoEnd": "Embargo End",
 
   "item.preview.dc.date.issued": "Published date:",
 
   "item.preview.dc.description.abstract": "Abstract:",
 
-  "item.preview.dc.description.sponsorship" : "Sponsorship",
+  "item.preview.dc.description.sponsorship": "Sponsorship",
 
   "item.preview.dc.identifier.other": "Other identifier:",
 
-  "item.preview.dc.identifier.pmid" : "Pubmed ID",
+  "item.preview.dc.identifier.pmid": "Pubmed ID",
 
   "item.preview.dc.language.iso": "Language:",
 
-  "item.preview.dc.relation.uri" : "Relation URI",
+  "item.preview.dc.relation.uri": "Relation URI",
 
-  "item.preview.dc.rights" : "Rights",
+  "item.preview.dc.rights": "Rights",
 
-  "item.preview.dc.rights.uri" : "Rights URI",
+  "item.preview.dc.rights.uri": "Rights URI",
 
   "item.preview.dc.subject": "Subjects:",
 
@@ -3309,35 +3309,35 @@
 
   "item.preview.dc.identifier.doi": "DOI",
 
-  "item.preview.dc.title.alternative" : "Alternative Title",
+  "item.preview.dc.title.alternative": "Alternative Title",
 
-  "item.preview.dc.type.version" : "Version",
+  "item.preview.dc.type.version": "Version",
 
   "item.preview.dc.source": "Source:",
 
-  "item.preview.dc.relation.isbn" : "ISBN",
+  "item.preview.dc.relation.isbn": "ISBN",
 
-  "item.preview.oaire.citation.endPage" : "End Page",
+  "item.preview.oaire.citation.endPage": "End Page",
 
   "item.preview.oaire.citation.edition": "Edition",
 
-  "item.preview.oaire.citation.startPage" : "Start Page",
+  "item.preview.oaire.citation.startPage": "Start Page",
 
-  "item.preview.oairecerif.acronym" : "Acronym",
+  "item.preview.oairecerif.acronym": "Acronym",
 
-  "item.preview.oairecerif.affiliation.orgunit" : "Affiliation",
+  "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
 
-  "item.preview.oairecerif.funder" : "Funder",
+  "item.preview.oairecerif.funder": "Funder",
 
-  "item.preview.oairecerif.funding.identifier" : "Grant Number / Funding identifier",
+  "item.preview.oairecerif.funding.identifier": "Grant Number / Funding identifier",
 
-  "item.preview.oairecerif.funding.endDate" : "End Date",
+  "item.preview.oairecerif.funding.endDate": "End Date",
 
-  "item.preview.oairecerif.funding.startDate" : "Start Date",
+  "item.preview.oairecerif.funding.startDate": "Start Date",
 
-  "item.preview.oairecerif.fundingParent" : "Funding Program / Call",
+  "item.preview.oairecerif.fundingParent": "Funding Program / Call",
 
-  "item.preview.oairecerif.oamandate" : "OA Mandate",
+  "item.preview.oairecerif.oamandate": "OA Mandate",
 
   "item.preview.oairecerif.identifier.url": "Link",
 
@@ -3706,25 +3706,25 @@
 
   "manage.relationships.unhide": "Unhide",
 
-  "manage.relationships.search-list.title" : "All your items",
+  "manage.relationships.search-list.title": "All your items",
 
-  "manage.relationships.selected-list.title" : "Selected items",
+  "manage.relationships.selected-list.title": "Selected items",
 
-  "manage.relationships.no.relationships.found" : "Empty selection",
+  "manage.relationships.no.relationships.found": "Empty selection",
 
-  "manage.relationships.no.data.found" : "No data found",
+  "manage.relationships.no.data.found": "No data found",
 
-  "manage.relationships.error.select" : "An unexpected error occurs while selecting the entity.",
+  "manage.relationships.error.select": "An unexpected error occurs while selecting the entity.",
 
-  "manage.relationships.error.unselect" : "An unexpected error occurs while unselecting the entity.",
+  "manage.relationships.error.unselect": "An unexpected error occurs while unselecting the entity.",
 
-  "manage.relationships.error.hide" : "An unexpected error occurs while hiding the entity.",
+  "manage.relationships.error.hide": "An unexpected error occurs while hiding the entity.",
 
-  "manage.relationships.error.unhide" : "An unexpected error occurs while exposing the entity.",
+  "manage.relationships.error.unhide": "An unexpected error occurs while exposing the entity.",
 
-  "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
+  "manage.relationships.error.sort": "An unexpected error occurs while sorting entities.",
 
-  "manage.relationships.hidden-related-items-alert" : "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
+  "manage.relationships.hidden-related-items-alert": "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
 
   "menu.header.admin": "Management",
@@ -3894,9 +3894,9 @@
 
   "menu.section.statistics_task": "Statistics Task",
 
-  "modal.item-detail-page.title" : "Item Page Detail",
+  "modal.item-detail-page.title": "Item Page Detail",
 
-  "modal.item-detail-page.confirm.cancel" : "Close",
+  "modal.item-detail-page.confirm.cancel": "Close",
 
 
   "manage.relations": "Manage Relations",
@@ -4421,9 +4421,9 @@
 
   "process.detail.delete.error": "Something went wrong when deleting the process",
 
-  "process.overview.delete.failed" : "An error occurs deleting the process.",
+  "process.overview.delete.failed": "An error occurs deleting the process.",
 
-  "process.overview.delete.success" : "Process deleted with success",
+  "process.overview.delete.success": "Process deleted with success",
 
   "process.overview.table.finish": "Finish time (UTC)",
 
@@ -4933,19 +4933,19 @@
 
   "search.filters.applied.charts.defaultConfiguration.title": "Search Output",
 
-  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
+  "search.filters.applied.charts.chart.bar.dateIssued.year.tab": "Date Issued",
 
-  "search.filters.applied.charts.chart.pie.more-value" : "More",
+  "search.filters.applied.charts.chart.pie.more-value": "More",
 
-  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
+  "search.filters.applied.charts.chart.pie.itemtype_filter.tab": "Item Type",
 
-  "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
+  "search.filters.applied.charts.graphitemtype.tab": "Visualization by Type",
 
-  "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
+  "search.filters.applied.charts.graphpubldate.tab": "Visualization by Date",
 
-  "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
+  "search.filters.applied.charts.graphpubldateltr.tab": "Visualization Demo LTR",
 
-  "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
+  "search.filters.applied.charts.graphpubldatetrl.tab": "Visualization Demo RTL",
 
   "search.filters.applied.charts.default.title": "Search Output",
 
@@ -5086,17 +5086,17 @@
 
   "search.filters.filter.language.placeholder": "Language",
 
-  "search.filters.filter.projectOrgUnits.head" : "Organizations",
+  "search.filters.filter.projectOrgUnits.head": "Organizations",
 
-  "search.filters.filter.projectOrgUnits.label" : "Organizations",
+  "search.filters.filter.projectOrgUnits.label": "Organizations",
 
-  "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
+  "search.filters.filter.projectOrgUnits.placeholder": "Organizations",
 
-  "search.filters.filter.personOrgUnits.head" : "Organizations",
+  "search.filters.filter.personOrgUnits.head": "Organizations",
 
-  "search.filters.filter.personOrgUnits.label" : "Search organizations",
+  "search.filters.filter.personOrgUnits.label": "Search organizations",
 
-  "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
+  "search.filters.filter.personOrgUnits.placeholder": "Organizations",
 
   "search.filters.filter.namedresourcetype.head": "Status",
 
@@ -5265,17 +5265,17 @@
 
   "sorting.dc.title.DESC": "Title Descending",
 
-  "sorting.metric.view.ASC" : "Views Ascending",
+  "sorting.metric.view.ASC": "Views Ascending",
 
-  "sorting.metric.view.DESC" : "Views Descending",
+  "sorting.metric.view.DESC": "Views Descending",
 
-  "sorting.metric.download.ASC" : "Downloads Ascending",
+  "sorting.metric.download.ASC": "Downloads Ascending",
 
-  "sorting.metric.download.DESC" : "Downloads Descending",
+  "sorting.metric.download.DESC": "Downloads Descending",
 
-  "sorting.metric.scopus.citation.ASC" : "Citations Ascending",
+  "sorting.metric.scopus.citation.ASC": "Citations Ascending",
 
-  "sorting.metric.scopus.citation.DESC" : "Citations Descending",
+  "sorting.metric.scopus.citation.DESC": "Citations Descending",
 
   "sorting.score.ASC": "Least Relevant",
 
@@ -5297,21 +5297,21 @@
 
   "sorting.ownerselection.DESC": "Owner Relevance Descending",
 
-  "sorting.organization.legalName.ASC" : "Legal Name Ascending",
+  "sorting.organization.legalName.ASC": "Legal Name Ascending",
 
-  "sorting.organization.legalName.DESC" : "Legal Name Descending",
+  "sorting.organization.legalName.DESC": "Legal Name Descending",
 
-  "sorting.organisation.address.addressCountry.ASC" : "Country Ascending",
+  "sorting.organisation.address.addressCountry.ASC": "Country Ascending",
 
-  "sorting.organisation.address.addressCountry.DESC" : "Country Descending",
+  "sorting.organisation.address.addressCountry.DESC": "Country Descending",
 
-  "sorting.organisation.address.addressLocality.ASC" : "Locality Ascending",
+  "sorting.organisation.address.addressLocality.ASC": "Locality Ascending",
 
-  "sorting.organisation.address.addressLocality.DESC" : "Locality Descending",
+  "sorting.organisation.address.addressLocality.DESC": "Locality Descending",
 
-  "sorting.organisation.address.foundingDate.ASC" : "Founding Date Ascending",
+  "sorting.organisation.address.foundingDate.ASC": "Founding Date Ascending",
 
-  "sorting.organisation.address.foundingDate.DESC" : "Founding Date Descending",
+  "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
 
 
   "statistics": "Statistics",
@@ -5334,23 +5334,23 @@
 
   "statistics.workflow.page.step-table.count": "Performed",
 
-  "statistics.workflow.page.step-table.submit" : "Submit",
+  "statistics.workflow.page.step-table.submit": "Submit",
 
-  "statistics.workflow.page.step-table.reviewstep" : "Review",
+  "statistics.workflow.page.step-table.reviewstep": "Review",
 
-  "statistics.workflow.page.step-table.editstep" : "Edit",
+  "statistics.workflow.page.step-table.editstep": "Edit",
 
-  "statistics.workflow.page.step-table.finaleditstep" : "Final edit",
+  "statistics.workflow.page.step-table.finaleditstep": "Final edit",
 
-  "statistics.workflow.page.step-table.item" : "Archive",
+  "statistics.workflow.page.step-table.item": "Archive",
 
-  "statistics.workflow.page.step-table.workspace" : "Reject",
+  "statistics.workflow.page.step-table.workspace": "Reject",
 
-  "statistics.workflow.page.current-table.reviewstep" : "Review",
+  "statistics.workflow.page.current-table.reviewstep": "Review",
 
-  "statistics.workflow.page.current-table.editstep" : "Edit",
+  "statistics.workflow.page.current-table.editstep": "Edit",
 
-  "statistics.workflow.page.current-table.finaleditstep" : "Final edit",
+  "statistics.workflow.page.current-table.finaleditstep": "Final edit",
 
   "statistics.workflow.page.current-table.step": "Step",
 
@@ -5390,7 +5390,7 @@
 
   "statistics.workflow.page.action-table.reviewaction": "Review",
 
-  "statistics.workflow.page.action-table.claimaction" : "Claim",
+  "statistics.workflow.page.action-table.claimaction": "Claim",
 
   "statistics.workflow.page.no-data-found": "No data found",
 
@@ -5414,7 +5414,7 @@
 
   "statistics.login.page.no-data-found": "No data found",
 
-  "statistics.login.title statistics.workflow.title" : "Login Statistics",
+  "statistics.login.title statistics.workflow.title": "Login Statistics",
 
   "statistics.export.csv": "Export CSV",
 
@@ -5452,9 +5452,9 @@
 
   "statistics.table.mainReports.title.TopCities": "Top city views",
 
-  "form.other-information.oairecerif-author-affiliation" : "Affiliation",
+  "form.other-information.oairecerif-author-affiliation": "Affiliation",
 
-  "form.other-information.oairecerif-editor-affiliation" : "Affiliation",
+  "form.other-information.oairecerif-editor-affiliation": "Affiliation",
 
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
@@ -5570,27 +5570,27 @@
 
   "statistics.categories.itemReports.tab": "Item views reports",
 
-  "statistics.table.itemReports.header.continent" : "Continent",
+  "statistics.table.itemReports.header.continent": "Continent",
 
-  "statistics.table.itemReports.header.views" : "Views",
+  "statistics.table.itemReports.header.views": "Views",
 
-  "statistics.table.itemReports.header.city" : "City",
+  "statistics.table.itemReports.header.city": "City",
 
-  "statistics.table.itemReports.header.item" : "Item",
+  "statistics.table.itemReports.header.item": "Item",
 
-  "statistics.table.mainReports.header.community" : "Community",
+  "statistics.table.mainReports.header.community": "Community",
 
-  "statistics.table.mainReports.header.collection" : "Collection",
+  "statistics.table.mainReports.header.collection": "Collection",
 
-  "statistics.table.itemReports.title.TopContinents" : "Top region views",
+  "statistics.table.itemReports.title.TopContinents": "Top region views",
 
-  "statistics.table.itemReports.title.TopCities" : "Top cities views",
+  "statistics.table.itemReports.title.TopCities": "Top cities views",
 
-  "statistics.table.itemReports.title.TopItems" : "Most viewed",
+  "statistics.table.itemReports.title.TopItems": "Most viewed",
 
-  "statistics.table.itemReports.title.TopCategories" : "Top categories",
+  "statistics.table.itemReports.title.TopCategories": "Top categories",
 
-  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
+  "statistics.table.itemReports.title.TotalVisitsPerMonth": "Top views per month",
 
   "statistics.reports.title": "Reports",
 
@@ -5828,7 +5828,7 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
 
-    "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
 
@@ -7054,7 +7054,7 @@
 
   "invitation.ignore-btn": "Ignore",
 
-  "authority-confidence.search-label":"Search",
+  "authority-confidence.search-label": "Search",
 
   "statistics-page.export-map-as-image": "Export map",
 

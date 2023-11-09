@@ -294,8 +294,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       this.subs.push(this.vocabularyService.findEntryDetailById(item, this.vocabularyOptions.name, true, true, false).pipe(
         getFirstSucceededRemoteDataPayload(),
       ).subscribe((entry: VocabularyEntryDetail) => {
-        const item = new FormFieldMetadataValueObject(entry.value, null, entry.securityLevel, entry.id, entry.display);
-        this.deselect.emit(item);
+        const value = new FormFieldMetadataValueObject(entry.value, null, entry.securityLevel, entry.id, entry.display);
+        this.deselect.emit(value);
       }));
       this.nodeMap.get(item).isSelected = false;
     }

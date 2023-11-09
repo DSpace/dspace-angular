@@ -1,4 +1,3 @@
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
 import { autoserialize } from 'cerialize';
 import { LanguageCode } from './form-field-language-value.model';
 import { RelationshipOptions } from './relationship-options.model';
