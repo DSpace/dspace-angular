@@ -102,6 +102,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveSubGroups();
+        this.search({query: ''});
       }
     }));
   }
