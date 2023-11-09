@@ -50,7 +50,7 @@ export class DsoEditMetadataFieldValuesComponent {
   /**
    * Security Settings configuration for the current entity
    */
-  @Input() metadataSecurityConfiguration: Observable<MetadataSecurityConfiguration>;
+  @Input() metadataSecurityConfiguration: MetadataSecurityConfiguration;
   /**
    * Emit when the value has been saved within the form
    */

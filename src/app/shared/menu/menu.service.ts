@@ -399,7 +399,8 @@ export class MenuService {
       }
 
       if (!last) {
-        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)];
+        const childMenuSections = this.resolveRouteMenuSections(route.firstChild, menuID);
+        return [...menuSections.filter(menu => !(childMenuSections).map(childMenu => childMenu.id).includes(menu.id)), ...childMenuSections];
       } else {
         return [...menuSections];
       }

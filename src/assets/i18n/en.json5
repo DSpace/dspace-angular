@@ -3319,6 +3319,16 @@
 
   "item.preview.oairecerif.oamandate" : "OA Mandate",
 
+  "item.preview.oairecerif.identifier.url": "Link",
+
+  "item.preview.organization.identifier.ror": "ROR ID",
+
+  "item.preview.organization.foundingDate": "Founding Date",
+
+  "item.preview.organization.address.addressCountry": "Country",
+
+  "item.preview.organization.parentOrganization": "Parent Organization",
+
   "item.preview.person.familyName": "Surname:",
 
   "item.preview.person.givenName": "Name:",
@@ -4598,6 +4608,7 @@
 
   "audit.object.overview.title": "Subject Audit Logs Overview",
 
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
 
   "audit.detail.title" : "Audit Detail",
 
@@ -4908,11 +4919,9 @@
 
   "repository.image.logo": "Repository logo",
 
-  "repository.title.prefix": "DSpace Cris Angular :: ",
+  "repository.title": "{{ repositoryName }}",
 
-
-  "repository.title.prefixDSpace": "DSpace Angular ::",
-
+  "repository.title.prefix": "{{ repositoryName }} Angular :: ",
 
   "resource-policies.add.button": "Add",
 
@@ -5522,6 +5531,10 @@
 
   "statistics.table.mainReports.title.TopCities": "Top city views",
 
+  "form.other-information.oairecerif-author-affiliation" : "Affiliation",
+
+  "form.other-information.oairecerif-editor-affiliation" : "Affiliation",
+
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
   "statistics.table.downloadReports.title.TopItems": "Most downloaded",
@@ -5778,6 +5791,8 @@
 
   "submission.import-external.source.openaireTitle": "OpenAIRE by Title",
 
+  "submission.import-external.source.rorOrgUnits": "ROR",
+
   "submission.import-external.preview.title.Equipment": "Equipment Preview",
 
   "submission.import-external.preview.title.Event": "Event Preview",
@@ -5969,6 +5984,12 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
+
+  "submission.sections.external-source.duplicate-matches.header": "Potential duplicate matches",
+
+  "submission.sections.external-source.duplicate-matches.item.not-archived": "Not archived",
+
+  "submission.sections.external-source.duplicate-matches.item.isWithdrawn": "Withdrawn",
 
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
 
