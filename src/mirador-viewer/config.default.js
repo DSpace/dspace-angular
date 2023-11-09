@@ -25,11 +25,15 @@ const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
 
+let isDownloadPluginEnabled = true;
 let windowSettings = {};
 let sideBarPanel = 'info';
 let defaultView = 'single';
 let multipleItems = false;
 let thumbNavigation = 'off';
+let downloadPluginSettings = {
+  restrictDownloadOnSizeDefinition: false
+};
 
 windowSettings.manifestId = manifest;
 
@@ -54,7 +58,7 @@ windowSettings.manifestId = manifest;
   }
 })();
 
-const miradorConfiguration = {
+let miradorConfiguration = {
   id: 'mirador',
   mainMenuSettings: {
     show: true
@@ -132,9 +136,6 @@ const miradorConfiguration = {
       ],
     },
   },
-  miradorDownloadPlugin: {
-    restrictDownloadOnSizeDefinition: false
-  },
   window: {
     allowClose: false,
     // sideBarOpenByDefault: false,
@@ -170,11 +171,17 @@ const miradorConfiguration = {
   }
 };
 
-const miradorPlugins = [
+let miradorPlugins = [
   miradorShareDialogPlugin,
   miradorSharePlugin,
   miradorDownloadDialog,
-  miradorDownloadPlugin
 ];
+
+(() => {
+  if (isDownloadPluginEnabled) {
+    miradorPlugins = [...miradorPlugins, miradorDownloadPlugin];
+    miradorConfiguration.miradorDownloadPlugin = downloadPluginSettings;
+  }
+})();
 
 Mirador.viewer(miradorConfiguration, miradorPlugins);
