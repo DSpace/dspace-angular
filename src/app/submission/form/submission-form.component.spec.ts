@@ -27,6 +27,7 @@ import { createTestComponent } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
+import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';

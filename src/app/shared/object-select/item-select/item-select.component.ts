@@ -8,6 +8,7 @@ import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -37,8 +38,11 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
 
   authorMetadata = environment.searchResult.authorMetadata;
 
-  constructor(protected objectSelectService: ObjectSelectService,
-              protected authorizationService: AuthorizationDataService ) {
+  constructor(
+    protected objectSelectService: ObjectSelectService,
+    protected authorizationService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
+  ) {
     super(objectSelectService, authorizationService);
   }
 

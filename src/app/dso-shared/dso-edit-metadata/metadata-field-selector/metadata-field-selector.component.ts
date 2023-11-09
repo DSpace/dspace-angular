@@ -9,21 +9,23 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { switchMap, debounceTime, distinctUntilChanged, map, tap, take } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
-  getAllSucceededRemoteData, getFirstCompletedRemoteData,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
   metadataFieldsToString
 } from '../../../core/shared/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { hasValue } from '../../../shared/empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { of } from 'rxjs/internal/observable/of';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-metadata-field-selector',
@@ -70,7 +72,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
   /**
    * FormControl for the input
    */
-  public input: FormControl = new FormControl();
+  public input: UntypedFormControl = new UntypedFormControl();
 
   /**
    * The current query to update mdFieldOptions$ for
@@ -127,7 +129,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
       switchMap((query: string) => {
         this.showInvalid = false;
         if (query !== null) {
-          return this.registryService.queryMetadataFields(query, null, true, false, followLink('schema')).pipe(
+          return this.registryService.queryMetadataFields(query, { elementsPerPage: 10, sort: new SortOptions('fieldName', SortDirection.ASC) }, true, false, followLink('schema')).pipe(
             getAllSucceededRemoteData(),
             metadataFieldsToString(),
           );

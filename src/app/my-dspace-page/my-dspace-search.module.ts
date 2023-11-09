@@ -19,6 +19,8 @@ import { ClaimedDeclinedSearchResultListElementComponent } from '../shared/objec
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ItemDetailPreviewComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 import { ItemDetailPreviewFieldComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { ItemListPreviewComponent } from '../shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
+import { ThemedItemListPreviewComponent } from '../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { MyDSpaceActionsModule } from '../shared/mydspace-actions/mydspace-actions.module';
 import { ClaimedDeclinedTaskSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-task-search-result/claimed-declined-task-search-result-list-element.component';
@@ -43,6 +45,8 @@ const DECLARATIONS = [
   ...ENTRY_COMPONENTS,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
+  ItemListPreviewComponent,
+  ThemedItemListPreviewComponent,
 ];
 
 @NgModule({

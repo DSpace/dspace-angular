@@ -14,6 +14,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../shared/empty.util';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -63,11 +64,12 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
               protected paginationService: PaginationService,
               protected ePersonService: EPersonDataService,
               protected modalService: NgbModal,
+              public processBulkDeleteService: ProcessBulkDeleteService,
+              protected dsoNameService: DSONameService,
               protected authorizationService: AuthorizationDataService,
               protected notificationService: NotificationsService,
               protected translateService: TranslateService,
               protected uuidService: UUIDService,
-              public processBulkDeleteService: ProcessBulkDeleteService
   ) {
   }
 
@@ -120,7 +122,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
   getEpersonName(id: string): Observable<string> {
     return this.ePersonService.findById(id).pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => eperson.name)
+      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
     );
   }
 

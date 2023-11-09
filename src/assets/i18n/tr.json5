@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Bu sayfaya erişim yetkiniz bulunmamaktadır. Ana sayfaya dönmek için aşağıdaki butonu kullanabilirsiniz.",
 
@@ -1414,7 +1410,7 @@
   "bitstream.edit.form.description.label": "Açıklama",
 
   // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
-  "bitstream.edit.form.embargo.hint": "Erişime izin verilen ilk gün. <b>Bu tarih bu formda değiştirilemez.</b> Bir bitstream için bir ambargo tarihi ayarlamak için <i>Öğe Durumu</i> sekmesine gidin, <i>Yetkiler...</i>'i tıklayın., bitstreamın <i>OKU</i> politikasını oluşturun veya düzenleyin ve <i>Başlangıç ​​Tarihi</i>'ni istediğiniz gibi ayarlayın.",
+  "bitstream.edit.form.embargo.hint": "Erişime izin verilen ilk gün. <b>Bu tarih bu formda değiştirilemez.</b> Bir bitstream için bir ambargo tarihi ayarlamak için <i>Öğe Durumu</i> sekmesine gidin, <i>Yetkiler...</i>'i tıklayın., bitstreamın <i>OKU</i> politikasını oluşturun veya düzenleyin ve <i>Başlangıç Tarihi</i>'ni istediğiniz gibi ayarlayın.",
 
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
   "bitstream.edit.form.embargo.label": "Belirli bir tarihe kadar ambargo",
@@ -4474,7 +4470,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Paket oluştur",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Bu öğe, bir bitstream yüklemek için herhangi bir paket içermiyor.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -10625,7 +10621,7 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Bu kişi için \"{{ value }}\" ilerideki gönderilerde kullanılabilmek için Yeni İsim olarak kaydedilsin mi? Bunu yapmazsanız, yine de bu gönderim için kullanabilirsiniz .",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -11748,258 +11744,8 @@
   // "workflow-item.send-back.button.cancel": "Cancel",
   "workflow-item.send-back.button.cancel": "İptal",
 
-  // "workflow-item.send-back.button.confirm": "Send back",
-  // TODO Source message changed - Revise the translation
+  // "workflow-item.send-back.button.confirm": "Send back"
   "workflow-item.send-back.button.confirm": "Geri Gönder",
-
-  // "workflow-item.view.breadcrumbs": "Workflow View",
-  // TODO New key - Add a translation
-  "workflow-item.view.breadcrumbs": "Workflow View",
-
-  // "workspace-item.view.breadcrumbs": "Workspace View",
-  // TODO New key - Add a translation
-  "workspace-item.view.breadcrumbs": "Workspace View",
-
-  // "workspace-item.view.title": "Workspace View",
-  // TODO New key - Add a translation
-  "workspace-item.view.title": "Workspace View",
-
-  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
-  // TODO New key - Add a translation
-  "workspace-item.delete.breadcrumbs": "Workspace Delete",
-
-  // "workspace-item.delete.header": "Delete workspace item",
-  // TODO New key - Add a translation
-  "workspace-item.delete.header": "Delete workspace item",
-
-  // "workspace-item.delete.button.confirm": "Delete",
-  // TODO New key - Add a translation
-  "workspace-item.delete.button.confirm": "Delete",
-
-  // "workspace-item.delete.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workspace-item.delete.button.cancel": "Cancel",
-
-  // "workspace-item.delete.notification.success.title": "Deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.success.title": "Deleted",
-
-  // "workspace-item.delete.title": "This workspace item was successfully deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.title": "This workspace item was successfully deleted",
-
-  // "workspace-item.delete.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.error.title": "Something went wrong",
-
-  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
-  // TODO New key - Add a translation
-  "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
-
-  // "workflow-item.advanced.title": "Advanced workflow",
-  // TODO New key - Add a translation
-  "workflow-item.advanced.title": "Advanced workflow",
-
-  // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
-
-  // "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
-
-  // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
-
-  // "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
-
-  // "workflow-item.selectrevieweraction.title": "Select Reviewer",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.title": "Select Reviewer",
-
-  // "workflow-item.selectrevieweraction.header": "Select Reviewer",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.header": "Select Reviewer",
-
-  // "workflow-item.selectrevieweraction.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.button.cancel": "Cancel",
-
-  // "workflow-item.selectrevieweraction.button.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "workflow-item.selectrevieweraction.button.confirm": "Confirm",
-
-
-  // "workflow-item.scorereviewaction.notification.success.title": "Rating review",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.success.title": "Rating review",
-
-  // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
-
-  // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
-
-  // "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
-
-  // "workflow-item.scorereviewaction.title": "Rate this item",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.title": "Rate this item",
-
-  // "workflow-item.scorereviewaction.header": "Rate this item",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.header": "Rate this item",
-
-  // "workflow-item.scorereviewaction.button.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.button.cancel": "Cancel",
-
-  // "workflow-item.scorereviewaction.button.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "workflow-item.scorereviewaction.button.confirm": "Confirm",
-
-  // "idle-modal.header": "Session will expire soon",
-  // TODO New key - Add a translation
-  "idle-modal.header": "Session will expire soon",
-
-  // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
-  // TODO New key - Add a translation
-  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
-
-  // "idle-modal.log-out": "Log out",
-  // TODO New key - Add a translation
-  "idle-modal.log-out": "Log out",
-
-  // "idle-modal.extend-session": "Extend session",
-  // TODO New key - Add a translation
-  "idle-modal.extend-session": "Extend session",
-
-  // "researcher.profile.action.processing" : "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing" : "Processing...",
-
-  // "researcher.profile.associated": "Researcher profile associated",
-  // TODO New key - Add a translation
-  "researcher.profile.associated": "Researcher profile associated",
-
-  // "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
-  // TODO New key - Add a translation
-  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
-
-  // "researcher.profile.create.new": "Create new",
-  // TODO New key - Add a translation
-  "researcher.profile.create.new": "Create new",
-
-  // "researcher.profile.create.success": "Researcher profile created successfully",
-  // TODO New key - Add a translation
-  "researcher.profile.create.success": "Researcher profile created successfully",
-
-  // "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
-  // TODO New key - Add a translation
-  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
-
-  // "researcher.profile.delete": "Delete",
-  // TODO New key - Add a translation
-  "researcher.profile.delete": "Delete",
-
-  // "researcher.profile.expose": "Expose",
-  // TODO New key - Add a translation
-  "researcher.profile.expose": "Expose",
-
-  // "researcher.profile.hide": "Hide",
-  // TODO New key - Add a translation
-  "researcher.profile.hide": "Hide",
-
-  // "researcher.profile.not.associated": "Researcher profile not yet associated",
-  // TODO New key - Add a translation
-  "researcher.profile.not.associated": "Researcher profile not yet associated",
-
-  // "researcher.profile.view": "View",
-  // TODO New key - Add a translation
-  "researcher.profile.view": "View",
-
-  // "researcher.profile.private.visibility" : "PRIVATE",
-  // TODO New key - Add a translation
-  "researcher.profile.private.visibility" : "PRIVATE",
-
-  // "researcher.profile.public.visibility" : "PUBLIC",
-  // TODO New key - Add a translation
-  "researcher.profile.public.visibility" : "PUBLIC",
-
-  // "researcher.profile.status": "Status:",
-  // TODO New key - Add a translation
-  "researcher.profile.status": "Status:",
-
-  // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
-  // TODO New key - Add a translation
-  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
-
-  // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-
-  // "researcherprofile.error.claim.title" : "Error",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.title" : "Error",
-
-  // "researcherprofile.success.claim.body" : "Profile claimed with success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.body" : "Profile claimed with success",
-
-  // "researcherprofile.success.claim.title" : "Success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.title" : "Success",
-
-  // "person.page.orcid.create": "Create an ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.create": "Create an ORCID ID",
-
-  // "person.page.orcid.granted-authorizations": "Granted authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.granted-authorizations": "Granted authorizations",
-
-  // "person.page.orcid.grant-authorizations" : "Grant authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.grant-authorizations" : "Grant authorizations",
-
-  // "person.page.orcid.link": "Connect to ORCID ID",
-  // TODO New key - Add a translation
-  "person.page.orcid.link": "Connect to ORCID ID",
-
-  // "person.page.orcid.link.processing": "Linking profile to ORCID...",
-  // TODO New key - Add a translation
-  "person.page.orcid.link.processing": "Linking profile to ORCID...",
-
-  // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
-  // TODO New key - Add a translation
-  "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
-
-  // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
-  // TODO New key - Add a translation
-  "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
-
-  // "person.page.orcid.unlink": "Disconnect from ORCID",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink": "Disconnect from ORCID",
-
-  // "person.page.orcid.unlink.processing": "Processing...",
-  // TODO New key - Add a translation
-  "person.page.orcid.unlink.processing": "Processing...",
-
-  // "person.page.orcid.missing-authorizations": "Missing authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations": "Missing authorizations",
-
-  // "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
-  // TODO New key - Add a translation
-  "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
 
   // "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
   // TODO New key - Add a translation

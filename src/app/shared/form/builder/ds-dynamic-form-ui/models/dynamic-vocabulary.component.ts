@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import {
   DynamicFormControlComponent,
@@ -37,7 +37,7 @@ import { Metadata } from '../../../../../core/shared/metadata.utils';
 })
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {
 
-  @Input() abstract group: FormGroup;
+  @Input() abstract group: UntypedFormGroup;
   @Input() abstract model: DsDynamicInputModel;
 
   @Output() abstract blur: EventEmitter<any>;
@@ -77,7 +77,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    */
   getInitValueFromModel(): Observable<FormFieldMetadataValueObject> {
     let initValue$: Observable<FormFieldMetadataValueObject>;
-    if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject)) {
+    if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject) && !this.model.value.hasAuthorityToGenerate()) {
       let initEntry$: Observable<VocabularyEntry>;
       if (this.hasValidAuthority(this.model.value)) {
         initEntry$ = this.vocabularyService.getVocabularyEntryByID(this.model.value.authority, this.model.vocabularyOptions);

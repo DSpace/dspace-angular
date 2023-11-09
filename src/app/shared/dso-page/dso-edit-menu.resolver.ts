@@ -1,26 +1,26 @@
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {combineLatest, Observable, of as observableOf} from 'rxjs';
-import {FeatureID} from '../../core/data/feature-authorization/feature-id';
-import {MenuService} from '../menu/menu.service';
-import {AuthorizationDataService} from '../../core/data/feature-authorization/authorization-data.service';
-import {Injectable} from '@angular/core';
-import {LinkMenuItemModel} from '../menu/menu-item/models/link.model';
-import {Item} from '../../core/shared/item.model';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {OnClickMenuItemModel} from '../menu/menu-item/models/onclick.model';
-import {getFirstCompletedRemoteData} from '../../core/shared/operators';
-import {map, switchMap} from 'rxjs/operators';
-import {DSpaceObjectDataService} from '../../core/data/dspace-object-data.service';
-import {URLCombiner} from '../../core/url-combiner/url-combiner';
-import {DsoVersioningModalService} from './dso-versioning-modal-service/dso-versioning-modal.service';
-import {hasNoValue, hasValue, isNotEmpty} from '../empty.util';
-import {MenuID} from '../menu/menu-id.model';
-import {MenuItemType} from '../menu/menu-item-type.model';
-import {MenuSection} from '../menu/menu-section.model';
-import {getDSORoute} from '../../app-routing-paths';
-import {ResearcherProfileDataService} from '../../core/profile/researcher-profile-data.service';
-import {NotificationsService} from '../notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { MenuService } from '../menu/menu.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { Injectable } from '@angular/core';
+import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
+import { Item } from '../../core/shared/item.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
+import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import { MenuID } from '../menu/menu-id.model';
+import { MenuItemType } from '../menu/menu-item-type.model';
+import { MenuSection } from '../menu/menu-section.model';
+import { getDSORoute } from '../../app-routing-paths';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Creates the menus for the dspace object pages
@@ -52,27 +52,32 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     } else if (hasNoValue(id) && hasNoValue(route.queryParams.scope)) {
       return observableOf({});
     }
-    return this.dSpaceObjectDataService.findById(id, true, false).pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((dsoRD) => {
+    if (hasNoValue(id)) {
+      // If there's no ID, we're not on a DSO homepage, so pass on any pre-existing menu route data
+      return observableOf({ ...route.data?.menu });
+    } else {
+      return this.dSpaceObjectDataService.findById(id, true, false).pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((dsoRD) => {
         if (dsoRD.hasSucceeded && dsoRD.payload != null) {
-          const dso = dsoRD.payload;
-          return combineLatest(this.getDsoMenus(dso, route, state)).pipe(
-            // Menu sections are retrieved as an array of arrays and flattened into a single array
-            map((combinedMenus) => [].concat.apply([], combinedMenus)),
-            map((menus) => this.addDsoUuidToMenuIDs(menus, dso)),
-            map((menus) => {
-              return {
-                ...route.data?.menu,
-                [MenuID.DSO_EDIT]: menus
-              };
-            })
-          );
-        } else {
-          return observableOf({...route.data?.menu});
-        }
-      })
-    );
+            const dso = dsoRD.payload;
+            return combineLatest(this.getDsoMenus(dso, route, state)).pipe(
+              // Menu sections are retrieved as an array of arrays and flattened into a single array
+              map((combinedMenus) => [].concat.apply([], combinedMenus)),
+              map((menus) => this.addDsoUuidToMenuIDs(menus, dso)),
+              map((menus) => {
+                return {
+                  ...route.data?.menu,
+                  [MenuID.DSO_EDIT]: menus
+                };
+              })
+            );
+          } else {
+            return observableOf({...route.data?.menu});
+          }
+        })
+      );
+    }
   }
 
   /**

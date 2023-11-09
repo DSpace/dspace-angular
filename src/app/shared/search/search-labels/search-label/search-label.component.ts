@@ -84,7 +84,8 @@ export class SearchLabelComponent implements OnInit {
   normalizeFilterValue(value: string) {
     // const pattern = /,[^,]*$/g;
     const pattern = /,authority*$/g;
-    return value.replace(pattern, '');
+    value = value.replace(pattern, '');
+    return stripOperatorFromFilterValue(value);
   }
 
   private getFilterName(): string {

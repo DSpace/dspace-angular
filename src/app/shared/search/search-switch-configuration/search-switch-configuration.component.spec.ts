@@ -78,7 +78,7 @@ describe('SearchSwitchConfigurationComponent', () => {
 
   it('should display select field properly', () => {
     const selectField = fixture.debugElement.query(By.css('.form-control'));
-    expect(selectField).toBeDefined();
+    expect(selectField).not.toBeNull();
 
     const childElements = selectField.children;
     expect(childElements.length).toEqual(comp.configurationList.length);

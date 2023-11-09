@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,8 +27,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.ut
 import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
-export const SD_TEST_GROUP = new FormGroup({
-  dropdown: new FormControl(),
+export const SD_TEST_GROUP = new UntypedFormGroup({
+  dropdown: new UntypedFormControl(),
 });
 
 export const SD_TEST_MODEL_CONFIG = {
@@ -254,7 +254,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 })
 class TestComponent {
 
-  group: FormGroup = SD_TEST_GROUP;
+  group: UntypedFormGroup = SD_TEST_GROUP;
 
   model = new DynamicScrollableDropdownModel(SD_TEST_MODEL_CONFIG);
 

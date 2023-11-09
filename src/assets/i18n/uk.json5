@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Ви не авторизовані для доступу до цієї сторінки. Ви можете скористатися кнопкою нижче, щоб повернутися на головну сторінку.",
 
@@ -3114,7 +3110,7 @@
   "cris-layout.rendering.collections.load-more": "Load more",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Перевірте посилання у метаданих",
+  "curation-task.task.checklinks.label": "Перевірте посилання у метаданих",
 
   // "curation-task.task.noop.label": "NOOP",
   // TODO New key - Add a translation
@@ -4497,7 +4493,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Створити контейнер файлів",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Цей документ не містить контейнеру файлів, щоб завантажити файл.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -7767,13 +7763,13 @@
 
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Аргументи",
+  "process.detail.arguments": "Аргументи",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Процес не містить жодних аргументів",
+  "process.detail.arguments.empty": "Процес не містить жодних аргументів",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Повернутись",
+  "process.detail.back": "Повернутись",
 
   // "process.detail.output" : "Process Output",
   "process.detail.output" : "Прооцес завершено",
@@ -7788,28 +7784,28 @@
   "process.detail.logs.none": "Процес не генерує вихідних даних",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Вихідні файли",
+  "process.detail.output-files": "Вихідні файли",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Процес не містить жодних вихдних файлів",
+  "process.detail.output-files.empty": "Процес не містить жодних вихдних файлів",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Скрипт",
+  "process.detail.script": "Скрипт",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Процеси: {{ id }} - {{ name }}",
+  "process.detail.title": "Процеси: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Дата старту",
+  "process.detail.start-time": "Дата старту",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Дата завершення",
+  "process.detail.end-time": "Дата завершення",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Статус",
+  "process.detail.status": "Статус",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Створіть аналогічний процес",
+  "process.detail.create": "Створіть аналогічний процес",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -7853,23 +7849,23 @@
 
   // "process.overview.table.finish" : "Finish time (UTC)",
   // TODO Source message changed - Revise the translation
-  "process.overview.table.finish" : "Дата завершення",
+  "process.overview.table.finish": "Дата завершення",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "ID процесу",
+  "process.overview.table.id": "ID процесу",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Назва",
+  "process.overview.table.name": "Назва",
 
   // "process.overview.table.start" : "Start time (UTC)",
   // TODO Source message changed - Revise the translation
-  "process.overview.table.start" : "Дата старту",
+  "process.overview.table.start": "Дата старту",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Статус",
+  "process.overview.table.status": "Статус",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Користувач",
+  "process.overview.table.user": "Користувач",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Огляд процесів",
@@ -10655,7 +10651,7 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Чи бажаєте ви зберегти \"{{ value }}\" як варіант імені для цього користувача, щоб ви та інші могли повторно використовувати його для майбутніх надсилань? Якщо ви цього не зробите, ви можете використовувати його для цього надсилання.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -10980,7 +10976,7 @@
   "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
 
   // "submission.sections.upload.form.date-required": "Date is required.",
-  "submission.sections.upload.form.date-required": "Поле дати є обов\'язковим для заповнення.",
+  "submission.sections.upload.form.date-required": "Поле дати є обов'язковим для заповнення.",
 
   // "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
   // TODO New key - Add a translation
@@ -11004,7 +11000,7 @@
   "submission.sections.upload.form.group-label": "Група",
 
   // "submission.sections.upload.form.group-required": "Group is required.",
-  "submission.sections.upload.form.group-required": "Група є обов\'язковою.",
+  "submission.sections.upload.form.group-required": "Група є обов'язковою.",
 
   // "submission.sections.upload.form.until-label": "Grant access until",
   "submission.sections.upload.form.until-label": "Надати доступ до",

@@ -38,6 +38,14 @@ import { IdentifierDataService } from '../../core/data/identifier-data.service';
 import { IdentifierDataComponent } from '../../shared/object-list/identifier-data/identifier-data.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { DsoSharedModule } from '../../dso-shared/dso-shared.module';
+import { ItemCurateComponent } from './item-curate/item-curate.component';
+import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
+
+import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
+import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
+import {
+  AccessControlFormModule
+} from '../../shared/access-control-form-container/access-control-form.module';
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
 import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
@@ -57,6 +65,8 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     NgbModule,
     ItemVersionsModule,
     DsoSharedModule,
+    ResultsBackButtonModule,
+    AccessControlFormModule,
   ],
   declarations: [
     EditItemPageComponent,
@@ -70,6 +80,7 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     ItemDeleteComponent,
     ItemUnlinkOrcidComponent,
     ItemStatusComponent,
+    ThemedItemStatusComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
@@ -84,7 +95,9 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     VirtualMetadataComponent,
     ItemAuthorizationsComponent,
     IdentifierDataComponent,
-    ItemRegisterDoiComponent
+    ItemRegisterDoiComponent,
+    ItemCurateComponent,
+    ItemAccessControlComponent,
   ],
   providers: [
     BundleDataService,
@@ -93,7 +106,8 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     EditItemResolver
   ],
   exports: [
-    EditMetadataSecurityComponent
+    EditMetadataSecurityComponent,
+    ItemOperationComponent,
   ]
 })
 export class EditItemPageModule {

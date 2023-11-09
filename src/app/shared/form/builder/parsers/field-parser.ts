@@ -1,3 +1,5 @@
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { Inject, InjectionToken } from '@angular/core';
 
 import uniqueId from 'lodash/uniqueId';
@@ -22,6 +24,7 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
@@ -315,7 +318,7 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly
       || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
-    controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.disabled = controlModel.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);

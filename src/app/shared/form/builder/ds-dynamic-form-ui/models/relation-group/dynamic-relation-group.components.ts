@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { filter, map, mergeMap, scan, take } from 'rxjs/operators';
@@ -41,7 +41,8 @@ import { Metadata } from '../../../../../../core/shared/metadata.utils';
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
-  @Input() group: FormGroup;
+  @Input() formId: string;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicRelationGroupModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();

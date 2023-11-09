@@ -381,7 +381,7 @@
   "admin.registries.bitstream-formats.table.name": "Namn",
   // "admin.registries.bitstream-formats.table.id" : "ID",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Tillbaka",
@@ -466,7 +466,7 @@
   "admin.registries.schema.fields.table.field": "Fält",
   // "admin.registries.schema.fields.table.id" : "ID",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.id" : "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Anmärkning (scope note)",
@@ -3002,7 +3002,7 @@
   "cris-layout.rendering.collections.load-more": "Load more",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Kontrollera länkar i metadata",
+  "curation-task.task.checklinks.label": "Kontrollera länkar i metadata",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP",
@@ -3816,10 +3816,10 @@
 
   // "footer.link.end-user-agreement":"End User Agreement",
   // TODO New key - Add a translation
-  "footer.link.end-user-agreement":"End User Agreement",
+  "footer.link.end-user-agreement": "End User Agreement",
 
   // "footer.link.feedback":"Send Feedback",
-  "footer.link.feedback":"Skicka feedback",
+  "footer.link.feedback": "Skicka feedback",
 
 
 
@@ -4281,19 +4281,19 @@
   "info.feedback.email-label": "Din e-postadress",
 
   // "info.feedback.create.success" : "Feedback Sent Successfully!",
-  "info.feedback.create.success" : "Feedback har skickats!",
+  "info.feedback.create.success": "Feedback har skickats!",
 
   // "info.feedback.error.email.required" : "A valid email address is required",
-  "info.feedback.error.email.required" : "Du måste ange en giltig e-postadress",
+  "info.feedback.error.email.required": "Du måste ange en giltig e-postadress",
 
   // "info.feedback.error.message.required" : "A comment is required",
-  "info.feedback.error.message.required" : "Du måste skriva en kommentar",
+  "info.feedback.error.message.required": "Du måste skriva en kommentar",
 
   // "info.feedback.page-label" : "Page",
-  "info.feedback.page-label" : "Sida",
+  "info.feedback.page-label": "Sida",
 
   // "info.feedback.page_help" : "Tha page related to your feedback",
-  "info.feedback.page_help" : "Den är sidan är relaterad till din feedback",
+  "info.feedback.page_help": "Den är sidan är relaterad till din feedback",
 
 
 
@@ -4331,7 +4331,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Skapa bunt",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Denna post innehåller inga buntar som man kan ladda upp filer i.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -5306,11 +5306,11 @@
 
   // "item.page.filesection.original.bundle" : "Original bundle",
   // TODO New key - Add a translation
-  "item.page.filesection.original.bundle" : "Original bundle",
+  "item.page.filesection.original.bundle": "Original bundle",
 
   // "item.page.filesection.license.bundle" : "License bundle",
   // TODO New key - Add a translation
-  "item.page.filesection.license.bundle" : "License bundle",
+  "item.page.filesection.license.bundle": "License bundle",
 
   // "item.page.return": "Back",
   "item.page.return": "Tillbaka",
@@ -5683,14 +5683,14 @@
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 
   // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
-  "item.version.create.notification.success" : "En ny version med nummer {{version}} har skapats",
+  "item.version.create.notification.success": "En ny version med nummer {{version}} har skapats",
 
   // "item.version.create.notification.failure" : "New version has not been created",
-  "item.version.create.notification.failure" : "Ny version har inte skapats",
+  "item.version.create.notification.failure": "Ny version har inte skapats",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
   // TODO New key - Add a translation
-  "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
 
 
   // "item.version.delete.modal.header": "Delete version",
@@ -5712,17 +5712,17 @@
   "item.version.delete.modal.button.cancel.tooltip": "Radera inte denna version",
 
   // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
-  "item.version.delete.notification.success" : "Version {{version}} har raderats",
+  "item.version.delete.notification.success": "Version {{version}} har raderats",
 
   // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
-  "item.version.delete.notification.failure" : "Version {{version}} har inte raderats",
+  "item.version.delete.notification.failure": "Version {{version}} har inte raderats",
 
 
   // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
-  "item.version.edit.notification.success" : "Sammanfattningen av version {{version}} har ändrats",
+  "item.version.edit.notification.success": "Sammanfattningen av version {{version}} har ändrats",
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
-  "item.version.edit.notification.failure" : "Sammanfattningen av version {{version}} har inte ändrats",
+  "item.version.edit.notification.failure": "Sammanfattningen av version {{version}} har inte ändrats",
 
   // "item-export.modal-launcher.single.btn": "Export",
   // TODO New key - Add a translation
@@ -7001,11 +7001,11 @@
 
   // "nav.toggle" : "Toggle navigation",
   // TODO New key - Add a translation
-  "nav.toggle" : "Toggle navigation",
+  "nav.toggle": "Toggle navigation",
 
   // "nav.user.description" : "User profile bar",
   // TODO New key - Add a translation
-  "nav.user.description" : "User profile bar",
+  "nav.user.description": "User profile bar",
 
   // "none.listelement.badge": "Item",
   // TODO New key - Add a translation
@@ -7587,19 +7587,19 @@
 
   // "process.detail.arguments" : "Arguments",
   // TODO New key - Add a translation
-  "process.detail.arguments" : "Arguments",
+  "process.detail.arguments": "Arguments",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
   // TODO New key - Add a translation
-  "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+  "process.detail.arguments.empty": "This process doesn't contain any arguments",
 
   // "process.detail.back" : "Back",
   // TODO New key - Add a translation
-  "process.detail.back" : "Back",
+  "process.detail.back": "Back",
 
   // "process.detail.output" : "Process Output",
   // TODO New key - Add a translation
-  "process.detail.output" : "Process Output",
+  "process.detail.output": "Process Output",
 
   // "process.detail.logs.button": "Retrieve process output",
   // TODO New key - Add a translation
@@ -7615,34 +7615,34 @@
 
   // "process.detail.output-files" : "Output Files",
   // TODO New key - Add a translation
-  "process.detail.output-files" : "Output Files",
+  "process.detail.output-files": "Output Files",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
   // TODO New key - Add a translation
-  "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "This process doesn't contain any output files",
 
   // "process.detail.script" : "Script",
   // TODO New key - Add a translation
-  "process.detail.script" : "Script",
+  "process.detail.script": "Script",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
   // TODO New key - Add a translation
-  "process.detail.title" : "Process: {{ id }} - {{ name }}",
+  "process.detail.title": "Process: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
   // TODO New key - Add a translation
-  "process.detail.start-time" : "Start time",
+  "process.detail.start-time": "Start time",
 
   // "process.detail.end-time" : "Finish time",
   // TODO New key - Add a translation
-  "process.detail.end-time" : "Finish time",
+  "process.detail.end-time": "Finish time",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Status",
+  "process.detail.status": "Status",
 
   // "process.detail.create" : "Create similar process",
   // TODO New key - Add a translation
-  "process.detail.create" : "Create similar process",
+  "process.detail.create": "Create similar process",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -7685,22 +7685,22 @@
   "process.overview.delete.success" : "Process deleted with success",
 
   // "process.overview.table.finish" : "Finish time (UTC)",
-  "process.overview.table.finish" : "Sluttid (UTC)",
+  "process.overview.table.finish": "Sluttid (UTC)",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "Process ID",
+  "process.overview.table.id": "Process ID",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Namn",
+  "process.overview.table.name": "Namn",
 
   // "process.overview.table.start" : "Start time (UTC)",
-  "process.overview.table.start" : "Starttid (UTC)",
+  "process.overview.table.start": "Starttid (UTC)",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Status",
+  "process.overview.table.status": "Status",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Användare",
+  "process.overview.table.user": "Användare",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Processer översikt",
@@ -10471,7 +10471,7 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Vill du spara \"{{ value }}\" som en namnvariation för denna person? Om inte så kan du fortfarande använda det i detta bidrag.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -11672,49 +11672,8 @@
   // "idle-modal.log-out": "Log out",
   "idle-modal.log-out": "Logga ut",
 
-  // "idle-modal.extend-session": "Extend session",
-  // TODO Source message changed - Revise the translation
+  // "idle-modal.extend-session": "Extend session"
   "idle-modal.extend-session": "Fortsätt",
-
-  // "researcher.profile.action.processing" : "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing" : "Processing...",
-
-  // "researcher.profile.associated": "Researcher profile associated",
-  // TODO New key - Add a translation
-  "researcher.profile.associated": "Researcher profile associated",
-
-  // "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
-  // TODO New key - Add a translation
-  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
-
-  // "researcher.profile.create.new": "Create new",
-  // TODO New key - Add a translation
-  "researcher.profile.create.new": "Create new",
-
-  // "researcher.profile.create.success": "Researcher profile created successfully",
-  // TODO New key - Add a translation
-  "researcher.profile.create.success": "Researcher profile created successfully",
-
-  // "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
-  // TODO New key - Add a translation
-  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
-
-  // "researcher.profile.delete": "Delete",
-  // TODO New key - Add a translation
-  "researcher.profile.delete": "Delete",
-
-  // "researcher.profile.expose": "Expose",
-  // TODO New key - Add a translation
-  "researcher.profile.expose": "Expose",
-
-  // "researcher.profile.hide": "Hide",
-  // TODO New key - Add a translation
-  "researcher.profile.hide": "Hide",
-
-  // "researcher.profile.not.associated": "Researcher profile not yet associated",
-  // TODO New key - Add a translation
-  "researcher.profile.not.associated": "Researcher profile not yet associated",
 
   // "researcher.profile.view": "View",
   // TODO New key - Add a translation

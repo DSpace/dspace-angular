@@ -29,6 +29,7 @@ import { CollectionDropdownComponent } from '../../../shared/collection-dropdown
 import { SectionsService } from '../../sections/sections.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { SectionsType } from '../../sections/sections-type';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -51,6 +52,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * @type {SubmissionDefinitionsModel}
    */
   @Input() currentDefinition: string;
+
+  /**
+   * Checks if the collection can be modifiable by the user
+   * @type {booelan}
+   */
+  @Input() collectionModifiable: boolean | null = null;
 
   /**
    * The entity type input used to create a new submission
@@ -141,7 +148,9 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: SubmissionJsonPatchOperationsService,
               private submissionService: SubmissionService,
-              private sectionsService: SectionsService) {
+              private sectionsService: SectionsService,
+              public dsoNameService: DSONameService,
+  ) {
   }
 
   /**
@@ -154,7 +163,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
       this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
-        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
+        map((collectionRD: RemoteData<Collection>) => this.dsoNameService.getName(collectionRD.payload))
       );
     }
   }
@@ -212,7 +221,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    * Reset search form control on dropdown menu close
    */
   onClose() {
-    this.collectionDropdown.reset();
+    this.collectionDropdown?.reset();
   }
 
   /**
@@ -223,7 +232,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   toggled(isOpen: boolean) {
     if (!isOpen) {
-      this.collectionDropdown.reset();
+      this.collectionDropdown?.reset();
     }
   }
 

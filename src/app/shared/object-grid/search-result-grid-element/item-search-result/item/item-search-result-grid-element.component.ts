@@ -51,12 +51,12 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
   authorMetadata = environment.searchResult.authorMetadata;
 
   constructor(
+    public dsoNameService: DSONameService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService,
-    protected dsoNameService: DSONameService,
     protected thumbnailService: ThumbnailService
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   ngOnInit(): void {

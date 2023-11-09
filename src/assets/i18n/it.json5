@@ -1,8 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  "Biography": "Biografia inglese",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Non sei autorizzato ad accedere a questa pagina. Puoi usare il pulsante qui sotto per tornare alla home page.",
 
@@ -276,7 +273,7 @@
   "admin.registries.bitstream-formats.edit.internal.hint": "I formati contrassegnati come internal sono nascosti all'utente e utilizzati per scopi amministrativi.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
+  "admin.registries.bitstream-formats.edit.internal.label": "Interno",
 
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
   "admin.registries.bitstream-formats.edit.mimetype.hint": "Non è necessario che il tipo MIME associato a questo formato sia univoco.",
@@ -315,7 +312,7 @@
   "admin.registries.bitstream-formats.table.deselect-all": "Deseleziona tutto",
 
   // "admin.registries.bitstream-formats.table.internal": "internal",
-  "admin.registries.bitstream-formats.table.internal": "internal",
+  "admin.registries.bitstream-formats.table.internal": "interno",
 
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   "admin.registries.bitstream-formats.table.mimetype": "Tipo MIME",

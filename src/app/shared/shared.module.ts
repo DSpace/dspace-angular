@@ -13,7 +13,6 @@ import {
   NgbTypeaheadModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import {
@@ -54,7 +53,9 @@ import { ErrorComponent } from './error/error.component';
 import { LoadingComponent } from './loading/loading.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { ThemedSearchFormComponent } from './search-form/themed-search-form.component';
 import {
   SearchResultGridElementComponent
 } from './object-grid/search-result-grid-element/search-result-grid-element.component';
@@ -168,8 +169,8 @@ import {
   DsoInputSuggestionsComponent
 } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { TypeBadgeComponent } from './object-list/type-badge/type-badge.component';
-import { AccessStatusBadgeComponent } from './object-list/access-status-badge/access-status-badge.component';
+import { TypeBadgeComponent } from './object-collection/shared/badges/type-badge/type-badge.component';
+import { AccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/access-status-badge.component';
 import {
   MetadataRepresentationLoaderComponent
 } from './metadata-representation/metadata-representation-loader.component';
@@ -306,6 +307,16 @@ import {
 } from './object-list/listable-notification-object/listable-notification-object.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
+
+import { StatusBadgeComponent } from './object-collection/shared/badges/status-badge/status-badge.component';
+import { BadgesComponent } from './object-collection/shared/badges/badges.component';
+import { ThemedBadgesComponent } from './object-collection/shared/badges/themed-badges.component';
+import { ThemedStatusBadgeComponent } from './object-collection/shared/badges/status-badge/themed-status-badge.component';
+import { ThemedTypeBadgeComponent } from './object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { ThemedMyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/themed-my-dspace-status-badge.component';
+import { ThemedAccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
+import { MyDSpaceStatusBadgeComponent } from './object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
+
 import { ShortNumberPipe } from './utils/short-number.pipe';
 import {
   LogInExternalProviderComponent
@@ -323,6 +334,11 @@ import {
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
+import {
+  ThemedItemPageTitleFieldComponent
+} from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
+import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ItemCorrectionComponent } from './object-collection/shared/mydspace-item-correction/item-correction.component';
 import { MetricsModule } from './metric/metrics.module';
 import {
@@ -333,7 +349,6 @@ import { EntityIconDirective } from './entity-icon/entity-icon.directive';
 import {
   AdditionalMetadataComponent
 } from './object-list/search-result-list-element/additional-metadata/additional-metadata.component';
-import { MyDSpaceItemStatusComponent } from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
 import { ItemCollectionComponent } from './object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
@@ -354,6 +369,7 @@ const MODULES = [
   DragDropModule,
   GoogleRecaptchaModule,
   MenuModule,
+  NgxPaginationModule,
   MetricsModule,
   NgbModule
 ];
@@ -408,9 +424,13 @@ const COMPONENTS = [
   PaginationComponent,
   RSSComponent,
   SearchFormComponent,
+  ThemedSearchFormComponent,
   PageWithSidebarComponent,
   SidebarDropdownComponent,
   ThumbnailComponent,
+  ThemedThumbnailComponent,
+  MyDSpaceStatusBadgeComponent,
+  ThemedMyDSpaceStatusBadgeComponent,
   ItemCorrectionComponent,
   ItemSubmitterComponent,
   ViewModeSwitchComponent,
@@ -430,6 +450,13 @@ const COMPONENTS = [
   ComcolMetadataComponent,
   TypeBadgeComponent,
   AccessStatusBadgeComponent,
+  ThemedAccessStatusBadgeComponent,
+  ThemedTypeBadgeComponent,
+  StatusBadgeComponent,
+  ThemedStatusBadgeComponent,
+  BadgesComponent,
+  ThemedBadgesComponent,
+
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
@@ -456,6 +483,7 @@ const COMPONENTS = [
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
+  ThemedItemPageTitleFieldComponent,
   SearchChartsComponent,
   SearchChartBarComponent,
   SearchChartBarToLeftComponent,
@@ -478,7 +506,6 @@ const COMPONENTS = [
   SearchChartBarHorizontalComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
-  MyDSpaceItemStatusComponent,
   ItemCollectionComponent
 ];
 
@@ -497,6 +524,7 @@ const ENTRY_COMPONENTS = [
   SearchResultGridElementComponent,
   ItemListElementComponent,
   ItemGridElementComponent,
+  BitstreamListItemComponent,
   ItemSearchResultListElementComponent,
   ItemSearchResultGridElementComponent,
   BrowseEntryListElementComponent,

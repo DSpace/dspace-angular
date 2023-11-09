@@ -4311,7 +4311,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "বান্ডিল তৈরি করুন",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "এই আইটেমটি একটি বিটস্ট্রিম আপলোড করার জন্য কোন bundles থাকে না।",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -10306,7 +10306,7 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "আপনি এই ব্যক্তির জন্য একটি নাম বৈকল্পিক \"{{ value }}\" হিসাবে সংরক্ষণ করতে চান তাই আপনি এবং অন্যদের ভবিষ্যতের জমা দেওয়ার জন্য এটি পুনঃব্যবহার করতে পারেন? আপনি যদি আপনি এই জমা দেওয়ার জন্য এখনও এটি ব্যবহার করতে পারেন না।",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -11505,8 +11505,7 @@
   // "idle-modal.log-out": "Log out",
   "idle-modal.log-out": "প্রস্থান",
 
-  // "idle-modal.extend-session": "Extend session",
-  // TODO Source message changed - Revise the translation
+  // "idle-modal.extend-session": "Extend session"
   "idle-modal.extend-session": "সেশন প্রসারিত করুন",
 
   // "researcher.profile.action.processing" : "Processing...",

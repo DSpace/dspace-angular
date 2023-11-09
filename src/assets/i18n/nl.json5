@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   // TODO New key - Add a translation
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
@@ -4839,9 +4835,9 @@
   // TODO New key - Add a translation
   "item.bitstreams.upload.bundle.new": "Create bundle",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   // TODO New key - Add a translation
-  "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
   // TODO New key - Add a translation
@@ -11404,9 +11400,9 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
   // TODO New key - Add a translation

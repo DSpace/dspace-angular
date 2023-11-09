@@ -29,17 +29,17 @@
   --bs-teal: #{$teal};
   --bs-cyan: #{$cyan};
   --bs-primary: #{$primary};
-  --bs-primary-bg: #{lighten($primary, 30%)};
+  --bs-primary-bg: #{$primary-bg};
   --bs-secondary: #{$secondary};
-  --bs-secondary-bg: #{lighten($secondary, 30%)};
+  --bs-secondary-bg: #{$secondary-bg};
   --bs-success: #{$success};
-  --bs-success-bg: #{lighten($success, 30%)};
+  --bs-success-bg: #{$success-bg};
   --bs-info: #{$info};
-  --bs-info-bg: #{lighten($info, 30%)};
+  --bs-info-bg: #{$info-bg};
   --bs-warning: #{$warning};
-  --bs-warning-bg: #{lighten($warning, 30%)};
+  --bs-warning-bg: #{$warning-bg};
   --bs-danger: #{$danger};
-  --bs-danger-bg: #{lighten($danger, 30%)};
+  --bs-danger-bg: #{$danger-bg};
   --bs-light: #{$light};
   --bs-dark: #{$dark};
 

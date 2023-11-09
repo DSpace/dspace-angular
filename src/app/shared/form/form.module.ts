@@ -32,7 +32,7 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { AuthorityConfidenceStateDirective } from './directives/authority-confidence-state.directive';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
-import { VocabularyTreeviewService } from './vocabulary-treeview/vocabulary-treeview.service';
+import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from './builder/form-builder.service';
 import { DsDynamicTypeBindRelationService } from './builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormService } from './form.service';
@@ -40,6 +40,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ThemedExternalSourceEntryImportModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { ThemedDynamicLookupRelationSearchTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/themed-dynamic-lookup-relation-search-tab.component';
+import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import { DsDynamicRelationGroupModalComponent } from './builder/ds-dynamic-form-ui/models/relation-group/modal/dynamic-relation-group-modal.components';
 import { DsDynamicRelationInlineGroupComponent } from './builder/ds-dynamic-form-ui/models/relation-inline-group/dynamic-relation-inline-group.components';
 
@@ -50,8 +52,10 @@ const COMPONENTS = [
   DsDynamicListComponent,
   DsDynamicLookupComponent,
   DsDynamicLookupRelationSearchTabComponent,
+  ThemedDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
+  ThemedDynamicLookupRelationExternalSourceTabComponent,
   DsDynamicDisabledComponent,
   DsDynamicLookupRelationModalComponent,
   DsDynamicRelationGroupModalComponent,
@@ -71,7 +75,8 @@ const COMPONENTS = [
   ChipsComponent,
   NumberPickerComponent,
   VocabularyTreeviewComponent,
-  ThemedExternalSourceEntryImportModalComponent
+  VocabularyTreeviewModalComponent,
+  ThemedExternalSourceEntryImportModalComponent,
 ];
 
 const DIRECTIVES = [
@@ -105,7 +110,6 @@ const DIRECTIVES = [
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
       useValue: dsDynamicFormControlMapFn
     },
-    VocabularyTreeviewService,
     DynamicFormLayoutService,
     DynamicFormService,
     DynamicFormValidationService,

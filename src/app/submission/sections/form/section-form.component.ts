@@ -36,6 +36,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
@@ -197,7 +198,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
           if (isUndefined(this.formModel)) {
             this.metadataSecurityConfiguration = metadataSecurity;
             // this.sectionData.errorsToShow = [];
-          this.submissionObject = submissionObject;
+            this.submissionObject = submissionObject;
             // Is the first loading so init form
             this.initForm(sectionData);
             this.sectionData.data = sectionData;

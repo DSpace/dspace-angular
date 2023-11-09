@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isPlatformServer } from '@angular/common';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -15,6 +16,11 @@ import { getItemPageRoute } from '../item-page-routing-paths';
 import { redirectOn204, redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 
@@ -30,7 +36,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
-export class ItemPageComponent implements OnInit {
+export class ItemPageComponent implements OnInit, OnDestroy {
 
   /**
    * The item's id
@@ -60,17 +66,27 @@ export class ItemPageComponent implements OnInit {
   itemUrl: string;
 
   /**
+   * Contains a list of SignpostingLink related to the item
+   */
+  signpostingLinks: SignpostingLink[] = [];
+
+  /**
    * The configured tabs for layout of current item
    */
   tabsRD$: Observable<RemoteData<PaginatedList<CrisLayoutTab>>>;
 
   constructor(
     protected route: ActivatedRoute,
-    private router: Router,
-    private items: ItemDataService,
-    private authService: AuthService,
-    private authorizationService: AuthorizationDataService
+    protected router: Router,
+    protected items: ItemDataService,
+    protected authService: AuthService,
+    protected authorizationService: AuthorizationDataService,
+    protected responseService: ServerResponseService,
+    protected signpostingDataService: SignpostingDataService,
+    protected linkHeadService: LinkHeadService,
+    @Inject(PLATFORM_ID) protected platformId: string
   ) {
+    this.initPageLinks();
   }
 
   /**
@@ -92,5 +108,43 @@ export class ItemPageComponent implements OnInit {
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
 
+  }
+
+  /**
+   * Create page links if any are retrieved by signposting endpoint
+   *
+   * @private
+   */
+  private initPageLinks(): void {
+    this.route.params.subscribe(params => {
+      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
+        let links = '';
+        this.signpostingLinks = signpostingLinks;
+
+        signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
+          let tag: LinkDefinition = {
+            href: link.href,
+            rel: link.rel
+          };
+          if (isNotEmpty(link.type)) {
+            tag = Object.assign(tag, {
+              type: link.type
+            });
+          }
+          this.linkHeadService.addTag(tag);
+        });
+
+        if (isPlatformServer(this.platformId)) {
+          this.responseService.setHeader('Link', links);
+        }
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.signpostingLinks.forEach((link: SignpostingLink) => {
+      this.linkHeadService.removeTag(`href='${link.href}'`);
+    });
   }
 }

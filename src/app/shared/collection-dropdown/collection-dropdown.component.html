@@ -7,7 +7,7 @@
          #searchFieldEl>
 </div>
 <div class="dropdown-divider"></div>
-<div class="scrollable-menu"
+<ul class="scrollable-menu p-0"
      aria-labelledby="dropdownMenuButton"
      (scroll)="onScroll($event)"
      infiniteScroll
@@ -18,25 +18,25 @@
      [scrollWindow]="false"
      (scrolled)="onScrollDown()">
 
-  <button class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !(isLoading | async)">
+  <li class="dropdown-item disabled" *ngIf="searchListCollection?.length == 0 && !(isLoading | async)">
     {{'submission.sections.general.no-collection' | translate}}
-  </button>
+  </li>
   <ng-container *ngIf="searchListCollection?.length > 0">
-    <button *ngFor="let listItem of searchListCollection"
+    <li *ngFor="let listItem of searchListCollection"
             class="dropdown-item collection-item"
             title="{{ listItem.collection.name }}"
             (click)="onSelect(listItem)">
-      <ul class="list-unstyled mb-0">
-        <li class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities">
+      <div class="list-unstyled mb-0">
+        <div class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities">
           {{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i>
-        </li>
-        <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</li>
-      </ul>
-    </button>
+        </div>
+        <div class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</div>
+      </div>
+    </li>
   </ng-container>
   <button class="dropdown-item disabled" *ngIf="(isLoading | async)">
     <ds-themed-loading message="{{'loading.default' | translate}}">
     </ds-themed-loading>
   </button>
 
-</div>
+</ul>

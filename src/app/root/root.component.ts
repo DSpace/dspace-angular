@@ -20,6 +20,7 @@ import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
+import { hasValueOperator } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-root',
@@ -70,8 +71,8 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this.sidebarVisible = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
-    this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width');
-    this.totalSidebarWidth = this.cssService.getVariable('--ds-total-sidebar-width');
+    this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width').pipe(hasValueOperator());
+    this.totalSidebarWidth = this.cssService.getVariable('--ds-total-sidebar-width').pipe(hasValueOperator());
 
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
     this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])

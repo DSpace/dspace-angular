@@ -378,7 +378,7 @@
   "admin.registries.bitstream-formats.table.name": "Ainm",
   // "admin.registries.bitstream-formats.table.id" : "ID",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Air ais",
@@ -463,7 +463,7 @@
   "admin.registries.schema.fields.table.field": "Raon",
   // "admin.registries.schema.fields.table.id" : "ID",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.id" : "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Nota Leudachd",
@@ -3023,7 +3023,7 @@
   "cris-layout.rendering.collections.load-more": "Load more",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Dearbh Ceangalan ann am Metadata",
+  "curation-task.task.checklinks.label": "Dearbh Ceangalan ann am Metadata",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP",
@@ -3839,7 +3839,7 @@
   "footer.link.privacy-policy": "Poileasaidh prìobhaideachd",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Aonta Neach-cleachdaidh Deireannach",
+  "footer.link.end-user-agreement": "Aonta Neach-cleachdaidh Deireannach",
 
   // "footer.link.feedback":"Send Feedback",
   // TODO New key - Add a translation
@@ -4367,7 +4367,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Cruthaich trusgan",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Chan eil trusganan san nì seo dhan gabh bitstream a luchdachadh suas.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -5355,7 +5355,7 @@
   "item.page.bitstreams.collapse": "Leag",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Trusgan tùsail",
+  "item.page.filesection.original.bundle": "Trusgan tùsail",
 
   // "item.page.filesection.license.bundle" : "License bundle",
   "item.page.filesection.license.bundle" : "Trusgan Cead",
@@ -7574,10 +7574,10 @@
   "process.detail.arguments" : "Argamaidean",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Chan eil argamaidean sa phròiseas seo",
+  "process.detail.arguments.empty": "Chan eil argamaidean sa phròiseas seo",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Air ais",
+  "process.detail.back": "Air ais",
 
   // "process.detail.output" : "Process Output",
   "process.detail.output" : "Mach-chur Pròiseas",
@@ -7595,25 +7595,25 @@
   "process.detail.output-files" : "Faidhlichean Mach-chuir",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Chan eil faidhlichean mach-chuir sa phròiseas seo",
+  "process.detail.output-files.empty": "Chan eil faidhlichean mach-chuir sa phròiseas seo",
 
   // "process.detail.script" : "Script",
   "process.detail.script" : "Sgriobt",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Pròiseas: {{ id }} - {{ name }}",
+  "process.detail.title": "Pròiseas: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
   "process.detail.start-time" : "Uair tòiseachaidh",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Uair crìochnachaidh",
+  "process.detail.end-time": "Uair crìochnachaidh",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Inbhe",
+  "process.detail.status": "Inbhe",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Cruthaich pròiseas coltach",
+  "process.detail.create": "Cruthaich pròiseas coltach",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -7656,19 +7656,19 @@
   "process.overview.delete.success" : "Process deleted with success",
 
   // "process.overview.table.finish" : "Finish time (UTC)",
-  "process.overview.table.finish" : "Uair crìochnachaidh (UTC)",
+  "process.overview.table.finish": "Uair crìochnachaidh (UTC)",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "ID Pròiseas",
+  "process.overview.table.id": "ID Pròiseas",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Ainm",
+  "process.overview.table.name": "Ainm",
 
   // "process.overview.table.start" : "Start time (UTC)",
-  "process.overview.table.start" : "Uair tòiseachaidh (UTC)",
+  "process.overview.table.start": "Uair tòiseachaidh (UTC)",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Inbhe",
+  "process.overview.table.status": "Inbhe",
 
   // "process.overview.table.user" : "User",
   "process.overview.table.user" : "Neach-cleachdaidh",
@@ -10384,7 +10384,7 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "A bheil thu airson \"{{ value }}\" a shàbhaladh mar ainm diofraichte don neach seo airson gum faigh thu fhèin agus daoine eile a chleachdadh airson chur-a-steachan ri thighinn? Mura bheil, is urrainn dhut fhathast a chleachdadh airson a' chur-a-steach seo.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",

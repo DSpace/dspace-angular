@@ -52,6 +52,7 @@
                                       [selectionConfig]="selectionConfig"
                                       [showCsvExport]="showCsvExport"
                                       [showSearchResultNotice]="showSearchResultNotice"
+                                      [showThumbnails]="showThumbnails"
                                       (contentChange)="onContentChange($event)"
                                       (customEvent)="customEvent.emit($event)"
                                       (deselectObject)="deselectObject.emit($event)"
@@ -61,7 +62,7 @@
 </ng-template>
 
 <ng-template #sidebarContent>
-    <ds-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
+    <ds-themed-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
@@ -75,8 +76,8 @@
                        [viewModeList]="viewModeList"
                        [showViewModes]="showViewModes"
                        (changeConfiguration)="changeContext($event.context)"
-                       (changeViewMode)="changeViewMode()"></ds-search-sidebar>
-    <ds-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
+                       (changeViewMode)="changeViewMode()"></ds-themed-search-sidebar>
+    <ds-themed-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
@@ -91,7 +92,7 @@
                        (toggleSidebar)="closeSidebar()"
                        (changeConfiguration)="changeContext($event.context)"
                        (changeViewMode)="changeViewMode()">
-    </ds-search-sidebar>
+    </ds-themed-search-sidebar>
 </ng-template>
 
 <ng-template #searchForm>
@@ -105,14 +106,14 @@
                     {{"search.sidebar.show.hide" | translate}}</span>
             </button>
         </div>
-        <ds-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
+        <ds-themed-search-form *ngIf="searchEnabled" id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
                         [currentUrl]="searchLink"
                         [showScopeSelector]="showScopeSelector"
                         [inPlaceSearch]="inPlaceSearch"
                         [searchPlaceholder]="searchFormPlaceholder | translate">
-        </ds-search-form>
+        </ds-themed-search-form>
         <ng-content select="[additionalSearchFormOptions]"></ng-content>
         <ds-item-export-modal-launcher [searchOptions$]="searchOptions$" *ngIf="showExport"></ds-item-export-modal-launcher>
     </div>

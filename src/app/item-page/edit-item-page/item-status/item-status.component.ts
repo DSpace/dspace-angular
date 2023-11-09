@@ -9,7 +9,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, } from '../../../core/shared/operators';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
@@ -81,7 +81,6 @@ export class ItemStatusComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso));
     this.itemRD$.pipe(
-      first(),
       map((data: RemoteData<Item>) => data.payload)
     ).pipe(
       switchMap((item: Item) => {
@@ -106,7 +105,14 @@ export class ItemStatusComponent implements OnInit {
       // Observable for configuration determining whether the Register DOI feature is enabled
       let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
         getFirstCompletedRemoteData(),
-        map((enabledRD: RemoteData<ConfigurationProperty>) => enabledRD.hasSucceeded && enabledRD.payload.values.length > 0)
+        map((rd: RemoteData<ConfigurationProperty>) => {
+          // If the config property is exposed via rest and has a value set, return it
+          if (rd.hasSucceeded && hasValue(rd.payload) && isNotEmpty(rd.payload.values)) {
+            return rd.payload.values[0] === 'true';
+          }
+          // Otherwise, return false
+          return false;
+        })
       );
 
       /**
