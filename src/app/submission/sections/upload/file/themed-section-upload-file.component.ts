@@ -18,6 +18,12 @@ export class ThemedSubmissionSectionUploadFileComponent
   @Input() availableAccessConditionOptions: any[];
 
   /**
+   * add more access conditions link show or not
+   * @type {boolean}
+   */
+  @Input() singleAccessCondition: boolean;
+
+  /**
    * The submission id
    * @type {string}
    */
@@ -56,6 +62,12 @@ export class ThemedSubmissionSectionUploadFileComponent
   @Input() fileName: string;
 
   /**
+   * Representing the possibility to edit or not the files
+   * @type {boolean}
+   */
+  @Input() readOnly: boolean;
+
+  /**
    * The section id
    * @type {string}
    */
@@ -69,12 +81,14 @@ export class ThemedSubmissionSectionUploadFileComponent
 
   protected inAndOutputNames: (keyof SubmissionSectionUploadFileComponent & keyof this)[] = [
     'availableAccessConditionOptions',
+    'singleAccessCondition',
     'collectionId',
     'collectionPolicyType',
     'configMetadataForm',
     'fileId',
     'fileIndex',
     'fileName',
+    'readOnly',
     'sectionId',
     'submissionId'
     ];
