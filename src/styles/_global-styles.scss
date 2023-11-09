@@ -268,6 +268,30 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
   vertical-align: middle;
 }
 
+/* Flexbox gap */
+
+.gap-0 { gap: 0; }
+.gap-1 { gap: calc(#{$spacer} * .25); }
+.gap-2 { gap: calc(#{$spacer} * .5); }
+.gap-3 { gap: #{$spacer}; }
+.gap-4 { gap: calc(#{$spacer} * 1.5); }
+.gap-5 { gap: calc(#{$spacer} * 3); }
+
+.gapx-0 { column-gap: 0; }
+.gapx-1 { column-gap: calc(#{$spacer} * .25); }
+.gapx-2 { column-gap: calc(#{$spacer} * .5); }
+.gapx-3 { column-gap: #{$spacer}; }
+.gapx-4 { column-gap: calc(#{$spacer} * 1.5); }
+.gapx-5 { column-gap: calc(#{$spacer} * 3); }
+
+.gapy-0 { row-gap: 0; }
+.gapy-1 { row-gap: calc(#{$spacer} * .25); }
+.gapy-2 { row-gap: calc(#{$spacer} * .5); }
+.gapy-3 { row-gap: #{$spacer}; }
+.gapy-4 { row-gap: calc(#{$spacer} * 1.5); }
+.gapy-5 { row-gap: calc(#{$spacer} * 3); }
+
+
 .pt-0\.5 {
   padding-top: 0.125rem !important;
 }
