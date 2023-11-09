@@ -152,6 +152,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveMembers(this.config.currentPage);
+        this.search({query: ''});
       }
     }));
   }
