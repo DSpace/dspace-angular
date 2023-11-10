@@ -20,6 +20,9 @@
              [placeholder]="'ldn-new-service.form.placeholder.name' | translate" formControlName="name" id="name"
              name="name"
              type="text">
+      <div *ngIf="formModel.get('name').invalid && formModel.get('name').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.name' | translate }}
+      </div>
     </div>
 
     <!-- In the description section -->
@@ -36,6 +39,9 @@
              [placeholder]="'ldn-new-service.form.placeholder.url' | translate" formControlName="url" id="url"
              name="url"
              type="text">
+      <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.url' | translate }}
+      </div>
     </div>
 
 
@@ -47,6 +53,22 @@
              id="ldnUrl"
              name="ldnUrl"
              type="text">
+      <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.ldnurl' | translate }}
+      </div>
+    </div>
+
+    <!-- In the score section -->
+    <div class="mb-2">
+      <label for="score">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
+             [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
+             id="score"
+             name="score"
+             type="text">
+      <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.score' | translate }}
+      </div>
     </div>
 
 
