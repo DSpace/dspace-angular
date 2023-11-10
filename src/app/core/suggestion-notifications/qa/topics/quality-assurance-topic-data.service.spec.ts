@@ -81,6 +81,7 @@ describe('QualityAssuranceTopicDataService', () => {
     );
 
     spyOn((service as any).searchData, 'searchBy').and.callThrough();
+    spyOn((service as any), 'findById').and.callThrough();
   });
 
   describe('searchTopicsByTarget', () => {
@@ -133,4 +134,22 @@ describe('QualityAssuranceTopicDataService', () => {
     });
   });
 
+  describe('getTopic', () => {
+    it('should call findByHref', (done) => {
+      service.getTopic(qualityAssuranceTopicObjectMorePid.id).subscribe(
+        (res) => {
+          expect((service as any).findById).toHaveBeenCalledWith(qualityAssuranceTopicObjectMorePid.id, true, true);
+        }
+      );
+      done();
+    });
+
+    it('should return a RemoteData<QualityAssuranceTopicObject> for the object with the given URL', () => {
+      const result = service.getTopic(qualityAssuranceTopicObjectMorePid.id);
+      const expected = cold('(a)', {
+        a: qaTopicObjectRD
+      });
+      expect(result).toBeObservable(expected);
+    });
+  });
 });

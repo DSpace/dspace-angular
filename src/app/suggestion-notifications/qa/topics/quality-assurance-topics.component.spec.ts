@@ -16,6 +16,7 @@ import { SuggestionNotificationsStateService } from '../../suggestion-notificati
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 
 describe('QualityAssuranceTopicsComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceTopicsComponent>;
@@ -49,6 +50,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
           },
         }}},
         { provide: PaginationService, useValue: paginationService },
+        { provide: ItemDataService, useValue: {} },
         QualityAssuranceTopicsComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA]

@@ -3232,6 +3232,8 @@
 
   "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
 
+  "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
+
   "quality-assurance.source.description": "Below you can see all the notification's sources.",
 
   "quality-assurance.topics": "Current Topics",

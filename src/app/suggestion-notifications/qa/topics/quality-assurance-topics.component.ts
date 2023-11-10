@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import {
@@ -15,6 +15,10 @@ import {
 } from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActivatedRoute } from '@angular/router';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { Item } from '../../../core/shared/item.model';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -66,6 +70,11 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   public targetId: string;
 
   /**
+   * The URL of the item page.
+   */
+  public itemPageUrl: string;
+
+  /**
    * Initialize the component variables.
    * @param {PaginationService} paginationService
    * @param {ActivatedRoute} activatedRoute
@@ -75,7 +84,8 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   constructor(
     private paginationService: PaginationService,
     private activatedRoute: ActivatedRoute,
-    private notificationsStateService: SuggestionNotificationsStateService
+    private notificationsStateService: SuggestionNotificationsStateService,
+    private itemService: ItemDataService
   ) {
     this.sourceId = this.activatedRoute.snapshot.params.sourceId;
     this.targetId = this.activatedRoute.snapshot.params.targetId;
@@ -154,6 +164,32 @@ export class QualityAssuranceTopicsComponent implements OnInit {
         this.paginationConfig.pageSize = this.paginationConfig.pageSizeOptions[0];
       }
     }
+  }
+
+  /**
+   * Returns an Observable that emits the title of the target item.
+   * The target item is retrieved by its ID using the itemService.
+   * The title is extracted from the first metadata value of the item.
+   * The item page URL is also set in the component.
+   * @returns An Observable that emits the title of the target item.
+   */
+  getTargetItemTitle(): Observable<string> {
+    return this.itemService.findById(this.targetId).pipe(
+      take(1),
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
+      map((item: Item) => item.firstMetadataValue('dc.title'))
+    );
+  }
+
+  /**
+   * Returns the page route for the given item.
+   * @param item The item to get the page route for.
+   * @returns The page route for the given item.
+   */
+  getItemPageRoute(item: Item): string {
+    return getItemPageRoute(item);
   }
 
   /**

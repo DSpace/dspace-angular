@@ -16,6 +16,7 @@ import { IdentifiableDataService } from '../../../data/base/identifiable-data.se
 import { dataService } from '../../../data/base/data-service.decorator';
 import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
 import { SearchData, SearchDataImpl } from '../../../../core/data/base/search-data';
+import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -24,6 +25,7 @@ import { SearchData, SearchDataImpl } from '../../../../core/data/base/search-da
 @dataService(QUALITY_ASSURANCE_TOPIC_OBJECT)
 export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 
+  private findAllData: FindAllData<QualityAssuranceTopicObject>;
   private searchData: SearchData<QualityAssuranceTopicObject>;
 
   private searchByTargetMethod = 'byTarget';
@@ -45,6 +47,7 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
     protected notificationsService: NotificationsService
   ) {
     super('qualityassurancetopics', requestService, rdbService, objectCache, halService);
+    this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
@@ -77,5 +80,22 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
    */
   public clearFindAllTopicsRequests() {
     this.requestService.setStaleByHrefSubstring('qualityassurancetopics');
+  }
+
+  /**
+   * Return a single Quality Assurance topic.
+   *
+   * @param id                          The Quality Assurance topic id
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
+   *
+   * @return Observable<RemoteData<QualityAssuranceTopicObject>>
+   *    The Quality Assurance topic.
+   */
+  public getTopic(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<QualityAssuranceTopicObject>> {
+    return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
