@@ -1,6 +1,5 @@
 nav.navbar {
     background-color: var(--ds-navbar-bg);
-    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
     align-items: baseline;
 }
 
@@ -12,9 +11,11 @@ nav.navbar {
         position: absolute;
         overflow: hidden;
         height: 0;
+        z-index: var(--ds-nav-z-index);
         &.open {
           height: auto;
           min-height: 100vh; //doesn't matter because wrapper is sticky
+          border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
         }
     }
 }
