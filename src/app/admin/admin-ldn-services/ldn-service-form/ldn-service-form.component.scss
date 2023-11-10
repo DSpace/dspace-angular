@@ -131,7 +131,9 @@ form button.btn.btn-primary[type="submit"] {
   z-index: var(--ds-submission-footer-z-index);
 }
 
-
+div + div {
+  margin-bottom: 40px;
+}
 
 
 

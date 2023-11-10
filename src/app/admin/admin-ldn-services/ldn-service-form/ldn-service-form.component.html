@@ -11,7 +11,7 @@
                    name="name"
                    type="text">
             <div *ngIf="formModel.get('name').invalid && formModel.get('name').touched" class="error-text">
-                Name is required
+              {{ 'ldn-new-service.form.error.name' | translate }}
             </div>
         </div>
 
@@ -38,7 +38,7 @@
                    name="url"
                    type="text">
             <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
-                URL is required
+              {{ 'ldn-new-service.form.error.url' | translate }}
             </div>
         </div>
 
@@ -55,7 +55,7 @@
                    name="ldnUrl"
                    type="text">
             <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" class="error-text">
-                LDN URL is required
+              {{ 'ldn-new-service.form.error.ldnurl' | translate }}
             </div>
         </div>
 
@@ -72,7 +72,7 @@
                    name="score"
                    type="text">
           <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
-            Please enter a valid score (between 0 and 1). Use the “.” as decimal separator
+            {{ 'ldn-new-service.form.error.score' | translate }}
           </div>
         </div>
 
@@ -110,7 +110,7 @@
                                     [ngValue]="pattern.name">{{ pattern.name }}</option>
                         </select>
                         <div *ngIf="!patternSelected()" class="error-text">
-                            Please select at least a pattern.
+                          {{ 'ldn-new-service.form.error.patterns' | translate }}
                         </div>
                     </div>
 
@@ -182,7 +182,7 @@
                                     [ngValue]="pattern.name">{{ pattern.name }}</option>
                         </select>
                         <div *ngIf="!patternSelected()" class="error-text">
-                            Please select at least a pattern.
+                          {{ 'ldn-new-service.form.error.patterns' | translate }}
                         </div>
                     </div>
                     <div class="col">
