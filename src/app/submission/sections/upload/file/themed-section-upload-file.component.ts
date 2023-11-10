@@ -18,7 +18,7 @@ export class ThemedSubmissionSectionUploadFileComponent
   @Input() availableAccessConditionOptions: any[];
 
    /**
-   * The indicator is the primary bitstream 
+   * The indicator is the primary bitstream
    * it will be null if no primary bitstream is set for the ORIGINAL bundle
    * @type {boolean, null}
    */
