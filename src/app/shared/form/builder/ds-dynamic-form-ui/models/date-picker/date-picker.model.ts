@@ -15,6 +15,7 @@ export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 export interface DynamicDsDateControlModelConfig extends DynamicDatePickerModelConfig {
   legend?: string;
   typeBindRelations?: DynamicFormControlRelation[];
+  repeatable: boolean;
 }
 
 /**
@@ -37,7 +38,7 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     this.metadataValue = (config as any).metadataValue;
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
-
+    this.repeatable = config.repeatable;
     // This was a subscription, then an async setTimeout, but it seems unnecessary
     const parentModel = this.getRootParent(this);
     if (parentModel && isNotUndefined(parentModel.hidden)) {
