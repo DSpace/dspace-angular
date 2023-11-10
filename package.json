@@ -82,7 +82,7 @@
     "@types/grecaptcha": "^3.0.4",
     "angular-idle-preload": "3.0.0",
     "angulartics2": "^12.2.0",
-    "axios": "^0.27.2",
+    "axios": "^1.6.0",
     "bootstrap": "^4.6.1",
     "cerialize": "0.1.18",
     "cli-progress": "^3.12.0",
