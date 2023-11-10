@@ -284,7 +284,7 @@ describe('FormBuilderService test suite', () => {
         hasSelectableMetadata: true
       }),
 
-      new DynamicDsDatePickerModel({ id: 'testDate' }),
+      new DynamicDsDatePickerModel({ id: 'testDate', repeatable: false}),
 
       new DynamicLookupModel({
         id: 'testLookup',
