@@ -37,8 +37,8 @@ export class LdnServiceFormEditComponent implements OnInit {
     @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
     @ViewChild('resetFormModal', {static: true}) resetFormModal: TemplateRef<any>;
 
-    public inboundPatterns: object[] = notifyPatterns;
-    public outboundPatterns: object[] = notifyPatterns;
+    public inboundPatterns: string[] = notifyPatterns;
+    public outboundPatterns: string[] = notifyPatterns;
     itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
     config: FindListOptions = Object.assign(new FindListOptions(), {
         elementsPerPage: 20
