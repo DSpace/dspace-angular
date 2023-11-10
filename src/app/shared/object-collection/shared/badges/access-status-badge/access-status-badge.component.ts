@@ -11,7 +11,8 @@ import { ITEM } from '../../../../../core/shared/item.resource-type';
 
 @Component({
   selector: 'ds-access-status-badge',
-  templateUrl: './access-status-badge.component.html'
+  templateUrl: './access-status-badge.component.html',
+  styleUrls: ['./access-status-badge.component.scss']
 })
 /**
  * Component rendering the access status of an item as a badge
@@ -25,6 +26,11 @@ export class AccessStatusBadgeComponent {
    * Whether to show the access status badge or not
    */
   showAccessStatus: boolean;
+
+  /**
+   * Value based stylesheet class for access status badge
+   */
+  accessStatusClass: string;
 
   /**
    * Initialize instance variables
@@ -57,5 +63,12 @@ export class AccessStatusBadgeComponent {
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
       catchError(() => observableOf('access-status.unknown.listelement.badge'))
     );
+
+    // stylesheet based on the access status value
+    this.accessStatus$.pipe(
+      map((accessStatusClass: string) => accessStatusClass.replace(/\./g, '-'))
+    ).subscribe((accessStatusClass: string) => {
+      this.accessStatusClass = accessStatusClass;
+    });
   }
 }
