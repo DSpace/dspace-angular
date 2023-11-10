@@ -51,7 +51,7 @@ import { SourceDataResolver } from './admin-quality-assurance-source-page-compon
       },
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/:targetId`,
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
         component: AdminQualityAssuranceTopicsPageComponent,
         pathMatch: 'full',
         resolve: {

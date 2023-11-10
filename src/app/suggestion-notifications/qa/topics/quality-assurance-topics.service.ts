@@ -29,15 +29,6 @@ export class QualityAssuranceTopicsService {
     private qualityAssuranceTopicRestService: QualityAssuranceTopicDataService
   ) { }
 
-  /**
-   * sourceId used to get topics
-   */
-  sourceId: string;
-
-  /**
-   * targetId used to get topics
-   */
-  targetId: string;
 
   /**
    * Return the list of Quality Assurance topics managing pagination and errors.
@@ -49,21 +40,25 @@ export class QualityAssuranceTopicsService {
    * @return Observable<PaginatedList<QualityAssuranceTopicObject>>
    *    The list of Quality Assurance topics.
    */
-  public getTopics(elementsPerPage, currentPage): Observable<PaginatedList<QualityAssuranceTopicObject>> {
+  public getTopics(elementsPerPage, currentPage, source: string, target?: string): Observable<PaginatedList<QualityAssuranceTopicObject>> {
     const sortOptions = new SortOptions('name', SortDirection.ASC);
-
     const findListOptions: FindListOptions = {
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
       sort: sortOptions,
-      searchParams: [new RequestParam('source', this.sourceId)]
+      searchParams: [new RequestParam('source', source)]
     };
 
-    if (hasValue(this.targetId)) {
-      findListOptions.searchParams.push(new RequestParam('target', this.targetId));
+    let request$: Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>>;
+
+    if (hasValue(target)) {
+      findListOptions.searchParams.push(new RequestParam('target', target));
+      request$ = this.qualityAssuranceTopicRestService.searchTopicsByTarget(findListOptions);
+    } else {
+      request$ = this.qualityAssuranceTopicRestService.searchTopicsBySource(findListOptions);
     }
 
-    return this.qualityAssuranceTopicRestService.getTopics(findListOptions).pipe(
+    return request$.pipe(
       getFirstCompletedRemoteData(),
       map((rd: RemoteData<PaginatedList<QualityAssuranceTopicObject>>) => {
         if (rd.hasSucceeded) {
@@ -73,21 +68,5 @@ export class QualityAssuranceTopicsService {
         }
       })
     );
-  }
-
-  /**
-   * set sourceId which is used to get topics
-   * @param sourceId string
-   */
-  setSourceId(sourceId: string) {
-    this.sourceId = sourceId;
-  }
-
-  /**
-   * set targetId which is used to get topics
-   * @param targetId string
-   */
-  setTargetId(targetId: string) {
-    this.targetId = targetId;
   }
 }
