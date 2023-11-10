@@ -24,8 +24,8 @@ const searchOption = params.get('searchable');
 const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
+const isDownloadPluginEnabled = (params.get('enableDownloadPlugin') === 'true');
 
-let isDownloadPluginEnabled = true;
 let windowSettings = {};
 let sideBarPanel = 'info';
 let defaultView = 'single';
