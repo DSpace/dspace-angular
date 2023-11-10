@@ -258,8 +258,6 @@ describe('SubmissionSectionFormComponent test suite', () => {
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
       submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(sectionData));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');
 
@@ -305,9 +303,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       compAsAny.formData = {};
-      compAsAny.sectionData.data = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
-      };
+      compAsAny.sectionMetadata = ['dc.title'];
       spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeTruthy();
@@ -319,9 +315,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       compAsAny.formData = newSectionData;
-      compAsAny.sectionData.data = {
-        'dc.title': [new FormFieldMetadataValueObject('test')]
-      };
+      compAsAny.sectionMetadata = ['dc.title'];
       spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
@@ -366,7 +360,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow.relation' }],
-                  scope: 'WORKFLOW',
+                  visibility: {
+                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
+                  } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],
             },
@@ -374,7 +370,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace.relation' }],
-                  scope: 'WORKSPACE',
+                  visibility: {
+                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
+                  } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],
             },

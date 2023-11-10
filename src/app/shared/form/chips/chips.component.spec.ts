@@ -166,7 +166,7 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should not show tooltip on mouse over list item when display text is short', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       de.triggerEventHandler('mouseover', null);
       expect(chipsComp.tipText$.value).toEqual([]);
       de.triggerEventHandler('mouseout', null);
@@ -188,14 +188,14 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should show tooltip on mouse over list item when display text is long', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       de.triggerEventHandler('mouseover', null);
       expect(chipsComp.tipText$.value).toEqual(['long text to display is truncated but not in tooltip']);
       de.triggerEventHandler('mouseout', null);
     });
 
     it('should show truncated text on list item when display text is long', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item p.d-table-cell'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item p.d-table-cell'));
       expect(de.nativeElement.innerText).toEqual(chipsComp.textTruncate('long text to display is truncated but not in tooltip'));
     });
   });

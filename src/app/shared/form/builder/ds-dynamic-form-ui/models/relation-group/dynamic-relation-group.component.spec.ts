@@ -144,10 +144,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   let debugElement: DebugElement;
   let modelValue: any;
   let html;
-  let control1: UntypedFormControl;
-  let model1: DsDynamicInputModel;
-  let control2: UntypedFormControl;
-  let model2: DsDynamicInputModel;
   let submissionServiceStub: SubmissionServiceStub;
   const vocabularyService: any = new VocabularyServiceStub();
 
@@ -246,10 +242,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         groupComp.group = FORM_GROUP_TEST_GROUP;
         groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
         groupFixture.detectChanges();
-        control1 = service.getFormControlById('dc_contributor_author', (groupComp as any).formRef.formGroup, groupComp.formModel) as UntypedFormControl;
-        model1 = service.findById('dc_contributor_author', groupComp.formModel) as DsDynamicInputModel;
-        control2 = service.getFormControlById('local_contributor_affiliation', (groupComp as any).formRef.formGroup, groupComp.formModel) as UntypedFormControl;
-        model2 = service.findById('local_contributor_affiliation', groupComp.formModel) as DsDynamicInputModel;
 
       }));
 
@@ -313,8 +305,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         const modalRef = groupComp.onChipSelected(0);
         groupFixture.detectChanges();
 
-        control1 = service.getFormControlById('dc_contributor_author', (groupComp as any).formRef.formGroup, groupComp.formModel) as UntypedFormControl;
-        model1 = service.findById('dc_contributor_author', groupComp.formModel) as DsDynamicInputModel;
         expect(modalRef.componentInstance.editMode).toBe(true);
         expect(modalRef.componentInstance.itemIndex).toBe(0);
         expect(modalRef.componentInstance.item).toBe(groupComp.chips.getChipByIndex(0).item);

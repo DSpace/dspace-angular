@@ -492,7 +492,7 @@ function saveToCache(req, page: any) {
  */
 function hasNotSucceeded(statusCode) {
   const rgx = new RegExp(/^20+/);
-  return !rgx.test(statusCode)
+  return !rgx.test(statusCode);
 }
 
 function retrieveHeaders(response) {

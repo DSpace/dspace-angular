@@ -11,6 +11,7 @@ import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils
 import { Item } from '../shared/item.model';
 import { EMBED_SEPARATOR } from './base/base-data.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
+import { RouterMock } from '../../shared/mocks/router.mock';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -28,6 +29,7 @@ describe('DsoRedirectService', () => {
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const objectCache = {} as ObjectCacheService;
+  const routerMock: any = new RouterMock();
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -60,7 +62,8 @@ describe('DsoRedirectService', () => {
       rdbService,
       objectCache,
       halService,
-      redirectService
+      redirectService,
+      routerMock
     );
   });
 

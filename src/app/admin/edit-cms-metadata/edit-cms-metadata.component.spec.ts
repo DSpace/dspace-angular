@@ -32,7 +32,9 @@ describe('EditCmsMetadataComponent', () => {
     ['nl', ''],
     ['pt', ''],
     ['fr', ''],
-    ['lv', '']
+    ['lv', ''],
+    ['bn', ''],
+    ['el', ''],
   ]);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -102,8 +104,9 @@ describe('EditCmsMetadataComponent', () => {
     });
 
     it('should render textareas of the languages', () => {
-      const languagesLength = environment.languages.length;
+      const languagesLength = environment.languages.filter((l) => l.active).length;
       const textareas = fixture.debugElement.queryAll(By.css('textarea'));
+      console.log(textareas.length, languagesLength);
       expect(textareas).toHaveSize(languagesLength);
     });
 

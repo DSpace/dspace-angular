@@ -10,10 +10,10 @@ import { of as observableOf, of } from 'rxjs';
 import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { Person } from '@angular/cli/utilities/package-json';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { cold } from 'jasmine-marbles';
 import { EPersonMock, EPersonMock2 } from '../../../../../shared/testing/eperson.mock';
+import { EPerson } from '../../../../../core/eperson/models/eperson.model';
 
 describe('CrisLayoutRelationBoxComponent', () => {
   let component: CrisLayoutRelationBoxComponent;
@@ -124,7 +124,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
 
       describe('Whenever the personItem is the researcher profile of the logged user', () => {
         beforeEach(() => {
-          (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf({ id: EPersonMock.id } as Person));
+          (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf({ id: EPersonMock.id } as EPerson));
           component.item = ownerItem;
           fixture.detectChanges();
         });
@@ -138,7 +138,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
 
       describe('Whenever the personItem is not the researcher profile of the logged user', () => {
         beforeEach(() => {
-          (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf({ id: 'fake-uuid' } as Person));
+          (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf({ id: 'fake-uuid' } as EPerson));
           component.item = personItem;
           fixture.detectChanges();
         });
@@ -152,7 +152,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
 
       describe('no one is logged', () => {
         beforeEach(() => {
-          (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf(null as Person));
+          (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf(null as EPerson));
           fixture.detectChanges();
         });
         it('info message has no value', fakeAsync(() => {
