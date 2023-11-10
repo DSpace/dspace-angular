@@ -40,7 +40,7 @@
       </ds-truncatable>
       <ds-item-correction [item]="item"></ds-item-correction>
       <ds-item-submitter *ngIf="showSubmitter" [object]="object.indexableObject"></ds-item-submitter>
-      <ds-item-collection [object]="object.indexableObject"></ds-item-collection>
+      <ds-item-collection *ngIf="object.indexableObject" [object]="object.indexableObject"></ds-item-collection>
     </div>
   </div>
 </div>

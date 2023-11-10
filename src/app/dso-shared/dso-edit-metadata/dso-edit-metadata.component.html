@@ -1,4 +1,4 @@
-<div class="item-metadata" *ngIf="form">
+<div class="item-metadata" *ngIf="(isFormInitialized$ | async)">
   <div class="button-row top d-flex my-2 space-children-mr ml-gap">
     <button class="mr-auto btn btn-success" id="dso-add-btn" [disabled]="form.newValue || (saving$ | async)"
             [title]="dsoType + '.edit.metadata.add-button' | translate"
@@ -40,7 +40,7 @@
                                       [mdValue]="form.newValue"
                                       [dsoType]="dsoType"
                                       [saving$]="savingOrLoadingFieldValidation$"
-                                      [metadataSecurityConfiguration]="getSecuritySettings()"
+                                      [metadataSecurityConfiguration]="(securitySettings$ | async)"
                                       [mdField]="newMdField"
                                       [isNewMdField]="true"
                                       [isOnlyValue]="true"
@@ -66,7 +66,7 @@
                                          [form]="form"
                                          [dsoType]="dsoType"
                                          [saving$]="saving$"
-                                         [metadataSecurityConfiguration]="getSecuritySettings()"
+                                         [metadataSecurityConfiguration]="(securitySettings$ | async)"
                                          [draggingMdField$]="draggingMdField$"
                                          [mdField]="mdField"
                                          (valueSaved)="onValueSaved()">

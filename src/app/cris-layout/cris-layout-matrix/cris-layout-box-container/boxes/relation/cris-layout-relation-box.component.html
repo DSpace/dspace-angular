@@ -3,5 +3,7 @@
                               [configuration]="configuration"
                               [searchEnabled]="searchEnabled"
                               [showCharts]="true"
-                              [showScopeSelector]="false">
+                              [showScopeSelector]="false"
+                              [showSearchResultNotice]="showSearchResultNotice$ | async"
+                              [searchResultNotice]="searchResultNotice">
 </ds-configuration-search-page>

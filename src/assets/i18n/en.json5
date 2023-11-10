@@ -4608,6 +4608,7 @@
 
   "audit.object.overview.title": "Subject Audit Logs Overview",
 
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
 
   "audit.detail.title" : "Audit Detail",
 
@@ -5984,6 +5985,12 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
 
+  "submission.sections.external-source.duplicate-matches.header": "Potential duplicate matches",
+
+  "submission.sections.external-source.duplicate-matches.item.not-archived": "Not archived",
+
+  "submission.sections.external-source.duplicate-matches.item.isWithdrawn": "Withdrawn",
+
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
 
   "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
@@ -6430,7 +6437,7 @@
 
   "submission.sections.license.required": "You must accept the license",
 
-  "submission.sections.license.notgranted":  "",
+  "submission.sections.license.notgranted":  "You must accept the license",
 
 
   "submission.sections.sherpa.publication.information": "Publication information",

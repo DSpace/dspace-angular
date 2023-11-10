@@ -18,6 +18,7 @@ describe('DsoVersioningModalService', () => {
   let router;
   let workspaceItemDataService;
   let itemService;
+  let editItemService;
 
   const mockItem: Item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -48,6 +49,7 @@ describe('DsoVersioningModalService', () => {
     router = jasmine.createSpyObj('router', ['navigateByUrl']);
     workspaceItemDataService = jasmine.createSpyObj('workspaceItemDataService', ['findByItem']);
     itemService = jasmine.createSpyObj('itemService', ['findByHref']);
+    editItemService = jasmine.createSpyObj('editItemService', ['invalidateItemCache']);
 
     service = new DsoVersioningModalService(
       modalService,
@@ -56,7 +58,8 @@ describe('DsoVersioningModalService', () => {
       itemVersionShared,
       router,
       workspaceItemDataService,
-      itemService
+        itemService,
+        editItemService,
     );
   }));
   describe('when onCreateNewVersion() is called', () => {

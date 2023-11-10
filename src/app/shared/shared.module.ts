@@ -333,6 +333,10 @@ import { EntityIconDirective } from './entity-icon/entity-icon.directive';
 import {
   AdditionalMetadataComponent
 } from './object-list/search-result-list-element/additional-metadata/additional-metadata.component';
+import { MyDSpaceItemStatusComponent } from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
+import { ItemCollectionComponent } from './object-collection/shared/mydspace-item-collection/item-collection.component';
+import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 
 const MODULES = [
   CommonModule,
@@ -472,6 +476,10 @@ const COMPONENTS = [
   ExportExcelSelectorComponent,
   ThemedBrowseMostElementsComponent,
   SearchChartBarHorizontalComponent,
+  ItemListPreviewComponent,
+  ThemedItemListPreviewComponent,
+  MyDSpaceItemStatusComponent,
+  ItemCollectionComponent
 ];
 
 const ENTRY_COMPONENTS = [

@@ -6,6 +6,7 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { SearchResult } from '../../../search/models/search-result.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+import { DuplicateMatchMetadataDetailConfig } from 'src/app/submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 /**
  * Themed wrapper for ItemListPreviewComponent
@@ -16,7 +17,7 @@ import { ThemeService } from 'src/app/shared/theme-support/theme.service';
   templateUrl: '../../../theme-support/themed.component.html'
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter', 'workflowItem'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter', 'workflowItem', 'metadataList'];
 
   @Input() item: Item;
 
@@ -27,6 +28,8 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
   @Input() showSubmitter = false;
 
   @Input() workflowItem: WorkflowItem;
+
+  @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
 
   constructor(
     protected resolver: ComponentFactoryResolver,
