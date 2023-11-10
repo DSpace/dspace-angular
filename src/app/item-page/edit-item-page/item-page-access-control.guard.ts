@@ -12,7 +12,7 @@ import { AuthService } from '../../core/auth/auth.service';
   providedIn: 'root'
 })
 /**
- * Guard for preventing unauthorized access to certain {@link Item} pages requiring manage mappings rights
+ * Guard for preventing unauthorized access to certain {@link Item} pages requiring administrator rights
  */
 export class ItemPageAccessControlGuard extends DsoPageSingleFeatureGuard<Item> {
   constructor(protected resolver: ItemPageResolver,
