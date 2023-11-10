@@ -5030,7 +5030,11 @@
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
 
-  "submission.section.section-coar-notify.control.label": "Request {{ pattern }} at the following services",
+  "submission.section.section-coar-notify.control.request-review.label": "You can request a review to one of the following services",
+
+  "submission.section.section-coar-notify.control.request-endorsement.label": "You can request an Endorsement to one of the following overlay journals",
+
+  "submission.section.section-coar-notify.control.request-ingest.label": "You can request to ingest a copy of your submission to one of the following services",
 
   "submission.section.section-coar-notify.dropdown.no-data": "No data available",
 
