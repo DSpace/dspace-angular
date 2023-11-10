@@ -64,7 +64,7 @@ export class LogInPasswordComponent implements OnInit {
 
   /**
    * The authentication form.
-   * @type {FormGroup}
+   * @type {UntypedFormGroup}
    */
   public form: UntypedFormGroup;
 
@@ -125,7 +125,7 @@ export class LogInPasswordComponent implements OnInit {
         return message;
       })
     );
-    
+
     this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(shareReplay(1));
     this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
     this.canShowDivider$ =
