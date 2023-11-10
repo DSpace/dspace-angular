@@ -1,0 +1,16 @@
+#skip-to-main-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: calc(var(--ds-nav-z-index) + 1);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+
+  &:focus {
+    opacity: 1;
+    top: 0;
+  }
+}
