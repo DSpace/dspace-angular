@@ -23,7 +23,7 @@ export class ItemPageAccessControlGuard extends DsoPageSingleFeatureGuard<Item> 
   }
 
   /**
-   * Check manage mappings authorization rights
+   * Check administrator authorization rights
    */
   getFeatureID(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
     return observableOf(FeatureID.AdministratorOf);

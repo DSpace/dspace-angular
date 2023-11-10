@@ -23,7 +23,7 @@ export class ItemPageCurateGuard extends DsoPageSingleFeatureGuard<Item> {
   }
 
   /**
-   * Check edit curate authorization rights
+   * Check administrator authorization rights
    */
   getFeatureID(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
     return observableOf(FeatureID.AdministratorOf);
