@@ -169,7 +169,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       metadataFields: [],
       hasSelectableMetadata: false
     }),
-    new DynamicDsDatePickerModel({ id: 'datepicker' }),
+    new DynamicDsDatePickerModel({ id: 'datepicker', repeatable: false }),
     new DynamicLookupModel({
       id: 'lookup',
       metadataFields: [],
