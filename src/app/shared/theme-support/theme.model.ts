@@ -44,27 +44,26 @@ export class RegExTheme extends Theme {
 
 export class HandleTheme extends Theme {
 
-  private normalizedHandle$: Observable<string | null>;
-
   constructor(public config: HandleThemeConfig,
               protected handleService: HandleService
   ) {
     super(config);
-    this.normalizedHandle$ = this.handleService.normalizeHandle(this.config.handle).pipe(
-      take(1),
-    );
   }
 
   matches<T extends DSpaceObject & HandleObject>(url: string, dso: T): Observable<boolean> {
-    return combineLatest([
-      this.handleService.normalizeHandle(dso?.handle),
-      this.normalizedHandle$,
-    ]).pipe(
-      map(([handle, normalizedHandle]: [string | null, string | null]) => {
-        return hasValue(dso) && hasValue(dso.handle) && handle === normalizedHandle;
-      }),
-      take(1),
-    );
+    if (hasValue(dso?.handle)) {
+      return combineLatest([
+        this.handleService.normalizeHandle(dso?.handle),
+        this.handleService.normalizeHandle(this.config.handle),
+      ]).pipe(
+        map(([handle, normalizedHandle]: [string | null, string | null]) => {
+          return hasValue(dso) && hasValue(dso.handle) && handle === normalizedHandle;
+        }),
+        take(1),
+      );
+    } else {
+      return observableOf(false);
+    }
   }
 }
 

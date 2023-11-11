@@ -1,8 +1,9 @@
-import { HandleService } from './handle.service';
+import { HandleService, CANONICAL_PREFIX_KEY } from './handle.service';
 import { TestBed } from '@angular/core/testing';
 import { ConfigurationDataServiceStub } from './testing/configuration-data.service.stub';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { of as observableOf } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from './remote-data.utils';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 describe('HandleService', () => {
   let service: HandleService;
@@ -22,7 +23,11 @@ describe('HandleService', () => {
 
   describe(`normalizeHandle`, () => {
     it('should normalize a handle url with custom conical prefix with trailing slash', (done: DoneFn) => {
-      service.canonicalPrefix$ = observableOf('https://hdl.handle.net/');
+      spyOn(configurationService, 'findByPropertyName').and.returnValue(createSuccessfulRemoteDataObject$({
+        ... new ConfigurationProperty(),
+        name: CANONICAL_PREFIX_KEY,
+        values: ['https://hdl.handle.net/'],
+      }));
 
       service.normalizeHandle('https://hdl.handle.net/123456789/123456').subscribe((handle: string | null) => {
         expect(handle).toBe('123456789/123456');
@@ -31,7 +36,11 @@ describe('HandleService', () => {
     });
 
     it('should normalize a handle url with custom conical prefix without trailing slash', (done: DoneFn) => {
-      service.canonicalPrefix$ = observableOf('https://hdl.handle.net');
+      spyOn(configurationService, 'findByPropertyName').and.returnValue(createSuccessfulRemoteDataObject$({
+        ... new ConfigurationProperty(),
+        name: CANONICAL_PREFIX_KEY,
+        values: ['https://hdl.handle.net/'],
+      }));
 
       service.normalizeHandle('https://hdl.handle.net/123456789/123456').subscribe((handle: string | null) => {
         expect(handle).toBe('123456789/123456');

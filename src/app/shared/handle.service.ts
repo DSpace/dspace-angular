@@ -4,7 +4,7 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { map, take } from 'rxjs/operators';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 
 export const CANONICAL_PREFIX_KEY = 'handle.canonical.prefix';
@@ -20,22 +20,9 @@ const NO_PREFIX_REGEX = /^([^\/]+\/[^\/]+)$/;
 })
 export class HandleService {
 
-  canonicalPrefix$: Observable<string | undefined>;
-
   constructor(
     protected configurationService: ConfigurationDataService,
   ) {
-    this.canonicalPrefix$ = this.configurationService.findByPropertyName(CANONICAL_PREFIX_KEY).pipe(
-      getFirstCompletedRemoteData(),
-      take(1),
-      map((configurationPropertyRD: RemoteData<ConfigurationProperty>) => {
-        if (configurationPropertyRD.hasSucceeded) {
-          return configurationPropertyRD.payload.values.length >= 1 ? configurationPropertyRD.payload.values[0] : undefined;
-        } else {
-          return undefined;
-        }
-      }),
-    );
   }
 
   /**
@@ -55,12 +42,20 @@ export class HandleService {
    * </ul>
    */
   normalizeHandle(handle: string): Observable<string | null> {
-    return this.canonicalPrefix$.pipe(
+    if (hasNoValue(handle)) {
+      return observableOf(null);
+    }
+    return this.configurationService.findByPropertyName(CANONICAL_PREFIX_KEY).pipe(
+      getFirstCompletedRemoteData(),
+      map((configurationPropertyRD: RemoteData<ConfigurationProperty>) => {
+        if (configurationPropertyRD.hasSucceeded) {
+          return configurationPropertyRD.payload.values.length >= 1 ? configurationPropertyRD.payload.values[0] : undefined;
+        } else {
+          return undefined;
+        }
+      }),
       map((prefix: string | undefined) => {
         let matches: string[];
-        if (hasNoValue(handle)) {
-          return null;
-        }
 
         matches = handle.match(PREFIX_REGEX(prefix));
 
