@@ -29,6 +29,7 @@ export const DATE_TEST_MODEL_CONFIG = {
   placeholder: 'Date',
   readOnly: false,
   required: true,
+  repeatable: false,
   toggleIcon: 'fas fa-calendar'
 };
 

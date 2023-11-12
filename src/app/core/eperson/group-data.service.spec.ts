@@ -43,11 +43,11 @@ describe('GroupDataService', () => {
   let rdbService;
   let objectCache;
   function init() {
-    restEndpointURL = 'https://dspace.4science.it/dspace-spring-rest/api/eperson';
+    restEndpointURL = 'https://rest.api/server/api/eperson';
     groupsEndpoint = `${restEndpointURL}/groups`;
     groups = [GroupMock, GroupMock2];
     groups$ = createSuccessfulRemoteDataObject$(createPaginatedList(groups));
-    rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups': groups$ });
+    rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://rest.api/server/api/eperson/groups': groups$ });
     halService = new HALEndpointServiceStub(restEndpointURL);
     objectCache = getMockObjectCacheService();
     TestBed.configureTestingModule({
@@ -108,6 +108,30 @@ describe('GroupDataService', () => {
         searchParams: [Object.assign(new RequestParam('query', 'test'))]
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
+    });
+  });
+
+  describe('searchNonMemberGroups', () => {
+    beforeEach(() => {
+      spyOn(service, 'searchBy');
+    });
+
+    it('search with empty query and a group ID', () => {
+      service.searchNonMemberGroups('', GroupMock.id);
+      const options = Object.assign(new FindListOptions(), {
+        searchParams: [Object.assign(new RequestParam('query', '')),
+                       Object.assign(new RequestParam('group', GroupMock.id))]
+      });
+      expect(service.searchBy).toHaveBeenCalledWith('isNotMemberOf', options, true, true);
+    });
+
+    it('search with query and a group ID', () => {
+      service.searchNonMemberGroups('test', GroupMock.id);
+      const options = Object.assign(new FindListOptions(), {
+        searchParams: [Object.assign(new RequestParam('query', 'test')),
+                       Object.assign(new RequestParam('group', GroupMock.id))]
+      });
+      expect(service.searchBy).toHaveBeenCalledWith('isNotMemberOf', options, true, true);
     });
   });
 

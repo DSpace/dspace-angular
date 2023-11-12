@@ -24,6 +24,7 @@ import { FlatNode } from './flat-node.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 // Helper method to combine and flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
@@ -186,7 +187,7 @@ export class CommunityListService {
           return this.transformCommunity(community, level, parent, expandedNodes);
         });
       if (currentPage < listOfPaginatedCommunities.totalPages && currentPage === listOfPaginatedCommunities.currentPage) {
-        obsList = [...obsList, observableOf([showMoreFlatNode('community', level, parent)])];
+        obsList = [...obsList, observableOf([showMoreFlatNode(`community-${uuidv4()}`, level, parent)])];
       }
 
       return combineAndFlatten(obsList);
@@ -257,7 +258,7 @@ export class CommunityListService {
                 let nodes = rd.payload.page
                   .map((collection: Collection) => toFlatNode(collection, observableOf(false), level + 1, false, communityFlatNode));
                 if (currentCollectionPage < rd.payload.totalPages && currentCollectionPage === rd.payload.currentPage) {
-                  nodes = [...nodes, showMoreFlatNode('collection', level + 1, communityFlatNode)];
+                  nodes = [...nodes, showMoreFlatNode(`collection-${uuidv4()}`, level + 1, communityFlatNode)];
                 }
                 return nodes;
               } else {

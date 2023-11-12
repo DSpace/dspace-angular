@@ -434,10 +434,6 @@
 
   "admin.access-control.groups.form.members-list.headMembers": "Current Members",
 
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-
   "admin.access-control.groups.form.members-list.search.button": "Search",
 
   "admin.access-control.groups.form.members-list.table.id": "ID",
@@ -493,8 +489,6 @@
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.remove": "Remove subgroup with name \"{{name}}\"",
 
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
-
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
 
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
 
@@ -631,10 +625,6 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
 
@@ -3623,6 +3613,8 @@
   "resource-policies.table.headers.title.for.community": "Policies for Community",
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+
+  "root.skip-to-content": "Skip to main content",
 
   "search.description": "",
 

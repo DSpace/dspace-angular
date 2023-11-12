@@ -78,4 +78,12 @@ export class RootComponent implements OnInit {
       this.shouldShowRouteLoader = false;
     }
   }
+
+  skipToMainContent() {
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.tabIndex = -1;
+      mainContent.focus();
+    }
+  }
 }

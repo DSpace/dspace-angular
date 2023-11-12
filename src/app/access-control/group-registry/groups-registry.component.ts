@@ -216,18 +216,28 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
 
   /**
    * Get the members (epersons embedded value of a group)
+   * NOTE: At this time we only grab the *first* member in order to receive the `totalElements` value
+   * needed for our HTML template.
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findListByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
+    return this.ePersonDataService.findListByHref(group._links.epersons.href, {
+        currentPage: 1,
+        elementsPerPage: 1,
+      }).pipe(getFirstSucceededRemoteData());
   }
 
   /**
    * Get the subgroups (groups embedded value of a group)
+   * NOTE: At this time we only grab the *first* subgroup in order to receive the `totalElements` value
+   * needed for our HTML template.
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findListByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
+    return this.groupService.findListByHref(group._links.subgroups.href, {
+        currentPage: 1,
+        elementsPerPage: 1,
+      }).pipe(getFirstSucceededRemoteData());
   }
 
   /**
