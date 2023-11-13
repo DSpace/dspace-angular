@@ -65,7 +65,7 @@ jobs:
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh dspace-5
 
-  deploy-import:
+  deploy-8:
     if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8'
     runs-on: dspace-dep-1
     timeout-minutes: 120
@@ -86,8 +86,17 @@ jobs:
           ./start.sh dspace-$INSTANCE
           /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
 
+    
+          
+  import-8:
+    runs-on: dspace-dep-1
+    if: github.event.inputs.IMPORT == 'true'
+    needs: deploy-8
+    env:
+      INSTANCE: '8'
+      ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
+    steps:
       - uses: ./.github/actions/import-db
-        if: github.event.inputs.IMPORT
         with:
           INSTANCE: ${{ env.INSTANCE }}
           DATADIR: /opt/dspace-data/clarin-dspace/
