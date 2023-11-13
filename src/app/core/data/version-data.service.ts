@@ -18,6 +18,7 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
 import { Operation } from 'fast-json-patch';
+import { Item } from '../shared/item.model';
 
 /**
  * Service responsible for handling requests related to the Version object
@@ -97,6 +98,16 @@ export class VersionDataService extends IdentifiableDataService<Version> impleme
    */
   public createPatchFromCache(object: Version): Observable<Operation[]> {
     return this.patchData.createPatchFromCache(object);
+  }
+
+
+  /**
+   * Invalidates the cache of the version link for this item.
+   *
+   * @param item
+   */
+  invalidateVersionHrefCache(item: Item): void {
+    this.requestService.setStaleByHrefSubstring(item._links.version.href);
   }
 
 }

@@ -10,7 +10,7 @@ import { SiteDataService } from '../site-data.service';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list.model';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
@@ -50,6 +50,19 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    */
   invalidateAuthorizationsRequestCache() {
     this.requestService.setStaleByHrefSubstring(this.linkPath);
+  }
+
+  /**
+   * This method invalidates the cache for a given authorization feature and a given item url.
+   *
+   * @param featureID
+   * @param objectUrl
+   */
+  invalidateAuthorization(featureID?: FeatureID, objectUrl?: string) {
+    this.searchData.getSearchByHref(this.searchByObjectPath, this.createSearchOptions(objectUrl, {}, null, featureID))
+      .pipe(
+        take(1)
+      ).subscribe(url => this.requestService.setStaleByHrefSubstring(url));
   }
 
   /**

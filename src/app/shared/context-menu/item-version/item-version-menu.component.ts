@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
-import { BehaviorSubject, combineLatest, distinctUntilChanged, map, shareReplay, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
 
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -61,8 +61,7 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
 
     this.sub = combineLatest([isAuthorized$, isDisabled$]).pipe(
       map(([isAuthorized, isDisabled]) => isAuthorized && !isDisabled),
-      distinctUntilChanged(),
-      shareReplay(1)
+      distinctUntilChanged()
     ).subscribe((canShow) => {
       this.canShow$.next(canShow);
     });
