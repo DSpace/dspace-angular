@@ -82,7 +82,7 @@ export class CollectionPageComponent implements OnInit {
     if (isPlatformServer(this.platformId)) {
       return;
     }
-    
+
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),
