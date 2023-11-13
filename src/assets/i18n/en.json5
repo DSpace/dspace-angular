@@ -1802,6 +1802,8 @@
 
   "cris-layout.advanced-attachment.viewMore": "View More",
 
+  "cris-layout.advanced-attachment.label.not-present": "(not present)",
+
   "cris-layout.attachment.viewMore": "View More",
 
   "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
@@ -4608,6 +4610,7 @@
 
   "audit.object.overview.title": "Subject Audit Logs Overview",
 
+  "audit.object.overview.disabled.message": "Audit feature is currently disabled",
 
   "audit.detail.title" : "Audit Detail",
 
