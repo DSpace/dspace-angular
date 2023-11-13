@@ -33,7 +33,7 @@ import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-i
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 

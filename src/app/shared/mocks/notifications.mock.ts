@@ -1838,8 +1838,8 @@ export function getMockNotificationsStateService(): any {
  */
 export function getMockQualityAssuranceTopicRestService(): QualityAssuranceTopicDataService {
   return jasmine.createSpyObj('QualityAssuranceTopicDataService', {
-    getTopics: jasmine.createSpy('getTopics'),
-    getTopic: jasmine.createSpy('getTopic'),
+    searchTopicsBySource: jasmine.createSpy('searchTopicsBySource'),
+    searchTopicsByTarget: jasmine.createSpy('searchTopicsByTarget'),
   });
 }
 

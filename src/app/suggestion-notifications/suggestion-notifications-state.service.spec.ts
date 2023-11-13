@@ -271,8 +271,8 @@ describe('NotificationsStateService', () => {
         it('Should call store.dispatch', () => {
           const elementsPerPage = 3;
           const currentPage = 1;
-          const action = new RetrieveAllTopicsAction(elementsPerPage, currentPage);
-          service.dispatchRetrieveQualityAssuranceTopics(elementsPerPage, currentPage);
+          const action = new RetrieveAllTopicsAction(elementsPerPage, currentPage, 'source', 'target');
+          service.dispatchRetrieveQualityAssuranceTopics(elementsPerPage, currentPage, 'source', 'target');
           expect(serviceAsAny.store.dispatch).toHaveBeenCalledWith(action);
         });
       });

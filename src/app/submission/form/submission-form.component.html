@@ -9,7 +9,8 @@
 
         <div class="submission-form-header-item mb-3 mb-sm-0 flex-sm-grow-1 flex-md-grow-0">
           <ng-container *ngIf="!isSectionHidden">
-            <ds-submission-form-collection [currentCollectionId]="collectionId"
+            <ds-submission-form-collection
+            [currentCollectionId]="collectionId"
                                            [currentDefinition]="definitionId"
                                            [submissionId]="submissionId"
                                            [collectionModifiable]="collectionModifiable"
@@ -30,10 +31,12 @@
         <ng-container *ngFor="let object of (submissionSections | async)">
             <ds-submission-section-container [collectionId]="collectionId"
                                              [submissionId]="submissionId"
-                                             [sectionData]="object"></ds-submission-section-container>
+                                             [sectionData]="object">
+            </ds-submission-section-container>
         </ng-container>
     </div>
     <div *ngIf="!(isLoading() | async)" class="submission-form-footer mt-3 mb-3 position-sticky">
         <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer>
     </div>
 </div>
+

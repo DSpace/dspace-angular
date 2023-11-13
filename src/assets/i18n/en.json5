@@ -929,11 +929,13 @@
   "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.url": "Service URL",
+  "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
+  "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.label.inboundPattern": "Inbound Patterns",
   "ldn-new-service.form.label.placeholder.inboundPattern": "Select an Inbound Pattern",
 
@@ -1007,8 +1009,12 @@
   "service.overview.reset-form.reset-confirm":"Discard",
   "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.content": "The service has been edited",
+  "admin.registries.services-formats.modify.failure.head": "Failed Edit",
+  "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.body": "The service has been created",
+  "ldn-service-notification.created.failure.title": "Failed Create",
+  "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-service-delete.notification.success.title": "Successful Deletion",
@@ -2035,6 +2041,8 @@
 
   "info.coar-notify.breadcrumbs": "Notify Support",
 
+  "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
+
   "info.feedback.head": "Feedback",
 
   "info.feedback.title": "Feedback",
@@ -2524,6 +2532,14 @@
   "item.truncatable-part.show-more": "Show more",
 
   "item.truncatable-part.show-less": "Collapse",
+
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "item.qa-event-notification-info.check.button": "Check",
+
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "mydspace.qa-event-notification-info.check.button": "Check",
 
   "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
 
@@ -3268,6 +3284,8 @@
   "quality-assurance.title": "Quality Assurance",
 
   "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+
+  "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
 
   "quality-assurance.source.description": "Below you can see all the notification's sources.",
 
@@ -4819,6 +4837,8 @@
 
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
+  "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
+
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
@@ -5064,6 +5084,28 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
+  "submission.section.section-coar-notify.control.request-review.label": "You can request a review to one of the following services",
+
+  "submission.section.section-coar-notify.control.request-endorsement.label": "You can request an Endorsement to one of the following overlay journals",
+
+  "submission.section.section-coar-notify.control.request-ingest.label": "You can request to ingest a copy of your submission to one of the following services",
+
+  "submission.section.section-coar-notify.dropdown.no-data": "No data available",
+
+  "submission.section.section-coar-notify.dropdown.select-none": "Select none",
+
+  "submission.section.section-coar-notify.small.notification": "Select a service for {{ pattern }} of this item",
+
+  "submission.section.section-coar-notify.selection.description": "Selected service's description:",
+
+  "submission.section.section-coar-notify.selection.no-description": "No further information is available",
+
+  "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
+
+  "submission.section.section-coar-notify.info.no-pattern": "No patterns found in the submission.",
+
+  "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
 
   "submitter.empty": "N/A",
 

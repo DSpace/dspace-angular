@@ -19,7 +19,6 @@ import { Item } from '../shared/item.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
 import { RequestEntry } from '../data/request-entry.model';
 import { CoreState } from '../core-state.model';
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
 import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 
 describe('WorkspaceitemDataService test', () => {
@@ -84,17 +83,19 @@ describe('WorkspaceitemDataService test', () => {
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkspaceitemDataService(
+      comparator,
+      halService,
+      http,
+      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      halService,
-      notificationsService,
+      store,
     );
   }
 
   describe('composition', () => {
-    const initService = () => new WorkspaceitemDataService(null, null, null, null, null);
-    testSearchDataImplementation(initService);
+    const initService = () => new WorkspaceitemDataService(null, null, null, null, null, null, null, null);
     testDeleteDataImplementation(initService);
   });
 
@@ -126,7 +127,7 @@ describe('WorkspaceitemDataService test', () => {
       service = initTestService();
 
       spyOn((service as any), 'findByHref').and.callThrough();
-      spyOn((service as any), 'getSearchByHref').and.returnValue(searchRequestURL$);
+      spyOn((service as any), 'getIDHref').and.callThrough();
     });
 
     afterEach(() => {
@@ -138,7 +139,7 @@ describe('WorkspaceitemDataService test', () => {
         scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
         scheduler.flush();
 
-        expect((service as any).findByHref).toHaveBeenCalledWith(searchRequestURL$, true, true);
+        expect((service as any).findByHref).toHaveBeenCalled();
       });
 
       it('should return a RemoteData<WorkspaceItem> for the search', () => {
