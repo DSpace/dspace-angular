@@ -35,7 +35,8 @@ describe('ExploreComponent', () => {
     order: 'desc',
     sortField: 'dc.date.accessioned',
     numberOfItems: 5,
-    titleKey: 'lastPublications'
+    titleKey: 'lastPublications',
+    showThumbnails: false,
   };
 
   const searchComponent: SearchSection = {
