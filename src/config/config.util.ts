@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { hasNoValue } from '../app/shared/empty.util';
 
 import { AppConfig } from './app-config.interface';
-import { ThemeConfig, NamedThemeConfig } from './theme.model';
+import { ThemeConfig, NamedThemeConfig } from './theme.config';
 import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';
 
 /**
