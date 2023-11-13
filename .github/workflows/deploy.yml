@@ -87,7 +87,7 @@ jobs:
           /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
 
       - uses: ./.github/actions/import-db
-        if: github.event.inputs.IMPORT != false
+        if: github.event.inputs.IMPORT
         with:
           INSTANCE: ${{ env.INSTANCE }}
           DATADIR: /opt/dspace-data/clarin-dspace/
