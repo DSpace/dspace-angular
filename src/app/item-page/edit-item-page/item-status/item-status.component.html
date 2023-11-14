@@ -27,7 +27,7 @@
   </div>
 
   <div *ngFor="let operation of (operations$ | async)" class="w-100" [ngClass]="{'pt-3': operation}">
-    <ds-item-operation *ngIf="operation" [operation]="operation"></ds-item-operation>
+    <ds-item-operation [operation]="operation"></ds-item-operation>
   </div>
 
 </div>
