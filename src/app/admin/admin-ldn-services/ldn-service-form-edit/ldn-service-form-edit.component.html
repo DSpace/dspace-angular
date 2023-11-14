@@ -69,12 +69,12 @@
                 <label>{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
             </div>
             <div class="col">
-                <label class="label-box">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+                <label class="">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
             </div>
-            <div class="col-sm1 ">
-                <label class="label-box-2">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
+            <div class="col-sm-1 ">
+                <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
             </div>
-            <div class="col-sm-1">
+            <div class="col-sm-2">
             </div>
         </div>
 
@@ -86,33 +86,54 @@
 
                 <div  class="row mb-1">
                     <div class="col">
-                        <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
-                                name="additionalInboundPattern{{i}}" required>
-                            <option value="">{{ 'ldn-new-service.form.label.placeholder.inboundPattern' | translate }}</option>
-                            <option *ngFor="let pattern of inboundPatterns"
-                                    [value]="pattern">{{ 'ldn-service.form.pattern.'+pattern+'.label' | translate }} </option>
-                        </select>
-                    </div>
+                      <div ngbDropdown #inboundPatternDropdown="ngbDropdown" class="w-100"  id="additionalInboundPattern{{i}}">
+                        <div class="position-relative right-addon" role="combobox">
+                          <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+                             aria-hidden="true"></i>
+                          <input
+                            formControlName="pattern"
+                            type="text"
+                            [readonly]="true"
+                            ngbDropdownAnchor
+                            class="form-control w-100 scrollable-dropdown-input"
+                            [value]="selectedInboundPatterns"
+                            (click)="inboundPatternDropdown.open();"
+                            id="inboundPatternDropdownButton"
+                          />
 
-                    <div class="col">
-                        <ng-container *ngIf="inboundPattern.value">
-                            <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
-                                <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-                                <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
-                                        [value]="itemFilter.id">{{ itemFilter.id }}</option>
-                            </select>
-                        </ng-container>
-                    </div>
-
-                    <div [style.visibility]="inboundPattern.value ? 'visible' : 'hidden'" class="col-sm1">
-                        <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
-                               type="checkbox">
-                        <div (click)="toggleAutomatic(i)"
-                             [class.checked]="formModel.get('notifyServiceInboundPatterns.' + i + '.automatic').value"
-                             class="toggle-switch">
-                            <div class="slider"></div>
+                          <!-- Main label TODO: remove after developing done cause it will pick the selected value to show -->
+                          <div>{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
+                          <div class="small-text">{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.description' | translate) : ('' | translate) }}</div>
+                          <!-- TODO: infinite scroll with 3 selects -->
+                          <div ngbDropdownMenu aria-labelledby="outboundPatternDropdownButton">
+                            <button type="button" ngbDropdownItem *ngFor="let pattern of inboundPatterns; let internalIndex = index"  (click)="selectInboundPattern(pattern, i); $event.stopPropagation()">
+                              <div>{{ 'ldn-service.form.pattern.'+pattern+'.label' | translate }}</div>
+                              <div class="small-text">{{ 'ldn-service.form.pattern.'+pattern+'.description' | translate }}</div>
+                            </button>
+                          </div>
                         </div>
+                      </div>
                     </div>
+
+                  <div class="col">
+                    <ng-container *ngIf="getInboundPatternControlNames(i)">
+                      <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
+                        <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
+                        <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
+                                [value]="itemFilter.id">{{ itemFilter.id }}</option>
+                      </select>
+                    </ng-container>
+                  </div>
+
+                  <div [style.visibility]="selectedInboundPatterns ? 'visible' : 'hidden'" class="col-sm-1">
+                    <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
+                           type="checkbox">
+                    <div (click)="toggleAutomatic(i)"
+                         [class.checked]="formModel.get('notifyServiceInboundPatterns.' + i + '.automatic').value"
+                         class="toggle-switch">
+                      <div class="slider"></div>
+                    </div>
+                  </div>
 
 
                     <div class="col-sm-2">
@@ -150,7 +171,7 @@
             <div class="col-sm-1 ">
                 <label class="label-box-2"></label>
             </div>
-            <div class="col-sm-1 ">
+            <div class="col-sm-2 ">
             </div>
         </div>
 
@@ -162,16 +183,36 @@
                 <!-- Input elements in a separate row -->
                 <div class="row mb-1">
                     <div class="col">
-                        <select #outboundPattern formControlName="pattern" id="additionalOutboundPattern{{i}}"
-                                name="additionalOutboundPattern{{i}}"
-                                required>
-                            <option value="">{{ 'ldn-new-service.form.label.placeholder.outboundPattern' | translate }}</option>
-                            <option *ngFor="let pattern of outboundPatterns"
-                                    [value]="pattern">{{ 'ldn-service.form.pattern.'+pattern+'.label' | translate }} </option>
-                        </select>
+                        <div ngbDropdown #outboundPatternDropdown="ngbDropdown" class="w-100"  id="additionalOutboundPattern{{i}}">
+                          <div class="position-relative right-addon" role="combobox">
+                            <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+                                aria-hidden="true"></i>
+                                <input
+                            formControlName="pattern"
+                            type="text"
+                            [readonly]="true"
+                            ngbDropdownAnchor
+                            class="form-control w-100 scrollable-dropdown-input"
+                            [value]="selectedOutboundPatterns"
+                            (click)="outboundPatternDropdown.open();"
+                            id="outboundPatternDropdownButton"
+                           />
+
+                        <!-- Main label TODO: remove after developing done cause it will pick the selected value to show -->
+                              <div>{{ selectedOutboundPatterns ? ('ldn-service.form.pattern.' + selectedOutboundPatterns + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
+                              <div class="small-text">{{ selectedOutboundPatterns ? ('ldn-service.form.pattern.' + selectedOutboundPatterns + '.description' | translate) : ('' | translate) }}</div>
+                        <!-- TODO: infinite scroll with 3 selects -->
+                          <div ngbDropdownMenu aria-labelledby="outboundPatternDropdownButton">
+                              <button type="button" ngbDropdownItem *ngFor="let pattern of outboundPatterns; let internalIndex = index"  (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()">
+                                  <div>{{ 'ldn-service.form.pattern.'+pattern+'.label' | translate }}</div>
+                                  <div class="small-text">{{ 'ldn-service.form.pattern.'+pattern+'.description' | translate }}</div>
+                              </button>
+                          </div>
+                      </div>
+                    </div>
                     </div>
                     <div class="col">
-                        <ng-container *ngIf="outboundPattern.value">
+                        <ng-container *ngIf="getOutboundPatternControlNames(i)">
                             <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
                                 <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
                                 <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
@@ -180,7 +221,7 @@
                         </ng-container>
                     </div>
 
-                    <div [style.visibility]="'hidden'" class="col-sm1">
+                    <div [style.visibility]="'hidden'" class="col-sm-1">
                         <input hidden id="automatic{{i}}" name="automatic{{i}}" type="checkbox">
                         <div
                                 class="toggle-switch">
@@ -214,7 +255,7 @@
                 <span><i class="fas fa-save"></i> {{ 'ldn-new-service.form.label.submit' | translate }}</span>
             </button>
             <div class="d-flex">
-                <button (click)="this.openResetFormModal(this.resetFormModal)" class="btn btn-danger" type="button">
+                <button (click)="openResetFormModal(resetFormModal)" class="btn btn-danger" type="button">
                     <span><i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}</span>
                 </button>
             </div>
@@ -243,7 +284,7 @@
                 <button (click)="closeModal()" class="btn btn-danger mr-2"
                         id="delete-confirm">{{ 'service.detail.return' | translate }}
                 </button>
-                <button (click)="this.patchService()"
+                <button (click)="patchService()"
                         class="btn btn-primary custom-btn">{{ 'service.detail.update' | translate }}
                 </button>
             </div>

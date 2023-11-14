@@ -69,6 +69,8 @@ export class LdnServiceFormComponent implements OnInit {
     @Output() submitForm: EventEmitter<any> = new EventEmitter();
     @Output() cancelForm: EventEmitter<any> = new EventEmitter();
     private modalRef: any;
+    selectedOutboundPatterns: string[];
+    selectedInboundPatterns: string[];
 
     constructor(
         private ldnServicesService: LdnServicesService,
@@ -214,5 +216,29 @@ export class LdnServiceFormComponent implements OnInit {
         });
     }
 
+    selectOutboundPattern(patternValue: string, index: number): void {
+        // this.selectedOutboundPatterns = patternValue;
+        const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray).controls[index]
+        console.log((this.formModel.get('notifyServiceOutboundPatterns') as FormArray))
+        patternArray.patchValue({pattern: patternValue} )
+        //console.log(patternArray);
+        //this.getPatternControlNames(index)
+    }
+    //selectInboundPattern(pattern: string, index: number): void {
+         //this.selectedInboundPatterns = pattern;
+    //}
 
+    selectInboundPattern(patternValue: string, index: number): void {
+        // this.selectedOutboundPatterns = patternValue;
+        const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray).controls[index]
+        console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
+        patternArray.patchValue({pattern: patternValue} )
+        //console.log(patternArray);
+        //this.getPatternControlNames(index)
+    }
+
+    getPatternControlNames(index: number) {
+    const patternArrayValue = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray).controls[index].value
+    return patternArrayValue
+    }
 }

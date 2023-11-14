@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownConfig, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import {pattern} from "isbot";
 
 @Component({
     selector: 'ds-ldn-service-form-edit',
@@ -65,6 +66,8 @@ export class LdnServiceFormEditComponent implements OnInit {
     private deletedOutboundPatterns: number[] = [];
     private modalRef: any;
     private service: LdnService;
+    selectedOutboundPatterns: string[];
+    selectedInboundPatterns: string[];
 
     constructor(
         protected ldnServicesService: LdnServicesService,
@@ -164,8 +167,10 @@ export class LdnServiceFormEditComponent implements OnInit {
         this.createReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
         this.createReplaceOperation(patchOperations, 'url', '/url');
 
-        this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
-        this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
+
+
+        this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns', this.selectedInboundPatterns);
+        this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns', this.selectedOutboundPatterns);
 
         this.deletedInboundPatterns.forEach(index => {
             const removeOperation: Operation = {
@@ -198,6 +203,37 @@ export class LdnServiceFormEditComponent implements OnInit {
     addOutboundPattern() {
         const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
         notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
+    }
+
+
+   selectOutboundPattern(patternValue: string, index: number): void {
+   // this.selectedOutboundPatterns = patternValue;
+    const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray).controls[index]
+       console.log((this.formModel.get('notifyServiceOutboundPatterns') as FormArray))
+    patternArray.patchValue({pattern: patternValue} )
+    //console.log(patternArray);
+    //this.getPatternControlNames(index)
+   }
+
+    selectInboundPattern(patternValue: string, index: number): void {
+        // this.selectedInboundPatterns = patternValue;
+        const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray).controls[index]
+        console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
+        console.log(patternArray)
+        //console.log(patternArray);
+        //this.getPatternControlNames(index)
+    }
+
+
+
+    getOutboundPatternControlNames(index: number) {
+        const patternArrayValue = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray).controls[index]?.value
+        return patternArrayValue
+    }
+
+    getInboundPatternControlNames(index: number) {
+        const patternArrayValue = (this.formModel.get('notifyServiceInboundPatterns') as FormArray).controls[index]?.value
+        return patternArrayValue
     }
 
 
@@ -245,6 +281,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     patchService() {
         this.deleteMarkedInboundPatterns();
         this.deleteMarkedOutboundPatterns();
+
         const patchOperations = this.generatePatchOperations();
 
 
@@ -343,11 +380,16 @@ export class LdnServiceFormEditComponent implements OnInit {
         }
     }
 
-    private handlePatterns(patchOperations: any[], formArrayName: string): void {
+    private handlePatterns(patchOperations: any[], formArrayName: string, selectedPatterns: string[]): void {
+
         const patternsArray = this.formModel.get(formArrayName) as FormArray;
 
         for (let i = 0; i < patternsArray.length; i++) {
+
             const patternGroup = patternsArray.at(i) as FormGroup;
+            console.warn('Calling setValueForControlInOutboundArray', formArrayName, i, selectedPatterns);
+            this.setValueForControlInOutboundArray(formArrayName, i, selectedPatterns[i] )
+
             const patternValue = patternGroup.value;
 
             if (patternGroup.dirty) {
@@ -405,5 +447,11 @@ export class LdnServiceFormEditComponent implements OnInit {
             constraint: '',
             automatic: '',
         });
+    }
+
+    setValueForControlInOutboundArray(formArrayName: string, index: number, value: string) {
+        const formArray = this.formModel.get(formArrayName) as FormArray;
+        console.warn('inside setValueForControlInOutboundArray', formArray);
+        formArray.at(index).setValue(value);
     }
 }
