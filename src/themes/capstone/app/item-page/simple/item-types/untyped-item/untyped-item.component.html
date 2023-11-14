@@ -27,12 +27,16 @@
     <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
     <!--TAMU Customization - Display Advisors-->
-    <ds-themed-metadata-representation-list class="ds-item-page-mixed-advisor-field"
-      [parentItem]="object"
-      [itemType]="'Person'"
-      [metadataFields]="['dc.contributor.advisor']"
-      [label]="'relationships.isAdvisorOf' | translate">
-    </ds-themed-metadata-representation-list>
+    <div class="item-page-field">
+      <ds-metadata-values
+        [mdValues]="object?.allMetadata(['dc.contributor.advisor'])"
+        [separator]="', '"
+        [label]="'relationships.isAdvisorOf'"
+        [enableMarkdown]="'false'"
+        [urlRegex]="'false'"
+        [browseDefinition]="">
+      </ds-metadata-values>
+    </div>
     <!--End TAMU Customization - Display Advisors-->
     <ds-themed-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
