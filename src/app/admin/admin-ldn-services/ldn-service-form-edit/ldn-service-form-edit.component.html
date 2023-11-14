@@ -125,7 +125,7 @@
                     </ng-container>
                   </div>
 
-                  <div [style.visibility]="selectedInboundPatterns ? 'visible' : 'hidden'" class="col-sm-1">
+                  <div [style.visibility]="formModel.get('notifyServiceInboundPatterns')['controls'][i].value ? 'visible' : 'hidden'" class="col-sm-1">
                     <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
                            type="checkbox">
                     <div (click)="toggleAutomatic(i)"
@@ -201,7 +201,7 @@
                         <!-- Main label TODO: remove after developing done cause it will pick the selected value to show -->
                               <div>{{ selectedOutboundPatterns ? ('ldn-service.form.pattern.' + selectedOutboundPatterns + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
                               <div class="small-text">{{ selectedOutboundPatterns ? ('ldn-service.form.pattern.' + selectedOutboundPatterns + '.description' | translate) : ('' | translate) }}</div>
-                        <!-- TODO: infinite scroll with 3 selects -->
+                        <!-- TODO: infinite scroll with 3-5 selects -->
                           <div ngbDropdownMenu aria-labelledby="outboundPatternDropdownButton">
                               <button type="button" ngbDropdownItem *ngFor="let pattern of outboundPatterns; let internalIndex = index"  (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()">
                                   <div>{{ 'ldn-service.form.pattern.'+pattern+'.label' | translate }}</div>
@@ -211,6 +211,7 @@
                       </div>
                     </div>
                     </div>
+                    <!-- Main label TODO: update itemfilter dropdown -->
                     <div class="col">
                         <ng-container *ngIf="getOutboundPatternControlNames(i)">
                             <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
