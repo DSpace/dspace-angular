@@ -20,7 +20,7 @@ export class ServerHardRedirectService extends HardRedirectService {
    * Perform a hard redirect to URL
    * @param url
    */
-  redirect(url: string) {
+  redirect(url: string, status: number = 302) {
 
     if (url === this.req.url) {
       return;
@@ -38,12 +38,6 @@ export class ServerHardRedirectService extends HardRedirectService {
         process.exit(1);
       }
     } else {
-      // attempt to use the already set status
-      let status = this.res.statusCode || 0;
-      if (status < 300 || status >= 400) {
-        // temporary redirect
-        status = 302;
-      }
 
       console.info(`Redirecting from ${this.req.url} to ${url} with ${status}`);
       this.res.redirect(status, url);

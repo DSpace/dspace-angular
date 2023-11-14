@@ -12,7 +12,7 @@ export abstract class HardRedirectService {
    * @param url
    *    the page to redirect to
    */
-  abstract redirect(url: string);
+  abstract redirect(url: string, status?: number);
 
   /**
    * Get the current route, with query params included

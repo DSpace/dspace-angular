@@ -83,7 +83,7 @@ describe('TopSectionComponent', () => {
       sortField: 'dc.date.accessioned',
       numberOfItems: 5,
       titleKey: undefined,
-      showThumbnails: false
+      showThumbnails: false,
     };
 
     fixture.detectChanges();
@@ -123,7 +123,7 @@ describe('TopSectionComponent', () => {
         sortField: 'dc.date.foo',
         numberOfItems: 5,
         titleKey: 'lastPublications',
-        showThumbnails: false
+        showThumbnails: false,
       };
 
       fixture.detectChanges();
