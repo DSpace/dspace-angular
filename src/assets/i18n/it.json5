@@ -2669,7 +2669,7 @@
 
   // "cris-layout.advanced-attachment.label.not-present":"(not present)",
   // TODO New key - Add a translation
-  "cris-layout.advanced-attachment.label.not-present":"(not present)",
+  "cris-layout.advanced-attachment.label.not-present": "(not present)",
 
   // "cris-layout.attachment.viewMore": "View More",
   "cris-layout.attachment.viewMore": "Vedi altro",
