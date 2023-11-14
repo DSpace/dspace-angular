@@ -6,7 +6,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  PLATFORM_ID
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -46,6 +47,7 @@ import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/aletr-type';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'ds-search',
@@ -338,6 +340,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
+    @Inject(PLATFORM_ID) public platformId: any,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     protected router: Router,) {
@@ -352,7 +355,7 @@ export class SearchComponent implements OnInit, OnDestroy {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    if (!this.renderOnServerSide) {
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
       return;
     }
 

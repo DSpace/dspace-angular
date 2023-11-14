@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { map, switchMap } from 'rxjs/operators';
 import { SearchComponent } from '../shared/search/search.component';
@@ -37,12 +37,13 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
+    @Inject(PLATFORM_ID) public platformId: any,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     public angulartics2: Angulartics2,
     protected router: Router
   ) {
-    super(service, searchManager, sidebarService, windowService, searchConfigService, routeService, router);
+    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router);
   }
 
   ngOnInit(): void {
