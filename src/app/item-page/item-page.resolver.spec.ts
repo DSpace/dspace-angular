@@ -25,7 +25,7 @@ describe('ItemPageResolver', () => {
 
     let store;
     let router;
-    let hardRedirectService;
+    let hardRedirectService: HardRedirectService;
     let platformId;
     const uuid = '1234-65487-12354-1235';
     const item = Object.assign(new Item(), {
@@ -60,7 +60,6 @@ describe('ItemPageResolver', () => {
 
       beforeEach(() => {
         router = TestBed.inject(Router);
-        hardRedirectService = TestBed.inject(HardRedirectService);
         platformId = TestBed.inject(PLATFORM_ID);
         itemService = {
           findById: (id: string) => createSuccessfulRemoteDataObject$(item)
