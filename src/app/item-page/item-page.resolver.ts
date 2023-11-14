@@ -19,8 +19,8 @@ import { isPlatformServer } from '@angular/common';
 @Injectable()
 export class ItemPageResolver extends ItemResolver {
   constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
-    private hardRedirectService: HardRedirectService,
+    @Inject(PLATFORM_ID) protected platformId: any,
+    protected hardRedirectService: HardRedirectService,
     protected itemService: ItemDataService,
     protected store: Store<any>,
     protected router: Router

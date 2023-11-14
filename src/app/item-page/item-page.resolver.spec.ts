@@ -6,6 +6,8 @@ import { ItemPageResolver } from './item-page.resolver';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { HardRedirectService } from '../core/services/hard-redirect.service';
+import { PLATFORM_ID } from '@angular/core';
 
 describe('ItemPageResolver', () => {
   beforeEach(() => {
@@ -23,6 +25,8 @@ describe('ItemPageResolver', () => {
 
     let store;
     let router;
+    let hardRedirectService;
+    let platformId;
     const uuid = '1234-65487-12354-1235';
     const item = Object.assign(new Item(), {
       id: uuid,
@@ -56,6 +60,8 @@ describe('ItemPageResolver', () => {
 
       beforeEach(() => {
         router = TestBed.inject(Router);
+        hardRedirectService = TestBed.inject(HardRedirectService);
+        platformId = TestBed.inject(PLATFORM_ID);
         itemService = {
           findById: (id: string) => createSuccessfulRemoteDataObject$(item)
         } as any;
@@ -65,7 +71,7 @@ describe('ItemPageResolver', () => {
         });
 
         spyOn(router, 'navigateByUrl');
-        resolver = new ItemPageResolver(itemService, store, router);
+        resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
       });
 
       it('should resolve a an item from from the item with the url redirect', (done) => {
@@ -127,7 +133,7 @@ describe('ItemPageResolver', () => {
         });
 
         spyOn(router, 'navigateByUrl');
-        resolver = new ItemPageResolver(itemService, store, router);
+        resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
       });
 
       it('should not call custom url', (done) => {
