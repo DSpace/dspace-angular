@@ -10,7 +10,8 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER
+  REFRESH_FILTER,
+  SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -18,14 +19,17 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FacetValue } from '../../../models/facet-value.model';
-import { getFacetValueForType } from '../../../search.utils';
-import { filter, map, take } from 'rxjs/operators';
+import { addOperatorToFilterValue, getFacetValueForType } from '../../../search.utils';
+import { map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
-import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { isNotEmpty } from '../../../../empty.util';
+import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -54,7 +58,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
     super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
   }
 
-  vocabularyExists$: Observable<boolean>;
+  vocabularyExists$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * Submits a new active custom value to the filter from the input field
@@ -67,15 +71,16 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
 
   ngOnInit() {
     super.ngOnInit();
-    this.vocabularyExists$ = this.vocabularyService.searchTopEntries(
-      this.getVocabularyEntry(), new PageInfo(), true, false,
-    ).pipe(
-      filter(rd => rd.hasCompleted),
-      take(1),
-      map(rd => {
-        return rd.hasSucceeded;
-      }),
-    );
+    if (isNotEmpty(this.getVocabularyEntry())) {
+      this.vocabularyService.searchTopEntries(
+        this.getVocabularyEntry(), new PageInfo(), true, false,
+      ).pipe(
+        getFirstCompletedRemoteData(),
+        map((rd: RemoteData<PaginatedList<VocabularyEntryDetail>>) => rd.hasSucceeded && rd.payload?.totalElements > 0)
+      ).subscribe((res) => {
+        this.vocabularyExists$.next(res);
+      });
+    }
   }
 
   /**

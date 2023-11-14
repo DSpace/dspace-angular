@@ -3027,6 +3027,10 @@
   // TODO New key - Add a translation
   "cris-layout.attachment.viewMore": "View More",
 
+  // "cris-layout.advanced-attachment.label.not-present": "(not present)",
+  // TODO New key - Add a translation
+  "cris-layout.advanced-attachment.label.not-present":"(not present)",
+
   // "cris-layout.rendering.collections.owning-collection.label": "Owning collection",
   // TODO New key - Add a translation
   "cris-layout.rendering.collections.owning-collection.label": "Owning collection",

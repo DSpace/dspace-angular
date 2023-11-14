@@ -59,6 +59,7 @@ export interface TopSection extends SectionComponent {
   titleKey: string;
   componentType: 'top';
   numberOfItems: number;
+  showThumbnails: boolean;
 }
 
 export interface SearchSection extends SectionComponent {

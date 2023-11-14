@@ -49,7 +49,7 @@ export class AdvancedAttachmentComponent extends AttachmentComponent implements 
 
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {
     return this.bitstreamDataService
-      .showableByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options, false, false, followLink('thumbnail'))
+      .showableByItem(this.item.uuid, this.field.bitstream.bundle, this.getMetadataFilters(), options, false, false, followLink('thumbnail'), followLink('format'))
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {

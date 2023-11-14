@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { HomePageResolver } from './home-page.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedHomePageComponent } from './themed-home-page.component';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
 
 @NgModule({
   imports: [
@@ -16,17 +14,7 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
         data: {
           title: 'home.title',
           menu: {
-            public: [{
-              id: 'statistics_site',
-              active: true,
-              visible: false,
-              index: 2,
-              model: {
-                type: MenuItemType.LINK,
-                text: 'menu.section.statistics',
-                link: 'statistics',
-              } as LinkMenuItemModel,
-            }],
+            public: [],
           }, showSocialButtons: true
         },
         resolve: {

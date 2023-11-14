@@ -505,9 +505,10 @@ export class FormBuilderService extends DynamicFormService {
    */
   updateModelValue(fieldId: string, value: FormFieldMetadataValueObject): DynamicFormControlModel {
     let returnModel = null;
-    this.formModels.forEach((models, formId) => {
+    [...this.formModels.keys()].find((formId) => {
+      const models = this.formModels.get(formId);
       const fieldModel: any = this.findById(fieldId, models);
-      if (hasValue(fieldModel)) {
+      if (hasValue(fieldModel) && !fieldModel.hidden) {
         if (isNotEmpty(value)) {
           if (fieldModel.repeatable && isNotEmpty(fieldModel.value)) {
             // if model is repeatable and has already a value add a new field instead of replacing it
@@ -527,8 +528,9 @@ export class FormBuilderService extends DynamicFormService {
             returnModel = fieldModel;
           }
         }
-        return;
+        return returnModel;
       }
+      return false;
     });
     return returnModel;
   }
