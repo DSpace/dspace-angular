@@ -202,13 +202,9 @@ export class LdnServiceFormEditComponent implements OnInit {
 
 
   selectOutboundPattern(patternValue: string, index: number): void {
-    // this.selectedOutboundPatterns = patternValue;
     const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
     console.log((this.formModel.get('notifyServiceOutboundPatterns') as FormArray))
     patternArray.controls[index].patchValue({pattern: patternValue})
-
-    //console.log(patternArray);
-    //this.getPatternControlNames(index)
   }
 
   selectOutboundItemFilter(filterValue: string, index: number) {
@@ -218,41 +214,16 @@ export class LdnServiceFormEditComponent implements OnInit {
   }
 
   selectInboundPattern(patternValue: string, index: number): void {
-    // this.selectedOutboundPatterns = patternValue;
     const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
     console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
     patternArray.controls[index].patchValue({pattern: patternValue})
-
-    //console.log(patternArray);
-    //this.getPatternControlNames(index)
   }
 
   selectInboundItemFilter(filterValue: string, index: number): void {
-    // this.selectedOutboundPatterns = patternValue;
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
     console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
     filterArray.controls[index].patchValue({constraint: filterValue})
-
-    //console.log(patternArray);
-    //this.getPatternControlNames(index)
   }
-
-
-  getOutboundPatternControlNames(index: number) {
-    const patternArrayValue = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray).controls[index]?.value
-    console.log(patternArrayValue)
-    return patternArrayValue
-  }
-
-  getInboundPatternControlNames(index: number) {
-    const patternArrayValue = (this.formModel.get('notifyServiceInboundPatterns') as FormArray).controls[index]?.value
-    console.log(patternArrayValue)
-    return patternArrayValue
-
-  }
-
-  //TODO: make a method that checks if user selected one value for the
-
 
   toggleAutomatic(i: number) {
     const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
@@ -478,12 +449,4 @@ export class LdnServiceFormEditComponent implements OnInit {
       automatic: '',
     });
   }
-
-  //setValueForControlInOutboundArray(formArrayName: string, index: number, value: string) {
-  // const formArray = this.formModel.get(formArrayName) as FormArray;
-  //console.warn('inside setValueForControlInOutboundArray', formArray);
-  //formArray.at(index).setValue(value);
-  //}
-
-
 }

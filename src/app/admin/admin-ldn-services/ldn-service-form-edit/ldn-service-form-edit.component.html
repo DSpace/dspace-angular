@@ -87,7 +87,8 @@
 
         <div class="row mb-1">
           <div class="col">
-            <div #inboundPatternDropdown="ngbDropdown" class="w-100" id="additionalInboundPattern{{i}}" ngbDropdown>
+            <div #inboundPatternDropdown="ngbDropdown" class="w-80" display="dynamic" id="additionalInboundPattern{{i}}"
+                 ngbDropdown placement="bottom">
               <div class="position-relative right-addon" role="combobox">
                 <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                    ngbDropdownToggle></i>
@@ -95,17 +96,12 @@
                   (click)="inboundPatternDropdown.open();"
                   [readonly]="true"
                   [value]="selectedInboundPatterns"
-                  class="form-control w-100 scrollable-dropdown-input"
+                  class="form-control w-80 scrollable-dropdown-input"
                   formControlName="pattern"
                   id="inboundPatternDropdownButton"
                   ngbDropdownAnchor
                   type="text"
                 />
-
-                <!-- Main label TODO: remove after developing done cause it will pick the selected value to show -->
-                <div>{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.label' | translate) : ('ldn-new-service.form.label.placeholder.inboundPattern' | translate) }}</div>
-                <div
-                  class="small-text">{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.description' | translate) : ('' | translate) }}</div>
                 <!-- TODO: infinite scroll with 3 selects -->
                 <div aria-labelledby="inboundPatternDropdownButton" ngbDropdownMenu>
                   <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()"
@@ -137,10 +133,6 @@
                     ngbDropdownAnchor
                     type="text"
                   />
-
-                  <div>{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
-                  <div
-                    class="small-text">{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.description' | translate) : ('' | translate) }}</div>
                   <!-- TODO: infinite scroll with 3 selects -->
                   <div aria-labelledby="inboundItemfilterDropdownButton" ngbDropdownMenu>
                     <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
@@ -266,10 +258,6 @@
                     ngbDropdownAnchor
                     type="text"
                   />
-
-                  <div>{{ selectedOutboundItemfilters ? ('ldn-service.form.pattern.' + selectedOutboundItemfilters + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
-                  <div
-                    class="small-text">{{ selectedOutboundItemfilters ? ('ldn-service.form.pattern.' + selectedOutboundItemfilters + '.description' | translate) : ('' | translate) }}</div>
                   <!-- TODO: infinite scroll with 3 selects -->
                   <div aria-labelledby="outboundItemfilterDropdownButton" ngbDropdownMenu>
                     <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()"

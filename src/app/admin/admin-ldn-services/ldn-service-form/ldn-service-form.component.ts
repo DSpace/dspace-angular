@@ -36,8 +36,6 @@ export class LdnServiceFormComponent implements OnInit {
   formModel: FormGroup;
   @ViewChild('confirmModal', {static: true}) confirmModal: TemplateRef<any>;
   @ViewChild('resetFormModal', {static: true}) resetFormModal: TemplateRef<any>;
-  //public inboundPatterns: object[] = notifyPatterns;
-  //public outboundPatterns: object[] = notifyPatterns;
   public inboundPatterns: string[] = notifyPatterns;
   public outboundPatterns: string[] = notifyPatterns;
   itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
@@ -207,18 +205,12 @@ export class LdnServiceFormComponent implements OnInit {
     const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray).controls[index]
     console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
     patternArray.patchValue({pattern: patternValue})
-    //console.log(patternArray);
-    //this.getPatternControlNames(index)
   }
 
   selectInboundItemFilter(filterValue: string, index: number): void {
-    // this.selectedOutboundPatterns = patternValue;
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
     console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
     filterArray.controls[index].patchValue({constraint: filterValue})
-
-    //console.log(patternArray);
-    //this.getPatternControlNames(index)
   }
 
   selectOutboundItemFilter(filterValue: string, index: number) {
@@ -227,18 +219,9 @@ export class LdnServiceFormComponent implements OnInit {
     filterArray.controls[index].patchValue({constraint: filterValue})
   }
 
-  getPatternControlNames(index: number) {
-    const patternArrayValue = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray).controls[index].value
-    return patternArrayValue
-  }
-
   private sendBack() {
     this.router.navigateByUrl('admin/ldn/services');
   }
-
-  //selectInboundPattern(pattern: string, index: number): void {
-  //this.selectedInboundPatterns = pattern;
-  //}
 
 
   private createOutboundPatternFormGroup(): FormGroup {
