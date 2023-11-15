@@ -110,16 +110,40 @@
 
 
                     <div class="col">
-                        <ng-container *ngIf="selectedInboundPatterns">
-                            <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
-                                <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-                                <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
-                                        [value]="itemFilter.id">{{ itemFilter.id }}</option>
-                            </select>
+                        <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
+                          <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+                            <div class="position-relative right-addon" role="combobox">
+                              <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                                 ngbDropdownToggle></i>
+                              <input
+                                (click)="inboundItemfilterDropdown.open();"
+                                [readonly]="true"
+                                [value]="selectedInboundItemfilters"
+                                class="form-control w-100 scrollable-dropdown-input"
+                                formControlName="constraint"
+                                id="inboundItemfilterDropdown"
+                                ngbDropdownAnchor
+                                type="text"
+                              />
+
+                              <div>{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.label' | translate) : ('ldn-new-service.form.label.placeholder.inboundPattern' | translate) }}</div>
+                              <div
+                                class="small-text">{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.description' | translate) : ('' | translate) }}</div>
+                              <!-- TODO: infinite scroll with 3 selects -->
+                              <div aria-labelledby="inboundItemfilterDropdownButton" ngbDropdownMenu>
+                                <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                                        *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                                        ngbDropdownItem
+                                        type="button">
+                                  <div>{{ constraint.id }}</div>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </ng-container>
                     </div>
 
-                    <div [style.visibility]="selectedInboundPatterns ? 'visible' : 'hidden'" class="col-sm-1">
+                    <div [style.visibility]="formModel.get('notifyServiceInboundPatterns')['controls'][i]?.value?.pattern ? 'visible' : 'hidden'" class="col-sm-1">
                         <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
                                type="checkbox">
                         <div (click)="toggleAutomatic(i)"
@@ -199,17 +223,37 @@
                     </div>
 
                     <div class="col">
-                        <ng-container *ngIf="selectedOutboundPatterns">
-                            <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
-                                <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-                                <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
-                                        [value]="itemFilter.id">{{ itemFilter.id }}</option>
-                            </select>
+                        <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][i].value.pattern)">
+                          <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+                            <div class="position-relative right-addon" role="combobox">
+                              <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                                 ngbDropdownToggle></i>
+                              <input
+                                (click)="outboundItemfilterDropdown.open();"
+                                [readonly]="true"
+                                [value]="selectedOutboundItemfilters"
+                                class="form-control w-100 scrollable-dropdown-input"
+                                formControlName="constraint"
+                                id="outboundItemfilterDropdown"
+                                ngbDropdownAnchor
+                                type="text"
+                              />
+                              <!-- TODO: infinite scroll with 3 selects -->
+                              <div aria-labelledby="outboundItemfilterDropdownButton" ngbDropdownMenu>
+                                <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                                        *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                                        ngbDropdownItem
+                                        type="button">
+                                  <div>{{ constraint.id }}</div>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </ng-container>
                     </div>
 
                   <div [style.visibility]="'hidden'" class="col-sm-1">
-                    <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
+                    <input hidden id="automatic{{i}}" name="automatic{{i}}"
                            type="checkbox">
                     <div
                          class="toggle-switch">
