@@ -103,11 +103,11 @@
                 />
 
                 <!-- Main label TODO: remove after developing done cause it will pick the selected value to show -->
-                <div>{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
+                <div>{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.label' | translate) : ('ldn-new-service.form.label.placeholder.inboundPattern' | translate) }}</div>
                 <div
                   class="small-text">{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.description' | translate) : ('' | translate) }}</div>
                 <!-- TODO: infinite scroll with 3 selects -->
-                <div aria-labelledby="outboundPatternDropdownButton" ngbDropdownMenu>
+                <div aria-labelledby="inboundPatternDropdownButton" ngbDropdownMenu>
                   <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()" *ngFor="let pattern of inboundPatterns; let internalIndex = index"
                           ngbDropdownItem
                           type="button">
@@ -122,11 +122,34 @@
 
           <div class="col">
             <ng-container *ngIf="getInboundPatternControlNames(i)">
-              <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
-                <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-                <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
-                        [value]="itemFilter.id">{{ itemFilter.id }}</option>
-              </select>
+              <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+                <div class="position-relative right-addon" role="combobox">
+                  <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                     ngbDropdownToggle></i>
+                  <input
+                    (click)="inboundItemfilterDropdown.open();"
+                    [readonly]="true"
+                    [value]="selectedInboundItemfilters"
+                    class="form-control w-100 scrollable-dropdown-input"
+                    formControlName="constraint"
+                    id="inboundItemfilterDropdown"
+                    ngbDropdownAnchor
+                    type="text"
+                  />
+
+                  <div>{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
+                  <div
+                    class="small-text">{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.description' | translate) : ('' | translate) }}</div>
+                  <!-- TODO: infinite scroll with 3 selects -->
+                  <div aria-labelledby="inboundItemfilterDropdownButton" ngbDropdownMenu>
+                    <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()" *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                            ngbDropdownItem
+                            type="button">
+                      <div>{{ constraint.id }}</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </ng-container>
           </div>
 

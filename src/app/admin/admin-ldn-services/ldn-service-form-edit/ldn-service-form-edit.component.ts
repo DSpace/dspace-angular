@@ -67,6 +67,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     private modalRef: any;
     private service: LdnService;
     selectedOutboundPatterns: string[];
+    selectedInboundItemfilters: any;
     selectedInboundPatterns: string[];
 
     constructor(
@@ -213,6 +214,16 @@ export class LdnServiceFormEditComponent implements OnInit {
        //console.log(patternArray);
     //this.getPatternControlNames(index)
    }
+
+  selectInboundItemFilter(filterValue: string, index: number): void {
+    // this.selectedOutboundPatterns = patternValue;
+    const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
+    console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
+    filterArray.controls[index].patchValue({constraint: filterValue} )
+
+    //console.log(patternArray);
+    //this.getPatternControlNames(index)
+  }
 
     selectInboundPattern(patternValue: string, index: number): void {
         // this.selectedOutboundPatterns = patternValue;
@@ -474,4 +485,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     //console.warn('inside setValueForControlInOutboundArray', formArray);
     //formArray.at(index).setValue(value);
     //}
+
+
+
 }
