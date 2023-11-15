@@ -4,7 +4,6 @@ import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-ro
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
-import { TestBed } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { Injector } from '@angular/core';
 
