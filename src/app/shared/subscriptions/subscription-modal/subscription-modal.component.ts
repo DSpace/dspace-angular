@@ -231,8 +231,7 @@ export class SubscriptionModalComponent implements OnInit {
           console.log(res);
           const successTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasSucceeded)
                                   .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
-          const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed)
-                                  .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
+          const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed);
 
           if (successTypes.length > 0) {
             const msg = this.translate.instant('subscriptions.modal.create.success', { type: successTypes.join(',') });
@@ -256,8 +255,7 @@ export class SubscriptionModalComponent implements OnInit {
         tap((res: RemoteData<Subscription>[]) => {
           const successTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasSucceeded)
             .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
-          const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed)
-            .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
+          const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed);
 
           if (successTypes.length > 0) {
             const msg = this.translate.instant('subscriptions.modal.update.success', { type: successTypes.join(',') });
