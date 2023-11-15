@@ -4,7 +4,10 @@
 form {
   font-size: 14px;
   position: relative;
+}
 
+label {
+  font-weight: bold;
 }
 
 input[type="text"],
@@ -103,18 +106,6 @@ textarea {
 
 .toggle-switch {
   cursor: pointer;
-}
-
-.label-box {
-  margin-left: 11px;
-}
-
-.label-box-2 {
-  margin-left: 14px;
-}
-
-.label-box-3 {
-  margin-left: 5px;
 }
 
 form button.btn.btn-primary[type="submit"] {

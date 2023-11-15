@@ -59,12 +59,14 @@
       <div class="col">
         <label>{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
       </div>
-      <div class="col">
-        <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
-      </div>
-      <div class="col-sm-1 ">
-        <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
-      </div>
+      <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern)">
+        <div class="col">
+          <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+        </div>
+        <div class="col-sm-1">
+          <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
+        </div>
+      </ng-container>
       <div class="col-sm-1">
       </div>
     </div>
@@ -77,7 +79,8 @@
 
         <div class="row mb-1">
           <div class="col">
-            <div #inboundPatternDropdown="ngbDropdown" class="w-100" id="additionalInboundPattern{{i}}" ngbDropdown>
+            <div #inboundPatternDropdown="ngbDropdown" class="w-100" id="additionalInboundPattern{{i}}" ngbDropdown
+                 placement="bottom">
               <div class="position-relative right-addon" role="combobox">
                 <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                    ngbDropdownToggle>
@@ -88,7 +91,7 @@
                   [readonly]="true"
                   [value]="selectedInboundPatterns"
                   class="form-control w-100 scrollable-dropdown-input"
-                  formControlName="pattern"
+                  formControlName="patternLabel"
                   id="inboundPatternDropdownButton"
                   ngbDropdownAnchor
                   type="text"
@@ -111,7 +114,8 @@
 
           <div class="col">
             <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
-              <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+              <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
+                   placement="bottom">
                 <div class="position-relative right-addon" role="combobox">
                   <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                      ngbDropdownToggle></i>
@@ -125,10 +129,6 @@
                     ngbDropdownAnchor
                     type="text"
                   />
-
-                  <div>{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.label' | translate) : ('ldn-new-service.form.label.placeholder.inboundPattern' | translate) }}</div>
-                  <div
-                    class="small-text">{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.description' | translate) : ('' | translate) }}</div>
                   <!-- TODO: infinite scroll with 3 selects -->
                   <div aria-labelledby="inboundItemfilterDropdownButton" ngbDropdownMenu>
                     <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
@@ -178,9 +178,11 @@
       <div class="col">
         <label>{{ 'ldn-new-service.form.label.outboundPattern' | translate }}</label>
       </div>
-      <div class="col">
-        <label class="">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
-      </div>
+      <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][0]?.value?.pattern)">
+        <div class="col">
+          <label class="">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+        </div>
+      </ng-container>
       <div class="col-sm-1 ">
       </div>
       <div class="col-sm-1 ">
@@ -195,7 +197,8 @@
         <!-- Input elements in a separate row -->
         <div class="row mb-1">
           <div class="col">
-            <div #outboundPatternDropdown="ngbDropdown" class="w-100" id="additionalOutboundPattern{{i}}" ngbDropdown>
+            <div #outboundPatternDropdown="ngbDropdown" class="w-100" id="additionalOutboundPattern{{i}}" ngbDropdown
+                 placement="bottom">
               <div class="position-relative right-addon" role="combobox">
                 <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                    ngbDropdownToggle></i>
@@ -204,16 +207,11 @@
                   [readonly]="true"
                   [value]="selectedOutboundPatterns"
                   class="form-control w-100 scrollable-dropdown-input"
-                  formControlName="pattern"
+                  formControlName="patternLabel"
                   id="outboundPatternDropdownButton"
                   ngbDropdownAnchor
                   type="text"
                 />
-
-                <!-- Main label TODO: remove after developing done cause it will pick the selected value to show -->
-                <div>{{ selectedOutboundPatterns ? ('ldn-service.form.pattern.' + selectedOutboundPatterns + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
-                <div
-                  class="small-text">{{ selectedOutboundPatterns ? ('ldn-service.form.pattern.' + selectedOutboundPatterns + '.description' | translate) : ('' | translate) }}</div>
                 <!-- TODO: infinite scroll with 3 selects -->
                 <div aria-labelledby="outboundPatternDropdownButton" ngbDropdownMenu>
                   <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()"
@@ -230,7 +228,8 @@
 
           <div class="col">
             <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][i].value.pattern)">
-              <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+              <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
+                   placement="bottom">
                 <div class="position-relative right-addon" role="combobox">
                   <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                      ngbDropdownToggle></i>
