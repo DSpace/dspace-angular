@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
@@ -34,7 +34,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
   /**
    * The reject form group
    */
-  public rejectForm: FormGroup;
+  public rejectForm: UntypedFormGroup;
 
   /**
    * Reference to NgbModal
@@ -47,7 +47,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
               protected translate: TranslateService,
               protected searchService: SearchService,
               protected requestService: RequestService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private modalService: NgbModal) {
     super(injector, router, notificationsService, translate, searchService, requestService);
   }

@@ -29,7 +29,7 @@
             <tbody>
             <tr *ngFor="let bitstreamFormat of (bitstreamFormats | async)?.payload?.page">
               <td>
-                <label>
+                <label class="mb-0">
                   <input type="checkbox"
                          [checked]="isSelected(bitstreamFormat) | async"
                          (change)="selectBitStreamFormat(bitstreamFormat, $event)"

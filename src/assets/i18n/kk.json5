@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Сіз бұл бетке өтуге тіркелемегенсіз. Басты бетке оралу үшін төмендегі батырманы пайдалануға болады",
 
@@ -102,19 +98,19 @@
 
   // "admin.edit-user-agreement.confirm.info":"Do you want to force all users to accept the new user agreement?",
   // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.info":"Do you want to force all users to accept the new user agreement?",
+  "admin.edit-user-agreement.confirm.info": "Do you want to force all users to accept the new user agreement?",
 
   // "admin.edit-user-agreement.confirm.cancel":"Cancel",
   // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.cancel":"Cancel",
+  "admin.edit-user-agreement.confirm.cancel": "Cancel",
 
   // "admin.edit-user-agreement.confirm.no":"No, update only",
   // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.no":"No, update only",
+  "admin.edit-user-agreement.confirm.no": "No, update only",
 
   // "admin.edit-user-agreement.confirm.yes":"Yes, update and force",
   // TODO New key - Add a translation
-  "admin.edit-user-agreement.confirm.yes":"Yes, update and force",
+  "admin.edit-user-agreement.confirm.yes": "Yes, update and force",
 
   // "admin.edit-user-agreement.save-button": "Save",
   // TODO New key - Add a translation
@@ -278,7 +274,7 @@
   "admin.registries.bitstream-formats.delete.failure.head": "Сәтсіздік",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.success.amount":"{{ amount }} пішімі (лері) сәтті жойылды",
+  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} пішімі (лері) сәтті жойылды",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   "admin.registries.bitstream-formats.delete.success.head": "Сәтті",
@@ -326,7 +322,7 @@
   "admin.registries.bitstream-formats.edit.mimetype.label": "Пантомима түрі",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  "admin.registries.bitstream-formats.edit.shortDescription.hint":"Бұл форматтың ерекше атауы,(e.g. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Бұл форматтың ерекше атауы,(e.g. Microsoft Word XP or Microsoft Word 2000)",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Аты",
@@ -365,7 +361,7 @@
   "admin.registries.bitstream-formats.table.name": "Аты",
   // "admin.registries.bitstream-formats.table.id" : "ID",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Қайтару",
@@ -374,7 +370,7 @@
   "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Белгілі",
 
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED":"Қолдау",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Қолдау",
 
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
   "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Белгісіз",
@@ -397,7 +393,7 @@
   "admin.registries.metadata.form.create": "Метадеректер схемасын құру",
 
   // "admin.registries.metadata.form.edit": "Edit metadata schema",
-  "admin.registries.metadata.form.edit":"Метадеректер схемасын өңдеу",
+  "admin.registries.metadata.form.edit": "Метадеректер схемасын өңдеу",
 
   // "admin.registries.metadata.form.name": "Name",
   "admin.registries.metadata.form.name": "Аты",
@@ -409,7 +405,7 @@
   "admin.registries.metadata.head": "Метадеректер тізілімі",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items":"Көрсету үшін метадеректер схемасы жоқ",
+  "admin.registries.metadata.schemas.no-items": "Көрсету үшін метадеректер схемасы жоқ",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Жою таңдалған",
@@ -432,7 +428,7 @@
 
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  "admin.registries.schema.breadcrumbs":"Метадеректер схемасы",
+  "admin.registries.schema.breadcrumbs": "Метадеректер схемасы",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Бұл \" {{аттар кеңістігі}} \" үшін метадеректер схемасы.",
@@ -450,7 +446,7 @@
   "admin.registries.schema.fields.table.field": "Өріс",
   // "admin.registries.schema.fields.table.id" : "ID",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.id" : "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Қолдану саласы бойынша ескертпе",
@@ -495,7 +491,7 @@
   "admin.registries.schema.notification.field.deleted.failure": "Жою мүмкін емес {{amount}}метадеректер өрісі",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  "admin.registries.schema.notification.field.deleted.success":"Сәтті жойылды {{amount}} метадеректер өрісі",
+  "admin.registries.schema.notification.field.deleted.success": "Сәтті жойылды {{amount}} метадеректер өрісі",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
   "admin.registries.schema.notification.field.edited": "Сәтті өңделген метадеректер өрісі\"{{field}}\"",
@@ -620,7 +616,7 @@
   "admin.access-control.epeople.form.notification.edited.success": "Сәтті өңделген адам \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure":"Адамды өңдеу мүмкін емес\"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Адамды өңдеу мүмкін емес\"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.success": "Сәтті жойылған тұлға \"{{name}}\"",
@@ -797,7 +793,7 @@
   "admin.access-control.groups.form.groupCommunity": "Жинақ немесе Қауымдастық",
 
   // "admin.access-control.groups.form.groupDescription": "Description",
-  "admin.access-control.groups.form.groupDescription":"Сипаттама",
+  "admin.access-control.groups.form.groupDescription": "Сипаттама",
 
   // "admin.access-control.groups.form.groupStatus": "Status",
   // TODO New key - Add a translation
@@ -916,10 +912,10 @@
   "admin.access-control.groups.form.members-list.table.edit.buttons.remove": "Қатысушыны аты-жөнімен жою \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.success.addMember":"Сәтті қосылған мүше: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.success.addMember": "Сәтті қосылған мүше: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  "admin.access-control.groups.form.members-list.notification.failure.addMember":"Қатысушыны қосу мүмкін емес: \"{{name}}\"",
+  "admin.access-control.groups.form.members-list.notification.failure.addMember": "Қатысушыны қосу мүмкін емес: \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
   "admin.access-control.groups.form.members-list.notification.success.deleteMember": "Сәтті қашықтағы мүше: \"{{name}}\"",
@@ -946,7 +942,7 @@
   "admin.access-control.groups.form.subgroups-list.head": "Топтар",
 
   // "admin.access-control.groups.form.subgroups-list.search.head": "Add Subgroup",
-  "admin.access-control.groups.form.subgroups-list.search.head":"Кіші топты қосу",
+  "admin.access-control.groups.form.subgroups-list.search.head": "Кіші топты қосу",
 
   // "admin.access-control.groups.form.subgroups-list.button.see-all": "Browse All",
   "admin.access-control.groups.form.subgroups-list.button.see-all": "Барлығын Қарау",
@@ -1049,7 +1045,7 @@
   "admin.search.collection.edit": "Өңдеу",
 
   // "admin.search.community.edit": "Edit",
-  "admin.search.community.edit":"Өңдеу",
+  "admin.search.community.edit": "Өңдеу",
 
   // "admin.search.item.delete": "Delete",
   "admin.search.item.delete": "Жою",
@@ -1069,7 +1065,7 @@
   "admin.search.item.move": "Жылжыту",
 
   // "admin.search.item.reinstate": "Reinstate",
-  "admin.search.item.reinstate":"Қалпына келтіру",
+  "admin.search.item.reinstate": "Қалпына келтіру",
 
   // "admin.search.item.withdraw": "Withdraw",
   "admin.search.item.withdraw": "Шақыру",
@@ -1566,11 +1562,11 @@
 
   // "browse.metadata.ouname" : "Name",
   // TODO New key - Add a translation
-  "browse.metadata.ouname" : "Name",
+  "browse.metadata.ouname": "Name",
 
   // "browse.metadata.pjtitle" : "Title",
   // TODO New key - Add a translation
-  "browse.metadata.pjtitle" : "Title",
+  "browse.metadata.pjtitle": "Title",
 
   // "browse.metadata.rodept": "Department",
   // TODO New key - Add a translation
@@ -1614,11 +1610,11 @@
 
   // "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
   // TODO New key - Add a translation
-  "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
+  "browse.metadata.ouname.breadcrumbs": "Browse by Name",
 
   // "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
   // TODO New key - Add a translation
-  "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
+  "browse.metadata.pjtitle.breadcrumbs": "Browse by Title",
 
   // "browse.metadata.rodept.breadcrumbs": "Browse by Department",
   // TODO New key - Add a translation
@@ -1626,7 +1622,7 @@
 
   // "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
   // TODO New key - Add a translation
-  "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
+  "browse.metadata.rpdept.breadcrumbs": "Browse by Department",
 
   // "browse.metadata.rpname.breadcrumbs": "Browse by Name",
   // TODO New key - Add a translation
@@ -1735,7 +1731,7 @@
 
   // "bulk-import.abort-on-error" : "Abort on first error",
   // TODO New key - Add a translation
-  "bulk-import.abort-on-error" : "Abort on first error",
+  "bulk-import.abort-on-error": "Abort on first error",
 
   // "bulk-import.back": "Back",
   // TODO New key - Add a translation
@@ -1743,11 +1739,11 @@
 
   // "bulk-import.breadcrumbs" : "Bulk import",
   // TODO New key - Add a translation
-  "bulk-import.breadcrumbs" : "Bulk import",
+  "bulk-import.breadcrumbs": "Bulk import",
 
   // "bulk-import.collection-name" : "Collection",
   // TODO New key - Add a translation
-  "bulk-import.collection-name" : "Collection",
+  "bulk-import.collection-name": "Collection",
 
   // "bulk-import.error": "An error occurred while creating the import process",
   // TODO New key - Add a translation
@@ -1755,11 +1751,11 @@
 
   // "bulk-import.file" : "Source file",
   // TODO New key - Add a translation
-  "bulk-import.file" : "Source file",
+  "bulk-import.file": "Source file",
 
   // "bulk-import.header" : "Bulk import",
   // TODO New key - Add a translation
-  "bulk-import.header" : "Bulk import",
+  "bulk-import.header": "Bulk import",
 
   // "bulk-import.processing": "Processing...",
   // TODO New key - Add a translation
@@ -1775,7 +1771,7 @@
 
   // "bulk-import.title" : "Bulk import",
   // TODO New key - Add a translation
-  "bulk-import.title" : "Bulk import",
+  "bulk-import.title": "Bulk import",
 
 
 
@@ -2698,39 +2694,39 @@
 
   // "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
   // TODO New key - Add a translation
-  "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
+  "RELATION.Person.researchoutputs.search.results.head": "Research Outputs",
 
   // "RELATION.Person.projects.search.results.head" : "Projects",
   // TODO New key - Add a translation
-  "RELATION.Person.projects.search.results.head" : "Projects",
+  "RELATION.Person.projects.search.results.head": "Projects",
 
   // "RELATION.OrgUnit.organizations.search.results.head" : "Organizations",
   // TODO New key - Add a translation
-  "RELATION.OrgUnit.organizations.search.results.head" : "Organizations",
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizations",
 
   // "RELATION.OrgUnit.rppublications.search.results.head" : "Researchers Publications",
   // TODO New key - Add a translation
-  "RELATION.OrgUnit.rppublications.search.results.head" : "Researchers Publications",
+  "RELATION.OrgUnit.rppublications.search.results.head": "Researchers Publications",
 
   // "RELATION.OrgUnit.publications.search.results.head" : "Publications",
   // TODO New key - Add a translation
-  "RELATION.OrgUnit.publications.search.results.head" : "Publications",
+  "RELATION.OrgUnit.publications.search.results.head": "Publications",
 
   // "RELATION.OrgUnit.rpprojects.search.results.head" : "Researchers Projects",
   // TODO New key - Add a translation
-  "RELATION.OrgUnit.rpprojects.search.results.head" : "Researchers Projects",
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Researchers Projects",
 
   // "RELATION.OrgUnit.projects.search.results.head" : "Projects",
   // TODO New key - Add a translation
-  "RELATION.OrgUnit.projects.search.results.head" : "Projects",
+  "RELATION.OrgUnit.projects.search.results.head": "Projects",
 
   // "RELATION.Project.researchoutputs.search.results.head" : "Publications",
   // TODO New key - Add a translation
-  "RELATION.Project.researchoutputs.search.results.head" : "Publications",
+  "RELATION.Project.researchoutputs.search.results.head": "Publications",
 
   // "RELATION.OrgUnit.people.search.results.head" : "People",
   // TODO New key - Add a translation
-  "RELATION.OrgUnit.people.search.results.head" : "People",
+  "RELATION.OrgUnit.people.search.results.head": "People",
 
   // "datafile.listelement.badge": "Data File",
   // TODO New key - Add a translation
@@ -2881,7 +2877,7 @@
 
   // "curation-task.task.citationpage.label":  "Generate Citation Page",
   // TODO New key - Add a translation
-  "curation-task.task.citationpage.label":  "Generate Citation Page",
+  "curation-task.task.citationpage.label": "Generate Citation Page",
 
 
   // "cris-layout.toggle.open": "Open section",
@@ -2965,7 +2961,7 @@
   "cris-layout.rendering.collections.load-more": "Load more",
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Метадеректердегі Сілтемелерді Тексеріңіз",
+  "curation-task.task.checklinks.label": "Метадеректердегі Сілтемелерді Тексеріңіз",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP бағдарлама тілі",
@@ -3022,7 +3018,7 @@
 
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "deny-request-copy.email.message": "Құрметті {{ recipientName }}, \nСіздің сұрауыңызға жауап ретінде Мен сізге құжатқа қатысты сіз сұраған файлдардың көшірмесін жіберу мүмкін емес екенін өкінішпен айтамын: \"{{ itemUrl }}\" ({{ itemName }}), оның авторы мен.\n\nІзгі тілектермен,\N{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Құрметті {{ recipientName }}, \nСіздің сұрауыңызға жауап ретінде Мен сізге құжатқа қатысты сіз сұраған файлдардың көшірмесін жіберу мүмкін емес екенін өкінішпен айтамын: \"{{ itemUrl }}\" ({{ itemName }}), оның авторы мен.\n\nІзгі тілектермен,\n{{ authorName }} <{{ authorEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   "deny-request-copy.email.subject": "Құжаттың көшірмесін сұрау",
@@ -3201,7 +3197,7 @@
 
   // "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
   // TODO New key - Add a translation
-  "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
+  "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "{{ dsoName }} метадеректерін экспорттау",
@@ -3210,10 +3206,10 @@
   "confirmation-modal.export-metadata.info": "{{ dsoName }} метадеректерін экспорттағыңыз келетініне сенімдісіз бе",
 
   // "confirmation-modal.export-metadata.cancel": "Cancel",
-  "confirmation-modal.export-metadata.cancel":"Болдырмау",
+  "confirmation-modal.export-metadata.cancel": "Болдырмау",
 
   // "confirmation-modal.export-metadata.confirm": "Export",
-  "confirmation-modal.export-metadata.confirm":"Экспорт",
+  "confirmation-modal.export-metadata.confirm": "Экспорт",
 
   // "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
   // TODO New key - Add a translation
@@ -3290,7 +3286,7 @@
 
   // "dataset.listelement.badge" : "Dataset",
   // TODO New key - Add a translation
-  "dataset.listelement.badge" : "Dataset",
+  "dataset.listelement.badge": "Dataset",
 
   // "equipment.listelement.badge": "Equipment",
   // TODO New key - Add a translation
@@ -3324,10 +3320,10 @@
   "error.items": "Элементтерді алу қатесі",
 
   // "error.objects": "Error fetching objects",
-  "error.objects":"Нысандарды алу қатесі",
+  "error.objects": "Нысандарды алу қатесі",
 
   // "error.recent-submissions": "Error fetching recent submissions",
-  "error.recent-submissions":"Соңғы жіберілімдерді алу қатесі",
+  "error.recent-submissions": "Соңғы жіберілімдерді алу қатесі",
 
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Іздеу нәтижелерін алу қатесі",
@@ -3336,13 +3332,13 @@
   "error.invalid-search-query": "Іздеу сұранысы жарамсыз. <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> осы қате туралы қосымша ақпарат алу үшін нұсқаулықпен танысыңыз.",
 
   // "error.sub-collections": "Error fetching sub-collections",
-  "error.sub-collections":"Ішкі жинақтарды алу қатесі",
+  "error.sub-collections": "Ішкі жинақтарды алу қатесі",
 
   // "error.sub-communities": "Error fetching sub-communities",
   "error.sub-communities": "Қосымша қауымдастықтарды алу қатесі",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  "error.submission.sections.init-form-error":"Бөлімді инициализациялау кезінде қате орын алды, енгізу пішінінің конфигурациясын тексеріңіз. Мәліметтер төменде берілген: <br> <br>",
+  "error.submission.sections.init-form-error": "Бөлімді инициализациялау кезінде қате орын алды, енгізу пішінінің конфигурациясын тексеріңіз. Мәліметтер төменде берілген: <br> <br>",
 
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Жоғары деңгейлі қауымдастықтарды алу қатесі",
@@ -3382,7 +3378,7 @@
 
   // "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
   // TODO New key - Add a translation
-  "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
+  "error.validation.fundingInvestigatorOrLeadOrganizationRequired": "At least one investigator or one lead organization is required",
 
   // "error.validation.notRepeatable": "This field is not repeatable, please choose only one value and discard the others.",
   // TODO New key - Add a translation
@@ -3390,63 +3386,63 @@
 
   // "event.listelement.badge" : "Event",
   // TODO New key - Add a translation
-  "event.listelement.badge" : "Event",
+  "event.listelement.badge": "Event",
 
   // "explore.browse-section.title" : "Browse",
   // TODO New key - Add a translation
-  "explore.browse-section.title" : "Browse",
+  "explore.browse-section.title": "Browse",
 
   // "explore.counters-section.rprofiles" : "People",
   // TODO New key - Add a translation
-  "explore.counters-section.rprofiles" : "People",
+  "explore.counters-section.rprofiles": "People",
 
   // "explore.counters-section.publications" : "Research outputs",
   // TODO New key - Add a translation
-  "explore.counters-section.publications" : "Research outputs",
+  "explore.counters-section.publications": "Research outputs",
 
   // "explore.counters-section.project_funding" : "Projects",
   // TODO New key - Add a translation
-  "explore.counters-section.project_funding" : "Projects",
+  "explore.counters-section.project_funding": "Projects",
 
   // "explore.facet-section.title" : "Discover",
   // TODO New key - Add a translation
-  "explore.facet-section.title" : "Discover",
+  "explore.facet-section.title": "Discover",
 
   // "explore.index.all" : "All",
   // TODO New key - Add a translation
-  "explore.index.all" : "All",
+  "explore.index.all": "All",
 
   // "explore.index.author" : "Author",
   // TODO New key - Add a translation
-  "explore.index.author" : "Author",
+  "explore.index.author": "Author",
 
   // "explore.index.graphitemtype" : "Graph by type",
   // TODO New key - Add a translation
-  "explore.index.graphitemtype" : "Graph by type",
+  "explore.index.graphitemtype": "Graph by type",
 
   // "explore.index.graphpubldate" : "Graph by date",
   // TODO New key - Add a translation
-  "explore.index.graphpubldate" : "Graph by date",
+  "explore.index.graphpubldate": "Graph by date",
 
   // "explore.index.birthDate" : "Birthday",
   // TODO New key - Add a translation
-  "explore.index.birthDate" : "Birthday",
+  "explore.index.birthDate": "Birthday",
 
   // "explore.index.metric.view" : "Most viewed",
   // TODO New key - Add a translation
-  "explore.index.metric.view" : "Most viewed",
+  "explore.index.metric.view": "Most viewed",
 
   // "explore.index.metric.download" : "Most downloaded",
   // TODO New key - Add a translation
-  "explore.index.metric.download" : "Most downloaded",
+  "explore.index.metric.download": "Most downloaded",
 
   // "explore.index.metric.scopus.citation" : "Most cited",
   // TODO New key - Add a translation
-  "explore.index.metric.scopus.citation" : "Most cited",
+  "explore.index.metric.scopus.citation": "Most cited",
 
   // "explore.index.chart.pie.itemtype_filter" : "Item Type",
   // TODO New key - Add a translation
-  "explore.index.chart.pie.itemtype_filter" : "Item Type",
+  "explore.index.chart.pie.itemtype_filter": "Item Type",
 
   // "explore.index.chart.bar.dateIssued.year": "Year",
   // TODO New key - Add a translation
@@ -3455,199 +3451,199 @@
 
   // "explore.index.dateIssued" : "Date issued",
   // TODO New key - Add a translation
-  "explore.index.dateIssued" : "Date issued",
+  "explore.index.dateIssued": "Date issued",
 
   // "explore.index.dateissued" : "Date issued",
   // TODO New key - Add a translation
-  "explore.index.dateissued" : "Date issued",
+  "explore.index.dateissued": "Date issued",
 
   // "explore.index.dc.date.accessioned" : "Recent Additions",
   // TODO New key - Add a translation
-  "explore.index.dc.date.accessioned" : "Recent Additions",
+  "explore.index.dc.date.accessioned": "Recent Additions",
 
   // "explore.index.dc.title" : "Title",
   // TODO New key - Add a translation
-  "explore.index.dc.title" : "Title",
+  "explore.index.dc.title": "Title",
 
   // "explore.index.editor" : "Editor",
   // TODO New key - Add a translation
-  "explore.index.editor" : "Editor",
+  "explore.index.editor": "Editor",
 
   // "explore.index.eqtitle" : "Title",
   // TODO New key - Add a translation
-  "explore.index.eqtitle" : "Title",
+  "explore.index.eqtitle": "Title",
 
   // "explore.index.eqowner" : "Researcher",
   // TODO New key - Add a translation
-  "explore.index.eqowner" : "Researcher",
+  "explore.index.eqowner": "Researcher",
 
   // "explore.index.eqorgunit" : "Organization",
   // TODO New key - Add a translation
-  "explore.index.eqorgunit" : "Organization",
+  "explore.index.eqorgunit": "Organization",
 
   // "explore.index.entityType" : "Entity type",
   // TODO New key - Add a translation
-  "explore.index.entityType" : "Entity type",
+  "explore.index.entityType": "Entity type",
 
   // "explore.index.familyName" : "Family name",
   // TODO New key - Add a translation
-  "explore.index.familyName" : "Family name",
+  "explore.index.familyName": "Family name",
 
   // "explore.index.funding" : "Funding",
   // TODO New key - Add a translation
-  "explore.index.funding" : "Funding",
+  "explore.index.funding": "Funding",
 
   // "explore.index.givenName" : "Given name",
   // TODO New key - Add a translation
-  "explore.index.givenName" : "Given name",
+  "explore.index.givenName": "Given name",
 
   // "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
   // TODO New key - Add a translation
-  "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
+  "explore.index.has_content_in_original_bundle": "Has content in original bundle",
 
   // "explore.index.investigators" : "Researchers",
   // TODO New key - Add a translation
-  "explore.index.investigators" : "Researchers",
+  "explore.index.investigators": "Researchers",
 
   // "explore.index.isAuthorOfPublication" : "Publication's author",
   // TODO New key - Add a translation
-  "explore.index.isAuthorOfPublication" : "Publication's author",
+  "explore.index.isAuthorOfPublication": "Publication's author",
 
   // "explore.index.isJournalOfPublication" : "Publication's journal",
   // TODO New key - Add a translation
-  "explore.index.isJournalOfPublication" : "Publication's journal",
+  "explore.index.isJournalOfPublication": "Publication's journal",
 
   // "explore.index.isOrgUnitOfPerson" : "Person's organization",
   // TODO New key - Add a translation
-  "explore.index.isOrgUnitOfPerson" : "Person's organization",
+  "explore.index.isOrgUnitOfPerson": "Person's organization",
 
   // "explore.index.isOrgUnitOfProject" : "Project's organization",
   // TODO New key - Add a translation
-  "explore.index.isOrgUnitOfProject" : "Project's organization",
+  "explore.index.isOrgUnitOfProject": "Project's organization",
 
   // "explore.index.isOrgUnitOfPublication" : "Publication's organization",
   // TODO New key - Add a translation
-  "explore.index.isOrgUnitOfPublication" : "Publication's organization",
+  "explore.index.isOrgUnitOfPublication": "Publication's organization",
 
   // "explore.index.isPersonOfOrgUnit" : "Organization's person",
   // TODO New key - Add a translation
-  "explore.index.isPersonOfOrgUnit" : "Organization's person",
+  "explore.index.isPersonOfOrgUnit": "Organization's person",
 
   // "explore.index.isPersonOfProject" : "Project's person",
   // TODO New key - Add a translation
-  "explore.index.isPersonOfProject" : "Project's person",
+  "explore.index.isPersonOfProject": "Project's person",
 
   // "explore.index.isProjectOfOrgUnit" : "Organization's project",
   // TODO New key - Add a translation
-  "explore.index.isProjectOfOrgUnit" : "Organization's project",
+  "explore.index.isProjectOfOrgUnit": "Organization's project",
 
   // "explore.index.isProjectOfPerson" : "Person's project",
   // TODO New key - Add a translation
-  "explore.index.isProjectOfPerson" : "Person's project",
+  "explore.index.isProjectOfPerson": "Person's project",
 
   // "explore.index.isProjectOfPublication" : "Publication's project",
   // TODO New key - Add a translation
-  "explore.index.isProjectOfPublication" : "Publication's project",
+  "explore.index.isProjectOfPublication": "Publication's project",
 
   // "explore.index.isPublicationOfAuthor" : "Author's publication",
   // TODO New key - Add a translation
-  "explore.index.isPublicationOfAuthor" : "Author's publication",
+  "explore.index.isPublicationOfAuthor": "Author's publication",
 
   // "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
   // TODO New key - Add a translation
-  "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
+  "explore.index.isPublicationOfJournalIssue": "Journal issue's publication",
 
   // "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
   // TODO New key - Add a translation
-  "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
+  "explore.index.isPublicationOfOrgUnit": "Organization's publication",
 
   // "explore.index.isPublicationOfProject" : "Project's publication",
   // TODO New key - Add a translation
-  "explore.index.isPublicationOfProject" : "Project's publication",
+  "explore.index.isPublicationOfProject": "Project's publication",
 
   // "explore.index.itemidentifier" : "Item identifier",
   // TODO New key - Add a translation
-  "explore.index.itemidentifier" : "Item identifier",
+  "explore.index.itemidentifier": "Item identifier",
 
   // "explore.index.jobTitle" : "Job title",
   // TODO New key - Add a translation
-  "explore.index.jobTitle" : "Job title",
+  "explore.index.jobTitle": "Job title",
 
   // "explore.index.knowsLanguage" : "Knows languages",
   // TODO New key - Add a translation
-  "explore.index.knowsLanguage" : "Knows languages",
+  "explore.index.knowsLanguage": "Knows languages",
 
   // "explore.index.organization" : "Organization",
   // TODO New key - Add a translation
-  "explore.index.organization" : "Organization",
+  "explore.index.organization": "Organization",
 
   // "explore.index.organizationAddressCountry" : "Organization address country",
   // TODO New key - Add a translation
-  "explore.index.organizationAddressCountry" : "Organization address country",
+  "explore.index.organizationAddressCountry": "Organization address country",
 
   // "explore.index.organizationAddressLocality" : "Organization address locality",
   // TODO New key - Add a translation
-  "explore.index.organizationAddressLocality" : "Organization address locality",
+  "explore.index.organizationAddressLocality": "Organization address locality",
 
   // "explore.index.organizationFoundingDate" : "Organization founding date",
   // TODO New key - Add a translation
-  "explore.index.organizationFoundingDate" : "Organization founding date",
+  "explore.index.organizationFoundingDate": "Organization founding date",
 
   // "explore.index.organizationLegalName" : "Organization legal name",
   // TODO New key - Add a translation
-  "explore.index.organizationLegalName" : "Organization legal name",
+  "explore.index.organizationLegalName": "Organization legal name",
 
   // "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
   // TODO New key - Add a translation
-  "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
+  "explore.index.original_bundle_descriptions": "Original bundle descriptions",
 
   // "explore.index.original_bundle_filenames" : "Original bundle filenames",
   // TODO New key - Add a translation
-  "explore.index.original_bundle_filenames" : "Original bundle filenames",
+  "explore.index.original_bundle_filenames": "Original bundle filenames",
 
   // "explore.index.ouname" : "Name",
   // TODO New key - Add a translation
-  "explore.index.ouname" : "Name",
+  "explore.index.ouname": "Name",
 
   // "explore.index.projectOrgUnits" : "Organizations",
   // TODO New key - Add a translation
-  "explore.index.projectOrgUnits" : "Organizations",
+  "explore.index.projectOrgUnits": "Organizations",
 
   // "explore.index.personOrgUnits" : "Organizations",
   // TODO New key - Add a translation
-  "explore.index.personOrgUnits" : "Organizations",
+  "explore.index.personOrgUnits": "Organizations",
 
   // "explore.index.pjtitle" : "Title",
   // TODO New key - Add a translation
-  "explore.index.pjtitle" : "Title",
+  "explore.index.pjtitle": "Title",
 
   // "explore.index.projectinvestigators" : "Project investigators",
   // TODO New key - Add a translation
-  "explore.index.projectinvestigators" : "Project investigators",
+  "explore.index.projectinvestigators": "Project investigators",
 
   // "explore.index.rodept" : "Department",
   // TODO New key - Add a translation
-  "explore.index.rodept" : "Department",
+  "explore.index.rodept": "Department",
 
   // "explore.index.rpdept" : "Department",
   // TODO New key - Add a translation
-  "explore.index.rpdept" : "Department",
+  "explore.index.rpdept": "Department",
 
   // "explore.index.rpname" : "Name",
   // TODO New key - Add a translation
-  "explore.index.rpname" : "Name",
+  "explore.index.rpname": "Name",
 
   // "explore.index.subject" : "Subject",
   // TODO New key - Add a translation
-  "explore.index.subject" : "Subject",
+  "explore.index.subject": "Subject",
 
   // "explore.index.title" : "Title",
   // TODO New key - Add a translation
-  "explore.index.title" : "Title",
+  "explore.index.title": "Title",
 
   // "explore.index.type" : "Type",
   // TODO New key - Add a translation
-  "explore.index.type" : "Type",
+  "explore.index.type": "Type",
 
   // "explore.search-section.infrastructure.title": "Infrastructure",
   // TODO New key - Add a translation
@@ -3734,7 +3730,7 @@
 
   // "footer.built-with":"Built with",
   // TODO New key - Add a translation
-  "footer.built-with":"Built with",
+  "footer.built-with": "Built with",
 
   // "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.copyright": "Авторлық құқық © 2002-{{ year }}",
@@ -3764,10 +3760,10 @@
   "footer.link.privacy-policy": "Құпиялылық саясаты",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Соңғы пайдаланушы келісімі",
+  "footer.link.end-user-agreement": "Соңғы пайдаланушы келісімі",
 
   // "footer.link.feedback":"Send Feedback",
-  "footer.link.feedback":"Пікір жіберу",
+  "footer.link.feedback": "Пікір жіберу",
 
 
 
@@ -3980,11 +3976,11 @@
 
   // "funding.listelement.badge" : "Funding",
   // TODO New key - Add a translation
-  "funding.listelement.badge" : "Funding",
+  "funding.listelement.badge": "Funding",
 
   // "funding.page.titleprefix" : "Funding:",
   // TODO New key - Add a translation
-  "funding.page.titleprefix" : "Funding:",
+  "funding.page.titleprefix": "Funding:",
 
 
 
@@ -4036,7 +4032,7 @@
 
 
   // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "grant-request-copy.email.message": "Құрметті {{ recipientName }},\nСіздің сұрауыңызға жауап ретінде Мен сізге құжатқа қатысты файлдың көшірмесін тіркемеде жібергеніме қуаныштымын: \"{{ itemUrl }}\" ({{ itemName }}), оның авторы мен.\n\nІзгі тілектермен,\N{{ authorName }} <{{ authorEmail }}>",
+  "grant-request-copy.email.message": "Құрметті {{ recipientName }},\nСіздің сұрауыңызға жауап ретінде Мен сізге құжатқа қатысты файлдың көшірмесін тіркемеде жібергеніме қуаныштымын: \"{{ itemUrl }}\" ({{ itemName }}), оның авторы мен.\n\nІзгі тілектермен,\n{{ authorName }} <{{ authorEmail }}>",
 
   // "grant-request-copy.email.subject": "Request copy of document",
   "grant-request-copy.email.subject": "Құжаттың көшірмесін сұрау",
@@ -4058,13 +4054,13 @@
   "health.breadcrumbs": "Күйі",
 
   // "health-page.heading" : "Health",
-  "health-page.heading" : "Күйі",
+  "health-page.heading": "Күйі",
 
   // "health-page.info-tab" : "Info",
-  "health-page.info-tab" : "Ақпарат",
+  "health-page.info-tab": "Ақпарат",
 
   // "health-page.status-tab" : "Status",
-  "health-page.status-tab" : "Мәртебесі",
+  "health-page.status-tab": "Мәртебесі",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "Тексеру қызметі уақытша қол жетімді емес",
@@ -4151,7 +4147,7 @@
   "info.end-user-agreement.accept.warning": "Before you can proceed, you must agree to the End User Agreement",
 
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
-  "info.end-user-agreement.breadcrumbs":"Соңғы пайдаланушы келісімі",
+  "info.end-user-agreement.breadcrumbs": "Соңғы пайдаланушы келісімі",
 
   // "info.end-user-agreement.buttons.cancel": "Cancel",
   "info.end-user-agreement.buttons.cancel": "Болдырмау",
@@ -4199,19 +4195,19 @@
   "info.feedback.email-label": "Сіздің пошта",
 
   // "info.feedback.create.success" : "Feedback Sent Successfully!",
-  "info.feedback.create.success" : "Кері Байланыс Сәтті Жіберілді!",
+  "info.feedback.create.success": "Кері Байланыс Сәтті Жіберілді!",
 
   // "info.feedback.error.email.required" : "A valid email address is required",
-  "info.feedback.error.email.required" : "Жарамды электрондық пошта мекенжайы қажет",
+  "info.feedback.error.email.required": "Жарамды электрондық пошта мекенжайы қажет",
 
   // "info.feedback.error.message.required" : "A comment is required",
-  "info.feedback.error.message.required" : "Түсініктеме қажет",
+  "info.feedback.error.message.required": "Түсініктеме қажет",
 
   // "info.feedback.page-label" : "Page",
-  "info.feedback.page-label" : "Бет",
+  "info.feedback.page-label": "Бет",
 
   // "info.feedback.page_help" : "Tha page related to your feedback",
-  "info.feedback.page_help" : "Сіздің пікіріңізге байланысты бет",
+  "info.feedback.page_help": "Сіздің пікіріңізге байланысты бет",
 
 
 
@@ -4250,7 +4246,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Буманы жасау",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Бұл элементте биттік ағынды жүктеп салуға арналған бумалар жоқ.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -4260,7 +4256,7 @@
   "item.bitstreams.upload.drop-message": "Жүктеп салу үшін файлды тастаңыз",
 
   // "item.bitstreams.upload.item": "Item: ",
-  "item.bitstreams.upload.item":"Элемент:",
+  "item.bitstreams.upload.item": "Элемент:",
 
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
   "item.bitstreams.upload.notifications.bundle.created.content": "Жаңа топтама сәтті жасалды.",
@@ -4286,7 +4282,7 @@
   "item.edit.bitstreams.bundle.load.all": "Барлығын жүктеу ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
-  "item.edit.bitstreams.bundle.load.more":"Көбірек жүктеңіз",
+  "item.edit.bitstreams.bundle.load.more": "Көбірек жүктеңіз",
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "БАНДЛ: {{ name }}",
@@ -4310,10 +4306,10 @@
   "item.edit.bitstreams.edit.buttons.undo": "Өзгерістерді болдырмау",
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
-  "item.edit.bitstreams.empty":"Бұл элементте биттік ағындар жоқ. Біреуін жасау үшін жүктеп салу түймесін басыңыз.",
+  "item.edit.bitstreams.empty": "Бұл элементте биттік ағындар жоқ. Біреуін жасау үшін жүктеп салу түймесін басыңыз.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
-  "item.edit.bitstreams.headers.actions":"Әрекеттер",
+  "item.edit.bitstreams.headers.actions": "Әрекеттер",
 
   // "item.edit.bitstreams.headers.bundle": "Bundle",
   "item.edit.bitstreams.headers.bundle": "Бума",
@@ -4325,7 +4321,7 @@
   "item.edit.bitstreams.headers.format": "Формат",
 
   // "item.edit.bitstreams.headers.name": "Name",
-  "item.edit.bitstreams.headers.name":"Аты",
+  "item.edit.bitstreams.headers.name": "Аты",
 
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
   "item.edit.bitstreams.notifications.discarded.content": "Өзгертулеріңіз жойылды. Өзгерістерді қалпына келтіру үшін 'Болдырмау' түймесін басыңыз",
@@ -4493,13 +4489,13 @@
   "item.edit.item-mapper.buttons.remove": "Таңдалған жинақтар үшін элементтің салыстыруын жою",
 
   // "item.edit.item-mapper.cancel": "Cancel",
-  "item.edit.item-mapper.cancel":"Болдырмау",
+  "item.edit.item-mapper.cancel": "Болдырмау",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
   "item.edit.item-mapper.description": "Бұл әкімшілерге осы элементті басқа жинақтармен салыстыруға мүмкіндік беретін элементті салыстыру құралы. Жинақтарды іздеуге және оларды салыстыруға немесе элемент қазіргі уақытта салыстырылған жинақтар тізімін шолуға болады.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  "item.edit.item-mapper.head":"Элемент салыстырушы - Элементті коллекциялармен салыстыру",
+  "item.edit.item-mapper.head": "Элемент салыстырушы - Элементті коллекциялармен салыстыру",
 
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
   "item.edit.item-mapper.item": "Элемент: \"<b>{{name}}</b>\"",
@@ -4517,7 +4513,7 @@
   "item.edit.item-mapper.notifications.add.success.content": "Элемент {{amount}} жинаққа сәтті салыстырылды.",
 
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  "item.edit.item-mapper.notifications.add.success.head":"Карталау аяқталды",
+  "item.edit.item-mapper.notifications.add.success.head": "Карталау аяқталды",
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.error.content": "{{amount}} жинаққа салыстыруды жою кезінде қателер орын алды.",
@@ -4635,7 +4631,7 @@
   "item.edit.metadata.reset-order-button": "Undo reorder",
 
   // "item.edit.metadata.save-button": "Save",
-  "item.edit.metadata.save-button":"Сақтау",
+  "item.edit.metadata.save-button": "Сақтау",
 
 
 
@@ -4692,7 +4688,7 @@
 
 
   // "item.edit.private.cancel": "Cancel",
-  "item.edit.private.cancel":"Болдырмау",
+  "item.edit.private.cancel": "Болдырмау",
 
   // "item.edit.private.confirm": "Make it non-discoverable",
   "item.edit.private.confirm": "Мұны жеке жаса",
@@ -4755,7 +4751,7 @@
   "item.edit.relationships.discard-button": "Тастау",
 
   // "item.edit.relationships.edit.buttons.add": "Add",
-  "item.edit.relationships.edit.buttons.add":"Қосу",
+  "item.edit.relationships.edit.buttons.add": "Қосу",
 
   // "item.edit.relationships.edit.buttons.remove": "Remove",
   "item.edit.relationships.edit.buttons.remove": "Жою",
@@ -4788,7 +4784,7 @@
   "item.edit.relationships.notifications.saved.title": "Сақталған қатынастар",
 
   // "item.edit.relationships.reinstate-button": "Undo",
-  "item.edit.relationships.reinstate-button":"Болдырмау",
+  "item.edit.relationships.reinstate-button": "Болдырмау",
 
   // "item.edit.relationships.save-button": "Save",
   "item.edit.relationships.save-button": "Сақтау",
@@ -4829,10 +4825,10 @@
   "item.edit.tabs.status.buttons.authorizations.button": "Рұқсат...",
 
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  "item.edit.tabs.status.buttons.authorizations.label":"Элементті авторизациялау саясатын өзгерту",
+  "item.edit.tabs.status.buttons.authorizations.label": "Элементті авторизациялау саясатын өзгерту",
 
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
-  "item.edit.tabs.status.buttons.delete.button":"Біржола жою",
+  "item.edit.tabs.status.buttons.delete.button": "Біржола жою",
 
   // "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
   "item.edit.tabs.status.buttons.delete.label": "Элементті толығымен алып тастаңыз",
@@ -4888,7 +4884,7 @@
   "item.edit.tabs.status.description": "Тауарларды басқару бетіне қош келдіңіз. Осы жерден элементті алып тастауға, қалпына келтіруге, жылжытуға немесе жоюға болады. Басқа қойындыларда жаңа метадеректерді / бит ағындарын жаңартуға немесе қосуға болады.",
 
   // "item.edit.tabs.status.head": "Status",
-  "item.edit.tabs.status.head":"Мәртебе",
+  "item.edit.tabs.status.head": "Мәртебе",
 
   // "item.edit.tabs.status.labels.handle": "Handle",
   "item.edit.tabs.status.labels.handle": "Қалам",
@@ -4936,7 +4932,7 @@
 
   // "item.edit.unlink-orcid.not-linked-to-orcid" : "The operation cannot be completed because the given item is not a profile linked to ORCID",
   // TODO New key - Add a translation
-  "item.edit.unlink-orcid.not-linked-to-orcid" : "The operation cannot be completed because the given item is not a profile linked to ORCID",
+  "item.edit.unlink-orcid.not-linked-to-orcid": "The operation cannot be completed because the given item is not a profile linked to ORCID",
 
   // "item.edit.unlink-orcid.unlink": "Disconnect",
   // TODO New key - Add a translation
@@ -4948,7 +4944,7 @@
 
   // "item.edit.unlink-orcid.unlink.error" :"An error occurred while disconnecting between the profile and the ORCID registry. Try again",
   // TODO New key - Add a translation
-  "item.edit.unlink-orcid.unlink.error" :"An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "item.edit.unlink-orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
 
   // "item.edit.unlink-orcid.processing": "Processing",
   // TODO New key - Add a translation
@@ -5051,7 +5047,7 @@
   "item.page.author": "Авторлар",
 
   // "item.page.citation": "Citation",
-  "item.page.citation":"Дәйексөз",
+  "item.page.citation": "Дәйексөз",
 
   // "item.page.collections": "Collections",
   "item.page.collections": "Жинақтар",
@@ -5212,10 +5208,10 @@
   "item.page.bitstreams.collapse": "Коллапс",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Түпнұсқа жинақ",
+  "item.page.filesection.original.bundle": "Түпнұсқа жинақ",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Лицензиялық пакет",
+  "item.page.filesection.license.bundle": "Лицензиялық пакет",
 
   // "item.page.return": "Back",
   "item.page.return": "Артқа",
@@ -5234,11 +5230,11 @@
 
   // "item.preview.dc.description" : "Summary",
   // TODO New key - Add a translation
-  "item.preview.dc.description" : "Summary",
+  "item.preview.dc.description": "Summary",
 
   // "item.preview.dc.description.tableOfContents" : "Table of Contents",
   // TODO New key - Add a translation
-  "item.preview.dc.description.tableOfContents" : "Table of Contents",
+  "item.preview.dc.description.tableOfContents": "Table of Contents",
 
   // "item.preview.dc.identifier.arxiv": "arXiv ID",
   // TODO New key - Add a translation
@@ -5258,37 +5254,37 @@
 
   // "item.preview.dc.identifier.isi" : "ISI",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.isi" : "ISI",
+  "item.preview.dc.identifier.isi": "ISI",
 
   // "item.preview.dc.identifier.issn" : "ISSN",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.issn" : "ISSN",
+  "item.preview.dc.identifier.issn": "ISSN",
 
   // "item.preview.dc.identifier.scopus" : "Scopus ID",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.scopus" : "Scopus ID",
+  "item.preview.dc.identifier.scopus": "Scopus ID",
 
   // "item.preview.dc.publisher" : "Publisher",
   // TODO New key - Add a translation
-  "item.preview.dc.publisher" : "Publisher",
+  "item.preview.dc.publisher": "Publisher",
 
   // "item.preview.dc.relation.grantno" : "Grant no.",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.grantno" : "Grant no.",
+  "item.preview.dc.relation.grantno": "Grant no.",
 
   // "item.preview.dc.relation.ispartofseries" : "Serie",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartofseries" : "Serie",
+  "item.preview.dc.relation.ispartofseries": "Serie",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Идентификатор:",
 
   // "item.preview.dc.contributor.advisor" : "Advisor",
   // TODO New key - Add a translation
-  "item.preview.dc.contributor.advisor" : "Advisor",
+  "item.preview.dc.contributor.advisor": "Advisor",
 
   // "item.preview.dc.contributor.author": "Authors:",
-  "item.preview.dc.contributor.author":"Авторлар:",
+  "item.preview.dc.contributor.author": "Авторлар:",
 
   // "item.preview.dc.contributor.applicant": "Applicant",
   // TODO New key - Add a translation
@@ -5300,7 +5296,7 @@
 
   // "item.preview.dc.date.embargoEnd" : "Embargo End",
   // TODO New key - Add a translation
-  "item.preview.dc.date.embargoEnd" : "Embargo End",
+  "item.preview.dc.date.embargoEnd": "Embargo End",
 
   // "item.preview.dc.date.issued": "Published date:",
   "item.preview.dc.date.issued": "Жарияланған күні:",
@@ -5310,29 +5306,29 @@
 
   // "item.preview.dc.description.sponsorship" : "Sponsorship",
   // TODO New key - Add a translation
-  "item.preview.dc.description.sponsorship" : "Sponsorship",
+  "item.preview.dc.description.sponsorship": "Sponsorship",
 
   // "item.preview.dc.identifier.other": "Other identifier:",
   "item.preview.dc.identifier.other": "Басқа идентификатор:",
 
   // "item.preview.dc.identifier.pmid" : "Pubmed ID",
   // TODO New key - Add a translation
-  "item.preview.dc.identifier.pmid" : "Pubmed ID",
+  "item.preview.dc.identifier.pmid": "Pubmed ID",
 
   // "item.preview.dc.language.iso": "Language:",
   "item.preview.dc.language.iso": "Тіл:",
 
   // "item.preview.dc.relation.uri" : "Relation URI",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.uri" : "Relation URI",
+  "item.preview.dc.relation.uri": "Relation URI",
 
   // "item.preview.dc.rights" : "Rights",
   // TODO New key - Add a translation
-  "item.preview.dc.rights" : "Rights",
+  "item.preview.dc.rights": "Rights",
 
   // "item.preview.dc.rights.uri" : "Rights URI",
   // TODO New key - Add a translation
-  "item.preview.dc.rights.uri" : "Rights URI",
+  "item.preview.dc.rights.uri": "Rights URI",
 
   // "item.preview.dc.subject": "Subjects:",
   "item.preview.dc.subject": "Тақырыбы:",
@@ -5344,33 +5340,33 @@
   "item.preview.dc.type": "Типі:",
 
   // "item.preview.oaire.citation.issue" : "Issue",
-  "item.preview.oaire.citation.issue" : "Шығарылымы",
+  "item.preview.oaire.citation.issue": "Шығарылымы",
 
   // "item.preview.oaire.citation.volume" : "Volume",
-  "item.preview.oaire.citation.volume" : "Көлемі",
+  "item.preview.oaire.citation.volume": "Көлемі",
 
   // "item.preview.dc.relation.issn" : "ISSN",
-  "item.preview.dc.relation.issn" : "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn" : "ISBN",
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   "item.preview.dc.identifier": "Идентификатор:",
 
   // "item.preview.dc.relation.ispartof" : "Journal or Serie",
-  "item.preview.dc.relation.ispartof" : "Журнал немесе серия",
+  "item.preview.dc.relation.ispartof": "Журнал немесе серия",
 
   // "item.preview.dc.identifier.doi" : "DOI",
-  "item.preview.dc.identifier.doi" : "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.dc.title.alternative" : "Alternative Title",
   // TODO New key - Add a translation
-  "item.preview.dc.title.alternative" : "Alternative Title",
+  "item.preview.dc.title.alternative": "Alternative Title",
 
   // "item.preview.dc.type.version" : "Version",
   // TODO New key - Add a translation
-  "item.preview.dc.type.version" : "Version",
+  "item.preview.dc.type.version": "Version",
 
   // "item.preview.dc.source": "Source:",
   // TODO New key - Add a translation
@@ -5378,11 +5374,11 @@
 
   // "item.preview.dc.relation.isbn" : "ISBN",
   // TODO New key - Add a translation
-  "item.preview.dc.relation.isbn" : "ISBN",
+  "item.preview.dc.relation.isbn": "ISBN",
 
   // "item.preview.oaire.citation.endPage" : "End Page",
   // TODO New key - Add a translation
-  "item.preview.oaire.citation.endPage" : "End Page",
+  "item.preview.oaire.citation.endPage": "End Page",
 
   // "item.preview.oaire.citation.edition": "Edition",
   // TODO New key - Add a translation
@@ -5390,39 +5386,39 @@
 
   // "item.preview.oaire.citation.startPage" : "Start Page",
   // TODO New key - Add a translation
-  "item.preview.oaire.citation.startPage" : "Start Page",
+  "item.preview.oaire.citation.startPage": "Start Page",
 
   // "item.preview.oairecerif.acronym" : "Acronym",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.acronym" : "Acronym",
+  "item.preview.oairecerif.acronym": "Acronym",
 
   // "item.preview.oairecerif.affiliation.orgunit" : "Affiliation",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.affiliation.orgunit" : "Affiliation",
+  "item.preview.oairecerif.affiliation.orgunit": "Affiliation",
 
   // "item.preview.oairecerif.funder" : "Funder",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.funder" : "Funder",
+  "item.preview.oairecerif.funder": "Funder",
 
   // "item.preview.oairecerif.funding.identifier" : "Grant Number / Funding identifier",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.funding.identifier" : "Grant Number / Funding identifier",
+  "item.preview.oairecerif.funding.identifier": "Grant Number / Funding identifier",
 
   // "item.preview.oairecerif.funding.endDate" : "End Date",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.funding.endDate" : "End Date",
+  "item.preview.oairecerif.funding.endDate": "End Date",
 
   // "item.preview.oairecerif.funding.startDate" : "Start Date",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.funding.startDate" : "Start Date",
+  "item.preview.oairecerif.funding.startDate": "Start Date",
 
   // "item.preview.oairecerif.fundingParent" : "Funding Program / Call",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.fundingParent" : "Funding Program / Call",
+  "item.preview.oairecerif.fundingParent": "Funding Program / Call",
 
   // "item.preview.oairecerif.oamandate" : "OA Mandate",
   // TODO New key - Add a translation
-  "item.preview.oairecerif.oamandate" : "OA Mandate",
+  "item.preview.oairecerif.oamandate": "OA Mandate",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Тегі:",
@@ -5461,7 +5457,7 @@
   "item.select.confirm": "Таңдауды растау",
 
   // "item.select.empty": "No items to show",
-  "item.select.empty":"Көрсету үшін элементтер жоқ",
+  "item.select.empty": "Көрсету үшін элементтер жоқ",
 
   // "item.select.table.author": "Author",
   "item.select.table.author": "Автор",
@@ -5499,7 +5495,7 @@
   "item.version.history.table.editor": "Редакторы",
 
   // "item.version.history.table.date": "Date",
-  "item.version.history.table.date":"Кездесуге",
+  "item.version.history.table.date": "Кездесуге",
 
   // "item.version.history.table.summary": "Summary",
   "item.version.history.table.summary": "Қысқаша мазмұны",
@@ -5573,13 +5569,13 @@
   "item.version.create.modal.submitted.text": "Жаңа нұсқа жасалуда. Егер элемент көптеген байланыстарға ие болса, біраз уақыт кетуі мүмкін.",
 
   // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
-  "item.version.create.notification.success" : "Жаңа нұсқа {{version}} нұсқасының нөмірімен жасалды",
+  "item.version.create.notification.success": "Жаңа нұсқа {{version}} нұсқасының нөмірімен жасалды",
 
   // "item.version.create.notification.failure" : "New version has not been created",
-  "item.version.create.notification.failure" : "Жаңа нұсқа жасалмады",
+  "item.version.create.notification.failure": "Жаңа нұсқа жасалмады",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.version.create.notification.inProgress" : "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған жіберу бар",
+  "item.version.create.notification.inProgress": "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған жіберу бар",
 
 
   // "item.version.delete.modal.header": "Delete version",
@@ -5601,17 +5597,17 @@
   "item.version.delete.modal.button.cancel.tooltip": "Бұл нұсқаны жоймаңыз",
 
   // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
-  "item.version.delete.notification.success" : "Нұсқа нөмірі {{version}} жойылды",
+  "item.version.delete.notification.success": "Нұсқа нөмірі {{version}} жойылды",
 
   // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
-  "item.version.delete.notification.failure" : "Нұсқа нөмірі {{version}} жойылған жоқ",
+  "item.version.delete.notification.failure": "Нұсқа нөмірі {{version}} жойылған жоқ",
 
 
   // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
-  "item.version.edit.notification.success" : "Нұсқа нөмірінің қысқаша сипаттамасы {{version}} өзгертілді",
+  "item.version.edit.notification.success": "Нұсқа нөмірінің қысқаша сипаттамасы {{version}} өзгертілді",
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
-  "item.version.edit.notification.failure" : "Нұсқа нөмірінің қысқаша сипаттамасы {{version}} өзгертілген жоқ",
+  "item.version.edit.notification.failure": "Нұсқа нөмірінің қысқаша сипаттамасы {{version}} өзгертілген жоқ",
 
   // "item-export.modal-launcher.single.btn": "Export",
   // TODO New key - Add a translation
@@ -5817,7 +5813,7 @@
   "journal.page.titleprefix": "Журнал:",
 
   // "journal.search.results.head": "Journal Search Results",
-  "journal.search.results.head":"Журналдағы іздеу нәтижелері",
+  "journal.search.results.head": "Журналдағы іздеу нәтижелері",
 
   // "journal-relationships.search.results.head": "Journal Search Results",
   "journal-relationships.search.results.head": "Журналдағы іздеу нәтижелері",
@@ -5840,13 +5836,13 @@
   "journalissue.page.issuedate": "Шығарылған күні",
 
   // "journalissue.page.journal-issn": "Journal ISSN",
-  "journalissue.page.journal-issn":"ISSN журналы",
+  "journalissue.page.journal-issn": "ISSN журналы",
 
   // "journalissue.page.journal-title": "Journal Title",
   "journalissue.page.journal-title": "Журнал атауы",
 
   // "journalissue.page.keyword": "Keywords",
-  "journalissue.page.keyword":"Түйінді сөздер",
+  "journalissue.page.keyword": "Түйінді сөздер",
 
   // "journalissue.page.number": "Number",
   "journalissue.page.number": "Саны",
@@ -5857,7 +5853,7 @@
 
 
   // "journalvolume.listelement.badge": "Journal Volume",
-  "journalvolume.listelement.badge":"Журнал көлемі",
+  "journalvolume.listelement.badge": "Журнал көлемі",
 
   // "journalvolume.page.description": "Description",
   "journalvolume.page.description": "Сипаттама",
@@ -5925,7 +5921,7 @@
   "loading.collection": "Жинақты жүктеу...",
 
   // "loading.collections": "Loading collections...",
-  "loading.collections":"Топтамаларды жүктеу...",
+  "loading.collections": "Топтамаларды жүктеу...",
 
   // "loading.content-source": "Loading content source...",
   "loading.content-source": "Мазмұн көзін жүктеу...",
@@ -5946,7 +5942,7 @@
   "loading.mydspace-results": "Заттарды жүктеу...",
 
   // "loading.objects": "Loading...",
-  "loading.objects":"Жүктеу...",
+  "loading.objects": "Жүктеу...",
 
   // "loading.recent-submissions": "Loading recent submissions...",
   "loading.recent-submissions": "Соңғы жіберілімдер жүктелуде...",
@@ -5958,7 +5954,7 @@
   "loading.sub-collections": "Ішкі жинақтар жүктелуде...",
 
   // "loading.sub-communities": "Loading sub-communities...",
-  "loading.sub-communities":"Қосымша қауымдастықтар жүктелуде...",
+  "loading.sub-communities": "Қосымша қауымдастықтар жүктелуде...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
   "loading.top-level-communities": "Жоғарғы деңгейдегі қауымдастықтар жүктелуде...",
@@ -5969,13 +5965,13 @@
   "login.form.email": "Электрондық пошта",
 
   // "login.form.forgot-password": "Have you forgotten your password?",
-  "login.form.forgot-password":"Сіз парольді ұмыттыңыз ба?",
+  "login.form.forgot-password": "Сіз парольді ұмыттыңыз ба?",
 
   // "login.form.header": "Please log in to DSpace",
-  "login.form.header":"DSpace жүйесіне кіріңіз",
+  "login.form.header": "DSpace жүйесіне кіріңіз",
 
   // "login.form.new-user": "New user? Click here to register.",
-  "login.form.new-user":"Жаңа пайдаланушы? Тіркелу үшін осы жерді басыңыз.",
+  "login.form.new-user": "Жаңа пайдаланушы? Тіркелу үшін осы жерді басыңыз.",
 
   // "login.form.or-divider": "or",
   "login.form.or-divider": "немесе",
@@ -6010,7 +6006,7 @@
   "logout.form.submit": "Шығу",
 
   // "logout.title": "Logout",
-  "logout.title":"Шығу",
+  "logout.title": "Шығу",
 
 
   // "manage.relationships.select": "Select",
@@ -6031,43 +6027,43 @@
 
   // "manage.relationships.search-list.title" : "All your items",
   // TODO New key - Add a translation
-  "manage.relationships.search-list.title" : "All your items",
+  "manage.relationships.search-list.title": "All your items",
 
   // "manage.relationships.selected-list.title" : "Selected items",
   // TODO New key - Add a translation
-  "manage.relationships.selected-list.title" : "Selected items",
+  "manage.relationships.selected-list.title": "Selected items",
 
   // "manage.relationships.no.relationships.found" : "Empty selection",
   // TODO New key - Add a translation
-  "manage.relationships.no.relationships.found" : "Empty selection",
+  "manage.relationships.no.relationships.found": "Empty selection",
 
   // "manage.relationships.no.data.found" : "No data found",
   // TODO New key - Add a translation
-  "manage.relationships.no.data.found" : "No data found",
+  "manage.relationships.no.data.found": "No data found",
 
   // "manage.relationships.error.select" : "An unexpected error occurs while selecting the entity.",
   // TODO New key - Add a translation
-  "manage.relationships.error.select" : "An unexpected error occurs while selecting the entity.",
+  "manage.relationships.error.select": "An unexpected error occurs while selecting the entity.",
 
   // "manage.relationships.error.unselect" : "An unexpected error occurs while unselecting the entity.",
   // TODO New key - Add a translation
-  "manage.relationships.error.unselect" : "An unexpected error occurs while unselecting the entity.",
+  "manage.relationships.error.unselect": "An unexpected error occurs while unselecting the entity.",
 
   // "manage.relationships.error.hide" : "An unexpected error occurs while hiding the entity.",
   // TODO New key - Add a translation
-  "manage.relationships.error.hide" : "An unexpected error occurs while hiding the entity.",
+  "manage.relationships.error.hide": "An unexpected error occurs while hiding the entity.",
 
   // "manage.relationships.error.unhide" : "An unexpected error occurs while exposing the entity.",
   // TODO New key - Add a translation
-  "manage.relationships.error.unhide" : "An unexpected error occurs while exposing the entity.",
+  "manage.relationships.error.unhide": "An unexpected error occurs while exposing the entity.",
 
   // "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
   // TODO New key - Add a translation
-  "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
+  "manage.relationships.error.sort": "An unexpected error occurs while sorting entities.",
 
   // "manage.relationships.hidden-related-items-alert" : "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
   // TODO New key - Add a translation
-  "manage.relationships.hidden-related-items-alert" : "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
+  "manage.relationships.hidden-related-items-alert": "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
 
   // "menu.header.admin": "Management",
@@ -6100,7 +6096,7 @@
   "menu.section.access_control": "Қатынасты басқару",
 
   // "menu.section.access_control_authorizations": "Authorizations",
-  "menu.section.access_control_authorizations":"Рұқсаттар",
+  "menu.section.access_control_authorizations": "Рұқсаттар",
 
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "Топтар",
@@ -6111,7 +6107,7 @@
 
 
   // "menu.section.admin_search": "Admin Search",
-  "menu.section.admin_search":"Әкімші іздеу",
+  "menu.section.admin_search": "Әкімші іздеу",
 
 
 
@@ -6166,7 +6162,7 @@
 
 
   // "menu.section.control_panel": "Control Panel",
-  "menu.section.control_panel":"Басқару панелі",
+  "menu.section.control_panel": "Басқару панелі",
 
   // "menu.section.curation_task": "Curation Task",
   "menu.section.curation_task": "Тапсырма",
@@ -6174,7 +6170,7 @@
 
 
   // "menu.section.edit": "Edit",
-  "menu.section.edit":"Өңдеу",
+  "menu.section.edit": "Өңдеу",
 
   // "menu.section.edit_collection": "Collection",
   "menu.section.edit_collection": "Жинақ",
@@ -6354,11 +6350,11 @@
 
   // "modal.item-detail-page.title" : "Item Page Detail",
   // TODO New key - Add a translation
-  "modal.item-detail-page.title" : "Item Page Detail",
+  "modal.item-detail-page.title": "Item Page Detail",
 
   // "modal.item-detail-page.confirm.cancel" : "Close",
   // TODO New key - Add a translation
-  "modal.item-detail-page.confirm.cancel" : "Close",
+  "modal.item-detail-page.confirm.cancel": "Close",
 
 
   // "statistics": "Statistics",
@@ -6403,39 +6399,39 @@
 
   // "statistics.workflow.page.step-table.submit" : "Submit",
   // TODO New key - Add a translation
-  "statistics.workflow.page.step-table.submit" : "Submit",
+  "statistics.workflow.page.step-table.submit": "Submit",
 
   // "statistics.workflow.page.step-table.reviewstep" : "Review",
   // TODO New key - Add a translation
-  "statistics.workflow.page.step-table.reviewstep" : "Review",
+  "statistics.workflow.page.step-table.reviewstep": "Review",
 
   // "statistics.workflow.page.step-table.editstep" : "Edit",
   // TODO New key - Add a translation
-  "statistics.workflow.page.step-table.editstep" : "Edit",
+  "statistics.workflow.page.step-table.editstep": "Edit",
 
   // "statistics.workflow.page.step-table.finaleditstep" : "Final edit",
   // TODO New key - Add a translation
-  "statistics.workflow.page.step-table.finaleditstep" : "Final edit",
+  "statistics.workflow.page.step-table.finaleditstep": "Final edit",
 
   // "statistics.workflow.page.step-table.item" : "Archive",
   // TODO New key - Add a translation
-  "statistics.workflow.page.step-table.item" : "Archive",
+  "statistics.workflow.page.step-table.item": "Archive",
 
   // "statistics.workflow.page.step-table.workspace" : "Reject",
   // TODO New key - Add a translation
-  "statistics.workflow.page.step-table.workspace" : "Reject",
+  "statistics.workflow.page.step-table.workspace": "Reject",
 
   // "statistics.workflow.page.current-table.reviewstep" : "Review",
   // TODO New key - Add a translation
-  "statistics.workflow.page.current-table.reviewstep" : "Review",
+  "statistics.workflow.page.current-table.reviewstep": "Review",
 
   // "statistics.workflow.page.current-table.editstep" : "Edit",
   // TODO New key - Add a translation
-  "statistics.workflow.page.current-table.editstep" : "Edit",
+  "statistics.workflow.page.current-table.editstep": "Edit",
 
   // "statistics.workflow.page.current-table.finaleditstep" : "Final edit",
   // TODO New key - Add a translation
-  "statistics.workflow.page.current-table.finaleditstep" : "Final edit",
+  "statistics.workflow.page.current-table.finaleditstep": "Final edit",
 
   // "statistics.workflow.page.current-table.step": "Step",
   // TODO New key - Add a translation
@@ -6515,7 +6511,7 @@
 
   // "statistics.workflow.page.action-table.claimaction" : "Claim",
   // TODO New key - Add a translation
-  "statistics.workflow.page.action-table.claimaction" : "Claim",
+  "statistics.workflow.page.action-table.claimaction": "Claim",
 
   // "statistics.workflow.page.no-data-found": "No data found",
   // TODO New key - Add a translation
@@ -6563,7 +6559,7 @@
 
   // "statistics.login.title statistics.workflow.title" : "Login Statistics",
   // TODO New key - Add a translation
-  "statistics.login.title statistics.workflow.title" : "Login Statistics",
+  "statistics.login.title statistics.workflow.title": "Login Statistics",
 
   // "manage.relations": "Manage Relations",
   // TODO New key - Add a translation
@@ -6676,7 +6672,7 @@
   "mydspace.messages.mark-as-unread": "Оқылмаған деп белгілеу",
 
   // "mydspace.messages.no-content": "No content.",
-  "mydspace.messages.no-content":"Мазмұны жоқ.",
+  "mydspace.messages.no-content": "Мазмұны жоқ.",
 
   // "mydspace.messages.no-messages": "No messages yet.",
   "mydspace.messages.no-messages": "Әлі хабарлар жоқ.",
@@ -6694,7 +6690,7 @@
   "mydspace.messages.submitter-help": "Контроллерге хабарлама жіберу үшін осы опцияны таңдаңыз.",
 
   // "mydspace.messages.title": "Messages",
-  "mydspace.messages.title":"Хабарлар",
+  "mydspace.messages.title": "Хабарлар",
 
   // "mydspace.messages.to": "To",
   "mydspace.messages.to": "Кімге",
@@ -6750,7 +6746,7 @@
   "mydspace.show.workflow": "Жұмыс процесінің міндеттері",
 
   // "mydspace.show.workspace": "Your Submissions",
-  "mydspace.show.workspace":"Сіздің өтініштеріңіз",
+  "mydspace.show.workspace": "Сіздің өтініштеріңіз",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   // TODO New key - Add a translation
@@ -6770,13 +6766,13 @@
   "mydspace.status.waiting-for-controller": "Контроллерді күтуде",
 
   // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow":"Жұмыс барысы",
+  "mydspace.status.workflow": "Жұмыс барысы",
 
   // "mydspace.status.workspace": "Workspace",
   "mydspace.status.workspace": "Жұмыс кеңістігі",
 
   // "mydspace.title": "MyDSpace",
-  "mydspace.title":"MyDSpace",
+  "mydspace.title": "MyDSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
   "mydspace.upload.upload-failed": "Жаңа жұмыс кеңістігін жасау қатесі. Қайталаудан бұрын жүктеп салынған мазмұнды тексеріңіз.",
@@ -6849,13 +6845,13 @@
 
   // "nav.subscriptions" : "Subscriptions",
   // TODO New key - Add a translation
-  "nav.subscriptions" : "Subscriptions",
+  "nav.subscriptions": "Subscriptions",
 
   // "nav.toggle" : "Toggle navigation",
-  "nav.toggle" : "Навигацияны ауыстыру",
+  "nav.toggle": "Навигацияны ауыстыру",
 
   // "nav.user.description" : "User profile bar",
-  "nav.user.description" : "Пайдаланушы профилі тақтасы",
+  "nav.user.description": "Пайдаланушы профилі тақтасы",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Элемент",
@@ -7250,7 +7246,7 @@
   "orgunit.page.dateestablished": "Орнатылған күні",
 
   // "orgunit.page.description": "Description",
-  "orgunit.page.description":"Сипаттамасы",
+  "orgunit.page.description": "Сипаттамасы",
 
   // "orgunit.page.edit": "Edit this item",
   "orgunit.page.edit": "Осы элементті өңдеу",
@@ -7284,7 +7280,7 @@
   "person.listelement.badge": "Адам",
 
   // "person.listelement.no-title": "No name found",
-  "person.listelement.no-title":"Ешқандай атау табылмады",
+  "person.listelement.no-title": "Ешқандай атау табылмады",
 
   // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "Туылған күні",
@@ -7296,7 +7292,7 @@
   "person.page.email": "Электрондық мекенжайы",
 
   // "person.page.firstname": "First Name",
-  "person.page.firstname":"Аты",
+  "person.page.firstname": "Аты",
 
   // "person.page.jobtitle": "Job Title",
   "person.page.jobtitle": "Жұмыс атауы",
@@ -7331,7 +7327,7 @@
 
 
   // "process.new.select-parameters": "Parameters",
-  "process.new.select-parameters":"Параметрлер",
+  "process.new.select-parameters": "Параметрлер",
 
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Болдырмау",
@@ -7350,10 +7346,10 @@
   "process.new.select-script.required": "Сценарий қажет",
 
   // "process.new.parameter.file.upload-button": "Select file...",
-  "process.new.parameter.file.upload-button":"Файлды таңдау...",
+  "process.new.parameter.file.upload-button": "Файлды таңдау...",
 
   // "process.new.parameter.file.required": "Please select a file",
-  "process.new.parameter.file.required":"Файлды таңдаңыз",
+  "process.new.parameter.file.required": "Файлды таңдаңыз",
 
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Параметр мәні қажет",
@@ -7399,16 +7395,16 @@
 
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" :"Аргументтер",
+  "process.detail.arguments": "Аргументтер",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Бұл процесс ешқандай аргументтерді қамтымайды",
+  "process.detail.arguments.empty": "Бұл процесс ешқандай аргументтерді қамтымайды",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Артқа",
+  "process.detail.back": "Артқа",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Процесс шығысы",
+  "process.detail.output": "Процесс шығысы",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Процесс шығысын шығарып алу",
@@ -7420,28 +7416,28 @@
   "process.detail.logs.none": "Бұл процесте нәтиже жоқ",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Шығару файлдары",
+  "process.detail.output-files": "Шығару файлдары",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Бұл процесте ешқандай шығыс файлдары жоқ",
+  "process.detail.output-files.empty": "Бұл процесте ешқандай шығыс файлдары жоқ",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Сценарий",
+  "process.detail.script": "Сценарий",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" :"Процесс: {{ id }} - {{ name }}",
+  "process.detail.title": "Процесс: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Бастау уақыты",
+  "process.detail.start-time": "Бастау уақыты",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Аяқтау уақыты",
+  "process.detail.end-time": "Аяқтау уақыты",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Мәртебе",
+  "process.detail.status": "Мәртебе",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Ұқсас процесті жасау",
+  "process.detail.create": "Ұқсас процесті жасау",
 
   // "process.detail.actions": "Actions",
   "process.detail.actions": "Әрекеттер",
@@ -7469,36 +7465,36 @@
 
   // "process.overview.delete.failed" : "An error occurs deleting the process.",
   // TODO New key - Add a translation
-  "process.overview.delete.failed" : "An error occurs deleting the process.",
+  "process.overview.delete.failed": "An error occurs deleting the process.",
 
   // "process.overview.delete.success" : "Process deleted with success",
   // TODO New key - Add a translation
-  "process.overview.delete.success" : "Process deleted with success",
+  "process.overview.delete.success": "Process deleted with success",
 
   // "process.overview.table.finish" : "Finish time (UTC)",
-  "process.overview.table.finish" : "Аяқтау уақыты (UTC)",
+  "process.overview.table.finish": "Аяқтау уақыты (UTC)",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" :"Процесс идентификаторы",
+  "process.overview.table.id": "Процесс идентификаторы",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" :"Аты",
+  "process.overview.table.name": "Аты",
 
   // "process.overview.table.start" : "Start time (UTC)",
   // TODO Source message changed - Revise the translation
-  "process.overview.table.start" : "Бастау уақыты",
+  "process.overview.table.start": "Бастау уақыты",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Мәртебе",
+  "process.overview.table.status": "Мәртебе",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Пайдаланушы",
+  "process.overview.table.user": "Пайдаланушы",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Процестерге шолу",
 
   // "process.overview.breadcrumbs": "Processes Overview",
-  "process.overview.breadcrumbs":"Процестерге шолу",
+  "process.overview.breadcrumbs": "Процестерге шолу",
 
   // "process.overview.new": "New",
   "process.overview.new": "Жаңа",
@@ -7538,35 +7534,35 @@
 
   // "audit.overview.table.id" : "Audit ID",
   // TODO New key - Add a translation
-  "audit.overview.table.id" : "Audit ID",
+  "audit.overview.table.id": "Audit ID",
 
   // "audit.overview.table.objectUUID" : "Object ID",
   // TODO New key - Add a translation
-  "audit.overview.table.objectUUID" : "Object ID",
+  "audit.overview.table.objectUUID": "Object ID",
 
   // "audit.overview.table.objectType" : "Object Type",
   // TODO New key - Add a translation
-  "audit.overview.table.objectType" : "Object Type",
+  "audit.overview.table.objectType": "Object Type",
 
   // "audit.overview.table.subjectUUID" : "Subject ID",
   // TODO New key - Add a translation
-  "audit.overview.table.subjectUUID" : "Subject ID",
+  "audit.overview.table.subjectUUID": "Subject ID",
 
   // "audit.overview.table.subjectType" : "Subject Type",
   // TODO New key - Add a translation
-  "audit.overview.table.subjectType" : "Subject Type",
+  "audit.overview.table.subjectType": "Subject Type",
 
   // "audit.overview.table.entityType" : "Audit Type",
   // TODO New key - Add a translation
-  "audit.overview.table.entityType" : "Audit Type",
+  "audit.overview.table.entityType": "Audit Type",
 
   // "audit.overview.table.eperson" : "EPerson",
   // TODO New key - Add a translation
-  "audit.overview.table.eperson" : "EPerson",
+  "audit.overview.table.eperson": "EPerson",
 
   // "audit.overview.table.timestamp" : "Time",
   // TODO New key - Add a translation
-  "audit.overview.table.timestamp" : "Time",
+  "audit.overview.table.timestamp": "Time",
 
   // "audit.overview.breadcrumbs": "Audit Logs Overview",
   // TODO New key - Add a translation
@@ -7579,35 +7575,35 @@
 
   // "audit.detail.title" : "Audit Detail",
   // TODO New key - Add a translation
-  "audit.detail.title" : "Audit Detail",
+  "audit.detail.title": "Audit Detail",
 
   // "audit.detail.id" : "Audit Id",
   // TODO New key - Add a translation
-  "audit.detail.id" : "Audit Id",
+  "audit.detail.id": "Audit Id",
 
   // "audit.detail.subjectUUID" : "Subject ID",
   // TODO New key - Add a translation
-  "audit.detail.subjectUUID" : "Subject ID",
+  "audit.detail.subjectUUID": "Subject ID",
 
   // "audit.detail.subjectType" : "Subject Type",
   // TODO New key - Add a translation
-  "audit.detail.subjectType" : "Subject Type",
+  "audit.detail.subjectType": "Subject Type",
 
   // "audit.detail.eventType" : "Audit Type",
   // TODO New key - Add a translation
-  "audit.detail.eventType" : "Audit Type",
+  "audit.detail.eventType": "Audit Type",
 
   // "audit.detail.eperson" : "EPerson",
   // TODO New key - Add a translation
-  "audit.detail.eperson" : "EPerson",
+  "audit.detail.eperson": "EPerson",
 
   // "audit.detail.timeStamp" : "Time",
   // TODO New key - Add a translation
-  "audit.detail.timeStamp" : "Time",
+  "audit.detail.timeStamp": "Time",
 
   // "audit.detail.back" : "All Audit Logs",
   // TODO New key - Add a translation
-  "audit.detail.back" : "All Audit Logs",
+  "audit.detail.back": "All Audit Logs",
 
   // "audit.detail.back.subject": "Subject Audit Logs",
   // TODO New key - Add a translation
@@ -7749,7 +7745,7 @@
   "profile.security.form.label.password": "Құпия сөз",
 
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  "profile.security.form.label.passwordrepeat":"Растау үшін қайта теріңіз",
+  "profile.security.form.label.passwordrepeat": "Растау үшін қайта теріңіз",
 
   // "profile.security.form.label.current-password": "Current password",
   // TODO New key - Add a translation
@@ -7776,7 +7772,7 @@
   "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
 
   // "profile.title": "Update Profile",
-  "profile.title":"Профильді жаңарту",
+  "profile.title": "Профильді жаңарту",
 
   // "profile.card.researcher": "Researcher Profile",
   "profile.card.researcher": "Зерттеуші профилі",
@@ -7868,7 +7864,7 @@
   "register-email.title": "Жаңа пайдаланушыны тіркеу",
 
   // "register-page.create-profile.header": "Create Profile",
-  "register-page.create-profile.header":"Профиль жасау",
+  "register-page.create-profile.header": "Профиль жасау",
 
   // "register-page.create-profile.identification.header": "Identify",
   "register-page.create-profile.identification.header": "Анықтау",
@@ -7883,10 +7879,10 @@
   "register-page.create-profile.identification.first-name.error": "Аты-жөніңізді толтырыңыз",
 
   // "register-page.create-profile.identification.last-name": "Last Name *",
-  "register-page.create-profile.identification.last-name":"Тек *",
+  "register-page.create-profile.identification.last-name": "Тек *",
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  "register-page.create-profile.identification.last-name.error":"Тегін енгізіңіз",
+  "register-page.create-profile.identification.last-name.error": "Тегін енгізіңіз",
 
   // "register-page.create-profile.identification.contact": "Contact Telephone",
   "register-page.create-profile.identification.contact": "Байланыс телефоны",
@@ -7917,7 +7913,7 @@
   "register-page.create-profile.security.label.password": "Пароль *",
 
   // "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
-  "register-page.create-profile.security.label.passwordrepeat":"Растау үшін қайта енгізіңіз*",
+  "register-page.create-profile.security.label.passwordrepeat": "Растау үшін қайта енгізіңіз*",
 
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
   "register-page.create-profile.security.error.empty-password": "Төмендегі өріске құпия сөзді енгізіңіз.",
@@ -7935,10 +7931,10 @@
   "register-page.create-profile.submit.error.head": "Тіркеу сәтсіз аяқталды",
 
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content":"Тіркеу сәтті өтті. Сіз құрылған пайдаланушы ретінде кірдіңіз.",
+  "register-page.create-profile.submit.success.content": "Тіркеу сәтті өтті. Сіз құрылған пайдаланушы ретінде кірдіңіз.",
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
-  "register-page.create-profile.submit.success.head":"Тіркеу аяқталды",
+  "register-page.create-profile.submit.success.head": "Тіркеу аяқталды",
 
   // "register-page.registration.existing.user.login-msg": "If you already have an account you can yo can ",
   // TODO New key - Add a translation
@@ -7952,7 +7948,7 @@
   "register-page.registration.header": "Жаңа пайдаланушыны тіркеу",
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "register-page.registration.info":"Электрондық пошта арқылы жаңартулар алу және DSpace-ке жаңа өнімдер жіберу үшін жинақтарға жазылу үшін есептік жазбаны тіркеңіз.",
+  "register-page.registration.info": "Электрондық пошта арқылы жаңартулар алу және DSpace-ке жаңа өнімдер жіберу үшін жинақтарға жазылу үшін есептік жазбаны тіркеңіз.",
 
   // "register-page.registration.email": "Email Address *",
   "register-page.registration.email": "Электрондық пошта мекенжайы *",
@@ -7969,7 +7965,7 @@
   "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
-  "register-page.registration.email.hint":"Бұл мекен-жай тексеріліп, сіздің логиніңіз ретінде пайдаланылады.",
+  "register-page.registration.email.hint": "Бұл мекен-жай тексеріліп, сіздің логиніңіз ретінде пайдаланылады.",
 
   // "register-page.registration.submit": "Register",
   "register-page.registration.submit": "Тіркелу",
@@ -7984,7 +7980,7 @@
   "register-page.registration.error.head": "Электрондық поштаны тіркеу кезінде қате",
 
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  "register-page.registration.error.content":"Келесі электрондық пошта мекенжайын тіркеу кезінде қате пайда болды: {{ email }}",
+  "register-page.registration.error.content": "Келесі электрондық пошта мекенжайын тіркеу кезінде қате пайда болды: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
   // TODO New key - Add a translation
@@ -8018,7 +8014,7 @@
   "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
-  "relationships.add.error.relationship-type.content":"Екі элемент арасындағы байланыс түрі {{ type }} үшін сәйкес сәйкестікті табу мүмкін емес",
+  "relationships.add.error.relationship-type.content": "Екі элемент арасындағы байланыс түрі {{ type }} үшін сәйкес сәйкестікті табу мүмкін емес",
 
   // "relationships.add.error.server.content": "The server returned an error",
   "relationships.add.error.server.content": "Сервер қате туралы хабарламаны қайтарды",
@@ -8027,7 +8023,7 @@
   "relationships.add.error.title": "Байланыс қосу мүмкін емес",
 
   // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf":"Авторлар",
+  "relationships.isAuthorOf": "Авторлар",
 
   // "relationships.isAuthorOf.Person": "Authors (persons)",
   "relationships.isAuthorOf.Person": "Авторлар (тұлғалар)",
@@ -8039,7 +8035,7 @@
   "relationships.isIssueOf": "Журналдың шығарылымдары",
 
   // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf":"Журнал шығару",
+  "relationships.isJournalIssueOf": "Журнал шығару",
 
   // "relationships.isJournalOf": "Journals",
   "relationships.isJournalOf": "Күнделіктер",
@@ -8060,7 +8056,7 @@
   "relationships.isPublicationOfJournalIssue": "Мақалалар",
 
   // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf":"Күнделік",
+  "relationships.isSingleJournalOf": "Күнделік",
 
   // "relationships.isSingleVolumeOf": "Journal Volume",
   "relationships.isSingleVolumeOf": "Журнал көлемі",
@@ -8103,13 +8099,13 @@
   "resource-policies.add.for.bundle": "Жаңа пакет саясатын қосу",
 
   // "resource-policies.add.for.item": "Add a new Item policy",
-  "resource-policies.add.for.item":"Жаңа элемент саясатын қосу",
+  "resource-policies.add.for.item": "Жаңа элемент саясатын қосу",
 
   // "resource-policies.add.for.community": "Add a new Community policy",
   "resource-policies.add.for.community": "Жаңа қауымдастық саясатын қосу",
 
   // "resource-policies.add.for.collection": "Add a new Collection policy",
-  "resource-policies.add.for.collection":"Жаңа деректерді жинау саясатын қосу",
+  "resource-policies.add.for.collection": "Жаңа деректерді жинау саясатын қосу",
 
   // "resource-policies.create.page.heading": "Create new resource policy for ",
   "resource-policies.create.page.heading": "Ресурстарға қатысты жаңа саясат құру ",
@@ -8118,7 +8114,7 @@
   "resource-policies.create.page.failure.content": "Ресурстық саясатты құру кезінде қате пайда болды.",
 
   // "resource-policies.create.page.success.content": "Operation successful",
-  "resource-policies.create.page.success.content":"Операция сәтті өтті",
+  "resource-policies.create.page.success.content": "Операция сәтті өтті",
 
   // "resource-policies.create.page.title": "Create new resource policy",
   "resource-policies.create.page.title": "Ресурстар саласында жаңа саясат құру",
@@ -8139,7 +8135,7 @@
   "resource-policies.edit.page.heading": "Ресурстар саясатын өзгерту",
 
   // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  "resource-policies.edit.page.failure.content":"Ресурстар саясатын өңдеуде қате пайда болды.",
+  "resource-policies.edit.page.failure.content": "Ресурстар саясатын өңдеуде қате пайда болды.",
 
   // "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
   "resource-policies.edit.page.target-failure.content": "Ресурстар саясатының мақсатты нысанын (тұлғаны немесе топты) өңдеу кезінде қате пайда болды.",
@@ -8157,7 +8153,7 @@
   "resource-policies.form.action-type.label": "Әрекет түрін таңдаңыз",
 
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  "resource-policies.form.action-type.required":"Сіз ресурстар саясатының әрекетін таңдауыңыз керек.",
+  "resource-policies.form.action-type.required": "Сіз ресурстар саясатының әрекетін таңдауыңыз керек.",
 
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
   "resource-policies.form.eperson-group-list.label": "Рұқсат берілетін тұлға немесе топ",
@@ -8169,7 +8165,7 @@
   "resource-policies.form.eperson-group-list.tab.eperson": "Адамды іздеу",
 
   // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
-  "resource-policies.form.eperson-group-list.tab.group":"Топты іздеу",
+  "resource-policies.form.eperson-group-list.tab.group": "Топты іздеу",
 
   // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
   "resource-policies.form.eperson-group-list.table.headers.action": "Әрекет",
@@ -8199,7 +8195,7 @@
   "resource-policies.form.date.end.label": "Аяқталу күні",
 
   // "resource-policies.form.date.start.label": "Start Date",
-  "resource-policies.form.date.start.label":"Басталу күні",
+  "resource-policies.form.date.start.label": "Басталу күні",
 
   // "resource-policies.form.description.label": "Description",
   "resource-policies.form.description.label": "Сипаттама",
@@ -8316,7 +8312,7 @@
   "search.filters.applied.f.language": "Language",
 
   // "search.filters.applied.f.namedresourcetype": "Status",
-  "search.filters.applied.f.namedresourcetype":"Мәртебе",
+  "search.filters.applied.f.namedresourcetype": "Мәртебе",
 
   // "search.filters.applied.f.personorgunits": "Organisation",
   // TODO New key - Add a translation
@@ -8343,7 +8339,7 @@
   "search.filters.applied.f.birthDate.max": "Соңғы туған күні",
 
   // "search.filters.applied.f.birthDate.min": "Start birth date",
-  "search.filters.applied.f.birthDate.min":"Бастауыш туған күні",
+  "search.filters.applied.f.birthDate.min": "Бастауыш туған күні",
 
   // "search.filters.applied.f.supervisedBy": "Supervised by",
   // TODO New key - Add a translation
@@ -8378,31 +8374,31 @@
 
   // "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
   // TODO New key - Add a translation
-  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
+  "search.filters.applied.charts.chart.bar.dateIssued.year.tab": "Date Issued",
 
   // "search.filters.applied.charts.chart.pie.more-value" : "More",
   // TODO New key - Add a translation
-  "search.filters.applied.charts.chart.pie.more-value" : "More",
+  "search.filters.applied.charts.chart.pie.more-value": "More",
 
   // "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
   // TODO New key - Add a translation
-  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
+  "search.filters.applied.charts.chart.pie.itemtype_filter.tab": "Item Type",
 
   // "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
   // TODO New key - Add a translation
-  "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
+  "search.filters.applied.charts.graphitemtype.tab": "Visualization by Type",
 
   // "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
   // TODO New key - Add a translation
-  "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
+  "search.filters.applied.charts.graphpubldate.tab": "Visualization by Date",
 
   // "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
   // TODO New key - Add a translation
-  "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
+  "search.filters.applied.charts.graphpubldateltr.tab": "Visualization Demo LTR",
 
   // "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
   // TODO New key - Add a translation
-  "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
+  "search.filters.applied.charts.graphpubldatetrl.tab": "Visualization Demo RTL",
 
   // "search.filters.applied.charts.default.title": "Search Output",
   // TODO New key - Add a translation
@@ -8444,7 +8440,7 @@
   "search.filters.filter.birthDate.head": "Туған күні",
 
   // "search.filters.filter.birthDate.placeholder": "Birth Date",
-  "search.filters.filter.birthDate.placeholder":"Туған күні",
+  "search.filters.filter.birthDate.placeholder": "Туған күні",
 
   // "search.filters.filter.birthDate.min.label": "From",
   // TODO New key - Add a translation
@@ -8491,7 +8487,7 @@
   "search.filters.filter.creativeWorkPublisher.head": "Баспагер",
 
   // "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.placeholder":"Баспагер",
+  "search.filters.filter.creativeWorkPublisher.placeholder": "Баспагер",
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
   "search.filters.filter.creativeWorkPublisher.label": "Баспагерді іздеу",
@@ -8506,7 +8502,7 @@
   "search.filters.filter.dateIssued.max.label": "Соңы",
 
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
-  "search.filters.filter.dateIssued.min.placeholder":"Минималды күн",
+  "search.filters.filter.dateIssued.min.placeholder": "Минималды күн",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
   "search.filters.filter.dateIssued.min.label": "Бастау",
@@ -8585,7 +8581,7 @@
   "search.filters.filter.itemtype.head": "Түрі",
 
   // "search.filters.filter.itemtype.placeholder": "Type",
-  "search.filters.filter.itemtype.placeholder":"Түрі",
+  "search.filters.filter.itemtype.placeholder": "Түрі",
 
   // "search.filters.filter.itemtype.label": "Search type",
   "search.filters.filter.itemtype.label": "Түрі бойынша іздеу",
@@ -8606,7 +8602,7 @@
   "search.filters.filter.jobTitle.head": "Лауазымы",
 
   // "search.filters.filter.jobTitle.placeholder": "Job Title",
-  "search.filters.filter.jobTitle.placeholder":"Лауазымы",
+  "search.filters.filter.jobTitle.placeholder": "Лауазымы",
 
   // "search.filters.filter.jobTitle.label": "Search job title",
   "search.filters.filter.jobTitle.label": "Лауазым атауын іздеу",
@@ -8634,27 +8630,27 @@
 
   // "search.filters.filter.projectOrgUnits.head" : "Organizations",
   // TODO New key - Add a translation
-  "search.filters.filter.projectOrgUnits.head" : "Organizations",
+  "search.filters.filter.projectOrgUnits.head": "Organizations",
 
   // "search.filters.filter.projectOrgUnits.label" : "Organizations",
   // TODO New key - Add a translation
-  "search.filters.filter.projectOrgUnits.label" : "Organizations",
+  "search.filters.filter.projectOrgUnits.label": "Organizations",
 
   // "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
   // TODO New key - Add a translation
-  "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
+  "search.filters.filter.projectOrgUnits.placeholder": "Organizations",
 
   // "search.filters.filter.personOrgUnits.head" : "Organizations",
   // TODO New key - Add a translation
-  "search.filters.filter.personOrgUnits.head" : "Organizations",
+  "search.filters.filter.personOrgUnits.head": "Organizations",
 
   // "search.filters.filter.personOrgUnits.label" : "Search organizations",
   // TODO New key - Add a translation
-  "search.filters.filter.personOrgUnits.label" : "Search organizations",
+  "search.filters.filter.personOrgUnits.label": "Search organizations",
 
   // "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
   // TODO New key - Add a translation
-  "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
+  "search.filters.filter.personOrgUnits.placeholder": "Organizations",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   "search.filters.filter.namedresourcetype.head": "Мәртебе",
@@ -8726,10 +8722,10 @@
   "search.filters.filter.show-less": "Коллапс",
 
   // "search.filters.filter.show-more": "Show more",
-  "search.filters.filter.show-more":"Көбірек көрсету",
+  "search.filters.filter.show-more": "Көбірек көрсету",
 
   // "search.filters.filter.subject.head": "Subject",
-  "search.filters.filter.subject.head":"Тақырып",
+  "search.filters.filter.subject.head": "Тақырып",
 
   // "search.filters.filter.subject.placeholder": "Subject",
   "search.filters.filter.subject.placeholder": "Тақырып",
@@ -8741,7 +8737,7 @@
   "search.filters.filter.submitter.head": "Жіберуші",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder":"Жіберуші",
+  "search.filters.filter.submitter.placeholder": "Жіберуші",
 
   // "search.filters.filter.submitter.label": "Search submitter",
   "search.filters.filter.submitter.label": "Іздеу жіберушіні",
@@ -8779,10 +8775,10 @@
   "search.filters.entityType.JournalIssue": "Журналдың нөмірі",
 
   // "search.filters.entityType.JournalVolume": "Journal Volume",
-  "search.filters.entityType.JournalVolume":"Журнал көлемі",
+  "search.filters.entityType.JournalVolume": "Журнал көлемі",
 
   // "search.filters.entityType.OrgUnit": "Organizational Unit",
-  "search.filters.entityType.OrgUnit":"Ұйымдастыру бөлімшесі",
+  "search.filters.entityType.OrgUnit": "Ұйымдастыру бөлімшесі",
 
   // "search.filters.has_content_in_original_bundle.true": "Yes",
   "search.filters.has_content_in_original_bundle.true": "Иә",
@@ -8804,7 +8800,7 @@
 
 
   // "search.filters.head": "Filters",
-  "search.filters.head":"Сүзгілер",
+  "search.filters.head": "Сүзгілер",
 
   // "search.filters.reset": "Reset filters",
   "search.filters.reset": "Сүзгілерді қалпына келтіру",
@@ -8815,7 +8811,7 @@
 
 
   // "search.form.search": "Search",
-  "search.form.search":"Іздеу",
+  "search.form.search": "Іздеу",
 
   // "search.form.search_dspace": "All repository",
   "search.form.search_dspace": "Бүкіл репозиторий",
@@ -8880,7 +8876,7 @@
   "search.sidebar.open": "Іздеу құралдары",
 
   // "search.sidebar.results": "results",
-  "search.sidebar.results":"нәтижелер",
+  "search.sidebar.results": "нәтижелер",
 
   // "search.sidebar.settings.rpp": "Results per page",
   "search.sidebar.settings.rpp": "Беттегі нәтижелер",
@@ -8930,27 +8926,27 @@
 
   // "sorting.metric.view.ASC" : "Views Ascending",
   // TODO New key - Add a translation
-  "sorting.metric.view.ASC" : "Views Ascending",
+  "sorting.metric.view.ASC": "Views Ascending",
 
   // "sorting.metric.view.DESC" : "Views Descending",
   // TODO New key - Add a translation
-  "sorting.metric.view.DESC" : "Views Descending",
+  "sorting.metric.view.DESC": "Views Descending",
 
   // "sorting.metric.download.ASC" : "Downloads Ascending",
   // TODO New key - Add a translation
-  "sorting.metric.download.ASC" : "Downloads Ascending",
+  "sorting.metric.download.ASC": "Downloads Ascending",
 
   // "sorting.metric.download.DESC" : "Downloads Descending",
   // TODO New key - Add a translation
-  "sorting.metric.download.DESC" : "Downloads Descending",
+  "sorting.metric.download.DESC": "Downloads Descending",
 
   // "sorting.metric.scopus.citation.ASC" : "Citations Ascending",
   // TODO New key - Add a translation
-  "sorting.metric.scopus.citation.ASC" : "Citations Ascending",
+  "sorting.metric.scopus.citation.ASC": "Citations Ascending",
 
   // "sorting.metric.scopus.citation.DESC" : "Citations Descending",
   // TODO New key - Add a translation
-  "sorting.metric.scopus.citation.DESC" : "Citations Descending",
+  "sorting.metric.scopus.citation.DESC": "Citations Descending",
 
   // "sorting.score.ASC": "Least Relevant",
   "sorting.score.ASC": "Ең Аз Өзекті",
@@ -8986,35 +8982,35 @@
 
   // "sorting.organization.legalName.ASC" : "Legal Name Ascending",
   // TODO New key - Add a translation
-  "sorting.organization.legalName.ASC" : "Legal Name Ascending",
+  "sorting.organization.legalName.ASC": "Legal Name Ascending",
 
   // "sorting.organization.legalName.DESC" : "Legal Name Descending",
   // TODO New key - Add a translation
-  "sorting.organization.legalName.DESC" : "Legal Name Descending",
+  "sorting.organization.legalName.DESC": "Legal Name Descending",
 
   // "sorting.organisation.address.addressCountry.ASC" : "Country Ascending",
   // TODO New key - Add a translation
-  "sorting.organisation.address.addressCountry.ASC" : "Country Ascending",
+  "sorting.organisation.address.addressCountry.ASC": "Country Ascending",
 
   // "sorting.organisation.address.addressCountry.DESC" : "Country Descending",
   // TODO New key - Add a translation
-  "sorting.organisation.address.addressCountry.DESC" : "Country Descending",
+  "sorting.organisation.address.addressCountry.DESC": "Country Descending",
 
   // "sorting.organisation.address.addressLocality.ASC" : "Locality Ascending",
   // TODO New key - Add a translation
-  "sorting.organisation.address.addressLocality.ASC" : "Locality Ascending",
+  "sorting.organisation.address.addressLocality.ASC": "Locality Ascending",
 
   // "sorting.organisation.address.addressLocality.DESC" : "Locality Descending",
   // TODO New key - Add a translation
-  "sorting.organisation.address.addressLocality.DESC" : "Locality Descending",
+  "sorting.organisation.address.addressLocality.DESC": "Locality Descending",
 
   // "sorting.organisation.address.foundingDate.ASC" : "Founding Date Ascending",
   // TODO New key - Add a translation
-  "sorting.organisation.address.foundingDate.ASC" : "Founding Date Ascending",
+  "sorting.organisation.address.foundingDate.ASC": "Founding Date Ascending",
 
   // "sorting.organisation.address.foundingDate.DESC" : "Founding Date Descending",
   // TODO New key - Add a translation
-  "sorting.organisation.address.foundingDate.DESC" : "Founding Date Descending",
+  "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
 
 
   // "statistics.export.csv": "Export CSV",
@@ -9034,7 +9030,7 @@
   "statistics.export.png": "Export as PNG",
 
   // "statistics.title": "Statistics",
-  "statistics.title":"Статистика",
+  "statistics.title": "Статистика",
 
   // "statistics.header": "Statistics for {{ scope }}",
   "statistics.header": "{{ scope }} үшін статистика",
@@ -9310,47 +9306,47 @@
 
   // "statistics.table.itemReports.header.continent" : "Continent",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.continent" : "Continent",
+  "statistics.table.itemReports.header.continent": "Continent",
 
   // "statistics.table.itemReports.header.views" : "Views",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.views" : "Views",
+  "statistics.table.itemReports.header.views": "Views",
 
   // "statistics.table.itemReports.header.city" : "City",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.city" : "City",
+  "statistics.table.itemReports.header.city": "City",
 
   // "statistics.table.itemReports.header.item" : "Item",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.item" : "Item",
+  "statistics.table.itemReports.header.item": "Item",
 
   // "statistics.table.mainReports.header.community" : "Community",
   // TODO New key - Add a translation
-  "statistics.table.mainReports.header.community" : "Community",
+  "statistics.table.mainReports.header.community": "Community",
 
   // "statistics.table.mainReports.header.collection" : "Collection",
   // TODO New key - Add a translation
-  "statistics.table.mainReports.header.collection" : "Collection",
+  "statistics.table.mainReports.header.collection": "Collection",
 
   // "statistics.table.itemReports.title.TopContinents" : "Top region views",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopContinents" : "Top region views",
+  "statistics.table.itemReports.title.TopContinents": "Top region views",
 
   // "statistics.table.itemReports.title.TopCities" : "Top cities views",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopCities" : "Top cities views",
+  "statistics.table.itemReports.title.TopCities": "Top cities views",
 
   // "statistics.table.itemReports.title.TopItems" : "Most viewed",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopItems" : "Most viewed",
+  "statistics.table.itemReports.title.TopItems": "Most viewed",
 
   // "statistics.table.itemReports.title.TopCategories" : "Top categories",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopCategories" : "Top categories",
+  "statistics.table.itemReports.title.TopCategories": "Top categories",
 
   // "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
+  "statistics.table.itemReports.title.TotalVisitsPerMonth": "Top views per month",
 
   // "statistics.reports.title": "Reports",
   // TODO New key - Add a translation
@@ -9375,7 +9371,7 @@
   "submission.general.discard.confirm.cancel": "Болдырмау",
 
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
-  "submission.general.discard.confirm.info":"Бұл операцияны болдырмау мүмкін емес. Сен сенімді?",
+  "submission.general.discard.confirm.info": "Бұл операцияны болдырмау мүмкін емес. Сен сенімді?",
 
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
   "submission.general.discard.confirm.submit": "Ия, мен сенімдімін",
@@ -9403,10 +9399,10 @@
   "submission.general.save-later.edit-item": "Save and return",
 
   // "submission.import-external.page.title": "Import metadata from an external source",
-  "submission.import-external.page.title":"Метадеректерді сыртқы көзден импорттау",
+  "submission.import-external.page.title": "Метадеректерді сыртқы көзден импорттау",
 
   // "submission.import-external.title": "Import metadata from an external source",
-  "submission.import-external.title":"Метадеректерді сыртқы көзден импорттау",
+  "submission.import-external.title": "Метадеректерді сыртқы көзден импорттау",
 
   // "submission.import-external.title.Journal": "Import a journal from an external source",
   "submission.import-external.title.Journal": "Журналды сыртқы көзден импорттау",
@@ -9727,7 +9723,7 @@
   "submission.sections.describe.relationship-lookup.close": "Жабу",
 
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.added":"Үлгіге жергілікті жазба сәтті қосылды",
+  "submission.sections.describe.relationship-lookup.external-source.added": "Үлгіге жергілікті жазба сәтті қосылды",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Қашықтағы авторды импорттау",
@@ -9804,7 +9800,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Импорт жергілікті биліктің жаңа жазбасы ретінде",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel":"Болдырмау",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Болдырмау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Жаңа жазбаларды импорттау үшін коллекцияны таңдаңыз",
@@ -9816,7 +9812,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Импорт Жаңа жергілікті нысан ретінде",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname":"LC Name-ден импорттау",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "LC Name-ден импорттау",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "ORCID-тен Импорт",
@@ -9877,7 +9873,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Бетті таңдаудан бас тарту",
 
   // "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
-  "submission.sections.describe.relationship-lookup.search-tab.loading":"Жүктеу...",
+  "submission.sections.describe.relationship-lookup.search-tab.loading": "Жүктеу...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Іздеу сұранысы",
@@ -9938,7 +9934,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal":"Sherpa журналдары ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa журналдары ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa баспалары ({{ count }})",
@@ -9950,7 +9946,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC атаулары ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed":"PubMed ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
@@ -9959,7 +9955,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Қаржыландыру агенттіктерін іздеу",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication":"Қаржыландыруды іздеу",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Қаржыландыруды іздеу",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Ұйымдастырушылық бірліктерді іздеу",
@@ -9996,15 +9992,15 @@
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Іздеу...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
-  "submission.sections.describe.relationship-lookup.selection-tab.tab-title":"Ағымдағы таңдау ({{ count }})",
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Ағымдағы таңдау ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Журналдың шығарылымдары",
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
-  "submission.sections.describe.relationship-lookup.title.JournalIssue":"Журналдың шығарылымдары",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Журналдың шығарылымдары",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication":"Журнал томдары",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Журнал томдары",
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Журнал томдары",
 
@@ -10035,7 +10031,7 @@
   "submission.sections.describe.relationship-lookup.title.DataFile": "Деректер файлдары",
 
   // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
-  "submission.sections.describe.relationship-lookup.title.Funding Agency":"Қаржыландыру агенттігі",
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Қаржыландыру агенттігі",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Қаржыландыру",
@@ -10068,7 +10064,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Таңдаулы жобалар",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication":"Таңдамалы Жарияланымдар",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Таңдамалы Жарияланымдар",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Таңдалған авторлар",
@@ -10088,7 +10084,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Таңдалған сұрақ",
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume":"Журналдың таңдалған көлемі",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Журналдың таңдалған көлемі",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Таңдалған қаржыландыру агенттігі",
@@ -10102,7 +10098,7 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Таңдалған ұйымдастыру бөлімі",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal":"Іздеу нәтижелері",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Іздеу нәтижелері",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Іздеу нәтижелері",
@@ -10144,7 +10140,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Іздеу нәтижелері",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Сіз \"{{ value }}\" сол адамға арналған атау опциясы ретінде сақтағыңыз келе ме, сондықтан сіз және басқалар оны болашақ жіберу үшін қайта пайдалана аласыз ба? Егер жоқ болса, сіз оны осы жіберу үшін пайдалана аласыз.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -10226,7 +10222,7 @@
   "submission.sections.general.search-collection": "Коллекцияны іздеу",
 
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
-  "submission.sections.general.sections_not_valid":"Толық емес бөлімдер бар.",
+  "submission.sections.general.sections_not_valid": "Толық емес бөлімдер бар.",
 
   // "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
   // TODO New key - Add a translation
@@ -10491,7 +10487,7 @@
   "submission.sections.upload.info": "Мұнда сіз осы элементтегі барлық файлдарды таба аласыз. Файл метадеректерін және кіру шарттарын жаңартуға немесе <strong>қосымша файлдарды оларды</strong>бетінде сүйреп апару арқылы жүктеуге болады.",
 
   // "submission.sections.upload.no-entry": "No",
-  "submission.sections.upload.no-entry":"Жоқ",
+  "submission.sections.upload.no-entry": "Жоқ",
 
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
   "submission.sections.upload.no-file-uploaded": "Файл әлі жүктелмеген.",
@@ -10568,7 +10564,7 @@
   "submission.sections.license.required": "Лицензияны қабылдау керек",
 
   // "submission.sections.license.notgranted":  "You must accept the license",
-  "submission.sections.license.notgranted":  "Лицензияны қабылдау керек",
+  "submission.sections.license.notgranted": "Лицензияны қабылдау керек",
 
 
   // "submission.sections.sherpa.publication.information": "Publication information",
@@ -10700,7 +10696,7 @@
   "submission.workflow.tasks.claimed.approve": "Мақұлдансын",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help":"Егер сіз тауармен танысқан болсаңыз және ол коллекцияға қосуға жарамды болса, \"Мақұлдау\" таңдаңыз.",
+  "submission.workflow.tasks.claimed.approve_help": "Егер сіз тауармен танысқан болсаңыз және ол коллекцияға қосуға жарамды болса, \"Мақұлдау\" таңдаңыз.",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Редакциялау",
@@ -11137,7 +11133,7 @@
   "workflow-item.edit.title": "Жұмыс процесінің элементін өңдеу",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
-  "workflow-item.delete.notification.success.title":"Жойылды",
+  "workflow-item.delete.notification.success.title": "Жойылды",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
   "workflow-item.delete.notification.success.content": "Жұмыс процесінің бұл элементі сәтті жойылды",
@@ -11308,7 +11304,7 @@
   "idle-modal.extend-session": "Сеансты ұзарту",
 
   // "researcher.profile.action.processing" : "Processing...",
-  "researcher.profile.action.processing" : "Процессте...",
+  "researcher.profile.action.processing": "Процессте...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "Зерттеушінің байланысты профилі",
@@ -11341,10 +11337,10 @@
   "researcher.profile.view": "Қөрімдігі",
 
   // "researcher.profile.private.visibility" : "PRIVATE",
-  "researcher.profile.private.visibility" : "ЖАСЫРЫН",
+  "researcher.profile.private.visibility": "ЖАСЫРЫН",
 
   // "researcher.profile.public.visibility" : "PUBLIC",
-  "researcher.profile.public.visibility" : "АШЫҚ",
+  "researcher.profile.public.visibility": "АШЫҚ",
 
   // "researcher.profile.status": "Status:",
   "researcher.profile.status": "Мәртебесі:",
@@ -11353,16 +11349,16 @@
   "researcherprofile.claim.not-authorized": "Сіз бұл өнімді талап етуге құқығыңыз жоқ. Қосымша ақпарат алу үшін әкімшіге хабарласыңыз.",
 
   // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-  "researcherprofile.error.claim.body" : "Профильді толтыру кезінде қате пайда болды, кейінірек қайталап көріңіз",
+  "researcherprofile.error.claim.body": "Профильді толтыру кезінде қате пайда болды, кейінірек қайталап көріңіз",
 
   // "researcherprofile.error.claim.title" : "Error",
-  "researcherprofile.error.claim.title" : "Қате",
+  "researcherprofile.error.claim.title": "Қате",
 
   // "researcherprofile.success.claim.body" : "Profile claimed with success",
-  "researcherprofile.success.claim.body" : "Сәтті мәлімделген Профиль",
+  "researcherprofile.success.claim.body": "Сәтті мәлімделген Профиль",
 
   // "researcherprofile.success.claim.title" : "Success",
-  "researcherprofile.success.claim.title" : "Сәтті",
+  "researcherprofile.success.claim.title": "Сәтті",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "ORCID ID құру",
@@ -11371,7 +11367,7 @@
   "person.page.orcid.granted-authorizations": "Рұқсат берілген",
 
   // "person.page.orcid.grant-authorizations" : "Grant authorizations",
-  "person.page.orcid.grant-authorizations" : "Рұқсат беру",
+  "person.page.orcid.grant-authorizations": "Рұқсат беру",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   "person.page.orcid.link": "ORCID идентификаторына қосылу",
@@ -11419,43 +11415,43 @@
   "person.page.orcid.save.preference.changes": "Параметрлерді жаңарту",
 
   // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  "person.page.orcid.sync-profile.affiliation" : "Филиалы",
+  "person.page.orcid.sync-profile.affiliation": "Филиалы",
 
   // "person.page.orcid.sync-profile.biographical" : "Biographical data",
-  "person.page.orcid.sync-profile.biographical" : "Өмірбаяндық мәліметтер",
+  "person.page.orcid.sync-profile.biographical": "Өмірбаяндық мәліметтер",
 
   // "person.page.orcid.sync-profile.education" : "Education",
-  "person.page.orcid.sync-profile.education" : "Білімі",
+  "person.page.orcid.sync-profile.education": "Білімі",
 
   // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  "person.page.orcid.sync-profile.identifiers" : "Идентификатор",
+  "person.page.orcid.sync-profile.identifiers": "Идентификатор",
 
   // "person.page.orcid.sync-fundings.all" : "All fundings",
-  "person.page.orcid.sync-fundings.all" : "Барлық құралдар",
+  "person.page.orcid.sync-fundings.all": "Барлық құралдар",
 
   // "person.page.orcid.sync-fundings.mine" : "My fundings",
-  "person.page.orcid.sync-fundings.mine" : "Менің қаражатым",
+  "person.page.orcid.sync-fundings.mine": "Менің қаражатым",
 
   // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
-  "person.page.orcid.sync-fundings.my_selected" : "Таңдалған құралдар",
+  "person.page.orcid.sync-fundings.my_selected": "Таңдалған құралдар",
 
   // "person.page.orcid.sync-fundings.disabled" : "Disabled",
-  "person.page.orcid.sync-fundings.disabled" : "Қолжетімсіз",
+  "person.page.orcid.sync-fundings.disabled": "Қолжетімсіз",
 
   // "person.page.orcid.sync-publications.all" : "All publications",
-  "person.page.orcid.sync-publications.all" : "Барлық жарияланымдар",
+  "person.page.orcid.sync-publications.all": "Барлық жарияланымдар",
 
   // "person.page.orcid.sync-publications.mine" : "My publications",
-  "person.page.orcid.sync-publications.mine" : "Менің жарияланымдарым",
+  "person.page.orcid.sync-publications.mine": "Менің жарияланымдарым",
 
   // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
-  "person.page.orcid.sync-publications.my_selected" : "Таңдаулы басылымдар",
+  "person.page.orcid.sync-publications.my_selected": "Таңдаулы басылымдар",
 
   // "person.page.orcid.sync-publications.disabled" : "Disabled",
-  "person.page.orcid.sync-publications.disabled" : "Қолжетімсіз",
+  "person.page.orcid.sync-publications.disabled": "Қолжетімсіз",
 
   // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
-  "person.page.orcid.sync-queue.discard" : "Өзгерісті болдырмаңыз және ORCID тізілімімен синхрондамаңыз",
+  "person.page.orcid.sync-queue.discard": "Өзгерісті болдырмаңыз және ORCID тізілімімен синхрондамаңыз",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "ORCID кезегінің жазбасын жою мүмкін емес",
@@ -11467,13 +11463,13 @@
   "person.page.orcid.sync-queue.empty-message": "ORCID кезегінің тізілімі бос",
 
   // "person.page.orcid.sync-queue.table.header.type" : "Type",
-  "person.page.orcid.sync-queue.table.header.type" : "Түрі",
+  "person.page.orcid.sync-queue.table.header.type": "Түрі",
 
   // "person.page.orcid.sync-queue.table.header.description" : "Description",
-  "person.page.orcid.sync-queue.table.header.description" : "Сипаттамасы",
+  "person.page.orcid.sync-queue.table.header.description": "Сипаттамасы",
 
   // "person.page.orcid.sync-queue.table.header.action" : "Action",
-  "person.page.orcid.sync-queue.table.header.action" : "Әрекет",
+  "person.page.orcid.sync-queue.table.header.action": "Әрекет",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Филиалы",
@@ -11539,7 +11535,7 @@
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "Зерттеушінің URL мекенжайы",
 
   // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
-  "person.page.orcid.sync-queue.send" : "ORCID тізілімімен синхрондау",
+  "person.page.orcid.sync-queue.send": "ORCID тізілімімен синхрондау",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "Рұқсаттардың болмауына байланысты ORCID-ке жіберу сәтсіз аяқталды.",
@@ -11593,7 +11589,7 @@
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Ұйымның атауы міндетті",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "Жариялау күні 1900 жылдан бір жыл артық болуы керек",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "Жариялау күні 1900 жылдан бір жыл артық болуы керек",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "Ұйымға жіберу үшін мекен-жай қажет",
@@ -11718,7 +11714,7 @@
 
   // "authority-confidence.search-label":"Search",
   // TODO New key - Add a translation
-  "authority-confidence.search-label":"Search",
+  "authority-confidence.search-label": "Search",
 
   // "curation-task.task.hocr.label": "Extract text (HOCR) from images",
   // TODO New key - Add a translation
@@ -11887,7 +11883,7 @@
 
   // "admin.system-wide-alert.title": "System-wide Alerts"
   // TODO New key - Add a translation
-  "admin.system-wide-alert.title": "System-wide Alerts"
+  "admin.system-wide-alert.title": "System-wide Alerts",
 
 
 }

@@ -6,8 +6,13 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
 import { GROUP_EDIT_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { GroupPageGuard } from './group-registry/group-page.guard';
-import { GroupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  GroupAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import {
+  SiteAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { BulkAccessComponent } from './bulk-access/bulk-access.component';
 
 @NgModule({
   imports: [
@@ -47,7 +52,16 @@ import { SiteAdministratorGuard } from '../core/data/feature-authorization/featu
         },
         data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' },
         canActivate: [GroupPageGuard]
-      }
+      },
+      {
+        path: 'bulk-access',
+        component: BulkAccessComponent,
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: { title: 'admin.access-control.bulk-access.title', breadcrumbKey: 'admin.access-control.bulk-access' },
+        canActivate: [SiteAdministratorGuard]
+      },
     ])
   ]
 })

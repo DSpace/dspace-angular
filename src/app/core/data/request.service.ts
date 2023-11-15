@@ -331,7 +331,7 @@ export class RequestService {
       map((request: RequestEntry) => isStale(request.state)),
       filter((stale: boolean) => stale),
       take(1),
-    );
+      );
   }
 
   /**

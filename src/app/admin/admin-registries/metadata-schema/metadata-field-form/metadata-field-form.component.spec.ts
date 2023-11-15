@@ -39,14 +39,16 @@ describe('MetadataFieldFormComponent', () => {
     createFormGroup: () => {
       return {
         patchValue: () => {
-        }
+        },
+        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
+        },
       };
     }
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [MetadataFieldFormComponent, EnumKeysPipe],
       providers: [
@@ -98,11 +100,10 @@ describe('MetadataFieldFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new field using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
-        });
-      }));
+      it('should emit a new field using the correct values', async () => {
+        await fixture.whenStable();
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
+      });
     });
 
     describe('with an active field', () => {
@@ -120,11 +121,10 @@ describe('MetadataFieldFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should edit the existing field using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
-        });
-      }));
+      it('should edit the existing field using the correct values', async () => {
+        await fixture.whenStable();
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
+      });
     });
   });
 });

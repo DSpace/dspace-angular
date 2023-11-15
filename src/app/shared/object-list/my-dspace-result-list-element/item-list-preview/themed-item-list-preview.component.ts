@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 import { Item } from '../../../../core/shared/item.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
+import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 import { DuplicateMatchMetadataDetailConfig } from 'src/app/submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 /**
@@ -17,31 +16,19 @@ import { DuplicateMatchMetadataDetailConfig } from 'src/app/submission/sections/
   templateUrl: '../../../theme-support/themed.component.html'
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'status', 'showSubmitter', 'workflowItem', 'metadataList'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem', 'metadataList'];
 
   @Input() item: Item;
 
   @Input() object: SearchResult<any>;
 
-  @Input() status: MyDspaceItemStatusType;
+  @Input() badgeContext: Context;
 
-  @Input() showSubmitter = false;
+  @Input() showSubmitter: boolean;
 
   @Input() workflowItem: WorkflowItem;
 
   @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
-
-  constructor(
-    protected resolver: ComponentFactoryResolver,
-    protected cdr: ChangeDetectorRef,
-    protected themeService: ThemeService,
-  ) {
-    super(resolver, cdr, themeService);
-  }
-
-  ngOnInit() {
-    super.ngOnInit();
-  }
 
   protected getComponentName(): string {
     return 'ItemListPreviewComponent';

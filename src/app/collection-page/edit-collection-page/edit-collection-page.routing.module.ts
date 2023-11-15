@@ -13,6 +13,7 @@ import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/cr
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { CollectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
+import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
 
 /**
  * Routing module that handles the routing for the Edit Collection page administrator functionality
@@ -57,6 +58,11 @@ import { CollectionAdministratorGuard } from '../../core/data/feature-authorizat
             path: 'curate',
             component: CollectionCurateComponent,
             data: { title: 'collection.edit.tabs.curate.title', showBreadcrumbs: true }
+          },
+          {
+            path: 'access-control',
+            component: CollectionAccessControlComponent,
+            data: { title: 'collection.edit.tabs.access-control.title', showBreadcrumbs: true }
           },
 /*          {
             path: 'authorizations',

@@ -30,7 +30,7 @@ describe('BrowseLinkMetadataListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(BrowseLinkMetadataListElementComponent);
     comp = fixture.componentInstance;
-    comp.metadataRepresentation = mockMetadataRepresentation;
+    comp.mdRepresentation = mockMetadataRepresentation;
     fixture.detectChanges();
   }));
 
@@ -46,7 +46,7 @@ describe('BrowseLinkMetadataListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(BrowseLinkMetadataListElementComponent);
     comp = fixture.componentInstance;
-    comp.metadataRepresentation = mockMetadataRepresentationWithUrl;
+    comp.mdRepresentation = mockMetadataRepresentationWithUrl;
     fixture.detectChanges();
   }));
 

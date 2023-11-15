@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, ViewChild, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
@@ -36,6 +36,7 @@ import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
@@ -46,7 +47,7 @@ import { SupervisionOrderDataService } from '../../../../../core/supervision-ord
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page
  */
-export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkspaceItemSearchResult, WorkspaceItem> {
+export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkspaceItemSearchResult, WorkspaceItem> implements OnInit {
 
   /**
    * The item linked to the workspace item
@@ -79,6 +80,7 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
   constructor(
+    public dsoNameService: DSONameService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
@@ -86,7 +88,7 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
     protected bitstreamDataService: BitstreamDataService,
     protected supervisionOrderDataService: SupervisionOrderDataService,
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   /**

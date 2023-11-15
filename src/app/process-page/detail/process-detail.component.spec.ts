@@ -35,6 +35,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
+import {ProcessStatus} from '../processes/process-status.model';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -44,6 +45,7 @@ describe('ProcessDetailComponent', () => {
   let nameService: DSONameService;
   let bitstreamDataService: BitstreamDataService;
   let httpClient: HttpClient;
+  let route: ActivatedRoute;
 
   let process: Process;
   let fileName: string;
@@ -106,7 +108,8 @@ describe('ProcessDetailComponent', () => {
     });
     processService = jasmine.createSpyObj('processService', {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
-      delete: createSuccessfulRemoteDataObject$(null)
+      delete: createSuccessfulRemoteDataObject$(null),
+      findById: createSuccessfulRemoteDataObject$(process),
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
       findByHref: createSuccessfulRemoteDataObject$(logBitstream)
@@ -126,6 +129,13 @@ describe('ProcessDetailComponent', () => {
 
     router = jasmine.createSpyObj('router', {
       navigateByUrl:{}
+    });
+
+    route = jasmine.createSpyObj('route', {
+      data: observableOf({ process: createSuccessfulRemoteDataObject(process) }),
+      snapshot: {
+        params: { id: process.processId }
+      }
     });
   }
 
@@ -263,4 +273,92 @@ describe('ProcessDetailComponent', () => {
     });
   });
 
+  describe('refresh counter', () => {
+    const queryRefreshCounter = () => fixture.debugElement.query(By.css('.refresh-counter'));
+
+    describe('if process is completed', () => {
+      beforeEach(() => {
+        process.processStatus = ProcessStatus.COMPLETED;
+        route.data = observableOf({process: createSuccessfulRemoteDataObject(process)});
+      });
+
+      it('should not show',  () => {
+        spyOn(component, 'startRefreshTimer');
+
+        const refreshCounter = queryRefreshCounter();
+        expect(refreshCounter).toBeNull();
+
+        expect(component.startRefreshTimer).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('if process is not finished', () => {
+      beforeEach(() => {
+        process.processStatus = ProcessStatus.RUNNING;
+        route.data = observableOf({process: createSuccessfulRemoteDataObject(process)});
+        fixture.detectChanges();
+        component.stopRefreshTimer();
+      });
+
+      it('should call startRefreshTimer',  () => {
+        spyOn(component, 'startRefreshTimer');
+
+        component.ngOnInit();
+        fixture.detectChanges(); // subscribe to process observable with async pipe
+
+        expect(component.startRefreshTimer).toHaveBeenCalled();
+      });
+
+      it('should call refresh method every 5 seconds, until process is completed', fakeAsync(() => {
+        spyOn(component, 'refresh');
+        spyOn(component, 'stopRefreshTimer');
+
+        process.processStatus = ProcessStatus.COMPLETED;
+        // set findbyId to return a completed process
+        (processService.findById as jasmine.Spy).and.returnValue(observableOf(createSuccessfulRemoteDataObject(process)));
+
+        component.ngOnInit();
+        fixture.detectChanges(); // subscribe to process observable with async pipe
+
+        expect(component.refresh).not.toHaveBeenCalled();
+
+        expect(component.refreshCounter$.value).toBe(0);
+
+        tick(1001); // 1 second + 1 ms by the setTimeout
+        expect(component.refreshCounter$.value).toBe(5); // 5 - 0
+
+        tick(2001); // 2 seconds + 1 ms by the setTimeout
+        expect(component.refreshCounter$.value).toBe(3); // 5 - 2
+
+        tick(2001); // 2 seconds + 1 ms by the setTimeout
+        expect(component.refreshCounter$.value).toBe(1); // 3 - 2
+
+        tick(1001); // 1 second + 1 ms by the setTimeout
+        expect(component.refreshCounter$.value).toBe(0); // 1 - 1
+
+        tick(1000); // 1 second
+
+        expect(component.refresh).toHaveBeenCalledTimes(1);
+        expect(component.stopRefreshTimer).toHaveBeenCalled();
+
+        expect(component.refreshCounter$.value).toBe(0);
+
+        tick(1001); // 1 second + 1 ms by the setTimeout
+        // startRefreshTimer not called again
+        expect(component.refreshCounter$.value).toBe(0);
+
+        discardPeriodicTasks(); // discard any periodic tasks that have not yet executed
+      }));
+
+      it('should show if refreshCounter is different from 0', () => {
+        component.refreshCounter$.next(1);
+        fixture.detectChanges();
+
+        const refreshCounter = queryRefreshCounter();
+        expect(refreshCounter).not.toBeNull();
+      });
+
+    });
+
+  });
 });

@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
 
@@ -49,19 +50,23 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
    */
   subCollectionsRDObs: BehaviorSubject<RemoteData<PaginatedList<Collection>>> = new BehaviorSubject<RemoteData<PaginatedList<Collection>>>({} as any);
 
-  constructor(private cds: CollectionDataService,
-              private paginationService: PaginationService,
-
-  ) {}
+  constructor(
+    protected cds: CollectionDataService,
+    protected paginationService: PaginationService,
+    protected route: ActivatedRoute,
+  ) {
+  }
 
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
     if (hasValue(this.pageSize)) {
       this.config.pageSize = this.pageSize;
+    } else {
+      this.config.pageSize = this.route.snapshot.queryParams[this.pageId + '.rpp'] ?? this.config.pageSize;
     }
-    this.config.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.config.currentPage = this.route.snapshot.queryParams[this.pageId + '.page'] ?? 1;
+    this.sortConfig = new SortOptions('dc.title', SortDirection[this.route.snapshot.queryParams[this.pageId + '.sd']] ?? SortDirection.ASC);
     this.initPage();
   }
 

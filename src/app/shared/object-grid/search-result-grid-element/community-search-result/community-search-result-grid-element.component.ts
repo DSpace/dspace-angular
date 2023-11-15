@@ -9,6 +9,7 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { hasNoValue, hasValue } from '../../../empty.util';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-community-search-result-grid-element',
@@ -26,11 +27,12 @@ export class CommunitySearchResultGridElementComponent extends SearchResultGridE
   private _dso: Community;
 
   constructor(
+    public dsoNameService: DSONameService,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   // @ts-ignore

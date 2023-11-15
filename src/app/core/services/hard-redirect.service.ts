@@ -11,8 +11,10 @@ export abstract class HardRedirectService {
    *
    * @param url
    *    the page to redirect to
+   * @param statusCode
+   *    optional HTTP status code to use for redirect (default = 302, which is a temporary redirect)
    */
-  abstract redirect(url: string);
+  abstract redirect(url: string, statusCode?: number);
 
   /**
    * Get the current route, with query params included

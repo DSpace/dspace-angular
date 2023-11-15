@@ -36,6 +36,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
@@ -197,7 +198,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
           if (isUndefined(this.formModel)) {
             this.metadataSecurityConfiguration = metadataSecurity;
             // this.sectionData.errorsToShow = [];
-          this.submissionObject = submissionObject;
+            this.submissionObject = submissionObject;
             // Is the first loading so init form
             this.initForm(sectionData);
             this.sectionData.data = sectionData;
@@ -272,9 +273,20 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    const visibility: SubmissionVisibilityType = this.formConfig?.rows.find(row => {
-      return row?.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    const visibility: SubmissionVisibilityType = this.formConfig?.rows.find((row: FormRowModel) => {
+      if (row.fields?.[0]?.selectableMetadata) {
+        return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+      } else if (row.fields?.[0]?.selectableRelationship) {
+        return row.fields?.[0]?.selectableRelationship.relationshipType === field.replace(/^relationship\./g, '');
+      } else {
+        return false;
+      }
     })?.fields?.[0]?.visibility;
+
+    //
+    // const visibility: SubmissionVisibilityType = this.formConfig?.rows.find(row => {
+    //   return row?.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    // })?.fields?.[0]?.visibility;
 
     return SubmissionVisibility.isVisible(visibility, this.submissionService.getSubmissionScope());
   }

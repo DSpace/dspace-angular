@@ -1,7 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -18,10 +17,12 @@ import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { CoreState } from '../../../core/core-state.model';
 import { lowerCase } from 'lodash/string';
+import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 /**
- * Component that show a hierarchical vocabulary in a tree view
+ * Component that shows a hierarchical vocabulary in a tree view
  */
 @Component({
   selector: 'ds-vocabulary-treeview',
@@ -41,9 +42,14 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   @Input() preloadLevel = 2;
 
   /**
-   * The vocabulary entry already selected, if any
+   * The vocabulary entries already selected, if any
    */
-  @Input() selectedItem: any = null;
+  @Input() selectedItems: string[] = [];
+
+  /**
+   * Whether to allow selecting multiple values with checkboxes
+   */
+  @Input() multiSelect = false;
 
   /**
    * Contain a descriptive message for this vocabulary retrieved from i18n files
@@ -92,6 +98,12 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   @Output() select: EventEmitter<FormFieldMetadataValueObject> = new EventEmitter<FormFieldMetadataValueObject>(null);
 
   /**
+   * An event fired when a vocabulary entry is deselected.
+   * Event's payload equals to {@link VocabularyEntryDetail} deselected.
+   */
+  @Output() deselect: EventEmitter<FormFieldMetadataValueObject> = new EventEmitter<FormFieldMetadataValueObject>(null);
+
+  /**
    * A boolean representing if user is authenticated
    */
   private isAuthenticated: Observable<boolean>;
@@ -104,14 +116,14 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
   /**
    * Initialize instance variables
    *
-   * @param {NgbActiveModal} activeModal
    * @param {VocabularyTreeviewService} vocabularyTreeviewService
+   * @param {vocabularyService} vocabularyService
    * @param {Store<CoreState>} store
    * @param {TranslateService} translate
    */
   constructor(
-    public activeModal: NgbActiveModal,
     private vocabularyTreeviewService: VocabularyTreeviewService,
+    private vocabularyService: VocabularyService,
     private store: Store<CoreState>,
     private translate: TranslateService
   ) {
@@ -148,7 +160,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
       node.pageInfo,
       node.loadMoreParentItem,
       node.isSearchNode,
-      node.isInInitValueHierarchy
+      node.isInInitValueHierarchy,
+      node.isSelected
     );
     this.nodeMap.set(node.item.id, newNode);
 
@@ -211,7 +224,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
 
     this.loading = this.vocabularyTreeviewService.isLoading();
 
-    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), null);
+    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null);
   }
 
   /**
@@ -219,7 +232,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * @param item The VocabularyEntryDetail for which to load more nodes
    */
   loadMore(item: VocabularyEntryDetail) {
-    this.vocabularyTreeviewService.loadMore(item);
+    this.vocabularyTreeviewService.loadMore(item, this.selectedItems);
   }
 
   /**
@@ -227,7 +240,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * @param node The TreeviewFlatNode for which to load more nodes
    */
   loadMoreRoot(node: TreeviewFlatNode) {
-    this.vocabularyTreeviewService.loadMoreRoot(node);
+    this.vocabularyTreeviewService.loadMoreRoot(node, this.selectedItems);
   }
 
   /**
@@ -235,17 +248,21 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * @param node The TreeviewFlatNode for which to load children nodes
    */
   loadChildren(node: TreeviewFlatNode) {
-    this.vocabularyTreeviewService.loadMore(node.item, true);
+    this.vocabularyTreeviewService.loadMore(node.item, this.selectedItems, true);
   }
 
   /**
-   * Method called on entry select
-   * Emit a new select Event
+   * Method called on entry select/deselect
    */
   onSelect(entry: VocabularyEntryDetail) {
-    const value = new FormFieldMetadataValueObject(entry.value, null, entry.securityLevel, entry.id, entry.display);
-    this.select.emit(value);
-    this.activeModal.close(value);
+    const item = new FormFieldMetadataValueObject(entry.value, null, entry.securityLevel, entry.id, entry.display);
+    if (!this.selectedItems.includes(item.authority)) {
+      this.selectedItems.push(item.authority);
+      this.select.emit(item);
+    } else {
+      this.selectedItems = this.selectedItems.filter((detail: string) => { return detail !== item.authority; });
+      this.deselect.emit(item);
+    }
   }
 
   /**
@@ -257,7 +274,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
         this.storedNodeMap = this.nodeMap;
       }
       this.nodeMap = new Map<string, TreeviewFlatNode>();
-      this.vocabularyTreeviewService.searchByQuery(this.searchText);
+      this.vocabularyTreeviewService.searchByQuery(this.searchText, this.selectedItems);
     }
   }
 
@@ -272,13 +289,23 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    * Reset tree resulting from a previous search
    */
   reset() {
+    this.searchText = '';
+    for (const item of this.selectedItems) {
+      this.subs.push(this.vocabularyService.findEntryDetailById(item, this.vocabularyOptions.name, true, true, false).pipe(
+        getFirstSucceededRemoteDataPayload(),
+      ).subscribe((entry: VocabularyEntryDetail) => {
+        const value = new FormFieldMetadataValueObject(entry.value, null, entry.securityLevel, entry.id, entry.display);
+        this.deselect.emit(value);
+      }));
+      this.nodeMap.get(item).isSelected = false;
+    }
+    this.selectedItems = [];
+
     if (isNotEmpty(this.storedNodeMap)) {
       this.nodeMap = this.storedNodeMap;
       this.storedNodeMap = new Map<string, TreeviewFlatNode>();
       this.vocabularyTreeviewService.restoreNodes();
     }
-
-    this.searchText = '';
   }
 
   /**

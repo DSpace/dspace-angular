@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { DynamicCheckboxModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 
 export const accessConditionChangeEvent = {
@@ -16,7 +16,7 @@ export const accessConditionChangeEvent = {
         type: 'change',
     },
     context: null,
-    control: new FormControl({
+    control: new UntypedFormControl({
         errors: null,
         pristine: false,
         status: 'VALID',
@@ -26,7 +26,7 @@ export const accessConditionChangeEvent = {
         valueChanges: { _isScalar: false, observers: [], closed: false, isStopped: false, hasError: false },
         _updateOn: 'change',
     }),
-    group: new FormGroup({}),
+    group: new UntypedFormGroup({}),
     model: new DynamicSelectModel({
         additional: null,
         asyncValidators: null,
@@ -66,7 +66,7 @@ export const checkboxChangeEvent = {
         type: 'change',
     },
     context: null,
-    control: new FormControl({
+    control: new UntypedFormControl({
         errors: null,
         pristine: false,
         status: 'VALID',
@@ -76,7 +76,7 @@ export const checkboxChangeEvent = {
         valueChanges: { _isScalar: false, observers: [], closed: false, isStopped: false, hasError: false },
         _updateOn: 'change',
     }),
-    group: new FormGroup({}),
+    group: new UntypedFormGroup({}),
     model: new DynamicCheckboxModel({
         additional: null,
         asyncValidators: null,

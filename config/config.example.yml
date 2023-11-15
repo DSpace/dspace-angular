@@ -211,6 +211,9 @@ languages:
   - code: it
     label: Italiano
     active: true
+  - code: it
+    label: Italiano
+    active: true
   - code: lv
     label: Latviešu
     active: true
@@ -237,6 +240,9 @@ languages:
     active: true
   - code: tr
     label: Türkçe
+    active: true
+  - code: vi
+    label: Tiếng Việt
     active: true
   - code: kk
     label: Қазақ
@@ -406,6 +412,11 @@ vocabularies:
   - filter: 'subject'
     vocabulary: 'srsc'
     enabled: true
+
+# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query.
+comcolSelectionSort:
+  sortField: 'dc.title'
+  sortDirection: 'ASC'
 
 crisLayout:
   urn:

@@ -663,7 +663,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'browse_global_communities_and_collections',
           active: false,
-          visible: Boolean(environment.layout.navbar.showCommunityCollection),
+          visible: authorized && !environment.layout.navbar.showCommunityCollection,
           model: {
             type: MenuItemType.LINK,
             text: `menu.section.communities_and_collections`,
@@ -857,6 +857,17 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.LINK,
             text: 'menu.section.access_control_groups',
             link: '/access-control/groups'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_bulk',
+          parentID: 'access_control',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_bulk',
+            link: '/access-control/bulk-access'
           } as LinkMenuItemModel,
         },
         // TODO: enable this menu item once the feature has been implemented

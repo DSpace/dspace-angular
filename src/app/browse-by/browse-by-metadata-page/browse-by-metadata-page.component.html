@@ -5,7 +5,7 @@
 
             <header class="comcol-header mr-auto">
         <!-- Parent Name -->
-        <ds-comcol-page-header [name]="parentContext.name">
+        <ds-comcol-page-header [name]="dsoNameService.getName(parentContext)">
         </ds-comcol-page-header>
       <!-- Collection logo -->
         <ds-comcol-page-logo *ngIf="logo$"
@@ -35,12 +35,12 @@
     <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
       title="{{'browse.title' | translate:
       {
-        collection: (parent$ | async)?.payload?.name || '',
+        collection: dsoNameService.getName((parent$ | async)?.payload),
         field: 'browse.metadata.' + browseId | translate,
         startsWith: (startsWith)? ('browse.startsWith' | translate: { startsWith: '&quot;' + startsWith + '&quot;' }) : '',
         value: (value)? '&quot;' + value + '&quot;': ''
       } }}"
-      parentname="{{(parent$ | async)?.payload?.name || ''}}"
+      parentname="{{dsoNameService.getName((parent$ | async)?.payload)}}"
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
       [paginationConfig]="(currentPagination$ |async)"
       [sortConfig]="(currentSort$ |async)"
