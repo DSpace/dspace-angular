@@ -11,6 +11,7 @@ import { ClarinBitstreamDownloadPageComponent } from './clarin-bitstream-downloa
 import { ClarinLicenseAgreementPageComponent } from './clarin-license-agreement-page/clarin-license-agreement-page.component';
 import { ClarinBitstreamTokenExpiredComponent } from './clarin-bitstream-token-expired/clarin-bitstream-token-expired.component';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { ClarinZipDownloadPageComponent } from './clarin-zip-download-page/clarin-zip-download-page.component';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -30,7 +31,8 @@ import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstr
     ClarinBitstreamDownloadPageComponent,
     ClarinLicenseAgreementPageComponent,
     ClarinBitstreamTokenExpiredComponent,
-    BitstreamDownloadPageComponent
+    BitstreamDownloadPageComponent,
+    ClarinZipDownloadPageComponent
   ]
 })
 export class BitstreamPageModule {

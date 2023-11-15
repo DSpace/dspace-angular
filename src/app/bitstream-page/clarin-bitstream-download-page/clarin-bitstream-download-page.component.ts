@@ -41,26 +41,30 @@ export class ClarinBitstreamDownloadPageComponent implements OnInit {
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
   downloadStatus: BehaviorSubject<string> = new BehaviorSubject('');
+  zipDownloadLink: BehaviorSubject<string> = new BehaviorSubject('');
   dtoken: string;
 
   constructor(
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
     protected router: Router,
-    private auth: AuthService,
+    protected auth: AuthService,
     protected authorizationService: AuthorizationDataService,
-    private hardRedirectService: HardRedirectService,
-    private requestService: RequestService,
+    protected hardRedirectService: HardRedirectService,
+    protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
-    private fileService: FileService,
+    protected fileService: FileService,
   ) { }
 
   ngOnInit(): void {
     // Get dtoken
     this.dtoken = isUndefined(this.route.snapshot.queryParams.dtoken) ? null : this.route.snapshot.queryParams.dtoken;
 
-    this.bitstreamRD$ = this.route.data.pipe(
-      map((data) => data.bitstream));
+    if (isUndefined(this.bitstreamRD$)) {
+      this.bitstreamRD$ = this.route.data.pipe(
+        filter((data) => hasValue(data.bitstream)),
+        map((data) => data.bitstream));
+    }
 
     this.bitstream$ = this.bitstreamRD$.pipe(
       redirectOn4xx(this.router, this.auth),
@@ -109,8 +113,17 @@ export class ClarinBitstreamDownloadPageComponent implements OnInit {
         } else {
           fileLink = isNotNull(this.dtoken) ? fileLink + '?dtoken=' + this.dtoken : fileLink;
         }
-        bitstreamURL = isNotNull(this.dtoken) ? bitstreamURL + '?dtoken=' + this.dtoken : bitstreamURL ;
+        bitstreamURL = isNotNull(this.dtoken) ? bitstreamURL + '?dtoken=' + this.dtoken : bitstreamURL;
       }
+      if (isNotEmpty(this.zipDownloadLink.getValue())) {
+        const authToken = fileLink.substring(fileLink.indexOf('authentication-token'));
+        const currentZipDownloadLink = this.zipDownloadLink.getValue();
+        const separator = currentZipDownloadLink.includes('?') ? '&' : '?';
+        fileLink = currentZipDownloadLink + separator + authToken;
+        bitstreamURL = this.zipDownloadLink.getValue();
+      }
+      // fileLink = 'http://localhost:8080/server/api/core/bitstreams/d9a41f84-a470-495a-8821-20e0a18e9276/content';
+      // bitstreamURL = 'http://localhost:8080/server/api/core/bitstreams/d9a41f84-a470-495a-8821-20e0a18e9276/content';
       if ((isAuthorized || isAuthorizedByClarin) && isLoggedIn && isNotEmpty(fileLink)) {
         this.downloadStatus.next(RequestEntryState.Success);
         this.hardRedirectService.redirect(fileLink);
