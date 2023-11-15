@@ -108,7 +108,8 @@
                   class="small-text">{{ selectedInboundPatterns ? ('ldn-service.form.pattern.' + selectedInboundPatterns + '.description' | translate) : ('' | translate) }}</div>
                 <!-- TODO: infinite scroll with 3 selects -->
                 <div aria-labelledby="inboundPatternDropdownButton" ngbDropdownMenu>
-                  <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()" *ngFor="let pattern of inboundPatterns; let internalIndex = index"
+                  <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()"
+                          *ngFor="let pattern of inboundPatterns; let internalIndex = index"
                           ngbDropdownItem
                           type="button">
                     <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
@@ -121,7 +122,7 @@
           </div>
 
           <div class="col">
-            <ng-container *ngIf="getInboundPatternControlNames(i)">
+            <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
               <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
                 <div class="position-relative right-addon" role="combobox">
                   <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
@@ -142,7 +143,8 @@
                     class="small-text">{{ selectedInboundItemfilters ? ('ldn-service.form.pattern.' + selectedInboundItemfilters + '.description' | translate) : ('' | translate) }}</div>
                   <!-- TODO: infinite scroll with 3 selects -->
                   <div aria-labelledby="inboundItemfilterDropdownButton" ngbDropdownMenu>
-                    <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()" *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                    <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                            *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
                             ngbDropdownItem
                             type="button">
                       <div>{{ constraint.id }}</div>
@@ -154,7 +156,7 @@
           </div>
 
           <div
-            [style.visibility]="formModel.get('notifyServiceInboundPatterns')['controls'][i].value ? 'visible' : 'hidden'"
+            [style.visibility]="formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern ? 'visible' : 'hidden'"
             class="col-sm-1">
             <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
                    type="checkbox">
@@ -236,7 +238,8 @@
                   class="small-text">{{ selectedOutboundPatterns ? ('ldn-service.form.pattern.' + selectedOutboundPatterns + '.description' | translate) : ('' | translate) }}</div>
                 <!-- TODO: infinite scroll with 3-5 selects -->
                 <div aria-labelledby="outboundPatternDropdownButton" ngbDropdownMenu>
-                  <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()" *ngFor="let pattern of outboundPatterns; let internalIndex = index"
+                  <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()"
+                          *ngFor="let pattern of outboundPatterns; let internalIndex = index"
                           ngbDropdownItem
                           type="button">
                     <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
@@ -247,14 +250,37 @@
               </div>
             </div>
           </div>
-          <!-- Main label TODO: update itemfilter dropdown -->
           <div class="col">
-            <ng-container *ngIf="getOutboundPatternControlNames(i)">
-              <select formControlName="constraint" id="constraint{{i}}" name="constraint{{i}}">
-                <option value="">{{ 'ldn-new-service.form.label.placeholder.selectedItemFilter' | translate }}</option>
-                <option *ngFor="let itemFilter of (itemfiltersRD$ | async)?.payload?.page"
-                        [value]="itemFilter.id">{{ itemFilter.id }}</option>
-              </select>
+            <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][i].value.pattern)">
+              <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+                <div class="position-relative right-addon" role="combobox">
+                  <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                     ngbDropdownToggle></i>
+                  <input
+                    (click)="outboundItemfilterDropdown.open();"
+                    [readonly]="true"
+                    [value]="selectedOutboundItemfilters"
+                    class="form-control w-100 scrollable-dropdown-input"
+                    formControlName="constraint"
+                    id="outboundItemfilterDropdown"
+                    ngbDropdownAnchor
+                    type="text"
+                  />
+
+                  <div>{{ selectedOutboundItemfilters ? ('ldn-service.form.pattern.' + selectedOutboundItemfilters + '.label' | translate) : ('ldn-new-service.form.label.placeholder.outboundPattern' | translate) }}</div>
+                  <div
+                    class="small-text">{{ selectedOutboundItemfilters ? ('ldn-service.form.pattern.' + selectedOutboundItemfilters + '.description' | translate) : ('' | translate) }}</div>
+                  <!-- TODO: infinite scroll with 3 selects -->
+                  <div aria-labelledby="outboundItemfilterDropdownButton" ngbDropdownMenu>
+                    <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                            *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                            ngbDropdownItem
+                            type="button">
+                      <div>{{ constraint.id }}</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </ng-container>
           </div>
 
