@@ -3,20 +3,19 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction
 } from '../../../../core/auth/auth.actions';
 
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
-import { isNotEmpty } from '../../../empty.util';
+import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
 import { ActivatedRoute , Router} from '@angular/router';
 import { getBaseUrl } from '../../../clarin-shared-util';
@@ -31,7 +30,7 @@ import { ConfigurationDataService } from '../../../../core/data/configuration-da
   selector: 'ds-log-in-password',
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
-  animations: [fadeOut]
+  animations: [fadeOut],
 })
 @renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
@@ -98,7 +97,6 @@ export class LogInPasswordComponent implements OnInit {
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
-    private hardRedirectService: HardRedirectService,
     private formBuilder: FormBuilder,
     private store: Store<CoreState>,
     private route: ActivatedRoute,
@@ -113,6 +111,7 @@ export class LogInPasswordComponent implements OnInit {
    * @method ngOnInit
    */
   public async ngOnInit() {
+    this.redirectUrl = '';
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -139,10 +138,25 @@ export class LogInPasswordComponent implements OnInit {
 
     // Load `dspace.ui.url` into `baseUrl` property.
     await this.assignBaseUrl();
+    void this.setUpRedirectUrl();
+  }
+
+  /**
+   * Set up redirect URL. It could be loaded from the `authorizationService.getRedirectUrl()` or from the url.
+   */
+  public async setUpRedirectUrl() {
+    // Get redirect URL from the authService `redirectUrl` property.
+    const fetchedRedirectUrl = await firstValueFrom(this.authService.getRedirectUrl());
+    if (isNotEmpty(fetchedRedirectUrl)) {
+      this.redirectUrl = fetchedRedirectUrl;
+    }
 
     // Store the `redirectUrl` value from the url and then remove that value from url.
     if (isNotEmpty(this.route.snapshot.queryParams?.redirectUrl)) {
-      this.redirectUrl = this.route.snapshot.queryParams?.redirectUrl;
+      // Overwrite `this.redirectUrl` only if it's not stored in the authService `redirectUrl` property.
+      if (isEmpty(this.redirectUrl)) {
+        this.redirectUrl = this.route.snapshot.queryParams?.redirectUrl;
+      }
     } else {
       // Pop up discojuice login e.g. when the token is expired or the user is trying to download restricted bitstream.
       this.popUpDiscoJuiceLogin();

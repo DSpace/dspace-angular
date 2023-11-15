@@ -20,12 +20,15 @@ import { ThemedFullItemPageComponent } from './full/themed-full-item-page.compon
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import {TombstoneComponent} from './tombstone/tombstone.component';
-import {ClarinMatomoStatisticsComponent} from './clarin-matomo-statistics/clarin-matomo-statistics.component';
+import { ClarinMatomoStatisticsComponent } from './clarin-matomo-statistics/clarin-matomo-statistics.component';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import {
+  ClarinZipDownloadPageComponent
+} from '../bitstream-page/clarin-zip-download-page/clarin-zip-download-page.component';
 
 @NgModule({
   imports: [
@@ -77,7 +80,17 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: ORCID_PATH,
             component: OrcidPageComponent,
             canActivate: [AuthenticatedGuard, OrcidPageGuard]
-          }
+          },
+          {
+            path: 'download',
+            component: ClarinZipDownloadPageComponent,
+            resolve: {
+              dso: ItemPageResolver,
+            },
+            data: {
+              zipDownloadLink: 'This is download link'
+            }
+          },
         ],
         data: {
           menu: {

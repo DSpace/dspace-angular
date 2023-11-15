@@ -210,8 +210,8 @@ export class ItemPageComponent implements OnInit {
   generateCurlCommand() {
     const fileNames = this.listOfFiles.map((file: MetadataBitstream) => {
       // Show `Download All Files` only if there are more files.
-      if (file.canPreview && this.listOfFiles.length > 1) {
-        this.canDownloadAllFiles = file.canPreview;
+      if (this.listOfFiles.length > 1) {
+        this.canDownloadAllFiles = true;
       }
 
       if (file.canPreview) {
@@ -227,8 +227,9 @@ export class ItemPageComponent implements OnInit {
   }
 
   downloadFiles() {
-    window.location.href = this.halService.getRootHref() + `/core/bitstreams/allzip?handleId=${this.itemHandle}`;
+    this.itemRD$.pipe(
+      take(1),
+      getAllSucceededRemoteDataPayload())
+      .subscribe((item: Item) => void this.router.navigate([getItemPageRoute(item), 'download']));
   }
-
-
 }

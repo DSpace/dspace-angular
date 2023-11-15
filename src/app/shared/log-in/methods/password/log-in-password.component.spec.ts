@@ -17,7 +17,7 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
-import { of as observableOf } from 'rxjs';
+import {of, of as observableOf} from 'rxjs';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { ActivatedRoute , Router} from '@angular/router';
 import { RouterMock } from '../../../mocks/router.mock';
@@ -58,7 +58,8 @@ describe('LogInPasswordComponent', () => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {},
-      setRedirectUrlIfNotSet: {}
+      setRedirectUrlIfNotSet: {},
+      getRedirectUrl: of(redirectUrl),
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
