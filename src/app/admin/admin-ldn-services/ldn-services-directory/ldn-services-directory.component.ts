@@ -68,7 +68,6 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
       ))
 
     );
-    console.log(this.ldnServicesRD$)
   }
 
   ngOnDestroy(): void {
