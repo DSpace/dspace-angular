@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {LdnServiceFormComponent} from './ldn-service-form.component';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {NgbModal, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModal, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LdnItemfiltersService} from '../ldn-services-data/ldn-itemfilters-data.service';
 import {LdnServicesService} from '../ldn-services-data/ldn-services-data.service';
@@ -51,7 +51,8 @@ describe('LdnServiceFormComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         NgbModalModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        NgbDropdownModule
       ],
       providers: [
         {provide: LdnItemfiltersService, useValue: ldnItemfiltersService},

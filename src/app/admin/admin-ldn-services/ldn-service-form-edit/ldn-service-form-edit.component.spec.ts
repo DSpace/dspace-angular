@@ -1,5 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {LdnServiceFormEditComponent} from './ldn-service-form-edit.component';
 import {ChangeDetectorRef, EventEmitter} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
@@ -49,7 +50,7 @@ describe('LdnServiceFormEditComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, TranslateModule.forRoot()],
+      imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule],
       declarations: [LdnServiceFormEditComponent],
       providers: [
         {provide: LdnServicesService, useValue: ldnServicesService},
