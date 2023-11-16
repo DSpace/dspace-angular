@@ -44,7 +44,7 @@ runs:
           # create otherwise it will be created with root owner
           cid=$(docker run -d --rm --name $DB5NAME -v $(pwd):/dq/scripts -v $DATADIR/dump:/dq/dump -p 127.0.0.1:$DB5PORT:5432 -e POSTGRES_DB=empty -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=dspace postgres /bin/bash -c "cd /dq/scripts && ./init.dspacedb5.sh")
           echo "cid=$cid" >> $GITHUB_OUTPUT
-          sleep 10
+          sleep 25
           echo "====="
           docker logs $DB5NAME || true
           echo "====="
