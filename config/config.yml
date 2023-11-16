@@ -4,6 +4,10 @@ rest:
   port: 443
   nameSpace: /server
 
+mediaViewer:
+  image: true
+  video: false
+
 themes:
   - name: capstone
     extends: tamu
