@@ -4,61 +4,69 @@
       <h2 class="flex-grow-1">{{ 'ldn-create-service.title' | translate }}</h2>
     </div>
     <!-- In the name section -->
-    <div class="mb-2 ">
+    <div class="mb-5 ">
       <label for="name">{{ 'ldn-new-service.form.label.name' | translate }}</label>
       <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
              [placeholder]="'ldn-new-service.form.placeholder.name' | translate" formControlName="name" id="name"
              name="name"
              type="text"
              class="form-control">
+    <div *ngIf="formModel.get('name').invalid && formModel.get('name').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.name' | translate }}
     </div>
-
-    <div class="mb-4">
-      &nbsp;
     </div>
 
     <!-- In the description section -->
-    <div class="mb-2 d-flex flex-column">
+    <div class="mb-5 mt-5 d-flex flex-column">
       <label for="description">{{ 'ldn-new-service.form.label.description' | translate }}</label>
       <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
                 formControlName="description" id="description" name="description" class="form-control"></textarea>
     </div>
 
-    <div class="mb-4">
-      &nbsp;
-    </div>
+
 
     <!-- In the url section -->
-    <div class="mb-2">
+    <div class="mb-5 mt-5">
       <label for="url">{{ 'ldn-new-service.form.label.url' | translate }}</label>
       <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
              [placeholder]="'ldn-new-service.form.placeholder.url' | translate" formControlName="url" id="url"
              name="url"
              type="text"
              class="form-control">
+    <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.url' | translate }}
+    </div>
     </div>
 
-    <div class="mb-4">
-      &nbsp;
-    </div>
 
     <!-- In the ldnUrl section -->
-    <div class="mb-2">
-      <label for="ldnUrl">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
-      <input [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
-             [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" formControlName="ldnUrl"
-             id="ldnUrl"
-             name="ldnUrl"
-             type="text"
-             class="form-control">
+    <div class="mb-5 mt-5">
+        <label for="ldnUrl">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
+        <input [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
+               [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" formControlName="ldnUrl"
+               id="ldnUrl"
+               name="ldnUrl"
+               type="text"
+               class="form-control">
+      <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.ldnurl' | translate }}
+      </div>
     </div>
-
-    <div class="mb-4">
-      &nbsp;
+    <!-- In the score section -->
+    <div class="mb-2">
+      <label for="score">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
+             [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
+             id="score"
+             name="score"
+             type="text">
+      <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.score' | translate }}
+      </div>
     </div>
 
     <!-- In the Inbound Patterns section -->
-    <div class="row">
+    <div class="rowmb-2 mt-5">
       <div class="col">
         <label>{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
       </div>
@@ -70,7 +78,7 @@
           <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
         </div>
       </ng-container>
-      <div class="col-sm-1">
+      <div class="col-sm-2">
       </div>
     </div>
 
@@ -82,37 +90,14 @@
 
         <div class="row mb-1">
           <div class="col">
-            <div #inboundPatternDropdown="ngbDropdown" class="w-100" id="additionalInboundPattern{{i}}" ngbDropdown
-                 placement="bottom-start">
-              <div class="position-relative right-addon" role="combobox">
-                <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
-                   ngbDropdownToggle>
-
-                </i>
-                <input
-                  (click)="inboundPatternDropdown.open();"
-                  [readonly]="true"
-                  [value]="selectedInboundPatterns"
-                  class="form-control w-100 scrollable-dropdown-input"
-                  formControlName="patternLabel"
-                  id="inboundPatternDropdownButton"
-                  ngbDropdownAnchor
-                  type="text"
-                />
-                <div aria-labelledby="inboundPatternDropdownButton" ngbDropdownMenu class="dropdown-menu scrollable-dropdown-menu w-100 " >
-                  <div  class="scrollable-menu" role="listbox">
-                    <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()" class="dropdown-item collection-item text-truncate w-100"
-                      *ngFor="let pattern of inboundPatterns"
-                      ngbDropdownItem
-                      type="button"
-                      [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate">
-                      <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
-                      <div
-                        class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
+                    name="additionalInboundPattern{{i}}" required>
+              <option value="">{{ 'ldn-new-service.form.label.placeholder.inboundPattern' | translate }}</option>
+              <option *ngFor="let pattern of inboundPatterns"
+                      [value]="pattern">{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }} </option>
+            </select>
+            <div *ngIf="!patternSelected()" class="error-text">
+              {{ 'ldn-new-service.form.error.patterns' | translate }}
             </div>
           </div>
 
@@ -173,15 +158,13 @@
     </div>
 
     <span (click)="addInboundPattern()"
-          class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
+          class="add-pattern-link mb-4">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
 
 
-    <div class="mb-4">
-      &nbsp;
-    </div>
+
 
     <!-- In the Outbound Patterns section -->
-    <div class="row">
+    <div class="rowmb-1 mt-5">
       <div class="col">
         <label>{{ 'ldn-new-service.form.label.outboundPattern' | translate }}</label>
       </div>
@@ -190,9 +173,12 @@
           <label class="">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
         </div>
       </ng-container>
-      <div class="col-sm-1 ">
+      <div class="col-sm1 ">
+        <label class="label-box-2" style="visibility: hidden;">
+          {{ 'ldn-new-service.form.label.automatic' | translate }}
+        </label>
       </div>
-      <div class="col-sm-1 ">
+      <div class="col-sm-2 ">
       </div>
     </div>
 
@@ -289,7 +275,7 @@
     </div>
 
     <span (click)="addOutboundPattern()"
-          class="add-pattern-link">{{ 'ldn-new-service.form.label.addPattern' | translate }}
+          class="add-pattern-link mb-4">{{ 'ldn-new-service.form.label.addPattern' | translate }}
     </span>
     <div class="mb-4">
       &nbsp;

@@ -49,7 +49,8 @@ export class LdnServiceFormComponent implements OnInit {
   @Input() public name: string;
   @Input() public description: string;
   @Input() public url: string;
-  @Input() public ldnUrl: string;
+  @Input() public score: string;
+    @Input() public ldnUrl: string;
   @Input() public inboundPattern: string;
   @Input() public outboundPattern: string;
   @Input() public constraint: string;
@@ -62,6 +63,9 @@ export class LdnServiceFormComponent implements OnInit {
   selectedInboundItemfilters: string[];
   selectedOutboundItemfilters: string[];
   private modalRef: any;
+    hasInboundPattern: boolean;
+    hasOutboundPattern: boolean;
+    isScoreValid: boolean;
 
   constructor(
     private ldnServicesService: LdnServicesService,
@@ -80,7 +84,7 @@ export class LdnServiceFormComponent implements OnInit {
       name: ['', Validators.required],
       description: [''],
       url: ['', Validators.required],
-      ldnUrl: ['', Validators.required],
+      score: ['', [Validators.required, Validators.pattern('^0*(\.[0-9]+)?$|^1(\.0+)?$')]],ldnUrl: ['', Validators.required],
       inboundPattern: [''],
       outboundPattern: [''],
       constraintPattern: [''],
@@ -115,14 +119,19 @@ export class LdnServiceFormComponent implements OnInit {
 
   createService() {
     this.formModel.get('name').markAsTouched();
-    this.formModel.get('url').markAsTouched();
-    this.formModel.get('ldnUrl').markAsTouched();
+    this.formModel.get('score').markAsTouched();this.formModel.get('url').markAsTouched();
+    this.formModel.get('ldnUrl').markAsTouched();this.formModel.get('notifyServiceInboundPatterns').markAsTouched();
+        this.formModel.get('notifyServiceOutboundPatterns').markAsTouched();
 
     const name = this.formModel.get('name').value;
     const url = this.formModel.get('url').value;
+    const score = this.formModel.get('score').value;
     const ldnUrl = this.formModel.get('ldnUrl').value;
 
-    if (!name || !url || !ldnUrl) {
+    const hasInboundPattern = this.checkPatterns(this.formModel.get('notifyServiceInboundPatterns') as FormArray);
+    const hasOutboundPattern = this.checkPatterns(this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
+
+        if (!name || !url || !ldnUrl || !score || (!hasInboundPattern && !hasOutboundPattern)) {
       this.closeModal();
       return;
     }
@@ -157,9 +166,20 @@ export class LdnServiceFormComponent implements OnInit {
         this.sendBack();
         this.closeModal();
       } else {
-        this.notificationsService.error(this.translateService.get('notification.created.failure'));
-      }
-    });
+        this.notificationsService.error(this.translateService.get('ldn-service-notification.created.failure.title'),
+                this.translateService.get('ldn-service-notification.created.failure.body'));
+                this.closeModal();
+            }
+        });
+    }
+      checkPatterns(formArray: FormArray): boolean {
+    for (let i = 0; i < formArray.length; i++) {
+            const pattern = formArray.at(i).get('pattern').value;
+            if (pattern) {
+                return true;
+            }
+        }
+        return false;
   }
 
 

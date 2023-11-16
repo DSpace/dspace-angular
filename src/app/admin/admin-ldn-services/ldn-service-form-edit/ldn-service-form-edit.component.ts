@@ -52,7 +52,8 @@ export class LdnServiceFormEditComponent implements OnInit {
   @Input() public description: string;
   @Input() public url: string;
   @Input() public ldnUrl: string;
-  @Input() public inboundPattern: string;
+  @Input() public score: number;
+    @Input() public inboundPattern: string;
   @Input() public outboundPattern: string;
   @Input() public constraint: string;
   @Input() public automatic: boolean;
@@ -88,7 +89,7 @@ export class LdnServiceFormEditComponent implements OnInit {
       description: ['', Validators.required],
       url: ['', Validators.required],
       ldnUrl: ['', Validators.required],
-      inboundPattern: [''],
+      score: ['', [Validators.required, Validators.pattern('^0*(\.[0-9]+)?$|^1(\.0+)?$')]],inboundPattern: [''],
       outboundPattern: [''],
       constraintPattern: [''],
       enabled: [''],
@@ -127,7 +128,7 @@ export class LdnServiceFormEditComponent implements OnInit {
             name: this.service.name,
             description: this.service.description,
             url: this.service.url,
-            ldnUrl: this.service.ldnUrl,
+            score: this.service.score,ldnUrl: this.service.ldnUrl,
             type: this.service.type,
             enabled: this.service.enabled
           });
@@ -198,6 +199,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     this.createReplaceOperation(patchOperations, 'description', '/description');
     this.createReplaceOperation(patchOperations, 'ldnUrl', '/ldnurl');
     this.createReplaceOperation(patchOperations, 'url', '/url');
+        this.createReplaceOperation(patchOperations, 'score', '/score');
 
     this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
     this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
@@ -315,15 +317,18 @@ export class LdnServiceFormEditComponent implements OnInit {
     this.ldnServicesService.patch(this.service, patchOperations).pipe(
       getFirstCompletedRemoteData()
     ).subscribe(
-      () => {
-
+      (rd: RemoteData<LdnService>) => {
+          if (rd.hasSucceeded) {
         this.closeModal();
         this.sendBack();
         this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
           this.translateService.get('admin.registries.services-formats.modify.success.content'));
-      }
-    );
-
+      }else {
+            this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
+              this.translateService.get('admin.registries.services-formats.modify.failure.content'));
+            this.closeModal();
+    }
+        });
   }
 
   resetFormAndLeave() {
