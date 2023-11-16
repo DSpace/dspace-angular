@@ -50,7 +50,8 @@ import { AccessControlRoutingModule } from '../../access-control/access-control-
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({
-  selector: 'ds-browse-entry-list-element',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
   template: ''
 })
 class MockThemedBrowseEntryListElementComponent {
@@ -153,19 +154,21 @@ describe('BrowseByComponent', () => {
   it('should display a loading message when objects is empty', () => {
     (comp as any).objects = undefined;
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('ds-themed-loading'))).toBeDefined();
+    expect(fixture.debugElement.query(By.css('ds-themed-loading'))).not.toBeNull();
   });
 
   it('should display results when objects is not empty', () => {
-    (comp as any).objects = observableOf({
-      payload: {
-        page: {
-          length: 1
-        }
-      }
-    });
+    comp.objects$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [
+      Object.assign(new BrowseEntry(), {
+        type: ITEM,
+        authority: 'authority key 1',
+        value: 'browse entry 1',
+        language: null,
+        count: 1,
+      }),
+    ]));
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('ds-viewable-collection'))).toBeDefined();
+    expect(fixture.debugElement.query(By.css('ds-viewable-collection'))).not.toBeNull();
   });
 
   describe('when showPaginator is true and browseEntries are provided', () => {
@@ -237,15 +240,24 @@ describe('BrowseByComponent', () => {
 
   describe('reset filters button', () => {
     it('should not be present when no startsWith or value is present ', () => {
-      const button = fixture.debugElement.query(By.css('reset'));
+      const button = fixture.debugElement.query(By.css('.reset'));
       expect(button).toBeNull();
     });
     it('should be present when a startsWith or value is present ', () => {
+      comp.objects$ = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [
+        Object.assign(new BrowseEntry(), {
+          type: ITEM,
+          authority: 'authority key 1',
+          value: 'browse entry 1',
+          language: null,
+          count: 1,
+        }),
+      ]));
       comp.shouldDisplayResetButton$ = observableOf(true);
       fixture.detectChanges();
 
-      const button = fixture.debugElement.query(By.css('reset'));
-      expect(button).toBeDefined();
+      const button = fixture.debugElement.query(By.css('.reset'));
+      expect(button).not.toBeNull();
     });
   });
 

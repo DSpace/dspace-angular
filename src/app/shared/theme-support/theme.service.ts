@@ -29,7 +29,7 @@ export const themeStateSelector = createFeatureSelector<ThemeState>('theme');
 
 export const currentThemeSelector = createSelector(
   themeStateSelector,
-  (state: ThemeState): string => hasValue(state) ? state.currentTheme : undefined
+  (state: ThemeState): string => hasValue(state) ? state.currentTheme : BASE_THEME_NAME,
 );
 
 @Injectable({
@@ -240,14 +240,7 @@ export class ThemeService {
       if (hasValue(parentThemeName)) {
         // inherit the head tags of the parent theme
         return this.createHeadTags(parentThemeName);
-      }
-      const defaultThemeConfig = getDefaultThemeConfig();
-      const defaultThemeName = defaultThemeConfig.name;
-      if (
-        hasNoValue(defaultThemeName) ||
-        themeName === defaultThemeName ||
-        themeName === BASE_THEME_NAME
-      ) {
+      } else {
         // last resort, use fallback favicon.ico
         return [
           this.createHeadTag({
@@ -260,9 +253,6 @@ export class ThemeService {
           })
         ];
       }
-
-      // inherit the head tags of the default theme
-      return this.createHeadTags(defaultThemeConfig.name);
     }
 
     return headTagConfigs.map(this.createHeadTag.bind(this));
@@ -425,9 +415,10 @@ export class ThemeService {
    * @private
    */
   private getActionForMatch(newTheme: Theme, currentThemeName: string): SetThemeAction | NoOpAction {
-    if (hasValue(newTheme) && newTheme.config.name !== currentThemeName) {
+    const newThemeName: string = newTheme?.config.name ?? BASE_THEME_NAME;
+    if (newThemeName !== currentThemeName) {
       // If we have a match, and it isn't already the active theme, set it as the new theme
-      return new SetThemeAction(newTheme.config.name);
+      return new SetThemeAction(newThemeName);
     } else {
       // Otherwise, do nothing
       return new NoOpAction();

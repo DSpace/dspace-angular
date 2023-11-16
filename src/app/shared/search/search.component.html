@@ -30,22 +30,24 @@
                 </button>
             </div>
             <ds-themed-search-results [searchResults]="resultsRD$ | async"
-                               [searchConfig]="searchOptions$ | async"
-                               [configuration]="(currentConfiguration$ | async)"
-                               [disableHeader]="!searchEnabled"
-                               [linkType]="linkType"
-                               [context]="(currentContext$ | async)"
-                               [selectable]="selectable"
-                               [selectionConfig]="selectionConfig"
-                               (contentChange)="onContentChange($event)"
-                               (deselectObject)="deselectObject.emit($event)"
-                               (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
+                                      [searchConfig]="searchOptions$ | async"
+                                      [configuration]="(currentConfiguration$ | async)"
+                                      [disableHeader]="!searchEnabled"
+                                      [linkType]="linkType"
+                                      [context]="(currentContext$ | async)"
+                                      [selectable]="selectable"
+                                      [selectionConfig]="selectionConfig"
+                                      [showCsvExport]="showCsvExport"
+                                      [showThumbnails]="showThumbnails"
+                                      (contentChange)="onContentChange($event)"
+                                      (deselectObject)="deselectObject.emit($event)"
+                                      (selectObject)="selectObject.emit($event)"></ds-themed-search-results>
         </div>
     </div>
 </ng-template>
 
 <ng-template #sidebarContent>
-    <ds-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
+    <ds-themed-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
@@ -59,8 +61,8 @@
                        [viewModeList]="viewModeList"
                        [showViewModes]="showViewModes"
                        (changeConfiguration)="changeContext($event.context)"
-                       (changeViewMode)="changeViewMode()"></ds-search-sidebar>
-    <ds-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
+                       (changeViewMode)="changeViewMode()"></ds-themed-search-sidebar>
+    <ds-themed-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"
@@ -75,18 +77,18 @@
                        (toggleSidebar)="closeSidebar()"
                        (changeConfiguration)="changeContext($event.context)"
                        (changeViewMode)="changeViewMode()">
-    </ds-search-sidebar>
+    </ds-themed-search-sidebar>
 </ng-template>
 
 <ng-template #searchForm>
-    <ds-search-form *ngIf="searchEnabled" id="search-form"
+    <ds-themed-search-form *ngIf="searchEnabled" id="search-form"
                     [query]="(searchOptions$ | async)?.query"
                     [scope]="(searchOptions$ | async)?.scope"
                     [currentUrl]="searchLink"
                     [showScopeSelector]="showScopeSelector"
                     [inPlaceSearch]="inPlaceSearch"
                     [searchPlaceholder]="searchFormPlaceholder | translate">
-    </ds-search-form>
+    </ds-themed-search-form>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">
             <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>

@@ -17,6 +17,7 @@ import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-con
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { isPlatformBrowser } from '@angular/common';
 import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
+import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 
 @Component({
   selector: 'ds-recent-item-list',
@@ -67,6 +68,7 @@ export class RecentItemListComponent implements OnInit {
     this.itemRD$ = this.searchService.search(
       new PaginatedSearchOptions({
         pagination: this.paginationConfig,
+        dsoTypes: [DSpaceObjectType.ITEM],
         sort: this.sortConfig,
       }),
       undefined,

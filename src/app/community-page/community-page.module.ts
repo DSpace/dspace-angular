@@ -19,6 +19,7 @@ import {
 import {
   ThemedCollectionPageSubCollectionListComponent
 } from './sub-collection-list/themed-community-page-sub-collection-list.component';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 const DECLARATIONS = [CommunityPageComponent,
   ThemedCommunityPageComponent,
@@ -37,6 +38,7 @@ const DECLARATIONS = [CommunityPageComponent,
     StatisticsModule.forRoot(),
     CommunityFormModule,
     ComcolModule,
+    DsoPageModule,
   ],
   declarations: [
     ...DECLARATIONS

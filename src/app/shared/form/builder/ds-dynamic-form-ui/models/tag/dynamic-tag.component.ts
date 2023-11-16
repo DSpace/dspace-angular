@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -32,7 +32,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicTagModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();

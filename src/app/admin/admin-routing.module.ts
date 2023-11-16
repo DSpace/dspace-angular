@@ -47,6 +47,12 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
         component: BatchImportPageComponent,
         data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' }
       },
+      {
+        path: 'system-wide-alert',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
+        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
+      },
     ])
   ],
   providers: [

@@ -1,7 +1,16 @@
 <ng-container>
   <h3 class="border-bottom pb-2">{{messagePrefix + '.head' | translate}}</h3>
 
-  <h4 id="search" class="border-bottom pb-2">{{messagePrefix + '.search.head' | translate}}
+  <h4 id="search" class="border-bottom pb-2">
+    <span *dsContextHelp="{
+            content: 'admin.access-control.groups.form.tooltip.editGroup.addSubgroups',
+            id: 'edit-group-add-subgroups',
+            iconPlacement: 'right',
+            tooltipPlacement: ['top', 'right', 'bottom']
+          }"
+    >
+      {{messagePrefix + '.search.head' | translate}}
+    </span>
 
   </h4>
   <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
@@ -44,24 +53,28 @@
         <tbody>
         <tr *ngFor="let group of (searchResults$ | async)?.payload?.page">
           <td class="align-middle">{{group.id}}</td>
-          <td class="align-middle"><a (click)="groupDataService.startEditingNewGroup(group)"
-                 [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">{{group.name}}</a></td>
-          <td class="align-middle">{{(group.object | async)?.payload?.name}}</td>
+          <td class="align-middle">
+            <a (click)="groupDataService.startEditingNewGroup(group)"
+               [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">
+              {{ dsoNameService.getName(group) }}
+            </a>
+          </td>
+          <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload) }}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
               <button *ngIf="(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
                       (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: {name: group.name} }}">
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(group) } }}">
                 <i class="fas fa-trash-alt fa-fw"></i>
               </button>
 
-              <p *ngIf="(isActiveGroup(group) | async)">{{ messagePrefix + '.table.edit.currentGroup' | translate }}</p>
+              <span *ngIf="(isActiveGroup(group) | async)">{{ messagePrefix + '.table.edit.currentGroup' | translate }}</span>
 
               <button *ngIf="!(isSubgroupOfGroup(group) | async) && !(isActiveGroup(group) | async)"
                       (click)="addSubgroupToGroup(group)"
                       class="btn btn-outline-primary btn-sm addButton"
-                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: {name: group.name} }}">
+                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(group) } }}">
                 <i class="fas fa-plus fa-fw"></i>
               </button>
             </div>
@@ -99,14 +112,18 @@
         <tbody>
         <tr *ngFor="let group of (subGroups$ | async)?.payload?.page">
           <td class="align-middle">{{group.id}}</td>
-          <td class="align-middle"><a (click)="groupDataService.startEditingNewGroup(group)"
-                 [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">{{group.name}}</a></td>
-          <td class="align-middle">{{(group.object | async)?.payload?.name}}</td>
+          <td class="align-middle">
+            <a (click)="groupDataService.startEditingNewGroup(group)"
+               [routerLink]="[groupDataService.getGroupEditPageRouterLink(group)]">
+            {{ dsoNameService.getName(group) }}
+          </a>
+          </td>
+          <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload)}}</td>
           <td class="align-middle">
             <div class="btn-group edit-field">
               <button (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: {name: group.name} }}">
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(group) } }}">
                 <i class="fas fa-trash-alt fa-fw"></i>
               </button>
             </div>

@@ -12,13 +12,7 @@ import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { CookieService } from '../services/cookie.service';
-
-// Name of XSRF header we may send in requests to backend (this is a standard name defined by Angular)
-export const XSRF_REQUEST_HEADER = 'X-XSRF-TOKEN';
-// Name of XSRF header we may receive in responses from backend
-export const XSRF_RESPONSE_HEADER = 'DSPACE-XSRF-TOKEN';
-// Name of cookie where we store the XSRF token
-export const XSRF_COOKIE = 'XSRF-TOKEN';
+import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from './xsrf.constants';
 
 /**
  * Custom Http Interceptor intercepting Http Requests & Responses to

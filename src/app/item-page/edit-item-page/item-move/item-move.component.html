@@ -20,9 +20,10 @@
             <div class="row">
                 <div class="col-12">
                     <p>
+                      <label for="inheritPoliciesCheckbox">
                         <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox">
-                        <label for="inheritPoliciesCheckbox">{{'item.edit.move.inheritpolicies.checkbox' |
-                                translate}}</label>
+                        {{'item.edit.move.inheritpolicies.checkbox' |translate}}
+                      </label>
                     </p>
                     <p>
                         {{'item.edit.move.inheritpolicies.description' | translate}}

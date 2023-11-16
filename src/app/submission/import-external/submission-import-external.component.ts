@@ -15,7 +15,9 @@ import { Context } from '../../core/shared/context.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RouteService } from '../../core/services/route.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import {
+  SubmissionImportExternalPreviewComponent
+} from './import-external-preview/submission-import-external-preview.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';

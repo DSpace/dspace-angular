@@ -39,7 +39,7 @@ services:
       # proxies.trusted.ipranges: This setting is required for a REST API running in Docker to trust requests 
       # from the host machine. This IP range MUST correspond to the 'dspacenet' subnet defined above.
       proxies__P__trusted__P__ipranges: '172.23.0'
-    image: dspace/dspace:dspace-7_x-test
+    image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
     depends_on:
     - dspacedb
     networks:
@@ -82,8 +82,7 @@ services:
   # DSpace Solr container  
   dspacesolr:
     container_name: dspacesolr
-    # Uses official Solr image at https://hub.docker.com/_/solr/
-    image: solr:8.11-slim
+    image: "${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-latest}"
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
     depends_on:
     - dspace
@@ -96,28 +95,26 @@ services:
     tty: true
     working_dir: /var/solr/data
     volumes:
-    # Mount our "solr_configs" volume available under the Solr's configsets folder (in a 'dspace' subfolder)
-    # This copies the Solr configs from main 'dspace' container into 'dspacesolr' via that volume
-    - solr_configs:/opt/solr/server/solr/configsets/dspace
     # Keep Solr data directory between reboots
     - solr_data:/var/solr/data
     # Initialize all DSpace Solr cores using the mounted local configsets (see above), then start Solr
     # * First, run precreate-core to create the core (if it doesn't yet exist). If exists already, this is a no-op
-    # * Second, copy updated configs from mounted configsets to this core. If it already existed, this updates core
-    #   to the latest configs. If it's a newly created core, this is a no-op.
+    # * Second, copy configsets to this core:
+    #   Updates to Solr configs require the container to be rebuilt/restarted:
+    #   `docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d --build dspacesolr`
     entrypoint:
     - /bin/bash
     - '-c'
     - |
       init-var-solr
-      precreate-core authority /opt/solr/server/solr/configsets/dspace/authority
-      cp -r -u /opt/solr/server/solr/configsets/dspace/authority/* authority
-      precreate-core oai /opt/solr/server/solr/configsets/dspace/oai
-      cp -r -u /opt/solr/server/solr/configsets/dspace/oai/* oai
-      precreate-core search /opt/solr/server/solr/configsets/dspace/search
-      cp -r -u /opt/solr/server/solr/configsets/dspace/search/* search
-      precreate-core statistics /opt/solr/server/solr/configsets/dspace/statistics
-      cp -r -u /opt/solr/server/solr/configsets/dspace/statistics/* statistics
+      precreate-core authority /opt/solr/server/solr/configsets/authority
+      cp -r /opt/solr/server/solr/configsets/authority/* authority
+      precreate-core oai /opt/solr/server/solr/configsets/oai
+      cp -r /opt/solr/server/solr/configsets/oai/* oai
+      precreate-core search /opt/solr/server/solr/configsets/search
+      cp -r /opt/solr/server/solr/configsets/search/* search
+      precreate-core statistics /opt/solr/server/solr/configsets/statistics
+      cp -r /opt/solr/server/solr/configsets/statistics/* statistics
       exec solr -f
 volumes:
   assetstore:

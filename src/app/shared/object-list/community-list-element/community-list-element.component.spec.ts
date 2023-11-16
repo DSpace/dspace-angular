@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 
 let communityListElementComponent: CommunityListElementComponent;
 let fixture: ComponentFixture<CommunityListElementComponent>;
@@ -34,6 +36,7 @@ describe('CommunityListElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [CommunityListElementComponent],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) }
       ],
 

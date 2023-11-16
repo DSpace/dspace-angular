@@ -9,6 +9,8 @@ import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router
 import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
@@ -101,6 +103,8 @@ const PROVIDERS = [
     useClass: LogInterceptor,
     multi: true
   },
+  // register the dynamic matcher used by form. MUST be provided by the app module
+  ...DYNAMIC_MATCHER_PROVIDERS,
 ];
 
 const DECLARATIONS = [

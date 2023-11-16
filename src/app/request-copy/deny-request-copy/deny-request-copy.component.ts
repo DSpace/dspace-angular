@@ -63,10 +63,10 @@ export class DenyRequestCopyComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
     );
 
-    const msgParams$ = observableCombineLatest(
+    const msgParams$ = observableCombineLatest([
       this.itemRequestRD$.pipe(getFirstSucceededRemoteDataPayload()),
       this.authService.getAuthenticatedUserFromStore(),
-    ).pipe(
+    ]).pipe(
       switchMap(([itemRequest, user]: [ItemRequest, EPerson]) => {
         return this.itemDataService.findById(itemRequest.itemId).pipe(
           getFirstSucceededRemoteDataPayload(),
@@ -76,7 +76,7 @@ export class DenyRequestCopyComponent implements OnInit {
               recipientName: itemRequest.requestName,
               itemUrl: isNotEmpty(uri) ? uri : item.handle,
               itemName: this.nameService.getName(item),
-              authorName: user.name,
+              authorName: this.nameService.getName(user),
               authorEmail: user.email,
             });
           }),

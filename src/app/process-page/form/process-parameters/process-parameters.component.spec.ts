@@ -14,14 +14,14 @@ import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock
 describe('ProcessParametersComponent', () => {
   let component: ProcessParametersComponent;
   let fixture: ComponentFixture<ProcessParametersComponent>;
-  let parameterValues;
-  let script;
+  let mockParameterValues: ProcessParameter[];
+  let mockScript: Script;
 
-  function init() {
+  function initParametersAndScriptMockValues() {
     const param1 = new ScriptParameter();
     const param2 = new ScriptParameter();
-    script = Object.assign(new Script(), { parameters: [param1, param2] });
-    parameterValues = [
+    mockScript = Object.assign(new Script(), { parameters: [param1, param2] });
+    mockParameterValues = [
       Object.assign(new ProcessParameter(), { name: '-a', value: 'bla' }),
       Object.assign(new ProcessParameter(), { name: '-b', value: '123' }),
       Object.assign(new ProcessParameter(), { name: '-c', value: 'value' }),
@@ -29,7 +29,6 @@ describe('ProcessParametersComponent', () => {
   }
 
   beforeEach(waitForAsync(() => {
-    init();
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -48,17 +47,34 @@ describe('ProcessParametersComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProcessParametersComponent);
     component = fixture.componentInstance;
-    component.script = script;
-    component.parameterValues = parameterValues;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render a ParameterSelectComponent for each parameter value of the component', () => {
-    const selectComponents = fixture.debugElement.queryAll(By.directive(ParameterSelectComponent));
-    expect(selectComponents.length).toBe(parameterValues.length);
+  describe('when parameter values and script are initialized', () => {
+
+    beforeEach(() => {
+      initParametersAndScriptMockValues();
+      component.parameterValues = mockParameterValues;
+      component.script = mockScript;
+
+      fixture.detectChanges();
+    });
+
+    it(`should render a ${ParameterSelectComponent.name} for each parameter value`, () => {
+      const selectComponents = fixture.debugElement.queryAll(By.directive(ParameterSelectComponent));
+      expect(selectComponents.length).toBe(mockParameterValues.length);
+    });
+
+    it('should not render a selector box if the parameter array is empty',() => {
+      fixture.componentInstance.script.parameters = [];
+
+      fixture.detectChanges();
+
+      const formGroupComponent = fixture.debugElement.query(By.css('[data-testID=parameters-select-container]'));
+      expect(formGroupComponent).toBeFalsy();
+    });
   });
 });

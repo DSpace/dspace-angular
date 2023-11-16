@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -38,7 +38,7 @@ export class CreateProfileComponent implements OnInit {
   isInValidPassword = true;
   password: string;
 
-  userInfoForm: FormGroup;
+  userInfoForm: UntypedFormGroup;
   activeLangs: LangConfig[];
 
   /**
@@ -52,7 +52,7 @@ export class CreateProfileComponent implements OnInit {
     private store: Store<CoreState>,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private notificationsService: NotificationsService,
     private endUserAgreementService: EndUserAgreementService
   ) {
@@ -71,14 +71,14 @@ export class CreateProfileComponent implements OnInit {
     this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
 
     this.userInfoForm = this.formBuilder.group({
-      firstName: new FormControl('', {
+      firstName: new UntypedFormControl('', {
         validators: [Validators.required],
       }),
-      lastName: new FormControl('', {
+      lastName: new UntypedFormControl('', {
         validators: [Validators.required],
       }),
-      contactPhone: new FormControl(''),
-      language: new FormControl(''),
+      contactPhone: new UntypedFormControl(''),
+      language: new UntypedFormControl(''),
     });
 
   }

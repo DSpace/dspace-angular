@@ -1,9 +1,13 @@
-<a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="['/collections/' + object.id]" class="lead">
-    {{object.name}}
-</a>
-<span *ngIf="linkType == linkTypes.None" class="lead">
-    {{object.name}}
-</span>
+<div class="d-flex flex-row">
+  <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/' + object.id]" class="lead">
+    {{ dsoNameService.getName(object) }}
+  </a>
+  <span *ngIf="linkType == linkTypes.None" class="lead">
+    {{ dsoNameService.getName(object) }}
+  </span>
+  <span class="pr-2">&nbsp;</span>
+  <span *ngIf="object.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-self-center archived-items-lead">{{object.archivedItemsCount}}</span>
+</div>
 <div *ngIf="object.shortDescription" class="text-muted abstract-text">
     {{object.shortDescription}}
 </div>

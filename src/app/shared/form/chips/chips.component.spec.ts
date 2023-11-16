@@ -122,7 +122,7 @@ describe('ChipsComponent test suite', () => {
     }));
 
     it('should save chips item index when drag and drop start', fakeAsync(() => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
 
       de.triggerEventHandler('dragstart', null);
 
@@ -131,7 +131,7 @@ describe('ChipsComponent test suite', () => {
 
     it('should update chips item order when drag and drop end', fakeAsync(() => {
       spyOn(chipsComp.chips, 'updateOrder');
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
 
       de.triggerEventHandler('dragend', null);
 
@@ -158,7 +158,7 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should show icon for every field that has a configured icon', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       const icons = de.queryAll(By.css('i.fas'));
 
       expect(icons.length).toBe(4);
@@ -166,7 +166,7 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should show tooltip on mouse over an icon', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       const icons = de.queryAll(By.css('i.fas'));
 
       icons[0].triggerEventHandler('mouseover', null);

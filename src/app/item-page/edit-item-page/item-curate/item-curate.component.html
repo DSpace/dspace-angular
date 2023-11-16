@@ -1,0 +1,7 @@
+<div class="container mt-3">
+    <h3>{{'item.edit.curate.title' |translate:{item: (itemName$ |async)} }}</h3>
+    <ds-curation-form
+      *ngIf="dsoRD$ | async as dsoRD"
+      [dsoHandle]="dsoRD?.payload.handle"
+    ></ds-curation-form>
+</div>

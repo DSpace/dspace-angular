@@ -1,5 +1,5 @@
 import { Inject, Injectable, Injector, Optional } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -172,7 +172,7 @@ export class DsDynamicTypeBindRelationService {
    * @param model
    * @param control
    */
-  subscribeRelations(model: DynamicFormControlModel, control: FormControl): Subscription[] {
+  subscribeRelations(model: DynamicFormControlModel, control: UntypedFormControl): Subscription[] {
 
     const relatedModels = this.getRelatedFormModel(model);
     const subscriptions: Subscription[] = [];

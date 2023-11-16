@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
@@ -22,7 +22,7 @@ export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
 
   @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicFormGroupModel;
   @Input() templates: QueryList<DynamicTemplateDirective> | DynamicTemplateDirective[] | undefined;

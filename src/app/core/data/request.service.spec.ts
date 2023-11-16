@@ -1,6 +1,6 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { EMPTY, of as observableOf } from 'rxjs';
+import { EMPTY, Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
@@ -594,6 +594,19 @@ describe('RequestService', () => {
         'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123'
       );
     });
+
+    it('should properly encode the body with an array', () => {
+      const body = {
+        'property1': 'multiple\nlines\nto\nsend',
+        'property2': 'sp&ci@l characters',
+        'sp&ci@l-chars in prop': 'test123',
+        'arrayParam': ['arrayValue1', 'arrayValue2'],
+      };
+      const queryParams = service.uriEncodeBody(body);
+      expect(queryParams).toEqual(
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2'
+      );
+    });
   });
 
   describe('setStaleByUUID', () => {
@@ -624,5 +637,49 @@ describe('RequestService', () => {
       const done$ = service.setStaleByUUID('something');
       expect(done$).toBeObservable(cold('-----(t|)', { t: true }));
     }));
+  });
+
+  describe('setStaleByHrefSubstring', () => {
+    let dispatchSpy: jasmine.Spy;
+    let getByUUIDSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      dispatchSpy = spyOn(store, 'dispatch');
+      getByUUIDSpy = spyOn(service, 'getByUUID').and.callThrough();
+    });
+
+    describe('with an empty/no matching requests in the state', () => {
+      it('should return true', () => {
+        const done$: Observable<boolean> = service.setStaleByHrefSubstring('https://rest.api/endpoint/selfLink');
+        expect(done$).toBeObservable(cold('(a|)', { a: true }));
+      });
+    });
+
+    describe('with a matching request in the state', () => {
+      beforeEach(() => {
+        const state = Object.assign({}, initialState, {
+          core: Object.assign({}, initialState.core, {
+            'index': {
+              'get-request/href-to-uuid': {
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+              }
+            }
+          })
+        });
+        mockStore.setState(state);
+      });
+
+      it('should return an Observable that emits true as soon as the request is stale', () => {
+        dispatchSpy.and.callFake(() => { /* empty */ });   // don't actually set as stale
+        getByUUIDSpy.and.returnValue(cold('a-b--c--d-', {  // but fake the state in the cache
+          a: { state: RequestEntryState.ResponsePending },
+          b: { state: RequestEntryState.Success },
+          c: { state: RequestEntryState.SuccessStale },
+          d: { state: RequestEntryState.Error },
+        }));
+        const done$: Observable<boolean> = service.setStaleByHrefSubstring('https://rest.api/endpoint/selfLink');
+        expect(done$).toBeObservable(cold('-----(a|)', { a: true }));
+      });
+    });
   });
 });

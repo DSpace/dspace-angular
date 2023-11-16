@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { provideMockStore } from '@ngrx/store/testing';
@@ -95,7 +95,7 @@ describe('LogInPasswordComponent', () => {
 
   it('should create a FormGroup comprised of FormControls', () => {
     fixture.detectChanges();
-    expect(component.form instanceof FormGroup).toBe(true);
+    expect(component.form instanceof UntypedFormGroup).toBe(true);
   });
 
   it('should authenticate', () => {

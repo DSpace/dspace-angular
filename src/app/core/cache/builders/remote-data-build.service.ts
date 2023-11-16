@@ -73,7 +73,7 @@ export class RemoteDataBuildService {
           if (getResourceTypeValueFor((obj as any).type) === PAGINATED_LIST.value) {
             return this.buildPaginatedList<T>(obj, ...linksToFollow);
           } else if (isNotEmpty(linksToFollow)) {
-            return [this.linkService.resolveLinks(obj, ...linksToFollow)];
+            return [this.linkService.resolveLinks(obj as any, ...linksToFollow)];
           }
         }
         return [obj];

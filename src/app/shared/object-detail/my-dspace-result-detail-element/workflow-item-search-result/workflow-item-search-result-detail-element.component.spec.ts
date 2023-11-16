@@ -7,13 +7,13 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItemSearchResultDetailElementComponent } from './workflow-item-search-result-detail-element.component';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { Context } from '../../../../core/shared/context.model';
 
 let component: WorkflowItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultDetailElementComponent>;
@@ -87,7 +87,7 @@ describe('WorkflowItemSearchResultDetailElementComponent', () => {
     expect(component.item).toEqual(item);
   });
 
-  it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.WORKFLOW);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceWorkflow);
   });
 });

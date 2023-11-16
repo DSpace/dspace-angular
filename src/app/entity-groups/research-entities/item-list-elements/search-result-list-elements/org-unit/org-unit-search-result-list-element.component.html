@@ -1,7 +1,7 @@
 <div class="row">
     <div *ngIf="showThumbnails" class="col-3 col-md-2">
         <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-           rel="noopener noreferrer"
+           [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
            [routerLink]="[itemPageRoute]" class="dont-break-out">
             <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
                           [defaultImage]="'assets/images/orgunit-placeholder.svg'"
@@ -18,10 +18,10 @@
         </span>
     </div>
     <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
-        <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
+        <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
         <ds-truncatable [id]="dso.id">
             <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-               rel="noopener noreferrer"
+               [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
                [routerLink]="[itemPageRoute]" class="lead"
                [innerHTML]="dsoTitle || ('orgunit.listelement.no-title' | translate)"></a>
             <span *ngIf="linkType == linkTypes.None"

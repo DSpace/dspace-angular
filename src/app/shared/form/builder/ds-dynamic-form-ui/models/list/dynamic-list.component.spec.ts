@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -136,9 +136,9 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = new FormGroup({
-          listCheckbox: new FormGroup({}),
-          listRadio: new FormGroup({})
+        listComp.group = new UntypedFormGroup({
+          listCheckbox: new UntypedFormGroup({}),
+          listRadio: new UntypedFormGroup({})
         });
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
         listFixture.detectChanges();
@@ -184,9 +184,9 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = new FormGroup({
-          listCheckbox: new FormGroup({}),
-          listRadio: new FormGroup({})
+        listComp.group = new UntypedFormGroup({
+          listCheckbox: new UntypedFormGroup({}),
+          listRadio: new UntypedFormGroup({})
         });
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
         modelValue = [Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 })];
@@ -224,9 +224,9 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = new FormGroup({
-          listCheckbox: new FormGroup({}),
-          listRadio: new FormGroup({})
+        listComp.group = new UntypedFormGroup({
+          listCheckbox: new UntypedFormGroup({}),
+          listRadio: new UntypedFormGroup({})
         });
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
         listFixture.detectChanges();
@@ -260,9 +260,9 @@ describe('DsDynamicListComponent test suite', () => {
 
         listFixture = TestBed.createComponent(DsDynamicListComponent);
         listComp = listFixture.componentInstance; // FormComponent test instance
-        listComp.group = new FormGroup({
-          listCheckbox: new FormGroup({}),
-          listRadio: new FormGroup({})
+        listComp.group = new UntypedFormGroup({
+          listCheckbox: new UntypedFormGroup({}),
+          listRadio: new UntypedFormGroup({})
         });
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
         modelValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
@@ -291,9 +291,9 @@ describe('DsDynamicListComponent test suite', () => {
 })
 class TestComponent {
 
-  group: FormGroup = new FormGroup({
-    listCheckbox: new FormGroup({}),
-    listRadio: new FormGroup({})
+  group: UntypedFormGroup = new UntypedFormGroup({
+    listCheckbox: new UntypedFormGroup({}),
+    listRadio: new UntypedFormGroup({})
   });
 
   model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);

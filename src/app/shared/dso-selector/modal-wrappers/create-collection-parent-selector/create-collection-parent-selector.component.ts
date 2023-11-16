@@ -8,7 +8,8 @@ import {
     getCollectionCreateRoute,
     COLLECTION_PARENT_PARAMETER
 } from '../../../../collection-page/collection-page-routing-paths';
-
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { environment } from '../../../../../environments/environment';
 /**
  * Component to wrap a list of existing communities inside a modal
  * Used to choose a community from to create a new collection in
@@ -23,6 +24,7 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
   header = 'dso-selector.create.collection.sub-level';
+  defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);

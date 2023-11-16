@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { VersionedItemComponent } from '../../../../item-page/simple/item-types/versioned-item/versioned-item.component';
+import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';
 
 @listableObjectComponent('OrgUnit', ViewMode.StandalonePage)
 @Component({
@@ -12,5 +12,5 @@ import { VersionedItemComponent } from '../../../../item-page/simple/item-types/
 /**
  * The component for displaying metadata and relations of an item of the type Organisation Unit
  */
-export class OrgUnitComponent extends VersionedItemComponent {
+export class OrgUnitComponent extends ItemComponent {
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -11,61 +11,83 @@ import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
+import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 /**
- * This componenet renders the media viewers
+ * This component renders the media viewers
  */
-
 @Component({
   selector: 'ds-media-viewer',
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
 })
-export class MediaViewerComponent implements OnInit {
+export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;
-  @Input() videoOptions: boolean;
 
-  mediaList$: BehaviorSubject<MediaViewerItem[]>;
+  @Input() mediaOptions: MediaViewerConfig = environment.mediaViewer;
 
-  isLoading: boolean;
+  mediaList$: BehaviorSubject<MediaViewerItem[]> = new BehaviorSubject([]);
+
+  captions$: BehaviorSubject<Bitstream[]> = new BehaviorSubject([]);
+
+  isLoading = true;
 
   thumbnailPlaceholder = './assets/images/replacement_document.svg';
 
-  constructor(protected bitstreamDataService: BitstreamDataService) {}
+  thumbnailsRD$: Observable<RemoteData<PaginatedList<Bitstream>>>;
+
+  subs: Subscription[] = [];
+
+  constructor(
+    protected bitstreamDataService: BitstreamDataService,
+  ) {
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
 
   /**
-   * This metod loads all the Bitstreams and Thumbnails and contert it to media item
+   * This method loads all the Bitstreams and Thumbnails and converts it to {@link MediaViewerItem}s
    */
   ngOnInit(): void {
-    this.mediaList$ = new BehaviorSubject([]);
-    this.isLoading = true;
-    this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD) => {
+    const types: string[] = [
+      ...(this.mediaOptions.image ? ['image'] : []),
+      ...(this.mediaOptions.video ? ['audio', 'video'] : []),
+    ];
+    this.thumbnailsRD$ = this.loadRemoteData('THUMBNAIL');
+    this.subs.push(this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
       if (bitstreamsRD.payload.page.length === 0) {
         this.isLoading = false;
         this.mediaList$.next([]);
       } else {
-        this.loadRemoteData('THUMBNAIL').subscribe((thumbnailsRD) => {
+        this.subs.push(this.thumbnailsRD$.subscribe((thumbnailsRD: RemoteData<PaginatedList<Bitstream>>) => {
           for (
             let index = 0;
             index < bitstreamsRD.payload.page.length;
             index++
           ) {
-            bitstreamsRD.payload.page[index].format
+            this.subs.push(bitstreamsRD.payload.page[index].format
               .pipe(getFirstSucceededRemoteDataPayload())
-              .subscribe((format) => {
-                const current = this.mediaList$.getValue();
+              .subscribe((format: BitstreamFormat) => {
                 const mediaItem = this.createMediaViewerItem(
                   bitstreamsRD.payload.page[index],
                   format,
                   thumbnailsRD.payload && thumbnailsRD.payload.page[index]
                 );
-                this.mediaList$.next([...current, mediaItem]);
-              });
+                if (types.includes(mediaItem.format)) {
+                  this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
+                } else if (format.mimetype === 'text/vtt') {
+                  this.captions$.next([...this.captions$.getValue(), bitstreamsRD.payload.page[index]]);
+                }
+              }));
           }
           this.isLoading = false;
-        });
+        }));
       }
-    });
+    }));
   }
 
   /**
@@ -95,16 +117,12 @@ export class MediaViewerComponent implements OnInit {
   }
 
   /**
-   * This method create MediaViewerItem from incoming bitstreams
-   * @param original original remote data bitstream
+   * This method creates a {@link MediaViewerItem} from incoming {@link Bitstream}s
+   * @param original original bitstream
    * @param format original bitstream format
-   * @param thumbnail trunbnail remote data bitstream
+   * @param thumbnail thumbnail bitstream
    */
-  createMediaViewerItem(
-    original: Bitstream,
-    format: BitstreamFormat,
-    thumbnail: Bitstream
-  ): MediaViewerItem {
+  createMediaViewerItem(original: Bitstream, format: BitstreamFormat, thumbnail: Bitstream): MediaViewerItem {
     const mediaItem = new MediaViewerItem();
     mediaItem.bitstream = original;
     mediaItem.format = format.mimetype.split('/')[0];

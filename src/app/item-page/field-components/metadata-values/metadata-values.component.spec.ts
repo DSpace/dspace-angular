@@ -52,6 +52,7 @@ describe('MetadataValuesComponent', () => {
     comp.mdValues = mockMetadata;
     comp.separator = mockSeperator;
     comp.label = mockLabel;
+    comp.urlRegex = /^.*test.*$/;
     fixture.detectChanges();
   }));
 
@@ -65,6 +66,11 @@ describe('MetadataValuesComponent', () => {
   it('should contain separators equal to the amount of metadata values minus one', () => {
     const separators = fixture.debugElement.queryAll(By.css('span.separator'));
     expect(separators.length).toBe(mockMetadata.length - 1);
+  });
+
+  it('should correctly detect a pattern on string containing "test"', () => {
+    const mdValue = {value: 'This is a test value'} as MetadataValue;
+    expect(comp.hasLink(mdValue)).toBe(true);
   });
 
 });

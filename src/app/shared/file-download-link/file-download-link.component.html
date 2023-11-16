@@ -1,5 +1,5 @@
 <a [routerLink]="(bitstreamPath$| async)?.routerLink" class="dont-break-out" [queryParams]="(bitstreamPath$| async)?.queryParams" [target]="isBlank ? '_blank': '_self'" [ngClass]="cssClasses">
-  <span *ngIf="!(canDownload$ |async)"><i class="fas fa-lock"></i></span>
+  <span *ngIf="!(canDownload$ |async)" class="pr-1"><i class="fas fa-lock"></i></span>
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 

@@ -11,6 +11,7 @@ import { TaskResponseParsingService } from '../tasks/task-response-parsing.servi
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
+import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { FindListOptions } from './find-list-options.model';
 
 
@@ -115,6 +116,15 @@ export class PatchRequest extends DSpaceRestRequest {
     public options?: HttpOptions
   ) {
     super(uuid, href, RestRequestMethod.PATCH, body);
+  }
+}
+
+/**
+ * Class representing a BrowseDefinition HTTP Rest request object
+ */
+export class BrowseDefinitionRestRequest extends DSpaceRestRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return BrowseResponseParsingService;
   }
 }
 

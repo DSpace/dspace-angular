@@ -19,7 +19,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
-import { AccessStatusObject } from '../../../../../shared/object-list/access-status-badge/access-status.model';
+import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { FileService } from '../../../../../core/shared/file.service';

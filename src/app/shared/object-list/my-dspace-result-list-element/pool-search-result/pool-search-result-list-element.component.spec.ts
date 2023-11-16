@@ -1,5 +1,12 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
@@ -7,9 +14,6 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import {
-  MyDspaceItemStatusType
-} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
@@ -22,6 +26,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { Context } from '../../../../core/shared/context.model';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -113,8 +118,8 @@ describe('PoolSearchResultListElementComponent', () => {
     expect(component.item$.value).toEqual(item);
   }));
 
-  it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.WAITING_CONTROLLER);
+  it('should have correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceWaitingController);
   });
 
   it('should forward pool-task-actions processCompleted event to the reloadedObject event emitter', fakeAsync(() => {

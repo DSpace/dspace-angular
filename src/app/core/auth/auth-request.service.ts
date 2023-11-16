@@ -100,14 +100,12 @@ export abstract class AuthRequestService {
     );
   }
   /**
-   * Factory function to create the request object to send. This needs to be a POST client side and
-   * a GET server side. Due to CSRF validation, the server isn't allowed to send a POST, so we allow
-   * only the server IP to send a GET to this endpoint.
+   * Factory function to create the request object to send.
    *
    * @param href The href to send the request to
    * @protected
    */
-  protected abstract createShortLivedTokenRequest(href: string): GetRequest | PostRequest;
+  protected abstract createShortLivedTokenRequest(href: string): Observable<PostRequest>;
 
   /**
    * Send a request to retrieve a short-lived token which provides download access of restricted files
@@ -117,7 +115,7 @@ export abstract class AuthRequestService {
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((href: string) => new URLCombiner(href, this.shortlivedtokensEndpoint).toString()),
-      map((endpointURL: string) => this.createShortLivedTokenRequest(endpointURL)),
+      switchMap((endpointURL: string) => this.createShortLivedTokenRequest(endpointURL)),
       tap((request: RestRequest) => this.requestService.send(request)),
       switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<ShortLivedToken>(request.uuid)),
       getFirstCompletedRemoteData(),

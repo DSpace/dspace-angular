@@ -23,7 +23,9 @@ import { UUIDService } from '../../../../core/shared/uuid.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject$
+} from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
@@ -38,6 +40,10 @@ import { VersionHistoryDataService } from '../../../../core/data/version-history
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import {
+  BrowseDefinitionDataServiceStub
+} from '../../../../shared/testing/browse-definition-data-service.stub';
 
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -125,7 +131,8 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: SearchService, useValue: {} },
           { provide: RouteService, useValue: mockRouteService },
           { provide: AuthorizationDataService, useValue: authorizationService },
-          { provide: ResearcherProfileDataService, useValue: {} }
+          { provide: ResearcherProfileDataService, useValue: {} },
+          { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
@@ -444,7 +451,7 @@ describe('ItemComponent', () => {
           { provide: SearchService, useValue: {} },
           { provide: RouteService, useValue: mockRouteService },
           { provide: AuthorizationDataService, useValue: {} },
-          { provide: ResearcherProfileDataService, useValue: {} }
+          { provide: ResearcherProfileDataService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).overrideComponent(ItemComponent, {

@@ -15,10 +15,14 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { By } from '@angular/platform-browser';
 import { SearchFacetRangeOptionComponent } from './search-facet-range-option.component';
-import { RANGE_FILTER_MAX_SUFFIX, RANGE_FILTER_MIN_SUFFIX } from '../../search-range-filter/search-range-filter.component';
+import {
+  RANGE_FILTER_MAX_SUFFIX,
+  RANGE_FILTER_MIN_SUFFIX
+} from '../../search-range-filter/search-range-filter.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 
 describe('SearchFacetRangeOptionComponent', () => {
   let comp: SearchFacetRangeOptionComponent;
@@ -60,7 +64,7 @@ describe('SearchFacetRangeOptionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetRangeOptionComponent],
+      declarations: [SearchFacetRangeOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },

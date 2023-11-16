@@ -3,12 +3,12 @@
   <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false"
           class="filter-name d-flex" [attr.aria-controls]="regionId" [id]="toggleId"
           [attr.aria-expanded]="false"
-          [attr.aria-label]="((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate"
+          [attr.aria-label]="(((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate) + ' ' + (('search.filters.filter.' + filter.name + '.head') | translate | lowercase)"
           [attr.data-test]="'filter-toggle' | dsBrowserOnly"
   >
-    <h5 class="d-inline-block mb-0">
+    <h4 class="d-inline-block mb-0">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}
-    </h5>
+    </h4>
     <span class="filter-toggle flex-grow-1 fas p-auto"
           [ngClass]="(collapsed$ | async) ? 'fa-plus' : 'fa-minus'"
           [title]="((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate">

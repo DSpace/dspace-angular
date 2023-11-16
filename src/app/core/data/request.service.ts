@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { Observable, from as observableFrom } from 'rxjs';
+import { filter, find, map, mergeMap, switchMap, take, tap, toArray } from 'rxjs/operators';
 import cloneDeep from 'lodash/cloneDeep';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
@@ -255,8 +255,8 @@ export class RequestService {
   /**
    * Convert request Payload to a URL-encoded string
    *
-   * e.g.  uriEncodeBody({param: value, param1: value1})
-   * returns: param=value&param1=value1
+   * e.g.  uriEncodeBody({param: value, param1: value1, param2: [value3, value4]})
+   * returns: param=value&param1=value1&param2=value3&param2=value4
    *
    * @param body
    *    The request Payload to convert
@@ -267,11 +267,19 @@ export class RequestService {
     let queryParams = '';
     if (isNotEmpty(body) && typeof body === 'object') {
       Object.keys(body)
-        .forEach((param) => {
+        .forEach((param: string) => {
           const encodedParam = encodeURIComponent(param);
-          const encodedBody = encodeURIComponent(body[param]);
-          const paramValue = `${encodedParam}=${encodedBody}`;
-          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+          if (Array.isArray(body[param])) {
+            for (const element of body[param]) {
+              const encodedBody = encodeURIComponent(element);
+              const paramValue = `${encodedParam}=${encodedBody}`;
+              queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+            }
+          } else {
+            const encodedBody = encodeURIComponent(body[param]);
+            const paramValue = `${encodedParam}=${encodedBody}`;
+            queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+          }
         });
     }
     return queryParams;
@@ -292,22 +300,42 @@ export class RequestService {
    * Set all requests that match (part of) the href to stale
    *
    * @param href    A substring of the request(s) href
-   * @return        Returns an observable emitting whether or not the cache is removed
+   * @return        Returns an observable emitting when those requests are all stale
    */
   setStaleByHrefSubstring(href: string): Observable<boolean> {
-    this.store.pipe(
+    const requestUUIDs$ = this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
       take(1)
-    ).subscribe((uuids: string[]) => {
+    );
+    requestUUIDs$.subscribe((uuids: string[]) => {
       for (const uuid of uuids) {
         this.store.dispatch(new RequestStaleAction(uuid));
       }
     });
     this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
 
-    return this.store.pipe(
-      select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
-      map((uuids) => isEmpty(uuids))
+    // emit true after all requests are stale
+    return requestUUIDs$.pipe(
+      switchMap((uuids: string[]) => {
+        if (isEmpty(uuids)) {
+          // if there were no matching requests, emit true immediately
+          return [true];
+        } else {
+          // otherwise emit all request uuids in order
+          return observableFrom(uuids).pipe(
+            // retrieve the RequestEntry for each uuid
+            mergeMap((uuid: string) => this.getByUUID(uuid)),
+            // check whether it is undefined or stale
+            map((request: RequestEntry) => hasNoValue(request) || isStale(request.state)),
+            // if it is, complete
+            find((stale: boolean) => stale === true),
+            // after all observables above are completed, emit them as a single array
+            toArray(),
+            // when the array comes in, emit true
+            map(() => true)
+          );
+        }
+      })
     );
   }
 
@@ -323,7 +351,7 @@ export class RequestService {
       map((request: RequestEntry) => isStale(request.state)),
       filter((stale: boolean) => stale),
       take(1),
-    );
+      );
   }
 
   /**

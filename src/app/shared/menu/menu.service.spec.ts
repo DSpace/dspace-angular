@@ -24,6 +24,9 @@ import { menusReducer } from './menu.reducer';
 import { storeModuleConfig } from '../../app.reducer';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
+import { MenuItemType } from './menu-item-type.model';
+import { LinkMenuItemModel } from './menu-item/models/link.model';
+import { NavigationEnd } from '@angular/router';
 
 describe('MenuService', () => {
   let service: MenuService;
@@ -35,6 +38,14 @@ describe('MenuService', () => {
   let subSection4;
   let topSections;
   let initialState;
+  let routeDataMenuSection: MenuSection;
+  let routeDataMenuSectionResolved: MenuSection;
+  let routeDataMenuChildSection: MenuSection;
+  let toBeRemovedMenuSection: MenuSection;
+  let alreadyPresentMenuSection: MenuSection;
+  let route;
+  let router;
+
 
   function init() {
 
@@ -85,24 +96,103 @@ describe('MenuService', () => {
       }
     };
 
+    routeDataMenuSection = {
+      id: 'mockSection_:idparam',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.mockSection',
+        link: 'path/:linkparam'
+      } as LinkMenuItemModel
+    };
+    routeDataMenuSectionResolved = {
+      id: 'mockSection_id_param_resolved',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.mockSection',
+        link: 'path/link_param_resolved'
+      } as LinkMenuItemModel
+    };
+    routeDataMenuChildSection = {
+      id: 'mockChildSection',
+      parentID: 'mockSection',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.mockChildSection',
+        link: ''
+      } as LinkMenuItemModel
+    };
+    toBeRemovedMenuSection = {
+      id: 'toBeRemovedSection',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.toBeRemovedSection',
+        link: ''
+      } as LinkMenuItemModel
+    };
+    alreadyPresentMenuSection = {
+      id: 'alreadyPresentSection',
+      active: false,
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.alreadyPresentSection',
+        link: ''
+      } as LinkMenuItemModel
+    };
+    route = {
+      root: {
+        snapshot: {
+          data: {
+            menu: {
+              [MenuID.PUBLIC]: [routeDataMenuSection, alreadyPresentMenuSection]
+            }
+          },
+          params: {
+            idparam: 'id_param_resolved',
+            linkparam: 'link_param_resolved',
+          }
+        },
+        firstChild: {
+          snapshot: {
+            data: {
+              menu: {
+                [MenuID.PUBLIC]: routeDataMenuChildSection
+              }
+            }
+          }
+        }
+      }
+    };
+
+    router = {
+      events: observableOf(new NavigationEnd(1, 'test-url', 'test-url'))
+    };
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ menus: menusReducer }, storeModuleConfig)
+        StoreModule.forRoot({menus: menusReducer}, storeModuleConfig)
       ],
       providers: [
-        provideMockStore({ initialState }),
-        { provide: MenuService, useValue: service }
+        provideMockStore({initialState}),
+        {provide: MenuService, useValue: service}
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     store = TestBed.inject(Store);
-    service = new MenuService(store);
+    service = new MenuService(store, route, router);
     spyOn(store, 'dispatch');
   });
 
@@ -243,6 +333,84 @@ describe('MenuService', () => {
     });
   });
 
+  describe('isMenuVisibleWithVisibleSections', () => {
+    it('should return false when the menu is empty', () => {
+      const testMenu = {
+        id: MenuID.ADMIN,
+        collapsed: false,
+        visible: true,
+        sections: {},
+        previewCollapsed: false,
+        sectionToSubsectionIndex: {}
+      } as any;
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+
+      const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+    it('should return false when no top-level sections are visible', () => {
+      const noTopLevelVisibleSections = {
+        section: {id: 's1', visible: false},
+        section_2: {id: 's2', visible: false},
+        section_3: {id: 's3', visible: false},
+        section_4: {id: 's1_1', visible: true, parentID: 's1'},
+        section_5: {id: 's2_1', visible: true, parentID: 's2'},
+      };
+      const testMenu = {
+        id: MenuID.ADMIN,
+        collapsed: false,
+        visible: true,
+        sections: noTopLevelVisibleSections,
+        previewCollapsed: false,
+        sectionToSubsectionIndex: {
+          'section': ['section_4'],
+          'section_2': ['section_5'],
+        }
+      } as any;
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+
+      const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
+      const expected = cold('(b|)', {
+        b: false
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should return true when any top-level section is visible', () => {
+      const noTopLevelVisibleSections = {
+        section: {id: 's1', visible: false},
+        section_2: {id: 's2', visible: true},
+        section_3: {id: 's3', visible: false},
+        section_4: {id: 's1_1', visible: true, parentID: 's1'},
+        section_5: {id: 's2_1', visible: true, parentID: 's2'},
+      };
+      const testMenu = {
+        id: MenuID.ADMIN,
+        collapsed: false,
+        visible: true,
+        sections: noTopLevelVisibleSections,
+        previewCollapsed: false,
+        sectionToSubsectionIndex: {
+          'section': ['section_4'],
+          'section_2': ['section_5'],
+        }
+      } as any;
+      spyOn(service, 'getMenu').and.returnValue(observableOf(testMenu));
+
+      const result = service.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
+      const expected = cold('(b|)', {
+        b: true
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+  });
+
   describe('isMenuVisible', () => {
     beforeEach(() => {
       spyOn(service, 'getMenu').and.returnValue(observableOf(fakeMenu));
@@ -371,4 +539,69 @@ describe('MenuService', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new DeactivateMenuSectionAction(MenuID.ADMIN, 'fakeID'));
     });
   });
+
+  describe('buildRouteMenuSections', () => {
+    it('should add and remove menu sections depending on the current route', () => {
+      spyOn(service, 'addSection');
+      spyOn(service, 'removeSection');
+
+      spyOn(service, 'getNonPersistentMenuSections').and.returnValue(observableOf([toBeRemovedMenuSection, alreadyPresentMenuSection]));
+
+      service.buildRouteMenuSections(MenuID.PUBLIC);
+
+      expect(service.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuSectionResolved);
+      expect(service.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuChildSection);
+      expect(service.addSection).not.toHaveBeenCalledWith(MenuID.PUBLIC, alreadyPresentMenuSection);
+      expect(service.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, toBeRemovedMenuSection.id);
+    });
+  });
+
+  describe('listenForRouteChanges', () => {
+    it('should build the menu sections on NavigationEnd event', () => {
+      spyOn(service, 'buildRouteMenuSections');
+
+      service.listenForRouteChanges();
+
+      expect(service.buildRouteMenuSections).toHaveBeenCalledWith(MenuID.ADMIN);
+      expect(service.buildRouteMenuSections).toHaveBeenCalledWith(MenuID.PUBLIC);
+    });
+  });
+
+  describe(`resolveSubstitutions`, () => {
+    let linkPrefix;
+    let link;
+    let uuid;
+
+    beforeEach(() => {
+      linkPrefix = 'statistics_collection_';
+      link = `${linkPrefix}:id`;
+      uuid = 'f7cc3ca4-3c2c-464d-8af8-add9f84f711c';
+    });
+
+    it(`shouldn't do anything when there are no params`, () => {
+      let result = (service as any).resolveSubstitutions(link, undefined);
+      expect(result).toEqual(link);
+      result = (service as any).resolveSubstitutions(link, null);
+      expect(result).toEqual(link);
+      result = (service as any).resolveSubstitutions(link, {});
+      expect(result).toEqual(link);
+    });
+
+    it(`should replace link params that are also route params`, () => {
+      const result = (service as any).resolveSubstitutions(link,{ 'id': uuid });
+      expect(result).toEqual(linkPrefix + uuid);
+    });
+
+    it(`should not replace link params that aren't route params`, () => {
+      const result = (service as any).resolveSubstitutions(link,{ 'something': 'else' });
+      expect(result).toEqual(link);
+    });
+
+    it(`should gracefully deal with routes that contain the name of the route param`, () => {
+      const selfReferentialParam = `:id:something`;
+      const result = (service as any).resolveSubstitutions(link,{ 'id': selfReferentialParam });
+      expect(result).toEqual(linkPrefix + selfReferentialParam);
+    });
+  });
+
 });

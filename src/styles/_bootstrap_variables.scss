@@ -28,6 +28,8 @@ $yellow: #ec9433 !default;
 $red:    #CF4444 !default;
 $dark:   darken($blue, 17%) !default;
 
+
+
 $theme-colors: (
         primary: $blue,
         secondary: $gray-700,
@@ -49,3 +51,10 @@ $navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,<svg+viewBox
 $enable-shadows: true !default;
 
 $yiq-contrasted-threshold:  165 !default;
+
+$primary-bg: #{lighten(map-get($theme-colors, primary), 30%)} !default;
+$secondary-bg: #{lighten(map-get($theme-colors, secondary), 30%)} !default;
+$success-bg: #{lighten(map-get($theme-colors, success), 30%)} !default;
+$info-bg: #{lighten(map-get($theme-colors, info), 30%)} !default;
+$warning-bg: #{lighten(map-get($theme-colors, warning), 30%)} !default;
+$danger-bg: #{lighten(map-get($theme-colors, danger), 30%)} !default;

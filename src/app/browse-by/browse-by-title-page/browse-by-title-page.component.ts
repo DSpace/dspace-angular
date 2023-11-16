@@ -13,6 +13,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -29,8 +30,10 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
-    super(route, browseService, dsoService, paginationService, router, appConfig);
+                     @Inject(APP_CONFIG) public appConfig: AppConfig,
+                     public dsoNameService: DSONameService,
+  ) {
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
   }
 
   ngOnInit(): void {

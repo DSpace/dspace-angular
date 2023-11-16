@@ -11,8 +11,14 @@ import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+
+let mockIdentifierDataService: IdentifierDataService;
+let mockConfigurationDataService: ConfigurationDataService;
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;
@@ -26,6 +32,20 @@ describe('ItemStatusComponent', () => {
     _links: {
       self: { href: 'test-item-selflink' }
     }
+  });
+
+  mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
+    getIdentifierDataFor: createSuccessfulRemoteDataObject$({'identifiers': []}),
+    getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true')
+  });
+
+  mockConfigurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'identifiers.item-status.register-doi',
+      values: [
+        'true'
+      ]
+    }))
   });
 
   const itemPageUrl = `/items/${mockItem.uuid}`;
@@ -50,6 +70,8 @@ describe('ItemStatusComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: IdentifierDataService, useValue: mockIdentifierDataService },
+        { provide: ConfigurationDataService, useValue: mockConfigurationDataService }
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));

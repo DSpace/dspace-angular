@@ -13,25 +13,26 @@
          [formGroup]="formGroup"
          [formLayout]="formLayout"
          [displayCancel]="false"
+         [submitLabel]="submitLabel"
          (submitForm)="onSubmit()">
   <div before class="btn-group">
-    <button (click)="onCancel()"
+    <button (click)="onCancel()" type="button"
             class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
   </div>
-  <div between class="btn-group">
-    <button class="btn btn-primary" [disabled]="!(canReset$ | async)" (click)="resetPassword()">
+  <div *ngIf="displayResetPassword" between class="btn-group">
+    <button class="btn btn-primary" [disabled]="!(canReset$ | async)" type="button" (click)="resetPassword()">
       <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
     </button>
   </div>
   <div between class="btn-group ml-1">
-    <button *ngIf="!isImpersonated" class="btn btn-primary" [ngClass]="{'d-none' : !(canImpersonate$ | async)}" (click)="impersonate()">
+    <button *ngIf="!isImpersonated" class="btn btn-primary" type="button" [ngClass]="{'d-none' : !(canImpersonate$ | async)}" (click)="impersonate()">
       <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
     </button>
-    <button *ngIf="isImpersonated" class="btn btn-primary" (click)="stopImpersonating()">
+    <button *ngIf="isImpersonated" class="btn btn-primary" type="button" (click)="stopImpersonating()">
       <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
     </button>
   </div>
-  <button after class="btn btn-danger delete-button" [disabled]="!(canDelete$ | async)" (click)="delete()">
+  <button after class="btn btn-danger delete-button" type="button" [disabled]="!(canDelete$ | async)" (click)="delete()">
     <i class="fas fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
   </button>
 </ds-form>
@@ -64,9 +65,13 @@
         <tbody>
         <tr *ngFor="let group of (groups | async)?.payload?.page">
           <td class="align-middle">{{group.id}}</td>
-          <td class="align-middle"><a (click)="groupsDataService.startEditingNewGroup(group)"
-                 [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">{{group.name}}</a></td>
-          <td class="align-middle">{{(group.object | async)?.payload?.name}}</td>
+          <td class="align-middle">
+            <a (click)="groupsDataService.startEditingNewGroup(group)"
+               [routerLink]="[groupsDataService.getGroupEditPageRouterLink(group)]">
+            {{ dsoNameService.getName(group) }}
+          </a>
+          </td>
+          <td class="align-middle">{{ dsoNameService.getName(undefined) }}</td>
         </tr>
         </tbody>
       </table>

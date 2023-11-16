@@ -12,7 +12,7 @@ import { NotificationType } from '../../../shared/notifications/models/notificat
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { hasValue } from '../../../shared/empty.util';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
@@ -98,9 +98,9 @@ describe('CollectionSourceComponent', () => {
         const controls = {};
         if (hasValue(fModel)) {
           fModel.forEach((controlModel) => {
-            controls[controlModel.id] = new FormControl((controlModel as any).value);
+            controls[controlModel.id] = new UntypedFormControl((controlModel as any).value);
           });
-          return new FormGroup(controls);
+          return new UntypedFormGroup(controls);
         }
         return undefined;
       }

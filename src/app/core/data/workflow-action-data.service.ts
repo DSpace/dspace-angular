@@ -5,15 +5,15 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Injectable } from '@angular/core';
 import { WORKFLOW_ACTION } from '../tasks/models/workflow-action-object.resource-type';
-import { BaseDataService } from './base/base-data.service';
 import { dataService } from './base/data-service.decorator';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the workflowactions endpoint
  */
 @Injectable()
 @dataService(WORKFLOW_ACTION)
-export class WorkflowActionDataService extends BaseDataService<WorkflowAction> {
+export class WorkflowActionDataService extends IdentifiableDataService<WorkflowAction> {
   protected linkPath = 'workflowactions';
 
   constructor(

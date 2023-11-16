@@ -16,6 +16,8 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
+import { DsoSharedModule } from '../dso-shared/dso-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
     EditItemPageModule,
     CollectionFormModule,
     ComcolModule,
+    DsoSharedModule,
+    DsoPageModule,
   ],
   declarations: [
     CollectionPageComponent,

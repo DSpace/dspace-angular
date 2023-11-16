@@ -1,5 +1,5 @@
 <div class="d-flex flex-row">
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer" [routerLink]="[]" [queryParams]="queryParams$ | async" [queryParamsHandling]="'merge'" class="lead">
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[]" [queryParams]="queryParams$ | async" [queryParamsHandling]="'merge'" class="lead">
         {{object.value}}
     </a>
     <span *ngIf="linkType == linkTypes.None" class="lead">

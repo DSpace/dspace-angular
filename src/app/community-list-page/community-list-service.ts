@@ -25,7 +25,7 @@ import { ShowMoreFlatNode } from './show-more-flat-node.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 
-// Helper method to combine an flatten an array of observables of flatNode arrays
+// Helper method to combine and flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
   observableCombineLatest([...obsList]).pipe(
     map((matrix: any[][]) => [].concat(...matrix)),
@@ -199,7 +199,7 @@ export class CommunityListService {
    * Transforms a community in a list of FlatNodes containing firstly a flatnode of the community itself,
    *      followed by flatNodes of its possible subcommunities and collection
    * It gets called recursively for each subcommunity to add its subcommunities and collections to the list
-   * Number of subcommunities and collections added, is dependant on the current page the parent is at for respectively subcommunities and collections.
+   * Number of subcommunities and collections added, is dependent on the current page the parent is at for respectively subcommunities and collections.
    * @param community         Community being transformed
    * @param level             Depth of the community in the list, subcommunities and collections go one level deeper
    * @param parent            Flatnode of the parent community
@@ -275,7 +275,7 @@ export class CommunityListService {
 
   /**
    * Checks if a community has subcommunities or collections by querying the respective services with a pageSize = 0
-   *      Returns an observable that combines the result.payload.totalElements fo the observables that the
+   *      Returns an observable that combines the result.payload.totalElements of the observables that the
    *          respective services return when queried
    * @param community     Community being checked whether it is expandable (if it has subcommunities or collections)
    */

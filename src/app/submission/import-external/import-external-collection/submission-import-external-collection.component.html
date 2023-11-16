@@ -9,7 +9,6 @@
     <ds-themed-collection-dropdown [ngClass]="{'d-none': isLoading()}"
                             (selectionChange)="selectObject($event)"
                             (searchComplete)="searchComplete()"
-                            (theOnlySelectable)="theOnlySelectable($event)"
                             [entityType]="entityType">
     </ds-themed-collection-dropdown>
   </div>

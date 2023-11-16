@@ -233,13 +233,23 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
+   * Get the endpoint for an item's identifiers
+   * @param itemId
+   */
+  public getIdentifiersEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('identifiers', `${url}/${itemId}`))
+    );
+  }
+
+  /**
    * Get the endpoint to move the item
    * @param itemId
    */
-  public getMoveItemEndpoint(itemId: string): Observable<string> {
+  public getMoveItemEndpoint(itemId: string, inheritPolicies: boolean): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
-      map((endpoint: string) => `${endpoint}/owningCollection`),
+      map((endpoint: string) => `${endpoint}/owningCollection?inheritPolicies=${inheritPolicies}`)
     );
   }
 
@@ -248,14 +258,14 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    * @param itemId
    * @param collection
    */
-  public moveToCollection(itemId: string, collection: Collection): Observable<RemoteData<any>> {
+  public moveToCollection(itemId: string, collection: Collection, inheritPolicies: boolean): Observable<RemoteData<any>> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
     options.headers = headers;
 
     const requestId = this.requestService.generateRequestId();
-    const hrefObs = this.getMoveItemEndpoint(itemId);
+    const hrefObs = this.getMoveItemEndpoint(itemId, inheritPolicies);
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),

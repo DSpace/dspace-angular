@@ -22,11 +22,13 @@
           <td><input [disabled]="!(canSelect(item) | async)" class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
           <td *ngIf="!hideCollection">
             <span *ngVar="(item.owningCollection | async)?.payload as collection">
-              <a *ngIf="collection" [routerLink]="['/collections', collection?.id]">{{collection?.name}}</a>
+              <a *ngIf="collection" [routerLink]="['/collections', collection?.id]">
+                {{ dsoNameService.getName(collection) }}
+              </a>
             </span>
           </td>
           <td><span *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])">{{item.firstMetadataValue(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])}}</span></td>
-          <td><a [routerLink]="[(itemPageRoutes$ | async)[item.id]]">{{item.firstMetadataValue("dc.title")}}</a></td>
+          <td><a [routerLink]="[(itemPageRoutes$ | async)[item.id]]">{{ dsoNameService.getName(item) }}</a></td>
         </tr>
         </tbody>
       </table>

@@ -10,16 +10,17 @@ import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/
 import { ItemVersionsDeleteModalComponent } from './versions/item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSummaryModalComponent } from './versions/item-versions-summary-modal/item-versions-summary-modal.component';
 import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
-import { DsoPageVersionButtonComponent } from '../shared/dso-page/dso-page-version-button/dso-page-version-button.component';
-import { PersonPageClaimButtonComponent } from '../shared/dso-page/person-page-claim-button/person-page-claim-button.component';
 import { GenericItemPageFieldComponent } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from './simple/related-items/related-items-component';
-import { DsoPageOrcidButtonComponent } from '../shared/dso-page/dso-page-orcid-button/dso-page-orcid-button.component';
+import {
+  ThemedMetadataRepresentationListComponent
+} from './simple/metadata-representation-list/themed-metadata-representation-list.component';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,
   ItemVersionsSummaryModalComponent,
+
 ];
 
 const COMPONENTS = [
@@ -27,12 +28,10 @@ const COMPONENTS = [
   RelatedEntitiesSearchComponent,
   TabbedRelatedEntitiesSearchComponent,
   MetadataValuesComponent,
-  DsoPageVersionButtonComponent,
-  PersonPageClaimButtonComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
+  ThemedMetadataRepresentationListComponent,
   RelatedItemsComponent,
-  DsoPageOrcidButtonComponent
 ];
 
 @NgModule({

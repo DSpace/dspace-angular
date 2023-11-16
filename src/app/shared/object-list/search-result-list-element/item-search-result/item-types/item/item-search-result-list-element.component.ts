@@ -22,14 +22,9 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
    */
   itemPageRoute: string;
 
-  /**
-   * Display thumbnails if required by configuration
-   */
-  showThumbnails: boolean;
-
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.itemPageRoute = getItemPageRoute(this.dso);
   }
 }

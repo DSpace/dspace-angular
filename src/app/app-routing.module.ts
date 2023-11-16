@@ -209,7 +209,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,
@@ -218,7 +218,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           {
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
-              .then((m) => m.StatisticsPageRoutingModule)
+              .then((m) => m.StatisticsPageRoutingModule),
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: HEALTH_PAGE_PATH,
@@ -228,7 +229,13 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
-            canActivate: [GroupAdministratorGuard],
+            canActivate: [GroupAdministratorGuard, EndUserAgreementCurrentUserGuard],
+          },
+          {
+            path: 'subscriptions',
+            loadChildren: () => import('./subscriptions-page/subscriptions-page-routing.module')
+              .then((m) => m.SubscriptionsPageRoutingModule),
+            canActivate: [AuthenticatedGuard]
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
         ]
