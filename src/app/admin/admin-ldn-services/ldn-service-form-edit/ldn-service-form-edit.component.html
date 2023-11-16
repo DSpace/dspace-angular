@@ -19,7 +19,8 @@
       <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
              [placeholder]="'ldn-new-service.form.placeholder.name' | translate" formControlName="name" id="name"
              name="name"
-             type="text">
+             type="text"
+             class="form-control">
     </div>
 
     <div class="mb-4">
@@ -30,7 +31,7 @@
     <div class="mb-2 d-flex flex-column">
       <label for="description">{{ 'ldn-new-service.form.label.description' | translate }}</label>
       <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
-                formControlName="description" id="description" name="description"></textarea>
+                formControlName="description" id="description" name="description" class="form-control"></textarea>
     </div>
 
     <div class="mb-4">
@@ -43,7 +44,8 @@
       <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
              [placeholder]="'ldn-new-service.form.placeholder.url' | translate" formControlName="url" id="url"
              name="url"
-             type="text">
+             type="text"
+             class="form-control">
     </div>
 
     <div class="mb-4">
@@ -57,7 +59,8 @@
              [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" formControlName="ldnUrl"
              id="ldnUrl"
              name="ldnUrl"
-             type="text">
+             type="text"
+             class="form-control">
     </div>
 
     <div class="mb-4">
@@ -90,7 +93,7 @@
         <div class="row mb-1">
           <div class="col">
             <div #inboundPatternDropdown="ngbDropdown" class="w-80" display="dynamic" id="additionalInboundPattern{{i}}"
-                 ngbDropdown placement="bottom">
+                 ngbDropdown placement="bottom-start">
               <div class="position-relative right-addon" role="combobox">
                 <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                    ngbDropdownToggle></i>
@@ -104,15 +107,18 @@
                   type="text"
                 />
                 <!-- TODO: infinite scroll with 3 selects -->
-                <div aria-labelledby="inboundPatternDropdownButton" ngbDropdownMenu>
-                  <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()"
+                <div aria-labelledby="inboundPatternDropdownButton" ngbDropdownMenu class="dropdown-menu scrollable-dropdown-menu w-100 " >
+                  <div  class="scrollable-menu" role="listbox">
+                  <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()" class="dropdown-item collection-item text-truncate w-100"
                           *ngFor="let pattern of inboundPatterns; let internalIndex = index"
                           ngbDropdownItem
-                          type="button">
+                          type="button"
+                          [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate">
                     <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
                     <div
                       class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
                   </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -120,7 +126,8 @@
 
           <div class="col">
             <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
-              <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+              <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
+                   placement="bottom-start">
                 <div class="position-relative right-addon" role="combobox">
                   <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                      ngbDropdownToggle></i>
@@ -135,13 +142,15 @@
                     type="text"
                   />
                   <!-- TODO: infinite scroll with 3 selects -->
-                  <div aria-labelledby="inboundItemfilterDropdownButton" ngbDropdownMenu>
-                    <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                  <div aria-labelledby="inboundItemfilterDropdownButton" ngbDropdownMenu class="dropdown-menu scrollable-dropdown-menu w-100 " >
+                    <div  class="scrollable-menu" role="listbox">
+                    <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()" class="dropdown-item collection-item text-truncate w-100"
                             *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
                             ngbDropdownItem
                             type="button">
                       <div>{{ constraint.id }}</div>
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -213,7 +222,7 @@
         <div class="row mb-1">
           <div class="col">
             <div #outboundPatternDropdown="ngbDropdown" class="w-100" id="additionalOutboundPattern{{i}}" ngbDropdown
-                 placement="bottom">
+                 placement="bottom-start">
               <div class="position-relative right-addon" role="combobox">
                 <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                    ngbDropdownToggle></i>
@@ -228,22 +237,26 @@
                   type="text"
                 />
                 <!-- TODO: infinite scroll with 3-5 selects -->
-                <div aria-labelledby="outboundPatternDropdownButton" ngbDropdownMenu>
-                  <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()"
+                <div aria-labelledby="outboundPatternDropdownButton" ngbDropdownMenu class="dropdown-menu scrollable-dropdown-menu w-100 " >
+                  <div  class="scrollable-menu" role="listbox">
+                  <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()" class="dropdown-item collection-item text-truncate w-100"
                           *ngFor="let pattern of outboundPatterns; let internalIndex = index"
                           ngbDropdownItem
-                          type="button">
+                          type="button"
+                          [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate">
                     <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
                     <div
                       class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
                   </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="col">
             <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][i].value.pattern)">
-              <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown>
+              <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
+                   placement="bottom-start">
                 <div class="position-relative right-addon" role="combobox">
                   <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                      ngbDropdownToggle></i>
@@ -258,13 +271,15 @@
                     type="text"
                   />
                   <!-- TODO: infinite scroll with 3 selects -->
-                  <div aria-labelledby="outboundItemfilterDropdownButton" ngbDropdownMenu>
-                    <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                  <div aria-labelledby="outboundItemfilterDropdownButton" ngbDropdownMenu class="dropdown-menu scrollable-dropdown-menu w-100 " >
+                    <div  class="scrollable-menu" role="listbox">
+                    <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()" class="dropdown-item collection-item text-truncate w-100"
                             *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
                             ngbDropdownItem
                             type="button">
                       <div>{{ constraint.id }}</div>
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
