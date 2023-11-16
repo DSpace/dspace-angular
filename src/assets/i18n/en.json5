@@ -3266,7 +3266,9 @@
 
   "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
 
-  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic.",
+  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
+
+  "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
 
   "quality-assurance.loading": "Loading ...",
 
