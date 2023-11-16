@@ -1,11 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LdnServiceFormEditComponent} from './ldn-service-form-edit.component';
 import {ChangeDetectorRef, EventEmitter} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {PaginationService} from 'ngx-pagination';
 import {NotificationsService} from '../../../shared/notifications/notifications.service';
