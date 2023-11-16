@@ -6,7 +6,6 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue, isNotEmptyOperator } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
-import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
 import { ActivatedRoute } from '@angular/router';
@@ -86,7 +85,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
-    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(distinctUntilChanged(compareArraysUsingIds()));
+    this.sections = this.menuService.getMenuTopSections(this.menuID);
 
     this.subs.push(
       this.sections.pipe(
@@ -103,7 +102,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
           map((component: GenericConstructor<MenuSectionComponent>) => ({ section, component }))
         )),
-        distinctUntilChanged((x, y) => x.section.id === y.section.id)
+        distinctUntilChanged((x, y) => x.section.id === y.section.id && x.component.prototype === y.component.prototype),
       ).subscribe(({ section, component }) => {
         const nextMap = this.sectionMap$.getValue();
         nextMap.set(section.id, {

@@ -68,13 +68,13 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
     source.pipe(
       switchMap((authorizations: Authorization[]) => {
         if (isNotEmpty(authorizations)) {
-          return observableCombineLatest(
+          return observableCombineLatest([
             ...authorizations
               .filter((authorization: Authorization) => hasValue(authorization.feature))
               .map((authorization: Authorization) => authorization.feature.pipe(
                 getFirstSucceededRemoteDataPayload()
               ))
-          );
+          ]);
         } else {
           return observableOf([]);
         }

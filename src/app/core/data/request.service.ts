@@ -16,7 +16,7 @@ import {
   RequestExecuteAction,
   RequestStaleAction
 } from './request.actions';
-import { GetRequest} from './request.models';
+import { GetRequest } from './request.models';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { coreSelector } from '../core.selectors';
@@ -351,7 +351,29 @@ export class RequestService {
       map((request: RequestEntry) => isStale(request.state)),
       filter((stale: boolean) => stale),
       take(1),
-      );
+    );
+  }
+
+  /**
+   * Mark a request as stale
+   * @param href  the href of the request
+   * @return      an Observable that will emit true once the Request becomes stale
+   */
+  setStaleByHref(href: string): Observable<boolean> {
+    const requestEntry$ = this.getByHref(href);
+
+    requestEntry$.pipe(
+      map((re: RequestEntry) => re.request.uuid),
+      take(1),
+    ).subscribe((uuid: string) => {
+      this.store.dispatch(new RequestStaleAction(uuid));
+    });
+
+    return requestEntry$.pipe(
+      map((request: RequestEntry) => isStale(request.state)),
+      filter((stale: boolean) => stale),
+      take(1)
+    );
   }
 
   /**
@@ -364,10 +386,10 @@ export class RequestService {
     // if it's not a GET request
     if (request.method !== RestRequestMethod.GET) {
       return true;
-    // if it is a GET request, check it isn't pending
+      // if it is a GET request, check it isn't pending
     } else if (this.isPending(request)) {
       return false;
-    // if it is pending, check if we're allowed to use a cached version
+      // if it is pending, check if we're allowed to use a cached version
     } else if (!useCachedVersionIfAvailable) {
       return true;
     } else {

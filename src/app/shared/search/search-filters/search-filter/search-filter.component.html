@@ -6,7 +6,7 @@
           [attr.aria-label]="(((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate) + ' ' + (('search.filters.filter.' + filter.name + '.head') | translate | lowercase)"
           [attr.data-test]="'filter-toggle' | dsBrowserOnly"
   >
-    <h4 class="d-inline-block mb-0">
+    <h4 class="d-inline-block text-left mt-auto mb-auto">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}
     </h4>
     <span class="filter-toggle flex-grow-1 fas p-auto"

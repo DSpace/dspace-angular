@@ -23,6 +23,7 @@ import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { getEPersonEditRoute, getEPersonsRoute } from '../access-control-routing-paths';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -60,11 +61,6 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of epeople
    */
   paginationConfig: PaginationComponentOptions;
-
-  /**
-   * Whether or not to show the EPerson form
-   */
-  isEPersonFormShown: boolean;
 
   // The search form
   searchForm;
@@ -116,17 +112,11 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    */
   initialisePage() {
     this.searching$.next(true);
-    this.isEPersonFormShown = false;
     this.search({scope: this.currentSearchScope, query: this.currentSearchQuery});
-    this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
-      if (eperson != null && eperson.id) {
-        this.isEPersonFormShown = true;
-      }
-    }));
     this.subs.push(this.ePeople$.pipe(
       switchMap((epeople: PaginatedList<EPerson>) => {
         if (epeople.pageInfo.totalElements > 0) {
-          return combineLatest([...epeople.page.map((eperson: EPerson) => {
+          return combineLatest(epeople.page.map((eperson: EPerson) => {
             return this.authorizationService.isAuthorized(FeatureID.CanDelete, hasValue(eperson) ? eperson.self : undefined).pipe(
               map((authorized) => {
                 const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
@@ -135,7 +125,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
                 return epersonDtoModel;
               })
             );
-          })]).pipe(map((dtos: EpersonDtoModel[]) => {
+          })).pipe(map((dtos: EpersonDtoModel[]) => {
             return buildPaginatedList(epeople.pageInfo, dtos);
           }));
         } else {
@@ -162,14 +152,14 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
           const query: string = data.query;
           const scope: string = data.scope;
           if (query != null && this.currentSearchQuery !== query) {
-            this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
+            void this.router.navigate([getEPersonsRoute()], {
               queryParamsHandling: 'merge'
             });
             this.currentSearchQuery = query;
             this.paginationService.resetPage(this.paginationConfig.id);
           }
           if (scope != null && this.currentSearchScope !== scope) {
-            this.router.navigate([this.epersonService.getEPeoplePageRouterLink()], {
+            void this.router.navigate([getEPersonsRoute()], {
               queryParamsHandling: 'merge'
             });
             this.currentSearchScope = scope;
@@ -208,23 +198,6 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Start editing the selected EPerson
-   * @param ePerson
-   */
-  toggleEditEPerson(ePerson: EPerson) {
-    this.getActiveEPerson().pipe(take(1)).subscribe((activeEPerson: EPerson) => {
-      if (ePerson === activeEPerson) {
-        this.epersonService.cancelEditEPerson();
-        this.isEPersonFormShown = false;
-      } else {
-        this.epersonService.editEPerson(ePerson);
-        this.isEPersonFormShown = true;
-      }
-    });
-    this.scrollToTop();
-  }
-
-  /**
    * Deletes EPerson, show notification on success/failure & updates EPeople list
    */
   deleteEPerson(ePerson: EPerson) {
@@ -244,7 +217,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               if (restResponse.hasSucceeded) {
                 this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', {name: this.dsoNameService.getName(ePerson)}));
               } else {
-                this.notificationsService.error('Error occured when trying to delete EPerson with id: ' + ePerson.id + ' with code: ' + restResponse.statusCode + ' and message: ' + restResponse.errorMessage);
+                this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { id: ePerson.id, statusCode: restResponse.statusCode, errorMessage: restResponse.errorMessage }));
               }
             });
           }
@@ -266,16 +239,6 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  scrollToTop() {
-    (function smoothscroll() {
-      const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-      if (currentScroll > 0) {
-        window.requestAnimationFrame(smoothscroll);
-        window.scrollTo(0, currentScroll - (currentScroll / 8));
-      }
-    })();
-  }
-
   /**
    * Reset all input-fields to be empty and search all search
    */
@@ -286,20 +249,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
     this.search({query: ''});
   }
 
-  /**
-   * This method will set everything to stale, which will cause the lists on this page to update.
-   */
-  reset(): void {
-    this.epersonService.getBrowseEndpoint().pipe(
-      take(1),
-      switchMap((href: string) => {
-        return this.requestService.setStaleByHrefSubstring(href).pipe(
-          take(1),
-        );
-      })
-    ).subscribe(()=>{
-      this.epersonService.cancelEditEPerson();
-      this.isEPersonFormShown = false;
-    });
+  getEditEPeoplePage(id: string): string {
+    return getEPersonEditRoute(id);
   }
 }
