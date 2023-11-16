@@ -198,12 +198,13 @@ export class CommunityListService {
       );
   }
 
-  // TAMU Customization - get scoped collections
   /**
+   * TAMU Customization - get scoped collections
+   *
    * Puts the initial scoped collections in a list to be called upon
    */
   private getScopedCollections(options: FindListOptions): Observable<PaginatedList<Collection>> {
-    return this.collectionDataService.findScopeCollections({
+    return this.collectionDataService.findScopedCollections({
         scopeID: options.scopeID,
         currentPage: options.currentPage,
         elementsPerPage: this.pageSize,
