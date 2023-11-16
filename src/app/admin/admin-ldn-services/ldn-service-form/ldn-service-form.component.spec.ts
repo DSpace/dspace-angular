@@ -17,69 +17,69 @@ import {of} from 'rxjs';
 import {EventEmitter} from '@angular/core';
 
 describe('LdnServiceFormComponent', () => {
-    let component: LdnServiceFormComponent;
-    let fixture: ComponentFixture<LdnServiceFormComponent>;
+  let component: LdnServiceFormComponent;
+  let fixture: ComponentFixture<LdnServiceFormComponent>;
 
-    let ldnServicesService: any;
-    let ldnItemfiltersService: any;
-    let notificationsService: any;
+  let ldnServicesService: any;
+  let ldnItemfiltersService: any;
+  let notificationsService: any;
 
-    const itemFiltersRdPL$ = createSuccessfulRemoteDataObject$(createPaginatedList([new Itemfilter()]));
-    const translateServiceStub = {
-        get: () => of('translated-text'),
-        onLangChange: new EventEmitter(),
-        onTranslationChange: new EventEmitter(),
-        onDefaultLangChange: new EventEmitter()
-    };
+  const itemFiltersRdPL$ = createSuccessfulRemoteDataObject$(createPaginatedList([new Itemfilter()]));
+  const translateServiceStub = {
+    get: () => of('translated-text'),
+    onLangChange: new EventEmitter(),
+    onTranslationChange: new EventEmitter(),
+    onDefaultLangChange: new EventEmitter()
+  };
 
-    beforeEach(async () => {
-        ldnItemfiltersService = jasmine.createSpyObj('ldnItemfiltersService', {
-            findAll: jasmine.createSpy('findAll'),
-        });
-
-        ldnServicesService = jasmine.createSpyObj('ldnServicesService', {
-            create: jasmine.createSpy('create'),
-        });
-
-        notificationsService = jasmine.createSpyObj('notificationsService', {
-            success: jasmine.createSpy('success'),
-            error: jasmine.createSpy('error'),
-        });
-
-        await TestBed.configureTestingModule({
-            imports: [
-                ReactiveFormsModule,
-                RouterTestingModule,
-                NgbModalModule,
-                TranslateModule.forRoot()
-            ],
-            providers: [
-                {provide: LdnItemfiltersService, useValue: ldnItemfiltersService},
-                {provide: LdnServicesService, useValue: ldnServicesService},
-                {provide: NotificationsService, useValue: notificationsService},
-                {provide: TranslateService, useValue: translateServiceStub},
-                {provide: Router, useValue: new RouterStub()},
-                {
-                    provide: NgbModal, useValue: {
-                        open: () => {/*comment*/
-                        }
-                    }
-                },
-                FormBuilder
-            ],
-            declarations: [LdnServiceFormComponent]
-        })
-            .compileComponents();
+  beforeEach(async () => {
+    ldnItemfiltersService = jasmine.createSpyObj('ldnItemfiltersService', {
+      findAll: jasmine.createSpy('findAll'),
     });
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(LdnServiceFormComponent);
-        component = fixture.componentInstance;
-        ldnItemfiltersService.findAll.and.returnValue(itemFiltersRdPL$);
-        fixture.detectChanges();
+    ldnServicesService = jasmine.createSpyObj('ldnServicesService', {
+      create: jasmine.createSpy('create'),
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    notificationsService = jasmine.createSpyObj('notificationsService', {
+      success: jasmine.createSpy('success'),
+      error: jasmine.createSpy('error'),
     });
+
+    await TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        NgbModalModule,
+        TranslateModule.forRoot()
+      ],
+      providers: [
+        {provide: LdnItemfiltersService, useValue: ldnItemfiltersService},
+        {provide: LdnServicesService, useValue: ldnServicesService},
+        {provide: NotificationsService, useValue: notificationsService},
+        {provide: TranslateService, useValue: translateServiceStub},
+        {provide: Router, useValue: new RouterStub()},
+        {
+          provide: NgbModal, useValue: {
+            open: () => {/*comment*/
+            }
+          }
+        },
+        FormBuilder
+      ],
+      declarations: [LdnServiceFormComponent]
+    })
+      .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(LdnServiceFormComponent);
+    component = fixture.componentInstance;
+    ldnItemfiltersService.findAll.and.returnValue(itemFiltersRdPL$);
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

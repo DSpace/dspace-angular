@@ -11,19 +11,19 @@ import {LdnItemfiltersService} from './ldn-services-data/ldn-itemfilters-data.se
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        AdminLdnServicesRoutingModule,
-        FormsModule
-    ],
-    declarations: [
-        LdnServicesOverviewComponent,
-        LdnServiceNewComponent,
-        LdnServiceFormComponent,
-        LdnServiceFormEditComponent,
-    ],
-    providers: [LdnItemfiltersService]
+  imports: [
+    CommonModule,
+    SharedModule,
+    AdminLdnServicesRoutingModule,
+    FormsModule
+  ],
+  declarations: [
+    LdnServicesOverviewComponent,
+    LdnServiceNewComponent,
+    LdnServiceFormComponent,
+    LdnServiceFormEditComponent,
+  ],
+  providers: [LdnItemfiltersService]
 })
 export class AdminLdnServicesModule {
 }

@@ -1,414 +1,417 @@
 <div class="container">
-    <form (ngSubmit)="onSubmit()" [formGroup]="formModel">
-        <div class="d-flex">
-            <h2 class="flex-grow-1">{{ 'ldn-edit-registered-service.title' | translate }}</h2>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formModel">
+    <div class="d-flex">
+      <h2 class="flex-grow-1">{{ 'ldn-edit-registered-service.title' | translate }}</h2>
+    </div>
+    <!-- In the toggle section -->
+    <div class="toggle-switch-container">
+      <label class="status-label" for="enabled">{{ 'ldn-service-status' | translate }}</label>
+      <div>
+        <input formControlName="enabled" hidden id="enabled" name="enabled" type="checkbox">
+        <div (click)="toggleEnabled()" [class.checked]="formModel.get('enabled').value" class="toggle-switch">
+          <div class="slider"></div>
         </div>
-        <!-- In the toggle section -->
-        <div class="toggle-switch-container">
-            <label class="status-label" for="enabled">{{ 'ldn-service-status' | translate }}</label>
-            <div>
-                <input formControlName="enabled" hidden id="enabled" name="enabled" type="checkbox">
-                <div (click)="toggleEnabled()" [class.checked]="formModel.get('enabled').value" class="toggle-switch">
-                    <div class="slider"></div>
+      </div>
+    </div>
+    <!-- In the Name section -->
+    <div class="mb-5">
+      <label for="name">{{ 'ldn-new-service.form.label.name' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
+             [placeholder]="'ldn-new-service.form.placeholder.name' | translate" class="form-control"
+             formControlName="name"
+             id="name"
+             name="name"
+             type="text">
+      <div *ngIf="formModel.get('name').invalid && formModel.get('name').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.name' | translate }}
+      </div>
+    </div>
+
+    <!-- In the description section -->
+    <div class="mb-5 mt-5 d-flex flex-column">
+      <label for="description">{{ 'ldn-new-service.form.label.description' | translate }}</label>
+      <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
+                class="form-control" formControlName="description" id="description" name="description"></textarea>
+    </div>
+
+    <!-- In the url section -->
+    <div class="mb-5 mt-5">
+      <label for="url">{{ 'ldn-new-service.form.label.url' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
+             [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control"
+             formControlName="url"
+             id="url"
+             name="url"
+             type="text">
+      <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.url' | translate }}
+      </div>
+    </div>
+
+    <!-- In the ldnUrl section -->
+    <div class="mb-5 mt-5">
+      <label for="ldnUrl">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
+             [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" class="form-control"
+             formControlName="ldnUrl"
+             id="ldnUrl"
+             name="ldnUrl"
+             type="text">
+      <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.ldnurl' | translate }}
+      </div>
+    </div>
+
+    <!-- In the score section -->
+    <div class="mb-2">
+      <label for="score">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
+             [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
+             id="score"
+             name="score"
+             type="text">
+      <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
+        {{ 'ldn-new-service.form.error.score' | translate }}
+      </div>
+    </div>
+
+    <!-- In the Inbound Patterns Labels section -->
+    <div class="row mb-1 mt-5">
+      <div class="col">
+        <label>{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
+      </div>
+      <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern)">
+        <div class="col">
+          <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+        </div>
+        <div class="col-sm-1">
+          <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
+        </div>
+      </ng-container>
+      <div class="col-sm-2">
+      </div>
+    </div>
+
+    <!-- In the Inbound Patterns section -->
+    <div *ngFor="let patternGroup of formModel.get('notifyServiceInboundPatterns')['controls']; let i = index"
+         [class.marked-for-deletion]="markedForDeletionInboundPattern.includes(i)"
+         formGroupName="notifyServiceInboundPatterns">
+
+      <ng-container [formGroupName]="i">
+
+
+        <div class="row mb-1">
+          <div class="col">
+            <div #inboundPatternDropdown="ngbDropdown" class="w-80" display="dynamic"
+                 id="additionalInboundPattern{{i}}"
+                 ngbDropdown placement="bottom-start">
+              <div class="position-relative right-addon" role="combobox">
+                <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                   ngbDropdownToggle></i>
+                <input
+                  (click)="inboundPatternDropdown.open();"
+                  [readonly]="true"
+                  class="form-control w-80 scrollable-dropdown-input"
+                  formControlName="patternLabel"
+                  id="inboundPatternDropdownButton"
+                  ngbDropdownAnchor
+                  type="text"
+                />
+                <div aria-labelledby="inboundPatternDropdownButton"
+                     class="dropdown-menu scrollable-dropdown-menu w-100 "
+                     ngbDropdownMenu>
+                  <div class="scrollable-menu" role="listbox">
+                    <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()"
+                            *ngFor="let pattern of inboundPatterns; let internalIndex = index"
+                            [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate"
+                            class="dropdown-item collection-item text-truncate w-100"
+                            ngbDropdownItem
+                            type="button">
+                      <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
+                      <div
+                        class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
+                    </button>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <div class="mb-5">
-            <label for="name">{{ 'ldn-new-service.form.label.name' | translate }}</label>
-            <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
-                   [placeholder]="'ldn-new-service.form.placeholder.name' | translate" class="form-control" formControlName="name"
-                   id="name"
-                   name="name"
-                   type="text">
-            <div *ngIf="formModel.get('name').invalid && formModel.get('name').touched" class="error-text">
-                {{ 'ldn-new-service.form.error.name' | translate }}
-            </div>
-        </div>
-
-        <!-- In the description section -->
-        <div class="mb-5 mt-5 d-flex flex-column">
-            <label for="description">{{ 'ldn-new-service.form.label.description' | translate }}</label>
-            <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
-                      class="form-control" formControlName="description" id="description" name="description"></textarea>
-        </div>
-
-        <!-- In the url section -->
-        <div class="mb-5 mt-5">
-            <label for="url">{{ 'ldn-new-service.form.label.url' | translate }}</label>
-            <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
-                   [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control" formControlName="url"
-                   id="url"
-                   name="url"
-                   type="text">
-            <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
-                {{ 'ldn-new-service.form.error.url' | translate }}
-            </div>
-        </div>
-
-        <!-- In the ldnUrl section -->
-        <div class="mb-5 mt-5">
-            <label for="ldnUrl">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
-            <input [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
-                   [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" class="form-control"
-                   formControlName="ldnUrl"
-                   id="ldnUrl"
-                   name="ldnUrl"
-                   type="text">
-            <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" class="error-text">
-                {{ 'ldn-new-service.form.error.ldnurl' | translate }}
-            </div>
-        </div>
-
-        <!-- In the score section -->
-        <div class="mb-2">
-            <label for="score">{{ 'ldn-new-service.form.label.score' | translate }}</label>
-            <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
-                   [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
-                   id="score"
-                   name="score"
-                   type="text">
-            <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
-                {{ 'ldn-new-service.form.error.score' | translate }}
-            </div>
-        </div>
-
-
-        <div class="row mb-1 mt-5">
-            <div class="col">
-                <label>{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
-            </div>
-            <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern)">
-                <div class="col">
-                    <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+          <div class="col">
+            <ng-container
+              *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
+              <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
+                   placement="bottom-start">
+                <div class="position-relative right-addon" role="combobox">
+                  <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                     ngbDropdownToggle></i>
+                  <input
+                    (click)="inboundItemfilterDropdown.open();"
+                    [readonly]="true"
+                    [value]="selectedInboundItemfilters"
+                    class="form-control w-100 scrollable-dropdown-input"
+                    formControlName="constraint"
+                    id="inboundItemfilterDropdown"
+                    ngbDropdownAnchor
+                    type="text"
+                  />
+                  <div aria-labelledby="inboundItemfilterDropdownButton"
+                       class="dropdown-menu scrollable-dropdown-menu w-100 "
+                       ngbDropdownMenu>
+                    <div class="scrollable-menu" role="listbox">
+                      <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                              *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                              class="dropdown-item collection-item text-truncate w-100"
+                              ngbDropdownItem
+                              type="button">
+                        <div>{{ constraint.id }}</div>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-sm-1">
-                    <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
-                </div>
+              </div>
             </ng-container>
-            <div class="col-sm-2">
+          </div>
+
+          <div
+            [style.visibility]="formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern ? 'visible' : 'hidden'"
+            class="col-sm-1">
+            <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
+                   type="checkbox">
+            <div (click)="toggleAutomatic(i)"
+                 [class.checked]="formModel.get('notifyServiceInboundPatterns.' + i + '.automatic').value"
+                 class="toggle-switch">
+              <div class="slider"></div>
             </div>
+          </div>
+
+
+          <div class="col-sm-2">
+            <div class="btn-group">
+              <button (click)="markForInboundPatternDeletion(i)" class="btn btn-outline-dark trash-button"
+                      type="button">
+                <i class="fas fa-trash"></i>
+              </button>
+
+
+              <button (click)="unmarkForInboundPatternDeletion(i)"
+                      *ngIf="markedForDeletionInboundPattern.includes(i)"
+                      class="btn btn-warning "
+                      type="button">
+                <i class="fas fa-undo"></i>
+              </button>
+            </div>
+          </div>
         </div>
-
-        <div *ngFor="let patternGroup of formModel.get('notifyServiceInboundPatterns')['controls']; let i = index"
-             [class.marked-for-deletion]="markedForDeletionInboundPattern.includes(i)"
-             formGroupName="notifyServiceInboundPatterns">
-
-            <ng-container [formGroupName]="i">
+      </ng-container>
+    </div>
 
 
-                <div class="row mb-1">
-                    <div class="col">
-                        <div #inboundPatternDropdown="ngbDropdown" class="w-80" display="dynamic"
-                             id="additionalInboundPattern{{i}}"
-                             ngbDropdown placement="bottom-start">
-                            <div class="position-relative right-addon" role="combobox">
-                                <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
-                                   ngbDropdownToggle></i>
-                                <input
-                                        (click)="inboundPatternDropdown.open();"
-                                        [readonly]="true"
-                                        class="form-control w-80 scrollable-dropdown-input"
-                                        formControlName="patternLabel"
-                                        id="inboundPatternDropdownButton"
-                                        ngbDropdownAnchor
-                                        type="text"
-                                />
-                                <!-- TODO: infinite scroll with 3 selects -->
-                                <div aria-labelledby="inboundPatternDropdownButton" class="dropdown-menu scrollable-dropdown-menu w-100 "
-                                     ngbDropdownMenu>
-                                    <div class="scrollable-menu" role="listbox">
-                                        <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()"
-                                                *ngFor="let pattern of inboundPatterns; let internalIndex = index"
-                                                [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate"
-                                                class="dropdown-item collection-item text-truncate w-100"
-                                                ngbDropdownItem
-                                                type="button">
-                                            <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
-                                            <div
-                                                    class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <span (click)="addInboundPattern()"
+          class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
 
-                    <div class="col">
-                        <ng-container
-                                *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
-                            <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
-                                 placement="bottom-start">
-                                <div class="position-relative right-addon" role="combobox">
-                                    <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
-                                       ngbDropdownToggle></i>
-                                    <input
-                                            (click)="inboundItemfilterDropdown.open();"
-                                            [readonly]="true"
-                                            [value]="selectedInboundItemfilters"
-                                            class="form-control w-100 scrollable-dropdown-input"
-                                            formControlName="constraint"
-                                            id="inboundItemfilterDropdown"
-                                            ngbDropdownAnchor
-                                            type="text"
-                                    />
-                                    <!-- TODO: infinite scroll with 3 selects -->
-                                    <div aria-labelledby="inboundItemfilterDropdownButton" class="dropdown-menu scrollable-dropdown-menu w-100 "
-                                         ngbDropdownMenu>
-                                        <div class="scrollable-menu" role="listbox">
-                                            <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
-                                                    *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
-                                                    class="dropdown-item collection-item text-truncate w-100"
-                                                    ngbDropdownItem
-                                                    type="button">
-                                                <div>{{ constraint.id }}</div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
+    <!-- In the Outbound Patterns Labels section -->
+    <div class="row mb-1 mt-5">
+      <div class="col">
+        <label>{{ 'ldn-new-service.form.label.outboundPattern' | translate }} </label>
+      </div>
+      <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][0]?.value?.pattern)">
+        <div class="col">
+          <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+        </div>
+      </ng-container>
+      <div class="col-sm-1 ">
+        <label class="label-box-2" style="visibility: hidden;">
+          {{ 'ldn-new-service.form.label.automatic' | translate }}
+        </label>
+      </div>
+      <div class="col-sm-2 ">
+      </div>
+    </div>
 
-                    <div
-                            [style.visibility]="formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern ? 'visible' : 'hidden'"
-                            class="col-sm-1">
-                        <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
-                               type="checkbox">
-                        <div (click)="toggleAutomatic(i)"
-                             [class.checked]="formModel.get('notifyServiceInboundPatterns.' + i + '.automatic').value"
-                             class="toggle-switch">
-                            <div class="slider"></div>
-                        </div>
-                    </div>
+    <!-- In the Outbound Patterns section -->
+    <div *ngFor="let patternGroup of formModel.get('notifyServiceOutboundPatterns')['controls']; let i = index"
+         [class.marked-for-deletion]="markedForDeletionOutboundPattern.includes(i)"
+         formGroupName="notifyServiceOutboundPatterns">
 
+      <ng-container [formGroupName]="i">
 
-                    <div class="col-sm-2">
-                        <div class="btn-group">
-                            <button (click)="markForInboundPatternDeletion(i)" class="btn btn-outline-dark trash-button"
-                                    type="button">
-                                <i class="fas fa-trash"></i>
-                            </button>
-
-
-                            <button (click)="unmarkForInboundPatternDeletion(i)"
-                                    *ngIf="markedForDeletionInboundPattern.includes(i)"
-                                    class="btn btn-warning "
-                                    type="button">
-                                <i class="fas fa-undo"></i>
-                            </button>
-                        </div>
-                    </div>
+        <div class="row mb-1">
+          <div class="col">
+            <div #outboundPatternDropdown="ngbDropdown" class="w-100" id="additionalOutboundPattern{{i}}"
+                 ngbDropdown
+                 placement="bottom-start">
+              <div class="position-relative right-addon" role="combobox">
+                <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                   ngbDropdownToggle></i>
+                <input
+                  (click)="outboundPatternDropdown.open();"
+                  [readonly]="true"
+                  [value]="selectedOutboundPatterns"
+                  class="form-control w-100 scrollable-dropdown-input"
+                  formControlName="patternLabel"
+                  id="outboundPatternDropdownButton"
+                  ngbDropdownAnchor
+                  type="text"
+                />
+                <div aria-labelledby="outboundPatternDropdownButton"
+                     class="dropdown-menu scrollable-dropdown-menu w-100 "
+                     ngbDropdownMenu>
+                  <div class="scrollable-menu" role="listbox">
+                    <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()"
+                            *ngFor="let pattern of outboundPatterns; let internalIndex = index"
+                            [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate"
+                            class="dropdown-item collection-item text-truncate w-100"
+                            ngbDropdownItem
+                            type="button">
+                      <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
+                      <div
+                        class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
+                    </button>
+                  </div>
                 </div>
-            </ng-container>
-        </div>
-
-
-        <span (click)="addInboundPattern()"
-              class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
-
-
-        <div class="row mb-1 mt-5">
-            <div class="col">
-                <label>{{ 'ldn-new-service.form.label.outboundPattern' | translate }} </label>
+              </div>
             </div>
-            <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][0]?.value?.pattern)">
-                <div class="col">
-                    <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+          </div>
+          <div class="col">
+            <ng-container
+              *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][i].value.pattern)">
+              <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}"
+                   ngbDropdown
+                   placement="bottom-start">
+                <div class="position-relative right-addon" role="combobox">
+                  <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                     ngbDropdownToggle></i>
+                  <input
+                    (click)="outboundItemfilterDropdown.open();"
+                    [readonly]="true"
+                    [value]="selectedOutboundItemfilters"
+                    class="form-control w-100 scrollable-dropdown-input"
+                    formControlName="constraint"
+                    id="outboundItemfilterDropdown"
+                    ngbDropdownAnchor
+                    type="text"
+                  />
+                  <div aria-labelledby="outboundItemfilterDropdownButton"
+                       class="dropdown-menu scrollable-dropdown-menu w-100 "
+                       ngbDropdownMenu>
+                    <div class="scrollable-menu" role="listbox">
+                      <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                              *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                              class="dropdown-item collection-item text-truncate w-100"
+                              ngbDropdownItem
+                              type="button">
+                        <div>{{ constraint.id }}</div>
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </ng-container>
-            <div class="col-sm-1 ">
-                <label class="label-box-2" style="visibility: hidden;">
-                    {{ 'ldn-new-service.form.label.automatic' | translate }}
-                </label>
+          </div>
+
+          <div [style.visibility]="'hidden'" class="col-sm-1">
+            <input hidden id="automatic{{i}}" name="automatic{{i}}" type="checkbox">
+            <div
+              class="toggle-switch">
+              <div class="slider"></div>
             </div>
-            <div class="col-sm-2 ">
+          </div>
+
+          <div class="col-sm-2">
+            <div class="btn-group">
+              <button (click)="markForOutboundPatternDeletion(i)"
+                      class="btn btn-outline-dark trash-button" type="button">
+                <i class="fas fa-trash"></i>
+              </button>
+              <button (click)="unmarkForOutboundPatternDeletion(i)"
+                      *ngIf="markedForDeletionOutboundPattern.includes(i)"
+                      class="btn btn-warning "
+                      type="button">
+                <i class="fas fa-undo"></i>
+              </button>
             </div>
+          </div>
         </div>
+      </ng-container>
+    </div>
 
-        <div *ngFor="let patternGroup of formModel.get('notifyServiceOutboundPatterns')['controls']; let i = index"
-             [class.marked-for-deletion]="markedForDeletionOutboundPattern.includes(i)"
-             formGroupName="notifyServiceOutboundPatterns">
-
-            <ng-container [formGroupName]="i">
-
-                <!-- Input elements in a separate row -->
-                <div class="row mb-1">
-                    <div class="col">
-                        <div #outboundPatternDropdown="ngbDropdown" class="w-100" id="additionalOutboundPattern{{i}}"
-                             ngbDropdown
-                             placement="bottom-start">
-                            <div class="position-relative right-addon" role="combobox">
-                                <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
-                                   ngbDropdownToggle></i>
-                                <input
-                                        (click)="outboundPatternDropdown.open();"
-                                        [readonly]="true"
-                                        [value]="selectedOutboundPatterns"
-                                        class="form-control w-100 scrollable-dropdown-input"
-                                        formControlName="patternLabel"
-                                        id="outboundPatternDropdownButton"
-                                        ngbDropdownAnchor
-                                        type="text"
-                                />
-                                <!-- TODO: infinite scroll with 3-5 selects -->
-                                <div aria-labelledby="outboundPatternDropdownButton" class="dropdown-menu scrollable-dropdown-menu w-100 "
-                                     ngbDropdownMenu>
-                                    <div class="scrollable-menu" role="listbox">
-                                        <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()"
-                                                *ngFor="let pattern of outboundPatterns; let internalIndex = index"
-                                                [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate"
-                                                class="dropdown-item collection-item text-truncate w-100"
-                                                ngbDropdownItem
-                                                type="button">
-                                            <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
-                                            <div
-                                                    class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <ng-container
-                                *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][i].value.pattern)">
-                            <div #outboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}"
-                                 ngbDropdown
-                                 placement="bottom-start">
-                                <div class="position-relative right-addon" role="combobox">
-                                    <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
-                                       ngbDropdownToggle></i>
-                                    <input
-                                            (click)="outboundItemfilterDropdown.open();"
-                                            [readonly]="true"
-                                            [value]="selectedOutboundItemfilters"
-                                            class="form-control w-100 scrollable-dropdown-input"
-                                            formControlName="constraint"
-                                            id="outboundItemfilterDropdown"
-                                            ngbDropdownAnchor
-                                            type="text"
-                                    />
-                                    <!-- TODO: infinite scroll with 3 selects -->
-                                    <div aria-labelledby="outboundItemfilterDropdownButton" class="dropdown-menu scrollable-dropdown-menu w-100 "
-                                         ngbDropdownMenu>
-                                        <div class="scrollable-menu" role="listbox">
-                                            <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()"
-                                                    *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
-                                                    class="dropdown-item collection-item text-truncate w-100"
-                                                    ngbDropdownItem
-                                                    type="button">
-                                                <div>{{ constraint.id }}</div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
-
-                    <div [style.visibility]="'hidden'" class="col-sm-1">
-                        <input hidden id="automatic{{i}}" name="automatic{{i}}" type="checkbox">
-                        <div
-                                class="toggle-switch">
-                            <div class="slider"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <div class="btn-group">
-                            <button (click)="markForOutboundPatternDeletion(i)"
-                                    class="btn btn-outline-dark trash-button" type="button">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <button (click)="unmarkForOutboundPatternDeletion(i)"
-                                    *ngIf="markedForDeletionOutboundPattern.includes(i)"
-                                    class="btn btn-warning "
-                                    type="button">
-                                <i class="fas fa-undo"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-        </div>
-
-        <span
-                (click)="addOutboundPattern()"
-                class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}
+    <span
+      (click)="addOutboundPattern()"
+      class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}
     </span>
 
 
-        <div aria-label="Basic example" class="submission-form-footer mt-1 mb-1 position-sticky" role="group">
-            <button class="btn btn-primary" type="submit">
-                <span><i class="fas fa-save"></i> {{ 'ldn-new-service.form.label.submit' | translate }}</span>
-            </button>
-            <div class="d-flex">
-                <button (click)="openResetFormModal(resetFormModal)" class="btn btn-danger" type="button">
-                    <span><i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}</span>
-                </button>
-            </div>
-        </div>
-    </form>
+    <div aria-label="Basic example" class="submission-form-footer mt-1 mb-1 position-sticky" role="group">
+      <button class="btn btn-primary" type="submit">
+        <span><i class="fas fa-save"></i> {{ 'ldn-new-service.form.label.submit' | translate }}</span>
+      </button>
+      <div class="d-flex">
+        <button (click)="openResetFormModal(resetFormModal)" class="btn btn-danger" type="button">
+          <span><i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 <ng-template #confirmModal>
 
-    <div>
+  <div>
 
-        <div class="modal-header">
-            <div>
-                <h4>{{'service.overview.edit.modal' | translate }}</h4>
-            </div>
-            <button (click)="closeModal()" aria-label="Close"
-                    class="close" type="button">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-
-        <div class="modal-body">
-            <div>
-                {{ 'service.overview.edit.body' | translate }}
-            </div>
-            <div class="mt-4">
-                <button (click)="closeModal()" class="btn btn-danger mr-2"
-                        id="delete-confirm">{{ 'service.detail.return' | translate }}
-                </button>
-                <button (click)="patchService()"
-                        class="btn btn-primary custom-btn">{{ 'service.detail.update' | translate }}
-                </button>
-            </div>
-        </div>
+    <div class="modal-header">
+      <div>
+        <h4>{{'service.overview.edit.modal' | translate }}</h4>
+      </div>
+      <button (click)="closeModal()" aria-label="Close"
+              class="close" type="button">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
+
+    <div class="modal-body">
+      <div>
+        {{ 'service.overview.edit.body' | translate }}
+      </div>
+      <div class="mt-4">
+        <button (click)="closeModal()" class="btn btn-danger mr-2"
+                id="delete-confirm">{{ 'service.detail.return' | translate }}
+        </button>
+        <button (click)="patchService()"
+                class="btn btn-primary custom-btn">{{ 'service.detail.update' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #resetFormModal>
 
-    <div>
+  <div>
 
-        <div class="modal-header">
-            <div>
-                <h4>{{'service.overview.reset-form.modal' | translate }}</h4>
-            </div>
-            <button (click)="closeModal()" aria-label="Close"
-                    class="close" type="button">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-
-        <div class="modal-body">
-            <div>
-                {{ 'service.overview.reset-form.body' | translate }}
-            </div>
-            <div class="mt-4">
-                <button (click)="closeModal()" class="mr-2 btn btn-danger"
-                        id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
-                </button>
-                <button (click)="resetFormAndLeave()"
-                        class="btn btn-primary custom-btn"
-                        id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
-                </button>
-            </div>
-        </div>
+    <div class="modal-header">
+      <div>
+        <h4>{{'service.overview.reset-form.modal' | translate }}</h4>
+      </div>
+      <button (click)="closeModal()" aria-label="Close"
+              class="close" type="button">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
+
+    <div class="modal-body">
+      <div>
+        {{ 'service.overview.reset-form.body' | translate }}
+      </div>
+      <div class="mt-4">
+        <button (click)="closeModal()" class="mr-2 btn btn-danger"
+                id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
+        </button>
+        <button (click)="resetFormAndLeave()"
+                class="btn btn-primary custom-btn"
+                id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
 </ng-template>
 

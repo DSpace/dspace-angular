@@ -9,23 +9,23 @@ import {ResourceType} from '../../../core/shared/resource-type';
 @typedObject
 @inheritSerialization(CacheableObject)
 export class Itemfilter extends CacheableObject {
-    static type = LDN_SERVICE_CONSTRAINT_FILTER;
+  static type = LDN_SERVICE_CONSTRAINT_FILTER;
 
-    @excludeFromEquals
-    @autoserialize
-    type: ResourceType;
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
-    @autoserialize
-    id: string;
+  @autoserialize
+  id: string;
 
-    @deserialize
-    _links: {
-        self: {
-            href: string;
-        };
+  @deserialize
+  _links: {
+    self: {
+      href: string;
     };
+  };
 
-    get self(): string {
-        return this._links.self.href;
-    }
+  get self(): string {
+    return this._links.self.href;
+  }
 }
