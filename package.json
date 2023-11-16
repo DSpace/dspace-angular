@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "7.6.1-next",
+  "version": "7.6.1",
   "scripts": {
     "ng": "ng",
     "config:watch": "nodemon",
@@ -22,7 +22,7 @@
     "test:headless": "ng test --source-map=true --watch=false --configuration test --browsers=ChromeHeadless --code-coverage",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix=true",
-    "e2e": "ng e2e",
+    "e2e": "cross-env NODE_ENV=production ng e2e",
     "clean:dev:config": "rimraf src/assets/config.json",
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf dist",
@@ -82,7 +82,7 @@
     "@types/grecaptcha": "^3.0.4",
     "angular-idle-preload": "3.0.0",
     "angulartics2": "^12.2.0",
-    "axios": "^0.27.2",
+    "axios": "^1.6.0",
     "bootstrap": "^4.6.1",
     "cerialize": "0.1.18",
     "cli-progress": "^3.12.0",

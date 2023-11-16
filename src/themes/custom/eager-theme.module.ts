@@ -54,6 +54,9 @@ import {
   ItemSearchResultListElementComponent
 } from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
+import { LogInComponent } from './app/shared/log-in/log-in.component';
+import { BrowseEntryListElementComponent } from './app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component';
+import { PersonComponent } from './app/entity-groups/research-entities/item-pages/person/person.component';
 import { LangSwitchComponent } from './app/shared/lang-switch/lang-switch.component';
 
 
@@ -65,6 +68,7 @@ const ENTRY_COMPONENTS = [
   JournalComponent,
   JournalIssueComponent,
   JournalVolumeComponent,
+  PersonComponent,
   PublicationComponent,
   UntypedItemComponent,
   CommunityListElementComponent,
@@ -76,6 +80,7 @@ const ENTRY_COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   ItemSearchResultListElementComponent,
   TopLevelCommunityListComponent,
+  BrowseEntryListElementComponent,
 ];
 
 const DECLARATIONS = [
@@ -92,6 +97,7 @@ const DECLARATIONS = [
   EditCollectionSelectorComponent,
   EditCommunitySelectorComponent,
   EditItemSelectorComponent,
+  LogInComponent,
   LangSwitchComponent,
 ];
 

@@ -157,6 +157,8 @@ import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-
 import { FormModule } from '../../app/shared/form/form.module';
 import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import {UserMenuComponent} from './app/shared/auth-nav-menu/user-menu/user-menu.component';
+import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
+import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -241,6 +243,8 @@ const DECLARATIONS = [
   ItemStatusComponent,
   EditBitstreamPageComponent,
   UserMenuComponent,
+  BrowseByComponent,
+  RegisterEmailFormComponent,
 ];
 
 @NgModule({

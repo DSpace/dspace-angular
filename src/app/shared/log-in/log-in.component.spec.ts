@@ -21,6 +21,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { of } from 'rxjs';
+import { ThemeService } from '../theme-support/theme.service';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 
 describe('LogInComponent', () => {
 
@@ -75,6 +77,7 @@ describe('LogInComponent', () => {
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
+        { provide: ThemeService, useValue: getMockThemeService() },
         LogInComponent
       ],
       schemas: [
@@ -91,7 +94,7 @@ describe('LogInComponent', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      const html = `<ds-log-in [isStandalonePage]="isStandalonePage"> </ds-log-in>`;
+      const html = `<ds-themed-log-in [isStandalonePage]="isStandalonePage"> </ds-themed-log-in>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;

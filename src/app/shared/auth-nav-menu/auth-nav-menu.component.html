@@ -7,8 +7,8 @@
          ngbDropdownToggle>{{ 'nav.login' | translate }}</a>
       <div class="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
            [attr.aria-label]="'nav.login' | translate">
-        <ds-log-in
-          [isStandalonePage]="false"></ds-log-in>
+        <ds-themed-log-in
+          [isStandalonePage]="false"></ds-themed-log-in>
       </div>
     </div>
   </li>
