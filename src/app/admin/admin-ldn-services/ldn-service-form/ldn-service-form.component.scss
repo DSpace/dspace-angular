@@ -1,8 +1,6 @@
 form {
-  max-width: 800px;
   font-size: 14px;
   position: relative;
-
 }
 
 input[type="text"],
@@ -47,6 +45,12 @@ textarea {
 .invalid-field {
   border: 1px solid red;
   color: #000000;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
 }
 
 .toggle-switch {
