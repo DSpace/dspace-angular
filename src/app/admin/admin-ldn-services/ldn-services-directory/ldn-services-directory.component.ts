@@ -66,7 +66,9 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
       switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
         getFirstCompletedRemoteData()
       ))
+
     );
+    console.log(this.ldnServicesRD$)
   }
 
   ngOnDestroy(): void {

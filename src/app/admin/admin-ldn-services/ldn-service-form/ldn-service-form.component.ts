@@ -96,7 +96,6 @@ export class LdnServiceFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(notifyPatterns)
     this.setItemfilters();
 
   }
@@ -227,7 +226,6 @@ export class LdnServiceFormComponent implements OnInit {
 
   selectOutboundPattern(patternValue: string, index: number): void {
     const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
-    console.log((this.formModel.get('notifyServiceOutboundPatterns') as FormArray))
     patternArray.controls[index].patchValue({pattern: patternValue})
     patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')})
 
@@ -235,7 +233,6 @@ export class LdnServiceFormComponent implements OnInit {
 
   selectInboundPattern(patternValue: string, index: number): void {
     const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
-    console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
     patternArray.controls[index].patchValue({pattern: patternValue})
     patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')})
 
@@ -243,13 +240,11 @@ export class LdnServiceFormComponent implements OnInit {
 
   selectInboundItemFilter(filterValue: string, index: number): void {
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
-    console.log((this.formModel.get('notifyServiceInboundPatterns') as FormArray))
     filterArray.controls[index].patchValue({constraint: filterValue})
   }
 
   selectOutboundItemFilter(filterValue: string, index: number) {
     const filterArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
-    console.log((this.formModel.get('notifyServiceOutboundPatterns') as FormArray))
     filterArray.controls[index].patchValue({constraint: filterValue})
   }
 
