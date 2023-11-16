@@ -11,44 +11,44 @@ import {PaginationServiceStub} from '../../../shared/testing/pagination-service.
 import {of} from 'rxjs';
 
 describe('LdnServicesOverviewComponent', () => {
-  let component: LdnServicesOverviewComponent;
-  let fixture: ComponentFixture<LdnServicesOverviewComponent>;
+    let component: LdnServicesOverviewComponent;
+    let fixture: ComponentFixture<LdnServicesOverviewComponent>;
 
-  const translateServiceStub = {
-    get: () => of('translated-text'),
-    onLangChange: new EventEmitter(),
-    onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
-  };
+    const translateServiceStub = {
+        get: () => of('translated-text'),
+        onLangChange: new EventEmitter(),
+        onTranslationChange: new EventEmitter(),
+        onDefaultLangChange: new EventEmitter()
+    };
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [LdnServicesOverviewComponent],
-      providers: [
-        {provide: LdnServicesService, useValue: {}},
-        {provide: PaginationService, useValue: new PaginationServiceStub()},
-        {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            }
-          }
-        },
-        {provide: ChangeDetectorRef, useValue: {}},
-        {provide: NotificationsService, useValue: NotificationsServiceStub},
-        {provide: TranslateService, useValue: translateServiceStub},
-      ]
-    })
-      .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot()],
+            declarations: [LdnServicesOverviewComponent],
+            providers: [
+                {provide: LdnServicesService, useValue: {}},
+                {provide: PaginationService, useValue: new PaginationServiceStub()},
+                {
+                    provide: NgbModal, useValue: {
+                        open: () => {/*comment*/
+                        }
+                    }
+                },
+                {provide: ChangeDetectorRef, useValue: {}},
+                {provide: NotificationsService, useValue: NotificationsServiceStub},
+                {provide: TranslateService, useValue: translateServiceStub},
+            ]
+        })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LdnServicesOverviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(LdnServicesOverviewComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

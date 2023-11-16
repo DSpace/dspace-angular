@@ -1,30 +1,30 @@
 export const notifyPatterns = [
 
-  'ack-accept',
+    'ack-accept',
 
-  'ack-reject',
+    'ack-reject',
 
-  'ack-tentative-accept',
+    'ack-tentative-accept',
 
-  'ack-tentative-reject',
+    'ack-tentative-reject',
 
-  'announce-endorsement',
+    'announce-endorsement',
 
-  'announce-ingest',
+    'announce-ingest',
 
-  'announce-relationship',
+    'announce-relationship',
 
-  'announce-review',
+    'announce-review',
 
-  'announce-service-result',
+    'announce-service-result',
 
-  'request-endorsement',
+    'request-endorsement',
 
-  'request-ingest',
+    'request-ingest',
 
-  'request-review',
+    'request-review',
 
-  'undo-offer',
+    'undo-offer',
 
 ];
 

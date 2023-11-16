@@ -1,3 +1,3 @@
 export class LdnServiceConstrain {
-  void: any;
+    void: any;
 }
