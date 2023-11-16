@@ -87,18 +87,41 @@
             <ng-container [formGroupName]="i">
 
 
-                <div class="row mb-1">
-                    <div class="col">
-                        <select #inboundPattern formControlName="pattern" id="additionalInboundPattern{{i}}"
-                                name="additionalInboundPattern{{i}}" required>
-                            <option value="">{{ 'ldn-new-service.form.label.placeholder.inboundPattern' | translate }}</option>
-                            <option *ngFor="let pattern of inboundPatterns"
-                                    [value]="pattern">{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }} </option>
-                        </select>
-                        <div *ngIf="!patternSelected()" class="error-text">
-                            {{ 'ldn-new-service.form.error.patterns' | translate }}
-                        </div>
-                    </div>
+        <div class="row mb-1">
+          <div class="col">
+            <div #inboundPatternDropdown="ngbDropdown" class="w-100" id="additionalInboundPattern{{i}}" ngbDropdown
+                 placement="bottom-start">
+              <div class="position-relative right-addon" role="combobox">
+                <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                   ngbDropdownToggle>
+
+                </i>
+                <input
+                  (click)="inboundPatternDropdown.open();"
+                  [readonly]="true"
+                  [value]="selectedInboundPatterns"
+                  class="form-control w-100 scrollable-dropdown-input"
+                  formControlName="patternLabel"
+                  id="inboundPatternDropdownButton"
+                  ngbDropdownAnchor
+                  type="text"
+                />
+                <div aria-labelledby="inboundPatternDropdownButton" ngbDropdownMenu class="dropdown-menu scrollable-dropdown-menu w-100 " >
+                  <div  class="scrollable-menu" role="listbox">
+                    <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()" class="dropdown-item collection-item text-truncate w-100"
+                      *ngFor="let pattern of inboundPatterns"
+                      ngbDropdownItem
+                      type="button"
+                      [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate">
+                      <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
+                      <div
+                        class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
                     <div class="col">
