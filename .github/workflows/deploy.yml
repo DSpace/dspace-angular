@@ -7,7 +7,7 @@ on:
       INSTANCE:
         required: false
         type: string
-        default: '*'
+        default: '5'
       IMPORT:
         required: false
         default: true
@@ -17,7 +17,7 @@ on:
     inputs:
       INSTANCE:
         required: true
-        default: '*'
+        default: '5'
         type: choice
         options:
           - '*'
