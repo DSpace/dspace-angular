@@ -81,7 +81,7 @@ export class LogInComponent implements OnInit, OnDestroy {
       select(getAuthenticationMethods),
       map((methods: AuthMethod[]) => methods
         // ignore the given auth method if it should be excluded
-        .filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod.toLocaleLowerCase())
+        .filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod)
         .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
         .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
       ),
