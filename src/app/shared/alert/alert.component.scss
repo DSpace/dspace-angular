@@ -1,5 +1,8 @@
-.close:focus {
-  outline: none !important;
+.close {
+  opacity: 0.75;
+  &:focus {
+    outline: none !important;
+  }
 }
 button.close {
   opacity: 0.6;

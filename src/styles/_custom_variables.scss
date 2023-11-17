@@ -61,19 +61,6 @@
   --ds-notification-bg-danger: #{darken(adjust-hue($danger, -10), 10%)};
   --ds-notification-bg-info: #{darken(adjust-hue($info, -10), 10%)};
   --ds-notification-bg-warning: #{darken(adjust-hue($warning, -10), 10%)};
-	--ds-notification-success-color: #307B23;
-  --ds-notification-danger-color: #9a6e6e;
-  --ds-text-warning-color: #cf822c;
-  --ds-text-success-color: #74a030;
-  --ds-range-filter-border-color: #949494;
-  --ds-range-filter-connect-color: #63852e;
-
-	--ds-badge-archived-background-color: #2a701e;
-	--ds-badge-archived-color: #000;
-	--ds-button-success-background-color: #358726;
-	--ds-button-success-background-hover-color: #{darken(#358726, 10%)};
-	--ds-button-warning-background-color: #{darken($yellow, 20%)};
-	--ds-button-warning-background-hover-color: #{darken($yellow, 30%)};
 
   --ds-fa-fixed-width: #{$fa-fixed-width};
   --ds-icon-padding: #{$icon-padding};
@@ -98,8 +85,9 @@
   --ds-breadcrumb-link-active-color: #{darken($cyan, 30%)};
   --ds-breadcrumb-max-length: 200px;
 
-  --ds-slider-color: #{$green};
+  --ds-slider-color: #{darken($green, 20%)};
   --ds-slider-handle-width: 18px;
+  --ds-slider-handle-color: #{darken($blue, 17%)};
 
   --ds-search-form-scope-max-width: 150px;
 

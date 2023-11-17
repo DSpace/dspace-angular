@@ -220,51 +220,50 @@ ds-dynamic-form-control-container.d-none {
 }
 
 .badge-validation {
-  background-color: #{map-get($theme-colors, warning)};
+    background-color: #{map-get($theme-colors, warning)};
 }
 
 .badge-waiting-controller {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .badge-workspace {
-  background-color: #{map-get($theme-colors, primary)};
+    background-color: #{map-get($theme-colors, primary)};
 }
 
 .badge-archived {
-  background-color: var(--ds-badge-archived-background-color);
-	color: var(--ds-badge-archived-color)
+    background-color: darken($green, 25);
 }
 
 .badge-workflow {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .badge-item-type {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
-ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
-  // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
-  padding: 0;
-  display: inline;
+ul.dso-edit-menu-dropdown>li .nav-item.nav-link {
+    // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
+    padding: 0;
+    display: inline;
 }
 
 .table th,
 .table td {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 /* Flexbox gap */
@@ -317,85 +316,107 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
     padding-bottom: 0.125rem !important;
 }
 
-.btn.btn-success{
-	background-color: var(--ds-button-success-background-color);
-	border-color: var(--ds-button-success-background-color);
-	&:hover{
-		background-color: var(--ds-button-success-background-hover-color);
-		border-color: var(--ds-button-success-background-hover-color);
-	}
-}
-.btn.btn-outline-success{
-	border-color: var(--ds-button-success-background-color);
-	color: var(--ds-button-success-background-color);
-	&:hover{
-		background-color: var(--ds-button-success-background-hover-color);
-		color: $white;
-	}
-}
-.btn.btn-outline-warning{
-	border-color:var(--ds-button-warning-background-color);
-	color:var(--ds-button-warning-background-color);
-	&:hover{
-		background-color:var(--ds-button-warning-background-hover-color);
-		color: $white;
-	}
-	&:disabled{
-		background-color: transparent;
-		&:hover{
-			color:var(--ds-button-warning-background-color);
-		}
-	}
+.btn {
+    &:focus {
+        outline-offset: 2px !important;
+        outline-style: solid !important;
+        outline-width: 2px !important;
+        box-shadow: none !important;
+    }
+    &:disabled {
+        opacity: 0.7;
+    }
+    &.btn-success {
+        background-color: darken($success, 20%);
+        border-color: darken($success, 20%);
+        &:hover {
+            background-color: darken($success, 30%);
+            border-color: darken($success, 30%);
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-outline-success {
+        border-color: darken($success, 20%);
+        color: darken($success, 20%);
+
+        &:hover {
+            background-color: darken($success, 30%);
+            color: $white;
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-warning {
+        background-color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+        }
+        &:disabled {
+            background-color: transparent;
+        }
+        &:focus {
+            outline-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-outline-warning {
+        border-color: darken($warning, 20%);
+        color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+            color: $white;
+        }
+        &:disabled {
+            background-color: transparent;
+
+            &:hover {
+                color: darken($warning, 20%);
+            }
+        }
+        :focus {
+            outline-color: darken($warning, 22%);
+        }
+        &:not(:disabled):hover {
+            background-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-secondary {
+        &:focus {
+            outline-color: darken($secondary, 20%);
+        }
+    }
+
+    &.btn-danger:focus, &.btn-outline-danger:focus {
+        outline-color: darken($danger, 20%);
+    }
+
+    &.btn-primary:focus, &.btn-outline-primary:focus {
+        outline-color: darken($primary, 5%);
+    }
 }
 
-
-.btn:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus, .custom-control-input:focus ~ .custom-control-label::before, .form-control:focus, .page-link:focus{
-	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.25), 0 0 0 0.2rem rgba(27, 41, 55, 0.5);
+dynamic-ng-bootstrap-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+    outline: 2px solid $gray-700 !important;
+    box-shadow: none !important;
+    outline-offset: 2px !important;
 }
 
-.btn.btn-success:focus, .btn.btn-outline-success:focus{
-    outline: 2px solid rgba(76, 145, 76, 1);
-    outline-offset: 2px;
-    box-shadow: none;
-}
-.btn.btn-danger:focus, .btn.btn-outline-danger:focus{
-	outline: 2px solid rgba(205, 126, 126, 1);
-    outline-offset: 2px;
-    box-shadow: none;
-}
-.btn.btn-warning:focus, .btn.btn-outline-warning:focus {
-    outline: 2px solid rgba(88, 87, 65, 1);
-    outline-offset: 2px;
-    box-shadow: none;
-}
-.btn.btn-primary:focus, .btn.btn-outline-primary:focus {
-    box-shadow: none;
-    outline: 2px solid rgba(134, 137, 139, 1);
-    outline-offset: 2px;
-}
-.btn.btn-secondary:focus, .btn.btn-outline-secondary:focus {
-    box-shadow: none;
-    outline: 2px solid rgba(141, 148, 155, 1);
-    outline-offset: 2px;
-}
-.btn.btn-warning{
-	background-color:var(--ds-button-warning-background-color);
-	&:hover{
-		background-color:var(--ds-button-warning-background-hover-color);
-	}
-	&:disabled{
-		background-color: transparent;
-	}
-}
 dynamic-ng-bootstrap-checkbox .custom-control-label::before {
-    border-color: #858c91;
+    border-color: $gray-700;
 }
+
 .text-warning {
-    color: var(--ds-text-warning-color) !important;
+    color: darken($warning, 10%) !important;
 }
+
 .text-success {
-    color: var(--ds-text-success-color) !important;
+    color: darken($success, 11%) !important;
 }
+
 ngb-accordion {
     a.close {
         opacity: 0.75;
@@ -403,6 +424,25 @@ ngb-accordion {
     a.close:not(:disabled):not(.disabled):hover {
         opacity: 0.9;
     }
+}
+
+.form-control, .page-link {
+    &:disabled::placeholder {
+        color: lighten($gray-700, 10%);
+    }
+    &:focus {
+        box-shadow: none;
+        outline: 2px solid lighten($gray-700, 10%);
+        outline-offset: 2px !important;
+    }
+}
+
+.alert-success {
+    color: darken($success, 22%);
+}
+
+.alert-danger {
+    color: darken($danger, 22%);
 }
 
 // Margin utility classes based on DSpace content spacing
