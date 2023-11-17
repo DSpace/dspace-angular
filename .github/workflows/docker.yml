@@ -17,6 +17,7 @@ permissions:
 
 
 env:
+  REGISTRY_IMAGE: dspace/dspace-angular
   # Define tags to use for Docker images based on Git tags/branches (for docker/metadata-action)
   # For a new commit on default branch (main), use the literal tag 'latest' on Docker image.
   # For a new commit on other branches, use the branch name as the tag for Docker image.
@@ -30,21 +31,30 @@ env:
   # We manage the 'latest' tag ourselves to the 'main' branch (see settings above)
   TAGS_FLAVOR: |
     latest=false
-  # Architectures / Platforms for which we will build Docker images
-  # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
-  # If this is NOT a PR (e.g. a tag or merge commit), also build for ARM64.
-  PLATFORMS: linux/amd64${{ github.event_name != 'pull_request' && ', linux/arm64' || '' }}
-
 
 jobs:
-  ###############################################
-  # Build/Push the 'dspace/dspace-angular' image
-  ###############################################
+  #############################################################
+  # Build/Push the '${{ env.REGISTRY_IMAGE }}' image
+  #############################################################
   dspace-angular:
     # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
     if: github.repository == 'dspace/dspace-angular'
-    runs-on: ubuntu-latest
 
+    strategy:
+        matrix:
+            isPr:
+                - ${{ github.event_name == 'pull_request' }}
+            # Architectures / Platforms for which we will build Docker images
+            # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
+            # If this is NOT a PR (e.g. a tag or merge commit), also build for ARM64.
+            arch: ['linux/amd64', 'linux/arm64']
+            os: [ubuntu-latest]
+            exclude:
+                - isPr: true
+                  os: ubuntu-latest
+                  arch: linux/arm64
+
+    runs-on: ${{ matrix.os }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
@@ -61,7 +71,7 @@ jobs:
       # https://github.com/docker/login-action
       - name: Login to DockerHub
         # Only login if not a PR, as PRs only trigger a Docker build and not a push
-        if: github.event_name != 'pull_request'
+        if: ${{ ! matrix.isPr }}
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -73,7 +83,7 @@ jobs:
         id: meta_build
         uses: docker/metadata-action@v4
         with:
-          images: dspace/dspace-angular
+          images: ${{ env.REGISTRY_IMAGE }}
           tags: ${{ env.IMAGE_TAGS }}
           flavor: ${{ env.TAGS_FLAVOR }}
 
@@ -84,22 +94,89 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: ${{ env.PLATFORMS }}
+          platforms: ${{ matrix.arch }}
           # For pull requests, we run the Docker build (to ensure no PR changes break the build),
           # but we ONLY do an image push to DockerHub if it's NOT a PR
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ ! matrix.isPr }}
           # Use tags / labels provided by 'docker/metadata-action' above
           tags: ${{ steps.meta_build.outputs.tags }}
           labels: ${{ steps.meta_build.outputs.labels }}
 
+      - name: Export digest
+        if: ${{ ! matrix.isPr }}
+        run: |
+            mkdir -p /tmp/digests
+            digest="${{ steps.docker_build.outputs.digest }}"
+            touch "/tmp/digests/${digest#sha256:}"
+
+      - name: Upload digest
+        if: ${{ ! matrix.isPr }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: digests
+          path: /tmp/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  merge:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    needs:
+      - dspace-angular
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v3
+        with:
+          name: digests
+          path: /tmp/digests
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+          tags: ${{ env.IMAGE_TAGS }}
+          flavor: ${{ env.TAGS_FLAVOR }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Create manifest list and push
+        working-directory: /tmp/digests
+        run: |
+            docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
+
   #############################################################
-  # Build/Push the 'dspace/dspace-angular' image ('-dist' tag)
+  # Build/Push the '${{ env.REGISTRY_IMAGE }}' image ('-dist' tag)
   #############################################################
   dspace-angular-dist:
     # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
     if: github.repository == 'dspace/dspace-angular'
-    runs-on: ubuntu-latest
 
+    strategy:
+        matrix:
+            isPr:
+                - ${{ github.event_name == 'pull_request' }}
+            # Architectures / Platforms for which we will build Docker images
+            # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
+            # If this is NOT a PR (e.g. a tag or merge commit), also build for ARM64.
+            arch: ['linux/amd64', 'linux/arm64']
+            os: [ubuntu-latest]
+            exclude:
+                - isPr: true
+                  os: ubuntu-latest
+                  arch: linux/arm64
+
+    runs-on: ${{ matrix.os }}
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
@@ -116,7 +193,7 @@ jobs:
       # https://github.com/docker/login-action
       - name: Login to DockerHub
         # Only login if not a PR, as PRs only trigger a Docker build and not a push
-        if: github.event_name != 'pull_request'
+        if: ${{ ! matrix.isPr }}
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -128,10 +205,10 @@ jobs:
         id: meta_build_dist
         uses: docker/metadata-action@v4
         with:
-          images: dspace/dspace-angular
+          images: ${{ env.REGISTRY_IMAGE }}
           tags: ${{ env.IMAGE_TAGS }}
           # As this is a "dist" image, its tags are all suffixed with "-dist". Otherwise, it uses the same
-          # tagging logic as the primary 'dspace/dspace-angular' image above.
+          # tagging logic as the primary '${{ env.REGISTRY_IMAGE }}' image above.
           flavor: ${{ env.TAGS_FLAVOR }}
             suffix=-dist
 
@@ -141,10 +218,66 @@ jobs:
         with:
           context: .
           file: ./Dockerfile.dist
-          platforms: ${{ env.PLATFORMS }}
+          platforms: ${{ matrix.arch }}
           # For pull requests, we run the Docker build (to ensure no PR changes break the build),
           # but we ONLY do an image push to DockerHub if it's NOT a PR
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ ! matrix.isPr }}
           # Use tags / labels provided by 'docker/metadata-action' above
           tags: ${{ steps.meta_build_dist.outputs.tags }}
           labels: ${{ steps.meta_build_dist.outputs.labels }}
+
+      - name: Export digest
+        if: ${{ ! matrix.isPr }}
+        run: |
+            mkdir -p /tmp/digests/dist
+            digest="${{ steps.docker_build_dist.outputs.digest }}"
+            touch "/tmp/digests/dist/${digest#sha256:}"
+
+      - name: Upload digest
+        if: ${{ ! matrix.isPr }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: digests
+          path: /tmp/digests/dist/*
+          if-no-files-found: error
+          retention-days: 1
+
+  merge-dist:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    needs:
+      - dspace-angular-dist
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v3
+        with:
+          name: digests
+          path: /tmp/digests
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Docker meta
+        id: meta_dist
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY_IMAGE }}
+          tags: ${{ env.IMAGE_TAGS }}
+          # As this is a "dist" image, its tags are all suffixed with "-dist". Otherwise, it uses the same
+          # tagging logic as the primary '${{ env.REGISTRY_IMAGE }}' image above.
+          flavor: ${{ env.TAGS_FLAVOR }}
+            suffix=-dist
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Create manifest list and push
+        working-directory: /tmp/digests/dist
+        run: |
+            docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta_dist.outputs.version }}
