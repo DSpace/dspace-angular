@@ -8395,6 +8395,9 @@
   // "submission.general.discard.submit": "Discard",
   "submission.general.discard.submit": "Scarta",
 
+  // "submission.general.info.invalid": "The submission is invalid, check missing fields",
+  "submission.general.info.invalid": "L'immissione non è valida, controllare i campi mancanti",
+
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "Salvato",
 

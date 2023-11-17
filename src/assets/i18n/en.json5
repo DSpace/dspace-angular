@@ -5616,6 +5616,8 @@
 
   "submission.general.discard.submit": "Discard",
 
+  "submission.general.info.invalid": "The submission is invalid, check missing fields",
+
   "submission.general.info.saved": "Saved",
 
   "submission.general.info.pending-changes": "Unsaved changes",
