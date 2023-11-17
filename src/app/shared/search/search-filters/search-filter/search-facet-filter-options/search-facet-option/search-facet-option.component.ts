@@ -1,17 +1,17 @@
-import {combineLatest as observableCombineLatest, Observable, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FacetValue} from '../../../../models/facet-value.model';
-import {SearchFilterConfig} from '../../../../models/search-filter-config.model';
-import {SearchService} from '../../../../../../core/shared/search/search.service';
-import {SearchFilterService} from '../../../../../../core/shared/search/search-filter.service';
-import {SearchConfigurationService} from '../../../../../../core/shared/search/search-configuration.service';
-import {hasValue} from '../../../../../empty.util';
-import {currentPath} from '../../../../../utils/route.utils';
-import {getFacetValueForType} from '../../../../search.utils';
-import {PaginationService} from '../../../../../../core/pagination/pagination.service';
-import {TranslateService} from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FacetValue } from '../../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { hasValue } from '../../../../../empty.util';
+import { currentPath } from '../../../../../utils/route.utils';
+import { getFacetValueForType } from '../../../../search.utils';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-search-facet-option',
