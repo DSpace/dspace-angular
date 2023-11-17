@@ -938,6 +938,59 @@
   "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.label.inboundPattern": "Inbound Patterns",
   "ldn-new-service.form.label.placeholder.inboundPattern": "Select an Inbound Pattern",
+
+  "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+  "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
+  "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+  "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
+  "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+  "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
+  "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
+  "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
+  "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
+  "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
+  "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+  "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
+  "ldn-service.form.pattern.announce-ingest.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+  "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
+  "ldn-service.form.pattern.announce-relationship.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-review.label": "Announce Review",
+  "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
+  "ldn-service.form.pattern.announce-review.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
+  "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
+  "ldn-service.form.pattern.announce-service-result.category": "Announcements",
+
+  "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
+  "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-endorsement.category": "Requests",
+
+  "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
+  "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
+  "ldn-service.form.pattern.request-ingest.category": "Requests",
+
+  "ldn-service.form.pattern.request-review.label": "Request Review",
+  "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-review.category": "Requests",
+
+  "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
+  "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
+  "ldn-service.form.pattern.undo-offer.category": "Undo",
+
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.automatic": "Automatic",
