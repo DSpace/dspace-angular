@@ -22,7 +22,7 @@ import {Operation} from 'fast-json-patch';
 import {getFirstCompletedRemoteData} from '../../../core/shared/operators';
 import {NotificationsService} from '../../../shared/notifications/notifications.service';
 import {TranslateService} from '@ngx-translate/core';
-import {mockLdnServiceRD$, mockLdnServicesRD$} from "../ldn-service-serviceMock/ldnServicesRD$-mock";
+import { mockLdnServiceRD$ } from "../ldn-service-serviceMock/ldnServicesRD$-mock";
 
 
 @Component({
@@ -38,8 +38,8 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
   @ViewChild('deleteModal', {static: true}) deleteModal: TemplateRef<any>;
   ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
   //TODO: remove mocks an put in test after finishing
-  mockLdnServiceRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
-  mockLdnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
+  //mockLdnServiceRD$: Observable<RemoteData<LdnService>>;
+ // mockLdnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
   config: FindListOptions = Object.assign(new FindListOptions(), {
     elementsPerPage: 20
   });
@@ -48,17 +48,17 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     pageSize: 20
   });
   isProcessingSub: Subscription;
-  private modalRef: any;
+  modalRef: any;
 
 
 
   constructor(
-    protected ldnServicesService: LdnServicesService,
-    protected paginationService: PaginationService,
-    protected modalService: NgbModal,
-    private cdRef: ChangeDetectorRef,
-    private notificationService: NotificationsService,
-    private translateService: TranslateService,
+      protected ldnServicesService: LdnServicesService,
+      protected paginationService: PaginationService,
+      protected modalService: NgbModal,
+      public cdRef: ChangeDetectorRef,
+      private notificationService: NotificationsService,
+      private translateService: TranslateService,
   ) {
   }
 
@@ -72,22 +72,18 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
         getFirstCompletedRemoteData()
       ))
 
-    );
-    this.mockLdnServiceRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
-      switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
-        getFirstCompletedRemoteData()
-      ))
+    );/*
+    this.mockLdnServiceRD$ = mockLdnServiceRD$
 
-    );
     this.mockLdnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
       switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
         getFirstCompletedRemoteData()
       ))
 
-    );
+    );this.paginationService.getFindListOptions(this.pageConfig.id, this.config)
      this.ldnServicesRD$.subscribe((rd: RemoteData<PaginatedList<LdnService>>) => {console.log('realremotedata:',rd);})
-     this.mockLdnServiceRD$.subscribe((rd: RemoteData<PaginatedList<LdnService>>) => {console.log('mockremotedata:',rd);})
-     this.mockLdnServicesRD$.subscribe((rd: RemoteData<PaginatedList<LdnService>>) => {console.log('mockremotedata[ldnservice]:',rd);})
+     this.mockLdnServiceRD$.subscribe((rd: RemoteData<LdnService>) => {console.log('mockremotedata:',rd);})
+     this.mockLdnServicesRD$.subscribe((rd: RemoteData<PaginatedList<LdnService>>) => {console.log('mockremotedata[ldnservice]:',rd);})*/
 
   }
 

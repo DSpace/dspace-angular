@@ -45,7 +45,8 @@ export const mockLdnService: LdnService = {
 };
 
 //export const mockLdnServiceRD$: Observable<RemoteData<PaginatedList<LdnService>>> = of((mockLdnService as unknown) as RemoteData<PaginatedList<LdnService>>);
-export const mockLdnServiceRD$: Observable<RemoteData<LdnService>> = createSuccessfulRemoteDataObject$(mockLdnService);
+//export const mockLdnServiceRD$ = createSuccessfulRemoteDataObject$(createPaginatedList(mockLdnService[0])as  PaginatedList<LdnService>);
+export const mockLdnServiceRD$ = createSuccessfulRemoteDataObject$(mockLdnService);
 
 
 export const mockLdnServices: LdnService[] = [{
