@@ -9,7 +9,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { AlertType } from '../alert/aletr-type';
+import { AlertType } from '../alert/alert-type';
 
 /**
  * Themed wrapper for {@link SearchComponent}

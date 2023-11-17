@@ -26,6 +26,19 @@ export class CSSVariableService {
     return styleSheet.href.indexOf(window.location.origin) === 0;
   };
 
+  /**
+   * Checks whether the specific stylesheet object has the property cssRules
+   * @param styleSheet The stylesheet
+   */
+  hasCssRules = (styleSheet) => {
+    // Injected (cross-origin) styles might have no css rules value and throw some exception
+      try {
+        return styleSheet.cssRules;
+      } catch (e) {
+        return false;
+      }
+  };
+
   /*
    Determine if the given rule is a CSSStyleRule
    See: https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants
@@ -93,8 +106,10 @@ export class CSSVariableService {
     if (isNotEmpty(document.styleSheets)) {
       // styleSheets is array-like, so we convert it to an array.
       // Filter out any stylesheets not on this domain
+      // Filter out any stylesheets that have no cssRules property
       return [...document.styleSheets]
         .filter(this.isSameDomain)
+        .filter(this.hasCssRules)
         .reduce(
           (finalArr, sheet) =>
             finalArr.concat(

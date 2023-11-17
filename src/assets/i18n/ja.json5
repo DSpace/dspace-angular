@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   // TODO New key - Add a translation
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
@@ -8034,25 +8030,25 @@
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
-  // "mydspace.status.archived": "Archived",
+  // "mydspace.status.mydspaceArchived": "Archived",
   // TODO New key - Add a translation
-  "mydspace.status.archived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archived",
 
-  // "mydspace.status.validation": "Validation",
+  // "mydspace.status.mydspaceValidation": "Validation",
   // TODO New key - Add a translation
-  "mydspace.status.validation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validation",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
   // TODO New key - Add a translation
-  "mydspace.status.waiting-for-controller": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
 
-  // "mydspace.status.workflow": "Workflow",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
   // TODO New key - Add a translation
-  "mydspace.status.workflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  // "mydspace.status.workspace": "Workspace",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
   // TODO New key - Add a translation
-  "mydspace.status.workspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   // TODO New key - Add a translation

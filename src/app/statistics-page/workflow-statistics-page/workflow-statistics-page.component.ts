@@ -13,7 +13,7 @@ import { CollectionSelectorComponent } from '../../my-dspace-page/collection-sel
 import { TranslateService } from '@ngx-translate/core';
 import { WorkflowOwnerStatisticsDataService } from '../../core/statistics/workflow-owner-statistics-data.service';
 import { WorkflowOwnerStatistics } from '../../core/statistics/models/workflow-owner-statistics.model';
-import { AlertType } from 'src/app/shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 
 /**
  * Component related to the WORKFLOW statistics page.

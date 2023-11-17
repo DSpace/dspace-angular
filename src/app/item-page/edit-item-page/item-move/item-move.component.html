@@ -21,7 +21,11 @@
                 <div class="col-12">
                     <p>
                       <label for="inheritPoliciesCheckbox">
-                        <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox">
+                        <ng-template #tooltipContent>
+                          {{ 'item.edit.move.inheritpolicies.tooltip' | translate }}
+                        </ng-template>
+                        <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox" [ngbTooltip]="tooltipContent"
+                        >
                         {{'item.edit.move.inheritpolicies.checkbox' |translate}}
                       </label>
                     </p>

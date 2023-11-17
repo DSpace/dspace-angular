@@ -137,9 +137,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     combineLatest([entities$, definitions$])
       .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
 
-        entityTypes
-          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
-          .forEach((type: ItemType, index: number) => {
+      entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
+          entityTypes.forEach((type: ItemType, index: number) => {
           this.entityTypeSelection.add({
             disabled: false,
             label: type.label,
@@ -170,7 +169,9 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
+        this.formModel = entityTypes.length === 0 ?
+          [...collectionFormModels, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox] :
+          [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
 
         super.ngOnInit();
 

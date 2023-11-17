@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "No està autoritzat a accedir a aquesta pàgina. Podeu utilitzar el botó de sota per tornar a la pàgina inicial.",
 
@@ -6713,20 +6709,20 @@
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arxivat",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arxivat",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validació",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validació",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Esperant el controlador",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Esperant el controlador",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Flux de treball",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Flux de treball",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espai de treball",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Espai de treball",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "El meu DSpace",

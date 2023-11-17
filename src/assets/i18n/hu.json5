@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Nincs jogosultsága az oldal eléréséhez. Az alábbi gombbal vissza tud lépni a főoldalra.",
 
@@ -3201,9 +3197,9 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Virus ellenőrzés",
 
-  // "curation-task.task.register-doi.label": "Register DOI",
+  // "curation-task.task.registerdoi.label": "Register DOI",
   // TODO New key - Add a translation
-  "curation-task.task.register-doi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "Register DOI",
 
 
 
@@ -7293,20 +7289,20 @@
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Tárolva",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Tárolva",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Érvényesítés",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Érvényesítés",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Várakozás a kontrollerre",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Várakozás a kontrollerre",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Munkafolyamat",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Munkafolyamat",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Munkafelület",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Munkafelület",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",
