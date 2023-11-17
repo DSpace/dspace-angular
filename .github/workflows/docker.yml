@@ -239,9 +239,9 @@ jobs:
       - name: Export digest
         if: ${{ ! matrix.isPr }}
         run: |
-            mkdir -p /tmp/digests/dist
+            mkdir -p /tmp/digests
             digest="${{ steps.docker_build_dist.outputs.digest }}"
-            touch "/tmp/digests/dist/${digest#sha256:}"
+            touch "/tmp/digests/${digest#sha256:}"
 
       # Upload Digest to an artifact, so that it can be used in manifest below
       - name: Upload digest
