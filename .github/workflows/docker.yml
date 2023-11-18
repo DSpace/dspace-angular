@@ -42,13 +42,13 @@ jobs:
 
     strategy:
         matrix:
-            isPr:
-                - ${{ github.event_name == 'pull_request' }}
             # Architectures / Platforms for which we will build Docker images
-            # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
-            # If this is NOT a PR (e.g. a tag or merge commit), also build for ARM64.
             arch: ['linux/amd64', 'linux/arm64']
             os: [ubuntu-latest]
+            isPr:
+              - ${{ github.event_name == 'pull_request' }}
+            # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
+            # The below exclude therefore ensures we do NOT build ARM64 for PRs.
             exclude:
                 - isPr: true
                   os: ubuntu-latest
@@ -58,21 +58,21 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # https://github.com/docker/setup-buildx-action
       - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU emulation to build for multiple architectures
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       # https://github.com/docker/login-action
       - name: Login to DockerHub
         # Only login if not a PR, as PRs only trigger a Docker build and not a push
         if: ${{ ! matrix.isPr }}
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
@@ -81,7 +81,7 @@ jobs:
       # Get Metadata for docker_build step below
       - name: Sync metadata (tags, labels) from GitHub to Docker for 'dspace-angular' image
         id: meta_build
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: ${{ env.IMAGE_TAGS }}
@@ -90,7 +90,7 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and push 'dspace-angular' image
         id: docker_build
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
@@ -102,6 +102,7 @@ jobs:
           tags: ${{ steps.meta_build.outputs.tags }}
           labels: ${{ steps.meta_build.outputs.labels }}
 
+      # Export the digest of Docker build locally (for non PRs only)
       - name: Export digest
         if: ${{ ! matrix.isPr }}
         run: |
@@ -109,6 +110,7 @@ jobs:
             digest="${{ steps.docker_build.outputs.digest }}"
             touch "/tmp/digests/${digest#sha256:}"
 
+      # Upload digest to an artifact, so that it can be used in manifest below
       - name: Upload digest
         if: ${{ ! matrix.isPr }}
         uses: actions/upload-artifact@v3
@@ -118,7 +120,12 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  merge:
+  # Merge digests into a manifest.
+  # This runs after all Docker builds complete above, and it tells hub.docker.com
+  # that these builds should be all included in the manifest for this tag.
+  # (e.g. AMD64 and ARM64 should be listed as options under the same tagged Docker image)
+  # Borrowed from https://docs.docker.com/build/ci/github-actions/multi-platform/#distribute-build-across-multiple-runners
+  dspace-angular_manifest:
     if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     needs:
@@ -129,9 +136,11 @@ jobs:
         with:
           name: digests
           path: /tmp/digests
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Docker meta
+
+      - name: Add Docker metadata for image
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -145,7 +154,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Create manifest list and push
+      - name: Create manifest list from digests and push
         working-directory: /tmp/digests
         run: |
             docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
@@ -164,13 +173,13 @@ jobs:
 
     strategy:
         matrix:
-            isPr:
-                - ${{ github.event_name == 'pull_request' }}
             # Architectures / Platforms for which we will build Docker images
-            # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
-            # If this is NOT a PR (e.g. a tag or merge commit), also build for ARM64.
             arch: ['linux/amd64', 'linux/arm64']
             os: [ubuntu-latest]
+            isPr:
+                - ${{ github.event_name == 'pull_request' }}
+            # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
+            # The below exclude therefore ensures we do NOT build ARM64 for PRs.
             exclude:
                 - isPr: true
                   os: ubuntu-latest
@@ -180,21 +189,21 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # https://github.com/docker/setup-buildx-action
       - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU emulation to build for multiple architectures
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       # https://github.com/docker/login-action
       - name: Login to DockerHub
         # Only login if not a PR, as PRs only trigger a Docker build and not a push
         if: ${{ ! matrix.isPr }}
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
@@ -203,7 +212,7 @@ jobs:
       # Get Metadata for docker_build_dist step below
       - name: Sync metadata (tags, labels) from GitHub to Docker for 'dspace-angular-dist' image
         id: meta_build_dist
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: ${{ env.IMAGE_TAGS }}
@@ -214,7 +223,7 @@ jobs:
 
       - name: Build and push 'dspace-angular-dist' image
         id: docker_build_dist
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile.dist
@@ -226,36 +235,46 @@ jobs:
           tags: ${{ steps.meta_build_dist.outputs.tags }}
           labels: ${{ steps.meta_build_dist.outputs.labels }}
 
+      # Export the digest of Docker build locally (for non PRs only)
       - name: Export digest
         if: ${{ ! matrix.isPr }}
         run: |
-            mkdir -p /tmp/digests/dist
+            mkdir -p /tmp/digests
             digest="${{ steps.docker_build_dist.outputs.digest }}"
-            touch "/tmp/digests/dist/${digest#sha256:}"
+            touch "/tmp/digests/${digest#sha256:}"
 
+      # Upload Digest to an artifact, so that it can be used in manifest below
       - name: Upload digest
         if: ${{ ! matrix.isPr }}
         uses: actions/upload-artifact@v3
         with:
-          name: digests
-          path: /tmp/digests/dist/*
+          # NOTE: It's important that this artifact has a unique name so that two
+          # image builds don't upload digests to the same artifact.
+          name: digests-dist
+          path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
 
-  merge-dist:
+  # Merge *-dist digests into a manifest.
+  # This runs after all Docker builds complete above, and it tells hub.docker.com
+  # that these builds should be all included in the manifest for this tag.
+  # (e.g. AMD64 and ARM64 should be listed as options under the same tagged Docker image)
+  dspace-angular-dist_manifest:
     if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     needs:
       - dspace-angular-dist
     steps:
-      - name: Download digests
+      - name: Download digests for -dist builds
         uses: actions/download-artifact@v3
         with:
-          name: digests
+          name: digests-dist
           path: /tmp/digests
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Docker meta
+
+      - name: Add Docker metadata for image
         id: meta_dist
         uses: docker/metadata-action@v5
         with:
@@ -272,8 +291,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Create manifest list and push
-        working-directory: /tmp/digests/dist
+      - name: Create manifest list from digests and push
+        working-directory: /tmp/digests
         run: |
             docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
             $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
