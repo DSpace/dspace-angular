@@ -66,6 +66,9 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     this.setLdnServices();
   }
 
+  /**
+   * Sets up the LDN services by fetching and observing the paginated list of services.
+   */
   setLdnServices() {
     this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
       switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
@@ -94,20 +97,39 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Opens the delete confirmation modal.
+   *
+   * @param {any} content - The content of the modal.
+   */
   openDeleteModal(content) {
     this.modalRef = this.modalService.open(content);
   }
 
+  /**
+   * Closes the currently open modal and triggers change detection.
+   */
   closeModal() {
     this.modalRef.close();
     this.cdRef.detectChanges();
   }
 
+  /**
+   * Sets the selected LDN service ID for deletion and opens the delete confirmation modal.
+   *
+   * @param {number} serviceId - The ID of the service to be deleted.
+   */
   selectServiceToDelete(serviceId: number) {
     this.selectedServiceId = serviceId;
     this.openDeleteModal(this.deleteModal);
   }
 
+  /**
+   * Deletes the selected LDN service.
+   *
+   * @param {string} serviceId - The ID of the service to be deleted.
+   * @param {LdnServicesService} ldnServicesService - The service for managing LDN services.
+   */
   deleteSelected(serviceId: string, ldnServicesService: LdnServicesService): void {
     if (this.selectedServiceId !== null) {
       ldnServicesService.delete(serviceId).pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<LdnService>) => {
@@ -134,7 +156,12 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  /**
+   * Toggles the status (enabled/disabled) of an LDN service.
+   *
+   * @param {any} ldnService - The LDN service object.
+   * @param {LdnServicesService} ldnServicesService - The service for managing LDN services.
+   */
   toggleStatus(ldnService: any, ldnServicesService: LdnServicesService): void {
     const newStatus = !ldnService.enabled;
     const originalStatus = ldnService.enabled;
@@ -159,6 +186,4 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-
 }
