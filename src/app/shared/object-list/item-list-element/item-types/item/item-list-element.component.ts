@@ -3,6 +3,7 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { Item } from '../../../../../core/shared/item.model';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 
 @listableObjectComponent('Publication', ViewMode.ListElement)
 @listableObjectComponent(Item, ViewMode.ListElement)
@@ -15,4 +16,11 @@ import { Item } from '../../../../../core/shared/item.model';
  * The component for displaying a list element for an item of the type Publication
  */
 export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
+
+  transformItemToItemSearchResult(object: Item): ItemSearchResult {
+    const itemSearchResult = new ItemSearchResult();
+    itemSearchResult.indexableObject = object;
+    return itemSearchResult;
+  }
+
 }
