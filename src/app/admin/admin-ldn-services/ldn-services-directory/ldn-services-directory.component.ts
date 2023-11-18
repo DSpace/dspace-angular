@@ -25,6 +25,11 @@ import {TranslateService} from '@ngx-translate/core';
 import { mockLdnServiceRD$ } from "../ldn-service-serviceMock/ldnServicesRD$-mock";
 
 
+/**
+ * The `LdnServicesOverviewComponent` is a component that provides an overview of LDN (Linked Data Notifications) services.
+ * It displays a paginated list of LDN services, allows users to edit and delete services,
+ * toggle the status of each service directly form the page and allows for creation of new services redirecting the user on the creation form
+ */
 @Component({
   selector: 'ds-ldn-services-directory',
   templateUrl: './ldn-services-directory.component.html',
