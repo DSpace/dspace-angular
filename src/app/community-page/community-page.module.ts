@@ -21,8 +21,10 @@ import {
 } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
+import { BrowseByPageModule } from '../browse-by/browse-by-page.module';
 
-const DECLARATIONS = [CommunityPageComponent,
+const DECLARATIONS = [
+  CommunityPageComponent,
   ThemedCommunityPageComponent,
   ThemedCommunityPageSubCommunityListComponent,
   CommunityPageSubCollectionListComponent,
@@ -42,6 +44,7 @@ const DECLARATIONS = [CommunityPageComponent,
     CommunityFormModule,
     ComcolModule,
     DsoPageModule,
+    BrowseByPageModule,
   ],
   declarations: [
     ...DECLARATIONS

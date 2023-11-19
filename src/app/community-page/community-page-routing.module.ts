@@ -16,6 +16,9 @@ import { ThemedCommunityPageComponent } from './themed-community-page.component'
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseBySwitcherComponent } from '../browse-by/browse-by-switcher/browse-by-switcher.component';
 
 @NgModule({
   imports: [
@@ -47,13 +50,23 @@ import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-co
             canActivate: [AuthenticatedGuard],
           },
           {
-            path: '**',
+            path: '',
             component: ThemedCommunityPageComponent,
-            pathMatch: 'full',
             children: [
               {
                 path: '',
+                pathMatch: 'full',
                 component: SubComColSectionComponent,
+              },
+              {
+                path: 'browse/:id',
+                pathMatch: 'full',
+                component: BrowseBySwitcherComponent,
+                canActivate: [BrowseByGuard],
+                resolve: {
+                  breadcrumb: BrowseByI18nBreadcrumbResolver,
+                },
+                data: { breadcrumbKey: 'browse.metadata' },
               },
             ],
           }
