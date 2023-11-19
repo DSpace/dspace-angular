@@ -3,25 +3,27 @@ import { ActivatedRoute } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
-import { fadeIn } from '../../shared/animations/fade';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Community } from '../../../../core/shared/community.model';
+import { fadeIn } from '../../../../shared/animations/fade';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { switchMap } from 'rxjs/operators';
-import { hasValue } from '../../shared/empty.util';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { hasValue } from '../../../../shared/empty.util';
 
 @Component({
-  selector: 'ds-community-page-sub-collection-list',
-  styleUrls: ['./community-page-sub-collection-list.component.scss'],
-  templateUrl: './community-page-sub-collection-list.component.html',
-  animations:[fadeIn]
+  selector: 'ds-community-page-sub-community-list',
+  styleUrls: ['./community-page-sub-community-list.component.scss'],
+  templateUrl: './community-page-sub-community-list.component.html',
+  animations: [fadeIn]
 })
-export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
+/**
+ * Component to render the sub-communities of a Community
+ */
+export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy {
   @Input() community: Community;
 
   /**
@@ -38,7 +40,7 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
   /**
    * The pagination id
    */
-  pageId = 'cmcl';
+  pageId = 'cmscm';
 
   /**
    * The sorting configuration
@@ -48,10 +50,10 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
   /**
    * A list of remote data objects of communities' collections
    */
-  subCollectionsRDObs: BehaviorSubject<RemoteData<PaginatedList<Collection>>> = new BehaviorSubject<RemoteData<PaginatedList<Collection>>>({} as any);
+  subCommunitiesRDObs: BehaviorSubject<RemoteData<PaginatedList<Community>>> = new BehaviorSubject<RemoteData<PaginatedList<Community>>>({} as any);
 
   constructor(
-    protected cds: CollectionDataService,
+    protected cds: CommunityDataService,
     protected paginationService: PaginationService,
     protected route: ActivatedRoute,
   ) {
@@ -71,22 +73,22 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
   }
 
   /**
-   * Initialise the list of collections
+   * Update the list of sub-communities
    */
   initPage() {
-     const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
-     const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
+    const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
+    const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
 
     observableCombineLatest([pagination$, sort$]).pipe(
       switchMap(([currentPagination, currentSort]) => {
-        return this.cds.findByParent(this.community.id, {
+        return     this.cds.findByParent(this.community.id, {
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction}
+          sort: { field: currentSort.field, direction: currentSort.direction }
         });
       })
     ).subscribe((results) => {
-      this.subCollectionsRDObs.next(results);
+      this.subCommunitiesRDObs.next(results);
     });
   }
 

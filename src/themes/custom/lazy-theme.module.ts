@@ -93,8 +93,8 @@ import { SearchResultsComponent } from './app/shared/search/search-results/searc
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
-import { CommunityPageSubCommunityListComponent } from './app/community-page/sub-community-list/community-page-sub-community-list.component';
-import { CommunityPageSubCollectionListComponent } from './app/community-page/sub-collection-list/community-page-sub-collection-list.component';
+import { CommunityPageSubCommunityListComponent } from './app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
+import { CommunityPageSubCollectionListComponent } from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
 
 import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
@@ -299,9 +299,6 @@ const DECLARATIONS = [
     RequestCopyModule,
   ],
   declarations: DECLARATIONS,
-  exports: [
-    CommunityPageSubCollectionListComponent
-  ]
 })
 
   /**
