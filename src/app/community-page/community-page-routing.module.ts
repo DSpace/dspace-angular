@@ -15,6 +15,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
 
 @NgModule({
   imports: [
@@ -46,9 +47,15 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             canActivate: [AuthenticatedGuard],
           },
           {
-            path: '',
+            path: '**',
             component: ThemedCommunityPageComponent,
             pathMatch: 'full',
+            children: [
+              {
+                path: '',
+                component: SubComColSectionComponent,
+              },
+            ],
           }
         ],
         data: {

@@ -20,6 +20,7 @@ import {
   ThemedCollectionPageSubCollectionListComponent
 } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
+import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
 
 const DECLARATIONS = [CommunityPageComponent,
   ThemedCommunityPageComponent,
@@ -28,7 +29,9 @@ const DECLARATIONS = [CommunityPageComponent,
   ThemedCollectionPageSubCollectionListComponent,
   CommunityPageSubCommunityListComponent,
   CreateCommunityPageComponent,
-  DeleteCommunityPageComponent];
+  DeleteCommunityPageComponent,
+  SubComColSectionComponent,
+];
 
 @NgModule({
   imports: [
