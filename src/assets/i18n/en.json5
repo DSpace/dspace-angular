@@ -3375,6 +3375,10 @@
 
   "quality-assurance.event.table.more": "Show more",
 
+  "quality-assurance.event.table.event.message.serviceName": "Service Name:",
+
+  "quality-assurance.event.table.event.message.link": "Link:",
+
   "quality-assurance.event.project.found": "Bound to the local record:",
 
   "quality-assurance.event.project.notFound": "No local record found",
