@@ -19,7 +19,10 @@ import {PaginationComponentOptions} from '../../../shared/pagination/pagination-
 import {LdnItemfiltersService} from '../ldn-services-data/ldn-itemfilters-data.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-
+/**
+ * Angular component representing the form for creating or editing LDN services.
+ * This component handles the creation, validation, and submission of LDN service data.
+ */
 @Component({
   selector: 'ds-ldn-service-form',
   templateUrl: './ldn-service-form.component.html',
@@ -100,23 +103,43 @@ export class LdnServiceFormComponent implements OnInit {
 
   }
 
+  /**
+   * Sets up the item filters by fetching and observing the paginated list of item filters.
+   */
   setItemfilters() {
     this.itemfiltersRD$ = this.ldnItemfiltersService.findAll().pipe(
       getFirstCompletedRemoteData());
   }
 
+  /**
+   * Handles the form submission by opening the confirmation modal.
+   */
   onSubmit() {
     this.openConfirmModal(this.confirmModal);
   }
 
+  /**
+   * Opens the confirmation modal.
+   *
+   * @param {any} content - The content of the modal.
+   */
   openConfirmModal(content) {
     this.modalRef = this.modalService.open(content);
   }
 
+  /**
+   * Opens the reset form modal.
+   *
+   * @param {any} content - The content of the modal.
+   */
   openResetFormModal(content) {
     this.modalRef = this.modalService.open(content);
   }
 
+  /**
+   * Handles the creation of an LDN service by validating form fields,
+   * and submitting the form data to the LDN services endpoint.
+   */
   createService() {
     this.formModel.get('name').markAsTouched();
     this.formModel.get('score').markAsTouched();
@@ -175,6 +198,12 @@ export class LdnServiceFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Checks if at least one pattern in the specified form array has a value.
+   *
+   * @param {FormArray} formArray - The form array containing patterns to check.
+   * @returns {boolean} - True if at least one pattern has a value, otherwise false.
+   */
   checkPatterns(formArray: FormArray): boolean {
     for (let i = 0; i < formArray.length; i++) {
       const pattern = formArray.at(i).get('pattern').value;
@@ -185,37 +214,65 @@ export class LdnServiceFormComponent implements OnInit {
     return false;
   }
 
-
+  /**
+   * Closes the currently open modal and returns to the services directory..
+   */
   resetFormAndLeave() {
     this.sendBack();
     this.closeModal();
   }
 
+  /**
+   * Closes the currently open modal and triggers change detection.
+   */
   closeModal() {
     this.modalRef.close();
     this.cdRef.detectChanges();
   }
 
+  /**
+   * Adds a new inbound pattern form group to the notifyServiceInboundPatterns form array.
+   */
   addInboundPattern() {
     const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
     notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
   }
 
+  /**
+   * Removes the inbound pattern form group at the specified index from the notifyServiceInboundPatterns form array.
+   *
+   * @param {number} index - The index of the inbound pattern form group to remove.
+   * @memberof LdnServiceFormComponent
+   */
   removeInboundPattern(index: number) {
     const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
     notifyServiceInboundPatternsArray.removeAt(index);
   }
 
+  /**
+   * Adds a new outbound pattern form group to the notifyServiceOutboundPatterns form array.
+   */
   addOutboundPattern() {
     const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
     notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
   }
 
+  /**
+   * Removes the outbound pattern form group at the specified index from the notifyServiceOutboundPatterns form array.
+   *
+   * @param {number} index - The index of the outbound pattern form group to remove.
+   */
   removeOutboundPattern(index: number) {
     const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
     notifyServiceOutboundPatternsArray.removeAt(index);
   }
 
+  /**
+   * Toggles the value of the 'automatic' control at the specified index in the notifyServiceInboundPatterns form array.
+   *
+   * @param {number} i - The index of the 'automatic' control to toggle.
+   * @memberof LdnServiceFormComponent
+   */
   toggleAutomatic(i: number) {
     const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
     if (automaticControl) {
@@ -223,7 +280,12 @@ export class LdnServiceFormComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Selects an outbound pattern for a specific index in the notifyServiceOutboundPatterns form array.
+   *
+   * @param {string} patternValue - The selected pattern value.
+   * @param {number} index - The index of the outbound pattern in the form array.
+   */
   selectOutboundPattern(patternValue: string, index: number): void {
     const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
     patternArray.controls[index].patchValue({pattern: patternValue})
@@ -231,6 +293,12 @@ export class LdnServiceFormComponent implements OnInit {
 
   }
 
+  /**
+   * Selects an inbound pattern for a specific index in the form array.
+   *
+   * @param {string} patternValue - The selected pattern value.
+   * @param {number} index - The index of the inbound pattern in the form array.
+   */
   selectInboundPattern(patternValue: string, index: number): void {
     const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
     patternArray.controls[index].patchValue({pattern: patternValue})
@@ -238,21 +306,40 @@ export class LdnServiceFormComponent implements OnInit {
 
   }
 
+  /**
+   * Selects an inbound item filter for a specific index in the form array.
+   *
+   * @param {string} filterValue - The selected item filter value.
+   * @param {number} index - The index of the inbound item filter in the form array.
+   */
   selectInboundItemFilter(filterValue: string, index: number): void {
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
     filterArray.controls[index].patchValue({constraint: filterValue})
   }
 
+  /**
+   * Selects an outbound item filter for a specific index in the form array.
+   *
+   * @param {string} filterValue - The selected item filter value.
+   * @param {number} index - The index of the outbound item filter in the form array.
+   */
   selectOutboundItemFilter(filterValue: string, index: number) {
     const filterArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
     filterArray.controls[index].patchValue({constraint: filterValue})
   }
 
+  /**
+   * Sends the user back to the LDN services list.
+   */
   private sendBack() {
     this.router.navigateByUrl('admin/ldn/services');
   }
-
-
+  /**
+   * Creates a form group for an outbound pattern in the notifyServiceOutboundPatterns form array.
+   *
+   * @private
+   * @returns {FormGroup} - The created form group.
+   */
   private createOutboundPatternFormGroup(): FormGroup {
     return this.formBuilder.group({
       pattern: [''],
@@ -261,6 +348,12 @@ export class LdnServiceFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Creates a form group for an inbound pattern in the notifyServiceInboundPatterns form array.
+   *
+   * @private
+   * @returns {FormGroup} - The created form group.
+   */
   private createInboundPatternFormGroup(): FormGroup {
     return this.formBuilder.group({
       pattern: [''],
