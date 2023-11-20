@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ 'coar-notify-support.title' | translate }}</title>
-</head>
-<body>
-<h1>{{ 'coar-notify-support.title' | translate }}</h1>
-<p [innerHTML]="('coar-notify-support-title.content' | translate)"></p>
+<div class="container">
+    <head>
+        <title>{{ 'coar-notify-support.title' | translate }}</title>
+    </head>
+    <body>
+    <h1>{{ 'coar-notify-support.title' | translate }}</h1>
+    <p [innerHTML]="('coar-notify-support-title.content' | translate)"></p>
 
-<h2>{{ 'coar-notify-support.ldn-inbox.title' | translate }}</h2>
-<p [innerHTML]="('coar-notify-support.ldn-inbox.content' | translate).replace('{ldnInboxUrl}', (coarRestApiUrl | async)?.join(', '))"></p>
+    <h2>{{ 'coar-notify-support.ldn-inbox.title' | translate }}</h2>
+    <p [innerHTML]="('coar-notify-support.ldn-inbox.content' | translate).replace('{ldnInboxUrl}', (coarRestApiUrl | async)?.join(', '))"></p>
 
-<h2>{{ 'coar-notify-support.message-moderation.title' | translate }}</h2>
-<p [innerHTML]="('coar-notify-support.message-moderation.content' | translate)"></p>
-</body>
-</html>
+    <h2>{{ 'coar-notify-support.message-moderation.title' | translate }}</h2>
+    <p [innerHTML]="('coar-notify-support.message-moderation.content' | translate)"></p>
+    </body>
+</div>
