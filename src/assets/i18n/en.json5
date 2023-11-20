@@ -892,7 +892,7 @@
 
   "coar-notify-support.title": "COAR Notify Protocol",
 
-  "coar-notify-support-title.content":"Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, you can visit their official website <a href=\"https://notify.coar-repositories.org/\">here</a>.",
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, you can visit their official website <a href=\"https://notify.coar-repositories.org/\">here</a>.",
 
   "coar-notify-support.ldn-inbox.title": "LDN InBox",
 
@@ -905,7 +905,7 @@
   "service.overview.delete.header": "Delete Service",
 
   "ldn-registered-services.title": "Registered Services",
-  "ldn-registered-services.table.name":"Name",
+  "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.action": "Action",
@@ -920,7 +920,7 @@
   "ldn-edit-registered-service.title": "Edit Service",
   "ldn-create-service.title": "Create service",
   "service.overview.create.modal": "Create Service",
-  "service.overview.create.body": "Please confirm the creation of this service",
+  "service.overview.create.body": "Please confirm the creation of this service.",
   "ldn-service-status": "Status",
   "service.confirm.create": "Create",
   "service.refuse.create": "Discard",
@@ -936,8 +936,7 @@
   "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
-  "ldn-new-service.form.label.inboundPattern": "Inbound Patterns",
-  "ldn-new-service.form.label.placeholder.inboundPattern": "Select an Inbound Pattern",
+  "ldn-service.form.label.placeholder.default-select": "Select a pattern",
 
   "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
@@ -1012,7 +1011,7 @@
   "service.detail.return": "Cancel",
   "service.overview.reset-form.body": "Are you sure you want to discard those changes and leave?",
   "service.overview.reset-form.modal": "Discard Service Changes",
-  "service.overview.reset-form.reset-confirm":"Discard",
+  "service.overview.reset-form.reset-confirm": "Discard",
   "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.failure.head": "Failed Edit",
@@ -2043,7 +2042,7 @@
 
   "info.feedback.breadcrumbs": "Feedback",
 
-  "info.coar-notify-support.title":"Notify Support",
+  "info.coar-notify-support.title": "Notify Support",
 
   "info.coar-notify.breadcrumbs": "Notify Support",
 

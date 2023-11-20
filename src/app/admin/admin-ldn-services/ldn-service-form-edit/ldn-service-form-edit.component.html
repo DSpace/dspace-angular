@@ -5,7 +5,7 @@
     </div>
     <!-- In the toggle section -->
     <div class="toggle-switch-container">
-      <label class="status-label" for="enabled">{{ 'ldn-service-status' | translate }}</label>
+      <label class="status-label font-weight-bold" for="enabled">{{ 'ldn-service-status' | translate }}</label>
       <div>
         <input formControlName="enabled" hidden id="enabled" name="enabled" type="checkbox">
         <div (click)="toggleEnabled()" [class.checked]="formModel.get('enabled').value" class="toggle-switch">
@@ -15,7 +15,7 @@
     </div>
     <!-- In the Name section -->
     <div class="mb-5">
-      <label for="name">{{ 'ldn-new-service.form.label.name' | translate }}</label>
+      <label for="name" class="font-weight-bold">{{ 'ldn-new-service.form.label.name' | translate }}</label>
       <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
              [placeholder]="'ldn-new-service.form.placeholder.name' | translate" class="form-control"
              formControlName="name"
@@ -29,14 +29,14 @@
 
     <!-- In the description section -->
     <div class="mb-5 mt-5 d-flex flex-column">
-      <label for="description">{{ 'ldn-new-service.form.label.description' | translate }}</label>
+      <label for="description" class="font-weight-bold">{{ 'ldn-new-service.form.label.description' | translate }}</label>
       <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
                 class="form-control" formControlName="description" id="description" name="description"></textarea>
     </div>
 
     <!-- In the url section -->
     <div class="mb-5 mt-5">
-      <label for="url">{{ 'ldn-new-service.form.label.url' | translate }}</label>
+      <label for="url" class="font-weight-bold">{{ 'ldn-new-service.form.label.url' | translate }}</label>
       <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
              [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control"
              formControlName="url"
@@ -50,7 +50,7 @@
 
     <!-- In the ldnUrl section -->
     <div class="mb-5 mt-5">
-      <label for="ldnUrl">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
+      <label for="ldnUrl" class="font-weight-bold">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
       <input [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
              [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" class="form-control"
              formControlName="ldnUrl"
@@ -64,11 +64,12 @@
 
     <!-- In the score section -->
     <div class="mb-2">
-      <label for="score">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+      <label for="score" class="font-weight-bold">{{ 'ldn-new-service.form.label.score' | translate }}</label>
       <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
              [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
              id="score"
              name="score"
+             class="form-control"
              type="text">
       <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
         {{ 'ldn-new-service.form.error.score' | translate }}
@@ -78,14 +79,14 @@
     <!-- In the Inbound Patterns Labels section -->
     <div class="row mb-1 mt-5">
       <div class="col">
-        <label>{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
+        <label class="font-weight-bold">{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
       </div>
       <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern)">
         <div class="col">
-          <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+          <label class="font-weight-bold">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
         </div>
         <div class="col-sm-1">
-          <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
+          <label class="font-weight-bold">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
         </div>
       </ng-container>
       <div class="col-sm-2">
@@ -213,11 +214,11 @@
     <!-- In the Outbound Patterns Labels section -->
     <div class="row mb-1 mt-5">
       <div class="col">
-        <label>{{ 'ldn-new-service.form.label.outboundPattern' | translate }} </label>
+        <label class="font-weight-bold">{{ 'ldn-new-service.form.label.outboundPattern' | translate }} </label>
       </div>
       <ng-container *ngIf="!!(formModel.get('notifyServiceOutboundPatterns')['controls'][0]?.value?.pattern)">
         <div class="col">
-          <label>{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+          <label class="font-weight-bold">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
         </div>
       </ng-container>
       <div class="col-sm-1 ">
@@ -336,28 +337,23 @@
       </ng-container>
     </div>
 
-    <span
+    <div
       (click)="addOutboundPattern()"
-      class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}
-    </span>
+      class="add-pattern-link mb-4">{{ 'ldn-new-service.form.label.addPattern' | translate }}
+    </div>
 
 
-    <div aria-label="Basic example" class="submission-form-footer mt-1 mb-1 position-sticky" role="group">
-      <button class="btn btn-primary" type="submit">
-        <span><i class="fas fa-save"></i> {{ 'ldn-new-service.form.label.submit' | translate }}</span>
+    <div class="submission-form-footer my-1 position-sticky d-flex justify-content-between" role="group">
+      <button (click)="openResetFormModal(resetFormModal)" class="btn btn-danger" type="button">
+        <span><i class="fas fa-trash"></i>&nbsp;{{ 'submission.general.discard.submit' | translate }}</span>
       </button>
-      <div class="d-flex">
-        <button (click)="openResetFormModal(resetFormModal)" class="btn btn-danger" type="button">
-          <span><i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}</span>
-        </button>
-      </div>
+      <button class="btn btn-primary" type="submit">
+        <span><i class="fas fa-save"></i>&nbsp;{{ 'ldn-new-service.form.label.submit' | translate }}</span>
+      </button>
     </div>
   </form>
 </div>
 <ng-template #confirmModal>
-
-  <div>
-
     <div class="modal-header">
       <div>
         <h4>{{'service.overview.edit.modal' | translate }}</h4>
@@ -377,11 +373,10 @@
                 id="delete-confirm">{{ 'service.detail.return' | translate }}
         </button>
         <button (click)="patchService()"
-                class="btn btn-primary custom-btn">{{ 'service.detail.update' | translate }}
+                class="btn btn-primary">{{ 'service.detail.update' | translate }}
         </button>
       </div>
     </div>
-  </div>
 </ng-template>
 
 <ng-template #resetFormModal>
@@ -407,7 +402,7 @@
                 id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
         </button>
         <button (click)="resetFormAndLeave()"
-                class="btn btn-primary custom-btn"
+                class="btn btn-primary"
                 id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
         </button>
       </div>
