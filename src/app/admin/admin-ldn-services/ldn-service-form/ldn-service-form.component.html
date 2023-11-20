@@ -1,10 +1,10 @@
 <div class="container">
   <form (ngSubmit)="onSubmit()" [formGroup]="formModel">
-    <div class="d-flex">
+    <div class="d-flex mb-5">
       <h2 class="flex-grow-1">{{ 'ldn-create-service.title' | translate }}</h2>
     </div>
     <!-- In the name section -->
-    <div class="mb-5 ">
+    <div class="mb-5">
       <label for="name">{{ 'ldn-new-service.form.label.name' | translate }}</label>
       <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
              [placeholder]="'ldn-new-service.form.placeholder.name' | translate" class="form-control"
@@ -60,6 +60,7 @@
              [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
              id="score"
              name="score"
+             class="form-control"
              type="text">
       <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
         {{ 'ldn-new-service.form.error.score' | translate }}
@@ -79,7 +80,7 @@
           <label class="">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
         </div>
       </ng-container>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
       </div>
     </div>
 
@@ -202,12 +203,7 @@
           <label class="">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
         </div>
       </ng-container>
-      <div class="col-sm1 ">
-        <label class="label-box-2" style="visibility: hidden;">
-          {{ 'ldn-new-service.form.label.automatic' | translate }}
-        </label>
-      </div>
-      <div class="col-sm-2 ">
+      <div class="col-sm-2">
       </div>
     </div>
 
@@ -311,24 +307,18 @@
 
     </div>
 
-    <span (click)="addOutboundPattern()"
+    <div (click)="addOutboundPattern()"
           class="add-pattern-link mb-4">{{ 'ldn-new-service.form.label.addPattern' | translate }}
-    </span>
-    <div class="mb-4">
-      &nbsp;
     </div>
 
-    <div aria-label="Basic example" class="submission-form-footer mt-1 mb-1 position-sticky" role="group">
-      <button class="btn btn-primary" type="submit">
-        <span><i class="fas fa-save"></i> {{ 'ldn-new-service.form.label.submit' | translate }}</span>
+    <div class="submission-form-footer my-1 position-sticky d-flex justify-content-between" role="group">
+      <button (click)="this.openResetFormModal(this.resetFormModal)" class="btn btn-danger" type="button">
+        <span><i class="fas fa-trash"></i>&nbsp;{{ 'submission.general.discard.submit' | translate }}</span>
       </button>
-      <div class="d-flex">
-        <button (click)="this.openResetFormModal(this.resetFormModal)" class="btn btn-danger" type="button">
-          <span><i class="fas fa-trash"></i> {{ 'submission.general.discard.submit' | translate }}</span>
-        </button>
-      </div>
+      <button class="btn btn-primary" type="submit">
+        <span><i class="fas fa-save"></i>&nbsp;{{ 'ldn-new-service.form.label.submit' | translate }}</span>
+      </button>
     </div>
-
 
   </form>
 </div>
@@ -348,14 +338,14 @@
 
     <div class="modal-body">
       <div>
-        {{ 'service.create.body' | translate }}
+        {{ 'service.overview.create.body' | translate }}
       </div>
       <div class="mt-4">
-        <button (click)="closeModal()" class="btn btn-danger"
+        <button (click)="closeModal()" class="btn btn-danger mr-2 "
                 id="delete-confirm">{{ 'service.refuse.create' | translate }}
         </button>
         <button (click)="createService()"
-                class="btn btn-primary mr-2 custom-btn">{{ 'service.confirm.create' | translate }}
+                class="btn btn-primary">{{ 'service.confirm.create' | translate }}
         </button>
       </div>
     </div>
@@ -368,7 +358,7 @@
 
     <div class="modal-header">
       <div>
-        <h4>{{'service.create.reset-form.modal' | translate }}</h4>
+        <h4>{{'service.overview.reset-form.modal' | translate }}</h4>
       </div>
       <button (click)="closeModal()" aria-label="Close"
               class="close" type="button">
@@ -378,11 +368,11 @@
 
     <div class="modal-body">
       <div>
-        {{ 'service.create.reset-form.body' | translate }}
+        {{ 'service.overview.reset-form.body' | translate }}
       </div>
       <div class="mt-4">
         <button (click)="resetFormAndLeave()"
-                class="btn btn-primary mr-2 custom-btn"
+                class="btn btn-primary mr-2"
                 id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
         </button>
         <button (click)="closeModal()" class="btn btn-danger"

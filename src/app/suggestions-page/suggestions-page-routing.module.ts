@@ -5,7 +5,6 @@ import { SuggestionsPageResolver } from './suggestions-page.resolver';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 @NgModule({
   imports: [

@@ -66,6 +66,7 @@ export class LdnServiceFormComponent implements OnInit {
   hasOutboundPattern: boolean;
   isScoreValid: boolean;
   private modalRef: any;
+  private selectPatternDefaultLabeli18Key = 'ldn-service.form.label.placeholder.default-select';
 
   constructor(
     private ldnServicesService: LdnServicesService,
@@ -225,27 +226,27 @@ export class LdnServiceFormComponent implements OnInit {
 
 
   selectOutboundPattern(patternValue: string, index: number): void {
-    const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
-    patternArray.controls[index].patchValue({pattern: patternValue})
-    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')})
+    const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
+    patternArray.controls[index].patchValue({pattern: patternValue});
+    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')});
 
   }
 
   selectInboundPattern(patternValue: string, index: number): void {
-    const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
-    patternArray.controls[index].patchValue({pattern: patternValue})
-    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')})
+    const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
+    patternArray.controls[index].patchValue({pattern: patternValue});
+    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')});
 
   }
 
   selectInboundItemFilter(filterValue: string, index: number): void {
-    const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
-    filterArray.controls[index].patchValue({constraint: filterValue})
+    const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
+    filterArray.controls[index].patchValue({constraint: filterValue});
   }
 
   selectOutboundItemFilter(filterValue: string, index: number) {
-    const filterArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
-    filterArray.controls[index].patchValue({constraint: filterValue})
+    const filterArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
+    filterArray.controls[index].patchValue({constraint: filterValue});
   }
 
   private sendBack() {
@@ -257,7 +258,7 @@ export class LdnServiceFormComponent implements OnInit {
     return this.formBuilder.group({
       pattern: [''],
       constraint: [''],
-      patternLabel: 'Select a Pattern',
+      patternLabel: this.translateService.instant(this.selectPatternDefaultLabeli18Key),
     });
   }
 
@@ -266,7 +267,7 @@ export class LdnServiceFormComponent implements OnInit {
       pattern: [''],
       constraint: [''],
       automatic: false,
-      patternLabel: 'Select a Pattern',
+      patternLabel: this.translateService.instant(this.selectPatternDefaultLabeli18Key),
     });
   }
 
