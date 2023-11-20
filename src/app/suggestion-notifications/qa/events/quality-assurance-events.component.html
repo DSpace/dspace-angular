@@ -60,6 +60,16 @@
                          target="_blank"
                          [routerLink]="['/items', eventElement?.target?.id]">{{eventElement.title}}</a>
                     <span *ngIf="!eventElement?.target">{{eventElement.title}}</span>
+                    <div *ngIf="eventElement?.event?.message?.serviceName">
+                      <span class="small pr-1">{{'quality-assurance.event.table.event.message.serviceName' | translate}}</span>
+                      <span class="badge badge-info">{{eventElement.event.message.serviceName}}</span>
+                    </div>
+                    <div *ngIf="eventElement?.event?.message?.href" class="d-flex align-items-center">
+                      <span class="small pr-1">{{'quality-assurance.event.table.event.message.link' | translate}}</span>
+                      <span [title]="eventElement.event.message.href" class="text-truncate d-inline-block w-75">
+                        <a [href]="eventElement.event.message.href" target="_blank">{{eventElement.event.message.href}}</a>
+                      </span>
+                    </div>
                   </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
                     <p><span class="small">{{'quality-assurance.event.table.pidtype' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
