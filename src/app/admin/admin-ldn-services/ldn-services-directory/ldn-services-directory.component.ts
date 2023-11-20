@@ -24,6 +24,11 @@ import {NotificationsService} from '../../../shared/notifications/notifications.
 import {TranslateService} from '@ngx-translate/core';
 
 
+/**
+ * The `LdnServicesOverviewComponent` is a component that provides an overview of LDN (Linked Data Notifications) services.
+ * It displays a paginated list of LDN services, allows users to edit and delete services,
+ * toggle the status of each service directly form the page and allows for creation of new services redirecting the user on the creation/edit form
+ */
 @Component({
   selector: 'ds-ldn-services-directory',
   templateUrl: './ldn-services-directory.component.html',
@@ -44,14 +49,14 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     pageSize: 20
   });
   isProcessingSub: Subscription;
-  private modalRef: any;
+  modalRef: any;
 
 
   constructor(
     protected ldnServicesService: LdnServicesService,
     protected paginationService: PaginationService,
     protected modalService: NgbModal,
-    private cdRef: ChangeDetectorRef,
+    public cdRef: ChangeDetectorRef,
     private notificationService: NotificationsService,
     private translateService: TranslateService,
   ) {
@@ -61,12 +66,14 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     this.setLdnServices();
   }
 
+  /**
+   * Sets up the LDN services by fetching and observing the paginated list of services.
+   */
   setLdnServices() {
     this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
       switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
         getFirstCompletedRemoteData()
       ))
-
     );
   }
 
@@ -77,20 +84,39 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Opens the delete confirmation modal.
+   *
+   * @param {any} content - The content of the modal.
+   */
   openDeleteModal(content) {
     this.modalRef = this.modalService.open(content);
   }
 
+  /**
+   * Closes the currently open modal and triggers change detection.
+   */
   closeModal() {
     this.modalRef.close();
     this.cdRef.detectChanges();
   }
 
+  /**
+   * Sets the selected LDN service ID for deletion and opens the delete confirmation modal.
+   *
+   * @param {number} serviceId - The ID of the service to be deleted.
+   */
   selectServiceToDelete(serviceId: number) {
     this.selectedServiceId = serviceId;
     this.openDeleteModal(this.deleteModal);
   }
 
+  /**
+   * Deletes the selected LDN service.
+   *
+   * @param {string} serviceId - The ID of the service to be deleted.
+   * @param {LdnServicesService} ldnServicesService - The service for managing LDN services.
+   */
   deleteSelected(serviceId: string, ldnServicesService: LdnServicesService): void {
     if (this.selectedServiceId !== null) {
       ldnServicesService.delete(serviceId).pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<LdnService>) => {
@@ -117,7 +143,12 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  /**
+   * Toggles the status (enabled/disabled) of an LDN service.
+   *
+   * @param {any} ldnService - The LDN service object.
+   * @param {LdnServicesService} ldnServicesService - The service for managing LDN services.
+   */
   toggleStatus(ldnService: any, ldnServicesService: LdnServicesService): void {
     const newStatus = !ldnService.enabled;
     const originalStatus = ldnService.enabled;
@@ -142,6 +173,4 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-
 }
