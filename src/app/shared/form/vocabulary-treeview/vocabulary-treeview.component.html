@@ -10,6 +10,9 @@
         <button class="btn btn-outline-secondary" type="button" (click)="reset()">
           {{'vocabulary-treeview.search.form.reset' | translate}}
         </button>
+        <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed">
+          {{'vocabulary-treeview.search.form.add' | translate}}
+        </button>
       </div>
     </div>
   </div>
