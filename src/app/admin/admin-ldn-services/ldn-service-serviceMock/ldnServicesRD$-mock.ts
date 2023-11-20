@@ -44,8 +44,6 @@ export const mockLdnService: LdnService = {
   },
 };
 
-//export const mockLdnServiceRD$: Observable<RemoteData<PaginatedList<LdnService>>> = of((mockLdnService as unknown) as RemoteData<PaginatedList<LdnService>>);
-//export const mockLdnServiceRD$ = createSuccessfulRemoteDataObject$(createPaginatedList(mockLdnService[0])as  PaginatedList<LdnService>);
 export const mockLdnServiceRD$ = createSuccessfulRemoteDataObject$(mockLdnService);
 
 
@@ -126,62 +124,3 @@ export const mockLdnServices: LdnService[] = [{
 }
 ]
 export const mockLdnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>> = of((mockLdnServices as unknown) as RemoteData<PaginatedList<LdnService>>);
-
-
-/*export const mockLdnServiceRD$: RemoteData<PaginatedList<LdnService>> = {
-  errorMessage: null,
-  lastUpdated: 1700176600821,
-  msToLive: 900000,
-  payload: {
-    page: [mockLdnService],
-    pageInfo: {
-      elementsPerPage: 20,
-      totalPages: 1,
-      totalElements: 1,
-      currentPage: 1,
-    },
-    type: {value: "paginated-list"},
-    _links: {
-      self: {
-        href: "http://localhost:8080/server/api/ldn/ldnservices?size=20&sort=dc.title,ASC"
-      },
-      page: [
-        {
-          "href": "http://localhost/api/ldn/ldnservices/1"
-        }
-      ]
-    },
-  },
-  statusCode: 200,
-  state: 'Success',
-  timeCompleted: 1700176600821,
-}*/
-
-
-
-const mockLdnServices2 = {
-  payload: {
-    elementsPerPage: 20,
-    totalPages: 1,
-    totalElements: 1,
-    currentPage: 1,
-    first: undefined,
-    prev: undefined,
-    next: undefined,
-    last: undefined,
-    page: [mockLdnService],
-    type: LDN_SERVICE,
-    self: undefined,
-    getPageLength: function () {
-      return this.page.length;
-    },
-    _links: {
-      self: {
-        href: 'http://localhost/api/ldn/ldnservices/1',
-      },
-      page: [],
-    },
-  },
-  hasSucceeded: true,
-  msToLive: 0,
-};

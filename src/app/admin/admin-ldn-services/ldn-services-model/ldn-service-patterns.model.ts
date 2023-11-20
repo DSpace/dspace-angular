@@ -1,7 +1,7 @@
 import {autoserialize} from 'cerialize';
 
 /**
- * notify service patterns
+ * A single notify service pattern and his properties
  */
 export class NotifyServicePattern {
   @autoserialize

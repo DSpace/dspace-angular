@@ -35,7 +35,15 @@ import {SearchDataImpl} from '../../../core/data/base/search-data';
 import {RequestParam} from '../../../core/cache/models/request-param.model';
 
 /**
- * A service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint
+ * Injectable service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint.
+ *
+ * @export
+ * @class LdnServicesService
+ * @extends {IdentifiableDataService<LdnService>}
+ * @implements {FindAllData<LdnService>}
+ * @implements {DeleteData<LdnService>}
+ * @implements {PatchData<LdnService>}
+ * @implements {CreateData<LdnService>}
  */
 @Injectable()
 @dataService(LDN_SERVICE)
@@ -65,41 +73,103 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
   }
 
-
+  /**
+   * Creates an LDN service by sending a POST request to the REST API.
+   *
+   * @param {LdnService} object - The LDN service object to be created.
+   * @returns {Observable<RemoteData<LdnService>>} - Observable containing the result of the creation operation.
+   */
   create(object: LdnService): Observable<RemoteData<LdnService>> {
     return this.createData.create(object);
   }
 
+  /**
+   * Updates an LDN service by applying a set of operations through a PATCH request to the REST API.
+   *
+   * @param {LdnService} object - The LDN service object to be updated.
+   * @param {Operation[]} operations - The patch operations to be applied.
+   * @returns {Observable<RemoteData<LdnService>>} - Observable containing the result of the update operation.
+   */
   patch(object: LdnService, operations: Operation[]): Observable<RemoteData<LdnService>> {
     return this.patchData.patch(object, operations);
   }
 
+  /**
+   * Updates an LDN service by sending a PUT request to the REST API.
+   *
+   * @param {LdnService} object - The LDN service object to be updated.
+   * @returns {Observable<RemoteData<LdnService>>} - Observable containing the result of the update operation.
+   */
   update(object: LdnService): Observable<RemoteData<LdnService>> {
     return this.patchData.update(object);
   }
 
+  /**
+   * Commits pending updates by sending a PATCH request to the REST API.
+   *
+   * @param {RestRequestMethod} [method] - The HTTP method to be used for the request.
+   */
   commitUpdates(method?: RestRequestMethod): void {
     return this.patchData.commitUpdates(method);
   }
 
+  /**
+   * Creates a patch representing the changes made to the LDN service in the cache.
+   *
+   * @param {LdnService} object - The LDN service object for which to create the patch.
+   * @returns {Observable<Operation[]>} - Observable containing the patch operations.
+   */
   createPatchFromCache(object: LdnService): Observable<Operation[]> {
     return this.patchData.createPatchFromCache(object);
   }
 
+  /**
+   * Retrieves all LDN services from the REST API based on the provided options.
+   *
+   * @param {FindListOptions} [options] - The options to be applied to the request.
+   * @param {boolean} [useCachedVersionIfAvailable] - Flag indicating whether to use cached data if available.
+   * @param {boolean} [reRequestOnStale] - Flag indicating whether to re-request data if it's stale.
+   * @param {...FollowLinkConfig<LdnService>[]} linksToFollow - Optional links to follow during the request.
+   * @returns {Observable<RemoteData<PaginatedList<LdnService>>>} - Observable containing the result of the request.
+   */
   findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
+  /**
+   * Retrieves LDN services based on the inbound pattern from the REST API.
+   *
+   * @param {string} pattern - The inbound pattern to be used in the search.
+   * @param {FindListOptions} [options] - The options to be applied to the request.
+   * @param {boolean} [useCachedVersionIfAvailable] - Flag indicating whether to use cached data if available.
+   * @param {boolean} [reRequestOnStale] - Flag indicating whether to re-request data if it's stale.
+   * @param {...FollowLinkConfig<LdnService>[]} linksToFollow - Optional links to follow during the request.
+   * @returns {Observable<RemoteData<PaginatedList<LdnService>>>} - Observable containing the result of the request.
+   */
   findByInboundPattern(pattern: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
     const params = [new RequestParam('pattern', pattern)];
     const findListOptions = Object.assign(new FindListOptions(), options, {searchParams: params});
     return this.searchData.searchBy(this.findByPatternEndpoint, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
+  /**
+   * Deletes an LDN service by sending a DELETE request to the REST API.
+   *
+   * @param {string} objectId - The ID of the LDN service to be deleted.
+   * @param {string[]} [copyVirtualMetadata] - Optional virtual metadata to be copied during the deletion.
+   * @returns {Observable<RemoteData<NoContent>>} - Observable containing the result of the deletion operation.
+   */
   public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.delete(objectId, copyVirtualMetadata);
   }
 
+  /**
+   * Deletes an LDN service by its HATEOAS link.
+   *
+   * @param {string} href - The HATEOAS link of the LDN service to be deleted.
+   * @param {string[]} [copyVirtualMetadata] - Optional virtual metadata to be copied during the deletion.
+   * @returns {Observable<RemoteData<NoContent>>} - Observable containing the result of the deletion operation.
+   */
   public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
