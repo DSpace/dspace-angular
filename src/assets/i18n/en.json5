@@ -892,11 +892,11 @@
 
   "coar-notify-support.title": "COAR Notify Protocol",
 
-  "coar-notify-support-title.content":"Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, you can visit their official website <a href=\"https://notify.coar-repositories.org/\">here</a>.",
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, you can visit their official website <a href=\"https://notify.coar-repositories.org/\">here</a>.",
 
   "coar-notify-support.ldn-inbox.title": "LDN InBox",
 
-  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at <code>{restApiUrl}ldn/inbox</code>. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at <code>{ldnInboxUrl}ldn/inbox</code>. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
 
   "coar-notify-support.message-moderation.title": "Message Moderation",
 
@@ -905,7 +905,7 @@
   "service.overview.delete.header": "Delete Service",
 
   "ldn-registered-services.title": "Registered Services",
-  "ldn-registered-services.table.name":"Name",
+  "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.action": "Action",
@@ -920,7 +920,7 @@
   "ldn-edit-registered-service.title": "Edit Service",
   "ldn-create-service.title": "Create service",
   "service.overview.create.modal": "Create Service",
-  "service.overview.create.body": "Please confirm the creation of this service",
+  "service.overview.create.body": "Please confirm the creation of this service.",
   "ldn-service-status": "Status",
   "service.confirm.create": "Create",
   "service.refuse.create": "Discard",
@@ -929,16 +929,77 @@
   "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.url": "Service URL",
+  "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
-  "ldn-new-service.form.label.inboundPattern": "Inbound Patterns",
-  "ldn-new-service.form.label.placeholder.inboundPattern": "Select an Inbound Pattern",
+  "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
+  "ldn-service.form.label.placeholder.default-select": "Select a pattern",
+
+  "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+  "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
+  "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+  "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
+  "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+  "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
+  "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
+  "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
+  "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
+  "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
+  "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+  "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
+  "ldn-service.form.pattern.announce-ingest.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+  "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
+  "ldn-service.form.pattern.announce-relationship.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-review.label": "Announce Review",
+  "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
+  "ldn-service.form.pattern.announce-review.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
+  "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
+  "ldn-service.form.pattern.announce-service-result.category": "Announcements",
+
+  "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
+  "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-endorsement.category": "Requests",
+
+  "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
+  "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
+  "ldn-service.form.pattern.request-ingest.category": "Requests",
+
+  "ldn-service.form.pattern.request-review.label": "Request Review",
+  "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-review.category": "Requests",
+
+  "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
+  "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
+  "ldn-service.form.pattern.undo-offer.category": "Undo",
+
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.automatic": "Automatic",
+  "ldn-new-service.form.error.name": "Name is required",
+  "ldn-new-service.form.error.url": "URL is required",
+  "ldn-new-service.form.error.ldnurl": "LDN URL is required",
+  "ldn-new-service.form.error.patterns": "At least a pattern is required",
+  "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
+
+  "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-new-service.form.label.outboundPattern": "Outbound Patterns",
   "ldn-new-service.form.label.placeholder.outboundPattern": "Select an Outbound Pattern",
   "ldn-new-service.form.label.addPattern": "+ Add more",
@@ -951,11 +1012,15 @@
   "service.detail.return": "Cancel",
   "service.overview.reset-form.body": "Are you sure you want to discard those changes and leave?",
   "service.overview.reset-form.modal": "Discard Service Changes",
-  "service.overview.reset-form.reset-confirm":"Discard",
+  "service.overview.reset-form.reset-confirm": "Discard",
   "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.content": "The service has been edited",
+  "admin.registries.services-formats.modify.failure.head": "Failed Edit",
+  "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.body": "The service has been created",
+  "ldn-service-notification.created.failure.title": "Failed Create",
+  "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-service-delete.notification.success.title": "Successful Deletion",
@@ -1978,9 +2043,11 @@
 
   "info.feedback.breadcrumbs": "Feedback",
 
-  "info.coar-notify-support.title":"Notify Support",
+  "info.coar-notify-support.title": "Notify Support",
 
   "info.coar-notify.breadcrumbs": "Notify Support",
+
+  "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
 
   "info.feedback.head": "Feedback",
 
@@ -2472,6 +2539,14 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "item.qa-event-notification-info.check.button": "Check",
+
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "mydspace.qa-event-notification-info.check.button": "Check",
+
   "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
 
   "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order",
@@ -2493,6 +2568,12 @@
   "item.page.author": "Authors",
 
   "item.page.citation": "Citation",
+
+  "item.page.endorsed-by": "Endorsement",
+
+  "item.page.is-reviewed-by": "Review",
+
+  "item.page.is-supplemented-by": "Dataset",
 
   "item.page.collections": "Collections",
 
@@ -3210,6 +3291,8 @@
 
   "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
 
+  "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
+
   "quality-assurance.source.description": "Below you can see all the notification's sources.",
 
   "quality-assurance.topics": "Current Topics",
@@ -3236,7 +3319,9 @@
 
   "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
 
-  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic.",
+  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
+
+  "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
 
   "quality-assurance.loading": "Loading ...",
 
@@ -3289,6 +3374,10 @@
   "quality-assurance.event.table.less": "Show less",
 
   "quality-assurance.event.table.more": "Show more",
+
+  "quality-assurance.event.table.event.message.serviceName": "Service Name:",
+
+  "quality-assurance.event.table.event.message.link": "Link:",
 
   "quality-assurance.event.project.found": "Bound to the local record:",
 
@@ -4760,6 +4849,8 @@
 
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
+  "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
+
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
@@ -5005,6 +5096,28 @@
   "submission.workspace.generic.view": "View",
 
   "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+
+  "submission.section.section-coar-notify.control.request-review.label": "You can request a review to one of the following services",
+
+  "submission.section.section-coar-notify.control.request-endorsement.label": "You can request an Endorsement to one of the following overlay journals",
+
+  "submission.section.section-coar-notify.control.request-ingest.label": "You can request to ingest a copy of your submission to one of the following services",
+
+  "submission.section.section-coar-notify.dropdown.no-data": "No data available",
+
+  "submission.section.section-coar-notify.dropdown.select-none": "Select none",
+
+  "submission.section.section-coar-notify.small.notification": "Select a service for {{ pattern }} of this item",
+
+  "submission.section.section-coar-notify.selection.description": "Selected service's description:",
+
+  "submission.section.section-coar-notify.selection.no-description": "No further information is available",
+
+  "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
+
+  "submission.section.section-coar-notify.info.no-pattern": "No patterns found in the submission.",
+
+  "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
 
   "submitter.empty": "N/A",
 

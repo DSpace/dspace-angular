@@ -262,6 +262,10 @@ export const environment: BuildConfig = {
       undoTimeout: 10000 // 10 seconds
     }
   },
+
+
+  suggestion: [],
+
   themes: [
     {
       name: 'full-item-page-theme',

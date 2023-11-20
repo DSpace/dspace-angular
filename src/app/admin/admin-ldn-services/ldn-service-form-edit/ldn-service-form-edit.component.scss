@@ -1,8 +1,9 @@
+@import '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component.scss';
+@import '../../../shared/form/form.component.scss';
+
 form {
-  max-width: 800px;
   font-size: 14px;
   position: relative;
-
 }
 
 input[type="text"],
@@ -30,7 +31,6 @@ textarea {
 .add-pattern-link {
   color: #0048ff;
   cursor: pointer;
-  margin-left: 10px;
 }
 
 .remove-pattern-link {
@@ -47,6 +47,12 @@ textarea {
 .invalid-field {
   border: 1px solid red;
   color: #000000;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
 }
 
 .toggle-switch {
@@ -95,6 +101,11 @@ textarea {
   margin-top: 10px;
 }
 
+.small-text {
+  font-size: 0.7em;
+  color: #888;
+}
+
 .toggle-switch {
   cursor: pointer;
   margin-top: 3px;
@@ -113,11 +124,6 @@ textarea {
   margin-left: 5px;
 }
 
-form button.btn.btn-primary[type="submit"] {
-  position: absolute;
-  right: 8px;
-}
-
 .submission-form-footer {
   border-radius: var(--bs-card-border-radius);
   bottom: 0;
@@ -127,7 +133,7 @@ form button.btn.btn-primary[type="submit"] {
 }
 
 .marked-for-deletion {
-  background-color: #ffcccc;
+  background-color: lighten($red, 30%);
 }
 
 

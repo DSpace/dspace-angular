@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -26,10 +27,12 @@ import {
   ProjectEntryImportModalComponent,
   QualityAssuranceEventData
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { ItemDataService } from '../../../core/data/item-data.service';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -106,6 +109,26 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   protected subs: Subscription[] = [];
 
   /**
+   * The target item id, retrieved from the topic-id composition.
+   */
+  public targetId: string;
+
+  /**
+   * The URL of the item page/target.
+   */
+  public itemPageUrl: string;
+
+  /**
+   * Plain topic name (without the source id)
+   */
+  public selectedTopicName: string;
+
+  /**
+   * The source id, retrieved from the topic-id composition.
+   */
+  public sourceId: string;
+
+  /**
    * Initialize the component variables.
    * @param {ActivatedRoute} activatedRoute
    * @param {NgbModal} modalService
@@ -120,7 +143,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
     private qualityAssuranceEventRestService: QualityAssuranceEventDataService,
     private paginationService: PaginationService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private itemService: ItemDataService,
+    private _location: Location
   ) {
   }
 
@@ -137,10 +162,13 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         const regEx = /!/g;
         this.showTopic = id.replace(regEx, '/');
         this.topic = id;
+        const splitList = this.showTopic?.split(':');
+        this.targetId = splitList.length > 2 ? splitList.pop() : null;
+        this.sourceId = splitList[0];
+        this.selectedTopicName = splitList[1];
         return this.getQualityAssuranceEvents();
       })
     ).subscribe((events: QualityAssuranceEventData[]) => {
-      console.log(events);
       this.eventsUpdated$.next(events);
       this.isEventPageLoading.next(false);
     });
@@ -356,7 +384,6 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         if (rd.hasSucceeded) {
           this.totalElements$.next(rd.payload.totalElements);
           if (rd.payload.totalElements > 0) {
-            console.log(rd.payload.page);
             return this.fetchEvents(rd.payload.page);
           } else {
             return of([]);
@@ -424,5 +451,38 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       scan((acc: any, value: any) => [...acc, value], []),
       last()
     );
+  }
+
+  /**
+  * Returns the page route for the given item.
+  * @param item The item to get the page route for.
+  * @returns The page route for the given item.
+  */
+  public getItemPageRoute(item: Item): string {
+    return getItemPageRoute(item);
+  }
+
+  /**
+   * Returns an Observable that emits the title of the target item.
+   * The target item is retrieved by its ID using the itemService.
+   * The title is extracted from the first metadata value of the item.
+   * The item page URL is also set in the component.
+   * @returns An Observable that emits the title of the target item.
+   */
+  public getTargetItemTitle(): Observable<string> {
+    return this.itemService.findById(this.targetId).pipe(
+      take(1),
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
+      map((item: Item) => item.firstMetadataValue('dc.title'))
+    );
+  }
+
+  /**
+   * Navigates back to the previous location in the browser's history stack.
+   */
+  public goBack() {
+    this._location.back();
   }
 }

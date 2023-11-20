@@ -80,22 +80,53 @@ describe('QualityAssuranceTopicDataService', () => {
       notificationsService
     );
 
-    spyOn((service as any).findAllData, 'findAll').and.callThrough();
+    spyOn((service as any).searchData, 'searchBy').and.callThrough();
     spyOn((service as any), 'findById').and.callThrough();
   });
 
-  describe('getTopics', () => {
-    it('should call findListByHref', (done) => {
-      service.getTopics().subscribe(
-        (res) => {
-          expect((service as any).findAllData.findAll).toHaveBeenCalledWith({}, true, true);
-        }
+  describe('searchTopicsByTarget', () => {
+    it('should call searchData.searchBy with the correct parameters', () => {
+      const options = { elementsPerPage: 10 };
+      const useCachedVersionIfAvailable = true;
+      const reRequestOnStale = true;
+
+      service.searchTopicsByTarget(options, useCachedVersionIfAvailable, reRequestOnStale);
+
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith(
+        'byTarget',
+        options,
+        useCachedVersionIfAvailable,
+        reRequestOnStale
       );
-      done();
     });
 
     it('should return a RemoteData<PaginatedList<QualityAssuranceTopicObject>> for the object with the given URL', () => {
-      const result = service.getTopics();
+      const result = service.searchTopicsByTarget();
+      const expected = cold('(a)', {
+        a: paginatedListRD
+      });
+      expect(result).toBeObservable(expected);
+    });
+  });
+
+  describe('searchTopicsBySource', () => {
+    it('should call searchData.searchBy with the correct parameters', () => {
+      const options = { elementsPerPage: 10 };
+      const useCachedVersionIfAvailable = true;
+      const reRequestOnStale = true;
+
+      service.searchTopicsBySource(options, useCachedVersionIfAvailable, reRequestOnStale);
+
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith(
+        'bySource',
+        options,
+        useCachedVersionIfAvailable,
+        reRequestOnStale,
+      );
+    });
+
+    it('should return a RemoteData<PaginatedList<QualityAssuranceTopicObject>> for the object with the given URL', () => {
+      const result = service.searchTopicsBySource();
       const expected = cold('(a)', {
         a: paginatedListRD
       });
@@ -121,5 +152,4 @@ describe('QualityAssuranceTopicDataService', () => {
       expect(result).toBeObservable(expected);
     });
   });
-
 });

@@ -7,7 +7,7 @@
     <p [innerHTML]="('coar-notify-support-title.content' | translate)"></p>
 
     <h2>{{ 'coar-notify-support.ldn-inbox.title' | translate }}</h2>
-    <p [innerHTML]="('coar-notify-support.ldn-inbox.content' | translate).replace('{restApiUrl}', coarRestApiUrl)"></p>
+    <p [innerHTML]="('coar-notify-support.ldn-inbox.content' | translate).replace('{ldnInboxUrl}', (coarRestApiUrl | async)?.join(', '))"></p>
 
     <h2>{{ 'coar-notify-support.message-moderation.title' | translate }}</h2>
     <p [innerHTML]="('coar-notify-support.message-moderation.content' | translate)"></p>

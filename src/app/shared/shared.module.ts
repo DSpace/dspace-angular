@@ -284,6 +284,7 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SplitPipe } from './utils/split.pipe';
 
 const MODULES = [
   CommonModule,
@@ -323,7 +324,8 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
-  ShortNumberPipe
+  ShortNumberPipe,
+  SplitPipe,
 ];
 
 const COMPONENTS = [

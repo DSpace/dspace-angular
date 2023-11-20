@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { getFirstSucceededRemoteData } from '../../shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../shared/operators';
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { map, Observable } from 'rxjs';
-import { DefaultAppConfig } from '../../../../config/default-app-config';
+import { ConfigurationProperty } from '../../shared/configuration-property.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NotifyInfoService {
+
+    /**
+     *  The relation link for the inbox
+     */
+    private _inboxRelationLink = 'http://www.w3.org/ns/ldp#inbox';
 
     constructor(
         private configService: ConfigurationDataService,
@@ -24,15 +29,25 @@ export class NotifyInfoService {
         );
     }
 
-    getCoarLdnRestApiUrl(): string {
-        const appConfig = new DefaultAppConfig();
-        const restConfig = appConfig.rest;
+    /**
+     * Get the url of the local inbox from the REST configuration
+     * @returns the url of the local inbox
+     */
+    getCoarLdnLocalInboxUrls(): Observable<string[]> {
+      return this.configService.findByPropertyName('ldn.notify.inbox').pipe(
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload(),
+        map((response: ConfigurationProperty) => {
+          return response.values;
+        })
+      );
+    }
 
-        const ssl = restConfig.ssl;
-        const host = restConfig.host;
-        const port = restConfig.port;
-        const namespace = restConfig.nameSpace;
-
-        return `${ssl ? 'https' : 'http'}://${host}:${port}${namespace}`;
+    /**
+     * Method to get the relation link for the inbox
+     * @returns the relation link for the inbox
+     */
+    getInboxRelationLink(): string {
+      return this._inboxRelationLink;
     }
 }

@@ -17,7 +17,8 @@ describe('SuggestionsPopupComponent', () => {
   const suggestionStateService = jasmine.createSpyObj('SuggestionTargetsStateService', {
     hasUserVisitedSuggestions: jasmine.createSpy('hasUserVisitedSuggestions'),
     getCurrentUserSuggestionTargets: jasmine.createSpy('getCurrentUserSuggestionTargets'),
-    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
+    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction'),
+    dispatchRefreshUserSuggestionsAction: jasmine.createSpy('dispatchRefreshUserSuggestionsAction')
   });
 
   const mockNotificationInterpolation = { count: 12, source: 'source', suggestionId: 'id', displayName: 'displayName' };

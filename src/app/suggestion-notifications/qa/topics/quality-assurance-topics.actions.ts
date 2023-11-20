@@ -25,6 +25,8 @@ export class RetrieveAllTopicsAction implements Action {
   payload: {
     elementsPerPage: number;
     currentPage: number;
+    source: string;
+    target?: string;
   };
 
   /**
@@ -35,10 +37,12 @@ export class RetrieveAllTopicsAction implements Action {
    * @param currentPage
    *    The page number to retrieve
    */
-  constructor(elementsPerPage: number, currentPage: number) {
+  constructor(elementsPerPage: number, currentPage: number, source: string, target?: string) {
     this.payload = {
       elementsPerPage,
-      currentPage
+      currentPage,
+      source,
+      target
     };
   }
 }
