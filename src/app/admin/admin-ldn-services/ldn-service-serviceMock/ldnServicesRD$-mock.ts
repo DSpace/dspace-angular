@@ -2,11 +2,11 @@ import {LdnService} from '../ldn-services-model/ldn-services.model';
 import {LDN_SERVICE} from '../ldn-services-model/ldn-service.resource-type';
 import {RemoteData} from '../../../core/data/remote-data';
 import {PaginatedList} from '../../../core/data/paginated-list.model';
-import {Observable, of} from "rxjs";
-import {createSuccessfulRemoteDataObject$} from "../../../shared/remote-data.utils";
+import {Observable, of} from 'rxjs';
+import {createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
 
 export const mockLdnService: LdnService = {
-  uuid: "1",
+  uuid: '1',
   enabled: false,
   score: 0,
   id: 1,
@@ -40,7 +40,7 @@ export const mockLdnService: LdnService = {
     },
   },
   get self(): string {
-    return "";
+    return '';
   },
 };
 
@@ -48,7 +48,7 @@ export const mockLdnServiceRD$ = createSuccessfulRemoteDataObject$(mockLdnServic
 
 
 export const mockLdnServices: LdnService[] = [{
-  uuid: "1",
+  uuid: '1',
   enabled: false,
   score: 0,
   id: 1,
@@ -82,10 +82,10 @@ export const mockLdnServices: LdnService[] = [{
     },
   },
   get self(): string {
-    return "";
+    return '';
   },
 }, {
-  uuid: "2",
+  uuid: '2',
   enabled: false,
   score: 0,
   id: 2,
@@ -119,8 +119,8 @@ export const mockLdnServices: LdnService[] = [{
     },
   },
   get self(): string {
-    return "";
+    return '';
   },
 }
-]
+];
 export const mockLdnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>> = of((mockLdnServices as unknown) as RemoteData<PaginatedList<LdnService>>);

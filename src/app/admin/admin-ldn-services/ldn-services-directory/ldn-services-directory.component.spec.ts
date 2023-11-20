@@ -8,12 +8,12 @@ import {LdnServicesService} from '../ldn-services-data/ldn-services-data.service
 import {PaginationService} from '../../../core/pagination/pagination.service';
 import {PaginationServiceStub} from '../../../shared/testing/pagination-service.stub';
 import {of} from 'rxjs';
-import {LdnService} from "../ldn-services-model/ldn-services.model";
-import {PaginatedList} from "../../../core/data/paginated-list.model";
-import {RemoteData} from "../../../core/data/remote-data";
+import {LdnService} from '../ldn-services-model/ldn-services.model';
+import {PaginatedList} from '../../../core/data/paginated-list.model';
+import {RemoteData} from '../../../core/data/remote-data';
 import {LdnServicesOverviewComponent} from './ldn-services-directory.component';
-import {createSuccessfulRemoteDataObject$} from "../../../shared/remote-data.utils";
-import {createPaginatedList} from "../../../shared/testing/utils.test";
+import {createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
+import {createPaginatedList} from '../../../shared/testing/utils.test';
 
 describe('LdnServicesOverviewComponent', () => {
   let component: LdnServicesOverviewComponent;
@@ -33,7 +33,7 @@ describe('LdnServicesOverviewComponent', () => {
 
   beforeEach(async () => {
     paginationService = new PaginationServiceStub();
-    ldnServicesService = jasmine.createSpyObj('LdnServicesService', ['findAll', 'delete', 'patch'])
+    ldnServicesService = jasmine.createSpyObj('LdnServicesService', ['findAll', 'delete', 'patch']);
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [LdnServicesOverviewComponent],
@@ -89,7 +89,7 @@ describe('LdnServicesOverviewComponent', () => {
         {id: 2, name: 'Service 2', description: 'Description 2', enabled: false},
         {id: 3, name: 'Service 3', description: 'Description 3', enabled: true}]);
 
-      const mockLdnServicesRD = createPaginatedList(testData)
+      const mockLdnServicesRD = createPaginatedList(testData);
       component.ldnServicesRD$ = createSuccessfulRemoteDataObject$(mockLdnServicesRD);
       fixture.detectChanges();
 

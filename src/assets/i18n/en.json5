@@ -892,7 +892,7 @@
 
   "coar-notify-support.title": "COAR Notify Protocol",
 
-  "coar-notify-support-title.content":"Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, you can visit their official website <a href=\"https://notify.coar-repositories.org/\">here</a>.",
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, you can visit their official website <a href=\"https://notify.coar-repositories.org/\">here</a>.",
 
   "coar-notify-support.ldn-inbox.title": "LDN InBox",
 
@@ -905,7 +905,7 @@
   "service.overview.delete.header": "Delete Service",
 
   "ldn-registered-services.title": "Registered Services",
-  "ldn-registered-services.table.name":"Name",
+  "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.action": "Action",
@@ -1012,7 +1012,7 @@
   "service.detail.return": "Cancel",
   "service.overview.reset-form.body": "Are you sure you want to discard those changes and leave?",
   "service.overview.reset-form.modal": "Discard Service Changes",
-  "service.overview.reset-form.reset-confirm":"Discard",
+  "service.overview.reset-form.reset-confirm": "Discard",
   "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.failure.head": "Failed Edit",
@@ -2043,7 +2043,7 @@
 
   "info.feedback.breadcrumbs": "Feedback",
 
-  "info.coar-notify-support.title":"Notify Support",
+  "info.coar-notify-support.title": "Notify Support",
 
   "info.coar-notify.breadcrumbs": "Notify Support",
 

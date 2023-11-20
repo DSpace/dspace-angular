@@ -19,7 +19,7 @@ import {Observable} from 'rxjs';
 import {PaginationService} from '../../../core/pagination/pagination.service';
 import {FindListOptions} from '../../../core/data/find-list-options.model';
 import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
-import {NotifyServicePattern} from "../ldn-services-model/ldn-service-patterns.model";
+import {NotifyServicePattern} from '../ldn-services-model/ldn-service-patterns.model';
 
 
 /**
@@ -142,8 +142,8 @@ export class LdnServiceFormEditComponent implements OnInit {
             type: this.service.type,
             enabled: this.service.enabled
           });
-          this.filterPatternObjectsAndPickLabel('notifyServiceInboundPatterns', false)
-          this.filterPatternObjectsAndPickLabel('notifyServiceOutboundPatterns', true)
+          this.filterPatternObjectsAndPickLabel('notifyServiceInboundPatterns', false);
+          this.filterPatternObjectsAndPickLabel('notifyServiceOutboundPatterns', true);
         }
       },
     );
@@ -159,9 +159,9 @@ export class LdnServiceFormEditComponent implements OnInit {
     PatternsArray.clear();
     let servicesToUse;
     if (isOutbound) {
-      servicesToUse = this.service.notifyServiceOutboundPatterns
+      servicesToUse = this.service.notifyServiceOutboundPatterns;
     } else {
-      servicesToUse = this.service.notifyServiceInboundPatterns
+      servicesToUse = this.service.notifyServiceInboundPatterns;
     }
 
     servicesToUse.forEach((patternObj: NotifyServicePattern) => {
@@ -174,12 +174,12 @@ export class LdnServiceFormEditComponent implements OnInit {
       const newPatternObjWithLabel = Object.assign(new NotifyServicePattern(), {
         ...patternObj,
         patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternObj?.pattern + '.label')
-      })
+      });
       patternFormGroup.patchValue(newPatternObjWithLabel);
 
       PatternsArray.push(patternFormGroup);
       this.cdRef.detectChanges();
-    })
+    });
 
 
   }
@@ -249,9 +249,9 @@ export class LdnServiceFormEditComponent implements OnInit {
    * @param index - The index of the outbound pattern in the array
    */
   selectOutboundPattern(patternValue: string, index: number): void {
-    const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
-    patternArray.controls[index].patchValue({pattern: patternValue})
-    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')})
+    const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
+    patternArray.controls[index].patchValue({pattern: patternValue});
+    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')});
 
   }
 
@@ -261,8 +261,8 @@ export class LdnServiceFormEditComponent implements OnInit {
    * @param index - The index of the inbound pattern in the array
    */
   selectOutboundItemFilter(filterValue: string, index: number) {
-    const filterArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray)
-    filterArray.controls[index].patchValue({constraint: filterValue})
+    const filterArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
+    filterArray.controls[index].patchValue({constraint: filterValue});
   }
 
   /**
@@ -271,9 +271,9 @@ export class LdnServiceFormEditComponent implements OnInit {
    * @param index - The index of the inbound pattern in the array
    */
   selectInboundPattern(patternValue: string, index: number): void {
-    const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
-    patternArray.controls[index].patchValue({pattern: patternValue})
-    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')})
+    const patternArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
+    patternArray.controls[index].patchValue({pattern: patternValue});
+    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')});
   }
 
   /**
@@ -282,8 +282,8 @@ export class LdnServiceFormEditComponent implements OnInit {
    * @param index - The index of the inbound pattern in the array
    */
   selectInboundItemFilter(filterValue: string, index: number): void {
-    const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray)
-    filterArray.controls[index].patchValue({constraint: filterValue})
+    const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
+    filterArray.controls[index].patchValue({constraint: filterValue});
   }
 
   /**
@@ -488,7 +488,7 @@ export class LdnServiceFormEditComponent implements OnInit {
    * @param formArrayName - The name of the form array
    */
   private handlePatterns(patchOperations: any[], formArrayName: string): void {
-    const patternsArray = this.formModel.get(formArrayName) as FormArray
+    const patternsArray = this.formModel.get(formArrayName) as FormArray;
 
 
     for (let i = 0; i < patternsArray.length; i++) {
