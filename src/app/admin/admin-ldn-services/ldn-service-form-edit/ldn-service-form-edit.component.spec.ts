@@ -28,6 +28,7 @@ describe('LdnServiceFormEditComponent', () => {
 
   const translateServiceStub = {
     get: () => of('translated-text'),
+    instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()

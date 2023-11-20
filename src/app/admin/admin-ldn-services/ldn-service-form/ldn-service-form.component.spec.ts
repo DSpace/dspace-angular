@@ -25,12 +25,14 @@ describe('LdnServiceFormComponent', () => {
   let notificationsService: any;
 
   const itemFiltersRdPL$ = createSuccessfulRemoteDataObject$(createPaginatedList([new Itemfilter()]));
+
   const translateServiceStub = {
     get: () => of('translated-text'),
+    instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
-  };
+};
 
   beforeEach(async () => {
     ldnItemfiltersService = jasmine.createSpyObj('ldnItemfiltersService', {
