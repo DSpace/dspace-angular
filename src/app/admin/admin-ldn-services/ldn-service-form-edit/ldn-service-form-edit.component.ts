@@ -183,6 +183,7 @@ export class LdnServiceFormEditComponent implements OnInit {
 
 
   }
+
   /**
    * Generates an array of patch operations based on form changes
    * @returns Array of patch operations
@@ -253,6 +254,7 @@ export class LdnServiceFormEditComponent implements OnInit {
     patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')})
 
   }
+
   /**
    * Selects an outbound item filter by updating its value based on the provided filter value and index
    * @param filterValue - The selected filter value
@@ -370,8 +372,8 @@ export class LdnServiceFormEditComponent implements OnInit {
   }
 
   /**
-  * Resets the form and navigates back to the LDN services page
-  */
+   * Resets the form and navigates back to the LDN services page
+   */
   resetFormAndLeave() {
     this.sendBack();
     this.closeModal();
@@ -418,6 +420,7 @@ export class LdnServiceFormEditComponent implements OnInit {
       this.markedForDeletionOutboundPattern.splice(i, 1);
     }
   }
+
   /**
    * Deletes marked inbound patterns from the form model
    */

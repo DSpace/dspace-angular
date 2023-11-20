@@ -15,7 +15,7 @@ import {LdnServicesOverviewComponent} from './ldn-services-directory.component';
 import {createSuccessfulRemoteDataObject$} from "../../../shared/remote-data.utils";
 import {createPaginatedList} from "../../../shared/testing/utils.test";
 
-describe('LdnServicesOverviewComponent', ( ) => {
+describe('LdnServicesOverviewComponent', () => {
   let component: LdnServicesOverviewComponent;
   let fixture: ComponentFixture<LdnServicesOverviewComponent>;
   let ldnServicesService;
@@ -45,7 +45,8 @@ describe('LdnServicesOverviewComponent', ( ) => {
         {provide: PaginationService, useValue: paginationService},
         {
           provide: NgbModal, useValue: {
-            open: () => { /*comment*/}
+            open: () => { /*comment*/
+            }
           }
         },
         {provide: ChangeDetectorRef, useValue: {}},

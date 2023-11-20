@@ -137,7 +137,7 @@ export class LdnServiceFormComponent implements OnInit {
   }
 
   /**
-   * Handles the creation of an LDN service by validating form fields,
+   * Handles the creation of an LDN service by retrieving and validating form fields,
    * and submitting the form data to the LDN services endpoint.
    */
   createService() {
@@ -334,6 +334,7 @@ export class LdnServiceFormComponent implements OnInit {
   private sendBack() {
     this.router.navigateByUrl('admin/ldn/services');
   }
+
   /**
    * Creates a form group for an outbound pattern in the notifyServiceOutboundPatterns form array.
    *

@@ -84,7 +84,7 @@ export const mockLdnServices: LdnService[] = [{
   get self(): string {
     return "";
   },
-},{
+}, {
   uuid: "2",
   enabled: false,
   score: 0,
