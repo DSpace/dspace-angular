@@ -69,6 +69,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   public formModel: DynamicFormControlModel[];
   public vocabulary$: Observable<Vocabulary>;
+  public securityLevelParent: number;
 
   private subs: Subscription[] = [];
 
@@ -113,10 +114,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
           if (isNotEmpty(nextValue)) {
             model.value = nextValue;
           }
-          // as the value doesn't support the security level, add into the big model
-          if (value && typeof value !== 'string') {
-            (model as any).securityLevel = value.securityLevel;
-          }
+
+          this.initSecurityLevelConfig(model, modelRow);
         });
       });
     }
@@ -262,6 +261,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       modelRow.group.forEach((model: DynamicInputModel) => {
         if (model.name === this.model.mandatoryField) {
           mandatoryFieldModel = model;
+          this.initSecurityLevelConfig(model, modelRow);
           return;
         }
       });
@@ -293,18 +293,42 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     const item = Object.create({});
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
+      const mainRow = modelRow.group.find(model => model.name === this.model.name);
       modelRow.group.forEach((control: DynamicInputModel) => {
         const controlValue: any = (control?.value as any)?.value || control?.value || PLACEHOLDER_PARENT_METADATA;
         const controlAuthority: any = (control?.value as any)?.authority || null;
+
         item[control.name] =
           new FormFieldMetadataValueObject(
-            controlValue, (control as any)?.language, (control as any)?.securityLevel, controlAuthority,
+            controlValue, (control as any)?.language,
+            (mainRow as any).securityLevel,
+            controlAuthority,
             null, 0, null,
             (control?.value as any)?.otherInformation || null
           );
       });
     });
     return item;
+  }
+
+  private initSecurityLevelConfig(chipModel: DynamicInputModel, modelGroup: DynamicFormGroupModel) {
+    if (this.model.name === chipModel.name) {
+      if (modelGroup.group.some((item: any) => item.securityConfigLevel.length > 0)) {
+        (chipModel as any).securityConfigLevel = [0, 1, 2];
+        (chipModel as any).toggleSecurityVisibility = true;
+      }
+
+      const mainRow = modelGroup.group.find(itemModel => itemModel.name === this.model.name);
+
+      (chipModel as any).securityLevel = (mainRow as any).securityLevel || 0;
+      this.securityLevelParent = (mainRow as any).securityLevel || 0;
+      modelGroup.group.forEach((item: any) => {
+        if (item.name !== this.model.name) {
+          item.toggleSecurityVisibility = false;
+          item.securityLevel = this.securityLevelParent || 0;
+        }
+      });
+    }
   }
 
   private retrieveVocabulary(vocabularyOptions: VocabularyOptions): void {
