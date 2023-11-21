@@ -36,7 +36,7 @@
   <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
                  class="example-tree-node expandable-node">
     <div class="btn-group">
-      <button #toggle type="button" class="btn btn-default" cdkTreeNodeToggle
+      <button type="button" class="btn btn-default" cdkTreeNodeToggle
               [title]="'toggle ' + dsoNameService.getName(node.payload)"
               [attr.aria-label]="'toggle ' + dsoNameService.getName(node.payload)"
               (click)="toggleExpanded(node)"

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommunityListComponent as BaseComponent } from '../../../../../app/community-list-page/community-list/community-list.component';
+import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
 
 /**
  * A tree-structured list of nodes representing the communities, their subCommunities and collections.
@@ -20,27 +21,30 @@ export class CommunityListComponent extends BaseComponent implements OnInit {
 
   @Input() enableExpandCollapseAll = false;
 
-  @ViewChildren('toggle') toggle!: QueryList<any>;
-
   ngOnInit(): void {
     this.paginationConfig.scopeID = this.scopeId;
     super.ngOnInit();
   }
 
   expandAll(): void {
-    this.toggle.filter((node: any) => {
-      return !!node.nativeElement.querySelector('.fa-chevron-right');
-    }).forEach((node: any) => {
-      node.nativeElement.click();
-    });
+    this.getNodes()
+      .filter((node: FlatNode) => !node.isExpanded)
+      .forEach((node: FlatNode) => {
+        this.toggleExpanded(node);
+      });
   }
 
   collapseAll(): void {
-    this.toggle.filter((node: any) => {
-      return !!node.nativeElement.querySelector('.fa-chevron-down');
-    }).reverse().forEach((node: any) => {
-      node.nativeElement.click();
-    });
+    this.getNodes().reverse()
+      .filter((node: FlatNode) => node.isExpanded)
+      .forEach((node: FlatNode) => {
+        this.toggleExpanded(node);
+      });
+  }
+
+  private getNodes(): FlatNode[] {
+    return (this.dataSource as any).communityList$.value
+      .filter((node: FlatNode) => !node.isShowMoreNode);
   }
 
 }
