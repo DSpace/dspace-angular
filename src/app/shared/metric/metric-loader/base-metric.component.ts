@@ -13,6 +13,9 @@ export abstract class BaseMetricComponent {
 
   @Input() hideLabel = false;
 
+  /**
+   * Whether the badge is shown in the search result list
+   */
   @Input() isListElement = false;
 
   @Output() hide: EventEmitter<boolean> = new EventEmitter();
