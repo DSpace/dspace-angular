@@ -49,6 +49,7 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './sections/upload/file/themed-section-upload-file.component';
 import { FormModule } from '../shared/form/form.module';
 import { NgbAccordionModule, NgbCollapseModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
@@ -104,6 +105,7 @@ const DECLARATIONS = [
   PublisherPolicyComponent,
   PublicationInformationComponent,
   MetadataInformationComponent,
+  ThemedSubmissionSectionUploadFileComponent,
 ];
 
 @NgModule({

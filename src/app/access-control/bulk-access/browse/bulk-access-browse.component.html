@@ -1,0 +1,67 @@
+<ngb-accordion #acc="ngbAccordion" [activeIds]="'browse'">
+  <ngb-panel [id]="'browse'">
+    <ng-template ngbPanelHeader>
+      <div class="w-100 d-flex justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle('browse')"
+           data-test="browse">
+        <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
+                [attr.aria-expanded]="!acc.isExpanded('browse')"
+                aria-controls="collapsePanels">
+          {{ 'admin.access-control.bulk-access-browse.header' | translate }}
+        </button>
+        <div class="text-right d-flex">
+          <div class="ml-3 d-inline-block">
+            <span *ngIf="acc.isExpanded('browse')" class="fas fa-chevron-up fa-fw"></span>
+            <span *ngIf="!acc.isExpanded('browse')" class="fas fa-chevron-down fa-fw"></span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <ul ngbNav #nav="ngbNav" [(activeId)]="activateId" class="nav-pills">
+        <li [ngbNavItem]="'search'">
+          <a ngbNavLink>{{'admin.access-control.bulk-access-browse.search.header' | translate}}</a>
+          <ng-template ngbNavContent>
+            <div class="mx-n3">
+              <ds-themed-search [configuration]="'administrativeBulkAccess'"
+                                [selectable]="true"
+                                [selectionConfig]="{ repeatable: true, listId: listId }"
+                                [showThumbnails]="false"></ds-themed-search>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="'selected'">
+          <a ngbNavLink>
+            {{'admin.access-control.bulk-access-browse.selected.header' | translate: {number: ((objectsSelected$ | async)?.payload?.totalElements) ? (objectsSelected$ | async)?.payload?.totalElements : '0'} }}
+          </a>
+          <ng-template ngbNavContent>
+            <ds-pagination
+              [paginationOptions]="(paginationOptions$ | async)"
+              [pageInfoState]="(objectsSelected$|async)?.payload.pageInfo"
+              [collectionSize]="(objectsSelected$|async)?.payload?.totalElements"
+              [objects]="(objectsSelected$|async)"
+              [showPaginator]="false"
+              (prev)="pagePrev()"
+              (next)="pageNext()">
+              <ul *ngIf="(objectsSelected$|async)?.hasSucceeded" class="list-unstyled ml-4">
+                <li *ngFor='let object of (objectsSelected$|async)?.payload?.page | paginate: { itemsPerPage: (paginationOptions$ | async).pageSize,
+                            currentPage: (paginationOptions$ | async).currentPage, totalItems: (objectsSelected$|async)?.payload?.page.length }; let i = index; let last = last '
+                    class="mt-4 mb-4 d-flex"
+                    [attr.data-test]="'list-object' | dsBrowserOnly">
+                  <ds-selectable-list-item-control [index]="i"
+                                                   [object]="object"
+                                                   [selectionConfig]="{ repeatable: true, listId: listId }"></ds-selectable-list-item-control>
+                  <ds-listable-object-component-loader [listID]="listId"
+                                                       [index]="i"
+                                                       [object]="object"
+                                                       [showThumbnails]="false"
+                                                       [viewMode]="'list'"></ds-listable-object-component-loader>
+                </li>
+              </ul>
+            </ds-pagination>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav" class="mt-5"></div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

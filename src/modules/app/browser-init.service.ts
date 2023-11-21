@@ -32,6 +32,7 @@ import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
 
 /**
  * Performs client-side initialization.
@@ -56,7 +57,8 @@ export class BrowserInitService extends InitService {
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
-    private rootDataService: RootDataService
+    private rootDataService: RootDataService,
+    protected serverCheckGuard: ServerCheckGuard,
   ) {
     super(
       store,
@@ -170,6 +172,15 @@ export class BrowserInitService extends InitService {
     firstValueFrom(this.authenticationReady$()).then(() => {
         this.sub.unsubscribe();
       });
+  }
+
+  /**
+   * Start route-listening subscriptions
+   * @protected
+   */
+  protected initRouteListeners(): void {
+    super.initRouteListeners();
+    this.serverCheckGuard.listenForRouteChanges();
   }
 
 }

@@ -123,19 +123,6 @@ describe('GrantRequestCopyComponent', () => {
     spyOn(translateService, 'get').and.returnValue(observableOf('translated-message'));
   });
 
-  it('message$ should be parameterized correctly', (done) => {
-    component.message$.subscribe(() => {
-      expect(translateService.get).toHaveBeenCalledWith(jasmine.anything(), Object.assign({
-        recipientName: itemRequest.requestName,
-        itemUrl: itemUrl,
-        itemName: itemName,
-        authorName: user.name,
-        authorEmail: user.email,
-      }));
-      done();
-    });
-  });
-
   describe('grant', () => {
     let email: RequestCopyEmail;
 

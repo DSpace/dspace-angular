@@ -192,7 +192,7 @@ describe('VocabularyTreeviewService test suite', () => {
         a: createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, [item, item2, item3]))
       }));
 
-      scheduler.schedule(() => service.initialize(vocabularyOptions, pageInfo));
+      scheduler.schedule(() => service.initialize(vocabularyOptions, pageInfo, []));
       scheduler.flush();
 
       expect(serviceAsAny.vocabularyName).toEqual(vocabularyOptions.name);
@@ -214,7 +214,7 @@ describe('VocabularyTreeviewService test suite', () => {
           b: createSuccessfulRemoteDataObject(item)
         })
       );
-      scheduler.schedule(() => service.initialize(vocabularyOptions, pageInfo, 'root2'));
+      scheduler.schedule(() => service.initialize(vocabularyOptions, pageInfo, [], 'root2'));
       scheduler.flush();
 
       expect(serviceAsAny.vocabularyName).toEqual(vocabularyOptions.name);
@@ -233,11 +233,11 @@ describe('VocabularyTreeviewService test suite', () => {
   describe('loadMoreRoot', () => {
     it('should call retrieveTopNodes properly', () => {
       spyOn(serviceAsAny, 'retrieveTopNodes');
-      service.initialize(vocabularyOptions, new PageInfo());
+      service.initialize(vocabularyOptions, new PageInfo(), []);
       serviceAsAny.dataChange.next(treeNodeListWithLoadMoreRoot);
-      service.loadMoreRoot(loadMoreRootFlatNode);
+      service.loadMoreRoot(loadMoreRootFlatNode, []);
 
-      expect(serviceAsAny.retrieveTopNodes).toHaveBeenCalledWith(loadMoreRootFlatNode.pageInfo, treeNodeList);
+      expect(serviceAsAny.retrieveTopNodes).toHaveBeenCalledWith(loadMoreRootFlatNode.pageInfo, treeNodeList, []);
     });
   });
 
@@ -263,7 +263,7 @@ describe('VocabularyTreeviewService test suite', () => {
       serviceAsAny.nodeMap = nodeMapWithChildren;
       treeNodeListWithChildren.push(new TreeviewNode(child2, false, new PageInfo(), item));
 
-      scheduler.schedule(() => service.loadMore(item));
+      scheduler.schedule(() => service.loadMore(item, []));
       scheduler.flush();
 
       expect(serviceAsAny.dataChange.value).toEqual(treeNodeListWithChildren);
@@ -285,7 +285,7 @@ describe('VocabularyTreeviewService test suite', () => {
       treeNodeListWithChildren.push(childNode2);
       treeNodeListWithChildren.push(loadMoreNode);
 
-      scheduler.schedule(() => service.loadMore(item));
+      scheduler.schedule(() => service.loadMore(item, []));
       scheduler.flush();
 
       expect(serviceAsAny.dataChange.value).toEqual(treeNodeListWithChildren);
@@ -319,7 +319,7 @@ describe('VocabularyTreeviewService test suite', () => {
       );
       vocabularyOptions.query = 'root1-child1-child1';
 
-      scheduler.schedule(() => service.searchByQuery(vocabularyOptions));
+      scheduler.schedule(() => service.searchByQuery(vocabularyOptions, []));
       scheduler.flush();
 
       // We can't check the tree by comparing root TreeviewNodes directly in this particular test;

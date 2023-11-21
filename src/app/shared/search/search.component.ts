@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
    * The configuration to use for the search options
    * If empty, 'default' is used
    */
-  @Input() configuration = 'default';
+  @Input() configuration;
 
   /**
    * The actual query for the fixed filter.
@@ -130,6 +130,11 @@ export class SearchComponent implements OnInit {
    * A boolean representing if show search sidebar button
    */
   @Input() showSidebar = true;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
 
   /**
    * Whether to show the view mode switch

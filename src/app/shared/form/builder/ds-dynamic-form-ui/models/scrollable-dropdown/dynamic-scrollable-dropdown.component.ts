@@ -99,6 +99,23 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   }
 
   /**
+   * KeyDown handler to allow toggling the dropdown via keyboard
+   * @param event KeyboardEvent
+   * @param sdRef The reference of the NgbDropdown.
+   */
+  selectOnKeyDown(event: KeyboardEvent, sdRef: NgbDropdown) {
+    const keyName = event.key;
+
+    if (keyName === ' ' || keyName === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      sdRef.toggle();
+    } else if (keyName === 'ArrowDown' || keyName === 'ArrowUp') {
+      this.openDropdown(sdRef);
+    }
+  }
+
+  /**
    * Loads any new entries
    */
   onScroll() {

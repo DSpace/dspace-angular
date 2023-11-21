@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
 import {
@@ -66,7 +66,8 @@ import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynami
   styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
 })
-export class SubmissionSectionUploadFileEditComponent implements OnInit {
+export class SubmissionSectionUploadFileEditComponent
+    implements OnInit, OnDestroy {
 
   /**
    * The FormComponent reference
@@ -435,13 +436,31 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
                 delete currentAccessCondition.startDate;
               } else if (accessCondition.startDate) {
                 const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                currentAccessCondition.startDate = dateToISOFormat(startDate);
+                // Clamp the start date to the maximum, if any, since the
+                // datepicker sometimes exceeds it.
+                let startDateDate = new Date(startDate);
+                if (accessConditionOpt.maxStartDate) {
+                    const maxStartDateDate = new Date(accessConditionOpt.maxStartDate);
+                    if (startDateDate > maxStartDateDate) {
+                        startDateDate = maxStartDateDate;
+                    }
+                }
+                currentAccessCondition.startDate = dateToISOFormat(startDateDate);
               }
               if (!accessConditionOpt.hasEndDate) {
                 delete currentAccessCondition.endDate;
               } else if (accessCondition.endDate) {
                 const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                currentAccessCondition.endDate = dateToISOFormat(endDate);
+                // Clamp the end date to the maximum, if any, since the
+                // datepicker sometimes exceeds it.
+                let endDateDate = new Date(endDate);
+                if (accessConditionOpt.maxEndDate) {
+                    const maxEndDateDate = new Date(accessConditionOpt.maxEndDate);
+                    if (endDateDate > maxEndDateDate) {
+                        endDateDate = maxEndDateDate;
+                    }
+                }
+                currentAccessCondition.endDate = dateToISOFormat(endDateDate);
               }
               accessConditionsToSave.push(currentAccessCondition);
             }

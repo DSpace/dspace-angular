@@ -75,7 +75,7 @@
           <a class="text-white"
              routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="showSendFeedback$ | async">
           <a class="text-white"
              routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
         </li>

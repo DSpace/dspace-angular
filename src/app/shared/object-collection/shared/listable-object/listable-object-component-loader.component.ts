@@ -71,6 +71,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Input() showLabel = true;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * The value to display for this element
    */
   @Input() value: string;
@@ -105,6 +110,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     'linkType',
     'listID',
     'showLabel',
+    'showThumbnails',
     'context',
     'viewMode',
     'value',

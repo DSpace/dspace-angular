@@ -12,6 +12,7 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { By } from '@angular/platform-browser';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 describe('MetadataFieldSelectorComponent', () => {
   let component: MetadataFieldSelectorComponent;
@@ -79,7 +80,7 @@ describe('MetadataFieldSelectorComponent', () => {
     });
 
     it('should query the registry service for metadata fields and include the schema', () => {
-      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, null, true, false, followLink('schema'));
+      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, { elementsPerPage: 10, sort: new SortOptions('fieldName', SortDirection.ASC) }, true, false, followLink('schema'));
     });
   });
 

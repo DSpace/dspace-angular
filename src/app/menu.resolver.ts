@@ -660,6 +660,17 @@ export class MenuResolver implements Resolve<boolean> {
             link: '/access-control/groups'
           } as LinkMenuItemModel,
         },
+        {
+          id: 'access_control_bulk',
+          parentID: 'access_control',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_bulk',
+            link: '/access-control/bulk-access'
+          } as LinkMenuItemModel,
+        },
         // TODO: enable this menu item once the feature has been implemented
         // {
         //   id: 'access_control_authorizations',

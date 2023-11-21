@@ -183,7 +183,8 @@ export class DsDynamicTypeBindRelationService {
         const initValue = (hasNoValue(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value :
           (Array.isArray(relatedModel.value) ? relatedModel.value : relatedModel.value.value);
 
-        const valueChanges = relatedModel.valueChanges.pipe(
+        const updateSubject = (relatedModel.type === 'CHECKBOX_GROUP' ? relatedModel.valueUpdates : relatedModel.valueChanges);
+        const valueChanges = updateSubject.pipe(
           startWith(initValue)
         );
 

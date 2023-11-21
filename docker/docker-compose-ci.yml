@@ -35,7 +35,7 @@ services:
       solr__D__statistics__P__autoCommit: 'false'
     depends_on:
     - dspacedb
-    image: dspace/dspace:dspace-7_x-test
+    image: dspace/dspace:latest-test
     networks:
       dspacenet:
     ports:

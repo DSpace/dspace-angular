@@ -32,7 +32,7 @@
 
     <section class="comcol-page-browse-section">
     <div class="browse-by-metadata w-100">
-    <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
+    <ds-themed-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
       title="{{'browse.title' | translate:
       {
         collection: dsoNameService.getName((parent$ | async)?.payload),
@@ -48,7 +48,7 @@
       [startsWithOptions]="startsWithOptions"
       (prev)="goPrev()"
       (next)="goNext()">
-    </ds-browse-by>
+    </ds-themed-browse-by>
     <ds-themed-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
   </div>
   </section>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,6 +22,8 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
+
 
 /**
  * Form used for creating and editing collections
@@ -31,7 +33,7 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit {
+export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
    * @type {Collection} A new collection when a collection is being created, an existing Input collection when a collection is being edited
    */
@@ -61,12 +63,29 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
-                     protected entityTypeService: EntityTypeDataService) {
+                     protected entityTypeService: EntityTypeDataService,
+                     protected chd: ChangeDetectorRef) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    if (hasNoValue(this.formModel) && isNotNull(this.dso)) {
+      this.initializeForm();
+    }
+  }
 
+  /**
+   * Detect changes to the dso and initialize the form,
+   * if the dso changes, exists and it is not the first change
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    const dsoChange: SimpleChange = changes.dso;
+    if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
+      this.initializeForm();
+    }
+  }
+
+  initializeForm() {
     let currentRelationshipValue: MetadataValue[];
     if (this.dso && this.dso.metadata) {
       currentRelationshipValue = this.dso.metadata['dspace.entity.type'];
@@ -79,9 +98,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     // retrieve all entity types to populate the dropdowns selection
     entities$.subscribe((entityTypes: ItemType[]) => {
 
-        entityTypes
-          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
-          .forEach((type: ItemType, index: number) => {
+      entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
+          entityTypes.forEach((type: ItemType, index: number) => {
           this.entityTypeSelection.add({
             disabled: false,
             label: type.label,
@@ -93,9 +111,10 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection];
+      this.formModel = entityTypes.length === 0 ? collectionFormModels : [...collectionFormModels, this.entityTypeSelection];
 
         super.ngOnInit();
+        this.chd.detectChanges();
     });
 
   }

@@ -203,36 +203,6 @@ describe('EPeopleRegistryComponent', () => {
     });
   });
 
-  describe('toggleEditEPerson', () => {
-    describe('when you click on first edit eperson button', () => {
-      beforeEach(fakeAsync(() => {
-        const editButtons = fixture.debugElement.queryAll(By.css('.access-control-editEPersonButton'));
-        editButtons[0].triggerEventHandler('click', {
-          preventDefault: () => {/**/
-          }
-        });
-        tick();
-        fixture.detectChanges();
-      }));
-
-      it('editEPerson form is toggled', () => {
-        const ePeopleIds = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
-        ePersonDataServiceStub.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
-          if (ePeopleIds[0] && activeEPerson === ePeopleIds[0].nativeElement.textContent) {
-            expect(component.isEPersonFormShown).toEqual(false);
-          } else {
-            expect(component.isEPersonFormShown).toEqual(true);
-          }
-
-        });
-      });
-
-      it('EPerson search section is hidden', () => {
-        expect(fixture.debugElement.query(By.css('#search'))).toBeNull();
-      });
-    });
-  });
-
   describe('deleteEPerson', () => {
     describe('when you click on first delete eperson button', () => {
       let ePeopleIdsFoundBeforeDelete;

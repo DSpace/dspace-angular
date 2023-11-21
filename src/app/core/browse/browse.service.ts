@@ -7,6 +7,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -240,7 +241,12 @@ export class BrowseService {
       getPaginatedListPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
         .find((def: BrowseDefinition) => {
-          const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
+          let matchingKeys = '';
+
+          if (Array.isArray((def as FlatBrowseDefinition).metadataKeys)) {
+            matchingKeys = (def as FlatBrowseDefinition).metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
+          }
+
           return isNotEmpty(matchingKeys);
         })
       ),

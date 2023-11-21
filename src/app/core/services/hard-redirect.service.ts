@@ -11,8 +11,10 @@ export abstract class HardRedirectService {
    *
    * @param url
    *    the page to redirect to
+   * @param statusCode
+   *    optional HTTP status code to use for redirect (default = 302, which is a temporary redirect)
    */
-  abstract redirect(url: string);
+  abstract redirect(url: string, statusCode?: number);
 
   /**
    * Get the current route, with query params included
@@ -23,8 +25,8 @@ export abstract class HardRedirectService {
   /**
    * Get the origin of the current URL
    * i.e. <scheme> "://" <hostname> [ ":" <port> ]
-   * e.g. if the URL is https://demo7.dspace.org/search?query=test,
-   * the origin would be https://demo7.dspace.org
+   * e.g. if the URL is https://demo.dspace.org/search?query=test,
+   * the origin would be https://demo.dspace.org
    */
   abstract getCurrentOrigin(): string;
 }

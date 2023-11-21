@@ -55,6 +55,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.metadataFields = config.metadataFields;
     this.hint = config.hint;
     this.readOnly = config.readOnly;
+    this.disabled = config.readOnly;
     this.value = config.value;
     this.relationship = config.relationship;
     this.submissionId = config.submissionId;
