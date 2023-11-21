@@ -23,8 +23,8 @@ env:
   # For a new commit on other branches, use the branch name as the tag for Docker image.
   # For a new tag, copy that tag name as the tag for Docker image.
   IMAGE_TAGS: |
-    type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
-    type=ref,event=branch,enable=${{ !endsWith(github.ref, github.event.repository.default_branch) }}
+    type=raw,value=latest,enable=${{ github.ref_name == github.event.repository.default_branch }}
+    type=ref,event=branch,enable=${{ github.ref_name != github.event.repository.default_branch }}
     type=ref,event=tag
   # Define default tag "flavor" for docker/metadata-action per
   # https://github.com/docker/metadata-action#flavor-input
@@ -300,3 +300,25 @@ jobs:
       - name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta_dist.outputs.version }}
+
+  # Deploy latest -dist image to Demo or Sandbox site, based on the branch updated
+  dspace-angular-dist_deploy:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    needs:
+      # Requires manifest to be fully updated on DockerHub
+      - dspace-angular-dist_manifest
+    steps:
+      - name: Redeploy sandbox.dspace.org (based on main branch)
+        if: ${{ github.ref_name == github.event.repository.default_branch }}
+        run: |
+            curl -X POST -d '{}' $REDEPLOY_SANDBOX_URL
+        env:
+          REDEPLOY_SANDBOX_URL:  ${{ secrets.REDEPLOY_SANDBOX_URL }}
+
+      - name: Redeploy demo.dspace.org (based on maintenace branch)
+        if: ${{ github.ref_name == 'dspace-7_x' }}
+        run: |
+            curl -X POST -d '{}' $REDEPLOY_DEMO_URL
+        env:
+            REDEPLOY_DEMO_URL:  ${{ secrets.REDEPLOY_DEMO_URL }}
