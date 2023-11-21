@@ -2625,6 +2625,12 @@
 
   "item.page.uri": "URI",
 
+  "item.page.endorsment": "Endorsment",
+
+  "item.page.review": "Review",
+
+  "item.page.dataset": "Dataset",
+
   "item.page.bitstreams.view-more": "Show more",
 
   "item.page.bitstreams.collapse": "Collapse",
