@@ -195,6 +195,9 @@ import {
   CoarNotifyConfigDataService
 } from '../submission/sections/section-coar-notify/coar-notify-config-data.service';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
+import { NotifyRequestsStatusDataService } from './data/notify-services-status-data.service';
+
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -320,7 +323,8 @@ const PROVIDERS = [
   SupervisionOrderDataService,
   LdnServicesService,
   LdnItemfiltersService,
-  CoarNotifyConfigDataService
+  CoarNotifyConfigDataService,
+  NotifyRequestsStatusDataService
 ];
 
 /**
@@ -404,8 +408,8 @@ export const models =
     SuggestionSource,
     LdnService,
     Itemfilter,
-    SubmissionCoarNotifyConfig
-
+    SubmissionCoarNotifyConfig,
+    NotifyRequestsStatus,
   ];
 
 @NgModule({
