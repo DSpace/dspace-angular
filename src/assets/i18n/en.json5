@@ -1047,7 +1047,11 @@
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
+  "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
+
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+
+  "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
 
   "browse.metadata.type.breadcrumbs": "Browse by Type",
 
