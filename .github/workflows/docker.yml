@@ -255,6 +255,24 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+      # If the 'linux/amd64' -dist image was just updated for the 'main' branch,
+      # Then redeploy https://sandbox.dspace.org using that updated image.
+      - name: Redeploy sandbox.dspace.org (based on main branch)
+        if: ${{ ! matrix.isPr && matrix.arch == 'linux/amd64' && github.ref_name == github.event.repository.default_branch }}
+        run: |
+            curl -X POST $REDEPLOY_SANDBOX_URL
+        env:
+          REDEPLOY_SANDBOX_URL:  ${{ secrets.REDEPLOY_SANDBOX_URL }}
+
+      # If the 'linux/amd64' -dist image was just updated for the maintenance branch,
+      # Then redeploy https://demo.dspace.org using that updated image.
+      - name: Redeploy demo.dspace.org (based on maintenace branch)
+        if: ${{ ! matrix.isPr && matrix.arch == 'linux/amd64' && github.ref_name == 'dspace-7_x' }}
+        run: |
+            curl -X POST $REDEPLOY_DEMO_URL
+        env:
+            REDEPLOY_DEMO_URL:  ${{ secrets.REDEPLOY_DEMO_URL }}
+
   # Merge *-dist digests into a manifest.
   # This runs after all Docker builds complete above, and it tells hub.docker.com
   # that these builds should be all included in the manifest for this tag.
@@ -300,25 +318,3 @@ jobs:
       - name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta_dist.outputs.version }}
-
-  # Deploy latest -dist image to Demo or Sandbox site, based on the branch updated
-  dspace-angular-dist_deploy:
-    if: ${{ github.event_name != 'pull_request' }}
-    runs-on: ubuntu-latest
-    needs:
-      # Requires manifest to be fully updated on DockerHub
-      - dspace-angular-dist_manifest
-    steps:
-      - name: Redeploy sandbox.dspace.org (based on main branch)
-        if: ${{ github.ref_name == github.event.repository.default_branch }}
-        run: |
-            curl -X POST -d '{}' $REDEPLOY_SANDBOX_URL
-        env:
-          REDEPLOY_SANDBOX_URL:  ${{ secrets.REDEPLOY_SANDBOX_URL }}
-
-      - name: Redeploy demo.dspace.org (based on maintenace branch)
-        if: ${{ github.ref_name == 'dspace-7_x' }}
-        run: |
-            curl -X POST -d '{}' $REDEPLOY_DEMO_URL
-        env:
-            REDEPLOY_DEMO_URL:  ${{ secrets.REDEPLOY_DEMO_URL }}
