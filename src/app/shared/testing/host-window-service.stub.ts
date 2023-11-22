@@ -20,4 +20,8 @@ export class HostWindowServiceStub {
   isXsOrSm(): Observable<boolean> {
     return this.isXs();
   }
+
+  isMobile(): Observable<boolean> {
+    return this.isXs();
+  }
 }

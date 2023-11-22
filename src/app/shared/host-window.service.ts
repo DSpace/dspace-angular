@@ -10,12 +10,14 @@ import { AppState } from '../app.reducer';
 import { CSSVariableService } from './sass-helper/css-variable.service';
 
 export enum WidthCategory {
-  XS,
-  SM,
-  MD,
-  LG,
-  XL
+  XS = 0,
+  SM = 1,
+  MD = 2,
+  LG = 3,
+  XL = 4,
 }
+
+export const maxMobileWidth = WidthCategory.SM;
 
 const hostWindowStateSelector = (state: AppState) => state.hostWindow;
 const widthSelector = createSelector(hostWindowStateSelector, (hostWindow: HostWindowState) => hostWindow.width);
@@ -31,11 +33,11 @@ export class HostWindowService {
     /* See _exposed_variables.scss */
     variableService.getAllVariables()
       .subscribe((variables) => {
-      this.breakPoints.XL_MIN = parseInt(variables['--bs-xl-min'], 10);
-      this.breakPoints.LG_MIN = parseInt(variables['--bs-lg-min'], 10);
-      this.breakPoints.MD_MIN = parseInt(variables['--bs-md-min'], 10);
-      this.breakPoints.SM_MIN = parseInt(variables['--bs-sm-min'], 10);
-    });
+        this.breakPoints.XL_MIN = parseInt(variables['--bs-xl-min'], 10);
+        this.breakPoints.LG_MIN = parseInt(variables['--bs-lg-min'], 10);
+        this.breakPoints.MD_MIN = parseInt(variables['--bs-md-min'], 10);
+        this.breakPoints.SM_MIN = parseInt(variables['--bs-sm-min'], 10);
+      });
   }
 
   private getWidthObs(): Observable<number> {
@@ -95,6 +97,41 @@ export class HostWindowService {
   isXl(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat === WidthCategory.XL),
+      distinctUntilChanged()
+    );
+  }
+
+  is(exactWidthCat: WidthCategory): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat === exactWidthCat),
+      distinctUntilChanged()
+    );
+  }
+
+  isIn(widthCatArray: [WidthCategory]): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCatArray.includes(widthCat)),
+      distinctUntilChanged()
+    );
+  }
+
+  isUpTo(maxWidthCat: WidthCategory): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat <= maxWidthCat),
+      distinctUntilChanged()
+    );
+  }
+
+  isMobile(): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat <= maxMobileWidth),
+      distinctUntilChanged()
+    );
+  }
+
+  isDesktop(): Observable<boolean> {
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat > maxMobileWidth),
       distinctUntilChanged()
     );
   }
