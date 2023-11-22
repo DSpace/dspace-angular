@@ -5,4 +5,4 @@ import {ResourceType} from '../../../core/shared/resource-type';
  * Needs to be in a separate file to prevent circular
  * dependencies in webpack.
  */
-export const NOTIFYREQUEST = new ResourceType('notifyrequest');
+export const NOTIFYREQUEST = new ResourceType('notifyrequests');

@@ -16,8 +16,6 @@ import { GetRequest } from './request.models';
 @dataService(NOTIFYREQUEST)
 export class NotifyRequestsStatusDataService extends IdentifiableDataService<NotifyRequestsStatus> {
 
-  private notifyRequestLink = 'notifyrequests';
-
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -25,7 +23,7 @@ export class NotifyRequestsStatusDataService extends IdentifiableDataService<Not
     protected halService: HALEndpointService,
     protected rdb: RemoteDataBuildService,
   ) {
-    super('ldn', requestService, rdbService, objectCache, halService);
+    super('notifyrequests', requestService, rdbService, objectCache, halService);
   }
 
   /**
@@ -34,9 +32,8 @@ export class NotifyRequestsStatusDataService extends IdentifiableDataService<Not
    * @returns An Observable that emits the remote data containing the notify requests status.
    */
   getNotifyRequestsStatus(itemUuid: string): Observable<RemoteData<NotifyRequestsStatus>> {
-    const href$ = this.halService.getEndpoint(this.notifyRequestLink).pipe(
-      tap((url: string) => console.log('url', url) ),
-      map((url: string) => url + '/' + itemUuid),
+    const href$ = this.getEndpoint().pipe(
+      map((url: string) => url + '/' + itemUuid ),
     );
 
     href$.pipe(take(1)).subscribe((url: string) => {

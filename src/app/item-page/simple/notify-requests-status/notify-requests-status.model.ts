@@ -27,13 +27,13 @@ export class NotifyRequestsStatus implements CacheableObject {
    * The notify statuses.
    */
   @autoserialize
-  notifyStatuses: NotifyStatuses[];
+  notifyStatus: NotifyStatuses[];
 
   /**
    * The UUID of the item.
    */
   @autoserialize
-  itemUuid: string;
+  itemuuid: string;
 
   /**
    * The links associated with the notify requests status.
