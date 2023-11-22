@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -16,7 +16,9 @@ import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { CoreState } from '../../../core/core-state.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+
+export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEntry | VocabularyEntryDetail;
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -39,14 +41,24 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   @Input() preloadLevel = 2;
 
   /**
-   * The vocabulary entries already selected, if any
+   * Contain a descriptive message for the tree
    */
-  @Input() selectedItems: string[] = [];
+  @Input() description = '';
 
   /**
    * Whether to allow selecting multiple values with checkboxes
    */
   @Input() multiSelect = false;
+
+  /**
+   * The vocabulary entries already selected, if any
+   */
+  @Input() showAdd = true;
+
+  /**
+   * The vocabulary entries already selected, if any
+   */
+  @Input() selectedItems: VocabularyTreeItemType[] = [];
 
   /**
    * A map containing the current node showed by the tree
