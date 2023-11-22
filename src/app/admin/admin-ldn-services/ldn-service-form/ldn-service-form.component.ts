@@ -142,12 +142,7 @@ export class LdnServiceFormComponent implements OnInit {
    * and submitting the form data to the LDN services endpoint.
    */
   createService() {
-    this.formModel.get('name').markAsTouched();
-    this.formModel.get('score').markAsTouched();
-    this.formModel.get('url').markAsTouched();
-    this.formModel.get('ldnUrl').markAsTouched();
-    this.formModel.get('notifyServiceInboundPatterns').markAsTouched();
-    this.formModel.get('notifyServiceOutboundPatterns').markAsTouched();
+    this.formModel.markAllAsTouched();
 
     const name = this.formModel.get('name').value;
     const url = this.formModel.get('url').value;
@@ -157,10 +152,17 @@ export class LdnServiceFormComponent implements OnInit {
     const hasInboundPattern = this.checkPatterns(this.formModel.get('notifyServiceInboundPatterns') as FormArray);
     const hasOutboundPattern = this.checkPatterns(this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
 
-    if (!name || !url || !ldnUrl || !score || (!hasInboundPattern && !hasOutboundPattern)) {
+    if (!name || !url || !ldnUrl || !score || this.formModel.get('score').invalid) {
       this.closeModal();
       return;
     }
+
+    if (!hasInboundPattern || !hasOutboundPattern) {
+        this.notificationsService.warning(this.translateService.get('ldn-service-notification.created.warning.title'));
+        this.closeModal();
+        return;
+    }
+
 
     this.formModel.value.notifyServiceInboundPatterns = this.formModel.value.notifyServiceInboundPatterns.map((pattern: {
       pattern: string;

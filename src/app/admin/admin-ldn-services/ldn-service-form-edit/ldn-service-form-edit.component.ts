@@ -353,7 +353,25 @@ export class LdnServiceFormEditComponent implements OnInit {
     this.deleteMarkedOutboundPatterns();
 
     const patchOperations = this.generatePatchOperations();
+    this.formModel.markAllAsTouched();
 
+    // If the form is invalid, close the modal and return
+    if (this.formModel.invalid) {
+      this.closeModal();
+      return;
+    }
+
+    const notifyServiceOutboundPatterns = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
+    const notifyServiceInboundPatterns = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+    // If no inbound or outbound patterns are specified, close the modal and return
+    // noify the user that no patterns are specified
+    if (
+      (notifyServiceOutboundPatterns.length === 0 && !notifyServiceOutboundPatterns[0]?.value) ||
+      (notifyServiceInboundPatterns.length === 0 && !notifyServiceInboundPatterns[0]?.value)) {
+      this.notificationService.warning(this.translateService.get('ldn-service-notification.created.warning.title'));
+      this.closeModal();
+      return;
+    }
 
     this.ldnServicesService.patch(this.service, patchOperations).pipe(
       getFirstCompletedRemoteData()
@@ -478,7 +496,7 @@ export class LdnServiceFormEditComponent implements OnInit {
       patchOperations.push({
         op: 'replace',
         path,
-        value: this.formModel.get(formControlName).value,
+        value: this.formModel.get(formControlName).value.toString(),
       });
     }
   }
@@ -491,12 +509,11 @@ export class LdnServiceFormEditComponent implements OnInit {
   private handlePatterns(patchOperations: any[], formArrayName: string): void {
     const patternsArray = this.formModel.get(formArrayName) as FormArray;
 
-
     for (let i = 0; i < patternsArray.length; i++) {
       const patternGroup = patternsArray.at(i) as FormGroup;
 
       const patternValue = patternGroup.value;
-      if (patternGroup.touched) {
+      if (patternGroup.touched && patternGroup.valid) {
         delete patternValue?.patternLabel;
         if (patternValue.isNew) {
           delete patternValue.isNew;

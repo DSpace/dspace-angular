@@ -42,11 +42,11 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
   @ViewChild('deleteModal', {static: true}) deleteModal: TemplateRef<any>;
   ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
   config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 20
+    elementsPerPage: 10
   });
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'po',
-    pageSize: 20
+    pageSize: 10
   });
   isProcessingSub: Subscription;
   modalRef: any;

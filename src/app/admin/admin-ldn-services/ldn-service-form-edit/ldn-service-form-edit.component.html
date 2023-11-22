@@ -69,8 +69,11 @@
              [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
              id="score"
              name="score"
+             min="0"
+             max="1"
+             step=".01"
              class="form-control"
-             type="text">
+             type="number">
       <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
         {{ 'ldn-new-service.form.error.score' | translate }}
       </div>
@@ -160,6 +163,10 @@
                        class="dropdown-menu scrollable-dropdown-menu w-100 "
                        ngbDropdownMenu>
                     <div class="scrollable-menu" role="listbox">
+                      <button (click)="selectInboundItemFilter('', i); $event.stopPropagation()"
+                        class="dropdown-item collection-item text-truncate w-100" ngbDropdownItem type="button">
+                        <span> {{'ldn-service.control-constaint-select-none' | translate}} </span>
+                      </button>
                       <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
                               *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
                               class="dropdown-item collection-item text-truncate w-100"
@@ -297,6 +304,10 @@
                        class="dropdown-menu scrollable-dropdown-menu w-100 "
                        ngbDropdownMenu>
                     <div class="scrollable-menu" role="listbox">
+                      <button (click)="selectOutboundItemFilter('', i); $event.stopPropagation()"
+                        class="dropdown-item collection-item text-truncate w-100" ngbDropdownItem type="button">
+                        <span> {{'ldn-service.control-constaint-select-none' | translate}} </span>
+                      </button>
                       <button (click)="selectOutboundItemFilter(constraint.id, i); $event.stopPropagation()"
                               *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
                               class="dropdown-item collection-item text-truncate w-100"
