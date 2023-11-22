@@ -2,10 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Subscription, filter } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import {
   NotifyRequestsStatus,
   NotifyStatuses,
@@ -23,70 +22,52 @@ import { hasValue } from '../../../../shared/empty.util';
   styleUrls: ['./notify-requests-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotifyRequestsStatusComponent implements OnInit, OnDestroy {
+export class NotifyRequestsStatusComponent implements OnInit {
   /**
    * The UUID of the item.
    */
   @Input() itemUuid: string;
 
   /**
-   * Map that stores the status of requests and their corresponding notify statuses.
-   * The keys of the map are instances of the RequestStatusEnum enum,
-   * and the values are arrays of NotifyStatuses objects.
+   * Observable representing the request map.
+   * The map contains request status enums as keys and arrays of notify statuses as values.
    */
-  statusMap: Map<RequestStatusEnum, NotifyStatuses[]> = new Map();
+  requestMap$: Observable<Map<RequestStatusEnum, NotifyStatuses[]>>;
 
-  /**
-   * An array of subscriptions.
-   */
-  subs: Subscription[] = [];
-
-  constructor(private notifyInfoService: NotifyRequestsStatusDataService) {}
+  constructor(private notifyInfoService: NotifyRequestsStatusDataService) { }
 
   ngOnInit(): void {
-    this.subs.push(
-      this.notifyInfoService
-        .getNotifyRequestsStatus(this.itemUuid)
-        .pipe(
-          getFirstCompletedRemoteData(),
-          filter((data) => hasValue(data)),
-          getRemoteDataPayload()
-        )
-        .subscribe((data: NotifyRequestsStatus) => {
-          if (hasValue(data)) {
-            this.groupDataByStatus(data);
-          }
+    this.requestMap$ = this.notifyInfoService
+      .getNotifyRequestsStatus(this.itemUuid)
+      .pipe(
+        getFirstCompletedRemoteData(),
+        filter((data) => hasValue(data)),
+        getRemoteDataPayload(),
+        filter((data: NotifyRequestsStatus) => hasValue(data)),
+        map((data: NotifyRequestsStatus) => {
+          return this.groupDataByStatus(data);
         })
-    );
+      );
   }
 
   /**
    * Groups the notify requests status data by status.
    * @param notifyRequestsStatus The notify requests status data.
    */
-  private groupDataByStatus(notifyRequestsStatus: NotifyRequestsStatus): void {
+  private groupDataByStatus(notifyRequestsStatus: NotifyRequestsStatus) {
+    const statusMap: Map<RequestStatusEnum, NotifyStatuses[]> = new Map();
     notifyRequestsStatus.notifyStatus.forEach(
       (notifyStatus: NotifyStatuses) => {
         const status = notifyStatus.status;
 
-        if (!this.statusMap.has(status)) {
-          this.statusMap.set(status, []);
+        if (!statusMap.has(status)) {
+          statusMap.set(status, []);
         }
 
-        this.statusMap.get(status)?.push(notifyStatus);
+        statusMap.get(status)?.push(notifyStatus);
       }
     );
-  }
 
-  /**
-   * Lifecycle hook that is called when the component is destroyed.
-   * Unsubscribes from any active subscriptions.
-   */
-  ngOnDestroy(): void {
-    this.subs.forEach((sub) => {
-      if (hasValue(sub)) {
-        sub.unsubscribe();
-      }
-    });
+    return statusMap;
   }
 }

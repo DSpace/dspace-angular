@@ -50,7 +50,9 @@ describe('NotifyRequestsStatusComponent', () => {
     tick();
 
     expect(notifyInfoServiceSpy.getNotifyRequestsStatus).toHaveBeenCalledWith('testUuid');
-    expect(component.statusMap.size).toBe(0);
+    component.requestMap$.subscribe((map) => {
+      expect(map.size).toBe(0);
+    });
   }));
 
   it('should group data by status', () => {
@@ -74,11 +76,13 @@ describe('NotifyRequestsStatusComponent', () => {
       ],
       itemUuid: 'testUuid'
     });
+    spyOn(notifyInfoServiceSpy, 'getNotifyRequestsStatus').and.returnValue(createSuccessfulRemoteDataObject$(mockData));
     fixture.detectChanges();
     (component as any).groupDataByStatus(mockData);
-
-    expect(component.statusMap.size).toBe(2);
-    expect(component.statusMap.get(RequestStatusEnum.ACCEPTED)?.length).toBe(2);
-    expect(component.statusMap.get(RequestStatusEnum.REJECTED)?.length).toBe(1);
+    component.requestMap$.subscribe((map) => {
+      expect(map.size).toBe(2);
+      expect(map.get(RequestStatusEnum.ACCEPTED)?.length).toBe(2);
+      expect(map.get(RequestStatusEnum.REJECTED)?.length).toBe(1);
+    });
   });
 });
