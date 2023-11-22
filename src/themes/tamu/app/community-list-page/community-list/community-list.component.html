@@ -1,13 +1,16 @@
-<ds-themed-loading *ngIf="(dataSource.loading$ | async) && !loadingNode" class="ds-themed-loading"></ds-themed-loading>
 <!-- TAMU Customization - expand/collapse all -->
+<!-- <ds-themed-loading *ngIf="(dataSource.loading$ | async) && !loadingNode" class="ds-themed-loading"></ds-themed-loading> -->
 <div class="row mb-1" *ngIf="enableExpandCollapseAll">
-  <div class="col">
-    <button (click)="expandAll()" [disabled]="dataSource.loading$ | async" class="btn btn-outline-primary btn-sm mr-2" role="button">
+  <div class="col-3">
+    <button (click)="expandAll()" [disabled]="loading | async" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
       <span>{{ 'communityList.expandAll' | translate }}</span>
     </button>
-    <button (click)="collapseAll()" [disabled]="dataSource.loading$ | async" class="btn btn-outline-primary btn-sm" role="button">
+    <button (click)="collapseAll()" [disabled]="loading | async" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
       <span>{{ 'communityList.collapseAll' | translate }}</span>
     </button>
+  </div>
+  <div class="col-9">
+    <ds-themed-loading *ngIf="loading | async" class="ds-themed-loading" [showMessage]="false"></ds-themed-loading>
   </div>
 </div>
 <!-- End TAMU Customization - expand/collapse all -->

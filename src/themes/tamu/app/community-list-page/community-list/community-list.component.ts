@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
 import { CommunityListComponent as BaseComponent } from '../../../../../app/community-list-page/community-list/community-list.component';
 import { FlatNode } from '../../../../../app/community-list-page/flat-node.model';
 
@@ -21,17 +22,36 @@ export class CommunityListComponent extends BaseComponent implements OnInit {
 
   @Input() enableExpandCollapseAll = false;
 
+  private expanding: BehaviorSubject<boolean>;
+
+  get loading(): Observable<boolean> {
+    return combineLatest([
+      this.expanding.asObservable(),
+      this.dataSource.loading$
+    ]).pipe(
+      map(([expanding, loading]) => {
+        console.log(expanding, loading, (expanding || loading));
+        return expanding || loading;
+      })
+    );
+  }
+
   ngOnInit(): void {
     this.paginationConfig.scopeID = this.scopeId;
+    this.expanding = new BehaviorSubject<boolean>(false);
     super.ngOnInit();
   }
 
   expandAll(): void {
+    this.expanding.next(true);
     this.getNodes()
       .filter((node: FlatNode) => !node.isExpanded)
       .forEach((node: FlatNode) => {
         this.toggleExpanded(node);
       });
+    setTimeout(() => {
+      this.expanding.next(false);
+    }, 250);
   }
 
   collapseAll(): void {
