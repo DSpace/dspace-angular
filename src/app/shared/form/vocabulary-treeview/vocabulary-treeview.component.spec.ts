@@ -16,12 +16,12 @@ import { TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { authReducer } from '../../../core/auth/auth.reducer';
 import { storeModuleConfig } from '../../../app.reducer';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -144,10 +144,10 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID'
       };
-      comp.selectedItems = [currentValue.value];
+      comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
     });
 
     it('should should init component properly with init value as VocabularyEntry', () => {
@@ -156,10 +156,20 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID'
       };
-      comp.selectedItems = [currentValue.value];
+      comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
+    });
+
+    it('should should init component properly with init value as VocabularyEntryDetail', () => {
+      const currentValue = new VocabularyEntryDetail();
+      currentValue.value = 'testValue';
+      currentValue.id = 'entryID';
+      comp.selectedItems = [currentValue];
+      fixture.detectChanges();
+      expect(comp.dataSource.data).toEqual([]);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
     });
 
     it('should call loadMore function', () => {

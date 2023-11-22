@@ -22,16 +22,17 @@ import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.u
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import {
-  PaginatedList,
-  buildPaginatedList
-} from '../../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import {
+  VocabularyEntryDetail
+} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import {
+  VocabularyTreeviewModalComponent
+} from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 
 /**
  * Component representing a onebox input field.
@@ -228,7 +229,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, { size: 'lg', windowClass: 'treeview' });
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
       modalRef.componentInstance.preloadLevel = preloadLevel;
-      modalRef.componentInstance.selectedItems = this.currentValue ? [this.currentValue.value] : [];
+      modalRef.componentInstance.selectedItems = this.currentValue ? [this.currentValue] : [];
       modalRef.result.then((result: VocabularyEntryDetail) => {
         if (result) {
           this.currentValue = result;
