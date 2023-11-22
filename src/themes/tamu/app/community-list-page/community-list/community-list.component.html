@@ -2,15 +2,15 @@
 <!-- <ds-themed-loading *ngIf="(dataSource.loading$ | async) && !loadingNode" class="ds-themed-loading"></ds-themed-loading> -->
 <div class="row mb-1" *ngIf="enableExpandCollapseAll">
   <div class="col-3">
-    <button (click)="expandAll()" [disabled]="loading | async" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
+    <button (click)="expandAll()" [disabled]="(dataSource.loading$ | async) || (expanding | async)" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
       <span>{{ 'communityList.expandAll' | translate }}</span>
     </button>
-    <button (click)="collapseAll()" [disabled]="loading | async" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
+    <button (click)="collapseAll()" [disabled]="(dataSource.loading$ | async) || (expanding | async)" class="btn btn-outline-primary btn-sm mr-2 mb-2" role="button">
       <span>{{ 'communityList.collapseAll' | translate }}</span>
     </button>
   </div>
   <div class="col-9">
-    <ds-themed-loading *ngIf="loading | async" class="ds-themed-loading" [showMessage]="false"></ds-themed-loading>
+    <ds-themed-loading *ngIf="(dataSource.loading$ | async) || (expanding | async)" class="ds-themed-loading" [showMessage]="false"></ds-themed-loading>
   </div>
 </div>
 <!-- End TAMU Customization - expand/collapse all -->
@@ -27,7 +27,10 @@
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </button>
-        <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading>
+        <!-- TAMU Customization - show loading animation while not expanding -->
+        <!-- <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading> -->
+        <ds-themed-loading *ngIf="node===loadingNode && (dataSource.loading$ | async) && !(expanding | async)" class="ds-themed-loading"></ds-themed-loading>
+        <!-- End TAMU Customization - show loading animation while not expanding -->
       </div>
     </div>
     <div class="text-muted" cdkTreeNodePadding>
@@ -39,7 +42,7 @@
   <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
                  class="example-tree-node expandable-node">
     <div class="btn-group">
-      <button type="button" class="btn btn-default" cdkTreeNodeToggle
+      <button #toggle type="button" class="btn btn-default" cdkTreeNodeToggle
               [title]="'toggle ' + dsoNameService.getName(node.payload)"
               [attr.aria-label]="'toggle ' + dsoNameService.getName(node.payload)"
               (click)="toggleExpanded(node)"
@@ -71,8 +74,12 @@
         </div>
       </div>
     </ds-truncatable>
-    <div class="d-flex" *ngIf="node===loadingNode && dataSource.loading$ | async"
+    <!-- TAMU Customization - show loading animation while not expanding -->
+    <!-- <div class="d-flex" *ngIf="node===loadingNode && dataSource.loading$ | async"
+         cdkTreeNodePadding> -->
+    <div class="d-flex" *ngIf="node===loadingNode && (dataSource.loading$ | async) && !(expanding | async)"
          cdkTreeNodePadding>
+    <!-- End TAMU Customization - show loading animation while not expanding -->
       <button type="button" class="btn btn-default invisible">
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
