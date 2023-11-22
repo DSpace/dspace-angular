@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../../dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Context } from '../../../core/shared/context.model';
 
 /**
  * Component to wrap a button - to select the entire repository -
@@ -17,6 +18,9 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
   templateUrl: './scope-selector-modal.component.html',
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+
+  readonly Context = Context;
+
   objectType = DSpaceObjectType.COMMUNITY;
   /**
    * The types of DSO that can be selected from this list

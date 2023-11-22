@@ -50,6 +50,12 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The view mode of the listed objects
    */
   viewMode = ViewMode.ListElement;
+
+  /**
+   * The current context
+   */
+  @Input() context: Context;
+
   /**
    * The initially selected DSO's uuid
    */
@@ -243,7 +249,14 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * Get the context for element with the given id
    */
-  getContext(id: string) {
+  getContext(id: string): Context {
+    if (this.context === Context.ScopeSelectorModal) {
+      if (id === this.currentDSOId) {
+        return Context.ScopeSelectorModalCurrent;
+      } else {
+        return Context.ScopeSelectorModal;
+      }
+    }
     if (id === this.currentDSOId) {
       return Context.SideBarSearchModalCurrent;
     } else {

@@ -8,6 +8,8 @@ import { Community } from '../../../../core/shared/community.model';
 
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-collection-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html'

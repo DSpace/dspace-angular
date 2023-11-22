@@ -15,4 +15,6 @@ export enum Context {
   AdminWorkflowSearch = 'adminWorkflowSearch',
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
+  ScopeSelectorModal = 'scopeSelectorModal',
+  ScopeSelectorModalCurrent = 'scopeSelectorModalCurrent',
 }
