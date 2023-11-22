@@ -30,7 +30,6 @@ export class CommunityListComponent extends BaseComponent implements OnInit {
       this.dataSource.loading$
     ]).pipe(
       map(([expanding, loading]) => {
-        console.log(expanding, loading, (expanding || loading));
         return expanding || loading;
       })
     );
