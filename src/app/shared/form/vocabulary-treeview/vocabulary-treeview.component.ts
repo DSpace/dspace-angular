@@ -2,7 +2,6 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -14,7 +13,6 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
-import { CoreState } from '../../../core/core-state.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
@@ -108,11 +106,6 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   @Output() deselect: EventEmitter<VocabularyTreeItemType> = new EventEmitter<VocabularyTreeItemType>(null);
 
   /**
-   * A boolean representing if user is authenticated
-   */
-  private isAuthenticated: Observable<boolean>;
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   private subs: Subscription[] = [];
@@ -122,13 +115,11 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    *
    * @param {VocabularyTreeviewService} vocabularyTreeviewService
    * @param {vocabularyService} vocabularyService
-   * @param {Store<CoreState>} store
    * @param {TranslateService} translate
    */
   constructor(
     private vocabularyTreeviewService: VocabularyTreeviewService,
     private vocabularyService: VocabularyService,
-    private store: Store<CoreState>,
     private translate: TranslateService
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
