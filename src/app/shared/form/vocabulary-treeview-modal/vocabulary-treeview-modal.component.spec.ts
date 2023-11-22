@@ -11,7 +11,7 @@ describe('VocabularyTreeviewModalComponent', () => {
   let fixture: ComponentFixture<VocabularyTreeviewModalComponent>;
 
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
-  const vocabularyOptions = new VocabularyOptions('vocabularyTest', false);
+  const vocabularyOptions = new VocabularyOptions('vocabularyTest', null, null, false);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
