@@ -6,6 +6,7 @@ import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../../dso-
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../environments/environment';
+import { Context } from '../../../core/shared/context.model';
 
 /**
  * Component to wrap a button - to select the entire repository -
@@ -19,6 +20,9 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './scope-selector-modal.component.html',
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+
+  readonly Context = Context;
+
   objectType = DSpaceObjectType.COMMUNITY;
   /**
    * The types of DSO that can be selected from this list
