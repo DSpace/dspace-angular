@@ -511,23 +511,23 @@ export class DefaultAppConfig implements AppConfig {
     urn: [
       {
         name: 'doi',
-        baseUrl: 'https://doi.org/'
+        baseUrl: 'https://doi.org/',
       },
       {
         name: 'hdl',
-        baseUrl: 'https://hdl.handle.net/'
+        baseUrl: 'https://hdl.handle.net/',
       },
       {
         name: 'scopus',
-        baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId='
+        baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId=',
       },
       {
         name: 'researcherid',
-        baseUrl: 'http://www.researcherid.com/rid/'
+        baseUrl: 'http://www.researcherid.com/rid/',
       },
       {
         name: 'mailto',
-        baseUrl: 'mailto:'
+        baseUrl: 'mailto:',
       }
     ],
     crisRef: [
@@ -536,7 +536,7 @@ export class DefaultAppConfig implements AppConfig {
         entityStyle: {
           default: {
             icon: 'fa fa-info',
-            style: 'text-info'
+            style: 'text-info',
           }
         }
       },
@@ -545,7 +545,7 @@ export class DefaultAppConfig implements AppConfig {
         entityStyle: {
           default: {
             icon: 'fa fa-user',
-            style: 'text-info'
+            style: 'text-info',
           }
         }
       },
@@ -554,7 +554,7 @@ export class DefaultAppConfig implements AppConfig {
         entityStyle: {
           default: {
             icon: 'fa fa-university',
-            style: 'text-info'
+            style: 'text-info',
           }
         }
       },
@@ -563,7 +563,7 @@ export class DefaultAppConfig implements AppConfig {
         entityStyle: {
           default: {
             icon: 'fas fa-project-diagram',
-            style: 'text-info'
+            style: 'text-info',
           }
         }
       }
@@ -573,18 +573,18 @@ export class DefaultAppConfig implements AppConfig {
     },
     itemPage: {
       OrgUnit: {
-        orientation: 'vertical'
+        orientation: 'vertical',
       },
       Project: {
-        orientation: 'vertical'
+        orientation: 'vertical',
       },
       default: {
-        orientation: 'horizontal'
+        orientation: 'horizontal',
       },
     },
     metadataBox: {
       defaultMetadataLabelColStyle: 'col-3',
-      defaultMetadataValueColStyle: 'col-9'
+      defaultMetadataValueColStyle: 'col-9',
     },
     collectionsBox: {
       defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
@@ -597,6 +597,9 @@ export class DefaultAppConfig implements AppConfig {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
+    },
+    breadcrumbs: {
+      charLimit: 10,
     }
   };
 
@@ -605,17 +608,17 @@ export class DefaultAppConfig implements AppConfig {
       {
         value: 0,
         icon: 'fa fa-globe',
-        color: 'green'
+        color: 'green',
       },
       {
         value: 1,
         icon: 'fa fa-key',
-        color: 'orange'
+        color: 'orange',
       },
       {
         value: 2,
         icon: 'fa fa-lock',
-        color: 'red'
+        color: 'red',
       }
     ]
   };
@@ -730,7 +733,7 @@ export class DefaultAppConfig implements AppConfig {
         name: 'checksum',
         type: AdvancedAttachmentElementType.Attribute,
       }
-    ]
+    ],
   };
 
   searchResult: SearchResultConfig = {
@@ -738,5 +741,4 @@ export class DefaultAppConfig implements AppConfig {
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
   };
 
-  breadcrumbCharLimit = 10;
 }

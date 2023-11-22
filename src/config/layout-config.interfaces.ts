@@ -38,6 +38,10 @@ export interface NavbarConfig extends Config {
   showCommunityCollection: boolean;
 }
 
+export interface BreadcrumbsConfig extends Config {
+  charLimit: number;
+}
+
 export interface CrisItemPageConfig extends Config {
   [entity: string]: CrisLayoutTypeConfig;
   default: CrisLayoutTypeConfig;
@@ -59,6 +63,7 @@ export interface CrisLayoutConfig extends Config {
 
 export interface LayoutConfig extends Config {
   navbar: NavbarConfig;
+  breadcrumbs: BreadcrumbsConfig;
 }
 
 export interface SuggestionConfig extends Config {
