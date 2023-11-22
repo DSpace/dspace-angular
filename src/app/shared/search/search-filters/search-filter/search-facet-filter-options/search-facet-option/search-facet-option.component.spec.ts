@@ -19,7 +19,7 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { MockActivatedRoute } from "../../../../../mocks/active-router.mock";
+import { MockActivatedRoute } from '../../../../../mocks/active-router.mock';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
