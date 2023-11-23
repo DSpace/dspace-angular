@@ -1,11 +1,11 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}" [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
     class="navbar navbar-light navbar-expand-md p-md-0 navbar-container" role="navigation" [attr.aria-label]="'nav.main.description' | translate">
     <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
-    <div class="navbar-inner-container w-100" [class.container]="!(isXsOrSm$ | async)">
+    <div class="navbar-inner-container w-100" [class.container]="!(isMobile$ | async)">
         <div class="reset-padding-md w-100">
             <div id="collapsingNav">
                 <ul class="navbar-nav navbar-navigation mr-auto shadow-none">
-                    <li *ngIf="(isXsOrSm$ | async) && (isAuthenticated$ | async)">
+                    <li *ngIf="(isMobile$ | async) && (isAuthenticated$ | async)">
                         <ds-themed-user-menu [inExpandableNavbar]="true"></ds-themed-user-menu>
                     </li>
                     <li *ngFor="let section of (sections | async)">
