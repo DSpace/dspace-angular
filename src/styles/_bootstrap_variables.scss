@@ -1,9 +1,6 @@
 /** Help Variables **/
 $fa-fixed-width: 1.25rem !default;
 $icon-padding: 1rem !default;
-$collapsed-sidebar-width: calculatePx($fa-fixed-width + (2 * $icon-padding)) !default;
-$sidebar-items-width: 250px !default;
-$total-sidebar-width: $collapsed-sidebar-width + $sidebar-items-width !default;
 
 /* Fonts */
 // Starting this url with a caret (^) allows it to be a relative path based on UI's deployment path

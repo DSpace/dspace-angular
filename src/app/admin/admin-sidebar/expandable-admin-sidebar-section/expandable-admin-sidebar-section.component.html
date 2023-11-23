@@ -1,37 +1,47 @@
-<div class="sidebar-section" [ngClass]="{'expanded': (expanded | async)}"
+<li [ngClass]="{'expanded': (isExpanded$ | async)}" role="presentation"
     [@bgColor]="{
-     value: ((expanded | async) ? 'endBackground' : 'startBackground'),
-     params: {endColor: (sidebarActiveBg | async)}}">
-  <div class="nav-item nav-link d-flex flex-row flex-nowrap"
-     role="button" tabindex="0"
-     [attr.aria-labelledby]="'sidebarName-' + section.id"
-     [attr.aria-expanded]="expanded | async"
-     [title]="('menu.section.icon.' + section.id) | translate"
-       [class.disabled]="section.model?.disabled"
+     value: ((isExpanded$ | async) ? 'endBackground' : 'startBackground'),
+     params: {endColor: (sidebarActiveBg$ | async)}
+     }">
+  <a class="sidebar-section-wrapper"
+     role="menuitem" tabindex="0"
+     aria-haspopup="menu"
+     [attr.aria-controls]="adminMenuSectionId(section.id)"
+     [attr.aria-expanded]="isExpanded$ | async"
+     [attr.aria-label]="('menu.section.toggle.' + section.id) | translate"
+     [class.disabled]="section.model?.disabled"
      (click)="toggleSection($event)"
      (keyup.space)="toggleSection($event)"
      (keyup.enter)="toggleSection($event)"
+     href="javascript:void(0);"
   >
-    <div class="shortcut-icon h-100">
+    <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
       <i class="fas fa-{{section.icon}} fa-fw"></i>
     </div>
-    <div class="sidebar-collapsible">
-      <div class="toggle">
-        <span id="sidebarName-{{section.id}}" class="section-header-text">
+    <div class="sidebar-collapsible-element-outer-wrapper">
+      <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
+        <span [id]="adminMenuSectionTitleId(section.id)">
           <ng-container
             *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
         </span>
-        <i class="fas fa-chevron-right fa-pull-right"
-           [@rotate]="(expanded | async) ? 'expanded' : 'collapsed'"
-           [title]="('menu.section.toggle.' + section.id) | translate"
+        <i class="fas fa-chevron-right fa-xs" aria-hidden="true"
+           [@rotate]="(isExpanded$ | async) ? 'expanded' : 'collapsed'"
         ></i>
       </div>
-      <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(expanded | async)">
-        <li *ngFor="let subSection of (subSections$ | async)">
-          <ng-container
-            *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
-        </li>
-      </ul>
+    </div>
+  </a>
+  <div class="sidebar-section-wrapper subsection" @slide *ngIf="(isExpanded$ | async)">
+    <div class="sidebar-fixed-element-wrapper"></div>
+    <div class="sidebar-collapsible-element-outer-wrapper">
+      <div class="sidebar-collapsible-element-inner-wrapper">
+        <ul class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section.id)" [attr.aria-label]="('menu.section.' + section.id) | translate">
+          <li class="sidebar-item" role="presentation" *ngFor="let subSection of (subSections$ | async)">
+            {{ (sectionMap$ | async).get(subSection.id).component | json}}
+            <ng-container
+              *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
+</li>

@@ -1,3 +1,5 @@
-<div class="nav-item navbar-section text-md-center">
+<li role="presentation"
+    class="ds-menu-item-wrapper text-md-center"
+    [id]="'navbar-section-' + section.id">
   <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
-</div>
+</li>

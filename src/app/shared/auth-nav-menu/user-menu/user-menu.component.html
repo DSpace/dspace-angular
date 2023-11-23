@@ -1,15 +1,32 @@
 <ds-themed-loading *ngIf="(loading$ | async)"></ds-themed-loading>
-<div *ngIf="!(loading$ | async)">
-  <span class="dropdown-item-text" [class.pl-0]="inExpandableNavbar">
+<ul *ngIf="!(loading$ | async)" class="user-menu" role="menu"
+    [ngClass]="{ 'pb-2 mb-2 border-bottom' : inExpandableNavbar }"
+    [attr.aria-label]="'nav.user-profile-menu-and-logout' |translate" id="user-menu-dropdown">
+  <li class="ds-menu-item-wrapper username-email-wrapper" role="presentation">
     {{dsoNameService.getName(user$ | async)}}<br>
     <span class="text-muted">{{(user$ | async)?.email}}</span>
-  </span>
-  <a [ngClass]="inExpandableNavbar ? 'nav-item nav-link' : 'dropdown-item'" [routerLink]="[profileRoute]" routerLinkActive="active">{{'nav.profile' | translate}}</a>
-  <a [ngClass]="inExpandableNavbar ? 'nav-item nav-link' : 'dropdown-item'" [routerLink]="[mydspaceRoute]" routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
-  <a [ngClass]="inExpandableNavbar ? 'nav-item nav-link' : 'dropdown-item'" [routerLink]="[subscriptionsRoute]" routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>
-
-  <div class="dropdown-divider"></div>
-  <ds-log-out *ngIf="!inExpandableNavbar" data-test="log-out-component"></ds-log-out>
-</div>
+  </li>
+  <li class="ds-menu-item-wrapper" role="presentation">
+    <a class="ds-menu-item" role="menuitem"
+       [routerLink]="[profileRoute]"
+       routerLinkActive="active">{{'nav.profile' | translate}}</a>
+  </li>
+  <li class="ds-menu-item-wrapper" role="presentation">
+    <a class="ds-menu-item" role="menuitem"
+       [routerLink]="[mydspaceRoute]"
+       routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
+  </li>
+  <li class="ds-menu-item-wrapper" role="presentation">
+    <a class="ds-menu-item" role="menuitem"
+       [routerLink]="[subscriptionsRoute]"
+       routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>
+  </li>
+  <ng-container *ngIf="!inExpandableNavbar">
+    <li class="dropdown-divider" aria-hidden="true"></li>
+    <li class="ds-menu-item-wrapper" role="presentation">
+      <ds-log-out data-test="log-out-component"></ds-log-out>
+    </li>
+  </ng-container>
+</ul>
 
 

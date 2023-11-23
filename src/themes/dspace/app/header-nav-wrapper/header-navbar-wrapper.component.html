@@ -1,3 +1,9 @@
-<div [class.open]="!(isNavBarCollapsed | async)" id="header-navbar-wrapper">
+<div id="header-navbar-wrapper"><!-- [class.open]="!(isNavBarCollapsed$ | async)" -->
   <ds-themed-header></ds-themed-header>
+  <!-- Collapsible navbar (mobile only) -->
+  <div *ngIf="(isMobile$ | async)" id="mobile-navbar-wrapper" [@slideMobileNav]="(isNavBarCollapsed$ | async) ? 'collapsed' : 'expanded'">
+    <nav class="px-3" id="collapsible-mobile-navbar" [attr.aria-hidden]="(isNavBarCollapsed$ | async)" [attr.aria-label]="'nav.main.description' | translate">
+      <ds-themed-navbar></ds-themed-navbar>
+    </nav>
+  </div>
 </div>

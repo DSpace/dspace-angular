@@ -1,22 +1,36 @@
-<div class="nav-item dropdown expandable-navbar-section text-md-center"
-    *ngVar="(active | async) as isActive"
-    (keyup.enter)="isActive ? deactivateSection($event) : activateSection($event)"
-    (keyup.space)="isActive ? deactivateSection($event) : activateSection($event)"
-    (keydown.space)="$event.preventDefault()"
-    (mouseenter)="activateSection($event)"
-    (mouseleave)="deactivateSection($event)">
-    <button class="btn btn-link nav-link dropdown-toggle" routerLinkActive="active" type="button"
-       [class.disabled]="section.model?.disabled"
+<li class="ds-menu-item-wrapper text-md-center" role="presentation"
+    [id]="'expandable-navbar-section-' + section.id"
+    (mouseenter)="onMouseEnter($event, isActive)"
+    (mouseleave)="onMouseLeave($event, isActive)"
+    data-test="navbar-section-wrapper"
+    *ngVar="(active | async) as isActive">
+    <a href="javascript:void(0);" routerLinkActive="active"
+       role="menuitem"
+       (keyup.enter)="toggleSection($event)"
+       (keyup.space)="toggleSection($event)"
        (click)="toggleSection($event)"
-       data-toggle="dropdown">
+       (keydown.space)="$event.preventDefault()"
+       aria-haspopup="menu"
+       data-test="navbar-section-toggler"
+       [attr.aria-expanded]="isActive"
+       [attr.aria-controls]="expandableNavbarSectionId(section.id)"
+       class="d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper"
+       [class.disabled]="section.model?.disabled"
+       id="browseDropdown">
+      <span class="flex-fill">
         <ng-container
-                *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
-    </button>
-    <ul @slide *ngIf="(active | async)" (click)="deactivateSection($event)"
-        class="m-0 shadow-none border-top-0 dropdown-menu show">
-        <li *ngFor="let subSection of (subSections$ | async)">
+          *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+<!--        <span class="sr-only">{{'nav.expandable-navbar-section-suffix' | translate}}</span>-->
+      </span>
+      <i class="fas fa-caret-down fa-xs toggle-menu-icon" aria-hidden="true"></i>
+    </a>
+    <ul @slide *ngIf="isActive" (click)="deactivateSection($event)"
+        [id]="expandableNavbarSectionId(section.id)"
+        role="menu"
+        class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0 px-3 px-md-0 pt-0 pt-md-1">
+        <li *ngFor="let subSection of (subSections$ | async)" class="text-nowrap" role="presentation">
             <ng-container
                     *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
         </li>
     </ul>
-</div>
+</li>

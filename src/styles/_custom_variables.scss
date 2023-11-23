@@ -40,13 +40,24 @@
 
   $admin-sidebar-bg: darken(#2B4E72, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
+  $admin-sidebar-fixed-element-width: 55px !default;
+  $admin-sidebar-collapsible-element-width: 250px !default;
+  $admin-sidebar-total-width: $admin-sidebar-fixed-element-width + $admin-sidebar-collapsible-element-width !default;
+
   --ds-admin-sidebar-bg: #{$admin-sidebar-bg};
   --ds-admin-sidebar-active-bg: #{$admin-sidebar-active-bg};
   --ds-admin-sidebar-header-bg: #{darken($admin-sidebar-bg, 7%)};
+  --ds-admin-sidebar-fixed-element-width: #{$admin-sidebar-fixed-element-width};
+  --ds-admin-sidebar-fixed-element-z-index: 10;
+  --ds-admin-sidebar-collapsible-element-width: #{$admin-sidebar-collapsible-element-width};
+  --ds-admin-sidebar-total-width: #{$admin-sidebar-total-width};
+  --ds-admin-sidebar-link-color: #{$navbar-dark-color};
+  --ds-admin-sidebar-link-hover-color: #{$navbar-dark-hover-color};
 
   --ds-dark-scrollbar-bg: #{$admin-sidebar-active-bg};
   --ds-dark-scrollbar-alt-bg: #{lighten($admin-sidebar-active-bg, 2%)};
   --ds-dark-scrollbar-fg: #47495d;
+  --ds-dark-scrollbar-width: 8px;
 
   --ds-submission-sections-margin-bottom: .5rem;
 
@@ -69,9 +80,6 @@
 
   --ds-fa-fixed-width: #{$fa-fixed-width};
   --ds-icon-padding: #{$icon-padding};
-  --ds-collapsed-sidebar-width: #{$collapsed-sidebar-width};
-  --ds-sidebar-items-width: #{$sidebar-items-width};
-  --ds-total-sidebar-width: #{$total-sidebar-width};
 
   --ds-top-footer-bg: #{$gray-200};
   --ds-footer-bg: #{theme-color('primary')};

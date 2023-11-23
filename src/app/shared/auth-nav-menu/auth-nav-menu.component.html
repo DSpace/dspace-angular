@@ -1,40 +1,52 @@
-<ul class="navbar-nav" [ngClass]="{'mr-auto': (isXsOrSm$ | async)}">
-  <li *ngIf="!(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item"
+<div class="navbar-nav mr-auto" *ngIf="!(isMobile$ | async); else mobileButtons" data-test="auth-nav">
+  <div *ngIf="!(isAuthenticated | async) && (showAuth | async)"
+      class="nav-item"
       (click)="$event.stopPropagation();">
-    <div ngbDropdown #loginDrop display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
-      <button class="btn btn-link dropdownLogin px-0.5" [attr.aria-label]="'nav.login' |translate"
+    <div ngbDropdown #loginDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
+      <a href="javascript:void(0);" class="dropdownLogin px-0.5" [attr.aria-label]="'nav.login' |translate"
          (click)="$event.preventDefault()" [attr.data-test]="'login-menu' | dsBrowserOnly"
-         ngbDropdownToggle>
-        {{ 'nav.login' | translate }}
-      </button>
-      <div class="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
+         role="menuitem"
+         aria-haspopup="menu"
+         aria-controls="loginDropdownMenu"
+         [attr.aria-expanded]="loginDrop.isOpen()"
+         ngbDropdownToggle>{{ 'nav.login' | translate }}</a>
+      <div id="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
+           role="menu"
            [attr.aria-label]="'nav.login' | translate">
         <ds-themed-log-in
           [isStandalonePage]="false"></ds-themed-log-in>
       </div>
     </div>
-  </li>
-  <li *ngIf="!(isAuthenticated | async) && (isXsOrSm$ | async)" class="nav-item">
-    <a routerLink="/login" routerLinkActive="active" class="loginLink px-0.5">
+  </div>
+  <div *ngIf="(isAuthenticated | async) && (showAuth | async)" class="nav-item">
+    <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
+      <a href="javascript:void(0);"
+         role="menuitem"
+         [attr.aria-label]="'nav.user-profile-menu-and-logout' | translate"
+         aria-controls="user-menu-dropdown"
+         (click)="$event.preventDefault()" [title]="'nav.user-profile-menu-and-logout' | translate"
+         class="dropdownLogout px-1"
+         [attr.data-test]="'user-menu' | dsBrowserOnly"
+         ngbDropdownToggle>
+        <i class="fas fa-user-circle fa-lg fa-fw"></i></a>
+      <ul id="logoutDropdownMenu" class="p-3" ngbDropdownMenu role="presentation">
+        <ds-themed-user-menu></ds-themed-user-menu>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #mobileButtons>
+  <div data-test="auth-nav">
+    <a *ngIf="!(isAuthenticated | async)" routerLink="/login" routerLinkActive="active" class="loginLink px-0.5" role="button">
       {{ 'nav.login' | translate }}<span class="sr-only">(current)</span>
     </a>
-  </li>
-  <li *ngIf="(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item">
-    <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
-      <button role="button" [attr.aria-label]="'nav.user-profile-menu-and-logout' |translate" (click)="$event.preventDefault()" [title]="'nav.user-profile-menu-and-logout' | translate" class="btn btn-link dropdownLogout px-1" [attr.data-test]="'user-menu' | dsBrowserOnly" ngbDropdownToggle>
-        <i class="fas fa-user-circle fa-lg fa-fw"></i>
-      </button>
-      <div class="logoutDropdownMenu" ngbDropdownMenu [attr.aria-label]="'nav.user-profile-menu-and-logout' |translate">
-        <ds-themed-user-menu></ds-themed-user-menu>
-      </div>
-    </div>
-  </li>
-  <li *ngIf="(isAuthenticated | async) && (isXsOrSm$ | async)" class="nav-item">
-    <a role="button" [attr.aria-label]="'nav.logout' |translate" [title]="'nav.logout' | translate" routerLink="/logout" routerLinkActive="active" class="logoutLink px-1">
+    <a *ngIf="(isAuthenticated | async)" role="button" [attr.aria-label]="'nav.logout' |translate" [title]="'nav.logout' | translate" routerLink="/logout" routerLinkActive="active" class="logoutLink px-1">
       <i class="fas fa-sign-out-alt fa-lg fa-fw"></i>
       <span class="sr-only">(current)</span>
     </a>
-  </li>
-</ul>
+  </div>
+</ng-template>
 
-
+<!-- Do not use ul/li in this menu as it breaks e2e accessibility tests -->
