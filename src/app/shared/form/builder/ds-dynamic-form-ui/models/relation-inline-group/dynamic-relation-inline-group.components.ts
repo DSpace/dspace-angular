@@ -177,7 +177,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   }
 
   private initSecurityLevelConfig(model: DynamicInputModel | any, modelGroup: DynamicFormGroupModel) {
-    if (this.model.name === model.name && this.model.securityConfigLevel.length > 1) {
+    if (this.model.name === model.name && this.model.securityConfigLevel?.length > 1) {
       model.securityConfigLevel = this.model.securityConfigLevel;
       model.toggleSecurityVisibility = true;
 
@@ -199,7 +199,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
         }
       });
     }
-    if (this.model.securityConfigLevel.length === 1) {
+    if (this.model.securityConfigLevel?.length === 1) {
       modelGroup.group.forEach((item: any) => {
           item.securityConfigLevel = this.model.securityConfigLevel;
           item.toggleSecurityVisibility = false;
@@ -225,14 +225,14 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
           if (typeof model.value === 'string') {
             groupValue[model.name] = new FormFieldMetadataValueObject(model.value, null, mainSecurityLevel);
           } else {
-            groupValue[model.name] = {...model.value, securityLevel : mainSecurityLevel};
+            groupValue[model.name] = Object.assign(new FormFieldMetadataValueObject(), model.value, { securityLevel: mainSecurityLevel || null });
           }
         }
       } else {
         if (typeof model.value === 'string') {
           groupValue[model.name] = new FormFieldMetadataValueObject(model.value, null, mainSecurityLevel);
         } else {
-          groupValue[model.name] = {...model.value, securityLevel : mainSecurityLevel};
+          groupValue[model.name] = Object.assign(new FormFieldMetadataValueObject(), model.value, { securityLevel: mainSecurityLevel || null });
         }
       }
     });
@@ -276,7 +276,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   }
 
   private updateArrayModelValue(groupValue, index) {
-    let parentSecurityLevel = this.model.securityLevel || this.model.securityConfigLevel[0];
+    let parentSecurityLevel = this.model.securityLevel || this.model.securityConfigLevel?.length > 0 ? this.model.securityConfigLevel[0] : null;
     for (const name of Object.keys(groupValue)) {
       if (name === this.model.name && isNotEmpty(groupValue[name].securityLevel)) {
         parentSecurityLevel = groupValue[name].securityLevel;
@@ -335,7 +335,8 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   private copyArrayItem(event) {
     const index = Array.isArray(this.model.value) ? this.model.value.length : event.model.parent.index;
-    const groupValue = this.getRowValue(event.model as DynamicFormGroupModel, this.model.securityLevel);
+    const mainRow = event.model.group.find(itemModel => itemModel.name === this.model.name);
+    const groupValue = this.getRowValue(event.model as DynamicFormGroupModel, mainRow.securityLevel);
     this.updateArrayModelValue(groupValue, index);
     this.findModelGroups();
     this.change.emit();
