@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotifyInfoService } from './notify-info.service';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 
 @Component({
   selector: 'ds-notify-info',
@@ -20,5 +20,20 @@ export class NotifyInfoComponent implements OnInit {
 
   ngOnInit() {
     this.coarRestApiUrl = this.notifyInfoService.getCoarLdnLocalInboxUrls();
+  }
+
+  /**
+   * Generates HTML code for COAR REST API links.
+   * @returns An Observable that emits the generated HTML code.
+   */
+  generateCoarRestApiLinksHTML() {
+    return this.coarRestApiUrl.pipe(
+      // transform the data into HTML
+      map((urls) => {
+        return urls.map(url => `
+          <code><a href="${url}" target="_blank"><span class="api-url">${url}</span></a></code>
+        `).join(',');
+      })
+    );
   }
 }
