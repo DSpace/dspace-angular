@@ -329,6 +329,13 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
         }
       });
     }
+    if (this.model.securityConfigLevel.length === 1) {
+      modelGroup.group.forEach((item: any) => {
+        item.securityConfigLevel = this.model.securityConfigLevel;
+        item.toggleSecurityVisibility = false;
+        item.securityLevel = this.model.securityLevel;
+      });
+    }
   }
 
   private retrieveVocabulary(vocabularyOptions: VocabularyOptions): void {

@@ -199,6 +199,13 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
         }
       });
     }
+    if (this.model.securityConfigLevel.length === 1) {
+      modelGroup.group.forEach((item: any) => {
+          item.securityConfigLevel = this.model.securityConfigLevel;
+          item.toggleSecurityVisibility = false;
+          item.securityLevel = this.model.securityLevel;
+      });
+    }
   }
 
   private getRowValue(formGroup: DynamicFormGroupModel, securityLevel?: number) {
