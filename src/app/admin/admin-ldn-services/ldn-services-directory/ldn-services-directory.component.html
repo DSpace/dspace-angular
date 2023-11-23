@@ -24,8 +24,16 @@
         </thead>
         <tbody>
         <tr *ngFor="let ldnService of (ldnServicesRD$ | async)?.payload?.page">
-          <td>{{ ldnService.name }}</td>
-          <td>{{ ldnService.description }}</td>
+          <td class="col-3">{{ ldnService.name }}</td>
+          <td>
+            <ds-truncatable [id]="ldnService.id">
+              <ds-truncatable-part [id]="ldnService.id" [minLines]="2">
+                <div>
+                  {{ ldnService.description }}
+                </div>
+              </ds-truncatable-part>
+            </ds-truncatable>
+          </td>
           <td>
                         <span (click)="toggleStatus(ldnService, ldnServicesService)"
                               [ngClass]="{ 'status-enabled': ldnService.enabled, 'status-disabled': !ldnService.enabled }"
