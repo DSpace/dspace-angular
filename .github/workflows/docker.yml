@@ -23,8 +23,8 @@ env:
   # For a new commit on other branches, use the branch name as the tag for Docker image.
   # For a new tag, copy that tag name as the tag for Docker image.
   IMAGE_TAGS: |
-    type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
-    type=ref,event=branch,enable=${{ !endsWith(github.ref, github.event.repository.default_branch) }}
+    type=raw,value=latest,enable=${{ github.ref_name == github.event.repository.default_branch }}
+    type=ref,event=branch,enable=${{ github.ref_name != github.event.repository.default_branch }}
     type=ref,event=tag
   # Define default tag "flavor" for docker/metadata-action per
   # https://github.com/docker/metadata-action#flavor-input
@@ -254,6 +254,24 @@ jobs:
           path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
+
+      # If the 'linux/amd64' -dist image was just updated for the 'main' branch,
+      # Then redeploy https://sandbox.dspace.org using that updated image.
+      - name: Redeploy sandbox.dspace.org (based on main branch)
+        if: ${{ ! matrix.isPr && matrix.arch == 'linux/amd64' && github.ref_name == github.event.repository.default_branch }}
+        run: |
+            curl -X POST $REDEPLOY_SANDBOX_URL
+        env:
+          REDEPLOY_SANDBOX_URL:  ${{ secrets.REDEPLOY_SANDBOX_URL }}
+
+      # If the 'linux/amd64' -dist image was just updated for the maintenance branch,
+      # Then redeploy https://demo.dspace.org using that updated image.
+      - name: Redeploy demo.dspace.org (based on maintenace branch)
+        if: ${{ ! matrix.isPr && matrix.arch == 'linux/amd64' && github.ref_name == 'dspace-7_x' }}
+        run: |
+            curl -X POST $REDEPLOY_DEMO_URL
+        env:
+            REDEPLOY_DEMO_URL:  ${{ secrets.REDEPLOY_DEMO_URL }}
 
   # Merge *-dist digests into a manifest.
   # This runs after all Docker builds complete above, and it tells hub.docker.com
