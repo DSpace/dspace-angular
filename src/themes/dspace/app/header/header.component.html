@@ -1,25 +1,34 @@
-<header class="header">
-  <nav role="navigation" [attr.aria-label]="'nav.user.description' | translate" class="container navbar navbar-expand-md px-0">
-    <div class="d-flex flex-grow-1">
-      <a class="navbar-brand m-2" routerLink="/home">
-        <img src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate"/>
+<header id="main-site-header">
+  <div class="container h-100 d-flex flex-row flex-nowrap justify-content-between gapx-3">
+    <!-- Logo and navbar wrapper -->
+    <div id="header-left"
+         [attr.role]="(isMobile$ | async) ? 'navigation' : 'presentation'"
+         [attr.aria-label]="(isMobile$ | async) ? ('nav.main.description' | translate) : null"
+         class="h-100 flex-fill d-flex flex-row flex-nowrap justify-content-start align-items-center gapx-3">
+      <a class="d-block" routerLink="/home" [attr.aria-label]="'home.title' | translate">
+        <img id="header-logo" src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate"/>
       </a>
+      <nav *ngIf="!(isMobile$ | async)" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
+        <ds-themed-navbar></ds-themed-navbar>
+      </nav>
     </div>
-    <div class="navbar-buttons d-flex flex-grow-1 ml-auto justify-content-end align-items-center gapx-1">
+    <!-- Search bar and other menus -->
+    <div id="header-right" class="h-100 d-flex flex-row flex-nowrap justify-content-end align-items-center gapx-1">
       <ds-themed-search-navbar></ds-themed-search-navbar>
-      <ds-themed-lang-switch></ds-themed-lang-switch>
-      <ds-context-help-toggle></ds-context-help-toggle>
-      <ds-themed-auth-nav-menu></ds-themed-auth-nav-menu>
-      <ds-impersonate-navbar></ds-impersonate-navbar>
-      <div class="pl-2">
-        <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
-                aria-controls="collapsingNav"
-                aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
-          <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
+      <div role="menubar" class="h-100 d-flex flex-row flex-nowrap align-items-center gapx-1">
+        <ds-themed-lang-switch></ds-themed-lang-switch>
+        <ds-context-help-toggle></ds-context-help-toggle>
+        <ds-impersonate-navbar></ds-impersonate-navbar>
+        <ds-themed-auth-nav-menu></ds-themed-auth-nav-menu>
+      </div>
+
+      <div id="mobile-navbar-toggler" class="d-block d-lg-none ml-3" *ngIf="(isMobile$ | async)">
+        <button id="navbar-toggler" class="btn" type="button" (click)="toggleNavbar()"
+                [attr.aria-label]="'nav.toggle' | translate" aria-controls="collapsible-mobile-navbar" [attr.aria-expanded]="!(isNavBarCollapsed$ | async)">
+          <span class="fas fa-bars fa-fw fa-xl" aria-hidden="true"></span>
         </button>
       </div>
-    </div>
-  </nav>
-  <ds-themed-navbar></ds-themed-navbar>
 
+    </div>
+  </div>
 </header>

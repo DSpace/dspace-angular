@@ -2814,6 +2814,8 @@
 
   "logout.title": "Logout",
 
+  "menu.header.nav.description": "Admin navigation bar",
+
   "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
@@ -3059,6 +3061,8 @@
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
   "mydspace.view-btn": "View",
+
+  "nav.expandable-navbar-section-suffix": "(submenu)",
 
   "nav.browse.header": "All of DSpace",
 

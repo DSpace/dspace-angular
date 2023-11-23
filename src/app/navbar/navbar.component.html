@@ -1,18 +1,21 @@
-<nav [ngClass]="{'open': !(menuCollapsed | async)}" [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
-    class="navbar navbar-light navbar-expand-md p-md-0 navbar-container" role="navigation" [attr.aria-label]="'nav.main.description' | translate">
-    <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
-    <div class="navbar-inner-container w-100" [class.container]="!(isMobile$ | async)">
-        <div class="reset-padding-md w-100">
-            <div id="collapsingNav">
-                <ul class="navbar-nav navbar-navigation mr-auto shadow-none">
-                    <li *ngIf="(isMobile$ | async) && (isAuthenticated$ | async)">
-                        <ds-themed-user-menu [inExpandableNavbar]="true"></ds-themed-user-menu>
-                    </li>
-                    <li *ngFor="let section of (sections | async)">
-                        <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<nav [ngClass]="{'open': !(menuCollapsed | async)}"
+     [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
+     class="navbar navbar-light navbar-expand-md px-md-0 pt-md-0 pt-3 navbar-container" role="navigation"
+     [attr.aria-label]="'nav.main.description' | translate" id="main-navbar">
+  <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
+  <div class="navbar-inner-container w-100" [class.container]="!(isMobile$ | async)">
+    <div class="w-100">
+      <div id="collapsingNav">
+        <ng-container *ngIf="(isMobile$ | async) && (isAuthenticated$ | async)">
+          <ds-themed-user-menu [inExpandableNavbar]="true"></ds-themed-user-menu>
+        </ng-container>
+        <ul class="navbar-nav align-items-md-center mr-auto shadow-none gapx-3">
+          <ng-container *ngFor="let section of (sections | async)">
+            <ng-container
+              *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
+          </ng-container>
+        </ul>
+      </div>
     </div>
+  </div>
 </nav>

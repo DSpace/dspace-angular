@@ -3,15 +3,15 @@ import { TEST_SEARCH_TERM } from 'cypress/support/e2e';
 const page = {
     fillOutQueryInNavBar(query) {
         // Click the magnifying glass
-        cy.get('ds-themed-navbar [data-test="header-search-icon"]').click();
+        cy.get('ds-themed-header [data-test="header-search-icon"]').click();
         // Fill out a query in input that appears
-        cy.get('ds-themed-navbar [data-test="header-search-box"]').type(query);
+        cy.get('ds-themed-header [data-test="header-search-box"]').type(query);
     },
     submitQueryByPressingEnter() {
-        cy.get('ds-themed-navbar [data-test="header-search-box"]').type('{enter}');
+        cy.get('ds-themed-header [data-test="header-search-box"]').type('{enter}');
     },
     submitQueryByPressingIcon() {
-        cy.get('ds-themed-navbar [data-test="header-search-icon"]').click();
+        cy.get('ds-themed-header [data-test="header-search-icon"]').click();
     }
 };
 
