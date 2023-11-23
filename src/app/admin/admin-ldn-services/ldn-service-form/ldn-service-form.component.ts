@@ -279,6 +279,7 @@ export class LdnServiceFormComponent implements OnInit {
   toggleAutomatic(i: number) {
     const automaticControl = this.formModel.get(`notifyServiceInboundPatterns.${i}.automatic`);
     if (automaticControl) {
+      automaticControl.markAsTouched();
       automaticControl.setValue(!automaticControl.value);
     }
   }
