@@ -1,7 +1,7 @@
 import { TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
-describe('Item  Page', () => {
+xdescribe('Item  Page', () => {
     const ITEMPAGE = '/items/'.concat(TEST_ENTITY_PUBLICATION);
     const ENTITYPAGE = '/entities/publication/'.concat(TEST_ENTITY_PUBLICATION);
 

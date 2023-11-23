@@ -18,6 +18,8 @@ import { AuthService } from '../../core/auth/auth.service';
 import { CoreState } from '../../core/core-state.model';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 @Component({
   selector: 'ds-log-in',
@@ -73,6 +75,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
+              protected authorizationService: AuthorizationDataService
   ) {
   }
 
@@ -101,6 +104,8 @@ export class LogInComponent implements OnInit, OnDestroy {
         this.authService.clearRedirectUrl();
       }
     });
+
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
   }
 
   getRegisterRoute() {

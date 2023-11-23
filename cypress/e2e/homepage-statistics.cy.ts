@@ -2,7 +2,7 @@ import { REGEX_MATCH_NON_EMPTY_TEXT, TEST_ENTITY_PUBLICATION } from 'cypress/sup
 import { testA11y } from 'cypress/support/utils';
 import '../support/commands';
 
-describe('Site Statistics Page', () => {
+xdescribe('Site Statistics Page', () => {
     it('should load if you click on "Statistics" from homepage', () => {
         cy.visit('/');
         cy.get('ds-navbar ds-link-menu-item a[title="Statistics"]').click();

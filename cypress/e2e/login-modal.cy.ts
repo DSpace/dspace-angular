@@ -1,4 +1,4 @@
-import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_ENTITY_PUBLICATION } from 'cypress/support/e2e';
+import { TEST_ADMIN_PASSWORD, TEST_ADMIN_USER, TEST_COLLECTION } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 const page = {
@@ -37,8 +37,8 @@ const page = {
 
 describe('Login Modal', () => {
     it('should login when clicking button & stay on same page', () => {
-        const ENTITYPAGE = '/entities/publication/'.concat(TEST_ENTITY_PUBLICATION);
-        cy.visit(ENTITYPAGE);
+        const COLLECTIONPAGE = '/collections/'.concat(TEST_COLLECTION);
+        cy.visit(COLLECTIONPAGE);
 
         // Login menu should exist
         cy.get('ds-log-in').should('exist');
@@ -51,7 +51,7 @@ describe('Login Modal', () => {
         cy.get('ds-log-in').should('not.exist');
 
         // Verify we are still on the same page
-        cy.url().should('include', ENTITYPAGE);
+        cy.url().should('include', COLLECTIONPAGE);
 
         // Open user menu, verify user menu & logout button now available
         page.openUserMenu();
