@@ -5,7 +5,7 @@ import { NotifyInfoService } from './notify-info.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-fdescribe('NotifyInfoComponent', () => {
+describe('NotifyInfoComponent', () => {
   let component: NotifyInfoComponent;
   let fixture: ComponentFixture<NotifyInfoComponent>;
   let notifyInfoServiceSpy: any;
