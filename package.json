@@ -64,6 +64,7 @@
   "resolutions": {
     "html-to-docx": "~1.4.0",
     "minimist": "^1.2.5",
+    "roarr": "7.15.1",
     "webdriver-manager": "^12.1.8",
     "ts-node": "10.2.1"
   },
