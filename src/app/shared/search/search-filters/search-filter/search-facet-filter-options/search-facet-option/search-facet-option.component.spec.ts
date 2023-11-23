@@ -20,6 +20,7 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { MockActivatedRoute } from '../../../../../mocks/active-router.mock';
+import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -91,7 +92,7 @@ describe('SearchFacetOptionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetOptionComponent, ShortNumberPipe],
+      declarations: [SearchFacetOptionComponent, ShortNumberPipe, CapitalizePipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
