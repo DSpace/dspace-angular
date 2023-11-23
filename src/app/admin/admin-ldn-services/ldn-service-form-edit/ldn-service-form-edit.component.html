@@ -366,9 +366,7 @@
 </div>
 <ng-template #confirmModal>
     <div class="modal-header">
-      <div>
-        <h4>{{'service.overview.edit.modal' | translate }}</h4>
-      </div>
+      <h4>{{'service.overview.edit.modal' | translate }}</h4>
       <button (click)="closeModal()" aria-label="Close"
               class="close" type="button">
         <span aria-hidden="true">×</span>
@@ -379,7 +377,8 @@
       <div>
         {{ 'service.overview.edit.body' | translate }}
       </div>
-      <div class="mt-4">
+    </div>
+      <div class="modal-footer">
         <button (click)="closeModal()" class="btn btn-danger mr-2"
                 id="delete-confirm">{{ 'service.detail.return' | translate }}
         </button>
@@ -387,17 +386,11 @@
                 class="btn btn-primary">{{ 'service.detail.update' | translate }}
         </button>
       </div>
-    </div>
 </ng-template>
 
 <ng-template #resetFormModal>
-
-  <div>
-
     <div class="modal-header">
-      <div>
-        <h4>{{'service.overview.reset-form.modal' | translate }}</h4>
-      </div>
+      <h4 class="text-danger">{{'service.overview.reset-form.modal' | translate }}</h4>
       <button (click)="closeModal()" aria-label="Close"
               class="close" type="button">
         <span aria-hidden="true">×</span>
@@ -405,19 +398,18 @@
     </div>
 
     <div class="modal-body">
-      <div>
+      <span>
         {{ 'service.overview.reset-form.body' | translate }}
-      </div>
-      <div class="mt-4">
-        <button (click)="closeModal()" class="mr-2 btn btn-danger"
-                id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
-        </button>
-        <button (click)="resetFormAndLeave()"
-                class="btn btn-primary"
-                id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
-        </button>
-      </div>
+      </span>
     </div>
-  </div>
+    <div class="modal-footer">
+      <button (click)="closeModal()"
+        class="btn btn-primary"
+        id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
+      </button>
+      <button (click)="resetFormAndLeave()" class="mr-2 btn btn-danger"
+              id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
+      </button>
+      </div>
 </ng-template>
 
