@@ -1,7 +1,7 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -11,6 +11,7 @@ import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-search-facet-option',
@@ -63,11 +64,16 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
 
   paginationId: string;
 
+  configuration: string;
+  labelTranslation: string;
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected activatedRoute: ActivatedRoute,
+              protected paginationService: PaginationService,
+              protected translateService: TranslateService
   ) {
   }
 
@@ -75,6 +81,10 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
+    this.configuration = this.activatedRoute?.snapshot?.queryParams?.configuration;
+
+    this.handleTranslation();
+
     this.paginationId = this.searchConfigService.paginationID;
     this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
@@ -82,6 +92,27 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
       .subscribe(([selectedValues, searchOptions]) => {
         this.updateAddParams(selectedValues);
       });
+  }
+
+  /**
+   * Handles translation of the label
+   */
+  handleTranslation() {
+    let translation = '';
+    const labelWithConfiguration = `search.filters.${this.configuration}.${this.filterConfig.name}.${this.filterValue.value}`;
+
+    translation = this.translateService.instant(labelWithConfiguration);
+    if (translation !== labelWithConfiguration) {
+      this.labelTranslation = translation;
+    } else {
+      const labelWithoutConfiguration = `search.filters.${this.filterConfig.name}.${this.filterValue.value}`;
+      translation = this.translateService.instant(labelWithoutConfiguration);
+      if (translation !== labelWithoutConfiguration) {
+        this.labelTranslation = translation;
+      } else {
+        this.labelTranslation = this.filterValue.value;
+      }
+    }
   }
 
   /**
