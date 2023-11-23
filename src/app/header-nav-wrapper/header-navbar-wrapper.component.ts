@@ -5,6 +5,7 @@ import { hasValue } from '../shared/empty.util';
 import { Observable, Subscription } from 'rxjs';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
+import { HostWindowService, WidthCategory } from '../shared/host-window.service';
 
 /**
  * This component represents a wrapper for the horizontal navbar and the header
@@ -18,15 +19,20 @@ export class HeaderNavbarWrapperComponent implements OnInit, OnDestroy {
   @HostBinding('class.open') isOpen = false;
   private sub: Subscription;
   public isNavBarCollapsed: Observable<boolean>;
+  public isMobile$: Observable<boolean>;
+
   menuID = MenuID.PUBLIC;
+  maxMobileWidth = WidthCategory.SM;
 
   constructor(
     private store: Store<AppState>,
-    private menuService: MenuService
+    private menuService: MenuService,
+    protected windowService: HostWindowService,
   ) {
   }
 
   ngOnInit(): void {
+    this.isMobile$ = this.windowService.isUpTo(this.maxMobileWidth);
     this.isNavBarCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.sub = this.isNavBarCollapsed.subscribe((isCollapsed) => this.isOpen = !isCollapsed);
   }
