@@ -312,20 +312,20 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
   private initSecurityLevelConfig(chipModel: DynamicInputModel, modelGroup: DynamicFormGroupModel) {
-    if (this.model.name === chipModel.name) {
-      if (modelGroup.group.some((item: any) => item.securityConfigLevel.length > 0)) {
-        (chipModel as any).securityConfigLevel = [0, 1, 2];
-        (chipModel as any).toggleSecurityVisibility = true;
-      }
+    if (this.model.name === chipModel.name && this.model.securityConfigLevel.length > 1) {
+      (chipModel as any).securityConfigLevel = this.model.securityConfigLevel;
+      (chipModel as any).toggleSecurityVisibility = true;
 
       const mainRow = modelGroup.group.find(itemModel => itemModel.name === this.model.name);
 
       (chipModel as any).securityLevel = (mainRow as any).securityLevel || 0;
-      this.securityLevelParent = (mainRow as any).securityLevel || 0;
+      this.securityLevelParent = (mainRow as any).securityLevel;
+
       modelGroup.group.forEach((item: any) => {
         if (item.name !== this.model.name) {
+          item.securityConfigLevel = this.model.securityConfigLevel;
           item.toggleSecurityVisibility = false;
-          item.securityLevel = this.securityLevelParent || 0;
+          item.securityLevel = this.securityLevelParent;
         }
       });
     }
