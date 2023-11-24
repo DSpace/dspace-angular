@@ -1,15 +1,12 @@
 <ng-container *ngIf="(getQualityAssuranceSources$() | async)?.length > 0">
   <ng-container *ngFor="let source of (getQualityAssuranceSources$() | async)">
     <div class="alert alert-info d-flex flex-row" *ngIf="source.totalEvents > 0">
-      <img class="source-logo" src="assets/images/qa-{{(source.id | dsSplit: ':')[0]}}-logo.png" alt="{{source.id}} logo">
       <div class="w-100 d-flex justify-content-between">
-        <div class="pl-4 align-self-center">{{'item.qa-event-notification.check.notification-info' | translate : {num:
-          source.totalEvents } }} </div>
-        <button [routerLink]="['/admin/notifications/quality-assurance', source, item.id]"
-                class="btn btn-primary align-self-center">{{'item.qa-event-notification-info.check.button' | translate
+        <div class="pl-4 align-self-center">{{'item.qa-event-notification.check.notification-withdrawn' | translate : {num: source.totalEvents } }} </div>
+        <button [routerLink]="['/admin/notifications/quality-assurance/' + source.id]"
+                class="btn btn-primary align-self-center">{{'item.qa-event-notification-undo-withdrawn.check.button' | translate
           }}</button>
       </div>
     </div>
   </ng-container>
 </ng-container>
-Added file

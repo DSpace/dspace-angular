@@ -16,7 +16,7 @@ import { PaginatedList } from '../../../data/paginated-list.model';
 import { FindListOptions } from '../../../data/find-list-options.model';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
-import { SearchData } from '../../../data/base/search-data';
+import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 
 /**
  * The service handling all Quality Assurance source REST requests.
@@ -47,6 +47,7 @@ export class QualityAssuranceSourceDataService extends IdentifiableDataService<Q
   ) {
     super('qualityassurancesources', requestService, rdbService, objectCache, halService);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchAllData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**

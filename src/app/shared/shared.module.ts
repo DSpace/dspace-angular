@@ -288,6 +288,9 @@ import {
   QualityAssuranceEventDataService
 } from '../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { SplitPipe } from './utils/split.pipe';
+import {
+  QualityAssuranceSourceDataService
+} from '../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
 
 const MODULES = [
   CommonModule,
@@ -477,7 +480,8 @@ const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
   AbstractTrackableComponent,
-  QualityAssuranceEventDataService
+  QualityAssuranceEventDataService,
+  QualityAssuranceSourceDataService
 ];
 
 const DIRECTIVES = [

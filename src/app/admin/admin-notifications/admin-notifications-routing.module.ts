@@ -12,6 +12,9 @@ import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assuran
 import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
 import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
 import { SourceDataResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.reslover';
+import {
+  SiteAdministratorGuard
+} from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 @NgModule({
   imports: [
@@ -32,7 +35,7 @@ import { SourceDataResolver } from './admin-quality-assurance-source-page-compon
         }
       },
       {
-        canActivate: [ AuthenticatedGuard ],
+        canActivate: [ SiteAdministratorGuard ],
         path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
         component: AdminQualityAssuranceSourcePageComponent,
         pathMatch: 'full',

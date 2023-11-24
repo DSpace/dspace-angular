@@ -8,7 +8,10 @@ import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { Item } from '../../core/shared/item.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload
+} from '../../core/shared/operators';
 import { map, switchMap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
@@ -22,6 +25,13 @@ import { ResearcherProfileDataService } from '../../core/profile/researcher-prof
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { AuthService } from '../../core/auth/auth.service';
+import {
+  QualityAssuranceSourceDataService
+} from '../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { RequestParam } from '../../core/cache/models/request-param.model';
 
 /**
  * Creates the menus for the dspace object pages
@@ -40,7 +50,9 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected researcherProfileService: ResearcherProfileDataService,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
-    protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService
+    protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
+    private auth: AuthService,
+    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService
   ) {
   }
 
@@ -121,16 +133,20 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
    */
   protected getItemMenu(dso): Observable<MenuSection[]> {
     if (dso instanceof Item) {
+      const findListTopicOptions: FindListOptions = {
+        searchParams: [new RequestParam('target', dso.uuid)]
+      };
       return combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, dso.self),
         this.dsoVersioningModalService.isNewVersionButtonDisabled(dso),
         this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create'),
         this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, dso.self),
         this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
-        this.authorizationService.isAuthorized(FeatureID.WithdrawItem, dso.self,),
-        this.authorizationService.isAuthorized(FeatureID.ReinstateItem, dso.self)
+        this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions).pipe(
+           getFirstCompletedRemoteData(),
+           getRemoteDataPayload())
       ]).pipe(
-        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem, canWithdrawItem, canReinstateItem]) => {
+        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem, correction]) => {
           const isPerson = this.getDsoType(dso) === 'person';
           return [
             {
@@ -177,12 +193,12 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             {
               id: 'withdrawn-item',
               active: false,
-              visible: canWithdrawItem,
+              visible: dso.isArchived && correction.totalElements === 0,
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.withdrawn',
                 function: () => {
-                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-withdrawn', canWithdrawItem);
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-withdrawn', dso.isArchived && correction.totalElements === 0);
                 }
               } as OnClickMenuItemModel,
               icon: 'lock',
@@ -191,12 +207,12 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             {
               id: 'reinstate-item',
               active: false,
-              visible: canReinstateItem,
+              visible: dso.isWithdrawn && correction.totalElements === 0,
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.reinstate',
                 function: () => {
-                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-reinstate', canWithdrawItem);
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-reinstate', dso.isWithdrawn && correction.totalElements === 0);
                 }
               } as OnClickMenuItemModel,
               icon: 'unlock-keyhole',
@@ -258,4 +274,5 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
       return menu;
     });
   }
+
 }

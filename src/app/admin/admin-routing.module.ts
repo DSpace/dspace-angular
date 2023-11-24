@@ -8,6 +8,9 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { REGISTRIES_MODULE_PATH, NOTIFICATIONS_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
+import {
+  SiteAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 @NgModule({
   imports: [
@@ -21,42 +24,49 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
         path: REGISTRIES_MODULE_PATH,
         loadChildren: () => import('./admin-registries/admin-registries.module')
           .then((m) => m.AdminRegistriesModule),
+        canActivate: [SiteAdministratorGuard]
       },
       {
         path: 'search',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminSearchPageComponent,
-        data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' }
+        data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' },
+        canActivate: [SiteAdministratorGuard]
       },
       {
         path: 'workflow',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminWorkflowPageComponent,
-        data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' }
+        data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' },
+        canActivate: [SiteAdministratorGuard]
       },
       {
         path: 'curation-tasks',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminCurationTasksComponent,
-        data: { title: 'admin.curation-tasks.title', breadcrumbKey: 'admin.curation-tasks' }
+        data: { title: 'admin.curation-tasks.title', breadcrumbKey: 'admin.curation-tasks' },
+        canActivate: [SiteAdministratorGuard]
       },
       {
         path: 'metadata-import',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: MetadataImportPageComponent,
-        data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' }
+        data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' },
+        canActivate: [SiteAdministratorGuard]
       },
       {
         path: 'batch-import',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: BatchImportPageComponent,
-        data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' }
+        data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' },
+        canActivate: [SiteAdministratorGuard]
       },
       {
         path: 'system-wide-alert',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
-        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
+        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'},
+        canActivate: [SiteAdministratorGuard]
       },
     ])
   ],

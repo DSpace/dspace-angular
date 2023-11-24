@@ -38,7 +38,7 @@ export class DsoWithdrawnReinstateModalService {
     const target = dso.id;
     // Open modal
     const activeModal = this.modalService.open(ItemWithdrawnReinstateModalComponent);
-    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).setWithdraw(!state);
+    (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).setWithdraw(state);
     (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).createQAEvent
        .pipe(
           take(1)

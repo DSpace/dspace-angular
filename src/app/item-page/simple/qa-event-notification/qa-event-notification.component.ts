@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { Observable } from 'rxjs';
-import { AlertType } from '../../../shared/alert/aletr-type';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { QualityAssuranceSourceDataService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
 import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import { map, tap } from 'rxjs/operators';
+import { RemoteData } from '../../../core/data/remote-data';
 @Component({
   selector: 'ds-qa-event-notification',
   templateUrl: './qa-event-notification.component.html',
@@ -25,9 +26,8 @@ export class QaEventNotificationComponent {
   /**
    * The type of alert to display for the notification.
    */
-  AlertTypeInfo = AlertType.Info;
   constructor(
-    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService,
+    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService
   ) { }
   /**
    * Returns an Observable of QualityAssuranceSourceObject[] for the current item.
@@ -35,14 +35,20 @@ export class QaEventNotificationComponent {
    * Note: sourceId is composed as: id: "sourceName:<target>"
    */
   getQualityAssuranceSources$(): Observable<QualityAssuranceSourceObject[]> {
+    console.log('ciao');
     const findListTopicOptions: FindListOptions = {
       searchParams: [new RequestParam('target', this.item.uuid)]
     };
     return this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions)
       .pipe(
         getFirstCompletedRemoteData(),
-        getRemoteDataPayload(),
-        getPaginatedListPayload(),
+        tap(console.log),
+        map((data: RemoteData<any>) => {
+          if (data.hasSucceeded) {
+            return data.payload.page;
+          }
+          return [];
+        })
       );
   }
 }
