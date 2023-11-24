@@ -127,6 +127,7 @@ export class FormFieldModel {
    */
   @autoserialize
   visibility: SubmissionVisibilityType;
+
   /**
    * The security config values
    */

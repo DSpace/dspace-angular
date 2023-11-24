@@ -1,9 +1,9 @@
 <div>
-  <a *ngIf="(metadataRepresentation.representationType=='browse_link')"
+  <a *ngIf="(mdRepresentation.representationType=='browse_link')"
      target="_blank" class="dont-break-out"
-     [routerLink]="['/browse/', metadataRepresentation.browseDefinition.id]"
+     [routerLink]="['/browse/', mdRepresentation.browseDefinition.id]"
      [queryParams]="getQueryParams()">
-    {{metadataRepresentation.getValue()}}
+    {{mdRepresentation.getValue()}}
   </a>
   <b>(new browse link page)</b>
 </div>

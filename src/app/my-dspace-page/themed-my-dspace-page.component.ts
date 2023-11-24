@@ -11,7 +11,6 @@ import { MyDSpacePageComponent } from './my-dspace-page.component';
   templateUrl: './../shared/theme-support/themed.component.html'
 })
 export class ThemedMyDSpacePageComponent extends ThemedComponent<MyDSpacePageComponent> {
-  protected inAndOutputNames: (keyof MyDSpacePageComponent & keyof this)[];
 
   protected getComponentName(): string {
     return 'MyDSpacePageComponent';

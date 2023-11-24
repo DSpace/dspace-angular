@@ -1,0 +1,19 @@
+<div class="container">
+  <ds-bulk-access-browse [listId]="listId"></ds-bulk-access-browse>
+  <div class="clearfix mb-3"></div>
+  <ds-bulk-access-settings #dsBulkSettings ></ds-bulk-access-settings>
+
+  <hr>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-outline-primary mr-3" (click)="reset()">
+      {{ 'access-control-cancel' | translate }}
+    </button>
+    <button class="btn btn-primary" [disabled]="!canExport()" (click)="submit()">
+      {{ 'access-control-execute' | translate }}
+    </button>
+  </div>
+</div>
+
+
+

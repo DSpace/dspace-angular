@@ -21,7 +21,8 @@ export class TreeviewNode {
               public pageInfo: PageInfo = new PageInfo(),
               public loadMoreParentItem: VocabularyEntryDetail | null = null,
               public isSearchNode = false,
-              public isInInitValueHierarchy = false) {
+              public isInInitValueHierarchy = false,
+              public isSelected = false) {
   }
 
   updatePageInfo(pageInfo: PageInfo) {
@@ -38,7 +39,8 @@ export class TreeviewFlatNode {
               public pageInfo: PageInfo = new PageInfo(),
               public loadMoreParentItem: VocabularyEntryDetail | null = null,
               public isSearchNode = false,
-              public isInInitValueHierarchy = false) {
+              public isInInitValueHierarchy = false,
+              public isSelected = false) {
   }
 }
 

@@ -4,7 +4,7 @@
 </ng-template>
 
 <div [className]="'float-left w-100 ' + wrapperClass">
-  <ul *ngIf="isPlatformBrowser" class="nav nav-pills d-flex flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
+  <div *ngIf="isPlatformBrowser" role="list" class="nav nav-pills d-flex flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
       <ng-template #tipContent>
         <p class="text-left p-0 m-0" *ngFor="let tip of (tipText$ | async)">
@@ -12,7 +12,7 @@
         </p>
       </ng-template>
 
-      <li class="nav-item mr-2 mb-1"
+      <div role="listitem" class="nav-item mr-2 mb-1"
           #t="ngbTooltip"
           triggers="manual"
           [ngbTooltip]="tipContent"
@@ -63,14 +63,14 @@
                [title]="'chips.remove' | translate"></i>
           </span>
         </a>
-      </li>
+      </div>
     </ng-container>
     <div [class.chips-sort-ignore]="(isDragging | async)" class="flex-grow-1">
       <ng-container *ngTemplateOutlet="inputContent"></ng-container>
     </div>
-  </ul>
+  </div>
 
-  <ul *ngIf="!isPlatformBrowser" class="nav nav-pills d-flex flex-column flex-sm-row">
+  <div *ngIf="!isPlatformBrowser" role="list" class="nav nav-pills d-flex flex-column flex-sm-row">
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
       <ng-template #tipContent>
         <p class="text-left p-0 m-0" *ngFor="let tip of (tipText$ | async)">
@@ -78,7 +78,7 @@
         </p>
       </ng-template>
 
-      <li class="nav-item mr-2 mb-1">
+      <div role="listitem" class="nav-item mr-2 mb-1">
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
            href="javascript:void(0);">
           <span>
@@ -112,10 +112,10 @@
                [title]="'chips.remove' | translate"></i>
           </span>
         </a>
-      </li>
+      </div>
     </ng-container>
     <div [class.chips-sort-ignore]="(isDragging | async)" class="flex-grow-1">
       <ng-container *ngTemplateOutlet="inputContent"></ng-container>
     </div>
-  </ul>
+  </div>
 </div>

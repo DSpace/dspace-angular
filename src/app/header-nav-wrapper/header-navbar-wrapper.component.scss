@@ -1,7 +1,6 @@
-@media screen and (max-width: map-get($grid-breakpoints, md)) {
-    :host.open {
-        background-color: var(--bs-white);
-        top: 0;
-        position: sticky;
-    }
+:host {
+  position: relative;
+  div#header-navbar-wrapper {
+    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
+  }
 }

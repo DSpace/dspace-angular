@@ -20,6 +20,7 @@ import { ItemRequest } from '../../core/shared/item-request.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 
 describe('DenyRequestCopyComponent', () => {
   let component: DenyRequestCopyComponent;
@@ -30,7 +31,6 @@ describe('DenyRequestCopyComponent', () => {
   let authService: AuthService;
   let translateService: TranslateService;
   let itemDataService: ItemDataService;
-  let nameService: DSONameService;
   let itemRequestService: ItemRequestDataService;
   let notificationsService: NotificationsService;
 
@@ -93,15 +93,12 @@ describe('DenyRequestCopyComponent', () => {
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
     });
-    nameService = jasmine.createSpyObj('nameService', {
-      getName: itemName,
-    });
     itemRequestService = jasmine.createSpyObj('itemRequestService', {
       deny: createSuccessfulRemoteDataObject$(itemRequest),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
 
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       declarations: [DenyRequestCopyComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
@@ -109,7 +106,7 @@ describe('DenyRequestCopyComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: authService },
         { provide: ItemDataService, useValue: itemDataService },
-        { provide: DSONameService, useValue: nameService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
       ],

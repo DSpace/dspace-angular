@@ -3,7 +3,7 @@ import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
 import { hasValue, isEmpty } from '../../../../empty.util';
 import { ResourceType } from '../../../../../core/shared/resource-type';
@@ -42,7 +42,7 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
   }
 
   ngOnInit(): void {
-    this.dsoRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
+    this.dsoRD$ = this.route.parent.data.pipe(map((data) => data.dso));
   }
 
   /**

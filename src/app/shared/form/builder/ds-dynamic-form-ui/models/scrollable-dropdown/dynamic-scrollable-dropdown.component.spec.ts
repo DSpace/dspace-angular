@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,8 +27,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.ut
 import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
-export const SD_TEST_GROUP = new FormGroup({
-  dropdown: new FormControl(),
+export const SD_TEST_GROUP = new UntypedFormGroup({
+  dropdown: new UntypedFormControl(),
 });
 
 export const SD_TEST_MODEL_CONFIG = {
@@ -168,14 +168,15 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         let de: any = scrollableDropdownFixture.debugElement.query(By.css('input.form-control'));
         let btnEl = de.nativeElement;
 
-        btnEl.click();
+        const mousedownEvent = new MouseEvent('mousedown');
+
+        btnEl.dispatchEvent(mousedownEvent);
         scrollableDropdownFixture.detectChanges();
 
         de = scrollableDropdownFixture.debugElement.queryAll(By.css('button.dropdown-item'));
         btnEl = de[0].nativeElement;
 
-        btnEl.click();
-
+        btnEl.dispatchEvent(mousedownEvent);
         scrollableDropdownFixture.detectChanges();
 
         expect((scrollableDropdownComp.model as any).value).toEqual(selectedValue);
@@ -254,7 +255,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 })
 class TestComponent {
 
-  group: FormGroup = SD_TEST_GROUP;
+  group: UntypedFormGroup = SD_TEST_GROUP;
 
   model = new DynamicScrollableDropdownModel(SD_TEST_MODEL_CONFIG);
 

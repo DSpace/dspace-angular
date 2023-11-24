@@ -20,11 +20,28 @@
     </small>
   </div>
 
+  <ui-switch color="#ebebeb"
+             [checkedLabel]="'admin.metadata-import.page.toggle.upload' | translate"
+             [uncheckedLabel]="'admin.metadata-import.page.toggle.url' | translate"
+             [checked]="isUpload"
+             (change)="toggleUpload()" ></ui-switch>
+  <small class="form-text text-muted">
+    {{'admin.batch-import.page.toggle.help' | translate}}
+  </small>
+  
+
   <ds-file-dropzone-no-uploader
+    *ngIf="isUpload"
+    data-test="file-dropzone"
     (onFileAdded)="setFile($event)"
     [dropMessageLabel]="'admin.batch-import.page.dropMsg'"
     [dropMessageLabelReplacement]="'admin.batch-import.page.dropMsgReplace'">
   </ds-file-dropzone-no-uploader>
+
+  <div class="form-group mt-2" *ngIf="!isUpload">
+    <input class="form-control" type="text" placeholder="{{'admin.metadata-import.page.urlMsg' | translate}}"
+           data-test="file-url-input" [(ngModel)]="fileURL">
+  </div>
 
   <div class="space-children-mr">
     <button class="btn btn-secondary" id="backButton"

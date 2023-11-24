@@ -7,7 +7,7 @@
               [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
     <div class="d-flex" *ngIf="mdRepresentation">
       <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
-      <ds-type-badge [object]="mdRepresentation"></ds-type-badge>
+      <ds-themed-type-badge [object]="mdRepresentation"></ds-themed-type-badge>
     </div>
   </div>
   <div class="ds-flex-cell ds-lang-cell" role="cell">

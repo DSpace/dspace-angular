@@ -107,6 +107,7 @@ describe('SearchSettingsComponent', () => {
       new SortOptions('dc.title', SortDirection.ASC),
       new SortOptions('dc.title', SortDirection.DESC)
     ];
+    comp.currentSortOption = new SortOptions('score', SortDirection.DESC);
 
     // SearchPageComponent test instance
     fixture.detectChanges();
@@ -133,7 +134,8 @@ describe('SearchSettingsComponent', () => {
   it('should have the proper order value selected by default', () => {
     fixture.detectChanges();
     const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-    const childElementToBeSelected = orderSetting.query(By.css('option[value="score,DESC"][selected="selected"]'));
-    expect(childElementToBeSelected).toBeDefined();
+    const childElementToBeSelected = orderSetting.query(By.css('option[value="score,DESC"]'));
+    expect(childElementToBeSelected).not.toBeNull();
+    expect(childElementToBeSelected.nativeElement.selected).toBeTrue();
   });
 });

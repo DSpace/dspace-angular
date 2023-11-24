@@ -10,6 +10,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component represents a badge with collection information.
@@ -31,8 +32,10 @@ export class ItemCollectionComponent implements OnInit {
    */
   collection$: Observable<Collection>;
 
-  public constructor(protected linkService: LinkService) {
-
+  public constructor(
+    protected linkService: LinkService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   /**

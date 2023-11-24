@@ -10,7 +10,7 @@ import { SiteDataService } from '../site-data.service';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../remote-data';
 import { PaginatedList } from '../paginated-list.model';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { AuthorizationSearchParams } from './authorization-search-params';
@@ -53,6 +53,19 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
   }
 
   /**
+   * This method invalidates the cache for a given authorization feature and a given item url.
+   *
+   * @param featureID
+   * @param objectUrl
+   */
+  invalidateAuthorization(featureID?: FeatureID, objectUrl?: string) {
+    this.searchData.getSearchByHref(this.searchByObjectPath, this.createSearchOptions(objectUrl, {}, null, featureID))
+      .pipe(
+        take(1)
+      ).subscribe(url => this.requestService.setStaleByHrefSubstring(url));
+  }
+
+  /**
    * Checks if an {@link EPerson} (or anonymous) has access to a specific object within a {@link Feature}
    * @param objectUrl                   URL to the object to search {@link Authorization}s for.
    *                                    If not provided, the repository's {@link Site} will be used.
@@ -74,7 +87,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
           return [];
         }
       }),
-      catchError(() => observableOf(false)),
+      catchError(() => observableOf([])),
       oneAuthorizationMatchesFeature(featureId)
     );
   }

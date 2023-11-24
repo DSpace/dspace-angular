@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -181,17 +181,17 @@ export class ItemExportComponent implements OnInit, OnDestroy {
   }
 
   initForm(configuration: ItemExportFormConfiguration, fromItemType = false): FormGroup {
-    const formGroup = new FormGroup({
+    const formGroup = new UntypedFormGroup({
       format: new FormControl(configuration.format, [Validators.required]),
 
     });
     if (fromItemType) {
-      formGroup.addControl('entityType', new FormControl({ value: this.itemType.label, disabled: true }, [Validators.required]));
+      formGroup.addControl('entityType', new UntypedFormControl({ value: this.itemType.label, disabled: true }, [Validators.required]));
     } else {
-      formGroup.addControl('entityType', new FormControl(configuration.entityType, [Validators.required]));
+      formGroup.addControl('entityType', new UntypedFormControl(configuration.entityType, [Validators.required]));
     }
     if (this.showListSelection) {
-      formGroup.addControl('selectionMode', new FormControl(this.exportSelectionMode.value, [Validators.required]));
+      formGroup.addControl('selectionMode', new UntypedFormControl(this.exportSelectionMode.value, [Validators.required]));
     }
     return formGroup;
   }

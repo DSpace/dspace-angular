@@ -1,23 +1,22 @@
 <video
   crossorigin="anonymous"
-  #media
-  [src]="filteredMedias[currentIndex].bitstream._links.content.href"
+  [src]="medias[currentIndex].bitstream._links.content.href"
   id="singleVideo"
   [poster]="
-    filteredMedias[currentIndex].thumbnail ||
-    replacements[filteredMedias[currentIndex].format]
+    medias[currentIndex].thumbnail ||
+    replacements[medias[currentIndex].format]
   "
   preload="none"
   controls
 >
-  <ng-container *ngIf="getMediaCap(filteredMedias[currentIndex].bitstream.name) as capInfos">
+  <ng-container *ngIf="getMediaCap(medias[currentIndex].bitstream.name, captions) as capInfos">
     <ng-container *ngFor="let capInfo of capInfos">
       <track [src]="capInfo.src" [label]="capInfo.langLabel" [srclang]="capInfo.srclang" />
     </ng-container>
   </ng-container>
 
 </video>
-<div class="buttons" *ngIf="filteredMedias?.length > 1">
+<div class="buttons" *ngIf="medias?.length > 1">
   <button
     class="btn btn-primary previous"
     [disabled]="currentIndex === 0"
@@ -28,7 +27,7 @@
 
   <button
     class="btn btn-primary next"
-    [disabled]="currentIndex === filteredMedias.length - 1"
+    [disabled]="currentIndex === medias.length - 1"
     (click)="nextMedia()"
   >
     {{ "media-viewer.next" | translate }}
@@ -44,11 +43,11 @@
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button
         ngbDropdownItem
-        *ngFor="let item of filteredMedias; index as indexOfelement"
+        *ngFor="let item of medias; index as indexOfelement"
         class="list-element"
         (click)="selectedMedia(indexOfelement)"
       >
-        {{ item.bitstream.name }}
+        {{ dsoNameService.getName(item.bitstream) }}
       </button>
     </div>
   </div>

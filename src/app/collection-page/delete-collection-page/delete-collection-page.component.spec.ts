@@ -10,6 +10,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { DeleteCollectionPageComponent } from './delete-collection-page.component';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 
 describe('DeleteCollectionPageComponent', () => {
   let comp: DeleteCollectionPageComponent;
@@ -20,6 +22,7 @@ describe('DeleteCollectionPageComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [DeleteCollectionPageComponent],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
         { provide: NotificationsService, useValue: {} },
