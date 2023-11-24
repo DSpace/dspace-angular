@@ -4,17 +4,17 @@
     <div class="input-group">
       <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()">
       <div class="input-group-append" id="button-addon4">
-        <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
+        <button class="btn btn-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
           <span><i class="fas fa-search"></i> {{'vocabulary-treeview.search.form.search' | translate}}</span>
-        </button>
-        <button class="btn btn-outline-secondary ml-3 flex-shrink-0" type="button" (click)="reset()">
-          <span><i class="fas fa-eraser"></i> {{'vocabulary-treeview.search.form.reset' | translate}}</span>
-        </button>
-        <button *ngIf="showAdd && this.vocabularyOptions.closed" class="btn btn-outline-primary" type="button" (click)="add()">
-          {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
       </div>
     </div>
+    <button class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="reset()">
+      <span><i class="fas fa-eraser"></i> {{'vocabulary-treeview.search.form.reset' | translate}}</span>
+    </button>
+    <button *ngIf="showAdd " class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="add()">
+        <span><i class="fas fa-plus"></i> {{'vocabulary-treeview.search.form.add' | translate}}</span>
+    </button>
   </div>
 </div>
 <div class="treeview-container">
