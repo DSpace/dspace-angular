@@ -12,7 +12,7 @@
     <button class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="reset()">
       <span><i class="fas fa-eraser"></i> {{'vocabulary-treeview.search.form.reset' | translate}}</span>
     </button>
-    <button *ngIf="showAdd " class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="add()">
+    <button *ngIf="showAdd && !this.vocabularyOptions.closed" class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="add()">
         <span><i class="fas fa-plus"></i> {{'vocabulary-treeview.search.form.add' | translate}}</span>
     </button>
   </div>
