@@ -159,7 +159,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
           }
 
           const item: ListItem = {
-            id: value,
+            id: `${this.model.id}_${value}`,
             label: option.display,
             value: checked,
             index: key

@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Injector, Input, OnInit, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit, } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { Registration } from '../../core/shared/registration.model';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isEmpty } from '../../shared/empty.util';
 import { getExternalLoginConfirmationType } from '../decorators/external-log-in.methods-decorator';
 
 @Component({
@@ -13,11 +14,8 @@ import { getExternalLoginConfirmationType } from '../decorators/external-log-in.
   styleUrls: ['./external-log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExternalLogInComponent implements OnInit {
-  /**
-   * The type of registration type to be confirmed
-   */
-  registrationType: AuthRegistrationType;
+export class ExternalLogInComponent implements OnInit, OnDestroy {
+
   /**
    * The registration data object
    */
@@ -44,6 +42,16 @@ export class ExternalLogInComponent implements OnInit {
    */
   public modalRef: NgbModalRef;
 
+  /**
+   * Authentication method related to registration type
+   */
+  relatedAuthMethod: AuthMethodType;
+
+  /**
+   * The type of registration type to be confirmed
+   */
+  registrationType: AuthRegistrationType;
+
   constructor(
     private injector: Injector,
     private translate: TranslateService,
@@ -67,6 +75,7 @@ export class ExternalLogInComponent implements OnInit {
       parent: this.injector,
     });
     this.registrationType = this.registrationData?.registrationType ?? null;
+    this.relatedAuthMethod = isEmpty(this.registrationType) ? null : this.registrationType.replace('VALIDATION_', '').toLocaleLowerCase() as AuthMethodType;
     this.informationText = hasValue(this.registrationData?.email)
       ? this.generateInformationTextWhenEmail(this.registrationType)
       : this.generateInformationTextWhenNOEmail(this.registrationType);

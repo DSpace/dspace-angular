@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Chan eil cead agad airson na duilleig seo. Cleachd am putan gu h-ìosal airson tilleadh chun na duilleig-dachaigh.",
 
@@ -6928,20 +6924,20 @@
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "San Tasglann",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "San Tasglann",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Dearbhadh",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Dearbhadh",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "A' feitheamh riaghladair",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "A' feitheamh riaghladair",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Sruth-obrach",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Sruth-obrach",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Raon-obrach",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Raon-obrach",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MoDSpace",

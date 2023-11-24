@@ -1,3 +1,5 @@
+import { Inject, PLATFORM_ID } from '@angular/core';
+
 import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
 import { toJpeg, toPng } from 'html-to-image';
 import { Options } from 'html-to-image/es/types';
@@ -20,6 +22,9 @@ export class BrowserExportService implements ExportService {
    */
   exportAsConfig: ExportAsConfig;
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  }
+
   /**
    * Creates excel from the table element reference.
    *
@@ -37,7 +42,7 @@ export class BrowserExportService implements ExportService {
       download:download
     };
 
-    const exportAsService: ExportAsService = new ExportAsService();
+    const exportAsService: ExportAsService = new ExportAsService(this.platformId);
     return exportAsService.save(this.exportAsConfig, fileName);
   }
 

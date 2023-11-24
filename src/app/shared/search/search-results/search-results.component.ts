@@ -11,7 +11,7 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { AlertType } from '../../alert/aletr-type';
+import { AlertType } from '../../alert/alert-type';
 
 export interface SelectionConfig {
   repeatable: boolean;

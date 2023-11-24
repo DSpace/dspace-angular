@@ -57,7 +57,7 @@ export class StatisticsMapComponent implements OnInit {
   ) {
     if (isPlatformBrowser(this.platformId)) {
       import('../../../core/export-service/browser-export.service').then((s) => {
-        this.exportService = new s.BrowserExportService();
+        this.exportService = new s.BrowserExportService(this.platformId);
       });
     } else {
       import('../../../core/export-service/server-export.service').then((s) => {

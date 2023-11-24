@@ -1,12 +1,15 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { BROWSE_BY_COMPONENT_FACTORY } from '../browse-by-switcher/browse-by-decorator';
-import { map } from 'rxjs/operators';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 
@@ -60,8 +63,14 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
    */
   browseByComponentSubs: Subscription[] = [];
 
+  /**
+   * Browse description
+   */
+  description: string;
+
   public constructor( protected route: ActivatedRoute,
                       protected themeService: ThemeService,
+                      protected translate: TranslateService,
                       @Inject(BROWSE_BY_COMPONENT_FACTORY) private getComponentByBrowseByType: (browseByType, theme) => GenericConstructor<any>) {
   }
 
@@ -73,9 +82,11 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
       })
     );
     this.browseByComponentSubs.push(this.browseByComponent.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
+      this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, metadata: null, scope: null, closed: true };
+      this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.descrption`);
     }));
   }
 
