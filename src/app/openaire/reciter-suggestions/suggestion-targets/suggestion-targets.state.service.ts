@@ -40,8 +40,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<OpenaireReciterSuggestionTarget>
    *    The list of Reciter Suggestion Targets.
    */
-  public getReciterSuggestionTargets(): Observable<OpenaireSuggestionTarget[]> {
-    return this.store.pipe(select(reciterSuggestionTargetObjectSelector()));
+  public getReciterSuggestionTargets(source: string): Observable<OpenaireSuggestionTarget[]> {
+    return this.store.pipe(select(reciterSuggestionTargetObjectSelector(source)));
   }
 
   /**
@@ -50,9 +50,9 @@ export class SuggestionTargetsStateService {
    * @return Observable<boolean>
    *    'true' if the targets are loading, 'false' otherwise.
    */
-  public isReciterSuggestionTargetsLoading(): Observable<boolean> {
+  public isReciterSuggestionTargetsLoading(source: string): Observable<boolean> {
     return this.store.pipe(
-      select(isReciterSuggestionTargetLoadedSelector),
+      select(isReciterSuggestionTargetLoadedSelector(source)),
       map((loaded: boolean) => !loaded)
     );
   }
@@ -63,8 +63,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<boolean>
    *    'true' if the targets are loaded, 'false' otherwise.
    */
-  public isReciterSuggestionTargetsLoaded(): Observable<boolean> {
-    return this.store.pipe(select(isReciterSuggestionTargetLoadedSelector));
+  public isReciterSuggestionTargetsLoaded(source: string): Observable<boolean> {
+    return this.store.pipe(select(isReciterSuggestionTargetLoadedSelector(source)));
   }
 
   /**
@@ -73,8 +73,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<boolean>
    *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
-  public isReciterSuggestionTargetsProcessing(): Observable<boolean> {
-    return this.store.pipe(select(isreciterSuggestionTargetProcessingSelector));
+  public isReciterSuggestionTargetsProcessing(source: string): Observable<boolean> {
+    return this.store.pipe(select(isreciterSuggestionTargetProcessingSelector(source)));
   }
 
   /**
@@ -83,8 +83,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<number>
    *    The number of the Reciter Suggestion Targets pages.
    */
-  public getReciterSuggestionTargetsTotalPages(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetTotalsSelector));
+  public getReciterSuggestionTargetsTotalPages(source: string): Observable<number> {
+    return this.store.pipe(select(getreciterSuggestionTargetTotalsSelector(source)));
   }
 
   /**
@@ -93,8 +93,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<number>
    *    The number of the current Reciter Suggestion Targets page.
    */
-  public getReciterSuggestionTargetsCurrentPage(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetCurrentPageSelector));
+  public getReciterSuggestionTargetsCurrentPage(source: string): Observable<number> {
+    return this.store.pipe(select(getreciterSuggestionTargetCurrentPageSelector(source)));
   }
 
   /**
@@ -103,8 +103,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<number>
    *    The number of the Reciter Suggestion Targets.
    */
-  public getReciterSuggestionTargetsTotals(): Observable<number> {
-    return this.store.pipe(select(getreciterSuggestionTargetTotalsSelector));
+  public getReciterSuggestionTargetsTotals(source: string): Observable<number> {
+    return this.store.pipe(select(getreciterSuggestionTargetTotalsSelector(source)));
   }
 
   /**

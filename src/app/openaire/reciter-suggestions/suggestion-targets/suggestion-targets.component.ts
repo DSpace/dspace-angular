@@ -72,8 +72,8 @@ export class SuggestionTargetsComponent implements OnInit {
    * Component initialization.
    */
   ngOnInit(): void {
-    this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets();
-    this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals();
+    this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets(this.source);
+    this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals(this.source);
   }
 
   /**
@@ -81,7 +81,7 @@ export class SuggestionTargetsComponent implements OnInit {
    */
   ngAfterViewInit(): void {
     this.subs.push(
-      this.suggestionTargetsStateService.isReciterSuggestionTargetsLoaded().pipe(
+      this.suggestionTargetsStateService.isReciterSuggestionTargetsLoaded(this.source).pipe(
         take(1)
       ).subscribe(() => {
         this.getSuggestionTargets();
@@ -95,8 +95,8 @@ export class SuggestionTargetsComponent implements OnInit {
    * @return Observable<boolean>
    *    'true' if the targets are loading, 'false' otherwise.
    */
-  public isTargetsLoading(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isReciterSuggestionTargetsLoading();
+  public isTargetsLoading(source: string): Observable<boolean> {
+    return this.suggestionTargetsStateService.isReciterSuggestionTargetsLoading(source);
   }
 
   /**
@@ -106,7 +106,7 @@ export class SuggestionTargetsComponent implements OnInit {
    *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
   public isTargetsProcessing(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isReciterSuggestionTargetsProcessing();
+    return this.suggestionTargetsStateService.isReciterSuggestionTargetsProcessing(this.source);
   }
 
   /**
