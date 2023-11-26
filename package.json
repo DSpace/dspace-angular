@@ -121,7 +121,7 @@
     "ngx-infinite-scroll": "^15.0.0",
     "ngx-pagination": "6.0.3",
     "ngx-sortablejs": "^11.1.0",
-    "ngx-ui-switch": "^14.0.3",
+    "ngx-ui-switch": "^14.1.0",
     "nouislider": "^15.7.1",
     "pem": "1.14.7",
     "prop-types": "^15.8.1",
