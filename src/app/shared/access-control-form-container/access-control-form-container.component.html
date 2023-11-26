@@ -4,10 +4,11 @@
       <ds-alert
         *ngIf="titleMessage"
         [type]="AlertType.Info"
-        [content]="titleMessage">
+        [content]="titleMessage"
+        class="d-block pb-3">
       </ds-alert>
 
-      <div class="row mt-5">
+      <div class="row">
         <div class="col-12 col-md-6 border-right d-flex flex-column justify-content-between">
 
           <div>
@@ -16,6 +17,7 @@
                 {{ 'access-control-item-header-toggle' | translate }}
               </h4>
               <ui-switch
+                [ariaLabel]="(state.bitstream.toggleStatus ? 'access-control-item-toggle.disable' : 'access-control-item-toggle.enable') | translate"
                 [(ngModel)]="state.item.toggleStatus"
                 (ngModelChange)="handleStatusChange('item', $event)">
               </ui-switch>
@@ -69,6 +71,7 @@
                 {{'access-control-bitstream-header-toggle' | translate}}
               </h4>
               <ui-switch
+                [ariaLabel]="(state.bitstream.toggleStatus ? 'access-control-bitstream-toggle.disable' : 'access-control-bitstream-toggle.enable') | translate"
                 [(ngModel)]="state.bitstream.toggleStatus"
                 (ngModelChange)="handleStatusChange('bitstream', $event)">
               </ui-switch>
@@ -99,6 +102,7 @@
 
                   <button
                     *ngIf="itemRD"
+                    [attr.aria-label]="'access-control-bitstreams-select' | translate"
                     [disabled]="!state.bitstream.toggleStatus || state.bitstream.changesLimit !== 'selected'"
                     (click)="openSelectBitstreamsModal(itemRD.payload)"
                     class="btn btn-outline-dark border-0" type="button">
