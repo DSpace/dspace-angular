@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 
 import { HealthService } from './health.service';
 import { HealthInfoResponse, HealthResponse } from './models/health-component.model';
+import { AlertType } from '../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-health-page',
@@ -32,6 +33,8 @@ export class HealthPageComponent implements OnInit {
    * Represent if the response from health info endpoint is already retrieved or not
    */
   healthInfoResponseInitialised: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  readonly AlertType = AlertType;
 
   constructor(private healthDataService: HealthService) {
   }
