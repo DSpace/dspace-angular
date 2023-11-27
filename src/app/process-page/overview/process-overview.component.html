@@ -44,9 +44,11 @@
                     <td>{{process.endTime | date:dateFormat:'UTC'}}</td>
                     <td>{{process.processStatus}}</td>
                     <td>
-                        <button class="btn btn-outline-danger"
-                                (click)="processBulkDeleteService.toggleDelete(process.processId)"><i
-                                class="fas fa-trash"></i></button>
+                        <button [attr.aria-label]="'process.overview.delete-process' | translate"
+                                (click)="processBulkDeleteService.toggleDelete(process.processId)"
+                                class="btn btn-outline-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
                 </tbody>
