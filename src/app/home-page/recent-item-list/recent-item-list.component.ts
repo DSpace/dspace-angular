@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { RemoteData } from '../../core/data/remote-data';
@@ -62,6 +64,10 @@ export class RecentItemListComponent implements OnInit {
     this.sortConfig = new SortOptions(environment.homePage.recentSubmissions.sortField, SortDirection.DESC);
   }
   ngOnInit(): void {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     const linksToFollow: FollowLinkConfig<Item>[] = [];
     if (this.appConfig.browseBy.showThumbnails) {
       linksToFollow.push(followLink('thumbnail'));

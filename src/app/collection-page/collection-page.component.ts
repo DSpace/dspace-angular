@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
@@ -62,6 +63,7 @@ export class CollectionPageComponent implements OnInit {
   collectionPageRoute$: Observable<string>;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private collectionDataService: CollectionDataService,
     private searchService: SearchService,
     private route: ActivatedRoute,
@@ -82,6 +84,10 @@ export class CollectionPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),
