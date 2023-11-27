@@ -11,7 +11,7 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { AlertType } from '../../alert/aletr-type';
+import { AlertType } from '../../alert/alert-type';
 
 /**
  * Themed wrapper for SearchResultsComponent

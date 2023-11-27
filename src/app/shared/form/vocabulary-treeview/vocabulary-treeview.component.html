@@ -1,17 +1,20 @@
-<ds-alert *ngIf="description | async" [content]="description | async" [type]="'alert-info'"></ds-alert>
+<ds-alert *ngIf="description" [content]="description" [type]="'alert-info'"></ds-alert>
 <div class="treeview-header row">
   <div class="col-12 d-flex">
     <div class="input-group">
       <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()">
       <div class="input-group-append" id="button-addon4">
-        <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
+        <button class="btn btn-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
           <span><i class="fas fa-search"></i> {{'vocabulary-treeview.search.form.search' | translate}}</span>
-        </button>
-        <button class="btn btn-outline-secondary ml-3 flex-shrink-0" type="button" (click)="reset()">
-          <span><i class="fas fa-eraser"></i> {{'vocabulary-treeview.search.form.reset' | translate}}</span>
         </button>
       </div>
     </div>
+    <button class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="reset()">
+      <span><i class="fas fa-eraser"></i> {{'vocabulary-treeview.search.form.reset' | translate}}</span>
+    </button>
+    <button *ngIf="showAdd && !this.vocabularyOptions.closed" class="btn btn-secondary ml-3 flex-shrink-0" type="button" (click)="add()">
+        <span><i class="fas fa-plus"></i> {{'vocabulary-treeview.search.form.add' | translate}}</span>
+    </button>
   </div>
 </div>
 <div class="treeview-container">
@@ -23,7 +26,7 @@
     <!-- Leaf node -->
     <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
         <button type="button" class="btn btn-default" cdkTreeNodeToggle>
-          <span class="fas fa-angle-right invisible" aria-hidden="true"></span>
+          <span class="fas fa-fw fa-angle-right invisible" aria-hidden="true"></span>
         </button>
           <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
                  [class.text-success]="node.isSelected"
@@ -55,7 +58,7 @@
         <button type="button" class="btn btn-default" cdkTreeNodeToggle
                 [attr.aria-label]="'toggle ' + node.name"
                 (click)="loadChildren(node)">
-          <span class="fas {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"
+          <span class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"
                 aria-hidden="true"></span>
         </button>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertType } from '../shared/alert/aletr-type';
+import { AlertType } from '../shared/alert/alert-type';
 import { first, map, Observable, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { hasNoValue } from '../shared/empty.util';

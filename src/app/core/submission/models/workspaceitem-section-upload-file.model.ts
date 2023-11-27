@@ -28,6 +28,18 @@ export class WorkspaceitemSectionUploadFileObject {
   checkSum: ChecksumInfo;
 
   /**
+   * The file format information
+   */
+  format: {
+    shortDescription: string,
+    description: string,
+    mimetype: string,
+    supportLevel: string,
+    internal: boolean,
+    type: string
+  };
+
+  /**
    * The file url
    */
   url: string;

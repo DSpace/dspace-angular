@@ -1,10 +1,4 @@
 {
-
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
-  // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "आप इस पृष्ठ का प्रयोग करने की अनुमति नहीं हैं। होम पेज पर वापस जाने के लिए आप नीचे दिए गए बटन का उपयोग कर सकते हैं।",
 
   // "401.link.home-page": "Take me to the home page",
@@ -6844,19 +6838,19 @@
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
   // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "संग्रहीत",
+  "mydspace.status.mydspaceArchived": "संग्रहीत",
 
   // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "सत्यापन",
+  "mydspace.status.mydspaceValidation": "सत्यापन",
 
   // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "नियंत्रक की प्रतीक्षा कर रहा है",
+  "mydspace.status.mydspaceWaitingController": "नियंत्रक की प्रतीक्षा कर रहा है",
 
   // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "कार्यप्रवाह",
+  "mydspace.status.mydspaceWorkflow": "कार्यप्रवाह",
 
   // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "कार्यस्थान",
+  "mydspace.status.mydspaceWorkspace": "कार्यस्थान",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "मेरा डीस्पेस",

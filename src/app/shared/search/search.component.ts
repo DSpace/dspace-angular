@@ -48,7 +48,7 @@ import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SearchManager } from '../../core/browse/search-manager';
-import { AlertType } from '../alert/aletr-type';
+import { AlertType } from '../alert/alert-type';
 
 @Component({
   selector: 'ds-search',

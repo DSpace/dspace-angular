@@ -1,9 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  // TODO New key - Add a translation
-  "Biography": "English Biography",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Vous n'êtes pas autorisé à accéder à cette page. Vous pouvez utiliser le bouton ci-dessous pour revenir à la page d'accueil.",
 
@@ -12,8 +8,6 @@
 
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "Accès non autorisé",
-
-
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Vous n'avez pas les permissions requises pour accéder à cette page. Vous pouvez utiliser le bouton ci-dessous pour revenir à la page d'accueil.",
@@ -32,7 +26,6 @@
 
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "Aller à la page d'accueil",
-
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "La page que vous recherchez n'a pas pu être localisée. Cette page pourrait avoir été déplacée ou supprimée. Vous pouvez utiliser le bouton ci-dessous pour revenir à la page d'accueil.",
@@ -6833,20 +6826,20 @@
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archivés",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archivés",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "En cours de validation",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "En cours de validation",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "En attente d'assignation",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "En attente d'assignation",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "En traitement",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "En traitement",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Dépôts en cours",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Dépôts en cours",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mon compte DSpace",

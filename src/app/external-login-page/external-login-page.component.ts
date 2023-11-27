@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { hasNoValue } from '../shared/empty.util';
-import { AlertType } from '../shared/alert/aletr-type';
+import { AlertType } from '../shared/alert/alert-type';
 import { Observable, first, map, tap } from 'rxjs';
 import { Registration } from '../core/shared/registration.model';
 import { RemoteData } from '../core/data/remote-data';
