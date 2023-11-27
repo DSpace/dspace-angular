@@ -65,7 +65,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   @Output() edit: EventEmitter<any> = new EventEmitter<any>();
   @Output() add: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('formRef', {static: false}) private formRef: FormComponent;
+  @ViewChild('formRef', { static: false }) private formRef: FormComponent;
 
   public formModel: DynamicFormControlModel[];
   public vocabulary$: Observable<Vocabulary>;
@@ -75,20 +75,20 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
 
   constructor(private vocabularyService: VocabularyService,
-              private formBuilderService: FormBuilderService,
-              private formService: FormService,
-              private cdr: ChangeDetectorRef,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService,
-              protected modalService: NgbModal,
-              protected submissionService: SubmissionService,
-              private activeModal: NgbActiveModal
+    private formBuilderService: FormBuilderService,
+    private formService: FormService,
+    private cdr: ChangeDetectorRef,
+    protected layoutService: DynamicFormLayoutService,
+    protected validationService: DynamicFormValidationService,
+    protected modalService: NgbModal,
+    protected submissionService: SubmissionService,
+    private activeModal: NgbActiveModal
   ) {
     super(layoutService, validationService);
   }
 
   ngOnInit() {
-    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(
       this.model.submissionId,
@@ -293,7 +293,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
     const item = Object.create({});
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
-      const mainRow = modelRow.group.find(model => model.name === this.model.name);
+      const mainRow: any = modelRow.group.find(model => model.name === this.model.name);
       modelRow.group.forEach((control: DynamicInputModel) => {
         const controlValue: any = (control?.value as any)?.value || control?.value || PLACEHOLDER_PARENT_METADATA;
         const controlAuthority: any = (control?.value as any)?.authority || null;
@@ -301,7 +301,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
         item[control.name] =
           new FormFieldMetadataValueObject(
             controlValue, (control as any)?.language,
-            (mainRow as any).securityLevel,
+            controlValue === PLACEHOLDER_PARENT_METADATA ? null : mainRow.securityLevel,
             controlAuthority,
             null, 0, null,
             (control?.value as any)?.otherInformation || null
