@@ -1,6 +1,6 @@
-<input required #string="ngModel" type="text" class="form-control" name="date-value-{{index}}" id="date-value-{{index}}" [ngModel]="value" (ngModelChange)="setValue($event)"/>
+<input [attr.aria-label]="'process.new.parameter.label' | translate" required #string="ngModel" type="text" class="form-control" name="date-value-{{index}}" id="date-value-{{index}}" [ngModel]="value" (ngModelChange)="setValue($event)"/>
 <div *ngIf="string.invalid && (string.dirty || string.touched)"
-     class="alert alert-danger validation-error">
+     class="alert alert-danger validation-error mb-0">
     <div *ngIf="string.errors.required">
         {{'process.new.parameter.string.required' | translate}}
     </div>

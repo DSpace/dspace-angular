@@ -3136,6 +3136,14 @@
 
   "process.new.select-parameters": "Parameters",
 
+  "process.new.select-parameter": "Select parameter",
+
+  "process.new.add-parameter": "Add a parameter...",
+
+  "process.new.delete-parameter": "Delete parameter",
+
+  "process.new.parameter.label": "Parameter value",
+
   "process.new.cancel": "Cancel",
 
   "process.new.submit": "Save",
