@@ -53,7 +53,7 @@
         </button>
         <ds-themed-loading *ngIf="retrievingOutputLogs$ | async" class="ds-themed-loading"
                            message="{{ 'process.detail.logs.loading' | translate }}"></ds-themed-loading>
-        <pre class="font-weight-bold text-secondary bg-light p-3"
+        <pre class="font-weight-bold text-secondary bg-light p-3" tabindex="0"
              *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async) }}</pre>
         <p id="no-output-logs-message" *ngIf="(!(retrievingOutputLogs$ | async) && showOutputLogs)
       && !(outputLogs$ | async) || (outputLogs$ | async)?.length == 0 || !process._links.output">
