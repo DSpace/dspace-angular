@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
@@ -27,6 +28,8 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
 
 @Component({
   selector: 'ds-collection-page',
@@ -60,6 +63,7 @@ export class CollectionPageComponent implements OnInit {
   collectionPageRoute$: Observable<string>;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private collectionDataService: CollectionDataService,
     private searchService: SearchService,
     private route: ActivatedRoute,
@@ -67,16 +71,23 @@ export class CollectionPageComponent implements OnInit {
     private authService: AuthService,
     private paginationService: PaginationService,
     private authorizationDataService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
   ) {
-    this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'cp';
-    this.paginationConfig.pageSize = 5;
-    this.paginationConfig.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+      id: 'cp',
+      currentPage: 1,
+      pageSize: this.appConfig.browseBy.pageSize,
+    });
 
+    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
   ngOnInit(): void {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),

@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, Renderer2 } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
@@ -16,8 +16,8 @@ import {
 import { By } from '@angular/platform-browser';
 
 
-export const DATE_TEST_GROUP = new FormGroup({
-  date: new FormControl()
+export const DATE_TEST_GROUP = new UntypedFormGroup({
+  date: new UntypedFormControl()
 });
 
 export const DATE_TEST_MODEL_CONFIG = {
@@ -29,6 +29,7 @@ export const DATE_TEST_MODEL_CONFIG = {
   placeholder: 'Date',
   readOnly: false,
   required: true,
+  repeatable: false,
   toggleIcon: 'fas fa-calendar'
 };
 

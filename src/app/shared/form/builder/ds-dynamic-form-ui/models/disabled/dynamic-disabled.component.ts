@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
@@ -18,7 +18,7 @@ import { DynamicDisabledModel } from './dynamic-disabled.model';
 export class DsDynamicDisabledComponent extends DynamicFormControlComponent {
 
   @Input() formId: string;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicDisabledModel;
   modelValuesString = '';
 

@@ -3,7 +3,7 @@ import {EpersonRegistrationService} from '../core/data/eperson-registration.serv
 import {NotificationsService} from '../shared/notifications/notifications.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, ValidatorFn } from '@angular/forms';
 import {Registration} from '../core/shared/registration.model';
 import {RemoteData} from '../core/data/remote-data';
 import {ConfigurationDataService} from '../core/data/configuration-data.service';
@@ -13,7 +13,7 @@ import {isNotEmpty} from '../shared/empty.util';
 import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
 import {map, startWith, take} from 'rxjs/operators';
 import {CAPTCHA_NAME, GoogleRecaptchaService} from '../core/google-recaptcha/google-recaptcha.service';
-import {AlertType} from '../shared/alert/aletr-type';
+import {AlertType} from '../shared/alert/alert-type';
 import {KlaroService} from '../shared/cookies/klaro.service';
 import {CookieService} from '../core/services/cookie.service';
 import { Subscription } from 'rxjs';
@@ -33,7 +33,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   /**
    * The form containing the mail address
    */
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   /**
    * The message prefix
@@ -79,7 +79,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     private notificationService: NotificationsService,
     private translateService: TranslateService,
     private router: Router,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private configService: ConfigurationDataService,
     public googleRecaptchaService: GoogleRecaptchaService,
     public cookieService: CookieService,
@@ -102,7 +102,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
       Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
     ];
     this.form = this.formBuilder.group({
-      email: new FormControl('', {
+      email: new UntypedFormControl('', {
         validators: validators,
       })
     });

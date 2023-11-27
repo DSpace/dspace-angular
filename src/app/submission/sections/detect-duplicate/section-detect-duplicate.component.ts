@@ -12,7 +12,7 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { SectionsService } from '../sections.service';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';

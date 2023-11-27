@@ -21,7 +21,7 @@
           </div>
           <small
             *ngIf="hasHint &&
-           (
+           (formBuilderService.hasArrayGroupValue(model) ||
             (
               (!model.repeatable
                 && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)

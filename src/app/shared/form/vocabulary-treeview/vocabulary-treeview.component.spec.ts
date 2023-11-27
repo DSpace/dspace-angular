@@ -1,32 +1,29 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CdkTreeModule } from '@angular/cdk/tree';
+import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
-import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { provideMockStore } from '@ngrx/store/testing';
 
 import { createTestComponent } from '../../testing/utils.test';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { TreeviewFlatNode } from './vocabulary-treeview-node.model';
+import { TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
-import { authReducer } from '../../../core/auth/auth.reducer';
-import { storeModuleConfig } from '../../../app.reducer';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
   let comp: VocabularyTreeviewComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<VocabularyTreeviewComponent>;
-  let initialState;
+  let de;
 
   const item = new VocabularyEntryDetail();
   item.id = 'node1';
@@ -47,26 +44,19 @@ describe('VocabularyTreeviewComponent test suite', () => {
     restoreNodes: jasmine.createSpy('restoreNodes'),
     cleanTree: jasmine.createSpy('cleanTree'),
   });
-
-  initialState = {
-    core: {
-      auth: {
-        authenticated: true,
-        loaded: true,
-        blocking: false,
-        loading: false,
-        authToken: new AuthTokenInfo('test_token'),
-        userId: 'testid',
-        authMethods: []
-      }
-    }
-  };
+  const vocabularyServiceStub = jasmine.createSpyObj('VocabularyService', {
+    getVocabularyEntriesByValue: jasmine.createSpy('getVocabularyEntriesByValue'),
+    getEntryDetailParent: jasmine.createSpy('getEntryDetailParent'),
+    findEntryDetailById: jasmine.createSpy('findEntryDetailById'),
+    searchTopEntries: jasmine.createSpy('searchTopEntries'),
+    getEntryDetailChildren: jasmine.createSpy('getEntryDetailChildren'),
+    clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests')
+  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CdkTreeModule,
-        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -75,9 +65,8 @@ describe('VocabularyTreeviewComponent test suite', () => {
       ],
       providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
-        provideMockStore({ initialState }),
-        ChangeDetectorRef,
         VocabularyTreeviewComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -117,13 +106,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       comp.vocabularyOptions = vocabularyOptions;
-      comp.selectedItem = null;
-    });
-
-    afterEach(() => {
-      fixture.destroy();
-      comp = null;
-      compAsAny = null;
+      comp.selectedItems = [];
     });
 
     it('should should init component properly', () => {
@@ -138,10 +121,10 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID'
       };
-      comp.selectedItem = currentValue;
+      comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
     });
 
     it('should should init component properly with init value as VocabularyEntry', () => {
@@ -150,30 +133,40 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID'
       };
-      comp.selectedItem = currentValue;
+      comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
+    });
+
+    it('should should init component properly with init value as VocabularyEntryDetail', () => {
+      const currentValue = new VocabularyEntryDetail();
+      currentValue.value = 'testValue';
+      currentValue.id = 'entryID';
+      comp.selectedItems = [currentValue];
+      fixture.detectChanges();
+      expect(comp.dataSource.data).toEqual([]);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
     });
 
     it('should call loadMore function', () => {
       comp.loadMore(item);
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(item);
+      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(item, []);
     });
 
     it('should call loadMoreRoot function', () => {
       const node = new TreeviewFlatNode(item);
       comp.loadMoreRoot(node);
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.loadMoreRoot).toHaveBeenCalledWith(node);
+      expect(vocabularyTreeviewServiceStub.loadMoreRoot).toHaveBeenCalledWith(node, []);
     });
 
     it('should call loadChildren function', () => {
       const node = new TreeviewFlatNode(item);
       comp.loadChildren(node);
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(node.item, true);
+      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(node.item, [], true);
     });
 
     it('should emit select event', () => {
@@ -188,7 +181,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.nodeMap.set('test', new TreeviewFlatNode(item));
       comp.search();
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search');
+      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search', []);
       expect(comp.storedNodeMap).toEqual(nodeMap);
       expect(comp.nodeMap).toEqual(emptyNodeMap);
     });
@@ -199,7 +192,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.storedNodeMap.set('test', new TreeviewFlatNode(item2));
       comp.search();
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search');
+      expect(vocabularyTreeviewServiceStub.searchByQuery).toHaveBeenCalledWith('test search', []);
       expect(comp.storedNodeMap).toEqual(storedNodeMap);
       expect(comp.nodeMap).toEqual(emptyNodeMap);
     });
@@ -227,6 +220,50 @@ describe('VocabularyTreeviewComponent test suite', () => {
     it('should call cleanTree method on destroy', () => {
       compAsAny.ngOnDestroy();
       expect(vocabularyTreeviewServiceStub.cleanTree).toHaveBeenCalled();
+    });
+  });
+
+  describe('', () => {
+    beforeEach(() => {
+      vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([
+        {
+          'item': {
+            'id': 'srsc:SCB11',
+            'display': 'HUMANITIES and RELIGION'
+          }
+        } as TreeviewNode,
+        {
+          'item': {
+            'id': 'srsc:SCB12',
+            'display': 'LAW/JURISPRUDENCE'
+          }
+        } as TreeviewNode,
+        {
+          'item': {
+            'id': 'srsc:SCB13',
+            'display': 'SOCIAL SCIENCES'
+          }
+        } as TreeviewNode,
+      ]));
+      fixture = TestBed.createComponent(VocabularyTreeviewComponent);
+      comp = fixture.componentInstance;
+      compAsAny = comp;
+      comp.vocabularyOptions = vocabularyOptions;
+      comp.selectedItems = [];
+      de = fixture.debugElement;
+    });
+
+    it('should not display checkboxes by default', async () => {
+      fixture.detectChanges();
+      expect(de.query(By.css('input[type=checkbox]'))).toBeNull();
+      expect(de.queryAll(By.css('cdk-tree-node')).length).toEqual(3);
+    });
+
+    it('should display checkboxes if multiSelect is true', async () => {
+      comp.multiSelect = true;
+      fixture.detectChanges();
+      expect(de.queryAll(By.css('input[type=checkbox]')).length).toEqual(3);
+      expect(de.queryAll(By.css('cdk-tree-node')).length).toEqual(3);
     });
   });
 });

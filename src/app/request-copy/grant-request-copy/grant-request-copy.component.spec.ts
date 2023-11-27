@@ -20,6 +20,7 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { GrantRequestCopyComponent } from './grant-request-copy.component';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 
 describe('GrantRequestCopyComponent', () => {
   let component: GrantRequestCopyComponent;
@@ -30,7 +31,6 @@ describe('GrantRequestCopyComponent', () => {
   let authService: AuthService;
   let translateService: TranslateService;
   let itemDataService: ItemDataService;
-  let nameService: DSONameService;
   let itemRequestService: ItemRequestDataService;
   let notificationsService: NotificationsService;
 
@@ -93,15 +93,12 @@ describe('GrantRequestCopyComponent', () => {
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
     });
-    nameService = jasmine.createSpyObj('nameService', {
-      getName: itemName,
-    });
     itemRequestService = jasmine.createSpyObj('itemRequestService', {
       grant: createSuccessfulRemoteDataObject$(itemRequest),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
 
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       declarations: [GrantRequestCopyComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
@@ -109,7 +106,7 @@ describe('GrantRequestCopyComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: authService },
         { provide: ItemDataService, useValue: itemDataService },
-        { provide: DSONameService, useValue: nameService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
@@ -124,19 +121,6 @@ describe('GrantRequestCopyComponent', () => {
 
     translateService = (component as any).translateService;
     spyOn(translateService, 'get').and.returnValue(observableOf('translated-message'));
-  });
-
-  it('message$ should be parameterized correctly', (done) => {
-    component.message$.subscribe(() => {
-      expect(translateService.get).toHaveBeenCalledWith(jasmine.anything(), Object.assign({
-        recipientName: itemRequest.requestName,
-        itemUrl: itemUrl,
-        itemName: itemName,
-        authorName: user.name,
-        authorEmail: user.email,
-      }));
-      done();
-    });
   });
 
   describe('grant', () => {

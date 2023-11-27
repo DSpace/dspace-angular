@@ -6,6 +6,8 @@ import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { of as observableOf } from 'rxjs';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -55,6 +57,7 @@ describe('ItemListElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ItemListElementComponent, TruncatePipe],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]

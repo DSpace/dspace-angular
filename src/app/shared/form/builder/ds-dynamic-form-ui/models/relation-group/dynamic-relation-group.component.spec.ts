@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Store, StoreModule } from '@ngrx/store';
@@ -130,8 +130,8 @@ function init() {
     hasSelectableMetadata: false
   } as DynamicRelationGroupModelConfig;
 
-  FORM_GROUP_TEST_GROUP = new FormGroup({
-    dc_contributor_author: new FormControl(),
+  FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
+    dc_contributor_author: new UntypedFormControl(),
   });
 
 }

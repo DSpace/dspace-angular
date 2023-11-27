@@ -74,7 +74,7 @@ describe('DsoEditMetadataValueComponent', () => {
   });
 
   it('should not show a badge', () => {
-    expect(fixture.debugElement.query(By.css('ds-type-badge'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-themed-type-badge'))).toBeNull();
   });
 
   it('should call initSecurityLevel on init', () => {
@@ -152,7 +152,7 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('should show a badge', () => {
-      expect(fixture.debugElement.query(By.css('ds-type-badge'))).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('ds-themed-type-badge'))).toBeTruthy();
     });
 
     assertButton(EDIT_BTN, true, true);

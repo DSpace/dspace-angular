@@ -9,8 +9,6 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-declare const require: any;
-
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
@@ -24,8 +22,3 @@ jasmine.getEnv().afterEach(() => {
   // Close any leftover modals
   getTestBed().inject(NgbModal, null)?.dismissAll?.();
 });
-
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);

@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="mb-3">
+    <ds-vocabulary-treeview [description]="description"
+                            [vocabularyOptions]=vocabularyOptions
+                            [multiSelect]="true"
+                            [showAdd]="false"
+                            (select)="onSelect($event)"
+                            (deselect)="onDeselect($event)">
+    </ds-vocabulary-treeview>
+  </div>
+  <a class="btn btn-primary"
+     [routerLink]="['/search']"
+     [queryParams]="queryParams"
+     [queryParamsHandling]="'merge'">
+    {{ 'browse.taxonomy.button' | translate }}</a>
+</div>

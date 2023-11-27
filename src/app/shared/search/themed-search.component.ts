@@ -9,10 +9,10 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { AlertType } from '../alert/aletr-type';
+import { AlertType } from '../alert/alert-type';
 
 /**
- * Themed wrapper for SearchComponent
+ * Themed wrapper for {@link SearchComponent}
  */
 @Component({
   selector: 'ds-themed-search',
@@ -20,75 +20,81 @@ import { AlertType } from '../alert/aletr-type';
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'forcedEmbeddedKeys', 'useCachedVersionIfAvailable', 'collapseCharts', 'collapseFilters', 'inPlaceSearch', 'linkType', 'paginationId', 'projection', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCharts', 'showExport', 'showSidebar', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'showFilterToggle', 'showChartsToggle', 'showCsvExport', 'resultFound', 'deselectObject', 'selectObject', 'customEvent', 'trackStatistics', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice'];
+  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'forcedEmbeddedKeys', 'useCachedVersionIfAvailable', 'collapseCharts', 'collapseFilters', 'inPlaceSearch', 'linkType', 'paginationId', 'projection', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCharts', 'showExport', 'showSidebar', 'showThumbnails', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'showFilterToggle', 'showChartsToggle', 'showCsvExport', 'resultFound', 'deselectObject', 'selectObject', 'customEvent', 'trackStatistics', 'query', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice', 'renderOnServerSide'];
 
-  @Input() configurationList: SearchConfigurationOption[] = [];
+  @Input() configurationList: SearchConfigurationOption[];
 
-  @Input() context: Context = Context.Search;
+  @Input() context: Context;
 
-  @Input() configuration = 'default';
+  @Input() configuration: string;
 
   @Input() fixedFilterQuery: string;
 
-  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]) ;
+  @Input() forcedEmbeddedKeys: Map<string, string[]>;
 
-  @Input() useCachedVersionIfAvailable = true;
+  @Input() useCachedVersionIfAvailable: boolean;
 
-  @Input() collapseCharts = false;
+  @Input() collapseCharts: boolean;
 
-  @Input() collapseFilters = false;
+  @Input() collapseFilters: boolean;
 
-  @Input() inPlaceSearch = true;
+  @Input() inPlaceSearch: boolean;
 
   @Input() linkType: CollectionElementLinkType;
 
-  @Input() paginationId = 'spc';
+  @Input() paginationId: string;
 
   @Input() projection;
 
-  @Input() searchEnabled = true;
+  @Input() searchEnabled: boolean;
 
-  @Input() sideBarWidth = 3;
+  @Input() sideBarWidth: number;
 
-  @Input() searchFormPlaceholder = 'search.search-form.placeholder';
+  @Input() searchFormPlaceholder: string;
 
-  @Input() searchResultNotice: string = null;
+  @Input() searchResultNotice: string;
 
-  @Input() searchResultNoticeType: AlertType = AlertType.Info;
+  @Input() searchResultNoticeType: AlertType;
 
-  @Input() selectable = false;
+  @Input() selectable: boolean;
 
   @Input() selectionConfig: SelectionConfig;
 
   @Input() showCharts = false;
 
-  @Input() showCsvExport = false;
+  @Input() showCsvExport: boolean;
 
-  @Input() showExport = true;
+  @Input() showExport: boolean;
 
-  @Input() showSidebar = true;
+  @Input() showSidebar: boolean;
 
-  @Input() showViewModes = true;
+  @Input() showThumbnails;
 
-  @Input() useUniquePageId: false;
+  @Input() showViewModes: boolean;
+
+  @Input() useUniquePageId: boolean;
 
   @Input() viewModeList: ViewMode[];
 
-  @Input() showScopeSelector = true;
+  @Input() showScopeSelector: boolean;
 
-  @Input() showFilterToggle = false;
+  @Input() showFilterToggle: boolean;
 
-  @Input() showChartsToggle = false;
+  @Input() showChartsToggle: boolean;
 
-  @Input() showSearchResultNotice = false;
+  @Input() showSearchResultNotice: boolean;
 
-  @Input() trackStatistics = false;
+  @Input() trackStatistics: boolean;
 
-  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
+  @Input() query: string;
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Input() renderOnServerSide = false;
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
+
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
 
   @Output() customEvent = new EventEmitter<any>();
 

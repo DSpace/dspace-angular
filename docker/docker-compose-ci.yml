@@ -30,6 +30,9 @@ services:
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
       solr__P__server: http://dspacesolr:8983/solr
+      # Tell Statistics to commit all views immediately instead of waiting on Solr's autocommit.
+      # This allows us to generate statistics in e2e tests so that statistics pages can be tested thoroughly.
+      solr__D__statistics__P__autoCommit: 'false'
     depends_on:
     - dspacedb
     image: dspace/dspace:dspace-7_x-test

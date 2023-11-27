@@ -22,7 +22,7 @@
         </div>
         <a *ngIf="hasCustomGroup$ | async"
            routerLink="{{editGroupLink$ | async}}">
-          {{group.name}}
+          {{ dsoNameService.getName(group) }}
         </a>
       </div>
 

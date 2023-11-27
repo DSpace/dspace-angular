@@ -9,7 +9,7 @@ import {
 } from '../../core/shared/operators';
 import { LoginStatisticsService } from '../../core/statistics/login-statistics.service';
 import { LoginStatistics } from '../../core/statistics/models/login-statistics.model';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-login-statistics',

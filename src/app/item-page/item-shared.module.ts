@@ -1,6 +1,4 @@
-import {
-  RelatedEntitiesSearchComponent
-} from './simple/related-entities/related-entities-search/related-entities-search.component';
+import { RelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/related-entities-search.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchModule } from '../shared/search/search.module';
@@ -15,6 +13,9 @@ import { MetadataValuesComponent } from './field-components/metadata-values/meta
 import { GenericItemPageFieldComponent } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedItemsComponent } from './simple/related-items/related-items-component';
+import {
+  ThemedMetadataRepresentationListComponent
+} from './simple/metadata-representation-list/themed-metadata-representation-list.component';
 import { ItemAlertsComponent } from './alerts/item-alerts.component';
 
 const ENTRY_COMPONENTS = [
@@ -30,6 +31,7 @@ const COMPONENTS = [
   MetadataValuesComponent,
   GenericItemPageFieldComponent,
   MetadataRepresentationListComponent,
+  ThemedMetadataRepresentationListComponent,
   RelatedItemsComponent,
   ItemAlertsComponent
 ];
@@ -55,5 +57,4 @@ const COMPONENTS = [
     ...ENTRY_COMPONENTS,
   ]
 })
-export class ItemSharedModule {
-}
+export class ItemSharedModule { }

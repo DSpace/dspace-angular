@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -23,7 +23,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CommunityFormComponent extends ComColFormComponent<Community> {
+export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {
   /**
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited
    */
@@ -80,5 +80,12 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const dsoChange: SimpleChange = changes.dso;
+    if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
+       super.ngOnInit();
+    }
   }
 }

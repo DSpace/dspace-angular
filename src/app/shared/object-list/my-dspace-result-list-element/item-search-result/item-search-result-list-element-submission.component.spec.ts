@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
@@ -14,6 +13,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
+import { Context } from '../../../../core/shared/context.model';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;
@@ -77,8 +77,8 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.ARCHIVED);
+  it('should have correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceArchived);
   });
 
   it('should forward item-actions processComplete event to reloadObject event emitter', fakeAsync(() => {

@@ -1,8 +1,5 @@
 {
 
-  // "Biography": "English Biography",
-  "Biography": "Biografia inglese",
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Non sei autorizzato ad accedere a questa pagina. Puoi usare il pulsante qui sotto per tornare alla home page.",
 
@@ -276,7 +273,7 @@
   "admin.registries.bitstream-formats.edit.internal.hint": "I formati contrassegnati come internal sono nascosti all'utente e utilizzati per scopi amministrativi.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
+  "admin.registries.bitstream-formats.edit.internal.label": "Interno",
 
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
   "admin.registries.bitstream-formats.edit.mimetype.hint": "Non è necessario che il tipo MIME associato a questo formato sia univoco.",
@@ -315,7 +312,7 @@
   "admin.registries.bitstream-formats.table.deselect-all": "Deseleziona tutto",
 
   // "admin.registries.bitstream-formats.table.internal": "internal",
-  "admin.registries.bitstream-formats.table.internal": "internal",
+  "admin.registries.bitstream-formats.table.internal": "interno",
 
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   "admin.registries.bitstream-formats.table.mimetype": "Tipo MIME",
@@ -323,7 +320,7 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nome",
   // "admin.registries.bitstream-formats.table.id" : "ID",
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Indietro",
@@ -407,7 +404,7 @@
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Campo",
   // "admin.registries.schema.fields.table.id" : "ID",
-  "admin.registries.schema.fields.table.id" : "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Nota di ambito",
@@ -1427,10 +1424,10 @@
   "browse.metadata.eqtitle": "Titolo",
 
   // "browse.metadata.ouname" : "Name",
-  "browse.metadata.ouname" : "Nome",
+  "browse.metadata.ouname": "Nome",
 
   // "browse.metadata.pjtitle" : "Title",
-  "browse.metadata.pjtitle" : "Titolo",
+  "browse.metadata.pjtitle": "Titolo",
 
   // "browse.metadata.rodept": "Department",
   "browse.metadata.rodept": "Dipartimento",
@@ -1466,16 +1463,16 @@
   "browse.metadata.eqtitle.breadcrumbs": "Sfoglia per Titolo",
 
   // "browse.metadata.ouname.breadcrumbs" : "Browse by Name",
-  "browse.metadata.ouname.breadcrumbs" : "Sfoglia per Nome",
+  "browse.metadata.ouname.breadcrumbs": "Sfoglia per Nome",
 
   // "browse.metadata.pjtitle.breadcrumbs" : "Browse by Title",
-  "browse.metadata.pjtitle.breadcrumbs" : "Sfoglia per Titolo",
+  "browse.metadata.pjtitle.breadcrumbs": "Sfoglia per Titolo",
 
   // "browse.metadata.rodept.breadcrumbs": "Browse by Department",
   "browse.metadata.rodept.breadcrumbs": "Sfoglia per Dipartimento",
 
   // "browse.metadata.rpdept.breadcrumbs" : "Browse by Department",
-  "browse.metadata.rpdept.breadcrumbs" : "Sfoglia per Dipartimento",
+  "browse.metadata.rpdept.breadcrumbs": "Sfoglia per Dipartimento",
 
   // "browse.metadata.rpname.breadcrumbs": "Browse by Name",
   "browse.metadata.rpname.breadcrumbs": "Sfoglia per Nome",
@@ -1580,25 +1577,25 @@
 
 
   // "bulk-import.abort-on-error" : "Abort on first error",
-  "bulk-import.abort-on-error" : "Interrompere al primo errore",
+  "bulk-import.abort-on-error": "Interrompere al primo errore",
 
   // "bulk-import.back": "Back",
   "bulk-import.back": "Indietro",
 
   // "bulk-import.breadcrumbs" : "Bulk import",
-  "bulk-import.breadcrumbs" : "Import massivo",
+  "bulk-import.breadcrumbs": "Import massivo",
 
   // "bulk-import.collection-name" : "Collection",
-  "bulk-import.collection-name" : "Collezione",
+  "bulk-import.collection-name": "Collezione",
 
   // "bulk-import.error": "An error occurred while creating the import process",
   "bulk-import.error": "Si è verificato un errore durante la creazione del processo di import",
 
   // "bulk-import.file" : "Source file",
-  "bulk-import.file" : "File sorgente",
+  "bulk-import.file": "File sorgente",
 
   // "bulk-import.header" : "Bulk import",
-  "bulk-import.header" : "Import massivo",
+  "bulk-import.header": "Import massivo",
 
   // "bulk-import.processing": "Processing...",
   "bulk-import.processing": "Elaborazione in corso...",
@@ -1610,7 +1607,7 @@
   "bulk-import.submit": "Avvia import",
 
   // "bulk-import.title" : "Bulk import",
-  "bulk-import.title" : "Import massivo",
+  "bulk-import.title": "Import massivo",
 
 
 
@@ -2462,31 +2459,31 @@
   "context-menu.actions.subscription.notification.content": "Iscrizione aggiornata con successo, fare clic su {{here}} per visualizzare il riepilogo dell'iscrizione.",
 
   // "RELATION.Person.researchoutputs.search.results.head" : "Research Outputs",
-  "RELATION.Person.researchoutputs.search.results.head" : "Output della ricerca",
+  "RELATION.Person.researchoutputs.search.results.head": "Output della ricerca",
 
   // "RELATION.Person.projects.search.results.head" : "Projects",
-  "RELATION.Person.projects.search.results.head" : "Progetti",
+  "RELATION.Person.projects.search.results.head": "Progetti",
 
   // "RELATION.OrgUnit.organizations.search.results.head" : "Organizations",
-  "RELATION.OrgUnit.organizations.search.results.head" : "Organizzazioni",
+  "RELATION.OrgUnit.organizations.search.results.head": "Organizzazioni",
 
   // "RELATION.OrgUnit.rppublications.search.results.head" : "Researchers Publications",
-  "RELATION.OrgUnit.rppublications.search.results.head" : "Pubblicazioni dei ricercatori",
+  "RELATION.OrgUnit.rppublications.search.results.head": "Pubblicazioni dei ricercatori",
 
   // "RELATION.OrgUnit.publications.search.results.head" : "Publications",
-  "RELATION.OrgUnit.publications.search.results.head" : "Pubblicazioni",
+  "RELATION.OrgUnit.publications.search.results.head": "Pubblicazioni",
 
   // "RELATION.OrgUnit.rpprojects.search.results.head" : "Researchers Projects",
-  "RELATION.OrgUnit.rpprojects.search.results.head" : "Progetti dei ricercatori",
+  "RELATION.OrgUnit.rpprojects.search.results.head": "Progetti dei ricercatori",
 
   // "RELATION.OrgUnit.projects.search.results.head" : "Projects",
-  "RELATION.OrgUnit.projects.search.results.head" : "Progetti",
+  "RELATION.OrgUnit.projects.search.results.head": "Progetti",
 
   // "RELATION.Project.researchoutputs.search.results.head" : "Publications",
-  "RELATION.Project.researchoutputs.search.results.head" : "Pubblicazioni",
+  "RELATION.Project.researchoutputs.search.results.head": "Pubblicazioni",
 
   // "RELATION.OrgUnit.people.search.results.head" : "People",
-  "RELATION.OrgUnit.people.search.results.head" : "Persone",
+  "RELATION.OrgUnit.people.search.results.head": "Persone",
 
   // "datafile.listelement.badge": "Data File",
   "datafile.listelement.badge": "Data File",
@@ -2622,7 +2619,7 @@
 
 
   // "curation-task.task.citationpage.label":  "Generate Citation Page",
-  "curation-task.task.citationpage.label":  "Genera una pagina di citazioni",
+  "curation-task.task.citationpage.label": "Genera una pagina di citazioni",
 
 
   // "cris-layout.toggle.open": "Open section",
@@ -2669,6 +2666,10 @@
 
   // "cris-layout.advanced-attachment.viewMore": "View More",
   "cris-layout.advanced-attachment.viewMore": "Vedi altro",
+
+  // "cris-layout.advanced-attachment.label.not-present":"(not present)",
+  // TODO New key - Add a translation
+  "cris-layout.advanced-attachment.label.not-present": "(not present)",
 
   // "cris-layout.attachment.viewMore": "View More",
   "cris-layout.attachment.viewMore": "Vedi altro",
@@ -2902,7 +2903,7 @@
   "supervision-group-selector.notification.create.failure.title": "Errore",
 
   // "supervision-group-selector.notification.create.already-existing" : "A supervision order already exists on this item for selected group",
-  "supervision-group-selector.notification.create.already-existing" : "Per questo item esiste già un ordine di supervisione per il gruppo selezionato",
+  "supervision-group-selector.notification.create.already-existing": "Per questo item esiste già un ordine di supervisione per il gruppo selezionato",
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Esportare i metadati per {{ dsoName }}",
@@ -2993,7 +2994,7 @@
   "confirmation-modal.review-account-info.confirm": "Save",
 
   // "dataset.listelement.badge" : "Dataset",
-  "dataset.listelement.badge" : "Dataset",
+  "dataset.listelement.badge": "Dataset",
 
   // "equipment.listelement.badge": "Equipment",
   "equipment.listelement.badge": "Attrezzature",
@@ -3080,206 +3081,206 @@
   "error.validation.groupExists": "Gruppo già esistente",
 
   // "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "At least one investigator or one lead organization is required",
-  "error.validation.fundingInvestigatorOrLeadOrganizationRequired" : "È necessario inserire almeno un revisore o un'organizzazione dirigente",
+  "error.validation.fundingInvestigatorOrLeadOrganizationRequired": "È necessario inserire almeno un revisore o un'organizzazione dirigente",
 
   // "error.validation.notRepeatable": "This field is not repeatable, please choose only one value and discard the others.",
   "error.validation.notRepeatable": "Questo campo non è ripetibile, scegliere un solo valore e scartare gli altri.",
 
   // "event.listelement.badge" : "Event",
-  "event.listelement.badge" : "Evento",
+  "event.listelement.badge": "Evento",
 
   // "explore.browse-section.title" : "Browse",
-  "explore.browse-section.title" : "Sfoglia",
+  "explore.browse-section.title": "Sfoglia",
 
   // "explore.counters-section.rprofiles" : "People",
-  "explore.counters-section.rprofiles" : "Persone",
+  "explore.counters-section.rprofiles": "Persone",
 
   // "explore.counters-section.publications" : "Research outputs",
-  "explore.counters-section.publications" : "Output della ricerca",
+  "explore.counters-section.publications": "Output della ricerca",
 
   // "explore.counters-section.project_funding" : "Projects",
-  "explore.counters-section.project_funding" : "Progetti",
+  "explore.counters-section.project_funding": "Progetti",
 
   // "explore.facet-section.title" : "Discover",
-  "explore.facet-section.title" : "Scopri",
+  "explore.facet-section.title": "Scopri",
 
   // "explore.index.all" : "All",
-  "explore.index.all" : "Tutto",
+  "explore.index.all": "Tutto",
 
   // "explore.index.author" : "Author",
-  "explore.index.author" : "Autore",
+  "explore.index.author": "Autore",
 
   // "explore.index.graphitemtype" : "Graph by type",
-  "explore.index.graphitemtype" : "Grafico per tipo",
+  "explore.index.graphitemtype": "Grafico per tipo",
 
   // "explore.index.graphpubldate" : "Graph by date",
-  "explore.index.graphpubldate" : "Grafico per data",
+  "explore.index.graphpubldate": "Grafico per data",
 
   // "explore.index.birthDate" : "Birthday",
-  "explore.index.birthDate" : "Data di nascita",
+  "explore.index.birthDate": "Data di nascita",
 
   // "explore.index.metric.view" : "Most viewed",
-  "explore.index.metric.view" : "Più visitati",
+  "explore.index.metric.view": "Più visitati",
 
   // "explore.index.metric.download" : "Most downloaded",
-  "explore.index.metric.download" : "Più scaricati",
+  "explore.index.metric.download": "Più scaricati",
 
   // "explore.index.metric.scopus.citation" : "Most cited",
-  "explore.index.metric.scopus.citation" : "Più citati",
+  "explore.index.metric.scopus.citation": "Più citati",
 
   // "explore.index.chart.pie.itemtype_filter" : "Item Type",
-  "explore.index.chart.pie.itemtype_filter" : "Tipologia di Item",
+  "explore.index.chart.pie.itemtype_filter": "Tipologia di Item",
 
   // "explore.index.chart.bar.dateIssued.year": "Year",
   "explore.index.chart.bar.dateIssued.year": "Anno",
 
 
   // "explore.index.dateIssued" : "Date issued",
-  "explore.index.dateIssued" : "Data puntuale",
+  "explore.index.dateIssued": "Data puntuale",
 
   // "explore.index.dateissued" : "Date issued",
-  "explore.index.dateissued" : "Data puntuale",
+  "explore.index.dateissued": "Data puntuale",
 
   // "explore.index.dc.date.accessioned" : "Recent Additions",
-  "explore.index.dc.date.accessioned" : "Aggiunte recenti",
+  "explore.index.dc.date.accessioned": "Aggiunte recenti",
 
   // "explore.index.dc.title" : "Title",
-  "explore.index.dc.title" : "Titolo",
+  "explore.index.dc.title": "Titolo",
 
   // "explore.index.editor" : "Editor",
-  "explore.index.editor" : "Editore",
+  "explore.index.editor": "Editore",
 
   // "explore.index.eqtitle" : "Title",
-  "explore.index.eqtitle" : "Titolo",
+  "explore.index.eqtitle": "Titolo",
 
   // "explore.index.eqowner" : "Researcher",
-  "explore.index.eqowner" : "Ricercatore",
+  "explore.index.eqowner": "Ricercatore",
 
   // "explore.index.eqorgunit" : "Organization",
-  "explore.index.eqorgunit" : "Organizzazione",
+  "explore.index.eqorgunit": "Organizzazione",
 
   // "explore.index.entityType" : "Entity type",
-  "explore.index.entityType" : "Tipo di entità",
+  "explore.index.entityType": "Tipo di entità",
 
   // "explore.index.familyName" : "Family name",
-  "explore.index.familyName" : "Cognome",
+  "explore.index.familyName": "Cognome",
 
   // "explore.index.funding" : "Funding",
-  "explore.index.funding" : "Finanziamento",
+  "explore.index.funding": "Finanziamento",
 
   // "explore.index.givenName" : "Given name",
-  "explore.index.givenName" : "Nome puntuale",
+  "explore.index.givenName": "Nome puntuale",
 
   // "explore.index.has_content_in_original_bundle" : "Has content in original bundle",
-  "explore.index.has_content_in_original_bundle" : "Sono presenti dei contenuti nel bundle original",
+  "explore.index.has_content_in_original_bundle": "Sono presenti dei contenuti nel bundle original",
 
   // "explore.index.investigators" : "Researchers",
-  "explore.index.investigators" : "Ricercatori",
+  "explore.index.investigators": "Ricercatori",
 
   // "explore.index.isAuthorOfPublication" : "Publication's author",
-  "explore.index.isAuthorOfPublication" : "Autore della pubblicazione",
+  "explore.index.isAuthorOfPublication": "Autore della pubblicazione",
 
   // "explore.index.isJournalOfPublication" : "Publication's journal",
-  "explore.index.isJournalOfPublication" : "Periodico della pubblicazione",
+  "explore.index.isJournalOfPublication": "Periodico della pubblicazione",
 
   // "explore.index.isOrgUnitOfPerson" : "Person's organization",
-  "explore.index.isOrgUnitOfPerson" : "Organizzazione del ricercatore",
+  "explore.index.isOrgUnitOfPerson": "Organizzazione del ricercatore",
 
   // "explore.index.isOrgUnitOfProject" : "Project's organization",
-  "explore.index.isOrgUnitOfProject" : "Organizzazione del progetto",
+  "explore.index.isOrgUnitOfProject": "Organizzazione del progetto",
 
   // "explore.index.isOrgUnitOfPublication" : "Publication's organization",
-  "explore.index.isOrgUnitOfPublication" : "Organizzazione della pubblicazione",
+  "explore.index.isOrgUnitOfPublication": "Organizzazione della pubblicazione",
 
   // "explore.index.isPersonOfOrgUnit" : "Organization's person",
-  "explore.index.isPersonOfOrgUnit" : "Ricercatore dell'organizzazione",
+  "explore.index.isPersonOfOrgUnit": "Ricercatore dell'organizzazione",
 
   // "explore.index.isPersonOfProject" : "Project's person",
-  "explore.index.isPersonOfProject" : "Progetto del ricercatore",
+  "explore.index.isPersonOfProject": "Progetto del ricercatore",
 
   // "explore.index.isProjectOfOrgUnit" : "Organization's project",
-  "explore.index.isProjectOfOrgUnit" : "Progetto dell'organizzazione",
+  "explore.index.isProjectOfOrgUnit": "Progetto dell'organizzazione",
 
   // "explore.index.isProjectOfPerson" : "Person's project",
-  "explore.index.isProjectOfPerson" : "Progetto del ricercatore",
+  "explore.index.isProjectOfPerson": "Progetto del ricercatore",
 
   // "explore.index.isProjectOfPublication" : "Publication's project",
-  "explore.index.isProjectOfPublication" : "Progetto della pubblicazione",
+  "explore.index.isProjectOfPublication": "Progetto della pubblicazione",
 
   // "explore.index.isPublicationOfAuthor" : "Author's publication",
-  "explore.index.isPublicationOfAuthor" : "Pubblicazione dell'autore",
+  "explore.index.isPublicationOfAuthor": "Pubblicazione dell'autore",
 
   // "explore.index.isPublicationOfJournalIssue" : "Journal issue's publication",
-  "explore.index.isPublicationOfJournalIssue" : "Pubblicazione del periodico",
+  "explore.index.isPublicationOfJournalIssue": "Pubblicazione del periodico",
 
   // "explore.index.isPublicationOfOrgUnit" : "Organization's publication",
-  "explore.index.isPublicationOfOrgUnit" : "Pubblicazione dell'organizzazione",
+  "explore.index.isPublicationOfOrgUnit": "Pubblicazione dell'organizzazione",
 
   // "explore.index.isPublicationOfProject" : "Project's publication",
-  "explore.index.isPublicationOfProject" : "Pubblicazione del progetto",
+  "explore.index.isPublicationOfProject": "Pubblicazione del progetto",
 
   // "explore.index.itemidentifier" : "Item identifier",
-  "explore.index.itemidentifier" : "Identificativo dell'item",
+  "explore.index.itemidentifier": "Identificativo dell'item",
 
   // "explore.index.jobTitle" : "Job title",
-  "explore.index.jobTitle" : "Titolo",
+  "explore.index.jobTitle": "Titolo",
 
   // "explore.index.knowsLanguage" : "Knows languages",
-  "explore.index.knowsLanguage" : "Lingue conosciute",
+  "explore.index.knowsLanguage": "Lingue conosciute",
 
   // "explore.index.organization" : "Organization",
-  "explore.index.organization" : "Organizzazione",
+  "explore.index.organization": "Organizzazione",
 
   // "explore.index.organizationAddressCountry" : "Organization address country",
-  "explore.index.organizationAddressCountry" : "Stato dell'organizzazione",
+  "explore.index.organizationAddressCountry": "Stato dell'organizzazione",
 
   // "explore.index.organizationAddressLocality" : "Organization address locality",
-  "explore.index.organizationAddressLocality" : "Località dell'organizzazione",
+  "explore.index.organizationAddressLocality": "Località dell'organizzazione",
 
   // "explore.index.organizationFoundingDate" : "Organization founding date",
-  "explore.index.organizationFoundingDate" : "Data di fondazione dell'organizzazione",
+  "explore.index.organizationFoundingDate": "Data di fondazione dell'organizzazione",
 
   // "explore.index.organizationLegalName" : "Organization legal name",
-  "explore.index.organizationLegalName" : "Nome legale dell'organizzazione",
+  "explore.index.organizationLegalName": "Nome legale dell'organizzazione",
 
   // "explore.index.original_bundle_descriptions" : "Original bundle descriptions",
-  "explore.index.original_bundle_descriptions" : "Descrizioni del bundle original",
+  "explore.index.original_bundle_descriptions": "Descrizioni del bundle original",
 
   // "explore.index.original_bundle_filenames" : "Original bundle filenames",
-  "explore.index.original_bundle_filenames" : "Nomi del bundle original",
+  "explore.index.original_bundle_filenames": "Nomi del bundle original",
 
   // "explore.index.ouname" : "Name",
-  "explore.index.ouname" : "Nome",
+  "explore.index.ouname": "Nome",
 
   // "explore.index.projectOrgUnits" : "Organizations",
-  "explore.index.projectOrgUnits" : "Strutture",
+  "explore.index.projectOrgUnits": "Strutture",
 
   // "explore.index.personOrgUnits" : "Organizations",
-  "explore.index.personOrgUnits" : "Strutture",
+  "explore.index.personOrgUnits": "Strutture",
 
   // "explore.index.pjtitle" : "Title",
-  "explore.index.pjtitle" : "Titolo",
+  "explore.index.pjtitle": "Titolo",
 
   // "explore.index.projectinvestigators" : "Project investigators",
-  "explore.index.projectinvestigators" : "Ricercatore del progetto",
+  "explore.index.projectinvestigators": "Ricercatore del progetto",
 
   // "explore.index.rodept" : "Department",
-  "explore.index.rodept" : "Dipartimento",
+  "explore.index.rodept": "Dipartimento",
 
   // "explore.index.rpdept" : "Department",
-  "explore.index.rpdept" : "Dipartimento",
+  "explore.index.rpdept": "Dipartimento",
 
   // "explore.index.rpname" : "Name",
-  "explore.index.rpname" : "Nome",
+  "explore.index.rpname": "Nome",
 
   // "explore.index.subject" : "Subject",
-  "explore.index.subject" : "Soggetto",
+  "explore.index.subject": "Soggetto",
 
   // "explore.index.title" : "Title",
-  "explore.index.title" : "Titolo",
+  "explore.index.title": "Titolo",
 
   // "explore.index.type" : "Type",
-  "explore.index.type" : "Tipologia",
+  "explore.index.type": "Tipologia",
 
   // "explore.search-section.infrastructure.title": "Infrastructure",
   "explore.search-section.infrastructure.title": "Infrastruttura",
@@ -3571,10 +3572,10 @@
   "form.repeatable.sort.tip": "Rilascia l'item nella nuova posizione",
 
   // "funding.listelement.badge" : "Funding",
-  "funding.listelement.badge" : "Finanziamento",
+  "funding.listelement.badge": "Finanziamento",
 
   // "funding.page.titleprefix" : "Funding:",
-  "funding.page.titleprefix" : "Finanziamento:",
+  "funding.page.titleprefix": "Finanziamento:",
 
 
 
@@ -3648,13 +3649,13 @@
   "health.breadcrumbs": "Stato del sistema",
 
   // "health-page.heading" : "Health",
-  "health-page.heading" : "Stato del sistema",
+  "health-page.heading": "Stato del sistema",
 
   // "health-page.info-tab" : "Info",
-  "health-page.info-tab" : "Informazioni",
+  "health-page.info-tab": "Informazioni",
 
   // "health-page.status-tab" : "Status",
-  "health-page.status-tab" : "Stato",
+  "health-page.status-tab": "Stato",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "Il servizio di health check è temporaneamente non disponibile.",
@@ -3786,19 +3787,19 @@
   "info.feedback.email-label": "La tua email",
 
   // "info.feedback.create.success" : "Feedback Sent Successfully!",
-  "info.feedback.create.success" : "Feedback inviato con successo!",
+  "info.feedback.create.success": "Feedback inviato con successo!",
 
   // "info.feedback.error.email.required" : "A valid email address is required",
-  "info.feedback.error.email.required" : "Inserire un un indirizzo email valido",
+  "info.feedback.error.email.required": "Inserire un un indirizzo email valido",
 
   // "info.feedback.error.message.required" : "A comment is required",
-  "info.feedback.error.message.required" : "Inserire un commento",
+  "info.feedback.error.message.required": "Inserire un commento",
 
   // "info.feedback.page-label" : "Page",
-  "info.feedback.page-label" : "Pagina",
+  "info.feedback.page-label": "Pagina",
 
   // "info.feedback.page_help" : "Tha page related to your feedback",
-  "info.feedback.page_help" : "In questa pagina trovi i tuoi feedback",
+  "info.feedback.page_help": "In questa pagina trovi i tuoi feedback",
 
 
 
@@ -4486,7 +4487,7 @@
   "item.edit.unlink-orcid.head": "Disconnessione da ORCID",
 
   // "item.edit.unlink-orcid.not-linked-to-orcid" : "The operation cannot be completed because the given item is not a profile linked to ORCID",
-  "item.edit.unlink-orcid.not-linked-to-orcid" : "L'operazione non può essere completata perchè l'item non è un profilo collegato a ORCID",
+  "item.edit.unlink-orcid.not-linked-to-orcid": "L'operazione non può essere completata perchè l'item non è un profilo collegato a ORCID",
 
   // "item.edit.unlink-orcid.unlink": "Disconnect",
   "item.edit.unlink-orcid.unlink": "Disconnetti",
@@ -4495,7 +4496,7 @@
   "item.edit.unlink-orcid.unlink.success": "La disconnessione tra il profilo e il registro ORCID è riuscita",
 
   // "item.edit.unlink-orcid.unlink.error" :"An error occurred while disconnecting between the profile and the ORCID registry. Try again",
-  "item.edit.unlink-orcid.unlink.error" :"Si è verificato un errore durante la disconnessione tra il profilo e il registro ORCID. Prova di nuovo.",
+  "item.edit.unlink-orcid.unlink.error": "Si è verificato un errore durante la disconnessione tra il profilo e il registro ORCID. Prova di nuovo.",
 
   // "item.edit.unlink-orcid.processing": "Processing",
   "item.edit.unlink-orcid.processing": "In elaborazione",
@@ -4731,10 +4732,10 @@
   "item.page.bitstreams.collapse": "Riduci",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Original bundle",
+  "item.page.filesection.original.bundle": "Original bundle",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "License bundle",
+  "item.page.filesection.license.bundle": "License bundle",
 
   // "item.page.return": "Back",
   "item.page.return": "Indietro",
@@ -4752,10 +4753,10 @@
   "item.page.claim.tooltip": "Collega questo item come profilo",
 
   // "item.preview.dc.description" : "Summary",
-  "item.preview.dc.description" : "Riepilogo",
+  "item.preview.dc.description": "Riepilogo",
 
   // "item.preview.dc.description.tableOfContents" : "Table of Contents",
-  "item.preview.dc.description.tableOfContents" : "Sommario",
+  "item.preview.dc.description.tableOfContents": "Sommario",
 
   // "item.preview.dc.identifier.arxiv": "arXiv ID",
   "item.preview.dc.identifier.arxiv": "ID arXiv",
@@ -4770,28 +4771,28 @@
   "item.preview.dcterms.dateSubmitted": "Data di registrazione",
 
   // "item.preview.dc.identifier.isi" : "ISI",
-  "item.preview.dc.identifier.isi" : "ISI",
+  "item.preview.dc.identifier.isi": "ISI",
 
   // "item.preview.dc.identifier.issn" : "ISSN",
-  "item.preview.dc.identifier.issn" : "ISSN",
+  "item.preview.dc.identifier.issn": "ISSN",
 
   // "item.preview.dc.identifier.scopus" : "Scopus ID",
-  "item.preview.dc.identifier.scopus" : "Scopus ID",
+  "item.preview.dc.identifier.scopus": "Scopus ID",
 
   // "item.preview.dc.publisher" : "Publisher",
-  "item.preview.dc.publisher" : "Editore",
+  "item.preview.dc.publisher": "Editore",
 
   // "item.preview.dc.relation.grantno" : "Grant no.",
-  "item.preview.dc.relation.grantno" : "Numero di finanziamento",
+  "item.preview.dc.relation.grantno": "Numero di finanziamento",
 
   // "item.preview.dc.relation.ispartofseries" : "Serie",
-  "item.preview.dc.relation.ispartofseries" : "Serie",
+  "item.preview.dc.relation.ispartofseries": "Serie",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   "item.preview.dc.identifier.uri": "Identificativo:",
 
   // "item.preview.dc.contributor.advisor" : "Advisor",
-  "item.preview.dc.contributor.advisor" : "Consulente",
+  "item.preview.dc.contributor.advisor": "Consulente",
 
   // "item.preview.dc.contributor.author": "Authors:",
   "item.preview.dc.contributor.author": "Autori:",
@@ -4803,7 +4804,7 @@
   "item.preview.dc.contributor.editor": "Editore:",
 
   // "item.preview.dc.date.embargoEnd" : "Embargo End",
-  "item.preview.dc.date.embargoEnd" : "Fine embargo",
+  "item.preview.dc.date.embargoEnd": "Fine embargo",
 
   // "item.preview.dc.date.issued": "Published date:",
   "item.preview.dc.date.issued": "Data di pubblicazione:",
@@ -4812,25 +4813,25 @@
   "item.preview.dc.description.abstract": "Abstract:",
 
   // "item.preview.dc.description.sponsorship" : "Sponsorship",
-  "item.preview.dc.description.sponsorship" : "Sponsorizzazione",
+  "item.preview.dc.description.sponsorship": "Sponsorizzazione",
 
   // "item.preview.dc.identifier.other": "Other identifier:",
   "item.preview.dc.identifier.other": "Altri identificativi:",
 
   // "item.preview.dc.identifier.pmid" : "Pubmed ID",
-  "item.preview.dc.identifier.pmid" : "Pubmed ID",
+  "item.preview.dc.identifier.pmid": "Pubmed ID",
 
   // "item.preview.dc.language.iso": "Language:",
   "item.preview.dc.language.iso": "Lingua:",
 
   // "item.preview.dc.relation.uri" : "Relation URI",
-  "item.preview.dc.relation.uri" : "URI Relazione",
+  "item.preview.dc.relation.uri": "URI Relazione",
 
   // "item.preview.dc.rights" : "Rights",
-  "item.preview.dc.rights" : "Diritti",
+  "item.preview.dc.rights": "Diritti",
 
   // "item.preview.dc.rights.uri" : "Rights URI",
-  "item.preview.dc.rights.uri" : "URI Diritti",
+  "item.preview.dc.rights.uri": "URI Diritti",
 
   // "item.preview.dc.subject": "Subjects:",
   "item.preview.dc.subject": "Contenuto:",
@@ -4842,70 +4843,70 @@
   "item.preview.dc.type": "Tipologia:",
 
   // "item.preview.oaire.citation.issue" : "Issue",
-  "item.preview.oaire.citation.issue" : "Fascicolo",
+  "item.preview.oaire.citation.issue": "Fascicolo",
 
   // "item.preview.oaire.citation.volume" : "Volume",
-  "item.preview.oaire.citation.volume" : "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
   // "item.preview.dc.relation.issn" : "ISSN",
-  "item.preview.dc.relation.issn" : "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn" : "ISBN",
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   "item.preview.dc.identifier": "Identificativo:",
 
   // "item.preview.dc.relation.ispartof" : "Journal or Serie",
-  "item.preview.dc.relation.ispartof" : "Periodico or Serie",
+  "item.preview.dc.relation.ispartof": "Periodico or Serie",
 
   // "item.preview.dc.identifier.doi" : "DOI",
-  "item.preview.dc.identifier.doi" : "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.dc.title.alternative" : "Alternative Title",
-  "item.preview.dc.title.alternative" : "Titolo alternativo",
+  "item.preview.dc.title.alternative": "Titolo alternativo",
 
   // "item.preview.dc.type.version" : "Version",
-  "item.preview.dc.type.version" : "Versione",
+  "item.preview.dc.type.version": "Versione",
 
   // "item.preview.dc.source": "Source:",
   "item.preview.dc.source": "Risorsa:",
 
   // "item.preview.dc.relation.isbn" : "ISBN",
-  "item.preview.dc.relation.isbn" : "ISBN",
+  "item.preview.dc.relation.isbn": "ISBN",
 
   // "item.preview.oaire.citation.endPage" : "End Page",
-  "item.preview.oaire.citation.endPage" : "Pagina finale",
+  "item.preview.oaire.citation.endPage": "Pagina finale",
 
   // "item.preview.oaire.citation.edition": "Edition",
   "item.preview.oaire.citation.edition": "Edizione",
 
   // "item.preview.oaire.citation.startPage" : "Start Page",
-  "item.preview.oaire.citation.startPage" : "Pagina iniziale",
+  "item.preview.oaire.citation.startPage": "Pagina iniziale",
 
   // "item.preview.oairecerif.acronym" : "Acronym",
-  "item.preview.oairecerif.acronym" : "Acronimo",
+  "item.preview.oairecerif.acronym": "Acronimo",
 
   // "item.preview.oairecerif.affiliation.orgunit" : "Affiliation",
-  "item.preview.oairecerif.affiliation.orgunit" : "Affiliazione",
+  "item.preview.oairecerif.affiliation.orgunit": "Affiliazione",
 
   // "item.preview.oairecerif.funder" : "Funder",
-  "item.preview.oairecerif.funder" : "Finanziatore",
+  "item.preview.oairecerif.funder": "Finanziatore",
 
   // "item.preview.oairecerif.funding.identifier" : "Grant Number / Funding identifier",
-  "item.preview.oairecerif.funding.identifier" : "Numero di gestione/ Identificativo del fondo",
+  "item.preview.oairecerif.funding.identifier": "Numero di gestione/ Identificativo del fondo",
 
   // "item.preview.oairecerif.funding.endDate" : "End Date",
-  "item.preview.oairecerif.funding.endDate" : "Data finale",
+  "item.preview.oairecerif.funding.endDate": "Data finale",
 
   // "item.preview.oairecerif.funding.startDate" : "Start Date",
-  "item.preview.oairecerif.funding.startDate" : "Data iniziale",
+  "item.preview.oairecerif.funding.startDate": "Data iniziale",
 
   // "item.preview.oairecerif.fundingParent" : "Funding Program / Call",
-  "item.preview.oairecerif.fundingParent" : "Programma di finanziamento / Call",
+  "item.preview.oairecerif.fundingParent": "Programma di finanziamento / Call",
 
   // "item.preview.oairecerif.oamandate" : "OA Mandate",
-  "item.preview.oairecerif.oamandate" : "Mandato OA",
+  "item.preview.oairecerif.oamandate": "Mandato OA",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Cognome:",
@@ -5053,13 +5054,13 @@
   "item.version.create.modal.submitted.text": "La nuova versione è in fase di creazione. Questa operazione potrebbe richiedere un po' di temo se l'item ha molte relazioni.",
 
   // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
-  "item.version.create.notification.success" : "È stata creata una nuova versione con il numero {{version}}",
+  "item.version.create.notification.success": "È stata creata una nuova versione con il numero {{version}}",
 
   // "item.version.create.notification.failure" : "New version has not been created",
-  "item.version.create.notification.failure" : "Non è stata creata una nuova versione",
+  "item.version.create.notification.failure": "Non è stata creata una nuova versione",
 
   // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.version.create.notification.inProgress" : "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
+  "item.version.create.notification.inProgress": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
 
   // "item.version.delete.modal.header": "Delete version",
@@ -5081,17 +5082,17 @@
   "item.version.delete.modal.button.cancel.tooltip": "Non eliminare questa versione",
 
   // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
-  "item.version.delete.notification.success" : "La versione numero {{version}} è stata eliminata",
+  "item.version.delete.notification.success": "La versione numero {{version}} è stata eliminata",
 
   // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
-  "item.version.delete.notification.failure" : "La versione numero {{version}} non è stata eliminata",
+  "item.version.delete.notification.failure": "La versione numero {{version}} non è stata eliminata",
 
 
   // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
-  "item.version.edit.notification.success" : "Il riepilogo della versione numero {{version}} è stato modificato",
+  "item.version.edit.notification.success": "Il riepilogo della versione numero {{version}} è stato modificato",
 
   // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
-  "item.version.edit.notification.failure" : "Il riepilogo della versione numero {{version}} non è stato modificato",
+  "item.version.edit.notification.failure": "Il riepilogo della versione numero {{version}} non è stato modificato",
 
   // "item-export.modal-launcher.single.btn": "Export",
   "item-export.modal-launcher.single.btn": "Export",
@@ -5461,34 +5462,34 @@
   "manage.relationships.unhide": "Mostrare",
 
   // "manage.relationships.search-list.title" : "All your items",
-  "manage.relationships.search-list.title" : "Tutti i tuoi item",
+  "manage.relationships.search-list.title": "Tutti i tuoi item",
 
   // "manage.relationships.selected-list.title" : "Selected items",
-  "manage.relationships.selected-list.title" : "Item selezionati",
+  "manage.relationships.selected-list.title": "Item selezionati",
 
   // "manage.relationships.no.relationships.found" : "Empty selection",
-  "manage.relationships.no.relationships.found" : "Selezione vuota",
+  "manage.relationships.no.relationships.found": "Selezione vuota",
 
   // "manage.relationships.no.data.found" : "No data found",
-  "manage.relationships.no.data.found" : "Nessun dato trovato",
+  "manage.relationships.no.data.found": "Nessun dato trovato",
 
   // "manage.relationships.error.select" : "An unexpected error occurs while selecting the entity.",
-  "manage.relationships.error.select" : "Si è verificato un errore inaspettato durante la selezione dell'entità.",
+  "manage.relationships.error.select": "Si è verificato un errore inaspettato durante la selezione dell'entità.",
 
   // "manage.relationships.error.unselect" : "An unexpected error occurs while unselecting the entity.",
-  "manage.relationships.error.unselect" : "Si è verificato un errore inaspettato durante la deselezione dell'entità.",
+  "manage.relationships.error.unselect": "Si è verificato un errore inaspettato durante la deselezione dell'entità.",
 
   // "manage.relationships.error.hide" : "An unexpected error occurs while hiding the entity.",
-  "manage.relationships.error.hide" : "Si è verificato un errore inaspettato mentre si nascondeva l'entità",
+  "manage.relationships.error.hide": "Si è verificato un errore inaspettato mentre si nascondeva l'entità",
 
   // "manage.relationships.error.unhide" : "An unexpected error occurs while exposing the entity.",
-  "manage.relationships.error.unhide" : "Si è verificato un errore inaspettato durante l'esposizione dell'entità.",
+  "manage.relationships.error.unhide": "Si è verificato un errore inaspettato durante l'esposizione dell'entità.",
 
   // "manage.relationships.error.sort" : "An unexpected error occurs while sorting entities.",
-  "manage.relationships.error.sort" : "Si è verificato un errore inaspettato durante l'ordinamento delle entità.",
+  "manage.relationships.error.sort": "Si è verificato un errore inaspettato durante l'ordinamento delle entità.",
 
   // "manage.relationships.hidden-related-items-alert" : "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
-  "manage.relationships.hidden-related-items-alert" : "Si prega di notare che gli item correlati nascosti saranno sempre visibili tra le relazioni degli item agli amministratori e al proprietario dell'item",
+  "manage.relationships.hidden-related-items-alert": "Si prega di notare che gli item correlati nascosti saranno sempre visibili tra le relazioni degli item agli amministratori e al proprietario dell'item",
 
 
   // "menu.header.admin": "Management",
@@ -5752,10 +5753,10 @@
   "menu.section.statistics_task": "Statistiche",
 
   // "modal.item-detail-page.title" : "Item Page Detail",
-  "modal.item-detail-page.title" : "Pagina di dettaglio",
+  "modal.item-detail-page.title": "Pagina di dettaglio",
 
   // "modal.item-detail-page.confirm.cancel" : "Close",
-  "modal.item-detail-page.confirm.cancel" : "Chiudi",
+  "modal.item-detail-page.confirm.cancel": "Chiudi",
 
 
   // "statistics": "Statistics",
@@ -5789,31 +5790,31 @@
   "statistics.workflow.page.step-table.count": "Eseguito",
 
   // "statistics.workflow.page.step-table.submit" : "Submit",
-  "statistics.workflow.page.step-table.submit" : "Invia",
+  "statistics.workflow.page.step-table.submit": "Invia",
 
   // "statistics.workflow.page.step-table.reviewstep" : "Review",
-  "statistics.workflow.page.step-table.reviewstep" : "Riesamina",
+  "statistics.workflow.page.step-table.reviewstep": "Riesamina",
 
   // "statistics.workflow.page.step-table.editstep" : "Edit",
-  "statistics.workflow.page.step-table.editstep" : "Modifica",
+  "statistics.workflow.page.step-table.editstep": "Modifica",
 
   // "statistics.workflow.page.step-table.finaleditstep" : "Final edit",
-  "statistics.workflow.page.step-table.finaleditstep" : "Modifica finale",
+  "statistics.workflow.page.step-table.finaleditstep": "Modifica finale",
 
   // "statistics.workflow.page.step-table.item" : "Archive",
-  "statistics.workflow.page.step-table.item" : "Archivia",
+  "statistics.workflow.page.step-table.item": "Archivia",
 
   // "statistics.workflow.page.step-table.workspace" : "Reject",
-  "statistics.workflow.page.step-table.workspace" : "Rifiuta",
+  "statistics.workflow.page.step-table.workspace": "Rifiuta",
 
   // "statistics.workflow.page.current-table.reviewstep" : "Review",
-  "statistics.workflow.page.current-table.reviewstep" : "Riesamina",
+  "statistics.workflow.page.current-table.reviewstep": "Riesamina",
 
   // "statistics.workflow.page.current-table.editstep" : "Edit",
-  "statistics.workflow.page.current-table.editstep" : "Modifica",
+  "statistics.workflow.page.current-table.editstep": "Modifica",
 
   // "statistics.workflow.page.current-table.finaleditstep" : "Final edit",
-  "statistics.workflow.page.current-table.finaleditstep" : "Modifica finale",
+  "statistics.workflow.page.current-table.finaleditstep": "Modifica finale",
 
   // "statistics.workflow.page.current-table.step": "Step",
   "statistics.workflow.page.current-table.step": "Passo",
@@ -5873,7 +5874,7 @@
   "statistics.workflow.page.action-table.reviewaction": "Revisione",
 
   // "statistics.workflow.page.action-table.claimaction" : "Claim",
-  "statistics.workflow.page.action-table.claimaction" : "Associa",
+  "statistics.workflow.page.action-table.claimaction": "Associa",
 
   // "statistics.workflow.page.no-data-found": "No data found",
   "statistics.workflow.page.no-data-found": "Nessun dato trovato",
@@ -5909,7 +5910,7 @@
   "statistics.login.page.no-data-found": "Nessun dato trovato",
 
   // "statistics.login.title statistics.workflow.title" : "Login Statistics",
-  "statistics.login.title statistics.workflow.title" : "Statistiche di accesso",
+  "statistics.login.title statistics.workflow.title": "Statistiche di accesso",
 
   // "manage.relations": "Manage Relations",
   "manage.relations": "Gestire le relazioni",
@@ -6173,13 +6174,13 @@
   "nav.stop-impersonating": "Smetti di controllare l'operatore",
 
   // "nav.subscriptions" : "Subscriptions",
-  "nav.subscriptions" : "Sottoscrizioni",
+  "nav.subscriptions": "Sottoscrizioni",
 
   // "nav.toggle" : "Toggle navigation",
-  "nav.toggle" : "Toggle di navigazione",
+  "nav.toggle": "Toggle di navigazione",
 
   // "nav.user.description" : "User profile bar",
-  "nav.user.description" : "Barra del profilo utente",
+  "nav.user.description": "Barra del profilo utente",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Item",
@@ -6626,16 +6627,16 @@
 
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Parametri",
+  "process.detail.arguments": "Parametri",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Questo processo non contiene alcun parametro",
+  "process.detail.arguments.empty": "Questo processo non contiene alcun parametro",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Indietro",
+  "process.detail.back": "Indietro",
 
   // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Output del processo",
+  "process.detail.output": "Output del processo",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Recupera l'output del processo",
@@ -6647,28 +6648,28 @@
   "process.detail.logs.none": "Questo processo non ha output",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "File di output",
+  "process.detail.output-files": "File di output",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Questo processo non contiene nessun file di output",
+  "process.detail.output-files.empty": "Questo processo non contiene nessun file di output",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Script",
+  "process.detail.script": "Script",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Processo: {{ id }} - {{ name }}",
+  "process.detail.title": "Processo: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Orario di inizio",
+  "process.detail.start-time": "Orario di inizio",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Orario di fine",
+  "process.detail.end-time": "Orario di fine",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Stato",
+  "process.detail.status": "Stato",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Crea un processo simile",
+  "process.detail.create": "Crea un processo simile",
 
   // "process.detail.actions": "Actions",
   "process.detail.actions": "Azioni",
@@ -6695,28 +6696,28 @@
   "process.detail.delete.error": "Errore durante l'eliminazione del processo",
 
   // "process.overview.delete.failed" : "An error occurs deleting the process.",
-  "process.overview.delete.failed" : "Si è verificato un errore durante l'eliminazine del processo.",
+  "process.overview.delete.failed": "Si è verificato un errore durante l'eliminazine del processo.",
 
   // "process.overview.delete.success" : "Process deleted with success",
-  "process.overview.delete.success" : "Processo eliminato con successo",
+  "process.overview.delete.success": "Processo eliminato con successo",
 
   // "process.overview.table.finish" : "Finish time (UTC)",
-  "process.overview.table.finish" : "Orario di fine (UTC)",
+  "process.overview.table.finish": "Orario di fine (UTC)",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "ID del processo",
+  "process.overview.table.id": "ID del processo",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Nome",
+  "process.overview.table.name": "Nome",
 
   // "process.overview.table.start" : "Start time (UTC)",
-  "process.overview.table.start" : "Orario di inizio (UTC)",
+  "process.overview.table.start": "Orario di inizio (UTC)",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Stato",
+  "process.overview.table.status": "Stato",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Utente",
+  "process.overview.table.user": "Utente",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Panoramica dei processi",
@@ -6760,28 +6761,28 @@
   "audit.overview.title": "Panoramica dei log di revisione",
 
   // "audit.overview.table.id" : "Audit ID",
-  "audit.overview.table.id" : "ID della revisione",
+  "audit.overview.table.id": "ID della revisione",
 
   // "audit.overview.table.objectUUID" : "Object ID",
-  "audit.overview.table.objectUUID" : "ID dell'oggetto",
+  "audit.overview.table.objectUUID": "ID dell'oggetto",
 
   // "audit.overview.table.objectType" : "Object Type",
-  "audit.overview.table.objectType" : "Tipo di oggetto",
+  "audit.overview.table.objectType": "Tipo di oggetto",
 
   // "audit.overview.table.subjectUUID" : "Subject ID",
-  "audit.overview.table.subjectUUID" : "ID del soggetto",
+  "audit.overview.table.subjectUUID": "ID del soggetto",
 
   // "audit.overview.table.subjectType" : "Subject Type",
-  "audit.overview.table.subjectType" : "Tipo di soggetto",
+  "audit.overview.table.subjectType": "Tipo di soggetto",
 
   // "audit.overview.table.entityType" : "Audit Type",
-  "audit.overview.table.entityType" : "Tipo di revisione",
+  "audit.overview.table.entityType": "Tipo di revisione",
 
   // "audit.overview.table.eperson" : "EPerson",
-  "audit.overview.table.eperson" : "EPerson",
+  "audit.overview.table.eperson": "EPerson",
 
   // "audit.overview.table.timestamp" : "Time",
-  "audit.overview.table.timestamp" : "Orario",
+  "audit.overview.table.timestamp": "Orario",
 
   // "audit.overview.breadcrumbs": "Audit Logs Overview",
   "audit.overview.breadcrumbs": "Panoramica dei log di revisione",
@@ -6791,28 +6792,28 @@
 
 
   // "audit.detail.title" : "Audit Detail",
-  "audit.detail.title" : "Dettagli della revisione",
+  "audit.detail.title": "Dettagli della revisione",
 
   // "audit.detail.id" : "Audit Id",
-  "audit.detail.id" : "ID della revisione",
+  "audit.detail.id": "ID della revisione",
 
   // "audit.detail.subjectUUID" : "Subject ID",
-  "audit.detail.subjectUUID" : "ID del soggetto",
+  "audit.detail.subjectUUID": "ID del soggetto",
 
   // "audit.detail.subjectType" : "Subject Type",
-  "audit.detail.subjectType" : "Tipo di soggetto",
+  "audit.detail.subjectType": "Tipo di soggetto",
 
   // "audit.detail.eventType" : "Audit Type",
-  "audit.detail.eventType" : "Tipo di revisione",
+  "audit.detail.eventType": "Tipo di revisione",
 
   // "audit.detail.eperson" : "EPerson",
-  "audit.detail.eperson" : "EPerson",
+  "audit.detail.eperson": "EPerson",
 
   // "audit.detail.timeStamp" : "Time",
-  "audit.detail.timeStamp" : "Orario",
+  "audit.detail.timeStamp": "Orario",
 
   // "audit.detail.back" : "All Audit Logs",
-  "audit.detail.back" : "Tutti i log di revisione",
+  "audit.detail.back": "Tutti i log di revisione",
 
   // "audit.detail.back.subject": "Subject Audit Logs",
   "audit.detail.back.subject": "Log di revisione del soggetto",
@@ -7530,25 +7531,25 @@
   "search.filters.applied.charts.defaultConfiguration.title": "Output di ricerca",
 
   // "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Date Issued",
-  "search.filters.applied.charts.chart.bar.dateIssued.year.tab" : "Data puntuale",
+  "search.filters.applied.charts.chart.bar.dateIssued.year.tab": "Data puntuale",
 
   // "search.filters.applied.charts.chart.pie.more-value" : "More",
-  "search.filters.applied.charts.chart.pie.more-value" : "Visualizza altri",
+  "search.filters.applied.charts.chart.pie.more-value": "Visualizza altri",
 
   // "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Item Type",
-  "search.filters.applied.charts.chart.pie.itemtype_filter.tab" : "Tipologia dell'item",
+  "search.filters.applied.charts.chart.pie.itemtype_filter.tab": "Tipologia dell'item",
 
   // "search.filters.applied.charts.graphitemtype.tab" : "Visualization by Type",
-  "search.filters.applied.charts.graphitemtype.tab" : "Visualizzazione per tipologia",
+  "search.filters.applied.charts.graphitemtype.tab": "Visualizzazione per tipologia",
 
   // "search.filters.applied.charts.graphpubldate.tab" : "Visualization by Date",
-  "search.filters.applied.charts.graphpubldate.tab" : "Visualizzazione per data",
+  "search.filters.applied.charts.graphpubldate.tab": "Visualizzazione per data",
 
   // "search.filters.applied.charts.graphpubldateltr.tab" : "Visualization Demo LTR",
-  "search.filters.applied.charts.graphpubldateltr.tab" : "Visualizzazione Demo LTR",
+  "search.filters.applied.charts.graphpubldateltr.tab": "Visualizzazione Demo LTR",
 
   // "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualization Demo RTL",
-  "search.filters.applied.charts.graphpubldatetrl.tab" : "Visualizzazione Demo RTL",
+  "search.filters.applied.charts.graphpubldatetrl.tab": "Visualizzazione Demo RTL",
 
   // "search.filters.applied.charts.default.title": "Search Output",
   "search.filters.applied.charts.default.title": "Risultati della ricerca",
@@ -7755,22 +7756,22 @@
   "search.filters.filter.language.placeholder": "Lingue",
 
   // "search.filters.filter.projectOrgUnits.head" : "Organizations",
-  "search.filters.filter.projectOrgUnits.head" : "Organizzazioni",
+  "search.filters.filter.projectOrgUnits.head": "Organizzazioni",
 
   // "search.filters.filter.projectOrgUnits.label" : "Organizations",
-  "search.filters.filter.projectOrgUnits.label" : "Strutture",
+  "search.filters.filter.projectOrgUnits.label": "Strutture",
 
   // "search.filters.filter.projectOrgUnits.placeholder" : "Organizations",
-  "search.filters.filter.projectOrgUnits.placeholder" : "Organizzazioni",
+  "search.filters.filter.projectOrgUnits.placeholder": "Organizzazioni",
 
   // "search.filters.filter.personOrgUnits.head" : "Organizations",
-  "search.filters.filter.personOrgUnits.head" : "Organizzazioni",
+  "search.filters.filter.personOrgUnits.head": "Organizzazioni",
 
   // "search.filters.filter.personOrgUnits.label" : "Search organizations",
-  "search.filters.filter.personOrgUnits.label" : "Ricerca Organizzazioni",
+  "search.filters.filter.personOrgUnits.label": "Ricerca Organizzazioni",
 
   // "search.filters.filter.personOrgUnits.placeholder" : "Organizations",
-  "search.filters.filter.personOrgUnits.placeholder" : "Organizzazioni",
+  "search.filters.filter.personOrgUnits.placeholder": "Organizzazioni",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   "search.filters.filter.namedresourcetype.head": "Stato",
@@ -8027,22 +8028,22 @@
   "sorting.dc.title.DESC": "Titolo decrescente",
 
   // "sorting.metric.view.ASC" : "Views Ascending",
-  "sorting.metric.view.ASC" : "Visualizzazioni in ordine crescente",
+  "sorting.metric.view.ASC": "Visualizzazioni in ordine crescente",
 
   // "sorting.metric.view.DESC" : "Views Descending",
-  "sorting.metric.view.DESC" : "Visualizzazioni in ordine decrescente",
+  "sorting.metric.view.DESC": "Visualizzazioni in ordine decrescente",
 
   // "sorting.metric.download.ASC" : "Downloads Ascending",
-  "sorting.metric.download.ASC" : "Download in ordine crescente",
+  "sorting.metric.download.ASC": "Download in ordine crescente",
 
   // "sorting.metric.download.DESC" : "Downloads Descending",
-  "sorting.metric.download.DESC" : "Download in ordine decrescente",
+  "sorting.metric.download.DESC": "Download in ordine decrescente",
 
   // "sorting.metric.scopus.citation.ASC" : "Citations Ascending",
-  "sorting.metric.scopus.citation.ASC" : "Citazioni in ordine crescente",
+  "sorting.metric.scopus.citation.ASC": "Citazioni in ordine crescente",
 
   // "sorting.metric.scopus.citation.DESC" : "Citations Descending",
-  "sorting.metric.scopus.citation.DESC" : "Citazioni in ordine decrescente",
+  "sorting.metric.scopus.citation.DESC": "Citazioni in ordine decrescente",
 
   // "sorting.score.ASC": "Least Relevant",
   "sorting.score.ASC": "Minor rilevanza",
@@ -8075,28 +8076,28 @@
   "sorting.ownerselection.DESC": "Rilevanza del proprietario decrescente",
 
   // "sorting.organization.legalName.ASC" : "Legal Name Ascending",
-  "sorting.organization.legalName.ASC" : "Nome legale in ordine crescente",
+  "sorting.organization.legalName.ASC": "Nome legale in ordine crescente",
 
   // "sorting.organization.legalName.DESC" : "Legal Name Descending",
-  "sorting.organization.legalName.DESC" : "Nome legale in ordine decrescente",
+  "sorting.organization.legalName.DESC": "Nome legale in ordine decrescente",
 
   // "sorting.organisation.address.addressCountry.ASC" : "Country Ascending",
-  "sorting.organisation.address.addressCountry.ASC" : "Paese in ordine crescente",
+  "sorting.organisation.address.addressCountry.ASC": "Paese in ordine crescente",
 
   // "sorting.organisation.address.addressCountry.DESC" : "Country Descending",
-  "sorting.organisation.address.addressCountry.DESC" : "Paese in ordine decrescente",
+  "sorting.organisation.address.addressCountry.DESC": "Paese in ordine decrescente",
 
   // "sorting.organisation.address.addressLocality.ASC" : "Locality Ascending",
-  "sorting.organisation.address.addressLocality.ASC" : "Località in ordine crescente",
+  "sorting.organisation.address.addressLocality.ASC": "Località in ordine crescente",
 
   // "sorting.organisation.address.addressLocality.DESC" : "Locality Descending",
-  "sorting.organisation.address.addressLocality.DESC" : "Località in ordine decrescente",
+  "sorting.organisation.address.addressLocality.DESC": "Località in ordine decrescente",
 
   // "sorting.organisation.address.foundingDate.ASC" : "Founding Date Ascending",
-  "sorting.organisation.address.foundingDate.ASC" : "Data di fondazione in ordine crescente",
+  "sorting.organisation.address.foundingDate.ASC": "Data di fondazione in ordine crescente",
 
   // "sorting.organisation.address.foundingDate.DESC" : "Founding Date Descending",
-  "sorting.organisation.address.foundingDate.DESC" : "Data di fondazione in ordine decrescente",
+  "sorting.organisation.address.foundingDate.DESC": "Data di fondazione in ordine decrescente",
 
 
   // "statistics.export.csv": "Export CSV",
@@ -8324,42 +8325,42 @@
 
   // "statistics.table.itemReports.header.continent" : "Continent",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.continent" : "Continent",
+  "statistics.table.itemReports.header.continent": "Continent",
 
   // "statistics.table.itemReports.header.views" : "Views",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.views" : "Views",
+  "statistics.table.itemReports.header.views": "Views",
 
   // "statistics.table.itemReports.header.city" : "City",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.city" : "City",
+  "statistics.table.itemReports.header.city": "City",
 
   // "statistics.table.itemReports.header.item" : "Item",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.header.item" : "Item",
+  "statistics.table.itemReports.header.item": "Item",
 
   // "statistics.table.mainReports.header.community" : "Community",
-  "statistics.table.mainReports.header.community" : "Community",
+  "statistics.table.mainReports.header.community": "Community",
 
   // "statistics.table.mainReports.header.collection" : "Collection",
-  "statistics.table.mainReports.header.collection" : "Collezione",
+  "statistics.table.mainReports.header.collection": "Collezione",
 
   // "statistics.table.itemReports.title.TopContinents" : "Top region views",
-  "statistics.table.itemReports.title.TopContinents" : "Più visualizzati per regione",
+  "statistics.table.itemReports.title.TopContinents": "Più visualizzati per regione",
 
   // "statistics.table.itemReports.title.TopCities" : "Top cities views",
-  "statistics.table.itemReports.title.TopCities" : "Più visualizzati per città",
+  "statistics.table.itemReports.title.TopCities": "Più visualizzati per città",
 
   // "statistics.table.itemReports.title.TopItems" : "Most viewed",
-  "statistics.table.itemReports.title.TopItems" : "Più visualizzati",
+  "statistics.table.itemReports.title.TopItems": "Più visualizzati",
 
   // "statistics.table.itemReports.title.TopCategories" : "Top categories",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TopCategories" : "Top categories",
+  "statistics.table.itemReports.title.TopCategories": "Top categories",
 
   // "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
   // TODO New key - Add a translation
-  "statistics.table.itemReports.title.TotalVisitsPerMonth" : "Top views per month",
+  "statistics.table.itemReports.title.TotalVisitsPerMonth": "Top views per month",
 
   // "statistics.reports.title": "Reports",
   "statistics.reports.title": "Report",
@@ -8393,6 +8394,9 @@
 
   // "submission.general.discard.submit": "Discard",
   "submission.general.discard.submit": "Scarta",
+
+  // "submission.general.info.invalid": "The submission is invalid, check missing fields",
+  "submission.general.info.invalid": "L'immissione non è valida, controllare i campi mancanti",
 
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "Salvato",
@@ -9501,7 +9505,7 @@
   "submission.sections.license.required": "È necessario accettare la licenza",
 
   // "submission.sections.license.notgranted":  "You must accept the license",
-  "submission.sections.license.notgranted":  "È necessario accettare la licenza",
+  "submission.sections.license.notgranted": "È necessario accettare la licenza",
 
 
   // "submission.sections.sherpa.publication.information": "Publication information",
@@ -10153,7 +10157,7 @@
   "idle-modal.extend-session": "Estendi sessione",
 
   // "researcher.profile.action.processing" : "Processing...",
-  "researcher.profile.action.processing" : "Elaborazione...",
+  "researcher.profile.action.processing": "Elaborazione...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "Profilo ricercatore associato",
@@ -10186,10 +10190,10 @@
   "researcher.profile.view": "Visualizza",
 
   // "researcher.profile.private.visibility" : "PRIVATE",
-  "researcher.profile.private.visibility" : "PRIVATO",
+  "researcher.profile.private.visibility": "PRIVATO",
 
   // "researcher.profile.public.visibility" : "PUBLIC",
-  "researcher.profile.public.visibility" : "PUBBLICO",
+  "researcher.profile.public.visibility": "PUBBLICO",
 
   // "researcher.profile.status": "Status:",
   "researcher.profile.status": "Stato:",
@@ -10198,16 +10202,16 @@
   "researcherprofile.claim.not-authorized": "Non sei autorizzato a richiedere questo item. Per maggiori dettagli contattare l'amministratore/i",
 
   // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-  "researcherprofile.error.claim.body" : "Si è verificato un errore durante l'associazione del profilo, prova più tardi",
+  "researcherprofile.error.claim.body": "Si è verificato un errore durante l'associazione del profilo, prova più tardi",
 
   // "researcherprofile.error.claim.title" : "Error",
-  "researcherprofile.error.claim.title" : "Errore",
+  "researcherprofile.error.claim.title": "Errore",
 
   // "researcherprofile.success.claim.body" : "Profile claimed with success",
-  "researcherprofile.success.claim.body" : "Profilo associato con successo",
+  "researcherprofile.success.claim.body": "Profilo associato con successo",
 
   // "researcherprofile.success.claim.title" : "Success",
-  "researcherprofile.success.claim.title" : "Successo",
+  "researcherprofile.success.claim.title": "Successo",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "Creare un ID ORCID",
@@ -10216,7 +10220,7 @@
   "person.page.orcid.granted-authorizations": "Autorizzazioni concesse",
 
   // "person.page.orcid.grant-authorizations" : "Grant authorizations",
-  "person.page.orcid.grant-authorizations" : "Concedere autorizzazioni",
+  "person.page.orcid.grant-authorizations": "Concedere autorizzazioni",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   "person.page.orcid.link": "Connettersi all'ORCID ID",
@@ -10264,43 +10268,43 @@
   "person.page.orcid.save.preference.changes": "Impostazioni di aggiornamento",
 
   // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  "person.page.orcid.sync-profile.affiliation" : "Affiliazione",
+  "person.page.orcid.sync-profile.affiliation": "Affiliazione",
 
   // "person.page.orcid.sync-profile.biographical" : "Biographical data",
-  "person.page.orcid.sync-profile.biographical" : "Riferimenti biografici",
+  "person.page.orcid.sync-profile.biographical": "Riferimenti biografici",
 
   // "person.page.orcid.sync-profile.education" : "Education",
-  "person.page.orcid.sync-profile.education" : "Educazione",
+  "person.page.orcid.sync-profile.education": "Educazione",
 
   // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  "person.page.orcid.sync-profile.identifiers" : "Identificativi",
+  "person.page.orcid.sync-profile.identifiers": "Identificativi",
 
   // "person.page.orcid.sync-fundings.all" : "All fundings",
-  "person.page.orcid.sync-fundings.all" : "Tutti i finanziamenti",
+  "person.page.orcid.sync-fundings.all": "Tutti i finanziamenti",
 
   // "person.page.orcid.sync-fundings.mine" : "My fundings",
-  "person.page.orcid.sync-fundings.mine" : "I miei finanziamenti",
+  "person.page.orcid.sync-fundings.mine": "I miei finanziamenti",
 
   // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
-  "person.page.orcid.sync-fundings.my_selected" : "Finanziamenti selezionati",
+  "person.page.orcid.sync-fundings.my_selected": "Finanziamenti selezionati",
 
   // "person.page.orcid.sync-fundings.disabled" : "Disabled",
-  "person.page.orcid.sync-fundings.disabled" : "Disabilitato",
+  "person.page.orcid.sync-fundings.disabled": "Disabilitato",
 
   // "person.page.orcid.sync-publications.all" : "All publications",
-  "person.page.orcid.sync-publications.all" : "Tutte le pubblicazioni",
+  "person.page.orcid.sync-publications.all": "Tutte le pubblicazioni",
 
   // "person.page.orcid.sync-publications.mine" : "My publications",
-  "person.page.orcid.sync-publications.mine" : "Le mie pubblicazioni",
+  "person.page.orcid.sync-publications.mine": "Le mie pubblicazioni",
 
   // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
-  "person.page.orcid.sync-publications.my_selected" : "Pubblicazioni selezionate",
+  "person.page.orcid.sync-publications.my_selected": "Pubblicazioni selezionate",
 
   // "person.page.orcid.sync-publications.disabled" : "Disabled",
-  "person.page.orcid.sync-publications.disabled" : "Disabilitato",
+  "person.page.orcid.sync-publications.disabled": "Disabilitato",
 
   // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
-  "person.page.orcid.sync-queue.discard" : "Scarta la modifica e non sincronizzarla con il registro ORCID.",
+  "person.page.orcid.sync-queue.discard": "Scarta la modifica e non sincronizzarla con il registro ORCID.",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "L'eliminazione del record della coda ORCID non è riuscita",
@@ -10312,13 +10316,13 @@
   "person.page.orcid.sync-queue.empty-message": "Il Registro di sistema della coda ORCID è vuoto",
 
   // "person.page.orcid.sync-queue.table.header.type" : "Type",
-  "person.page.orcid.sync-queue.table.header.type" : "Tipo",
+  "person.page.orcid.sync-queue.table.header.type": "Tipo",
 
   // "person.page.orcid.sync-queue.table.header.description" : "Description",
-  "person.page.orcid.sync-queue.table.header.description" : "Descrizione",
+  "person.page.orcid.sync-queue.table.header.description": "Descrizione",
 
   // "person.page.orcid.sync-queue.table.header.action" : "Action",
-  "person.page.orcid.sync-queue.table.header.action" : "Azione",
+  "person.page.orcid.sync-queue.table.header.action": "Azione",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Affiliazioni",
@@ -10384,7 +10388,7 @@
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "URL ricercatore",
 
   // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
-  "person.page.orcid.sync-queue.send" : "Sincronizza con il registro ORCID",
+  "person.page.orcid.sync-queue.send": "Sincronizza con il registro ORCID",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "L'immissione a ORCID non è riuscita a causa di autorizzazioni mancanti.",
@@ -10438,7 +10442,7 @@
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Il nome dell'organizzazione è obbligatorio",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "La data di pubblicazione deve partire dal 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "La data di pubblicazione deve partire dal 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "L'organizzazione da inviare richiede un indirizzo",

@@ -7,6 +7,7 @@ import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/crea
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component that represents the page where a user can create a new Community
@@ -22,12 +23,13 @@ export class CreateCommunityPageComponent extends CreateComColPageComponent<Comm
 
   public constructor(
     protected communityDataService: CommunityDataService,
+    public dsoNameService: DSONameService,
     protected routeService: RouteService,
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected requestService: RequestService
   ) {
-    super(communityDataService, communityDataService, routeService, router, notificationsService, translate, requestService);
+    super(communityDataService, dsoNameService, communityDataService, routeService, router, notificationsService, translate, requestService);
   }
 }

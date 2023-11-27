@@ -15,10 +15,10 @@ export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupMod
   vocabularyOptions: VocabularyOptions;
   groupLength?: number;
   repeatable: boolean;
-  value?: any;
+  value?: VocabularyEntry[];
   typeBindRelations?: DynamicFormControlRelation[];
-  hint: string;
   required: boolean;
+  hint?: string;
 }
 
 export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
@@ -28,9 +28,9 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() groupLength: number;
   @serializable() _value: VocabularyEntry[];
   @serializable() typeBindRelations: DynamicFormControlRelation[];
-  @serializable() toggleSecurityVisibility = false;
-  @serializable() hint: string;
   @serializable() required: boolean;
+  @serializable() hint: string;
+  @serializable() toggleSecurityVisibility = false;
 
   isListGroup = true;
   valueChanges: Subject<any>;
@@ -42,8 +42,8 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
     this.groupLength = config.groupLength || 5;
     this._value = [];
     this.repeatable = config.repeatable;
-    this.hint = config.hint;
     this.required = config.required;
+    this.hint = config.hint;
 
     this.valueChanges = new Subject<any>();
     this.valueChanges.subscribe((value: VocabularyEntry | VocabularyEntry[]) => this.value = value);
@@ -64,9 +64,8 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
       if (Array.isArray(value)) {
         this._value = value;
       } else {
-        // _value is non extendible so assign it a new array
-        const newValue = (this.value as VocabularyEntry[]).concat([value]);
-        this._value = newValue;
+        // _value is non-extendable so assign it a new array
+        this._value = (this.value as VocabularyEntry[]).concat([value]);
       }
     }
   }

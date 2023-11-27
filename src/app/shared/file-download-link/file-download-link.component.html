@@ -1,6 +1,6 @@
-<span *ngIf="showIcon && !(canDownload$ |async)"><i class="fas fa-lock text-primary"></i>&nbsp;</span>
-<span *ngIf="showIcon && (canDownload$ |async)"><i class="fas fa-download text-primary"></i>&nbsp;</span>
-<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="dont-break-out mr-1" [queryParams]="(bitstreamPath$| async)?.queryParams" [target]="isBlank ? '_blank': '_self'" [ngClass]="cssClasses">
+<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="dont-break-out" [queryParams]="(bitstreamPath$| async)?.queryParams" [target]="isBlank ? '_blank': '_self'" [ngClass]="cssClasses">
+  <span *ngIf="showIcon && !(canDownload$ |async)" class="pr-1"><i class="fas fa-lock text-primary"></i></span>
+  <span *ngIf="showIcon && (canDownload$ |async)" class="pr-1"><i class="fas fa-download text-primary"></i></span>
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 

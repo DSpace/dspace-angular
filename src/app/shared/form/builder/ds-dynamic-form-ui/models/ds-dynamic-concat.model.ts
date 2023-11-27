@@ -49,6 +49,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: MetadataValue;
+  @serializable() readOnly?: boolean;
   @serializable() securityLevel?: number;
   @serializable() securityConfigLevel?: number[];
   @serializable() toggleSecurityVisibility = true;
@@ -70,6 +71,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
+    this.readOnly = config.disabled;
     this.securityLevel = config.securityLevel;
     this.securityConfigLevel = config.securityConfigLevel;
     if (isNotUndefined(config.toggleSecurityVisibility)) {

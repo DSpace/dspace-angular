@@ -11,7 +11,10 @@
     </button>
   </div>
   <div class="col text-right d-flex justify-content-end align-items-center">
-    <span *ngIf="!(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">
+    <span *ngIf="!(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async) && (submissionIsInvalid | async)">
+      <i class="fas fa-warning"></i> {{'submission.general.info.invalid' | translate}}
+    </span>
+    <span *ngIf="!(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async) && !(submissionIsInvalid | async)">
       <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
     </span>
     <span *ngIf="(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">

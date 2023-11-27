@@ -1,29 +1,29 @@
 // Load the implementations that should be tested
-import {ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync,} from '@angular/core/testing';
-import {of as observableOf} from 'rxjs';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
 
-import {DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService} from '@ng-dynamic-forms/core';
-import {DynamicFormsNGBootstrapUIModule} from '@ng-dynamic-forms/ui-ng-bootstrap';
-import {NgbModal, NgbModule, NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { NgbModal, NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
-import {VocabularyOptions} from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import {VocabularyService} from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import {VocabularyServiceStub} from '../../../../../testing/vocabulary-service.stub';
-import {DsDynamicTagComponent} from './dynamic-tag.component';
-import {DynamicTagModel} from './dynamic-tag.model';
+import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { DsDynamicTagComponent } from './dynamic-tag.component';
+import { DynamicTagModel } from './dynamic-tag.model';
 import { Chips } from '../../../../chips/models/chips.model';
-import {FormFieldMetadataValueObject} from '../../../models/form-field-metadata-value.model';
-import {VocabularyEntry} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import {createTestComponent} from '../../../../../testing/utils.test';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { createTestComponent } from '../../../../../testing/utils.test';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
-import {FormBuilderService} from '../../../form-builder.service';
-import {SubmissionService} from '../../../../../../submission/submission.service';
-import {SubmissionServiceStub} from '../../../../../testing/submission-service.stub';
+import { FormBuilderService } from '../../../form-builder.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 
 function createKeyUpEvent(key: number) {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -42,8 +42,8 @@ let TAG_TEST_GROUP;
 let TAG_TEST_MODEL_CONFIG;
 
 function init() {
-  TAG_TEST_GROUP = new FormGroup({
-    tag: new FormControl(),
+  TAG_TEST_GROUP = new UntypedFormGroup({
+    tag: new UntypedFormControl(),
   });
 
   TAG_TEST_MODEL_CONFIG = {
@@ -92,11 +92,11 @@ describe('DsDynamicTagComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicTagComponent,
-        {provide: VocabularyService, useValue: vocabularyServiceStub},
-        {provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService},
-        {provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService},
-        {provide: FormBuilderService},
-        {provide: SubmissionService, useClass: SubmissionServiceStub},
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: FormBuilderService },
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
         NgbModal
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -297,7 +297,7 @@ describe('DsDynamicTagComponent test suite', () => {
 })
 class TestComponent {
 
-  group: FormGroup = TAG_TEST_GROUP;
+  group: UntypedFormGroup = TAG_TEST_GROUP;
 
   model = new DynamicTagModel(TAG_TEST_MODEL_CONFIG);
 

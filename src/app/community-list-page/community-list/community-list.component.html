@@ -1,5 +1,5 @@
 <ds-themed-loading *ngIf="(dataSource.loading$ | async) && !loadingNode" class="ds-themed-loading"></ds-themed-loading>
-<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" [trackBy]="trackBy">
   <!-- This is the tree node template for show more node -->
   <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding
                  class="example-tree-node show-more-node">
@@ -8,10 +8,10 @@
         <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <div class="align-middle pt-2">
-        <a *ngIf="node!==loadingNode" [routerLink]="[]" (click)="getNextPage(node)"
+        <button *ngIf="!(dataSource.loading$ | async)" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
-        </a>
+        </button>
         <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading>
       </div>
     </div>
@@ -25,18 +25,23 @@
                  class="example-tree-node expandable-node">
     <div class="btn-group">
       <button type="button" class="btn btn-default" cdkTreeNodeToggle
-              [title]="'toggle ' + node.name"
-              [attr.aria-label]="'toggle ' + node.name"
+              [title]="'toggle ' + dsoNameService.getName(node.payload)"
+              [attr.aria-label]="'toggle ' + dsoNameService.getName(node.payload)"
               (click)="toggleExpanded(node)"
-              [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'">
+              [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'"
+              [attr.data-test]="(hasChild(null, node)| async) ? 'expand-button' : ''">
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
       </button>
-      <h5 class="align-middle pt-2">
-        <a [routerLink]="node.route" class="lead">
-          {{node.name}}
-        </a>
-      </h5>
+      <div class="d-flex flex-row">
+        <span class="align-middle pt-2 lead">
+          <a [routerLink]="node.route" class="lead">
+            {{ dsoNameService.getName(node.payload) }}
+          </a>
+          <span class="pr-2">&nbsp;</span>
+          <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead">{{node.payload.archivedItemsCount}}</span>
+        </span>
+      </div>
     </div>
     <ds-truncatable [id]="node.id">
       <div class="text-muted" cdkTreeNodePadding>
@@ -65,12 +70,11 @@
                  class="example-tree-node childless-node">
     <div class="btn-group">
       <button type="button" class="btn btn-default" cdkTreeNodeToggle>
-                <span class="fa fa-chevron-right invisible"
-                      aria-hidden="true"></span>
+        <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <h6 class="align-middle pt-2">
         <a [routerLink]="node.route" class="lead">
-          {{node.name}}
+          {{ dsoNameService.getName(node.payload) }}
         </a>
       </h6>
     </div>

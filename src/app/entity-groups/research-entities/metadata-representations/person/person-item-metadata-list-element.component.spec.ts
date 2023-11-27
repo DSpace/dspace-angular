@@ -36,7 +36,7 @@ describe('PersonItemMetadataListElementComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PersonItemMetadataListElementComponent);
     comp = fixture.componentInstance;
-    comp.metadataRepresentation = mockItemMetadataRepresentation;
+    comp.mdRepresentation = mockItemMetadataRepresentation;
     fixture.detectChanges();
   });
 

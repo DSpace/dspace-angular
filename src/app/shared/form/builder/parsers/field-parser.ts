@@ -315,7 +315,7 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly
       || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
-    controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.disabled = controlModel.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);

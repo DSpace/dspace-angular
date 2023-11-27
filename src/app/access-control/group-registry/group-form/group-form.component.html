@@ -2,13 +2,13 @@
   <div class="group-form row">
     <div class="col-12">
 
-      <div *ngIf="groupDataService.getActiveGroup() | async; then editheader; else createHeader"></div>
+      <div *ngIf="groupDataService.getActiveGroup() | async; then editHeader; else createHeader"></div>
 
       <ng-template #createHeader>
         <h2 class="border-bottom pb-2">{{messagePrefix + '.head.create' | translate}}</h2>
       </ng-template>
 
-      <ng-template #editheader>
+      <ng-template #editHeader>
         <h2 class="border-bottom pb-2">
           <span
             *dsContextHelp="{
@@ -26,7 +26,7 @@
       <ds-alert *ngIf="groupBeingEdited?.permanent" [type]="AlertTypeEnum.Warning"
                 [content]="messagePrefix + '.alert.permanent'"></ds-alert>
       <ds-alert *ngIf="!(canEdit$ | async) && (groupDataService.getActiveGroup() | async)" [type]="AlertTypeEnum.Warning"
-                [content]="(messagePrefix + '.alert.workflowGroup' | translate:{ name: (getLinkedDSO(groupBeingEdited) | async)?.payload?.name, comcol: (getLinkedDSO(groupBeingEdited) | async)?.payload?.type, comcolEditRolesRoute: (getLinkedEditRolesRoute(groupBeingEdited) | async) })">
+                [content]="(messagePrefix + '.alert.workflowGroup' | translate:{ name: dsoNameService.getName((getLinkedDSO(groupBeingEdited) | async)?.payload), comcol: (getLinkedDSO(groupBeingEdited) | async)?.payload?.type, comcolEditRolesRoute: (getLinkedEditRolesRoute(groupBeingEdited) | async) })">
       </ds-alert>
 
       <ds-form [formId]="formId"
@@ -36,12 +36,12 @@
                [displayCancel]="false"
                (submitForm)="onSubmit()">
         <div before class="btn-group">
-          <button (click)="onCancel()"
+          <button (click)="onCancel()" type="button"
                   class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
         </div>
-        <div after *ngIf="groupBeingEdited != null" class="btn-group">
+        <div after *ngIf="(canEdit$ | async) && !groupBeingEdited.permanent" class="btn-group">
           <button class="btn btn-danger delete-button" [disabled]="!(canEdit$ | async) || groupBeingEdited.permanent"
-                  (click)="delete()">
+                  (click)="delete()" type="button">
             <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
           </button>
         </div>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { hasValue, isEmpty } from '../../shared/empty.util';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -51,7 +51,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
   /**
    * The form group of this form
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * Indicates whether the "checkPasswordEmpty" needs to be added or not
@@ -127,7 +127,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Check if both password fields are filled in and equal
    * @param group The FormGroup to validate
    */
-  checkPasswordsEqual(group: FormGroup) {
+  checkPasswordsEqual(group: UntypedFormGroup) {
     const pass = group.get('password').value;
     const repeatPass = group.get('passwordrepeat').value;
 
@@ -138,7 +138,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Checks if the password is empty
    * @param group The FormGroup to validate
    */
-  checkPasswordEmpty(group: FormGroup) {
+  checkPasswordEmpty(group: UntypedFormGroup) {
     const pass = group.get('password').value;
     return isEmpty(pass) ? { emptyPassword: true } : null;
   }

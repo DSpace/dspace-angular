@@ -1,6 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import uniqBy from 'lodash/uniqBy';
 
@@ -14,19 +15,17 @@ import {
 import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
 import { hasValue } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { CoreState } from '../../core/core-state.model';
+import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
-/**
- * /users/sign-in
- * @class LogInComponent
- */
 @Component({
   selector: 'ds-log-in',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss']
+  styleUrls: ['./log-in.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogInComponent implements OnInit, OnDestroy {
 
@@ -49,7 +48,7 @@ export class LogInComponent implements OnInit, OnDestroy {
    * The list of authentication methods available
    * @type {AuthMethod[]}
    */
-  public authMethods: AuthMethod[];
+  public authMethods: Observable<AuthMethod[]>;
 
   /**
    * Whether user is authenticated.
@@ -76,20 +75,22 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
-              private authorizationService: AuthorizationDataService) {
+              protected authorizationService: AuthorizationDataService
+  ) {
   }
 
   ngOnInit(): void {
-    this.store.pipe(
+    this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
-    ).subscribe(methods => {
+      map((methods: AuthMethod[]) => methods
+        // ignore the given auth method if it should be excluded
+        .filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod)
+        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
+        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
+      ),
       // ignore the ip authentication method when it's returned by the backend
-      this.authMethods = uniqBy(methods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType');
-      // exclude the given auth method in case there is one
-      if (hasValue(this.excludedAuthMethod)) {
-        this.authMethods = this.authMethods.filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod.toLocaleLowerCase());
-      }
-    });
+      map((authMethods: AuthMethod[]) => uniqBy(authMethods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType'))
+    );
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));

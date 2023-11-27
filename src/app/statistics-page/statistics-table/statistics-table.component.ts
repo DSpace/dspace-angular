@@ -3,8 +3,10 @@ import { Point, UsageReport } from '../../core/statistics/models/usage-report.mo
 import { Observable, of } from 'rxjs';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { map } from 'rxjs/operators';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
+import { getRemoteDataPayload, getFinishedRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { TranslateService } from '@ngx-translate/core';
+import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Component representing a statistics table for a given usage report.
@@ -35,6 +37,7 @@ export class StatisticsTableComponent implements OnInit {
   constructor(
     protected dsoService: DSpaceObjectDataService,
     protected nameService: DSONameService,
+    private translateService: TranslateService,
   ) {
 
   }
@@ -54,9 +57,9 @@ export class StatisticsTableComponent implements OnInit {
     switch (this.report.reportType) {
       case 'TotalVisits':
         return this.dsoService.findById(point.id).pipe(
-          getFirstSucceededRemoteData(),
+          getFinishedRemoteData(),
           getRemoteDataPayload(),
-          map((item) => this.nameService.getName(item)),
+          map((item) => !isEmpty(item) ?  this.nameService.getName(item) : this.translateService.instant('statistics.table.no-name')),
         );
       case 'TopCities':
       case 'topCountries':

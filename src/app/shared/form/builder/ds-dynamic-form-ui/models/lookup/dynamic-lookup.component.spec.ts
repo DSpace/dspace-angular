@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -78,9 +78,9 @@ let LOOKUP_NAME_TEST_MODEL_CONFIG = {
   hasSelectableMetadata: false
 };
 
-let LOOKUP_TEST_GROUP = new FormGroup({
-  lookup: new FormControl(),
-  lookupName: new FormControl()
+let LOOKUP_TEST_GROUP = new UntypedFormGroup({
+  lookup: new UntypedFormControl(),
+  lookupName: new UntypedFormControl()
 });
 const vocabulary = Object.assign(new Vocabulary(), {
   id: 'vocabulary',
@@ -167,9 +167,9 @@ describe('Dynamic Lookup component', () => {
       hasSelectableMetadata: false
     };
 
-    LOOKUP_TEST_GROUP = new FormGroup({
-      lookup: new FormControl(),
-      lookupName: new FormControl()
+    LOOKUP_TEST_GROUP = new UntypedFormGroup({
+      lookup: new UntypedFormControl(),
+      lookupName: new UntypedFormControl()
     });
 
   }
@@ -696,7 +696,7 @@ describe('Dynamic Lookup component', () => {
 })
 class TestComponent {
 
-  group: FormGroup = LOOKUP_TEST_GROUP;
+  group: UntypedFormGroup = LOOKUP_TEST_GROUP;
 
   inputLookupModelConfig = LOOKUP_TEST_MODEL_CONFIG;
 
