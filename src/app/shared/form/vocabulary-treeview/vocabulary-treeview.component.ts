@@ -319,7 +319,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Return an id for a given {@link VocabularyTreeItemType}
    */
   private getEntryId(entry: VocabularyTreeItemType): string {
-    return entry?.authority || entry?.otherInformation?.id || (entry as any)?.id || undefined;
+    const entryId: string = entry?.authority || entry?.otherInformation?.id || (entry as any)?.id || undefined;
+    return entryId?.startsWith(this.vocabularyOptions.name) ? entryId.replace(`${this.vocabularyOptions.name}:`, '') : entryId;
   }
 
   /**
