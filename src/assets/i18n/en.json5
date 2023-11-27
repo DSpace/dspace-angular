@@ -2566,9 +2566,9 @@
 
   "item.version.create.modal.header": "New version",
 
-  "item.qa.withdrawn.modal.header": "Send Withdrawn Item request",
+  "item.qa.withdrawn.modal.header": "Request withdrawal",
 
-  "item.qa.reinstate.modal.header": "Send Reinstate Item request",
+  "item.qa.reinstate.modal.header": "Request reinstate",
 
   "item.qa.reinstate.create.modal.header": "New version",
 
@@ -2582,7 +2582,9 @@
 
   "item.qa.withdrawn-reinstate.modal.button.confirm.tooltip": "Send request",
 
-  "item.qa.withdrown-reinstate.create.modal.button.confirm": "Send Request",
+  "qa-withdrown.create.modal.button.confirm": "Withdrawn",
+
+  "qa-reinstate.create.modal.button.confirm": "Reinstate",
 
   "item.version.create.modal.button.cancel": "Cancel",
 
@@ -2594,19 +2596,31 @@
 
   "item.version.create.modal.form.summary.label": "Summary",
 
-  "item.qa-withdrawn-reinstate.create.modal.form.summary.label": "Reason",
+  "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdrawn this item",
+
+  "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
+
+  "qa-reinstate.create.modal.form.summary.label": "You are requesting to reinstate this item",
+
+  "qa-reinstate.create.modal.form.summary2.label": "Please enter the reason for the reinstatment",
 
   "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
 
-  "item.qa.withdrown-reinstate.modal.form.summary.placeholder": "Indicates the reasons (optionaly)",
+  "qa-withdrown.modal.form.summary.placeholder": "Enter the reason for the withdrawal",
+
+  "qa-reinstate.modal.form.summary.placeholder": "Enter the reason for the reinstate",
 
   "item.version.create.modal.submitted.header": "Creating new version...",
 
   "item.qa.withdrawn.modal.submitted.header": "Sending withdrawn request...",
 
-  "item.qa-event-notification.check.notification-withdrawn": "You have requested to withdrawn this item.",
+  "qa-event-notification.check.notification-withdrawn": "You have requested to withdrawn this item.",
 
-  "item.qa-event-notification-undo-withdrawn.check.button": "Undo request withdrawal",
+  "qa-event-notification.check.notification-reinstate": "You have requested to reinstate this item.",
+
+  "qa-event-notification-undo-withdrawn.check.button": "Undo request withdrawal",
+
+  "qa-event-notification-undo-reinstate.check.button": "Undo request reinstatment",
 
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 
@@ -3170,6 +3184,8 @@
 
   "quality-assurance.event.action.ignore": "Ignore suggestion",
 
+  "quality-assurance.event.action.undo": "DELETE",
+
   "quality-assurance.event.action.reject": "Reject suggestion",
 
   "quality-assurance.event.action.import": "Import project and accept suggestion",
@@ -3209,6 +3225,8 @@
   "quality-assurance.event.sure": "Are you sure?",
 
   "quality-assurance.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+
+  "quality-assurance.event.undo.description": "This operation can't be undone!",
 
   "quality-assurance.event.reject.description": "This operation can't be undone. Reject this suggestion?",
 

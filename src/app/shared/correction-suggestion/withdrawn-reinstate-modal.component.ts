@@ -14,7 +14,6 @@ export class ItemWithdrawnReinstateModalComponent implements ModalBeforeDismiss 
   reason: string;
 
   canWithdraw: boolean;
-  canReinstate: boolean;
   submitted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   @Output() createQAEvent: EventEmitter<string> = new EventEmitter<string>();
@@ -40,12 +39,6 @@ export class ItemWithdrawnReinstateModalComponent implements ModalBeforeDismiss 
 
   public setWithdraw(state: boolean) {
     this.canWithdraw = state;
-    this.canReinstate = !state;
-  }
-
-  public setReinstate(state: boolean) {
-    this.canReinstate = state;
-    this.canWithdraw = !state;
   }
 
 }

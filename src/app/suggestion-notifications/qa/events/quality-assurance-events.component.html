@@ -124,7 +124,7 @@
                     </div>
                   </td>
                   <td>
-                    <div class="btn-group button-width">
+                    <div *ngIf="(isAdmin$ | async)" class="btn-group button-width">
                       <button *ngIf="showTopic.indexOf('/PROJECT') !== -1"
                               class="btn btn-outline-success btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
@@ -153,6 +153,15 @@
                               container="body"
                               [disabled]="eventElement.isRunning"
                               (click)="openModal('REJECTED', eventElement, rejectModal)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                    <div *ngIf="!(isAdmin$ | async)" class="btn-group button-width">
+                      <button class="btn btn-outline-danger btn-sm button-width"
+                              ngbTooltip="{{'quality-assurance.event.action.undo' | translate}}"
+                              container="body"
+                              [disabled]="eventElement.isRunning"
+                              (click)="openModal('UNDO', eventElement, undoModal)">
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </div>
@@ -219,6 +228,23 @@
     <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.reject' | translate}}</span>
+    </button>
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+      <i class="fas fa-close"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #undoModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="undoModal">{{'quality-assurance.event.sure' | translate}}</h4>
+  </div>
+  <div class="modal-body">
+    <p>{{'quality-assurance.event.undo.description' | translate}}</p>
+    <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
+      <i class="fas fa-trash-alt"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.undo' | translate}}</span>
     </button>
     <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>

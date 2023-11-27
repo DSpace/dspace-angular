@@ -9,8 +9,7 @@ import { Item } from '../../core/shared/item.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload
+  getFirstCompletedRemoteData, getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { map, switchMap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -25,13 +24,10 @@ import { ResearcherProfileDataService } from '../../core/profile/researcher-prof
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthService } from '../../core/auth/auth.service';
-import {
-  QualityAssuranceSourceDataService
-} from '../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { RequestParam } from '../../core/cache/models/request-param.model';
+import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 
 /**
  * Creates the menus for the dspace object pages
@@ -52,7 +48,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected translate: TranslateService,
     protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
     private auth: AuthService,
-    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService
+    private correctionTypeDataService: CorrectionTypeDataService
   ) {
   }
 
@@ -142,9 +138,9 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
         this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create'),
         this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, dso.self),
         this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
-        this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions).pipe(
-           getFirstCompletedRemoteData(),
-           getRemoteDataPayload())
+        this.correctionTypeDataService.findByItem(dso.uuid, false).pipe(
+          getFirstCompletedRemoteData(),
+          getRemoteDataPayload())
       ]).pipe(
         map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem, correction]) => {
           const isPerson = this.getDsoType(dso) === 'person';
@@ -193,29 +189,29 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             {
               id: 'withdrawn-item',
               active: false,
-              visible: dso.isArchived && correction.totalElements === 0,
+              visible: dso.isArchived && correction.totalElements > 0,
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.withdrawn',
                 function: () => {
-                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-withdrawn', dso.isArchived && correction.totalElements === 0);
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-withdrawn', dso.isArchived);
                 }
               } as OnClickMenuItemModel,
-              icon: 'lock',
+              icon: 'eye-slash',
               index: 4
             },
             {
               id: 'reinstate-item',
               active: false,
-              visible: dso.isWithdrawn && correction.totalElements === 0,
+              visible: dso.isWithdrawn && correction.totalElements > 0,
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.reinstate',
                 function: () => {
-                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-reinstate', dso.isWithdrawn && correction.totalElements === 0);
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-reinstate', dso.isArchived);
                 }
               } as OnClickMenuItemModel,
-              icon: 'unlock-keyhole',
+              icon: 'eye',
               index: 5
             }
           ];

@@ -1,16 +1,22 @@
 <div *ngIf="!(this.submitted$ | async); else waiting">
   <div *ngIf="this.canWithdraw; else reinstateHeader" class="modal-header">
-    {{'item.qa.withdrawn.modal.header' | translate}}
+    {{ 'item.qa.withdrawn.modal.header' | translate }}
     <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
       <span aria-hidden="true">×</span>
     </button>
   </div>
   <div class="modal-body">
     <div class="form-group">
-      <label for="reason">{{'item.qa-withdrawn-reinstate.create.modal.form.summary.label' | translate }}:</label>
-      <input type="text" id="reason" class="form-control" [(ngModel)]="reason"
-             (keyup.enter)="onModalSubmit()"
-             placeholder="{{'item.qa.withdrown-reinstate.modal.form.summary.placeholder' | translate }}"/>
+      <label for="reason">{{ this.canWithdraw ? ('qa-withdrawn.create.modal.form.summary.label' | translate)
+                                              : ('qa-reinstate.create.modal.form.summary.label' | translate) }}</label>
+      <label for="reason">{{ this.canWithdraw ? ('qa-withdrawn.create.modal.form.summary2.label' | translate)
+                                              : ('qa-reinstate.create.modal.form.summary2.label' | translate) }}</label>
+      <textarea class="form-control" id="reason"
+                rows="6"
+                [(ngModel)]="reason"
+                placeholder="{{ this.canWithdraw ? ('qa-withdrown.modal.form.summary.placeholder' | translate)
+                                                 : ('qa-reinstate.modal.form.summary.placeholder' | translate) }}"
+                name="message"></textarea>
     </div>
   </div>
   <div class="modal-footer space-children-mr">
@@ -24,7 +30,8 @@
             type="submit"
             (click)="onModalSubmit()"
             title="{{'item.qa.withdrawn-reinstate.modal.button.confirm.tooltip' | translate}}">
-      <i class="fas fa-check fa-fw"></i> {{'item.qa.withdrown-reinstate.create.modal.button.confirm' | translate}}
+      <i class="fas fa-check fa-fw"></i> {{ this.canWithdraw ? ('qa-withdrown.create.modal.button.confirm' | translate)
+                                                             : ('qa-reinstate.create.modal.button.confirm' | translate) }}
     </button>
   </div>
 </div>
@@ -39,7 +46,7 @@
 </ng-template>
 
 <ng-template #reinstateHeader>
-  <div *ngIf="this.canReinstate" class="modal-header">
+  <div *ngIf="!this.canWithdraw" class="modal-header">
     {{'item.qa.reinstate.modal.header' | translate}}
     <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
       <span aria-hidden="true">×</span>

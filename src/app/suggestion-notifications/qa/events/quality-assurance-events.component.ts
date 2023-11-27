@@ -30,6 +30,9 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { NoContent } from '../../../core/shared/NoContent.model';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -85,6 +88,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @type {Observable<boolean>}
    */
   public isEventPageLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   /**
    * The modal reference.
    * @type {any}
@@ -105,6 +109,8 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
+  isAdmin$: Observable<boolean>;
+
   /**
    * Initialize the component variables.
    * @param {ActivatedRoute} activatedRoute
@@ -120,7 +126,8 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     private notificationsService: NotificationsService,
     private qualityAssuranceEventRestService: QualityAssuranceEventDataService,
     private paginationService: PaginationService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -130,6 +137,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isEventPageLoading.next(true);
 
+    this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
     this.activatedRoute.paramMap.pipe(
       map((params) => params.get('topicId')),
       take(1),
@@ -239,8 +247,14 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public executeAction(action: string, eventData: QualityAssuranceEventData): void {
     eventData.isRunning = true;
+    let operation;
+    if (action === 'UNDO') {
+        operation = this.delete(eventData);
+    } else {
+        operation = this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason);
+    }
     this.subs.push(
-      this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(
+      operation.pipe(
         getFirstCompletedRemoteData(),
         switchMap((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.hasSucceeded) {
@@ -426,5 +440,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       scan((acc: any, value: any) => [...acc, value], []),
       last()
     );
+  }
+
+  delete(qaEvent: QualityAssuranceEventData): Observable<RemoteData<NoContent>> {
+    return this.qualityAssuranceEventRestService.deleteQAEvent(qaEvent);
   }
 }

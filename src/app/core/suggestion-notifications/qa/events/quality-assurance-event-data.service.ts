@@ -27,6 +27,9 @@ import { hasValue } from '../../../../shared/empty.util';
 import { DeleteByIDRequest, PostRequest } from '../../../data/request.models';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
+import {
+  QualityAssuranceEventData
+} from '../../../../suggestion-notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -241,4 +244,9 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
       })
     );
   }
+
+  public deleteQAEvent(qaEvent: QualityAssuranceEventData): Observable<RemoteData<NoContent>> {
+      return this.deleteData.delete(qaEvent.id);
+  }
+
 }

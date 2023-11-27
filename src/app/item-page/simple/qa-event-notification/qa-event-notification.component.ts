@@ -35,7 +35,6 @@ export class QaEventNotificationComponent {
    * Note: sourceId is composed as: id: "sourceName:<target>"
    */
   getQualityAssuranceSources$(): Observable<QualityAssuranceSourceObject[]> {
-    console.log('ciao');
     const findListTopicOptions: FindListOptions = {
       searchParams: [new RequestParam('target', this.item.uuid)]
     };
