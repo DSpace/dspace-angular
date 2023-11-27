@@ -21,6 +21,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SearchManager } from '../../core/browse/search-manager';
 
 export const BBM_PAGINATION_ID = 'bbm';
@@ -128,7 +129,9 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
+                     @Inject(APP_CONFIG) public appConfig: AppConfig,
+                     public dsoNameService: DSONameService,
+  ) {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
@@ -153,8 +156,21 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
           this.browseId = params.id || this.defaultBrowseId;
           this.authority = +params.authority || params.authority || '';
-          this.value = +params.value || params.value || '';
-          this.startsWith = +params.startsWith || params.startsWith;
+
+          if (typeof params.value === 'string'){
+            this.value = params.value.trim();
+          } else {
+            this.value = '';
+          }
+
+          if (params.startsWith === undefined || params.startsWith === '') {
+            this.startsWith = undefined;
+          }
+
+        if (typeof params.startsWith === 'string'){
+            this.startsWith = params.startsWith.trim();
+          }
+
           if (isNotEmpty(this.value) || isNotEmpty(this.authority)) {
             this.updatePageWithItems(
               browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
@@ -309,7 +325,7 @@ export function browseParamsToOptions(params: any,
     metadata,
     paginationConfig,
     sortConfig,
-    +params.startsWith || params.startsWith,
+    params.startsWith,
     params.scope,
     fetchThumbnail
   );

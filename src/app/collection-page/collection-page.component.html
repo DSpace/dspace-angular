@@ -8,7 +8,7 @@
                 <header class="comcol-header mr-auto">
                   <!-- Collection Name -->
                   <ds-comcol-page-header
-                          [name]="collection.name">
+                          [name]="dsoNameService.getName(collection)">
                   </ds-comcol-page-header>
                   <!-- Collection logo -->
                   <ds-comcol-page-logo *ngIf="logoRD$"

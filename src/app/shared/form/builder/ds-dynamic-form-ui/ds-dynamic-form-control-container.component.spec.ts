@@ -1,6 +1,6 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
 
@@ -152,13 +152,14 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       id: 'checkboxList',
       vocabularyOptions: vocabularyOptions,
       repeatable: true,
-      hint: 'test hint',
-      required: false
+      required: false,
+      hint: 'test hint'
     }),
     new DynamicListRadioGroupModel({
       id: 'radioList',
       vocabularyOptions: vocabularyOptions,
-      repeatable: false
+      repeatable: false,
+      required: false,
     }),
     new DynamicRelationGroupModel({
       submissionId: '1234',
@@ -188,7 +189,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       metadataFields: [],
       hasSelectableMetadata: false
     }),
-    new DynamicDsDatePickerModel({ id: 'datepicker' }),
+    new DynamicDsDatePickerModel({ id: 'datepicker', repeatable: false }),
     new DynamicLookupModel({
       id: 'lookup',
       metadataFields: [],
@@ -206,7 +207,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
   ];
   const testModel = formModel[8];
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
   let fixture: ComponentFixture<DsDynamicFormControlContainerComponent>;
   let component: DsDynamicFormControlContainerComponent;
   let debugElement: DebugElement;
@@ -289,8 +290,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
   it('should initialize correctly', () => {
     expect(component.context).toBeNull();
-    expect(component.control instanceof FormControl).toBe(true);
-    expect(component.group instanceof FormGroup).toBe(true);
+    expect(component.control instanceof UntypedFormControl).toBe(true);
+    expect(component.group instanceof UntypedFormGroup).toBe(true);
     expect(component.model instanceof DynamicFormControlModel).toBe(true);
     expect(component.hasErrorMessaging).toBe(false);
 

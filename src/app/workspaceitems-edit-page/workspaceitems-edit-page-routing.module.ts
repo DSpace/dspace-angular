@@ -7,9 +7,9 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
-import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
+import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 
 @NgModule({
   imports: [

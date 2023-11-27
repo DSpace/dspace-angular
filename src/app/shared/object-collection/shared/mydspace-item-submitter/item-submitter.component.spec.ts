@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
@@ -60,10 +60,18 @@ describe('ItemSubmitterComponent', () => {
     }));
   });
 
-  it('should show a badge with submitter name', () => {
-    const badge = fixture.debugElement.query(By.css('.badge'));
+  it('should show N/A when submitter is null', () => {
+    component.submitter$ = observableOf(null);
+    fixture.detectChanges();
 
-    expect(badge).toBeDefined();
-    expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
+    const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));
+
+    expect(badge.nativeElement.innerText).toBe('submitter.empty');
+  });
+
+  it('should show a badge with submitter name', () => {
+    const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));
+
+    expect(badge.nativeElement.innerText).toBe(EPersonMock.name);
   });
 });

@@ -1,6 +1,6 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ describe('DsDatePickerInlineComponent test suite', () => {
 
   const testModel = new DynamicDatePickerModel({ id: 'datepicker' });
   const formModel = [testModel];
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
   let fixture: ComponentFixture<DsDatePickerInlineComponent>;
   let component: DsDatePickerInlineComponent;
   let debugElement: DebugElement;
@@ -53,8 +53,8 @@ describe('DsDatePickerInlineComponent test suite', () => {
   it('should initialize correctly', () => {
 
     expect(component.bindId).toBe(true);
-    expect(component.control instanceof FormControl).toBe(true);
-    expect(component.group instanceof FormGroup).toBe(true);
+    expect(component.control instanceof UntypedFormControl).toBe(true);
+    expect(component.group instanceof UntypedFormGroup).toBe(true);
     expect(component.model instanceof DynamicDatePickerModel).toBe(true);
 
     expect(component.blur).toBeDefined();

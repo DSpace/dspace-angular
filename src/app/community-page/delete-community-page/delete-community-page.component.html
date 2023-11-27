@@ -3,7 +3,7 @@
         <ng-container *ngVar="(dsoRD$ | async)?.payload as dso">
             <div class="col-12 pb-4">
                 <h2 id="header" class="border-bottom pb-2">{{ 'community.delete.head' | translate}}</h2>
-                <p class="pb-2">{{ 'community.delete.text' | translate:{ dso: dso.name } }}</p>
+                <p class="pb-2">{{ 'community.delete.text' | translate:{ dso: dsoNameService.getName(dso) } }}</p>
                 <div class="form-group row">
                     <div class="col text-right space-children-mr">
                         <button class="btn btn-outline-secondary" (click)="onCancel(dso)" [disabled]="(processing$ | async)">

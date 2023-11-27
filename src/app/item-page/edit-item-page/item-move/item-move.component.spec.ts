@@ -134,9 +134,10 @@ describe('ItemMoveComponent', () => {
         });
         comp.selectedCollectionName = 'selected-collection-id';
         comp.selectedCollection = collection1;
+        comp.inheritPolicies = false;
         comp.moveToCollection();
 
-        expect(itemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);
+        expect(itemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1, false);
       });
       it('should call notificationsService success message on success', () => {
         comp.moveToCollection();

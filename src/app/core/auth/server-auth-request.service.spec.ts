@@ -8,7 +8,7 @@ import { PostRequest } from '../data/request.models';
 import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER
-} from '../xsrf/xsrf.interceptor';
+} from '../xsrf/xsrf.constants';
 
 describe(`ServerAuthRequestService`, () => {
   let href: string;

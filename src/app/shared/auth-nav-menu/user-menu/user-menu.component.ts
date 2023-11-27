@@ -9,6 +9,7 @@ import { isAuthenticationLoading } from '../../../core/auth/selectors';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { AuthService } from '../../../core/auth/auth.service';
 import { getProfileModuleRoute, getSubscriptionsModuleRoute } from '../../../app-routing-paths';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component represents the user nav menu.
@@ -53,8 +54,11 @@ export class UserMenuComponent implements OnInit {
    */
   public subscriptionsRoute = getSubscriptionsModuleRoute();
 
-  constructor(private store: Store<AppState>,
-              private authService: AuthService) {
+  constructor(
+    protected store: Store<AppState>,
+    protected authService: AuthService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   /**

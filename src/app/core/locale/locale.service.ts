@@ -11,6 +11,7 @@ import { map, mergeMap, take } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { RouteService } from '../services/route.service';
 import { DOCUMENT } from '@angular/common';
+import { LangConfig } from '../../../config/lang-config.interface';
 
 export const LANG_COOKIE = 'dsLanguage';
 
@@ -52,8 +53,7 @@ export class LocaleService {
   getCurrentLanguageCode(): string {
     // Attempt to get the language from a cookie
     let lang = this.getLanguageCodeFromCookie();
-    if (isEmpty(lang)) {
-      // Cookie not found
+    if (isEmpty(lang) || environment.languages.find((langConfig: LangConfig) => langConfig.code === lang && langConfig.active) === undefined) {
       // Attempt to get the browser language from the user
       if (this.translate.getLangs().includes(this.translate.getBrowserLang())) {
         lang = this.translate.getBrowserLang();

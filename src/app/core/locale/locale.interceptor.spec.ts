@@ -52,7 +52,7 @@ describe(`LocaleInterceptor`, () => {
 
       expect(httpRequest.request.headers.has('Accept-Language'));
       const lang = httpRequest.request.headers.get('Accept-Language');
-      expect(lang).toBeDefined();
+      expect(lang).not.toBeNull();
       expect(lang).toBe(languageList.toString());
     });
 

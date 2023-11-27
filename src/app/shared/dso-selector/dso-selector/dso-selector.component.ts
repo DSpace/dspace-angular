@@ -9,7 +9,7 @@ import {
   QueryList,
   ViewChildren
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import {
   BehaviorSubject,
@@ -31,6 +31,7 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { SearchResult } from '../../search/models/search-result.model';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -59,6 +60,12 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The view mode of the listed objects
    */
   viewMode = ViewMode.ListElement;
+
+  /**
+   * The configuration.
+   */
+  @Input() configuration = 'default';
+
   /**
    * The initially selected DSO's uuid
    */
@@ -69,10 +76,10 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   @Input() types: DSpaceObjectType[];
 
-  /**
-   * The configuration.
+   /**
+   * The sorting options
    */
-  @Input() configuration = 'default';
+  @Input() sort: SortOptions;
 
   // list of allowed selectable dsoTypes
   typesString: string;
@@ -85,7 +92,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * Input form control to query the list
    */
-  public input: FormControl = new FormControl();
+  public input: UntypedFormControl = new UntypedFormControl();
 
   /**
    * Default pagination for this feature
@@ -226,6 +233,8 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * @param useCache Whether or not to use the cache
    */
   search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    // default sort is only used when there is not query
+    let efectiveSort = query ? null : this.sort;
     return this.searchService.search(
       new PaginatedSearchOptions({
         query: query,
@@ -233,7 +242,8 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
         configuration: this.configuration,
         pagination: Object.assign({}, this.defaultPagination, {
           currentPage: page
-        })
+        }),
+        sort: efectiveSort
       }),
       null,
       useCache,

@@ -107,9 +107,9 @@ describe('WorkflowitemActionsComponent', () => {
   });
 
   it('should display view button', () => {
-    const btn = fixture.debugElement.query(By.css('button [data-test="view-btn"]'));
+    const btn = fixture.debugElement.query(By.css('button[data-test="view-btn"]'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
 });

@@ -18,6 +18,8 @@ import {
 } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 import { EditItemDataService } from '../../../core/submission/edititem-data.service';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 /**
  * Service to take care of all the functionality related to the version creation modal
@@ -37,6 +39,7 @@ export class DsoVersioningModalService {
     protected workspaceItemDataService: WorkspaceitemDataService,
     protected itemService: ItemDataService,
     protected editItemService: EditItemDataService,
+    protected authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -76,7 +79,13 @@ export class DsoVersioningModalService {
       getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
         map((wsItem: WorkspaceItem) => `workspaceitems/${wsItem?.id}/edit`),
         switchMap((route: string) => fromPromise(this.router.navigateByUrl(route))),
-    ).subscribe(() => this.editItemService.invalidateItemCache(item.uuid));
+    ).subscribe(() => this.invalidateCacheFor(item));
+  }
+
+  private invalidateCacheFor(previousItem: Item) {
+    this.versionService.invalidateVersionHrefCache(previousItem);
+    this.authorizationService.invalidateAuthorization(FeatureID.CanCreateVersion, previousItem.self);
+    this.editItemService.invalidateItemCache(previousItem.uuid);
   }
 
   /**

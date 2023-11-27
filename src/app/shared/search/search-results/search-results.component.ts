@@ -11,7 +11,7 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { AlertType } from '../../alert/aletr-type';
+import { AlertType } from '../../alert/alert-type';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -62,6 +62,11 @@ export class SearchResultsComponent {
    * A boolean representing if show csv export button
    */
   @Input() showCsvExport = false;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
 
   /**
    * The current sorting configuration of the search

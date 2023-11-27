@@ -13,7 +13,7 @@ import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
   DSPACE_XSRF_COOKIE
-} from '../xsrf/xsrf.interceptor';
+} from '../xsrf/xsrf.constants';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 

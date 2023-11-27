@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -33,6 +33,8 @@ import {
 import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
 import { ConfigObject } from '../../core/config/models/config.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
+
 
 /**
  * Form used for creating and editing collections
@@ -42,7 +44,7 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit {
+export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
    * @type {Collection} A new collection when a collection is being created, an existing Input collection when a collection is being edited
    */
@@ -87,12 +89,29 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
+                     protected chd: ChangeDetectorRef,
                      protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    if (hasNoValue(this.formModel) && isNotNull(this.dso)) {
+      this.initializeForm();
+    }
+  }
 
+  /**
+   * Detect changes to the dso and initialize the form,
+   * if the dso changes, exists and it is not the first change
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    const dsoChange: SimpleChange = changes.dso;
+    if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
+      this.initializeForm();
+    }
+  }
+
+  initializeForm() {
     let currentRelationshipValue: MetadataValue[];
     let currentDefinitionValue: MetadataValue[];
     let currentCorrectionDefinitionValue: MetadataValue[];
@@ -118,9 +137,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     combineLatest([entities$, definitions$])
       .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
 
-        entityTypes
-          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
-          .forEach((type: ItemType, index: number) => {
+      entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
+          entityTypes.forEach((type: ItemType, index: number) => {
           this.entityTypeSelection.add({
             disabled: false,
             label: type.label,
@@ -151,13 +169,16 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
+        this.formModel = entityTypes.length === 0 ?
+          [...collectionFormModels, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox] :
+          [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
 
         super.ngOnInit();
 
         if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
           this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
         }
+        this.chd.detectChanges();
     });
 
   }

@@ -22,10 +22,10 @@
         <span>
           <i class="fas fa-upload" aria-hidden="true"></i>
           {{dropMsg | translate}}{{'uploader.or' | translate}}
-          <label for="inputFileUploader" class="btn btn-link m-0 p-0 ml-1" tabindex="0" (keyup.enter)="$event.stopImmediatePropagation(); fileInput.click()">
+          <label for="inputFileUploader-{{uploaderId}}" class="btn btn-link m-0 p-0 ml-1" tabindex="0" (keyup.enter)="$event.stopImmediatePropagation(); fileInput.click()">
             <span role="button" [attr.aria-label]="'uploader.browse' | translate">{{'uploader.browse' | translate}}</span>
           </label>
-          <input #fileInput id="inputFileUploader" class="d-none" type="file" ng2FileSelect [uploader]="uploader" multiple tabindex="0" />
+          <input #fileInput id="inputFileUploader-{{uploaderId}}" class="d-none" type="file" ng2FileSelect [uploader]="uploader" multiple tabindex="0" />
         </span>
       </div>
       <div *ngIf="(isOverBaseDropZone | async) || uploader?.queue?.length !== 0">

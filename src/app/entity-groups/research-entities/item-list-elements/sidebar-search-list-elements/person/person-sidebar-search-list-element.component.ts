@@ -25,7 +25,7 @@ export class PersonSidebarSearchListElementComponent extends SidebarSearchListEl
   constructor(protected truncatableService: TruncatableService,
               protected linkService: LinkService,
               protected translateService: TranslateService,
-              protected dsoNameService: DSONameService
+              public dsoNameService: DSONameService,
   ) {
     super(truncatableService, linkService, dsoNameService);
   }

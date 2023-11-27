@@ -36,7 +36,7 @@ describe('MetadataRepresentationListElementComponent', () => {
 
   describe('when the value is not a URL', () => {
     beforeEach(() => {
-      comp.metadataRepresentation = mockMetadataRepresentation;
+      comp.mdRepresentation = mockMetadataRepresentation;
     });
     it('isLink correctly detects a non-URL string as false', () => {
       waitForAsync(() => {
@@ -47,7 +47,7 @@ describe('MetadataRepresentationListElementComponent', () => {
 
   describe('when the value is a URL', () => {
     beforeEach(() => {
-      comp.metadataRepresentation = mockMetadataRepresentationUrl;
+      comp.mdRepresentation = mockMetadataRepresentationUrl;
     });
     it('isLink correctly detects a URL string as true', () => {
       waitForAsync(() => {

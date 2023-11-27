@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { hasValue } from '../../empty.util';
@@ -10,7 +10,7 @@ declare let _altmetric_embed_init: any;
   templateUrl: './metric-altmetric.component.html',
   styleUrls: ['./metric-altmetric.component.scss', '../metric-loader/base-metric.component.scss']
 })
-export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit {
+export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit, AfterViewChecked {
   remark: JSON;
 
   constructor(protected sr: DomSanitizer) {

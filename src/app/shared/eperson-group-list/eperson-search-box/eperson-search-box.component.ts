@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
@@ -33,7 +33,7 @@ export class EpersonSearchBoxComponent {
    */
   @Output() search: EventEmitter<SearchEvent> = new EventEmitter<SearchEvent>();
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: UntypedFormBuilder) {
     this.searchForm = this.formBuilder.group(({
       scope: 'metadata',
       query: '',

@@ -253,7 +253,7 @@ describe('MiradorViewerComponent in development mode', () => {
     it('should show message', (() => {
       const value = fixture.debugElement
         .nativeElement.querySelector('#viewer-message');
-      expect(value).toBeDefined();
+      expect(value).not.toBeNull();
     }));
 
   });

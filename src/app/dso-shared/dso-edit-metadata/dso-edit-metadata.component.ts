@@ -1,7 +1,7 @@
 import { Item } from '../../core/shared/item.model';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { Component, Inject, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DsoEditMetadataChangeType, DsoEditMetadataForm } from './dso-edit-metadata-form';
 import { map, switchMap, tap } from 'rxjs/operators';

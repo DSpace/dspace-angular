@@ -25,6 +25,7 @@ import { getMockRequestService } from '../../../shared/mocks/request.service.moc
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -71,7 +72,7 @@ let objectUpdatesService: ObjectUpdatesService;
 let router: any;
 let route: ActivatedRoute;
 let notificationsService: NotificationsService;
-let bitstreamService: BitstreamDataService;
+let bitstreamService: BitstreamDataServiceStub;
 let objectCache: ObjectCacheService;
 let requestService: RequestService;
 let searchConfig: SearchConfigurationService;
@@ -112,9 +113,7 @@ describe('ItemBitstreamsComponent', () => {
         success: successNotification
       }
     );
-    bitstreamService = jasmine.createSpyObj('bitstreamService', {
-      delete: jasmine.createSpy('delete')
-    });
+    bitstreamService = new BitstreamDataServiceStub();
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: jasmine.createSpy('remove')
     });
@@ -179,15 +178,16 @@ describe('ItemBitstreamsComponent', () => {
 
   describe('when submit is called', () => {
     beforeEach(() => {
+      spyOn(bitstreamService, 'removeMultiple').and.callThrough();
       comp.submit();
     });
 
-    it('should call delete on the bitstreamService for the marked field', () => {
-      expect(bitstreamService.delete).toHaveBeenCalledWith(bitstream2.id);
+    it('should call removeMultiple on the bitstreamService for the marked field', () => {
+      expect(bitstreamService.removeMultiple).toHaveBeenCalledWith([bitstream2]);
     });
 
-    it('should not call delete on the bitstreamService for the unmarked field', () => {
-      expect(bitstreamService.delete).not.toHaveBeenCalledWith(bitstream1.id);
+    it('should not call removeMultiple on the bitstreamService for the unmarked field', () => {
+      expect(bitstreamService.removeMultiple).not.toHaveBeenCalledWith([bitstream1]);
     });
   });
 
@@ -210,7 +210,6 @@ describe('ItemBitstreamsComponent', () => {
       comp.dropBitstream(bundle, {
         fromIndex: 0,
         toIndex: 50,
-        // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
         finish: () => {
           done();
         }

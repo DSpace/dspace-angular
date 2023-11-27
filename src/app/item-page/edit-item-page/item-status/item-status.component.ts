@@ -3,7 +3,7 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import { distinctUntilChanged, first, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
+import { concatMap, distinctUntilChanged, first, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
@@ -72,7 +72,8 @@ export class ItemStatusComponent implements OnInit {
               private authorizationService: AuthorizationDataService,
               private identifierDataService: IdentifierDataService,
               private configurationService: ConfigurationDataService,
-              private orcidAuthService: OrcidAuthService) {
+              private orcidAuthService: OrcidAuthService
+  ) {
   }
 
   /**
@@ -115,22 +116,21 @@ export class ItemStatusComponent implements OnInit {
        * i18n example: 'item.edit.tabs.status.buttons.<key>.label'
        * The value is supposed to be a href for the button
        */
-      const operations: ItemOperation[] = [];
-        operations.push(new ItemOperation('authorizations', this.getCurrentUrl(item) + '/authorizations', FeatureID.CanManagePolicies, true));
-        operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper', FeatureID.CanManageMappings, true));
-        if (item.isWithdrawn) {
-          operations.push(new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate', FeatureID.ReinstateItem, true));
-        } else {
-          operations.push(new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw', FeatureID.WithdrawItem, true));
-        }
-        if (item.isDiscoverable) {
-          operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private', FeatureID.CanMakePrivate, true));
-        } else {
-          operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public', FeatureID.CanMakePrivate, true));
-        }
-        operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete', FeatureID.CanDelete, true));
-        operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move', FeatureID.CanMove, true));
-        this.operations$.next(operations);
+      const currentUrl = this.getCurrentUrl(item);
+      const inititalOperations: ItemOperation[] = [
+        new ItemOperation('authorizations', `${currentUrl}/authorizations`, FeatureID.CanManagePolicies, true),
+        new ItemOperation('mappedCollections', `${currentUrl}/mapper`, FeatureID.CanManageMappings, true),
+        item.isWithdrawn
+         ? new ItemOperation('reinstate', `${currentUrl}/reinstate`, FeatureID.ReinstateItem, true)
+         : new ItemOperation('withdraw', `${currentUrl}/withdraw`, FeatureID.WithdrawItem, true),
+        item.isDiscoverable
+         ? new ItemOperation('private', `${currentUrl}/private`, FeatureID.CanMakePrivate, true)
+         : new ItemOperation('public', `${currentUrl}/public`, FeatureID.CanMakePrivate, true),
+        new ItemOperation('move', `${currentUrl}/move`, FeatureID.CanMove, true),
+        new ItemOperation('delete', `${currentUrl}/delete`, FeatureID.CanDelete, true)
+      ];
+
+      this.operations$.next(inititalOperations);
 
         /**
          *  When the identifier data stream changes, determine whether the register DOI button should be shown or not.
@@ -149,8 +149,7 @@ export class ItemStatusComponent implements OnInit {
                   if (hasValue(identifier) && identifier.identifierType === 'doi') {
                     // The item has some kind of DOI
                     no_doi = false;
-                    if (identifier.identifierStatus === 'PENDING' || identifier.identifierStatus === 'MINTED'
-                      || identifier.identifierStatus == null) {
+                    if (['PENDING', 'MINTED', null].includes(identifier.identifierStatus)) {
                       // The item's DOI is pending, minted or null.
                       // It isn't registered, reserved, queued for registration or reservation or update, deleted
                       // or queued for deletion.
@@ -171,21 +170,25 @@ export class ItemStatusComponent implements OnInit {
           }),
           // Switch map pushes the register DOI operation onto a copy of the base array then returns to the pipe
           switchMap((showDoi: boolean) => {
-            let ops = [...operations];
+            const ops = [...inititalOperations];
             if (showDoi) {
-              ops.push(new ItemOperation('register-doi', this.getCurrentUrl(item) + '/register-doi', FeatureID.CanRegisterDOI, true));
+              const op = new ItemOperation('register-doi', `${currentUrl}/register-doi`, FeatureID.CanRegisterDOI, true);
+              ops.splice(ops.length - 1, 0, op); // Add item before last
             }
-            return ops;
+            return inititalOperations;
           }),
-          mergeMap((operation) => {
-            if (hasValue(operation.featureID)) {
-              return this.authorizationService.isAuthorized(operation.featureID, item.self).pipe(
+          concatMap((op: ItemOperation) => {
+            if (hasValue(op.featureID)) {
+              return this.authorizationService.isAuthorized(op.featureID, item.self).pipe(
                 distinctUntilChanged(),
-                map((authorized) => new ItemOperation(operation.operationKey, operation.operationUrl, operation.featureID, !authorized, authorized))
+                map((authorized) => {
+                  op.setDisabled(!authorized);
+                  op.setAuthorized(authorized);
+                  return op;
+                })
               );
-            } else {
-              return [operation];
             }
+            return [op];
           }),
           toArray()
         );
@@ -195,16 +198,15 @@ export class ItemStatusComponent implements OnInit {
           orcidOps$ = this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
               map((canDisconnect) => {
                 if (canDisconnect) {
-                  return [new ItemOperation('unlinkOrcid', this.getCurrentUrl(item) + '/unlink-orcid')];
-                } else {
-                  return [];
-                }
+                  return [new ItemOperation('unlinkOrcid', `${currentUrl}/unlink-orcid`)];
+            }
+                return [];
               })
             );
         }
 
         return combineLatest([ops$, orcidOps$]);
-      }),
+          }),
       map(([ops, orcidOps]: [ItemOperation[], ItemOperation[]]) => [...ops, ...orcidOps])
     ).subscribe((ops) => this.operations$.next(ops));
 
@@ -214,6 +216,7 @@ export class ItemStatusComponent implements OnInit {
     );
 
   }
+
 
   /**
    * Get the current url without query params

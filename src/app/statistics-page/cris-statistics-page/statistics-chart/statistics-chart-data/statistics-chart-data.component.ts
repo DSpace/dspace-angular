@@ -57,7 +57,7 @@ export abstract class StatisticsChartDataComponent implements OnInit {
        So we need to instantiate the class directly based on current the platform */
     if (isPlatformBrowser(this.platformId)) {
       import('../../../../core/export-service/browser-export.service').then((s) => {
-        this.exportService = new s.BrowserExportService();
+        this.exportService = new s.BrowserExportService(this.platformId);
       });
     } else {
       import('../../../../core/export-service/server-export.service').then((s) => {
