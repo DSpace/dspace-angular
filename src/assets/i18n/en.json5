@@ -142,6 +142,8 @@
 
   "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
+  "admin.registries.bitstream-formats.select": "Select bitstream format",
+
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
