@@ -11,6 +11,7 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 @Component({
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
+  styleUrls: ['./search-label.component.scss']                                                        ,
 })
 
 /**
