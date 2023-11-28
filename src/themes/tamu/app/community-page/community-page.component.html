@@ -7,14 +7,8 @@
           <!-- Community name -->
           <ds-comcol-page-header [name]="dsoNameService.getName(communityPayload)"></ds-comcol-page-header>
           <!-- Community logo -->
-          <!-- TAMU Customization - wrap text around logo -->
-          <!--
           <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
           </ds-comcol-page-logo>
-          -->
-          <ds-comcol-page-logo *ngIf="logoRD$" class="float-left mr-4" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
-          </ds-comcol-page-logo>
-          <!-- End TAMU Customization - wrap text around logo -->
           <!-- Handle -->
           <ds-themed-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
           </ds-themed-comcol-page-handle>
@@ -41,29 +35,6 @@
         <ds-themed-community-page-sub-collection-list [community]="communityPayload"></ds-themed-community-page-sub-collection-list>
         -->
         <!-- End TAMU Customization - community collection tree browse -->
-
-        <!-- TAMU Customization - recent submissions grid view -->
-        <ng-container *ngVar="(itemRD$ | async) as itemRD">
-          <div class="mt-4" *ngIf="itemRD?.hasSucceeded" @fadeIn>
-            <h3>{{'collection.page.browse.recent.head' | translate}}</h3>
-            <ds-object-grid
-                [config]="paginationConfig"
-                [sortConfig]="sortConfig"
-                [objects]="itemRD"
-                [hideGear]="false"
-                [context]="'ItemPage'">
-            </ds-object-grid>
-          </div>
-          <ds-error *ngIf="itemRD?.hasFailed"
-                    message="{{'error.recent-submissions' | translate}}"></ds-error>
-          <ds-themed-loading *ngIf="!itemRD || itemRD.isLoading"
-                      message="{{'loading.recent-submissions' | translate}}"></ds-themed-loading>
-          <div *ngIf="!itemRD?.isLoading && itemRD?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
-                  {{'collection.page.browse.recent.empty' | translate}}
-          </div>
-        </ng-container>
-        <!-- End TAMU Customization - recent submissions grid view -->
-
       </section>
       <footer  *ngIf="communityPayload.copyrightText"  class="border-top my-5 pt-4">
         <!-- Copyright -->

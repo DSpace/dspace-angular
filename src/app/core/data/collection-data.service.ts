@@ -283,6 +283,13 @@ export class CollectionDataService extends ComColDataService<Collection> {
     return this.findListByHref(item._links.mappedCollections.href, findListOptions);
   }
 
+  // TAMU Customization - find scoped collections
+  findScopedCollections(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+    return this.getEndpoint().pipe(
+      map(href => this.getFindByParentHref(options.scopeID)),
+      switchMap(href => this.findListByHref(href, options, true, true))
+    );
+  }
 
   protected getScopeCommunityHref(options: FindListOptions) {
     return this.communityDataService.getEndpoint().pipe(

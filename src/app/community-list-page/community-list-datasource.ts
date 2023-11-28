@@ -1,5 +1,5 @@
 import { hasValue } from '../shared/empty.util';
-import { CommunityListService} from './community-list-service';
+import { CommunityListService } from './community-list-service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -17,6 +17,9 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
   private communityList$ = new BehaviorSubject<FlatNode[]>([]);
   public loading$ = new BehaviorSubject<boolean>(false);
   private subLoadCommunities: Subscription;
+  // TAMU Customization - prevent multiple consecutive calls to load communities
+  private lastLoadCommunities = 0;
+  private lastLoadCommunitiesTimer;
 
   constructor(private communityListService: CommunityListService) {
   }
@@ -26,6 +29,16 @@ export class CommunityListDatasource implements DataSource<FlatNode> {
   }
 
   loadCommunities(findOptions: FindListOptions, expandedNodes: FlatNode[]) {
+    // TAMU Customization - prevent multiple consecutive calls to load communities
+    if ((this.lastLoadCommunities + 250) >= Date.now()) {
+      clearTimeout(this.lastLoadCommunitiesTimer);
+      this.lastLoadCommunitiesTimer = setTimeout(() => {
+        this.loadCommunities(findOptions, expandedNodes);
+      }, 250);
+      return;
+    }
+    this.lastLoadCommunities = Date.now();
+
     this.loading$.next(true);
     if (hasValue(this.subLoadCommunities)) {
       this.subLoadCommunities.unsubscribe();

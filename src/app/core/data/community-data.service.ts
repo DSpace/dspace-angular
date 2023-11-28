@@ -43,13 +43,14 @@ export class CommunityDataService extends ComColDataService<Community> {
 
   findTop(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Community>[]): Observable<RemoteData<PaginatedList<Community>>> {
     return this.getEndpoint().pipe(
-      map(href => `${href}/search/top`),
+      // TAMU Customization - find by parent href if scope id provided
+      map(href => !!options.scopeID ? this.getFindByParentHref(options.scopeID) : `${href}/search/top`),
       switchMap(href => this.findListByHref(href, options, true, true, ...linksToFollow))
     );
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
+    return this.getEndpoint().pipe(
       switchMap((communityEndpointHref: string) =>
         this.halService.getEndpoint('subcommunities', `${communityEndpointHref}/${parentUUID}`))
     );

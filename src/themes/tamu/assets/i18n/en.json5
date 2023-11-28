@@ -15,4 +15,8 @@
 
   "login.form.header": "Please log in to OAKTrust",
 
+  "communityList.expandAll": "Expand All",
+
+  "communityList.collapseAll": "Collapse All",
+
 }
