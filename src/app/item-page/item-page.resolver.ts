@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
@@ -10,7 +10,6 @@ import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { getItemPageRoute } from './item-page-routing-paths';
 import { ItemResolver } from './item.resolver';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { isPlatformServer } from '@angular/common';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated and will redirect to the
@@ -19,7 +18,6 @@ import { isPlatformServer } from '@angular/common';
 @Injectable()
 export class ItemPageResolver extends ItemResolver {
   constructor(
-    @Inject(PLATFORM_ID) protected platformId: any,
     protected hardRedirectService: HardRedirectService,
     protected itemService: ItemDataService,
     protected store: Store<any>,
@@ -57,11 +55,7 @@ export class ItemPageResolver extends ItemResolver {
             if (!thisRoute.startsWith(itemRoute)) {
               const itemId = rd.payload.uuid;
               const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
-              if (isPlatformServer(this.platformId)) {
-                this.hardRedirectService.redirect(itemRoute + subRoute, 301);
-              } else {
-                this.router.navigateByUrl(itemRoute + subRoute);
-              }
+              this.hardRedirectService.redirect(itemRoute + subRoute, 301);
             }
           }
         }

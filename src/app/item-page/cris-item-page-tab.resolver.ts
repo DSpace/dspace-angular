@@ -1,6 +1,5 @@
-import { Injectable, Inject, PLATFORM_ID} from '@angular/core';
+import { Injectable} from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { isPlatformServer } from '@angular/common';
 
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -15,6 +14,7 @@ import { Item } from '../core/shared/item.model';
 import { getItemPageRoute } from './item-page-routing-paths';
 import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
+import { getPageNotFoundRoute } from '../app-routing-paths';
 
 /**
  * This class represents a resolver that requests the tabs of specific
@@ -24,7 +24,6 @@ import { HardRedirectService } from '../core/services/hard-redirect.service';
 export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList<CrisLayoutTab>>> {
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
     private hardRedirectService: HardRedirectService,
     private tabService: TabDataService,
     private itemDataService: ItemDataService,
@@ -52,20 +51,16 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
               if (tabsRD.hasSucceeded && tabsRD?.payload?.page?.length > 0) {
                 // By splitting the url with uuid we can understand if the item is primary item page or a tab
                 const urlSplit = state.url.split(route.params.id);
+                const givenTab = urlSplit[1];
                 const itemPageRoute = getItemPageRoute(itemRD.payload);
-                const isValidTab = urlSplit[1] && tabsRD.payload.page.some(tab => `/${tab.shortname}` === urlSplit[1]);
-                const selectedTab = tabsRD.payload.page.filter((tab) => !tab.leading)[0];
-                // If a no or wrong tab is given redirect to the first tab available
-                if (!!tabsRD.payload && !!tabsRD.payload.page && tabsRD.payload.page.length > 0 && !isValidTab) {
-                  if (urlSplit[1]) {
-                    if (isPlatformServer(this.platformId)) {
-                      this.hardRedirectService.redirect(itemPageRoute, 301);
-                    } else {
-                      this.router.navigateByUrl(itemPageRoute);
-                    }
-                  }
-                } else if (urlSplit[1] === `/${selectedTab.shortname}` && isPlatformServer(this.platformId)) {
-                  this.hardRedirectService.redirect(itemPageRoute, 301);
+                const isValidTab = tabsRD.payload.page.some((tab) => !givenTab || `/${tab.shortname}` === givenTab);
+                const mainTab = tabsRD.payload.page.filter((tab) => !tab.leading)[0];
+                if (!isValidTab) {
+                  // If wrong tab is given redirect to 404 page
+                  this.router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true, replaceUrl: false });
+                } else if (givenTab === `/${mainTab.shortname}`) {
+                  // If first tab is given redirect to root item page
+                  this.hardRedirectService.redirect(itemPageRoute, 302);
                 }
               }
               return tabsRD;
