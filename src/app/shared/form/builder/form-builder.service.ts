@@ -653,9 +653,9 @@ export class FormBuilderService extends DynamicFormService {
       const newGroup = this.createFormGroup(groupModel.group, null, groupModel);
       const previousKey = Object.keys(previousGroup.getRawValue())[0];
       const newKey = Object.keys(newGroup.getRawValue())[0];
-
-      if (!isObjectEmpty(previousGroup.getRawValue()[previousKey])) {
-        newGroup.get(newKey).setValue(previousGroup.getRawValue()[previousKey]);
+      const rawValue = previousGroup.getRawValue()[previousKey];
+      if (!isObjectEmpty(rawValue)) {
+        newGroup.get(newKey).patchValue(rawValue);
       }
 
       formArray.insert(index, newGroup);
