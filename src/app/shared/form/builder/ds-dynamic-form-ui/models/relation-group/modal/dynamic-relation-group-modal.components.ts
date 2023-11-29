@@ -291,9 +291,16 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   private buildChipItem() {
     const item = Object.create({});
+    let mainModel;
+    this.formModel.some((modelRow: DynamicFormGroupModel) => {
+      const findIndex = modelRow.group.findIndex(model => model.name === this.model.name);
+      if (findIndex !== -1) {
+        mainModel = modelRow.group[findIndex];
+        return true;
+      }
+    });
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
-      const mainRow: any = modelRow.group.find(model => model.name === this.model.name);
       modelRow.group.forEach((control: DynamicInputModel) => {
         const controlValue: any = (control?.value as any)?.value || control?.value || PLACEHOLDER_PARENT_METADATA;
         const controlAuthority: any = (control?.value as any)?.authority || null;
@@ -301,7 +308,7 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
         item[control.name] =
           new FormFieldMetadataValueObject(
             controlValue, (control as any)?.language,
-            controlValue === PLACEHOLDER_PARENT_METADATA ? null : mainRow.securityLevel,
+            controlValue === PLACEHOLDER_PARENT_METADATA ? null : mainModel.securityLevel,
             controlAuthority,
             null, 0, null,
             (control?.value as any)?.otherInformation || null
