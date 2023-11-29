@@ -46,6 +46,7 @@ import { BreadcrumbTooltipPipe } from './breadcrumbs/breadcrumb/breadcrumb-toolt
 import {
   TruncateBreadcrumbItemCharactersPipe
 } from './breadcrumbs/breadcrumb/truncate-breadcrumb-item-characters.pipe';
+import { OpenaireModule } from './openaire/openaire.module';
 
 const IMPORTS = [
   CommonModule,
@@ -55,7 +56,8 @@ const IMPORTS = [
   NgbModule,
   ExploreModule,
   FooterModule,
-  SocialModule
+  SocialModule,
+  OpenaireModule
 ];
 
 const PROVIDERS = [
