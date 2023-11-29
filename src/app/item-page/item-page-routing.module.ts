@@ -29,8 +29,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         resolve: {
           dso: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver,
-          menu: DSOEditMenuResolver,
-          tabs: CrisItemPageTabResolver
+          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -38,6 +37,9 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedItemPageComponent,
             pathMatch: 'full',
+            resolve: {
+              tabs: CrisItemPageTabResolver
+            }
           },
           {
             path: 'full',
@@ -63,6 +65,13 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: ORCID_PATH,
             component: OrcidPageComponent,
             canActivate: [AuthenticatedGuard, OrcidPageGuard]
+          },
+          {
+            path: ':tab',
+            component: ThemedItemPageComponent,
+            resolve: {
+              tabs: CrisItemPageTabResolver
+            },
           }
         ],
         data: {
