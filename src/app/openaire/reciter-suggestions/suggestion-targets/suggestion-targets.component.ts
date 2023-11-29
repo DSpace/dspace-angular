@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, take } from 'rxjs/operators';
 
-import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  OpenaireSuggestionTarget
+} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
@@ -21,7 +23,7 @@ import { UUIDService } from '../../../core/shared/uuid.service';
   templateUrl: './suggestion-targets.component.html',
   styleUrls: ['./suggestion-targets.component.scss'],
 })
-export class SuggestionTargetsComponent implements OnInit {
+export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDestroy {
 
   /**
    * The source for which to list targets
@@ -125,7 +127,7 @@ export class SuggestionTargetsComponent implements OnInit {
    * Unsubscribe from all subscriptions.
    */
   ngOnDestroy(): void {
-    this.suggestionTargetsStateService.dispatchClearSuggestionTargetsAction();
+    this.suggestionTargetsStateService.dispatchClearSuggestionTargetsAction(this.source);
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());

@@ -1,5 +1,7 @@
 import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
-import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  OpenaireSuggestionTarget
+} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * The interface representing the OpenAIRE suggestion targets state.
@@ -11,30 +13,35 @@ export interface SuggestionTargetEntry {
   totalPages: number;
   currentPage: number;
   totalElements: number;
-  currentUserTargets: OpenaireSuggestionTarget[];
-  currentUserTargetsVisited: boolean;
+
+}
+
+export interface SuggestionSourcesState {
+  [source: string]: SuggestionTargetEntry;
 }
 
 export interface SuggestionTargetState {
-  [source: string]: SuggestionTargetEntry;
+  sources: SuggestionSourcesState;
+  currentUserTargets: OpenaireSuggestionTarget[];
+  currentUserTargetsVisited: boolean;
 }
 
 /**
  * Used for the OpenAIRE Suggestion Target state initialization.
  */
-const SuggestionTargetInitialEntity: SuggestionTargetEntry = {
+const suggestionSourceTargetsInitialState: SuggestionTargetEntry = {
   targets: [],
   processing: false,
   loaded: false,
   totalPages: 0,
   currentPage: 0,
   totalElements: 0,
-  currentUserTargets: null,
-  currentUserTargetsVisited: false
 };
 
 const SuggestionTargetInitialState: SuggestionTargetState = {
-  'oaire' : SuggestionTargetInitialEntity
+  sources: {},
+  currentUserTargets: null,
+  currentUserTargetsVisited: false
 };
 
 /**
@@ -50,103 +57,87 @@ const SuggestionTargetInitialState: SuggestionTargetState = {
 export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, action: SuggestionTargetsActions): SuggestionTargetState {
   switch (action.type) {
     case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE: {
-      const updatedSuggestion = {};
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
+        targets: [],
+        processing: true,
+      });
 
-      for (const key in state) {
-        if (state.hasOwnProperty(key)) {
-          if (key === action.payload.source) {
-            updatedSuggestion[key] = {
-              targets: [],
-              processing: true
-            };
-          } else {
-            updatedSuggestion[key] = state[key];
-          }
-        }
-      }
-      return Object.assign({}, state, updatedSuggestion);
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
+      });
     }
 
     case SuggestionTargetActionTypes.ADD_TARGETS: {
-      const updatedSuggestion = {};
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
+        targets: sourceState.targets.concat(action.payload.targets),
+        processing: false,
+        loaded: true,
+        totalPages: action.payload.totalPages,
+        currentPage: action.payload.currentPage,
+        totalElements: action.payload.totalElements
+      });
 
-      for (const key in state) {
-        if (state.hasOwnProperty(key)) {
-          updatedSuggestion[key] = {
-            targets: state[key].targets.concat(action.payload.targets
-                                  .filter(target => target.source === key)),
-            processing: false,
-            loaded: true,
-            totalPages: action.payload.totalPages,
-            currentPage: state[key].currentPage,
-            totalElements: action.payload.totalElements,
-          };
-        }
-      }
-      return Object.assign({}, state, updatedSuggestion);
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
+      });
     }
 
     case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR: {
-      const updatedSuggestion = {};
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
+        targets: [],
+        processing: false,
+        loaded: true,
+        totalPages: 0,
+        currentPage: 0,
+        totalElements: 0,
+      });
 
-      for (const key in state) {
-        if (state.hasOwnProperty(key)) {
-          updatedSuggestion[key] = {
-            targets: [],
-            processing: false,
-            loaded: true,
-            totalPages: 0,
-            currentPage: 0,
-            totalElements: 0,
-          };
-        }
-      }
-      return Object.assign({}, state, updatedSuggestion);
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
+      });
     }
 
     case SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS: {
-      const updatedSuggestion = {};
-
-      for (const key in state) {
-        if (state.hasOwnProperty(key)) {
-          updatedSuggestion[key] = {
-            targets: state[key].targets.concat(action.payload.suggestionTargets
-              .filter(target => target.source === key)),
-          };
-        }
-      }
-      return Object.assign({}, state, updatedSuggestion);
+      return Object.assign({}, state, {
+        currentUserTargets: action.payload.suggestionTargets
+      });
     }
 
     case SuggestionTargetActionTypes.MARK_USER_SUGGESTIONS_AS_VISITED: {
-      const updatedSuggestion = {};
-
-      for (const key in state) {
-        if (state.hasOwnProperty(key)) {
-          updatedSuggestion[key] = {
-            currentUserTargetsVisited: true
-          };
-        }
-      }
-      return Object.assign({}, state, updatedSuggestion);
+      return Object.assign({}, state, {
+        currentUserTargetsVisited: true
+      });
     }
 
     case SuggestionTargetActionTypes.CLEAR_TARGETS: {
-      const updatedSuggestion = {};
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
+        targets: [],
+        processing: false,
+        loaded: true,
+        totalPages: 0,
+        currentPage: 0,
+        totalElements: 0,
+      });
 
-      for (const key in state) {
-        if (state.hasOwnProperty(key)) {
-          updatedSuggestion[key] = {
-            targets: [],
-            processing: false,
-            loaded: false,
-            totalPages: 0,
-            currentPage: 0,
-            totalElements: 0,
-          };
-        }
-      }
-      return Object.assign({}, state, updatedSuggestion);
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
+      });
     }
 
     default: {

@@ -1,18 +1,10 @@
-import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
-import {subStateSelector} from '../../shared/selector.util';
-import {openaireSelector, OpenaireState} from '../openaire.reducer';
+import { createSelector, MemoizedSelector } from '@ngrx/store';
+import { subStateSelector } from '../../shared/selector.util';
+import { openaireSelector, OpenaireState } from '../openaire.reducer';
 import {
-	OpenaireSuggestionTarget
+  OpenaireSuggestionTarget
 } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
-import {SuggestionTargetState} from './suggestion-targets/suggestion-targets.reducer';
-
-/**
- * Returns the Reciter Suggestion Target state.
- * @function _getReciterSuggestionTargetState
- * @param {AppState} state Top level state.
- * @return {OpenaireState}
- */
-const _getReciterSuggestionTargetState = createFeatureSelector<OpenaireState>('openaire');
+import { SuggestionTargetEntry, SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
 
 // Reciter Suggestion Targets
 // ----------------------------------------------------------------------------
@@ -27,13 +19,21 @@ export function reciterSuggestionTargetStateSelector(): MemoizedSelector<Openair
 }
 
 /**
- * Returns the Reciter Suggestion Targets list.
+ * Returns the Reciter Suggestion source state
  * @function reciterSuggestionTargetObjectSelector
- * @return {OpenaireReciterSuggestionTarget[]}
+ * @return {SuggestionTargetEntry}
+ */
+export function reciterSuggestionSourceSelector(source: string): MemoizedSelector<OpenaireState, SuggestionTargetEntry> {
+  return createSelector(reciterSuggestionTargetStateSelector(),(state: SuggestionTargetState) => state.sources[source]);
+}
+
+/**
+ * Returns the Reciter Suggestion Targets list by source.
+ * @function reciterSuggestionTargetObjectSelector
+ * @return {OpenaireSuggestionTarget[]}
  */
 export function reciterSuggestionTargetObjectSelector(source: string): MemoizedSelector<OpenaireState, OpenaireSuggestionTarget[]> {
-  return createSelector(reciterSuggestionTargetStateSelector(),
-    (state: SuggestionTargetState) => state[source]?.targets);
+  return createSelector(reciterSuggestionSourceSelector(source), (state: SuggestionTargetEntry) => state.targets);
 }
 
 /**
@@ -42,10 +42,7 @@ export function reciterSuggestionTargetObjectSelector(source: string): MemoizedS
  * @return {boolean}
  */
 export const isReciterSuggestionTargetLoadedSelector = (source: string) => {
-  return createSelector(_getReciterSuggestionTargetState, (state: OpenaireState) => {
-    const loaded = state.suggestionTarget[source]?.loaded;
-    return loaded || false;
-  });
+  return createSelector(reciterSuggestionSourceSelector(source), (state: SuggestionTargetEntry) => state?.loaded || false);
 };
 
 /**
@@ -54,10 +51,7 @@ export const isReciterSuggestionTargetLoadedSelector = (source: string) => {
  * @return {boolean}
  */
 export const isreciterSuggestionTargetProcessingSelector = (source: string) => {
-  return createSelector(_getReciterSuggestionTargetState, (state: OpenaireState) => {
-    const processing = state.suggestionTarget[source]?.processing;
-    return processing || false;
-  });
+  return createSelector(reciterSuggestionSourceSelector(source), (state: SuggestionTargetEntry) => state?.processing || false);
 };
 
 /**
@@ -65,26 +59,26 @@ export const isreciterSuggestionTargetProcessingSelector = (source: string) => {
  * @function getreciterSuggestionTargetTotalPagesSelector
  * @return {number}
  */
-export const getreciterSuggestionTargetTotalPagesSelector = (source: string) => {
-  return createSelector(_getReciterSuggestionTargetState, (state: OpenaireState) => state.suggestionTarget[source]?.totalPages);
+export const getReciterSuggestionTargetTotalPagesSelector = (source: string) => {
+  return createSelector(reciterSuggestionSourceSelector(source), (state: SuggestionTargetEntry) => state?.totalPages || 0);
 };
 
 /**
  * Returns the current page of Reciter Suggestion Targets.
- * @function getreciterSuggestionTargetCurrentPageSelector
+ * @function getReciterSuggestionTargetCurrentPageSelector
  * @return {number}
  */
-export const getreciterSuggestionTargetCurrentPageSelector = (source: string) => {
-  return createSelector(_getReciterSuggestionTargetState, (state: OpenaireState) => state.suggestionTarget[source]?.currentPage);
+export const getReciterSuggestionTargetCurrentPageSelector = (source: string) => {
+  return createSelector(reciterSuggestionSourceSelector(source), (state: SuggestionTargetEntry) => state?.currentPage || 0);
 };
 
 /**
  * Returns the total number of Reciter Suggestion Targets.
- * @function getreciterSuggestionTargetTotalsSelector
+ * @function getReciterSuggestionTargetTotalsSelector
  * @return {number}
  */
-export const getreciterSuggestionTargetTotalsSelector = (source: string) => {
-  return createSelector(_getReciterSuggestionTargetState, (state: OpenaireState) => state.suggestionTarget[source]?.totalElements);
+export const getReciterSuggestionTargetTotalsSelector = (source: string) => {
+  return createSelector(reciterSuggestionSourceSelector(source), (state: SuggestionTargetEntry) => state?.totalElements || 0);
 };
 
 /**
@@ -92,24 +86,15 @@ export const getreciterSuggestionTargetTotalsSelector = (source: string) => {
  * @function getCurrentUserReciterSuggestionTargetSelector
  * @return {OpenaireSuggestionTarget[]}
  */
-export const getCurrentUserSuggestionTargetsSelector = createSelector(_getReciterSuggestionTargetState,
-  (state: OpenaireState) => {
-    const suggestionTargetValues = Object.values(state.suggestionTarget);
-    return suggestionTargetValues.reduce(
-      (acc, entry) => acc.concat(entry?.currentUserTargets || []),
-      []);
-  }
-);
+export const getCurrentUserSuggestionTargetsSelector = () => {
+  return createSelector(reciterSuggestionTargetStateSelector(), (state: SuggestionTargetState) => state?.currentUserTargets || []);
+};
 
 /**
- * Returns whether or not the user has consulted their suggestions
+ * Returns whether the user has consulted their suggestions
  * @function getCurrentUserReciterSuggestionTargetSelector
  * @return {boolean}
  */
-export const getCurrentUserSuggestionTargetsVisitedSelector = createSelector(_getReciterSuggestionTargetState,
-  (state: OpenaireState) =>  {
-    const suggestionTargetValues = Object.values(state.suggestionTarget);
-    return suggestionTargetValues.some(
-      (entry) => entry?.currentUserTargetsVisited === true);
-  }
-);
+export const getCurrentUserSuggestionTargetsVisitedSelector = () => {
+  return createSelector(reciterSuggestionTargetStateSelector(), (state: SuggestionTargetState) => state?.currentUserTargetsVisited || false);
+};
