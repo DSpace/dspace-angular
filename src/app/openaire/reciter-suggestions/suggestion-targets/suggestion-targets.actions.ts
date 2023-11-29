@@ -2,10 +2,12 @@
 
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
-import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  OpenaireSuggestionTarget
+} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
- * For each action type in an action group, make a simple
+ * For each action type in A action group, make a simple
  * enum object for all of this group's action types.
  *
  * The 'type' utility function coerces strings into string
@@ -23,7 +25,7 @@ export const SuggestionTargetActionTypes = {
 };
 
 /**
- * An ngrx action to retrieve all the Suggestion Targets.
+ * A ngrx action to retrieve all the Suggestion Targets.
  */
 export class RetrieveTargetsBySourceAction implements Action {
   type = SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE;
@@ -53,18 +55,34 @@ export class RetrieveTargetsBySourceAction implements Action {
 }
 
 /**
- * An ngrx action for retrieving 'all Suggestion Targets' error.
+ * A ngrx action for notifying error.
  */
-export class RetrieveAllTargetsErrorAction implements Action {
+export class RetrieveTargetsBySourceErrorAction implements Action {
   type = SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR;
+  payload: {
+    source: string;
+  };
+
+  /**
+   * Create a new RetrieveTargetsBySourceAction.
+   *
+   * @param source
+   *    the source for which to retrieve suggestion targets
+   */
+  constructor(source: string) {
+    this.payload = {
+      source
+    };
+  }
 }
 
 /**
- * An ngrx action to load the Suggestion Target  objects.
+ * A ngrx action to load the Suggestion Target  objects.
  */
 export class AddTargetAction implements Action {
   type = SuggestionTargetActionTypes.ADD_TARGETS;
   payload: {
+    source: string;
     targets: OpenaireSuggestionTarget[];
     totalPages: number;
     currentPage: number;
@@ -74,6 +92,8 @@ export class AddTargetAction implements Action {
   /**
    * Create a new AddTargetAction.
    *
+   * @param source
+   *    the source of suggestion targets
    * @param targets
    *    the list of targets
    * @param totalPages
@@ -83,8 +103,9 @@ export class AddTargetAction implements Action {
    * @param totalElements
    *    the total available Suggestion Targets
    */
-  constructor(targets: OpenaireSuggestionTarget[], totalPages: number, currentPage: number, totalElements: number) {
+  constructor(source: string, targets: OpenaireSuggestionTarget[], totalPages: number, currentPage: number, totalElements: number) {
     this.payload = {
+      source,
       targets,
       totalPages,
       currentPage,
@@ -95,7 +116,7 @@ export class AddTargetAction implements Action {
 }
 
 /**
- * An ngrx action to load the user Suggestion Target object.
+ * A ngrx action to load the user Suggestion Target object.
  * Called by the ??? effect.
  */
 export class AddUserSuggestionsAction implements Action {
@@ -117,7 +138,7 @@ export class AddUserSuggestionsAction implements Action {
 }
 
 /**
- * An ngrx action to reload the user Suggestion Target object.
+ * A ngrx action to reload the user Suggestion Target object.
  * Called by the ??? effect.
  */
 export class RefreshUserSuggestionsAction implements Action {
@@ -125,7 +146,7 @@ export class RefreshUserSuggestionsAction implements Action {
 }
 
 /**
- * An ngrx action to Mark User Suggestions As Visited.
+ * A ngrx action to Mark User Suggestions As Visited.
  * Called by the ??? effect.
  */
 export class MarkUserSuggestionsAsVisitedAction implements Action {
@@ -133,10 +154,25 @@ export class MarkUserSuggestionsAsVisitedAction implements Action {
 }
 
 /**
- * An ngrx action to clear targets state.
+ * A ngrx action to clear targets state.
  */
 export class ClearSuggestionTargetsAction implements Action {
   type = SuggestionTargetActionTypes.CLEAR_TARGETS;
+  payload: {
+    source: string;
+  };
+
+  /**
+   * Create a new ClearSuggestionTargetsAction.
+   *
+   * @param source
+   *    the source of suggestion targets
+   */
+  constructor(source: string) {
+    this.payload = {
+      source
+    };
+  }
 }
 
 /**
@@ -149,4 +185,4 @@ export type SuggestionTargetsActions
   | ClearSuggestionTargetsAction
   | MarkUserSuggestionsAsVisitedAction
   | RetrieveTargetsBySourceAction
-  | RetrieveAllTargetsErrorAction;
+  | RetrieveTargetsBySourceErrorAction;

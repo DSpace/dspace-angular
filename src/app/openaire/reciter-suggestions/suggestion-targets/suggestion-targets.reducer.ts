@@ -1,16 +1,27 @@
 import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
-import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  OpenaireSuggestionTarget
+} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * The interface representing the OpenAIRE suggestion targets state.
  */
-export interface SuggestionTargetState {
+export interface SuggestionTargetEntry {
   targets: OpenaireSuggestionTarget[];
   processing: boolean;
   loaded: boolean;
   totalPages: number;
   currentPage: number;
   totalElements: number;
+
+}
+
+export interface SuggestionSourcesState {
+  [source: string]: SuggestionTargetEntry;
+}
+
+export interface SuggestionTargetState {
+  sources: SuggestionSourcesState;
   currentUserTargets: OpenaireSuggestionTarget[];
   currentUserTargetsVisited: boolean;
 }
@@ -18,13 +29,17 @@ export interface SuggestionTargetState {
 /**
  * Used for the OpenAIRE Suggestion Target state initialization.
  */
-const SuggestionTargetInitialState: SuggestionTargetState = {
+const suggestionSourceTargetsInitialState: SuggestionTargetEntry = {
   targets: [],
   processing: false,
   loaded: false,
   totalPages: 0,
   currentPage: 0,
   totalElements: 0,
+};
+
+const SuggestionTargetInitialState: SuggestionTargetState = {
+  sources: {},
   currentUserTargets: null,
   currentUserTargetsVisited: false
 };
@@ -42,31 +57,55 @@ const SuggestionTargetInitialState: SuggestionTargetState = {
 export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, action: SuggestionTargetsActions): SuggestionTargetState {
   switch (action.type) {
     case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE: {
-      return Object.assign({}, state, {
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
         targets: [],
-        processing: true
+        processing: true,
+      });
+
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
       });
     }
 
     case SuggestionTargetActionTypes.ADD_TARGETS: {
-      return Object.assign({}, state, {
-        targets: state.targets.concat(action.payload.targets),
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
+        targets: sourceState.targets.concat(action.payload.targets),
         processing: false,
         loaded: true,
         totalPages: action.payload.totalPages,
-        currentPage: state.currentPage,
+        currentPage: action.payload.currentPage,
         totalElements: action.payload.totalElements
+      });
+
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
       });
     }
 
     case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR: {
-      return Object.assign({}, state, {
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
         targets: [],
         processing: false,
         loaded: true,
         totalPages: 0,
         currentPage: 0,
         totalElements: 0,
+      });
+
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
       });
     }
 
@@ -83,13 +122,21 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
     }
 
     case SuggestionTargetActionTypes.CLEAR_TARGETS: {
-      return Object.assign({}, state, {
+      const sourceState = state.sources[action.payload.source] || Object.assign({}, suggestionSourceTargetsInitialState);
+      const newSourceState = Object.assign({}, sourceState, {
         targets: [],
         processing: false,
-        loaded: false,
+        loaded: true,
         totalPages: 0,
         currentPage: 0,
         totalElements: 0,
+      });
+
+      return Object.assign({}, state, {
+        sources:
+          Object.assign({}, state.sources, {
+            [action.payload.source]: newSourceState
+          })
       });
     }
 
