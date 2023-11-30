@@ -17,9 +17,9 @@
         <div class="col-md-8">
           <input type="hidden" formControlName="subscriptionId" [value]="subscriptionType?.value?.controls['subscriptionId'].value" >
           <div class="form-check" formGroupName="frequencies" *ngFor="let frequency of frequencyDefaultValues">
-            <input type="checkbox" [id]="'checkbox-' + frequency" class="form-check-input" [formControlName]="frequency"/>
+            <input type="checkbox" [id]="'checkbox-' + subscriptionType.key + frequency" class="form-check-input" [formControlName]="frequency"/>
             <label class="form-check-label"
-                   [for]="'checkbox-' + frequency">{{ 'subscriptions.modal.new-subscription-form.frequency.' + frequency | translate }}</label>
+                   [for]="'checkbox-' + subscriptionType.key  + frequency">{{ 'subscriptions.modal.new-subscription-form.frequency.' + frequency | translate }}</label>
           </div>
         </div>
         <ds-alert *ngIf="!!submitted && subscriptionType?.value?.controls['frequencies'].errors?.required" [type]="'alert-danger'">

@@ -51,7 +51,8 @@ const MODULES = [
   CoreModule.forRoot(),
   StoreModule.forFeature('openaire', openaireReducers, storeModuleConfig as StoreConfig<OpenaireState, Action>),
   EffectsModule.forFeature(openaireEffects),
-  TranslateModule
+  TranslateModule,
+  SearchModule
 ];
 
 const COMPONENTS = [
@@ -86,7 +87,6 @@ const PROVIDERS = [
 @NgModule({
     imports: [
         ...MODULES,
-        SearchModule
     ],
   declarations: [
     ...COMPONENTS,
@@ -95,9 +95,6 @@ const PROVIDERS = [
   ],
   providers: [
     ...PROVIDERS
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
   ],
   exports: [
     ...COMPONENTS,

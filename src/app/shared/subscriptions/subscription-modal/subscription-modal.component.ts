@@ -228,7 +228,6 @@ export class SubscriptionModalComponent implements OnInit {
         }),
         toArray(),
         tap((res: RemoteData<Subscription>[]) => {
-          console.log(res);
           const successTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasSucceeded)
                                   .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
           const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed);

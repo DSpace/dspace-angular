@@ -10,8 +10,8 @@ import {
   AddTargetAction,
   AddUserSuggestionsAction,
   RefreshUserSuggestionsAction,
-  RetrieveAllTargetsErrorAction,
   RetrieveTargetsBySourceAction,
+  RetrieveTargetsBySourceErrorAction,
   SuggestionTargetActionTypes,
 } from './suggestion-targets.actions';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -41,13 +41,13 @@ export class SuggestionTargetsEffects {
         action.payload.currentPage
       ).pipe(
         map((targets: PaginatedList<OpenaireSuggestionTarget>) =>
-          new AddTargetAction(targets.page, targets.totalPages, targets.currentPage, targets.totalElements)
+          new AddTargetAction(action.payload.source, targets.page, targets.totalPages, targets.currentPage, targets.totalElements)
         ),
         catchError((error: Error) => {
           if (error) {
             console.error(error.message);
           }
-          return of(new RetrieveAllTargetsErrorAction());
+          return of(new RetrieveTargetsBySourceErrorAction(action.payload.source));
         })
       );
     })

@@ -42,10 +42,7 @@ import {
 import { FooterModule } from './footer/footer.module';
 import { SocialModule } from './social/social.module';
 import { ExploreModule } from './shared/explore/explore.module';
-import { BreadcrumbTooltipPipe } from './breadcrumbs/breadcrumb/breadcrumb-tooltip.pipe';
-import {
-  TruncateBreadcrumbItemCharactersPipe
-} from './breadcrumbs/breadcrumb/truncate-breadcrumb-item-characters.pipe';
+import { OpenaireModule } from './openaire/openaire.module';
 
 const IMPORTS = [
   CommonModule,
@@ -55,7 +52,8 @@ const IMPORTS = [
   NgbModule,
   ExploreModule,
   FooterModule,
-  SocialModule
+  SocialModule,
+  OpenaireModule
 ];
 
 const PROVIDERS = [
@@ -87,8 +85,6 @@ const DECLARATIONS = [
   ThemedPageErrorComponent,
   PageErrorComponent,
   ContextHelpToggleComponent,
-  TruncateBreadcrumbItemCharactersPipe,
-  BreadcrumbTooltipPipe
 ];
 
 const EXPORTS = [
