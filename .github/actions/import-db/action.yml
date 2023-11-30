@@ -24,7 +24,7 @@ runs:
       with:
         repository: dataquest-dev/dspace-python-api
         path: dspace-python-api
-        ref: 'refactor_jm'
+        ref: 'main'
 
 
     - name: stop and remove containers
