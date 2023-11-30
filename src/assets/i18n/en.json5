@@ -2105,7 +2105,7 @@
 
   "error.validation.custom-url.invalid-characters": "The custom url contains invalid characters.",
 
-  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+  "error.validation.license.required": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
