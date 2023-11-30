@@ -37,6 +37,7 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 
 @NgModule({
   imports: [
@@ -152,6 +153,12 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
             canActivate: [EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
+              .then((m) => m.AdminNotificationsModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',

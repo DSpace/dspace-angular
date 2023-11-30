@@ -556,7 +556,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.quality-assurance',
-            link: '/admin/notifications/quality-assurance'
+            link: '/notifications/quality-assurance'
           } as LinkMenuItemModel,
         },
         /*  Admin Search */

@@ -8,6 +8,8 @@ import { QualityAssuranceSourceDataService } from '../../../core/notifications/q
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { map, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
+import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+
 @Component({
   selector: 'ds-qa-event-notification',
   templateUrl: './qa-event-notification.component.html',
@@ -49,5 +51,13 @@ export class QaEventNotificationComponent {
           return [];
         })
       );
+  }
+
+  /**
+   * Returns the quality assurance route.
+   * @returns The quality assurance route.
+   */
+  getQualityAssuranceRoute(): string {
+    return getNotificatioQualityAssuranceRoute();
   }
 }

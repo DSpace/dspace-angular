@@ -3,6 +3,8 @@ import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/s
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../core/shared/operators';
 import { Observable, of, tap } from 'rxjs';
 import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
+import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
+
 @Component({
   selector: 'ds-my-dspace-qa-events-notifications',
   templateUrl: './my-dspace-qa-events-notifications.component.html',
@@ -38,4 +40,11 @@ export class MyDspaceQaEventsNotificationsComponent implements OnInit {
       );
   }
 
+  /**
+   * Retrieves the quality assurance route.
+   * @returns The quality assurance route.
+   */
+  getQualityAssuranceRoute(): string {
+    return getNotificatioQualityAssuranceRoute();
+  }
 }
