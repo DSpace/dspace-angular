@@ -6282,6 +6282,8 @@
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
+  "submission.sections.upload.format": "Bitstream format",
+
   "submission.sections.upload.checksum": "Checksum",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
