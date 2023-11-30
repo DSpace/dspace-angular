@@ -13,6 +13,8 @@ import { RemoteData } from '../../core/data/remote-data';
 import { SCRIPT } from '../scripts/script.resource-type';
 import { Script } from '../scripts/script.model';
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
+import { BITSTREAM } from '../../core/shared/bitstream.resource-type';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 
 /**
  * Object representing a process
@@ -94,4 +96,11 @@ export class Process implements CacheableObject {
    */
   @link(PROCESS_OUTPUT_TYPE)
   output?: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * The files created by this Process
+   * Will be undefined unless the output {@link HALLink} has been resolved.
+   */
+  @link(BITSTREAM, true)
+  files?: Observable<RemoteData<PaginatedList<Bitstream>>>;
 }
