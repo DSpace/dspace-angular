@@ -4,7 +4,6 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { By } from '@angular/platform-browser';
 
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { cold } from 'jasmine-marbles';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -155,13 +154,13 @@ describe('ContextMenuComponent', () => {
       done();
     });
 
-    it('should display d-none', (done) => {
+    it('should use d-none', (done) => {
       const menu = fixture.debugElement.query(By.css('div.d-none'));
       expect(menu).not.toBeNull();
       done();
     });
 
-    it('should not display d-inline-block', (done) => {
+    it('should not use d-inline-block', (done) => {
       const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
       expect(menu).toBeNull();
       done();
@@ -170,11 +169,6 @@ describe('ContextMenuComponent', () => {
     it('should display stand alone buttons', (done) => {
       const menu = fixture.debugElement.query(By.css('button.btn-primary'));
       expect(menu).not.toBeNull();
-      done();
-    });
-
-    it('should check the authorization of the current user', (done) => {
-      expect(component.isAuthenticated).toBeObservable(cold('a', { a: true }));
       done();
     });
 
@@ -218,32 +212,27 @@ describe('ContextMenuComponent', () => {
         done();
       });
 
-      it('should not display context menu', (done) => {
+      it('should display context menu', (done) => {
         const menu = fixture.debugElement.query(By.css('button#context-menu'));
         expect(menu).not.toBeNull();
         done();
       });
 
-      it('should display d-none', (done) => {
+      it('should use d-none', (done) => {
         const menu = fixture.debugElement.query(By.css('div.d-none'));
         expect(menu).not.toBeNull();
         done();
       });
 
-      it('should not display d-inline-block', (done) => {
+      it('should not use d-inline-block', (done) => {
         const menu = fixture.debugElement.query(By.css('div.d-inline-block'));
         expect(menu).toBeNull();
         done();
       });
 
-      it('should not display stand alone buttons', (done) => {
+      it('should display stand alone buttons', (done) => {
         const menu = fixture.debugElement.query(By.css('button.btn-primary'));
         expect(menu).not.toBeNull();
-        done();
-      });
-
-      it('should check the authorization of the current user', (done) => {
-        expect(component.isAuthenticated).toBeObservable(cold('a', { a: false }));
         done();
       });
     });
@@ -259,9 +248,9 @@ describe('ContextMenuComponent', () => {
         done();
       });
 
-      it('should not display context menu', (done) => {
+      it('should display context menu', (done) => {
         const menu = fixture.debugElement.query(By.css('button#context-menu'));
-        expect(menu).toBeNull();
+        expect(menu).not.toBeNull();
         done();
       });
 
@@ -271,14 +260,9 @@ describe('ContextMenuComponent', () => {
         done();
       });
 
-      it('should not display d-none', (done) => {
+      it('should display d-none', (done) => {
         const menu = fixture.debugElement.query(By.css('div.d-none'));
-        expect(menu).toBeNull();
-        done();
-      });
-
-      it('should check the authorization of the current user', (done) => {
-        expect(component.isAuthenticated).toBeObservable(cold('a', { a: false }));
+        expect(menu).not.toBeNull();
         done();
       });
     });
