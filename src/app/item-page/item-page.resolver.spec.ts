@@ -6,6 +6,7 @@ import { ItemPageResolver } from './item-page.resolver';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { HardRedirectService } from '../core/services/hard-redirect.service';
 
 describe('ItemPageResolver', () => {
   beforeEach(() => {
@@ -23,6 +24,7 @@ describe('ItemPageResolver', () => {
 
     let store;
     let router;
+    let hardRedirectService: HardRedirectService ;
     const uuid = '1234-65487-12354-1235';
     const item = Object.assign(new Item(), {
       id: uuid,
@@ -64,8 +66,12 @@ describe('ItemPageResolver', () => {
           dispatch: {},
         });
 
+        hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
+          'redirect': jasmine.createSpy('redirect')
+        });
+
         spyOn(router, 'navigateByUrl');
-        resolver = new ItemPageResolver(itemService, store, router);
+        resolver = new ItemPageResolver(hardRedirectService, itemService, store, router);
       });
 
       it('should resolve a an item from from the item with the url redirect', (done) => {
@@ -106,7 +112,7 @@ describe('ItemPageResolver', () => {
           .pipe(first())
           .subscribe(
             (resolved) => {
-              expect(router.navigateByUrl).not.toHaveBeenCalledWith('/entities/person/customurl/edit');
+              expect(hardRedirectService.redirect).not.toHaveBeenCalledWith('/entities/person/customurl/edit');
               done();
             }
           );
@@ -126,16 +132,31 @@ describe('ItemPageResolver', () => {
           dispatch: {},
         });
 
+        hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
+          'redirect': jasmine.createSpy('redirect')
+        });
+
         spyOn(router, 'navigateByUrl');
-        resolver = new ItemPageResolver(itemService, store, router);
+        resolver = new ItemPageResolver(hardRedirectService, itemService, store, router);
       });
 
-      it('should not call custom url', (done) => {
-        resolver.resolve({ params: { id: uuid } } as any, { url: 'test-url/1234-65487-12354-1235/edit' } as any)
+      it('should redirect if it has not the new item url', (done) => {
+        resolver.resolve({ params: { id: uuid } } as any, { url: '/items/1234-65487-12354-1235/edit' } as any)
           .pipe(first())
           .subscribe(
             (resolved) => {
-              expect(router.navigateByUrl).toHaveBeenCalledWith('/entities/person/1234-65487-12354-1235/edit');
+              expect(hardRedirectService.redirect).toHaveBeenCalledWith('/entities/person/1234-65487-12354-1235/edit', 301);
+              done();
+            }
+          );
+      });
+
+      it('should not redirect if it has the new item url', (done) => {
+        resolver.resolve({ params: { id: uuid } } as any, { url: '/entities/person/1234-65487-12354-1235/edit' } as any)
+          .pipe(first())
+          .subscribe(
+            (resolved) => {
+              expect(hardRedirectService.redirect).not.toHaveBeenCalled();
               done();
             }
           );

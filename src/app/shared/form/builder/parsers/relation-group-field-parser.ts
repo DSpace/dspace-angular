@@ -58,6 +58,7 @@ export class RelationGroupFieldParser extends FieldParser {
       }
     };
 
+    this.initSecurityValue(modelConfiguration);
     const model = new DynamicRelationGroupModel(modelConfiguration, cls);
     model.name = this.getFieldId();
     model.isInlineGroup = (this.configData.input.type === ParserType.InlineGroup);

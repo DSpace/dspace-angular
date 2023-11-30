@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { getItemPageRoute } from './item-page-routing-paths';
 import { ItemResolver } from './item.resolver';
+import { HardRedirectService } from '../core/services/hard-redirect.service';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated and will redirect to the
@@ -17,6 +18,7 @@ import { ItemResolver } from './item.resolver';
 @Injectable()
 export class ItemPageResolver extends ItemResolver {
   constructor(
+    protected hardRedirectService: HardRedirectService,
     protected itemService: ItemDataService,
     protected store: Store<any>,
     protected router: Router
@@ -53,7 +55,7 @@ export class ItemPageResolver extends ItemResolver {
             if (!thisRoute.startsWith(itemRoute)) {
               const itemId = rd.payload.uuid;
               const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
-              this.router.navigateByUrl(itemRoute + subRoute);
+              this.hardRedirectService.redirect(itemRoute + subRoute, 301);
             }
           }
         }

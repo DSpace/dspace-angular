@@ -29,6 +29,7 @@ export class SuggestionsNotificationComponent implements OnInit {
 
   ngOnInit() {
     this.suggestionsRD$ = this.reciterSuggestionStateService.getCurrentUserSuggestionTargets();
+    this.reciterSuggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction();
   }
 
   /**

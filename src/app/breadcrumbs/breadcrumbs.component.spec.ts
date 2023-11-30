@@ -10,30 +10,22 @@ import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of as observableOf } from 'rxjs';
 import { DebugElement } from '@angular/core';
-import { BreadcrumbTooltipPipe } from './breadcrumb/breadcrumb-tooltip.pipe';
-import { TruncateBreadcrumbItemCharactersPipe } from './breadcrumb/truncate-breadcrumb-item-characters.pipe';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('BreadcrumbsComponent', () => {
   let component: BreadcrumbsComponent;
   let fixture: ComponentFixture<BreadcrumbsComponent>;
   let breadcrumbsServiceMock: BreadcrumbsService;
-  let truncateTextPipe: TruncateBreadcrumbItemCharactersPipe;
 
   const expectBreadcrumb = (listItem: DebugElement, text: string, url: string) => {
     const anchor = listItem.query(By.css('a'));
-    const truncatedText = truncateTextPipe.transform(text);
+
     if (url == null) {
       expect(anchor).toBeNull();
-       // remove leading whitespace characters
-      const textWithoutSpaces = listItem.nativeElement.innerHTML.trimStart().replace(/^\s+/, '');
-      expect(textWithoutSpaces).toEqual(truncatedText);
+      expect(listItem.nativeElement.innerHTML).toEqual(text);
     } else {
       expect(anchor).toBeInstanceOf(DebugElement);
       expect(anchor.attributes.href).toEqual(url);
-       // remove leading whitespace characters
-      const textWithoutSpaces = anchor.nativeElement.innerHTML.trimStart().replace(/^\s+/, '');
-      expect(textWithoutSpaces).toEqual(truncatedText);
+      expect(anchor.nativeElement.innerHTML).toEqual(text);
     }
   };
 
@@ -43,7 +35,6 @@ describe('BreadcrumbsComponent', () => {
         // NOTE: a root breadcrumb is automatically rendered
         new Breadcrumb('bc 1', 'example.com'),
         new Breadcrumb('bc 2', 'another.com'),
-        new Breadcrumb('breadcrumb to be truncated', 'truncated.com'),
       ]),
       showBreadcrumbs$: observableOf(true),
     } as BreadcrumbsService;
@@ -52,11 +43,8 @@ describe('BreadcrumbsComponent', () => {
       declarations: [
         BreadcrumbsComponent,
         VarDirective,
-        BreadcrumbTooltipPipe,
-        TruncateBreadcrumbItemCharactersPipe,
       ],
       imports: [
-        NgbTooltipModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
@@ -67,12 +55,10 @@ describe('BreadcrumbsComponent', () => {
       ],
       providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },
-        { provide: TruncateBreadcrumbItemCharactersPipe, useClass: TruncateBreadcrumbItemCharactersPipe },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BreadcrumbsComponent);
-    truncateTextPipe = TestBed.inject(TruncateBreadcrumbItemCharactersPipe);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -81,35 +67,12 @@ describe('BreadcrumbsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the breadcrumbs accordingly', () => {
+  it('should render the breadcrumbs', () => {
     const breadcrumbs = fixture.debugElement.queryAll(By.css('.breadcrumb-item'));
-    expect(breadcrumbs.length).toBe(4);
+    expect(breadcrumbs.length).toBe(3);
     expectBreadcrumb(breadcrumbs[0], 'home.breadcrumbs', '/');
     expectBreadcrumb(breadcrumbs[1], 'bc 1', '/example.com');
     expectBreadcrumb(breadcrumbs[2].query(By.css('.text-truncate')), 'bc 2', null);
-    expectBreadcrumb(breadcrumbs[3].query(By.css('.text-truncate')), 'breadcrumb...', null);
-  });
-
-  it('should show tooltip only for truncated text', () => {
-    const breadcrumbs = fixture.debugElement.queryAll(By.css('.breadcrumb-item .text-truncate'));
-    expect(breadcrumbs.length).toBe(4);
-
-    const truncatable = breadcrumbs[3];
-    truncatable.triggerEventHandler('mouseenter', null);
-    fixture.detectChanges();
-    let tooltip = truncatable.parent.query(By.css('div.tooltip-inner'));
-    expect(tooltip).not.toBeNull();
-    expect(tooltip.nativeElement.innerText).toBe('breadcrumb to be truncated');
-    truncatable.triggerEventHandler('mouseleave', null);
-    fixture.detectChanges();
-
-    const notTruncatable = breadcrumbs[2];
-    notTruncatable.triggerEventHandler('mouseenter', null);
-    fixture.detectChanges();
-    const tooltip2 = notTruncatable.parent.query(By.css('div.tooltip-inner'));
-    expect(tooltip2).toBeNull();
-    notTruncatable.triggerEventHandler('mouseleave', null);
-    fixture.detectChanges();
   });
 
 });
