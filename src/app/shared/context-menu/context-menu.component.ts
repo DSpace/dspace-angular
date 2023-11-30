@@ -1,12 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-import { select, Store } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
 import { concatMap, filter, map, reduce, take } from 'rxjs/operators';
 
-import { CoreState } from '../../core/core-state.model';
-import { isAuthenticated } from '../../core/auth/selectors';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryRenderOptions, getContextMenuEntriesForDSOType } from './context-menu.decorator';
@@ -40,12 +37,6 @@ export class ContextMenuComponent implements OnInit {
   @Input() contextMenuObjectType: DSpaceObjectType;
 
   /**
-   * Whether user is authenticated.
-   * @type {Observable<string>}
-   */
-  public isAuthenticated: Observable<boolean>;
-
-  /**
    * Injector to inject a menu entry component with the @Input parameters
    * @type {Injector}
    */
@@ -61,16 +52,15 @@ export class ContextMenuComponent implements OnInit {
    * Initialize instance variables
    *
    * @param {Document} _document
+   * @param {ChangeDetectorRef} cdr
    * @param {ConfigurationDataService} configurationService
    * @param {Injector} injector
-   * @param {Store<CoreState>} store
    */
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private cdr: ChangeDetectorRef,
     private configurationService: ConfigurationDataService,
-    private injector: Injector,
-    private store: Store<CoreState>
+    private injector: Injector
   ) {
   }
 
@@ -82,8 +72,6 @@ export class ContextMenuComponent implements OnInit {
       ],
       parent: this.injector
     });
-    // set isAuthenticated
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
   }
 
   /**
