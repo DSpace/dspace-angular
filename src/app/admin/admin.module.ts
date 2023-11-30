@@ -12,6 +12,8 @@ import { ExpandableAdminSidebarSectionComponent } from './admin-sidebar/expandab
 import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { EditCmsMetadataComponent } from './edit-cms-metadata/edit-cms-metadata.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { UploadModule } from '../shared/upload/upload.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -27,7 +29,9 @@ const ENTRY_COMPONENTS = [
     AccessControlModule,
     AdminSearchModule.withEntryComponents(),
     AdminWorkflowModuleModule.withEntryComponents(),
-    SharedModule
+    SharedModule,
+    UiSwitchModule,
+    UploadModule,
   ],
   declarations: [
     AdminCurationTasksComponent,

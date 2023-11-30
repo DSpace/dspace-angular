@@ -36,19 +36,31 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
+import { ThemedMediaViewerComponent } from './media-viewer/themed-media-viewer.component';
 import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/media-viewer-video.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer/media-viewer-video/themed-media-viewer-video.component';
 import { MediaViewerImageComponent } from './media-viewer/media-viewer-image/media-viewer-image.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer/media-viewer-image/themed-media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MiradorViewerModule } from './mirador-viewer/mirador-viewer.module';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import { VersionedItemComponent } from './simple/item-types/versioned-item/versioned-item.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
 import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
 import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
-
+import { UploadModule } from '../shared/upload/upload.module';
+import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
+import { ItemVersionsModule } from './versions/item-versions.module';
+import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
+import { ItemSharedModule } from './item-shared.module';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
+import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component';
+import {
+  ThemedFullFileSectionComponent
+} from './full/field-components/file-section/themed-full-file-section.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -57,6 +69,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DECLARATIONS = [
+  FileSectionComponent,
   ThemedFileSectionComponent,
   ItemPageComponent,
   ThemedItemPageComponent,
@@ -70,19 +83,25 @@ const DECLARATIONS = [
   ItemPageFieldComponent,
   CollectionsComponent,
   FullFileSectionComponent,
+  ThemedFullFileSectionComponent,
   PublicationComponent,
   UntypedItemComponent,
   ItemComponent,
   UploadBitstreamComponent,
   AbstractIncrementalListComponent,
   MediaViewerComponent,
+  ThemedMediaViewerComponent,
   MediaViewerVideoComponent,
+  ThemedMediaViewerVideoComponent,
   MediaViewerImageComponent,
+  ThemedMediaViewerImageComponent,
   VersionPageComponent,
   OrcidPageComponent,
   OrcidAuthComponent,
   OrcidSyncSettingsComponent,
-  OrcidQueueComponent
+  OrcidQueueComponent,
+  ThemedItemAlertsComponent,
+  BitstreamRequestACopyPageComponent,
 ];
 
 @NgModule({
@@ -91,21 +110,26 @@ const DECLARATIONS = [
     SharedModule.withEntryComponents(),
     ItemPageRoutingModule,
     EditItemPageModule,
+    ItemVersionsModule,
+    ItemSharedModule,
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     NgxGalleryModule,
     NgbAccordionModule,
+    ResultsBackButtonModule,
+    UploadModule,
+    DsoPageModule,
     CrisItemPageModule,
     ContextMenuModule.withEntryComponents(),
     MiradorViewerModule,
   ],
   declarations: [
     ...DECLARATIONS,
-    VersionedItemComponent
+
   ],
   exports: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ]
 })
 export class ItemPageModule {

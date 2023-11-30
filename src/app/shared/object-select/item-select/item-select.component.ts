@@ -8,6 +8,8 @@ import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-item-select',
@@ -34,8 +36,13 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
     [itemId: string]: string
   }>;
 
-  constructor(protected objectSelectService: ObjectSelectService,
-              protected authorizationService: AuthorizationDataService ) {
+  authorMetadata = environment.searchResult.authorMetadata;
+
+  constructor(
+    protected objectSelectService: ObjectSelectService,
+    protected authorizationService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
+  ) {
     super(objectSelectService, authorizationService);
   }
 

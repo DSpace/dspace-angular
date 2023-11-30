@@ -5,11 +5,13 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 export enum SelectorActionType {
   CREATE = 'create',
   EDIT = 'edit',
-  EXPORT_METADATA = 'export-metadata',
+  EXPORT_METADATA_CSV = 'export-metadata-csv',
+  EXPORT_METADATA_XLS = 'export-metadata-xls',
   IMPORT_BATCH = 'import-batch',
   SET_SCOPE = 'set-scope',
   EXPORT_BATCH = 'export-batch',
@@ -61,6 +63,11 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
    * The type of action to perform
    */
   action: SelectorActionType;
+
+  /**
+   * Default DSO ordering
+   */
+  defaultSort: SortOptions;
 
   /**
    * Event emitted when a DSO entry is selected if emitOnly is set to true

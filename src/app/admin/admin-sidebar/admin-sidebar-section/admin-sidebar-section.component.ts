@@ -5,15 +5,14 @@ import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorat
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { MenuID } from '../../../shared/menu/menu-id.model';
-import { isNotEmpty } from '../../../shared/empty.util';
+import { isEmpty } from '../../../shared/empty.util';
 import { Router } from '@angular/router';
 
 /**
  * Represents a non-expandable section in the admin sidebar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-admin-sidebar-section]',
+  selector: 'ds-admin-sidebar-section',
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
 
@@ -26,7 +25,12 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
    */
   menuID: MenuID = MenuID.ADMIN;
   itemModel;
-  hasLink: boolean;
+
+  /**
+   * Boolean to indicate whether this section is disabled
+   */
+  isDisabled: boolean;
+
   constructor(
     @Inject('sectionDataProvider') menuSection: MenuSection,
     protected menuService: MenuService,
@@ -38,13 +42,13 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
   }
 
   ngOnInit(): void {
-    this.hasLink = isNotEmpty(this.itemModel?.link);
+    this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
     super.ngOnInit();
   }
 
   navigate(event: any): void {
     event.preventDefault();
-    if (this.hasLink) {
+    if (!this.isDisabled) {
       this.router.navigate(this.itemModel.link);
     }
   }

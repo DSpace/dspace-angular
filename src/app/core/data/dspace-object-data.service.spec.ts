@@ -19,6 +19,7 @@ describe('DSpaceObjectDataService', () => {
     uuid: '9b4f22f4-164a-49db-8817-3316b6ee5746'
   } as DSpaceObject;
   const dsoLink = 'https://rest.api/rest/api/dso/find{?uuid}';
+  const itemsLink = 'https://rest.api/rest/api/items';
   const requestURL = `https://rest.api/rest/api/dso/find?uuid=${testObject.uuid}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
 
@@ -66,6 +67,28 @@ describe('DSpaceObjectDataService', () => {
 
     it('should return a RemoteData<DSpaceObject> for the object with the given ID', () => {
       const result = service.findById(testObject.uuid);
+      const expected = cold('a', {
+        a: {
+          payload: testObject
+        }
+      });
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should call HALEndpointService with the path to the dso endpoint', () => {
+      spyOn((service as  any), 'findByCustomUrl');
+      scheduler.schedule(() => service.findById('customurl'));
+      scheduler.flush();
+
+      expect((service as  any).findByCustomUrl).toHaveBeenCalled();
+    });
+  });
+
+  describe('findByCustomUrl', () => {
+
+    it('should return a RemoteData<DSpaceObject> for the object with the given custom url', () => {
+      (service as  any).halService.getEndpoint.and.returnValue(cold('a', { a: itemsLink }));
+      const result = (service as  any).findByCustomUrl('customurl');
       const expected = cold('a', {
         a: {
           payload: testObject

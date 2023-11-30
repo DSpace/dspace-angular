@@ -3,7 +3,7 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
 import { EndpointMapRequest } from '../data/request.models';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';

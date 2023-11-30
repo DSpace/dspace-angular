@@ -1,6 +1,6 @@
 import { SectionAccessesService } from './section-accesses.service';
 import { Component, Inject, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
@@ -32,6 +32,7 @@ import {
   ACCESS_CONDITION_GROUP_LAYOUT,
   ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
   ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
+  ACCESS_CONDITIONS_FORM_TRANSLATION_CONFIG,
   ACCESS_FORM_CHECKBOX_CONFIG,
   ACCESS_FORM_CHECKBOX_LAYOUT,
   FORM_ACCESS_CONDITION_END_DATE_CONFIG,
@@ -194,8 +195,8 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
       if (event.model.id === FORM_ACCESS_CONDITION_TYPE_CONFIG.id) {
         // Clear previous state when switching through different access conditions
 
-        const startDateControl: FormControl = event.control.parent.get('startDate') as FormControl;
-        const endDateControl: FormControl = event.control.parent.get('endDate') as FormControl;
+        const startDateControl: UntypedFormControl = event.control.parent.get('startDate') as UntypedFormControl;
+        const endDateControl: UntypedFormControl = event.control.parent.get('endDate') as UntypedFormControl;
 
         startDateControl?.markAsUntouched();
         endDateControl?.markAsUntouched();
@@ -336,7 +337,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
     for (const accessCondition of this.availableAccessConditionOptions) {
       accessConditionTypeOptions.push(
         {
-          label: accessCondition.name,
+          label: this.translate.instant(`${ACCESS_CONDITIONS_FORM_TRANSLATION_CONFIG}${accessCondition.name}`),
           value: accessCondition.name
         }
       );

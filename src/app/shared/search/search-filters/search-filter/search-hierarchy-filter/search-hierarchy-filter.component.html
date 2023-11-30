@@ -29,3 +29,11 @@
                           ngDefaultControl
     ></ds-filter-input-suggestions>
 </div>
+
+<a *ngIf="vocabularyExists$ | async"
+   href="javascript:void(0);"
+   id="show-{{filterConfig.name}}-tree"
+   data-test="btn-more"
+   (click)="showVocabularyTree()">
+   {{'search.filters.filter.show-tree' | translate: {name: ('search.filters.filter.' + filterConfig.name + '.head' | translate | lowercase )} }}
+</a>

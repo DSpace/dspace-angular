@@ -25,6 +25,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
+import { UUIDService } from '../../../../../../../core/shared/uuid.service';
 
 /**
  * The possible types of import for the external entry
@@ -155,12 +156,13 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
               private selectService: SelectableListService,
               private itemService: ItemDataService,
               private notificationsService: NotificationsService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private uuidService: UUIDService) {
   }
 
   ngOnInit(): void {
     this.uri = Metadata.first(this.externalSourceEntry.metadata, 'dc.identifier.uri');
-    const pagination = Object.assign(new PaginationComponentOptions(), { id: 'external-entry-import', pageSize: 5 });
+    const pagination = Object.assign(new PaginationComponentOptions(), { id: this.uuidService.generate(), pageSize: 5 });
     this.searchOptions = Object.assign(new PaginatedSearchOptions({ query: this.externalSourceEntry.value, pagination: pagination }));
     this.localEntitiesRD$ = this.lookupRelationService.getLocalResults(this.relationship, this.searchOptions);
   }

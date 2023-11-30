@@ -11,7 +11,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RequestService } from '../../../../core/data/request.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { createFailedRemoteDataObject$, createNoContentRemoteDataObject$ } from '../../../remote-data.utils';

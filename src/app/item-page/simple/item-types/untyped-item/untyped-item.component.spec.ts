@@ -36,7 +36,11 @@ import { VersionDataService } from '../../../../core/data/version-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { ItemVersionsSharedService } from '../../../../shared/item/item-versions/item-versions-shared.service';
+import { ItemVersionsSharedService } from '../../../versions/item-versions-shared.service';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import {
+  BrowseDefinitionDataServiceStub
+} from '../../../../shared/testing/browse-definition-data-service.stub';
 
 const noMetadata = new MetadataMap();
 
@@ -90,7 +94,8 @@ describe('UntypedItemComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: ItemVersionsSharedService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(UntypedItemComponent, {
@@ -169,13 +174,12 @@ describe('UntypedItemComponent', () => {
   });
 
   describe('with IIIF viewer and search', () => {
-
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/search?query=test%20query&fakeParam=true');
+      }
+    };
     beforeEach(waitForAsync(() => {
-      const localMockRouteService = {
-        getPreviousUrl(): Observable<string> {
-          return of('/search?query=test%20query&fakeParam=true');
-        }
-      };
       const iiifEnabledMap: MetadataMap = {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],
@@ -183,6 +187,7 @@ describe('UntypedItemComponent', () => {
       TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
       TestBed.compileComponents();
       fixture = TestBed.createComponent(UntypedItemComponent);
+      spyOn(localMockRouteService, 'getPreviousUrl').and.callThrough();
       comp = fixture.componentInstance;
       comp.object = getItem(iiifEnabledMap);
       fixture.detectChanges();
@@ -196,17 +201,16 @@ describe('UntypedItemComponent', () => {
     it('should retrieve the query term for previous route', (): void => {
       expect(comp.iiifQuery$.subscribe(result => expect(result).toEqual('test query')));
     });
-
   });
 
   describe('with IIIF viewer and search but no previous search query', () => {
 
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/item');
+      }
+    };
     beforeEach(waitForAsync(() => {
-      const localMockRouteService = {
-        getPreviousUrl(): Observable<string> {
-          return of('/item');
-        }
-      };
       const iiifEnabledMap: MetadataMap = {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],
@@ -214,6 +218,7 @@ describe('UntypedItemComponent', () => {
       TestBed.overrideProvider(RouteService, {useValue: localMockRouteService});
       TestBed.compileComponents();
       fixture = TestBed.createComponent(UntypedItemComponent);
+
       comp = fixture.componentInstance;
       comp.object = getItem(iiifEnabledMap);
       fixture.detectChanges();

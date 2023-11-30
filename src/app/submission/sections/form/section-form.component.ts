@@ -4,7 +4,8 @@ import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-fo
 import { combineLatest as observableCombineLatest, interval, Observable, race, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, find, map, mapTo, mergeMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { findIndex, isEqual } from 'lodash';
+import findIndex from 'lodash/findIndex';
+import isEqual from 'lodash/isEqual';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -35,6 +36,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
@@ -196,7 +198,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
           if (isUndefined(this.formModel)) {
             this.metadataSecurityConfiguration = metadataSecurity;
             // this.sectionData.errorsToShow = [];
-          this.submissionObject = submissionObject;
+            this.submissionObject = submissionObject;
             // Is the first loading so init form
             this.initForm(sectionData);
             this.sectionData.data = sectionData;
@@ -271,9 +273,20 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    const visibility: SubmissionVisibilityType = this.formConfig?.rows.find(row => {
-      return row?.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    const visibility: SubmissionVisibilityType = this.formConfig?.rows.find((row: FormRowModel) => {
+      if (row.fields?.[0]?.selectableMetadata) {
+        return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+      } else if (row.fields?.[0]?.selectableRelationship) {
+        return row.fields?.[0]?.selectableRelationship.relationshipType === field.replace(/^relationship\./g, '');
+      } else {
+        return false;
+      }
     })?.fields?.[0]?.visibility;
+
+    //
+    // const visibility: SubmissionVisibilityType = this.formConfig?.rows.find(row => {
+    //   return row?.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+    // })?.fields?.[0]?.visibility;
 
     return SubmissionVisibility.isVisible(visibility, this.submissionService.getSubmissionScope());
   }
@@ -403,7 +416,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
-    const eventAutoSave = !event.$event.hasOwnProperty('autoSave') || event.$event.autoSave;
+    const eventAutoSave = !event.$event?.hasOwnProperty('autoSave') || event.$event?.autoSave;
     if (eventAutoSave && (environment.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) || this.hasRelatedCustomError(metadata)) {
       this.submissionService.dispatchSave(this.submissionId);
     }
@@ -428,6 +441,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onFocus(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
+  }
+
+  private updatePreviousValue(event: DynamicFormControlEvent): void {
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
@@ -439,6 +456,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     }
   }
 
+  private clearPreviousValue(): void {
+    this.previousValue.path = null;
+    this.previousValue.value = null;
+  }
+
   /**
    * Method called when a form remove event is fired.
    * Dispatch form operations based on changes.
@@ -447,6 +469,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onRemove(event: DynamicFormControlEvent): void {
+    this.updatePreviousValue(event);
     const fieldId = this.formBuilderService.getId(event.model);
     const fieldIndex = this.formOperationsService.getArrayIndexFromEvent(event);
 
@@ -464,7 +487,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       event,
       this.previousValue,
       this.hasStoredValue(fieldId, fieldIndex));
-
+    this.clearPreviousValue();
   }
 
   /**

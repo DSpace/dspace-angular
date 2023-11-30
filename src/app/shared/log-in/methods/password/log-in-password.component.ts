@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -15,6 +15,9 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 /**
  * /users/sign-in
@@ -63,24 +66,21 @@ export class LogInPasswordComponent implements OnInit {
    * The authentication form.
    * @type {FormGroup}
    */
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   /**
-   * @constructor
-   * @param {AuthMethod} injectedAuthMethodModel
-   * @param {boolean} isStandalonePage
-   * @param {AuthService} authService
-   * @param {HardRedirectService} hardRedirectService
-   * @param {FormBuilder} formBuilder
-   * @param {Store<State>} store
+   * Whether the current user (or anonymous) is authorized to register an account
    */
+  public canRegister$: Observable<boolean>;
+
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
-    private formBuilder: FormBuilder,
-    private store: Store<CoreState>
+    private formBuilder: UntypedFormBuilder,
+    protected store: Store<CoreState>,
+    protected authorizationService: AuthorizationDataService,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -115,6 +115,15 @@ export class LogInPasswordComponent implements OnInit {
       })
     );
 
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
+  }
+
+  getRegisterRoute() {
+    return getRegisterRoute();
+  }
+
+  getForgotRoute() {
+    return getForgotPasswordRoute();
   }
 
   /**

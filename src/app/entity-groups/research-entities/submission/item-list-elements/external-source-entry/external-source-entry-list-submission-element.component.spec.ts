@@ -4,6 +4,8 @@ import { ExternalSourceEntry } from '../../../../../core/shared/external-source-
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   let component: ExternalSourceEntryListSubmissionElementComponent;
@@ -17,30 +19,31 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
     metadata: {
       'dc.identifier.uri': [
         {
-          value: uri
-        }
+          value: uri,
+        },
       ],
       'dc.date.issued': [
         {
-          'value': '2020-10-06T00:00:00Z',
-          'language': null,
-          'authority': null,
-          'confidence': -1,
-          'place': -1
-        }
+          value: '2020-10-06T00:00:00Z',
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1,
+        },
       ],
       'dc.contributor.author': [
         {
-          'value': 'Oktyabrsky, Oleg N',
-          'language': null,
-          'authority': null,
-          'confidence': -1,
-          'place': -1
-        }
+          value: 'Oktyabrsky, Oleg N',
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1,
+        },
       ],
       'dc.description.abstract': [
         {
-          'value': 'Activities of plant polyphenols (PPs), resveratrol and quercetin, alone or in combination with four conventional antibiotics against ' +
+          value:
+            'Activities of plant polyphenols (PPs), resveratrol and quercetin, alone or in combination with four conventional antibiotics against ' +
             'Escherichia coli have been investigated. In medium without antibiotics, both polyphenols caused a dose-dependent growth inhibition. ' +
             'However, pretreatment with resveratrol (40 and 100 μg ml) and quercetin (40 μg ml) reduced the bacteriostatic effect of kanamycin, ' +
             ', cefotaxime and partially of ciprofloxacin. With few exceptions, both PPs also reduced the bactericidal effect of tested antibiotics.' +
@@ -52,37 +55,65 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
             'There is a growing interest in the use of plant-derived compounds to enhance the toxicity of traditional antibiotics.' +
             ' This and other studies show that, under certain conditions, the use of polyphenols as adjuvants may not exert the expected' +
             ' therapeutic effect, but rather to decrease antimicrobial activity of antibiotics.',
-          'language': null,
-          'authority': null,
-          'confidence': -1,
-          'place': -1
-        }
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1,
+        },
       ],
       'dc.identifier.doi': [
         {
-          'value': '10.1007/s11274-020-02934-y',
-          'language': null,
-          'authority': null,
-          'confidence': -1,
-          'place': -1
-        }
+          value: '10.1007/s11274-020-02934-y',
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1,
+        },
       ],
       'dc.identifier.pmid': [
         {
-          'value': '33025172',
-          'language': null,
-          'authority': null,
-          'confidence': -1,
-          'place': -1
-        }
+          value: '33025172',
+          language: null,
+          authority: null,
+          confidence: -1,
+          place: -1,
+        },
       ],
-    }
+    },
+    matchObjects: [
+      {
+        id: '7fd133e7-feaa-4be9-a1d2-5258694556ae',
+        uuid: '7fd133e7-feaa-4be9-a1d2-5258694556ae',
+        name: 'Public item',
+        handle: '123456789/4',
+        metadata: {
+          'crisrp.name': [
+            {
+              value: 'Public item',
+              language: null,
+              authority: null,
+              confidence: -1,
+              place: 0,
+            },
+          ],
+        },
+        inArchive: true,
+        discoverable: true,
+        withdrawn: false,
+        lastModified: '2023-10-20T09:23:12.984+00:00',
+        entityType: 'Publication',
+        type: 'item',
+        firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+          return undefined;
+        },
+      },
+    ],
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ExternalSourceEntryListSubmissionElementComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), NgbCollapseModule],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -116,5 +147,12 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
 
   it('should display the entry\'s identifiers', () => {
     expect(fixture.debugElement.query(By.css('[data-test="identifiers"]'))).toBeTruthy();
+  });
+
+  it('should display the entry\'s duplicate match titles when matchObjects has items', () => {
+    const accordionHeaderBtn = fixture.nativeElement.querySelector('.btn-link');
+    accordionHeaderBtn.click();
+    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('ds-themed-item-list-preview');
+    expect(matchObjectsLinks).toBeTruthy();
   });
 });

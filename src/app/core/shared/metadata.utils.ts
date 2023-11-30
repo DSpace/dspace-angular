@@ -1,6 +1,15 @@
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import { MetadataMapInterface, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
-import { differenceWith, groupBy, orderBy, sortBy } from 'lodash';
+import {
+  MetadataMapInterface,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel
+} from './metadata.models';
+import differenceWith from 'lodash/differenceWith';
+import groupBy from 'lodash/groupBy';
+import isObject from 'lodash/isObject';
+import orderBy from 'lodash/orderBy';
+import sortBy from 'lodash/sortBy';
 import { validate as uuidValidate } from 'uuid';
 
 export const AUTHORITY_GENERATE = 'will be generated::';
@@ -133,6 +142,19 @@ export class Metadata {
    */
   public static hasValidItemAuthority(authority: string): boolean {
     return hasValue(authority) && uuidValidate(authority);
+  }
+
+  /**
+   * Returns true if this Metadatum's value is defined
+   */
+  public static hasValue(value: MetadataValue|string): boolean {
+    if (isEmpty(value)) {
+      return false;
+    }
+    if (isObject(value) && value.hasOwnProperty('value')) {
+      return isNotEmpty(value.value);
+    }
+    return true;
   }
 
   /**

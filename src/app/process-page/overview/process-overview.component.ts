@@ -14,10 +14,12 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../shared/empty.util';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-process-overview',
@@ -44,7 +46,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'po',
+    id: this.uuidService.generate(),
     pageSize: 20
   });
 
@@ -62,10 +64,12 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
               protected paginationService: PaginationService,
               protected ePersonService: EPersonDataService,
               protected modalService: NgbModal,
+              public processBulkDeleteService: ProcessBulkDeleteService,
+              protected dsoNameService: DSONameService,
               protected authorizationService: AuthorizationDataService,
               protected notificationService: NotificationsService,
               protected translateService: TranslateService,
-              public processBulkDeleteService: ProcessBulkDeleteService,
+              protected uuidService: UUIDService,
   ) {
   }
 
@@ -118,7 +122,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
   getEpersonName(id: string): Observable<string> {
     return this.ePersonService.findById(id).pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => eperson.name)
+      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
     );
   }
 

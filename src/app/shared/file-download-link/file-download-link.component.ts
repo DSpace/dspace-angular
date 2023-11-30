@@ -4,9 +4,12 @@ import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { map } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, shareReplay } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 @Component({
   selector: 'ds-file-download-link',
@@ -48,8 +51,16 @@ export class FileDownloadLinkComponent implements OnInit {
 
   canDownload$: Observable<boolean>;
 
+  /**
+   * Whether or not the user can request a copy of the item
+   * based on the configuration property `request.item.type`.
+   */
+    public canRequestItemCopy$: Observable<boolean>;
+
+
   constructor(
     private authorizationService: AuthorizationDataService,
+    private configurationService: ConfigurationDataService,
   ) {
   }
 
@@ -60,9 +71,21 @@ export class FileDownloadLinkComponent implements OnInit {
       this.bitstreamPath$ = observableCombineLatest([this.canDownload$, canRequestACopy$]).pipe(
         map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy))
       );
+
+      this.canRequestItemCopy$ = this.configurationService.findByPropertyName('request.item.type').pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload(),
+        map((requestItemType: ConfigurationProperty) =>
+        // in case requestItemType empty/commented out(undefined) - request-copy not allowed
+            hasValue(requestItemType) && requestItemType.values.length > 0
+        ),
+        catchError(() => observableOf(false)),
+        shareReplay(1)
+      );
     } else {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
       this.canDownload$ = observableOf(true);
+      this.canRequestItemCopy$ = observableOf(false);
     }
   }
 

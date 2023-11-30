@@ -1,7 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { Field, Option, SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload
+} from '../../../core/shared/operators';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -15,6 +19,7 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { isNotEmpty } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -61,6 +66,11 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   protected modalRef: NgbModalRef;
 
   /**
+   * Default jurisdiction configured
+   */
+  defaultJurisdiction: string;
+
+  /**
    * The Creative Commons link saved in the workspace item.
    */
   get storedCcLicenseLink(): string {
@@ -83,6 +93,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     protected submissionCcLicensesDataService: SubmissionCcLicenseDataService,
     protected submissionCcLicenseUrlDataService: SubmissionCcLicenseUrlDataService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
+    protected configService: ConfigurationDataService,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
     @Inject('submissionIdProvider') public injectedSubmissionId: string
@@ -156,6 +167,9 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * @param field       the field for which to get the selected option value.
    */
   getSelectedOption(ccLicense: SubmissionCcLicence, field: Field): Option {
+    if (field.id === 'jurisdiction' && this.defaultJurisdiction !== undefined && this.defaultJurisdiction !== 'none') {
+      return field.enums.find(option => option.id === this.defaultJurisdiction);
+    }
     return this.data.ccLicense.fields[field.id];
   }
 
@@ -256,6 +270,17 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       ).subscribe(
         (licenses) => this.submissionCcLicenses = licenses
       ),
+      this.configService.findByPropertyName('cc.license.jurisdiction').pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload()
+      ).subscribe((remoteData) => {
+          if (remoteData === undefined || remoteData.values.length === 0) {
+            // No value configured, use blank value (International jurisdiction)
+            this.defaultJurisdiction = '';
+          } else {
+            this.defaultJurisdiction = remoteData.values[0];
+          }
+      })
     );
   }
 

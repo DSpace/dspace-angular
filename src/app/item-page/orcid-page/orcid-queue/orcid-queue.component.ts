@@ -15,9 +15,10 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { Item } from '../../../core/shared/item.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-orcid-queue',
@@ -35,7 +36,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list
    */
   public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'oqp',
+    id: this.uuidService.generate(),
     pageSize: 5
   });
 
@@ -67,6 +68,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryDataService,
+              private uuidService: UUIDService
   ) {
   }
 

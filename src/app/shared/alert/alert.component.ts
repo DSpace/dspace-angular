@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { trigger } from '@angular/animations';
 
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
-import { AlertType } from './aletr-type';
+import { AlertType } from './alert-type';
 import { fadeOutLeave, fadeOutState } from '../animations/fade';
 
 /**

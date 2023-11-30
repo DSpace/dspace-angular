@@ -23,6 +23,7 @@ import {
 import { take } from 'rxjs/operators';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
@@ -55,13 +56,14 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
   public item$: Observable<Item>;
 
   constructor(
+    public dsoNameService: DSONameService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     private themeService: ThemeService,
     protected bitstreamDataService: BitstreamDataService
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   /**

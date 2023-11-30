@@ -23,6 +23,8 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { SectionsService } from '../../sections/sections.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -136,6 +138,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         TestComponent
       ],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
@@ -247,6 +250,12 @@ describe('SubmissionFormCollectionComponent Component', () => {
         fixture.detectChanges();
         const dropDown = fixture.debugElement.query(By.css('#collectionControlsDropdownMenu'));
         expect(dropDown).toBeFalsy();
+      });
+
+      it('the dropdown button should be disabled when isReadonly is true', () => {
+        comp.isReadonly = true;
+        fixture.detectChanges();
+        expect(dropdowBtn.nativeNode.attributes.disabled).toBeDefined();
       });
 
       it('should be simulated when the drop-down menu is closed', () => {

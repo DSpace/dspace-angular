@@ -25,7 +25,6 @@
               }
             },
             "allowedCommonJsDependencies": [
-              "angular2-text-mask",
               "cerialize",
               "core-js",
               "file-saver",
@@ -272,20 +271,30 @@
           "options": {
             "lintFilePatterns": [
               "src/**/*.ts",
-              "src/**/*.html"
+              "src/**/*.html",
+              "src/**/*.json5"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "dspace-angular",
   "cli": {
     "analytics": false,
-    "defaultCollection": "@angular-eslint/schematics",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ],
     "cache": {
       "enabled": true,
       "environment": "local"
+    }
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
     }
   }
 }

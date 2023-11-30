@@ -1,10 +1,13 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { TestScheduler } from 'rxjs/testing';
 
 import { AuthEffects } from './auth.effects';
 import {
@@ -17,6 +20,9 @@ import {
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
+  RefreshEpersonAndTokenRedirectErrorAction,
+  RefreshEpersonAndTokenRedirectSuccessAction,
+  RefreshTokenAndRedirectAction,
   RefreshTokenAndRedirectErrorAction,
   RefreshTokenAndRedirectSuccessAction,
   RefreshTokenErrorAction,
@@ -38,9 +44,8 @@ import { AppState, storeModuleConfig } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
 import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { Router } from '@angular/router';
 import { RouterStub } from '../../shared/testing/router.stub';
-import { take } from 'rxjs/operators';
+
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
@@ -52,6 +57,7 @@ describe('AuthEffects', () => {
   let routerStub;
   let redirectUrl;
   let authStatus;
+  let scheduler: TestScheduler;
 
   const authorizationService = jasmine.createSpyObj(['invalidateAuthorizationsRequestCache']);
 
@@ -233,12 +239,15 @@ describe('AuthEffects', () => {
               authenticated: true
             })
         );
+        spyOn((authEffects as any).authService, 'setExternalAuthStatus');
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
 
         const expected = cold('--b-', { b: new RetrieveTokenAction() });
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
         authEffects.checkTokenCookie$.subscribe(() => {
+          expect(authServiceStub.setExternalAuthStatus).toHaveBeenCalled();
+          expect(authServiceStub.isExternalAuthentication).toBeTrue();
           expect((authEffects as any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();
         });
         done();
@@ -454,6 +463,68 @@ describe('AuthEffects', () => {
     });
   });
 
+  describe('refreshStateTokenRedirect$', () => {
+
+    describe('when refresh state, token and redirect action', () => {
+      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+        spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableOf(EPersonMock));
+
+        actions = hot('--a-', {
+          a: {
+            type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
+            payload: { token, redirectUrl }
+          }
+        });
+
+        const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectSuccessAction(EPersonMock, token, redirectUrl) });
+
+        expect(authEffects.refreshStateTokenRedirect$).toBeObservable(expected);
+        done();
+      });
+    });
+
+    describe('when refresh state token failed', () => {
+      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+        spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableThrow(''));
+
+        actions = hot('--a-', {
+          a: {
+            type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
+            payload: { token, redirectUrl }
+          }
+        });
+
+        const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectErrorAction() });
+
+        expect(authEffects.refreshStateTokenRedirect$).toBeObservable(expected);
+        done();
+      });
+    });
+
+  });
+
+  describe('refreshStateTokenRedirectSuccess$', () => {
+
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+    });
+
+    it('should return a REFRESH_TOKEN_AND_REDIRECT action', (done) => {
+
+      actions = hot('--a-', {
+        a: {
+          type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS,
+          payload: { ePerson: EPersonMock, token, redirectUrl }
+        }
+      });
+
+      const expected = cold('--b-', { b: new RefreshTokenAndRedirectAction(token, redirectUrl) });
+
+      expect(authEffects.refreshStateTokenRedirectSuccess$).toBeObservable(expected);
+      done();
+    });
+  });
+
   describe('refreshTokenAndRedirect$', () => {
 
     describe('when refresh token and redirect succeeded', () => {
@@ -484,18 +555,22 @@ describe('AuthEffects', () => {
   });
 
   describe('refreshTokenAndRedirectSuccess$', () => {
-    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', (done) => {
+
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+    });
+
+    it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', () => {
 
       actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: {token, redirectUrl} } });
 
       spyOn(authServiceStub, 'replaceToken');
-      spyOn(routerStub, 'navigateByUrl');
 
-      authEffects.refreshTokenAndRedirectSuccess$.pipe(take(1)).subscribe(() => {
-        expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
-        expect(routerStub.navigateByUrl).toHaveBeenCalledWith(redirectUrl);
-      });
-      done();
+      scheduler.run(() => authEffects.refreshTokenAndRedirectSuccess$.pipe(take(1)).subscribe());
+      scheduler.flush();
+
+      expect(authServiceStub.replaceToken).toHaveBeenCalledWith(token);
+      expect(routerStub.navigate).toHaveBeenCalledWith([redirectUrl]);
     });
   });
 

@@ -10,6 +10,7 @@ import { ResourceType } from '../../shared/resource-type';
 import { BaseDataService } from './base-data.service';
 import { HALDataService } from './hal-data-service.interface';
 import { dataService, getDataServiceFor } from './data-service.decorator';
+import { v4 as uuidv4 } from 'uuid';
 
 class TestService extends BaseDataService<any> {
 }
@@ -28,7 +29,7 @@ let testType;
 
 describe('@dataService/getDataServiceFor', () => {
   beforeEach(() => {
-    testType = new ResourceType('testType-' + new Date().getTime());
+    testType = new ResourceType(`testType-${uuidv4()}`);
   });
 
   it('should register a resourcetype for a dataservice', () => {

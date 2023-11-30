@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 
-import { Chips } from '../../../../../../../shared/chips/models/chips.model';
+import { Chips } from '../../../../../../../shared/form/chips/models/chips.model';
 import { TranslateService } from '@ngx-translate/core';
 import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';

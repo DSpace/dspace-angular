@@ -18,7 +18,7 @@ import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.ser
 import { AuthServiceMock } from './shared/mocks/auth.service.mock';
 import { AuthService } from './core/auth/auth.service';
 import { MenuService } from './shared/menu/menu.service';
-import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from './shared/testing/css-variable-service.stub';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { HostWindowService } from './shared/host-window.service';

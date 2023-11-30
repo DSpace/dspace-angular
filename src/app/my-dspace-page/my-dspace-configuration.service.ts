@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { combineLatest, Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { RoleService } from '../core/roles/role.service';
@@ -17,9 +17,11 @@ import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { RequestService } from '../core/data/request.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import { Context } from '../core/shared/context.model';
+import { UUIDService } from '../core/shared/uuid.service';
 
 export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workspace, Context.Workspace],
+  [MyDSpaceConfigurationValueType.SupervisedItems, Context.SupervisedItems],
   [MyDSpaceConfigurationValueType.OtherWorkspace, Context.OtherWorkspace],
   [MyDSpaceConfigurationValueType.Workflow, Context.Workflow]
 ]);
@@ -34,7 +36,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    * Default pagination settings
    */
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'mydspace-page',
+    id: this.uuidService.generate(),
     pageSize: 10,
     currentPage: 1
   });
@@ -82,7 +84,8 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService) {
+              protected rdb: RemoteDataBuildService,
+              protected uuidService: UUIDService) {
 
     super(routeService, paginationService, route, linkService, halService, requestService, rdb);
 
@@ -102,15 +105,16 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    *    Emits the available configuration list
    */
   public getAvailableConfigurationTypes(): Observable<MyDSpaceConfigurationValueType[]> {
-    return combineLatest(this.isSubmitter$, this.isController$, this.isAdmin$).pipe(
-      first(),
-      map(([isSubmitter, isController, isAdmin]: [boolean, boolean, boolean]) => {
+    return combineLatest([this.isSubmitter$, this.isController$, this.isAdmin$]).pipe(
+      take(1),
+       map(([isSubmitter, isController, isAdmin]: [boolean, boolean, boolean]) => {
         const availableConf: MyDSpaceConfigurationValueType[] = [];
         if (isSubmitter) {
           availableConf.push(MyDSpaceConfigurationValueType.Workspace);
           availableConf.push(MyDSpaceConfigurationValueType.OtherWorkspace);
         }
         if (isController || isAdmin) {
+          availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
           availableConf.push(MyDSpaceConfigurationValueType.Workflow);
         }
         return availableConf;

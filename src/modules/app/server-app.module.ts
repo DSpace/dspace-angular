@@ -6,7 +6,11 @@ import { ServerModule, ServerTransferStateModule } from '@angular/platform-serve
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { Angulartics2, Angulartics2GoogleAnalytics, Angulartics2GoogleTagManager } from 'angulartics2';
+import {
+  Angulartics2,
+  Angulartics2GoogleAnalytics,
+  Angulartics2GoogleGlobalSiteTag
+} from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 
@@ -29,9 +33,13 @@ import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mo
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
 import { ServerInitService } from './server-init.service';
+import { XhrFactory } from '@angular/common';
+import { ServerXhrService } from '../../app/core/services/server-xhr.service';
+import { ReferrerService } from '../../app/core/services/referrer.service';
+import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
 
 export function createTranslateLoader(transferState: TransferState) {
-  return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json5');
+  return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -63,7 +71,7 @@ export function createTranslateLoader(transferState: TransferState) {
       useClass: AngularticsProviderMock
     },
     {
-      provide: Angulartics2GoogleTagManager,
+      provide: Angulartics2GoogleGlobalSiteTag,
       useClass: AngularticsProviderMock
     },
     {
@@ -99,6 +107,14 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: HardRedirectService,
       useClass: ServerHardRedirectService,
+    },
+    {
+      provide: XhrFactory,
+      useClass: ServerXhrService,
+    },
+    {
+      provide: ReferrerService,
+      useClass: ServerReferrerService,
     },
   ]
 })

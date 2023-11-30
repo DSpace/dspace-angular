@@ -1,1 +1,31 @@
- <google-chart *ngIf="data.length > 0" [data]="geoChart"></google-chart>
+<ng-container *ngIf="data.length > 0">
+  <div class="row mt-1">
+    <div class="col text-right">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          id="exportMapAsImg"
+          ngbDropdownToggle
+        >
+          <i class="fas fa-download"></i>
+          {{"statistics-page.export-map-as-image" | translate}}
+        </button>
+        <div ngbDropdownMenu aria-labelledby="exportMapAsImg">
+          <button
+            *ngFor="let image of exportImageTypes"
+            ngbDropdownItem
+            (click)="exportMapAsImage(image.type)"
+            [disabled]="isLoading$ | async"
+          >
+            {{ image.label }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-test="google-chart-ref">
+    <google-chart #googleChartRef [data]="geoChart"></google-chart>
+  </div>
+</ng-container>

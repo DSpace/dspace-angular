@@ -11,12 +11,10 @@ import {
 } from '@angular/core';
 import {
   AttachmentRenderingType,
-  AttachmentTypeFieldRenderOptions,
   getAttachmentTypeRendering
 } from '../attachment-type.decorator';
 import { Item } from '../../../../../../../../../core/shared/item.model';
 import { GenericConstructor } from '../../../../../../../../../core/shared/generic-constructor';
-import { isEmpty } from '../../../../../../../../../shared/empty.util';
 import { Bitstream } from '../../../../../../../../../core/shared/bitstream.model';
 
 @Component({

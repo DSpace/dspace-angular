@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, InjectionToken, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';

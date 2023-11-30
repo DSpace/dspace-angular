@@ -47,7 +47,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
               private itemDataService: ItemDataService,
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
-              protected dsoNameService: DSONameService,
+              public dsoNameService: DSONameService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -55,7 +55,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
 
   ngOnInit() {
     super.ngOnInit();
-    const defaultValue = this.dsoTitle;
+    const defaultValue = this.dso ? this.dsoNameService.getName(this.dso) : undefined;
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
 

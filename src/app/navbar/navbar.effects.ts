@@ -1,7 +1,7 @@
 import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as fromRouter from '@ngrx/router-store';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 import { HostWindowActionTypes } from '../shared/host-window.actions';
 import {
@@ -33,7 +33,7 @@ export class NavbarEffects {
    */
    routeChange$ = createEffect(() => this.actions$
     .pipe(
-      ofType(fromRouter.ROUTER_NAVIGATION),
+      ofType(ROUTER_NAVIGATION),
       map(() => new CollapseMenuAction(this.menuID))
     ));
   /**

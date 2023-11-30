@@ -22,6 +22,7 @@ import { ConfigurationProperty } from '../../../../../core/shared/configuration-
 import { isEmpty, isNotNull, isUndefined } from '../../../../empty.util';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
+import { environment } from '../../../../../../environments/environment';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
@@ -47,19 +48,21 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
    */
   thumbnail$: Observable<Bitstream> = of(null);
 
+  authorMetadata = environment.searchResult.authorMetadata;
+
   constructor(
+    public dsoNameService: DSONameService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService,
-    protected dsoNameService: DSONameService,
     protected thumbnailService: ThumbnailService
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   ngOnInit(): void {
     super.ngOnInit();
     this.itemPageRoute = getItemPageRoute(this.dso);
-    this.dsoTitle = this.dsoNameService.getName(this.dso);
+    this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso);
     this.thumbnail$ = this.getThumbnail();
   }
 

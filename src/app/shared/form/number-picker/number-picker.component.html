@@ -1,0 +1,40 @@
+<div class="d-flex align-items-stretch justify-content-around position-relative">
+    <input
+      id="{{id}}"
+      type="text"
+      class="form-control d-inline-block text-center {{ widthClass }}"
+      maxlength="{{size}}"
+      size="{{size}}"
+      placeholder="{{placeholder}}"
+      [name]="name"
+      [(ngModel)]="value"
+      (blur)="onBlur($event); $event.stopPropagation();"
+      (change)="update($event); $event.stopPropagation();"
+      (focus)="onFocus($event); $event.stopPropagation();"
+      [readonly]="disabled"
+      [disabled]="disabled"
+      [ngClass]="{'is-invalid': invalid}"
+      title="{{placeholder}}"
+    >
+    <div class="d-flex flex-column justify-content-between">
+        <button
+                class="btn btn-link-focus btn-date lp-button"
+                type="button"
+                tabindex="0"
+                [disabled]="disabled"
+                (click)="toggleUp()">
+            <span class="chevron"></span>
+            <span class="sr-only">Increment</span>
+        </button>
+        <button
+                class="btn btn-link-focus btn-date lp-button"
+                type="button"
+                tabindex="0"
+                [disabled]="disabled"
+                (click)="toggleDown()">
+            <span class="chevron bottom"></span>
+            <span class="sr-only">Decrement</span>
+        </button>
+    </div>
+
+</div>

@@ -27,4 +27,35 @@
       </ds-truncatable-part>
     </ds-truncatable>
   </div>
+  <div *ngIf="object?.matchObjects?.length > 0">
+    <p>
+      <button type="button" class="btn btn-link p-0" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">
+        <span class="badge badge-secondary">
+          {{ object.matchObjects.length }}
+        </span>
+        {{'submission.sections.external-source.duplicate-matches.header' | translate}}
+      </button>
+    </p>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" [id]="object.id">
+      <div class="card p-1">
+        <ng-container
+          *ngFor="let match of object.matchObjects | slice: (pageConfig.currentPage-1) * pageConfig.pageSize : pageConfig.currentPage * pageConfig.pageSize">
+          <ds-themed-item-list-preview [item]="match" [object]="itemPreviewObject" [metadataList]="metadataList">
+          </ds-themed-item-list-preview>
+          <div class="offset-2">
+            <a class="btn btn-primary mt-1" ngbTooltip="{{'submission.workflow.generic.view-help' | translate}}"
+              [routerLink]="getItemRoute(match)" target="_blank">
+              <i class="fa fa-info-circle"></i> {{"submission.workflow.generic.view" | translate}}
+            </a>
+          </div>
+          <hr>
+        </ng-container>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination [(page)]="pageConfig.currentPage" [pageSize]="pageConfig.pageSize"
+            [collectionSize]="object.matchObjects.length">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

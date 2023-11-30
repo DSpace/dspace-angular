@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular
 
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 
 import { SectionsService } from './sections.service';
 import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';

@@ -5,7 +5,7 @@
       <div class="d-flex flex-row border-bottom mb-4 pb-4">
         <header class="comcol-header mr-auto">
           <!-- Community name -->
-          <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
+          <ds-comcol-page-header [name]="dsoNameService.getName(communityPayload)"></ds-comcol-page-header>
           <!-- Community logo -->
           <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
           </ds-comcol-page-logo>
@@ -20,7 +20,7 @@
             [title]="'community.page.news'">
           </ds-comcol-page-content>
         </header>
-        <div class="pl-2">
+        <div class="pl-2 space-children-mr">
           <ds-context-menu [contextMenuObject]="communityPayload" [contextMenuObjectType]="'COMMUNITY'"></ds-context-menu>
         </div>
       </div>

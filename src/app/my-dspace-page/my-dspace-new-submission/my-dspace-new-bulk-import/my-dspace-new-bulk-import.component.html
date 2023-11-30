@@ -1,5 +1,5 @@
   <div class="add" *ngIf="!(moreThanOne$ | async)">
-    <button class="btn btn-md btn-outline-primary ml-2" type="button"
+    <button class="btn btn-md btn-outline-primary" type="button"
         attr.aria-label="{{'mydspace.new-bulk-import' | translate}}"
         title="{{'mydspace.new-bulk-import' | translate}}"
         (click)="openDialog(singleEntity)">
@@ -10,7 +10,7 @@
   <div class="add w-100" display="dynamic" placement="bottom-right"
        ngbDropdown
        *ngIf="(moreThanOne$ | async)">
-    <button class="btn btn-md btn-outline-primary ml-2" id="dropdownSubmission" ngbDropdownToggle
+    <button class="btn btn-md btn-outline-primary" id="dropdownSubmission" ngbDropdownToggle
             type="button" [disabled]="!(initialized$|async)"
             attr.aria-label="{{'mydspace.new-bulk-import' | translate}}"
             title="{{'mydspace.new-bulk-import' | translate}}">

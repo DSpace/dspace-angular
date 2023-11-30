@@ -1,12 +1,12 @@
 <div class="container">
   <ng-container *ngIf="bundles">
     <div class="row">
-      <div class="col-12 mb-4">
+      <div class="col-12 mb-2">
         <h2>{{'item.bitstreams.upload.title' | translate}}</h2>
         <ng-container *ngVar="(itemRD$ | async)?.payload as item">
           <div *ngIf="item">
             <span class="font-weight-bold">{{'item.bitstreams.upload.item' | translate}}</span>
-            <span>{{item.name}}</span>
+            <span>{{ dsoNameService.getName(item) }}</span>
           </div>
         </ng-container>
       </div>
@@ -24,7 +24,7 @@
                                   (click)="f.open()"
                                   ngDefaultControl>
         </ds-dso-input-suggestions>
-        <button *ngIf="!selectedBundleId && selectedBundleName?.length > 0" class="btn btn-success" (click)="createBundle()">
+        <button *ngIf="!selectedBundleId && selectedBundleName?.length > 0" class="btn btn-success mr-2" (click)="createBundle()">
           <i class="fa fa-plus"></i> {{ 'item.bitstreams.upload.bundle.new' | translate }}
         </button>
         <ds-uploader  class="w-100" *ngIf="selectedBundleId"

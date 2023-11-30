@@ -1,5 +1,5 @@
 <ng-container *ngIf="showTable()">
-    <ng-container *ngIf="correctionMetadataData?.length > 0">
+  <ng-container *ngIf="(correctionMetadataData$ | async)?.length > 0">
       <ds-alert [type]="'alert-info'" [content]="'submission.sections.correction.column.metadata.info'"></ds-alert>
       <table  class="table table-striped correction-item-table">
         <thead>
@@ -10,7 +10,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let correction of correctionMetadataData" class="correction-row">
+        <tr *ngFor="let correction of (correctionMetadataData$ | async)" class="correction-row">
             <td>{{correction.label}} ({{correction.metadata}})</td>
             <td>
               <ng-container *ngIf="correction.oldValues.length==0">-</ng-container>
@@ -31,14 +31,14 @@
               </ul>
             </td>
           </tr>
-  
+
         </tbody>
       </table>
     </ng-container>
     <br/>
-    <ng-container *ngIf="correctionBitstreamData?.length > 0">
+  <ng-container *ngIf="(correctionBitstreamData$ | async)?.length > 0">
       <ds-alert [type]="'alert-info'" [content]="'submission.sections.correction.column.file.info'"></ds-alert>
-      <ng-container *ngFor="let bitstream of correctionBitstreamData">
+    <ng-container *ngFor="let bitstream of (correctionBitstreamData$ | async)">
         <table class="table table-striped m-0 correction-bitstream-table">
           <thead>
           <tr>

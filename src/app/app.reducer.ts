@@ -1,4 +1,4 @@
-import * as fromRouter from '@ngrx/router-store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
 import {
   ePeopleRegistryReducer,
@@ -35,36 +35,32 @@ import {
   ObjectSelectionListState,
   objectSelectionReducer
 } from './shared/object-select/object-select.reducer';
-import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
+import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/css-variable.reducer';
 
 import { hostWindowReducer, HostWindowState } from './shared/search/host-window.reducer';
 import {
   filterReducer,
   SearchFiltersState
 } from './shared/search/search-filters/search-filter/search-filter.reducer';
-import {
-  sidebarFilterReducer,
-  SidebarFiltersState
-} from './shared/sidebar/filter/sidebar-filter.reducer';
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { ThemeState, themeReducer } from './shared/theme-support/theme.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
 import { StatisticsReducer, StatisticsState } from './core/statistics/statistics.reducer';
 import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+import { contextHelpReducer, ContextHelpState } from './shared/context-help.reducer';
 import {
   editItemRelationshipsReducer,
   EditItemRelationshipsState
 } from './edit-item-relationships/edit-item-relationships.reducer';
 
 export interface AppState {
-  router: fromRouter.RouterReducerState;
+  router: RouterReducerState;
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
   notifications: NotificationsState;
   sidebar: SidebarState;
-  sidebarFilter: SidebarFiltersState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
   cssVariables: CSSVariablesState;
@@ -78,17 +74,17 @@ export interface AppState {
   groupRegistry: GroupRegistryState;
   statistics: StatisticsState;
   correlationId: string;
+  contextHelp: ContextHelpState;
   editItemRelationships: EditItemRelationshipsState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
-  router: fromRouter.routerReducer,
+  router: routerReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,
   notifications: notificationsReducer,
   sidebar: sidebarReducer,
-  sidebarFilter: sidebarFilterReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,
   cssVariables: cssVariablesReducer,
@@ -100,8 +96,9 @@ export const appReducers: ActionReducerMap<AppState> = {
   communityList: CommunityListReducer,
   epeopleRegistry: ePeopleRegistryReducer,
   groupRegistry: groupRegistryReducer,
-  statistics: StatisticsReducer,
   correlationId: correlationIdReducer,
+  contextHelp: contextHelpReducer,
+  statistics: StatisticsReducer,
   editItemRelationships: editItemRelationshipsReducer
 };
 

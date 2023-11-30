@@ -5,6 +5,9 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
+import { METADATA_SECURITY_TYPE } from 'src/app/core/submission/models/metadata-security-config.resource-type';
 
 export const mockSectionsData = {
   traditionalpageone: {
@@ -333,6 +336,18 @@ export const mockSubmissionRestResponse = [
   }
 ];
 
+export const mockSecurityConfig: MetadataSecurityConfiguration = {
+  'uuid' : 'Person',
+  'metadataSecurityDefault' : [ 0, 1, 2 ],
+  'metadataCustomSecurity' : {'person.birthDate': [ 0, 1 ]},
+  'type' : METADATA_SECURITY_TYPE,
+  '_links' : {
+    'self' : {
+      'href' : 'http://localhost:8080/server/api/core/securitysettings/Person'
+    }
+  }
+};
+
 export const mockSubmissionObject = {
   collection: {
     handle: '10673/2',
@@ -588,20 +603,7 @@ export const mockSubmissionObject = {
       ]
     }
   ],
-  metadataSecurityConfiguration: {
-    'uuid': null,
-    'metadataSecurityDefault': [
-      0,
-      1
-    ],
-    'metadataCustomSecurity': {},
-    'type': 'securitysetting',
-    '_links': {
-      'self': {
-        'href': 'http://localhost:8080/server/api/core/securitysettings'
-      }
-    }
-  },
+  metadataSecurityConfiguration: mockSecurityConfig,
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
@@ -870,8 +872,8 @@ export const mockSubmissionDefinitionResponse = {
       mandatory: true,
       sectionType: 'utils',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN'
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden
       },
       type: 'submissionsection',
       _links: {
@@ -883,8 +885,7 @@ export const mockSubmissionDefinitionResponse = {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN'
+        workflow: SubmissionVisibilityValue.Hidden
       },
       type: 'submissionsection',
       _links: {
@@ -953,8 +954,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       mandatory: true,
       sectionType: 'utils',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN'
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden
       },
       type: 'submissionsection',
       _links: {
@@ -966,8 +967,7 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        main: 'HIDDEN',
-        other: 'HIDDEN'
+        workflow: SubmissionVisibilityValue.Hidden
       },
       type: 'submissionsection',
       _links: {
@@ -1029,6 +1029,168 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
   },
 } as any;
 
+export const mockSubmissionDefinitionWithReadOnlyCollection: SubmissionDefinitionsModel = {
+  isDefault: true,
+  sections: buildPaginatedList(new PageInfo(), [
+    {
+      mandatory: true,
+      sectionType: 'utils',
+      visibility: {
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
+        config: ''
+      },
+    },
+    {
+      mandatory: true,
+      sectionType: 'collection',
+      visibility: {
+        submission: SubmissionVisibilityValue.ReadOnly
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+        config: ''
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.stepone',
+      mandatory: true,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.steptwo',
+      mandatory: false,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+      },
+    },
+    {
+      header: 'submit.progressbar.upload',
+      mandatory: true,
+      sectionType: 'upload',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+      },
+    },
+    {
+      header: 'submit.progressbar.license',
+      mandatory: true,
+      sectionType: 'license',
+      visibility: {
+        main: null,
+        other: 'READONLY'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+        config: ''
+      },
+    }
+  ]),
+  name: 'traditional',
+  type: 'submissiondefinition',
+  _links: {
+    collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+    sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+  },
+} as any;
+export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitionsModel = {
+  isDefault: true,
+  sections: buildPaginatedList(new PageInfo(), [
+    {
+      mandatory: true,
+      sectionType: 'utils',
+      visibility: {
+        submission: SubmissionVisibilityValue.Hidden,
+        workflow: SubmissionVisibilityValue.Hidden
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
+        config: ''
+      },
+    },
+    {
+      mandatory: true,
+      sectionType: 'collection',
+      visibility: {
+        workflow: SubmissionVisibilityValue.Hidden
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+        config: ''
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.stepone',
+      mandatory: true,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+      },
+    },
+    {
+      header: 'submit.progressbar.describe.steptwo',
+      mandatory: false,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+      },
+    },
+    {
+      header: 'submit.progressbar.upload',
+      mandatory: true,
+      sectionType: 'upload',
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+      },
+    },
+    {
+      header: 'submit.progressbar.license',
+      mandatory: true,
+      sectionType: 'license',
+      visibility: {
+        main: null,
+        other: 'READONLY'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+        config: ''
+      },
+    }
+  ]),
+  name: 'traditional',
+  type: 'submissiondefinition',
+  _links: {
+    collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+    sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+  },
+} as any;
 
 export const mockDeduplicationMatches = {
   '78ca1d06-cce7-4ee9-abda-46440d9b0bb7' : {
@@ -3568,11 +3730,7 @@ export const mockFileFormData = {
         ],
         endDate: [
           {
-            value: {
-              year: 2019,
-              month: 1,
-              day: 16
-            },
+            value: new Date('2019-01-16'),
             language: null,
             authority: null,
             display: {
@@ -3594,7 +3752,7 @@ export const mockFileFormData = {
             value: 'embargo',
             language: null,
             authority: null,
-            display: 'lease',
+            display: 'embargo',
             confidence: -1,
             place: 0,
             otherInformation: null
@@ -3602,11 +3760,7 @@ export const mockFileFormData = {
         ],
         startDate: [
           {
-            value: {
-              year: 2019,
-              month: 1,
-              day: 16
-            },
+            value: new Date('2019-01-16'),
             language: null,
             authority: null,
             display: {

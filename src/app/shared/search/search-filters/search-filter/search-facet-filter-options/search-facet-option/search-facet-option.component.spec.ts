@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
@@ -18,6 +18,9 @@ import { SearchFacetOptionComponent } from './search-facet-option.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
+import { MockActivatedRoute } from '../../../../../mocks/active-router.mock';
+import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -89,9 +92,10 @@ describe('SearchFacetOptionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetOptionComponent],
+      declarations: [SearchFacetOptionComponent, ShortNumberPipe, CapitalizePipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         {

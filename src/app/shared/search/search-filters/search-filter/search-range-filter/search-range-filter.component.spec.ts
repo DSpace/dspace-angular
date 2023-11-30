@@ -31,7 +31,6 @@ describe('SearchRangeFilterComponent', () => {
   let fixture: ComponentFixture<SearchRangeFilterComponent>;
   const minSuffix = '.min';
   const maxSuffix = '.max';
-  const dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD'];
   const filterName1 = 'test name';
   const value1 = '2000 - 2012';
   const value2 = '1992 - 2000';

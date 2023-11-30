@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import {
   DynamicFormControlCustomEvent,
@@ -31,7 +31,9 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import {
+  VocabularyTreeviewModalComponent
+} from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 
@@ -46,7 +48,7 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
 
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicOneboxModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -237,13 +239,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       map((vocabulary: Vocabulary) => vocabulary.preloadLevel),
       take(1)
     ).subscribe((preloadLevel) => {
-      const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewComponent, {
+      const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, {
         size: 'lg',
         windowClass: 'treeview'
       });
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
       modalRef.componentInstance.preloadLevel = preloadLevel;
-      modalRef.componentInstance.selectedItem = this.currentValue ? this.currentValue : '';
+      modalRef.componentInstance.selectedItems = this.currentValue ? [this.currentValue] : [];
       modalRef.result.then((result: FormFieldMetadataValueObject) => {
         if (result) {
           this.currentValue = result;

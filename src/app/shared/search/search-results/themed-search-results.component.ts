@@ -11,7 +11,7 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { AlertType } from '../../alert/aletr-type';
+import { AlertType } from '../../alert/alert-type';
 
 /**
  * Themed wrapper for SearchResultsComponent
@@ -22,7 +22,7 @@ import { AlertType } from '../../alert/aletr-type';
   templateUrl: '../../theme-support/themed.component.html',
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject', 'customData', 'customEvent', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject', 'customData', 'customEvent', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice'];
   @Input() linkType: CollectionElementLinkType;
 
   @Input() searchResultNotice: string = null;
@@ -33,6 +33,10 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() searchConfig: PaginatedSearchOptions;
 
+  @Input() showCsvExport: boolean;
+
+  @Input() showThumbnails: boolean;
+
   @Input() showSearchResultNotice = false;
 
   @Input() sortConfig: SortOptions;
@@ -41,25 +45,25 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() configuration: string;
 
-  @Input() disableHeader = false;
+  @Input() disableHeader: boolean;
 
-  @Input() selectable = false;
+  @Input() selectable: boolean;
 
   @Input() context: Context;
 
-  @Input() hidePaginationDetail = false;
+  @Input() hidePaginationDetail: boolean;
 
-  @Input() selectionConfig: SelectionConfig = null;
+  @Input() selectionConfig: SelectionConfig;
 
   @Input() customData: any;
 
-  @Output() contentChange: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() contentChange: EventEmitter<ListableObject> = new EventEmitter();
 
-  @Output() customEvent = new EventEmitter<any>();
+  @Output() customEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
 
   protected getComponentName(): string {
     return 'SearchResultsComponent';

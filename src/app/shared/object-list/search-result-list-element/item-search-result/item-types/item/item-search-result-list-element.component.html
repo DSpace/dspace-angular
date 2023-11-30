@@ -1,7 +1,6 @@
 <div class="row">
   <div *ngIf="showThumbnails" class="col-3 col-xl-2 pr-sm-0">
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-       rel="noopener noreferrer"
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
        [routerLink]="[itemPageRoute]" class="dont-break-out">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
       </ds-thumbnail>
@@ -11,37 +10,31 @@
     </ds-thumbnail>
     </span>
   </div>
-  <div class="d-flex" [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-12'">
-    <div class="truncatable-content">
-      <div>
+  <div [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-12'">
+    <div class="d-flex justify-content-between">
+      <div class="flex-fill">
         <div class="d-flex">
-          <ds-type-badge *ngIf="showLabel" [object]="dso"></ds-type-badge>
-          <ds-access-status-badge [item]="dso" class="pl-1"></ds-access-status-badge>
+          <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context" [showAccessStatus]="true"></ds-themed-badges>
         </div>
         <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">
-          <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-             rel="noopener noreferrer"
-             [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-             [innerHTML]="dsoTitle"></a>
+          <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+                 [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
+                 [innerHTML]="dsoTitle"></a>
           <span *ngIf="linkType == linkTypes.None" class="lead item-list-title dont-break-out"
                 [innerHTML]="dsoTitle"></span>
           <span class="text-muted">
             <ds-truncatable-part [id]="dso.id" [minLines]="1">
               <ng-container *ngIf="dso.firstMetadataValue('dc.publisher') || dso.firstMetadataValue('dc.date.issued')">
-                (<span *ngIf="dso.firstMetadataValue('dc.publisher')" class="item-list-publisher"
-                       [innerHTML]="firstMetadataValue('dc.publisher') + ', '"></span>
+                (<span *ngIf="dso.firstMetadataValue('dc.publisher')" class="item-list-publisher" [innerHTML]="firstMetadataValue('dc.publisher')"></span>
+                <span *ngIf="dso.firstMetadataValue('dc.publisher') && dso.firstMetadataValue('dc.date.issued')">, </span>
                 <span *ngIf="dso.firstMetadataValue('dc.date.issued')" class="item-list-date"
                       [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
               </ng-container>
-            <ng-container *ngVar="['dc.contributor.author', 'dc.creator', 'dc.contributor.*'] as mdList">
-              <span *ngIf="dso.allMetadataValues(mdList).length > 0"
-                    class="item-list-authors">
-                <span *ngFor="let author of dso.allMetadata(mdList); let i=index; let last=last;">
-                  <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="mdList"></ds-metadata-link-view>
-                    <span *ngIf="!last">; </span>
+              <span *ngIf="dso.allMetadataValues(authorMetadata).length > 0" class="item-list-authors">
+                <span *ngFor="let author of dso.allMetadata(authorMetadata); let i=index; let last=last;">
+                  <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view><span *ngIf="!last">; </span>
                 </span>
               </span>
-            </ng-container>
             </ds-truncatable-part>
           </span>
           <div *ngIf="dso.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">

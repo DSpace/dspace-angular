@@ -1,7 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
-import { Angulartics2GoogleAnalytics, Angulartics2GoogleTagManager } from 'angulartics2';
+import {
+  Angulartics2GoogleAnalytics,
+  Angulartics2GoogleGlobalSiteTag,
+} from 'angulartics2';
 import { combineLatest } from 'rxjs';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -19,7 +22,7 @@ export class GoogleAnalyticsService {
 
   constructor(
     private googleAnalytics: Angulartics2GoogleAnalytics,
-    private googleTagManager: Angulartics2GoogleTagManager,
+    private googleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
     private klaroService: KlaroService,
     private configService: ConfigurationDataService,
     @Inject(DOCUMENT) private document: any,
@@ -70,7 +73,7 @@ export class GoogleAnalyticsService {
           this.document.body.appendChild(libScript);
 
           // start tracking
-          this.googleTagManager.startTracking();
+          this.googleGlobalSiteTag.startTracking();
         } else {
           // add trackingId snippet to page
           const keyScript = this.document.createElement('script');

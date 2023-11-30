@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDatePickerModel,
   DynamicDatePickerModelConfig,
-  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -30,6 +29,7 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
+  BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './section-upload-file-edit.model';
@@ -60,6 +60,7 @@ import { Subscription } from 'rxjs';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component represents the edit form for bitstream
@@ -69,7 +70,8 @@ import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/selec
   styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
 })
-export class SubmissionSectionUploadFileEditComponent implements OnInit {
+export class SubmissionSectionUploadFileEditComponent
+    implements OnInit, OnDestroy {
 
   /**
    * The FormComponent reference
@@ -189,6 +191,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
+    private translate: TranslateService,
   ) {
   }
 
@@ -249,13 +252,13 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
    * @param control
    *    The [[FormControl]] object
    */
-  public setOptions(model: DynamicFormControlModel, control: FormControl) {
+  public setOptions(model: DynamicFormControlModel, control: UntypedFormControl) {
     let accessCondition: AccessConditionOption = null;
     this.availableAccessConditionOptions.filter((element) => element.name === control.value)
       .forEach((element) => accessCondition = element );
     if (isNotEmpty(accessCondition)) {
-      const startDateControl: FormControl = control.parent.get('startDate') as FormControl;
-      const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
+      const startDateControl: UntypedFormControl = control.parent.get('startDate') as UntypedFormControl;
+      const endDateControl: UntypedFormControl = control.parent.get('endDate') as UntypedFormControl;
 
       // Clear previous state
       startDateControl?.markAsUntouched();
@@ -316,7 +319,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       for (const accessCondition of this.availableAccessConditionOptions) {
         accessConditionTypeOptions.push(
           {
-            label: accessCondition.name,
+            label: this.translate.instant(`${BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG}${accessCondition.name}`),
             value: accessCondition.name
           }
         );
@@ -432,13 +435,31 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
                 delete currentAccessCondition.startDate;
               } else if (accessCondition.startDate) {
                 const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                currentAccessCondition.startDate = dateToISOFormat(startDate);
+                // Clamp the start date to the maximum, if any, since the
+                // datepicker sometimes exceeds it.
+                let startDateDate = new Date(startDate);
+                if (accessConditionOpt.maxStartDate) {
+                    const maxStartDateDate = new Date(accessConditionOpt.maxStartDate);
+                    if (startDateDate > maxStartDateDate) {
+                        startDateDate = maxStartDateDate;
+                    }
+                }
+                currentAccessCondition.startDate = dateToISOFormat(startDateDate);
               }
               if (!accessConditionOpt.hasEndDate) {
                 delete currentAccessCondition.endDate;
               } else if (accessCondition.endDate) {
                 const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                currentAccessCondition.endDate = dateToISOFormat(endDate);
+                // Clamp the end date to the maximum, if any, since the
+                // datepicker sometimes exceeds it.
+                let endDateDate = new Date(endDate);
+                if (accessConditionOpt.maxEndDate) {
+                    const maxEndDateDate = new Date(accessConditionOpt.maxEndDate);
+                    if (endDateDate > maxEndDateDate) {
+                        endDateDate = maxEndDateDate;
+                    }
+                }
+                currentAccessCondition.endDate = dateToISOFormat(endDateDate);
               }
               accessConditionsToSave.push(currentAccessCondition);
             }

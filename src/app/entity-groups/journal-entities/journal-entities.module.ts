@@ -20,6 +20,8 @@ import { JournalVolumeSidebarSearchListElementComponent } from './item-list-elem
 import { JournalIssueSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal-issue/journal-issue-sidebar-search-list-element.component';
 import { JournalSidebarSearchListElementComponent } from './item-list-elements/sidebar-search-list-elements/journal/journal-sidebar-search-list-element.component';
 import { ItemSharedModule } from '../../item-page/item-shared.module';
+import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
+import { DsoPageModule } from '../../shared/dso-page/dso-page.module';
 import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 
 const ENTRY_COMPONENTS = [
@@ -49,6 +51,8 @@ const ENTRY_COMPONENTS = [
     CommonModule,
     ItemSharedModule,
     SharedModule,
+    ResultsBackButtonModule,
+    DsoPageModule,
     ContextMenuModule.withEntryComponents(),
   ],
   declarations: [

@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { Component, OnInit } from '@angular/core';
 import { FilterType } from '../../../models/filter-type.model';

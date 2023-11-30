@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of, of as observableOf } from 'rxjs';
@@ -72,7 +72,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
   it('should display approve button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-success'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
   });
 
   it('should display spin icon when approve is pending', () => {
@@ -81,7 +81,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
 
     const span = fixture.debugElement.query(By.css('.btn-success .fa-spin'));
 
-    expect(span).toBeDefined();
+    expect(span).not.toBeNull();
   });
 
   describe('submitTask', () => {

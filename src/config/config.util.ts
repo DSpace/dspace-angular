@@ -1,11 +1,12 @@
-import * as merge from 'deepmerge';
+import { all } from 'deepmerge';
 
 import { environment } from '../environments/environment';
 
 import { hasNoValue } from '../app/shared/empty.util';
 
 import { AppConfig } from './app-config.interface';
-import { ThemeConfig } from './theme.model';
+import { ThemeConfig, NamedThemeConfig } from './theme.config';
+import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';
 
 /**
  * Extend Angular environment with app config.
@@ -28,7 +29,7 @@ const mergeConfig = (destinationConfig: any, sourceConfig: AppConfig): void => {
   const mergeOptions = {
     arrayMerge: (destinationArray, sourceArray, options) => sourceArray
   };
-  Object.assign(destinationConfig, merge.all([
+  Object.assign(destinationConfig, all([
     destinationConfig,
     sourceConfig
   ], mergeOptions));
@@ -44,7 +45,9 @@ const getDefaultThemeConfig = (): ThemeConfig => {
     hasNoValue(themeConfig.regex) &&
     hasNoValue(themeConfig.handle) &&
     hasNoValue(themeConfig.uuid)
-  );
+  ) ?? {
+    name: BASE_THEME_NAME,
+  } as NamedThemeConfig;
 };
 
 export {

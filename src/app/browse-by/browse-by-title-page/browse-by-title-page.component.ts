@@ -13,6 +13,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SearchManager } from '../../core/browse/search-manager';
 
 @Component({
@@ -31,8 +32,10 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig) {
-    super(route, browseService, searchManager, dsoService, paginationService, router, appConfig);
+                     @Inject(APP_CONFIG) public appConfig: AppConfig,
+                     public dsoNameService: DSONameService,
+  ) {
+    super(route, browseService, searchManager, dsoService, paginationService, router, appConfig, dsoNameService);
   }
 
   ngOnInit(): void {
@@ -51,6 +54,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
         this.browseId = params.id || this.defaultBrowseId;
         this.updatePageWithItems(browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), undefined, undefined);
         this.updateParent(params.scope);
+        this.updateLogo();
       }));
     this.updateStartsWithTextOptions();
   }

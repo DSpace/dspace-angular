@@ -4,7 +4,7 @@ import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } f
 
 import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { AddParameterAction, SetParameterAction, SetParametersAction, SetQueryParameterAction, SetQueryParametersAction } from './route.actions';
 import { coreSelector } from '../core.selectors';

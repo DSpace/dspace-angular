@@ -23,13 +23,18 @@
                             <th scope="col">{{'admin.registries.metadata.schemas.table.id' | translate}}</th>
                             <th scope="col">{{'admin.registries.metadata.schemas.table.namespace' | translate}}</th>
                             <th scope="col">{{'admin.registries.metadata.schemas.table.name' | translate}}</th>
+                          <th scope="col">
+                            <div class="d-flex justify-content-center">
+                              {{'admin.registries.metadata.schemas.table.download' | translate}}
+                            </div>
+                          </th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page"
                             [ngClass]="{'table-primary' : isActive(schema) | async}">
                             <td>
-                                <label>
+                                <label class="mb-0">
                                     <input type="checkbox"
                                            [checked]="isSelected(schema) | async"
                                            (change)="selectMetadataSchema(schema, $event)"
@@ -39,6 +44,13 @@
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.id}}</a></td>
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.namespace}}</a></td>
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.prefix}}</a></td>
+                            <td class="selectable-row">
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-sm btn-outline-primary" (click)="onDownloadSchema(schema)">
+                                        <i class="fas fa-download" aria-hidden="true" ></i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

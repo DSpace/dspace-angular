@@ -7,13 +7,16 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  MetadataSchemaExportService
+} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
+import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -35,7 +38,7 @@ export class MetadataRegistryComponent {
    * Pagination config used to display the list of metadata schemas
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'rm',
+    id: this.uuidService.generate(),
     pageSize: 25
   });
 
@@ -46,9 +49,10 @@ export class MetadataRegistryComponent {
 
   constructor(private registryService: RegistryService,
               private notificationsService: NotificationsService,
-              private router: Router,
               private paginationService: PaginationService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private uuidService: UUIDService,
+              private readonly metadataSchemaExportService: MetadataSchemaExportService) {
     this.updateSchemas();
   }
 
@@ -176,4 +180,14 @@ export class MetadataRegistryComponent {
     this.paginationService.clearPagination(this.config.id);
   }
 
+  onDownloadSchema(schema: MetadataSchema): void {
+    this.metadataSchemaExportService.exportSchema(schema)
+      .pipe(
+        take(1),
+        filter(Object)
+      ).subscribe((processId: number) => {
+      const title = this.translateService.get('export-schema.process.title');
+      this.notificationsService.process(processId.toString(), 5000, title);
+    });
+  }
 }

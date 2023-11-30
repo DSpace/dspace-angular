@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 
-import { Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
@@ -14,6 +15,7 @@ import {
   WorkspaceitemSectionCorrectionMetadataObject,
   WorkspaceitemSectionCorrectionObject
 } from '../../../core/submission/models/workspaceitem-section-correction.model';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-submission-correction',
@@ -25,15 +27,21 @@ export class SubmissionSectionCorrectionComponent extends SectionModelComponent 
   /**
    * Contain the correction information regarding item's bitstream
    */
-  public correctionBitstreamData: WorkspaceitemSectionCorrectionBitstreamObject[];
+  public correctionBitstreamData$: BehaviorSubject<WorkspaceitemSectionCorrectionBitstreamObject[]> = new BehaviorSubject<WorkspaceitemSectionCorrectionBitstreamObject[]>([]);
 
   /**
    * Contain the correction information regarding item's metadata
    */
-  public correctionMetadataData: WorkspaceitemSectionCorrectionMetadataObject[];
+  public correctionMetadataData$: BehaviorSubject<WorkspaceitemSectionCorrectionMetadataObject[]> = new BehaviorSubject<WorkspaceitemSectionCorrectionMetadataObject[]>([]);
 
   public roleTypeEnum = RoleType;
   public operationType = OperationType;
+
+  /**
+   * The list of Subscription
+   * @type {Array}
+   */
+  protected subs: Subscription[] = [];
 
   constructor(protected sectionService: SectionsService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
@@ -49,16 +57,15 @@ export class SubmissionSectionCorrectionComponent extends SectionModelComponent 
   /**
    * Retrieve correction metadata list
    */
-  getItemData(): WorkspaceitemSectionCorrectionMetadataObject[] {
-    const correctionObject: WorkspaceitemSectionCorrectionObject =  this.sectionData.data as WorkspaceitemSectionCorrectionObject;
-    return correctionObject.metadata;
+  getItemData(sectionData: WorkspaceitemSectionCorrectionObject): WorkspaceitemSectionCorrectionMetadataObject[] {
+    return sectionData?.metadata || [];
   }
 
   /**
    * Retrieve correction bitstream list
    */
-  getFileData(): WorkspaceitemSectionCorrectionBitstreamObject[] {
-    const correctionObjectBitstreams: WorkspaceitemSectionCorrectionBitstreamObject[] = (this.sectionData.data as WorkspaceitemSectionCorrectionObject)?.bitstream || [];
+  getFileData(sectionData: WorkspaceitemSectionCorrectionObject): WorkspaceitemSectionCorrectionBitstreamObject[] {
+    const correctionObjectBitstreams: WorkspaceitemSectionCorrectionBitstreamObject[] = sectionData?.bitstream || [];
     return [...correctionObjectBitstreams].sort((obj1: WorkspaceitemSectionCorrectionBitstreamObject, obj2: WorkspaceitemSectionCorrectionBitstreamObject) => {
         return obj1.filename > obj2.filename ? 1 : -1;
       }
@@ -93,12 +100,20 @@ export class SubmissionSectionCorrectionComponent extends SectionModelComponent 
   }
 
   protected onSectionDestroy() {
-    return;
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
   protected onSectionInit(): void {
-    this.correctionMetadataData = this.getItemData();
-    this.correctionBitstreamData = this.getFileData();
+    this.subs.push(
+      this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType).pipe(
+        filter((data: WorkspaceitemSectionCorrectionObject) => isNotEmpty(data))
+      ).subscribe((data: WorkspaceitemSectionCorrectionObject) => {
+        this.correctionMetadataData$.next(this.getItemData(data));
+        this.correctionBitstreamData$.next(this.getFileData(data));
+      })
+    );
   }
 
 }

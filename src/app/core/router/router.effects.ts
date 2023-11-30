@@ -1,8 +1,7 @@
 import { filter, map, pairwise } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as fromRouter from '@ngrx/router-store';
-import { RouterNavigationAction } from '@ngrx/router-store';
+import { RouterNavigationAction, ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { Router } from '@angular/router';
 import { RouteUpdateAction } from './router.actions';
 
@@ -14,7 +13,7 @@ export class RouterEffects {
    */
    routeChange$ = createEffect(() => this.actions$
     .pipe(
-      ofType(fromRouter.ROUTER_NAVIGATION),
+      ofType(ROUTER_NAVIGATION),
       pairwise(),
       map((actions: RouterNavigationAction[]) =>
         actions.map((navigateAction) => {

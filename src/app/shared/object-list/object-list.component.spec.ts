@@ -150,4 +150,38 @@ describe('ObjectListComponent', () => {
       expect(comp.paginationChange.emit).toHaveBeenCalledWith(testEvent);
     }));
   });
+
+  describe('when object matchObjects array is not empty', () => {
+    beforeEach(() => {
+      comp.objects = Object.assign({
+        id: '0001-0001-0001-0001',
+        display: 'John Doe',
+        value: 'John, Doe',
+        metadata: {
+        },
+        matchObjects: [
+          {
+            id: '7fd133e7-feaa-4be9-a1d2-5258694556ae',
+            uuid: '7fd133e7-feaa-4be9-a1d2-5258694556ae',
+            name: 'Public item',
+            handle: '123456789/4',
+            metadata: {
+            },
+            inArchive: true,
+            discoverable: true,
+            withdrawn: false,
+            lastModified: '2023-10-20T09:23:12.984+00:00',
+            entityType: 'Publication',
+            type: 'item',
+          },
+        ],
+      });
+      fixture.detectChanges();
+    });
+
+    it('should display file icon', () => {
+      const matchElements = fixture.nativeElement.querySelectorAll('.fa-file-circle-exclamation');
+      expect(matchElements).toBeTruthy();
+    });
+  });
 });

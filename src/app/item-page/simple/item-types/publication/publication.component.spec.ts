@@ -36,6 +36,10 @@ import { VersionDataService } from '../../../../core/data/version-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import {
+  BrowseDefinitionDataServiceStub
+} from '../../../../shared/testing/browse-definition-data-service.stub';
 
 const noMetadata = new MetadataMap();
 
@@ -87,7 +91,8 @@ describe('PublicationComponent', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: SearchService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService }
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -163,12 +168,12 @@ describe('PublicationComponent', () => {
 
   describe('with IIIF viewer and search', () => {
 
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/search?query=test%20query&fakeParam=true');
+      }
+    };
     beforeEach(waitForAsync(() => {
-      const localMockRouteService = {
-        getPreviousUrl(): Observable<string> {
-          return of('/search?query=test%20query&fakeParam=true');
-        }
-      };
       const iiifEnabledMap: MetadataMap = {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],
@@ -193,13 +198,12 @@ describe('PublicationComponent', () => {
   });
 
   describe('with IIIF viewer and search but no previous search query', () => {
-
+    const localMockRouteService = {
+      getPreviousUrl(): Observable<string> {
+        return of('/item');
+      }
+    };
     beforeEach(waitForAsync(() => {
-      const localMockRouteService = {
-        getPreviousUrl(): Observable<string> {
-          return of('/item');
-        }
-      };
       const iiifEnabledMap: MetadataMap = {
         'dspace.iiif.enabled': [getIIIFEnabled(true)],
         'iiif.search.enabled': [getIIIFSearchEnabled(true)],

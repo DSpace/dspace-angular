@@ -1,10 +1,14 @@
-<div *ngIf="securityConfigLevel && !(securityConfigLevel.length == 1 &&  securityConfigLevel.indexOf(0)>-1)"
+<div *ngIf="securityConfigLevel?.length > 1"
      class="switch-container">
   <div *ngFor="let secLevel of securityLevelsMap">
-    <div class="switch-opt" (click)="changeSelectedSecurity($any(secLevel).value) "
+    <div class="switch-opt"
          [ngStyle]="{'background-color': securityLevel === $any(secLevel).value ? 'white' : 'rgb(204,204,204)' }">
-      <i [class]="$any(secLevel).icon"
-         [ngStyle]="{'color': securityLevel == $any(secLevel).value ? $any(secLevel).color : '' }"></i>
+      <button class="btn btn-link text-primary" data-test="switch-btn"
+              [disabled]="readOnly"
+              (click)="changeSelectedSecurityLevel($any(secLevel).value)">
+        <i [class]="$any(secLevel).icon"
+           [ngStyle]="{'color': securityLevel == $any(secLevel).value ? $any(secLevel).color : '' }"></i>
+      </button>
     </div>
   </div>
 </div>

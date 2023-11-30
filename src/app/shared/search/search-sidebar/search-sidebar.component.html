@@ -1,4 +1,4 @@
-<div>
+<div class="bg-white">
     <div id="sidebar-options" class="d-block d-md-none search-controls clearfix">
         <small class="results">{{resultCount}} {{"search.sidebar.results" | translate}}</small>
         <button (click)="toggleSidebar.emit()"
@@ -18,11 +18,11 @@
                                             [defaultScope]="currentScope"
                                             [inPlaceSearch]="inPlaceSearch"
                                             (changeConfiguration)="changeConfiguration.emit($event)"></ds-search-switch-configuration>
-            <ds-search-filters [currentScope]="currentScope"
+            <ds-themed-search-filters [currentScope]="currentScope"
                                [currentConfiguration]="configuration"
                                [filters]="filters"
                                [refreshFilters]="refreshFilters"
-                               [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
+                               [inPlaceSearch]="inPlaceSearch"></ds-themed-search-filters>
             <ds-themed-search-settings [currentSortOption]="currentSortOption"
                                        [sortOptionsList]="sortOptionsList"></ds-themed-search-settings>
         </div>

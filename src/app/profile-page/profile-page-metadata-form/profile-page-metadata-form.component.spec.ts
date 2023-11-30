@@ -8,7 +8,7 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ProfilePageMetadataFormComponent', () => {

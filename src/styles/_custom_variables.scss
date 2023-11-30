@@ -1,5 +1,5 @@
 :root {
-  --ds-content-spacing: #{$spacer * 1.5};
+  --ds-content-spacing: #{$spacer}; // equivalent to Bootstrap spaces of size 3
 
   --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};
 
@@ -24,12 +24,16 @@
   --ds-header-bg: #{$white};
   --ds-header-logo-height: 50px;
   --ds-header-logo-height-xs: 50px;
-  --ds-header-icon-color: #{$cyan};
-  --ds-header-icon-color-hover: #{darken($white, 15%)};
+  --ds-header-icon-color: #{$link-color};
+  --ds-header-icon-color-hover: #{$link-hover-color};
+  --ds-navbar-bg: var(--ds-header-bg);
   --ds-header-navbar-border-top-color: #{$white};
   --ds-header-navbar-border-bottom-color: #{$gray-400};
   --ds-navbar-link-color: #{$cyan};
   --ds-navbar-link-color-hover: #{darken($cyan, 15%)};
+  --ds-expandable-navbar-bg: var(--ds-navbar-bg);
+  --ds-expandable-navbar-link-color: var(--ds-navbar-link-color);
+  --ds-expandable-navbar-link-color-hover: var(--ds-navbar-link-color-hover);
 
   $admin-sidebar-bg: darken(#2B4E72, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
@@ -88,6 +92,11 @@
 
   --ds-search-form-scope-max-width: 150px;
 
+  --ds-context-x-offset: -16px;
+  --ds-context-help-icon-size: 16px;
+  --ds-context-help-tooltip-width: 300px;
+  --ds-context-help-tooltip-link-color: $white;
+
   --ds-gap: 0.25rem;
 
   --ds-date-picker-input-max-width: 300px;
@@ -125,4 +134,10 @@
   --ds-advanced-attachment-image-object-position: 0% 0%;
   --ds-advanced-attachment-thumbnail-placeholder-font-weight: bold;
 
+
+  --ds-dso-edit-field-width: 210px;
+  --ds-dso-edit-lang-width: 90px;
+  --ds-dso-edit-security-width: 136px;
+  --ds-dso-edit-actions-width: 173px;
+  --ds-dso-edit-virtual-tooltip-min-width: 300px;
 }

@@ -2,7 +2,7 @@ import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { rotate } from '../../../shared/animations/rotate';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 import { slide } from '../../../shared/animations/slide';
-import { CSSVariableService } from '../../../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { bgColor } from '../../../shared/animations/bgColor';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
@@ -15,8 +15,7 @@ import { Router } from '@angular/router';
  * Represents a expandable section in the sidebar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-expandable-admin-sidebar-section]',
+  selector: 'ds-expandable-admin-sidebar-section',
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor]
@@ -65,7 +64,7 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.sidebarActiveBg = this.variableService.getVariable('adminSidebarActiveBg');
+    this.sidebarActiveBg = this.variableService.getVariable('--ds-admin-sidebar-active-bg');
     this.sidebarCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.sidebarPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.expanded = combineLatestObservable(this.active, this.sidebarCollapsed, this.sidebarPreviewCollapsed)

@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Observable } from 'rxjs';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';

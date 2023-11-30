@@ -18,6 +18,7 @@ import { CookieService } from '../services/cookie.service';
 import {
   getAuthenticatedUser,
   getAuthenticationToken,
+  getExternalAuthCookieStatus,
   getRedirectUrl,
   isAuthenticated,
   isAuthenticatedLoaded,
@@ -28,7 +29,7 @@ import { AppState } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
-  ResetAuthenticationMessagesAction,
+  ResetAuthenticationMessagesAction, SetAuthCookieStatus,
   SetRedirectUrlAction,
   SetUserAsIdleAction,
   UnsetUserAsIdleAction
@@ -50,6 +51,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { MachineToken } from './models/machine-token.model';
 import { NoContent } from '../shared/NoContent.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -148,6 +150,24 @@ export class AuthService {
    */
   public isAuthenticationLoaded(): Observable<boolean> {
     return this.store.pipe(select(isAuthenticatedLoaded));
+  }
+
+  /**
+   * Used to set the external authentication status when authenticating via an
+   * external authentication system (e.g. Shibboleth).
+   * @param external
+   */
+  public setExternalAuthStatus(external: boolean) {
+    this.store.dispatch(new SetAuthCookieStatus(external));
+  }
+
+  /**
+   * Returns true if an external authentication system (e.g. Shibboleth) is being used
+   * for authentication. Returns false otherwise.
+   */
+  public isExternalAuthentication(): Observable<boolean> {
+    return this.store.pipe(
+      select(getExternalAuthCookieStatus));
   }
 
   /**
@@ -521,6 +541,31 @@ export class AuthService {
           this.setRedirectUrl(newRedirectUrl);
         }
       });
+  }
+
+  /**
+   * Returns the external server redirect URL.
+   * @param origin - The origin route.
+   * @param redirectRoute - The redirect route.
+   * @param location - The location.
+   * @returns The external server redirect URL.
+   */
+  getExternalServerRedirectUrl(origin: string, redirectRoute: string, location: string): string  {
+    const correctRedirectUrl = new URLCombiner(origin, redirectRoute).toString();
+
+    let externalServerUrl = location;
+    const myRegexp = /\?redirectUrl=(.*)/g;
+    const match = myRegexp.exec(location);
+    const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
+
+    // Check whether the current page is different from the redirect url received from rest
+    if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
+      // change the redirect url with the current page url
+      const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
+      externalServerUrl = location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
+    }
+
+    return externalServerUrl;
   }
 
   /**

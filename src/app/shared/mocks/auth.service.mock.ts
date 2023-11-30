@@ -30,4 +30,12 @@ export class AuthServiceMock {
   public getImpersonateID(): string {
     return null;
   }
+
+  public getRedirectUrl(): Observable<string> {
+    return;
+  }
+
+  public getExternalServerRedirectUrl(): string {
+    return;
+  }
 }

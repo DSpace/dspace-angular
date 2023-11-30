@@ -3,6 +3,7 @@ import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.mod
 import { WorkspaceitemSectionLicenseObject } from './workspaceitem-section-license.model';
 import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload.model';
 import { WorkspaceitemSectionCcLicenseObject } from './workspaceitem-section-cc-license.model';
+import { WorkspaceitemSectionIdentifiersObject } from './workspaceitem-section-identifiers.model';
 import { WorkspaceitemSectionSherpaPoliciesObject } from './workspaceitem-section-sherpa-policies.model';
 import { WorkspaceitemSectionDetectDuplicateObject } from './workspaceitem-section-deduplication.model';
 import { WorkspaceitemSectionCorrectionObject } from './workspaceitem-section-correction.model';
@@ -25,6 +26,7 @@ export type WorkspaceitemSectionDataType
   | WorkspaceitemSectionCcLicenseObject
   | WorkspaceitemSectionAccessesObject
   | WorkspaceitemSectionSherpaPoliciesObject
+  | WorkspaceitemSectionIdentifiersObject
   | WorkspaceitemSectionDetectDuplicateObject
   | WorkspaceitemSectionCorrectionObject
   | string;

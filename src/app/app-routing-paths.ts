@@ -133,20 +133,17 @@ export function getRequestCopyModulePath() {
 
 export const HEALTH_PAGE_PATH = 'health';
 
-export const EDIT_ITEM_PATH = 'edit-items';
-
-export function getEditItemPageRoute() {
-  return `/${EDIT_ITEM_PATH}`;
-}
-
+export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
 export function getSubscriptionsModuleRoute() {
   return `/${SUBSCRIPTIONS_MODULE_PATH}`;
 }
 
-export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
+export const EDIT_ITEM_PATH = 'edit-items';
+export function getEditItemPageRoute() {
+  return `/${EDIT_ITEM_PATH}`;
+}
 
 export const STATISTICS_PAGE_PATH = 'statistics';
-
 export function getStatisticsModuleRoute() {
   return `/${STATISTICS_PAGE_PATH}`;
 }

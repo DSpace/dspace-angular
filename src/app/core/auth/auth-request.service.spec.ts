@@ -11,6 +11,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import objectContaining = jasmine.objectContaining;
 import { AuthStatus } from './models/auth-status.model';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { Observable, of as observableOf } from 'rxjs';
 
 describe(`AuthRequestService`, () => {
   let halService: HALEndpointService;
@@ -34,8 +35,8 @@ describe(`AuthRequestService`, () => {
       super(hes, rs, rdbs);
     }
 
-    protected createShortLivedTokenRequest(href: string): PostRequest {
-      return new PostRequest(this.requestService.generateRequestId(), href);
+    protected createShortLivedTokenRequest(href: string): Observable<PostRequest> {
+      return observableOf(new PostRequest(this.requestService.generateRequestId(), href));
     }
   }
 

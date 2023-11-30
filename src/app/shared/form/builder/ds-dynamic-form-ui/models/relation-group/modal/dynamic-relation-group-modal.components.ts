@@ -65,29 +65,30 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   @Output() edit: EventEmitter<any> = new EventEmitter<any>();
   @Output() add: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('formRef', {static: false}) private formRef: FormComponent;
+  @ViewChild('formRef', { static: false }) private formRef: FormComponent;
 
   public formModel: DynamicFormControlModel[];
   public vocabulary$: Observable<Vocabulary>;
+  public securityLevelParent: number;
 
   private subs: Subscription[] = [];
 
 
   constructor(private vocabularyService: VocabularyService,
-              private formBuilderService: FormBuilderService,
-              private formService: FormService,
-              private cdr: ChangeDetectorRef,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService,
-              protected modalService: NgbModal,
-              protected submissionService: SubmissionService,
-              private activeModal: NgbActiveModal
+    private formBuilderService: FormBuilderService,
+    private formService: FormService,
+    private cdr: ChangeDetectorRef,
+    protected layoutService: DynamicFormLayoutService,
+    protected validationService: DynamicFormValidationService,
+    protected modalService: NgbModal,
+    protected submissionService: SubmissionService,
+    private activeModal: NgbActiveModal
   ) {
     super(layoutService, validationService);
   }
 
   ngOnInit() {
-    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(
       this.model.submissionId,
@@ -113,10 +114,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
           if (isNotEmpty(nextValue)) {
             model.value = nextValue;
           }
-          // as the value doesn't support the security level, add into the big model
-          if (value && typeof value !== 'string') {
-            (model as any).securityLevel = value.securityLevel;
-          }
+
+          this.initSecurityLevelConfig(model, modelRow);
         });
       });
     }
@@ -132,8 +131,8 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
   }
 
   isMandatoryFieldEmpty() {
-    const model = this.getMandatoryFieldModel();
-    return model.value == null;
+    const models = this.getMandatoryFields();
+    return models.some(model => !model.value);
   }
 
   hasMandatoryFieldAuthority() {
@@ -262,11 +261,20 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
       modelRow.group.forEach((model: DynamicInputModel) => {
         if (model.name === this.model.mandatoryField) {
           mandatoryFieldModel = model;
+          this.initSecurityLevelConfig(model, modelRow);
           return;
         }
       });
     });
     return mandatoryFieldModel;
+  }
+
+  private getMandatoryFields(): DsDynamicInputModel[] {
+    return this.formModel
+      .map(row => (row as DynamicFormGroupModel).group)
+      .reduce((previousValue, currentValue) => previousValue.concat(currentValue))
+      .map(model => model as DsDynamicInputModel)
+      .filter(model => !!model.validators && 'required' in model.validators);
   }
 
   private modifyChip() {
@@ -283,15 +291,58 @@ export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComp
 
   private buildChipItem() {
     const item = Object.create({});
+    let mainModel;
+    this.formModel.some((modelRow: DynamicFormGroupModel) => {
+      const findIndex = modelRow.group.findIndex(model => model.name === this.model.name);
+      if (findIndex !== -1) {
+        mainModel = modelRow.group[findIndex];
+        return true;
+      }
+    });
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
         const controlValue: any = (control?.value as any)?.value || control?.value || PLACEHOLDER_PARENT_METADATA;
         const controlAuthority: any = (control?.value as any)?.authority || null;
-        item[control.name] = new FormFieldMetadataValueObject(controlValue, (control as any)?.language, (control as any)?.securityLevel, controlAuthority);
+
+        item[control.name] =
+          new FormFieldMetadataValueObject(
+            controlValue, (control as any)?.language,
+            controlValue === PLACEHOLDER_PARENT_METADATA ? null : mainModel.securityLevel,
+            controlAuthority,
+            null, 0, null,
+            (control?.value as any)?.otherInformation || null
+          );
       });
     });
     return item;
+  }
+
+  private initSecurityLevelConfig(chipModel: DynamicInputModel, modelGroup: DynamicFormGroupModel) {
+    if (this.model.name === chipModel.name && this.model.securityConfigLevel.length > 1) {
+      (chipModel as any).securityConfigLevel = this.model.securityConfigLevel;
+      (chipModel as any).toggleSecurityVisibility = true;
+
+      const mainRow = modelGroup.group.find(itemModel => itemModel.name === this.model.name);
+
+      (chipModel as any).securityLevel = (mainRow as any).securityLevel || 0;
+      this.securityLevelParent = (mainRow as any).securityLevel;
+
+      modelGroup.group.forEach((item: any) => {
+        if (item.name !== this.model.name) {
+          item.securityConfigLevel = this.model.securityConfigLevel;
+          item.toggleSecurityVisibility = false;
+          item.securityLevel = this.securityLevelParent;
+        }
+      });
+    }
+    if (this.model.securityConfigLevel.length === 1) {
+      modelGroup.group.forEach((item: any) => {
+        item.securityConfigLevel = this.model.securityConfigLevel;
+        item.toggleSecurityVisibility = false;
+        item.securityLevel = this.model.securityLevel;
+      });
+    }
   }
 
   private retrieveVocabulary(vocabularyOptions: VocabularyOptions): void {

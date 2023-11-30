@@ -22,5 +22,14 @@ export const initialMenusState: MenusState = {
       visible: true,
       sections: {},
       sectionToSubsectionIndex: {}
-    }
+    },
+  [MenuID.DSO_EDIT]:
+    {
+      id: MenuID.DSO_EDIT,
+      collapsed: true,
+      previewCollapsed: true,
+      visible: false,
+      sections: {},
+      sectionToSubsectionIndex: {}
+    },
 };

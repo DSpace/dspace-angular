@@ -12,6 +12,7 @@ import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { UUIDService } from '../../../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -40,8 +41,9 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
               protected objectValuesPipe: ObjectValuesPipe,
               protected bundleService: BundleDataService,
               protected paginationService: PaginationService,
-              protected requestService: RequestService) {
-    super(objectUpdatesService, elRef, objectValuesPipe, paginationService);
+              protected requestService: RequestService,
+              protected uuidService: UUIDService) {
+    super(objectUpdatesService, elRef, objectValuesPipe, paginationService, uuidService);
   }
 
   ngOnInit() {

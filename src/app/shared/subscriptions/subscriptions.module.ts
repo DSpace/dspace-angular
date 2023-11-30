@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { SubscriptionViewComponent } from './components/subscription-view/subscription-view.component';
-import { SubscriptionModalComponent } from './components/subscription-modal/subscription-modal.component';
-import { SubscriptionEditModalComponent } from './components/subscription-edit-modal/subscription-edit-modal.component';
+import { SubscriptionViewComponent } from './subscription-view/subscription-view.component';
+import { SubscriptionModalComponent } from './subscription-modal/subscription-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared.module';
+import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 const COMPONENTS = [
   SubscriptionViewComponent,
-  SubscriptionModalComponent,
-  SubscriptionEditModalComponent,
+  SubscriptionModalComponent
 ];
 
 @NgModule({
@@ -20,12 +20,18 @@ const COMPONENTS = [
   ],
   imports: [
     CommonModule,
+    NgbModalModule,
     ReactiveFormsModule,
     TranslateModule,
-    RouterModule
+    RouterModule,
+    SharedModule
+  ],
+  providers:[
+    NgbActiveModal
   ],
   exports: [
     ...COMPONENTS
   ]
 })
-export class SubscriptionsModule { }
+export class SubscriptionsModule {
+}

@@ -10,6 +10,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteData } from '../data/remote-data';
 import { MetadataSecurityConfiguration } from './models/metadata-security-configuration';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { METADATA_SECURITY_TYPE } from './models/metadata-security-config.resource-type';
 
 /**
  * A service that provides methods to make REST requests with securitysettings endpoint.
@@ -17,7 +18,7 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
 @Injectable({
   providedIn: 'root'
 })
-@dataService(MetadataSecurityConfiguration.type)
+@dataService(METADATA_SECURITY_TYPE)
 export class MetadataSecurityConfigurationService extends IdentifiableDataService<MetadataSecurityConfiguration> {
 
   constructor(

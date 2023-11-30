@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
@@ -26,7 +26,7 @@ export class OpenaireBrokerTopicsEffects {
   /**
    * Retrieve all OpenAIRE Broker topics managing pagination and errors.
    */
-  @Effect() retrieveAllTopics$ = this.actions$.pipe(
+  retrieveAllTopics$ = createEffect(() => this.actions$.pipe(
     ofType(OpenaireBrokerTopicActionTypes.RETRIEVE_ALL_TOPICS),
     withLatestFrom(this.store$),
     switchMap(([action, currentState]: [RetrieveAllTopicsAction, any]) => {
@@ -45,27 +45,27 @@ export class OpenaireBrokerTopicsEffects {
         })
       );
     })
-  );
+  ));
 
   /**
    * Show a notification on error.
    */
-  @Effect({ dispatch: false }) retrieveAllTopicsErrorAction$ = this.actions$.pipe(
+  retrieveAllTopicsErrorAction$ = createEffect(() => this.actions$.pipe(
     ofType(OpenaireBrokerTopicActionTypes.RETRIEVE_ALL_TOPICS_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('openaire.broker.topic.error.service.retrieve'));
     })
-  );
+  ), { dispatch: false });
 
   /**
    * Clear find all topics requests from cache.
    */
-  @Effect({ dispatch: false }) addTopicsAction$ = this.actions$.pipe(
+  addTopicsAction$ = createEffect(() => this.actions$.pipe(
     ofType(OpenaireBrokerTopicActionTypes.ADD_TOPICS),
     tap(() => {
       this.openaireBrokerTopicDataService.clearFindAllTopicsRequests();
     })
-  );
+  ), { dispatch: false });
 
   /**
    * Initialize the effect class variables.

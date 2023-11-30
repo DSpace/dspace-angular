@@ -1,5 +1,8 @@
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
-import { differenceWith, findKey, isEqual, uniqWith } from 'lodash';
+import differenceWith from 'lodash/differenceWith';
+import findKey from 'lodash/findKey';
+import isEqual from 'lodash/isEqual';
+import uniqWith from 'lodash/uniqWith';
 
 import {
   ChangeSubmissionCollectionAction,

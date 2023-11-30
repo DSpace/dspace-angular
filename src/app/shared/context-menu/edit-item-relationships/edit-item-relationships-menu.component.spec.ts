@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { EditItemDataService } from '../../../core/submission/edititem-data.service';
 import { EditItemRelationshipsMenuComponent } from './edit-item-relationships-menu.component';
-import { EditItem } from '../../../core/submission/models/edititem.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';

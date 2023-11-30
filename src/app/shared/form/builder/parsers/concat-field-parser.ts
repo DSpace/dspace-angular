@@ -1,7 +1,7 @@
-import {Inject} from '@angular/core';
+import { Inject } from '@angular/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -85,6 +85,13 @@ export class ConcatFieldParser extends FieldParser {
       input1ModelConfig.hint = undefined;
     }
 
+    if (this.configData.mandatory) {
+      concatGroup.required = true;
+      input1ModelConfig.required = true;
+    }
+
+    concatGroup.disabled = input1ModelConfig.readOnly;
+
     if (isNotEmpty(this.firstPlaceholder)) {
       input1ModelConfig.placeholder = this.firstPlaceholder;
     }
@@ -116,7 +123,7 @@ export class ConcatFieldParser extends FieldParser {
         control: 'form-row',
       }
     };
-    this.initSecurityValue(concatGroup);
+    this.initSecurityValue(concatGroup, fieldValue);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
 

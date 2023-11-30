@@ -1,7 +1,10 @@
 <ds-configuration-search-page *ngIf="configuration" class="w-100"
                               [fixedFilterQuery]="searchFilter"
                               [configuration]="configuration"
+                              [renderOnServerSide]="false"
                               [searchEnabled]="searchEnabled"
                               [showCharts]="true"
-                              [showScopeSelector]="false">
+                              [showScopeSelector]="false"
+                              [showSearchResultNotice]="showSearchResultNotice$ | async"
+                              [searchResultNotice]="searchResultNotice">
 </ds-configuration-search-page>

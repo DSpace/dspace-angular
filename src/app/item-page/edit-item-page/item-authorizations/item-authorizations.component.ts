@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -101,7 +101,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
   constructor(
     private linkService: LinkService,
     private route: ActivatedRoute,
-    private nameService: DSONameService
+    public nameService: DSONameService
   ) {
   }
 

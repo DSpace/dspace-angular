@@ -7,7 +7,7 @@ import { createSelector, select, Store } from '@ngrx/store';
 
 import { hasValue } from './empty.util';
 import { AppState } from '../app.reducer';
-import { CSSVariableService } from './sass-helper/sass-helper.service';
+import { CSSVariableService } from './sass-helper/css-variable.service';
 
 export enum WidthCategory {
   XS,
@@ -31,10 +31,10 @@ export class HostWindowService {
     /* See _exposed_variables.scss */
     variableService.getAllVariables()
       .subscribe((variables) => {
-      this.breakPoints.XL_MIN = parseInt(variables.xlMin, 10);
-      this.breakPoints.LG_MIN = parseInt(variables.lgMin, 10);
-      this.breakPoints.MD_MIN = parseInt(variables.mdMin, 10);
-      this.breakPoints.SM_MIN = parseInt(variables.smMin, 10);
+      this.breakPoints.XL_MIN = parseInt(variables['--bs-xl-min'], 10);
+      this.breakPoints.LG_MIN = parseInt(variables['--bs-lg-min'], 10);
+      this.breakPoints.MD_MIN = parseInt(variables['--bs-md-min'], 10);
+      this.breakPoints.SM_MIN = parseInt(variables['--bs-sm-min'], 10);
     });
   }
 

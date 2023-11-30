@@ -5,6 +5,7 @@ import {
   ManageRelationshipEvent,
   ManageRelationshipEventType
 } from '../../../../edit-item-relationships/edit-item-relationships.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ds-relationships-items-list-preview',
@@ -46,6 +47,7 @@ export class RelationshipsItemsListPreviewComponent {
 
   processing = false;
 
+  authorMetadata = environment.searchResult.authorMetadata;
   /**
    * When a button is clicked emit the event to the parent components
    */

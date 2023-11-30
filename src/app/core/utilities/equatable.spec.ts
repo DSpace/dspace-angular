@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { EquatableObject, excludeFromEquals, fieldsForEquals } from './equals.decorators';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 class Dog extends EquatableObject<Dog> {
   public name: string;

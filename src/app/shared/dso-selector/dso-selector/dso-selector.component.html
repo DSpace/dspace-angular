@@ -21,12 +21,12 @@
       </button>
       <button *ngFor="let listEntry of (listEntries$ | async)"
               class="list-group-item list-group-item-action border-0 list-entry"
-              [ngClass]="{'bg-primary': listEntry.indexableObject.id === currentDSOId}"
+              [ngClass]="{'bg-primary': listEntry['id'] === currentDSOId}"
               title="{{ getName(listEntry) }}"
               dsHoverClass="ds-hover"
-              (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
+              (click)="onClick(listEntry)" #listEntryElement>
         <ds-listable-object-component-loader [object]="listEntry" [viewMode]="viewMode"
-                                             [linkType]=linkTypes.None [context]="getContext(listEntry.indexableObject.id)"></ds-listable-object-component-loader>
+                                             [linkType]=linkTypes.None [context]="getContext(listEntry['id'])"></ds-listable-object-component-loader>
       </button>
     </ng-container>
     <button *ngIf="loading"

@@ -1,5 +1,5 @@
 import { Injectable, Optional } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -18,7 +18,9 @@ import {
   DynamicPathable,
   parseReviver,
 } from '@ng-dynamic-forms/core';
-import { isObject, isString, mergeWith } from 'lodash';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
+import mergeWith from 'lodash/mergeWith';
 
 import {
   hasNoValue,
@@ -58,7 +60,7 @@ export class FormBuilderService extends DynamicFormService {
   /**
    * This map contains the active forms control groups
    */
-  private formGroups: Map<string, FormGroup>;
+  private formGroups: Map<string, UntypedFormGroup>;
 
   /**
    * This is the field to use for type binding
@@ -80,7 +82,7 @@ export class FormBuilderService extends DynamicFormService {
     }
   }
 
-  createDynamicFormControlEvent(control: FormControl, group: FormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
+  createDynamicFormControlEvent(control: UntypedFormControl, group: UntypedFormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
     const $event = {
       value: (model as any).value,
       autoSave: false
@@ -427,12 +429,12 @@ export class FormBuilderService extends DynamicFormService {
     return model.type === DYNAMIC_FORM_CONTROL_TYPE_INPUT;
   }
 
-  getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0): AbstractControl {
+  getFormControlById(id: string, formGroup: UntypedFormGroup, groupModel: DynamicFormControlModel[], index = 0): AbstractControl {
     const fieldModel = this.findById(id, groupModel, index);
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
-  getFormControlByModel(formGroup: FormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
+  getFormControlByModel(formGroup: UntypedFormGroup, fieldModel: DynamicFormControlModel): AbstractControl {
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
@@ -479,7 +481,7 @@ export class FormBuilderService extends DynamicFormService {
    * @param id id of model
    * @param formGroup FormGroup
    */
-  addFormGroups(id: string, formGroup: FormGroup): void {
+  addFormGroups(id: string, formGroup: UntypedFormGroup): void {
     this.formGroups.set(id, formGroup);
   }
 
@@ -503,9 +505,10 @@ export class FormBuilderService extends DynamicFormService {
    */
   updateModelValue(fieldId: string, value: FormFieldMetadataValueObject): DynamicFormControlModel {
     let returnModel = null;
-    this.formModels.forEach((models, formId) => {
+    [...this.formModels.keys()].find((formId) => {
+      const models = this.formModels.get(formId);
       const fieldModel: any = this.findById(fieldId, models);
-      if (hasValue(fieldModel)) {
+      if (hasValue(fieldModel) && !fieldModel.hidden) {
         if (isNotEmpty(value)) {
           if (fieldModel.repeatable && isNotEmpty(fieldModel.value)) {
             // if model is repeatable and has already a value add a new field instead of replacing it
@@ -525,8 +528,9 @@ export class FormBuilderService extends DynamicFormService {
             returnModel = fieldModel;
           }
         }
-        return;
+        return returnModel;
       }
+      return false;
     });
     return returnModel;
   }
@@ -645,7 +649,7 @@ export class FormBuilderService extends DynamicFormService {
   copyFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel) {
 
       const groupModel = formArrayModel.insertGroup(index);
-      const previousGroup = formArray.controls[index] as FormGroup;
+      const previousGroup = formArray.controls[index] as UntypedFormGroup;
       const newGroup = this.createFormGroup(groupModel.group, null, groupModel);
       const previousKey = Object.keys(previousGroup.getRawValue())[0];
       const newKey = Object.keys(newGroup.getRawValue())[0];

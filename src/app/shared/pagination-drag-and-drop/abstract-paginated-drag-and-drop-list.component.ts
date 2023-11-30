@@ -19,6 +19,7 @@ import { compareArraysUsing } from '../../item-page/simple/item-types/shared/ite
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FieldUpdate } from '../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
+import { UUIDService } from '../../core/shared/uuid.service';
 
 /**
  * Operator used for comparing {@link FieldUpdate}s by their field's UUID
@@ -90,7 +91,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    * Start at page 1 and always use the set page size
    */
   options = Object.assign(new PaginationComponentOptions(),{
-    id: 'dad',
+    id: this.uuidService.generate(),
     currentPage: 1,
     pageSize: this.pageSize
   });
@@ -116,7 +117,8 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   protected constructor(protected objectUpdatesService: ObjectUpdatesService,
                         protected elRef: ElementRef,
                         protected objectValuesPipe: ObjectValuesPipe,
-                        protected paginationService: PaginationService
+                        protected paginationService: PaginationService,
+                        protected uuidService: UUIDService
                         ) {
   }
 

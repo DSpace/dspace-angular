@@ -1,4 +1,5 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,6 +13,7 @@ import { SectionComponent } from '../../../../core/layout/models/section.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { hasValue } from '../../../empty.util';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-counters-section',
@@ -30,17 +32,24 @@ export class CountersSectionComponent implements OnInit {
   isLoading$ = new BehaviorSubject(true);
 
   pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'counters-pagination',
+    id: this.uuidService.generate(),
     pageSize: 1,
     currentPage: 1
   });
 
 
-  constructor(private searchService: SearchService, @Inject(NativeWindowService) protected _window: NativeWindowRef,) {
+  constructor(private searchService: SearchService,
+              private uuidService: UUIDService,
+              @Inject(PLATFORM_ID) private platformId: Object,
+              @Inject(NativeWindowService) protected _window: NativeWindowRef,) {
 
   }
 
   ngOnInit() {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     this.counterData$ = forkJoin(
       this.countersSection.counterSettingsList.map((counterSettings: CountersSettings) =>
         this.searchService.search(new PaginatedSearchOptions({

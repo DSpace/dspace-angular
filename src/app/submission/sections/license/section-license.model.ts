@@ -20,8 +20,7 @@ export const SECTION_LICENSE_FORM_MODEL = [
       required: null
     },
     errorMessages: {
-      required: 'submission.sections.license.required',
-      notgranted: 'submission.sections.license.notgranted'
+      required: 'submission.sections.license.notgranted'
     },
     type: 'CHECKBOX',
   }

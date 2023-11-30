@@ -359,6 +359,26 @@ describe('SubmissionSectionFormComponent test suite', () => {
             {
               fields: [
                 {
+                  selectableMetadata: [{ metadata: 'scoped.workflow.relation' }],
+                  visibility: {
+                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
+                  } as SubmissionVisibilityType,
+                } as FormFieldModel,
+              ],
+            },
+            {
+              fields: [
+                {
+                  selectableMetadata: [{ metadata: 'scoped.workspace.relation' }],
+                  visibility: {
+                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
+                  } as SubmissionVisibilityType,
+                } as FormFieldModel,
+              ],
+            },
+            {
+              fields: [
+                {
                   selectableMetadata: [{ metadata: 'dc.title' }],
                 } as FormFieldModel
               ]
@@ -385,6 +405,14 @@ describe('SubmissionSectionFormComponent test suite', () => {
         it('should return false for fields scoped to workflow', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(false);
         });
+
+        it('should return true for relation fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace.relation')).toBe(true);
+        });
+
+        it('should return false for relation fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow.relation')).toBe(false);
+        });
       });
 
       describe('in workflow scope', () => {
@@ -404,6 +432,14 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
         it('should return false for fields scoped to workspace', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(false);
+        });
+
+        it('should return true for relation fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow.relation')).toBe(true);
+        });
+
+        it('should return false for relation fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace.relation')).toBe(false);
         });
       });
     });
@@ -585,11 +621,14 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     it('should call dispatchOperationsFromEvent on form remove event', () => {
       spyOn(comp, 'hasStoredValue').and.returnValue(false);
+      formBuilderService.hasMappedGroupValue.and.returnValue(false);
+      formOperationsService.getFieldValueFromChangeEvent.and.returnValue('test');
 
       comp.onRemove(dynamicFormControlEvent);
 
       expect(formOperationsService.dispatchOperationsFromEvent).toHaveBeenCalled();
-
+      expect(compAsAny.previousValue.path).toBeNull();
+      expect(compAsAny.previousValue.value).toBeNull();
     });
 
     it('should check if has stored value in the section state', () => {

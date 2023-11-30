@@ -1,7 +1,7 @@
 import { CommunityDataService } from '../../data/community-data.service';
 import { Injectable } from '@angular/core';
 import { Community } from '../community.model';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { EditDsoResolver } from './edit-dso.resolver';
 
 /**
@@ -16,6 +16,6 @@ export class EditCommunityResolver extends EditDsoResolver<Community> {
   }
 
   getFollowLinks(): FollowLinkConfig<Community>[] {
-    return [];
+    return [followLink('logo')];
   }
 }

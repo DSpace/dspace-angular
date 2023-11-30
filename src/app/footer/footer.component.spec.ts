@@ -13,6 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { FooterComponent } from './footer.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { storeModuleConfig } from '../app.reducer';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
 import { of as observableOf } from 'rxjs';
 import { Site } from '../core/shared/site.model';
 import { SiteDataService } from '../core/data/site-data.service';
@@ -58,6 +60,7 @@ describe('Footer component', () => {
       declarations: [FooterComponent], // declare the test component
       providers: [
         FooterComponent,
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: SiteDataService, useValue: siteService },
         { provide: LocaleService, useValue: localeServiceStub },
       ],

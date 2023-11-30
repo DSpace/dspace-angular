@@ -72,7 +72,7 @@ export function createPaginatedList<T>(objects?: T[]): PaginatedList<T> {
  * @param prop The property/function to spy on
  */
 export function spyOnExported<T>(target: T, prop: keyof T): jasmine.Spy {
-  const spy = jasmine.createSpy(`${prop}Spy`);
+  const spy = jasmine.createSpy(`${String(prop)}Spy`);
   spyOnProperty(target, prop).and.returnValue(spy);
   return spy;
 }

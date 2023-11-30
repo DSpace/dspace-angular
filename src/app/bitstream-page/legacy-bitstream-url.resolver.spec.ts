@@ -1,5 +1,5 @@
 import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
-import { of as observableOf, EMPTY } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { TestScheduler } from 'rxjs/testing';

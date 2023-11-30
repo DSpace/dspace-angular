@@ -1,4 +1,7 @@
-import { Angulartics2GoogleAnalytics, Angulartics2GoogleTagManager } from 'angulartics2';
+import {
+  Angulartics2GoogleAnalytics,
+  Angulartics2GoogleGlobalSiteTag,
+} from 'angulartics2';
 import { of } from 'rxjs';
 
 import { GoogleAnalyticsService } from './google-analytics.service';
@@ -16,7 +19,7 @@ describe('GoogleAnalyticsService', () => {
   const srcTestValue = 'mock-script-src';
   let service: GoogleAnalyticsService;
   let googleAnalyticsSpy: Angulartics2GoogleAnalytics;
-  let googleTagManagerSpy: Angulartics2GoogleTagManager;
+  let googleTagManagerSpy: Angulartics2GoogleGlobalSiteTag;
   let configSpy: ConfigurationDataService;
   let klaroServiceSpy: jasmine.SpyObj<KlaroService>;
   let scriptElementMock: any;
@@ -37,7 +40,7 @@ describe('GoogleAnalyticsService', () => {
     googleAnalyticsSpy = jasmine.createSpyObj('Angulartics2GoogleAnalytics', [
       'startTracking',
     ]);
-    googleTagManagerSpy = jasmine.createSpyObj('Angulartics2GoogleTagManager', [
+    googleTagManagerSpy = jasmine.createSpyObj('Angulartics2GoogleGlobalSiteTag', [
       'startTracking',
     ]);
 

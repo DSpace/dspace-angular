@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { TextMenuItemModel } from './models/text.model';
 import { rendersMenuItemForType } from '../menu-item.decorator';
 import { MenuItemType } from '../menu-item-type.model';

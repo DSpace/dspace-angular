@@ -9,7 +9,6 @@ import { ReplaceOperation } from 'fast-json-patch';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { RestResponse } from '../../../cache/response.models';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { dataService } from '../../../data/base/data-service.decorator';
 import { RequestService } from '../../../data/request.service';

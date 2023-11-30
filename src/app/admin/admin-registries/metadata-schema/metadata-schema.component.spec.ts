@@ -23,11 +23,10 @@ import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { UUIDService } from '../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -142,7 +141,8 @@ describe('MetadataSchemaComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -169,10 +169,10 @@ describe('MetadataSchemaComponent', () => {
   });
 
   it('should contain the correct fields', () => {
-    const editorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(1) td:nth-child(2)')).nativeElement;
+    const editorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(1) td:nth-child(3)')).nativeElement;
     expect(editorField.textContent).toBe('mock.contributor.editor');
 
-    const illustratorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(2) td:nth-child(2)')).nativeElement;
+    const illustratorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(2) td:nth-child(3)')).nativeElement;
     expect(illustratorField.textContent).toBe('mock.contributor.illustrator');
   });
 

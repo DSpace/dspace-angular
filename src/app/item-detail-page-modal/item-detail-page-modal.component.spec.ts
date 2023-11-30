@@ -4,7 +4,6 @@ import { of as observableOf } from 'rxjs';
 
 // Import modules
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -18,7 +17,6 @@ import { TabDataService } from '../core/layout/tab-data.service';
 import { leadingTabs } from '../shared/testing/layout-tab.mocks';
 import { Router } from '@angular/router';
 import { RouterStub } from '../shared/testing/router.stub';
-import { SharedModule } from '../shared/shared.module';
 
 
 

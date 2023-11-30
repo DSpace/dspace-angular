@@ -1,6 +1,6 @@
 import { Inject, InjectionToken } from '@angular/core';
 
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
@@ -24,13 +24,20 @@ import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
 import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
+import { Metadata } from '../../../../core/shared/metadata.utils';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
 export const INIT_FORM_VALUES: InjectionToken<any> = new InjectionToken<any>('initFormValues');
 export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
-export const SECURITY_CONFIG: InjectionToken<any> = new InjectionToken<any>('securityConfig');
+/**
+ * This pattern checks that a regex field uses the common ECMAScript format: `/{pattern}/{flags}`, in which the flags
+ * are part of the regex, or a simpler one with only pattern `/{pattern}/` or `{pattern}`.
+ * The regex itself is encapsulated inside a `RegExp` object, that will validate the pattern syntax.
+ */
 export const REGEX_FIELD_VALIDATOR = new RegExp('(\\/?)(.+)\\1([gimsuy]*)', 'i');
+export const SECURITY_CONFIG: InjectionToken<any> = new InjectionToken<any>('securityConfig');
 
 export abstract class FieldParser {
 
@@ -189,12 +196,16 @@ export abstract class FieldParser {
     return modelConfig;
   }
 
-  public initSecurityValue(modelConfig: any) {
-    // preselect most restricted security level if is not yet selected
+  public initSecurityValue(modelConfig: any, forcedValue?: MetadataValue|string) {
+    // preselect the security level if is not yet selected
     // or if the current security level is not available in the current configuration
     if ((isEmpty(modelConfig.securityLevel) && isNotEmpty(modelConfig.securityConfigLevel)) ||
       (isNotEmpty(modelConfig.securityLevel) && isNotEmpty(modelConfig.securityConfigLevel) && !modelConfig.securityConfigLevel.includes(modelConfig.securityLevel) )) {
-      modelConfig.securityLevel = modelConfig.securityConfigLevel[modelConfig.securityConfigLevel.length - 1];
+      // take the first element of the securityConfigLevel array when the model config has already a value
+      // otherwise take the most restricted one
+      modelConfig.securityLevel = (Metadata.hasValue(modelConfig.value) || Metadata.hasValue(forcedValue)) ?
+        modelConfig.securityConfigLevel[0] :
+        modelConfig.securityConfigLevel[modelConfig.securityConfigLevel.length - 1];
     }
   }
 
@@ -304,7 +315,7 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly
       || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
-    controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.disabled = controlModel.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
@@ -339,7 +350,7 @@ export abstract class FieldParser {
       (controlModel as DsDynamicInputModel).typeBindRelations = this.getTypeBindRelations(this.configData.typeBind,
         this.parserOptions.typeField);
     }
-    controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.fieldId);
+    controlModel.securityConfigLevel = this.mapBetweenMetadataRowAndSecurityMetadataLevels(this.getFieldId());
 
     return controlModel;
   }
@@ -360,6 +371,7 @@ export abstract class FieldParser {
    * fields in type bind, made up of a 'match' outcome (make this field visible), an 'operator'
    * (OR) and a 'when' condition (the bindValues array).
    * @param configuredTypeBindValues  array of types from the submission definition (CONFIG_DATA)
+   * @param typeField
    * @private
    * @return DynamicFormControlRelation[] array with one relation in it, for type bind matching to show a field
    */
@@ -388,6 +400,13 @@ export abstract class FieldParser {
     return hasValue(this.configData.input.regex);
   }
 
+  /**
+   * Adds pattern validation to `controlModel`, it uses the encapsulated `configData` to test the regex,
+   * contained in the input config, against the common `ECMAScript` standard validator {@link REGEX_FIELD_VALIDATOR},
+   * and creates an equivalent `RegExp` object that will be used during form-validation against the user-input.
+   * @param controlModel
+   * @protected
+   */
   protected addPatternValidator(controlModel) {
     const validatorMatcher = this.configData.input.regex.match(REGEX_FIELD_VALIDATOR);
     let regex;

@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -22,13 +22,11 @@ import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
-import {
-  AuthorityConfidenceStateDirective
-} from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { VocabularyTreeviewComponent } from '../../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService
@@ -57,8 +55,8 @@ export class MockNgbModalRef {
 }
 
 function init() {
-  ONEBOX_TEST_GROUP = new FormGroup({
-    onebox: new FormControl(),
+  ONEBOX_TEST_GROUP = new UntypedFormGroup({
+    onebox: new UntypedFormControl(),
   });
 
   ONEBOX_TEST_MODEL_CONFIG = {
@@ -529,7 +527,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 })
 class TestComponent {
 
-  group: FormGroup = ONEBOX_TEST_GROUP;
+  group: UntypedFormGroup = ONEBOX_TEST_GROUP;
 
   model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
 

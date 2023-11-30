@@ -12,8 +12,11 @@ import { ExternalLinkMenuItemComponent } from './menu-item/external-link-menu-it
 const COMPONENTS = [
   MenuSectionComponent,
   MenuComponent,
-  LinkMenuItemComponent,
+];
+
+const ENTRY_COMPONENTS = [
   TextMenuItemComponent,
+  LinkMenuItemComponent,
   OnClickMenuItemComponent,
   ExternalLinkMenuItemComponent,
 ];
@@ -21,7 +24,7 @@ const COMPONENTS = [
 const MODULES = [
   TranslateModule,
   RouterModule,
-  CommonModule
+  CommonModule,
 ];
 const PROVIDERS = [
 
@@ -32,10 +35,12 @@ const PROVIDERS = [
     ...MODULES
   ],
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...ENTRY_COMPONENTS,
   ],
   providers: [
-    ...PROVIDERS
+    ...PROVIDERS,
+    ...ENTRY_COMPONENTS,
   ],
   exports: [
     ...COMPONENTS

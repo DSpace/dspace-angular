@@ -1,5 +1,6 @@
 import {
   DynamicFormControlLayout,
+  DynamicFormControlRelation,
   DynamicFormGroupModel,
   DynamicFormGroupModelConfig,
   serializable
@@ -21,6 +22,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
   value?: any;
   hint?: string;
+  typeBindRelations?: DynamicFormControlRelation[];
   relationship?: RelationshipOptions;
   repeatable: boolean;
   required: boolean;
@@ -37,6 +39,8 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
   @serializable() hasLanguages = false;
+  @serializable() typeBindRelations: DynamicFormControlRelation[];
+  @serializable() typeBindHidden = false;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() required?: boolean;
@@ -45,11 +49,12 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: MetadataValue;
+  @serializable() readOnly?: boolean;
   @serializable() securityLevel?: number;
   @serializable() securityConfigLevel?: number[];
   @serializable() toggleSecurityVisibility = true;
   isCustomGroup = true;
-  valueChanges: Subject<string>;
+  valueUpdates: Subject<string>;
 
   constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -63,13 +68,15 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.submissionId = config.submissionId;
     this.hasSelectableMetadata = config.hasSelectableMetadata;
     this.metadataValue = config.metadataValue;
-    this.valueChanges = new Subject<string>();
+    this.valueUpdates = new Subject<string>();
+    this.valueUpdates.subscribe((value: string) => this.value = value);
+    this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
+    this.readOnly = config.disabled;
     this.securityLevel = config.securityLevel;
     this.securityConfigLevel = config.securityConfigLevel;
     if (isNotUndefined(config.toggleSecurityVisibility)) {
       this.toggleSecurityVisibility = config.toggleSecurityVisibility;
     }
-    this.valueChanges.subscribe((value: string) => this.value = value);
   }
 
   get value() {

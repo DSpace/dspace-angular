@@ -172,6 +172,21 @@ import { RedirectService } from './redirect/redirect.service';
               .then((m) => m.LoginPageModule)
           },
           {
+            path: 'external-login/:token',
+            loadChildren: () => import('./external-login-page/external-login-page.module')
+              .then((m) => m.ExternalLoginPageModule)
+          },
+          {
+            path: 'review-account/:token',
+            loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page.module')
+              .then((m) => m.ExternalLoginReviewAccountInfoModule)
+          },
+          {
+            path: 'email-confirmation',
+            loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page.module')
+              .then((m) => m.ExternalLoginEmailConfirmationPageModule)
+          },
+          {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
               .then((m) => m.LogoutPageModule)
@@ -241,7 +256,7 @@ import { RedirectService } from './redirect/redirect.service';
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,
@@ -251,6 +266,7 @@ import { RedirectService } from './redirect/redirect.service';
             path: STATISTICS_PAGE_PATH,
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
               .then((m) => m.StatisticsPageRoutingModule),
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: HEALTH_PAGE_PATH,
@@ -260,7 +276,7 @@ import { RedirectService } from './redirect/redirect.service';
           {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
-            canActivate: [GroupAdministratorGuard],
+            canActivate: [GroupAdministratorGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'edit-item-relationships',

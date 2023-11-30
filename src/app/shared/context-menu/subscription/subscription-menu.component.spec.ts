@@ -11,8 +11,6 @@ import { SubscriptionMenuComponent } from './subscription-menu.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { AuthService } from '../../../core/auth/auth.service';
-import { EPersonMock } from '../../testing/eperson.mock';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('SubscriptionMenuComponent', () => {
@@ -22,7 +20,6 @@ describe('SubscriptionMenuComponent', () => {
   let dso: DSpaceObject;
 
   let modalService;
-  let authServiceStub: any;
   let authorizationServiceStub: any;
 
   const ngbModal = jasmine.createSpyObj('modal', {
@@ -37,11 +34,6 @@ describe('SubscriptionMenuComponent', () => {
       }
     });
 
-    authServiceStub = jasmine.createSpyObj('authorizationService', {
-      getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
-      isAuthenticated: jasmine.createSpy('isAuthenticated')
-    });
-
     authorizationServiceStub = jasmine.createSpyObj('authorizationService', {
       isAuthorized: jasmine.createSpy('isAuthorized')
     });
@@ -50,7 +42,6 @@ describe('SubscriptionMenuComponent', () => {
       declarations: [SubscriptionMenuComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: AuthService, useValue: authServiceStub },
         { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
@@ -69,8 +60,6 @@ describe('SubscriptionMenuComponent', () => {
 
   describe('when the user is authorized', () => {
     beforeEach(() => {
-      authServiceStub.getAuthenticatedUserFromStore.and.returnValue(observableOf(EPersonMock));
-      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
       authorizationServiceStub.isAuthorized.and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
@@ -78,7 +67,6 @@ describe('SubscriptionMenuComponent', () => {
     it('should check the authorization of the current user', fakeAsync(() => {
       flush();
       expect(authorizationServiceStub.isAuthorized).toHaveBeenCalled();
-      expect(component.epersonId).toBe(EPersonMock.id);
     }));
 
     it('should render a button', () => {
@@ -99,8 +87,6 @@ describe('SubscriptionMenuComponent', () => {
 
   describe('when the user is not authorized', () => {
     beforeEach(() => {
-      authServiceStub.getAuthenticatedUserFromStore.and.returnValue(observableOf(null));
-      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
       authorizationServiceStub.isAuthorized.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });

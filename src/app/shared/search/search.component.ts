@@ -6,13 +6,14 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  PLATFORM_ID
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -20,7 +21,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { hasValue } from '../empty.util';
+import { hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
 import { RouteService } from '../../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -43,8 +44,13 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
+import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
+import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SearchManager } from '../../core/browse/search-manager';
-import { AlertType } from '../alert/aletr-type';
+import { AlertType } from '../alert/alert-type';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'ds-search',
@@ -74,7 +80,7 @@ export class SearchComponent implements OnInit, OnDestroy {
    * The configuration to use for the search options
    * If empty, 'default' is used
    */
-  @Input() configuration = 'default';
+  @Input() configuration;
 
   /**
    * Pass custom data to the component for custom utilization
@@ -159,6 +165,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showCharts = false;
 
   /**
+   * A boolean representing if show csv export button
+   */
+  @Input() showCsvExport = false;
+
+  /**
    * A boolean representing if show export button
    */
   @Input() showExport = true;
@@ -174,6 +185,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showSidebar = true;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * Whether to show the view mode switch
    */
   @Input() showViewModes = true;
@@ -181,7 +197,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * List of available view mode
    */
-  @Input() useUniquePageId: false;
+  @Input() useUniquePageId: boolean;
 
   /**
    * List of available view mode
@@ -209,6 +225,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showFilterToggle = false;
 
   /**
+   * Defines whether to show the toggle button to Show/Hide filter
+   */
+  @Input() renderOnServerSide = true;
+
+  /**
    * Defines whether to show the toggle button to Show/Hide chart
    */
   @Input() showChartsToggle = false;
@@ -217,6 +238,11 @@ export class SearchComponent implements OnInit, OnDestroy {
    * Whether or not to track search statistics by sending updates to the rest api
    */
   @Input() trackStatistics = false;
+
+  /**
+   * The default value for the search query when none is already defined in the {@link SearchConfigurationService}
+   */
+  @Input() query: string;
 
   /**
    * For chart regular expression
@@ -299,9 +325,21 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchLink: string;
 
   /**
-   * Subscription to unsubscribe from
+   * Regex to match UUIDs
    */
-  sub: Subscription;
+  uuidRegex = /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g;
+
+  /**
+   * List of paths that are considered to be the start of a route to an object page (excluding "/", e.g. "items")
+   * These are expected to end on an object UUID
+   * If they match the route we're navigating to, an object property will be added to the search event sent
+   */
+  allowedObjectPaths: string[] = ['entities', ITEM_MODULE_PATH, COLLECTION_MODULE_PATH, COMMUNITY_MODULE_PATH];
+
+  /**
+   * Subscriptions to unsubscribe from
+   */
+  subs: Subscription[] = [];
 
   /**
    * Emits an event with the current search result entries
@@ -327,9 +365,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
+    @Inject(PLATFORM_ID) public platformId: any,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
-    protected router: Router) {
+    protected router: Router,) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -341,6 +380,11 @@ export class SearchComponent implements OnInit, OnDestroy {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
@@ -377,7 +421,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
-    this.sub = combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
+    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
       filter(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
@@ -392,6 +436,9 @@ export class SearchComponent implements OnInit, OnDestroy {
           sort: sortOption || searchOptions.sort,
           forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration)
         });
+      if (combinedOptions.query === '') {
+        combinedOptions.query = this.query;
+      }
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
       // if so retrieve new related results otherwise skip it
@@ -407,7 +454,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.retrieveSearchResults(newSearchOptions);
         this.retrieveFilters(searchOptions);
       }
-    });
+    }));
+
+    this.subscribeToRoutingEvents();
   }
 
   /**
@@ -449,12 +498,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Unsubscribe from the subscription
+   * Unsubscribe from the subscriptions
    */
   ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
   /**
@@ -515,6 +562,17 @@ export class SearchComponent implements OnInit, OnDestroy {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
+    let followLinks = [
+      followLink<Item>('thumbnail', { isOptional: true }),
+      followLink<SubmissionObject>('item', { isOptional: true },
+        followLink<Item>('thumbnail', { isOptional: true }),
+        followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+      ) as any
+    ];
+
+    if (this.configuration === 'supervision') {
+      followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
+    }
 
     if (this.projection) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
@@ -527,12 +585,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      followLink<Item>('thumbnail', { isOptional: true }),
-      followLink<SubmissionObject>('item', { isOptional: true },
-        followLink<Item>('thumbnail', { isOptional: true }),
-        followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
-      ) as any
-    ).pipe(getFirstCompletedRemoteData())
+      ...followLinks
+      ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
@@ -544,6 +598,43 @@ export class SearchComponent implements OnInit, OnDestroy {
         }
         this.resultsRD$.next(results);
       });
+  }
+
+  /**
+   * Subscribe to routing events to detect when a user moves away from the search page
+   * When the user is routing to an object page, it needs to send out a separate search event containing that object's UUID
+   * This method should only be called once and is essentially what SearchTrackingComponent used to do (now removed)
+   * @private
+   */
+  private subscribeToRoutingEvents() {
+    this.subs.push(
+      this.router.events.pipe(
+        filter((event) => event instanceof NavigationStart),
+        map((event: NavigationStart) => this.getDsoUUIDFromUrl(event.url)),
+        hasValueOperator(),
+      ).subscribe((uuid) => {
+        if (this.resultsRD$.value.hasSucceeded) {
+          this.service.trackSearch(this.searchOptions$.value, this.resultsRD$.value.payload as SearchObjects<DSpaceObject>, uuid);
+        }
+      }),
+    );
+  }
+
+  /**
+   * Get the UUID from a DSO url
+   * Return null if the url isn't an object page (allowedObjectPaths) or the UUID couldn't be found
+   * @param url
+   */
+  private getDsoUUIDFromUrl(url: string): string {
+    if (isNotEmpty(url)) {
+      if (this.allowedObjectPaths.some((path) => url.startsWith(`/${path}`))) {
+        const uuid = url.substring(url.lastIndexOf('/') + 1);
+        if (uuid.match(this.uuidRegex)) {
+          return uuid;
+        }
+      }
+    }
+    return null;
   }
 
   /**

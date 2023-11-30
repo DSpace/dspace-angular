@@ -61,7 +61,7 @@ describe('ViewModeSwitchComponent', () => {
       searchService.setViewMode(ViewMode.ListElement);
       tick();
       fixture.detectChanges();
-      const debugElements = fixture.debugElement.queryAll(By.css('a'));
+      const debugElements = fixture.debugElement.queryAll(By.css('button'));
       listButton = debugElements[0].nativeElement;
       gridButton = debugElements[1].nativeElement;
     }));
@@ -96,7 +96,7 @@ describe('ViewModeSwitchComponent', () => {
       searchService.setViewMode(ViewMode.ListElement);
       tick();
       fixture.detectChanges();
-      const debugElements = fixture.debugElement.queryAll(By.css('a'));
+      const debugElements = fixture.debugElement.queryAll(By.css('button'));
       listButton = debugElements[0].nativeElement;
       detailButton = debugElements[1].nativeElement;
     }));

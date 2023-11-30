@@ -11,11 +11,8 @@ import { StartsWithDateComponent } from './starts-with-date.component';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { RouterStub } from '../../testing/router.stub';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('StartsWithDateComponent', () => {
   let comp: StartsWithDateComponent;

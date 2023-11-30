@@ -5,12 +5,12 @@
     {{ 'statistics.table.title.' + report.reportType | translate }}
   </h3>
 
-  <table class="table table-striped">
+  <table class="table table-striped" [attr.data-test]="report.reportType">
 
     <tbody>
 
     <tr>
-      <th scope="col"></th>
+      <td></td>
       <th scope="col"
           *ngFor="let header of headers"
           class="{{header}}-header">
@@ -20,7 +20,7 @@
 
     <tr *ngFor="let point of report.points"
         class="{{point.id}}-data">
-      <th scope="row">
+      <th scope="row" data-test="statistics-label">
         {{ getLabel(point) | async }}
       </th>
       <td *ngFor="let header of headers"

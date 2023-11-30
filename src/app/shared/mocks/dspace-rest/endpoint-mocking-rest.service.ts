@@ -7,7 +7,6 @@ import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
 import { DspaceRestService, HttpOptions } from '../../../core/dspace-rest/dspace-rest.service';
 import { MOCK_RESPONSE_MAP, ResponseMapMock } from './mocks/response-map.mock';
-import * as URL from 'url-parse';
 import { environment } from '../../../../environments/environment';
 
 /**

@@ -4,9 +4,8 @@
 
 .breadcrumb {
   border-radius: 0;
-  margin-top: calc(-1 * var(--ds-content-spacing));
-  padding-bottom: var(--ds-content-spacing / 3);
-  padding-top: var(--ds-content-spacing / 3);
+  padding-bottom: calc(var(--ds-content-spacing) / 2);
+  padding-top: calc(var(--ds-content-spacing) / 2);
   background-color: var(--ds-breadcrumb-bg);
 }
 
@@ -23,11 +22,14 @@ li.breadcrumb-item {
   }
 }
 
-li.breadcrumb-item > a {
-  color: var(--ds-breadcrumb-link-color) !important;
+li.breadcrumb-item {
+    a {
+        color: var(--ds-breadcrumb-link-color);
+    }
 }
+
 li.breadcrumb-item.active {
-  color: var(--ds-breadcrumb-link-active-color) !important;
+  color: var(--ds-breadcrumb-link-active-color);
 }
 
 .breadcrumb-item+ .breadcrumb-item::before {

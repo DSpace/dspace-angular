@@ -6,7 +6,7 @@ import { VarDirective } from '../utils/var.directive';
 import { ThemeService } from './theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TestComponent } from './test/test.component.spec';
-import { ThemeConfig } from '../../../config/theme.model';
+import { ThemeConfig } from '../../../config/theme.config';
 
 @Component({
   selector: 'ds-test-themed-component',
@@ -71,6 +71,12 @@ describe('ThemedComponent', () => {
         expect((component as any).compRef.instance.testInput).toEqual('changed');
       });
     }));
+
+    it(`should set usedTheme to the name of the matched theme`, waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        expect(component.usedTheme).toEqual('custom');
+      });
+    }));
   });
 
   describe('when the current theme doesn\'t match a themed component', () => {
@@ -90,6 +96,12 @@ describe('ThemedComponent', () => {
       it('should sync up this component\'s input with the default component', waitForAsync(() => {
         fixture.whenStable().then(() => {
           expect((component as any).compRef.instance.testInput).toEqual('changed');
+        });
+      }));
+
+      it(`should set usedTheme to the name of the base theme`, waitForAsync(() => {
+        fixture.whenStable().then(() => {
+          expect(component.usedTheme).toEqual('base');
         });
       }));
     });
@@ -117,6 +129,12 @@ describe('ThemedComponent', () => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
           });
         }));
+
+        it(`should set usedTheme to the name of the base theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('base');
+          });
+        }));
       });
 
       describe('that does match it', () => {
@@ -139,6 +157,12 @@ describe('ThemedComponent', () => {
         it('should sync up this component\'s input with the themed component', waitForAsync(() => {
           fixture.whenStable().then(() => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
+          });
+        }));
+
+        it(`should set usedTheme to the name of the matched theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('custom');
           });
         }));
       });
@@ -167,6 +191,12 @@ describe('ThemedComponent', () => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
           });
         }));
+
+        it(`should set usedTheme to the name of the base theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('base');
+          });
+        }));
       });
 
       describe('that extends another theme that does match it', () => {
@@ -191,6 +221,12 @@ describe('ThemedComponent', () => {
         it('should sync up this component\'s input with the themed component', waitForAsync(() => {
           fixture.whenStable().then(() => {
             expect((component as any).compRef.instance.testInput).toEqual('changed');
+          });
+        }));
+
+        it(`should set usedTheme to the name of the matched theme`, waitForAsync(() => {
+          fixture.whenStable().then(() => {
+            expect(component.usedTheme).toEqual('custom');
           });
         }));
       });

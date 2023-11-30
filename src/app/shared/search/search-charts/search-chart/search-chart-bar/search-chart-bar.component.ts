@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import { Component, OnInit } from '@angular/core';
 
 import { FilterType } from '../../../models/filter-type.model';

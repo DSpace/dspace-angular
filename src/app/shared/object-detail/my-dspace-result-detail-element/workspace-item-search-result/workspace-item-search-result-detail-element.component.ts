@@ -8,12 +8,13 @@ import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotUndefined } from '../../../empty.util';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { Context } from '../../../../core/shared/context.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders workspace item object for the search result in the detail view.
@@ -33,14 +34,15 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
   public item: Item;
 
   /**
-   * Represent item's status
+   * Represents the badge context
    */
-  status = MyDspaceItemStatusType.WORKSPACE;
+  public badgeContext = Context.MyDSpaceWorkspace;
 
   constructor(
+    public dsoNameService: DSONameService,
     protected linkService: LinkService
   ) {
-    super();
+    super(dsoNameService);
   }
 
   /**

@@ -27,7 +27,9 @@
 
     <div class="col-md-12 d-flex justify-content-center" *ngIf="searchSection.searchType === 'basic'">
         <div class="col-md-8">
-            <ds-search-form *ngIf="searchSection.searchType === 'basic'" [inPlaceSearch]="false"
+            <ds-search-form *ngIf="searchSection.searchType === 'basic'"
+                            [inPlaceSearch]="false"
+                            [configuration]="searchSection.discoveryConfigurationName"
                             [searchPlaceholder]="'search.search-form.placeholder' | translate"> ></ds-search-form>
         </div>
     </div>

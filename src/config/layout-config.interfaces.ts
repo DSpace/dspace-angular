@@ -23,6 +23,13 @@ export interface CrisLayoutMetadataBoxConfig extends Config {
   defaultMetadataValueColStyle: string;
 }
 
+export interface CrisLayoutCollectionsBoxConfig extends Config {
+  defaultCollectionsLabelColStyle: string;
+  defaultCollectionsValueColStyle: string;
+  isInline: boolean;
+  defaultCollectionsRowStyle?: string;
+}
+
 export interface CrisLayoutTypeConfig {
   orientation: string;
 }
@@ -36,13 +43,18 @@ export interface CrisItemPageConfig extends Config {
   default: CrisLayoutTypeConfig;
 }
 
+export interface CrisRefStyleMetadata extends Config {
+  [metadata: string]: string;
+  default: string;
+}
 
 export interface CrisLayoutConfig extends Config {
   urn: UrnConfig[];
   crisRef: CrisRefConfig[];
-  crisRefStyleMetadata: string;
+  crisRefStyleMetadata: CrisRefStyleMetadata;
   itemPage: CrisItemPageConfig;
   metadataBox: CrisLayoutMetadataBoxConfig;
+  collectionsBox: CrisLayoutCollectionsBoxConfig;
 }
 
 export interface LayoutConfig extends Config {

@@ -10,6 +10,7 @@ import {
   mockSectionsList,
   mockSubmissionCollectionId,
   mockSubmissionDefinition,
+  mockSubmissionDefinitionWithHiddenCollection,
   mockSubmissionId,
   mockSubmissionObject,
   mockSubmissionObjectNew,
@@ -26,8 +27,10 @@ import { createTestComponent } from '../../shared/testing/utils.test';
 import { Item } from '../../core/shared/item.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
+import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -171,6 +174,29 @@ describe('SubmissionFormComponent Component', () => {
         undefined);
       expect(submissionServiceStub.startAutoSave).toHaveBeenCalled();
       done();
+    });
+
+    it('should return the visibility object of the collection section', () => {
+      comp.submissionDefinition = submissionDefinition;
+      fixture.detectChanges();
+      const result = compAsAny.getCollectionVisibility();
+      expect(result).toEqual({
+        workflow: SubmissionVisibilityValue.Hidden
+      });
+    });
+
+    it('should return true if collection section visibility is hidden', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
+      comp.submissionDefinition = mockSubmissionDefinitionWithHiddenCollection;
+      fixture.detectChanges();
+      expect(comp.isSectionHidden).toBe(true);
+    });
+
+    it('should return false for isSectionReadonly when collection section visibility is not READONLY', () => {
+      submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
+      comp.submissionDefinition = submissionDefinition;
+      fixture.detectChanges();
+      expect(comp.isSectionReadonly).toBe(false);
     });
 
     it('should update properly on collection change', (done) => {

@@ -8,13 +8,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
+import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { hasValue } from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
-import { UploaderComponent } from '../../shared/uploader/uploader.component';
-import { UploaderError } from '../../shared/uploader/uploader-error.model';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { UploaderError } from '../../shared/upload/uploader/uploader-error.model';
 import { Router } from '@angular/router';
 
 /**

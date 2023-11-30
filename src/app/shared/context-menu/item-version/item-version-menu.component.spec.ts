@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -10,23 +10,25 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { AuthService } from '../../../core/auth/auth.service';
-import { EPersonMock } from '../../testing/eperson.mock';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemVersionMenuComponent } from './item-version-menu.component';
 import { SharedModule } from '../../shared.module';
+import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
 
 describe('ItemVersionMenuComponent', () => {
   let component: ItemVersionMenuComponent;
   let fixture: ComponentFixture<ItemVersionMenuComponent>;
   let de: DebugElement;
   let dso: DSpaceObject;
-
-  let authServiceStub: any;
   let authorizationServiceStub: any;
 
   const ngbModal = jasmine.createSpyObj('modal', {
     open: jasmine.createSpy('open')
+  });
+
+  const versioningModalService = jasmine.createSpyObj('DsoVersioningModalService', {
+    isNewVersionButtonDisabled: jasmine.createSpy('isNewVersionButtonDisabled'),
+    openCreateVersionModal: jasmine.createSpy('openCreateVersionModal')
   });
 
   beforeEach(waitForAsync(() => {
@@ -35,11 +37,6 @@ describe('ItemVersionMenuComponent', () => {
       _links: {
         self: { href: 'test-item-selflink' }
       }
-    });
-
-    authServiceStub = jasmine.createSpyObj('authorizationService', {
-      getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
-      isAuthenticated: jasmine.createSpy('isAuthenticated')
     });
 
     authorizationServiceStub = jasmine.createSpyObj('authorizationService', {
@@ -51,11 +48,11 @@ describe('ItemVersionMenuComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]),
         SharedModule],
       providers: [
-        { provide: AuthService, useValue: authServiceStub },
         { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub }
+        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        { provide: DsoVersioningModalService, useValue: versioningModalService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -70,35 +67,46 @@ describe('ItemVersionMenuComponent', () => {
 
   describe('when the user is authorized', () => {
     beforeEach(() => {
-      authServiceStub.getAuthenticatedUserFromStore.and.returnValue(observableOf(EPersonMock));
-      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
       authorizationServiceStub.isAuthorized.and.returnValue(observableOf(true));
-      fixture.detectChanges();
+
     });
 
-    it('should check the authorization of the current user', fakeAsync(() => {
-      flush();
-      expect(authorizationServiceStub.isAuthorized).toHaveBeenCalled();
-    }));
+    describe('and the button should not be disabled', () => {
+      beforeEach(() => {
+        versioningModalService.isNewVersionButtonDisabled.and.returnValue(observableOf(false));
+        fixture.detectChanges();
+      });
 
-    it('should render a button', () => {
-      const button = fixture.debugElement.query(By.css('ds-item-version-container'));
-      expect(button).not.toBeNull();
+      it('should render a button', () => {
+        const button = fixture.debugElement.query(By.css('.dropdown-item'));
+        expect(button).not.toBeNull();
+      });
+    });
+
+    describe('and the button should be disabled', () => {
+      beforeEach(() => {
+        versioningModalService.isNewVersionButtonDisabled.and.returnValue(observableOf(true));
+        fixture.detectChanges();
+      });
+
+      it('should not render a button', () => {
+        const button = fixture.debugElement.query(By.css('.dropdown-item'));
+        expect(button).toBeNull();
+      });
     });
 
   });
 
   describe('when the user is not authorized', () => {
     beforeEach(() => {
-      (authServiceStub.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(false));
+      versioningModalService.isNewVersionButtonDisabled.and.returnValue(observableOf(false));
       authorizationServiceStub.isAuthorized.and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
 
-    it('should not render a button', fakeAsync(() => {
-      const button = fixture.debugElement.query(By.css('ds-item-version-container'));
-      flush();
+    it('should not render a button', () => {
+      const button = fixture.debugElement.query(By.css('.dropdown-item'));
       expect(button).toBeNull();
-    }));
+    });
   });
 });

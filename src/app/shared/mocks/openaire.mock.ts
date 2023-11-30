@@ -5,7 +5,6 @@ import { OpenaireBrokerEventObject } from '../../core/openaire/broker/models/ope
 import { OpenaireBrokerTopicRestService } from '../../core/openaire/broker/topics/openaire-broker-topic-rest.service';
 import { OpenaireBrokerEventRestService } from '../../core/openaire/broker/events/openaire-broker-event-rest.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { OpenaireStateService } from '../../openaire/openaire-state.service';
 import { Item } from '../../core/shared/item.model';
 import {
   createNoContentRemoteDataObject$,
@@ -13,7 +12,6 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
-import { SuggestionsService } from '../../openaire/reciter-suggestions/suggestions.service';
 import {
   OpenaireSuggestionTarget
 } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';

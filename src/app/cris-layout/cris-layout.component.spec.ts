@@ -1,4 +1,3 @@
-import { PaginatedList, buildPaginatedList } from './../core/data/paginated-list.model';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -12,7 +11,7 @@ import { TabDataService } from '../core/layout/tab-data.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { bothTabs, leadingTabs, loaderTabs } from '../shared/testing/layout-tab.mocks';
-import { createSuccessfulRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { ActivatedRoute } from '@angular/router';
 import { createPaginatedList } from '../shared/testing/utils.test';
 

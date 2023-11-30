@@ -15,6 +15,7 @@ export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 export interface DynamicDsDatePickerModelConfig extends DynamicDatePickerModelConfig {
   legend?: string;
   typeBindRelations?: DynamicFormControlRelation[];
+  repeatable: boolean;
   securityLevel?: number;
   securityConfigLevel?: number[];
   toggleSecurityVisibility?: boolean;
@@ -47,6 +48,7 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
       this.toggleSecurityVisibility = config.toggleSecurityVisibility;
     }
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
+    this.repeatable = config.repeatable;
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
     this.hiddenUpdates.subscribe((hidden: boolean) => {
       this.hidden = hidden;

@@ -2,6 +2,10 @@
     <h2>{{MESSAGE_PREFIX + '.header'|translate}}</h2>
     <p>{{MESSAGE_PREFIX + '.info' | translate}}</p>
 
+    <p *ngIf="validMailDomains.length != 0 && typeRequest === TYPE_REQUEST_REGISTER">
+      {{ MESSAGE_PREFIX + '.info.maildomain' | translate}} {{ validMailDomains.join(', ')}}
+    </p>
+
     <form [class]="'ng-invalid'" [formGroup]="form">
 
         <div class="form-group">
@@ -16,8 +20,11 @@
                     <span *ngIf="email.errors && email.errors.required">
                         {{ MESSAGE_PREFIX + '.email.error.required' | translate }}
                     </span>
-                    <span *ngIf="email.errors && email.errors.pattern">
-                        {{ MESSAGE_PREFIX + '.email.error.pattern' | translate }}
+                    <span *ngIf="email.errors && ((email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER) || email.errors.email)">
+                        {{ MESSAGE_PREFIX + '.email.error.not-email-form' | translate }}
+                        <ng-container *ngIf="validMailDomains.length > 0">
+                          {{ MESSAGE_PREFIX + '.email.error.not-valid-domain' | translate: { domains: validMailDomains.join(', ') } }}
+                        </ng-container>
                     </span>
                     </div>
                 </div>
@@ -52,6 +59,5 @@
       </button>
     </ng-template>
     </form>
-
 
 </div>

@@ -1,7 +1,12 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup
+} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Store, StoreModule } from '@ngrx/store';
@@ -16,7 +21,7 @@ import { FormFieldModel } from '../../../../models/form-field.model';
 import { FormBuilderService } from '../../../../form-builder.service';
 import { FormService } from '../../../../../form.service';
 import { FormComponent } from '../../../../../form.component';
-import { Chips } from '../../../../../../chips/models/chips.model';
+import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../../ds-dynamic-input.model';
 import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -30,7 +35,9 @@ import { SubmissionService } from '../../../../../../../submission/submission.se
 import { SubmissionServiceStub } from '../../../../../../testing/submission-service.stub';
 import { SubmissionScopeType } from '../../../../../../../core/submission/submission-scope-type';
 import { Vocabulary } from '../../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntryDetail } from '../../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import {
+  VocabularyEntryDetail
+} from '../../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { DsDynamicRelationGroupModalComponent } from './dynamic-relation-group-modal.components';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
@@ -133,8 +140,8 @@ function init() {
     hasSelectableMetadata: false
   } as DynamicRelationGroupModelConfig;
 
-  FORM_GROUP_TEST_GROUP = new FormGroup({
-    dc_contributor_author: new FormControl(),
+  FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
+    dc_contributor_author: new UntypedFormControl(),
   });
 
 }
@@ -147,9 +154,9 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
   let groupFixture: ComponentFixture<DsDynamicRelationGroupComponent>;
   let debugElement: DebugElement;
   let modelValue: any;
-  let control1: FormControl;
+  let control1: UntypedFormControl;
   let model1: DsDynamicInputModel;
-  let control2: FormControl;
+  let control2: UntypedFormControl;
   let model2: DsDynamicInputModel;
   const modal = jasmine.createSpyObj('modal', ['close', 'dismiss']);
 
@@ -229,9 +236,9 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
         testComponent.group = FORM_GROUP_TEST_GROUP;
         testComponent.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
         componentFixture.detectChanges();
-        control1 = service.getFormControlById('dc_contributor_author', (testComponent as any).formRef.formGroup, testComponent.formModel) as FormControl;
+        control1 = service.getFormControlById('dc_contributor_author', (testComponent as any).formRef.formGroup, testComponent.formModel) as UntypedFormControl;
         model1 = service.findById('dc_contributor_author', testComponent.formModel) as DsDynamicInputModel;
-        control2 = service.getFormControlById('local_contributor_affiliation', (testComponent as any).formRef.formGroup, testComponent.formModel) as FormControl;
+        control2 = service.getFormControlById('local_contributor_affiliation', (testComponent as any).formRef.formGroup, testComponent.formModel) as UntypedFormControl;
         model2 = service.findById('local_contributor_affiliation', testComponent.formModel) as DsDynamicInputModel;
 
         // spyOn(store, 'dispatch');

@@ -34,6 +34,7 @@ import { PatchData, PatchDataImpl } from '../data/base/patch-data';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
+import { getEPersonEditRoute, getEPersonsRoute } from '../../access-control/access-control-routing-paths';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -177,6 +178,34 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
   }
 
   /**
+   * Searches for all EPerons which are *not* a member of a given group, via a passed in query
+   * (searches all EPerson metadata and by exact UUID).
+   * Endpoint used: /eperson/epesons/search/isNotMemberOf?query=<:string>&group=<:uuid>
+   * @param query                       search query param
+   * @param group                       UUID of group to exclude results from. Members of this group will never be returned.
+   * @param options
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public searchNonMembers(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+    const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
+    let findListOptions = new FindListOptions();
+    if (options) {
+      findListOptions = Object.assign(new FindListOptions(), options);
+    }
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
+    } else {
+      findListOptions.searchParams = searchParams;
+    }
+    return this.searchBy('isNotMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} ePerson The given object
@@ -281,15 +310,14 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
         this.editEPerson(ePerson);
       }
     });
-    return '/access-control/epeople';
+    return getEPersonEditRoute(ePerson.id);
   }
 
   /**
    * Get EPeople admin page
-   * @param ePerson New EPerson to edit
    */
   public getEPeoplePageRouterLink(): string {
-    return '/access-control/epeople';
+    return getEPersonsRoute();
   }
 
   /**
@@ -354,6 +382,32 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     return this.rdbService.buildFromRequestUUID(requestId);
   }
 
+  /**
+   * Sends a POST request to merge registration data related to the provided registration-token,
+   * into the eperson related to the provided uuid
+   * @param uuid the user uuid
+   * @param token registration-token
+   * @param metadataKey metadata key of the metadata field that should be overriden
+   */
+  mergeEPersonDataWithToken(uuid: string, token: string, metadataKey?: string): Observable<RemoteData<EPerson>> {
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getBrowseEndpoint().pipe(
+      map((href: string) =>
+        hasValue(metadataKey)
+          ? `${href}/${uuid}?token=${token}&override=${metadataKey}`
+          : `${href}/${uuid}?token=${token}`
+      )
+    );
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+    ).subscribe((href: string) => {
+      const request = new PostRequest(requestId, href);
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
 
   /**
    * Create a new object on the server, and store the response in the object cache

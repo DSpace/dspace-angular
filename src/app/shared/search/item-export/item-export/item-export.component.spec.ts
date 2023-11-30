@@ -24,6 +24,8 @@ import { SearchManager } from '../../../../core/browse/search-manager';
 import { SearchObjects } from '../../models/search-objects.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { UUIDService } from '../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../mocks/uuid.service.mock';
 
 describe('ItemExportComponent', () => {
   let component: ItemExportComponent;
@@ -125,7 +127,8 @@ describe('ItemExportComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SelectableListService, useValue: selectService },
         { provide: Router, useValue: router },
-        { provide: SearchManager, useValue: mockSearchManager }
+        { provide: SearchManager, useValue: mockSearchManager },
+        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [
         NO_ERRORS_SCHEMA

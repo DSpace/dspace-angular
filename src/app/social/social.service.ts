@@ -1,128 +1,93 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { CookieService } from '../core/services/cookie.service';
-import { AuthService } from '../core/auth/auth.service';
-
-export const APP_THIS_ID_SELECTOR = '#at4-share';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChildActivationEnd, Router } from '@angular/router';
 
 @Injectable( { providedIn: 'root' } )
 export class SocialService {
 
-  private _showSocialButtons: BehaviorSubject<boolean>;
+  private showOnCurrentRouteSubject = new BehaviorSubject(false);
 
-  constructor(protected cookie: CookieService,
-              private router: Router,
-              private authService: AuthService
+  /**
+   * Show/hide the social buttons according to the activated route
+   */
+  showOnCurrentRoute$ = this.showOnCurrentRouteSubject.asObservable();
+
+  private readonly isSocialEnabled: boolean;
+
+  constructor(
+    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(DOCUMENT) private _document: Document,
+    private router: Router,
   ) {
+    this.isSocialEnabled = isPlatformBrowser(this.platformId) && environment.addToAnyPlugin.socialNetworksEnabled;
   }
 
-  showSocialButtons(activatedRoute: ActivatedRoute): Observable<boolean> {
+  activatedRouteDataChanges$ = this.router.events.pipe(
+    filter(events => events instanceof ChildActivationEnd),
+    map((event: ChildActivationEnd) => event.snapshot),
+    map(route => {
+      while (route.firstChild) {
+        route = route.firstChild;
+      }
+      return route;
+    }),
+    filter(route => route.outlet === 'primary'),
+    map(route => route.data)
+  );
 
-    if (!this._showSocialButtons) {
-      this.initialize(activatedRoute);
-    }
-
-    return this._showSocialButtons.asObservable().pipe(distinctUntilChanged());
+  /**
+   * Returns whether the social network buttons are enabled
+   */
+  get enabled() {
+    return this.isSocialEnabled;
   }
 
-  initializeAddThisScript(_document: Document): any {
+  /**
+   * Returns the list of available buttons
+   */
+  get configuration() {
+    return environment.addToAnyPlugin;
+  }
+
+  /**
+   * Returns the homepage link to be used by AddToAny.
+   * If no link is provided in the configuration then the current page url will be used.
+   */
+  get link(): string {
+    return environment.addToAnyPlugin.link ?? null;
+  }
+
+  /**
+   * Import the AddToAny JavaScript
+   */
+  initializeAddToAnyScript(): any {
     // Initializing the addThisCookie script
-    const script = _document.createElement('script');
+    const script = this._document.createElement('script');
     script.type = 'text/javascript';
-    script.src = environment.addThisPlugin.scriptUrl + environment.addThisPlugin.siteId;
-    _document.body.appendChild(script);
+    script.src = environment.addToAnyPlugin.scriptUrl;
+    script.async = true;
+    this._document.body.appendChild(script);
   }
 
-  hide(_document: Document) {
-    // Hiding social buttons
-    const socialButtons: HTMLElement = _document.querySelector(APP_THIS_ID_SELECTOR);
-    if (socialButtons) {
-      // HTML Element found, setting display to none
-      socialButtons.style.display = 'none';
-    }
-  }
-
-  show(_document: Document) {
-    // Showing social buttons
-    const socialButtons: HTMLElement = _document.querySelector(APP_THIS_ID_SELECTOR);
-    if (socialButtons) {
-      // HTML Element found, setting display to block
-      socialButtons.style.display = 'block';
-    }
-  }
-
-  protected initialize(activatedRoute: ActivatedRoute) {
-
-    this._showSocialButtons = new BehaviorSubject<boolean>(false);
-
-    if (!this.isSocialNetworksEnabled()) {
+  /**
+   * Initialize the Social service. This method must be called only inside app component.
+   */
+  initialize() {
+    if (!this.enabled) {
       return;
     }
 
-    const cookiesSubject = new BehaviorSubject(this.cookie.getAll());
-    this.cookie.cookies$.subscribe((cookie) => cookiesSubject.next(cookie));
-    const cookies$ = cookiesSubject.asObservable();
-
-    const userUUId$ = this.authService.isAuthenticated().pipe(
-      switchMap((authenticated) =>
-        authenticated ? this.authService.getAuthenticatedUserFromStore().pipe(map((user) => user.uuid))
-          : of(null)));
-
-    const primaryRouteData$ = this.router.events.pipe(
-      filter(events => events instanceof NavigationEnd),
-      map(evt => activatedRoute),
-      map(route => {
-        while (route.firstChild) {
-          route = route.firstChild;
-        }
-        return route;
-      }),
-      filter(route => route.outlet === 'primary'),
-      mergeMap(route => route.data)
+    const showSocialButtons = this.activatedRouteDataChanges$.pipe(
+      map(data => data?.showSocialButtons === true),
+      distinctUntilChanged(),
     );
 
-    // Subscriptions
-
-    // Listen to every cookies / user state changes and evaluate sharing state
-    combineLatest([cookies$, userUUId$]).subscribe(([cookieMap, userUUID]) => {
-      this.evaluateShowHide(cookieMap, userUUID);
-    });
-
-    // Listen to every route changes with data and evaluate sharing state
-    primaryRouteData$.subscribe((routeData) => {
-      // console.log('ROUTE DATA change detected. Evaluating.', routeData);
-      if (routeData.showSocialButtons === true) {
-        combineLatest([cookies$, userUUId$]).pipe(take(1)).subscribe(([cookieMap, userUUID]) => {
-          this.evaluateShowHide(cookieMap, userUUID);
-        });
-      } else {
-        this._showSocialButtons.next(false);
-      }
-    });
-  }
-
-  protected isSocialNetworksEnabled() {
-    return environment.addThisPlugin.socialNetworksEnabled;
-  }
-
-  protected evaluateShowHide(cookieMap, userUUID) {
-    if (this.isAddThisCookieEnabled(cookieMap, userUUID)) {
-      this._showSocialButtons.next(true);
-    } else {
-      this._showSocialButtons.next(false);
-    }
-  }
-
-  protected isAddThisCookieEnabled(cookieMap, userUUID) {
-    const cookie = userUUID ? this.cookie.get('klaro-' + userUUID) : this.cookie.get('klaro-anonymous');
-    const addThisCookie = cookie ? cookie['add-this'] : false;
-
-    return addThisCookie;
+    showSocialButtons.subscribe(this.showOnCurrentRouteSubject);
   }
 
 }

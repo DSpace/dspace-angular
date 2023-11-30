@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
@@ -33,7 +33,7 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit, OnDestroy {
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicScrollableDropdownModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -77,6 +77,10 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
+    if (this.model.metadataValue) {
+      this.setCurrentValue(this.model.metadataValue, true);
+    }
+
     this.updatePageInfo(this.model.maxOptions, 1);
     this.retrieveEntries(null, true);
 
@@ -121,6 +125,23 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
       sdRef.open();
+    }
+  }
+
+  /**
+   * KeyDown handler to allow toggling the dropdown via keyboard
+   * @param event KeyboardEvent
+   * @param sdRef The reference of the NgbDropdown.
+   */
+  selectOnKeyDown(event: KeyboardEvent, sdRef: NgbDropdown) {
+    const keyName = event.key;
+
+    if (keyName === ' ' || keyName === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      sdRef.toggle();
+    } else if (keyName === 'ArrowDown' || keyName === 'ArrowUp') {
+      this.openDropdown(sdRef);
     }
   }
 

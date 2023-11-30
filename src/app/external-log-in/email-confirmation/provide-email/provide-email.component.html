@@ -1,0 +1,38 @@
+<h4 class="mb-3">
+  {{ "external-login.provide-email.header" | translate }}
+</h4>
+
+<form [formGroup]="emailForm" (ngSubmit)="submitForm()">
+  <div class="form-group">
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      placeholder="{{'external-login.form.email' | translate}}"
+      class="form-control form-control-lg position-relative"
+    />
+
+    <div
+      *ngIf="
+        emailForm.get('email').hasError('required') &&
+        emailForm.get('email').touched
+      "
+      class="text-danger"
+    >
+      {{ "external-login.confirmation.email-required" | translate }}
+    </div>
+    <div
+      *ngIf="
+        emailForm.get('email').hasError('email') &&
+        emailForm.get('email').touched
+      "
+      class="text-danger"
+    >
+      {{ "external-login.confirmation.email-invalid" | translate }}
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-lg btn-primary btn-block">
+    {{ "external-login.provide-email.button.label" | translate }}
+  </button>
+</form>

@@ -21,6 +21,7 @@ const effects = [
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
   NavbarSectionComponent,
+  ExpandableNavbarSectionComponent,
   ThemedExpandableNavbarSectionComponent,
 ];
 
@@ -34,11 +35,9 @@ const ENTRY_COMPONENTS = [
     CoreModule.forRoot()
   ],
   declarations: [
+    ...ENTRY_COMPONENTS,
     NavbarComponent,
     ThemedNavbarComponent,
-    NavbarSectionComponent,
-    ExpandableNavbarSectionComponent,
-    ThemedExpandableNavbarSectionComponent,
   ],
   providers: [],
   exports: [
