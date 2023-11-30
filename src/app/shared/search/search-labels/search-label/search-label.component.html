@@ -4,6 +4,6 @@
    [queryParams]="(removeParameters | async)" queryParamsHandling="merge">
     <span class="d-flex">
       <span class="flex-grow-1 text-left">{{('search.filters.applied.' + key) | translate}}: {{'search.filters.' + filterName + '.' + value | translate: {default: normalizeFilterValue(value)} }}</span>
-      <span class="pl-1">×</span>
+      <span class="pl-1" aria-hidden="true">×</span>
     </span>
 </a>
