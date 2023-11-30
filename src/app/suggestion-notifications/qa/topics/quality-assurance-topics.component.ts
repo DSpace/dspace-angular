@@ -19,6 +19,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -190,6 +191,14 @@ export class QualityAssuranceTopicsComponent implements OnInit {
    */
   getItemPageRoute(item: Item): string {
     return getItemPageRoute(item);
+  }
+
+  /**
+   * Returns the quality assurance route.
+   * @returns The quality assurance route.
+   */
+  getQualityAssuranceRoute(): string {
+    return getNotificatioQualityAssuranceRoute();
   }
 
   /**

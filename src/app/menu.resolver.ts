@@ -578,7 +578,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.quality-assurance',
-            link: '/admin/notifications/quality-assurance'
+            link: '/notifications/quality-assurance'
           } as LinkMenuItemModel,
         },
         {
@@ -589,7 +589,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.notifications_reciter',
-            link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
+            link: '/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
           } as LinkMenuItemModel,
         },
         /*  Admin Search */

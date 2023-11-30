@@ -41,6 +41,7 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 
 @NgModule({
   imports: [
@@ -156,6 +157,12 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
             canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
+              .then((m) => m.AdminNotificationsModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',

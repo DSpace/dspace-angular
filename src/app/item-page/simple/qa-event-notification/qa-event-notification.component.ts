@@ -7,8 +7,9 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { QualityAssuranceSourceDataService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
 import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { hasValue } from 'src/app/shared/empty.util';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { hasValue } from '../../../shared/empty.util';
+import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -52,5 +53,13 @@ export class QaEventNotificationComponent {
         filter((pl: PaginatedList<QualityAssuranceSourceObject>) => hasValue(pl)),
         getPaginatedListPayload(),
       );
+  }
+
+  /**
+   * Returns the quality assurance route.
+   * @returns The quality assurance route.
+   */
+  getQualityAssuranceRoute(): string {
+    return getNotificatioQualityAssuranceRoute();
   }
 }

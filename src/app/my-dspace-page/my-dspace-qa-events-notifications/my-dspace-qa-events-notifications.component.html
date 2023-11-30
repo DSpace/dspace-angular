@@ -17,7 +17,7 @@
           }}
         </div>
         <button
-          [routerLink]="['/admin/notifications/quality-assurance', source.id]"
+          [routerLink]="[getQualityAssuranceRoute(), source.id]"
           class="btn btn-primary align-self-center"
         >
           {{ "mydspace.qa-event-notification-info.check.button" | translate }}
