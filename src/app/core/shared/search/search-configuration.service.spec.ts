@@ -1,11 +1,18 @@
+/* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { SearchConfigurationService } from './search-configuration.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
-import { of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { map } from 'rxjs/operators';
+import { RemoteData } from '../../data/remote-data';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { RequestEntry } from '../../data/request-entry.model';
+import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;
@@ -38,10 +45,34 @@ describe('SearchConfigurationService', () => {
 
 
   const activatedRoute: any = new ActivatedRouteStub();
+  const linkService: any = {};
+  const requestService: any = getMockRequestService();
+  const halService: any = {
+    getEndpoint: () => {
+    }
+  };
 
+  const rdb: any = {
+    toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
+      return observableCombineLatest([requestEntryObs, payloadObs]).pipe(
+        map(([req, pay]) => {
+          return { req, pay };
+        })
+      );
+    },
+    aggregate: (input: Observable<RemoteData<any>>[]): Observable<RemoteData<any[]>> => {
+      return createSuccessfulRemoteDataObject$([]);
+    },
+    buildFromHref: (href: string): Observable<RemoteData<any>> => {
+      return createSuccessfulRemoteDataObject$(Object.assign(new SearchObjects(), {
+        page: []
+      }));
+    }
+  };
   beforeEach(() => {
-    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute);
+    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute, linkService, halService, requestService, rdb);
   });
+
   describe('when the scope is called', () => {
     beforeEach(() => {
       service.getCurrentScope('');
@@ -160,4 +191,92 @@ describe('SearchConfigurationService', () => {
     });
   });
 
+  describe('when getSearchConfigurationFor is called with a scope', () => {
+    const endPoint = 'http://endpoint.com/test/config';
+    const scope = 'test';
+    const requestUrl = endPoint + '?scope=' + scope;
+    beforeEach(() => {
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      service.getSearchConfigurationFor(scope).subscribe((t) => {
+      }); // subscribe to make sure all methods are called
+    });
+
+    it('should call getEndpoint on the halService', () => {
+      expect((service as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((service as any).requestService.send).toHaveBeenCalled();
+    });
+
+    it('should call send containing a request with the correct request url', () => {
+      expect((service as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
+    });
+  });
+
+  describe('when getSearchConfigurationFor is called without a scope', () => {
+    const endPoint = 'http://endpoint.com/test/config';
+    beforeEach(() => {
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      spyOn((service as any).rdb, 'buildFromHref').and.callThrough();
+      service.getSearchConfigurationFor(null).subscribe((t) => {
+      }); // subscribe to make sure all methods are called
+    });
+
+    it('should call getEndpoint on the halService', () => {
+      expect((service as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((service as any).requestService.send).toHaveBeenCalled();
+    });
+
+    it('should call send containing a request with the correct request url', () => {
+      expect((service as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }), true);
+    });
+  });
+  describe('when getConfig is called without a scope', () => {
+    const endPoint = 'http://endpoint.com/test/config';
+    beforeEach(() => {
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      spyOn((service as any).rdb, 'buildFromHref').and.callThrough();
+      service.getConfig(null).subscribe((t) => {
+      }); // subscribe to make sure all methods are called
+    });
+
+    it('should call getEndpoint on the halService', () => {
+      expect((service as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((service as any).requestService.send).toHaveBeenCalled();
+    });
+
+    it('should call send containing a request with the correct request url', () => {
+      expect((service as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }), true);
+    });
+  });
+
+  describe('when getConfig is called with a scope', () => {
+    const endPoint = 'http://endpoint.com/test/config';
+    const scope = 'test';
+    const requestUrl = endPoint + '?scope=' + scope;
+    beforeEach(() => {
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      service.getConfig(scope).subscribe((t) => {
+      }); // subscribe to make sure all methods are called
+    });
+
+    it('should call getEndpoint on the halService', () => {
+      expect((service as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((service as any).requestService.send).toHaveBeenCalled();
+    });
+
+    it('should call send containing a request with the correct request url', () => {
+      expect((service as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
+    });
+  });
 });

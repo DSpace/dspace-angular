@@ -1,4 +1,8 @@
-import { BrowseByMetadataPageComponent, browseParamsToOptions } from './browse-by-metadata-page.component';
+import {
+  BrowseByMetadataPageComponent,
+  browseParamsToOptions,
+  getBrowseSearchOptions
+} from './browse-by-metadata-page.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowseService } from '../../core/browse/browse.service';
 import { CommonModule } from '@angular/common';
@@ -14,7 +18,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { Item } from '../../core/shared/item.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
@@ -25,6 +29,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.util
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -42,6 +47,13 @@ describe('BrowseByMetadataPageComponent', () => {
       }
     ]
   });
+
+  const environmentMock = {
+    browseBy: {
+      showThumbnails: true,
+      pageSize: 10
+    }
+  };
 
   const mockEntries = [
     {
@@ -97,7 +109,8 @@ describe('BrowseByMetadataPageComponent', () => {
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: new RouterMock() }
+        { provide: Router, useValue: new RouterMock() },
+        { provide: APP_CONFIG, useValue: environmentMock }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -118,6 +131,10 @@ describe('BrowseByMetadataPageComponent', () => {
     expect(comp.items$).toBeUndefined();
   });
 
+  it('should set embed thumbnail property to true', () => {
+    expect(comp.fetchThumbnails).toBeTrue();
+  });
+
   describe('when a value is provided', () => {
     beforeEach(() => {
       const paramsWithValue = {
@@ -127,12 +144,19 @@ describe('BrowseByMetadataPageComponent', () => {
 
       route.params = observableOf(paramsWithValue);
       comp.ngOnInit();
+      comp.updateParent('fake-scope');
+      comp.updateLogo();
+      fixture.detectChanges();
     });
 
     it('should fetch items', () => {
       comp.items$.subscribe((result) => {
         expect(result.payload.page).toEqual(mockItems);
       });
+    });
+
+    it('should fetch the logo', () => {
+      expect(comp.logo$).toBeTruthy();
     });
   });
 
@@ -145,14 +169,14 @@ describe('BrowseByMetadataPageComponent', () => {
       };
       const paginationOptions = Object.assign(new PaginationComponentOptions(), {
         currentPage: 5,
-        pageSize: 10,
+        pageSize: comp.appConfig.browseBy.pageSize,
       });
       const sortOptions = {
         direction: SortDirection.ASC,
         field: 'fake-field',
       };
 
-      result = browseParamsToOptions(paramsScope, paginationOptions, sortOptions, 'author');
+      result = browseParamsToOptions(paramsScope, paginationOptions, sortOptions, 'author', comp.fetchThumbnails);
     });
 
     it('should return BrowseEntrySearchOptions with the correct properties', () => {
@@ -163,6 +187,36 @@ describe('BrowseByMetadataPageComponent', () => {
       expect(result.sort.direction).toEqual(SortDirection.ASC);
       expect(result.sort.field).toEqual('fake-field');
       expect(result.scope).toEqual('fake-scope');
+      expect(result.fetchThumbnail).toBeTrue();
+    });
+  });
+
+  describe('calling getBrowseSearchOptions', () => {
+    let result: BrowseEntrySearchOptions;
+
+    beforeEach(() => {
+      const paramsScope = {
+        scope: 'fake-scope'
+      };
+      const paginationOptions = Object.assign(new PaginationComponentOptions(), {
+        currentPage: 5,
+        pageSize: comp.appConfig.browseBy.pageSize,
+      });
+      const sortOptions = {
+        direction: SortDirection.ASC,
+        field: 'fake-field',
+      };
+
+      result = getBrowseSearchOptions('title', paginationOptions, sortOptions, comp.fetchThumbnails);
+    });
+    it('should return BrowseEntrySearchOptions with the correct properties', () => {
+
+      expect(result.metadataDefinition).toEqual('title');
+      expect(result.pagination.currentPage).toEqual(5);
+      expect(result.pagination.pageSize).toEqual(10);
+      expect(result.sort.direction).toEqual(SortDirection.ASC);
+      expect(result.sort.field).toEqual('fake-field');
+      expect(result.fetchThumbnail).toBeTrue();
     });
   });
 });

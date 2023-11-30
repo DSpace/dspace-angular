@@ -1,6 +1,6 @@
-import * as colors from 'colors';
-import * as fs from 'fs';
-import * as yaml from 'js-yaml';
+import { red, blue, green, bold } from 'colors';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { load } from 'js-yaml';
 import { join } from 'path';
 
 import { AppConfig } from './app-config.interface';
@@ -54,13 +54,27 @@ const getEnvironment = (): Environment => {
   return environment;
 };
 
-const getLocalConfigPath = (env: Environment) => {
-  // default to config/config.yml
-  let localConfigPath = join(CONFIG_PATH, 'config.yml');
+/**
+ * Get the path of the default config file.
+ */
+const getDefaultConfigPath = () => {
 
-  if (!fs.existsSync(localConfigPath)) {
-    localConfigPath = join(CONFIG_PATH, 'config.yaml');
+  // default to config/config.yml
+  let defaultConfigPath = join(CONFIG_PATH, 'config.yml');
+
+  if (!existsSync(defaultConfigPath)) {
+    defaultConfigPath = join(CONFIG_PATH, 'config.yaml');
   }
+
+  return defaultConfigPath;
+};
+
+/**
+ * Get the path of an environment-specific config file.
+ *
+ * @param env   the environment to get the config file for
+ */
+const getEnvConfigFilePath = (env: Environment) => {
 
   // determine app config filename variations
   let envVariations;
@@ -73,38 +87,38 @@ const getLocalConfigPath = (env: Environment) => {
       break;
     case 'development':
     default:
-      envVariations = ['dev', 'development']
+      envVariations = ['dev', 'development'];
   }
+
+  let envLocalConfigPath;
 
   // check if any environment variations of app config exist
   for (const envVariation of envVariations) {
-    let envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yml`);
-    if (fs.existsSync(envLocalConfigPath)) {
-      localConfigPath = envLocalConfigPath;
+    envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yml`);
+    if (existsSync(envLocalConfigPath)) {
       break;
-    } else {
-      envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yaml`);
-      if (fs.existsSync(envLocalConfigPath)) {
-        localConfigPath = envLocalConfigPath;
-        break;
-      }
+    }
+    envLocalConfigPath = join(CONFIG_PATH, `config.${envVariation}.yaml`);
+    if (existsSync(envLocalConfigPath)) {
+      break;
     }
   }
 
-  return localConfigPath;
+  return envLocalConfigPath;
 };
 
 const overrideWithConfig = (config: Config, pathToConfig: string) => {
   try {
     console.log(`Overriding app config with ${pathToConfig}`);
-    const externalConfig = fs.readFileSync(pathToConfig, 'utf8');
-    mergeConfig(config, yaml.load(externalConfig));
+    const externalConfig = readFileSync(pathToConfig, 'utf8');
+    mergeConfig(config, load(externalConfig));
   } catch (err) {
     console.error(err);
   }
 };
 
 const overrideWithEnvironment = (config: Config, key: string = '') => {
+  // eslint-disable-next-line guard-for-in
   for (const property in config) {
     const variable = `${key}${isNotEmpty(key) ? '_' : ''}${property.toUpperCase()}`;
     const innerConfig = config[property];
@@ -164,27 +178,35 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
 
   switch (env) {
     case 'production':
-      console.log(`Building ${colors.red.bold(`production`)} app config`);
+      console.log(`Building ${red.bold(`production`)} app config`);
       break;
     case 'test':
-      console.log(`Building ${colors.blue.bold(`test`)} app config`);
+      console.log(`Building ${blue.bold(`test`)} app config`);
       break;
     default:
-      console.log(`Building ${colors.green.bold(`development`)} app config`);
+      console.log(`Building ${green.bold(`development`)} app config`);
   }
 
-  // override with dist config
-  const localConfigPath = getLocalConfigPath(env);
-  if (fs.existsSync(localConfigPath)) {
+  // override with default config
+  const defaultConfigPath = getDefaultConfigPath();
+  if (existsSync(defaultConfigPath)) {
+    overrideWithConfig(appConfig, defaultConfigPath);
+  } else {
+    console.warn(`Unable to find default config file at ${defaultConfigPath}`);
+  }
+
+  // override with env config
+  const localConfigPath = getEnvConfigFilePath(env);
+  if (existsSync(localConfigPath)) {
     overrideWithConfig(appConfig, localConfigPath);
   } else {
-    console.warn(`Unable to find dist config file at ${localConfigPath}`);
+    console.warn(`Unable to find env config file at ${localConfigPath}`);
   }
 
   // override with external config if specified by environment variable `DSPACE_APP_CONFIG_PATH`
   const externalConfigPath = ENV('APP_CONFIG_PATH', true);
   if (isNotEmpty(externalConfigPath)) {
-    if (fs.existsSync(externalConfigPath)) {
+    if (existsSync(externalConfigPath)) {
       overrideWithConfig(appConfig, externalConfigPath);
     } else {
       console.warn(`Unable to find external config file at ${externalConfigPath}`);
@@ -214,9 +236,9 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    fs.writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
 
-    console.log(`Angular ${colors.bold('config.json')} file generated correctly at ${colors.bold(destConfigPath)} \n`);
+    console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
 
   return appConfig;

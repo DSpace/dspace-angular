@@ -1,5 +1,6 @@
 import { DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
+import { environment } from '../../../environments/environment';
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',
@@ -26,21 +27,26 @@ export const collectionFormModels: DynamicFormControlModel[] = [
   new DynamicTextAreaModel({
     id: 'description',
     name: 'dc.description',
+    spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'abstract',
     name: 'dc.description.abstract',
+    spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'rights',
     name: 'dc.rights',
+    spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'tableofcontents',
     name: 'dc.description.tableofcontents',
+    spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'license',
     name: 'dc.rights.license',
+    spellCheck: environment.form.spellCheck,
   })
 ];

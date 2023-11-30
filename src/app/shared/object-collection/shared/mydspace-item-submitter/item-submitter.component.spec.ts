@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
@@ -11,12 +11,11 @@ import { EPersonMock } from '../../../testing/eperson.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
 
 let component: ItemSubmitterComponent;
 let fixture: ComponentFixture<ItemSubmitterComponent>;
-
-const compIndex = 1;
-
 let mockResultObject: PoolTask;
 
 const rdSumbitter = createSuccessfulRemoteDataObject(EPersonMock);
@@ -36,6 +35,9 @@ describe('ItemSubmitterComponent', () => {
         })
       ],
       declarations: [ItemSubmitterComponent],
+      providers: [
+        { provide: LinkService, useValue: getMockLinkService() },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSubmitterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
@@ -58,10 +60,18 @@ describe('ItemSubmitterComponent', () => {
     }));
   });
 
-  it('should show a badge with submitter name', () => {
-    const badge = fixture.debugElement.query(By.css('.badge'));
+  it('should show N/A when submitter is null', () => {
+    component.submitter$ = observableOf(null);
+    fixture.detectChanges();
 
-    expect(badge).toBeDefined();
-    expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
+    const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));
+
+    expect(badge.nativeElement.innerText).toBe('submitter.empty');
+  });
+
+  it('should show a badge with submitter name', () => {
+    const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));
+
+    expect(badge.nativeElement.innerText).toBe(EPersonMock.name);
   });
 });

@@ -84,18 +84,18 @@ describe('ItemCollectionMapperComponent', () => {
     removeMappingFromCollection: () => createSuccessfulRemoteDataObject$({}),
     getMappedCollectionsEndpoint: () => observableOf('rest/api/mappedCollectionsEndpoint'),
     getMappedCollections: () => observableOf(mockCollectionsRD),
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearMappedCollectionsRequests: () => {}
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   };
   const collectionDataServiceStub = {
-    findAllByHref: () => observableOf(mockCollectionsRD)
+    findListByHref: () => observableOf(mockCollectionsRD),
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(mockCollectionsRD),
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     clearDiscoveryRequests: () => {}
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   });
   const activatedRouteStub = {
     parent: {

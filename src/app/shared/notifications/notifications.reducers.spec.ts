@@ -9,7 +9,7 @@ import { NotificationOptions } from './models/notification-options.model';
 import { NotificationAnimationsType } from './models/notification-animations-type';
 import { NotificationType } from './models/notification-type';
 import { Notification } from './models/notification.model';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import { ChangeDetectorRef } from '@angular/core';
 import { storeModuleConfig } from '../../app.reducer';
 
@@ -25,9 +25,11 @@ describe('Notifications reducer', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [NotificationComponent, NotificationsBoardComponent],
-      providers: [NotificationsService],
-      imports: [
+      providers: [
+        NotificationsService,
         ChangeDetectorRef,
+      ],
+      imports: [
         StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
       ]
     });

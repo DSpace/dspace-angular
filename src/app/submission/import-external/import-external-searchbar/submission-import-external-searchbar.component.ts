@@ -4,16 +4,16 @@ import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { ExternalSourceService } from '../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { ExternalSource } from '../../../core/shared/external-source.model';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { FindListOptions } from '../../../core/data/request.models';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { hasValue } from '../../../shared/empty.util';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * Interface for the selected external source element.
@@ -86,12 +86,12 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
 
   /**
    * Initialize the component variables.
-   * @param {ExternalSourceService} externalService
+   * @param {ExternalSourceDataService} externalService
    * @param {ChangeDetectorRef} cdr
    * @param {HostWindowService} windowService
    */
   constructor(
-    private externalService: ExternalSourceService,
+    private externalService: ExternalSourceDataService,
     private cdr: ChangeDetectorRef,
     protected windowService: HostWindowService
   ) {

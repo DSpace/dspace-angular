@@ -7,8 +7,8 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { JsonPatchOperationsService } from '../json-patch/json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { SubmissionPatchRequest } from '../data/request.models';
-import { CoreState } from '../core.reducers';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CoreState } from '../core-state.model';
 
 /**
  * A service that provides methods to make JSON Patch requests.

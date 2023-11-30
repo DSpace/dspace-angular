@@ -20,21 +20,21 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../../remote-data.utils';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
-  imports: [NgbModalModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useClass: TranslateLoaderMock
-      }
-    }),
-  ],
-  exports: [],
-  declarations: [ConfirmationModalComponent],
-  providers: [],
-  entryComponents: [ConfirmationModalComponent],
+    imports: [NgbModalModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }),
+    ],
+    exports: [],
+    declarations: [ConfirmationModalComponent],
+    providers: []
 })
 class ModelTestModule {
 }
@@ -48,6 +48,7 @@ describe('ExportMetadataSelectorComponent', () => {
   let router;
   let notificationService: NotificationsServiceStub;
   let scriptService;
+  let authorizationDataService;
 
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
@@ -96,6 +97,9 @@ describe('ExportMetadataSelectorComponent', () => {
         invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
       }
     );
+    authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+      isAuthorized: observableOf(true)
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
       declarations: [ExportMetadataSelectorComponent],
@@ -103,6 +107,7 @@ describe('ExportMetadataSelectorComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -151,7 +156,7 @@ describe('ExportMetadataSelectorComponent', () => {
     });
   });
 
-  describe('if collection is selected', () => {
+  describe('if collection is selected and is admin', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
@@ -160,7 +165,32 @@ describe('ExportMetadataSelectorComponent', () => {
         done();
       });
     });
-    it('should invoke the metadata-export script with option -i uuid', () => {
+    it('should invoke the metadata-export script with option -i uuid and -a option', () => {
+      const parameterValues: ProcessParameter[] = [
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.uuid }),
+        Object.assign(new ProcessParameter(), { name: '-a' }),
+      ];
+      expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
+    });
+    it('success notification is shown', () => {
+      expect(scriptRequestSucceeded).toBeTrue();
+      expect(notificationService.success).toHaveBeenCalled();
+    });
+    it('redirected to process page', () => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/processes/45');
+    });
+  });
+  describe('if collection is selected and is not admin', () => {
+    let scriptRequestSucceeded;
+    beforeEach((done) => {
+      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+      spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
+      component.navigate(mockCollection).subscribe((succeeded: boolean) => {
+        scriptRequestSucceeded = succeeded;
+        done();
+      });
+    });
+    it('should invoke the metadata-export script with option -i uuid without the -a option', () => {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '-i', value: mockCollection.uuid }),
       ];
@@ -175,7 +205,7 @@ describe('ExportMetadataSelectorComponent', () => {
     });
   });
 
-  describe('if community is selected', () => {
+  describe('if community is selected and is an admin', () => {
     let scriptRequestSucceeded;
     beforeEach((done) => {
       spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
@@ -184,7 +214,32 @@ describe('ExportMetadataSelectorComponent', () => {
         done();
       });
     });
-    it('should invoke the metadata-export script with option -i uuid', () => {
+    it('should invoke the metadata-export script with option -i uuid and -a option if the user is an admin', () => {
+      const parameterValues: ProcessParameter[] = [
+        Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.uuid }),
+        Object.assign(new ProcessParameter(), { name: '-a' }),
+      ];
+      expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
+    });
+    it('success notification is shown', () => {
+      expect(scriptRequestSucceeded).toBeTrue();
+      expect(notificationService.success).toHaveBeenCalled();
+    });
+    it('redirected to process page', () => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/processes/45');
+    });
+  });
+  describe('if community is selected and is not an admin', () => {
+    let scriptRequestSucceeded;
+    beforeEach((done) => {
+      (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+      spyOn((component as any).modalService, 'open').and.returnValue(modalRef);
+      component.navigate(mockCommunity).subscribe((succeeded: boolean) => {
+        scriptRequestSucceeded = succeeded;
+        done();
+      });
+    });
+    it('should invoke the metadata-export script with option -i uuid without the -a option', () => {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '-i', value: mockCommunity.uuid }),
       ];

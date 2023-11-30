@@ -1,12 +1,14 @@
 import { FormBuilderService } from '../form/builder/form-builder.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {DsDynamicInputModel} from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export function getMockFormBuilderService(): FormBuilderService {
+
   return jasmine.createSpyObj('FormBuilderService', {
     modelFromConfiguration: [],
-    createFormGroup: new FormGroup({}),
+    createFormGroup: new UntypedFormGroup({}),
     getValueFromModel: {},
-    getFormControlById: new FormControl(),
+    getFormControlById: new UntypedFormControl(),
     hasMappedGroupValue: false,
     findById: {},
     getPath: ['test', 'path'],
@@ -17,8 +19,27 @@ export function getMockFormBuilderService(): FormBuilderService {
     isQualdropGroup: false,
     isModelInCustomGroup: true,
     isRelationGroup: true,
-    hasArrayGroupValue: true
-
+    isConcatGroup: false,
+    hasArrayGroupValue: true,
+    getTypeBindModel: new DsDynamicInputModel({
+        name: 'dc.type',
+        id: 'dc_type',
+        readOnly: false,
+        disabled: false,
+        repeatable: false,
+        value: {
+          value: 'boundType',
+          display: 'Bound Type',
+          authority: 'bound-auth-key'
+        },
+        submissionId: '1234',
+        metadataFields: ['dc.type'],
+        hasSelectableMetadata: false,
+        typeBindRelations: [
+          {match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'boundType'}]}
+        ]
+      }
+    )
   });
 
 }

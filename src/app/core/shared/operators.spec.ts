@@ -2,25 +2,22 @@ import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { GetRequest } from '../data/request.models';
-import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import {
-  sendRequest,
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-  getRequestFromRequestHref,
-  getRequestFromRequestUUID,
-  getResponseFromEntry,
-  redirectOn4xx
+  getRemoteDataPayload
 } from './operators';
 import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject
 } from '../../shared/remote-data.utils';
+import { getRequestFromRequestHref, getRequestFromRequestUUID, getResponseFromEntry, sendRequest } from './request.operators';
+import { redirectOn4xx } from './authorized.operators';
+import { RequestEntry } from '../data/request-entry.model';
 
-// tslint:disable:no-shadowed-variable
+/* eslint-disable @typescript-eslint/no-shadow */
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;

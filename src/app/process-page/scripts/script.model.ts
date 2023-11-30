@@ -1,4 +1,3 @@
-import { CacheableObject } from '../../core/cache/object-cache.reducer';
 import { HALLink } from '../../core/shared/hal-link.model';
 import { autoserialize, deserialize } from 'cerialize';
 import { SCRIPT } from './script.resource-type';
@@ -6,6 +5,7 @@ import { ScriptParameter } from './script-parameter.model';
 import { typedObject } from '../../core/cache/builders/build-decorators';
 import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { ResourceType } from '../../core/shared/resource-type';
+import { CacheableObject } from '../../core/cache/cacheable-object.model';
 
 /**
  * Object representing a script

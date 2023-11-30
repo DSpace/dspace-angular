@@ -1,4 +1,4 @@
-<div>
+<div [ngClass]="showThumbnails ? 'hide-modal-thumbnail-column' : ''">
     <div class="modal-header">{{'virtual-metadata.delete-relationship.modal-head' | translate}}
         <button type="button" class="close" (click)="close.emit()" aria-label="Close">
             <span aria-hidden="true">×</span>

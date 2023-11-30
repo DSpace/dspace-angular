@@ -13,6 +13,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 describe('CollectionAdminSearchResultListElementComponent', () => {
   let component: CollectionAdminSearchResultListElementComponent;
@@ -36,7 +38,8 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
       ],
       declarations: [CollectionAdminSearchResultListElementComponent],
       providers: [{ provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock }],
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

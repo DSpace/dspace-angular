@@ -1,14 +1,7 @@
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import { dataService, getDataServiceFor, getLinkDefinition, link, } from './build-decorators';
-
-/* tslint:disable:max-classes-per-file */
-class TestService {
-}
-
-class AnotherTestService {
-}
+import { getLinkDefinition, link } from './build-decorators';
 
 class TestHALResource implements HALResource {
   _links: {
@@ -24,31 +17,6 @@ let testType;
 describe('build decorators', () => {
   beforeEach(() => {
     testType = new ResourceType('testType-' + new Date().getTime());
-  });
-  describe('@dataService/getDataServiceFor', () => {
-
-    it('should register a resourcetype for a dataservice', () => {
-      dataService(testType)(TestService);
-      expect(getDataServiceFor(testType)).toBe(TestService);
-    });
-
-    describe(`when the resource type isn't specified`, () => {
-      it(`should throw an error`, () => {
-        expect(() => {
-          dataService(undefined)(TestService);
-        }).toThrow();
-      });
-    });
-
-    describe(`when there already is a registered dataservice for a resourcetype`, () => {
-      it(`should throw an error`, () => {
-        dataService(testType)(TestService);
-        expect(() => {
-          dataService(testType)(AnotherTestService);
-        }).toThrow();
-      });
-    });
-
   });
 
   describe(`@link/getLinkDefinitions`, () => {
@@ -80,4 +48,3 @@ describe('build decorators', () => {
     });
   });
 });
-/* tslint:enable:max-classes-per-file */

@@ -9,5 +9,5 @@
     </ds-viewable-collection>
   </div>
   <ds-error *ngIf="subCommunitiesRD?.hasFailed" message="{{'error.sub-communities' | translate}}"></ds-error>
-  <ds-loading *ngIf="subCommunitiesRD?.isLoading" message="{{'loading.sub-communities' | translate}}"></ds-loading>
+  <ds-themed-loading *ngIf="subCommunitiesRD?.isLoading" message="{{'loading.sub-communities' | translate}}"></ds-themed-loading>
 </ng-container>

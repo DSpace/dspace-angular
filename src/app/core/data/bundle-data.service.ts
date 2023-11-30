@@ -1,50 +1,51 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Bundle } from '../shared/bundle.model';
 import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { DataService } from './data.service';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { FindListOptions, GetRequest } from './request.models';
+import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
-import { RequestEntryState } from './request.reducer';
+import { RequestEntryState } from './request-entry-state.model';
+import { FindListOptions } from './find-list-options.model';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { PatchData, PatchDataImpl } from './base/patch-data';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { RestRequestMethod } from './rest-request-method';
+import { Operation } from 'fast-json-patch';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API
  */
 @Injectable(
-  {providedIn: 'root'}
+  { providedIn: 'root' },
 )
 @dataService(BUNDLE)
-export class BundleDataService extends DataService<Bundle> {
-  protected linkPath = 'bundles';
-  protected bitstreamsEndpoint = 'bitstreams';
+export class BundleDataService extends IdentifiableDataService<Bundle> implements PatchData<Bundle> {
+  private bitstreamsEndpoint = 'bitstreams';
+
+  private patchData: PatchDataImpl<Bundle>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<Bundle>) {
-    super();
+    protected comparator: DSOChangeAnalyzer<Bundle>,
+  ) {
+    super('bundles', requestService, rdbService, objectCache, halService);
+
+    this.patchData = new PatchDataImpl<Bundle>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
   }
 
   /**
@@ -60,7 +61,7 @@ export class BundleDataService extends DataService<Bundle> {
    *                                    {@link HALLink}s should be automatically resolved
    */
   findAllByItem(item: Item, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<PaginatedList<Bundle>>> {
-    return this.findAllByHref(item._links.bundles.href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.findListByHref(item._links.bundles.href, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -132,12 +133,46 @@ export class BundleDataService extends DataService<Bundle> {
     const hrefObs = this.getBitstreamsEndpoint(bundleId, searchOptions);
 
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
       this.requestService.send(request, true);
     });
 
     return this.rdbService.buildList<Bitstream>(hrefObs, ...linksToFollow);
+  }
+
+  /**
+   * Commit current object changes to the server
+   * @param method The RestRequestMethod for which de server sync buffer should be committed
+   */
+  public commitUpdates(method?: RestRequestMethod): void {
+    this.patchData.commitUpdates(method);
+  }
+
+  /**
+   * Send a patch request for a specified object
+   * @param {T} object The object to send a patch request for
+   * @param {Operation[]} operations The patch operations to be performed
+   */
+  public patch(object: Bundle, operations: Operation[]): Observable<RemoteData<Bundle>> {
+    return this.patchData.patch(object, operations);
+  }
+
+  /**
+   * Add a new patch to the object cache
+   * The patch is derived from the differences between the given object and its version in the object cache
+   * @param {DSpaceObject} object The given object
+   */
+  public update(object: Bundle): Observable<RemoteData<Bundle>> {
+    return this.patchData.update(object);
+  }
+
+  /**
+   * Return a list of operations representing the difference between an object and its latest value in the cache.
+   * @param object  the object to resolve to a list of patch operations
+   */
+  public createPatchFromCache(object: Bundle): Observable<Operation[]> {
+    return this.patchData.createPatchFromCache(object);
   }
 }

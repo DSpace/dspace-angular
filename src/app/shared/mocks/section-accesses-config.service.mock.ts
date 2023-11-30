@@ -1,4 +1,4 @@
-import { SubmissionFormsConfigService } from '../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../core/config/submission-forms-config-data.service';
 import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
@@ -73,14 +73,14 @@ const configResNotChangeDiscoverable = Object.assign(new SubmissionFormsModel(),
   }
 });
 
-export function getSubmissionAccessesConfigService(): SubmissionFormsConfigService {
+export function getSubmissionAccessesConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SubmissionAccessesConfigService', {
     findByHref: createSuccessfulRemoteDataObject$(configRes),
   });
 }
 
 
-export function getSubmissionAccessesConfigNotChangeDiscoverableService(): SubmissionFormsConfigService {
+export function getSubmissionAccessesConfigNotChangeDiscoverableService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SubmissionAccessesConfigService', {
     findByHref: createSuccessfulRemoteDataObject$(configResNotChangeDiscoverable),
   });

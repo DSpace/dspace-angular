@@ -1,12 +1,12 @@
 import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
-import { TypedObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BROWSE_ENTRY } from './browse-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
+import { TypedObject } from '../cache/typed-object.model';
 
 /**
  * Class object representing a browse entry
@@ -41,6 +41,12 @@ export class BrowseEntry extends ListableObject implements TypedObject {
   language: string;
 
   /**
+   * Thumbnail link used when browsing items with showThumbs config enabled.
+   */
+  @autoserializeAs('thumbnail')
+  thumbnail: string;
+
+  /**
    * The count of this browse entry
    */
   @excludeFromEquals
@@ -51,6 +57,7 @@ export class BrowseEntry extends ListableObject implements TypedObject {
   _links: {
     self: HALLink;
     entries: HALLink;
+    thumbnail: HALLink;
   };
 
   /**

@@ -5,13 +5,13 @@ import {
   DynamicInputModel,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateService } from '@ngx-translate/core';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -80,7 +80,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
   /**
    * The form group of this form
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * Prefix for the form's label messages of this component

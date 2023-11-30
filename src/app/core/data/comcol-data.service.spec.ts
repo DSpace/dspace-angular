@@ -7,23 +7,30 @@ import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindListOptions } from './request.models';
 import { RequestService } from './request.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
-} from '../../shared/remote-data.utils';
+import { createFailedRemoteDataObject, createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { BitstreamDataService } from './bitstream-data.service';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from './find-list-options.model';
+import { Bitstream } from '../shared/bitstream.model';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 
 const LINK_NAME = 'test';
+
+const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
+
+const communitiesEndpoint = 'https://rest.api/core/communities';
+
+const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
 
 class TestService extends ComColDataService<any> {
 
@@ -40,16 +47,21 @@ class TestService extends ComColDataService<any> {
     protected comparator: DSOChangeAnalyzer<Community>,
     protected linkPath: string
   ) {
-    super();
+    super('something', requestService, rdbService, objectCache, halService, comparator, notificationsService, bitstreamDataService);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {
     // implementation in subclasses for communities/collections
     return undefined;
   }
+
+  protected getScopeCommunityHref(options: FindListOptions): Observable<string> {
+    // implementation in subclasses for communities/collections
+    return observableOf(communityEndpoint);
+  }
 }
 
-// tslint:disable:no-shadowed-variable
+/* eslint-disable @typescript-eslint/no-shadow */
 describe('ComColDataService', () => {
   let service: TestService;
   let requestService: RequestService;
@@ -66,12 +78,9 @@ describe('ComColDataService', () => {
   const http = {} as HttpClient;
   const comparator = {} as any;
 
-  const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindListOptions(), {
     scopeID: scopeID
   });
-  const communitiesEndpoint = 'https://rest.api/core/communities';
-  const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
 
   const mockHalService = {
@@ -143,6 +152,15 @@ describe('ComColDataService', () => {
     rdbService = initRdbService();
     halService = mockHalService;
     service = initTestService();
+  });
+
+  describe('composition', () => {
+    const initService = () => new TestService(null, null, null, null, null, null, null, null, null, null, null);
+    testCreateDataImplementation(initService);
+    testFindAllDataImplementation(initService);
+    testSearchDataImplementation(initService);
+    testPatchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('getBrowseEndpoint', () => {
@@ -232,6 +250,77 @@ describe('ComColDataService', () => {
           service.refreshCache(communityWithParentHref);
           flush();
           expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith('a20da287-e174-466a-9926-f66as300d399');
+        });
+      });
+    });
+  });
+
+  describe('deleteLogo', () => {
+    let dso;
+
+    beforeEach(() => {
+      dso = {
+        _links: {
+          logo: {
+            href: 'logo-href'
+          }
+        }
+      };
+    });
+
+    describe('when DSO has no logo', () => {
+      beforeEach(() => {
+        dso.logo = undefined;
+      });
+
+      it('should return a failed RD', (done) => {
+        service.deleteLogo(dso).subscribe(rd => {
+          expect(rd.hasFailed).toBeTrue();
+          expect(bitstreamDataService.deleteByHref).not.toHaveBeenCalled();
+          done();
+        });
+      });
+    });
+
+    describe('when DSO has a logo', () => {
+      let logo;
+
+      beforeEach(() => {
+        logo = Object.assign(new Bitstream, {
+          id: 'logo-id',
+          _links: {
+            self: {
+              href: 'logo-href',
+            }
+          }
+        });
+      });
+
+      describe('that can be retrieved', () => {
+        beforeEach(() => {
+          dso.logo = createSuccessfulRemoteDataObject$(logo);
+        });
+
+        it('should call BitstreamDataService.deleteByHref', (done) => {
+          service.deleteLogo(dso).subscribe(rd => {
+            expect(rd.hasSucceeded).toBeTrue();
+            expect(bitstreamDataService.deleteByHref).toHaveBeenCalledWith('logo-href');
+            done();
+          });
+        });
+      });
+
+      describe('that cannot be retrieved', () => {
+        beforeEach(() => {
+          dso.logo = createFailedRemoteDataObject$(logo);
+        });
+
+        it('should not call BitstreamDataService.deleteByHref', (done) => {
+          service.deleteLogo(dso).subscribe(rd => {
+            expect(rd.hasFailed).toBeTrue();
+            expect(bitstreamDataService.deleteByHref).not.toHaveBeenCalled();
+            done();
+          });
         });
       });
     });

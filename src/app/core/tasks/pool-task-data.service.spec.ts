@@ -1,33 +1,26 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Store } from '@ngrx/store';
+import { HttpHeaders } from '@angular/common/http';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CoreState } from '../core.reducers';
 import { PoolTaskDataService } from './pool-task-data.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
-import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { FindListOptions } from '../data/find-list-options.model';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
 
 describe('PoolTaskDataService', () => {
   let scheduler: TestScheduler;
   let service: PoolTaskDataService;
   let options: HttpOptions;
   const taskEndpoint = 'https://rest.api/task';
-  const linkPath = 'pooltasks';
   const requestService = getMockRequestService();
   const halService: any = new HALEndpointServiceStub(taskEndpoint);
   const rdbService = {} as RemoteDataBuildService;
-  const notificationsService = {} as NotificationsService;
-  const http = {} as HttpClient;
-  const comparator = {} as any;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -36,18 +29,13 @@ describe('PoolTaskDataService', () => {
       /* empty */
     }
   } as any;
-  const store = {} as Store<CoreState>;
 
   function initTestService(): PoolTaskDataService {
     return new PoolTaskDataService(
       requestService,
       rdbService,
-      store,
       objectCache,
       halService,
-      notificationsService,
-      http,
-      comparator
     );
   }
 
@@ -58,6 +46,11 @@ describe('PoolTaskDataService', () => {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
+  });
+
+  describe('composition', () => {
+    const initService = () => new PoolTaskDataService(null, null, null, null);
+    testSearchDataImplementation(initService);
   });
 
   describe('findByItem', () => {

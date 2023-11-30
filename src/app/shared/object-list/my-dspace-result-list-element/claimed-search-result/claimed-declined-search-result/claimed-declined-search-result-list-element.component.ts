@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { MyDspaceItemStatusType } from '../../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
@@ -14,6 +13,8 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { Context } from '../../../../../core/shared/context.model';
 
 /**
  * This component renders claimed task declined object for the search result in the list view.
@@ -32,9 +33,9 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
   public showSubmitter = true;
 
   /**
-   * Represent item's status
+   * Represents the badge context
    */
-  public status = MyDspaceItemStatusType.DECLINED;
+  public badgeContext = Context.MyDSpaceDeclined;
 
   /**
    * The workflowitem object that belonging to the result object
@@ -44,9 +45,10 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
   public constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected dsoNameService: DSONameService
+    public dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
-    super(truncatableService, dsoNameService);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**

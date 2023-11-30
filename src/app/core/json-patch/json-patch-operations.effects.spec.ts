@@ -14,9 +14,9 @@ describe('JsonPatchOperationsEffects test suite', () => {
   let jsonPatchOperationsEffects: JsonPatchOperationsEffects;
   let actions: Observable<any>;
   const store: Store<JsonPatchOperationsState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     select: observableOf(true)
   });
   const testJsonPatchResourceType = 'testResourceType';

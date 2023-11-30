@@ -14,7 +14,7 @@ import { SubmissionService } from '../../submission.service';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SectionsService } from '../sections.service';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
 import {
@@ -26,21 +26,21 @@ import {
   mockUploadConfigResponseNotRequired,
   mockUploadFiles,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
+import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
 import { SectionUploadService } from './section-upload.service';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
 import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 
-function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigService {
+function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SubmissionUploadsConfigService', {
     getConfigAll: jasmine.createSpy('getConfigAll'),
     getConfigByHref: jasmine.createSpy('getConfigByHref'),
@@ -63,7 +63,7 @@ function getMockGroupEpersonService(): GroupDataService {
   });
 }
 
-function getMockResourcePolicyService(): ResourcePolicyService {
+function getMockResourcePolicyService(): ResourcePolicyDataService {
   return jasmine.createSpyObj('ResourcePolicyService', {
     findByHref: jasmine.createSpy('findByHref')
   });
@@ -175,8 +175,8 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       providers: [
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: GroupDataService, useValue: groupService },
-        { provide: ResourcePolicyService, useValue: resourcePolicyService },
-        { provide: SubmissionUploadsConfigService, useValue: uploadsConfigService },
+        { provide: ResourcePolicyDataService, useValue: resourcePolicyService },
+        { provide: SubmissionUploadsConfigDataService, useValue: uploadsConfigService },
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionUploadService, useValue: bitstreamService },

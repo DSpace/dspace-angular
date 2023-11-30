@@ -9,9 +9,11 @@ import { Item } from '../../../core/shared/item.model';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { CollectionsComponent } from './collections.component';
-import { FindListOptions } from '../../../core/data/request.models';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {
   id: id,
@@ -46,6 +48,7 @@ describe('CollectionsComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ CollectionsComponent ],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService()},
         { provide: CollectionDataService, useValue: collectionDataService },
       ],

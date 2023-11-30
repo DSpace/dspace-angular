@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, inject, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormGroupModel,
@@ -17,13 +16,13 @@ import { SubmissionService } from '../../../../submission.service';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import {
+  mockFileFormData,
   mockSubmissionCollectionId,
   mockSubmissionId,
+  mockSubmissionObject,
   mockUploadConfigResponse,
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
-  mockFileFormData,
-  mockSubmissionObject,
 } from '../../../../../shared/mocks/submission.mock';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from '../../../../../shared/form/form.component';
@@ -32,12 +31,20 @@ import { getMockFormService } from '../../../../../shared/mocks/form-service.moc
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import {
+  SubmissionJsonPatchOperationsServiceStub
+} from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../../core/submission/submission-json-patch-operations.service';
 import { SectionUploadService } from '../../section-upload.service';
 import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
-import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
-import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {
+  FormFieldMetadataValueObject
+} from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
+import {
+  JsonPatchOperationPathCombiner
+} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
 
@@ -171,6 +178,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     it('should init form model properly', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
+      const maxStartDate = {year: 2022, month: 1, day: 12};
+      const maxEndDate = {year: 2019, month: 7, day: 12};
 
       comp.ngOnInit();
 
@@ -179,6 +188,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(comp.formModel[0] instanceof DynamicFormGroupModel).toBeTruthy();
       expect(comp.formModel[1] instanceof DynamicFormArrayModel).toBeTruthy();
       expect((comp.formModel[1] as DynamicFormArrayModel).groups.length).toBe(2);
+      const startDateModel = formbuilderService.findById('startDate', comp.formModel);
+      expect(startDateModel.max).toEqual(maxStartDate);
+      const endDateModel = formbuilderService.findById('endDate', comp.formModel);
+      expect(endDateModel.max).toEqual(maxEndDate);
     });
 
     it('should call setOptions method onChange', () => {
@@ -208,20 +221,19 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       const formGroup = formbuilderService.createFormGroup(comp.formModel);
       const control = formbuilderService.getFormControlById('name', formGroup, comp.formModel, 0);
 
-      spyOn(formbuilderService, 'findById').and.callThrough();
+      spyOn(control.parent, 'markAsDirty').and.callThrough();
 
       control.value = 'openaccess';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).not.toHaveBeenCalledWith('endDate', (model.parent as DynamicFormArrayGroupModel).group);
-      expect(formbuilderService.findById).not.toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
+      expect(control.parent.markAsDirty).toHaveBeenCalled();
 
       control.value = 'lease';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).toHaveBeenCalledWith('endDate', (model.parent as DynamicFormArrayGroupModel).group);
+      expect(control.parent.markAsDirty).toHaveBeenCalled();
 
       control.value = 'embargo';
       comp.setOptions(model, control);
-      expect(formbuilderService.findById).toHaveBeenCalledWith('startDate', (model.parent as DynamicFormArrayGroupModel).group);
+      expect(control.parent.markAsDirty).toHaveBeenCalled();
     });
 
     it('should retrieve Value From Field properly', () => {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { UsageReportService } from '../../core/statistics/usage-report-data.service';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Community } from '../../core/shared/community.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -29,7 +29,7 @@ export class CommunityStatisticsPageComponent extends StatisticsPageComponent<Co
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
-    protected usageReportService: UsageReportService,
+    protected usageReportService: UsageReportDataService,
     protected nameService: DSONameService,
     protected authService: AuthService,
   ) {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { isEqual, isObject } from 'lodash';
+import isEqual from 'lodash/isEqual';
+import isObject from 'lodash/isObject';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,

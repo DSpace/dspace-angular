@@ -14,9 +14,9 @@ import { LocaleService } from '../../core/locale/locale.service';
 // The translation module is instantiated with these bogus messages that we aren't using anyway.
 
 // Double quotes are mandatory in JSON, so de-activating the tslint rule checking for single quotes here.
-/* tslint:disable:quotemark */
+/* eslint-disable @typescript-eslint/quotes */
 // JSON for the language files has double quotes around all literals
-/* tslint:disable:object-literal-key-quotes */
+/* eslint-disable quote-props */
 class CustomLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
     return of({
@@ -29,8 +29,8 @@ class CustomLoader implements TranslateLoader {
   }
 }
 
-/* tslint:enable:quotemark */
-/* tslint:enable:object-literal-key-quotes */
+/* eslint-enable @typescript-eslint/quotes */
+/* eslint-enable quote-props */
 
 let localService: any;
 
@@ -109,7 +109,7 @@ describe('LangSwitchComponent', () => {
     }));
 
     it('should define the main A HREF in the UI', (() => {
-      expect(langSwitchElement.querySelector('a')).toBeDefined();
+      expect(langSwitchElement.querySelector('a')).not.toBeNull();
     }));
 
     describe('when selecting a language', () => {

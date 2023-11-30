@@ -159,7 +159,7 @@ export const MockOriginalBundle: Bundle = Object.assign(new Bundle(), {
 });
 
 
-/* tslint:disable:no-shadowed-variable */
+/* eslint-disable @typescript-eslint/no-shadow */
 export const ItemMock: Item = Object.assign(new Item(), {
   handle: '10673/6',
   lastModified: '2017-04-24T19:44:08.178+0000',
@@ -293,4 +293,4 @@ export const ItemMock: Item = Object.assign(new Item(), {
     }
   )
 });
-/* tslint:enable:no-shadowed-variable */
+/* eslint-enable @typescript-eslint/no-shadow */

@@ -15,3 +15,6 @@ trim_trailing_whitespace = false
 
 [*.ts]
 quote_type = single
+
+[*.json5]
+ij_json_keep_blank_lines_in_code = 3

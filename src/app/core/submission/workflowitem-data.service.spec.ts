@@ -9,16 +9,16 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { PageInfo } from '../shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { RequestEntry } from '../data/request.reducer';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { RestResponse } from '../cache/response.models';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Item } from '../shared/item.model';
 import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkflowItem } from './models/workflowitem.model';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from '../data/request-entry.model';
 
 describe('WorkflowItemDataService test', () => {
   let scheduler: TestScheduler;
@@ -82,14 +82,11 @@ describe('WorkflowItemDataService test', () => {
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkflowItemDataService(
-      comparatorEntry,
-      halService,
-      http,
-      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      store
+      halService,
+      notificationsService,
     );
   }
 
@@ -121,7 +118,7 @@ describe('WorkflowItemDataService test', () => {
       service = initTestService();
 
       spyOn((service as any), 'findByHref').and.callThrough();
-      spyOn((service as any), 'getSearchByHref').and.returnValue(searchRequestURL$);
+      spyOn((service as any).searchData, 'getSearchByHref').and.returnValue(searchRequestURL$);
     });
 
     afterEach(() => {

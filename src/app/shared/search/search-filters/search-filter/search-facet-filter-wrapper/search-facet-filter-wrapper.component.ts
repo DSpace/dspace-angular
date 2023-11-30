@@ -2,9 +2,14 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { renderFilterType } from '../search-filter-type-decorator';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FILTER_CONFIG, IN_PLACE_SEARCH } from '../../../../../core/shared/search/search-filter.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER
+} from '../../../../../core/shared/search/search-filter.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
@@ -26,6 +31,11 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   @Input() inPlaceSearch;
 
   /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
    * The constructor of the search facet filter that should be rendered, based on the filter config's type
    */
   searchFilter: GenericConstructor<SearchFacetFilterComponent>;
@@ -45,7 +55,8 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
     this.objectInjector = Injector.create({
       providers: [
         { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
-        { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] }
+        { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
+        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] }
       ],
       parent: this.injector
     });

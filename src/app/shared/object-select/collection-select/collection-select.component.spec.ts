@@ -17,6 +17,12 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { LinkHeadService } from '../../../core/services/link-head.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;
@@ -44,6 +50,25 @@ describe('CollectionSelectComponent', () => {
     isAuthorized: observableOf(true)
   });
 
+  const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+    addTag: ''
+  });
+
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   const paginationService = new PaginationServiceStub();
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -53,7 +78,11 @@ describe('CollectionSelectComponent', () => {
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
-        { provide: AuthorizationDataService, useValue: authorizationDataService }
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -2,7 +2,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
@@ -11,6 +10,7 @@ import { EditRelationshipComponent } from './edit-relationship.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';

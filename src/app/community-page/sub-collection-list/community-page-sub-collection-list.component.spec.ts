@@ -11,20 +11,24 @@ import { CommunityPageSubCollectionListComponent } from './community-page-sub-co
 import { Community } from '../../core/shared/community.model';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { FindListOptions } from '../../core/data/request.models';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
 
 describe('CommunityPageSubCollectionList Component', () => {
   let comp: CommunityPageSubCollectionListComponent;
@@ -122,6 +126,25 @@ describe('CommunityPageSubCollectionList Component', () => {
 
   themeService = getMockThemeService();
 
+  const linkHeadService = jasmine.createSpyObj('linkHeadService', {
+    addTag: ''
+  });
+
+  const groupDataService = jasmine.createSpyObj('groupsDataService', {
+    findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    getGroupRegistryRouterLink: '',
+    getUUIDFromString: '',
+  });
+
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test'
+      ]
+    }))
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -138,6 +161,10 @@ describe('CommunityPageSubCollectionList Component', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: SelectableListService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -149,17 +176,20 @@ describe('CommunityPageSubCollectionList Component', () => {
     comp.community = mockCommunity;
   });
 
-  it('should display a list of collections', () => {
-    subCollList = collections;
-    fixture.detectChanges();
 
-    const collList = fixture.debugElement.queryAll(By.css('li'));
-    expect(collList.length).toEqual(5);
-    expect(collList[0].nativeElement.textContent).toContain('Collection 1');
-    expect(collList[1].nativeElement.textContent).toContain('Collection 2');
-    expect(collList[2].nativeElement.textContent).toContain('Collection 3');
-    expect(collList[3].nativeElement.textContent).toContain('Collection 4');
-    expect(collList[4].nativeElement.textContent).toContain('Collection 5');
+  it('should display a list of collections', () => {
+    waitForAsync(() => {
+      subCollList = collections;
+      fixture.detectChanges();
+
+      const collList = fixture.debugElement.queryAll(By.css('li'));
+      expect(collList.length).toEqual(5);
+      expect(collList[0].nativeElement.textContent).toContain('Collection 1');
+      expect(collList[1].nativeElement.textContent).toContain('Collection 2');
+      expect(collList[2].nativeElement.textContent).toContain('Collection 3');
+      expect(collList[3].nativeElement.textContent).toContain('Collection 4');
+      expect(collList[4].nativeElement.textContent).toContain('Collection 5');
+    });
   });
 
   it('should not display the header when list of collections is empty', () => {

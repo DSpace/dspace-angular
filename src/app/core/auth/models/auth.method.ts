@@ -2,11 +2,12 @@ import { AuthMethodType } from './auth.method-type';
 
 export class AuthMethod {
   authMethodType: AuthMethodType;
+  position: number;
   location?: string;
 
-  // isStandalonePage? = true;
+  constructor(authMethodName: string, position: number, location?: string) {
+    this.position = position;
 
-  constructor(authMethodName: string, location?: string) {
     switch (authMethodName) {
       case 'ip': {
         this.authMethodType = AuthMethodType.Ip;
@@ -31,6 +32,11 @@ export class AuthMethod {
       }
       case 'oidc': {
         this.authMethodType = AuthMethodType.Oidc;
+        this.location = location;
+        break;
+      }
+      case 'orcid': {
+        this.authMethodType = AuthMethodType.Orcid;
         this.location = location;
         break;
       }

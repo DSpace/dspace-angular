@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /**
  * The list of RelationshipAction type definitions
  */
@@ -13,7 +14,6 @@ export const RelationshipActionTypes = {
   UPDATE_RELATIONSHIP: type('dspace/relationship/UPDATE_RELATIONSHIP'),
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * An ngrx action to create a new relationship
  */
@@ -132,7 +132,6 @@ export class RemoveRelationshipAction implements Action {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all RelationshipActions

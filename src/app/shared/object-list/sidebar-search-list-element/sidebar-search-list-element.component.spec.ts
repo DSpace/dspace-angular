@@ -11,7 +11,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { HALResource } from '../../../core/shared/hal-resource.model';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -40,7 +39,7 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: {} },
           { provide: LinkService, useValue: linkService },
-          { provide: DSONameService, useClass: DSONameServiceMock },
+          DSONameService,
           ...extraProviders
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -51,6 +50,7 @@ export function createSidebarSearchListElementTests(
       fixture = TestBed.createComponent(componentClass);
       component = fixture.componentInstance;
       component.object = object;
+      component.ngOnInit();
       fixture.detectChanges();
     });
 
@@ -62,7 +62,7 @@ export function createSidebarSearchListElementTests(
     });
 
     it('should contain the correct title', () => {
-      expect(component.title).toEqual(expectedTitle);
+      expect(component.dsoTitle).toEqual(expectedTitle);
     });
 
     it('should contain the correct description', () => {

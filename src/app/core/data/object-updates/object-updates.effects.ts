@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
@@ -52,7 +52,7 @@ export class ObjectUpdatesEffects {
   /**
    * Effect that makes sure all last fired ObjectUpdatesActions are stored in the map of this service, with the url as their key
    */
-  @Effect({ dispatch: false }) mapLastActions$ = this.actions$
+   mapLastActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(...Object.values(ObjectUpdatesActionTypes)),
       map((action: ObjectUpdatesAction) => {
@@ -64,12 +64,12 @@ export class ObjectUpdatesEffects {
           this.actionMap$[url].next(action);
         }
       })
-    );
+    ), { dispatch: false });
 
   /**
    * Effect that makes sure all last fired NotificationActions are stored in the notification map of this service, with the id as their key
    */
-  @Effect({ dispatch: false }) mapLastNotificationActions$ = this.actions$
+   mapLastNotificationActions$ = createEffect(() => this.actions$
     .pipe(
       ofType(...Object.values(NotificationsActionTypes)),
       map((action: RemoveNotificationAction) => {
@@ -80,7 +80,7 @@ export class ObjectUpdatesEffects {
           this.notificationActionMap$[id].next(action);
         }
       )
-    );
+    ), { dispatch: false });
 
   /**
    * Effect that checks whether the removeAction's notification timeout ends before a user triggers another ObjectUpdatesAction
@@ -88,7 +88,7 @@ export class ObjectUpdatesEffects {
    * When a REINSTATE action is fired during the timeout, a NO_ACTION action will be returned
    * When any other ObjectUpdatesAction is fired during the timeout, a RemoteObjectUpdatesAction will be returned
    */
-  @Effect() removeAfterDiscardOrReinstateOnUndo$ = this.actions$
+   removeAfterDiscardOrReinstateOnUndo$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectUpdatesActionTypes.DISCARD),
       switchMap((action: DiscardObjectUpdatesAction) => {
@@ -134,7 +134,7 @@ export class ObjectUpdatesEffects {
           );
         }
       )
-    );
+    ));
 
   constructor(private actions$: Actions,
               private notificationsService: NotificationsService) {

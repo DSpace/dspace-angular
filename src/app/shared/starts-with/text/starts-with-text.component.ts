@@ -28,11 +28,11 @@ export class StartsWithTextComponent extends StartsWithAbstractComponent {
   /**
    * Add/Change the url query parameter startsWith using the local variable
    */
-  setStartsWithParam() {
+  setStartsWithParam(resetPage = true) {
     if (this.startsWith === '0-9') {
       this.startsWith = '0';
     }
-    super.setStartsWithParam();
+    super.setStartsWithParam(resetPage);
   }
 
   /**

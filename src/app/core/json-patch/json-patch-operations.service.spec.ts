@@ -12,7 +12,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { JsonPatchOperationsService } from './json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { JsonPatchOperationsEntry, JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import {
@@ -21,9 +20,10 @@ import {
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
-import { RequestEntry } from '../data/request.reducer';
 import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { deepClone } from 'fast-json-patch';
+import { CoreState } from '../core-state.model';
+import { RequestEntry } from '../data/request-entry.model';
 
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {

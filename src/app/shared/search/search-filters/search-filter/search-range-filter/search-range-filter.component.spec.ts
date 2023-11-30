@@ -5,13 +5,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
+  REFRESH_FILTER,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FormsModule } from '@angular/forms';
-import { of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
@@ -30,7 +31,6 @@ describe('SearchRangeFilterComponent', () => {
   let fixture: ComponentFixture<SearchRangeFilterComponent>;
   const minSuffix = '.min';
   const maxSuffix = '.max';
-  const dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD'];
   const filterName1 = 'test name';
   const value1 = '2000 - 2012';
   const value2 = '1992 - 2000';
@@ -104,17 +104,18 @@ describe('SearchRangeFilterComponent', () => {
         { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => selectedValues,
             isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
             getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
         }
       ],

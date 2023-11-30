@@ -19,12 +19,12 @@ import { ItemDeleteComponent } from './item-delete.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 
 let comp: ItemDeleteComponent;
@@ -154,9 +154,9 @@ describe('ItemDeleteComponent', () => {
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ObjectUpdatesService, useValue: objectUpdatesServiceStub },
-        { provide: RelationshipService, useValue: relationshipService },
-        { provide: EntityTypeService, useValue: entityTypeService },
-        { provide: RelationshipTypeService, useValue: {} },
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: EntityTypeDataService, useValue: entityTypeService },
+        { provide: RelationshipTypeDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA

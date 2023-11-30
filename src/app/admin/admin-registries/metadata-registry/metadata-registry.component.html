@@ -29,7 +29,7 @@
                         <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page"
                             [ngClass]="{'table-primary' : isActive(schema) | async}">
                             <td>
-                                <label>
+                                <label class="mb-0">
                                     <input type="checkbox"
                                            [checked]="isSelected(schema) | async"
                                            (change)="selectMetadataSchema(schema, $event)"

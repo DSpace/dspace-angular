@@ -11,7 +11,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RequestService } from '../../../../core/data/request.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { createFailedRemoteDataObject$, createNoContentRemoteDataObject$ } from '../../../remote-data.utils';
@@ -68,7 +67,6 @@ describe('DeleteComColPageComponent', () => {
       {
         delete: createNoContentRemoteDataObject$(),
         findByHref: jasmine.createSpy('findByHref'),
-        refreshCache: jasmine.createSpy('refreshCache')
       });
 
     routerStub = {
@@ -78,10 +76,6 @@ describe('DeleteComColPageComponent', () => {
     routeStub = {
       data: observableOf(community)
     };
-
-    requestServiceStub = jasmine.createSpyObj('RequestService', {
-      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring')
-    });
 
     translateServiceStub = jasmine.createSpyObj('TranslateService', {
       instant: jasmine.createSpy('instant')
@@ -99,7 +93,6 @@ describe('DeleteComColPageComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
-        { provide: RequestService, useValue: requestServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -144,10 +137,10 @@ describe('DeleteComColPageComponent', () => {
             url: ''
           },
           queue: [],
-          /* tslint:disable:no-empty */
+          /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
           uploadAll: () => {
           }
-          /* tslint:enable:no-empty */
+          /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
         }
       };
     });
@@ -159,7 +152,6 @@ describe('DeleteComColPageComponent', () => {
       scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.error).toHaveBeenCalled();
-      expect(dsoDataService.refreshCache).not.toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 
@@ -169,7 +161,6 @@ describe('DeleteComColPageComponent', () => {
       scheduler.flush();
       fixture.detectChanges();
       expect(notificationsService.success).toHaveBeenCalled();
-      expect(dsoDataService.refreshCache).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalled();
     });
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 
 import {
   Observable,
@@ -41,6 +41,7 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
+import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;
@@ -48,6 +49,7 @@ export interface ResourcePolicyEvent {
     type: string,
     uuid: string
   };
+  updateTarget: boolean;
 }
 
 @Component({
@@ -82,6 +84,8 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * Event's payload equals to a new ResourcePolicy.
    */
   @Output() submit: EventEmitter<ResourcePolicyEvent> = new EventEmitter<ResourcePolicyEvent>();
+
+  @ViewChild('content') content: ElementRef;
 
   /**
    * The form id
@@ -125,6 +129,10 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   private subs: Subscription[] = [];
 
+  navActiveId: string;
+
+  resourcePolicyTargetUpdated = false;
+
   /**
    * Initialize instance variables
    *
@@ -133,6 +141,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * @param {FormService} formService
    * @param {GroupDataService} groupService
    * @param {RequestService} requestService
+   * @param modalService
    */
   constructor(
     private dsoNameService: DSONameService,
@@ -140,6 +149,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     private formService: FormService,
     private groupService: GroupDataService,
     private requestService: RequestService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -151,7 +161,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.formId = this.formService.getUniqueId('resource-policy-form');
     this.formModel = this.buildResourcePolicyForm();
 
-    if (!this.canSetGrant()) {
+    if (this.isBeingEdited()) {
       const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
         getFirstSucceededRemoteData()
       );
@@ -169,6 +179,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           filter(() => this.isActive),
         ).subscribe((dsoRD: RemoteData<DSpaceObject>) => {
           this.resourcePolicyGrant = dsoRD.payload;
+          this.navActiveId = String(dsoRD.payload.type);
           this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
         })
       );
@@ -193,19 +204,12 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   private buildResourcePolicyForm(): DynamicFormControlModel[] {
     const formModel: DynamicFormControlModel[] = [];
-    // TODO to be removed when https://jira.lyrasis.org/browse/DS-4477 will be implemented
-    const policyTypeConf = Object.assign({}, RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG, {
-      disabled: isNotEmpty(this.resourcePolicy)
-    });
-    // TODO to be removed when https://jira.lyrasis.org/browse/DS-4477 will be implemented
-    const actionConf = Object.assign({}, RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG, {
-      disabled: isNotEmpty(this.resourcePolicy)
-    });
+
     formModel.push(
       new DsDynamicInputModel(RESOURCE_POLICY_FORM_NAME_CONFIG),
       new DsDynamicTextAreaModel(RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG),
-      new DynamicSelectModel(policyTypeConf),
-      new DynamicSelectModel(actionConf)
+      new DynamicSelectModel(RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG),
+      new DynamicSelectModel(RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG)
     );
 
     const startDateModel = new DynamicDatePickerModel(
@@ -255,8 +259,8 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    *
    * @return true if is possible, false otherwise
    */
-  canSetGrant(): boolean {
-    return isEmpty(this.resourcePolicy);
+  isBeingEdited(): boolean {
+    return !isEmpty(this.resourcePolicy);
   }
 
   /**
@@ -272,8 +276,10 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    * Update reference to the eperson or group that will be granted the permission
    */
   updateObjectSelected(object: DSpaceObject, isEPerson: boolean): void {
+    this.resourcePolicyTargetUpdated = true;
     this.resourcePolicyGrant = object;
     this.resourcePolicyGrantType = isEPerson ? 'eperson' : 'group';
+    this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
   }
 
   /**
@@ -297,6 +303,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           type: this.resourcePolicyGrantType,
           uuid: this.resourcePolicyGrant.id
         };
+        eventPayload.updateTarget = this.resourcePolicyTargetUpdated;
         this.submit.emit(eventPayload);
       });
   }
@@ -328,5 +335,13 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
+  }
+
+  onNavChange(changeEvent: NgbNavChangeEvent) {
+    // if a policy is being edited it should not be possible to switch between group and eperson
+    if (this.isBeingEdited())  {
+      changeEvent.preventDefault();
+      this.modalService.open(this.content);
+    }
   }
 }

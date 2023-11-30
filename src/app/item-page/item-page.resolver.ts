@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
@@ -35,8 +35,14 @@ export class ItemPageResolver extends ItemResolver {
     return super.resolve(route, state).pipe(
       map((rd: RemoteData<Item>) => {
         if (rd.hasSucceeded && hasValue(rd.payload)) {
-          const itemRoute = getItemPageRoute(rd.payload);
           const thisRoute = state.url;
+
+          // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
+          // or semicolons) and thisRoute has been encoded with that function. If we want to compare
+          // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
+          // the same characters are encoded the same way.
+          const itemRoute = this.router.parseUrl(getItemPageRoute(rd.payload)).toString();
+
           if (!thisRoute.startsWith(itemRoute)) {
             const itemId = rd.payload.uuid;
             const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);

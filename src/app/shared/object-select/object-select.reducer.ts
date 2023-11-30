@@ -35,7 +35,7 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
   switch (action.type) {
 
     case ObjectSelectionActionTypes.INITIAL_SELECT: {
-      if (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) {
+      if (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) {
         return Object.assign({}, state, {
           [action.key]: Object.assign({}, state[action.key], {
             [action.id]: {
@@ -48,7 +48,7 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
     }
 
     case ObjectSelectionActionTypes.INITIAL_DESELECT: {
-      if (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) {
+      if (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) {
         return Object.assign({}, state, {
           [action.key]: Object.assign({}, state[action.key], {
             [action.id]: {

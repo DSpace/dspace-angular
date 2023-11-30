@@ -1,0 +1,40 @@
+#
+# The contents of this file are subject to the license and copyright
+# detailed in the LICENSE and NOTICE files at the root of the source
+# tree and available online at
+#
+# http://www.dspace.org/license/
+#
+
+# Docker Compose for running the DSpace Angular UI dist build
+# for previewing with the DSpace Demo site backend
+version: '3.7'
+networks:
+  dspacenet:
+services:
+  dspace-angular:
+    container_name: dspace-angular
+    environment:
+      DSPACE_UI_SSL: 'false'
+      DSPACE_UI_HOST: dspace-angular
+      DSPACE_UI_PORT: '4000'
+      DSPACE_UI_NAMESPACE: /
+      # NOTE: When running the UI in production mode (which the -dist image does),
+      # these DSPACE_REST_* variables MUST point at a public, HTTPS URL.
+      # This is because Server Side Rendering (SSR) currently requires a public URL,
+      # see this bug: https://github.com/DSpace/dspace-angular/issues/1485
+      DSPACE_REST_SSL: 'true'
+      DSPACE_REST_HOST: sandbox.dspace.org
+      DSPACE_REST_PORT: 443
+      DSPACE_REST_NAMESPACE: /server
+    image: dspace/dspace-angular:${DSPACE_VER:-latest}-dist
+    build:
+      context: ..
+      dockerfile: Dockerfile.dist
+    networks:
+      dspacenet:
+    ports:
+    - published: 4000
+      target: 4000
+    stdin_open: true
+    tty: true

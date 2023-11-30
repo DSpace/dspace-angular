@@ -46,7 +46,7 @@ describe('IdleModalComponent', () => {
 
   describe('extendSessionPressed', () => {
     beforeEach(fakeAsync(() => {
-      spyOn(component.response, 'next');
+      spyOn(component.response, 'emit');
       component.extendSessionPressed();
     }));
     it('should set idle to false', () => {
@@ -55,8 +55,8 @@ describe('IdleModalComponent', () => {
     it('should close the modal', () => {
       expect(modalStub.close).toHaveBeenCalled();
     });
-    it('response \'closed\' should have true as next', () => {
-      expect(component.response.next).toHaveBeenCalledWith(true);
+    it('response \'closed\' should emit true', () => {
+      expect(component.response.emit).toHaveBeenCalledWith(true);
     });
   });
 
@@ -74,7 +74,7 @@ describe('IdleModalComponent', () => {
 
   describe('closePressed', () => {
     beforeEach(fakeAsync(() => {
-      spyOn(component.response, 'next');
+      spyOn(component.response, 'emit');
       component.closePressed();
     }));
     it('should set idle to false', () => {
@@ -83,8 +83,8 @@ describe('IdleModalComponent', () => {
     it('should close the modal', () => {
       expect(modalStub.close).toHaveBeenCalled();
     });
-    it('response \'closed\' should have true as next', () => {
-      expect(component.response.next).toHaveBeenCalledWith(true);
+    it('response \'closed\' should emit true', () => {
+      expect(component.response.emit).toHaveBeenCalledWith(true);
     });
   });
 

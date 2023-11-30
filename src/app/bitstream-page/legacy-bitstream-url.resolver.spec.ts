@@ -1,9 +1,9 @@
 import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
-import { of as observableOf, EMPTY } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { RequestEntryState } from '../core/data/request.reducer';
 import { TestScheduler } from 'rxjs/testing';
+import { RequestEntryState } from '../core/data/request-entry-state.model';
 
 describe(`LegacyBitstreamUrlResolver`, () => {
   let resolver: LegacyBitstreamUrlResolver;

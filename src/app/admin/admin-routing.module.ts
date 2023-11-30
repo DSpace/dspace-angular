@@ -7,6 +7,7 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { REGISTRIES_MODULE_PATH } from './admin-routing-paths';
+import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,18 @@ import { REGISTRIES_MODULE_PATH } from './admin-routing-paths';
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: MetadataImportPageComponent,
         data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' }
+      },
+      {
+        path: 'batch-import',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        component: BatchImportPageComponent,
+        data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' }
+      },
+      {
+        path: 'system-wide-alert',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
+        data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
       },
     ])
   ],

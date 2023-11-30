@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 import {
   ActivateMenuSectionAction,
@@ -8,15 +9,17 @@ import {
   ExpandMenuAction,
   ExpandMenuPreviewAction,
   HideMenuAction,
-  HideMenuSectionAction,
+  HideMenuSectionAction, ReinitMenuAction,
   RemoveMenuSectionAction,
   ShowMenuAction,
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction
 } from './menu.actions';
-import { MenuSectionIndex, menusReducer } from './menu.reducer';
-import { initialMenusState, MenuID } from './initial-menus-state';
+import { menusReducer } from './menu.reducer';
+import { initialMenusState} from './initial-menus-state';
+import { MenuSectionIndex } from './menu-section-Index.model';
+import { MenuID } from './menu-id.model';
 
 let visibleSection1;
 let dummyState;
@@ -312,6 +315,17 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+  });
+
+  it('should reset the menu state to the initial state when performing the REINIT_MENUS action without affecting the previous state', () => {
+    dummyState[MenuID.ADMIN].visible = true;
+    const state = dummyState;
+    deepFreeze([state]);
+
+    const action = new ReinitMenuAction();
+    const menusState = menusReducer(state, action);
+    expect(menusState).toEqual(initialMenusState);
+
   });
 
   it('should set add a new section for the correct menu in response to the ADD_SECTION action', () => {

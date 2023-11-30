@@ -15,7 +15,6 @@ import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-anal
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -32,6 +31,7 @@ import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
 import { createPaginatedList } from '../../../testing/utils.test';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {

@@ -23,13 +23,13 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { RegistryService } from './registry.service';
 import { storeModuleConfig } from '../../app.reducer';
-import { FindListOptions } from '../data/request.models';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -386,6 +386,10 @@ describe('RegistryService', () => {
       result = registryService.deleteMetadataSchema(mockSchemasList[0].id);
     });
 
+    it('should defer to MetadataSchemaDataService.delete', () => {
+      expect(metadataSchemaService.delete).toHaveBeenCalledWith(`${mockSchemasList[0].id}`);
+    });
+
     it('should return a successful response', () => {
       result.subscribe((response: RemoteData<NoContent>) => {
         expect(response.hasSucceeded).toBe(true);
@@ -398,6 +402,10 @@ describe('RegistryService', () => {
 
     beforeEach(() => {
       result = registryService.deleteMetadataField(mockFieldsList[0].id);
+    });
+
+    it('should defer to MetadataFieldDataService.delete', () => {
+      expect(metadataFieldService.delete).toHaveBeenCalledWith(`${mockFieldsList[0].id}`);
     });
 
     it('should return a successful response', () => {

@@ -13,6 +13,7 @@ import { FilterType } from '../../models/filter-type.model';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
+import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -29,7 +30,7 @@ describe('SearchFilterComponent', () => {
     isOpenByDefault: false
   });
   const mockFilterService = {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     toggle: (filter) => {
     },
     collapse: (filter) => {
@@ -47,7 +48,7 @@ describe('SearchFilterComponent', () => {
     isCollapsed: (filter) => {
       return observableOf(true);
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   };
   let filterService;
@@ -62,7 +63,10 @@ describe('SearchFilterComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [SearchFilterComponent],
+      declarations: [
+        SearchFilterComponent,
+        BrowserOnlyMockPipe,
+      ],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {

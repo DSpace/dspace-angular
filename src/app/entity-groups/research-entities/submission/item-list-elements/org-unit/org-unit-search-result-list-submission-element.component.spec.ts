@@ -14,7 +14,7 @@ import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-a
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
@@ -29,6 +29,8 @@ import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 let personListElementComponent: OrgUnitSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListSubmissionElementComponent>;
@@ -101,7 +103,7 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       declarations: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipService, useValue: mockRelationshipService },
+        { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
         { provide: TranslateService, useValue: {} },
         { provide: NgbModal, useValue: {} },
@@ -117,7 +119,8 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -179,4 +182,6 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       expect(jobTitleField).toBeNull();
     });
   });
+
 });
+

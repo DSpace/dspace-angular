@@ -35,7 +35,7 @@ https://wiki.lyrasis.org/display/DSDOC7x/Installing+DSpace
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) `v12.x`, `v14.x` or `v16.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
+**Ensure you're running [Node](https://nodejs.org) `v16.x` or `v18.x`, [npm](https://www.npmjs.com/) >= `v5.x` and [yarn](https://yarnpkg.com) == `v1.x`**
 
 ```bash
 # clone the repo
@@ -90,7 +90,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org) and [yarn](https://yarnpkg.com)
--	Ensure you're running node `v12.x`, `v14.x` or `v16.x` and yarn == `v1.x`
+-	Ensure you're running node `v16.x` or `v18.x` and yarn == `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
@@ -101,7 +101,7 @@ Installing
 
 ### Configuring
 
-Default configuration file is located in `config/` folder.
+Default runtime configuration file is located in `config/` folder. These configurations can be changed without rebuilding the distribution.
 
 To override the default configuration values, create local files that override the parameters you need to change. You can use `config.example.yml` as a starting point.
 
@@ -157,8 +157,8 @@ DSPACE_UI_SSL => DSPACE_SSL
 
 The same settings can also be overwritten by setting system environment variables instead, E.g.:
 ```bash
-export DSPACE_HOST=api7.dspace.org
-export DSPACE_UI_PORT=4200
+export DSPACE_HOST=demo.dspace.org
+export DSPACE_UI_PORT=4000
 ```
 
 The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `DSPACE_APP_CONFIG_PATH` overrides **`config.(prod or dev).yml`**
@@ -166,6 +166,22 @@ The priority works as follows: **environment variable** overrides **variable in 
 These configuration sources are collected **at run time**, and written to `dist/browser/assets/config.json` for production and `src/app/assets/config.json` for development.
 
 The configuration file can be externalized by using environment variable `DSPACE_APP_CONFIG_PATH`.
+
+#### Buildtime Configuring
+
+Buildtime configuration must defined before build in order to include in transpiled JavaScript. This is primarily for the server. These settings can be found under `src/environment/` folder.
+
+To override the default configuration values for development, create local file that override the build time parameters you need to change.
+
+-	Create a new `environment.(dev or development).ts` file in `src/environment/` for a `development` environment;
+
+If needing to update default configurations values for production, update local file that override the build time parameters you need to change.
+
+-	Update `environment.production.ts` file in `src/environment/` for a `production` environment;
+
+The environment object is provided for use as import in code and is extended with the runtime configuration on bootstrap of the application.
+
+> Take caution moving runtime configs into the buildtime configuration. They will be overwritten by what is defined in the runtime config on bootstrap.
 
 #### Using environment variables in code
 To use environment variables in a UI component, use:
@@ -183,7 +199,6 @@ or
 import { environment } from '../environment.ts';
 ```
 
-
 Running the app
 ---------------
 
@@ -193,7 +208,7 @@ After you have installed all dependencies you can now run the app. Run `yarn run
 
 When building for production we're using Ahead of Time (AoT) compilation. With AoT, the browser downloads a pre-compiled version of the application, so it can render the application immediately, without waiting to compile the app first. The compiler is roughly half the size of Angular itself, so omitting it dramatically reduces the application payload.
 
-To build the app for production and start the server run:
+To build the app for production and start the server (in one command) run:
 
 ```bash
 yarn start
@@ -207,6 +222,10 @@ yarn run build:prod
 ```
 This will build the application and put the result in the `dist` folder.  You can copy this folder to wherever you need it for your application server.  If you will be using the built-in Express server, you'll also need a copy of the `node_modules` folder tucked inside your copy of `dist`.
 
+After building the app for production, it can be started by running:
+```bash
+yarn run serve:ssr
+```
 
 ### Running the application with Docker
 NOTE: At this time, we do not have production-ready Docker images for DSpace.
@@ -268,11 +287,29 @@ E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Con
 
 The test files can be found in the `./cypress/integration/` folder.
 
-Before you can run e2e tests, two things are required:
-1. You MUST have a running backend (i.e. REST API). By default, the e2e tests look for this at http://localhost:8080/server/ or whatever `rest` backend is defined in your `config.prod.yml` or `config.yml`. You may override this using env variables, see [Configuring](#configuring).
-2. Your backend MUST include our Entities Test Data set. Some tests run against a (currently hardcoded) Community/Collection/Item UUID. These UUIDs are all valid for our Entities Test Data set. The Entities Test Data set may be installed easily via Docker, see https://github.com/DSpace/DSpace/tree/main/dspace/src/main/docker-compose#ingest-option-2-ingest-entities-test-data
+Before you can run e2e tests, two things are REQUIRED:
+1. You MUST be running the DSpace backend (i.e. REST API) locally. The e2e tests will *NOT* succeed if run against our demo/sandbox REST API (https://demo.dspace.org/server/ or https://sandbox.dspace.org/server/), as those sites may have content added/removed at any time.
+    * After starting up your backend on localhost, make sure either your `config.prod.yml` or `config.dev.yml` has its `rest` settings defined to use that localhost backend.
+	* If you'd prefer, you may instead use environment variables as described at [Configuring](#configuring). For example:
+       ```
+       DSPACE_REST_SSL = false
+       DSPACE_REST_HOST = localhost
+       DSPACE_REST_PORT = 8080
+       ```
+2. Your backend MUST include our [Entities Test Data set](https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data). Some tests run against a specific Community/Collection/Item UUID. These UUIDs are all valid for our Entities Test Data set.
+	 * (Recommended) The Entities Test Data set may be installed easily via Docker, see https://github.com/DSpace/DSpace/tree/main/dspace/src/main/docker-compose#ingest-option-2-ingest-entities-test-data
+	 * Alternatively, the Entities Test Data set may be installed via a simple SQL import (e. g. `psql -U dspace < dspace7-entities-data.sql`). See instructions in link above.
 
-Run `ng e2e` to kick off the tests. This will start Cypress and allow you to select the browser you wish to use, as well as whether you wish to run all tests or an individual test file.  Once you click run on test(s), this opens the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) to run your test(s) and show you the results.
+After performing the above setup, you can run the e2e tests using
+```
+ng e2e
+````
+NOTE: By default these tests will run against the REST API backend configured via environment variables or in `config.prod.yml`. If you'd rather it use `config.dev.yml`, just set the NODE_ENV environment variable like this:
+```
+NODE_ENV=development ng e2e
+```
+
+The `ng e2e` command will start Cypress and allow you to select the browser you wish to use, as well as whether you wish to run all tests or an individual test file.  Once you click run on test(s), this opens the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner) to run your test(s) and show you the results.
 
 #### Writing E2E Tests
 
@@ -293,8 +330,11 @@ All E2E tests must be created under the `./cypress/integration/` folder, and mus
 * In the [Cypress Test Runner](https://docs.cypress.io/guides/core-concepts/test-runner), you'll Cypress automatically visit the page.  This first test will succeed, as all you are doing is making sure the _page exists_.
 * From here, you can use the [Selector Playground](https://docs.cypress.io/guides/core-concepts/test-runner#Selector-Playground) in the Cypress Test Runner window to determine how to tell Cypress to interact with a specific HTML element on that page.
     * Most commands start by telling Cypress to [get()](https://docs.cypress.io/api/commands/get) a specific element, using a CSS or jQuery style selector
+      * It's generally best not to rely on attributes like `class` and `id` in tests, as those are likely to change later on. Instead, you can add a `data-test` attribute to makes it clear that it's required for a test. 
     * Cypress can then do actions like [click()](https://docs.cypress.io/api/commands/click) an element, or [type()](https://docs.cypress.io/api/commands/type) text in an input field, etc.
-	* Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
+      * When running with server-side rendering enabled, the client first receives HTML without the JS; only once the page is rendered client-side do some elements (e.g. a button that toggles a Bootstrap dropdown) become fully interactive. This can trip up Cypress in some cases as it may try to `click` or `type` in an element that's not fully loaded yet, causing tests to fail. 
+      * To work around this issue, define the attributes you use for Cypress selectors as `[attr.data-test]="'button' | ngBrowserOnly"`. This will only show the attribute in CSR HTML, forcing Cypress to wait until CSR is complete before interacting with the element.
+    * Cypress can also validate that something occurs, using [should()](https://docs.cypress.io/api/commands/should) assertions.
 * Any time you save your test file, the Cypress Test Runner will reload & rerun it. This allows you can see your results quickly as you write the tests & correct any broken tests rapidly.
 * Cypress also has a great guide on [writing your first test](https://on.cypress.io/writing-first-test) with much more info. Keep in mind, while the examples in the Cypress docs often involve Javascript files (.js), the same examples will work in our Typescript (.ts) e2e tests.
 
@@ -311,7 +351,7 @@ Documentation
 
 Official DSpace documentation is available in the DSpace wiki at https://wiki.lyrasis.org/display/DSDOC7x/
 
-Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of htis codebase.
+Some UI specific configuration documentation is also found in the [`./docs`](docs) folder of this codebase.
 
 ### Building code documentation
 
@@ -339,10 +379,10 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 	-	[Sublime Text](http://www.sublimetext.com/3)
 		-	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
 
-Collaborating
+Contributing
 -------------
 
-See [the guide on the wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+-+Angular+UI+Development#DSpace7-AngularUIDevelopment-Howtocontribute)
+See [Contributing documentation](CONTRIBUTING.md)
 
 File Structure
 --------------
@@ -373,8 +413,7 @@ dspace-angular
 │   ├── merge-i18n-files.ts                             *
 │   ├── serve.ts                                        *
 │   ├── sync-i18n-files.ts                              *
-│   ├── test-rest.ts                                    *
-│   └── webpack.js                                      *
+│   └── test-rest.ts                                    *
 ├── src                                                 * The source of the application
 │   ├── app                                             * The source code of the application, subdivided by module/page.
 │   ├── assets                                          * Folder for static resources

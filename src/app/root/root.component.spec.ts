@@ -9,7 +9,6 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { NativeWindowRef, NativeWindowService } from '../core/services/window.service';
 import { MetadataService } from '../core/metadata/metadata.service';
 import { MetadataServiceMock } from '../shared/mocks/metadata-service.mock';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsProviderMock } from '../shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { AuthService } from '../core/auth/auth.service';
@@ -18,7 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterMock } from '../shared/mocks/router.mock';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { MenuService } from '../shared/menu/menu.service';
-import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../shared/testing/css-variable-service.stub';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
@@ -50,7 +49,6 @@ describe('RootComponent', () => {
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MetadataServiceMock() },
-        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsProviderMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new RouterMock() },

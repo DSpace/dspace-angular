@@ -162,10 +162,24 @@ describe('UserMenuComponent', () => {
     });
 
     it('should display user name and email', () => {
-      const user = 'User Test (test@test.com)';
+      const username = 'User Test';
+      const email = 'test@test.com';
       const span = deUserMenu.query(By.css('.dropdown-item-text'));
       expect(span).toBeDefined();
-      expect(span.nativeElement.innerHTML).toBe(user);
+      expect(span.nativeElement.innerHTML).toContain(username);
+      expect(span.nativeElement.innerHTML).toContain(email);
+    });
+
+    it('should create logout component', () => {
+      const components = fixture.debugElement.query(By.css('[data-test="log-out-component"]'));
+      expect(components).toBeTruthy();
+    });
+
+    it('should not create logout component', () => {
+      component.inExpandableNavbar = true;
+      fixture.detectChanges();
+      const components = fixture.debugElement.query(By.css('[data-test="log-out-component"]'));
+      expect(components).toBeFalsy();
     });
 
   });

@@ -1,7 +1,7 @@
 import { of as observableOf } from 'rxjs';
 
 export const mockTruncatableService: any = {
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   isCollapsed: (id: string) => {
     if (id === '1') {
       return observableOf(true);
@@ -15,5 +15,5 @@ export const mockTruncatableService: any = {
   },
   toggle: (id: string) => {
   }
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };

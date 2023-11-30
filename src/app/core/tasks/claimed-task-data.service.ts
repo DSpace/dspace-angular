@@ -1,14 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ClaimedTask } from './models/claimed-task-object.model';
@@ -16,10 +10,11 @@ import { CLAIMED_TASK } from './models/claimed-task-object.resource-type';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { TasksService } from './tasks.service';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions } from '../data/request.models';
 import { RequestParam } from '../cache/models/request-param.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
+import { FindListOptions } from '../data/find-list-options.model';
+import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * The service handling all REST requests for ClaimedTask
@@ -28,35 +23,21 @@ import { getFirstSucceededRemoteData } from '../shared/operators';
 @dataService(CLAIMED_TASK)
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
-  protected responseMsToLive = 1000;
-
-  /**
-   * The endpoint link name
-   */
-  protected linkPath = 'claimedtasks';
-
   /**
    * Initialize instance variables
    *
    * @param {RequestService} requestService
    * @param {RemoteDataBuildService} rdbService
-   * @param {Store<CoreState>} store
    * @param {ObjectCacheService} objectCache
    * @param {HALEndpointService} halService
-   * @param {NotificationsService} notificationsService
-   * @param {HttpClient} http
-   * @param {DSOChangeAnalyzer<ClaimedTask} comparator
    */
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<ClaimedTask>) {
-    super();
+  ) {
+    super('claimedtasks', requestService, rdbService, objectCache, halService, 1000);
   }
 
   /**

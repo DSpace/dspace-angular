@@ -2,8 +2,6 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import {
   DeleteRelationship,
-  FieldUpdate,
-  FieldUpdates,
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
@@ -15,19 +13,21 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RelationshipService } from '../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { EntityTypeService } from '../../../core/data/entity-type.service';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { hasValue } from '../../../shared/empty.util';
-import { RelationshipTypeService } from '../../../core/data/relationship-type.service';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -59,11 +59,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
     public route: ActivatedRoute,
-    public relationshipService: RelationshipService,
+    public relationshipService: RelationshipDataService,
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
-    public entityTypeService: EntityTypeService,
-    protected relationshipTypeService: RelationshipTypeService,
+    public entityTypeService: EntityTypeDataService,
+    protected relationshipTypeService: RelationshipTypeDataService,
     public cdr: ChangeDetectorRef,
     protected modalService: NgbModal,
   ) {

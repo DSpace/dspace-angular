@@ -1,5 +1,5 @@
 import { LookupRelationService } from './lookup-relation.service';
-import { ExternalSourceService } from './external-source.service';
+import { ExternalSourceDataService } from './external-source-data.service';
 import { SearchService } from '../shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -16,7 +16,7 @@ import { of as observableOf } from 'rxjs';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
-  let externalSourceService: ExternalSourceService;
+  let externalSourceService: ExternalSourceDataService;
   let searchService: SearchService;
   let requestService: RequestService;
 

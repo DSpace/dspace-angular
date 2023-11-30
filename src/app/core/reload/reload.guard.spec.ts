@@ -1,13 +1,17 @@
-import { ReloadGuard } from './reload.guard';
 import { Router } from '@angular/router';
+import { AppConfig } from '../../../config/app-config.interface';
+import { DefaultAppConfig } from '../../../config/default-app-config';
+import { ReloadGuard } from './reload.guard';
 
 describe('ReloadGuard', () => {
   let guard: ReloadGuard;
   let router: Router;
+  let appConfig: AppConfig;
 
   beforeEach(() => {
     router = jasmine.createSpyObj('router', ['parseUrl', 'createUrlTree']);
-    guard = new ReloadGuard(router);
+    appConfig = new DefaultAppConfig();
+    guard = new ReloadGuard(router, appConfig);
   });
 
   describe('canActivate', () => {
@@ -27,7 +31,7 @@ describe('ReloadGuard', () => {
 
       it('should create a UrlTree with the redirect URL', () => {
         guard.canActivate(route, undefined);
-        expect(router.parseUrl).toHaveBeenCalledWith(redirectUrl);
+        expect(router.parseUrl).toHaveBeenCalledWith(redirectUrl.substring(1));
       });
     });
 

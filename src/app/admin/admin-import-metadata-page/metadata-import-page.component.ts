@@ -1,12 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { AuthService } from '../../core/auth/auth.service';
 import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -29,6 +25,11 @@ export class MetadataImportPageComponent {
    * The current value of the file
    */
   fileObject: File;
+
+  /**
+   * The validate only flag
+   */
+  validateOnly = true;
 
   public constructor(private location: Location,
                      protected translate: TranslateService,
@@ -62,6 +63,9 @@ export class MetadataImportPageComponent {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '-f', value: this.fileObject.name }),
       ];
+      if (this.validateOnly) {
+        parameterValues.push(Object.assign(new ProcessParameter(), { name: '-v', value: true }));
+      }
 
       this.scriptDataService.invoke(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [this.fileObject]).pipe(
         getFirstCompletedRemoteData(),

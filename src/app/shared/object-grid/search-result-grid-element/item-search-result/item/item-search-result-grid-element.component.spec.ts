@@ -4,6 +4,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
@@ -27,13 +28,19 @@ import { ItemSearchResultGridElementComponent } from './item-search-result-grid-
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
+const dcTitle = 'This is just another <em>title</em>';
 mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
+  hitHighlights: {
+    'dc.title': [{
+      value: dcTitle
+    }],
+  },
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
+        value: dcTitle
       }
     ],
     'dc.contributor.author': [
@@ -55,6 +62,114 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
       }
     ]
   }
+});
+const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
+  hitHighlights: {
+    'person.familyName': [{
+      value: '<em>Michel</em>'
+    }],
+  },
+  indexableObject:
+    Object.assign(new Item(), {
+      bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+      entityType: 'Person',
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ],
+        'dc.contributor.author': [
+          {
+            language: 'en_US',
+            value: 'Smith, Donald'
+          }
+        ],
+        'dc.publisher': [
+          {
+            language: 'en_US',
+            value: 'a publisher'
+          }
+        ],
+        'dc.date.issued': [
+          {
+            language: 'en_US',
+            value: '2015-06-26'
+          }
+        ],
+        'dc.description.abstract': [
+          {
+            language: 'en_US',
+            value: 'This is the abstract'
+          }
+        ],
+        'dspace.entity.type': [
+          {
+            value: 'Person'
+          }
+        ],
+        'person.familyName': [
+          {
+            value: 'Michel'
+          }
+        ]
+      }
+    })
+});
+const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
+  hitHighlights: {
+    'organization.legalName': [{
+      value: '<em>Science</em>'
+    }],
+  },
+  indexableObject:
+    Object.assign(new Item(), {
+      bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
+      entityType: 'OrgUnit',
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ],
+        'dc.contributor.author': [
+          {
+            language: 'en_US',
+            value: 'Smith, Donald'
+          }
+        ],
+        'dc.publisher': [
+          {
+            language: 'en_US',
+            value: 'a publisher'
+          }
+        ],
+        'dc.date.issued': [
+          {
+            language: 'en_US',
+            value: '2015-06-26'
+          }
+        ],
+        'dc.description.abstract': [
+          {
+            language: 'en_US',
+            value: 'This is the abstract'
+          }
+        ],
+        'organization.legalName': [
+          {
+            value: 'Science'
+          }
+        ],
+        'dspace.entity.type': [
+          {
+            value: 'OrgUnit'
+          }
+        ]
+      }
+    })
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -99,7 +214,10 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [
+          NoopAnimationsModule,
+          TranslateModule.forRoot()
+        ],
         declarations: [component, TruncatePipe],
         providers: [
           { provide: TruncatableService, useValue: truncatableServiceStub },
@@ -148,6 +266,41 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         it(`should not show the "${field}" field`, () => {
           const itemAuthorField = fixture.debugElement.query(By.css(`.item-${field}`));
           expect(itemAuthorField).toBeNull();
+        });
+      });
+
+      describe('When the item has title', () => {
+        beforeEach(() => {
+          comp.object = mockItemWithMetadata;
+          fixture.detectChanges();
+        });
+        it('should show highlighted title', () => {
+          const titleField = fixture.debugElement.query(By.css('.card-title'));
+          expect(titleField.nativeNode.innerHTML).toEqual(dcTitle);
+        });
+      });
+
+      describe('When the item is Person and has title', () => {
+        beforeEach(() => {
+          comp.object = mockPerson;
+          fixture.detectChanges();
+        });
+
+        it('should show highlighted title', () => {
+          const titleField = fixture.debugElement.query(By.css('.card-title'));
+          expect(titleField.nativeNode.innerHTML).toEqual('<em>Michel</em>');
+        });
+      });
+
+      describe('When the item is orgUnit and has title', () => {
+        beforeEach(() => {
+          comp.object = mockOrgUnit;
+          fixture.detectChanges();
+        });
+
+        it('should show highlighted title', () => {
+          const titleField = fixture.debugElement.query(By.css('.card-title'));
+          expect(titleField.nativeNode.innerHTML).toEqual('<em>Science</em>');
         });
       });
     });

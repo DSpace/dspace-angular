@@ -1,28 +1,28 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+// @ts-ignore
+const fs = require('fs');
 
 module.exports = {
   mode: 'production',
   entry: {
-    mirador: './src/mirador-viewer/index.js'
+    mirador: fs.existsSync('./src/mirador-viewer/config.local.js')? './src/mirador-viewer/config.local.js' :
+      './src/mirador-viewer/config.default.js'
   },
   output: {
     path: path.resolve(__dirname, '..' , 'dist/iiif/mirador'),
     filename: '[name].js'
   },
-  module: {
-    rules: [
-      {
-        test: /\.html$/i,
-        loader: 'html-loader',
-      },
-    ],
-  },
   devServer: {
     contentBase: '../dist/iiif/mirador',
   },
-  plugins: [new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: './src/mirador-viewer/mirador.html'
+  resolve: {
+    fallback: {
+      url: false
+    }},
+  plugins: [new CopyWebpackPlugin({
+    patterns: [
+      {from: './src/mirador-viewer/mirador.html', to: './index.html'}
+    ]
   })]
 };

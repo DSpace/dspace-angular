@@ -13,10 +13,19 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import { CommunityFormModule } from './community-form/community-form.module';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
+import {
+  ThemedCommunityPageSubCommunityListComponent
+} from './sub-community-list/themed-community-page-sub-community-list.component';
+import {
+  ThemedCollectionPageSubCollectionListComponent
+} from './sub-collection-list/themed-community-page-sub-collection-list.component';
+import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 const DECLARATIONS = [CommunityPageComponent,
   ThemedCommunityPageComponent,
+  ThemedCommunityPageSubCommunityListComponent,
   CommunityPageSubCollectionListComponent,
+  ThemedCollectionPageSubCollectionListComponent,
   CommunityPageSubCommunityListComponent,
   CreateCommunityPageComponent,
   DeleteCommunityPageComponent];
@@ -28,7 +37,8 @@ const DECLARATIONS = [CommunityPageComponent,
     CommunityPageRoutingModule,
     StatisticsModule.forRoot(),
     CommunityFormModule,
-    ComcolModule
+    ComcolModule,
+    DsoPageModule,
   ],
   declarations: [
     ...DECLARATIONS

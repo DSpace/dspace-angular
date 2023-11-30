@@ -3,9 +3,9 @@ import { SearchFilterConfig } from '../../shared/search/models/search-filter-con
 import { ParsedResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { RestRequest } from './request.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { FacetConfigResponse } from '../../shared/search/models/facet-config-response.model';
+import { RestRequest } from './rest-request.model';
 
 @Injectable()
 export class FacetConfigResponseParsingService extends DspaceRestResponseParsingService {

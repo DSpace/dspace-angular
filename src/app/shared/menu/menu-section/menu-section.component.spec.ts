@@ -5,9 +5,9 @@ import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/co
 import { MenuSectionComponent } from './menu-section.component';
 import { MenuService } from '../menu.service';
 import { MenuServiceStub } from '../../testing/menu-service.stub';
-import { MenuSection } from '../menu.reducer';
 import { of as observableOf } from 'rxjs';
 import { LinkMenuItemComponent } from '../menu-item/link-menu-item.component';
+import { MenuSection } from '../menu-section.model';
 
 describe('MenuSectionComponent', () => {
   let comp: MenuSectionComponent;

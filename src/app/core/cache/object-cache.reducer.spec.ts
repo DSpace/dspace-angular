@@ -1,12 +1,15 @@
+// eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 import { Operation } from 'fast-json-patch';
 import { Item } from '../shared/item.model';
 import {
+  AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction
+  ResetObjectCacheTimestampsAction,
 } from './object-cache.actions';
 
 import { objectCacheReducer } from './object-cache.reducer';
@@ -41,21 +44,23 @@ describe('objectCacheReducer', () => {
       alternativeLinks: [altLink1, altLink2],
       timeCompleted: new Date().getTime(),
       msToLive: 900000,
-      requestUUID: requestUUID1,
+      requestUUIDs: [requestUUID1],
+      dependentRequestUUIDs: [],
       patches: [],
       isDirty: false,
     },
     [selfLink2]: {
       data: {
         type: Item.type,
-        self: requestUUID2,
+        self: selfLink2,
         foo: 'baz',
-        _links: { self: { href: requestUUID2 } }
+        _links: { self: { href: selfLink2 } }
       },
       alternativeLinks: [altLink3, altLink4],
       timeCompleted: new Date().getTime(),
       msToLive: 900000,
-      requestUUID: selfLink2,
+      requestUUIDs: [requestUUID2],
+      dependentRequestUUIDs: [requestUUID1],
       patches: [],
       isDirty: false
     }
@@ -105,10 +110,10 @@ describe('objectCacheReducer', () => {
     const action = new AddToObjectCacheAction(objectToCache, timeCompleted, msToLive, requestUUID, altLink1);
     const newState = objectCacheReducer(testState, action);
 
-    /* tslint:disable:no-string-literal */
+    /* eslint-disable @typescript-eslint/dot-notation */
     expect(newState[selfLink1].data['foo']).toBe('baz');
     expect(newState[selfLink1].data['somethingElse']).toBe(true);
-    /* tslint:enable:no-string-literal */
+    /* eslint-enable @typescript-eslint/dot-notation */
   });
 
   it('should perform the ADD action without affecting the previous state', () => {
@@ -187,6 +192,22 @@ describe('objectCacheReducer', () => {
     const newState = objectCacheReducer(stateWithPatch, action);
     expect(newState[selfLink1].patches).toEqual([]);
     expect((newState[selfLink1].data as any).name).toEqual(newName);
+  });
+
+  it('should add dependent requests on ADD_DEPENDENTS', () => {
+    let newState = objectCacheReducer(testState, new AddDependentsObjectCacheAction(selfLink1, ['new', 'newer', 'newest']));
+    expect(newState[selfLink1].dependentRequestUUIDs).toEqual(['new', 'newer', 'newest']);
+
+    newState = objectCacheReducer(newState, new AddDependentsObjectCacheAction(selfLink2, ['more']));
+    expect(newState[selfLink2].dependentRequestUUIDs).toEqual([requestUUID1, 'more']);
+  });
+
+  it('should clear dependent requests on REMOVE_DEPENDENTS', () => {
+    let newState = objectCacheReducer(testState, new RemoveDependentsObjectCacheAction(selfLink1));
+    expect(newState[selfLink1].dependentRequestUUIDs).toEqual([]);
+
+    newState = objectCacheReducer(newState, new RemoveDependentsObjectCacheAction(selfLink2));
+    expect(newState[selfLink2].dependentRequestUUIDs).toEqual([]);
   });
 
 });

@@ -1,9 +1,9 @@
-import * as http from 'http';
-import * as https from 'https';
+import { request } from 'http';
+import { request as https_request } from 'https';
 
 import { AppConfig } from '../src/config/app-config.interface';
 import { buildAppConfig } from '../src/config/config.server';
- 
+
 const appConfig: AppConfig = buildAppConfig();
 
 /**
@@ -20,9 +20,15 @@ console.log(`...Testing connection to REST API at ${restUrl}...\n`);
 
 // If SSL enabled, test via HTTPS, else via HTTP
 if (appConfig.rest.ssl) {
-    const req = https.request(restUrl, (res) => {
+    const req = https_request(restUrl, (res) => {
         console.log(`RESPONSE: ${res.statusCode} ${res.statusMessage} \n`);
-        res.on('data', (data) => {
+        // We will keep reading data until the 'end' event fires.
+        // This ensures we don't just read the first chunk.
+        let data = '';
+        res.on('data', (chunk) => {
+            data += chunk;
+        });
+        res.on('end', () => {
             checkJSONResponse(data);
         });
     });
@@ -33,9 +39,15 @@ if (appConfig.rest.ssl) {
 
     req.end();
 } else {
-    const req = http.request(restUrl, (res) => {
+    const req = request(restUrl, (res) => {
         console.log(`RESPONSE: ${res.statusCode} ${res.statusMessage} \n`);
-        res.on('data', (data) => {
+        // We will keep reading data until the 'end' event fires.
+        // This ensures we don't just read the first chunk.
+        let data = '';
+        res.on('data', (chunk) => {
+            data += chunk;
+        });
+        res.on('end', () => {
             checkJSONResponse(data);
         });
     });

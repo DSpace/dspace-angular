@@ -30,23 +30,34 @@ describe('ObjectCollectionComponent', () => {
     }).compileComponents();  // compile template and css
   }));
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(ObjectCollectionComponent);
     objectCollectionComponent = fixture.componentInstance;
-  }));
+    fixture.detectChanges();
+  });
 
   it('should only show the grid component when the viewmode is set to grid', () => {
     objectCollectionComponent.currentMode$ = observableOf(ViewMode.GridElement);
+    fixture.detectChanges();
 
-    expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeDefined();
-    expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-object-grid'))).not.toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-themed-object-list'))).toBeNull();
   });
 
   it('should only show the list component when the viewmode is set to list', () => {
     objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
+    fixture.detectChanges();
 
-    expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeDefined();
+    expect(fixture.debugElement.query(By.css('ds-themed-object-list'))).not.toBeNull();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
   });
 
+  it('should set fallback placeholder font size during test', async () => {
+    objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
+    fixture.detectChanges();
+
+    const comp = fixture.debugElement.query(By.css('ds-themed-object-list'));
+    expect(comp).not.toBeNull();
+    expect(comp.nativeElement.classList).not.toContain('hide-placeholder-text');
+  });
 });

@@ -1,11 +1,12 @@
-import { combineLatest as observableCombineLatest, BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { startWith, distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input, OnInit,
+  Input,
+  OnInit,
   Output,
   ViewEncapsulation
 } from '@angular/core';
@@ -48,6 +49,16 @@ export class ObjectGridComponent implements OnInit {
    * The current sort configuration
    */
   @Input() sortConfig: SortOptions;
+
+  /**
+   * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
+   */
+  @Input() showPaginator = true;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
 
   /**
    * The whether or not the gear is hidden
@@ -134,6 +145,17 @@ export class ObjectGridComponent implements OnInit {
    * Event's payload equals to the newly selected sort field.
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * If showPaginator is set to true, emit when the previous button is clicked
+   */
+  @Output() prev = new EventEmitter<boolean>();
+
+  /**
+   * If showPaginator is set to true, emit when the next button is clicked
+   */
+  @Output() next = new EventEmitter<boolean>();
+
   data: any = {};
   columns$: Observable<ListableObject[]>;
 
@@ -223,6 +245,20 @@ export class ObjectGridComponent implements OnInit {
    */
   onPaginationChange(event) {
     this.paginationChange.emit(event);
+  }
+
+  /**
+   * Go to the previous page
+   */
+  goPrev() {
+      this.prev.emit(true);
+  }
+
+ /**
+  * Go to the next page
+  */
+  goNext() {
+      this.next.emit(true);
   }
 
 }

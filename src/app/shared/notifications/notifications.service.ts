@@ -4,7 +4,7 @@ import { of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import { INotification, Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';

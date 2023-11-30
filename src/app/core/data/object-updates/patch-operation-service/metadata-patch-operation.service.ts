@@ -1,14 +1,14 @@
 import { PatchOperationService } from './patch-operation.service';
 import { MetadatumViewModel } from '../../../shared/metadata.models';
-import { FieldUpdates } from '../object-updates.reducer';
 import { Operation } from 'fast-json-patch';
-import { FieldChangeType } from '../object-updates.actions';
 import { Injectable } from '@angular/core';
 import { MetadataPatchOperation } from './operations/metadata/metadata-patch-operation.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { MetadataPatchAddOperation } from './operations/metadata/metadata-patch-add-operation.model';
 import { MetadataPatchRemoveOperation } from './operations/metadata/metadata-patch-remove-operation.model';
 import { MetadataPatchReplaceOperation } from './operations/metadata/metadata-patch-replace-operation.model';
+import { FieldUpdates } from '../field-updates.model';
+import { FieldChangeType } from '../field-change-type.model';
 
 /**
  * Service transforming {@link FieldUpdates} into {@link Operation}s for metadata values

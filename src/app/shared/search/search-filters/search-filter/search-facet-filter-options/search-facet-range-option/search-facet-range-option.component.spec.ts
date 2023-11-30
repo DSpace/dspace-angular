@@ -22,6 +22,7 @@ import {
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 
 describe('SearchFacetRangeOptionComponent', () => {
   let comp: SearchFacetRangeOptionComponent;
@@ -63,7 +64,7 @@ describe('SearchFacetRangeOptionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetRangeOptionComponent],
+      declarations: [SearchFacetRangeOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
@@ -78,12 +79,12 @@ describe('SearchFacetRangeOptionComponent', () => {
           provide: SearchFilterService, useValue: {
             isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
             getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
         }
       ],

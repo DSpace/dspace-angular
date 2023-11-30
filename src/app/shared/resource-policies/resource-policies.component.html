@@ -1,12 +1,18 @@
-<div *ngIf="(getResourcePolicies() | async)?.length > 0" class="table-responsive">
+<div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
         <th colspan="10">
           <div class="d-flex justify-content-between align-items-center m-0">
-            {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }} {{resourceUUID}}
-            <div>
-              <button class="btn btn-danger float-right ml-1"
+            <span>
+              {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }}
+              <span class="text-info"> {{resourceName}} </span>
+              <ng-container *ngIf="resourceType != 'item'">
+                ({{resourceUUID}})
+              </ng-container>
+            </span>
+            <div class="space-children-mr flex-shrink-0">
+              <button class="btn btn-danger p-1"
                       [disabled]="(!(canDelete() | async)) || (isProcessingDelete() | async)"
                       [title]="'resource-policies.delete.btn.title' | translate"
                       (click)="deleteSelectedResourcePolicies()">
@@ -18,7 +24,7 @@
                   {{'resource-policies.delete.btn' | translate}}
                 </span>
               </button>
-              <button class="btn btn-success float-right"
+              <button class="btn btn-success p-1"
                       [disabled]="(isProcessingDelete() | async)"
                       [title]="'resource-policies.add.for.' + resourceType | translate"
                       (click)="redirectToResourcePolicyCreatePage()">
@@ -29,7 +35,7 @@
           </div>
         </th>
       </tr>
-      <tr class="text-center">
+      <tr *ngIf="(getResourcePolicies() | async)?.length > 0" class="text-center">
         <th>
           <div class="custom-control custom-checkbox">
             <input type="checkbox"
@@ -50,50 +56,11 @@
         <th>{{'resource-policies.table.headers.edit' | translate}}</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let entry of (getResourcePolicies() | async); trackById">
-        <td class="text-center">
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox"
-                   class="custom-control-input"
-                   [id]="entry.id"
-                   [ngModel]="entry.checked"
-                   (ngModelChange)="selectCheckbox(entry, $event)">
-            <label class="custom-control-label" [for]="entry.id"></label>
-          </div>
-        </td>
-        <th scope="row">
-          {{entry.id}}
-        </th>
-        <td>{{entry.policy.name}}</td>
-        <td>{{entry.policy.policyType}}</td>
-        <td>{{entry.policy.action}}</td>
-        <td *ngIf="(hasEPerson(entry.policy) | async)">
-          {{getEPersonName(entry.policy) | async}}
-        </td>
-        <td *ngIf="!(hasEPerson(entry.policy) | async)"></td>
-        <td *ngIf="(hasGroup(entry.policy) | async)">
-          {{getGroupName(entry.policy) | async}}
-        </td>
-        <td *ngIf="!(hasGroup(entry.policy) | async)"></td>
-        <td>{{formatDate(entry.policy.startDate)}}</td>
-        <td>{{formatDate(entry.policy.endDate)}}</td>
-        <td class="text-center">
-
-          <div class="btn-group edit-field">
-            <button class="btn btn-outline-primary btn-sm"
-                    [title]="'resource-policies.table.headers.edit.policy' | translate"
-                    (click)="redirectToResourcePolicyEditPage(entry.policy)">
-              <i class="fas fa-edit fa-fw"></i>
-            </button>
-            <button *ngIf="(hasGroup(entry.policy) | async)" class="btn btn-outline-primary btn-sm"
-                    [title]="'resource-policies.table.headers.edit.group' | translate"
-                    (click)="redirectToGroupEditPage(entry.policy)">
-              <i class="fas fa-users fa-fw"></i>
-            </button>
-          </div>
-        </td>
-      </tr>
+    <tbody *ngIf="(getResourcePolicies() | async)?.length > 0">
+      <tr ds-resource-policy-entry *ngFor="let entry of (getResourcePolicies() | async)"
+          [entry]="entry"
+          (toggleCheckbox)="selectCheckbox(entry, $event)"
+      ></tr>
     </tbody>
   </table>
 </div>

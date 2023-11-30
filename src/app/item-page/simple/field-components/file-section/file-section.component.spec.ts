@@ -13,10 +13,12 @@ import { of as observableOf } from 'rxjs';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { MetadataFieldWrapperComponent } from '../../../field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 describe('FileSectionComponent', () => {
   let comp: FileSectionComponent;
@@ -65,7 +67,8 @@ describe('FileSectionComponent', () => {
       declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: APP_CONFIG, useValue: environment }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -86,7 +89,7 @@ describe('FileSectionComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });
@@ -109,7 +112,7 @@ describe('FileSectionComponent', () => {
     it('one bitstream should be on the page', () => {
       const viewMore = fixture.debugElement.query(By.css('.bitstream-view-more'));
       viewMore.triggerEventHandler('click', null);
-      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
+      const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
       expect(fileDownloadLink.length).toEqual(1);
     });
 
@@ -122,7 +125,7 @@ describe('FileSectionComponent', () => {
 
       });
       it('should contain another bitstream', () => {
-        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-file-download-link'));
+        const fileDownloadLink = fixture.debugElement.queryAll(By.css('ds-themed-file-download-link'));
         expect(fileDownloadLink.length).toEqual(2);
       });
     });
@@ -143,7 +146,7 @@ describe('FileSectionComponent', () => {
 
     it('should contain a view less link', () => {
       const viewLess = fixture.debugElement.query(By.css('.bitstream-collapse'));
-      expect(viewLess).toBeDefined();
+      expect(viewLess).not.toBeNull();
     });
 
     it('clicking on the view less link should reset the pages and call getNextPage()', () => {

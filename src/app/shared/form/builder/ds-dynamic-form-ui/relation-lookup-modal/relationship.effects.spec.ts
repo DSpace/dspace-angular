@@ -6,8 +6,8 @@ import { RelationshipEffects } from './relationship.effects';
 import { AddRelationshipAction, RelationshipActionTypes, RemoveRelationshipAction } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
@@ -116,8 +116,8 @@ describe('RelationshipEffects', () => {
       providers: [
         RelationshipEffects,
         provideMockActions(() => actions),
-        { provide: RelationshipTypeService, useValue: mockRelationshipTypeService },
-        { provide: RelationshipService, useValue: mockRelationshipService },
+        { provide: RelationshipTypeDataService, useValue: mockRelationshipTypeService },
+        { provide: RelationshipDataService, useValue: mockRelationshipService },
         {
           provide: SubmissionObjectDataService, useValue: {
             findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem())

@@ -6,8 +6,8 @@ import { of as observableOf, Subscription } from 'rxjs';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
@@ -18,7 +18,7 @@ import { PaginatedSearchOptions } from '../../../../search/models/paginated-sear
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { createPaginatedList } from '../../../../testing/utils.test';
-import { ExternalSourceService } from '../../../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
@@ -111,19 +111,19 @@ describe('DsDynamicLookupRelationModalComponent', () => {
             paginatedSearchOptions: observableOf(pSearchOptions)
           }
         },
-        { provide: ExternalSourceService, useValue: externalSourceService },
+        { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: LookupRelationService, useValue: lookupRelationService },
         {
           provide: SelectableListService, useValue: selectableListService
         },
         {
-          provide: RelationshipService, useValue: { getNameVariant: () => observableOf(nameVariant) }
+          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
         },
-        { provide: RelationshipTypeService, useValue: {} },
+        { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {
-            // tslint:disable-next-line:no-empty
+            // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
             dispatch: () => {
             }
           }
@@ -201,9 +201,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
 
   describe('when initialized and is relationship show the list of buttons', () => {
-    it('should show buttons container', () => {
-      expect(debugElement.query(By.css('.button-row'))).toBeTruthy();
-    });
     it('submit button should be disabled', () => {
       expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
     });

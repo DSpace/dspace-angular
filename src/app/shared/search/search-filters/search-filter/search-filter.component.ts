@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
-import { Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
@@ -32,6 +32,11 @@ export class SearchFilterComponent implements OnInit {
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
+
+  /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
    * True when the filter is 100% collapsed in the UI

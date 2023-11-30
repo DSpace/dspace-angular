@@ -9,16 +9,18 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { PageInfo } from '../shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { RequestEntry } from '../data/request.reducer';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { RestResponse } from '../cache/response.models';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Item } from '../shared/item.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
+import { RequestEntry } from '../data/request-entry.model';
+import { CoreState } from '../core-state.model';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;
@@ -82,16 +84,19 @@ describe('WorkspaceitemDataService test', () => {
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkspaceitemDataService(
-      comparatorEntry,
-      halService,
-      http,
-      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      store
+      halService,
+      notificationsService,
     );
   }
+
+  describe('composition', () => {
+    const initService = () => new WorkspaceitemDataService(null, null, null, null, null);
+    testSearchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
+  });
 
   describe('', () => {
     beforeEach(() => {

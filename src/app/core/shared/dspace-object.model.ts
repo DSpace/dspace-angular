@@ -2,7 +2,6 @@ import { autoserialize, autoserializeAs, deserialize, deserializeAs } from 'ceri
 import { hasNoValue, hasValue, isUndefined } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSPACE_OBJECT } from './dspace-object.resource-type';
 import { GenericConstructor } from './generic-constructor';
@@ -16,6 +15,7 @@ import {
 } from './metadata.models';
 import { Metadata } from './metadata.utils';
 import { ResourceType } from './resource-type';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
  * An abstract model class for a DSpaceObject.

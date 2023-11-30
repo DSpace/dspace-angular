@@ -5,11 +5,10 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { Feedback } from './models/feedback.model';
+import { CoreState } from '../core-state.model';
+import { testCreateDataImplementation } from '../data/base/create-data.spec';
 
 describe('FeedbackDataService', () => {
   let service: FeedbackDataService;
@@ -17,8 +16,6 @@ describe('FeedbackDataService', () => {
   let halService;
   let rdbService;
   let notificationsService;
-  let http;
-  let comparator;
   let objectCache;
   let store;
   let item;
@@ -44,8 +41,6 @@ describe('FeedbackDataService', () => {
     halService = new HALEndpointServiceStub('url') as any;
     rdbService = {} as RemoteDataBuildService;
     notificationsService = {} as NotificationsService;
-    http = {} as HttpClient;
-    comparator = new DSOChangeAnalyzer() as any;
     objectCache = {
 
       addPatch: () => {
@@ -63,8 +58,6 @@ describe('FeedbackDataService', () => {
       objectCache,
       halService,
       notificationsService,
-      http,
-      comparator,
     );
   }
 
@@ -73,6 +66,10 @@ describe('FeedbackDataService', () => {
     service = initTestService();
   });
 
+  describe('composition', () => {
+    const initService = () => new FeedbackDataService(null, null, null, null, null, null);
+    testCreateDataImplementation(initService);
+  });
 
   describe('getFeedback', () => {
     beforeEach(() => {

@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -20,7 +20,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import {
   mockDynamicFormLayoutService,
@@ -71,9 +71,9 @@ let LOOKUP_NAME_TEST_MODEL_CONFIG = {
   hasSelectableMetadata: false
 };
 
-let LOOKUP_TEST_GROUP = new FormGroup({
-  lookup: new FormControl(),
-  lookupName: new FormControl()
+let LOOKUP_TEST_GROUP = new UntypedFormGroup({
+  lookup: new UntypedFormControl(),
+  lookupName: new UntypedFormControl()
 });
 
 describe('Dynamic Lookup component', () => {
@@ -122,9 +122,9 @@ describe('Dynamic Lookup component', () => {
       hasSelectableMetadata: false
     };
 
-    LOOKUP_TEST_GROUP = new FormGroup({
-      lookup: new FormControl(),
-      lookupName: new FormControl()
+    LOOKUP_TEST_GROUP = new UntypedFormGroup({
+      lookup: new UntypedFormControl(),
+      lookupName: new UntypedFormControl()
     });
 
   }
@@ -564,7 +564,7 @@ describe('Dynamic Lookup component', () => {
 })
 class TestComponent {
 
-  group: FormGroup = LOOKUP_TEST_GROUP;
+  group: UntypedFormGroup = LOOKUP_TEST_GROUP;
 
   inputLookupModelConfig = LOOKUP_TEST_MODEL_CONFIG;
 

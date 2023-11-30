@@ -128,7 +128,6 @@ export class MetadataRegistryComponent {
    * Delete all the selected metadata schemas
    */
   deleteSchemas() {
-    this.registryService.clearMetadataSchemaRequests().subscribe();
     this.registryService.getSelectedMetadataSchemas().pipe(take(1)).subscribe(
       (schemas) => {
         const tasks$ = [];
@@ -148,7 +147,6 @@ export class MetadataRegistryComponent {
           }
           this.registryService.deselectAllMetadataSchema();
           this.registryService.cancelEditMetadataSchema();
-          this.forceUpdateSchemas();
         });
       }
     );

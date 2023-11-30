@@ -1,5 +1,5 @@
-import { FieldUpdates } from '../object-updates.reducer';
 import { Operation } from 'fast-json-patch';
+import { FieldUpdates } from '../field-updates.model';
 
 /**
  * Interface for a service dealing with the transformations of patch operations from the object-updates store

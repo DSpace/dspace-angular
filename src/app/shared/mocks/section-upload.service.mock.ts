@@ -1,9 +1,9 @@
-import { SubmissionFormsConfigService } from '../../core/config/submission-forms-config.service';
+import { SubmissionFormsConfigDataService } from '../../core/config/submission-forms-config-data.service';
 
 /**
  * Mock for [[SubmissionFormsConfigService]]
  */
-export function getMockSectionUploadService(): SubmissionFormsConfigService {
+export function getMockSectionUploadService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SectionUploadService', {
     getUploadedFileList: jasmine.createSpy('getUploadedFileList'),
     getFileData: jasmine.createSpy('getFileData'),

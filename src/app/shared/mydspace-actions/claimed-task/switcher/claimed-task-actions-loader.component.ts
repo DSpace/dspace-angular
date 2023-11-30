@@ -3,18 +3,21 @@ import {
   ComponentFactoryResolver,
   EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
+  OnChanges,
+  SimpleChanges,
+  ComponentRef,
 } from '@angular/core';
 import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { hasValue } from '../../../empty.util';
-import { Subscription } from 'rxjs';
+import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 @Component({
   selector: 'ds-claimed-task-actions-loader',
@@ -24,7 +27,12 @@ import { MyDSpaceActionsResult } from '../../mydspace-actions';
  * Component for loading a ClaimedTaskAction component depending on the "option" input
  * Passes on the ClaimedTask to the component and subscribes to the processCompleted output
  */
-export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
+export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
+  /**
+   * The item object that belonging to the ClaimedTask object
+   */
+  @Input() item: Item;
+
   /**
    * The ClaimedTask object
    */
@@ -37,6 +45,11 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
   @Input() option: string;
 
   /**
+   * The workflowitem object that belonging to the ClaimedTask object
+   */
+  @Input() workflowitem: WorkflowItem;
+
+  /**
    * Emits the success or failure of a processed action
    */
   @Output() processCompleted = new EventEmitter<MyDSpaceActionsResult>();
@@ -47,10 +60,18 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
   @ViewChild(ClaimedTaskActionsDirective, {static: true}) claimedTaskActionsDirective: ClaimedTaskActionsDirective;
 
   /**
-   * Array to track all subscriptions and unsubscribe them onDestroy
-   * @type {Array}
+   * The reference to the dynamic component
    */
-  protected subs: Subscription[] = [];
+  protected compRef: ComponentRef<Component>;
+
+  /**
+   * The list of input and output names for the dynamic component
+   */
+  protected inAndOutputNames: (keyof ClaimedTaskActionsAbstractComponent & keyof this)[] = [
+    'object',
+    'option',
+    'processCompleted',
+  ];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
   }
@@ -59,7 +80,29 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
    * Fetch, create and initialize the relevant component
    */
   ngOnInit(): void {
+    this.instantiateComponent();
+  }
 
+  /**
+   * Whenever the inputs change, update the inputs of the dynamic component
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (hasNoValue(this.compRef)) {
+      // sometimes the component has not been initialized yet, so it first needs to be initialized
+      // before being called again
+      this.instantiateComponent(changes);
+    } else {
+      // if an input or output has changed
+      if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
+        this.connectInputsAndOutputs();
+        if (this.compRef?.instance && 'ngOnChanges' in this.compRef.instance) {
+          (this.compRef.instance as any).ngOnChanges(changes);
+        }
+      }
+    }
+  }
+
+  private instantiateComponent(changes?: SimpleChanges): void {
     const comp = this.getComponentByWorkflowTaskOption(this.option);
     if (hasValue(comp)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
@@ -67,11 +110,12 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
 
-      const componentRef = viewContainerRef.createComponent(componentFactory);
-      const componentInstance = (componentRef.instance as ClaimedTaskActionsAbstractComponent);
-      componentInstance.object = this.object;
-      if (hasValue(componentInstance.processCompleted)) {
-        this.subs.push(componentInstance.processCompleted.subscribe((result) => this.processCompleted.emit(result)));
+      this.compRef = viewContainerRef.createComponent(componentFactory);
+
+      if (hasValue(changes)) {
+        this.ngOnChanges(changes);
+      } else {
+        this.connectInputsAndOutputs();
       }
     }
   }
@@ -81,11 +125,14 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Unsubscribe from open subscriptions
+   * Connect the in and outputs of this component to the dynamic component,
+   * to ensure they're in sync
    */
-  ngOnDestroy(): void {
-    this.subs
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
+  protected connectInputsAndOutputs(): void {
+    if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
+      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
+        this.compRef.instance[name] = this[name];
+      });
+    }
   }
 }

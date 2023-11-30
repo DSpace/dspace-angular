@@ -1,18 +1,15 @@
 <ng-container *ngIf="fileData">
   <div class="row">
-    <div class="col-md-2">
-      <!--ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].url | async"></ds-thumbnail-->
-      <ds-thumbnail [thumbnail]="fileData?.thumbnail"></ds-thumbnail>
-    </div>
-    <div class="col-md-10">
+    <div class="col-md-12">
       <div class="float-left w-75">
         <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
       </div>
       <div class="float-right w-15">
         <ng-container>
-          <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true" [bitstream]="getBitstream()" [enableRequestACopy]="false">
+          <ds-themed-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
+                                        [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
-          </ds-file-download-link>
+          </ds-themed-file-download-link>
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
                   title="{{ 'submission.sections.upload.edit.title' | translate }}"
@@ -46,7 +43,9 @@
     <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
-    <button type="button" class="btn btn-danger" (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
+    <button type="button" class="btn btn-secondary"
+            (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
+    <button type="button" class="btn btn-danger"
+            (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
   </div>
 </ng-template>

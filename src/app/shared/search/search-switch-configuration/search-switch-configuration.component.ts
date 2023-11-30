@@ -10,7 +10,7 @@ import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspac
 import { SearchConfigurationOption } from './search-configuration-option.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { currentPath } from '../../utils/route.utils';
-import { findIndex } from 'lodash';
+import findIndex from 'lodash/findIndex';
 
 @Component({
   selector: 'ds-search-switch-configuration',

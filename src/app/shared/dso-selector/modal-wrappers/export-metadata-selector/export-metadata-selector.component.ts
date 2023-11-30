@@ -19,6 +19,8 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -36,6 +38,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router,
               protected notificationsService: NotificationsService, protected translationService: TranslateService,
               protected scriptDataService: ScriptDataService,
+              protected authorizationDataService: AuthorizationDataService,
               private modalService: NgbModal) {
     super(activeModal, route);
   }
@@ -82,24 +85,29 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
     const parameterValues: ProcessParameter[] = [
       Object.assign(new ProcessParameter(), { name: '-i', value: dso.uuid }),
     ];
-    return this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, [])
-      .pipe(
-        getFirstCompletedRemoteData(),
-        map((rd: RemoteData<Process>) => {
-          if (rd.hasSucceeded) {
-            const title = this.translationService.get('process.new.notification.success.title');
-            const content = this.translationService.get('process.new.notification.success.content');
-            this.notificationsService.success(title, content);
-            if (isNotEmpty(rd.payload)) {
-              this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
-            }
-            return true;
-          } else {
-            const title = this.translationService.get('process.new.notification.error.title');
-            const content = this.translationService.get('process.new.notification.error.content');
-            this.notificationsService.error(title, content);
-            return false;
+    return this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      switchMap((isAdmin) => {
+        if (isAdmin) {
+          parameterValues.push(Object.assign(new ProcessParameter(), {name: '-a'}));
+        }
+        return this.scriptDataService.invoke(METADATA_EXPORT_SCRIPT_NAME, parameterValues, []);
+      }),
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<Process>) => {
+        if (rd.hasSucceeded) {
+          const title = this.translationService.get('process.new.notification.success.title');
+          const content = this.translationService.get('process.new.notification.success.content');
+          this.notificationsService.success(title, content);
+          if (isNotEmpty(rd.payload)) {
+            this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
           }
-        }));
+          return true;
+        } else {
+          const title = this.translationService.get('process.new.notification.error.title');
+          const content = this.translationService.get('process.new.notification.error.content');
+          this.notificationsService.error(title, content);
+          return false;
+        }
+      }));
   }
 }

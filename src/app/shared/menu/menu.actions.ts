@@ -1,7 +1,8 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { MenuID } from './initial-menus-state';
 import { type } from '../ngrx/type';
-import { MenuSection } from './menu.reducer';
+import { MenuSection } from './menu-section.model';
+import { MenuID } from './menu-id.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -17,6 +18,7 @@ export const MenuActionTypes = {
   EXPAND_MENU: type('dspace/menu/EXPAND_MENU'),
   SHOW_MENU: type('dspace/menu/SHOW_MENU'),
   HIDE_MENU: type('dspace/menu/HIDE_MENU'),
+  REINIT_MENUS: type('dspace/menu/REINIT_MENUS'),
   COLLAPSE_MENU_PREVIEW: type('dspace/menu/COLLAPSE_MENU_PREVIEW'),
   EXPAND_MENU_PREVIEW: type('dspace/menu/EXPAND_MENU_PREVIEW'),
   ADD_SECTION: type('dspace/menu-section/ADD_SECTION'),
@@ -28,7 +30,6 @@ export const MenuActionTypes = {
   TOGGLE_ACTIVE_SECTION: type('dspace/menu-section/TOGGLE_ACTIVE_SECTION'),
 };
 
-/* tslint:disable:max-classes-per-file */
 
 // MENU STATE ACTIONS
 /**
@@ -113,6 +114,13 @@ export class ExpandMenuPreviewAction implements Action {
   constructor(menuID: MenuID) {
     this.menuID = menuID;
   }
+}
+
+/**
+ * Action used to re-initialise the menus
+ */
+export class ReinitMenuAction implements Action {
+  type = MenuActionTypes.REINIT_MENUS;
 }
 
 // MENU SECTION ACTIONS
@@ -224,5 +232,5 @@ export type MenuAction =
   | DeactivateMenuSectionAction
   | ToggleActiveMenuSectionAction
   | CollapseMenuPreviewAction
-  | ExpandMenuPreviewAction;
-/* tslint:enable:max-classes-per-file */
+  | ExpandMenuPreviewAction
+  | ReinitMenuAction;

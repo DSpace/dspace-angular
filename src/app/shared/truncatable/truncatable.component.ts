@@ -1,6 +1,4 @@
-import {
-  Component, Input
-} from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { TruncatableService } from './truncatable.service';
 
 @Component({
@@ -13,7 +11,7 @@ import { TruncatableService } from './truncatable.service';
 /**
  * Component that represents a section with one or more truncatable parts that all listen to this state
  */
-export class TruncatableComponent {
+export class TruncatableComponent implements OnInit, AfterViewChecked {
   /**
    * Is true when all truncatable parts in this truncatable should be expanded on loading
    */
@@ -29,7 +27,13 @@ export class TruncatableComponent {
    */
   @Input() onHover = false;
 
-  public constructor(private service: TruncatableService) {
+  /**
+   * A boolean representing if to show or not the show/collapse toggle
+   * This value must have the same value as the children TruncatablePartComponent
+   */
+  @Input() showToggle = true;
+
+  public constructor(private service: TruncatableService, private el: ElementRef,) {
   }
 
   /**
@@ -61,11 +65,18 @@ export class TruncatableComponent {
     }
   }
 
-  /**
-   * Expands the truncatable when it's collapsed, collapses it when it's expanded
-   */
-  public toggle() {
-    this.service.toggle(this.id);
+  ngAfterViewChecked() {
+    if (this.showToggle) {
+      const truncatedElements = this.el.nativeElement.querySelectorAll('.truncated');
+      if (truncatedElements?.length > 0) {
+        const truncateElements = this.el.nativeElement.querySelectorAll('.dont-break-out');
+        for (let i = 0; i < (truncateElements.length - 1); i++) {
+          truncateElements[i].classList.remove('truncated');
+          truncateElements[i].classList.add('notruncatable');
+        }
+        truncateElements[truncateElements.length - 1].classList.add('truncated');
+      }
+    }
   }
 
 }

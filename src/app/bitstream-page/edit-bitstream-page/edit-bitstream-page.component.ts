@@ -1,57 +1,31 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
-import {
-  combineLatest,
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  Subscription
-} from 'rxjs';
-import {
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormLayout,
-  DynamicFormService,
-  DynamicInputModel,
-  DynamicSelectModel
-} from '@ng-dynamic-forms/core';
-import { FormGroup } from '@angular/forms';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
-} from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { hasValue, isNotEmpty, isEmpty } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { getEntityEditRoute, getItemEditRoute } from '../../item-page/item-page-routing-paths';
+import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { Bundle } from '../../core/shared/bundle.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../core/shared/item.model';
-import {
-  DsDynamicInputModel
-} from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -75,6 +49,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Tracks changes and updates the view
    */
   bitstreamFormatsRD$: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
+
+  /**
+   * The UUID of the primary bitstream for this bundle
+   */
+  primaryBitstreamUUID: string;
 
   /**
    * The bitstream to edit
@@ -191,19 +170,19 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The Dynamic Input Model for the iiif label
    */
   iiifLabelModel = new DsDynamicInputModel({
-    hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
-    id: 'iiifLabel',
-    name: 'iiifLabel'
-  },
+      hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
+      id: 'iiifLabel',
+      name: 'iiifLabel'
+    },
     {
-        grid: {
-          host: 'col col-lg-6 d-inline-block'
-        }
+      grid: {
+        host: 'col col-lg-6 d-inline-block'
+      }
     });
   iiifLabelContainer = new DynamicFormGroupModel({
     id: 'iiifLabelContainer',
     group: [this.iiifLabelModel]
-  },{
+  }, {
     grid: {
       host: 'form-row'
     }
@@ -213,7 +192,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifToc',
     name: 'iiifToc',
-  },{
+  }, {
     grid: {
       host: 'col col-lg-6 d-inline-block'
     }
@@ -221,7 +200,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   iiifTocContainer = new DynamicFormGroupModel({
     id: 'iiifTocContainer',
     group: [this.iiifTocModel]
-  },{
+  }, {
     grid: {
       host: 'form-row'
     }
@@ -231,7 +210,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifWidth',
     name: 'iiifWidth',
-  },{
+  }, {
     grid: {
       host: 'col col-lg-6 d-inline-block'
     }
@@ -239,7 +218,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   iiifWidthContainer = new DynamicFormGroupModel({
     id: 'iiifWidthContainer',
     group: [this.iiifWidthModel]
-  },{
+  }, {
     grid: {
       host: 'form-row'
     }
@@ -249,7 +228,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     hasSelectableMetadata: false, metadataFields: [], repeatable: false, submissionId: '',
     id: 'iiifHeight',
     name: 'iiifHeight'
-  },{
+  }, {
     grid: {
       host: 'col col-lg-6 d-inline-block'
     }
@@ -257,7 +236,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   iiifHeightContainer = new DynamicFormGroupModel({
     id: 'iiifHeightContainer',
     group: [this.iiifHeightModel]
-  },{
+  }, {
     grid: {
       host: 'form-row'
     }
@@ -280,11 +259,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.fileNameModel,
         this.primaryBitstreamModel
       ]
-    },{
-        grid: {
-          host: 'form-row'
-        }
-      }),
+    }, {
+      grid: {
+        host: 'form-row'
+      }
+    }),
     new DynamicFormGroupModel({
       id: 'descriptionContainer',
       group: [
@@ -316,7 +295,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     },
     primaryBitstream: {
       grid: {
-        host: 'col col-sm-4 d-inline-block switch'
+        host: 'col col-sm-4 d-inline-block switch border-0'
       }
     },
     description: {
@@ -359,7 +338,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The form group of this form
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * The ID of the item the bitstream originates from
@@ -380,13 +359,17 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   isIIIF = false;
 
-
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
   protected subs: Subscription[] = [];
 
+  /**
+   * The parent bundle containing the Bitstream
+   * @private
+   */
+  private bundle: Bundle;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -395,9 +378,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
-              private dsoNameService: DSONameService,
+              public dsoNameService: DSONameService,
               private notificationsService: NotificationsService,
-              private bitstreamFormatService: BitstreamFormatDataService) {
+              private bitstreamFormatService: BitstreamFormatDataService,
+              private primaryBitstreamService: PrimaryBitstreamService,
+              ) {
   }
 
   /**
@@ -410,35 +395,59 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     this.itemId = this.route.snapshot.queryParams.itemId;
     this.entityType = this.route.snapshot.queryParams.entityType;
-    this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
+    this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
     this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
     const bitstream$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
     const allFormats$ = this.bitstreamFormatsRD$.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
+    const bundle$ = bitstream$.pipe(
+      switchMap((bitstream: Bitstream) => bitstream.bundle),
+      getFirstSucceededRemoteDataPayload(),
+    );
+
+    const primaryBitstream$ = bundle$.pipe(
+      hasValueOperator(),
+      switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href)),
+      getFirstSucceededRemoteDataPayload(),
+    );
+
+    const item$ = bundle$.pipe(
+      switchMap((bundle: Bundle) => bundle.item),
+      getFirstSucceededRemoteDataPayload(),
+    );
     this.subs.push(
       observableCombineLatest(
         bitstream$,
-        allFormats$
-      ).subscribe(([bitstream, allFormats]) => {
-        this.bitstream = bitstream as Bitstream;
-        this.formats = allFormats.page;
-        this.setIiifStatus(this.bitstream);
-      })
+        allFormats$,
+        bundle$,
+        primaryBitstream$,
+        item$,
+      ).pipe()
+        .subscribe(([bitstream, allFormats, bundle, primaryBitstream, item]) => {
+          this.bitstream = bitstream as Bitstream;
+          this.formats = allFormats.page;
+          this.bundle = bundle;
+          // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
+          // be a success response, but empty
+          this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
+          this.itemId = item.uuid;
+          this.setIiifStatus(this.bitstream);
+        })
     );
 
     this.subs.push(
       this.translate.onLangChange
         .subscribe(() => {
-        this.updateFieldTranslations();
-      })
+          this.updateFieldTranslations();
+        })
     );
   }
 
@@ -460,7 +469,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.formGroup.patchValue({
       fileNamePrimaryContainer: {
         fileName: bitstream.name,
-        primaryBitstream: false
+        primaryBitstream: this.primaryBitstreamUUID === bitstream.uuid
       },
       descriptionContainer: {
         description: bitstream.firstMetadataValue('dc.description')
@@ -571,9 +580,56 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const updatedBitstream = this.formToBitstream(updatedValues);
     const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
     const isNewFormat = selectedFormat.id !== this.originalFormat.id;
+    const isPrimary = updatedValues.fileNamePrimaryContainer.primaryBitstream;
+    const wasPrimary = this.primaryBitstreamUUID === this.bitstream.uuid;
 
     let bitstream$;
+    let bundle$: Observable<Bundle>;
+    let errorWhileSaving = false;
 
+    if (wasPrimary !== isPrimary) {
+      let bundleRd$: Observable<RemoteData<Bundle>>;
+      if (wasPrimary) {
+        bundleRd$ = this.primaryBitstreamService.delete(this.bundle);
+      } else if (hasValue(this.primaryBitstreamUUID)) {
+        bundleRd$ = this.primaryBitstreamService.put(this.bitstream, this.bundle);
+      } else {
+        bundleRd$ = this.primaryBitstreamService.create(this.bitstream, this.bundle);
+      }
+
+      const completedBundleRd$ = bundleRd$.pipe(getFirstCompletedRemoteData());
+
+      this.subs.push(completedBundleRd$.pipe(
+        filter((bundleRd: RemoteData<Bundle>) => bundleRd.hasFailed)
+      ).subscribe((bundleRd: RemoteData<Bundle>) => {
+        this.notificationsService.error(
+          this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
+          bundleRd.errorMessage
+        );
+        errorWhileSaving = true;
+      }));
+
+      bundle$ = completedBundleRd$.pipe(
+        map((bundleRd: RemoteData<Bundle>) => {
+          if (bundleRd.hasSucceeded) {
+            return bundleRd.payload;
+          } else {
+            return this.bundle;
+          }
+        })
+      );
+
+      this.subs.push(bundle$.pipe(
+        hasValueOperator(),
+        switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href, false)),
+        getFirstSucceededRemoteDataPayload()
+      ).subscribe((bitstream: Bitstream) => {
+        this.primaryBitstreamUUID = hasValue(bitstream) ? bitstream.uuid : null;
+      }));
+
+    } else {
+      bundle$ = observableOf(this.bundle);
+    }
     if (isNewFormat) {
       bitstream$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
         getFirstCompletedRemoteData(),
@@ -592,7 +648,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       bitstream$ = observableOf(this.bitstream);
     }
 
-    bitstream$.pipe(
+    combineLatest([bundle$, bitstream$]).pipe(
+      tap(([bundle]) => this.bundle = bundle),
       switchMap(() => {
         return this.bitstreamService.update(updatedBitstream).pipe(
           getFirstSucceededRemoteDataPayload()
@@ -604,7 +661,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
       );
-      this.navigateToItemEditBitstreams();
+      if (!errorWhileSaving) {
+        this.navigateToItemEditBitstreams();
+      }
     });
   }
 
@@ -615,10 +674,12 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   formToBitstream(rawForm): Bitstream {
     const updatedBitstream = cloneDeep(this.bitstream);
     const newMetadata = updatedBitstream.metadata;
-    // TODO: Set bitstream to primary when supported
-    const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
-    Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    if (isEmpty(rawForm.descriptionContainer.description)) {
+      delete newMetadata['dc.description'];
+    } else {
+      Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    }
     if (this.isIIIF) {
       // It's helpful to remove these metadata elements entirely when the form value is empty.
       // This avoids potential issues on the REST side and makes it possible to do things like
@@ -629,11 +690,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       } else {
         Metadata.setFirstValue(newMetadata, this.IIIF_LABEL_METADATA, rawForm.iiifLabelContainer.iiifLabel);
       }
-     if (isEmpty(rawForm.iiifTocContainer.iiifToc)) {
-       delete newMetadata[this.IIIF_TOC_METADATA];
-     } else {
+      if (isEmpty(rawForm.iiifTocContainer.iiifToc)) {
+        delete newMetadata[this.IIIF_TOC_METADATA];
+      } else {
         Metadata.setFirstValue(newMetadata, this.IIIF_TOC_METADATA, rawForm.iiifTocContainer.iiifToc);
-     }
+      }
       if (isEmpty(rawForm.iiifWidthContainer.iiifWidth)) {
         delete newMetadata[this.IMAGE_WIDTH_METADATA];
       } else {
@@ -664,15 +725,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * otherwise retrieve the item ID based on the owning bundle's link
    */
   navigateToItemEditBitstreams() {
-    if (hasValue(this.itemId)) {
-      this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
-    } else {
-      this.bitstream.bundle.pipe(getFirstSucceededRemoteDataPayload(),
-          mergeMap((bundle: Bundle) => bundle.item.pipe(getFirstSucceededRemoteDataPayload())))
-          .subscribe((item) => {
-            this.router.navigate(([getItemEditRoute(item), 'bitstreams']));
-          });
-    }
+    this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
   }
 
   /**
@@ -697,11 +750,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const isEnabled$ = this.bitstream.bundle.pipe(
       getFirstSucceededRemoteData(),
       map((bundle: RemoteData<Bundle>) => bundle.payload.item.pipe(
-          getFirstSucceededRemoteData(),
-          map((item: RemoteData<Item>) =>
-            (item.payload.firstMetadataValue('dspace.iiif.enabled') &&
-              item.payload.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null)
-      ))));
+        getFirstSucceededRemoteData(),
+        map((item: RemoteData<Item>) =>
+          (item.payload.firstMetadataValue('dspace.iiif.enabled') &&
+            item.payload.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null)
+        ))));
 
     const iiifSub = combineLatest(
       isImage$,

@@ -1,5 +1,5 @@
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task-actions-loader.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
@@ -15,6 +15,8 @@ import { RequestService } from '../../../../core/data/request.service';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 
 const searchService = getMockSearchService();
 
@@ -26,6 +28,37 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
 
   const option = 'test_option';
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
+
+  const item = Object.assign(new Item(), {
+    metadata: {
+      'dc.title': [
+        {
+          language: 'en_US',
+          value: 'This is just another title'
+        }
+      ],
+      'dc.type': [
+        {
+          language: null,
+          value: 'Article'
+        }
+      ],
+      'dc.contributor.author': [
+        {
+          language: 'en_US',
+          value: 'Smith, Donald'
+        }
+      ],
+      'dc.date.issued': [
+        {
+          language: null,
+          value: '2015-06-26'
+        }
+      ]
+    }
+  });
+
+  const workflowitem = Object.assign(new WorkflowItem(), { id: '333' });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -52,8 +85,10 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsLoaderComponent);
     comp = fixture.componentInstance;
+    comp.item = item;
     comp.object = object;
     comp.option = option;
+    comp.workflowitem = workflowitem;
     spyOn(comp, 'getComponentByWorkflowTaskOption').and.returnValue(ClaimedTaskActionsEditMetadataComponent);
 
     fixture.detectChanges();

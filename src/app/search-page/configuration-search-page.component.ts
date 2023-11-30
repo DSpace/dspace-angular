@@ -27,7 +27,6 @@ import { Router } from '@angular/router';
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {
-
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
@@ -36,5 +35,4 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               protected router: Router) {
     super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
-
 }

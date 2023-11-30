@@ -10,7 +10,7 @@
 
 // TODO to remove the following when upgrading @ng-bootstrap
 :host ::ng-deep .card:first-of-type {
-  border-bottom: var(--bs-card-border-width) solid  var(--bs-card-border-color) !important;
+  border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color) !important;
   border-bottom-left-radius: var(--bs-card-border-radius) !important;
   border-bottom-right-radius: var(--bs-card-border-radius) !important;
 }

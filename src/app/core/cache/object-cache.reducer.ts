@@ -1,18 +1,18 @@
-import { HALLink } from '../shared/hal-link.model';
-import { HALResource } from '../shared/hal-resource.model';
+/* eslint-disable max-classes-per-file */
 import {
-  ObjectCacheAction,
-  ObjectCacheActionTypes,
+  AddDependentsObjectCacheAction,
+  AddPatchObjectCacheAction,
   AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  ObjectCacheAction,
+  ObjectCacheActionTypes, RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
   ResetObjectCacheTimestampsAction,
-  AddPatchObjectCacheAction,
-  ApplyPatchObjectCacheAction
 } from './object-cache.actions';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
-import { ResourceType } from '../shared/resource-type';
 import { applyPatch, Operation } from 'fast-json-patch';
+import { CacheableObject } from './cacheable-object.model';
 
 /**
  * An interface to represent a JsonPatch
@@ -29,11 +29,6 @@ export interface Patch {
   operations: Operation[];
 }
 
-export abstract class TypedObject {
-  static type: ResourceType;
-  type: ResourceType;
-}
-
 /**
  * Get the string value for an object that may be a string or a ResourceType
  *
@@ -48,25 +43,6 @@ export const getResourceTypeValueFor = (type: any): string => {
     }
   }
 };
-
-/* tslint:disable:max-classes-per-file */
-/**
- * An interface to represent objects that can be cached
- *
- * A cacheable object should have a self link
- */
-export class CacheableObject extends TypedObject implements HALResource {
-  uuid?: string;
-  handle?: string;
-  _links: {
-    self: HALLink;
-  };
-  // isNew: boolean;
-  // dirtyType: DirtyType;
-  // hasDirtyAttributes: boolean;
-  // changedAttributes: AttributeDiffh;
-  // save(): void;
-}
 
 /**
  * An entry in the ObjectCache
@@ -88,9 +64,17 @@ export class ObjectCacheEntry implements CacheEntry {
   msToLive: number;
 
   /**
-   * The UUID of the request that caused this entry to be added
+   * The UUIDs of the requests that caused this entry to be added
+   * New UUIDs should be added to the front of the array
+   * to make retrieving the latest UUID easier.
    */
-  requestUUID: string;
+  requestUUIDs: string[];
+
+  /**
+   * A list of UUIDs for the requests that depend on this object.
+   * When this object is invalidated, these requests will be invalidated as well.
+   */
+  dependentRequestUUIDs: string[];
 
   /**
    * An array of patches that were made on the client side to this entry, but haven't been sent to the server yet
@@ -110,7 +94,6 @@ export class ObjectCacheEntry implements CacheEntry {
   alternativeLinks: string[];
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * The ObjectCache State
@@ -158,6 +141,14 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
       return applyPatchObjectCache(state, action as ApplyPatchObjectCacheAction);
     }
 
+    case ObjectCacheActionTypes.ADD_DEPENDENTS: {
+      return addDependentsObjectCacheState(state, action as AddDependentsObjectCacheAction);
+    }
+
+    case ObjectCacheActionTypes.REMOVE_DEPENDENTS: {
+      return removeDependentsObjectCacheState(state, action as RemoveDependentsObjectCacheAction);
+    }
+
     default: {
       return state;
     }
@@ -182,11 +173,12 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       data: action.payload.objectToCache,
       timeCompleted: action.payload.timeCompleted,
       msToLive: action.payload.msToLive,
-      requestUUID: action.payload.requestUUID,
+      requestUUIDs: [action.payload.requestUUID, ...(existing.requestUUIDs || [])],
+      dependentRequestUUIDs: existing.dependentRequestUUIDs || [],
       isDirty: isNotEmpty(existing.patches),
       patches: existing.patches || [],
       alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks]
-    }
+    } as ObjectCacheEntry
   });
 }
 
@@ -274,5 +266,51 @@ function applyPatchObjectCache(state: ObjectCacheState, action: ApplyPatchObject
     const newData = applyPatch(newState[uuid].data, flatPatch, undefined, false);
     newState[uuid] = Object.assign({}, newState[uuid], { data: newData.newDocument, patches: [] });
   }
+  return newState;
+}
+
+/**
+ * Add a list of dependent request UUIDs to a cached object, used when defining new dependencies
+ *
+ * @param state   the current state
+ * @param action  an AddDependentsObjectCacheAction
+ * @return        the new state, with the dependent requests of the cached object updated
+ */
+function addDependentsObjectCacheState(state: ObjectCacheState, action: AddDependentsObjectCacheAction): ObjectCacheState {
+  const href = action.payload.href;
+  const newState = Object.assign({}, state);
+
+  if (hasValue(newState[href])) {
+    newState[href] = Object.assign({}, newState[href], {
+      dependentRequestUUIDs: [
+        ...new Set([
+          ...newState[href]?.dependentRequestUUIDs || [],
+          ...action.payload.dependentRequestUUIDs,
+        ])
+      ]
+    });
+  }
+
+  return newState;
+}
+
+
+/**
+ * Remove all dependent request UUIDs from a cached object, used to clear out-of-date depedencies
+ *
+ * @param state   the current state
+ * @param action  an AddDependentsObjectCacheAction
+ * @return        the new state, with the dependent requests of the cached object updated
+ */
+function removeDependentsObjectCacheState(state: ObjectCacheState, action: RemoveDependentsObjectCacheAction): ObjectCacheState {
+  const href = action.payload;
+  const newState = Object.assign({}, state);
+
+  if (hasValue(newState[href])) {
+    newState[href] = Object.assign({}, newState[href], {
+      dependentRequestUUIDs: []
+    });
+  }
+
   return newState;
 }

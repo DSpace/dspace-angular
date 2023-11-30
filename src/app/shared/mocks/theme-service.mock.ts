@@ -1,6 +1,6 @@
 import { ThemeService } from '../theme-support/theme.service';
 import { of as observableOf } from 'rxjs';
-import { ThemeConfig } from '../../../config/theme.model';
+import { ThemeConfig } from '../../../config/theme.config';
 import { isNotEmpty } from '../empty.util';
 
 export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]): ThemeService {
@@ -8,6 +8,7 @@ export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]):
     getThemeName: themeName,
     getThemeName$: observableOf(themeName),
     getThemeConfigFor: undefined,
+    listenForRouteChanges: undefined,
   });
 
   if (isNotEmpty(themes)) {

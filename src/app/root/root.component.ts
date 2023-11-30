@@ -1,25 +1,25 @@
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 import { MetadataService } from '../core/metadata/metadata.service';
 import { HostWindowState } from '../shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from '../core/services/window.service';
 import { AuthService } from '../core/auth/auth.service';
-import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
+import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/initial-menus-state';
 import { HostWindowService } from '../shared/host-window.service';
-import { ThemeConfig } from '../../config/theme.model';
+import { ThemeConfig } from '../../config/theme.config';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
+import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
+import { hasValueOperator } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-root',
@@ -51,7 +51,6 @@ export class RootComponent implements OnInit {
     private translate: TranslateService,
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
-    private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private angulartics2DSpace: Angulartics2DSpace,
     private authService: AuthService,
     private router: Router,
@@ -63,19 +62,28 @@ export class RootComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
+    this.sidebarVisible = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
-    this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
-    this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
+    this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width').pipe(hasValueOperator());
+    this.totalSidebarWidth = this.cssService.getVariable('--ds-total-sidebar-width').pipe(hasValueOperator());
 
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
     this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])
       .pipe(
-        map(([collapsed, mobile]) => collapsed || mobile)
+        map(([collapsed, mobile]) => collapsed || mobile),
+        startWith(true),
       );
 
     if (this.router.url === getPageInternalServerErrorRoute()) {
       this.shouldShowRouteLoader = false;
+    }
+  }
+
+  skipToMainContent() {
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.tabIndex = -1;
+      mainContent.focus();
     }
   }
 }

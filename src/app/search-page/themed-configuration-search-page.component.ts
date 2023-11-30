@@ -28,19 +28,18 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch = true;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * Whether or not the search bar should be visible
    */
-  @Input()
-  searchEnabled = true;
+  @Input() searchEnabled: boolean;
 
   /**
    * The width of the sidebar (bootstrap columns)
    */
   @Input()
-  sideBarWidth = 3;
+  sideBarWidth: number;
 
   /**
    * The currently applied configuration (determines title of search)
@@ -66,7 +65,7 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   }
 
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./configuration-search-page.component`);
+    return import('./configuration-search-page.component');
   }
 
 }

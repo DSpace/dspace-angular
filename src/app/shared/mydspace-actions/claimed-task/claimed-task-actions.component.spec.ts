@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { of as observableOf } from 'rxjs';
-import { cold } from 'jasmine-marbles';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
@@ -123,7 +122,9 @@ describe('ClaimedTaskActionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClaimedTaskActionsComponent);
     component = fixture.componentInstance;
+    component.item = item;
     component.object = mockObject;
+    component.workflowitem = workflowitem;
     notificationsServiceStub = TestBed.inject(NotificationsService as any);
     router = TestBed.inject(Router as any);
     fixture.detectChanges();
@@ -133,11 +134,11 @@ describe('ClaimedTaskActionsComponent', () => {
     component.object = null;
     component.initObjects(mockObject);
 
+    expect(component.item).toEqual(item);
+
     expect(component.object).toEqual(mockObject);
 
-    expect(component.workflowitem$).toBeObservable(cold('(b|)', {
-      b: rdWorkflowitem.payload
-    }));
+    expect(component.workflowitem).toEqual(workflowitem);
   });
 
   it('should reload page on process completed', waitForAsync(() => {
@@ -161,25 +162,22 @@ describe('ClaimedTaskActionsComponent', () => {
     });
   }));
 
-  describe('when edit options is not available', () => {
-    it('should display a view button', waitForAsync(() => {
-      component.object = null;
-      component.initObjects(mockObject);
-      fixture.detectChanges();
+  it('should display a view button', waitForAsync(() => {
+    component.object = null;
+    component.initObjects(mockObject);
+    fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        const debugElement = fixture.debugElement.query(By.css('.workflow-view'));
-        expect(debugElement).toBeTruthy();
-        expect(debugElement.nativeElement.innerText).toBe('submission.workflow.generic.view');
-      });
+    fixture.whenStable().then(() => {
+      const debugElement = fixture.debugElement.query(By.css('.workflow-view'));
+      expect(debugElement).toBeTruthy();
+      expect(debugElement.nativeElement.innerText.trim()).toBe('submission.workflow.generic.view');
+    });
 
-    }));
+  }));
 
-    it('getWorkflowItemViewRoute should return the combined uri to show a workspaceitem', waitForAsync(() => {
-      const href = component.getWorkflowItemViewRoute(workflowitem);
-      expect(href).toEqual('/workflowitems/333/view');
-    }));
-  });
-
+  it('getWorkflowItemViewRoute should return the combined uri to show a workspaceitem', waitForAsync(() => {
+    const href = component.getWorkflowItemViewRoute(workflowitem);
+    expect(href).toEqual('/workflowitems/333/view');
+  }));
 
 });

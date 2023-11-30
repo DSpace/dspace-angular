@@ -17,12 +17,6 @@ import { Item } from '../../../../../core/shared/item.model';
  * a sidebar search modal
  */
 export class OrgUnitSidebarSearchListElementComponent extends SidebarSearchListElementComponent<ItemSearchResult, Item> {
-  /**
-   * Get the title of the Org Unit by returning its legal name
-   */
-  getTitle(): string {
-    return this.firstMetadataValue('organization.legalName');
-  }
 
   /**
    * Get the description of the Org Unit by returning its dc.description

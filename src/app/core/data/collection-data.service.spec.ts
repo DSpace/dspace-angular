@@ -13,16 +13,17 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { Collection } from '../shared/collection.model';
 import { PageInfo } from '../shared/page-info.model';
 import { buildPaginatedList } from './paginated-list.model';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { hasNoValue } from '../../shared/empty.util';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 
 const url = 'fake-url';
 const collectionId = 'fake-collection-id';
@@ -74,6 +75,16 @@ describe('CollectionDataService', () => {
   const array = [mockCollection1, mockCollection2, mockCollection3];
   const paginatedList = buildPaginatedList(pageInfo, array);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
+
+  describe('composition', () => {
+    const initService = () => new CollectionDataService(null, null, null, null, null, null, null, null, null);
+
+    testCreateDataImplementation(initService);
+    testFindAllDataImplementation(initService);
+    testSearchDataImplementation(initService);
+    testPatchDataImplementation(initService);
+    testDeleteDataImplementation(initService);
+  });
 
   describe('when the requests are successful', () => {
     beforeEach(() => {
@@ -201,7 +212,7 @@ describe('CollectionDataService', () => {
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 
-    service = new CollectionDataService(requestService, rdbService, null, null, objectCache, halService, notificationsService, null, null, null, translate);
+    service = new CollectionDataService(requestService, rdbService, objectCache, halService, null, notificationsService, null, null, translate);
   }
 
 });

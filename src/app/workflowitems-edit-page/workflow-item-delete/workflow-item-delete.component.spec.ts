@@ -1,5 +1,5 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Location } from '@angular/common';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { LocationStub } from '../../shared/testing/location.stub';
 
 describe('WorkflowItemDeleteComponent', () => {
   let component: WorkflowItemDeleteComponent;
@@ -50,6 +51,7 @@ describe('WorkflowItemDeleteComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
         { provide: RouteService, useValue: {} },
+        { provide: Location, useValue: new LocationStub() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useValue: getMockRequestService() },

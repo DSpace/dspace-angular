@@ -1,4 +1,4 @@
-<ul class="navbar-nav" *ngIf="(isAuthenticated$ | async) && isImpersonating">
+<ul class="navbar-nav" *ngIf="isImpersonating$ | async">
   <li class="nav-item">
     <button class="btn btn-sm btn-dark" ngbTooltip="{{'nav.stop-impersonating' | translate}}" (click)="stopImpersonating()">
       <i class="fa fa-user-secret"></i>

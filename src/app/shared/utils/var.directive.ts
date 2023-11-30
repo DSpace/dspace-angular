@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
-/* tslint:disable:directive-selector */
+/* eslint-disable @angular-eslint/directive-selector */
 @Directive({
   selector: '[ngVar]',
 })
@@ -20,4 +20,4 @@ export class VarDirective {
     this.vcRef.createEmbeddedView(this.templateRef, this.context);
   }
 }
-/* tslint:enable:directive-selector */
+/* eslint-enable @angular-eslint/directive-selector */

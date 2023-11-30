@@ -4,8 +4,8 @@ import {
 } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { ResponseParsingService } from './parsing.service';
-import { RestRequest } from './request.models';
 import { Registration } from '../shared/registration.model';
+import { RestRequest } from './rest-request.model';
 
 @Injectable({
   providedIn: 'root',

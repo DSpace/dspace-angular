@@ -7,7 +7,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { of as observableOf, Subject } from 'rxjs';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 
@@ -17,14 +16,12 @@ describe('SearchFiltersComponent', () => {
   let searchService: SearchService;
 
   const searchServiceStub = {
-    /* tslint:disable:no-empty */
-    getConfig: () =>
-      observableOf({ hasSucceeded: true, payload: [] }),
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {
     }
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
 
   const searchFiltersStub = {
@@ -63,28 +60,6 @@ describe('SearchFiltersComponent', () => {
 
     it('should call getSearchLink on the searchService', () => {
       expect(searchService.getSearchLink).toHaveBeenCalled();
-    });
-  });
-
-  describe('when refreshSearch observable is present and emit events', () => {
-
-    let refreshFiltersEmitter: Subject<any>;
-
-    beforeEach(() => {
-      spyOn(comp, 'initFilters').and.callFake(() => { /****/});
-
-      refreshFiltersEmitter = new Subject();
-      comp.refreshFilters = refreshFiltersEmitter.asObservable();
-      comp.ngOnInit();
-    });
-
-    it('should reinitialize search filters', () => {
-
-      expect(comp.initFilters).toHaveBeenCalledTimes(1);
-
-      refreshFiltersEmitter.next();
-
-      expect(comp.initFilters).toHaveBeenCalledTimes(2);
     });
   });
 

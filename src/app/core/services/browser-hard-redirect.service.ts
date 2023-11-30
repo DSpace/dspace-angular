@@ -24,7 +24,7 @@ export class BrowserHardRedirectService extends HardRedirectService {
    * @param url
    */
   redirect(url: string) {
-    this.location.href = url;
+    this.location.replace(url);
   }
 
   /**
@@ -38,8 +38,8 @@ export class BrowserHardRedirectService extends HardRedirectService {
   /**
    * Get the origin of the current URL
    * i.e. <scheme> "://" <hostname> [ ":" <port> ]
-   * e.g. if the URL is https://demo7.dspace.org/search?query=test,
-   * the origin would be https://demo7.dspace.org
+   * e.g. if the URL is https://demo.dspace.org/search?query=test,
+   * the origin would be https://demo.dspace.org
    */
   getCurrentOrigin(): string {
     return this.location.origin;

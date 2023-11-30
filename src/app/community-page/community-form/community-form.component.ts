@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -13,6 +13,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * Form used for creating and editing communities
@@ -22,7 +23,7 @@ import { ObjectCacheService } from '../../core/cache/object-cache.service';
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CommunityFormComponent extends ComColFormComponent<Community> {
+export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {
   /**
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited
    */
@@ -52,18 +53,22 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
     new DynamicTextAreaModel({
       id: 'description',
       name: 'dc.description',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'abstract',
       name: 'dc.description.abstract',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'rights',
       name: 'dc.rights',
+      spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
       id: 'tableofcontents',
       name: 'dc.description.tableofcontents',
+      spellCheck: environment.form.spellCheck,
     }),
   ];
 
@@ -75,5 +80,12 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const dsoChange: SimpleChange = changes.dso;
+    if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
+       super.ngOnInit();
+    }
   }
 }

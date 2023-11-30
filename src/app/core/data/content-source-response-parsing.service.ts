@@ -4,8 +4,8 @@ import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { ContentSource } from '../shared/content-source.model';
 import { MetadataConfig } from '../shared/metadata-config.model';
-import { RestRequest } from './request.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
+import { RestRequest } from './rest-request.model';
 
 @Injectable()
 /**

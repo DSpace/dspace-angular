@@ -25,28 +25,9 @@ export class PersonSidebarSearchListElementComponent extends SidebarSearchListEl
   constructor(protected truncatableService: TruncatableService,
               protected linkService: LinkService,
               protected translateService: TranslateService,
-              protected dsoNameService: DSONameService
+              public dsoNameService: DSONameService,
   ) {
     super(truncatableService, linkService, dsoNameService);
-  }
-
-  /**
-   * Get the title of the Person by returning a combination of its family name and given name (or "No name found")
-   */
-  getTitle(): string {
-    const familyName = this.firstMetadataValue('person.familyName');
-    const givenName = this.firstMetadataValue('person.givenName');
-    let title = '';
-    if (isNotEmpty(familyName)) {
-      title = familyName;
-    }
-    if (isNotEmpty(title)) {
-      title += ', ';
-    }
-    if (isNotEmpty(givenName)) {
-      title += givenName;
-    }
-    return this.defaultIfEmpty(title, this.translateService.instant('person.listelement.no-title'));
   }
 
   /**

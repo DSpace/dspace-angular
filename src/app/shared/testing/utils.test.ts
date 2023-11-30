@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { RequestEntry, RequestEntryState } from '../../core/data/request.reducer';
+import { Observable } from 'rxjs/internal/Observable';
+import { of as observableOf } from 'rxjs/internal/observable/of';
 import { UnCacheableObject } from '../../core/shared/uncacheable-object.model';
+import { RequestEntryState } from '../../core/data/request-entry-state.model';
+import { RequestEntry } from '../../core/data/request-entry.model';
 
 /**
  * Returns true if a Native Element has a specified css class.
@@ -70,7 +72,7 @@ export function createPaginatedList<T>(objects?: T[]): PaginatedList<T> {
  * @param prop The property/function to spy on
  */
 export function spyOnExported<T>(target: T, prop: keyof T): jasmine.Spy {
-  const spy = jasmine.createSpy(`${prop}Spy`);
+  const spy = jasmine.createSpy(`${String(prop)}Spy`);
   spyOnProperty(target, prop).and.returnValue(spy);
   return spy;
 }

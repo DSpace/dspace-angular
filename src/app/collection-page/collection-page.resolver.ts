@@ -17,7 +17,7 @@ export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
   followLink('parentCommunity', {},
     followLink('parentCommunity')
   ),
-  followLink('logo')
+  followLink('logo'),
 ];
 
 /**

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { type } from '../../shared/ngrx/type';
@@ -16,7 +17,6 @@ export const EPeopleRegistryActionTypes = {
   CANCEL_EDIT_EPERSON: type('dspace/epeople-registry/CANCEL_EDIT_EPERSON'),
 };
 
-/* tslint:disable:max-classes-per-file */
 /**
  * Used to edit an EPerson in the EPeople registry
  */
@@ -37,7 +37,6 @@ export class EPeopleRegistryCancelEPersonAction implements Action {
   type = EPeopleRegistryActionTypes.CANCEL_EDIT_EPERSON;
 }
 
-/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

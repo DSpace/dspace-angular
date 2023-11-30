@@ -1,4 +1,3 @@
-import { FieldUpdate, FieldUpdates } from '../../core/data/object-updates/object-updates.reducer';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -18,6 +17,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { compareArraysUsing } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { FieldUpdate } from '../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
 
 /**
  * Operator used for comparing {@link FieldUpdate}s by their field's UUID

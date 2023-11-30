@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
-import { cloneDeep } from 'lodash';
+import { Observable, from as observableFrom } from 'rxjs';
+import { filter, find, map, mergeMap, switchMap, take, tap, toArray } from 'rxjs/operators';
+import cloneDeep from 'lodash/cloneDeep';
 import { hasValue, isEmpty, isNotEmpty, hasNoValue } from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
 import { IndexState, MetaIndexState } from '../index/index.reducer';
 import { requestIndexSelector, getUrlWithoutEmbedParams } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
@@ -17,11 +16,15 @@ import {
   RequestExecuteAction,
   RequestStaleAction
 } from './request.actions';
-import { GetRequest, RestRequest } from './request.models';
-import { RequestEntry, RequestState, isStale, isLoading } from './request.reducer';
+import { GetRequest } from './request.models';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { coreSelector } from '../core.selectors';
+import { isLoading, isStale } from './request-entry-state.model';
+import { RestRequest } from './rest-request.model';
+import { CoreState } from '../core-state.model';
+import { RequestState } from './request-state.model';
+import { RequestEntry } from './request-entry.model';
 
 /**
  * The base selector function to select the request state in the store
@@ -144,7 +147,7 @@ export class RequestService {
   /**
    * Check if a GET request is currently pending
    */
-  isPending(request: GetRequest): boolean {
+  isPending(request: RestRequest): boolean {
     // If the request is not a GET request, it will never be considered pending, because you may
     // want to execute the exact same e.g. POST multiple times
     if (request.method !== RestRequestMethod.GET) {
@@ -241,7 +244,7 @@ export class RequestService {
     if (this.shouldDispatchRequest(request, useCachedVersionIfAvailable)) {
       this.dispatchRequest(request);
       if (request.method === RestRequestMethod.GET) {
-        this.trackRequestsOnTheirWayToTheStore(request);
+        this.trackRequestsOnTheirWayToTheStore(request as GetRequest);
       }
       return true;
     } else {
@@ -252,8 +255,8 @@ export class RequestService {
   /**
    * Convert request Payload to a URL-encoded string
    *
-   * e.g.  uriEncodeBody({param: value, param1: value1})
-   * returns: param=value&param1=value1
+   * e.g.  uriEncodeBody({param: value, param1: value1, param2: [value3, value4]})
+   * returns: param=value&param1=value1&param2=value3&param2=value4
    *
    * @param body
    *    The request Payload to convert
@@ -264,11 +267,19 @@ export class RequestService {
     let queryParams = '';
     if (isNotEmpty(body) && typeof body === 'object') {
       Object.keys(body)
-        .forEach((param) => {
+        .forEach((param: string) => {
           const encodedParam = encodeURIComponent(param);
-          const encodedBody = encodeURIComponent(body[param]);
-          const paramValue = `${encodedParam}=${encodedBody}`;
-          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+          if (Array.isArray(body[param])) {
+            for (const element of body[param]) {
+              const encodedBody = encodeURIComponent(element);
+              const paramValue = `${encodedParam}=${encodedBody}`;
+              queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+            }
+          } else {
+            const encodedBody = encodeURIComponent(body[param]);
+            const paramValue = `${encodedParam}=${encodedBody}`;
+            queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+          }
         });
     }
     return queryParams;
@@ -289,22 +300,79 @@ export class RequestService {
    * Set all requests that match (part of) the href to stale
    *
    * @param href    A substring of the request(s) href
-   * @return        Returns an observable emitting whether or not the cache is removed
+   * @return        Returns an observable emitting when those requests are all stale
    */
   setStaleByHrefSubstring(href: string): Observable<boolean> {
-    this.store.pipe(
+    const requestUUIDs$ = this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
       take(1)
-    ).subscribe((uuids: string[]) => {
+    );
+    requestUUIDs$.subscribe((uuids: string[]) => {
       for (const uuid of uuids) {
         this.store.dispatch(new RequestStaleAction(uuid));
       }
     });
     this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
 
-    return this.store.pipe(
-      select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
-      map((uuids) => isEmpty(uuids))
+    // emit true after all requests are stale
+    return requestUUIDs$.pipe(
+      switchMap((uuids: string[]) => {
+        if (isEmpty(uuids)) {
+          // if there were no matching requests, emit true immediately
+          return [true];
+        } else {
+          // otherwise emit all request uuids in order
+          return observableFrom(uuids).pipe(
+            // retrieve the RequestEntry for each uuid
+            mergeMap((uuid: string) => this.getByUUID(uuid)),
+            // check whether it is undefined or stale
+            map((request: RequestEntry) => hasNoValue(request) || isStale(request.state)),
+            // if it is, complete
+            find((stale: boolean) => stale === true),
+            // after all observables above are completed, emit them as a single array
+            toArray(),
+            // when the array comes in, emit true
+            map(() => true)
+          );
+        }
+      })
+    );
+  }
+
+  /**
+   * Mark a request as stale
+   * @param uuid  the UUID of the request
+   * @return      an Observable that will emit true once the Request becomes stale
+   */
+  setStaleByUUID(uuid: string): Observable<boolean> {
+    this.store.dispatch(new RequestStaleAction(uuid));
+
+    return this.getByUUID(uuid).pipe(
+      map((request: RequestEntry) => isStale(request.state)),
+      filter((stale: boolean) => stale),
+      take(1),
+    );
+  }
+
+  /**
+   * Mark a request as stale
+   * @param href  the href of the request
+   * @return      an Observable that will emit true once the Request becomes stale
+   */
+  setStaleByHref(href: string): Observable<boolean> {
+    const requestEntry$ = this.getByHref(href);
+
+    requestEntry$.pipe(
+      map((re: RequestEntry) => re.request.uuid),
+      take(1),
+    ).subscribe((uuid: string) => {
+      this.store.dispatch(new RequestStaleAction(uuid));
+    });
+
+    return requestEntry$.pipe(
+      map((request: RequestEntry) => isStale(request.state)),
+      filter((stale: boolean) => stale),
+      take(1)
     );
   }
 
@@ -314,14 +382,14 @@ export class RequestService {
    * @param {boolean} useCachedVersionIfAvailable Whether or not to allow the use of a cached version
    * @returns {boolean} True if the request is cached or still pending
    */
-  public shouldDispatchRequest(request: GetRequest, useCachedVersionIfAvailable: boolean): boolean {
+  public shouldDispatchRequest(request: RestRequest, useCachedVersionIfAvailable: boolean): boolean {
     // if it's not a GET request
     if (request.method !== RestRequestMethod.GET) {
       return true;
-    // if it is a GET request, check it isn't pending
+      // if it is a GET request, check it isn't pending
     } else if (this.isPending(request)) {
       return false;
-    // if it is pending, check if we're allowed to use a cached version
+      // if it is pending, check if we're allowed to use a cached version
     } else if (!useCachedVersionIfAvailable) {
       return true;
     } else {
@@ -336,7 +404,7 @@ export class RequestService {
           .subscribe((entry: ObjectCacheEntry) => {
             // if the object cache has a match, check if the request that the object came with is
             // still valid
-            inObjCache = this.hasByUUID(entry.requestUUID);
+            inObjCache = this.hasByUUID(entry.requestUUIDs[0]);
           }).unsubscribe();
 
         // we should send the request if it isn't cached

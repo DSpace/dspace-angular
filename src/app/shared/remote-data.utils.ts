@@ -1,7 +1,7 @@
 import { RemoteData } from '../core/data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { RequestEntryState } from '../core/data/request.reducer';
+import { RequestEntryState } from '../core/data/request-entry-state.model';
 
 /**
  * A fixed timestamp to use in tests
@@ -61,7 +61,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
  * @param timeCompleted the moment when the remoteData was completed
  */
 export function createFailedRemoteDataObject$<T>(errorMessage?: string, statusCode?: number, timeCompleted?: number): Observable<RemoteData<T>> {
-  return observableOf(createFailedRemoteDataObject(errorMessage, statusCode, timeCompleted));
+  return observableOf(createFailedRemoteDataObject<T>(errorMessage, statusCode, timeCompleted));
 }
 
 /**
@@ -85,7 +85,7 @@ export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP)
  * @param lastVerified the moment when the remoteData was last verified
  */
 export function createPendingRemoteDataObject$<T>(lastVerified?: number): Observable<RemoteData<T>> {
-  return observableOf(createPendingRemoteDataObject(lastVerified));
+  return observableOf(createPendingRemoteDataObject<T>(lastVerified));
 }
 
 /**

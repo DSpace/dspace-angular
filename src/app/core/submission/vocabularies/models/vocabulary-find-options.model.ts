@@ -1,7 +1,7 @@
 import { SortOptions } from '../../../cache/models/sort-options.model';
-import { FindListOptions } from '../../../data/request.models';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { FindListOptions } from '../../../data/find-list-options.model';
 
 /**
  * Representing properties used to build a vocabulary find request

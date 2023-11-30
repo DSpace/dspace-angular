@@ -7,10 +7,10 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { NoContent } from '../../../../core/shared/NoContent.model';
-import { RequestService } from '../../../../core/data/request.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { Collection } from '../../../../core/shared/collection.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component representing the delete page for communities and collections
@@ -37,11 +37,11 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
 
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
+    public dsoNameService: DSONameService,
     protected router: Router,
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,
     protected translate: TranslateService,
-    protected requestService: RequestService
   ) {
   }
 
@@ -61,7 +61,6 @@ export class DeleteComColPageComponent<TDomain extends Community | Collection> i
         if (response.hasSucceeded) {
           const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
           this.notifications.success(successMessage);
-          this.dsoDataService.refreshCache(dso);
         } else {
           const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
           this.notifications.error(errorMessage);

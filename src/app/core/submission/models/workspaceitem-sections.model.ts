@@ -3,6 +3,8 @@ import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.mod
 import { WorkspaceitemSectionLicenseObject } from './workspaceitem-section-license.model';
 import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload.model';
 import { WorkspaceitemSectionCcLicenseObject } from './workspaceitem-section-cc-license.model';
+import {WorkspaceitemSectionIdentifiersObject} from './workspaceitem-section-identifiers.model';
+import { WorkspaceitemSectionSherpaPoliciesObject } from './workspaceitem-section-sherpa-policies.model';
 
 /**
  * An interface to represent submission's section object.
@@ -21,4 +23,6 @@ export type WorkspaceitemSectionDataType
   | WorkspaceitemSectionLicenseObject
   | WorkspaceitemSectionCcLicenseObject
   | WorkspaceitemSectionAccessesObject
+  | WorkspaceitemSectionSherpaPoliciesObject
+  | WorkspaceitemSectionIdentifiersObject
   | string;

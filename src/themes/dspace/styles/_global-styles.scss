@@ -17,17 +17,7 @@
     background-color: var(--bs-primary);
   }
 
-  h5 {
+  h4 {
     font-size: 1.1rem
-  }
-}
-
-header {
-  li > .navbar-section,
-  li > .expandable-navbar-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
   }
 }

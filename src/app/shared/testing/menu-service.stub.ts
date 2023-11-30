@@ -1,6 +1,7 @@
-import { MenuID } from '../menu/initial-menus-state';
 import { Observable, of as observableOf } from 'rxjs';
-import { MenuSection } from '../menu/menu.reducer';
+import { MenuSection } from '../menu/menu-section.model';
+import { MenuState } from '../menu/menu-state.model';
+import { MenuID } from '../menu/menu-id.model';
 
 export class MenuServiceStub {
   visibleSection1 = {
@@ -65,6 +66,10 @@ export class MenuServiceStub {
     return observableOf(true);
   }
 
+  isMenuVisibleWithVisibleSections(id: MenuID): Observable<boolean> {
+    return observableOf(true);
+  }
+
   isMenuCollapsed(id: MenuID): Observable<boolean> {
     return observableOf(false);
   }
@@ -75,6 +80,10 @@ export class MenuServiceStub {
 
   hasSubSections(id: MenuID, sectionID: string): Observable<boolean> {
     return observableOf(true);
+  }
+
+  getMenu(id: MenuID): Observable<MenuState> {  // todo: resolve import
+    return observableOf({} as MenuState);
   }
 
   getMenuTopSections(id: MenuID): Observable<MenuSection[]> {

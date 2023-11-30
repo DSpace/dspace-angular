@@ -11,7 +11,7 @@ import {
 } from './selectable-list.actions';
 import { AppState } from '../../../app.reducer';
 
-class SelectableObject extends ListableObject {
+export class SelectableObject extends ListableObject {
   constructor(private value: string) {
     super();
   }
@@ -39,9 +39,9 @@ describe('SelectableListService', () => {
 
   let service: SelectableListService;
   const store: Store<AppState> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
+    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* tslint:enable:no-empty */
+    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

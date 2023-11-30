@@ -3,7 +3,7 @@
 }
 
 span {
-	display: block; 
+	display: block;
 	margin: 0 auto;
 }
 
@@ -13,11 +13,11 @@ span[class*="l-"] {
 	background: #000;
 	display: inline-block;
 	margin: 12px 2px;
-	
+
 	border-radius: 100%;
 	-webkit-border-radius: 100%;
 	-moz-border-radius: 100%;
-	
+
 	-webkit-animation: loader 2s infinite;
 	-webkit-animation-timing-function: cubic-bezier(0.030, 0.615, 0.995, 0.415);
 	-webkit-animation-fill-mode: both;
@@ -70,4 +70,8 @@ span.l-10 {-webkit-animation-delay: 0s;animation-delay: 0s;-ms-animation-delay: 
 	25% {opacity: 1;}
 	50% {-ms-transform: translateX(30px); opacity: 0;}
 	100% {opacity: 0;}
+}
+
+.spinner {
+  color: var(--bs-gray-600);
 }

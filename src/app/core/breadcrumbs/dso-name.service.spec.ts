@@ -78,15 +78,32 @@ describe(`DSONameService`, () => {
   });
 
   describe(`factories.Person`, () => {
-    beforeEach(() => {
-      spyOn(mockPerson, 'firstMetadataValue').and.returnValues(...mockPersonName.split(', '));
+    describe(`with person.familyName and  person.givenName`, () => {
+      beforeEach(() => {
+        spyOn(mockPerson, 'firstMetadataValue').and.returnValues(...mockPersonName.split(', '));
+      });
+
+      it(`should return 'person.familyName, person.givenName'`, () => {
+        const result = (service as any).factories.Person(mockPerson);
+        expect(result).toBe(mockPersonName);
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.familyName');
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.givenName');
+        expect(mockPerson.firstMetadataValue).not.toHaveBeenCalledWith('dc.title');
+      });
     });
 
-    it(`should return 'person.familyName, person.givenName'`, () => {
-      const result = (service as any).factories.Person(mockPerson);
-      expect(result).toBe(mockPersonName);
-      expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.familyName');
-      expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.givenName');
+    describe(`without person.familyName and  person.givenName`, () => {
+      beforeEach(() => {
+        spyOn(mockPerson, 'firstMetadataValue').and.returnValues(undefined, undefined, mockPersonName);
+      });
+
+      it(`should return dc.title`, () => {
+        const result = (service as any).factories.Person(mockPerson);
+        expect(result).toBe(mockPersonName);
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.familyName');
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('person.givenName');
+        expect(mockPerson.firstMetadataValue).toHaveBeenCalledWith('dc.title');
+      });
     });
   });
 

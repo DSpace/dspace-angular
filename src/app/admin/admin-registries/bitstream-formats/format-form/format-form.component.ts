@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * The component responsible for rendering the form to create/edit a bitstream format
@@ -90,6 +91,7 @@ export class FormatFormComponent implements OnInit {
       name: 'description',
       label: 'admin.registries.bitstream-formats.edit.description.label',
       hint: 'admin.registries.bitstream-formats.edit.description.hint',
+      spellCheck: environment.form.spellCheck,
 
     }),
     new DynamicSelectModel({

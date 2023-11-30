@@ -7,7 +7,7 @@ import { SectionsServiceStub } from '../../../shared/testing/sections-service.st
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { SubmissionAccessesConfigService } from '../../../core/config/submission-accesses-config.service';
+import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import {
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService
@@ -16,11 +16,15 @@ import { SectionAccessesService } from './section-accesses.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../core/submission/submission-json-patch-operations.service';
 import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
+import {
+  SubmissionJsonPatchOperationsServiceStub
+} from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -42,8 +46,6 @@ describe('SubmissionSectionAccessesComponent', () => {
   let fixture: ComponentFixture<SubmissionSectionAccessesComponent>;
 
   const sectionsServiceStub = new SectionsServiceStub();
-  // const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
-
   const builderService: FormBuilderService = getMockFormBuilderService();
   const submissionAccessesConfigService = getSubmissionAccessesConfigService();
   const sectionAccessesService = getSectionAccessesService();
@@ -55,6 +57,7 @@ describe('SubmissionSectionAccessesComponent', () => {
   });
 
   let formService: any;
+  let formbuilderService: any;
 
   const storeStub = jasmine.createSpyObj('store', ['dispatch']);
 
@@ -86,8 +89,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: FormBuilderService, useValue: builderService },
-          { provide: SubmissionAccessesConfigService, useValue: submissionAccessesConfigService },
+          { provide: SubmissionAccessesConfigDataService, useValue: submissionAccessesConfigService },
           { provide: SectionAccessesService, useValue: sectionAccessesService },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
@@ -97,6 +99,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
+          FormBuilderService
         ]
       })
         .compileComponents();
@@ -106,6 +109,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
       formService = TestBed.inject(FormService);
+      formbuilderService = TestBed.inject(FormBuilderService);
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
@@ -133,9 +137,20 @@ describe('SubmissionSectionAccessesComponent', () => {
     it('formModel type array should have formgroup with 1 input and 2 datepickers', () => {
       const formModel: any = component.formModel[1];
       const formGroup = formModel.groupFactory()[0].group;
+
       expect(formGroup[0] instanceof DynamicSelectModel).toBeTrue();
       expect(formGroup[1] instanceof DynamicDatePickerModel).toBeTrue();
       expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
+    });
+
+    it('should have set maxStartDate and maxEndDate properly', () => {
+      const maxStartDate = {year: 2024, month: 12, day: 20};
+      const maxEndDate = {year: 2022, month: 6, day: 20};
+
+      const startDateModel = formbuilderService.findById('startDate', component.formModel);
+      expect(startDateModel.max).toEqual(maxStartDate);
+      const endDateModel = formbuilderService.findById('endDate', component.formModel);
+      expect(endDateModel.max).toEqual(maxEndDate);
     });
 
     it('when checkbox changed it should call operationsBuilder replace function', () => {
@@ -166,7 +181,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
           { provide: FormBuilderService, useValue: builderService },
-          { provide: SubmissionAccessesConfigService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
+          { provide: SubmissionAccessesConfigDataService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
           { provide: SectionAccessesService, useValue: sectionAccessesService },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },

@@ -1,9 +1,10 @@
-import { globalCSSImports, projectRoot } from './helpers';
+import { globalCSSImports, projectRoot, getFileHashes, calculateFileHash } from './helpers';
+import { EnvironmentPlugin } from 'webpack';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtPlugin = require('script-ext-html-webpack-plugin');
+const sass = require('sass');
+const JSON5 = require('json5');
 
 export const copyWebpackOptions = {
   patterns: [
@@ -13,6 +14,21 @@ export const copyWebpackOptions = {
       force: undefined
     },
     {
+      from: path.join(__dirname, '..', 'src', 'assets', '**', '*.json5').replace(/\\/g, '/'),
+      to({ absoluteFilename }) {
+        // use [\/|\\] to match both POSIX and Windows separators
+        const matches = absoluteFilename.match(/.*[\/|\\]assets[\/|\\](.+)\.json5$/);
+        if (matches) {
+          const fileHash: string = process.env.NODE_ENV === 'production' ? `.${calculateFileHash(absoluteFilename)}` : '';
+          // matches[1] is the relative path from src/assets to the JSON5 file, without the extension
+          return path.join('assets', `${matches[1]}${fileHash}.json`);
+        }
+      },
+      transform(content) {
+        return JSON.stringify(JSON5.parse(content.toString()));
+      }
+    },
+    {
       from: path.join(__dirname, '..', 'src', 'assets'),
       to: 'assets',
     },
@@ -20,11 +36,10 @@ export const copyWebpackOptions = {
       // replace(/\\/g, '/') because glob patterns need forward slashes, even on windows:
       // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
       from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
-      to: 'assets',
       noErrorOnMissing: true,
-      transformPath(targetPath, absolutePath) {
+      to({ absoluteFilename }) {
         // use [\/|\\] to match both POSIX and Windows separators
-        const matches = absolutePath.match(/.*[\/|\\]themes[\/|\\]([^\/|^\\]+)[\/|\\]assets[\/|\\](.+)$/);
+        const matches = absoluteFilename.match(/.*[\/|\\]themes[\/|\\]([^\/|^\\]+)[\/|\\]assets[\/|\\](.+)$/);
         if (matches) {
           // matches[1] is the theme name
           // matches[2] is the rest of the path relative to the assets folder
@@ -34,22 +49,27 @@ export const copyWebpackOptions = {
       },
     },
     {
-      from: path.join(__dirname, '..', 'src', 'robots.txt'),
-      to: 'robots.txt'
+      from: path.join(__dirname, '..', 'src', 'robots.txt.ejs'),
+      to: 'assets/robots.txt.ejs'
     }
   ]
 };
 
-const SCSS_LOADERS = [{
-  loader: 'postcss-loader',
-  options: {
-    sourceMap: true
-  }
-},
+const SCSS_LOADERS = [
+  {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: true
+    }
+  },
   {
     loader: 'sass-loader',
     options: {
       sourceMap: true,
+      // sass >1.33 complains about deprecation warnings in Bootstrap 4
+      // After upgrading to Angular 12 we need to explicitly use an older version here
+      // todo: remove after upgrading to Bootstrap 5
+      implementation: sass,
       sassOptions: {
         includePaths: [projectRoot('./')]
       }
@@ -59,15 +79,10 @@ const SCSS_LOADERS = [{
 
 export const commonExports = {
   plugins: [
-    new CopyWebpackPlugin(copyWebpackOptions),
-    new HtmlWebpackPlugin({
-      template: projectRoot('./src/index.html', ),
-      output: projectRoot('dist'),
-      inject: 'head'
+    new EnvironmentPlugin({
+      languageHashes: getFileHashes(path.join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
     }),
-    new ScriptExtPlugin({
-      defaultAttribute: 'defer'
-    })
+    new CopyWebpackPlugin(copyWebpackOptions),
   ],
   module: {
     rules: [
@@ -99,5 +114,8 @@ export const commonExports = {
         ]
       },
     ],
-  }
+  },
+  ignoreWarnings: [
+    /src\/themes\/[^/]+\/.*theme.module.ts is part of the TypeScript compilation but it's unused/,
+  ]
 };

@@ -6,11 +6,10 @@ import { ItemReinstateComponent } from './item-reinstate/item-reinstate.componen
 import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
-import { ItemStatusComponent } from './item-status/item-status.component';
-import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
+import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
@@ -27,7 +26,8 @@ import {
   ITEM_EDIT_PRIVATE_PATH,
   ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REINSTATE_PATH,
-  ITEM_EDIT_WITHDRAW_PATH
+  ITEM_EDIT_WITHDRAW_PATH,
+  ITEM_EDIT_REGISTER_DOI_PATH
 } from './edit-item-page.routing-paths';
 import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
 import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
@@ -38,6 +38,13 @@ import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
 import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
+import { ItemPageCurateGuard } from './item-page-curate.guard';
+import { ItemPageAccessControlGuard } from './item-page-access-control.guard';
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
+import { ItemCurateComponent } from './item-curate/item-curate.component';
+import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
+import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -63,7 +70,7 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
               },
               {
                 path: 'status',
-                component: ItemStatusComponent,
+                component: ThemedItemStatusComponent,
                 data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
                 canActivate: [ItemPageStatusGuard]
               },
@@ -75,9 +82,15 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
               },
               {
                 path: 'metadata',
-                component: ItemMetadataComponent,
+                component: ThemedDsoEditMetadataComponent,
                 data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
                 canActivate: [ItemPageMetadataGuard]
+              },
+              {
+                path: 'curate',
+                component: ItemCurateComponent,
+                data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true },
+                canActivate: [ItemPageCurateGuard]
               },
               {
                 path: 'relationships',
@@ -102,6 +115,12 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
                 component: ItemVersionHistoryComponent,
                 data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
                 canActivate: [ItemPageVersionHistoryGuard]
+              },
+              {
+                path: 'access-control',
+                component: ItemAccessControlComponent,
+                data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true },
+                canActivate: [ItemPageAccessControlGuard]
               },
               {
                 path: 'mapper',
@@ -143,6 +162,12 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
             data: { title: 'item.edit.move.title' },
           },
           {
+            path: ITEM_EDIT_REGISTER_DOI_PATH,
+            component: ItemRegisterDoiComponent,
+            canActivate: [ItemPageRegisterDoiGuard],
+            data: { title: 'item.edit.register-doi.title' },
+          },
+          {
             path: ITEM_EDIT_AUTHORIZATIONS_PATH,
             children: [
               {
@@ -181,11 +206,14 @@ import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.gua
     ItemPageWithdrawGuard,
     ItemPageAdministratorGuard,
     ItemPageMetadataGuard,
+    ItemPageCurateGuard,
     ItemPageStatusGuard,
     ItemPageBitstreamsGuard,
     ItemPageRelationshipsGuard,
     ItemPageVersionHistoryGuard,
     ItemPageCollectionMapperGuard,
+    ItemPageAccessControlGuard,
+    ItemPageRegisterDoiGuard,
   ]
 })
 export class EditItemPageRoutingModule {

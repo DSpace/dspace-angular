@@ -31,5 +31,5 @@
           <div *ngIf="updateValues.length === 0">{{"item.edit.relationships.no-relationships" | translate}}</div>
         </ng-container>
     </ng-container>
-    <ds-loading *ngIf="loading$ | async"></ds-loading>
+    <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
 </ng-container>

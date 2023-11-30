@@ -2,48 +2,25 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, from as observableFrom, Observable, Subscription } from 'rxjs';
-import {
-  concatMap,
-  distinctUntilChanged,
-  filter,
-  map,
-  reduce,
-  scan,
-  startWith,
-  take
-} from 'rxjs/operators';
+import { concatMap, distinctUntilChanged, filter, map, reduce, scan, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
-import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataWithNotEmptyPayload,
-  getAllSucceededRemoteData
-} from '../../core/shared/operators';
+import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { Group } from '../../core/eperson/models/group.model';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { NotificationsService } from '../notifications/notifications.service';
-import { dateToString, stringToNgbDateStruct } from '../date.util';
 import { followLink } from '../utils/follow-link-config.model';
-import { ACCESS_CONTROL_MODULE_PATH } from '../../app-routing-paths';
-import { GROUP_EDIT_PATH } from '../../access-control/access-control-routing-paths';
-
-interface ResourcePolicyCheckboxEntry {
-  id: string;
-  policy: ResourcePolicy;
-  checked: boolean;
-}
+import { ResourcePolicyCheckboxEntry } from './entry/resource-policy-entry.component';
 
 @Component({
   selector: 'ds-resource-policies',
   styleUrls: ['./resource-policies.component.scss'],
-  templateUrl: './resource-policies.component.html'
+  templateUrl: './resource-policies.component.html',
 })
 /**
  * Component that shows the policies for given resource
@@ -61,6 +38,12 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @type {string}
    */
   @Input() public resourceType: string;
+
+  /**
+   * The resource name
+   * @type {string}
+   */
+  @Input() public resourceName: string;
 
   /**
    * A boolean representing if component is active
@@ -96,7 +79,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    * @param {GroupDataService} groupService
    * @param {NotificationsService} notificationsService
    * @param {RequestService} requestService
-   * @param {ResourcePolicyService} resourcePolicyService
+   * @param {ResourcePolicyDataService} resourcePolicyService
    * @param {ActivatedRoute} route
    * @param {Router} router
    * @param {TranslateService} translate
@@ -108,7 +91,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     private groupService: GroupDataService,
     private notificationsService: NotificationsService,
     private requestService: RequestService,
-    private resourcePolicyService: ResourcePolicyService,
+    private resourcePolicyService: ResourcePolicyDataService,
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateService
@@ -120,7 +103,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.isActive = true;
-    this.initResourcePolicyLIst();
+    this.initResourcePolicyList();
   }
 
   /**
@@ -157,51 +140,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         } else {
           this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
         }
-        this.requestService.setStaleByHrefSubstring(this.resourceUUID);
         this.processingDelete$.next(false);
       })
-    );
-  }
-
-  /**
-   * Returns a date in simplified format (YYYY-MM-DD).
-   *
-   * @param date
-   * @return a string with formatted date
-   */
-  formatDate(date: string): string {
-    return isNotEmpty(date) ? dateToString(stringToNgbDateStruct(date)) : '';
-  }
-
-  /**
-   * Return the ePerson's name which the given policy is linked to
-   *
-   * @param policy The resource policy
-   */
-  getEPersonName(policy: ResourcePolicy): Observable<string> {
-    // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    // return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
-    return policy.eperson.pipe(
-      filter(() => this.isActive),
-      getFirstSucceededRemoteDataWithNotEmptyPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
-      startWith('')
-    );
-  }
-
-  /**
-   * Return the group's name which the given policy is linked to
-   *
-   * @param policy The resource policy
-   */
-  getGroupName(policy: ResourcePolicy): Observable<string> {
-    // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    // return this.groupService.findByHref(policy._links.group.href).pipe(
-    return policy.group.pipe(
-      filter(() => this.isActive),
-      getFirstSucceededRemoteDataWithNotEmptyPayload(),
-      map((group: Group) => this.dsoNameService.getName(group)),
-      startWith('')
     );
   }
 
@@ -215,45 +155,13 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Check whether the given policy is linked to a ePerson
-   *
-   * @param policy The resource policy
-   * @return an observable that emits true when the policy is linked to a ePerson, false otherwise
-   */
-  hasEPerson(policy): Observable<boolean> {
-    // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    // return this.ePersonService.findByHref(policy._links.eperson.href).pipe(
-    return policy.eperson.pipe(
-      filter(() => this.isActive),
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => isNotEmpty(eperson)),
-      startWith(false)
-    );
-  }
-
-  /**
-   * Check whether the given policy is linked to a group
-   *
-   * @param policy The resource policy
-   * @return an observable that emits true when the policy is linked to a group, false otherwise
-   */
-  hasGroup(policy): Observable<boolean> {
-    // TODO to be reviewed when https://github.com/DSpace/dspace-angular/issues/644 will be resolved
-    // return this.groupService.findByHref(policy._links.group.href).pipe(
-    return policy.group.pipe(
-      filter(() => this.isActive),
-      getFirstSucceededRemoteDataPayload(),
-      map((group: Group) => isNotEmpty(group)),
-      startWith(false)
-    );
-  }
-
-  /**
    * Initialize the resource's policies list
    */
-  initResourcePolicyLIst() {
-    this.subs.push(this.resourcePolicyService.searchByResource(this.resourceUUID, null, false, true,
-      followLink('eperson'), followLink('group')).pipe(
+  initResourcePolicyList() {
+    this.subs.push(this.resourcePolicyService.searchByResource(
+      this.resourceUUID, null, false, true,
+      followLink('eperson'), followLink('group')
+    ).pipe(
       filter(() => this.isActive),
       getAllSucceededRemoteData()
     ).subscribe((result) => {
@@ -288,37 +196,6 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
         targetType: this.resourceType
       }
     });
-  }
-
-  /**
-   * Redirect to resource policy editing page
-   *
-   * @param policy The resource policy
-   */
-  redirectToResourcePolicyEditPage(policy: ResourcePolicy): void {
-    this.router.navigate([`./edit`], {
-      relativeTo: this.route,
-      queryParams: {
-        policyId: policy.id
-      }
-    });
-  }
-
-  /**
-   * Redirect to group edit page
-   *
-   * @param policy The resource policy
-   */
-  redirectToGroupEditPage(policy: ResourcePolicy): void {
-    this.subs.push(
-      this.groupService.findByHref(policy._links.group.href, false).pipe(
-        filter(() => this.isActive),
-        getFirstSucceededRemoteDataPayload(),
-        map((group: Group) => group.id)
-      ).subscribe((groupUUID) => {
-        this.router.navigate([ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID]);
-      })
-    );
   }
 
   /**

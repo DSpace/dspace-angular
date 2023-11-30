@@ -2,7 +2,6 @@ import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, typedObject } from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { HALLink } from '../hal-link.model';
@@ -12,6 +11,7 @@ import { ResourceType } from '../resource-type';
 import { RelationshipType } from './relationship-type.model';
 import { RELATIONSHIP_TYPE } from './relationship-type.resource-type';
 import { RELATIONSHIP } from './relationship.resource-type';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * Describes a Relationship between two Items

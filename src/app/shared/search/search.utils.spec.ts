@@ -37,7 +37,7 @@ describe('Search Utils', () => {
     });
 
     it('should retrieve the correct value from the search href', () => {
-      expect(getFacetValueForType(facetValueWithSearchHref, searchFilterConfig)).toEqual('Value with search href,operator');
+      expect(getFacetValueForType(facetValueWithSearchHref, searchFilterConfig)).toEqual('Value with search href,equals');
     });
 
     it('should retrieve the correct value from the Facet', () => {
@@ -50,18 +50,27 @@ describe('Search Utils', () => {
   });
 
   describe('stripOperatorFromFilterValue', () => {
-    it('should strip the operator from the value', () => {
-      expect(stripOperatorFromFilterValue('value,operator')).toEqual('value');
+    it('should strip equals operator from the value', () => {
+      expect(stripOperatorFromFilterValue('value,equals')).toEqual('value');
+    });
+    it('should strip query operator from the value', () => {
+      expect(stripOperatorFromFilterValue('value,query')).toEqual('value');
+    });
+    it('should strip authority operator from the value', () => {
+      expect(stripOperatorFromFilterValue('value,authority')).toEqual('value');
+    });
+    it('should not strip a the part after the last , from a value if it isn\'t a valid operator', () => {
+      expect(stripOperatorFromFilterValue('value,invalid_operator')).toEqual('value,invalid_operator');
     });
   });
 
   describe('addOperatorToFilterValue', () => {
     it('should add the operator to the value', () => {
-      expect(addOperatorToFilterValue('value', 'operator')).toEqual('value,operator');
+      expect(addOperatorToFilterValue('value', 'equals')).toEqual('value,equals');
     });
 
     it('shouldn\'t add the operator to the value if it already contains the operator', () => {
-      expect(addOperatorToFilterValue('value,operator', 'operator')).toEqual('value,operator');
+      expect(addOperatorToFilterValue('value,equals', 'equals')).toEqual('value,equals');
     });
   });
 

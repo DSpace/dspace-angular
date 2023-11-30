@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  EMPTY,
   Observable,
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, defaultIfEmpty, map, switchMap, tap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -36,6 +37,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -98,12 +100,14 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private dSpaceObjectDataService: DSpaceObjectDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               protected routeService: RouteService,
               private router: Router,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
-              public requestService: RequestService) {
+              public requestService: RequestService,
+              public dsoNameService: DSONameService,
+  ) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
@@ -144,7 +148,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         }
         return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
           switchMap((isSiteAdmin: boolean) => {
-            return observableCombineLatest(groups.page.map((group: Group) => {
+            return observableCombineLatest([...groups.page.map((group: Group) => {
               if (hasValue(group) && !this.deletedGroupsIds.includes(group.id)) {
                 return observableCombineLatest([
                   this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self),
@@ -165,8 +169,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                     }
                   )
                 );
+              } else {
+                return EMPTY;
               }
-            })).pipe(map((dtos: GroupDtoModel[]) => {
+            })]).pipe(defaultIfEmpty([]), map((dtos: GroupDtoModel[]) => {
               return buildPaginatedList(groups.pageInfo, dtos);
             }));
           })
@@ -198,11 +204,10 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         .subscribe((rd: RemoteData<NoContent>) => {
           if (rd.hasSucceeded) {
             this.deletedGroupsIds = [...this.deletedGroupsIds, group.group.id];
-            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: group.group.name }));
-            this.reset();
+            this.notificationsService.success(this.translateService.get(this.messagePrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(group.group) }));
           } else {
             this.notificationsService.error(
-              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: group.group.name }),
+              this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(group.group) }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
       });
@@ -210,30 +215,29 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * This method will set everything to stale, which will cause the lists on this page to update.
-   */
-  reset() {
-    this.groupService.getBrowseEndpoint().pipe(
-      take(1)
-    ).subscribe((href: string) => {
-      this.requestService.setStaleByHrefSubstring(href);
-    });
-  }
-
-  /**
    * Get the members (epersons embedded value of a group)
+   * NOTE: At this time we only grab the *first* member in order to receive the `totalElements` value
+   * needed for our HTML template.
    * @param group
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
-    return this.ePersonDataService.findAllByHref(group._links.epersons.href).pipe(getFirstSucceededRemoteData());
+    return this.ePersonDataService.findListByHref(group._links.epersons.href, {
+        currentPage: 1,
+        elementsPerPage: 1,
+      }).pipe(getFirstSucceededRemoteData());
   }
 
   /**
    * Get the subgroups (groups embedded value of a group)
+   * NOTE: At this time we only grab the *first* subgroup in order to receive the `totalElements` value
+   * needed for our HTML template.
    * @param group
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
-    return this.groupService.findAllByHref(group._links.subgroups.href).pipe(getFirstSucceededRemoteData());
+    return this.groupService.findListByHref(group._links.subgroups.href, {
+        currentPage: 1,
+        elementsPerPage: 1,
+      }).pipe(getFirstSucceededRemoteData());
   }
 
   /**

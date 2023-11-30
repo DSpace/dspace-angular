@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
@@ -30,9 +30,9 @@ describe('ComColFormComponent', () => {
       const controls = {};
       if (hasValue(fModel)) {
         fModel.forEach((controlModel) => {
-          controls[controlModel.id] = new FormControl((controlModel as any).value);
+          controls[controlModel.id] = new UntypedFormControl((controlModel as any).value);
         });
-        return new FormGroup(controls);
+        return new UntypedFormGroup(controls);
       }
       return undefined;
     }
@@ -55,6 +55,9 @@ describe('ComColFormComponent', () => {
     })
   ];
 
+  const logo = {
+    id: 'logo'
+  };
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
@@ -62,9 +65,9 @@ describe('ComColFormComponent', () => {
   });
   const notificationsService = new NotificationsServiceStub();
 
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const locationStub = jasmine.createSpyObj('location', ['back']);
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {}
@@ -207,7 +210,7 @@ describe('ComColFormComponent', () => {
       beforeEach(() => {
         initComponent(Object.assign(new Community(), {
           id: 'community-id',
-          logo: createSuccessfulRemoteDataObject$({}),
+          logo: createSuccessfulRemoteDataObject$(logo),
           _links: {
             self: { href: 'community-self' },
             logo: { href: 'community-logo' },
@@ -225,28 +228,31 @@ describe('ComColFormComponent', () => {
 
       describe('submit with logo marked for deletion', () => {
         beforeEach(() => {
+          spyOn(dsoService, 'deleteLogo').and.callThrough();
           comp.markLogoForDeletion = true;
+        });
+
+        it('should call dsoService.deleteLogo on the DSO', () => {
+          comp.onSubmit();
+          fixture.detectChanges();
+
+          expect(dsoService.deleteLogo).toHaveBeenCalledWith(comp.dso);
         });
 
         describe('when dsoService.deleteLogo returns a successful response', () => {
           beforeEach(() => {
-            spyOn(dsoService, 'deleteLogo').and.returnValue(createSuccessfulRemoteDataObject$({}));
+            dsoService.deleteLogo.and.returnValue(createSuccessfulRemoteDataObject$({}));
             comp.onSubmit();
           });
 
           it('should display a success notification', () => {
             expect(notificationsService.success).toHaveBeenCalled();
           });
-
-          it('should remove the object\'s cache', () => {
-            expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
-            expect(objectCacheStub.remove).toHaveBeenCalled();
-          });
         });
 
         describe('when dsoService.deleteLogo returns an error response', () => {
           beforeEach(() => {
-            spyOn(dsoService, 'deleteLogo').and.returnValue(createFailedRemoteDataObject$('Error', 500));
+            dsoService.deleteLogo.and.returnValue(createFailedRemoteDataObject$('Error', 500));
             comp.onSubmit();
           });
 

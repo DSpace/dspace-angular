@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CurationFormComponent } from './curation-form.component';
@@ -15,6 +15,8 @@ import { By } from '@angular/platform-browser';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
+import { HandleService } from '../shared/handle.service';
+import { of as observableOf } from 'rxjs';
 
 describe('CurationFormComponent', () => {
   let comp: CurationFormComponent;
@@ -23,6 +25,7 @@ describe('CurationFormComponent', () => {
   let scriptDataService: ScriptDataService;
   let processDataService: ProcessDataService;
   let configurationDataService: ConfigurationDataService;
+  let handleService: HandleService;
   let notificationsService;
   let router;
 
@@ -51,6 +54,10 @@ describe('CurationFormComponent', () => {
       }))
     });
 
+    handleService = {
+      normalizeHandle: (a: string) => observableOf(a),
+    } as any;
+
     notificationsService = new NotificationsServiceStub();
     router = new RouterStub();
 
@@ -58,11 +65,12 @@ describe('CurationFormComponent', () => {
       imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule],
       declarations: [CurationFormComponent],
       providers: [
-        {provide: ScriptDataService, useValue: scriptDataService},
-        {provide: ProcessDataService, useValue: processDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: Router, useValue: router},
-        {provide: ConfigurationDataService, useValue: configurationDataService},
+        { provide: ScriptDataService, useValue: scriptDataService },
+        { provide: ProcessDataService, useValue: processDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: HandleService, useValue: handleService },
+        { provide: Router, useValue: router},
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -143,4 +151,14 @@ describe('CurationFormComponent', () => {
       {name: '-i', value: 'all'},
     ], []);
   });
+
+  it(`should show an error notification and return when an invalid dsoHandle is provided`, fakeAsync(() => {
+    comp.dsoHandle = 'test-handle';
+    spyOn(handleService, 'normalizeHandle').and.returnValue(observableOf(null));
+    comp.submit();
+    flush();
+
+    expect(notificationsService.error).toHaveBeenCalled();
+    expect(scriptDataService.invoke).not.toHaveBeenCalled();
+  }));
 });

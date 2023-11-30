@@ -1,8 +1,8 @@
+// eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
-  FieldChangeType,
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveAllObjectUpdatesAction,
@@ -14,6 +14,7 @@ import {
 } from './object-updates.actions';
 import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer } from './object-updates.reducer';
 import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { FieldChangeType } from './field-change-type.model';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;

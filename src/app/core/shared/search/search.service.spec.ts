@@ -11,7 +11,6 @@ import { HALEndpointService } from '../hal-endpoint.service';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { RemoteData } from '../../data/remote-data';
-import { RequestEntry } from '../../data/request.reducer';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { CommunityDataService } from '../../data/community-data.service';
 import { ViewMode } from '../view-mode.model';
@@ -25,6 +24,10 @@ import { SearchObjects } from '../../../shared/search/models/search-objects.mode
 import { PaginationService } from '../../pagination/pagination.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { RequestEntry } from '../../data/request-entry.model';
+import { Angulartics2 } from 'angulartics2';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import anything = jasmine.anything;
 
 @Component({ template: '' })
 class DummyComponent {
@@ -35,7 +38,7 @@ describe('SearchService', () => {
     let searchService: SearchService;
     const router = new RouterStub();
     const route = new ActivatedRouteStub();
-    const searchConfigService = {paginationID: 'page-id'};
+    const searchConfigService = { paginationID: 'page-id' };
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
@@ -57,6 +60,7 @@ describe('SearchService', () => {
           { provide: DSpaceObjectDataService, useValue: {} },
           { provide: PaginationService, useValue: {} },
           { provide: SearchConfigurationService, useValue: searchConfigService },
+          { provide: Angulartics2, useValue: {} },
           SearchService
         ],
       });
@@ -75,10 +79,10 @@ describe('SearchService', () => {
     let routeService;
 
     const halService = {
-      /* tslint:disable:no-empty */
+      /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
       getEndpoint: () => {
       }
-      /* tslint:enable:no-empty */
+      /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
 
     };
 
@@ -101,7 +105,8 @@ describe('SearchService', () => {
     };
 
     const paginationService = new PaginationServiceStub();
-    const searchConfigService = {paginationID: 'page-id'};
+    const searchConfigService = { paginationID: 'page-id' };
+    const requestService = getMockRequestService();
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -117,13 +122,14 @@ describe('SearchService', () => {
         providers: [
           { provide: Router, useValue: router },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RequestService, useValue: getMockRequestService() },
+          { provide: RequestService, useValue: requestService },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
           { provide: CommunityDataService, useValue: {} },
           { provide: DSpaceObjectDataService, useValue: {} },
           { provide: PaginationService, useValue: paginationService },
           { provide: SearchConfigurationService, useValue: searchConfigService },
+          { provide: Angulartics2, useValue: {} },
           SearchService
         ],
       });
@@ -135,13 +141,13 @@ describe('SearchService', () => {
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.ListElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.ListElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement }
       );
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.GridElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.GridElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement }
       );
     });
 
@@ -170,10 +176,10 @@ describe('SearchService', () => {
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
-        /* tslint:disable:no-empty */
+        /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
         searchService.search(searchOptions).subscribe((t) => {
         }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
+        /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
       });
 
       it('should call getEndpoint on the halService', () => {
@@ -189,103 +195,22 @@ describe('SearchService', () => {
       });
     });
 
-    describe('when getConfig is called without a scope', () => {
-      const endPoint = 'http://endpoint.com/test/config';
-      beforeEach(() => {
-        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
-        /* tslint:disable:no-empty */
-        searchService.getConfig(null).subscribe((t) => {
-        }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
-      });
+    describe('when getFacetValuesFor is called with a filterQuery', () => {
+      it('should add the encoded filterQuery to the args list', () => {
+        jasmine.getEnv().allowRespy(true);
+        const spyRequest = spyOn((searchService as any), 'request').and.stub();
+        spyOn(requestService, 'send').and.returnValue(true);
+        const searchFilterConfig = new SearchFilterConfig();
+        searchFilterConfig._links = {
+          self: {
+            href: 'https://demo.dspace.org/',
+          },
+        };
 
-      it('should call getEndpoint on the halService', () => {
-        expect((searchService as any).halService.getEndpoint).toHaveBeenCalled();
-      });
+        searchService.getFacetValuesFor(searchFilterConfig, 1, undefined, 'filter&Query');
 
-      it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalled();
-      });
-
-      it('should call send containing a request with the correct request url', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }), true);
+        expect(spyRequest).toHaveBeenCalledWith(anything(), 'https://demo.dspace.org?page=0&size=5&prefix=filter%26Query');
       });
     });
-
-    describe('when getConfig is called with a scope', () => {
-      const endPoint = 'http://endpoint.com/test/config';
-      const scope = 'test';
-      const requestUrl = endPoint + '?scope=' + scope;
-      beforeEach(() => {
-        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        /* tslint:disable:no-empty */
-        searchService.getConfig(scope).subscribe((t) => {
-        }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
-      });
-
-      it('should call getEndpoint on the halService', () => {
-        expect((searchService as any).halService.getEndpoint).toHaveBeenCalled();
-      });
-
-      it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalled();
-      });
-
-      it('should call send containing a request with the correct request url', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
-      });
-    });
-
-    describe('when getSearchConfigurationFor is called without a scope', () => {
-      const endPoint = 'http://endpoint.com/test/config';
-      beforeEach(() => {
-        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
-        /* tslint:disable:no-empty */
-        searchService.getSearchConfigurationFor(null).subscribe((t) => {
-        }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
-      });
-
-      it('should call getEndpoint on the halService', () => {
-        expect((searchService as any).halService.getEndpoint).toHaveBeenCalled();
-      });
-
-      it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalled();
-      });
-
-      it('should call send containing a request with the correct request url', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: endPoint }), true);
-      });
-    });
-
-    describe('when getSearchConfigurationFor is called with a scope', () => {
-      const endPoint = 'http://endpoint.com/test/config';
-      const scope = 'test';
-      const requestUrl = endPoint + '?scope=' + scope;
-      beforeEach(() => {
-        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        /* tslint:disable:no-empty */
-        searchService.getSearchConfigurationFor(scope).subscribe((t) => {
-        }); // subscribe to make sure all methods are called
-        /* tslint:enable:no-empty */
-      });
-
-      it('should call getEndpoint on the halService', () => {
-        expect((searchService as any).halService.getEndpoint).toHaveBeenCalled();
-      });
-
-      it('should send out the request on the request service', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalled();
-      });
-
-      it('should call send containing a request with the correct request url', () => {
-        expect((searchService as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
-      });
-    });
-
   });
 });

@@ -10,7 +10,7 @@ export const StoreActionTypes = {
 export class StoreAction implements Action {
   type: string;
   payload: AppState | Action[];
-  // tslint:disable-next-line:no-shadowed-variable
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   constructor(type: string, payload: AppState | Action[]) {
     this.type = type;
     this.payload = payload;

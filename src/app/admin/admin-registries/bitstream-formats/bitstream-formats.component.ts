@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable} from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { FindListOptions } from '../../../core/data/request.models';
-import { map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
+import { map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * This component renders a list of bitstream formats
@@ -29,20 +29,13 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   bitstreamFormats: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
 
   /**
-   * The current pagination configuration for the page used by the FindAll method
-   * Currently simply renders all bitstream formats
-   */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 20
-  });
-
-  /**
    * The current pagination configuration for the page
    * Currently simply renders all bitstream formats
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rbp',
-    pageSize: 20
+    pageSize: 20,
+    pageSizeOptions: [20, 40, 60, 80, 100]
   });
 
   constructor(private notificationsService: NotificationsService,
@@ -50,7 +43,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private paginationService: PaginationService,
-              ) {
+  ) {
   }
 
 
@@ -58,31 +51,39 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    * Deletes the currently selected formats from the registry and updates the presented list
    */
   deleteFormats() {
-    this.bitstreamFormatService.clearBitStreamFormatRequests().subscribe();
-    this.bitstreamFormatService.getSelectedBitstreamFormats().pipe(take(1)).subscribe(
-      (formats) => {
-        const tasks$ = [];
-        for (const format of formats) {
-          if (hasValue(format.id)) {
-            tasks$.push(this.bitstreamFormatService.delete(format.id).pipe(map((response: RemoteData<NoContent>) => response.hasSucceeded)));
-          }
-        }
-        zip(...tasks$).subscribe((results: boolean[]) => {
-          const successResponses = results.filter((result: boolean) => result);
-          const failedResponses = results.filter((result: boolean) => !result);
-          if (successResponses.length > 0) {
-            this.showNotification(true, successResponses.length);
-          }
-          if (failedResponses.length > 0) {
-            this.showNotification(false, failedResponses.length);
-          }
+    this.bitstreamFormatService.clearBitStreamFormatRequests();
+    this.bitstreamFormatService.getSelectedBitstreamFormats().pipe(
+      take(1),
+      // emit all formats in the array one at a time
+      mergeMap((formats: BitstreamFormat[]) => formats),
+      // delete each format
+      mergeMap((format: BitstreamFormat) => this.bitstreamFormatService.delete(format.id).pipe(
+        // wait for each response to come back
+        getFirstCompletedRemoteData(),
+        // return a boolean to indicate whether a response succeeded
+        map((response: RemoteData<NoContent>) => response.hasSucceeded),
+      )),
+      // wait for all responses to come in and return them as a single array
+      toArray()
+    ).subscribe((results: boolean[]) => {
+      // Count the number of succeeded and failed deletions
+      const successResponses = results.filter((result: boolean) => result);
+      const failedResponses = results.filter((result: boolean) => !result);
 
-          this.deselectAll();
-
-          this.paginationService.resetPage(this.pageConfig.id);
-        });
+      // Show a notification indicating the number of succeeded and failed deletions
+      if (successResponses.length > 0) {
+        this.showNotification(true, successResponses.length);
       }
-    );
+      if (failedResponses.length > 0) {
+        this.showNotification(false, failedResponses.length);
+      }
+
+      // reset the selection
+      this.deselectAll();
+
+      // reload the page
+      this.paginationService.resetPage(this.pageConfig.id);
+    });
   }
 
   /**
@@ -140,7 +141,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
+    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.pageConfig).pipe(
       switchMap((findListOptions: FindListOptions) => {
         return this.bitstreamFormatService.findAll(findListOptions);
       })

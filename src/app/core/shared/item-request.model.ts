@@ -3,8 +3,8 @@ import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
 import { ITEM_REQUEST } from './item-request.resource-type';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { HALLink } from './hal-link.model';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
  * Model class for an ItemRequest

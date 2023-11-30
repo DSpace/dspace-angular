@@ -5,6 +5,7 @@ import { SharedModule } from '../shared.module';
 import { NgComponentOutletDirectiveStub } from './ng-component-outlet-directive.stub';
 import { QueryParamsDirectiveStub } from './query-params-directive.stub';
 import { RouterLinkDirectiveStub } from './router-link-directive.stub';
+import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
 
 /**
  * This module isn't used. It serves to prevent the AoT compiler
@@ -21,11 +22,13 @@ import { RouterLinkDirectiveStub } from './router-link-directive.stub';
     QueryParamsDirectiveStub,
     MySimpleItemActionComponent,
     RouterLinkDirectiveStub,
-    NgComponentOutletDirectiveStub
+    NgComponentOutletDirectiveStub,
+    BrowserOnlyMockPipe,
   ],
-  exports: [
-    QueryParamsDirectiveStub
-  ],
+    exports: [
+        QueryParamsDirectiveStub,
+        RouterLinkDirectiveStub
+    ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]

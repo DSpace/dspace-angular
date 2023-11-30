@@ -10,6 +10,8 @@ import { ItemAdminSearchResultListElementComponent } from './item-admin-search-r
 import { Item } from '../../../../../core/shared/item.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
 
 describe('ItemAdminSearchResultListElementComponent', () => {
   let component: ItemAdminSearchResultListElementComponent;
@@ -33,7 +35,8 @@ describe('ItemAdminSearchResultListElementComponent', () => {
       ],
       declarations: [ItemAdminSearchResultListElementComponent],
       providers: [{ provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock }],
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

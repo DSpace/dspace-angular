@@ -5,6 +5,8 @@ import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { RouteService } from '../../../../core/services/route.service';
 import { Observable } from 'rxjs';
 import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
+import { filter, map, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-item',
@@ -15,6 +17,17 @@ import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-
  */
 export class ItemComponent implements OnInit {
   @Input() object: Item;
+
+  /**
+   * This regex matches previous routes. The button is shown
+   * for matching paths and hidden in other cases.
+   */
+  previousRoute = /^(\/search|\/browse|\/collections|\/admin\/search|\/mydspace)/;
+
+  /**
+   * Used to show or hide the back to results button in the view.
+   */
+  showBackButton: Observable<boolean>;
 
   /**
    * Route to the item page
@@ -38,12 +51,33 @@ export class ItemComponent implements OnInit {
 
   mediaViewer;
 
-  constructor(protected routeService: RouteService) {
+  constructor(protected routeService: RouteService,
+              protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
   }
 
+  /**
+   * The function used to return to list from the item.
+   */
+  back = () => {
+    this.routeService.getPreviousUrl().pipe(
+          take(1)
+        ).subscribe(
+          (url => {
+            this.router.navigateByUrl(url);
+          })
+        );
+  };
+
   ngOnInit(): void {
+
     this.itemPageRoute = getItemPageRoute(this.object);
+    // hide/show the back button
+    this.showBackButton = this.routeService.getPreviousUrl().pipe(
+      filter(url => this.previousRoute.test(url)),
+      take(1),
+      map(() => true)
+    );
     // check to see if iiif viewer is required.
     this.iiifEnabled = isIiifEnabled(this.object);
     this.iiifSearchEnabled = isIiifSearchEnabled(this.object);

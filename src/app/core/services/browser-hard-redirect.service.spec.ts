@@ -2,17 +2,25 @@ import { TestBed } from '@angular/core/testing';
 import { BrowserHardRedirectService } from './browser-hard-redirect.service';
 
 describe('BrowserHardRedirectService', () => {
-  const origin = 'https://test-host.com:4000';
-  const mockLocation = {
-    href: undefined,
-    pathname: '/pathname',
-    search: '/search',
-    origin
-  } as Location;
-
-  const service: BrowserHardRedirectService = new BrowserHardRedirectService(mockLocation);
+  let origin: string;
+  let mockLocation: Location;
+  let service: BrowserHardRedirectService;
 
   beforeEach(() => {
+    origin = 'https://test-host.com:4000';
+    mockLocation = {
+      href: undefined,
+      pathname: '/pathname',
+      search: '/search',
+      origin,
+      replace: (url: string) => {
+        mockLocation.href = url;
+      }
+    } as Location;
+    spyOn(mockLocation, 'replace');
+
+    service = new BrowserHardRedirectService(mockLocation);
+
     TestBed.configureTestingModule({});
   });
 
@@ -28,8 +36,8 @@ describe('BrowserHardRedirectService', () => {
       service.redirect(redirect);
     });
 
-    it('should update the location', () => {
-      expect(mockLocation.href).toEqual(redirect);
+    it('should call location.replace with the new url', () => {
+      expect(mockLocation.replace).toHaveBeenCalledWith(redirect);
     });
   });
 

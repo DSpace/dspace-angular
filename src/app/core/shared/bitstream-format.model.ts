@@ -1,12 +1,12 @@
 import { autoserialize, deserialize, deserializeAs } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../cache/id-to-uuid-serializer';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BitstreamFormatSupportLevel } from './bitstream-format-support-level';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
  * Model class for a Bitstream Format

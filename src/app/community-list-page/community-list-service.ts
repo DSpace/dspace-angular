@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+/* eslint-disable max-classes-per-file */
+import { Inject, Injectable } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
 
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
@@ -6,47 +7,26 @@ import { filter, map, switchMap } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/request.models';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
 import { PageInfo } from '../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
-import { PaginatedList, buildPaginatedList } from '../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { getFirstSucceededRemoteData, getFirstCompletedRemoteData } from '../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../core/shared/operators';
 import { followLink } from '../shared/utils/follow-link-config.model';
+import { FlatNode } from './flat-node.model';
+import { ShowMoreFlatNode } from './show-more-flat-node.model';
+import { FindListOptions } from '../core/data/find-list-options.model';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { v4 as uuidv4 } from 'uuid';
 
-/**
- * Each node in the tree is represented by a flatNode which contains info about the node itself and its position and
- *  state in the tree. There are nodes representing communities, collections and show more links.
- */
-export interface FlatNode {
-  isExpandable$: Observable<boolean>;
-  name: string;
-  id: string;
-  level: number;
-  isExpanded?: boolean;
-  parent?: FlatNode;
-  payload: Community | Collection | ShowMoreFlatNode;
-  isShowMoreNode: boolean;
-  route?: string;
-  currentCommunityPage?: number;
-  currentCollectionPage?: number;
-}
-
-/**
- * The show more links in the community tree are also represented by a flatNode so we know where in
- *  the tree it should be rendered an who its parent is (needed for the action resulting in clicking this link)
- */
-export class ShowMoreFlatNode {
-}
-
-// Helper method to combine an flatten an array of observables of flatNode arrays
+// Helper method to combine and flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
   observableCombineLatest([...obsList]).pipe(
     map((matrix: any[][]) => [].concat(...matrix)),
@@ -102,18 +82,22 @@ const communityListStateSelector = (state: AppState) => state.communityList;
 const expandedNodesSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.expandedNodes);
 const loadingNodeSelector = createSelector(communityListStateSelector, (communityList: CommunityListState) => communityList.loadingNode);
 
-export const MAX_COMCOLS_PER_PAGE = 20;
-
 /**
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
  */
-// tslint:disable-next-line:max-classes-per-file
 @Injectable()
 export class CommunityListService {
 
-  constructor(private communityDataService: CommunityDataService, private collectionDataService: CollectionDataService,
-              private store: Store<any>) {
+  private pageSize: number;
+
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    private communityDataService: CommunityDataService,
+    private collectionDataService: CollectionDataService,
+    private store: Store<any>
+  ) {
+    this.pageSize = appConfig.communityList.pageSize;
   }
 
   private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
@@ -168,7 +152,7 @@ export class CommunityListService {
   private getTopCommunities(options: FindListOptions): Observable<PaginatedList<Community>> {
     return this.communityDataService.findTop({
         currentPage: options.currentPage,
-        elementsPerPage: MAX_COMCOLS_PER_PAGE,
+        elementsPerPage: this.pageSize,
         sort: {
           field: options.sort.field,
           direction: options.sort.direction
@@ -203,7 +187,7 @@ export class CommunityListService {
           return this.transformCommunity(community, level, parent, expandedNodes);
         });
       if (currentPage < listOfPaginatedCommunities.totalPages && currentPage === listOfPaginatedCommunities.currentPage) {
-        obsList = [...obsList, observableOf([showMoreFlatNode('community', level, parent)])];
+        obsList = [...obsList, observableOf([showMoreFlatNode(`community-${uuidv4()}`, level, parent)])];
       }
 
       return combineAndFlatten(obsList);
@@ -216,7 +200,7 @@ export class CommunityListService {
    * Transforms a community in a list of FlatNodes containing firstly a flatnode of the community itself,
    *      followed by flatNodes of its possible subcommunities and collection
    * It gets called recursively for each subcommunity to add its subcommunities and collections to the list
-   * Number of subcommunities and collections added, is dependant on the current page the parent is at for respectively subcommunities and collections.
+   * Number of subcommunities and collections added, is dependent on the current page the parent is at for respectively subcommunities and collections.
    * @param community         Community being transformed
    * @param level             Depth of the community in the list, subcommunities and collections go one level deeper
    * @param parent            Flatnode of the parent community
@@ -239,7 +223,7 @@ export class CommunityListService {
       let subcoms = [];
       for (let i = 1; i <= currentCommunityPage; i++) {
         const nextSetOfSubcommunitiesPage = this.communityDataService.findByParent(community.uuid, {
-            elementsPerPage: MAX_COMCOLS_PER_PAGE,
+            elementsPerPage: this.pageSize,
             currentPage: i
           },
           followLink('subcommunities', { findListOptions: this.configOnePage }),
@@ -264,7 +248,7 @@ export class CommunityListService {
       let collections = [];
       for (let i = 1; i <= currentCollectionPage; i++) {
         const nextSetOfCollectionsPage = this.collectionDataService.findByParent(community.uuid, {
-          elementsPerPage: MAX_COMCOLS_PER_PAGE,
+          elementsPerPage: this.pageSize,
           currentPage: i
         })
           .pipe(
@@ -274,7 +258,7 @@ export class CommunityListService {
                 let nodes = rd.payload.page
                   .map((collection: Collection) => toFlatNode(collection, observableOf(false), level + 1, false, communityFlatNode));
                 if (currentCollectionPage < rd.payload.totalPages && currentCollectionPage === rd.payload.currentPage) {
-                  nodes = [...nodes, showMoreFlatNode('collection', level + 1, communityFlatNode)];
+                  nodes = [...nodes, showMoreFlatNode(`collection-${uuidv4()}`, level + 1, communityFlatNode)];
                 }
                 return nodes;
               } else {
@@ -292,7 +276,7 @@ export class CommunityListService {
 
   /**
    * Checks if a community has subcommunities or collections by querying the respective services with a pageSize = 0
-   *      Returns an observable that combines the result.payload.totalElements fo the observables that the
+   *      Returns an observable that combines the result.payload.totalElements of the observables that the
    *          respective services return when queried
    * @param community     Community being checked whether it is expandable (if it has subcommunities or collections)
    */

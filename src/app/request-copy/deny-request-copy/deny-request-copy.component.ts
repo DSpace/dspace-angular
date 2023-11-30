@@ -4,8 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
-  redirectOn4xx
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { AuthService } from '../../core/auth/auth.service';
@@ -19,6 +18,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 
 @Component({
   selector: 'ds-deny-request-copy',
@@ -63,10 +63,10 @@ export class DenyRequestCopyComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
     );
 
-    const msgParams$ = observableCombineLatest(
+    const msgParams$ = observableCombineLatest([
       this.itemRequestRD$.pipe(getFirstSucceededRemoteDataPayload()),
       this.authService.getAuthenticatedUserFromStore(),
-    ).pipe(
+    ]).pipe(
       switchMap(([itemRequest, user]: [ItemRequest, EPerson]) => {
         return this.itemDataService.findById(itemRequest.itemId).pipe(
           getFirstSucceededRemoteDataPayload(),
@@ -76,7 +76,7 @@ export class DenyRequestCopyComponent implements OnInit {
               recipientName: itemRequest.requestName,
               itemUrl: isNotEmpty(uri) ? uri : item.handle,
               itemName: this.nameService.getName(item),
-              authorName: user.name,
+              authorName: this.nameService.getName(user),
               authorEmail: user.email,
             });
           }),

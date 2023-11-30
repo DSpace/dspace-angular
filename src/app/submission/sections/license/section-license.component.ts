@@ -29,6 +29,7 @@ import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionsService } from '../sections.service';
 import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -99,6 +100,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
+   * @param {TranslateService} translateService
    * @param {string} injectedCollectionId
    * @param {SectionDataObject} injectedSectionData
    * @param {string} injectedSubmissionId
@@ -111,6 +113,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
               protected operationsBuilder: JsonPatchOperationsBuilder,
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
+              protected translateService: TranslateService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -125,6 +128,9 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     this.formId = this.formService.getUniqueId(this.sectionData.id);
     this.formModel = this.formBuilderService.fromJSON(SECTION_LICENSE_FORM_MODEL);
     const model = this.formBuilderService.findById('granted', this.formModel);
+
+    // Translate checkbox label
+    model.label = this.translateService.instant(model.label);
 
     // Retrieve license accepted status
     (model as DynamicCheckboxModel).value = (this.sectionData.data as WorkspaceitemSectionLicenseObject).granted;

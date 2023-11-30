@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
@@ -10,6 +10,8 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders the file section of the item
@@ -35,13 +37,16 @@ export class FileSectionComponent implements OnInit {
 
   isLastPage: boolean;
 
-  pageSize = 5;
+  pageSize: number;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    public dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
+    this.pageSize = this.appConfig.item.bitstream.pageSize;
   }
 
   ngOnInit(): void {

@@ -14,6 +14,7 @@ import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submissi
 import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { SearchModule } from '../shared/search/search.module';
+import { UploadModule } from '../shared/upload/upload.module';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -30,7 +31,8 @@ const DECLARATIONS = [
     SharedModule,
     SearchModule,
     MyDspacePageRoutingModule,
-    MyDspaceSearchModule.withEntryComponents()
+    MyDspaceSearchModule.withEntryComponents(),
+    UploadModule,
   ],
   declarations: DECLARATIONS,
   providers: [

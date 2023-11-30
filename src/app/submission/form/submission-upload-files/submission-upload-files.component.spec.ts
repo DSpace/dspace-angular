@@ -28,7 +28,7 @@ import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testin
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { SharedModule } from '../../../shared/shared.module';
 import { createTestComponent } from '../../../shared/testing/utils.test';
-import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
+import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 
 describe('SubmissionUploadFilesComponent Component', () => {
 

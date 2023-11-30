@@ -87,8 +87,9 @@ describe('MetadataImportPageComponent', () => {
       comp.setFile(fileMock);
     });
 
-    describe('if proceed button is pressed', () => {
+    describe('if proceed button is pressed without validate only', () => {
       beforeEach(fakeAsync(() => {
+        comp.validateOnly = false;
         const proceed = fixture.debugElement.query(By.css('#proceedButton')).nativeElement;
         proceed.click();
         fixture.detectChanges();
@@ -96,6 +97,28 @@ describe('MetadataImportPageComponent', () => {
       it('metadata-import script is invoked with -f fileName and the mockFile', () => {
         const parameterValues: ProcessParameter[] = [
           Object.assign(new ProcessParameter(), { name: '-f', value: 'filename.txt' }),
+        ];
+        expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
+      });
+      it('success notification is shown', () => {
+        expect(notificationService.success).toHaveBeenCalled();
+      });
+      it('redirected to process page', () => {
+        expect(router.navigateByUrl).toHaveBeenCalledWith('/processes/45');
+      });
+    });
+
+    describe('if proceed button is pressed with validate only', () => {
+      beforeEach(fakeAsync(() => {
+        comp.validateOnly = true;
+        const proceed = fixture.debugElement.query(By.css('#proceedButton')).nativeElement;
+        proceed.click();
+        fixture.detectChanges();
+      }));
+      it('metadata-import script is invoked with -f fileName and the mockFile and -v validate-only', () => {
+        const parameterValues: ProcessParameter[] = [
+          Object.assign(new ProcessParameter(), { name: '-f', value: 'filename.txt' }),
+          Object.assign(new ProcessParameter(), { name: '-v', value: true }),
         ];
         expect(scriptService.invoke).toHaveBeenCalledWith(METADATA_IMPORT_SCRIPT_NAME, parameterValues, [fileMock]);
       });

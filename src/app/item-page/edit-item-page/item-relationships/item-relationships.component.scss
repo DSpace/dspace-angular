@@ -1,6 +1,6 @@
 .button-row {
   .btn {
-    margin-right: calc(0.5 * var(--bs-spacer));
+    margin-right: var(--ds-gap);
 
     &:last-child {
       margin-right: 0;

@@ -1,8 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
-import { Subject } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
@@ -29,7 +28,7 @@ export class IdleModalComponent implements OnInit {
    * An event fired when the modal is closed
    */
   @Output()
-  response: Subject<boolean> = new Subject();
+  response = new EventEmitter<boolean>();
 
   constructor(private activeModal: NgbActiveModal,
               private authService: AuthService,
@@ -84,6 +83,6 @@ export class IdleModalComponent implements OnInit {
    */
   closeModal() {
     this.activeModal.close();
-    this.response.next(true);
+    this.response.emit(true);
   }
 }

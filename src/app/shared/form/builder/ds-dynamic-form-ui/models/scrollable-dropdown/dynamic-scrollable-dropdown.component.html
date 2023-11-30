@@ -3,8 +3,10 @@
        role="combobox"
        [attr.aria-label]="model.label"
        [attr.aria-owns]="'combobox_' + id + '_listbox'">
-    <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
-       aria-hidden="true"></i>
+       <i *ngIf="!model.readOnly" ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+          aria-hidden="true"></i>
+       <i *ngIf="model.readOnly" class="dropdown-toggle position-absolute toggle-icon"
+          aria-hidden="true"></i>
     <input class="form-control"
            [attr.aria-controls]="'combobox_' + id + '_listbox'"
            [attr.aria-activedescendant]="'combobox_' + id + '_selected'"
@@ -15,12 +17,13 @@
            [id]="id"
            [name]="model.name"
            [readonly]="true"
+           [disabled]="model.readOnly"
            [type]="model.inputType"
            [value]="(currentValue | async)"
            (blur)="onBlur($event)"
            (click)="$event.stopPropagation(); openDropdown(sdRef);"
            (focus)="onFocus($event)"
-           (keypress)="$event.preventDefault()">
+           (keydown)="selectOnKeyDown($event, sdRef)">
   </div>
 
   <div ngbDropdownMenu
@@ -40,7 +43,7 @@
 
       <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">{{'form.no-results' | translate}}</button>
       <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList"
-              (click)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
+              (keydown.enter)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
               title="{{ listEntry.display }}" role="option"
               [attr.id]="listEntry.display == (currentValue|async) ? ('combobox_' + id + '_selected') : null">
         {{inputFormatter(listEntry)}}

@@ -20,7 +20,8 @@
     "strictNullChecks": false,
     "skipDefaultLibCheck": true,
     "pretty": true,
-    "target": "es2015",
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types",
       "src/typings.d.ts"
@@ -38,11 +39,15 @@
     "types": [
       "node",
       "jasmine"
-    ]
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true
-  }
+  },
+  "exclude": [
+    "cypress.config.ts"
+  ]
 }

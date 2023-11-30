@@ -29,5 +29,5 @@
       </ng-container>
     </div>
   </ng-container>
-  <ds-loading *ngIf="(loading$ | async)" [message]="'loading.bitstreams' | translate"></ds-loading>
+  <ds-themed-loading *ngIf="(loading$ | async)" [message]="'loading.bitstreams' | translate"></ds-themed-loading>
 </ds-pagination>

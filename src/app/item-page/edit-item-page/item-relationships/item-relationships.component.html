@@ -1,7 +1,7 @@
 <div class="item-relationships">
   <ng-container *ngVar="entityType$ | async as entityType">
     <ng-container *ngIf="entityType">
-      <div class="button-row top d-flex">
+      <div class="button-row top d-flex space-children-mr">
         <button class="btn btn-danger ml-auto" *ngIf="!(isReinstatable() | async)"
                 [disabled]="!(hasChanges() | async)"
                 (click)="discard()"><i
@@ -32,10 +32,10 @@
             ></ds-edit-relationship-list>
           </div>
         </ng-container>
-        <ds-loading *ngIf="!relationshipTypes"></ds-loading>
+        <ds-themed-loading *ngIf="!relationshipTypes"></ds-themed-loading>
       </ng-container>
       <div class="button-row bottom">
-        <div class="float-right">
+        <div class="float-right space-children-mr ml-gap">
           <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
                   [disabled]="!(hasChanges() | async)"
                   (click)="discard()"><i

@@ -2,7 +2,6 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
-import { FindListOptions } from '../data/request.models';
 import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
@@ -30,6 +29,7 @@ import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { NoContent } from '../shared/NoContent.model';
+import { FindListOptions } from '../data/find-list-options.model';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);

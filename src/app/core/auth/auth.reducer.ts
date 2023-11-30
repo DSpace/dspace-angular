@@ -10,13 +10,14 @@ import {
   RedirectWhenTokenExpiredAction,
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
-  RetrieveAuthMethodsSuccessAction,
+  RetrieveAuthMethodsSuccessAction, SetAuthCookieStatus,
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
+import { StoreActionTypes } from '../../store.actions';
 
 /**
  * The auth state.
@@ -58,6 +59,8 @@ export interface AuthState {
   // all authentication Methods enabled at the backend
   authMethods?: AuthMethod[];
 
+  externalAuth?: boolean,
+
   // true when the current user is idle
   idle: boolean;
 
@@ -72,6 +75,7 @@ const initialState: AuthState = {
   blocking: true,
   loading: false,
   authMethods: [],
+  externalAuth: false,
   idle: false
 };
 
@@ -92,11 +96,20 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       });
 
     case AuthActionTypes.AUTHENTICATED:
+      return Object.assign({}, state, {
+        loading: true,
+        blocking: true
+      });
+
     case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN:
     case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE:
       return Object.assign({}, state, {
         loading: true,
-        blocking: true
+      });
+
+    case AuthActionTypes.SET_AUTH_COOKIE_STATUS:
+      return Object.assign({}, state, {
+        externalAuth: (action as SetAuthCookieStatus).payload
       });
 
     case AuthActionTypes.AUTHENTICATED_ERROR:
@@ -210,7 +223,6 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.RETRIEVE_AUTH_METHODS:
       return Object.assign({}, state, {
         loading: true,
-        blocking: true
       });
 
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS:
@@ -224,7 +236,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         loading: false,
         blocking: false,
-        authMethods: [new AuthMethod(AuthMethodType.Password)]
+        authMethods: [new AuthMethod(AuthMethodType.Password, 0)]
       });
 
     case AuthActionTypes.SET_REDIRECT_URL:
@@ -246,6 +258,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.UNSET_USER_AS_IDLE:
       return Object.assign({}, state, {
         idle: false,
+      });
+
+    case StoreActionTypes.REHYDRATE:
+      return Object.assign({}, state, {
+        blocking: true,
       });
 
     default:

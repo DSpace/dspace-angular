@@ -3,10 +3,10 @@ import { UUIDService } from '../core/shared/uuid.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { isEmpty } from '../shared/empty.util';
-import { correlationIdSelector } from './correlation-id.reducer';
 import { take } from 'rxjs/operators';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { Injectable } from '@angular/core';
+import { correlationIdSelector } from './correlation-id.selector';
 
 /**
  * Service to manage the correlation id, an id used to give context to server side logs

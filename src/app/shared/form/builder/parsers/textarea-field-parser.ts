@@ -5,6 +5,7 @@ import {
   DsDynamicTextAreaModel,
   DsDynamicTextAreaModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { environment } from '../../../../../environments/environment';
 
 export class TextareaFieldParser extends FieldParser {
 
@@ -20,6 +21,7 @@ export class TextareaFieldParser extends FieldParser {
     };
 
     textAreaModelConfig.rows = 10;
+    textAreaModelConfig.spellCheck = environment.form.spellCheck;
     this.setValues(textAreaModelConfig, fieldValue);
     const textAreaModel = new DsDynamicTextAreaModel(textAreaModelConfig, layout);
 

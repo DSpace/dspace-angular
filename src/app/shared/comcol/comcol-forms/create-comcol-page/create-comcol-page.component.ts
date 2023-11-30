@@ -15,6 +15,7 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { RequestParam } from '../../../../core/cache/models/request-param.model';
 import { RequestService } from '../../../../core/data/request.service';
 import { Collection } from '../../../../core/shared/collection.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component representing the create page for communities and collections
@@ -51,6 +52,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
 
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
+    public dsoNameService: DSONameService,
     protected parentDataService: CommunityDataService,
     protected routeService: RouteService,
     protected router: Router,

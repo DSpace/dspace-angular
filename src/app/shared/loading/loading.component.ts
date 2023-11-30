@@ -15,6 +15,11 @@ export class LoadingComponent implements OnDestroy, OnInit {
   @Input() message: string;
   @Input() showMessage = true;
 
+  /**
+   * Show a more compact spinner animation instead of the default one
+   */
+  @Input() spinner = false;
+
   private subscription: Subscription;
 
   constructor(private translate: TranslateService) {

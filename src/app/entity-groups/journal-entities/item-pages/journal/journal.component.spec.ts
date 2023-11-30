@@ -14,7 +14,7 @@ import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-anal
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -29,6 +29,16 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalComponent } from './journal.component';
 import { RouteService } from '../../../../core/services/route.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { VersionDataService } from '../../../../core/data/version-data.service';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { mockRouteService } from '../../../../item-page/simple/item-types/shared/item.component.spec';
+import {
+  BrowseDefinitionDataServiceStub
+} from '../../../../shared/testing/browse-definition-data-service.stub';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
@@ -65,17 +75,20 @@ describe('JournalComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+        RouterTestingModule,
+      ],
       declarations: [JournalComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: {} },
-        { provide: RelationshipService, useValue: {} },
+        { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },
@@ -86,8 +99,13 @@ describe('JournalComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionDataService, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: RouteService, useValue: {} }
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

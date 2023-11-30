@@ -2,9 +2,9 @@ import { of as observableOf } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { LinkService } from '../../core/cache/builders/link.service';
-import { cold, hot } from 'jasmine-marbles';
+import { hot } from 'jasmine-marbles';
 import { SetThemeAction } from './theme.actions';
-import { Theme } from '../../../config/theme.model';
+import { Theme } from './theme.model';
 import { provideMockStore } from '@ngrx/store/testing';
 import { Community } from '../../core/shared/community.model';
 import { COMMUNITY } from '../../core/shared/community.resource-type';
@@ -21,7 +21,11 @@ import {
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ThemeService } from './theme.service';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { RouterMock } from '../mocks/router.mock';
+import { ConfigurationDataServiceStub } from '../testing/configuration-data.service.stub';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 
 /**
  * LinkService able to mock recursively resolving DSO parent links
@@ -47,6 +51,7 @@ class MockLinkService {
 describe('ThemeService', () => {
   let themeService: ThemeService;
   let linkService: LinkService;
+  let configurationService: ConfigurationDataServiceStub;
   let initialState;
 
   let ancestorDSOs: DSpaceObject[];
@@ -76,6 +81,7 @@ describe('ThemeService', () => {
         currentTheme: 'custom',
       },
     };
+    configurationService = new ConfigurationDataServiceStub();
   }
 
   function setupServiceWithActions(mockActions) {
@@ -84,12 +90,17 @@ describe('ThemeService', () => {
       findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
     };
     TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+      ],
       providers: [
         ThemeService,
         { provide: LinkService, useValue: linkService },
         provideMockStore({ initialState }),
         provideMockActions(() => mockActions),
-        { provide: DSpaceObjectDataService, useValue: mockDsoService }
+        { provide: DSpaceObjectDataService, useValue: mockDsoService },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: ConfigurationDataService, useValue: configurationService },
       ]
     });
 
@@ -106,7 +117,7 @@ describe('ThemeService', () => {
 
     function spyOnPrivateMethods() {
       spyOn((themeService as any), 'getAncestorDSOs').and.returnValue(() => observableOf([dso]));
-      spyOn((themeService as any), 'matchThemeToDSOs').and.returnValue(new Theme({ name: 'custom' }));
+      spyOn((themeService as any), 'matchThemeToDSOs').and.returnValue(observableOf(new Theme({ name: 'custom' })));
       spyOn((themeService as any), 'getActionForMatch').and.returnValue(new SetThemeAction('custom'));
     }
 
@@ -277,13 +288,13 @@ describe('ThemeService', () => {
 
       beforeEach(() => {
         nonMatchingTheme = Object.assign(new Theme({ name: 'non-matching-theme' }), {
-          matches: () => false
+          matches: () => observableOf(false),
         });
         itemMatchingTheme = Object.assign(new Theme({ name: 'item-matching-theme' }), {
-          matches: (url, dso) => (dso as any).type === ITEM.value
+          matches: (url, dso) => observableOf((dso as any).type === ITEM.value),
         });
         communityMatchingTheme = Object.assign(new Theme({ name: 'community-matching-theme' }), {
-          matches: (url, dso) => (dso as any).type === COMMUNITY.value
+          matches: (url, dso) => observableOf((dso as any).type === COMMUNITY.value),
         });
         dsos = [
           Object.assign(new Item(), {
@@ -307,8 +318,11 @@ describe('ThemeService', () => {
           themeService.themes = themes;
         });
 
-        it('should return undefined', () => {
-          expect((themeService as any).matchThemeToDSOs(dsos, '')).toBeUndefined();
+        it('should return undefined', (done: DoneFn) => {
+          (themeService as any).matchThemeToDSOs(dsos, '').subscribe((theme: Theme) => {
+            expect(theme).toBeUndefined();
+            done();
+          });
         });
       });
 
@@ -318,20 +332,31 @@ describe('ThemeService', () => {
           themeService.themes = themes;
         });
 
-        it('should return the matching theme', () => {
-          expect((themeService as any).matchThemeToDSOs(dsos, '')).toEqual(itemMatchingTheme);
+        it('should return the matching theme', (done: DoneFn) => {
+          (themeService as any).matchThemeToDSOs(dsos, '').subscribe((theme: Theme) => {
+            expect(theme).toBe(itemMatchingTheme);
+            done();
+          });
         });
       });
 
       describe('when multiple themes match some of the DSOs', () => {
-        it('should return the first matching theme', () => {
+        it('should return the first matching theme (itemMatchingTheme)', (done: DoneFn) => {
           themes = [ nonMatchingTheme, itemMatchingTheme, communityMatchingTheme ];
           themeService.themes = themes;
-          expect((themeService as any).matchThemeToDSOs(dsos, '')).toEqual(itemMatchingTheme);
+          (themeService as any).matchThemeToDSOs(dsos, '').subscribe((theme: Theme) => {
+            expect(theme).toBe(itemMatchingTheme);
+            done();
+          });
+        });
 
+        it('should return the first matching theme (communityMatchingTheme)', (done: DoneFn) => {
           themes = [ nonMatchingTheme, communityMatchingTheme, itemMatchingTheme ];
           themeService.themes = themes;
-          expect((themeService as any).matchThemeToDSOs(dsos, '')).toEqual(communityMatchingTheme);
+          (themeService as any).matchThemeToDSOs(dsos, '').subscribe((theme: Theme) => {
+            expect(theme).toBe(communityMatchingTheme);
+            done();
+          });
         });
       });
     });
@@ -365,6 +390,53 @@ describe('ThemeService', () => {
           done();
         });
       });
+    });
+  });
+
+  describe('listenForThemeChanges', () => {
+    let document;
+    let headSpy;
+
+    beforeEach(() => {
+      const mockDsoService = {
+        findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+      };
+      configurationService = new ConfigurationDataServiceStub();
+
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+        ],
+        providers: [
+          ThemeService,
+          { provide: LinkService, useValue: linkService },
+          provideMockStore({ initialState }),
+          { provide: DSpaceObjectDataService, useValue: mockDsoService },
+          { provide: Router, useValue: new RouterMock() },
+          { provide: ConfigurationDataService, useValue: configurationService },
+        ]
+      });
+
+      document = TestBed.inject(DOCUMENT);
+      headSpy = jasmine.createSpyObj('head', ['appendChild', 'getElementsByClassName']);
+      headSpy.getElementsByClassName.and.returnValue([]);
+      spyOn(document, 'getElementsByTagName').and.returnValue([headSpy]);
+
+      themeService = TestBed.inject(ThemeService);
+      spyOn(themeService, 'getThemeName').and.returnValue('custom');
+      spyOn(themeService, 'getThemeName$').and.returnValue(observableOf('custom'));
+    });
+
+    it('should append a link element with the correct attributes to the head element', () => {
+      themeService.listenForThemeChanges(true);
+
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'stylesheet');
+      link.setAttribute('type', 'text/css');
+      link.setAttribute('class', 'theme-css');
+      link.setAttribute('href', 'custom-theme.css');
+
+      expect(headSpy.appendChild).toHaveBeenCalledWith(link);
     });
   });
 });

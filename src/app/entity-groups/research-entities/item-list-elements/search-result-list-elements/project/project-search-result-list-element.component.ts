@@ -13,4 +13,5 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
  * The component for displaying a list element for an item search result of the type Project
  */
 export class ProjectSearchResultListElementComponent extends ItemSearchResultListElementComponent {
+
 }

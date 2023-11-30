@@ -6,7 +6,7 @@ import { map, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ResourcePolicyService } from '../../../core/resource-policy/resource-policy.service';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
@@ -42,7 +42,7 @@ export class ResourcePolicyCreateComponent implements OnInit {
    *
    * @param {DSONameService} dsoNameService
    * @param {NotificationsService} notificationsService
-   * @param {ResourcePolicyService} resourcePolicyService
+   * @param {ResourcePolicyDataService} resourcePolicyService
    * @param {ActivatedRoute} route
    * @param {Router} router
    * @param {TranslateService} translate
@@ -50,7 +50,7 @@ export class ResourcePolicyCreateComponent implements OnInit {
   constructor(
     private dsoNameService: DSONameService,
     private notificationsService: NotificationsService,
-    private resourcePolicyService: ResourcePolicyService,
+    private resourcePolicyService: ResourcePolicyDataService,
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateService) {

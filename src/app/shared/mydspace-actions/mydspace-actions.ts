@@ -3,9 +3,8 @@ import { Component, EventEmitter, Injector, Input, Output } from '@angular/core'
 
 import { take, tap } from 'rxjs/operators';
 
-import { MydspaceActionsServiceFactory } from './mydspace-actions-service.factory';
+import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';
 import { RemoteData } from '../../core/data/remote-data';
-import { DataService } from '../../core/data/data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
@@ -15,6 +14,7 @@ import { RequestService } from '../../core/data/request.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SearchService } from '../../core/shared/search/search.service';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
+import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
 
 export interface MyDSpaceActionsResult {
   result: boolean;
@@ -26,9 +26,9 @@ export interface MyDSpaceActionsResult {
  */
 @Component({
   selector: 'ds-mydspace-actions-abstract',
-  template: ''
+  template: '',
 })
-export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService extends DataService<T>> {
+export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService extends IdentifiableDataService<T>> {
 
   /**
    * The target mydspace object
@@ -71,8 +71,9 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected searchService: SearchService,
-    protected requestService: RequestService) {
-    const factory = new MydspaceActionsServiceFactory<T, TService>();
+    protected requestService: RequestService,
+  ) {
+    const factory = new MyDSpaceActionsServiceFactory<T, TService>();
     this.objectDataService = injector.get(factory.getConstructor(objectType));
   }
 

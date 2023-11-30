@@ -1,5 +1,5 @@
 import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { map, skip, switchMap, take } from 'rxjs/operators';
@@ -16,20 +16,19 @@ import {
   RemoveRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
-import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { ExternalSourceService } from '../../../../../core/data/external-source.service';
+import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -157,9 +156,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
-    private relationshipService: RelationshipService,
-    private relationshipTypeService: RelationshipTypeService,
-    private externalSourceService: ExternalSourceService,
+    private relationshipService: RelationshipDataService,
+    private relationshipTypeService: RelationshipTypeDataService,
+    private externalSourceService: ExternalSourceDataService,
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
     private rdbService: RemoteDataBuildService,
@@ -303,7 +302,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 
-  /* tslint:disable:no-empty */
+  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   /**
    * Called when discard button is clicked, emit discard event to parent to conclude functionality
    */
@@ -315,6 +314,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    */
   submitEv(): void {
   }
-  /* tslint:enable:no-empty */
+  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
 }

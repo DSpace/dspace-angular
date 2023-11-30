@@ -15,6 +15,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { of } from 'rxjs';
+import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -77,7 +78,8 @@ describe('AuthNavMenuComponent', () => {
           TranslateModule.forRoot()
         ],
         declarations: [
-          AuthNavMenuComponent
+          AuthNavMenuComponent,
+          BrowserOnlyMockPipe
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
@@ -246,7 +248,7 @@ describe('AuthNavMenuComponent', () => {
           component = null;
         });
         it('should render UserMenuComponent component', () => {
-          const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-user-menu'));
+          const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-themed-user-menu'));
           expect(logoutDropdownMenu.nativeElement).toBeDefined();
         });
       });
@@ -356,7 +358,7 @@ describe('AuthNavMenuComponent', () => {
       });
 
       it('should render logout link', inject([Store], (store: Store<AppState>) => {
-        const logoutDropdownMenu = deNavMenuItem.query(By.css('a[id=logoutLink]'));
+        const logoutDropdownMenu = deNavMenuItem.query(By.css('a.logoutLink'));
         expect(logoutDropdownMenu.nativeElement).toBeDefined();
       }));
     });

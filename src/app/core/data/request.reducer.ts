@@ -1,128 +1,18 @@
+/* eslint-disable max-classes-per-file */
 import {
   RequestAction,
   RequestActionTypes,
   RequestConfigureAction,
+  RequestErrorAction,
   RequestExecuteAction,
   RequestRemoveAction,
-  ResetResponseTimestampsAction,
+  RequestStaleAction,
   RequestSuccessAction,
-  RequestErrorAction,
-  RequestStaleAction
+  ResetResponseTimestampsAction
 } from './request.actions';
-import { RestRequest } from './request.models';
-import { HALLink } from '../shared/hal-link.model';
-import { UnCacheableObject } from '../shared/uncacheable-object.model';
 import { isNull } from '../../shared/empty.util';
-
-export enum RequestEntryState {
-  RequestPending = 'RequestPending',
-  ResponsePending = 'ResponsePending',
-  Error = 'Error',
-  Success = 'Success',
-  ErrorStale = 'ErrorStale',
-  SuccessStale = 'SuccessStale'
-}
-
-/**
- * Returns true if the given state is RequestPending, false otherwise
- */
-export const isRequestPending = (state: RequestEntryState) =>
-  state === RequestEntryState.RequestPending;
-
-/**
- * Returns true if the given state is ResponsePending, false otherwise
- */
-export const isResponsePending = (state: RequestEntryState) =>
-  state === RequestEntryState.ResponsePending;
-
-/**
- * Returns true if the given state is Error, false otherwise
- */
-export const isError = (state: RequestEntryState) =>
-  state === RequestEntryState.Error;
-
-/**
- * Returns true if the given state is Success, false otherwise
- */
-export const isSuccess = (state: RequestEntryState) =>
-  state === RequestEntryState.Success;
-
-/**
- * Returns true if the given state is ErrorStale, false otherwise
- */
-export const isErrorStale = (state: RequestEntryState) =>
-  state === RequestEntryState.ErrorStale;
-
-/**
- * Returns true if the given state is SuccessStale, false otherwise
- */
-export const isSuccessStale = (state: RequestEntryState) =>
-  state === RequestEntryState.SuccessStale;
-
-/**
- * Returns true if the given state is RequestPending or ResponsePending,
- * false otherwise
- */
-export const isLoading = (state: RequestEntryState) =>
-  isRequestPending(state) || isResponsePending(state);
-
-/**
- * If isLoading is true for the given state, this method returns undefined, we can't know yet.
- * If it isn't this method will return true if the the given state is Error or ErrorStale,
- * false otherwise
- */
-export const hasFailed = (state: RequestEntryState) => {
-  if (isLoading(state)) {
-    return undefined;
-  } else {
-    return isError(state) || isErrorStale(state);
-  }
-};
-
-/**
- * If isLoading is true for the given state, this method returns undefined, we can't know yet.
- * If it isn't this method will return true if the the given state is Success or SuccessStale,
- * false otherwise
- */
-export const hasSucceeded = (state: RequestEntryState) => {
-  if (isLoading(state)) {
-    return undefined;
-  } else {
-    return isSuccess(state) || isSuccessStale(state);
-  }
-};
-
-/**
- * Returns true if the given state is not loading, false otherwise
- */
-export const hasCompleted = (state: RequestEntryState) =>
-  !isLoading(state);
-
-/**
- * Returns true if the given state is SuccessStale or ErrorStale, false otherwise
- */
-export const isStale = (state: RequestEntryState) =>
-  isSuccessStale(state) || isErrorStale(state);
-
-export class ResponseState {
-  timeCompleted: number;
-  statusCode: number;
-  errorMessage?: string;
-  payloadLink?: HALLink;
-  unCacheableObject?: UnCacheableObject;
-}
-
-// tslint:disable-next-line:max-classes-per-file
-export class RequestEntry {
-  request: RestRequest;
-  state: RequestEntryState;
-  response: ResponseState;
-  lastUpdated: number;
-}
-
-export interface RequestState {
-  [uuid: string]: RequestEntry;
-}
+import { hasSucceeded, isStale, RequestEntryState } from './request-entry-state.model';
+import { RequestState } from './request-state.model';
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);

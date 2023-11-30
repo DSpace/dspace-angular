@@ -1,5 +1,5 @@
-import { FlatNode } from './community-list-service';
 import { CommunityListActions, CommunityListActionTypes, CommunityListSaveAction } from './community-list.actions';
+import { FlatNode } from './flat-node.model';
 
 /**
  * States we wish to put in store concerning the community list

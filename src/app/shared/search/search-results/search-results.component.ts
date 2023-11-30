@@ -48,6 +48,16 @@ export class SearchResultsComponent {
   @Input() searchConfig: PaginatedSearchOptions;
 
   /**
+   * A boolean representing if show csv export button
+   */
+  @Input() showCsvExport = false;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;
@@ -84,6 +94,11 @@ export class SearchResultsComponent {
    * The config option used for selection functionality
    */
   @Input() selectionConfig: SelectionConfig = null;
+
+  /**
+   * Emit when one of the listed object has changed.
+   */
+  @Output() contentChange = new EventEmitter<any>();
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 

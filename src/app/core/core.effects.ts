@@ -19,5 +19,5 @@ export const coreEffects = [
   ObjectUpdatesEffects,
   RouteEffects,
   RouterEffects,
-  MenuEffects
+  MenuEffects,
 ];

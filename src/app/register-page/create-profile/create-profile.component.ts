@@ -3,13 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { Store } from '@ngrx/store';
-import { CoreState } from '../../core/core.reducers';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { environment } from '../../../environments/environment';
@@ -19,7 +18,8 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { CoreState } from '../../core/core-state.model';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -38,8 +38,13 @@ export class CreateProfileComponent implements OnInit {
   isInValidPassword = true;
   password: string;
 
-  userInfoForm: FormGroup;
+  userInfoForm: UntypedFormGroup;
   activeLangs: LangConfig[];
+
+  /**
+   * Prefix for the notification messages of this security form
+   */
+  NOTIFICATIONS_PREFIX = 'register-page.create-profile.submit.';
 
   constructor(
     private translateService: TranslateService,
@@ -47,7 +52,7 @@ export class CreateProfileComponent implements OnInit {
     private store: Store<CoreState>,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private notificationsService: NotificationsService,
     private endUserAgreementService: EndUserAgreementService
   ) {
@@ -56,7 +61,8 @@ export class CreateProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.registration$ = this.route.data.pipe(
-      map((data) => data.registration as Registration),
+      map((data) => data.registration as RemoteData<Registration>),
+      getFirstSucceededRemoteDataPayload(),
     );
     this.registration$.subscribe((registration: Registration) => {
       this.email = registration.email;
@@ -65,14 +71,14 @@ export class CreateProfileComponent implements OnInit {
     this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
 
     this.userInfoForm = this.formBuilder.group({
-      firstName: new FormControl('', {
+      firstName: new UntypedFormControl('', {
         validators: [Validators.required],
       }),
-      lastName: new FormControl('', {
+      lastName: new UntypedFormControl('', {
         validators: [Validators.required],
       }),
-      contactPhone: new FormControl(''),
-      language: new FormControl(''),
+      contactPhone: new UntypedFormControl(''),
+      language: new UntypedFormControl(''),
     });
 
   }
@@ -160,13 +166,12 @@ export class CreateProfileComponent implements OnInit {
         getFirstCompletedRemoteData(),
       ).subscribe((rd: RemoteData<EPerson>) => {
         if (rd.hasSucceeded) {
-          this.notificationsService.success(this.translateService.get('register-page.create-profile.submit.success.head'),
-            this.translateService.get('register-page.create-profile.submit.success.content'));
+          this.notificationsService.success(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.head'),
+            this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.content'));
           this.store.dispatch(new AuthenticateAction(this.email, this.password));
           this.router.navigate(['/home']);
         } else {
-          this.notificationsService.error(this.translateService.get('register-page.create-profile.submit.error.head'),
-            this.translateService.get('register-page.create-profile.submit.error.content'));
+          this.notificationsService.error(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'error.head'), rd.errorMessage);
         }
       });
     }

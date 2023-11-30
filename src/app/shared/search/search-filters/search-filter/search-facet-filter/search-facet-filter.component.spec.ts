@@ -5,13 +5,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
+  REFRESH_FILTER,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FormsModule } from '@angular/forms';
-import { of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
@@ -97,17 +98,18 @@ describe('SearchFacetFilterComponent', () => {
         { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => observableOf(selectedValues),
             isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
             getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
             }
-            /* tslint:enable:no-empty */
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
         }
       ],
@@ -197,7 +199,6 @@ describe('SearchFacetFilterComponent', () => {
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
     const testValue = 'test';
-    const data = testValue;
 
     beforeEach(() => {
       comp.selectedValues$ = observableOf(selectedValues.map((value) =>
@@ -207,14 +208,24 @@ describe('SearchFacetFilterComponent', () => {
         })));
       fixture.detectChanges();
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
-      comp.onSubmit(data);
     });
 
-    it('should call navigate on the router with the right searchlink and parameters', () => {
+    it('should call navigate on the router with the right searchlink and parameters when the filter is provided with a valid operator', () => {
+      comp.onSubmit(testValue + ',equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
-        queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), testValue] },
+        queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
         queryParamsHandling: 'merge'
       });
+    });
+
+    it('should not call navigate on the router when the filter is not provided with a valid operator', () => {
+      comp.onSubmit(testValue);
+      expect(router.navigate).not.toHaveBeenCalled();
+    });
+
+    it('should not call navigate on the router when the empty string is given as filter', () => {
+      comp.onSubmit(',equals');
+      expect(router.navigate).not.toHaveBeenCalled();
     });
   });
 

@@ -4,12 +4,17 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { FindListOptions } from './request.models';
 import { MetadataFieldDataService } from './metadata-field-data.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RequestParam } from '../cache/models/request-param.model';
+import { FindListOptions } from './find-list-options.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { testPutDataImplementation } from './base/put-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;
@@ -33,20 +38,31 @@ describe('MetadataFieldDataService', () => {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
       getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
-      setStaleByHrefSubstring: {}
+      setStaleByHrefSubstring: {},
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));
     notificationsService = jasmine.createSpyObj('notificationsService', {
-      error: {}
+      error: {},
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildSingle: createSuccessfulRemoteDataObject$(undefined)
+      buildSingle: createSuccessfulRemoteDataObject$(undefined),
+      buildList: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     });
-    metadataFieldService = new MetadataFieldDataService(requestService, rdbService, undefined, halService, undefined, undefined, undefined, notificationsService);
+    metadataFieldService = new MetadataFieldDataService(
+      requestService, rdbService, undefined, halService, notificationsService,
+    );
   }
 
   beforeEach(() => {
     init();
+  });
+
+  describe('composition', () => {
+    const initService = () => new MetadataFieldDataService(null, null, null, null, null);
+    testCreateDataImplementation(initService);
+    testSearchDataImplementation(initService);
+    testPutDataImplementation(initService);
+    testDeleteDataImplementation(initService);
   });
 
   describe('findBySchema', () => {

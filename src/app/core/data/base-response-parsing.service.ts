@@ -1,16 +1,16 @@
+/* eslint-disable max-classes-per-file */
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { Serializer } from '../serializer';
 import { PageInfo } from '../shared/page-info.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList, buildPaginatedList } from './paginated-list.model';
 import { getClassForType } from '../cache/builders/build-decorators';
-import { RestRequest } from './request.models';
 import { environment } from '../../../environments/environment';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { RestRequest } from './rest-request.model';
 
-/* tslint:disable:max-classes-per-file */
 
 /**
  * Return true if halObj has a value for `_links.self`
@@ -180,4 +180,3 @@ export abstract class BaseResponseParsingService {
     return statusCode >= 200 && statusCode < 300;
   }
 }
-/* tslint:enable:max-classes-per-file */

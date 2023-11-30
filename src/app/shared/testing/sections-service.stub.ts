@@ -20,4 +20,5 @@ export class SectionsServiceStub {
   computeSectionConfiguredMetadata = jasmine.createSpy('computeSectionConfiguredMetadata');
   getShownSectionErrors = jasmine.createSpy('getShownSectionErrors');
   getSectionServerErrors = jasmine.createSpy('getSectionServerErrors');
+  getIsInformational = jasmine.createSpy('getIsInformational');
 }

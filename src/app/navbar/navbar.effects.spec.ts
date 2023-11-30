@@ -4,11 +4,11 @@ import { HostWindowResizeAction } from '../shared/host-window.actions';
 import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import * as fromRouter from '@ngrx/router-store';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { CollapseMenuAction } from '../shared/menu/menu.actions';
-import { MenuID } from '../shared/menu/initial-menus-state';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
+import { MenuID } from '../shared/menu/menu-id.model';
 
 describe('NavbarEffects', () => {
   let navbarEffects: NavbarEffects;
@@ -43,7 +43,7 @@ describe('NavbarEffects', () => {
   describe('routeChange$', () => {
 
     it('should return a COLLAPSE action in response to an UPDATE_LOCATION action', () => {
-      actions = hot('--a-', { a: { type: fromRouter.ROUTER_NAVIGATION } });
+      actions = hot('--a-', { a: { type: ROUTER_NAVIGATION } });
 
       const expected = cold('--b-', { b: new CollapseMenuAction(MenuID.PUBLIC) });
 

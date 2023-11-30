@@ -76,7 +76,7 @@ export class EndUserAgreementComponent implements OnInit {
 
   /**
    * Cancel the agreement
-   * If the user is logged in, this will log him/her out
+   * If the user is logged in, this will log them out
    * If the user is not logged in, they will be redirected to the homepage
    */
   cancel() {

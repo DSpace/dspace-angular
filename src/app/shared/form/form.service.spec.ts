@@ -1,6 +1,6 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 
@@ -22,7 +22,7 @@ describe('FormService test suite', () => {
   const formId = 'testForm';
   let service: FormService;
   let builderService: FormBuilderService;
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
 
   const formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({ id: 'author', value: 'test' }),
@@ -104,12 +104,19 @@ describe('FormService test suite', () => {
         .subscribe((state) => {
           state.forms = formState;
         });
-      const author: AbstractControl = new FormControl('test');
-      const title: AbstractControl = new FormControl(undefined, Validators.required);
-      const date: AbstractControl = new FormControl(undefined);
-      const description: AbstractControl = new FormControl(undefined);
-      formGroup = new FormGroup({ author, title, date, description });
-      controls = { author, title, date, description };
+      const author: AbstractControl = new UntypedFormControl('test');
+      const title: AbstractControl = new UntypedFormControl(undefined, Validators.required);
+      const date: AbstractControl = new UntypedFormControl(undefined);
+      const description: AbstractControl = new UntypedFormControl(undefined);
+
+      const addressLocation: UntypedFormGroup = new UntypedFormGroup({
+        zipCode: new UntypedFormControl(undefined),
+        state: new UntypedFormControl(undefined),
+        city: new UntypedFormControl(undefined),
+      });
+
+      formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation });
+      controls = { author, title, date, description , addressLocation };
       service = new FormService(builderService, store);
     })
   )
@@ -179,6 +186,32 @@ describe('FormService test suite', () => {
     expect(formGroup.controls.description.touched).toBe(true);
   });
 
+  it('should add errors to fields of concat group', () => {
+    (builderService as any).isConcatGroup.and.returnValue(true);
+
+    let control = controls.addressLocation;
+    let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'addressLocation');
+    let errorKeys: string[];
+
+    service.addErrorToField(control, model, 'Test error message');
+
+    // the group itself should get an error
+    errorKeys = Object.keys(control.errors);
+    expect(errorKeys.length).toBe(1);
+    expect(control.hasError(errorKeys[0])).toBe(true);
+
+    expect(control.touched).toBe(true);
+
+    // the group's inputs should get an error
+    Object.values(control.controls).forEach((subControl: AbstractControl) => {
+      errorKeys = Object.keys(subControl.errors);
+      expect(errorKeys.length).toBe(1);
+      expect(subControl.hasError(errorKeys[0])).toBe(true);
+      expect(subControl.touched).toBe(true);
+    });
+
+  });
+
   it('should remove error from field', () => {
     let control = controls.description;
     let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'description');
@@ -207,6 +240,32 @@ describe('FormService test suite', () => {
     expect(control.hasError(errorKeys[0])).toBe(false);
 
     expect(formGroup.controls.description.touched).toBe(false);
+  });
+
+  it('should remove errors from fields of concat group', () => {
+    (builderService as any).isConcatGroup.and.returnValue(true);
+
+    let control = controls.addressLocation;
+    let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'addressLocation');
+    let errorKeys: string[];
+
+    service.addErrorToField(control, model, 'Test error message');
+    errorKeys = Object.keys(control.errors);
+
+    service.removeErrorFromField(control, model, errorKeys[0]);
+
+    // the group itself should no longer have an error
+    expect(errorKeys.length).toBe(1);
+    expect(control.hasError(errorKeys[0])).toBe(false);
+    expect(control.touched).toBe(false);
+
+    // the group's inputs should no longer have an error
+    Object.values(control.controls).forEach((subControl: AbstractControl) => {
+      errorKeys = Object.keys(subControl.errors);
+      expect(errorKeys.length).toBe(1);
+      expect(subControl.hasError(errorKeys[0])).toBe(false);
+      expect(subControl.touched).toBe(false);
+    });
   });
 
   it('should reset form group', () => {

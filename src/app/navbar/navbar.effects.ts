@@ -1,7 +1,7 @@
 import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import * as fromRouter from '@ngrx/router-store';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 import { HostWindowActionTypes } from '../shared/host-window.actions';
 import {
@@ -9,10 +9,10 @@ import {
   ExpandMenuPreviewAction,
   MenuActionTypes
 } from '../shared/menu/menu.actions';
-import { MenuID } from '../shared/menu/initial-menus-state';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuState } from '../shared/menu/menu.reducer';
 import { NoOpAction } from '../shared/ngrx/no-op.action';
+import { MenuState } from '../shared/menu/menu-state.model';
+import { MenuID } from '../shared/menu/menu-id.model';
 
 @Injectable()
 export class NavbarEffects {
@@ -21,26 +21,26 @@ export class NavbarEffects {
    * Effect that collapses the public menu on window resize
    * @type {Observable<CollapseMenuAction>}
    */
-  @Effect() resize$ = this.actions$
+   resize$ = createEffect(() => this.actions$
     .pipe(
       ofType(HostWindowActionTypes.RESIZE),
       map(() => new CollapseMenuAction(this.menuID))
-    );
+    ));
 
   /**
    * Effect that collapses the public menu on reroute
    * @type {Observable<CollapseMenuAction>}
    */
-  @Effect() routeChange$ = this.actions$
+   routeChange$ = createEffect(() => this.actions$
     .pipe(
-      ofType(fromRouter.ROUTER_NAVIGATION),
+      ofType(ROUTER_NAVIGATION),
       map(() => new CollapseMenuAction(this.menuID))
-    );
+    ));
   /**
    * Effect that collapses the public menu when the admin sidebar opens
    * @type {Observable<CollapseMenuAction>}
    */
-  @Effect() openAdminSidebar$ = this.actions$
+   openAdminSidebar$ = createEffect(() => this.actions$
     .pipe(
       ofType(MenuActionTypes.EXPAND_MENU_PREVIEW),
       switchMap((action: ExpandMenuPreviewAction) => {
@@ -55,7 +55,7 @@ export class NavbarEffects {
             return new NoOpAction();
           }));
       })
-    );
+    ));
   constructor(private actions$: Actions, private menuService: MenuService) {
 
   }

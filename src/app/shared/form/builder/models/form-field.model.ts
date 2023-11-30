@@ -1,3 +1,4 @@
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
 import { autoserialize } from 'cerialize';
 
 import { LanguageCode } from './form-field-language-value.model';
@@ -114,8 +115,17 @@ export class FormFieldModel {
   style: string;
 
   /**
+   * Containing types to bind for this field
+   */
+  @autoserialize
+  typeBind: string[];
+
+  /**
    * Containing the value for this metadata field
    */
   @autoserialize
   value: any;
+
+  @autoserialize
+  visibility: SectionVisibility;
 }

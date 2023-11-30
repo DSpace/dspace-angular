@@ -1,42 +1,20 @@
-import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { Injectable } from '@angular/core';
 import { VOCABULARY_ENTRY } from '../submission/vocabularies/models/vocabularies.resource-type';
-import { FindListOptions } from './request.models';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteData } from './remote-data';
 import { Observable } from 'rxjs';
 import { PaginatedList } from './paginated-list.model';
 import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
 import { LICENSE } from '../shared/license.resource-type';
-import { CacheableObject } from '../cache/object-cache.reducer';
-
-/* tslint:disable:max-classes-per-file */
-class DataServiceImpl extends DataService<any> {
-  // linkPath isn't used if we're only searching by href.
-  protected linkPath = undefined;
-
-  constructor(
-    protected requestService: RequestService,
-    protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<any>) {
-    super();
-  }
-}
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { FindListOptions } from './find-list-options.model';
+import { BaseDataService } from './base/base-data.service';
+import { HALDataService } from './base/hal-data-service.interface';
+import { dataService } from './base/data-service.decorator';
 
 /**
  * A DataService with only findByHref methods. Its purpose is to be used for resources that don't
@@ -44,26 +22,37 @@ class DataServiceImpl extends DataService<any> {
  * for their links to be resolved by the LinkService.
  *
  * an @dataService annotation can be added for any number of these resource types
+ *
+ *
+ * Additionally, this service may be used to retrieve objects by `href` regardless of their type
+ * For example
+ * ```
+ * const items$: Observable<RemoteData<PaginatedList<Item>>> = hrefOnlyDataService.findListByHref<Item>(href);
+ * const sites$: Observable<RemoteData<PaginatedList<Site>>> = hrefOnlyDataService.findListByHref<Site>(href);
+ * ```
+ * This means we cannot extend from {@link BaseDataService} directly because the method signatures would not match.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 @dataService(VOCABULARY_ENTRY)
 @dataService(ITEM_TYPE)
 @dataService(LICENSE)
-export class HrefOnlyDataService {
-  private dataService: DataServiceImpl;
+export class HrefOnlyDataService implements HALDataService<any> {
+  /**
+   * Works with a {@link BaseDataService} internally, but only exposes two of its methods
+   * with altered signatures to (optionally) constrain the arbitrary return type.
+   * @private
+   */
+  private dataService: BaseDataService<any>;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-    protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<any>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, store, objectCache, halService, notificationsService, http, comparator);
+  ) {
+    this.dataService = new BaseDataService(undefined, requestService, rdbService, objectCache, halService);
   }
 
   /**
@@ -93,7 +82,7 @@ export class HrefOnlyDataService {
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-  findAllByHref<T extends CacheableObject>(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
-    return this.dataService.findAllByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  findListByHref<T extends CacheableObject>(href: string | Observable<string>, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
+    return this.dataService.findListByHref(href, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }

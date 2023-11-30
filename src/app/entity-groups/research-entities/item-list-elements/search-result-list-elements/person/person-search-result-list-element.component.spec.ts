@@ -9,6 +9,9 @@ import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 
 let personListElementComponent: PersonSearchResultListElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListElementComponent>;
@@ -50,13 +53,33 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
     })
   });
 
+const environmentUseThumbs = {
+  browseBy: {
+    showThumbnails: true
+  }
+};
+
+const enviromentNoThumbs = {
+  browseBy: {
+    showThumbnails: false
+  }
+};
+
 describe('PersonSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }
+      )],
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock }
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -70,6 +93,21 @@ describe('PersonSearchResultListElementComponent', () => {
     personListElementComponent = fixture.componentInstance;
 
   }));
+
+  describe('with environment.browseBy.showThumbnails set to true', () => {
+    beforeEach(() => {
+      personListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+    it('should set showThumbnails to true', () => {
+      expect(personListElementComponent.showThumbnails).toBeTrue();
+    });
+
+    it('should add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeTruthy();
+    });
+  });
 
   describe('When the item has a job title', () => {
     beforeEach(() => {
@@ -92,6 +130,49 @@ describe('PersonSearchResultListElementComponent', () => {
     it('should not show the job title span', () => {
       const jobTitleField = fixture.debugElement.query(By.css('span.item-list-job-title'));
       expect(jobTitleField).toBeNull();
+    });
+  });
+});
+
+describe('PersonSearchResultListElementComponent', () => {
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }
+      )],
+      declarations: [PersonSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        {provide: TruncatableService, useValue: {}},
+        {provide: DSONameService, useClass: DSONameServiceMock},
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+      ],
+
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PersonSearchResultListElementComponent, {
+      set: {changeDetection: ChangeDetectionStrategy.Default}
+    }).compileComponents();
+  }));
+
+  beforeEach(waitForAsync(() => {
+    fixture = TestBed.createComponent(PersonSearchResultListElementComponent);
+    personListElementComponent = fixture.componentInstance;
+  }));
+
+  describe('with environment.browseBy.showThumbnails set to false', () => {
+    beforeEach(() => {
+
+      personListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should not add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      expect(thumbnailElement).toBeFalsy();
     });
   });
 });

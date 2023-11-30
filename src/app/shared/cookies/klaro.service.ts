@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 /**
  * Abstract class representing a service for handling Klaro consent preferences and UI
  */
@@ -11,7 +13,12 @@ export abstract class KlaroService {
   abstract initialize();
 
   /**
-   * Shows a the dialog with the current consent preferences
+   * Shows a dialog with the current consent preferences
    */
   abstract showSettings();
+
+  /**
+   * Return saved preferences stored in the klaro cookie
+   */
+  abstract getSavedPreferences(): Observable<any>;
 }

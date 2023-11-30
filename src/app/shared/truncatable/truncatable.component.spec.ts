@@ -70,15 +70,4 @@ describe('TruncatableComponent', () => {
     });
   });
 
-  describe('When toggle is called', () => {
-    beforeEach(() => {
-      spyOn(truncatableService, 'toggle');
-      comp.toggle();
-    });
-
-    it('should call toggle on the TruncatableService', () => {
-      expect(truncatableService.toggle).toHaveBeenCalledWith(identifier);
-    });
-  });
-
 });

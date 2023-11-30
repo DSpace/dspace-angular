@@ -3,7 +3,7 @@ import { ChangeAnalyzer } from './change-analyzer';
 import { Injectable } from '@angular/core';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { MetadataMap } from '../shared/metadata.models';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 /**
  * A class to determine what differs between two

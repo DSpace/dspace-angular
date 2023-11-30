@@ -15,6 +15,8 @@ import { FooterComponent } from './footer.component';
 
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { storeModuleConfig } from '../app.reducer';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
@@ -34,7 +36,8 @@ describe('Footer component', () => {
       })],
       declarations: [FooterComponent], // declare the test component
       providers: [
-        FooterComponent
+        FooterComponent,
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

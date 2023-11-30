@@ -1,6 +1,6 @@
-import { ResourcePolicyService } from '../../core/resource-policy/resource-policy.service';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 
-export function getMockResourcePolicyService(): ResourcePolicyService {
+export function getMockResourcePolicyService(): ResourcePolicyDataService {
   return jasmine.createSpyObj('resourcePolicyService', {
     searchByResource: jasmine.createSpy('searchByResource'),
     create: jasmine.createSpy('create'),
