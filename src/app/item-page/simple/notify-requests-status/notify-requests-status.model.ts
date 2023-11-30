@@ -63,6 +63,10 @@ export class NotifyStatuses {
    * The status of the notification request.
    */
   status: RequestStatusEnum;
+  /**
+   * Type of request.
+   */
+  offerType: string;
 }
 
 

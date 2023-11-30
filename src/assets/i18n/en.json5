@@ -5705,10 +5705,10 @@
 
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
 
-  "request-status-alert-box.accepted": "The request for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
 
-  "request-status-alert-box.rejected": "The request for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
 
-  "request-status-alert-box.requested": "The request for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
 }
