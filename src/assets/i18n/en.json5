@@ -3181,6 +3181,13 @@
   "clarin.auth-failed.send-email.error.message": "Error: cannot sent verification email.",
 
 
+
+  "clarin.auth-failed.duplicate-user.header.message": "Authentication Failed",
+
+  "clarin.auth-failed.duplicate-user.error.message": ["Your email", "is already associated with a different user. It is also possible that you used a different identity provider to before. For more information please contact our", "Help Desk"],
+
+
+
   "clarin.missing-headers.error.message": "Your IDP (home organization) has not provided required headers, we cannot allow you to login to our repository without required information.",
 
   "clarin.missing-headers.contact-us.message": "If you have any questions you can contact the ",
