@@ -6,7 +6,6 @@ import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Injectable } from '@angular/core';
 import { EndpointMap } from '../cache/response.models';
-import { getFirstCompletedRemoteData } from './operators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { CacheableObject } from '../cache/cacheable-object.model';
@@ -37,8 +36,8 @@ export class HALEndpointService {
       // This skip ensures that if a stale object is present in the cache when you do a
       // call it isn't immediately returned, but we wait until the remote data for the new request
       // is created.
-      skipWhile((rd: RemoteData<CacheableObject>) => rd.isStale),
-      getFirstCompletedRemoteData(),
+      skipWhile((rd: RemoteData<CacheableObject>) => rd.isLoading || rd.isStale),
+      take(1),
       map((response: RemoteData<CacheableObject>) => {
         if (hasValue(response.payload)) {
           return response.payload._links;
