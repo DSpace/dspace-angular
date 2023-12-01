@@ -9,7 +9,7 @@ import {
   ResetAuthenticationMessagesAction
 } from '../../../../core/auth/auth.actions';
 
-import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
+import { getAuthenticationError, getAuthenticationInfo } from '../../../../core/auth/selectors';
 import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
@@ -145,10 +145,13 @@ export class LogInPasswordComponent implements OnInit {
    * Set up redirect URL. It could be loaded from the `authorizationService.getRedirectUrl()` or from the url.
    */
   public async setUpRedirectUrl() {
-    // Get redirect URL from the authService `redirectUrl` property.
     const fetchedRedirectUrl = await firstValueFrom(this.authService.getRedirectUrl());
     if (isNotEmpty(fetchedRedirectUrl)) {
-      this.redirectUrl = fetchedRedirectUrl;
+      // Bring over the item ID as a query parameter
+      const queryParams = { redirectUrl: fetchedRedirectUrl };
+      // Redirect to login with `redirectUrl` param because the redirectionUrl is lost from the store after click on
+      // `local` login.
+      void this.router.navigate(['login'], { queryParams: queryParams });
     }
 
     // Store the `redirectUrl` value from the url and then remove that value from url.
