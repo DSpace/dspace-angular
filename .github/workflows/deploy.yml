@@ -100,3 +100,20 @@ jobs:
         with:
           INSTANCE: ${{ env.INSTANCE }}
           DATADIR: /opt/dspace-data/clarin-dspace/
+
+      - name: dspace command
+        run: |
+          export DNAME=dspace$INSTANCE
+          docker logs -n 50 $DNAME
+
+          echo "dspace version:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace version"
+
+          echo "dspace cleanup:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace cleanup -v"
+
+          echo "dspace checker:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace checker -v -l"
+
+          echo "dspace healthcheck:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace healthcheck -v"
