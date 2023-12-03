@@ -1092,6 +1092,10 @@
 
   "collection.select.empty": "No collections to show",
 
+  "collection.select.table.select": "Select collection",
+
+  "collection.select.table.deselect": "Deselect collection",
+
   "collection.select.table.title": "Title",
 
   "collection.source.controls.head": "Harvest Controls",
