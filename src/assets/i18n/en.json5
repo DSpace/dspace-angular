@@ -1622,6 +1622,8 @@
 
   "feed.description": "Syndication feed",
 
+  "file-download-link.restricted": "Restricted bitstream",
+
   "file-section.error.header": "Error obtaining files for this item",
 
   "footer.copyright": "copyright © 2002-{{ year }}",
@@ -2095,6 +2097,10 @@
   "item.edit.metadata.add-button": "Add",
 
   "item.edit.metadata.discard-button": "Discard",
+
+  "item.edit.metadata.edit.language": "Edit language",
+
+  "item.edit.metadata.edit.value": "Edit value",
 
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
@@ -2615,6 +2621,10 @@
   "itemtemplate.edit.metadata.add-button": "Add",
 
   "itemtemplate.edit.metadata.discard-button": "Discard",
+
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
 
