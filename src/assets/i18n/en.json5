@@ -4790,6 +4790,8 @@
 
   "vocabulary-treeview.search.form.search": "Search",
 
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+
   "vocabulary-treeview.search.no-result": "There were no items to show",
 
   "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
