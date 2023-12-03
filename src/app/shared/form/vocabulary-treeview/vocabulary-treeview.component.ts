@@ -17,6 +17,7 @@ import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source
 import { CoreState } from '../../../core/core-state.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { AlertType } from '../../alert/alert-type';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -104,6 +105,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   private subs: Subscription[] = [];
+
+  readonly AlertType = AlertType;
 
   /**
    * Initialize instance variables
