@@ -2508,6 +2508,10 @@
 
   "item.select.empty": "No items to show",
 
+  "item.select.table.select": "Select item",
+
+  "item.select.table.deselect": "Deselect item",
+
   "item.select.table.author": "Author",
 
   "item.select.table.collection": "Collection",
