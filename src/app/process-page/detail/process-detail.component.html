@@ -1,9 +1,9 @@
 <div class="container" *ngIf="(processRD$ | async)?.payload as process">
     <div class="row">
       <div class="col-10">
-        <h2 class="flex-grow-1">
+        <h1 class="flex-grow-1">
           {{ 'process.detail.title' | translate:{ id: process?.processId, name: process?.scriptName } }}
-        </h2>
+        </h1>
       </div>
       <div *ngIf="refreshCounter$ | async as seconds" class="col-2 refresh-counter">
         Refreshing in {{ seconds }}s <i class="fas fa-sync-alt fa-spin"></i>

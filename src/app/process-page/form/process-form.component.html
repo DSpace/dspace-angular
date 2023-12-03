@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <h2 class="col-12">
+        <h1 class="col-12">
             {{headerKey | translate}}
-        </h2>
+        </h1>
         <div class="col-12 col-md-6 mb-2">
             <form #form="ngForm" (ngSubmit)="submitForm(form)">
                 <ds-scripts-select [script]="selectedScript" (select)="selectedScript = $event; parameters = undefined"></ds-scripts-select>
@@ -12,7 +12,7 @@
             </form>
         </div>
         <div class="col-12 col-md-6">
-            <ds-script-help [script]="selectedScript"></ds-script-help>
+            <ds-script-help *ngIf="selectedScript" [script]="selectedScript"></ds-script-help>
         </div>
     </div>
 
