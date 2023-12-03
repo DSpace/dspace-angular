@@ -3666,6 +3666,8 @@
 
   "search.search-form.placeholder": "Search the repository ...",
 
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+
   "search.filters.applied.f.author": "Author",
 
   "search.filters.applied.f.dateIssued.max": "End date",
@@ -3919,6 +3921,10 @@
   "search.view-switch.show-grid": "Show as grid",
 
   "search.view-switch.show-list": "Show as list",
+
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  "selectable-list-item-control.select": "Select item",
 
   "sorting.ASC": "Ascending",
 
