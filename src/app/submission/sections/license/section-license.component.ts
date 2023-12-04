@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -39,15 +39,16 @@ import { AsyncPipe, NgIf } from '@angular/common';
   selector: 'ds-submission-section-license',
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
+  providers: [],
   imports: [
     FormComponent,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
   ],
   standalone: true
 })
 @renderSectionFor(SectionsType.License)
-export class SubmissionSectionLicenseComponent extends SectionModelComponent {
+export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
 
   /**
    * The form id
@@ -190,9 +191,12 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
             // Remove any section's errors
             this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
           }
-          this.changeDetectorRef.detectChanges();
         })
     );
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   /**
