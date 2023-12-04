@@ -1,6 +1,6 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { CommonModule} from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -203,6 +203,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: RequestService, useValue: getMockRequestService() },
         FormBuilderService,
+        ResourcePolicyFormComponent,
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectDataService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
@@ -464,7 +465,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [BrowserModule,
+  imports: [
     CommonModule,
     FormsModule,
     NgbModule,

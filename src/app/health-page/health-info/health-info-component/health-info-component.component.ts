@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { HealthInfoComponent } from '../../models/health-component.model';
 import { HealthComponentComponent } from '../../health-panel/health-component/health-component.component';
@@ -14,7 +14,7 @@ import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
     templateUrl: './health-info-component.component.html',
     styleUrls: ['./health-info-component.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, NgbCollapseModule, forwardRef(() => HealthInfoComponentComponent), TitleCasePipe, ObjNgFor]
+    imports: [NgFor, NgIf, NgbCollapseModule, TitleCasePipe, ObjNgFor]
 })
 export class HealthInfoComponentComponent extends HealthComponentComponent {
 

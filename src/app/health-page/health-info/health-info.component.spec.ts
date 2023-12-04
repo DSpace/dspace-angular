@@ -44,6 +44,6 @@ describe('HealthInfoComponent', () => {
 
   it('should create info component properly', () => {
     const components = fixture.debugElement.queryAll(By.css('[data-test="info-component"]'));
-    expect(components.length).toBe(3);
+    expect(components.length).toBe(7);
   });
 });

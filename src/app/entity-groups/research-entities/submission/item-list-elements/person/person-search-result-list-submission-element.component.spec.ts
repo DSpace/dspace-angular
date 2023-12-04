@@ -27,7 +27,6 @@ import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { PersonSearchResultListSubmissionElementComponent } from './person-search-result-list-submission-element.component';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
-import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
@@ -211,7 +210,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe, BrowseByRoutingModule],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
@@ -233,7 +232,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
       remove: {
-        imports: [ThumbnailComponent, PersonInputSuggestionsComponent]
+        imports: [ThumbnailComponent]
       },
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
@@ -261,7 +260,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
 @Component({
   selector: 'ds-mock-thumbnail',
   template: '<div></div>',
-  standalone: true
+  standalone: true,
 })
 export class ThumbnailStubComponent {
 

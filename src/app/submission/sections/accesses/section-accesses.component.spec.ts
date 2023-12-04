@@ -15,17 +15,15 @@ import {
 import { SectionAccessesService } from './section-accesses.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   SubmissionJsonPatchOperationsService
 } from '../../../core/submission/submission-json-patch-operations.service';
 import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import {
   SubmissionJsonPatchOperationsServiceStub
 } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -34,7 +32,6 @@ import {
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
-  DynamicFormValidationService,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { AppState } from '../../../app.reducer';
@@ -47,7 +44,7 @@ import { SubmissionObjectDataService } from '../../../core/submission/submission
 import { SubmissionService } from '../../submission.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
-import { mockDynamicFormValidationService } from '../../../shared/testing/dynamic-form-mock-services';
+import { CommonModule } from '@angular/common';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -99,9 +96,10 @@ describe('SubmissionSectionAccessesComponent', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
+        CommonModule,
         TranslateModule.forRoot(),
-        SubmissionSectionAccessesComponent, FormComponent
+        SubmissionSectionAccessesComponent,
+        FormComponent,
     ],
     providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
@@ -195,19 +193,17 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService = getMockFormService();
       await TestBed.configureTestingModule({
     imports: [
-        BrowserModule,
+        CommonModule,
         TranslateModule.forRoot(),
         SubmissionSectionAccessesComponent,
         FormComponent,
     ],
     providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
-        { provide: FormBuilderService, useValue: builderService },
         { provide: SubmissionAccessesConfigDataService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
         { provide: SectionAccessesService, useValue: sectionAccessesService },
         { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-        { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: FormService, useValue: formService },
         { provide: Store, useValue: storeStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
@@ -217,18 +213,12 @@ describe('SubmissionSectionAccessesComponent', () => {
         { provide: SubmissionObjectDataService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        FormBuilderService,
+        provideMockStore({})
 
         ]
       })
-      .overrideComponent(SubmissionSectionAccessesComponent, {
-        remove: {
-          imports: [
-
-          ]
-        }
-      })
-        .compileComponents();
+      .compileComponents();
     });
 
     beforeEach(() => {

@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -21,7 +21,7 @@ import { NgIf, NgFor, TitleCasePipe } from '@angular/common';
     templateUrl: './health-component.component.html',
     styleUrls: ['./health-component.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, NgbCollapseModule, forwardRef(() => HealthComponentComponent), AlertComponent, TitleCasePipe, ObjNgFor]
+    imports: [NgIf, NgFor, NgbCollapseModule, AlertComponent, TitleCasePipe, ObjNgFor]
 })
 export class HealthComponentComponent {
 

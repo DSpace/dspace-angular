@@ -5,7 +5,8 @@ import { By } from '@angular/platform-browser';
 
 @Component({
     template: `<div dsHoverClass="ds-hover"></div>`,
-    standalone: true
+    standalone: true,
+    imports: [HoverClassDirective]
 })
 class TestComponent {
 }

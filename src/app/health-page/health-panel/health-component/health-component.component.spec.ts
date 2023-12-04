@@ -32,7 +32,7 @@ describe('HealthComponentComponent', () => {
         ObjNgFor
     ],
     schemas: [NO_ERRORS_SCHEMA]
-})
+  })
     .compileComponents();
   });
 

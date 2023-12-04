@@ -45,7 +45,7 @@ import { NgbModal, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-boot
 import { FormComponent } from '../../form/form.component';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;

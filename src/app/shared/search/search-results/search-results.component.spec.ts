@@ -33,7 +33,6 @@ describe('SearchResultsComponent', () => {
         NoopAnimationsModule,
         SearchResultsComponent,
       ],
-      declarations: [QueryParamsDirectiveStub],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(SearchResultsComponent, {
@@ -45,6 +44,7 @@ describe('SearchResultsComponent', () => {
             ErrorComponent,
           ],
         },
+        add: { imports: [QueryParamsDirectiveStub] }
       })
       .compileComponents();
   }));

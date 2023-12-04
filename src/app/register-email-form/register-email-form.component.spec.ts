@@ -4,10 +4,10 @@ import { RestResponse } from '../core/cache/response.models';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { By } from '@angular/platform-browser';
 import { RouterStub } from '../shared/testing/router.stub';
@@ -23,6 +23,8 @@ import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptch
 import { CookieService } from '../core/services/cookie.service';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 describe('RegisterEmailFormComponent', () => {
 
@@ -61,7 +63,7 @@ describe('RegisterEmailFormComponent', () => {
     jasmine.getEnv().allowRespy(true);
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailFormComponent],
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailFormComponent, FormsModule],
     providers: [
         { provide: Router, useValue: router },
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
@@ -71,8 +73,11 @@ describe('RegisterEmailFormComponent', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: GoogleRecaptchaService, useValue: googleRecaptchaService },
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(RegisterEmailFormComponent, {
+  remove: { imports: [GoogleRecaptchaComponent, AlertComponent] }
+})
+  .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailFormComponent);

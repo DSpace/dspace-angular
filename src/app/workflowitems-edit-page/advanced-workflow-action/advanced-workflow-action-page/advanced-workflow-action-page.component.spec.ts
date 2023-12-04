@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action-page.component';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
 
 describe('AdvancedWorkflowActionPageComponent', () => {
   let component: AdvancedWorkflowActionPageComponent;
@@ -11,7 +12,7 @@ describe('AdvancedWorkflowActionPageComponent', () => {
     await TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
-        AdvancedWorkflowActionPageComponent
+        AdvancedWorkflowActionPageComponent,
     ],
     providers: [
         {
@@ -25,7 +26,10 @@ describe('AdvancedWorkflowActionPageComponent', () => {
             },
         },
     ]
-}).compileComponents();
+}).overrideComponent(AdvancedWorkflowActionPageComponent, {
+  remove: { imports: [AdvancedWorkflowActionsLoaderComponent] }
+})
+.compileComponents();
   });
 
   beforeEach(() => {

@@ -281,7 +281,8 @@ describe('EpersonGroupListComponent test suite', () => {
 @Component({
     selector: 'ds-test-cmp',
     template: ``,
-    standalone: true
+    standalone: true,
+    imports: [EpersonGroupListComponent]
 })
 class TestComponent {
 

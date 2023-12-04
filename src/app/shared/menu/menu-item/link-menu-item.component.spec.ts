@@ -27,7 +27,6 @@ describe('LinkMenuItemComponent', () => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), LinkMenuItemComponent],
-      declarations: [QueryParamsDirectiveStub],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link, queryParams: queryParams } },
         { provide: Router, useValue: new RouterStub() },
@@ -40,7 +39,7 @@ describe('LinkMenuItemComponent', () => {
     })
       .overrideComponent(LinkMenuItemComponent, {
         remove: { imports: [] },
-        add: { imports: [RouterLinkDirectiveStub] }
+        add: { imports: [RouterLinkDirectiveStub, QueryParamsDirectiveStub] }
       })
       .compileComponents();
   }));
