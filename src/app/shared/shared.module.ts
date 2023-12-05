@@ -275,6 +275,7 @@ import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-li
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
 import { HtmlContentService } from './html-content.service';
+import { ClarinSafeHtmlPipe } from './utils/clarin-safehtml.pipe';
 
 const MODULES = [
   CommonModule,
@@ -319,7 +320,8 @@ const PIPES = [
   ClarinLicenseCheckedPipe,
   ClarinLicenseLabelRadioValuePipe,
   ClarinLicenseRequiredInfoPipe,
-  CharToEndPipe
+  CharToEndPipe,
+  ClarinSafeHtmlPipe
 ];
 
 const COMPONENTS = [
