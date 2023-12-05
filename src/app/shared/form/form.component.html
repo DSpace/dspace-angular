@@ -20,7 +20,7 @@
                   title="{{'form.remove' | translate}}"
                   attr.aria-label="{{'form.remove' | translate}}"
                   (click)="clearScrollableDropdown($event, model)"
-                  [disabled]="!model.value">
+                  [disabled]="!model.value || model.readOnly">
             <span><i class="fas fa-trash" aria-hidden="false"></i></span>
           </button>
         </div>
