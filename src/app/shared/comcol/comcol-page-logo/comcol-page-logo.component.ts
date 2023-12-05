@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FileService } from '../../../core/shared/file.service';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../empty.util';
@@ -19,7 +19,7 @@ export class ComcolPageLogoComponent implements OnChanges {
 
   @Input() alternateText: string;
 
-  src$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined)
+  src$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
 
   /**
    * The default 'holder.js' image
