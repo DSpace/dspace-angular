@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { trigger } from '@angular/animations';
 
-import { AlertType } from './aletr-type';
+import { AlertType } from './alert-type';
 import { fadeOutLeave, fadeOutState } from '../animations/fade';
 
 /**

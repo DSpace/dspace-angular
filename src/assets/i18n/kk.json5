@@ -4139,20 +4139,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Сіздің өтініштеріңіз",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Мұрағатталған",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Мұрағатталған",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Валидация",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Валидация",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Контроллерді күтуде",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Контроллерді күтуде",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Жұмыс барысы",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Жұмыс барысы",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Жұмыс кеңістігі",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Жұмыс кеңістігі",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",

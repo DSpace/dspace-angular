@@ -14,6 +14,7 @@ import { ThemedBrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page/t
 import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { FormModule } from '../shared/form/form.module';
+import { SharedModule } from '../shared/shared.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -35,6 +36,7 @@ const ENTRY_COMPONENTS = [
     ComcolModule,
     DsoPageModule,
     FormModule,
+    SharedModule,
   ],
   declarations: [
     BrowseBySwitcherComponent,
