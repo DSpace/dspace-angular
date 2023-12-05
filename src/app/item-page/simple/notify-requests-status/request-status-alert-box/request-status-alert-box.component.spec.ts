@@ -13,11 +13,13 @@ describe('RequestStatusAlertBoxComponent', () => {
       serviceName: 'test',
       serviceUrl: 'test',
       status: RequestStatusEnum.ACCEPTED,
+      offerType: 'test'
     },
     {
       serviceName: 'test1',
       serviceUrl: 'test',
       status: RequestStatusEnum.REJECTED,
+      offerType: 'test'
     },
   ];
 
