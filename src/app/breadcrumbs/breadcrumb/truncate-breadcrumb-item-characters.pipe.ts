@@ -10,7 +10,7 @@ export class TruncateBreadcrumbItemCharactersPipe implements PipeTransform {
    * The maximum number of characters to display in a breadcrumb item
    * @type {number}
    */
-  readonly charLimit: number = environment.breadcrumbCharLimit;
+  readonly charLimit: number = environment.layout.breadcrumbs.charLimit;
 
   /**
    * Truncates the text based on the configured char number allowed per breadcrumb element.
