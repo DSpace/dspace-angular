@@ -1,4 +1,5 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -39,11 +40,16 @@ export class CountersSectionComponent implements OnInit {
 
   constructor(private searchService: SearchService,
               private uuidService: UUIDService,
-              @Inject(NativeWindowService) protected _window: NativeWindowRef) {
+              @Inject(PLATFORM_ID) private platformId: Object,
+              @Inject(NativeWindowService) protected _window: NativeWindowRef,) {
 
   }
 
   ngOnInit() {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     this.counterData$ = forkJoin(
       this.countersSection.counterSettingsList.map((counterSettings: CountersSettings) =>
         this.searchService.search(new PaginatedSearchOptions({

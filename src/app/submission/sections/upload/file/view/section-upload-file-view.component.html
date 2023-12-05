@@ -25,21 +25,18 @@
     </ng-container>
   </ng-container>
 
-
   <div class="mt-1" *ngIf="fileFormat">
-    {{'admin.registries.bitstream-formats.edit.head' | translate:{format: fileFormat} }}
+     <span class="font-weight-bold">{{'submission.sections.upload.format' | translate}} :</span><span> {{fileFormat}} </span>
   </div>
   <div class="mt-1" *ngIf="fileCheckSum">
-    Checksum {{fileCheckSum.checkSumAlgorithm}}: {{fileCheckSum.value}}
+      <span class="font-weight-bold">{{'submission.sections.upload.checksum' | translate}} ({{fileData.checkSum.checkSumAlgorithm}}) <i class="far fa-question-circle text-info hint" #hint="ngbTooltip"
+                                                                                                                                        container="body"
+                                                                                                                                        placement="top"
+                                                                                                                                        [ngbTooltip]="tipContent"
+                                                                                                                                        triggers="manual"
+                                                                                                                                        [autoClose]="false"
+                                                                                                                                        (click)="hint.toggle();$event.preventDefault();"></i> :</span><span> {{fileData.checkSum.value}} </span>
   </div>
-  <span class="clearfix"></span>
-  <span class="font-weight-bold">{{'submission.sections.upload.checksum' | translate}} ({{fileData.checkSum.checkSumAlgorithm}}) <i class="far fa-question-circle text-info hint" #hint="ngbTooltip"
-                                                                                                                                     container="body"
-                                                                                                                                     placement="top"
-                                                                                                                                     [ngbTooltip]="tipContent"
-                                                                                                                                     triggers="manual"
-                                                                                                                                     [autoClose]="false"
-                                                                                                                                     (click)="hint.toggle();$event.preventDefault();"></i> :</span><span> {{fileData.checkSum.value}} </span>
   <span class="clearfix"></span>
   <ds-submission-section-upload-access-conditions [accessConditions]="fileData.accessConditions"></ds-submission-section-upload-access-conditions>
 </div>

@@ -6,7 +6,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  PLATFORM_ID
 } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 
@@ -49,6 +50,7 @@ import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-ro
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'ds-search',
@@ -223,6 +225,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showFilterToggle = false;
 
   /**
+   * Defines whether to show the toggle button to Show/Hide filter
+   */
+  @Input() renderOnServerSide = true;
+
+  /**
    * Defines whether to show the toggle button to Show/Hide chart
    */
   @Input() showChartsToggle = false;
@@ -358,9 +365,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
+    @Inject(PLATFORM_ID) public platformId: any,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
-    protected router: Router) {
+    protected router: Router,) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -372,6 +380,11 @@ export class SearchComponent implements OnInit, OnDestroy {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
