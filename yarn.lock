@@ -8369,10 +8369,10 @@ ngx-sortablejs@^11.1.0:
   dependencies:
     tslib "^2.0.0"
 
-ngx-ui-switch@^14.0.3:
-  version "14.0.3"
-  resolved "https://registry.npmjs.org/ngx-ui-switch/-/ngx-ui-switch-14.0.3.tgz"
-  integrity sha512-SZ8ZnTCuNJgNWuY3/mOG3TdsRUNPCX3vGdCKKx1ZHVMTUynerJQlTWck2JrYlnrexNnd7wy4P10jDvdtDwoYeg==
+ngx-ui-switch@^14.1.0:
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-14.1.0.tgz#32248361a684257c5ae64cfde61b95de920b901c"
+  integrity sha512-uGGLppBP1FXjyD+x7f8Pm6I3JQTMmsBqPtwERAX27jSZxDWFp/sewnl75fuDvu75qFofJd/BIOtV4xHxzgZOvw==
   dependencies:
     tslib "^2.3.0"
 

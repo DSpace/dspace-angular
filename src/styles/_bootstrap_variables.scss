@@ -12,6 +12,14 @@ $fa-font-path: "^assets/fonts" !default;
 /* Images */
 $image-path: "../assets/images" !default;
 
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$h1-font-size: $font-size-base * 2.125 !default;
+$h2-font-size: $font-size-base * 1.75 !default;
+$h3-font-size: $font-size-base * 1.5 !default;
+$h4-font-size: $font-size-base * 1.25 !default;
+$h5-font-size: $font-size-base * 1.125 !default;
+$h6-font-size: $font-size-base !default;
+
 // enable-responsive-font-sizes allows text to scale more naturally across device and viewport sizes
 $enable-responsive-font-sizes: true;
 
