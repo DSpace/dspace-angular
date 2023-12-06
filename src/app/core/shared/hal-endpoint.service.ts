@@ -1,11 +1,19 @@
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith, switchMap, take, skipWhile } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+  take,
+  tap, filter
+} from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { EndpointMapRequest } from '../data/request.models';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Injectable } from '@angular/core';
 import { EndpointMap } from '../cache/response.models';
+import { getFirstCompletedRemoteData } from './operators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { CacheableObject } from '../cache/cacheable-object.model';
@@ -33,11 +41,16 @@ export class HALEndpointService {
     this.requestService.send(request, true);
 
     return this.rdbService.buildFromHref<CacheableObject>(href).pipe(
-      // This skip ensures that if a stale object is present in the cache when you do a
-      // call it isn't immediately returned, but we wait until the remote data for the new request
-      // is created.
-      skipWhile((rd: RemoteData<CacheableObject>) => rd.isLoading || rd.isStale),
-      take(1),
+      // Re-request stale responses
+      tap((rd: RemoteData<CacheableObject>) => {
+        if (hasValue(rd) && rd.isStale) {
+          this.getEndpointMapAt(href);
+        }
+      }),
+      // Filter out all stale responses. We're only interested in a single, non-stale,
+      // completed RemoteData
+      filter((rd: RemoteData<CacheableObject>) => !rd.isStale),
+      getFirstCompletedRemoteData(),
       map((response: RemoteData<CacheableObject>) => {
         if (hasValue(response.payload)) {
           return response.payload._links;
