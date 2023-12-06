@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
@@ -42,7 +42,6 @@ export class AuthFailedPageComponent implements OnInit {
 
   constructor(
     protected configurationDataService: ConfigurationDataService,
-    protected router: Router,
     public route: ActivatedRoute,
     private requestService: RequestService,
     protected halService: HALEndpointService,
@@ -61,7 +60,8 @@ export class AuthFailedPageComponent implements OnInit {
   public sendEmail() {
     const requestId = this.requestService.generateRequestId();
 
-    const url = this.halService.getRootHref() + '/autoregistration?netid=' + this.netid + '&email=' + this.email;
+    const url = this.halService.getRootHref() + '/autoregistration?netid=' + encodeURIComponent(this.netid) +
+      '&email=' + encodeURIComponent(this.email);
     const postRequest = new PostRequest(requestId, url);
     // Send POST request
     this.requestService.send(postRequest);
