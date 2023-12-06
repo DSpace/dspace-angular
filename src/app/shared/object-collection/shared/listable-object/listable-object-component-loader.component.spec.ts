@@ -14,6 +14,14 @@ import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
+import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
+import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
+import { CookieService } from 'src/app/core/services/cookie.service';
+import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -22,6 +30,12 @@ const testViewMode = ViewMode.StandalonePage;
 class TestType extends ListableObject {
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [testType];
+  }
+  firstMetadataValue(): string {
+    return '';
+  }
+  allMetadata() {
+    return [];
   }
 }
 
@@ -44,6 +58,14 @@ describe('ListableObjectComponentLoaderComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
+        { provide: HardRedirectService, useValue: jasmine.createSpyObj('hardRedirectService', ['redirect']) },
+        { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: REQUEST, useValue: {} },
+        {
+          provide: ActivatedRoute,
+          useValue: { data: of({ dso: { payload: {} } }), params: of({}) }
+      },
         provideMockStore({}),
         { provide: ThemeService, useValue: themeService },
         { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } }
@@ -58,7 +80,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ListableObjectComponentLoaderComponent);
     comp = fixture.componentInstance;
-
     comp.object = new TestType();
     comp.viewMode = testViewMode;
     comp.context = testContext;
