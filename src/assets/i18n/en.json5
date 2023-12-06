@@ -142,6 +142,8 @@
 
   "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
+  "admin.registries.bitstream-formats.select": "Select bitstream format",
+
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
@@ -862,6 +864,8 @@
 
   "browse.startsWith.input": "Filter",
 
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
   "browse.taxonomy.button": "Browse",
 
   "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
@@ -1089,6 +1093,10 @@
   "collection.select.confirm": "Confirm selected",
 
   "collection.select.empty": "No collections to show",
+
+  "collection.select.table.select": "Select collection",
+
+  "collection.select.table.deselect": "Deselect collection",
 
   "collection.select.table.title": "Title",
 
@@ -1616,6 +1624,8 @@
 
   "feed.description": "Syndication feed",
 
+  "file-download-link.restricted": "Restricted bitstream",
+
   "file-section.error.header": "Error obtaining files for this item",
 
   "footer.copyright": "copyright © 2002-{{ year }}",
@@ -2090,6 +2100,10 @@
 
   "item.edit.metadata.discard-button": "Discard",
 
+  "item.edit.metadata.edit.language": "Edit language",
+
+  "item.edit.metadata.edit.value": "Edit value",
+
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -2506,6 +2520,10 @@
 
   "item.select.empty": "No items to show",
 
+  "item.select.table.select": "Select item",
+
+  "item.select.table.deselect": "Deselect item",
+
   "item.select.table.author": "Author",
 
   "item.select.table.collection": "Collection",
@@ -2605,6 +2623,10 @@
   "itemtemplate.edit.metadata.add-button": "Add",
 
   "itemtemplate.edit.metadata.discard-button": "Discard",
+
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
 
@@ -3136,6 +3158,14 @@
 
   "process.new.select-parameters": "Parameters",
 
+  "process.new.select-parameter": "Select parameter",
+
+  "process.new.add-parameter": "Add a parameter...",
+
+  "process.new.delete-parameter": "Delete parameter",
+
+  "process.new.parameter.label": "Parameter value",
+
   "process.new.cancel": "Cancel",
 
   "process.new.submit": "Save",
@@ -3241,6 +3271,8 @@
   "process.overview.table.actions": "Actions",
 
   "process.overview.delete": "Delete {{count}} processes",
+
+  "process.overview.delete-process": "Delete process",
 
   "process.overview.delete.clear": "Clear delete selection",
 
@@ -3598,6 +3630,14 @@
 
   "resource-policies.table.headers.group": "Group",
 
+  "resource-policies.table.headers.select-all": "Select all",
+
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  "resource-policies.table.headers.select": "Select",
+
+  "resource-policies.table.headers.deselect": "Deselect",
+
   "resource-policies.table.headers.id": "ID",
 
   "resource-policies.table.headers.name": "Name",
@@ -3625,6 +3665,8 @@
   "search.breadcrumbs": "Search",
 
   "search.search-form.placeholder": "Search the repository ...",
+
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   "search.filters.applied.f.author": "Author",
 
@@ -3879,6 +3921,10 @@
   "search.view-switch.show-grid": "Show as grid",
 
   "search.view-switch.show-list": "Show as list",
+
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  "selectable-list-item-control.select": "Select item",
 
   "sorting.ASC": "Ascending",
 
@@ -4752,6 +4798,8 @@
 
   "vocabulary-treeview.search.form.search": "Search",
 
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+
   "vocabulary-treeview.search.no-result": "There were no items to show",
 
   "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
@@ -5168,6 +5216,8 @@
 
   "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
 
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   "system-wide-alert.form.label.preview": "System-wide alert preview",
 
   "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
@@ -5190,7 +5240,15 @@
 
   "access-control-item-header-toggle": "Item's Metadata",
 
+  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+
+  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+
   "access-control-bitstream-header-toggle": "Bitstreams",
+
+  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+
+  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
 
   "access-control-mode": "Mode",
 
@@ -5208,11 +5266,15 @@
 
   "access-control-bitstreams-selected": "bitstreams selected",
 
+  "access-control-bitstreams-select": "Select bitstreams",
+
   "access-control-cancel": "Cancel",
 
   "access-control-execute": "Execute",
 
   "access-control-add-more": "Add more",
+
+  "access-control-remove": "Remove access condition",
 
   "access-control-select-bitstreams-modal.title": "Select bitstreams",
 

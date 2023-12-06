@@ -1,7 +1,7 @@
 <ng-container *ngVar="(user$ | async) as user">
   <div class="container" *ngIf="user">
     <ng-container *ngIf="isResearcherProfileEnabled() | async">
-      <h3 class="mb-4">{{'profile.head' | translate}}</h3>
+      <h2 class="mb-4">{{'profile.head' | translate}}</h2>
       <div class="card mb-4">
         <div class="card-header">{{'profile.card.researcher' | translate}}</div>
         <div class="card-body">
@@ -34,7 +34,7 @@
 
     <ng-container *ngVar="(groupsRD$ | async)?.payload?.page as groups">
       <div *ngIf="groups?.length > 0">
-        <h3 class="mt-4">{{'profile.groups.head' | translate}}</h3>
+        <h2 class="mt-4">{{'profile.groups.head' | translate}}</h2>
         <ul class="list-group list-group-flush">
           <li *ngFor="let group of groups" class="list-group-item">{{ dsoNameService.getName(group) }}</li>
         </ul>
@@ -43,7 +43,7 @@
 
     <ng-container *ngVar="(specialGroupsRD$ | async)?.payload?.page as specialGroups">
       <div *ngIf="specialGroups?.length > 0" data-test="specialGroups">
-        <h3 class="mt-4">{{'profile.special.groups.head' | translate}}</h3>
+        <h2 class="mt-4">{{'profile.special.groups.head' | translate}}</h2>
         <ul class="list-group list-group-flush">
           <li *ngFor="let specialGroup of specialGroups" class="list-group-item">
             {{ dsoNameService.getName(specialGroup) }}
