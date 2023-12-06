@@ -164,7 +164,7 @@ export class RequestService {
     this.getByHref(request.href).pipe(
       take(1))
       .subscribe((re: RequestEntry) => {
-        isPending = (hasValue(re) && isLoading(re.state));
+        isPending = (hasValue(re) && isLoading(re.state) && !isStale(re.state));
       });
     return isPending;
   }
