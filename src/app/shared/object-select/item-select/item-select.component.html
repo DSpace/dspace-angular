@@ -11,7 +11,7 @@
       <table id="item-select" class="table table-striped table-hover">
         <thead>
         <tr>
-          <th></th>
+          <th aria-hidden="true"></th>
           <th *ngIf="!hideCollection" scope="col">{{'item.select.table.collection' | translate}}</th>
           <th scope="col">{{'item.select.table.author' | translate}}</th>
           <th scope="col">{{'item.select.table.title' | translate}}</th>
@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let item of itemsRD?.payload?.page">
-          <td><input [disabled]="!(canSelect(item) | async)" class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
+          <td><input #selectItemBtn [attr.aria-label]="(selectItemBtn.checked ? 'item.select.table.deselect' : 'item.select.table.select') | translate" [disabled]="!(canSelect(item) | async)" class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
           <td *ngIf="!hideCollection">
             <span *ngVar="(item.owningCollection | async)?.payload as collection">
               <a *ngIf="collection" [routerLink]="['/collections', collection?.id]">

@@ -34,22 +34,21 @@
     </div>
     <div class="navbar-nav">
         <div class="sidebar-section" id="sidebar-collapse-toggle">
-            <a class="nav-item nav-link sidebar-section d-flex flex-row flex-nowrap"
-               href="javascript:void(0);"
+            <button class="nav-item nav-link sidebar-section d-flex flex-row flex-nowrap border-0" type="button"
                (click)="toggle($event)"
                (keyup.space)="toggle($event)"
             >
-              <div class="shortcut-icon">
+              <span class="shortcut-icon">
                 <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
                    [title]="'menu.section.icon.pin' | translate"></i>
                 <i *ngIf="!(menuCollapsed | async)" class="fas fa-fw fa-angle-double-left"
                    [title]="'menu.section.icon.unpin' | translate"></i>
-              </div>
-              <div class="sidebar-collapsible">
+              </span>
+              <span class="sidebar-collapsible text-left">
                 <span *ngIf="menuCollapsed | async" class="section-header-text">{{'menu.section.pin' | translate }}</span>
                 <span *ngIf="!(menuCollapsed | async)" class="section-header-text">{{'menu.section.unpin' | translate }}</span>
-              </div>
-            </a>
+              </span>
+            </button>
         </div>
     </div>
 </nav>

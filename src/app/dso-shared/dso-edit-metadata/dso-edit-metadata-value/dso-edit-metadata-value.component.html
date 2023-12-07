@@ -4,6 +4,7 @@
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center" *ngVar="(mdRepresentation$ | async) as mdRepresentation" role="cell">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing && !mdRepresentation">{{ mdValue.newValue.value }}</div>
     <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation" [(ngModel)]="mdValue.newValue.value"
+              [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
               [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
     <div class="d-flex" *ngIf="mdRepresentation">
       <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
@@ -13,6 +14,7 @@
   <div class="ds-flex-cell ds-lang-cell" role="cell">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing">{{ mdValue.newValue.language }}</div>
     <input class="form-control" type="text" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.language"
+           [attr.aria-label]="(dsoType + '.edit.metadata.edit.language') | translate"
            [dsDebounce]="300" (onDebounce)="confirm.emit(false)" />
   </div>
   <div class="text-center ds-flex-cell ds-edit-cell" role="cell">
