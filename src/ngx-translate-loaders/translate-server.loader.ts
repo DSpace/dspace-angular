@@ -3,6 +3,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { readFileSync } from 'fs';
 import { TransferState } from '@angular/platform-browser';
 import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
+import { environment } from '../environments/environment';
 
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the
@@ -23,7 +24,9 @@ export class TranslateServerLoader implements TranslateLoader {
    * @param lang the language code
    */
   public getTranslation(lang: string): Observable<any> {
-    const translationHash: string = (process.env.languageHashes as any)[lang + '.json5'];
+    const languageHashesConfigFromEnvironment = environment.languageHashes.filter((languageHashConfig) => languageHashConfig.lang === lang);
+    const translationHash = `.${languageHashesConfigFromEnvironment.length > 0 ? languageHashesConfigFromEnvironment[0].md5 : (process.env.languageHashes  as any)[lang + '.json5']}`;
+
     // Retrieve the file for the given language, and parse it
     const messages = JSON.parse(readFileSync(`${this.prefix}${lang}.${translationHash}${this.suffix}`, 'utf8'));
     // Store the parsed messages in the transfer state so they'll be available immediately when the

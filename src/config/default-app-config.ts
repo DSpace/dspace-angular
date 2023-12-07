@@ -22,6 +22,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import { LanguageHashesConfig } from './languageHashes-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -241,6 +242,8 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'sr-cyr', label: 'Српски', active: true},
     { code: 'uk', label: 'Yкраї́нська', active: true}
   ];
+
+  languageHashes: LanguageHashesConfig[] = [];
 
   // Browse-By Pages
   browseBy: BrowseByConfig = {
