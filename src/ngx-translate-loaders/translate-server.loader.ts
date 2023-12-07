@@ -25,7 +25,7 @@ export class TranslateServerLoader implements TranslateLoader {
    */
   public getTranslation(lang: string): Observable<any> {
     const languageHashesConfigFromEnvironment = environment.languageHashes.filter((languageHashConfig) => languageHashConfig.lang === lang);
-    const translationHash = `.${languageHashesConfigFromEnvironment.length > 0 ? languageHashesConfigFromEnvironment[0].md5 : (process.env.languageHashes  as any)[lang + '.json5']}`;
+    const translationHash = languageHashesConfigFromEnvironment.length > 0 ? languageHashesConfigFromEnvironment[0].md5 : (process.env.languageHashes  as any)[lang + '.json5'];
 
     // Retrieve the file for the given language, and parse it
     const messages = JSON.parse(readFileSync(`${this.prefix}${lang}.${translationHash}${this.suffix}`, 'utf8'));
