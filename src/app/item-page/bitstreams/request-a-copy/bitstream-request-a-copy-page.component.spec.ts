@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthService } from '../../../core/auth/auth.service';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import {
@@ -25,6 +25,9 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { ItemRequest } from '../../../core/shared/item-request.model';
 import { Location } from '@angular/common';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { CookieService } from 'src/app/core/services/cookie.service';
+import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
+import { GoogleRecaptchaService } from 'src/app/core/google-recaptcha/google-recaptcha.service';
 
 
 describe('BitstreamRequestACopyPageComponent', () => {
@@ -43,6 +46,19 @@ describe('BitstreamRequestACopyPageComponent', () => {
   let item: Item;
   let bitstream: Bitstream;
   let eperson;
+
+  const captchaVersion$ = of('v3');
+  const captchaMode$ = of('invisible');
+  const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['true'] });
+  const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['false'] });
+
+  const googleRecaptchaService = jasmine.createSpyObj('googleRecaptchaService', {
+    getRecaptchaToken: Promise.resolve('googleRecaptchaToken'),
+    executeRecaptcha: Promise.resolve('googleRecaptchaToken'),
+    getRecaptchaTokenResponse: Promise.resolve('googleRecaptchaToken'),
+    captchaVersion: captchaVersion$,
+    captchaMode: captchaMode$,
+  });
 
   function init() {
     eperson = Object.assign(new EPerson(), {
@@ -112,6 +128,8 @@ describe('BitstreamRequestACopyPageComponent', () => {
         {provide: NotificationsService, useValue: notificationsService},
         {provide: DSONameService, useValue: new DSONameServiceMock()},
         {provide: BitstreamDataService, useValue: bitstreamDataService},
+        {provide: CookieService, useValue: new CookieServiceMock()},
+        {provide: GoogleRecaptchaService, useValue: googleRecaptchaService},
       ]
     })
       .compileComponents();
@@ -125,6 +143,8 @@ describe('BitstreamRequestACopyPageComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(BitstreamRequestACopyPageComponent);
       component = fixture.componentInstance;
+      googleRecaptchaService.captchaVersion$ = captchaVersion$;
+      googleRecaptchaService.captchaMode$ = captchaMode$;
       fixture.detectChanges();
     });
     it('should init the comp', () => {

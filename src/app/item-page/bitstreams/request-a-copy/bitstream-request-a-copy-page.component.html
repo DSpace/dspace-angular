@@ -67,6 +67,13 @@
                               id="message" formControlName="message"></textarea>
                 </div>
             </div>
+            <div class="row mb-4">
+                <div class="col-12" *ngIf="(googleRecaptchaService.captchaVersion() | async) === 'v2'">
+                <ds-google-recaptcha [captchaMode]="(googleRecaptchaService.captchaMode() | async)"
+                                     (executeRecaptcha)="register($event)" (checkboxChecked)="onCheckboxChecked($event)"
+                                     (showNotification)="showNotification($event)"></ds-google-recaptcha>
+                                    </div>
+              </div>
         </div>
     </form>
 
@@ -77,11 +84,10 @@
             <a (click)="navigateBack()" role="button" class="btn btn-outline-secondary mr-1">
                 <i class="fas fa-arrow-left"></i> {{'bitstream-request-a-copy.return' | translate}}
             </a>
-
             <button
-                    [disabled]="requestCopyForm.invalid"
+                    [disabled]="!registrationVerification"
                     class="btn btn-default btn-primary"
-                    (click)="onSubmit()">{{'bitstream-request-a-copy.submit' | translate}}</button>
+                    (click)="register()">{{'bitstream-request-a-copy.submit' | translate}}</button>
         </div>
     </div>
 </div>

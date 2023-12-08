@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
@@ -7,7 +7,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthService } from '../../../core/auth/auth.service';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription, combineLatest, of, BehaviorSubject } from 'rxjs';
 import { getBitstreamDownloadRoute, getForbiddenRoute } from '../../../app-routing-paths';
 import { TranslateService } from '@ngx-translate/core';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
@@ -20,6 +20,9 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Location } from '@angular/common';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import { CookieService } from 'src/app/core/services/cookie.service';
+import { CAPTCHA_NAME, GoogleRecaptchaService } from 'src/app/core/google-recaptcha/google-recaptcha.service';
+
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
@@ -42,6 +45,29 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   bitstream$: Observable<Bitstream>;
   bitstream: Bitstream;
   bitstreamName: string;
+  form: UntypedFormGroup;
+  /**
+   * registration verification configuration
+   */
+  registrationVerification = false;
+  subscriptions: Subscription[] = [];
+    /**
+   * The message prefix
+   */
+    @Input()
+    MESSAGE_PREFIX: string;
+    /**
+   * Return true if the user completed the reCaptcha verification (checkbox mode)
+   */
+  checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
+
+  captchaVersion(): Observable<string> {
+    return this.googleRecaptchaService.captchaVersion();
+  }
+
+  captchaMode(): Observable<string> {
+    return this.googleRecaptchaService.captchaMode();
+  }
 
   constructor(private location: Location,
               private translateService: TranslateService,
@@ -54,6 +80,8 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private dsoNameService: DSONameService,
               private bitstreamService: BitstreamDataService,
+              public cookieService: CookieService,
+              public googleRecaptchaService: GoogleRecaptchaService,
   ) {
   }
 
@@ -209,4 +237,93 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   getBitstreamLink() {
     return [getBitstreamDownloadRoute(this.bitstream)];
   }
+
+  /**
+   * execute the captcha function for v2 invisible
+   */
+  executeRecaptcha() {
+    this.googleRecaptchaService.executeRecaptcha();
+  }
+
+  /**
+   * Register an email address
+   */
+  register(tokenV2?) {
+    if (!this.requestCopyForm.invalid) {
+      if (this.registrationVerification) {
+        this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
+          switchMap(([captchaVersion, captchaMode])  => {
+            if (captchaVersion === 'v3') {
+              return this.googleRecaptchaService.getRecaptchaToken('register_email');
+            } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
+              return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
+            } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
+              return of(tokenV2);
+            } else {
+              console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
+              this.showNotification('error');
+            }
+          }),
+          take(1),
+        ).subscribe((token) => {
+            if (isNotEmpty(token)) {
+              // this.onSubmit();
+              this.registrationVerification = true;
+            } else {
+              console.error('reCaptcha error');
+              this.showNotification('error');
+            }
+          }
+        ));
+      } else {
+        // this.onSubmit();
+        this.registrationVerification = true;
+      }
+    }
+  }
+
+  /**
+   * Return true if the user has accepted the required cookies for reCaptcha
+   */
+  isRecaptchaCookieAccepted(): boolean {
+    const klaroAnonymousCookie = this.cookieService.get('klaro-anonymous');
+    return isNotEmpty(klaroAnonymousCookie) ? klaroAnonymousCookie[CAPTCHA_NAME] : false;
+  }
+
+  /**
+   * Return true if the user has not completed the reCaptcha verification (checkbox mode)
+   */
+  disableUntilCheckedFcn(): Observable<boolean> {
+    const checked$ = this.checkboxCheckedSubject$.asObservable();
+    return combineLatest([this.captchaVersion(), this.captchaMode(), checked$]).pipe(
+      // disable if checkbox is not checked or if reCaptcha is not in v2 checkbox mode
+      switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
+      startWith(true),
+    );
+  }
+
+  onCheckboxChecked(checked: boolean) {
+    this.checkboxCheckedSubject$.next(checked);
+  }
+
+    /**
+   * Show a notification to the user
+   * @param key
+   */
+    showNotification(key) {
+      const notificationTitle = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.title');
+      const notificationErrorMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.error');
+      const notificationExpiredMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.expired');
+      switch (key) {
+        case 'expired':
+          this.notificationsService.warning(notificationTitle, notificationExpiredMsg);
+          break;
+        case 'error':
+          this.notificationsService.error(notificationTitle, notificationErrorMsg);
+          break;
+        default:
+          console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
+      }
+    }
+   
 }
