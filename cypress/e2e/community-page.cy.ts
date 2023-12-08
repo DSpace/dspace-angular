@@ -9,6 +9,6 @@ describe('Community Page', () => {
         cy.get('ds-community-page').should('be.visible');
 
         // Analyze <ds-community-page> for accessibility issues
-        testA11y('ds-community-page',);
+        testA11y('ds-community-page');
     });
 });

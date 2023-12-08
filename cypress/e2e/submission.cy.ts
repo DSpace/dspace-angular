@@ -31,12 +31,15 @@ describe('New Submission page', () => {
         testA11y('ds-submission-edit',
             {
                 rules: {
-                    // Author & Subject fields have invalid "aria-multiline" attrs, see #1272
+                    // Author & Subject fields have invalid "aria-multiline" attrs.
+                    // See https://github.com/DSpace/dspace-angular/issues/1272
                     'aria-allowed-attr': { enabled: false },
-                    // All panels are accordians & fail "aria-required-children" and "nested-interactive". Seem to require updating ng-bootstrap and #2216
+                    // All panels are accordians & fail "aria-required-children" and "nested-interactive".
+                    // Seem to require updating ng-bootstrap and https://github.com/DSpace/dspace-angular/issues/2216
                     'aria-required-children': { enabled: false },
                     'nested-interactive': { enabled: false },
-                    // All select boxes fail to have a name / aria-label. This is a bug in ng-dynamic-forms and may require #2216
+                    // All select boxes fail to have a name / aria-label.
+                    // This is a bug in ng-dynamic-forms and may require https://github.com/DSpace/dspace-angular/issues/2216
                     'select-name': { enabled: false },
                 }
 
@@ -183,7 +186,8 @@ describe('New Submission page', () => {
         testA11y('ds-submission-edit',
             {
                 rules: {
-                    // All panels are accordians & fail "aria-required-children" and "nested-interactive". Seem to require updating ng-bootstrap and #2216
+                    // All panels are accordians & fail "aria-required-children" and "nested-interactive".
+                    // Seem to require updating ng-bootstrap and https://github.com/DSpace/dspace-angular/issues/2216
                     'aria-required-children': { enabled: false },
                     'nested-interactive': { enabled: false },
                 }
