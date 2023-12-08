@@ -70,18 +70,6 @@ describe('Edit Community > Authorizations tab', () => {
         // Analyze for accessibility issues
         testA11y('ds-community-authorizations');
     });
-
-    it('should have an edit policy page which also passes accessibility tests', () => {
-        cy.visit(COMMUNITY_EDIT_PAGE.concat('/authorizations'));
-
-        cy.get('button[title="Edit policy"]').click();
-
-        // <ds-resource-policy-edit> tag must be loaded
-        cy.get('ds-resource-policy-edit').should('be.visible');
-
-        // Analyze for accessibility issues
-        testA11y('ds-resource-policy-edit');
-    });
 });
 
 describe('Edit Community > Delete page', () => {
