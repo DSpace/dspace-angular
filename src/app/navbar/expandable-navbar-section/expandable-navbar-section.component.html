@@ -4,7 +4,9 @@
     (keyup.space)="isActive ? deactivateSection($event) : activateSection($event)"
     (keydown.space)="$event.preventDefault()"
     (mouseenter)="activateSection($event)"
-    (mouseleave)="deactivateSection($event)">
+    (mouseleave)="deactivateSection($event)"
+    aria-haspopup="menu"
+    aria-expanded="false">
     <button class="btn btn-link nav-link dropdown-toggle" routerLinkActive="active" type="button"
        [class.disabled]="section.model?.disabled"
        (click)="toggleSection($event)"

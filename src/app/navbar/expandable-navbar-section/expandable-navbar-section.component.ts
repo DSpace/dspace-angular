@@ -39,11 +39,17 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    * @param {Event} event The user event that triggered this function
    */
   activateSection(event): void {
+
+    console.log(event.target);
+    
+
     this.windowService.isXsOrSm().pipe(
       first()
     ).subscribe((isMobile) => {
       if (!isMobile) {
+        const targetElement = event.target as HTMLElement;
         super.activateSection(event);
+        targetElement.setAttribute('aria-expanded', 'true'); 
       }
     });
   }
@@ -58,7 +64,9 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
       first()
     ).subscribe((isMobile) => {
       if (!isMobile) {
+        const targetElement = event.target as HTMLElement;
         super.deactivateSection(event);
+        targetElement.setAttribute('aria-expanded', 'false'); 
       }
     });
   }
