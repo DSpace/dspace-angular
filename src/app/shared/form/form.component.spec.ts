@@ -449,6 +449,8 @@ describe('FormComponent test suite', () => {
     standalone: true,
     imports: [
         CommonModule,
+        FormComponent,
+        DsDynamicFormComponent,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,

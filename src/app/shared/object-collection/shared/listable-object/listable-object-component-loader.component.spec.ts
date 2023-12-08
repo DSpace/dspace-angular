@@ -22,6 +22,7 @@ import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
 import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
 import { CookieService } from 'src/app/core/services/cookie.service';
 import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -46,9 +47,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
   let themeService: ThemeService;
 
   beforeEach(waitForAsync(() => {
-    themeService = jasmine.createSpyObj('themeService', {
-      getThemeName: 'dspace',
-    });
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -67,7 +65,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
           useValue: { data: of({ dso: { payload: {} } }), params: of({}) }
       },
         provideMockStore({}),
-        { provide: ThemeService, useValue: themeService },
+        { provide: ThemeService, useValue: getMockThemeService('dspace') },
         { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } }
       ]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {

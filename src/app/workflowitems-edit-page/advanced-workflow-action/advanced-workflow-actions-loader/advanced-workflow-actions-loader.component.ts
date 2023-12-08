@@ -14,7 +14,8 @@ import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
     selector: 'ds-advanced-workflow-actions-loader',
     templateUrl: './advanced-workflow-actions-loader.component.html',
     styleUrls: ['./advanced-workflow-actions-loader.component.scss'],
-    standalone: true
+    standalone: true,
+    imports: [AdvancedWorkflowActionsDirective]
 })
 export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
 
@@ -42,7 +43,6 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
     const comp = this.getComponentByWorkflowTaskOption(this.type);
     if (hasValue(comp)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
-
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
       viewContainerRef.createComponent(componentFactory);

@@ -43,7 +43,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -60,6 +60,7 @@ import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loadin
     ObjectValuesPipe,
     VarDirective,
     NgIf,
+    NgFor,
     TranslateModule,
     NgClass,
     ThemedLoadingComponent

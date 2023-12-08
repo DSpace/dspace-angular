@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 import { Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, Directive, NgModule, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, Directive, Injector, NO_ERRORS_SCHEMA, NgModule, ViewContainerRef } from '@angular/core';
 import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 import {
   rendersAdvancedWorkflowTaskOption
@@ -11,6 +11,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';
 
@@ -24,13 +25,14 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   beforeEach(async () => {
     router = new RouterStub();
     mockComponentFactoryResolver = {
-      resolveComponentFactory: jasmine.createSpy('resolveComponentFactory').and.returnValue({
-        create: jasmine.createSpy('create')
-      })
+      resolveComponentFactory: jasmine.createSpy('resolveComponentFactory').and.returnValue(
+        AdvancedWorkflowActionTestComponent
+      ),
     };
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         AdvancedWorkflowActionsDirective,
         RouterTestingModule,
         AdvancedWorkflowActionsLoaderComponent,
@@ -39,7 +41,10 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
       providers: [
         { provide: Router, useValue: router },
         { provide: ComponentFactoryResolver, useValue: mockComponentFactoryResolver },
-      ]
+        { provide: Injector, useValue: {} },
+        ViewContainerRef
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
@@ -95,7 +100,8 @@ class AdvancedWorkflowActionTestComponent {
 }
 
 @Directive({
-  selector: '[dsAdvancedWorkflowActions]'
+  selector: '[dsAdvancedWorkflowActions]',
+  standalone: true
 })
 export class MockAdvancedWorkflowActionsDirective {
   constructor(public viewContainerRef: ViewContainerRef) {}

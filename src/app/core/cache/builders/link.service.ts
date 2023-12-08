@@ -3,11 +3,9 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
-import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
 import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY, LinkDefinition, } from './build-decorators';
 import { RemoteData } from '../../data/remote-data';
 import { EMPTY, Observable, of } from 'rxjs';
-import { ResourceType } from '../../shared/resource-type';
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { lazyService } from '../../lazy-service';
@@ -23,7 +21,6 @@ export class LinkService {
 
   constructor(
     protected injector: Injector,
-    @Inject(DATA_SERVICE_FACTORY) private getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<HALDataService<any>>,
     @Inject(LINK_DEFINITION_FACTORY) private getLinkDefinition: <T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>,
     @Inject(LINK_DEFINITION_MAP_FACTORY) private getLinkDefinitions: <T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>,
   ) {
@@ -52,10 +49,8 @@ export class LinkService {
    */
   public resolveLinkWithoutAttaching<T extends HALResource, U extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): Observable<RemoteData<U | PaginatedList<U>>> {
     const matchingLinkDef = this.getLinkDefinition(model.constructor, linkToFollow.name);
-
     if (hasValue(matchingLinkDef)) {
       const lazyProvider$: Observable<HALDataService<any>> = lazyService(LAZY_DATA_SERVICES[matchingLinkDef.resourceType.value], this.injector);
-
       return lazyProvider$.pipe(
         switchMap((provider: HALDataService<any>) => {
             const link = model._links[matchingLinkDef.linkName];

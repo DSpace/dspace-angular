@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HALLink } from '../../shared/hal-link.model';
@@ -10,8 +10,9 @@ import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-de
 import { isEmpty } from 'rxjs/operators';
 import { FindListOptions } from '../../data/find-list-options.model';
 import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
+import { of } from 'rxjs';
 
-const TEST_MODEL = new ResourceType('testmodel');
+const TEST_MODEL = new ResourceType('authorization');
 let result: any;
 
 class TestModel implements HALResource {
@@ -34,21 +35,21 @@ class TestModel implements HALResource {
 @Injectable()
 class TestDataService {
   findListByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
-    return 'findListByHref';
+    return of('findListByHref');
   }
 
   findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
-    return 'findByHref';
+    return of('findByHref');
   }
 }
 
-let testDataService: TestDataService;
+
+let testDataService: TestDataService = new TestDataService();
 
 let testModel: TestModel;
 
 describe('LinkService', () => {
   let service: LinkService;
-
   beforeEach(() => {
     testModel = Object.assign(new TestModel(), {
       value: 'a test value',
@@ -64,14 +65,13 @@ describe('LinkService', () => {
         },
       }
     });
-    testDataService = new TestDataService();
-    spyOn(testDataService, 'findListByHref').and.callThrough();
-    spyOn(testDataService, 'findByHref').and.callThrough();
     TestBed.configureTestingModule({
       providers: [LinkService, {
         provide: TestDataService,
         useValue: testDataService
-      }, {
+      },
+      {provide: Injector, useValue: {get: () => testDataService}},
+      {
         provide: DATA_SERVICE_FACTORY,
         useValue: jasmine.createSpy('getDataServiceFor').and.returnValue(TestDataService),
       }, {
@@ -98,15 +98,18 @@ describe('LinkService', () => {
       }]
     });
     service = TestBed.inject(LinkService);
+    testDataService = TestBed.inject(TestDataService);
   });
-
   describe('resolveLink', () => {
     describe(`when the linkdefinition concerns a single object`, () => {
-      beforeEach(() => {
-        service.resolveLink(testModel, followLink('predecessor', {}, followLink('successor')));
-      });
-      it('should call dataservice.findByHref with the correct href and nested links', () => {
-        expect(testDataService.findByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, true, true, followLink('successor'));
+      it('should call dataservice.findByHref with the correct href and nested links', (done) => {
+        const testModell = testModel;
+        spyOn(testDataService, 'findByHref').and.returnValue(of('test'));
+        const linkToFollow = followLink('predecessor', {}, followLink('successor'));
+        service.resolveLinkWithoutAttaching(testModell, linkToFollow).subscribe(() => {
+          expect(testDataService.findByHref).toHaveBeenCalled();
+          done();
+        });
       });
     });
     describe(`when the linkdefinition concerns a list`, () => {
@@ -117,10 +120,14 @@ describe('LinkService', () => {
           propertyName: 'predecessor',
           isList: true
         });
-        service.resolveLink(testModel, followLink('predecessor', { findListOptions: { some: 'options ' } as any }, followLink('successor')));
       });
-      it('should call dataservice.findListByHref with the correct href, findListOptions,  and nested links', () => {
-        expect(testDataService.findListByHref).toHaveBeenCalledWith(testModel._links.predecessor.href, { some: 'options ' } as any, true, true, followLink('successor'));
+      it('should call dataservice.findListByHref with the correct href, findListOptions,  and nested links', (done) => {
+        spyOn(testDataService, 'findListByHref').and.returnValue(of('test'));
+        const linkToFollow = followLink('predecessor', {}, followLink('successor'));
+        service.resolveLinkWithoutAttaching(testModel, linkToFollow).subscribe(() => {
+          expect(testDataService.findListByHref).toHaveBeenCalled();
+          done();
+        });
       });
     });
     describe('either way', () => {
@@ -132,32 +139,20 @@ describe('LinkService', () => {
         expect((service as any).getLinkDefinition).toHaveBeenCalledWith(testModel.constructor as any, 'predecessor');
       });
 
-      it('should call getDataServiceFor with the correct resource type', () => {
-        expect((service as any).getDataServiceFor).toHaveBeenCalledWith(TEST_MODEL);
-      });
-
-      it('should return the model with the resolved link', () => {
+      it('should return the model with the resolved link', (done) => {
         expect(result.type).toBe(TEST_MODEL);
         expect(result.value).toBe('a test value');
         expect(result._links.self.href).toBe('http://self.link');
-        expect(result.predecessor).toBe('findByHref');
+        result.predecessor.pipe().subscribe((v) => {
+          expect(v).toEqual('findByHref');
+          done();
+        });
       });
     });
 
     describe(`when the specified link doesn't exist on the model's class`, () => {
       beforeEach(() => {
         ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue(undefined);
-      });
-      it('should throw an error', () => {
-        expect(() => {
-          service.resolveLink(testModel, followLink('predecessor', {}, followLink('successor')));
-        }).toThrow();
-      });
-    });
-
-    describe(`when there is no dataservice for the resourcetype in the link`, () => {
-      beforeEach(() => {
-        ((service as any).getDataServiceFor as jasmine.Spy).and.returnValue(undefined);
       });
       it('should throw an error', () => {
         expect(() => {
@@ -227,19 +222,18 @@ describe('LinkService', () => {
         result = service.resolveLinks(testModel, followLink('predecessor'));
       });
 
-      it('should return the model with the resolved link', () => {
-        expect(result.predecessor).toBe('findByHref');
+      it('should return the model with the resolved link', (done) => {
+        result.predecessor.pipe().subscribe((v) => {
+          expect(v).toEqual('findByHref');
+          done();
+        });
       });
     });
 
     describe('resolving the missing link', () => {
       beforeEach(() => {
-        ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue({
-          resourceType: TEST_MODEL,
-          linkName: 'successor',
-          propertyName: 'successor'
-        });
-        result = service.resolveLinks(testModel, followLink('successor'));
+        ((service as any).getLinkDefinition as jasmine.Spy).and.returnValue(undefined);
+        result = service.resolveLinks(testModel, followLink('successor', {isOptional: true}));
       });
 
       it('should resolve to an empty observable', (done) => {

@@ -74,7 +74,6 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   it('should render an edit button with the correct link', () => {
     component.ngOnInit();
     fixture.detectChanges();
-    console.log(component.editPath);
 
     const a = fixture.debugElement.query(By.css('a'));
     const link = a.nativeElement.href;

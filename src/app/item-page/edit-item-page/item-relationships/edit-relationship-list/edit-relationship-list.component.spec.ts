@@ -29,9 +29,16 @@ import { LinkHeadService } from '../../../../core/services/link-head.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { provideMockStore } from '@ngrx/store/testing';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
+import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
+import { CookieService } from 'src/app/core/services/cookie.service';
+import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -43,6 +50,7 @@ let relationshipService;
 let selectableListService;
 let paginationService;
 let hostWindowService;
+let hardRedirectService;
 const relationshipTypeService = {};
 
 const url = 'http://test-url.com/test-url';
@@ -71,6 +79,18 @@ describe('EditRelationshipListComponent', () => {
     comp.hasChanges = observableOf(false);
     fixture.detectChanges();
   };
+
+  const initialState: any = {
+    core: {
+      'cache/object': {},
+      'cache/syncbuffer': {},
+      'cache/object-updates': {},
+      'data/request': {},
+      'index': {},
+    }
+  };
+
+  hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['redirect']);
 
   beforeEach(waitForAsync(() => {
 
@@ -211,6 +231,7 @@ describe('EditRelationshipListComponent', () => {
     TestBed.configureTestingModule({
     imports: [SharedModule, TranslateModule.forRoot(), EditRelationshipListComponent],
     providers: [
+        provideMockStore({initialState}),
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
@@ -223,7 +244,12 @@ describe('EditRelationshipListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: REQUEST, useValue: {} },
+        CookieService
     ], schemas: [
         NO_ERRORS_SCHEMA
     ]

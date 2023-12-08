@@ -97,7 +97,7 @@ const dynamicFormControlEvent: DynamicFormControlEvent = {
   type: DynamicFormControlEventType.Change
 };
 
-fdescribe('SubmissionSectionLicenseComponent test suite', () => {
+describe('SubmissionSectionLicenseComponent test suite', () => {
 
   let comp: SubmissionSectionLicenseComponent;
   let compAsAny: any;

@@ -24,6 +24,12 @@ import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
+import { EPERSON } from 'src/app/core/eperson/models/eperson.resource-type';
+import { GROUP } from 'src/app/core/eperson/models/group.resource-type';
+import { ResourceType } from 'src/app/core/shared/resource-type';
+import { dataService, getDataServiceFor } from 'src/app/core/data/base/data-service.decorator';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;
@@ -40,6 +46,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
   const mockEpersonService = jasmine.createSpyObj('epersonService',
     {
+      getDataServiceFor: jasmine.createSpy('getDataServiceFor'),
       findByHref: jasmine.createSpy('findByHref'),
       findAll: jasmine.createSpy('findAll'),
       searchByScope: jasmine.createSpy('searchByScope'),
@@ -51,6 +58,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
   const mockGroupService = jasmine.createSpyObj('groupService',
     {
+      getDataServiceFor: jasmine.createSpy('getDataServiceFor'),
       findByHref: jasmine.createSpy('findByHref'),
       findAll: jasmine.createSpy('findAll'),
       searchGroups: jasmine.createSpy('searchGroups'),
@@ -75,8 +83,12 @@ describe('EpersonGroupListComponent test suite', () => {
         TranslateModule.forRoot(),
         EpersonGroupListComponent,
         TestComponent,
+        EpersonSearchBoxComponent,
+            GroupSearchBoxComponent,
+            PaginationComponent,
       ],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: mockEpersonService },
         { provide: GroupDataService, useValue: mockGroupService },
         { provide: RequestService, useValue: getMockRequestService() },
@@ -133,6 +145,11 @@ describe('EpersonGroupListComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.isListOfEPerson = true;
+      const resourceType: ResourceType = (comp.isListOfEPerson) ? EPERSON : GROUP;
+      const mockDataService = dataService(resourceType);
+      if (!getDataServiceFor(resourceType)) {
+        mockDataService(EPersonDataService);
+      }
     });
 
     afterEach(() => {
@@ -161,6 +178,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
     it('should init the list of eperson', () => {
       epersonService.searchByScope.and.returnValue(observableOf(epersonPaginatedListRD));
+
       fixture.detectChanges();
 
       expect(compAsAny.list$.value).toEqual(epersonPaginatedListRD);
@@ -203,6 +221,11 @@ describe('EpersonGroupListComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = fixture.componentInstance;
       comp.isListOfEPerson = false;
+      const resourceType: ResourceType = (comp.isListOfEPerson) ? EPERSON : GROUP;
+      const mockDataService = dataService(resourceType);
+      if (!getDataServiceFor(resourceType)) {
+        mockDataService(GroupDataService);
+      }
     });
 
     afterEach(() => {
@@ -281,8 +304,7 @@ describe('EpersonGroupListComponent test suite', () => {
 @Component({
     selector: 'ds-test-cmp',
     template: ``,
-    standalone: true,
-    imports: [EpersonGroupListComponent]
+    standalone: true
 })
 class TestComponent {
 
