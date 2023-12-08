@@ -3042,7 +3042,7 @@
 
   "mydspace.status.mydspaceValidation": "Validation",
 
-  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
 
   "mydspace.status.mydspaceWorkflow": "Workflow",
 
@@ -3864,7 +3864,7 @@
 
   "search.filters.namedresourcetype.Validation": "Validation",
 
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
 
   "search.filters.namedresourcetype.Workflow": "Workflow",
 
