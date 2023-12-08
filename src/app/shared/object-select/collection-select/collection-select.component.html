@@ -11,13 +11,13 @@
       <table id="collection-select" class="table table-striped table-hover">
         <thead>
           <tr>
-            <th></th>
+            <th aria-hidden="true"></th>
             <th scope="col">{{'collection.select.table.title' | translate}}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let collection of collectionsRD?.payload?.page">
-            <td><input class="collection-checkbox" [ngModel]="getSelected(collection.id) | async" (change)="switch(collection.id)" type="checkbox" name="{{collection.id}}"></td>
+            <td><input #selectCollectionBtn [attr.aria-label]="(selectCollectionBtn.checked ? 'collection.select.table.deselect' : 'collection.select.table.select') | translate" class="collection-checkbox" [ngModel]="getSelected(collection.id) | async" (change)="switch(collection.id)" type="checkbox" name="{{collection.id}}"></td>
             <td><a [routerLink]="['/collections', collection.id]">{{ dsoNameService.getName(collection) }}</a></td>
           </tr>
         </tbody>
