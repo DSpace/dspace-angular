@@ -33,6 +33,25 @@ describe('Edit Collection > Assign Roles tab', () => {
     });
 });
 
+describe('Edit Collection > Content Source tab', () => {
+
+    it('should pass accessibility tests', () => {
+        cy.get('a[data-test="source"]').click();
+
+        // <ds-collection-source> tag must be loaded
+        cy.get('ds-collection-source').should('be.visible');
+
+        // Check the external source checkbox (to display all fields on the page)
+        cy.get('#externalSourceCheck').check();
+
+        // Wait for the source controls to appear
+        cy.get('ds-collection-source-controls').should('be.visible');
+
+        // Analyze entire page for accessibility issues
+        testA11y('ds-collection-source');
+    });
+});
+
 describe('Edit Collection > Curate tab', () => {
 
     it('should pass accessibility tests', () => {
@@ -71,6 +90,29 @@ describe('Edit Collection > Authorizations tab', () => {
         testA11y('ds-collection-authorizations');
     });
 });
+
+describe('Edit Collection > Item Mapper tab', () => {
+
+    it('should pass accessibility tests', () => {
+        cy.get('a[data-test="mapper"]').click();
+
+        // <ds-collection-item-mapper> tag must be loaded
+        cy.get('ds-collection-item-mapper').should('be.visible');
+
+        // Analyze entire page for accessibility issues
+        testA11y('ds-collection-item-mapper');
+
+        // Click on the "Map new Items" tab
+        cy.get('li[data-test="mapTab"] a').click();
+
+        // Make sure search form is now visible
+        cy.get('ds-search-form').should('be.visible');
+
+        // Analyze entire page (again) for accessibility issues
+        testA11y('ds-collection-item-mapper');
+    });
+});
+
 
 describe('Edit Collection > Delete page', () => {
 
