@@ -21,6 +21,8 @@ import { RequestEntryState } from '../request-entry-state.model';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { BaseDataService } from './base-data.service';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
+import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 
 const endpoint = 'https://rest.api/core';
 
@@ -46,7 +48,7 @@ describe('BaseDataService', () => {
   let requestService;
   let halService;
   let rdbService;
-  let objectCache;
+  let objectCache: ObjectCacheServiceStub;
   let selfLink;
   let linksToFollow;
   let testScheduler;
@@ -56,24 +58,7 @@ describe('BaseDataService', () => {
     requestService = getMockRequestService();
     halService = new HALEndpointServiceStub('url') as any;
     rdbService = getMockRemoteDataBuildService();
-    objectCache = {
-
-      addPatch: () => {
-        /* empty */
-      },
-      getObjectBySelfLink: () => {
-        /* empty */
-      },
-      getByHref: () => {
-        /* empty */
-      },
-      addDependency: () => {
-        /* empty */
-      },
-      removeDependents: () => {
-        /* empty */
-      },
-    } as any;
+    objectCache = new ObjectCacheServiceStub();
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
@@ -104,7 +89,7 @@ describe('BaseDataService', () => {
     return new TestService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
     );
   }
@@ -567,7 +552,7 @@ describe('BaseDataService', () => {
       getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2', 'request3'],
         dependentRequestUUIDs: ['request4', 'request5']
-      }));
+      } as ObjectCacheEntry));
 
     });
 
