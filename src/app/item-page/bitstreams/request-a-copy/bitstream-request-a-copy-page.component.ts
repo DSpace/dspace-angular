@@ -249,15 +249,21 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    * Register an email address
    */
   register(tokenV2?) {
+    console.log('1',this.registrationVerification)
     if (!this.requestCopyForm.invalid) {
-      if (this.registrationVerification) {
+      if (!this.registrationVerification) {
+        console.log('2',this.registrationVerification)
         this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
           switchMap(([captchaVersion, captchaMode])  => {
+            console.log('3',this.registrationVerification)
             if (captchaVersion === 'v3') {
+              console.log('4',this.registrationVerification)
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
             } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
+              console.log('5',this.registrationVerification)
               return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
             } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
+              console.log('6',this.registrationVerification)
               return of(tokenV2);
             } else {
               console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
@@ -268,16 +274,21 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         ).subscribe((token) => {
             if (isNotEmpty(token)) {
               // this.onSubmit();
+              
               this.registrationVerification = true;
+              console.log('7',this.registrationVerification)
             } else {
+              console.log('8',this.registrationVerification)
               console.error('reCaptcha error');
               this.showNotification('error');
             }
           }
         ));
       } else {
+        
         // this.onSubmit();
         this.registrationVerification = true;
+        console.log('3',this.registrationVerification)
       }
     }
   }
