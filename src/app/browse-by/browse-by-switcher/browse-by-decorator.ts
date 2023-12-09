@@ -9,7 +9,8 @@ import {
 export enum BrowseByDataType {
   Title = 'title',
   Metadata = 'text',
-  Date = 'date'
+  Date = 'date',
+  Hierarchy = 'hierarchy',
 }
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;

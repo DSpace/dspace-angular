@@ -1,7 +1,6 @@
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasValue } from '../../shared/empty.util';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions, getBrowseSearchOptions
@@ -14,6 +13,7 @@ import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -23,7 +23,8 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 /**
  * Component for browsing items by title (dc.title)
  */
-export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
+@rendersBrowseBy(BrowseByDataType.Title)
+export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent implements OnInit {
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -55,10 +56,6 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
         this.updateLogo();
       }));
     this.updateStartsWithTextOptions();
-  }
-
-  ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
 }

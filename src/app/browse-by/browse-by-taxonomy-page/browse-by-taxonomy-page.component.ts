@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { BROWSE_BY_COMPONENT_FACTORY } from '../browse-by-switcher/browse-by-decorator';
+import { BROWSE_BY_COMPONENT_FACTORY, rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
 import { map } from 'rxjs/operators';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
@@ -18,6 +18,7 @@ import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-bro
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
+@rendersBrowseBy(BrowseByDataType.Hierarchy)
 export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
 
   /**

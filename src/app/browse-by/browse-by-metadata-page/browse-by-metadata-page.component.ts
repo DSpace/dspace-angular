@@ -22,6 +22,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -36,6 +37,7 @@ export const BBM_PAGINATION_ID = 'bbm';
  * or multiple metadata fields.  An example would be 'author' for
  * 'dc.contributor.*'
  */
+@rendersBrowseBy(BrowseByDataType.Metadata)
 export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
 
   /**
