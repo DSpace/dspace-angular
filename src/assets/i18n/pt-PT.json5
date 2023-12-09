@@ -5906,10 +5906,10 @@
   "search.view-switch.show-list": "Mostrar como lista",
 
   // "selectable-list-item-control.deselect": "Deselect item",
-  selectable-list-item-control.deselect": "Desmarcar item",
+  "selectable-list-item-control.deselect": "Desmarcar item",
 
   // "selectable-list-item-control.select": "Select item",
-  selectable-list-item-control.select": "Selecionar item",
+  "selectable-list-item-control.select": "Selecionar item",
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Ascendente",
