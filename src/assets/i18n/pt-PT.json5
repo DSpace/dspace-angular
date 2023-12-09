@@ -4763,7 +4763,7 @@
   "process.new.select-parameter": "Selecionar parâmetro",
 
   // "process.new.add-parameter": "Add a parameter...",
-  process.new.add-parameter": "Adicionar um parâmetro...",
+  "process.new.add-parameter": "Adicionar um parâmetro...",
 
   // "process.new.delete-parameter": "Delete parameter",
   "process.new.delete-parameter": "Apagar parâmetro",
