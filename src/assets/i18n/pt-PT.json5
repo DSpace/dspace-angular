@@ -3170,7 +3170,7 @@
   "item.edit.metadata.discard-button": "Cancelar",
 
   // "item.edit.metadata.edit.language": "Edit language",
-  item.edit.metadata.edit.language": "Editar idioma",
+  "item.edit.metadata.edit.language": "Editar idioma",
 
   // "item.edit.metadata.edit.value": "Edit value",
   "item.edit.metadata.edit.value": "Editar valor",
