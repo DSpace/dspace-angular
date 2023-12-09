@@ -40,14 +40,15 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent imp
    */
   defaultMetadataKeys = ['dc.date.issued'];
 
-  public constructor(protected route: ActivatedRoute,
-                     protected browseService: BrowseService,
-                     protected dsoService: DSpaceObjectDataService,
-                     protected router: Router,
-                     protected paginationService: PaginationService,
-                     protected cdRef: ChangeDetectorRef,
-                     @Inject(APP_CONFIG) public appConfig: AppConfig,
-                     public dsoNameService: DSONameService,
+  public constructor(
+    protected route: ActivatedRoute,
+    protected browseService: BrowseService,
+    protected dsoService: DSpaceObjectDataService,
+    protected paginationService: PaginationService,
+    protected router: Router,
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
+    public dsoNameService: DSONameService,
+    protected cdRef: ChangeDetectorRef,
   ) {
     super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
   }
@@ -71,8 +72,6 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent imp
         this.startsWith = +params.startsWith || params.startsWith;
         const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails);
         this.updatePageWithItems(searchOptions, this.value, undefined);
-        this.updateParent(params.scope);
-        this.updateLogo();
         this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);
       }));
   }

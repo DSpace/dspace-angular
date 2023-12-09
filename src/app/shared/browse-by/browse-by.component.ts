@@ -39,10 +39,6 @@ export class BrowseByComponent implements OnInit, OnDestroy {
   @Input() title: string;
 
   /**
-   * The parent name
-   */
-  @Input() parentname: string;
-  /**
    * The list of objects to display
    */
   @Input() objects$: Observable<RemoteData<PaginatedList<ListableObject>>>;

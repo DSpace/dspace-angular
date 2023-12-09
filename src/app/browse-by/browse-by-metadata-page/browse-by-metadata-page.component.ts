@@ -12,14 +12,9 @@ import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { filter, map, mergeMap } from 'rxjs/operators';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
+import { map } from 'rxjs/operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
@@ -61,16 +56,6 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * The list of items to display when a value is present
    */
   items$: Observable<RemoteData<PaginatedList<Item>>>;
-
-  /**
-   * The current Community or Collection we're browsing metadata/items in
-   */
-  parent$: Observable<RemoteData<DSpaceObject>>;
-
-  /**
-   * The logo of the current Community or Collection
-   */
-  logo$: Observable<RemoteData<Bitstream>>;
 
   /**
    * The pagination config used to display the values
@@ -184,8 +169,6 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
           } else {
             this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
           }
-          this.updateParent(params.scope);
-          this.updateLogo();
         }));
     this.updateStartsWithTextOptions();
 
@@ -223,37 +206,6 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string, authority: string) {
     this.items$ = this.browseService.getBrowseItemsFor(value, authority, searchOptions);
-  }
-
-  /**
-   * Update the parent Community or Collection using their scope
-   * @param scope   The UUID of the Community or Collection to fetch
-   */
-  updateParent(scope: string) {
-    if (hasValue(scope)) {
-      const linksToFollow = () => {
-        return [followLink('logo')];
-      };
-      this.parent$ = this.dsoService.findById(scope,
-        true,
-        true,
-        ...linksToFollow() as FollowLinkConfig<DSpaceObject>[]).pipe(
-        getFirstSucceededRemoteData()
-      );
-    }
-  }
-
-  /**
-   * Update the parent Community or Collection logo
-   */
-  updateLogo() {
-    if (hasValue(this.parent$)) {
-      this.logo$ = this.parent$.pipe(
-        map((rd: RemoteData<Collection | Community>) => rd.payload),
-        filter((collectionOrCommunity: Collection | Community) => hasValue(collectionOrCommunity.logo)),
-        mergeMap((collectionOrCommunity: Collection | Community) => collectionOrCommunity.logo)
-      );
-    }
   }
 
   /**
