@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, } from '@angular/core';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
@@ -16,7 +16,7 @@ import { GenericConstructor } from '../../../../core/shared/generic-constructor'
  * Component for loading a ClaimedTaskAction component depending on the "option" input
  * Passes on the ClaimedTask to the component and subscribes to the processCompleted output
  */
-export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderComponent<ClaimedTaskActionsAbstractComponent> implements OnInit, OnChanges {
+export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderComponent<ClaimedTaskActionsAbstractComponent> {
   /**
    * The item object that belonging to the ClaimedTask object
    */
@@ -46,12 +46,16 @@ export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderCo
   /**
    * The list of input and output names for the dynamic component
    */
-  protected inAndOutputNames: (keyof this)[] = [
-    ...this.inAndOutputNames,
+  protected inputNames: (keyof this & string)[] = [
+    ...this.inputNames,
     'item',
     'object',
     'option',
     'workflowitem',
+  ];
+
+  protected outputNames: (keyof this & string)[] = [
+    ...this.outputNames,
     'processCompleted',
   ];
 

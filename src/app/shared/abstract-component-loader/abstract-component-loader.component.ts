@@ -32,8 +32,20 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    */
   protected subs: Subscription[] = [];
 
-  protected inAndOutputNames: (keyof this)[] = [
+  /**
+   * The @{@link Input}() that are used to find the matching component using {@link getComponent}. When the value of
+   * one of these @{@link Input}() change this loader needs to retrieve the best matching component again using the
+   * {@link getComponent} method.
+   */
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
     'context',
+  ];
+
+  protected inputNames: (keyof this & string)[] = [
+    'context',
+  ];
+
+  protected outputNames: (keyof this & string)[] = [
   ];
 
   constructor(
@@ -45,7 +57,9 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Set up the dynamic child component
    */
   ngOnInit(): void {
-    this.instantiateComponent();
+    if (hasNoValue(this.compRef)) {
+      this.instantiateComponent();
+    }
   }
 
   /**
@@ -55,14 +69,14 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
     if (hasNoValue(this.compRef)) {
       // sometimes the component has not been initialized yet, so it first needs to be initialized
       // before being called again
-      this.instantiateComponent(changes);
+      this.instantiateComponent();
     } else {
-      // if an input or output has changed
-      if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
+      if (this.inputNamesDependentForComponent.some((name: any) => hasValue(changes[name]) && changes[name].previousValue !== changes[name].currentValue)) {
+        // Recreate the component when the @Input()s used by getComponent() aren't up-to-date anymore
+        this.destroyComponentInstance();
+        this.instantiateComponent();
+      } else {
         this.connectInputsAndOutputs();
-        if (this.compRef?.instance && 'ngOnChanges' in this.compRef.instance) {
-          (this.compRef.instance as any).ngOnChanges(changes);
-        }
       }
     }
   }
@@ -73,7 +87,10 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
       .forEach((subscription: Subscription) => subscription.unsubscribe());
   }
 
-  public instantiateComponent(changes?: SimpleChanges): void {
+  /**
+   * Creates the component and connects the @Input() & @Output() from the ThemedComponent to its child Component.
+   */
+  public instantiateComponent(): void {
     const component: GenericConstructor<T> = this.getComponent();
 
     const viewContainerRef: ViewContainerRef = this.componentDirective.viewContainerRef;
@@ -86,10 +103,16 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
       },
     );
 
-    if (hasValue(changes)) {
-      this.ngOnChanges(changes);
-    } else {
-      this.connectInputsAndOutputs();
+    this.connectInputsAndOutputs();
+  }
+
+  /**
+   * Destroys the themed component and calls it's `ngOnDestroy`
+   */
+  public destroyComponentInstance(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = null;
     }
   }
 
@@ -99,12 +122,18 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   public abstract getComponent(): GenericConstructor<T>;
 
   /**
-   * Connect the in and outputs of this component to the dynamic component,
+   * Connect the inputs and outputs of this component to the dynamic component,
    * to ensure they're in sync
    */
   protected connectInputsAndOutputs(): void {
-    if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
+    if (isNotEmpty(this.inputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
+      this.inputNames.filter((name: string) => this[name] !== undefined).filter((name: string) => this[name] !== this.compRef.instance[name]).forEach((name: string) => {
+        // Using setInput will automatically trigger the ngOnChanges
+        this.compRef.setInput(name, this[name]);
+      });
+    }
+    if (isNotEmpty(this.outputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
+      this.outputNames.filter((name: string) => this[name] !== undefined).filter((name: string) => this[name] !== this.compRef.instance[name]).forEach((name: string) => {
         this.compRef.instance[name] = this[name];
       });
     }

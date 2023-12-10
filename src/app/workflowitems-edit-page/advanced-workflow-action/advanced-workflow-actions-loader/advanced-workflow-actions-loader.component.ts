@@ -24,8 +24,8 @@ export class AdvancedWorkflowActionsLoaderComponent extends AbstractComponentLoa
    */
   @Input() type: string;
 
-  protected inAndOutputNames: (keyof this)[] = [
-    ...this.inAndOutputNames,
+  protected inputNames: (keyof this & string)[] = [
+    ...this.inputNames,
     'type',
   ];
 

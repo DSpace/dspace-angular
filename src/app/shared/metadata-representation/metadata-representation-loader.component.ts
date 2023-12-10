@@ -24,8 +24,8 @@ export class MetadataRepresentationLoaderComponent extends AbstractComponentLoad
    */
   @Input() mdRepresentation: MetadataRepresentation;
 
-  protected inAndOutputNames: (keyof this)[] = [
-    ...this.inAndOutputNames,
+  protected inputNames: (keyof this & string)[] = [
+    ...this.inputNames,
     'mdRepresentation',
   ];
 

@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -74,8 +73,8 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
   /**
    * The list of input and output names for the dynamic component
    */
-  protected inAndOutputNames: (keyof this)[] = [
-    ...this.inAndOutputNames,
+  protected inputNames: (keyof this & string)[] = [
+    ...this.inputNames,
     'object',
     'index',
     'linkType',
@@ -84,6 +83,10 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
     'showThumbnails',
     'viewMode',
     'value',
+  ];
+
+  protected outputNames: (keyof this & string)[] = [
+    ...this.outputNames,
     'contentChange',
   ];
 
@@ -94,17 +97,16 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
     super(themeService);
   }
 
-  public instantiateComponent(changes?: SimpleChanges): void {
-    super.instantiateComponent(changes);
+  public instantiateComponent(): void {
+    super.instantiateComponent();
     if ((this.compRef.instance as any).reloadedObject) {
-      combineLatest([
-        observableOf(changes),
-        (this.compRef.instance as any).reloadedObject.pipe(take(1)) as Observable<DSpaceObject>,
-      ]).subscribe(([simpleChanges, reloadedObject]: [SimpleChanges, DSpaceObject]) => {
+      (this.compRef.instance as any).reloadedObject.pipe(
+        take(1),
+      ).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
-          this.compRef.destroy();
+          this.destroyComponentInstance();
           this.object = reloadedObject;
-          this.instantiateComponent(simpleChanges);
+          this.instantiateComponent();
           this.cdr.detectChanges();
           this.contentChange.emit(reloadedObject);
         }
