@@ -51,21 +51,21 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    */
   registrationVerification = false;
   subscriptions: Subscription[] = [];
-    /**
-   * The message prefix
-   */
-    @Input()
-    MESSAGE_PREFIX: string;
-    /**
-   * Return true if the user completed the reCaptcha verification (checkbox mode)
-   */
+  /**
+ * The message prefix
+ */
+  @Input()
+  MESSAGE_PREFIX: string;
+  /**
+ * Return true if the user completed the reCaptcha verification (checkbox mode)
+ */
   checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
   disableUntilChecked = true;
 
   captchaVersion(): Observable<string> {
     this.cdRef.detectChanges();
     return this.googleRecaptchaService.captchaVersion();
-    
+
   }
 
   captchaMode(): Observable<string> {
@@ -74,19 +74,19 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   }
 
   constructor(private location: Location,
-              private translateService: TranslateService,
-              private route: ActivatedRoute,
-              protected router: Router,
-              private authorizationService: AuthorizationDataService,
-              private auth: AuthService,
-              private formBuilder: UntypedFormBuilder,
-              private itemRequestDataService: ItemRequestDataService,
-              private notificationsService: NotificationsService,
-              private dsoNameService: DSONameService,
-              private bitstreamService: BitstreamDataService,
-              public cookieService: CookieService,
-              public googleRecaptchaService: GoogleRecaptchaService,
-              private cdRef: ChangeDetectorRef
+    private translateService: TranslateService,
+    private route: ActivatedRoute,
+    protected router: Router,
+    private authorizationService: AuthorizationDataService,
+    private auth: AuthService,
+    private formBuilder: UntypedFormBuilder,
+    private itemRequestDataService: ItemRequestDataService,
+    private notificationsService: NotificationsService,
+    private dsoNameService: DSONameService,
+    private bitstreamService: BitstreamDataService,
+    public cookieService: CookieService,
+    public googleRecaptchaService: GoogleRecaptchaService,
+    private cdRef: ChangeDetectorRef
   ) {
   }
 
@@ -134,7 +134,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
 
     this.subs.push(observableCombineLatest([this.canDownload$, canRequestCopy$]).subscribe(([canDownload, canRequestCopy]) => {
       if (!canDownload && !canRequestCopy) {
-        this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+        this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
       }
     }));
     this.initValues();
@@ -166,13 +166,13 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    */
   private initValues() {
     this.getCurrentUser().pipe(take(1)).subscribe((user) => {
-      this.requestCopyForm.patchValue({allfiles: 'true'});
+      this.requestCopyForm.patchValue({ allfiles: 'true' });
       if (hasValue(user)) {
-        this.requestCopyForm.patchValue({name: user.name, email: user.email});
+        this.requestCopyForm.patchValue({ name: user.name, email: user.email });
       }
     });
     this.bitstream$.pipe(take(1)).subscribe((bitstream) => {
-      this.requestCopyForm.patchValue({allfiles: 'false'});
+      this.requestCopyForm.patchValue({ allfiles: 'false' });
     });
   }
 
@@ -260,22 +260,15 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    * Register an email address
    */
   register(tokenV2?) {
-    debugger;
-    console.log('1',this.registrationVerification)
     if (!this.requestCopyForm.invalid) {
       if (!this.registrationVerification) {
-        console.log('2',this.registrationVerification)
         this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
-          switchMap(([captchaVersion, captchaMode])  => {
-            console.log('3',this.registrationVerification)
+          switchMap(([captchaVersion, captchaMode]) => {
             if (captchaVersion === 'v3') {
-              console.log('4',this.registrationVerification)
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
             } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
-              console.log('5',this.registrationVerification)
               return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
             } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
-              console.log('6',this.registrationVerification)
               return of(tokenV2);
             } else {
               console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
@@ -284,24 +277,20 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
           }),
           take(1),
         ).subscribe((token) => {
-            if (isNotEmpty(token)) {
-              // this.onSubmit();
-              
-              this.registrationVerification = true;
+          if (isNotEmpty(token)) {
+            // this.onSubmit();
 
-              console.log('7',this.registrationVerification)
-            } else {
-              console.log('8',this.registrationVerification)
-              console.error('reCaptcha error');
-              this.showNotification('error');
-            }
+            this.registrationVerification = true;
+
+          } else {
+            this.showNotification('error');
           }
+        }
         ));
       } else {
-        
+
         // this.onSubmit();
         this.registrationVerification = true;
-        console.log('3',this.registrationVerification)
       }
     }
   }
@@ -321,14 +310,14 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     const checked$ = this.checkboxCheckedSubject$.asObservable();
     return combineLatest([this.captchaVersion(), this.captchaMode(), checked$]).pipe(
       // disable if checkbox is not checked or if reCaptcha is not in v2 checkbox mode
-      switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
+      switchMap(([captchaVersion, captchaMode, checked]) => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
       startWith(true),
     );
   }
 
   onCheckboxChecked(checked: boolean) {
     this.checkboxCheckedSubject$.next(checked);
-    if(!!checked) {
+    if (!!checked) {
       console.log(this.requestCopyForm.invalid);
       if (!this.requestCopyForm.invalid) {
         this.registrationVerification = true;
@@ -337,35 +326,34 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     }
   }
 
-    /**
-   * Show a notification to the user
-   * @param key
-   */
-    showNotification(key) {
-      const notificationTitle = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.title');
-      const notificationErrorMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.error');
-      const notificationExpiredMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.expired');
-      switch (key) {
-        case 'expired':
-          this.notificationsService.warning(notificationTitle, notificationExpiredMsg);
-          break;
-        case 'error':
-          this.notificationsService.error(notificationTitle, notificationErrorMsg);
-          break;
-        default:
-          console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
-      }
+  /**
+ * Show a notification to the user
+ * @param key
+ */
+  showNotification(key) {
+    const notificationTitle = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.title');
+    const notificationErrorMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.error');
+    const notificationExpiredMsg = this.translateService.get(this.MESSAGE_PREFIX + '.google-recaptcha.notification.message.expired');
+    switch (key) {
+      case 'expired':
+        this.notificationsService.warning(notificationTitle, notificationExpiredMsg);
+        break;
+      case 'error':
+        this.notificationsService.error(notificationTitle, notificationErrorMsg);
+        break;
+      default:
+        console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
     }
+  }
 
-    resetForm() {
-      this.requestCopyForm.reset();
-    }
+  resetForm() {
+    this.requestCopyForm.reset();
+  }
 
-    changeCatch() {
-      if (!this.requestCopyForm.invalid) {
-        this.registrationVerification = true;
-        this.cdRef.detectChanges();
-      }
+  changeCatch() {
+    if (!this.requestCopyForm.invalid) {
+      this.registrationVerification = true;
+      this.cdRef.detectChanges();
     }
-   
+  }
 }
