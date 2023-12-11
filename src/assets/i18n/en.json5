@@ -2455,6 +2455,12 @@
 
   "form.other-information.not-available": "Not available",
 
+  "form.other-information.ror_orgunit_id": "ROR ID",
+
+  "form.other-information.ror_orgunit_type": "ROR type",
+
+  "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
@@ -5739,6 +5745,8 @@
   "submission.import-external.source.openaireTitle": "OpenAIRE by Title",
 
   "submission.import-external.source.rorOrgUnits": "ROR",
+
+  "submission.import-external.source.ror": "ROR",
 
   "submission.import-external.preview.title.Equipment": "Equipment Preview",
 
