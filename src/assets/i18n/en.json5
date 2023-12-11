@@ -266,7 +266,7 @@
 
   "admin.access-control.epeople.search.scope.metadata": "Metadata",
 
-  "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  "admin.access-control.epeople.search.scope.email": "Email (exact)",
 
   "admin.access-control.epeople.search.button": "Search",
 
@@ -278,7 +278,7 @@
 
   "admin.access-control.epeople.table.name": "Name",
 
-  "admin.access-control.epeople.table.email": "E-mail (exact)",
+  "admin.access-control.epeople.table.email": "Email (exact)",
 
   "admin.access-control.epeople.table.edit": "Edit",
 
@@ -298,9 +298,9 @@
 
   "admin.access-control.epeople.form.lastName": "Last name",
 
-  "admin.access-control.epeople.form.email": "E-mail",
+  "admin.access-control.epeople.form.email": "Email",
 
-  "admin.access-control.epeople.form.emailHint": "Must be a valid e-mail address",
+  "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
 
   "admin.access-control.epeople.form.canLogIn": "Can log in",
 
@@ -750,7 +750,7 @@
 
   "bitstream-request-a-copy.name.error": "The name is required",
 
-  "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  "bitstream-request-a-copy.email.label": "Your email address *",
 
   "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
 
@@ -1602,9 +1602,9 @@
 
   "error.validation.required": "This field is required",
 
-  "error.validation.NotValidEmail": "This is not a valid e-mail",
+  "error.validation.NotValidEmail": "This is not a valid email",
 
-  "error.validation.emailTaken": "This e-mail is already taken",
+  "error.validation.emailTaken": "This email is already taken",
 
   "error.validation.groupExists": "This group already exists",
 
