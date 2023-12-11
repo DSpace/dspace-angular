@@ -22,4 +22,4 @@ RUN yarn install --network-timeout 2000000
 RUN apk add tzdata
 RUN yarn build:prod
 RUN npm install pm2 -g
-CMD /bin/sh -c "pm2 start dspace-ui.json && pm2 logs"
+CMD /bin/sh -c "pm2-runtime start dspace-ui.json > /dev/null 2> /dev/null"
