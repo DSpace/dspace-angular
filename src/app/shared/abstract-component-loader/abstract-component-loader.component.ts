@@ -125,7 +125,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Connect the inputs and outputs of this component to the dynamic component,
    * to ensure they're in sync
    */
-  protected connectInputsAndOutputs(): void {
+  public connectInputsAndOutputs(): void {
     if (isNotEmpty(this.inputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
       this.inputNames.filter((name: string) => this[name] !== undefined).filter((name: string) => this[name] !== this.compRef.instance[name]).forEach((name: string) => {
         // Using setInput will automatically trigger the ngOnChanges

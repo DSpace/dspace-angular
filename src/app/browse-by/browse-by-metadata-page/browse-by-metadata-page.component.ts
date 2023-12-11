@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -23,6 +23,7 @@ import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
+import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -38,7 +39,7 @@ export const BBM_PAGINATION_ID = 'bbm';
  * 'dc.contributor.*'
  */
 @rendersBrowseBy(BrowseByDataType.Metadata)
-export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
+export class BrowseByMetadataPageComponent extends AbstractBrowseByTypeComponent implements OnInit, OnDestroy {
 
   /**
    * The list of browse-entries to display
@@ -74,11 +75,6 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * The sorting config observable
    */
   currentSort$: Observable<SortOptions>;
-
-  /**
-   * List of subscriptions
-   */
-  subs: Subscription[] = [];
 
   /**
    * The default browse id to resort to when none is provided
@@ -132,7 +128,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
   ) {
-
+    super();
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
         id: BBM_PAGINATION_ID,
@@ -276,7 +272,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    super.ngOnDestroy();
     this.paginationService.clearPagination(this.paginationConfig.id);
   }
 

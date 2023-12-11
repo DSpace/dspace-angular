@@ -5,11 +5,14 @@ import { BrowseByMetadataPageComponent } from './browse-by-metadata-page/browse-
 import { BrowseByDatePageComponent } from './browse-by-date-page/browse-by-date-page.component';
 import { BrowseBySwitcherComponent } from './browse-by-switcher/browse-by-switcher.component';
 import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page/browse-by-taxonomy-page.component';
-import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-browse-by-switcher.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { FormModule } from '../shared/form/form.module';
+
+const DECLARATIONS = [
+  BrowseBySwitcherComponent,
+];
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -28,12 +31,12 @@ const ENTRY_COMPONENTS = [
     FormModule,
   ],
   declarations: [
-    BrowseBySwitcherComponent,
-    ThemedBrowseBySwitcherComponent,
+    ...DECLARATIONS,
     ...ENTRY_COMPONENTS
   ],
   exports: [
-    BrowseBySwitcherComponent
+    ...DECLARATIONS,
+    ...ENTRY_COMPONENTS,
   ]
 })
 export class BrowseByModule {

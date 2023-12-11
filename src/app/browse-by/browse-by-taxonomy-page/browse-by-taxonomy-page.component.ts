@@ -1,14 +1,13 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { BROWSE_BY_COMPONENT_FACTORY, rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
+import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
 import { map } from 'rxjs/operators';
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
+import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
@@ -19,7 +18,7 @@ import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-bro
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
 @rendersBrowseBy(BrowseByDataType.Hierarchy)
-export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
+export class BrowseByTaxonomyPageComponent extends AbstractBrowseByTypeComponent implements OnInit, OnDestroy {
 
   /**
    * The {@link VocabularyOptions} object
@@ -52,28 +51,23 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
   queryParams: any;
 
   /**
-   * Resolved browse-by component
+   * Resolved browse-by definition
    */
-  browseByComponent: Observable<any>;
+  browseDefinition$: Observable<BrowseDefinition>;
 
-  /**
-   * Subscriptions to track
-   */
-  browseByComponentSubs: Subscription[] = [];
-
-  public constructor( protected route: ActivatedRoute,
-                      protected themeService: ThemeService,
-                      @Inject(BROWSE_BY_COMPONENT_FACTORY) private getComponentByBrowseByType: (browseByType, theme) => GenericConstructor<any>) {
+  public constructor(
+    protected route: ActivatedRoute,
+  ) {
+    super();
   }
 
   ngOnInit(): void {
-    this.browseByComponent = this.route.data.pipe(
+    this.browseDefinition$ = this.route.data.pipe(
       map((data: { browseDefinition: BrowseDefinition }) => {
-        this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName());
         return data.browseDefinition;
       })
     );
-    this.browseByComponentSubs.push(this.browseByComponent.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
+    this.subs.push(this.browseDefinition$.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, closed: true };
@@ -113,7 +107,4 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
     };
   }
 
-  ngOnDestroy(): void {
-    this.browseByComponentSubs.forEach((sub: Subscription) => sub.unsubscribe());
-  }
 }

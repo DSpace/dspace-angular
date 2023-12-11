@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BrowseByTaxonomyPageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component';
 import { rendersBrowseBy, BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
+import { Context } from '../../../../../app/core/shared/context.model';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
@@ -9,6 +10,6 @@ import { rendersBrowseBy, BrowseByDataType } from '../../../../../app/browse-by/
   // styleUrls: ['./browse-by-taxonomy-page.component.scss'],
   styleUrls: ['../../../../../app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component.scss'],
 })
-@rendersBrowseBy(BrowseByDataType.Hierarchy, 'custom')
+@rendersBrowseBy(BrowseByDataType.Hierarchy, Context.Any, 'custom')
 export class BrowseByTaxonomyPageComponent extends BaseComponent {
 }
