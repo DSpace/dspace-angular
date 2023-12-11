@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FileService } from '../../../core/shared/file.service';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../../empty.util';
@@ -14,12 +14,15 @@ import { hasValue } from '../../empty.util';
   styleUrls: ['./comcol-page-logo.component.scss'],
   templateUrl: './comcol-page-logo.component.html',
 })
-export class ComcolPageLogoComponent implements OnChanges {
+export class ComcolPageLogoComponent {
   @Input() logo: Bitstream;
 
   @Input() alternateText: string;
 
-  src$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
+  /**
+   * Flag used to hide the image element while resolving an error into placeholder or authorised image
+   */
+  loading = false;
 
   /**
    * The default 'holder.js' image
@@ -33,8 +36,15 @@ export class ComcolPageLogoComponent implements OnChanges {
   ) {
   }
 
-  ngOnChanges() {
+  /**
+   * Handle an error on the image
+   * Attempt to get an authorised version of the image
+   * When that fails, or no logo is present, show the placeholder
+   */
+  errorHandler(event) {
+    console.log(event);
     if (this.logo?._links?.content?.href) {
+      this.loading = true;
       this.auth.isAuthenticated().pipe(
         switchMap((isLoggedIn) => {
           if (isLoggedIn) {
@@ -52,16 +62,15 @@ export class ComcolPageLogoComponent implements OnChanges {
         }),
       ).subscribe((src) => {
         if (hasValue(src)) {
-          this.src$.next(src);
+          event.target.src = src;
         } else {
-          this.src$.next(this.holderSource);
+          event.target.src = this.holderSource;
         }
+        this.loading = false;
       });
+    } else {
+      event.currentTarget.src = this.holderSource;
     }
-  }
-
-  errorHandler(event) {
-    event.currentTarget.src = this.holderSource;
   }
 
 }
