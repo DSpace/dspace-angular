@@ -1,11 +1,7 @@
 <ds-themed-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-themed-loading>
 <div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 py-3 mx-auto login-container">
-  <ng-container *ngFor="let authMethod of getOrderedAuthMethods(authMethods | async); let last = last">
-    <div [class.d-none]="contentRef.innerText?.trim().length === 0">
-      <div #contentRef>
-        <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
-      </div>
-      <div *ngIf="!last" class="dropdown-divider my-2"></div>
-    </div>
+  <ng-container *ngFor="let authMethod of (authMethods | async); let last = last">
+    <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
+    <div *ngIf="!last" class="dropdown-divider my-2"></div>
   </ng-container>
 </div>

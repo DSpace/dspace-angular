@@ -17,13 +17,12 @@ import { NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe } from '@angular/com
  * Represents a expandable section in the sidebar
  */
 @Component({
-    /* eslint-disable @angular-eslint/component-selector */
-    selector: 'li[ds-expandable-admin-sidebar-section]',
-    templateUrl: './expandable-admin-sidebar-section.component.html',
-    styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
-    animations: [rotate, slide, bgColor],
-    standalone: true,
-    imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule]
+  selector: 'ds-expandable-admin-sidebar-section',
+  templateUrl: './expandable-admin-sidebar-section.component.html',
+  styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
+  animations: [rotate, slide, bgColor],
+  standalone: true,
+  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule]
 })
 
 @rendersSectionForMenu(MenuID.ADMIN, true)

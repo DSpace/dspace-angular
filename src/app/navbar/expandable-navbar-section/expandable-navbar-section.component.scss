@@ -6,14 +6,20 @@
 }
 
 .dropdown-menu {
+    background-color: var(--ds-expandable-navbar-bg);
     overflow: hidden;
     min-width: 100%;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     ::ng-deep a.nav-link {
+        color: var(--ds-expandable-navbar-link-color) !important;
         padding-right: var(--bs-spacer);
         padding-left: var(--bs-spacer);
         white-space: nowrap;
+
+        &:hover, &:focus {
+          color: var(--ds-expandable-navbar-link-color-hover) !important;
+        }
     }
 }
 

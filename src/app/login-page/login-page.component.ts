@@ -17,6 +17,7 @@ import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
 import { TranslateModule } from '@ngx-translate/core';
 import { LogInComponent } from '../shared/log-in/log-in.component';
+import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 
 /**
  * This component represents the login page
@@ -26,7 +27,7 @@ import { LogInComponent } from '../shared/log-in/log-in.component';
     styleUrls: ['./login-page.component.scss'],
     templateUrl: './login-page.component.html',
     standalone: true,
-    imports: [LogInComponent, TranslateModule]
+    imports: [LogInComponent, ThemedLogInComponent, TranslateModule]
 })
 export class LoginPageComponent implements OnDestroy, OnInit {
 

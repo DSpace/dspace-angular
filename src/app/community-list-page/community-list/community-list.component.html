@@ -8,7 +8,7 @@
         <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <div class="align-middle pt-2">
-        <button *ngIf="node!==loadingNode" (click)="getNextPage(node)"
+        <button *ngIf="!(dataSource.loading$ | async)" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </button>

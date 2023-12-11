@@ -3,13 +3,14 @@ import {
   RegisterEmailFormComponent,
   TYPE_REQUEST_FORGOT
 } from '../../register-email-form/register-email-form.component';
+import { ThemedRegisterEmailFormComponent } from 'src/app/register-email-form/themed-registry-email-form.component';
 
 @Component({
   selector: 'ds-forgot-email',
   styleUrls: ['./forgot-email.component.scss'],
   templateUrl: './forgot-email.component.html',
   imports: [
-    RegisterEmailFormComponent
+    RegisterEmailFormComponent, ThemedRegisterEmailFormComponent
   ],
   standalone: true
 })

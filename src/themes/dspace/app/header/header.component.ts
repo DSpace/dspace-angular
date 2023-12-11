@@ -9,6 +9,7 @@ import { LangSwitchComponent } from '../../../../app/shared/lang-switch/lang-swi
 import { ThemedSearchNavbarComponent } from '../../../../app/search-navbar/themed-search-navbar.component';
 import { RouterLink } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedLangSwitchComponent } from 'src/app/shared/lang-switch/themed-lang-switch.component';
 
 /**
  * Represents the header with the logo and simple navigation
@@ -18,7 +19,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     styleUrls: ['header.component.scss'],
     templateUrl: 'header.component.html',
     standalone: true,
-    imports: [NgbDropdownModule, RouterLink, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, ThemedNavbarComponent, TranslateModule]
+    imports: [NgbDropdownModule, ThemedLangSwitchComponent, RouterLink, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, ThemedNavbarComponent, TranslateModule]
 })
 export class HeaderComponent extends BaseComponent {
 }

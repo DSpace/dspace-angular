@@ -19,6 +19,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LogInComponent } from '../log-in/log-in.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
+import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component';
 
 @Component({
     selector: 'ds-auth-nav-menu',
@@ -26,7 +28,7 @@ import { NgClass, NgIf, AsyncPipe } from '@angular/common';
     styleUrls: ['./auth-nav-menu.component.scss'],
     animations: [fadeInOut, fadeOut],
     standalone: true,
-    imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
+    imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
 export class AuthNavMenuComponent implements OnInit {
   /**

@@ -11,15 +11,11 @@ import {
 import { hasValue } from '../empty.util';
 import { AuthService } from '../../core/auth/auth.service';
 import { CoreState } from '../../core/core-state.model';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
-/**
- * /users/sign-in
- * @class LogInComponent
- */
 @Component({
     selector: 'ds-log-in',
     templateUrl: './log-in.component.html',
@@ -62,8 +58,10 @@ export class LogInComponent implements OnInit {
   ngOnInit(): void {
     this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
-      // ignore the ip authentication method when it's returned by the backend
-      map((methods: AuthMethod[]) => methods.filter((authMethod: AuthMethod) => authMethod.authMethodType !== AuthMethodType.Ip)),
+      map((methods: AuthMethod[]) => methods
+        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
+        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position)
+      ),
     );
 
     // set loading
@@ -80,16 +78,4 @@ export class LogInComponent implements OnInit {
     });
   }
 
-  /**
-   * Returns an ordered list of {@link AuthMethod}s based on their position.
-   *
-   * @param authMethods The {@link AuthMethod}s to sort
-   */
-  getOrderedAuthMethods(authMethods: AuthMethod[] | null): AuthMethod[] {
-    if (hasValue(authMethods)) {
-      return [...authMethods].sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position);
-    } else {
-      return [];
-    }
-  }
 }

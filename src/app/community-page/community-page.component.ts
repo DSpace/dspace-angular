@@ -36,9 +36,6 @@ import {
 } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
-  DsoPageSubscriptionButtonComponent
-} from '../shared/dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
-import {
   ThemedComcolPageHandleComponent
 } from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -62,7 +59,6 @@ import { VarDirective } from '../shared/utils/var.directive';
     ThemedCollectionPageSubCollectionListComponent,
     ThemedComcolPageBrowseByComponent,
     DsoEditMenuComponent,
-    DsoPageSubscriptionButtonComponent,
     ThemedComcolPageHandleComponent,
     ComcolPageLogoComponent,
     ComcolPageHeaderComponent,

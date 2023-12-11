@@ -34,6 +34,7 @@ import {
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -52,7 +53,8 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
     ThemedComcolPageBrowseByComponent,
     BrowseByComponent,
     TranslateModule,
-    ThemedLoadingComponent
+    ThemedLoadingComponent,
+    ThemedBrowseByComponent
   ]
 })
 /**
@@ -119,11 +121,11 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
     const lastItemRD = this.browseService.getFirstItemFor(definition, scope, SortDirection.DESC);
     this.subs.push(
       observableCombineLatest([firstItemRD, lastItemRD]).subscribe(([firstItem, lastItem]) => {
-        let lowerLimit = this.getLimit(firstItem, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        let upperLimit = this.getLimit(lastItem, metadataKeys, new Date().getUTCFullYear());
-        const options = [];
-        const oneYearBreak = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
+        let lowerLimit: number = this.getLimit(firstItem, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
+        let upperLimit: number = this.getLimit(lastItem, metadataKeys, new Date().getUTCFullYear());
+        const options: number[] = [];
+        const oneYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
           lowerLimit -= 10;
         } else if (lowerLimit <= oneYearBreak) {
@@ -131,7 +133,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         } else {
           lowerLimit -= 1;
         }
-        let i = upperLimit;
+        let i: number = upperLimit;
         while (i > lowerLimit) {
           options.push(i);
           if (i <= fiveYearBreak) {

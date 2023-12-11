@@ -37,6 +37,7 @@ import {
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -53,6 +54,7 @@ export const BBM_PAGINATION_ID = 'bbm';
     ThemedComcolPageHandleComponent,
     ComcolPageContentComponent,
     DsoEditMenuComponent,
+    ThemedBrowseByComponent,
     ThemedComcolPageBrowseByComponent,
     BrowseByComponent,
     TranslateModule,
@@ -191,7 +193,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
             this.value = '';
           }
 
-          if (typeof params.startsWith === 'string'){
+          if (params.startsWith === undefined || params.startsWith === '') {
+            this.startsWith = undefined;
+          }
+
+        if (typeof params.startsWith === 'string'){
             this.startsWith = params.startsWith.trim();
           }
 

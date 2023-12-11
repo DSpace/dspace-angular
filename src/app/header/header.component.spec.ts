@@ -18,6 +18,8 @@ import { LangSwitchComponent } from '../shared/lang-switch/lang-switch.component
 import { ContextHelpToggleComponent } from './context-help-toggle/context-help-toggle.component';
 import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
+import { HostWindowService } from '../shared/host-window.service';
+import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
@@ -44,7 +46,8 @@ describe('HeaderComponent', () => {
     providers: [
         { provide: MenuService, useValue: menuService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
-        { provide: LocaleService, useValue: mockLocaleService }
+        { provide: LocaleService, useValue: mockLocaleService },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
@@ -61,7 +64,7 @@ describe('HeaderComponent', () => {
     fixture = TestBed.createComponent(HeaderComponent);
 
     comp = fixture.componentInstance;
-
+    fixture.detectChanges();
   });
 
   describe('when the toggle button is clicked', () => {

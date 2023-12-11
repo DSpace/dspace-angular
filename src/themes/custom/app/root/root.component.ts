@@ -16,6 +16,7 @@ import { ThemedFooterComponent } from '../../../../app/footer/themed-footer.comp
 import {
   NotificationsBoardComponent
 } from '../../../../app/shared/notifications/notifications-board/notifications-board.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-root',
@@ -25,7 +26,7 @@ import {
   templateUrl: '../../../../app/root/root.component.html',
   animations: [slideSidebarPadding],
   standalone: true,
-  imports: [ThemedAdminSidebarComponent, SystemWideAlertBannerComponent, ThemedHeaderNavbarWrapperComponent, ThemedBreadcrumbsComponent, NgIf, ThemedLoadingComponent, RouterOutlet, ThemedFooterComponent, NotificationsBoardComponent, AsyncPipe]
+  imports: [TranslateModule, ThemedAdminSidebarComponent, SystemWideAlertBannerComponent, ThemedHeaderNavbarWrapperComponent, ThemedBreadcrumbsComponent, NgIf, ThemedLoadingComponent, RouterOutlet, ThemedFooterComponent, NotificationsBoardComponent, AsyncPipe]
 })
 export class RootComponent extends BaseComponent {
 

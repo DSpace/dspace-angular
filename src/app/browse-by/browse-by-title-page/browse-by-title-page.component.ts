@@ -29,6 +29,7 @@ import {
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 @Component({
     selector: 'ds-browse-by-title-page',
@@ -47,7 +48,8 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
     ThemedComcolPageBrowseByComponent,
     BrowseByComponent,
     TranslateModule,
-    ThemedLoadingComponent
+    ThemedLoadingComponent,
+    ThemedBrowseByComponent
   ],
 })
 /**

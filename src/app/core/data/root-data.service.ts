@@ -6,11 +6,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { catchError, map } from 'rxjs/operators';
 import { BaseDataService } from './base/base-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /**
  * A service to retrieve the {@link Root} object from the REST API.
@@ -22,7 +21,6 @@ export class RootDataService extends BaseDataService<Root> {
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected restService: DspaceRestService,
   ) {
     super('', requestService, rdbService, objectCache, halService, 6 * 60 * 60 * 1000);
   }
@@ -31,12 +29,13 @@ export class RootDataService extends BaseDataService<Root> {
    * Check if root endpoint is available
    */
   checkServerAvailability(): Observable<boolean> {
-    return this.restService.get(this.halService.getRootHref()).pipe(
+    return this.findRoot().pipe(
       catchError((err ) => {
         console.error(err);
         return observableOf(false);
       }),
-      map((res: RawRestResponse) => res.statusCode === 200)
+      getFirstCompletedRemoteData(),
+      map((rootRd: RemoteData<Root>) => rootRd.statusCode === 200)
     );
   }
 
@@ -57,6 +56,6 @@ export class RootDataService extends BaseDataService<Root> {
    * Set to sale the root endpoint cache hit
    */
   invalidateRootCache() {
-    this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
+    this.requestService.setStaleByHref(this.halService.getRootHref());
   }
 }

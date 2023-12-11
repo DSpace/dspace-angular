@@ -2,16 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RegisterEmailFormComponent } from './register-email-form.component';
+import { ThemedRegisterEmailFormComponent } from './themed-registry-email-form.component';
+
+const DECLARATIONS = [
+  RegisterEmailFormComponent,
+  ThemedRegisterEmailFormComponent,
+];
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
-        RegisterEmailFormComponent
+        ...DECLARATIONS,
     ],
     providers: [],
     exports: [
-        RegisterEmailFormComponent,
+      ...DECLARATIONS,
     ]
 })
 

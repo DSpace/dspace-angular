@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { AppState, keySelector } from '../../app.reducer';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -23,6 +23,7 @@ import { MenuSections } from './menu-sections.model';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {
@@ -81,8 +82,10 @@ export class MenuService {
     return this.store.pipe(
       select(menuByIDSelector(menuID)),
       select(menuSectionStateSelector),
-      map((sections: MenuSections) => {
-          return Object.values(sections)
+      map((sections: MenuSections) => Object.values(sections)),
+      distinctUntilChanged(compareArraysUsingIds()),
+      map((sections: MenuSection[]) => {
+          return sections
             .filter((section: MenuSection) => hasNoValue(section.parentID))
             .filter((section: MenuSection) => !mustBeVisible || section.visible);
         }
@@ -399,7 +402,8 @@ export class MenuService {
       }
 
       if (!last) {
-        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)];
+        const childMenuSections = this.resolveRouteMenuSections(route.firstChild, menuID);
+        return [...menuSections.filter(menu => !(childMenuSections).map(childMenu => childMenu.id).includes(menu.id)), ...childMenuSections];
       } else {
         return [...menuSections];
       }

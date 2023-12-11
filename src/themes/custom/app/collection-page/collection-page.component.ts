@@ -19,9 +19,6 @@ import {
 } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
-  DsoPageSubscriptionButtonComponent
-} from '../../../../app/shared/dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
-import {
   ThemedComcolPageBrowseByComponent
 } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ObjectCollectionComponent } from '../../../../app/shared/object-collection/object-collection.component';
@@ -52,7 +49,6 @@ import { ObjectCollectionComponent } from '../../../../app/shared/object-collect
     ComcolPageLogoComponent,
     ThemedComcolPageHandleComponent,
     DsoEditMenuComponent,
-    DsoPageSubscriptionButtonComponent,
     ThemedComcolPageBrowseByComponent,
     ObjectCollectionComponent
   ],

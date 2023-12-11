@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UserMenuComponent } from '../shared/auth-nav-menu/user-menu/user-menu.component';
 import { NgClass, NgIf, NgFor, NgComponentOutlet, AsyncPipe } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedUserMenuComponent } from '../shared/auth-nav-menu/user-menu/themed-user-menu.component';
 
 /**
  * Component representing the public navbar
@@ -26,7 +27,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './navbar.component.html',
     animations: [slideMobileNav],
     standalone: true,
-    imports: [NgbDropdownModule, NgClass, NgIf, UserMenuComponent, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule]
+    imports: [NgbDropdownModule, NgClass, NgIf, UserMenuComponent, ThemedUserMenuComponent, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule]
 })
 export class NavbarComponent extends MenuComponent {
   /**

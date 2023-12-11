@@ -15,6 +15,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { RouterTestingModule } from '@angular/router/testing';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -74,7 +75,10 @@ describe('ItemEditBitstreamComponent', () => {
     );
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ItemEditBitstreamComponent,
+    imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ItemEditBitstreamComponent,
         VarDirective],
     declarations: [BrowserOnlyMockPipe],
     providers: [

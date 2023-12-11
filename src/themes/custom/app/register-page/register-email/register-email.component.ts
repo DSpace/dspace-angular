@@ -3,6 +3,7 @@ import {
   RegisterEmailComponent as BaseComponent
 } from '../../../../../app/register-page/register-email/register-email.component';
 import { RegisterEmailFormComponent } from '../../../../../app/register-email-form/register-email-form.component';
+import { ThemedRegisterEmailFormComponent } from 'src/app/register-email-form/themed-registry-email-form.component';
 
 @Component({
   selector: 'ds-register-email',
@@ -12,7 +13,8 @@ import { RegisterEmailFormComponent } from '../../../../../app/register-email-fo
   templateUrl: '../../../../../app/register-page/register-email/register-email.component.html',
   standalone: true,
   imports: [
-    RegisterEmailFormComponent
+    RegisterEmailFormComponent,
+    ThemedRegisterEmailFormComponent
   ],
 })
 /**

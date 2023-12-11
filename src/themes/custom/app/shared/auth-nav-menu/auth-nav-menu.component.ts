@@ -10,6 +10,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserMenuComponent } from '../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
+import { ThemedUserMenuComponent } from 'src/app/shared/auth-nav-menu/user-menu/themed-user-menu.component';
+import { ThemedLogInComponent } from 'src/app/shared/log-in/themed-log-in.component';
 
 /**
  * Component representing the {@link AuthNavMenuComponent} of a page
@@ -22,7 +24,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   styleUrls: ['../../../../../app/shared/auth-nav-menu/auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
+  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
 export class AuthNavMenuComponent extends BaseComponent {
 }

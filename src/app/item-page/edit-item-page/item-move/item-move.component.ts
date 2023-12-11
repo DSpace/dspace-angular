@@ -22,12 +22,14 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import {
   AuthorizedCollectionSelectorComponent
 } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-item-move',
   templateUrl: './item-move.component.html',
   imports: [
     TranslateModule,
+    NgbModule,
     FormsModule,
     RouterLink,
     AsyncPipe,

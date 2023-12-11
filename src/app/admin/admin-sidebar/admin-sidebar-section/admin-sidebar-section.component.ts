@@ -14,12 +14,12 @@ import { NgClass } from '@angular/common';
  * Represents a non-expandable section in the admin sidebar
  */
 @Component({
-    /* eslint-disable @angular-eslint/component-selector */
-    selector: 'li[ds-admin-sidebar-section]',
-    templateUrl: './admin-sidebar-section.component.html',
-    styleUrls: ['./admin-sidebar-section.component.scss'],
-    standalone: true,
-    imports: [NgClass, RouterLink, TranslateModule]
+  selector: 'ds-admin-sidebar-section',
+  templateUrl: './admin-sidebar-section.component.html',
+  styleUrls: ['./admin-sidebar-section.component.scss'],
+  standalone: true,
+  imports: [NgClass, RouterLink, TranslateModule]
+
 })
 @rendersSectionForMenu(MenuID.ADMIN, false)
 export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {

@@ -11,6 +11,8 @@ import { UserMenuComponent } from '../../../../app/shared/auth-nav-menu/user-men
 import { RouterLink } from '@angular/router';
 import { NgClass, NgIf, NgFor, NgComponentOutlet, AsyncPipe } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemedLangSwitchComponent } from 'src/app/shared/lang-switch/themed-lang-switch.component';
+import { ThemedSearchNavbarComponent } from 'src/app/search-navbar/themed-search-navbar.component';
 
 /**
  * Component representing the public navbar
@@ -21,7 +23,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './navbar.component.html',
     animations: [slideMobileNav],
     standalone: true,
-    imports: [NgbDropdownModule, NgClass, RouterLink, NgIf, UserMenuComponent, NgFor, NgComponentOutlet, SearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, AsyncPipe, TranslateModule]
+    imports: [NgbDropdownModule, ThemedLangSwitchComponent, ThemedSearchNavbarComponent, NgClass, RouterLink, NgIf, UserMenuComponent, NgFor, NgComponentOutlet, SearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, AsyncPipe, TranslateModule]
 })
 export class NavbarComponent extends BaseComponent {
 }

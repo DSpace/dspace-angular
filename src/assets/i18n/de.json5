@@ -1382,7 +1382,7 @@
 
 
   // "community.create.head": "Create a Community",
-  "community.create.head": "Sammlung anlegen",
+  "community.create.head": "Bereich anlegen",
 
   // "community.create.notifications.success": "Successfully created the Community",
   "community.create.notifications.success": "Bereich erfolgreich angelegt",
