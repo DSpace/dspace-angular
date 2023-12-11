@@ -64,14 +64,12 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
 
   captchaVersion(): Observable<string> {
     this.cdRef.detectChanges();
-    console.log(this.googleRecaptchaService.captchaVersion())
     return this.googleRecaptchaService.captchaVersion();
     
   }
 
   captchaMode(): Observable<string> {
     this.cdRef.detectChanges();
-    console.log(this.googleRecaptchaService.captchaMode())
     return this.googleRecaptchaService.captchaMode();
   }
 
@@ -88,7 +86,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
               private bitstreamService: BitstreamDataService,
               public cookieService: CookieService,
               public googleRecaptchaService: GoogleRecaptchaService,
-              private cdRef:ChangeDetectorRef
+              private cdRef: ChangeDetectorRef
   ) {
   }
 

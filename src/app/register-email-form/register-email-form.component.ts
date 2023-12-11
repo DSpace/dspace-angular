@@ -66,11 +66,11 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
 
   subscriptions: Subscription[] = [];
 
-  captchaVersion(): Observable<string> {
+captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
   }
 
-  captchaMode(): Observable<string> {
+captchaMode(): Observable<string> {
     return this.googleRecaptchaService.captchaMode();
   }
 
@@ -148,7 +148,6 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Register an email address
    */
   register(tokenV2?) {
-    debugger;
     if (!this.form.invalid) {
       if (this.registrationVerification) {
         this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
@@ -226,7 +225,6 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   }
 
   onCheckboxChecked(checked: boolean) {
-    debugger;
     this.checkboxCheckedSubject$.next(checked);
   }
 
