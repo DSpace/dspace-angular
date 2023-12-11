@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
@@ -60,12 +60,18 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    * Return true if the user completed the reCaptcha verification (checkbox mode)
    */
   checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
+  disableUntilChecked = true;
 
   captchaVersion(): Observable<string> {
+    this.cdRef.detectChanges();
+    console.log(this.googleRecaptchaService.captchaVersion())
     return this.googleRecaptchaService.captchaVersion();
+    
   }
 
   captchaMode(): Observable<string> {
+    this.cdRef.detectChanges();
+    console.log(this.googleRecaptchaService.captchaMode())
     return this.googleRecaptchaService.captchaMode();
   }
 
@@ -82,6 +88,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
               private bitstreamService: BitstreamDataService,
               public cookieService: CookieService,
               public googleRecaptchaService: GoogleRecaptchaService,
+              private cdRef:ChangeDetectorRef
   ) {
   }
 
@@ -133,6 +140,11 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       }
     }));
     this.initValues();
+
+    this.subscriptions.push(this.disableUntilCheckedFcn().subscribe((res) => {
+      this.disableUntilChecked = res;
+      this.cdRef.detectChanges();
+    }));
   }
 
   get name() {
@@ -224,6 +236,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    * Navigates back to the user's previous location
    */
   navigateBack() {
+    this.resetForm();
     this.location.back();
   }
 
@@ -249,6 +262,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
    * Register an email address
    */
   register(tokenV2?) {
+    debugger;
     console.log('1',this.registrationVerification)
     if (!this.requestCopyForm.invalid) {
       if (!this.registrationVerification) {
@@ -276,6 +290,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
               // this.onSubmit();
               
               this.registrationVerification = true;
+
               console.log('7',this.registrationVerification)
             } else {
               console.log('8',this.registrationVerification)
@@ -315,6 +330,13 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
 
   onCheckboxChecked(checked: boolean) {
     this.checkboxCheckedSubject$.next(checked);
+    if(!!checked) {
+      console.log(this.requestCopyForm.invalid);
+      if (!this.requestCopyForm.invalid) {
+        this.registrationVerification = true;
+        this.cdRef.detectChanges();
+      }
+    }
   }
 
     /**
@@ -334,6 +356,17 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
           break;
         default:
           console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
+      }
+    }
+
+    resetForm() {
+      this.requestCopyForm.reset();
+    }
+
+    changeCatch() {
+      if (!this.requestCopyForm.invalid) {
+        this.registrationVerification = true;
+        this.cdRef.detectChanges();
       }
     }
    

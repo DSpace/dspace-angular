@@ -148,6 +148,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Register an email address
    */
   register(tokenV2?) {
+    debugger;
     if (!this.form.invalid) {
       if (this.registrationVerification) {
         this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
@@ -225,6 +226,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   }
 
   onCheckboxChecked(checked: boolean) {
+    debugger;
     this.checkboxCheckedSubject$.next(checked);
   }
 
