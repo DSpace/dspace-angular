@@ -4,10 +4,11 @@ import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { map } from 'rxjs/operators';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',

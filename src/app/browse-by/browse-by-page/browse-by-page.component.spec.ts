@@ -7,11 +7,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { Component } from '@angular/core';
 import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { By } from '@angular/platform-browser';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @rendersBrowseBy('BrowseByPageComponent' as BrowseByDataType)
 @Component({

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { BrowseByDataType } from './browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 import { Context } from '../core/shared/context.model';
 import { Subscription } from 'rxjs';
 import { hasValue } from '../shared/empty.util';

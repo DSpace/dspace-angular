@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BrowseByDatePageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-date-page/browse-by-date-page.component';
-import { rendersBrowseBy, BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
 import { Context } from '../../../../../app/core/shared/context.model';
 
 @Component({

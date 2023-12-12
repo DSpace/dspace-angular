@@ -22,8 +22,9 @@ import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

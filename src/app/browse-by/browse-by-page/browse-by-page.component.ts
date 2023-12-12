@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-page',
