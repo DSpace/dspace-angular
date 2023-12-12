@@ -51,7 +51,7 @@ export class LocaleService {
    */
   initDefaults() {
     this.routeService.getQueryParameterValue('lang').subscribe(lang => {
-      if (lang && this.translate.getLangs().some(language => language === lang)) {
+      if (lang && this.translate.getLangs().includes(lang)) {
         this.setCurrentLanguageCode(lang);
       }
     });
