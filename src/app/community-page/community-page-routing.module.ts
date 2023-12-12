@@ -18,7 +18,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
-import { BrowseBySwitcherComponent } from '../browse-by/browse-by-switcher/browse-by-switcher.component';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 
 @NgModule({
   imports: [
@@ -61,7 +61,7 @@ import { BrowseBySwitcherComponent } from '../browse-by/browse-by-switcher/brows
               {
                 path: 'browse/:id',
                 pathMatch: 'full',
-                component: BrowseBySwitcherComponent,
+                component: ComcolBrowseByComponent,
                 canActivate: [BrowseByGuard],
                 resolve: {
                   breadcrumb: BrowseByI18nBreadcrumbResolver,

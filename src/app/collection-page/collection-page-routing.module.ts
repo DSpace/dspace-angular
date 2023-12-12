@@ -22,7 +22,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { BrowseBySwitcherComponent } from '../browse-by/browse-by-switcher/browse-by-switcher.component';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { CollectionRecentlyAddedComponent } from './sections/recently-added/collection-recently-added.component';
@@ -78,7 +78,7 @@ import { CollectionRecentlyAddedComponent } from './sections/recently-added/coll
               {
                 path: 'browse/:id',
                 pathMatch: 'full',
-                component: BrowseBySwitcherComponent,
+                component: ComcolBrowseByComponent,
                 canActivate: [BrowseByGuard],
                 resolve: {
                   breadcrumb: BrowseByI18nBreadcrumbResolver,
