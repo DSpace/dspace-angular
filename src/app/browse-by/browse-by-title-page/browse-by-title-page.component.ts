@@ -13,7 +13,8 @@ import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { rendersBrowseBy, BrowseByDataType } from '../browse-by-switcher/browse-by-decorator';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-title-page',

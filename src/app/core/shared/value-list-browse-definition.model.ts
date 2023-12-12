@@ -5,7 +5,7 @@ import { VALUE_LIST_BROWSE_DEFINITION } from './value-list-browse-definition.res
 import { ResourceType } from './resource-type';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
 import { HALLink } from './hal-link.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 
 /**
  * BrowseDefinition model for browses of type 'valueList'

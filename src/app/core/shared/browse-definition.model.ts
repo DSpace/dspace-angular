@@ -1,6 +1,6 @@
 import { autoserialize } from 'cerialize';
 import { CacheableObject } from '../cache/cacheable-object.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 
 /**
  * Base class for BrowseDefinition models

@@ -1,7 +1,7 @@
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SimpleChange, Component } from '@angular/core';
-import { BrowseByDataType, rendersBrowseBy } from './browse-by-decorator';
+import { rendersBrowseBy } from './browse-by-decorator';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
@@ -9,6 +9,7 @@ import { NonHierarchicalBrowseDefinition } from '../../core/shared/non-hierarchi
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
+import { BrowseByDataType } from './browse-by-data-type';
 
 @rendersBrowseBy('BrowseBySwitcherComponent' as BrowseByDataType)
 @Component({

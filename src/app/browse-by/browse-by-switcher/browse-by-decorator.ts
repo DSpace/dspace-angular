@@ -1,24 +1,12 @@
 import { hasNoValue } from '../../shared/empty.util';
-import { InjectionToken } from '@angular/core';
 import { DEFAULT_THEME, resolveTheme } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-
-export enum BrowseByDataType {
-  Title = 'title',
-  Metadata = 'text',
-  Date = 'date',
-  Hierarchy = 'hierarchy',
-}
+import { BrowseByDataType } from './browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 export const DEFAULT_BROWSE_BY_CONTEXT = Context.Any;
-
-export const BROWSE_BY_COMPONENT_FACTORY = new InjectionToken<(browseByType: BrowseByDataType, context: Context, theme: string) => GenericConstructor<AbstractBrowseByTypeComponent>>('getComponentByBrowseByType', {
-  providedIn: 'root',
-  factory: () => getComponentByBrowseByType
-});
 
 const map: Map<BrowseByDataType, Map<Context, Map<string, GenericConstructor<AbstractBrowseByTypeComponent>>>> = new Map();
 

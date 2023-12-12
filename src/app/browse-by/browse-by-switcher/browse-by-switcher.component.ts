@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { getComponentByBrowseByType, BrowseByDataType } from './browse-by-decorator';
+import { getComponentByBrowseByType } from './browse-by-decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
 import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
+import { BrowseByDataType } from './browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-switcher',
