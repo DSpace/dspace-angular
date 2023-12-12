@@ -9,6 +9,7 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
 import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { FormModule } from '../shared/form/form.module';
+import { SharedModule } from '../shared/shared.module';
 
 const DECLARATIONS = [
   BrowseBySwitcherComponent,
@@ -29,6 +30,7 @@ const ENTRY_COMPONENTS = [
     ComcolModule,
     DsoPageModule,
     FormModule,
+    SharedModule,
   ],
   declarations: [
     ...DECLARATIONS,

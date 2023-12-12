@@ -248,6 +248,14 @@
 
   "admin.access-control.epeople.title": "EPeople",
 
+  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+
+  "admin.access-control.epeople.edit.title": "New EPerson",
+
+  "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+
+  "admin.access-control.epeople.add.title": "Add EPerson",
+
   "admin.access-control.epeople.head": "EPeople",
 
   "admin.access-control.epeople.search.head": "Search",
@@ -326,7 +334,7 @@
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
 
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
 
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
 
@@ -426,10 +434,6 @@
 
   "admin.access-control.groups.form.members-list.headMembers": "Current Members",
 
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-
   "admin.access-control.groups.form.members-list.search.button": "Search",
 
   "admin.access-control.groups.form.members-list.table.id": "ID",
@@ -486,8 +490,6 @@
 
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
 
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
 
   "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
@@ -508,9 +510,9 @@
 
   "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
 
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -623,10 +625,6 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
 
@@ -782,6 +780,8 @@
 
   "browse.comcol.by.srsc": "By Subject Category",
 
+  "browse.comcol.by.nsi": "By Norwegian Science Index",
+
   "browse.comcol.by.title": "By Title",
 
   "browse.comcol.head": "Browse",
@@ -803,6 +803,8 @@
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+
+  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -1392,7 +1394,7 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
-  "curation-task.task.register-doi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "Register DOI",
 
   "curation.form.task-select.label": "Task:",
 
@@ -2162,6 +2164,8 @@
 
   "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
 
+  "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+
   "item.edit.move.move": "Move",
 
   "item.edit.move.processing": "Moving...",
@@ -2768,8 +2772,6 @@
 
   "login.form.new-user": "New user? Click here to register.",
 
-  "login.form.or-divider": "or",
-
   "login.form.oidc": "Log in with OIDC",
 
   "login.form.orcid": "Log in with ORCID",
@@ -2825,6 +2827,8 @@
   "menu.section.browse_global_by_subject": "By Subject",
 
   "menu.section.browse_global_by_srsc": "By Subject Category",
+
+  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
 
   "menu.section.browse_global_by_title": "By Title",
 
@@ -3610,6 +3614,8 @@
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
+  "root.skip-to-content": "Skip to main content",
+
   "search.description": "",
 
   "search.switch-configuration.title": "Show",
@@ -3811,6 +3817,16 @@
   "search.filters.discoverable.true": "No",
 
   "search.filters.discoverable.false": "Yes",
+
+  "search.filters.namedresourcetype.Archived": "Archived",
+
+  "search.filters.namedresourcetype.Validation": "Validation",
+
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+
+  "search.filters.namedresourcetype.Workflow": "Workflow",
+
+  "search.filters.namedresourcetype.Workspace": "Workspace",
 
   "search.filters.withdrawn.true": "Yes",
 
@@ -5215,5 +5231,7 @@
   "access-control-option-end-date": "Grant access until",
 
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+
+  "vocabulary-treeview.search.form.add": "Add",
 
 }
