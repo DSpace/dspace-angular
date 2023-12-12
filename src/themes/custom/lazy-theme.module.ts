@@ -97,10 +97,10 @@ import { CommunityPageSubCommunityListComponent } from './app/community-page/sec
 import { CommunityPageSubCollectionListComponent } from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
 
-import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
-import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
-import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
-import { BrowseByTaxonomyPageComponent } from './app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component';
+import { BrowseByMetadataComponent } from './app/browse-by/browse-by-metadata/browse-by-metadata.component';
+import { BrowseByDateComponent } from './app/browse-by/browse-by-date/browse-by-date.component';
+import { BrowseByTitleComponent } from './app/browse-by/browse-by-title/browse-by-title.component';
+import { BrowseByTaxonomyComponent } from './app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
@@ -206,10 +206,10 @@ const DECLARATIONS = [
   SearchSettingsComponent,
   ComcolPageBrowseByComponent,
   ObjectListComponent,
-  BrowseByMetadataPageComponent,
-  BrowseByDatePageComponent,
-  BrowseByTitlePageComponent,
-  BrowseByTaxonomyPageComponent,
+  BrowseByMetadataComponent,
+  BrowseByDateComponent,
+  BrowseByTitleComponent,
+  BrowseByTaxonomyComponent,
   ExternalSourceEntryImportModalComponent,
   SearchFiltersComponent,
   SearchSidebarComponent,

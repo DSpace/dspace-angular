@@ -2,9 +2,9 @@ import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
 import {
-  BrowseByMetadataPageComponent,
+  BrowseByMetadataComponent,
   browseParamsToOptions, getBrowseSearchOptions
-} from '../browse-by-metadata-page/browse-by-metadata-page.component';
+} from '../browse-by-metadata/browse-by-metadata.component';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -12,15 +12,15 @@ import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
-  selector: 'ds-browse-by-title-page',
-  styleUrls: ['../browse-by-metadata-page/browse-by-metadata-page.component.scss'],
-  templateUrl: '../browse-by-metadata-page/browse-by-metadata-page.component.html'
+  selector: 'ds-browse-by-title',
+  styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
+  templateUrl: '../browse-by-metadata/browse-by-metadata.component.html'
 })
 /**
  * Component for browsing items by title (dc.title)
  */
 @rendersBrowseBy(BrowseByDataType.Title)
-export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent implements OnInit {
+export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);

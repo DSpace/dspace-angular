@@ -9,8 +9,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { toRemoteData } from '../browse-by-metadata-page/browse-by-metadata-page.component.spec';
-import { BrowseByTitlePageComponent } from './browse-by-title-page.component';
+import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
+import { BrowseByTitleComponent } from './browse-by-title.component';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { Community } from '../../core/shared/community.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -24,9 +24,9 @@ import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 
 
-describe('BrowseByTitlePageComponent', () => {
-  let comp: BrowseByTitlePageComponent;
-  let fixture: ComponentFixture<BrowseByTitlePageComponent>;
+describe('BrowseByTitleComponent', () => {
+  let comp: BrowseByTitleComponent;
+  let fixture: ComponentFixture<BrowseByTitleComponent>;
   let itemDataService: ItemDataService;
   let route: ActivatedRoute;
 
@@ -71,7 +71,7 @@ describe('BrowseByTitlePageComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByTitlePageComponent, EnumKeysPipe, VarDirective],
+      declarations: [BrowseByTitleComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -85,7 +85,7 @@ describe('BrowseByTitlePageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BrowseByTitlePageComponent);
+    fixture = TestBed.createComponent(BrowseByTitleComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
     itemDataService = (comp as any).itemDataService;

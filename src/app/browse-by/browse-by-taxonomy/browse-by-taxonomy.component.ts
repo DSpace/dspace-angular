@@ -11,15 +11,15 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { Context } from '../../core/shared/context.model';
 
 @Component({
-  selector: 'ds-browse-by-taxonomy-page',
-  templateUrl: './browse-by-taxonomy-page.component.html',
-  styleUrls: ['./browse-by-taxonomy-page.component.scss']
+  selector: 'ds-browse-by-taxonomy',
+  templateUrl: './browse-by-taxonomy.component.html',
+  styleUrls: ['./browse-by-taxonomy.component.scss'],
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
 @rendersBrowseBy(BrowseByDataType.Hierarchy)
-export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
+export class BrowseByTaxonomyComponent implements OnInit, OnDestroy {
 
   /**
    * The optional context

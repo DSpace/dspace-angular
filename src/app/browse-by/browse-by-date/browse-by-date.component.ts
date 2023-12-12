@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import {
-  BrowseByMetadataPageComponent,
+  BrowseByMetadataComponent,
   browseParamsToOptions,
   getBrowseSearchOptions
-} from '../browse-by-metadata-page/browse-by-metadata-page.component';
+} from '../browse-by-metadata/browse-by-metadata.component';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -23,9 +23,9 @@ import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
-  selector: 'ds-browse-by-date-page',
-  styleUrls: ['../browse-by-metadata-page/browse-by-metadata-page.component.scss'],
-  templateUrl: '../browse-by-metadata-page/browse-by-metadata-page.component.html'
+  selector: 'ds-browse-by-date',
+  styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
+  templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
 })
 /**
  * Component for browsing items by metadata definition of type 'date'
@@ -33,7 +33,7 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
  * An example would be 'dateissued' for 'dc.date.issued'
  */
 @rendersBrowseBy(BrowseByDataType.Date)
-export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent implements OnInit {
+export class BrowseByDateComponent extends BrowseByMetadataComponent implements OnInit {
 
   /**
    * The default metadata keys to use for determining the lower limit of the StartsWith dropdown options

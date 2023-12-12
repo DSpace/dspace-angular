@@ -1,8 +1,8 @@
 import {
-  BrowseByMetadataPageComponent,
+  BrowseByMetadataComponent,
   browseParamsToOptions,
   getBrowseSearchOptions
-} from './browse-by-metadata-page.component';
+} from './browse-by-metadata.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowseService } from '../../core/browse/browse.service';
 import { CommonModule } from '@angular/common';
@@ -31,9 +31,9 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 
-describe('BrowseByMetadataPageComponent', () => {
-  let comp: BrowseByMetadataPageComponent;
-  let fixture: ComponentFixture<BrowseByMetadataPageComponent>;
+describe('BrowseByMetadataComponent', () => {
+  let comp: BrowseByMetadataComponent;
+  let fixture: ComponentFixture<BrowseByMetadataComponent>;
   let browseService: BrowseService;
   let route: ActivatedRoute;
   let paginationService;
@@ -103,7 +103,7 @@ describe('BrowseByMetadataPageComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByMetadataPageComponent, EnumKeysPipe, VarDirective],
+      declarations: [BrowseByMetadataComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -117,7 +117,7 @@ describe('BrowseByMetadataPageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BrowseByMetadataPageComponent);
+    fixture = TestBed.createComponent(BrowseByMetadataComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
     browseService = (comp as any).browseService;

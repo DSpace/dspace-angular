@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.component';
+import { BrowseByTaxonomyComponent } from './browse-by-taxonomy.component';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -10,9 +9,9 @@ import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
-describe('BrowseByTaxonomyPageComponent', () => {
-  let component: BrowseByTaxonomyPageComponent;
-  let fixture: ComponentFixture<BrowseByTaxonomyPageComponent>;
+describe('BrowseByTaxonomyComponent', () => {
+  let component: BrowseByTaxonomyComponent;
+  let fixture: ComponentFixture<BrowseByTaxonomyComponent>;
   let themeService: ThemeService;
   let detail1: VocabularyEntryDetail;
   let detail2: VocabularyEntryDetail;
@@ -29,7 +28,9 @@ describe('BrowseByTaxonomyPageComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ TranslateModule.forRoot() ],
-      declarations: [ BrowseByTaxonomyPageComponent ],
+      declarations: [
+        BrowseByTaxonomyComponent,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ThemeService, useValue: themeService },
@@ -40,7 +41,7 @@ describe('BrowseByTaxonomyPageComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BrowseByTaxonomyPageComponent);
+    fixture = TestBed.createComponent(BrowseByTaxonomyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     detail1 = new VocabularyEntryDetail();

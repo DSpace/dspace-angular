@@ -1,4 +1,4 @@
-import { BrowseByDatePageComponent } from './browse-by-date-page.component';
+import { BrowseByDateComponent } from './browse-by-date.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -15,7 +15,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { toRemoteData } from '../browse-by-metadata-page/browse-by-metadata-page.component.spec';
+import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -24,9 +24,9 @@ import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 
-describe('BrowseByDatePageComponent', () => {
-  let comp: BrowseByDatePageComponent;
-  let fixture: ComponentFixture<BrowseByDatePageComponent>;
+describe('BrowseByDateComponent', () => {
+  let comp: BrowseByDateComponent;
+  let fixture: ComponentFixture<BrowseByDateComponent>;
   let route: ActivatedRoute;
   let paginationService;
 
@@ -86,7 +86,7 @@ describe('BrowseByDatePageComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],
+      declarations: [BrowseByDateComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -101,7 +101,7 @@ describe('BrowseByDatePageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BrowseByDatePageComponent);
+    fixture = TestBed.createComponent(BrowseByDateComponent);
     const browseService = fixture.debugElement.injector.get(BrowseService);
     spyOn(browseService, 'getFirstItemFor')
       // ok to expect the default browse as first param since we just need the mock items obtained via sort direction.
