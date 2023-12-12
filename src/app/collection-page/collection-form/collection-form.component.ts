@@ -37,7 +37,6 @@ import {
   collectionFormModels,
 } from './collection-form.models';
 
-
 /**
  * Form used for creating and editing collections
  */
@@ -111,21 +110,20 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     // retrieve all entity types to populate the dropdowns selection
     entities$.subscribe((entityTypes: ItemType[]) => {
 
-      entityTypes
-        .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
-        .forEach((type: ItemType, index: number) => {
-          this.entityTypeSelection.add({
-            disabled: false,
-            label: type.label,
-            value: type.label,
-          } as DynamicFormOptionConfig<string>);
-          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
-            this.entityTypeSelection.select(index);
-            this.entityTypeSelection.disabled = true;
-          }
-        });
+      entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
+      entityTypes.forEach((type: ItemType, index: number) => {
+        this.entityTypeSelection.add({
+          disabled: false,
+          label: type.label,
+          value: type.label,
+        } as DynamicFormOptionConfig<string>);
+        if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+          this.entityTypeSelection.select(index);
+          this.entityTypeSelection.disabled = true;
+        }
+      });
 
-      this.formModel = [...collectionFormModels, this.entityTypeSelection];
+      this.formModel = entityTypes.length === 0 ? collectionFormModels : [...collectionFormModels, this.entityTypeSelection];
 
       super.ngOnInit();
       this.chd.detectChanges();

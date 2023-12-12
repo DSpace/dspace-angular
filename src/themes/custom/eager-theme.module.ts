@@ -12,6 +12,7 @@ import { SharedModule } from '../../app/shared/shared.module';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import { JournalIssueComponent } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
+import { PersonComponent } from './app/entity-groups/research-entities/item-pages/person/person.component';
 import { FooterComponent } from './app/footer/footer.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
@@ -29,13 +30,15 @@ import { EditCollectionSelectorComponent } from './app/shared/dso-selector/modal
 import { EditCommunitySelectorComponent } from './app/shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditItemSelectorComponent } from './app/shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { FileDownloadLinkComponent } from './app/shared/file-download-link/file-download-link.component';
+import { LangSwitchComponent } from './app/shared/lang-switch/lang-switch.component';
+import { LogInComponent } from './app/shared/log-in/log-in.component';
+import { BrowseEntryListElementComponent } from './app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { CollectionListElementComponent } from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { ItemSearchResultListElementComponent } from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { PublicationSidebarSearchListElementComponent } from './app/shared/object-list/sidebar-search-list-element/item-types/publication-sidebar-search-list-element.component';
 import { StartsWithDateComponent } from './app/shared/starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
-
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -45,6 +48,7 @@ const ENTRY_COMPONENTS = [
   JournalComponent,
   JournalIssueComponent,
   JournalVolumeComponent,
+  PersonComponent,
   PublicationComponent,
   UntypedItemComponent,
   CommunityListElementComponent,
@@ -56,6 +60,7 @@ const ENTRY_COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   ItemSearchResultListElementComponent,
   TopLevelCommunityListComponent,
+  BrowseEntryListElementComponent,
 ];
 
 const DECLARATIONS = [
@@ -72,6 +77,8 @@ const DECLARATIONS = [
   EditCollectionSelectorComponent,
   EditCommunitySelectorComponent,
   EditItemSelectorComponent,
+  LogInComponent,
+  LangSwitchComponent,
 ];
 
 @NgModule({

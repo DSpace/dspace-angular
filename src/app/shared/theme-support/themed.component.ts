@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
@@ -7,7 +8,6 @@ import {
   HostBinding,
   OnChanges,
   OnDestroy,
-  OnInit,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
@@ -41,7 +41,7 @@ import { ThemeService } from './theme.service';
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
 })
-export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges {
+export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
   protected compRef: ComponentRef<T>;
@@ -91,8 +91,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
   }
 
-  ngOnInit(): void {
-    this.destroyComponentInstance();
+  ngAfterViewInit(): void {
     this.initComponentInstance();
   }
 
@@ -113,8 +112,6 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
 
     if (hasNoValue(this.lazyLoadObs)) {
-      this.destroyComponentInstance();
-
       this.lazyLoadObs = combineLatest([
         observableOf(changes),
         this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
@@ -137,6 +134,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
+      this.destroyComponentInstance();
       const factory = this.resolver.resolveComponentFactory(constructor);
       this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.childNodes]);
       if (hasValue(simpleChanges)) {

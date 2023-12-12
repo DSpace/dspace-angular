@@ -20,7 +20,7 @@ import {
 } from '../../../core/shared/operators';
 import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   hasValueOperator,

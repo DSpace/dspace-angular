@@ -47,7 +47,7 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import {
   hasValue,
   hasValueOperator,

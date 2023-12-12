@@ -3,6 +3,7 @@ import {
   Injector,
   Input,
   OnInit,
+  Type,
 } from '@angular/core';
 
 import { AuthMethod } from '../../../core/auth/models/auth.method';
@@ -32,12 +33,9 @@ export class LogInContainerComponent implements OnInit {
    */
   public objectInjector: Injector;
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {Injector} injector
-   */
-  constructor(private injector: Injector) {
+  constructor(
+    protected injector: Injector,
+  ) {
   }
 
   /**
@@ -56,7 +54,7 @@ export class LogInContainerComponent implements OnInit {
   /**
    * Find the correct component based on the AuthMethod's type
    */
-  getAuthMethodContent(): string {
+  getAuthMethodContent(): Type<Component> {
     return rendersAuthMethodType(this.authMethod.authMethodType);
   }
 

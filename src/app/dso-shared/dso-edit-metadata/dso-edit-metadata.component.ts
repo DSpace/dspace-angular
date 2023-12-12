@@ -29,7 +29,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import {
   hasNoValue,
   hasValue,

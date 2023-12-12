@@ -15,6 +15,7 @@ import {
   Observable,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   filter,
   map,
   switchMap,
@@ -25,6 +26,7 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
+import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import {
   hasNoValue,
   hasValue,
@@ -110,8 +112,10 @@ export class MenuService {
     return this.store.pipe(
       select(menuByIDSelector(menuID)),
       select(menuSectionStateSelector),
-      map((sections: MenuSections) => {
-        return Object.values(sections)
+      map((sections: MenuSections) => Object.values(sections)),
+      distinctUntilChanged(compareArraysUsingIds()),
+      map((sections: MenuSection[]) => {
+        return sections
           .filter((section: MenuSection) => hasNoValue(section.parentID))
           .filter((section: MenuSection) => !mustBeVisible || section.visible);
       },
@@ -428,7 +432,8 @@ export class MenuService {
       }
 
       if (!last) {
-        return [...menuSections, ...this.resolveRouteMenuSections(route.firstChild, menuID)];
+        const childMenuSections = this.resolveRouteMenuSections(route.firstChild, menuID);
+        return [...menuSections.filter(menu => !(childMenuSections).map(childMenu => childMenu.id).includes(menu.id)), ...childMenuSections];
       } else {
         return [...menuSections];
       }

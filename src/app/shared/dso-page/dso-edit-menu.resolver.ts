@@ -21,6 +21,8 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
@@ -36,6 +38,7 @@ import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { MenuSection } from '../menu/menu-section.model';
 import { NotificationsService } from '../notifications/notifications.service';
+import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 
 /**
@@ -100,6 +103,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   getDsoMenus(dso, route, state): Observable<MenuSection[]>[] {
     return [
       this.getItemMenu(dso),
+      this.getComColMenu(dso),
       this.getCommonMenu(dso, state),
     ];
   }
@@ -185,6 +189,39 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               } as OnClickMenuItemModel,
               icon: 'hand-paper',
               index: 3,
+            },
+          ];
+        }),
+      );
+    } else {
+      return observableOf([]);
+    }
+  }
+
+  /**
+   * Get Community/Collection-specific menus
+   */
+  protected getComColMenu(dso): Observable<MenuSection[]> {
+    if (dso instanceof Community || dso instanceof Collection) {
+      return combineLatest([
+        this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
+      ]).pipe(
+        map(([canSubscribe]) => {
+          return [
+            {
+              id: 'subscribe',
+              active: false,
+              visible: canSubscribe,
+              model: {
+                type: MenuItemType.ONCLICK,
+                text: 'subscriptions.tooltip',
+                function: () => {
+                  const modalRef = this.modalService.open(SubscriptionModalComponent);
+                  modalRef.componentInstance.dso = dso;
+                },
+              } as OnClickMenuItemModel,
+              icon: 'bell',
+              index: 4,
             },
           ];
         }),

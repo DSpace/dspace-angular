@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-item-version-history',

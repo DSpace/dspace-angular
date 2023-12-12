@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { HealthComponent } from '../../models/health-component.model';
 
 /**

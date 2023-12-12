@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 import { Policy } from '../../../../core/submission/models/sherpa-policies-details.model';
-import { AlertType } from '../../../../shared/alert/aletr-type';
+import { AlertType } from '../../../../shared/alert/alert-type';
 
 /**
  * This component represents a section that contains the publisher policy informations.

@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { rendersSectionType } from '../sections-decorator';

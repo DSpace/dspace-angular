@@ -1,6 +1,11 @@
+import {
+  Component,
+  Type,
+} from '@angular/core';
+
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 
-const authMethodsMap = new Map();
+const authMethodsMap: Map<AuthMethodType, Type<Component>> = new Map();
 
 export function renderAuthMethodFor(authMethodType: AuthMethodType) {
   return function decorator(objectElement: any) {
@@ -11,6 +16,6 @@ export function renderAuthMethodFor(authMethodType: AuthMethodType) {
   };
 }
 
-export function rendersAuthMethodType(authMethodType: AuthMethodType) {
+export function rendersAuthMethodType(authMethodType: AuthMethodType): Type<Component> | undefined {
   return authMethodsMap.get(authMethodType);
 }

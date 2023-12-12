@@ -1,8 +1,12 @@
 import {
   Component,
+  ElementRef,
   OnInit,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ContextHelpService } from '../../shared/context-help.service';
@@ -19,12 +23,23 @@ import { ContextHelpService } from '../../shared/context-help.service';
 export class ContextHelpToggleComponent implements OnInit {
   buttonVisible$: Observable<boolean>;
 
+  subscriptions: Subscription[] = [];
+
   constructor(
-    private contextHelpService: ContextHelpService,
-  ) { }
+    protected elRef: ElementRef,
+    protected contextHelpService: ContextHelpService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.buttonVisible$ = this.contextHelpService.tooltipCount$().pipe(map(x => x > 0));
+    this.subscriptions.push(this.buttonVisible$.subscribe((showContextHelpToggle: boolean) => {
+      if (showContextHelpToggle) {
+        this.elRef.nativeElement.classList.remove('d-none');
+      } else {
+        this.elRef.nativeElement.classList.add('d-none');
+      }
+    }));
   }
 
   onClick() {

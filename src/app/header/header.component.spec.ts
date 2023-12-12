@@ -10,7 +10,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
+import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { HeaderComponent } from './header.component';
 
@@ -29,6 +31,7 @@ describe('HeaderComponent', () => {
         ReactiveFormsModule],
       declarations: [HeaderComponent],
       providers: [
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: MenuService, useValue: menuService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -43,7 +46,7 @@ describe('HeaderComponent', () => {
     fixture = TestBed.createComponent(HeaderComponent);
 
     comp = fixture.componentInstance;
-
+    fixture.detectChanges();
   });
 
   describe('when the toggle button is clicked', () => {

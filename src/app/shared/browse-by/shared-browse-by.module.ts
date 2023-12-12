@@ -6,10 +6,16 @@ import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module'
 import { ResultsBackButtonModule } from '../results-back-button/results-back-button.module';
 import { SharedModule } from '../shared.module';
 import { BrowseByComponent } from './browse-by.component';
+import { ThemedBrowseByComponent } from './themed-browse-by.component';
+
+const DECLARATIONS = [
+  BrowseByComponent,
+  ThemedBrowseByComponent,
+];
 
 @NgModule({
   declarations: [
-    BrowseByComponent,
+    ...DECLARATIONS,
   ],
   imports: [
     ResultsBackButtonModule,
@@ -19,8 +25,7 @@ import { BrowseByComponent } from './browse-by.component';
     SharedModule,
   ],
   exports: [
-    BrowseByComponent,
-    SharedModule,
+    ...DECLARATIONS,
   ],
 })
 export class SharedBrowseByModule { }

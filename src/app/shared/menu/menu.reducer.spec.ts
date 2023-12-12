@@ -12,6 +12,7 @@ import {
   ExpandMenuPreviewAction,
   HideMenuAction,
   HideMenuSectionAction,
+  ReinitMenuAction,
   RemoveMenuSectionAction,
   ShowMenuAction,
   ShowMenuSectionAction,
@@ -316,6 +317,17 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+  });
+
+  it('should reset the menu state to the initial state when performing the REINIT_MENUS action without affecting the previous state', () => {
+    dummyState[MenuID.ADMIN].visible = true;
+    const state = dummyState;
+    deepFreeze([state]);
+
+    const action = new ReinitMenuAction();
+    const menusState = menusReducer(state, action);
+    expect(menusState).toEqual(initialMenusState);
+
   });
 
   it('should set add a new section for the correct menu in response to the ADD_SECTION action', () => {

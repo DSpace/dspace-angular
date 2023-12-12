@@ -24,7 +24,6 @@ import {
 import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { BrowserOnlyMockPipe } from '../shared/testing/browser-only-mock.pipe';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { SearchNavbarComponent } from './search-navbar.component';
 
 describe('SearchNavbarComponent', () => {
@@ -32,8 +31,6 @@ describe('SearchNavbarComponent', () => {
   let fixture: ComponentFixture<SearchNavbarComponent>;
   let mockSearchService: any;
   let router: Router;
-  let routerStub;
-  let paginationService;
 
   beforeEach(waitForAsync(() => {
     mockSearchService = {
@@ -41,12 +38,6 @@ describe('SearchNavbarComponent', () => {
         return '/search';
       },
     };
-
-    routerStub = {
-      navigate: (commands) => commands,
-    };
-
-    paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
       imports: [
@@ -87,7 +78,7 @@ describe('SearchNavbarComponent', () => {
       spyOn(component, 'expand').and.callThrough();
       spyOn(component, 'onSubmit').and.callThrough();
       spyOn(router, 'navigate');
-      const searchIcon = fixture.debugElement.query(By.css('#search-navbar-container form .submit-icon'));
+      const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
       searchIcon.triggerEventHandler('click', {
         preventDefault: () => {/**/
         },
@@ -103,7 +94,7 @@ describe('SearchNavbarComponent', () => {
     describe('empty query', () => {
       describe('press submit button', () => {
         beforeEach(fakeAsync(() => {
-          const searchIcon = fixture.debugElement.query(By.css('#search-navbar-container form .submit-icon'));
+          const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
           searchIcon.triggerEventHandler('click', {
             preventDefault: () => {/**/
             },
@@ -124,14 +115,14 @@ describe('SearchNavbarComponent', () => {
       beforeEach(async () => {
         await fixture.whenStable();
         fixture.detectChanges();
-        searchInput = fixture.debugElement.query(By.css('#search-navbar-container form input'));
+        searchInput = fixture.debugElement.query(By.css('form input'));
         searchInput.nativeElement.value = 'test';
         searchInput.nativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
       });
       describe('press submit button', () => {
         beforeEach(fakeAsync(() => {
-          const searchIcon = fixture.debugElement.query(By.css('#search-navbar-container form .submit-icon'));
+          const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
           searchIcon.triggerEventHandler('click', null);
           tick();
           fixture.detectChanges();

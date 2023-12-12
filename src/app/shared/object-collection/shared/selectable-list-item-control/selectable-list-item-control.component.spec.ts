@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
@@ -53,7 +54,10 @@ describe('SelectableListItemControlComponent', () => {
     init();
     TestBed.configureTestingModule({
       declarations: [SelectableListItemControlComponent, VarDirective],
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        TranslateModule.forRoot(),
+      ],
       providers: [
         {
           provide: SelectableListService,

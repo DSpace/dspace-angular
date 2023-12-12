@@ -7,12 +7,19 @@ import {
   Store,
 } from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
-import { Observable } from 'rxjs';
+import {
+  from as observableFrom,
+  Observable,
+} from 'rxjs';
 import {
   filter,
+  find,
   map,
+  mergeMap,
+  switchMap,
   take,
   tap,
+  toArray,
 } from 'rxjs/operators';
 
 import {
@@ -324,22 +331,42 @@ export class RequestService {
    * Set all requests that match (part of) the href to stale
    *
    * @param href    A substring of the request(s) href
-   * @return        Returns an observable emitting whether or not the cache is removed
+   * @return        Returns an observable emitting when those requests are all stale
    */
   setStaleByHrefSubstring(href: string): Observable<boolean> {
-    this.store.pipe(
+    const requestUUIDs$ = this.store.pipe(
       select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
       take(1),
-    ).subscribe((uuids: string[]) => {
+    );
+    requestUUIDs$.subscribe((uuids: string[]) => {
       for (const uuid of uuids) {
         this.store.dispatch(new RequestStaleAction(uuid));
       }
     });
     this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
 
-    return this.store.pipe(
-      select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
-      map((uuids) => isEmpty(uuids)),
+    // emit true after all requests are stale
+    return requestUUIDs$.pipe(
+      switchMap((uuids: string[]) => {
+        if (isEmpty(uuids)) {
+          // if there were no matching requests, emit true immediately
+          return [true];
+        } else {
+          // otherwise emit all request uuids in order
+          return observableFrom(uuids).pipe(
+            // retrieve the RequestEntry for each uuid
+            mergeMap((uuid: string) => this.getByUUID(uuid)),
+            // check whether it is undefined or stale
+            map((request: RequestEntry) => hasNoValue(request) || isStale(request.state)),
+            // if it is, complete
+            find((stale: boolean) => stale === true),
+            // after all observables above are completed, emit them as a single array
+            toArray(),
+            // when the array comes in, emit true
+            map(() => true),
+          );
+        }
+      }),
     );
   }
 
@@ -359,6 +386,28 @@ export class RequestService {
   }
 
   /**
+   * Mark a request as stale
+   * @param href  the href of the request
+   * @return      an Observable that will emit true once the Request becomes stale
+   */
+  setStaleByHref(href: string): Observable<boolean> {
+    const requestEntry$ = this.getByHref(href);
+
+    requestEntry$.pipe(
+      map((re: RequestEntry) => re.request.uuid),
+      take(1),
+    ).subscribe((uuid: string) => {
+      this.store.dispatch(new RequestStaleAction(uuid));
+    });
+
+    return requestEntry$.pipe(
+      map((request: RequestEntry) => isStale(request.state)),
+      filter((stale: boolean) => stale),
+      take(1),
+    );
+  }
+
+  /**
    * Check if a GET request is in the cache or if it's still pending
    * @param {GetRequest} request The request to check
    * @param {boolean} useCachedVersionIfAvailable Whether or not to allow the use of a cached version
@@ -368,10 +417,10 @@ export class RequestService {
     // if it's not a GET request
     if (request.method !== RestRequestMethod.GET) {
       return true;
-    // if it is a GET request, check it isn't pending
+      // if it is a GET request, check it isn't pending
     } else if (this.isPending(request)) {
       return false;
-    // if it is pending, check if we're allowed to use a cached version
+      // if it is pending, check if we're allowed to use a cached version
     } else if (!useCachedVersionIfAvailable) {
       return true;
     } else {

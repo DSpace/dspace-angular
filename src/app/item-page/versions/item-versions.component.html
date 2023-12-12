@@ -1,7 +1,7 @@
 <div *ngVar="(versionsRD$ | async)?.payload as versions">
   <div *ngVar="(versionRD$ | async)?.payload as itemVersion">
     <div class="mb-2" *ngIf="versions?.page?.length > 0 || displayWhenEmpty">
-      <h2 *ngIf="displayTitle">{{"item.version.history.head" | translate}}</h2>
+      <h2 *ngIf="displayTitle" class="h4">{{"item.version.history.head" | translate}}</h2>
       <ds-alert [type]="AlertTypeEnum.Info" *ngIf="itemVersion">
         {{ "item.version.history.selected.alert" | translate : {version: itemVersion.version} }}
       </ds-alert>
@@ -98,8 +98,9 @@
                 <ng-container *ngIf="isThisBeingEdited(version); then editSummary else showSummary"></ng-container>
                 <ng-template #showSummary>{{version?.summary}}</ng-template>
                 <ng-template #editSummary>
-                  <input class="form-control" type="text" [(ngModel)]="versionBeingEditedSummary"
-                         (keyup.enter)="onSummarySubmit()"/>
+                  <input [attr.aria-label]="'item.version.history.table.action.editSummary' | translate"
+                         [(ngModel)]="versionBeingEditedSummary" (keyup.enter)="onSummarySubmit()"
+                         class="form-control" type="text"/>
                 </ng-template>
               </div>
 

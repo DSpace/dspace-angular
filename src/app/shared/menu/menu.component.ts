@@ -22,7 +22,6 @@ import {
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import {
   hasValue,
   isNotEmptyOperator,
@@ -106,7 +105,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
-    this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(distinctUntilChanged(compareArraysUsingIds()));
+    this.sections = this.menuService.getMenuTopSections(this.menuID);
 
     this.subs.push(
       this.sections.pipe(
@@ -123,7 +122,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
           map((component: GenericConstructor<MenuSectionComponent>) => ({ section, component })),
         )),
-        distinctUntilChanged((x, y) => x.section.id === y.section.id),
+        distinctUntilChanged((x, y) => x.section.id === y.section.id && x.component.prototype === y.component.prototype),
       ).subscribe(({ section, component }) => {
         const nextMap = this.sectionMap$.getValue();
         nextMap.set(section.id, {

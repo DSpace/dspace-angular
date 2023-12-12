@@ -19,8 +19,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { GROUP_EDIT_PATH } from '../../../access-control/access-control-routing-paths';
-import { ACCESS_CONTROL_MODULE_PATH } from '../../../app-routing-paths';
+import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
@@ -116,7 +115,7 @@ export class ResourcePolicyEntryComponent implements OnInit {
       getFirstSucceededRemoteDataPayload(),
       map((group: Group) => group.id),
     ).subscribe((groupUUID) => {
-      this.router.navigate([ACCESS_CONTROL_MODULE_PATH, GROUP_EDIT_PATH, groupUUID]);
+      void this.router.navigate([getGroupEditRoute(groupUUID)]);
     });
   }
 }

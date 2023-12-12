@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
@@ -37,7 +38,10 @@ describe('ParameterSelectComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        TranslateModule.forRoot(),
+      ],
       declarations: [ParameterSelectComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })

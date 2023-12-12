@@ -6,10 +6,17 @@
  * http://www.dspace.org/license/
  */
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { getDSORoute } from '../../app-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -71,6 +78,7 @@ export class DsoRedirectService {
   private dataService: DsoByIdOrUUIDDataService;
 
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
@@ -99,7 +107,7 @@ export class DsoRedirectService {
             const newRoute = getDSORoute(dso);
             if (hasValue(newRoute)) {
               // Use a "301 Moved Permanently" redirect for SEO purposes
-              this.hardRedirectService.redirect(newRoute, 301);
+              this.hardRedirectService.redirect(this.appConfig.ui.nameSpace.replace(/\/$/, '') + newRoute, 301);
             }
           }
         }

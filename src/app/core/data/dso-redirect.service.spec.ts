@@ -4,6 +4,8 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
+import { AppConfig } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -63,6 +65,7 @@ describe('DsoRedirectService', () => {
     });
 
     service = new DsoRedirectService(
+      environment as AppConfig,
       requestService,
       rdbService,
       objectCache,
@@ -114,7 +117,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/items/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/items/${remoteData.payload.uuid}`, 301);
     });
     it('should navigate to entities route with the corresponding entity type', () => {
       remoteData.payload.type = 'item';
@@ -131,7 +134,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/entities/publication/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/entities/publication/${remoteData.payload.uuid}`, 301);
     });
 
     it('should navigate to collections route', () => {
@@ -140,7 +143,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/collections/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/collections/${remoteData.payload.uuid}`, 301);
     });
 
     it('should navigate to communities route', () => {
@@ -149,7 +152,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(redirectService.redirect).toHaveBeenCalledWith('/communities/' + remoteData.payload.uuid, 301);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/communities/${remoteData.payload.uuid}`, 301);
     });
   });
 

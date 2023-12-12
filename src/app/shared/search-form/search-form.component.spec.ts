@@ -35,6 +35,7 @@ describe('SearchFormComponent', () => {
   const searchService = new SearchServiceStub();
   const paginationService = new PaginationServiceStub();
   const searchConfigService = { paginationID: 'test-id' };
+  const firstPage = { 'spc.page': 1 };
   const dspaceObjectService = {
     findById: () => createSuccessfulRemoteDataObject$(undefined),
   };
@@ -111,16 +112,16 @@ describe('SearchFormComponent', () => {
     const scope = 'MCU';
     let searchQuery = {};
 
-    it('should navigate to the search page even when no parameters are provided', () => {
+    it('should navigate to the search first page even when no parameters are provided', () => {
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: searchQuery,
+        queryParams: { ...searchQuery, ...firstPage },
         queryParamsHandling: 'merge',
       });
     });
 
-    it('should navigate to the search page with parameters only query if only query is provided', () => {
+    it('should navigate to the search first page with parameters only query if only query is provided', () => {
       searchQuery = {
         query: query,
       };
@@ -128,12 +129,12 @@ describe('SearchFormComponent', () => {
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: searchQuery,
+        queryParams: { ...searchQuery, ...firstPage },
         queryParamsHandling: 'merge',
       });
     });
 
-    it('should navigate to the search page with parameters only query if only scope is provided', () => {
+    it('should navigate to the search first page with parameters only query if only scope is provided', () => {
       searchQuery = {
         scope: scope,
       };
@@ -141,7 +142,7 @@ describe('SearchFormComponent', () => {
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: searchQuery,
+        queryParams: { ...searchQuery, ...firstPage },
         queryParamsHandling: 'merge',
       });
     });

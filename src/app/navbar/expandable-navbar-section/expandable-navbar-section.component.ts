@@ -10,7 +10,6 @@ import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 
 /**
@@ -22,7 +21,6 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide],
 })
-@rendersSectionForMenu(MenuID.PUBLIC, true)
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements OnInit {
   /**
    * This section resides in the Public Navbar

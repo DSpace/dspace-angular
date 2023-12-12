@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -62,6 +63,8 @@ export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy
    */
   subCommunitiesRDObs: BehaviorSubject<RemoteData<PaginatedList<Community>>> = new BehaviorSubject<RemoteData<PaginatedList<Community>>>({} as any);
 
+  subscriptions: Subscription[] = [];
+
   constructor(
     protected cds: CommunityDataService,
     protected paginationService: PaginationService,
@@ -89,7 +92,7 @@ export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy
     const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
     const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
 
-    observableCombineLatest([pagination$, sort$]).pipe(
+    this.subscriptions.push(observableCombineLatest([pagination$, sort$]).pipe(
       switchMap(([currentPagination, currentSort]) => {
         return     this.cds.findByParent(this.community.id, {
           currentPage: currentPagination.currentPage,
@@ -99,11 +102,12 @@ export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy
       }),
     ).subscribe((results) => {
       this.subCommunitiesRDObs.next(results);
-    });
+    }));
   }
 
   ngOnDestroy(): void {
-    this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.config?.id);
+    this.subscriptions.map((subscription: Subscription) => subscription.unsubscribe());
   }
 
 }

@@ -24,8 +24,7 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
  * Represents a expandable section in the sidebar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-expandable-admin-sidebar-section]',
+  selector: 'ds-expandable-admin-sidebar-section',
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],

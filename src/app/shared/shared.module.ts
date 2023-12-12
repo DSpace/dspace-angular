@@ -32,6 +32,7 @@ import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { AlertComponent } from './alert/alert.component';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { ThemedAuthNavMenuComponent } from './auth-nav-menu/themed-auth-nav-menu.component';
+import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { CollectionDropdownComponent } from './collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from './collection-dropdown/themed-collection-dropdown.component';
@@ -40,7 +41,6 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 import { ContextHelpDirective } from './context-help.directive';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
-import { DsoPageSubscriptionButtonComponent } from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
 import { AuthorizedCollectionSelectorComponent } from './dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
 import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
@@ -72,12 +72,14 @@ import { FilterInputSuggestionsComponent } from './input-suggestions/filter-sugg
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { ValidationSuggestionsComponent } from './input-suggestions/validation-suggestions/validation-suggestions.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
+import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ThemedLoadingComponent } from './loading/themed-loading.component';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { LogInExternalProviderComponent } from './log-in/methods/log-in-external-provider/log-in-external-provider.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
+import { ThemedLogInComponent } from './log-in/themed-log-in.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { MenuModule } from './menu/menu.module';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
@@ -227,12 +229,15 @@ const COMPONENTS = [
   AuthNavMenuComponent,
   ThemedAuthNavMenuComponent,
   UserMenuComponent,
+  ThemedUserMenuComponent,
   DsSelectComponent,
   ErrorComponent,
   LangSwitchComponent,
+  ThemedLangSwitchComponent,
   LoadingComponent,
   ThemedLoadingComponent,
   LogInComponent,
+  ThemedLogInComponent,
   LogOutComponent,
   ObjectListComponent,
   ThemedObjectListComponent,
@@ -290,7 +295,6 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
-  DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
   ContextHelpWrapperComponent,
   EpersonGroupListComponent,

@@ -12,6 +12,7 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicInputModel,
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
@@ -59,7 +60,7 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   /**
    * A dynamic input model for the scopeNote field
    */
-  scopeNote: DynamicInputModel;
+  scopeNote: DynamicTextAreaModel;
 
   /**
    * A list of all dynamic input models
@@ -140,11 +141,12 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
           maxLength: 'error.validation.metadata.qualifier.max-length',
         },
       });
-      this.scopeNote = new DynamicInputModel({
+      this.scopeNote = new DynamicTextAreaModel({
         id: 'scopeNote',
         label: scopenote,
         name: 'scopeNote',
         required: false,
+        rows: 5,
       });
       this.formModel = [
         new DynamicFormGroupModel(

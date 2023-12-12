@@ -17,7 +17,7 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import { ThemeConfig } from '../../config/theme.model';
+import { ThemeConfig } from '../../config/theme.config';
 import { environment } from '../../environments/environment';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { AuthService } from '../core/auth/auth.service';
@@ -90,6 +90,14 @@ export class RootComponent implements OnInit {
 
     if (this.router.url === getPageInternalServerErrorRoute()) {
       this.shouldShowRouteLoader = false;
+    }
+  }
+
+  skipToMainContent() {
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.tabIndex = -1;
+      mainContent.focus();
     }
   }
 }

@@ -27,6 +27,7 @@ import { EPerson } from '../core/eperson/models/eperson.model';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { getAllCompletedRemoteData } from '../core/shared/operators';
 import { PageInfo } from '../core/shared/page-info.model';
+import { AlertType } from '../shared/alert/alert-type';
 import { hasValue } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
@@ -70,6 +71,8 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    * The rxjs subscription used to retrieve the result list
    */
   sub: rxjsSubscription = null;
+
+  readonly AlertType = AlertType;
 
   constructor(
     private paginationService: PaginationService,

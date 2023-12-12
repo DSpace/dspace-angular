@@ -9,8 +9,7 @@ import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.co
  * Themed wrapper for ExpandableNavbarSectionComponent
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-themed-expandable-navbar-section]',
+  selector: 'ds-themed-expandable-navbar-section',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
 })

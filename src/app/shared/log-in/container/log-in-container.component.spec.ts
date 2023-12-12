@@ -12,15 +12,19 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { authReducer } from '../../../core/auth/auth.reducer';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
 import { SharedModule } from '../../shared.module';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
 import { LogInContainerComponent } from './log-in-container.component';
 
@@ -29,7 +33,7 @@ describe('LogInContainerComponent', () => {
   let component: LogInContainerComponent;
   let fixture: ComponentFixture<LogInContainerComponent>;
 
-  const authMethod = new AuthMethod('password');
+  const authMethod = new AuthMethod(AuthMethodType.Password, 0);
 
   let hardRedirectService: HardRedirectService;
 
@@ -46,12 +50,14 @@ describe('LogInContainerComponent', () => {
         StoreModule.forRoot(authReducer),
         SharedModule,
         TranslateModule.forRoot(),
+        RouterTestingModule,
       ],
       declarations: [
         TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
         LogInContainerComponent,
       ],
@@ -123,6 +129,6 @@ describe('LogInContainerComponent', () => {
 class TestComponent {
 
   isStandalonePage = true;
-  authMethod = new AuthMethod('password');
+  authMethod = new AuthMethod(AuthMethodType.Password, 0);
 
 }

@@ -92,7 +92,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
           return [];
         }
       }),
-      catchError(() => observableOf(false)),
+      catchError(() => observableOf([])),
       oneAuthorizationMatchesFeature(featureId),
     );
   }

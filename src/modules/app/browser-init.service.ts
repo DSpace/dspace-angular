@@ -30,6 +30,7 @@ import { coreSelector } from '../../app/core/core.selectors';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
+import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
@@ -75,6 +76,7 @@ export class BrowserInitService extends InitService {
     protected themeService: ThemeService,
     protected menuService: MenuService,
     private rootDataService: RootDataService,
+    protected serverCheckGuard: ServerCheckGuard,
   ) {
     super(
       store,
@@ -188,6 +190,15 @@ export class BrowserInitService extends InitService {
     firstValueFrom(this.authenticationReady$()).then(() => {
       this.sub.unsubscribe();
     });
+  }
+
+  /**
+   * Start route-listening subscriptions
+   * @protected
+   */
+  protected initRouteListeners(): void {
+    super.initRouteListeners();
+    this.serverCheckGuard.listenForRouteChanges();
   }
 
 }

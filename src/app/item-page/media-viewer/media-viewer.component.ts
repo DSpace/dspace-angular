@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
@@ -54,6 +55,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
+    protected changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -97,6 +99,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
               }));
           }
           this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
         }));
       }
     }));

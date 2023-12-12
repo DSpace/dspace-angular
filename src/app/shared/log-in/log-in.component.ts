@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
@@ -7,15 +8,13 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
 import {
-  getForgotPasswordRoute,
-  getRegisterRoute,
-} from '../../app-routing-paths';
+  map,
+  Observable,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   getAuthenticationMethods,
@@ -23,18 +22,14 @@ import {
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core-state.model';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../empty.util';
+import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
-/**
- * /users/sign-in
- * @class LogInComponent
- */
 @Component({
   selector: 'ds-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogInComponent implements OnInit {
 
@@ -48,7 +43,7 @@ export class LogInComponent implements OnInit {
    * The list of authentication methods available
    * @type {AuthMethod[]}
    */
-  public authMethods: AuthMethod[];
+  public authMethods: Observable<AuthMethod[]>;
 
   /**
    * Whether user is authenticated.
@@ -62,24 +57,19 @@ export class LogInComponent implements OnInit {
    */
   public loading: Observable<boolean>;
 
-  /**
-   * Whether or not the current user (or anonymous) is authorized to register an account
-   */
-  canRegister$: Observable<boolean>;
-
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
-              private authorizationService: AuthorizationDataService) {
+  ) {
   }
 
   ngOnInit(): void {
-
-    this.store.pipe(
+    this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
-    ).subscribe(methods => {
-      // ignore the ip authentication method when it's returned by the backend
-      this.authMethods = methods.filter(a => a.authMethodType !== AuthMethodType.Ip);
-    });
+      map((methods: AuthMethod[]) => methods
+        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
+        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
+      ),
+    );
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
@@ -93,15 +83,6 @@ export class LogInComponent implements OnInit {
         this.authService.clearRedirectUrl();
       }
     });
-
-    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
   }
 
-  getRegisterRoute() {
-    return getRegisterRoute();
-  }
-
-  getForgotRoute() {
-    return getForgotPasswordRoute();
-  }
 }

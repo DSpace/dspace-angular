@@ -22,7 +22,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { AlertType } from '../alert/aletr-type';
+import { AlertType } from '../alert/alert-type';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';

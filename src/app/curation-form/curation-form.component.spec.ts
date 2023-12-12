@@ -1,6 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
+  flush,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -11,6 +13,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
@@ -65,7 +68,7 @@ describe('CurationFormComponent', () => {
     });
 
     handleService = {
-      normalizeHandle: (a) => a,
+      normalizeHandle: (a: string) => observableOf(a),
     } as any;
 
     notificationsService = new NotificationsServiceStub();
@@ -162,12 +165,13 @@ describe('CurationFormComponent', () => {
     ], []);
   });
 
-  it(`should show an error notification and return when an invalid dsoHandle is provided`, () => {
+  it(`should show an error notification and return when an invalid dsoHandle is provided`, fakeAsync(() => {
     comp.dsoHandle = 'test-handle';
-    spyOn(handleService, 'normalizeHandle').and.returnValue(null);
+    spyOn(handleService, 'normalizeHandle').and.returnValue(observableOf(null));
     comp.submit();
+    flush();
 
     expect(notificationsService.error).toHaveBeenCalled();
     expect(scriptDataService.invoke).not.toHaveBeenCalled();
-  });
+  }));
 });

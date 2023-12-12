@@ -4,6 +4,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
   getTestScheduler,
@@ -49,6 +50,9 @@ describe('FileDownloadLinkComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+      ],
       declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },

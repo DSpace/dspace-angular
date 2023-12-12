@@ -38,11 +38,13 @@
       <tr *ngIf="(getResourcePolicies() | async)?.length > 0" class="text-center">
         <th>
           <div class="custom-control custom-checkbox">
-            <input type="checkbox"
+            <input #selectAllBtn type="checkbox"
                    class="custom-control-input"
                    [id]="'selectAll_' + resourceUUID"
                    (change)="selectAllCheckbox($event)">
-            <label class="custom-control-label" [for]="'selectAll_' + resourceUUID"></label>
+            <label class="custom-control-label" [for]="'selectAll_' + resourceUUID"
+                   [attr.aria-label]="(selectAllBtn.checked ? 'resource-policies.table.headers.deselect-all' : 'resource-policies.table.headers.select-all') | translate">
+            </label>
           </div>
         </th>
         <th>{{'resource-policies.table.headers.id' | translate}}</th>

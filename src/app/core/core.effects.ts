@@ -1,3 +1,4 @@
+import { MenuEffects } from '../shared/menu/menu.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { ObjectCacheEffects } from './cache/object-cache.effects';
 import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
@@ -18,4 +19,5 @@ export const coreEffects = [
   ObjectUpdatesEffects,
   RouteEffects,
   RouterEffects,
+  MenuEffects,
 ];

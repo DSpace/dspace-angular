@@ -40,7 +40,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -57,15 +56,15 @@ import {
   EPersonMock,
   EPersonMock2,
 } from '../../../../shared/testing/eperson.mock';
-import {
-  GroupMock,
-  GroupMock2,
-} from '../../../../shared/testing/group-mock';
+import { GroupMock } from '../../../../shared/testing/group-mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { ReviewersListComponent } from './reviewers-list.component';
 
+// NOTE: Because ReviewersListComponent extends MembersListComponent, the below tests ONLY validate
+// features which are *unique* to ReviewersListComponent. All other features are tested in the
+// members-list.component.spec.ts file.
 describe('ReviewersListComponent', () => {
   let component: ReviewersListComponent;
   let fixture: ComponentFixture<ReviewersListComponent>;
@@ -73,31 +72,27 @@ describe('ReviewersListComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
-  let activeGroup;
-  let allEPersons;
-  let allGroups;
-  let epersonMembers;
-  let subgroupMembers;
+  let activeGroup: Group;
+  let epersonMembers: EPerson[];
+  let epersonNonMembers: EPerson[];
   let paginationService;
-  let ePersonDtoModel1: EpersonDtoModel;
-  let ePersonDtoModel2: EpersonDtoModel;
 
   beforeEach(waitForAsync(() => {
     activeGroup = GroupMock;
     epersonMembers = [EPersonMock2];
-    subgroupMembers = [GroupMock2];
-    allEPersons = [EPersonMock, EPersonMock2];
-    allGroups = [GroupMock, GroupMock2];
+    epersonNonMembers = [EPersonMock];
     ePersonDataServiceStub = {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
-      subgroupMembers: subgroupMembers,
+      epersonNonMembers: epersonNonMembers,
+      // This method is used to get all the current members
       findListByHref(_href: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         return createSuccessfulRemoteDataObject$(buildPaginatedList<EPerson>(new PageInfo(), groupsDataServiceStub.getEPersonMembers()));
       },
+      // This method is used to search across *non-members*
       searchByScope(scope: string, query: string): Observable<RemoteData<PaginatedList<EPerson>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allEPersons));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), epersonNonMembers));
         }
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       },
@@ -114,22 +109,22 @@ describe('ReviewersListComponent', () => {
     groupsDataServiceStub = {
       activeGroup: activeGroup,
       epersonMembers: epersonMembers,
-      subgroupMembers: subgroupMembers,
-      allGroups: allGroups,
+      epersonNonMembers: epersonNonMembers,
       getActiveGroup(): Observable<Group> {
         return observableOf(activeGroup);
       },
       getEPersonMembers() {
         return this.epersonMembers;
       },
-      searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
-        if (query === '') {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), this.allGroups));
-        }
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
-      },
-      addMemberToGroup(parentGroup, eperson: EPerson): Observable<RestResponse> {
-        this.epersonMembers = [...this.epersonMembers, eperson];
+      addMemberToGroup(parentGroup, epersonToAdd: EPerson): Observable<RestResponse> {
+        // Add eperson to list of members
+        this.epersonMembers = [...this.epersonMembers, epersonToAdd];
+        // Remove eperson from list of non-members
+        this.epersonNonMembers.forEach( (eperson: EPerson, index: number) => {
+          if (eperson.id === epersonToAdd.id) {
+            this.epersonNonMembers.splice(index, 1);
+          }
+        });
         return observableOf(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
@@ -142,21 +137,20 @@ describe('ReviewersListComponent', () => {
         return '/access-control/groups/' + group.id;
       },
       deleteMemberFromGroup(parentGroup, epersonToDelete: EPerson): Observable<RestResponse> {
-        this.epersonMembers = this.epersonMembers.find((eperson: EPerson) => {
-          if (eperson.id !== epersonToDelete.id) {
-            return eperson;
+        // Remove eperson from list of members
+        this.epersonMembers.forEach( (eperson: EPerson, index: number) => {
+          if (eperson.id === epersonToDelete.id) {
+            this.epersonMembers.splice(index, 1);
           }
         });
-        if (this.epersonMembers === undefined) {
-          this.epersonMembers = [];
-        }
+        // Add eperson to list of non-members
+        this.epersonNonMembers = [...this.epersonNonMembers, epersonToDelete];
         return observableOf(new RestResponse(true, 200, 'Success'));
       },
+      // Used to find the currently active group
       findById(id: string) {
-        for (const group of allGroups) {
-          if (group.id === id) {
-            return createSuccessfulRemoteDataObject$(group);
-          }
+        if (activeGroup.id === id) {
+          return createSuccessfulRemoteDataObject$(activeGroup);
         }
         return createNoContentRemoteDataObject$();
       },
@@ -168,7 +162,7 @@ describe('ReviewersListComponent', () => {
     translateService = getMockTranslateService();
 
     paginationService = new PaginationServiceStub();
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
@@ -202,12 +196,6 @@ describe('ReviewersListComponent', () => {
     fixture.debugElement.nativeElement.remove();
   }));
 
-  beforeEach(() => {
-    ePersonDtoModel1 = new EpersonDtoModel();
-    ePersonDtoModel1.eperson = EPersonMock;
-    ePersonDtoModel2 = new EpersonDtoModel();
-    ePersonDtoModel2.eperson = EPersonMock2;
-  });
 
   describe('when no group is selected', () => {
     beforeEach(() => {
@@ -251,34 +239,32 @@ describe('ReviewersListComponent', () => {
   it('should replace the value when a new member is added when multipleReviewers is false', () => {
     spyOn(component.selectedReviewersUpdated, 'emit');
     component.multipleReviewers = false;
-    component.selectedReviewers = [ePersonDtoModel1];
+    component.selectedReviewers = [EPersonMock];
 
-    component.addMemberToGroup(ePersonDtoModel2);
+    component.addMemberToGroup(EPersonMock2);
 
-    expect(component.selectedReviewers).toEqual([ePersonDtoModel2]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([ePersonDtoModel2.eperson]);
+    expect(component.selectedReviewers).toEqual([EPersonMock2]);
+    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock2]);
   });
 
   it('should add the value when a new member is added when multipleReviewers is true', () => {
     spyOn(component.selectedReviewersUpdated, 'emit');
     component.multipleReviewers = true;
-    component.selectedReviewers = [ePersonDtoModel1];
+    component.selectedReviewers = [EPersonMock];
 
-    component.addMemberToGroup(ePersonDtoModel2);
+    component.addMemberToGroup(EPersonMock2);
 
-    expect(component.selectedReviewers).toEqual([ePersonDtoModel1, ePersonDtoModel2]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([ePersonDtoModel1.eperson, ePersonDtoModel2.eperson]);
+    expect(component.selectedReviewers).toEqual([EPersonMock, EPersonMock2]);
+    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock, EPersonMock2]);
   });
 
   it('should delete the member when present', () => {
     spyOn(component.selectedReviewersUpdated, 'emit');
-    ePersonDtoModel1.memberOfGroup = true;
-    component.selectedReviewers = [ePersonDtoModel1];
+    component.selectedReviewers = [EPersonMock];
 
-    component.deleteMemberFromGroup(ePersonDtoModel1);
+    component.deleteMemberFromGroup(EPersonMock);
 
     expect(component.selectedReviewers).toEqual([]);
-    expect(ePersonDtoModel1.memberOfGroup).toBeFalse();
     expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([]);
   });
 

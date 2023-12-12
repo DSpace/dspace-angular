@@ -3383,20 +3383,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Ваші надіслані документи ",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Заархівовані",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Заархівовані",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Перевірка",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Перевірка",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Чекаємо контролера",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Чекаємо контролера",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Робочий процес",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Робочий процес",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Робоче середовище",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Робоче середовище",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Моє середовище",

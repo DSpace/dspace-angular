@@ -8,6 +8,7 @@ import {
 import { map } from 'rxjs/operators';
 
 import { hasValue } from '../app/shared/empty.util';
+import { environment } from '../environments/environment';
 import {
   NGX_TRANSLATE_STATE,
   NgxTranslateState,
@@ -40,9 +41,10 @@ export class TranslateBrowserLoader implements TranslateLoader {
     if (hasValue(messages)) {
       return observableOf(messages);
     } else {
+      const translationHash: string = environment.production ? `.${(process.env.languageHashes as any)[lang + '.json5']}` : '';
       // If they're not available on the transfer state (e.g. when running in dev mode), retrieve
       // them using HttpClient
-      return this.http.get('' + this.prefix + lang + this.suffix, { responseType: 'text' }).pipe(
+      return this.http.get(`${this.prefix}${lang}${translationHash}${this.suffix}`, { responseType: 'text' }).pipe(
         map((json: any) => JSON.parse(json)),
       );
     }

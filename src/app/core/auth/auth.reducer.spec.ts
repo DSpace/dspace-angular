@@ -601,9 +601,9 @@ describe('authReducer', () => {
       authMethods: [],
       idle: false,
     };
-    const authMethods = [
-      new AuthMethod(AuthMethodType.Password),
-      new AuthMethod(AuthMethodType.Shibboleth, 'location'),
+    const authMethods: AuthMethod[] = [
+      new AuthMethod(AuthMethodType.Password, 0),
+      new AuthMethod(AuthMethodType.Shibboleth, 1, 'location'),
     ];
     const action = new RetrieveAuthMethodsSuccessAction(authMethods);
     const newState = authReducer(initialState, action);
@@ -635,7 +635,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      authMethods: [new AuthMethod(AuthMethodType.Password)],
+      authMethods: [new AuthMethod(AuthMethodType.Password, 0)],
       idle: false,
     };
     expect(newState).toEqual(state);

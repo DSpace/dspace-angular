@@ -27,8 +27,10 @@ import { ItemCollectionMapperComponent } from './item-collection-mapper/item-col
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
+import { ItemPageAccessControlGuard } from './item-page-access-control.guard';
 import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
+import { ItemPageCurateGuard } from './item-page-curate.guard';
 import { ItemPageMetadataGuard } from './item-page-metadata.guard';
 import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
@@ -89,6 +91,7 @@ import { ItemWithdrawComponent } from './item-withdraw/item-withdraw.component';
                 path: 'curate',
                 component: ItemCurateComponent,
                 data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true },
+                canActivate: [ItemPageCurateGuard],
               },
               {
                 path: 'relationships',
@@ -118,6 +121,7 @@ import { ItemWithdrawComponent } from './item-withdraw/item-withdraw.component';
                 path: 'access-control',
                 component: ItemAccessControlComponent,
                 data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true },
+                canActivate: [ItemPageAccessControlGuard],
               },
               {
                 path: 'mapper',
@@ -203,11 +207,13 @@ import { ItemWithdrawComponent } from './item-withdraw/item-withdraw.component';
     ItemPageWithdrawGuard,
     ItemPageAdministratorGuard,
     ItemPageMetadataGuard,
+    ItemPageCurateGuard,
     ItemPageStatusGuard,
     ItemPageBitstreamsGuard,
     ItemPageRelationshipsGuard,
     ItemPageVersionHistoryGuard,
     ItemPageCollectionMapperGuard,
+    ItemPageAccessControlGuard,
     ItemPageRegisterDoiGuard,
   ],
 })

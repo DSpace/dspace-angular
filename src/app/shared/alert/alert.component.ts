@@ -12,7 +12,7 @@ import {
   fadeOutLeave,
   fadeOutState,
 } from '../animations/fade';
-import { AlertType } from './aletr-type';
+import { AlertType } from './alert-type';
 
 /**
  * This component allow to create div that uses the Bootstrap's Alerts component.

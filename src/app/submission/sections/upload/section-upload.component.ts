@@ -30,7 +30,7 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   isNotEmpty,

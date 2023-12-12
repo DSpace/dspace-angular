@@ -14,8 +14,7 @@ import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-sectio
  * Represents a non-expandable section in the navbar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-navbar-section]',
+  selector: 'ds-navbar-section',
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss'],
 })

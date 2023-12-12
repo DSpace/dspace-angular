@@ -20,6 +20,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import {
@@ -111,6 +112,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   protected subs: Subscription[] = [];
 
   private retrieveExternalSourcesSub: Subscription;
+
+  public readonly AlertType = AlertType;
 
   /**
    * Initialize the component variables.

@@ -16,7 +16,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 
 @Component({

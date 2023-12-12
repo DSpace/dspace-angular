@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
-import { ThemeConfig } from '../../../../../config/theme.model';
+import { ThemeConfig } from '../../../../../config/theme.config';
 import { environment } from '../../../../../environments/environment';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';

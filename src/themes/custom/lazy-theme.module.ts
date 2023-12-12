@@ -96,6 +96,7 @@ import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.compo
 import { ExpandableNavbarSectionComponent } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component';
 import { ProfilePageComponent } from './app/profile-page/profile-page.component';
+import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
 import { CreateProfileComponent } from './app/register-page/create-profile/create-profile.component';
 import { RegisterEmailComponent } from './app/register-page/register-email/register-email.component';
 import { DenyRequestCopyComponent } from './app/request-copy/deny-request-copy/deny-request-copy.component';
@@ -105,6 +106,8 @@ import { RootComponent } from './app/root/root.component';
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
+import { UserMenuComponent } from './app/shared/auth-nav-menu/user-menu/user-menu.component';
+import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
 import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
@@ -218,6 +221,9 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   ItemStatusComponent,
   EditBitstreamPageComponent,
+  UserMenuComponent,
+  BrowseByComponent,
+  RegisterEmailFormComponent,
 ];
 
 @NgModule({

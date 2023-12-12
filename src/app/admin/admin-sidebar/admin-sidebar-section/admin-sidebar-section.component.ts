@@ -18,8 +18,7 @@ import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-sec
  * Represents a non-expandable section in the admin sidebar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-admin-sidebar-section]',
+  selector: 'ds-admin-sidebar-section',
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
 

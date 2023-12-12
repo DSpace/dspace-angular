@@ -18,7 +18,6 @@ import { MenuService } from '../../../menu/menu.service';
  * Represents an expandable section in the dso edit menus
  */
 @Component({
-  /* tslint:disable:component-selector */
   selector: 'ds-dso-edit-menu-expandable-section',
   templateUrl: './dso-edit-menu-expandable-section.component.html',
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],

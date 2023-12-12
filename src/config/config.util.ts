@@ -1,9 +1,13 @@
 import { all } from 'deepmerge';
 
 import { hasNoValue } from '../app/shared/empty.util';
+import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';
 import { environment } from '../environments/environment';
 import { AppConfig } from './app-config.interface';
-import { ThemeConfig } from './theme.model';
+import {
+  NamedThemeConfig,
+  ThemeConfig,
+} from './theme.config';
 
 /**
  * Extend Angular environment with app config.
@@ -42,7 +46,9 @@ const getDefaultThemeConfig = (): ThemeConfig => {
     hasNoValue(themeConfig.regex) &&
     hasNoValue(themeConfig.handle) &&
     hasNoValue(themeConfig.uuid),
-  );
+  ) ?? {
+    name: BASE_THEME_NAME,
+  } as NamedThemeConfig;
 };
 
 export {

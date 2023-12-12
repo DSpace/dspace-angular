@@ -191,6 +191,10 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
           this.value = '';
         }
 
+        if (params.startsWith === undefined || params.startsWith === '') {
+          this.startsWith = undefined;
+        }
+
         if (typeof params.startsWith === 'string'){
           this.startsWith = params.startsWith.trim();
         }

@@ -1,6 +1,6 @@
 import { of as observableOf } from 'rxjs';
 
-import { ThemeConfig } from '../../../config/theme.model';
+import { ThemeConfig } from '../../../config/theme.config';
 import { isNotEmpty } from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 

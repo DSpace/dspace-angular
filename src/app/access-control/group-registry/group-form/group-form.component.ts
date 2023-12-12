@@ -24,7 +24,6 @@ import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  ObservedValueOf,
   of as observableOf,
   Subscription,
 } from 'rxjs';
@@ -60,7 +59,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import {
   hasValue,
@@ -70,6 +69,10 @@ import {
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  getGroupEditRoute,
+  getGroupsRoute,
+} from '../../access-control-routing-paths';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 
 @Component({
@@ -188,19 +191,19 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.canEdit$ = this.groupDataService.getActiveGroup().pipe(
       hasValueOperator(),
       switchMap((group: Group) => {
-        return observableCombineLatest(
+        return observableCombineLatest([
           this.authorizationService.isAuthorized(FeatureID.CanDelete, isNotEmpty(group) ? group.self : undefined),
           this.hasLinkedDSO(group),
-          (isAuthorized: ObservedValueOf<Observable<boolean>>, hasLinkedDSO: ObservedValueOf<Observable<boolean>>) => {
-            return isAuthorized && !hasLinkedDSO;
-          });
+        ]).pipe(
+          map(([isAuthorized, hasLinkedDSO]: [boolean, boolean]) => isAuthorized && !hasLinkedDSO),
+        );
       }),
     );
-    observableCombineLatest(
+    observableCombineLatest([
       this.translateService.get(`${this.messagePrefix}.groupName`),
       this.translateService.get(`${this.messagePrefix}.groupCommunity`),
       this.translateService.get(`${this.messagePrefix}.groupDescription`),
-    ).subscribe(([groupName, groupCommunity, groupDescription]) => {
+    ]).subscribe(([groupName, groupCommunity, groupDescription]) => {
       this.groupName = new DynamicInputModel({
         id: 'groupName',
         label: groupName,
@@ -238,12 +241,12 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       }
 
       this.subs.push(
-        observableCombineLatest(
+        observableCombineLatest([
           this.groupDataService.getActiveGroup(),
           this.canEdit$,
           this.groupDataService.getActiveGroup()
             .pipe(filter((activeGroup) => hasValue(activeGroup)),switchMap((activeGroup) => this.getLinkedDSO(activeGroup).pipe(getFirstSucceededRemoteDataPayload()))),
-        ).subscribe(([activeGroup, canEdit, linkedObject]) => {
+        ]).subscribe(([activeGroup, canEdit, linkedObject]) => {
 
           if (activeGroup != null) {
 
@@ -253,12 +256,14 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             this.groupBeingEdited = activeGroup;
 
             if (linkedObject?.name) {
-              this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
-              this.formGroup.patchValue({
-                groupName: activeGroup.name,
-                groupCommunity: linkedObject?.name ?? '',
-                groupDescription: activeGroup.firstMetadataValue('dc.description'),
-              });
+              if (!this.formGroup.controls.groupCommunity) {
+                this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
+                this.formGroup.patchValue({
+                  groupName: activeGroup.name,
+                  groupCommunity: linkedObject?.name ?? '',
+                  groupDescription: activeGroup.firstMetadataValue('dc.description'),
+                });
+              }
             } else {
               this.formModel = [
                 this.groupName,
@@ -286,7 +291,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   onCancel() {
     this.groupDataService.cancelEditGroup();
     this.cancelForm.emit();
-    this.router.navigate([this.groupDataService.getGroupRegistryRouterLink()]);
+    void this.router.navigate([getGroupsRoute()]);
   }
 
   /**
@@ -333,7 +338,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           const groupSelfLink = rd.payload._links.self.href;
           this.setActiveGroupWithLink(groupSelfLink);
           this.groupDataService.clearGroupsRequests();
-          this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLinkWithID(rd.payload.uuid));
+          void this.router.navigateByUrl(getGroupEditRoute(rd.payload.uuid));
         }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.created.failure', { name: groupToCreate.name }));

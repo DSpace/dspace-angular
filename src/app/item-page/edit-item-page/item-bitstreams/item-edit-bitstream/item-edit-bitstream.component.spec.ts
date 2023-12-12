@@ -5,6 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -77,7 +78,10 @@ describe('ItemEditBitstreamComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         ItemEditBitstreamComponent,
         VarDirective,

@@ -43,7 +43,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../core/shared/operators';
 import { Registration } from '../core/shared/registration.model';
-import { AlertType } from '../shared/alert/aletr-type';
+import { AlertType } from '../shared/alert/alert-type';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';

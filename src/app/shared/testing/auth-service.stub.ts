@@ -4,6 +4,7 @@ import {
 } from 'rxjs';
 
 import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -11,9 +12,9 @@ import { hasValue } from '../empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
-export const authMethodsMock = [
-  new AuthMethod('password'),
-  new AuthMethod('shibboleth', 'dspace.test/shibboleth'),
+export const authMethodsMock: AuthMethod[] = [
+  new AuthMethod(AuthMethodType.Password, 0),
+  new AuthMethod(AuthMethodType.Shibboleth, 1, 'dspace.test/shibboleth'),
 ];
 
 export class AuthServiceStub {
