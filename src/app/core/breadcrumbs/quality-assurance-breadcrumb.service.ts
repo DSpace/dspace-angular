@@ -5,7 +5,9 @@ import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 import {getFirstCompletedRemoteData} from '../shared/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {QualityAssuranceTopicRestService} from "../notifications/qa/topics/quality-assurance-topic-rest.service";
+import {
+  QualityAssuranceTopicDataService
+} from "../suggestion-notifications/qa/topics/quality-assurance-topic-data.service";
 
 
 /**
@@ -18,7 +20,7 @@ export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderSer
 
   private QUALITY_ASSURANCE_BREADCRUMB_KEY = 'admin.quality-assurance.breadcrumbs';
   constructor(
-    protected qualityAssuranceService: QualityAssuranceTopicRestService,
+    protected qualityAssuranceService: QualityAssuranceTopicDataService,
     private translationService: TranslateService,
   ) {
 
