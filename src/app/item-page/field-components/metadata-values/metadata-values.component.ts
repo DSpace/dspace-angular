@@ -55,6 +55,8 @@ export class MetadataValuesComponent implements OnChanges {
 
   @Input() browseDefinition?: BrowseDefinition;
 
+  @Input() img?: string;
+
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
   }

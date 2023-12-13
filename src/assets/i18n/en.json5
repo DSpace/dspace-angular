@@ -3114,6 +3114,8 @@
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
+  "orgunit.page.ror": "ROR Identifier",
+
   "pagination.options.description": "Pagination options",
 
   "pagination.results-per-page": "Results Per Page",
@@ -4074,6 +4076,8 @@
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 
+  "submission.import-external.source.ror": "Research Organization Registry (ROR)",
+
   "submission.import-external.preview.title": "Item Preview",
 
   "submission.import-external.preview.title.Publication": "Publication Preview",
@@ -4166,6 +4170,8 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Import from ROR",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
@@ -4187,6 +4193,12 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Import Remote Organization",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Successfully added local organization to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Successfully imported and added external organization to the selection",
 
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
 
@@ -4244,6 +4256,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.ror": "ROR ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
@@ -4257,6 +4271,8 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
@@ -4303,6 +4319,8 @@
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
+
+  "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -4365,6 +4383,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
@@ -4836,6 +4856,8 @@
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
+  "orgunit.search.results.head": "Organizational Unit Search Results",
+
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
@@ -5294,6 +5316,6 @@
 
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
 
-  "vocabulary-treeview.search.form.add": "Add",
+  "vocabulary-treeview.search.form.add": "Add"
 
 }
