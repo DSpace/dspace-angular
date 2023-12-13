@@ -39,6 +39,7 @@ import { ThemedSearchResultsComponent } from './search-results/themed-search-res
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -209,9 +210,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: RouteService, useValue: routeServiceStub },
-        {
-            provide: Store, useValue: store
-        },
+        provideMockStore(),
         {
             provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
                 isXs: observableOf(true),

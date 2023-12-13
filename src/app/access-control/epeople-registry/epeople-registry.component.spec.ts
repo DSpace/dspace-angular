@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -30,6 +30,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -134,6 +135,7 @@ describe('EPeopleRegistryComponent', () => {
             }
         }), EPeopleRegistryComponent],
       providers: [
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         {provide: EPersonDataService, useValue: ePersonDataServiceStub},
         {provide: NotificationsService, useValue: new NotificationsServiceStub()},
         {provide: AuthorizationDataService, useValue: authorizationService},

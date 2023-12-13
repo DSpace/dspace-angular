@@ -1,10 +1,11 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RegisterEmailComponent } from './register-email.component';
 import { RegisterEmailFormComponent } from '../../register-email-form/register-email-form.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('RegisterEmailComponent', () => {
 
@@ -13,6 +14,7 @@ describe('RegisterEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      providers: [provideMockStore()],
       imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
