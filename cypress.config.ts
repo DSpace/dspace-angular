@@ -22,7 +22,7 @@ export default defineConfig({
     // Community/collection/publication used for view/edit tests
     DSPACE_TEST_COMMUNITY: '0958c910-2037-42a9-81c7-dca80e3892b4',
     DSPACE_TEST_COLLECTION: '282164f5-d325-4740-8dd1-fa4d6d3e7200',
-    DSPACE_TEST_ENTITY_PUBLICATION: 'e98b0f27-5c19-49a0-960d-eb6ad5287067',
+    DSPACE_TEST_ENTITY_PUBLICATION: '6160810f-1e53-40db-81ef-f6621a727398',
     // Search term (should return results) used in search tests
     DSPACE_TEST_SEARCH_TERM: 'test',
     // Collection used for submission tests
