@@ -7,7 +7,7 @@ import {getFirstCompletedRemoteData} from '../shared/operators';
 import {TranslateService} from '@ngx-translate/core';
 import {
   QualityAssuranceTopicDataService
-} from "../suggestion-notifications/qa/topics/quality-assurance-topic-data.service";
+} from '../suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
 
 
 /**
@@ -37,7 +37,7 @@ export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderSer
     const topicId = key.split(':')[1];
 
     if (topicId) {
-      return this.qualityAssuranceService.getTopic(`${sourceId}:${topicId}`).pipe(
+      return this.qualityAssuranceService.getTopic(topicId).pipe(
         getFirstCompletedRemoteData(),
         map((topic) => {
             return [new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),

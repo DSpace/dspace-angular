@@ -11,11 +11,11 @@ describe('QualityAssuranceBreadcrumbResolver', () => {
     beforeEach(() => {
       route = {
         paramMap: {
-          get: function () {
-            return this;
+          get: function (param) {
+            return this[param]
           },
           sourceId: 'testSourceId',
-          topicId: 'testSourceId:testTopicId'
+          topicId: 'testTopicId'
         }
       };
       qualityAssuranceBreadcrumbService = {};
@@ -23,7 +23,7 @@ describe('QualityAssuranceBreadcrumbResolver', () => {
     });
 
     it('should resolve the breadcrumb config', () => {
-      const resolvedConfig = resolver.resolve(route, {url: fullPath} as any);
+      const resolvedConfig = resolver.resolve(route as any, {url: fullPath + 'testSourceId'} as any);
       const expectedConfig = { provider: qualityAssuranceBreadcrumbService, key: expectedKey, url: fullPath };
       expect(resolvedConfig).toEqual(expectedConfig);
     });

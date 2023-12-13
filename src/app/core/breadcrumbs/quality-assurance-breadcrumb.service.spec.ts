@@ -6,7 +6,9 @@ import {QualityAssuranceBreadcrumbService} from './quality-assurance-breadcrumb.
 describe('QualityAssuranceBreadcrumbService', () => {
   let service: QualityAssuranceBreadcrumbService;
   let dataService: any;
-  let translateService: any;
+  let translateService: any = {
+    instant: (str) => str,
+  };
 
   let exampleString;
   let exampleURL;

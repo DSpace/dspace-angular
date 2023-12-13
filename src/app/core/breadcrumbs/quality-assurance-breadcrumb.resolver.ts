@@ -19,7 +19,11 @@ export class QualityAssuranceBreadcrumbResolver implements Resolve<BreadcrumbCon
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BreadcrumbConfig<string> {
     const sourceId = route.paramMap.get('sourceId');
     const topicId = route.paramMap.get('topicId');
-    const key = topicId ?? sourceId;
+    let key = sourceId;
+
+    if (topicId) {
+      key += `:${topicId}`;
+    }
     const fullPath = state.url;
     const url = fullPath.substr(0, fullPath.indexOf(sourceId));
 
