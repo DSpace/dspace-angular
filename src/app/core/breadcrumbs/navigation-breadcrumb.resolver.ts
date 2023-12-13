@@ -1,8 +1,6 @@
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot, Routes} from '@angular/router';
-import { hasNoValue } from '../../shared/empty.util';
-import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
 import {NavigationBreadcrumbsService} from "./navigation-breadcrumb.service";
 
 /**
