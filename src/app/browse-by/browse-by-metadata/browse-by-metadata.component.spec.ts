@@ -170,7 +170,7 @@ describe('BrowseByMetadataComponent', () => {
         field: 'fake-field',
       };
 
-      result = browseParamsToOptions(paramsScope, paginationOptions, sortOptions, 'author', comp.fetchThumbnails);
+      result = browseParamsToOptions(paramsScope, 'fake-scope', paginationOptions, sortOptions, 'author', comp.fetchThumbnails);
     });
 
     it('should return BrowseEntrySearchOptions with the correct properties', () => {

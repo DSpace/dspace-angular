@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 
@@ -14,6 +14,8 @@ export class ComcolBrowseByComponent implements OnInit {
 
   browseByType$: Observable<BrowseByDataType>;
 
+  scope$: Observable<string>;
+
   constructor(
     protected route: ActivatedRoute,
   ) {
@@ -25,6 +27,9 @@ export class ComcolBrowseByComponent implements OnInit {
   ngOnInit(): void {
     this.browseByType$ = this.route.data.pipe(
       map((data: { browseDefinition: BrowseDefinition }) => data.browseDefinition.getRenderType()),
+    );
+    this.scope$ = this.route.data.pipe(
+      map((data: Data) => data.scope),
     );
   }
 

@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, Input } from '@angular/core';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { map } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { Context } from '../../core/shared/context.model';
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
 @rendersBrowseBy(BrowseByDataType.Hierarchy)
-export class BrowseByTaxonomyComponent implements OnInit, OnDestroy {
+export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * The optional context
@@ -30,6 +30,13 @@ export class BrowseByTaxonomyComponent implements OnInit, OnDestroy {
    * The {@link BrowseByDataType} of this Component
    */
   @Input() browseByType: BrowseByDataType;
+
+  /**
+   * The ID of the {@link Community} or {@link Collection} of the scope to display
+   */
+  @Input() scope: string;
+
+  scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
   /**
    * The {@link VocabularyOptions} object
@@ -87,6 +94,10 @@ export class BrowseByTaxonomyComponent implements OnInit, OnDestroy {
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, closed: true };
     }));
+  }
+
+  ngOnChanges(): void {
+    this.scope$.next(this.scope);
   }
 
   /**

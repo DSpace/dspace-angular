@@ -61,16 +61,16 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.route.data,
+      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.route.data,
         this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, data, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams, data), currentPage, currentSort];
+        map(([routeParams, queryParams, scope, data, currentPage, currentSort]) => {
+          return [Object.assign({}, routeParams, queryParams, data), scope, currentPage, currentSort];
         })
-      ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
+      ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;
-        const searchOptions = browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails);
+        const searchOptions = browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails);
         this.updatePageWithItems(searchOptions, this.value, undefined);
         this.updateStartsWithOptions(this.browseId, metadataKeys, params.scope);
       }));
