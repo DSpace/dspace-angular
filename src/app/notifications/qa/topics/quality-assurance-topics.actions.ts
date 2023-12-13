@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
-import { QualityAssuranceTopicObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -12,9 +12,9 @@ import { QualityAssuranceTopicObject } from '../../../core/suggestion-notificati
  * action types in the application are unique.
  */
 export const QualityAssuranceTopicActionTypes = {
-  ADD_TOPICS: type('dspace/integration/suggestion-notifications/qa/topic/ADD_TOPICS'),
-  RETRIEVE_ALL_TOPICS: type('dspace/integration/suggestion-notifications/qa/topic/RETRIEVE_ALL_TOPICS'),
-  RETRIEVE_ALL_TOPICS_ERROR: type('dspace/integration/suggestion-notifications/qa/topic/RETRIEVE_ALL_TOPICS_ERROR'),
+  ADD_TOPICS: type('dspace/integration/notifications/qa/topic/ADD_TOPICS'),
+  RETRIEVE_ALL_TOPICS: type('dspace/integration/notifications/qa/topic/RETRIEVE_ALL_TOPICS'),
+  RETRIEVE_ALL_TOPICS_ERROR: type('dspace/integration/notifications/qa/topic/RETRIEVE_ALL_TOPICS_ERROR'),
 };
 
 /**

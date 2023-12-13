@@ -1,4 +1,4 @@
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceActionTypes, QualityAssuranceSourceActions } from './quality-assurance-source.actions';
 
 /**

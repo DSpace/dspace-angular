@@ -5,13 +5,13 @@ import { map } from 'rxjs/operators';
 
 import {
   QualityAssuranceSourceDataService
-} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import {
   QualityAssuranceSourceObject
-} from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+} from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 

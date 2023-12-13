@@ -12,10 +12,10 @@ import { RemoteData } from '../../../core/data/remote-data';
 import {
   OpenaireQualityAssuranceEventMessageObject,
   QualityAssuranceEventObject
-} from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+} from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import {
   QualityAssuranceEventDataService
-} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
+} from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -95,6 +95,10 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @type {boolean}
    */
   public showMore = false;
+  /**
+   * The Open Aire base url for project search
+   */
+  public openAireUrl = 'https://explore.openaire.eu/search/project?projectId=';
   /**
    * The FindListOptions object
    */

@@ -14,13 +14,13 @@ import {
 } from './quality-assurance-source.actions';
 import {
   QualityAssuranceSourceObject
-} from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+} from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   QualityAssuranceSourceDataService
-} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 
 /**
  * Provides effect methods for the Quality Assurance source actions.

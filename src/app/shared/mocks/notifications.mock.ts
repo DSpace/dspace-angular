@@ -2,16 +2,16 @@ import { of as observableOf } from 'rxjs';
 import { ResourceType } from '../../core/shared/resource-type';
 import {
   QualityAssuranceTopicObject
-} from '../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+} from '../../core/notifications/qa/models/quality-assurance-topic.model';
 import {
   QualityAssuranceEventObject
-} from '../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+} from '../../core/notifications/qa/models/quality-assurance-event.model';
 import {
   QualityAssuranceTopicDataService
-} from '../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
+} from '../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import {
   QualityAssuranceEventDataService
-} from '../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
+} from '../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import {
@@ -22,7 +22,7 @@ import {
 import { SearchResult } from '../search/models/search-result.model';
 import {
   QualityAssuranceSourceObject
-} from '../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+} from '../../core/notifications/qa/models/quality-assurance-source.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ const ItemMockPid1: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -199,7 +199,7 @@ const ItemMockPid2: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -318,7 +318,7 @@ const ItemMockPid3: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -437,7 +437,7 @@ const ItemMockPid4: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -556,7 +556,7 @@ const ItemMockPid5: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -675,7 +675,7 @@ const ItemMockPid6: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -794,7 +794,7 @@ const ItemMockPid7: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -913,7 +913,7 @@ export const ItemMockPid8: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -1032,7 +1032,7 @@ export const ItemMockPid9: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -1151,7 +1151,7 @@ export const ItemMockPid10: Item = Object.assign(
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -1270,7 +1270,7 @@ export const NotificationsMockDspaceObject: SearchResult<DSpaceObject> = Object.
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
+          value: 'https://demo.dspace.org/handle/10673/6'
         }
       ],
       'dc.description.abstract': [
@@ -1799,7 +1799,7 @@ export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssurance
 // -------------------------------------------------------------------------------
 
 /**
- * Mock for [[SuggestionNotificationsStateService]]
+ * Mock for [[NotificationsStateService]]
  */
 export function getMockNotificationsStateService(): any {
   return jasmine.createSpyObj('NotificationsStateService', {

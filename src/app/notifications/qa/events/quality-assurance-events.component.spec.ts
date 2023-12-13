@@ -7,7 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { of as observableOf } from 'rxjs';
 import {
   QualityAssuranceEventDataService
-} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
+} from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 import {
   getMockQualityAssuranceEventRestService,
@@ -26,7 +26,7 @@ import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import {
   QualityAssuranceEventObject
-} from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+} from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { TestScheduler } from 'rxjs/testing';
 import { cold, getTestScheduler } from 'jasmine-marbles';

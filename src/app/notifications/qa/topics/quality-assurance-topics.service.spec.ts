@@ -4,7 +4,7 @@ import { QualityAssuranceTopicsService } from './quality-assurance-topics.servic
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import {
   QualityAssuranceTopicDataService
-} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
+} from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceTopicRestService,

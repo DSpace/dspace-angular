@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
-import { suggestionNotificationsReducers } from './suggestion-notifications.reducer';
-import { SuggestionNotificationsStateService } from './suggestion-notifications-state.service';
+import { suggestionNotificationsReducers } from './notifications.reducer';
+import { NotificationsStateService } from './notifications-state.service';
 import {
   qualityAssuranceSourceObjectMissingPid,
   qualityAssuranceSourceObjectMoreAbstract,
@@ -16,7 +16,7 @@ import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.ac
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 
 describe('NotificationsStateService', () => {
-  let service: SuggestionNotificationsStateService;
+  let service: NotificationsStateService;
   let serviceAsAny: any;
   let store: any;
   let initialState: any;
@@ -67,14 +67,14 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: SuggestionNotificationsStateService, useValue: service }
+            { provide: NotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new SuggestionNotificationsStateService(store);
+        service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -159,14 +159,14 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: SuggestionNotificationsStateService, useValue: service }
+            { provide: NotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new SuggestionNotificationsStateService(store);
+        service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -255,14 +255,14 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: SuggestionNotificationsStateService, useValue: service }
+            { provide: NotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new SuggestionNotificationsStateService(store);
+        service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -325,14 +325,14 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: SuggestionNotificationsStateService, useValue: service }
+            { provide: NotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new SuggestionNotificationsStateService(store);
+        service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -417,14 +417,14 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: SuggestionNotificationsStateService, useValue: service }
+            { provide: NotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new SuggestionNotificationsStateService(store);
+        service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });
@@ -513,14 +513,14 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: SuggestionNotificationsStateService, useValue: service }
+            { provide: NotificationsStateService, useValue: service }
           ]
         }).compileComponents();
       });
 
       beforeEach(() => {
         store = TestBed.get(Store);
-        service = new SuggestionNotificationsStateService(store);
+        service = new NotificationsStateService(store);
         serviceAsAny = service;
         spyOn(store, 'dispatch');
       });

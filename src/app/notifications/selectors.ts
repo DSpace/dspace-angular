@@ -1,12 +1,12 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../shared/selector.util';
-import { suggestionNotificationsSelector, SuggestionNotificationsState } from './suggestion-notifications.reducer';
-import { QualityAssuranceTopicObject } from '../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+import { suggestionNotificationsSelector, SuggestionNotificationsState } from './notifications.reducer';
+import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
 import { QualityAssuranceTopicState } from './qa/topics/quality-assurance-topics.reducer';
 import { QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
 import {
   QualityAssuranceSourceObject
-} from '../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+} from '../core/notifications/qa/models/quality-assurance-source.model';
 
 /**
  * Returns the Notifications state.

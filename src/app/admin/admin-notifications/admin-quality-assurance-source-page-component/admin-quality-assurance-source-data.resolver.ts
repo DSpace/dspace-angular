@@ -3,8 +3,8 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Router } from '@a
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceService } from '../../../suggestion-notifications/qa/source/quality-assurance-source.service';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceService } from '../../../notifications/qa/source/quality-assurance-source.service';
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.
  */

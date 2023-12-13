@@ -11,7 +11,7 @@ import {
   qualityAssuranceSourceObjectMorePid
 } from '../../../shared/mocks/notifications.mock';
 import { QualityAssuranceSourceComponent } from './quality-assurance-source.component';
-import { SuggestionNotificationsStateService } from '../../suggestion-notifications-state.service';
+import { NotificationsStateService } from '../../notifications-state.service';
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -40,7 +40,7 @@ describe('QualityAssuranceSourceComponent test suite', () => {
         TestComponent,
       ],
       providers: [
-        { provide: SuggestionNotificationsStateService, useValue: mockNotificationsStateService },
+        { provide: NotificationsStateService, useValue: mockNotificationsStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
         { provide: PaginationService, useValue: paginationService },
         QualityAssuranceSourceComponent

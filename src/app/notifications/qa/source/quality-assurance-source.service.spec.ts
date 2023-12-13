@@ -13,7 +13,7 @@ import { cold } from 'jasmine-marbles';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import {
   QualityAssuranceSourceDataService
-} from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 describe('QualityAssuranceSourceService', () => {

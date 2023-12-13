@@ -3,13 +3,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   QualityAssuranceTopicDataService
-} from '../../../core/suggestion-notifications/qa/topics/quality-assurance-topic-data.service';
+} from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import {
   QualityAssuranceTopicObject
-} from '../../../core/suggestion-notifications/qa/models/quality-assurance-topic.model';
+} from '../../../core/notifications/qa/models/quality-assurance-topic.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';

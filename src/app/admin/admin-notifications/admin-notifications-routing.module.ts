@@ -11,7 +11,7 @@ import { AdminQualityAssuranceTopicsPageResolver } from './admin-quality-assuran
 import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.resolver';
 import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
 import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
-import { SourceDataResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.reslover';
+import { SourceDataResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.resolver';
 
 @NgModule({
   imports: [
