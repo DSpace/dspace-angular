@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { BrowseByComponent } from './browse-by.component';
 import { Observable } from 'rxjs';
@@ -6,7 +6,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { StartsWithType } from '../starts-with/starts-with-decorator';
 
 /**
@@ -16,7 +16,7 @@ import { StartsWithType } from '../starts-with/starts-with-decorator';
   selector: 'ds-themed-browse-by',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone:true
+  standalone: true
 })
 export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> {
 
