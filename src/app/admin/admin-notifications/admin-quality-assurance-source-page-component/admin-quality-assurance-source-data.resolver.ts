@@ -5,11 +5,14 @@ import { map } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceService } from '../../../notifications/qa/source/quality-assurance-source.service';
+import {environment} from '../../../../environments/environment';
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
 @Injectable()
 export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSourceObject[]>> {
+  private paginationStart = environment.qualityAssuranceConfig.defaultPaginationStart;
+  private  paginationItemsCount = environment.qualityAssuranceConfig.defaultPaginationItemsCount;
   /**
    * Initialize the effect class variables.
    * @param {QualityAssuranceSourceService} qualityAssuranceSourceService
@@ -25,7 +28,7 @@ export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSo
    * @returns Observable<QualityAssuranceSourceObject[]>
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<QualityAssuranceSourceObject[]> {
-    return this.qualityAssuranceSourceService.getSources(5,0).pipe(
+    return this.qualityAssuranceSourceService.getSources(this.paginationItemsCount,this.paginationStart).pipe(
         map((sources: PaginatedList<QualityAssuranceSourceObject>) => {
           if (sources.page.length === 1) {
              this.router.navigate([this.getResolvedUrl(route) + '/' + sources.page[0].id]);

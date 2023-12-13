@@ -306,6 +306,11 @@ export const environment: BuildConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
   },
+  qualityAssuranceConfig: {
+    openAireUrl: 'https://explore.openaire.eu/search/project?projectId=',
+    defaultPaginationItemsCount: 5,
+    defaultPaginationStart: 0
+  },
 
   vocabularies: [
     {

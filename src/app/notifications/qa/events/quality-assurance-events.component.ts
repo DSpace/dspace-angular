@@ -30,6 +30,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import {environment} from '../../../../environments/environment';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -98,7 +99,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**
    * The Open Aire base url for project search
    */
-  public openAireUrl = 'https://explore.openaire.eu/search/project?projectId=';
+  public openAireUrl = environment.qualityAssuranceConfig.openAireUrl;
   /**
    * The FindListOptions object
    */
