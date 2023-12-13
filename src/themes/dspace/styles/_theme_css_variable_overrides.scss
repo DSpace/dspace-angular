@@ -14,10 +14,6 @@
   --ds-banner-text-background: rgba(0, 0, 0, 0.45);
   --ds-banner-background-gradient-width: 300px;
 
-  --ds-home-news-link-color: #{$green};
-  --ds-home-news-link-hover-color: #{darken($green, 15%)};
-
-  --ds-header-navbar-border-bottom-color: #{$green};
   --ds-header-navbar-border-bottom-height: 5px;
 
   /* set the next two properties as `--ds-header-navbar-border-bottom-*`
@@ -26,4 +22,3 @@
   --ds-mobile-navbar-border-top-height: 0;
   --ds-mobile-navbar-padding-top: 0;
 }
-
