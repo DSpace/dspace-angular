@@ -87,7 +87,7 @@
             <button
                     [disabled]="!registrationVerification || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked"
                     class="btn btn-default btn-primary"
-                    (click)="register()">{{'bitstream-request-a-copy.submit' | translate}}</button>
+                    (click)="onSubmit()">{{'bitstream-request-a-copy.submit' | translate}}</button>
         </div>
     </div>
 </div>
