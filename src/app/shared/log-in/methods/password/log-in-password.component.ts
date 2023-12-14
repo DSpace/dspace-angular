@@ -138,6 +138,7 @@ export class LogInPasswordComponent implements OnInit {
 
     // Load `dspace.ui.url` into `baseUrl` property.
     await this.assignBaseUrl();
+    this.toggleDiscojuiceLogin();
     void this.setUpRedirectUrl();
   }
 
@@ -155,13 +156,14 @@ export class LogInPasswordComponent implements OnInit {
     }
 
     // Store the `redirectUrl` value from the url and then remove that value from url.
-    if (isNotEmpty(this.route.snapshot.queryParams?.redirectUrl)) {
-      // Overwrite `this.redirectUrl` only if it's not stored in the authService `redirectUrl` property.
-      if (isEmpty(this.redirectUrl)) {
-        this.redirectUrl = this.route.snapshot.queryParams?.redirectUrl;
-      }
-    } else {
-      // Pop up discojuice login e.g. when the token is expired or the user is trying to download restricted bitstream.
+    // Overwrite `this.redirectUrl` only if it's not stored in the authService `redirectUrl` property.
+    if (isEmpty(this.redirectUrl)) {
+      this.redirectUrl = this.route.snapshot.queryParams?.redirectUrl;
+    }
+  }
+
+  private toggleDiscojuiceLogin() {
+    if (isEmpty(this.route.snapshot.queryParams?.redirectUrl)) {
       this.popUpDiscoJuiceLogin();
     }
   }
@@ -191,10 +193,16 @@ export class LogInPasswordComponent implements OnInit {
     email.trim();
     password.trim();
 
-    // Local authentication redirects to /login page and the user should be redirected to the page from where
-    // was the login initiated.
     if (!this.isStandalonePage || isNotEmpty(this.redirectUrl)) {
-      this.authService.setRedirectUrl(this.redirectUrl.replace(this.baseUrl, ''));
+      // Create a URLSearchParams object
+      const urlParams = new URLSearchParams(this.redirectUrl.split('?')[1]);
+      // Get the value of the 'redirectUrl' parameter
+      let redirectUrl = urlParams.get('redirectUrl');
+      if (isEmpty(redirectUrl)) {
+        redirectUrl = this.redirectUrl;
+      }
+
+      this.authService.setRedirectUrl(redirectUrl.replace(this.baseUrl, ''));
     } else {
       this.authService.setRedirectUrlIfNotSet('/');
     }

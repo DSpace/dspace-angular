@@ -126,10 +126,10 @@ export class ClarinBitstreamDownloadPageComponent implements OnInit {
       // bitstreamURL = 'http://localhost:8080/server/api/core/bitstreams/d9a41f84-a470-495a-8821-20e0a18e9276/content';
       if ((isAuthorized || isAuthorizedByClarin) && isLoggedIn && isNotEmpty(fileLink)) {
         this.downloadStatus.next(RequestEntryState.Success);
-        this.hardRedirectService.redirect(fileLink);
+        window.location.replace(fileLink);
       } else if ((isAuthorized || isAuthorizedByClarin) && !isLoggedIn) {
         this.downloadStatus.next(RequestEntryState.Success);
-        this.hardRedirectService.redirect(bitstreamURL);
+        window.location.replace(bitstreamURL);
       } else if (!(isAuthorized || isAuthorizedByClarin) && isLoggedIn &&
         this.downloadStatus.value === RequestEntryState.Error) {
         // this.downloadStatus is `ERROR` - no CLARIN exception is thrown up
