@@ -54,6 +54,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   public inboundPatterns: string[] = notifyPatterns;
   public outboundPatterns: string[] = notifyPatterns;
   public isNewForm: boolean;
+  public areControlsInitialized: boolean;
   itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
   config: FindListOptions = Object.assign(new FindListOptions(), {
     elementsPerPage: 20
@@ -120,7 +121,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       this.isNewForm = segment[0].path === 'new';
       this.formModel.addControl('notifyServiceInboundPatterns', this.formBuilder.array([this.createInboundPatternFormGroup()]));
       this.formModel.addControl('notifyServiceOutboundPatterns',  this.formBuilder.array([this.createOutboundPatternFormGroup()]));
-
+      this.areControlsInitialized = true;
       if (this.serviceId && !this.isNewForm) {
         this.fetchServiceData(this.serviceId);
       }
