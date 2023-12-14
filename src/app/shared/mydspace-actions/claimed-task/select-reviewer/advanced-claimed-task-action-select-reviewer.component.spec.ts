@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   AdvancedClaimedTaskActionSelectReviewerComponent
 } from './advanced-claimed-task-action-select-reviewer.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -14,7 +14,6 @@ import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data
 import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { By } from '@angular/platform-browser';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
 import {
@@ -55,7 +54,6 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
         TranslateModule.forRoot(),
         AdvancedClaimedTaskActionSelectReviewerComponent
     ],
-    declarations: [NgbTooltip],
     providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },

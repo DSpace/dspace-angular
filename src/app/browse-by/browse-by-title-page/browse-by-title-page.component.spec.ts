@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,6 +34,7 @@ import {
 } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 
 
 describe('BrowseByTitlePageComponent', () => {
@@ -82,7 +83,7 @@ describe('BrowseByTitlePageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BrowseByTitlePageComponent, EnumKeysPipe, VarDirective],
+    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BrowseByTitlePageComponent, EnumKeysPipe, VarDirective, AsyncPipe],
     providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -102,7 +103,8 @@ describe('BrowseByTitlePageComponent', () => {
             DsoEditMenuComponent,
             ThemedComcolPageBrowseByComponent,
             BrowseByComponent,
-            ThemedLoadingComponent
+            ThemedLoadingComponent,
+            ThemedBrowseByComponent
           ]}
       })
       .compileComponents();

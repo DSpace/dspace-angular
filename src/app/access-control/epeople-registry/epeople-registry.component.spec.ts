@@ -30,6 +30,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -126,7 +127,7 @@ describe('EPeopleRegistryComponent', () => {
 
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
-    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

@@ -20,6 +20,7 @@ import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
+import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
@@ -52,7 +53,7 @@ describe('HeaderComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 })
       .overrideComponent(HeaderComponent, {
-        remove: {imports: [ ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent,]}
+        remove: {imports: [ ThemedLangSwitchComponent, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent,]}
       })
       .compileComponents();  // compile template and css
   }));

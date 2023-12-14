@@ -25,7 +25,9 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import {
+  SubmissionImportExternalPreviewComponent
+} from './import-external-preview/submission-import-external-preview.component';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HostWindowService } from '../../shared/host-window.service';
@@ -36,6 +38,9 @@ import {
 } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
@@ -78,7 +83,14 @@ describe('SubmissionImportExternalComponent test suite', () => {
     schemas: [NO_ERRORS_SCHEMA]
 })
       .overrideComponent(SubmissionImportExternalComponent, {
-        remove: { imports: [SubmissionImportExternalSearchbarComponent] }
+        remove: {
+          imports: [
+            ObjectCollectionComponent,
+            ThemedLoadingComponent,
+            AlertComponent,
+            SubmissionImportExternalSearchbarComponent,
+          ]
+        }
       })
       .compileComponents().then();
   }));

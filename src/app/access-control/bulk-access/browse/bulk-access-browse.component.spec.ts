@@ -13,6 +13,14 @@ import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
+import {
+  SelectableListItemControlComponent
+} from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('BulkAccessBrowseComponent', () => {
   let component: BulkAccessBrowseComponent;
@@ -43,7 +51,18 @@ describe('BulkAccessBrowseComponent', () => {
       schemas: [
         NO_ERRORS_SCHEMA
       ]
-    }).compileComponents();
+    })
+      .overrideComponent(BulkAccessBrowseComponent, {
+        remove: {
+          imports: [
+            PaginationComponent,
+            ThemedSearchComponent,
+            SelectableListItemControlComponent,
+            ListableObjectComponentLoaderComponent
+          ]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

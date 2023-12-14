@@ -1,10 +1,11 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RegisterEmailComponent } from './register-email.component';
 import { RegisterEmailFormComponent } from '../../register-email-form/register-email-form.component';
+import { ThemedRegisterEmailFormComponent } from '../../register-email-form/themed-registry-email-form.component';
 
 describe('RegisterEmailComponent', () => {
 
@@ -18,7 +19,7 @@ describe('RegisterEmailComponent', () => {
     })
       .overrideComponent(RegisterEmailComponent, {
         remove: {
-          imports: [RegisterEmailFormComponent]
+          imports: [RegisterEmailFormComponent, ThemedRegisterEmailFormComponent]
         }
       })
       .compileComponents();

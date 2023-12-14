@@ -21,6 +21,7 @@ import { RelationshipDataService } from '../../../../../../core/data/relationshi
 import { relatedRelationships } from '../../../../../testing/related-relationships.mock';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
+import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 
 
 describe('DsDynamicLookupRelationSearchTabComponent', () => {
@@ -109,6 +110,11 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(DsDynamicLookupRelationSearchTabComponent, {
+        remove: {
+          imports: [ThemedSearchComponent]
+        }
+      })
       .compileComponents();
   }));
 

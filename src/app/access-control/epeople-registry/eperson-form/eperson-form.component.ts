@@ -42,8 +42,7 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { RouterLink } from '@angular/router';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 
 @Component({

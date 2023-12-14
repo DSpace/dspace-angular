@@ -2,7 +2,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -13,7 +13,6 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
 import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -215,8 +214,7 @@ describe('EPersonFormComponent', () => {
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
         { provide: ActivatedRoute, useValue: route },
-        { provide: Router, useValue: router },
-        EPeopleRegistryComponent
+        { provide: Router, useValue: router }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
