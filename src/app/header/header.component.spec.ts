@@ -20,7 +20,6 @@ import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
-import { provideMockStore } from '@ngrx/store/testing';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
@@ -45,7 +44,6 @@ describe('HeaderComponent', () => {
         HeaderComponent
     ],
     providers: [
-        provideMockStore(),
         { provide: MenuService, useValue: menuService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
         { provide: LocaleService, useValue: mockLocaleService },

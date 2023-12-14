@@ -25,9 +25,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import {
-  SubmissionImportExternalPreviewComponent
-} from './import-external-preview/submission-import-external-preview.component';
+import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HostWindowService } from '../../shared/host-window.service';
@@ -38,7 +36,6 @@ import {
 } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
@@ -68,7 +65,6 @@ describe('SubmissionImportExternalComponent test suite', () => {
         VarDirective
     ],
     providers: [
-        provideMockStore(),
         { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
