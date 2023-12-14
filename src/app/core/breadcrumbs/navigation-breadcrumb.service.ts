@@ -22,6 +22,9 @@ export class NavigationBreadcrumbsService implements BreadcrumbsProviderService<
    * @param url The url to use as a link for this breadcrumb
    */
   getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {
-    return observableOf([new Breadcrumb(key + BREADCRUMB_MESSAGE_POSTFIX, url)]);
+    const keys = key.split(':');
+    const urls = url.split(':');
+    const breadcrumbs = keys.map((currentKey, index) => new Breadcrumb(currentKey + BREADCRUMB_MESSAGE_POSTFIX, urls[index] ));
+    return observableOf(breadcrumbs.reverse());
   }
 }
