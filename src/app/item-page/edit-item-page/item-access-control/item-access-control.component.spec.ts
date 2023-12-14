@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemAccessControlComponent } from './item-access-control.component';
 
+// TODO: enable this test suite and fix it
 xdescribe('ItemAccessControlComponent', () => {
   let component: ItemAccessControlComponent;
   let fixture: ComponentFixture<ItemAccessControlComponent>;

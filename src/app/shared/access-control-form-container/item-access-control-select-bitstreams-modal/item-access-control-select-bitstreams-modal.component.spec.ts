@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
+import {
+  ItemAccessControlSelectBitstreamsModalComponent
+} from './item-access-control-select-bitstreams-modal.component';
 
+// TODO: enable this test suite and fix it
 xdescribe('ItemAccessControlSelectBitstreamsModalComponent', () => {
   let component: ItemAccessControlSelectBitstreamsModalComponent;
   let fixture: ComponentFixture<ItemAccessControlSelectBitstreamsModalComponent>;
