@@ -12,6 +12,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink } from '@angular/router';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 /**
  * Represents the header with the logo and simple navigation
@@ -21,7 +22,7 @@ import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-swi
     styleUrls: ['header.component.scss'],
     templateUrl: 'header.component.html',
     standalone: true,
-    imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule]
+    imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe, NgIf]
 })
 export class HeaderComponent implements OnInit {
   /**
