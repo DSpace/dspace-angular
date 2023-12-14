@@ -21,7 +21,6 @@ import { getMockFormBuilderService } from '../../shared/mocks/form-builder-servi
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -31,6 +30,7 @@ import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RouterMock } from '../../shared/mocks/router.mock';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -139,7 +139,7 @@ describe('EPeopleRegistryComponent', () => {
         {provide: NotificationsService, useValue: new NotificationsServiceStub()},
         {provide: AuthorizationDataService, useValue: authorizationService},
         {provide: FormBuilderService, useValue: builderService},
-        {provide: Router, useValue: new RouterStub()},
+        {provide: Router, useValue: new RouterMock()},
         {provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
         {provide: PaginationService, useValue: paginationService}
       ],
