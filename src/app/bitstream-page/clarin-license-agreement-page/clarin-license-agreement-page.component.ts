@@ -8,7 +8,7 @@ import { ClarinUserMetadata } from '../../core/shared/clarin/clarin-user-metadat
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { PostRequest } from '../../core/data/request.models';
+import { GetRequest, PostRequest } from '../../core/data/request.models';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
@@ -384,9 +384,29 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     );
   }
 
+  /**
+   * Load the user IP Address by API
+   * */
   private loadIPAddress() {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
-      this.ipAddress$.next(res.ip);
+    const requestId = this.requestService.generateRequestId();
+
+    const url = this.halService.getRootHref() + '/userinfo/ipaddress';
+    const getRequest = new GetRequest(requestId, url);
+    // Send GET request
+    this.requestService.send(getRequest);
+    // Get response
+    const response = this.rdbService.buildFromRequestUUID(requestId);
+    response
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe((responseRD$: RemoteData<IPAddress>) => {
+      if (hasFailed(responseRD$.state)) {
+        this.error$.value.push('Cannot load the IP Address');
+        return;
+      }
+      if (isEmpty(responseRD$?.payload)) {
+        return;
+      }
+      this.ipAddress$.next(responseRD$?.payload?.ipAddress);
     });
   }
 
@@ -410,4 +430,8 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
   private loadHelpDeskEmail() {
     this.helpDesk$ = this.configurationDataService.findByPropertyName(HELP_DESK_PROPERTY);
   }
+}
+
+interface IPAddress {
+  ipAddress: string;
 }

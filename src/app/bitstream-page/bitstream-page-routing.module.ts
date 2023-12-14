@@ -46,7 +46,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         // component: BitstreamDownloadPageComponent,
         resolve: {
           bitstream: BitstreamPageResolver,
-          breadcrumb: LegacyBitstreamUrlResolver
+          breadcrumb: BitstreamBreadcrumbResolver
         },
       },
       {
