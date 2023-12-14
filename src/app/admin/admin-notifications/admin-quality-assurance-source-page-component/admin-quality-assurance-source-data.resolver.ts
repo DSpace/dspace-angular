@@ -11,8 +11,7 @@ import {environment} from '../../../../environments/environment';
  */
 @Injectable()
 export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSourceObject[]>> {
-  private paginationStart = environment.qualityAssuranceConfig.defaultPaginationStart;
-  private  paginationItemsCount = environment.qualityAssuranceConfig.defaultPaginationItemsCount;
+  private  pageSize = environment.qualityAssuranceConfig.pageSize;
   /**
    * Initialize the effect class variables.
    * @param {QualityAssuranceSourceService} qualityAssuranceSourceService
@@ -28,7 +27,7 @@ export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSo
    * @returns Observable<QualityAssuranceSourceObject[]>
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<QualityAssuranceSourceObject[]> {
-    return this.qualityAssuranceSourceService.getSources(this.paginationItemsCount,this.paginationStart).pipe(
+    return this.qualityAssuranceSourceService.getSources(this.pageSize, 0).pipe(
         map((sources: PaginatedList<QualityAssuranceSourceObject>) => {
           if (sources.page.length === 1) {
              this.router.navigate([this.getResolvedUrl(route) + '/' + sources.page[0].id]);

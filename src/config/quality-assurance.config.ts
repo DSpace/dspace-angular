@@ -13,9 +13,5 @@ export class QualityAssuranceConfig implements Config {
   /**
    * default count of QA sources to load
    */
-  public defaultPaginationItemsCount: number;
-  /**
-   * default starting point of pagination
-   */
-  public defaultPaginationStart: number;
+  public pageSize: number;
 }

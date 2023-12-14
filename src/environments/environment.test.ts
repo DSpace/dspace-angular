@@ -308,8 +308,7 @@ export const environment: BuildConfig = {
   },
   qualityAssuranceConfig: {
     openAireUrl: 'https://explore.openaire.eu/search/project?projectId=',
-    defaultPaginationItemsCount: 5,
-    defaultPaginationStart: 0
+    pageSize: 5,
   },
 
   vocabularies: [

@@ -436,7 +436,6 @@ export class DefaultAppConfig implements AppConfig {
 
   qualityAssuranceConfig: QualityAssuranceConfig = {
     openAireUrl: 'https://explore.openaire.eu/search/project?projectId=',
-    defaultPaginationItemsCount: 5,
-    defaultPaginationStart: 0
+    pageSize: 5,
   };
 }
