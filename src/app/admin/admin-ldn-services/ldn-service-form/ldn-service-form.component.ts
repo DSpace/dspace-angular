@@ -124,7 +124,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       if (this.serviceId && !this.isNewForm) {
         this.fetchServiceData(this.serviceId);
       }
-    })
+    });
     this.setItemfilters();
   }
 
@@ -649,10 +649,11 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       pattern: '',
       patternLabel: this.translateService.instant(this.selectPatternDefaultLabeli18Key),
       constraint: '',
-    }
+      isNew: true
+    };
 
-    if(!this.isNewForm) {
-      outBoundFormGroup['isNew'] = true;
+    if (this.isNewForm) {
+      delete outBoundFormGroup.isNew;
     }
 
     return this.formBuilder.group(outBoundFormGroup);
@@ -668,10 +669,11 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       patternLabel: this.translateService.instant(this.selectPatternDefaultLabeli18Key),
       constraint: '',
       automatic: false,
-    }
+      isNew: true
+    };
 
-    if(!this.isNewForm) {
-      inBoundFormGroup['isNew'] = true;
+    if (this.isNewForm) {
+      delete inBoundFormGroup.isNew;
     }
 
     return this.formBuilder.group(inBoundFormGroup);
