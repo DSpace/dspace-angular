@@ -23,7 +23,6 @@ import { PaginationServiceStub } from '../../shared/testing/pagination-service.s
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -94,7 +93,6 @@ describe('BrowseByDatePageComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: ChangeDetectorRef, useValue: mockCdRef },
-        provideMockStore(),
         { provide: APP_CONFIG, useValue: environment }
     ],
     schemas: [NO_ERRORS_SCHEMA]
