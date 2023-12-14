@@ -2,7 +2,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { BREADCRUMB_MESSAGE_POSTFIX } from './i18n-breadcrumbs.service';
-import {NavigationBreadcrumbsService} from "./navigation-breadcrumb.service";
+import {NavigationBreadcrumbsService} from './navigation-breadcrumb.service';
 
 describe('NavigationBreadcrumbsService', () => {
   let service: NavigationBreadcrumbsService;

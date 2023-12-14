@@ -1,5 +1,4 @@
-import { URLCombiner } from '../url-combiner/url-combiner';
-import {NavigationBreadcrumbResolver} from "./navigation-breadcrumb.resolver";
+import {NavigationBreadcrumbResolver} from './navigation-breadcrumb.resolver';
 
 describe('NavigationBreadcrumbResolver', () => {
   describe('resolve', () => {
@@ -31,14 +30,14 @@ describe('NavigationBreadcrumbResolver', () => {
             path: ''
           },
           url: [{
-            path: "base"
+            path: 'base'
           }]
         } as any
       };
 
       state = {
         url: '/base/example'
-      }
+      };
       expectedPath = '/base/example:/base';
       NavigationBreadcrumbService = {};
       resolver = new NavigationBreadcrumbResolver(NavigationBreadcrumbService);
