@@ -6,10 +6,6 @@ form {
   position: relative;
 }
 
-label {
-  font-weight: bold;
-}
-
 input[type="text"],
 select {
   max-width: 100%;
@@ -41,11 +37,6 @@ textarea {
   color: #e34949;
   cursor: pointer;
   margin-left: 10px;
-}
-
-.small-text {
-  font-size: 0.7em;
-  color: #888;
 }
 
 .status-checkbox {
@@ -110,8 +101,27 @@ textarea {
   margin-top: 10px;
 }
 
+.small-text {
+  font-size: 0.7em;
+  color: #888;
+}
+
 .toggle-switch {
   cursor: pointer;
+  margin-top: 3px;
+  margin-right: 3px
+}
+
+.label-box {
+  margin-left: 11px;
+}
+
+.label-box-2 {
+  margin-left: 14px;
+}
+
+.label-box-3 {
+  margin-left: 5px;
 }
 
 .submission-form-footer {
@@ -122,6 +132,9 @@ textarea {
   z-index: var(--ds-submission-footer-z-index);
 }
 
+.marked-for-deletion {
+  background-color: lighten($red, 30%);
+}
 
 
 
