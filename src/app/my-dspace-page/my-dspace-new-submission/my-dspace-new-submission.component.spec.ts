@@ -26,6 +26,8 @@ import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { of } from 'rxjs';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
 
@@ -33,6 +35,10 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
     clearQueue: jasmine.createSpy('clearQueue').and.stub(),
     onBuildItemForm: jasmine.createSpy('onBuildItemForm').and.stub(),
     uploadAll: jasmine.createSpy('uploadAll').and.stub()
+  });
+
+  const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
+    findByPropertyName: of({}),
   });
 
   beforeEach(waitForAsync(() => {
@@ -64,6 +70,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
+        { provide: ConfigurationDataService, useValue: configurationServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

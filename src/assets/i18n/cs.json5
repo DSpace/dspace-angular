@@ -7500,6 +7500,9 @@
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful" : "Úspěšné nahrání",
 
+  // "submission.sections.upload.upload-failed.size-limit-exceeded": "File size exceeds the maximum upload size",
+  "submission.sections.upload.upload-failed.size-limit-exceeded": "Soubor přesahuje maximální povolenou velikost",
+
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
   "submission.sections.accesses.form.discoverable-description" : "Pokud je tato položka zaškrtnuta, bude ji možné hledat ve vyhledávání/prohlížení. Pokud není zaškrtnuta, bude položka dostupná pouze prostřednictvím přímého odkazu a nikdy se nezobrazí ve vyhledávání/prohlížení.",
 

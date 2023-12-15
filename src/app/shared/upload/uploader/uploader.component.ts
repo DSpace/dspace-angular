@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
 
-import { of as observableOf } from 'rxjs';
-import { FileUploader } from 'ng2-file-upload';
+import { firstValueFrom, Observable, of as observableOf } from 'rxjs';
+import { FileItem, FileUploader } from 'ng2-file-upload';
 import uniqueId from 'lodash/uniqueId';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -12,7 +12,14 @@ import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.interceptor';
 import { CookieService } from '../../../core/services/cookie.service';
 import { DragService } from '../../../core/drag.service';
+import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import { map } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { TranslateService } from '@ngx-translate/core';
 
+export const MAX_UPLOAD_FILE_SIZE_CFG_PROPERTY = 'spring.servlet.multipart.max-file-size';
 @Component({
   selector: 'ds-uploader',
   templateUrl: 'uploader.component.html',
@@ -90,7 +97,9 @@ export class UploaderComponent {
     private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private configurationService: ConfigurationDataService,
+    private translate: TranslateService
   ) {
   }
 
@@ -129,7 +138,20 @@ export class UploaderComponent {
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return;};
     }
-    this.uploader.onBeforeUploadItem = (item) => {
+    this.uploader.onBeforeUploadItem = async (item) => {
+      // Check if the file size is within the maximum upload size
+      const canUpload = await this.checkFileSizeLimit(item);
+      // If the file size is too large, emit an error and cancel all uploads
+      if (!canUpload) {
+        this.onUploadError.emit({
+          item: item,
+          response: this.translate.instant('submission.sections.upload.upload-failed.size-limit-exceeded'),
+          status: 400,
+          headers: {}
+        });
+        this.uploader.cancelAll();
+        return;
+      }
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }
@@ -223,6 +245,40 @@ export class UploaderComponent {
     // which we will send back in the X-XSRF-TOKEN header per Angular best practices.
     this.cookieService.remove(XSRF_COOKIE);
     this.cookieService.set(XSRF_COOKIE, token);
+  }
+
+  // Check if the file size is within the maximum upload size
+  private async checkFileSizeLimit(item: FileItem): Promise<boolean> {
+    const maxFileUploadSize = await firstValueFrom(this.getMaxFileUploadSizeFromCfg());
+    if (maxFileUploadSize) {
+      const maxSizeInGigabytes = parseInt(maxFileUploadSize?.[0], 10);
+      const maxSizeInBytes = this.gigabytesToBytes(maxSizeInGigabytes);
+      // If maxSizeInBytes is -1, it means the value in the config is invalid. The file won't be uploaded and the user
+      // will see error messages in the UI.
+      if (maxSizeInBytes === -1) {
+        return false;
+      }
+      return item?.file?.size <= maxSizeInBytes;
+    }
+    return false;
+  }
+
+  // Convert gigabytes to bytes
+  private gigabytesToBytes(gigabytes: number): number {
+    if (typeof gigabytes !== 'number' || isNaN(gigabytes) || !isFinite(gigabytes) || gigabytes < 0) {
+      return -1;
+    }
+    return gigabytes * Math.pow(2, 30); // 2^30 bytes in a gigabyte
+  }
+
+  // Get the maximum file upload size from the configuration
+  public getMaxFileUploadSizeFromCfg(): Observable<string[]> {
+    return this.configurationService.findByPropertyName(MAX_UPLOAD_FILE_SIZE_CFG_PROPERTY).pipe(
+      getFirstCompletedRemoteData(),
+      map((propertyRD: RemoteData<ConfigurationProperty>) => {
+        return propertyRD.hasSucceeded ? propertyRD.payload.values : [];
+      })
+    );
   }
 
 }
