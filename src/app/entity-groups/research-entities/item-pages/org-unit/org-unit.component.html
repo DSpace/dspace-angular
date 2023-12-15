@@ -14,14 +14,6 @@
       >
       </ds-themed-thumbnail>
     </ds-metadata-field-wrapper>
-    <ds-generic-item-page-field
-      [fields]="['organization.identifier.ror']"
-      [img]="'./assets/images/ror-icon.svg'"
-      [item]="object"
-      [label]="'orgunit.page.ror'"
-      [urlRegex]="'(.*)ror\.org'"
-    >
-    </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="object"
       [fields]="['organization.foundingDate']"
       [label]="'orgunit.page.dateestablished'">
@@ -40,6 +32,14 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-7">
+    <ds-generic-item-page-field
+      [fields]="['organization.identifier.ror']"
+      [img]="'./assets/images/ror-icon.svg'"
+      [item]="object"
+      [label]="'orgunit.page.ror'"
+      [urlRegex]="'(.*)ror\.org'"
+    >
+    </ds-generic-item-page-field>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isPublicationOfOrgUnit'"

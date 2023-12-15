@@ -26,7 +26,8 @@
 <!-- Render value as a link with icon -->
 <ng-template #linkImg let-img="img" let-value="value">
   <a [href]="value" class="dont-break-out ds-simple-metadata-link" target="_blank">
-    <img alt="metadata logo" height="24" src="{{img}}"/>{{value}}
+    <img alt="metadata logo" height="24" src="{{img}}"/>
+    {{value}}
   </a>
 </ng-template>
 
