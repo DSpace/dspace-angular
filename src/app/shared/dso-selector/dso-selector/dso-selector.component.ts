@@ -75,6 +75,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   @Input() sort: SortOptions;
 
+  /**
+   * The id that should be given to the input box, this is required for accessibility reasons
+   */
+  @Input() searchBoxId: string | null = null;
+
   // list of allowed selectable dsoTypes
   typesString: string;
 
