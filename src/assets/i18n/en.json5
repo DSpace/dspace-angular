@@ -5081,6 +5081,8 @@
 
   "submission.sections.upload.upload-successful": "Upload successful",
 
+  "submission.sections.upload.upload-failed.size-limit-exceeded": "File size exceeds the maximum upload size",
+
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 
   "submission.sections.accesses.form.discoverable-label": "Discoverable",

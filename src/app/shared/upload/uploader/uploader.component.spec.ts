@@ -14,12 +14,18 @@ import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { CookieService } from '../../../core/services/cookie.service';
 import { CookieServiceMock } from '../../mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
+import { of } from 'rxjs';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 
 describe('Chips component', () => {
 
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let html;
+
+  const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
+    findByPropertyName: of({}),
+  });
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
@@ -40,6 +46,7 @@ describe('Chips component', () => {
         DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: ConfigurationDataService, useValue: configurationServiceSpy },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
