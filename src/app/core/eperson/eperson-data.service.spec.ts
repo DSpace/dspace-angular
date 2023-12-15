@@ -6,6 +6,7 @@ import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
 } from '../../access-control/epeople-registry/epeople-registry.actions';
+import { GroupMock } from '../../shared/testing/group-mock';
 import { RequestParam } from '../cache/models/request-param.model';
 import { PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
@@ -125,6 +126,30 @@ describe('EPersonDataService', () => {
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
+    });
+  });
+
+  describe('searchNonMembers', () => {
+    beforeEach(() => {
+      spyOn(service, 'searchBy');
+    });
+
+    it('search with empty query and a group ID', () => {
+      service.searchNonMembers('', GroupMock.id);
+      const options = Object.assign(new FindListOptions(), {
+        searchParams: [Object.assign(new RequestParam('query', '')),
+                       Object.assign(new RequestParam('group', GroupMock.id))]
+      });
+      expect(service.searchBy).toHaveBeenCalledWith('isNotMemberOf', options, true, true);
+    });
+
+    it('search with query and a group ID', () => {
+      service.searchNonMembers('test', GroupMock.id);
+      const options = Object.assign(new FindListOptions(), {
+        searchParams: [Object.assign(new RequestParam('query', 'test')),
+                       Object.assign(new RequestParam('group', GroupMock.id))]
+      });
+      expect(service.searchBy).toHaveBeenCalledWith('isNotMemberOf', options, true, true);
     });
   });
 
