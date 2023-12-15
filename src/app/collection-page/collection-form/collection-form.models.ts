@@ -13,10 +13,10 @@ export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<s
  * The dynamic form fields used for creating/editing a collection
  * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
  */
-const RecentLevelOptions = [{ label: 'Yes', value: 'true' },
+const RecentLevelOptions = [
+  { label: 'Yes', value: 'true' },
   { label: 'No', value: 'false' },
- 
-  ];
+];
 export const collectionFormModels: DynamicFormControlModel[] = [
   new DynamicInputModel({
     id: 'title',
@@ -57,7 +57,5 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     id: 'uploadrequired',
     name: 'dspace.upload.required',
     options: RecentLevelOptions,
-
-
   })
 ];
