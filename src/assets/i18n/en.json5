@@ -1158,6 +1158,10 @@
 
   "communityList.showMore": "Show More",
 
+  "communityList.expand": "Expand {{ name }}",
+
+  "communityList.collapse": "Collapse {{ name }}",
+
   "community.create.head": "Create a Community",
 
   "community.create.notifications.success": "Successfully created the Community",
