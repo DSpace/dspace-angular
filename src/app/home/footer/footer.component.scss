@@ -1,0 +1,124 @@
+@import 'src/scss/variables';
+
+.gray_bg{
+    background-color: #F7F9FC;
+}
+.fotter{
+.info-band img {
+    width: 150px;
+}
+.info-band p {
+    font-size: 16px;
+    width: 77%;
+    line-height: 26px;
+    font-weight: 500;
+    color: $text;
+}
+
+.fotter-nav{
+    h5 {
+        display: block;
+        margin-bottom: 27px;
+        font-size: 17px;
+    }
+    li {
+        margin-top: 19px;
+        a {
+            text-decoration: none;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        a:hover {
+            opacity: 1;
+            transition: all 0.5s;
+        }
+    }
+} 
+.bold-border{
+    border-bottom: 10px solid $primary;
+}
+
+.soical-band {
+    ul {
+    display: flex;
+    
+    li {
+        margin-right: 10px;
+        background-color: $white;
+        width: 36px;
+        height: 36px;
+        border: 1px solid $text;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+
+        a {
+            font-size: 10px;
+            mat-icon {
+                width: 19px;
+                height: 19px;
+            }
+        }
+    } 
+    li.instagram-icon a mat-icon {
+        width: 20px !important;
+        margin-top: 1px;
+    }
+    li.twitter-icon a mat-icon {
+        width: 16px !important;
+        margin-top: 1px;
+    }
+    li:hover {
+        background-color: $primary;
+        transition: all 0.5s;
+    } 
+}
+}
+
+.copyrights-band p {
+    font-size: 15px;
+    margin: 0px;
+}
+.copyrights-band {
+    margin-top: 50px;
+    text-align: center;
+    height: 72px;
+    line-height: 72px;
+    border-top: 2px solid $border-light;
+}
+}
+.bold-border{
+    border-bottom: 10px solid $primary;
+}
+.fotter-nav.frist-child-sm {
+    border-bottom: 0px solid $border-light !important;
+    padding-bottom: 0px !important;
+}
+
+@media only screen and (max-width: 991px){
+    .fotter {
+        .info-band{
+            margin-bottom: 20px;
+            img{
+                width: 120px;
+            }
+            p{
+                font-size: 16px;
+            }
+        }
+        .fotter-nav.frist-child-sm {
+            border-bottom: 1px solid $border-light !important;
+            padding-bottom: 16px !important;
+        }
+        .fotter-nav h5 {
+            margin-bottom: 22px;
+            font-size: 17px;
+        }
+        .copyrights-band {
+            margin-top: 28px;
+            height: 65px;
+            line-height: 65px;
+        }
+    }
+}

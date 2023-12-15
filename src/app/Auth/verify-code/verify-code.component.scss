@@ -1,0 +1,34 @@
+.account-verfy-band {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.account-verfy-band .img-band {
+    width: 300px;
+}
+
+    h4{
+        text-align: center;
+        font-size: 23px;
+        margin-top: -33px;
+    }
+
+p {
+    text-align: center;
+    font-size: 18px;
+    text-transform: capitalize !important;
+}
+span {
+    color: #000000d4;
+    text-transform: capitalize !important;
+    margin-left: 8px;
+    font-weight: 500;
+}
+button.primary-btn {
+    width: fit-content;
+    margin: 0px auto;
+    display: block;
+    margin-top: 15px;
+}

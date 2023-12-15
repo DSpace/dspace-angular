@@ -1,0 +1,40 @@
+<div class="hero-band background-bg-summer">
+    <div class="text-band text-center">
+      <h1>Discover and Enjoy Your new Places and Experiences</h1>
+      <h5 class="mt-25 mb-15 text-white weight-500">Lets plan your trip</h5>
+      <div class="serach-band">
+        <div class="current-location-band">
+          <div class="start-point-band">
+            <mat-form-field>
+              <mat-label>Starting point</mat-label>
+              <select matNativeControl required>
+                <option value="volvo">Ottawa, ON, Canada</option>
+                <option value="saab">Ottawa, ON, Canada</option>
+                <option value="mercedes">Ottawa, ON, Canada</option>
+                <option value="audi">Ottawa, ON, Canada</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="destination-band">
+          <form class="search-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Enter your destination</mat-label>
+              <input type="text"
+                    placeholder="Pick one"
+                    aria-label="Number"
+                    matInput
+                    [formControl]="myControl"
+                    (click)="openSearchModal()" />
+                    <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete> -->
+            </mat-form-field>
+            <button class="primary-btn-inner" type="button" routerLink="/trip-plan">Start Trip</button>
+          </form>
+        </div>
+     </div>
+     </div>
+  </div>

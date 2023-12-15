@@ -1,0 +1,2235 @@
+<div class="main mt-0">
+    <div class="bootstrap-wrapper">
+        <div class="container">
+            <div class="main-title-band d-flex align-items-center justify-content-between">
+                <h4>Toronto</h4>
+            </div>
+            <div class="row g-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="trip-card eternity-trip-card">
+                        <div class="img-band">
+                          <img src="assets/image/toronto.jpg" alt="vancouver">
+                          <div class="top-right-baar">
+                            <div class="favourite-band">
+                                <button class="primary-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_like"></mat-icon></button>
+                            </div>
+                            <div class="trips-menu-band">
+                                <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                  <!-- <button mat-menu-item>Delete</button> -->
+                                  <ul>
+                                    <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                                  </ul>
+                                </mat-menu>
+                            </div>
+                          </div>
+                          <div class="top-left-baar">
+                             <div class="total-people"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_total-user"></mat-icon> <span> 4 people</span> </div>
+                          </div>
+                          
+                          <div class="user-bar">
+                                <div class="user-trip-info">
+                                    <div class="user a-logo md-user">
+                                        <span class="user-name">A</span>
+                                    </div>
+                                    <p class="days">10 days With Family</p>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="bottom-band">
+                            <div class="trips-itinerary-tab city-trips-band">
+                            <div class="swiper-prev-next-btn outer-slider-btn"> 
+                                <button (click)="slidePrev()" class="prev-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                                <button (click)="slideNext()" class="next-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                            </div>
+                            <mat-tab-group>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 01</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 02</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 03</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 04</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 05</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 06</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 07</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                
+                            </mat-tab-group>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="trip-card eternity-trip-card">
+                        <div class="img-band">
+                          <img src="assets/image/toronto.jpg" alt="vancouver">
+                          <div class="top-right-baar">
+                            <div class="favourite-band">
+                                <button class="primary-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_like"></mat-icon></button>
+                            </div>
+                            <div class="trips-menu-band">
+                                <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                  <!-- <button mat-menu-item>Delete</button> -->
+                                  <ul>
+                                    <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                                  </ul>
+                                </mat-menu>
+                            </div>
+                          </div>
+                          <div class="top-left-baar">
+                             <div class="total-people"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_total-user"></mat-icon> <span> 4 people</span> </div>
+                          </div>
+                          
+                          <div class="user-bar">
+                                <div class="user-trip-info">
+                                    <div class="user a-logo md-user">
+                                        <span class="user-name">A</span>
+                                    </div>
+                                    <p class="days">10 days With Family</p>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="bottom-band">
+                            <div class="trips-itinerary-tab city-trips-band">
+                            <div class="swiper-prev-next-btn outer-slider-btn"> 
+                                <button (click)="slidePrev()" class="prev-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                                <button (click)="slideNext()" class="next-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                            </div>
+                            <mat-tab-group>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 01</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 02</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 03</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 04</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 05</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 06</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 07</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                
+                            </mat-tab-group>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="trip-card eternity-trip-card">
+                        <div class="img-band">
+                          <img src="assets/image/toronto.jpg" alt="vancouver">
+                          <div class="top-right-baar">
+                            <div class="favourite-band">
+                                <button class="primary-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_like"></mat-icon></button>
+                            </div>
+                            <div class="trips-menu-band">
+                                <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                  <!-- <button mat-menu-item>Delete</button> -->
+                                  <ul>
+                                    <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                                  </ul>
+                                </mat-menu>
+                            </div>
+                          </div>
+                          <div class="top-left-baar">
+                             <div class="total-people"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_total-user"></mat-icon> <span> 4 people</span> </div>
+                          </div>
+                          
+                          <div class="user-bar">
+                                <div class="user-trip-info">
+                                    <div class="user a-logo md-user">
+                                        <span class="user-name">A</span>
+                                    </div>
+                                    <p class="days">10 days With Family</p>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="bottom-band">
+                            <div class="trips-itinerary-tab city-trips-band">
+                            <div class="swiper-prev-next-btn outer-slider-btn"> 
+                                <button (click)="slidePrev()" class="prev-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                                <button (click)="slideNext()" class="next-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                            </div>
+                            <mat-tab-group>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 01</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 02</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 03</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 04</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 05</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 06</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 07</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                
+                            </mat-tab-group>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="trip-card eternity-trip-card">
+                        <div class="img-band">
+                          <img src="assets/image/toronto.jpg" alt="vancouver">
+                          <div class="top-right-baar">
+                            <div class="favourite-band">
+                                <button class="primary-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_like"></mat-icon></button>
+                            </div>
+                            <div class="trips-menu-band">
+                                <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                  <!-- <button mat-menu-item>Delete</button> -->
+                                  <ul>
+                                    <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                                  </ul>
+                                </mat-menu>
+                            </div>
+                          </div>
+                          <div class="top-left-baar">
+                             <div class="total-people"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_total-user"></mat-icon> <span> 4 people</span> </div>
+                          </div>
+                          
+                          <div class="user-bar">
+                                <div class="user-trip-info">
+                                    <div class="user a-logo md-user">
+                                        <span class="user-name">A</span>
+                                    </div>
+                                    <p class="days">10 days With Family</p>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="bottom-band">
+                            <div class="trips-itinerary-tab city-trips-band">
+                            <div class="swiper-prev-next-btn outer-slider-btn"> 
+                                <button (click)="slidePrev()" class="prev-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                                <button (click)="slideNext()" class="next-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                            </div>
+                            <mat-tab-group>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 01</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 02</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 03</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 04</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 05</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 06</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <div class="tab-btn">Day 07</div>
+                                    </ng-template>
+                                    <div class="trips-places">     
+                                        <div class="place-band">
+                                                <swiper #swiper [virtual]="true" [config]="config">
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Stanley Park</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>        
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <li class="place-card">
+                                                            <div class="left-penal">
+                                                            <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                            </div>
+                                                            </div>
+                                                            <div class="place-detail">
+                                                                <div class="top-box">
+                                                                    <h5>Vancouver Aquarium</h5>
+                                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                                </div>
+                                                                <div class="bottom-box">
+                                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                    
+                                                  </swiper>
+                                                 
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                
+                            </mat-tab-group>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

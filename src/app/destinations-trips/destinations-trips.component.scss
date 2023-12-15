@@ -1,0 +1,215 @@
+@import 'src/scss/variables';
+.main{
+    background: $body-bg;
+}
+.main-title-band {
+    padding-top: 120px;
+    margin-bottom: 20px;
+}
+.top-left-baar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+
+@media only screen and (max-width: 991px){
+.trips-menu-band button {
+    height: 36px !important;
+    width: 36px !important;
+}
+}
+
+.eternity-trip-card{
+    background-color: $white ;
+    border: 1px solid $border-dark;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 0px !important;
+    .favourite-band {
+        right: 53px;
+        button {
+            height: 36px;
+            width: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            mat-icon {
+                width: 17px;
+            }
+        }
+    }
+    .total-people {
+        background-color: $white;
+        height: 35px;
+        padding: 0px 12px;
+        display: flex;
+        align-items: center;
+        border-radius: 37px;
+        span {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: capitalize;
+            color: #060c15bf;
+        }
+        mat-icon {
+            width: 20px;
+            margin-right: 8px;
+        }
+    }
+    .user-bar {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        .days {
+            color: $white;
+        }
+    }
+    .md-user {
+        width: 40px;
+        height: 40px;
+    }
+    .img-band{
+        border-radius: 0px;
+        height: 180px;
+    }
+    .img-band:before {
+        background: linear-gradient(179deg, rgb(0 0 0 / 0%), rgb(6 12 21));
+    }
+    .bottom-band{
+        margin-top: 0px !important;
+        .trips-itinerary-tab.city-trips-band{
+            .mat-mdc-tab.mdc-tab {
+                height: 37px;
+                flex-grow: 0;
+                min-width: auto !important;
+            }
+            .mdc-tab--active .tab-btn {
+                padding: 10px 20px;
+                font-size: 15px;
+            }
+            .mat-mdc-tab-labels {
+                padding: 1px 9px;
+            }
+            .tab-btn {
+                font-size: 13px;
+                padding: 7px 12px;
+            }
+            .mat-mdc-tab-labels {
+                padding: 0px 0px !important;
+            }
+            position: relative;
+        }
+        .place-band {
+            margin-top: 12px;
+            margin: 0px 0px 15px 15px!important;
+            li.place-card {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border: 1px solid $border-light;
+            border-radius: 18px;
+            background-color: $white;
+            box-shadow: 0px 4px 30px rgb(6 12 21 / 5%);
+            .left-penal{
+                display: flex;
+                .img-band {
+                    width: 90px;
+                    height: 90px !important;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .place-detail {
+                    margin-left: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+        
+                    .top-box{
+                        h5{
+                            font-size: 15px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            width: 136px !important;
+                        }
+                    }
+                    p {
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                        margin: 0;
+                    }
+                    span {
+                        display: flex;
+                        background-color: antiquewhite;
+                        padding: 0px 5px;
+                        align-items: center;
+                        border-radius: 25px;
+                        margin-right: 7px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        color: $text;
+        
+                        mat-icon {
+                            width: 14px;
+                            margin-right: 6px;
+                        }
+                    }
+        
+                    .time {
+                        background-color: $white;
+                        padding: 2px 9px;
+                        width: fit-content;
+                        border-radius: 7px;
+                        border: 1px solid $border-light;
+                        margin: 0;
+                        mat-icon {
+                            width: 15px;
+                            margin-right: 6px;
+                        }
+                    }
+                    span.weather-info {
+                        padding: 2px 7px;
+                        background-color: rgb(178 236 255 / 36%);
+                        border: 1px solid #B2ECFF;
+                        margin-left: 8px;
+                        border-radius: 6px;
+                        font-weight: 600;
+                        font-size: 14px;
+                        mat-icon {
+                            width: 18px!important;
+                        }
+                    }
+        
+                    .bottom-box{
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+        
+            }
+        }
+        
+        
+        }
+    }
+
+    .swiper-prev-next-btn.outer-slider-btn button.next-btn {
+        right:12px;
+    }
+    .swiper-prev-next-btn.outer-slider-btn button {
+        bottom: 49px;
+        width: 33px;
+        height: 33px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+

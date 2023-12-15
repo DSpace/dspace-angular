@@ -1,0 +1,57 @@
+<section class="light-green-bg border-top">
+    <div class="bootstrap-wrapper">
+    <div class="container">
+    <div class="title-band mb-50">
+      <h4>Recent Public Trips</h4>
+    </div>
+    <div class="row">
+    <div class="col-md-3">
+        <div class="trip-card">
+            <div class="img-band">
+              <img src="assets/image/vancouver.jpg" alt="vancouver">
+              <div class="trips-menu-band">
+                <button mat-button [matMenuTriggerFor]="menu"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                  <!-- <button mat-menu-item>Delete</button> -->
+                  <button mat-menu-item>Share</button>
+                </mat-menu>
+              </div>
+            </div>
+            <div class="bottom-band">
+              <h5 class="titile">Trip To Vancouver</h5>
+              <div class="user-trip-info">
+                <div class="user">
+                  <span class="user-name">J</span>
+                </div>
+                <p class="days">7 days With Family</p>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="trip-card">
+            <div class="img-band">
+              <img src="assets/image/toronto.jpg" alt="toronto">
+              <div class="trips-menu-band">
+                <button mat-button [matMenuTriggerFor]="menu"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                <mat-menu #menu="matMenu" xPosition="before"  penalclass="main-menu-mat">
+                  <!-- <button mat-menu-item>Delete</button> -->
+                  <button mat-menu-item>Share</button>
+                </mat-menu>
+              </div>
+            </div>
+            <div class="bottom-band">
+              <h5 class="titile">Trip To toronto</h5>
+              <div class="user-trip-info">
+                <div class="user a-logo">
+                  <span class="user-name">A</span>
+                </div>
+                <p class="days">10 days With Family</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </section>

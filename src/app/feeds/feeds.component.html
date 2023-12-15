@@ -1,0 +1,112 @@
+<div class="main">
+    <div class="bootstrap-wrapper">
+        <div class="feeds-container">
+            <div class="feeds-card-band" *ngFor="let trip of trips;let i = index;">
+                <div class="user-header">
+                    <div class="profile">
+                        <div class="user-trip-info">
+                            <div class="user c big">
+                                <span class="user-name">C</span>
+                            </div>
+                            <div class="user-text">
+                                <h5>{{trip.owner}}</h5>
+                                <p class="time">1 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-band d-flex m-action-btn" *ngIf="user_id != trip.user_id">
+                        <button type="button" *ngIf="!trip.trip_requests.length"
+                            class="primary-btn d-flex align-items-center" (click)="requestJoin(trip.id)">request to
+                            Join</button>
+                        <button type="button" *ngIf="trip.trip_requests.length"
+                            class="primary-btn d-flex align-items-center" (click)="activityClick(trip)"><mat-icon aria-hidden="false"
+                                aria-label="Example home svg" svgIcon="vite_green-right-done"
+                                class="mr-10"></mat-icon>request sent123</button>
+                        <button type="button" *ngIf="trip.trip_requests.length"
+                            class="primary-btn primary-small-btn mr-10" (click)="massegeClick(trip)"><mat-icon aria-hidden="false"
+                                aria-label="Example home svg" svgIcon="vite_chat"></mat-icon>send message</button>
+                    </div>
+                </div>
+                <div class="feeds-details-band gradient-bg-01">
+                    <h3>{{trip.search_term.destination}}</h3>
+                    <div class="trips-itinerary-tab">
+                        <div class="swiper-prev-next-btn outer-slider-btn">
+                            <button (click)="slidePrev()" class="prev-btn"><mat-icon aria-hidden="false"
+                                    aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                            <button (click)="slideNext()" class="next-btn"><mat-icon aria-hidden="false"
+                                    aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                        </div>
+                        <mat-tab-group>
+                            <mat-tab *ngFor="let day of trip.itinerary">
+                                <ng-template mat-tab-label>
+                                    <div class="tab-btn">{{day.day}}</div>
+                                </ng-template>
+                                <div class="trips-places">
+                                    <div class="place-band">
+                                        <swiper #swiper [virtual]="true" [config]="config">
+                                            <ng-template swiperSlide *ngFor="let activity of day.activities">
+                                                <li class="place-card btn" (click)="activityClick(trip)">
+                                                    <div class="left-penal">
+                                                        <div class="w-30">
+                                                            <div class="img-band">
+                                                                <img src="assets/image/stanley-park.jpg"
+                                                                    alt="Stanley Park">
+                                                            </div>
+                                                        </div>
+                                                        <div class="place-detail">
+                                                            <div class="top-box">
+                                                                <h5>{{activity.activity}}</h5>
+                                                                <p><span class="rating-band"><mat-icon
+                                                                            aria-hidden="false"
+                                                                            aria-label="Example home svg"
+                                                                            svgIcon="vite_star"></mat-icon>{{activity.rating}}</span>{{activity.total_reviews_count}}
+                                                                    Reviews</p>
+                                                            </div>
+                                                            <div class="bottom-box">
+                                                                <p class="time"><mat-icon aria-hidden="false"
+                                                                        aria-label="Example home svg"
+                                                                        svgIcon="vite_time"></mat-icon>{{activity.time}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ng-template>
+                                        </swiper>
+
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                    <div class="trips-places">
+
+                    </div>
+                </div>
+
+                <div class="feeds-bottom-bar">
+                    <div class="user-trip-info user-group">
+                        <div class="all-user">
+                            <div class="user p">
+                                <span class="user-name">P</span>
+                            </div>
+                            <div class="user a ml-8">
+                                <span class="user-name">A</span>
+                            </div>
+                        </div>
+                        <div class="user-count">
+                            <span>7+</span>
+                        </div>
+                    </div>
+                    <div class="trips-day">
+                        <p>{{trip.search_term.trip_days}} days With {{trip.search_term.group_type}}</p>
+                    </div>
+                </div>
+            </div>
+            <div infiniteScroll (scrolled)="onScroll()"></div>
+        </div>
+        <div class="container">
+
+        </div>
+    </div>
+</div>

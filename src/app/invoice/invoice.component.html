@@ -1,0 +1,109 @@
+
+  <div class="main mt-0 d-p-0">
+    <div class="bootstrap-wrapper">
+        <div class="container">
+            <div class="main-title-band d-flex align-items-center justify-content-between">
+                <h4>Invoice</h4>
+                <div class="bottom-bar overlay-bottom-white">
+                    <button class="primary-btn" type="button">Download</button>
+                </div>
+            </div>
+            <div class="invoive-band">
+                <div class="header">
+                    <div class="left-penal">
+                        <img src="assets/image/logo.svg">
+                    </div>
+                    <div class="right-penal">
+                        <p>Invoice No.</p>
+                        <h2>#000123</h2>
+                    </div>
+                </div>
+        
+                <div class="invo-details-band">
+                    <ul class="left-panel">
+                        <p class="mt-0">Billed to,</p>
+                        <h5>Terry Baptista</h5>
+                        <li class="mb-15">115 Black Creek Dr, Toronto, ON M6M 0A9, Canada</li>
+                        <div class="li-group">
+                            <li><span>Email :</span> info.jenny@gmail.com </li>
+                            <li><span>Booking id :</span> #2545856 </li>
+                        </div>
+                    </ul>
+                    <ul class="right-panel">
+                        <div class="paid-band">
+                            <div class="header-band">
+                                <h4>PAID</h4><span>on 03 August, 2023 </span>
+                            </div>
+                            <h1 class="price">$300</h1>
+                        </div>
+                    </ul> 
+                </div>
+        
+                <div class="product-list">
+                    <div class="table-list ">
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        
+                          <!--- Note that these columns can be defined in any order.
+                                The actual rendered columns are set as a property on the row definition" -->
+                        
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef>Item name</th>
+                            <td mat-cell *matCellDef="let element">Stanley Park</td>
+                            <td mat-cell *matCellDef="let element">Museum of Anthropology at UBC</td>
+                            <td mat-cell *matCellDef="let element">Vancouver Aquarium</td>
+                            <td mat-cell *matCellDef="let element">Granville Island</td>
+                          </ng-container>
+                        
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>tickets</th>
+                            <td mat-cell *matCellDef="let element"> Download Tickets </td>
+                            <td mat-cell *matCellDef="let element"> Download Tickets </td>
+                            <td mat-cell *matCellDef="let element"> Download Tickets </td>
+                            <td mat-cell *matCellDef="let element"> Download Tickets </td>
+                          </ng-container>
+                        
+                        
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                      </div>
+                </div>
+                <div class="paymnet-details-band">
+                    <div class="left-penal">
+                        <h5> Payment details</h5>
+                        <div class="payment-type-card">
+                            <ul>
+                                <li><span>Payment method :</span>Mastercard</li>
+                                <li><span>Payment Date :</span> 03 August,2023 </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="right-penal">
+                        <div class="total-card">
+                            <ul>
+                                <div class="top-penal">
+                                    <li><span>Sub total</span>$270</li>
+                                    <li><span><b>HST</b></span><b>$30</b></li>
+                                </div>
+                                <li class="total-text"><span><b>Total</b></span> <b>$300</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+        
+                  <div class="footer">
+                    <div class="text-band">
+                        <h2>Thank you for purchase</h2>
+                        <span>For any questions please contact us at :<a href=""> info.tripson@gmail.com </a></span>
+                    </div>
+                    <div class="bottom-hr"></div>
+                  </div>
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+

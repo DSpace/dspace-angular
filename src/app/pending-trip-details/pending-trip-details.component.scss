@@ -1,0 +1,59 @@
+@import 'src/scss/variables';
+.mat-mdc-tab-labels {
+    background-color: #00000012;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 63px;
+}
+// booking button ---end---
+.cancel-btn {
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    background-color: rgb(255 79 79 / 18%);
+    padding: 0;
+    height: 33px!important;
+    border: 1px solid #ff4f4f1f;
+    mat-icon {
+        width: 32px;
+        height: 32px;
+    }
+    span{
+        font-size: 14px;
+        font-weight: 600;
+        color: #ff4f4f;
+        padding: 0px 12px 0px 8px;
+    }
+}
+
+
+@media only screen and (max-width: 767px){
+    button.primary-btn.cancel-btn {
+        position: absolute;
+        top: -63px;
+        left: 41px;
+        width: 133px !important;
+    }
+    button.primary-btn.cancel-btn mat-icon {
+        width: 23px !important;
+        margin-left: 8px;
+        height: 37px;
+    }
+    button.primary-btn.cancel-btn {
+        position: absolute;
+        top: -63px;
+        left: 41px;
+        width: 126px !important;
+        padding: 0;
+        height: 37px !important;
+        background-color: rgba(0, 0, 0, 0.4);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255, 255, 255, 0.1490196078);
+        span{
+            font-size: 13px;
+            font-weight: 400;
+            color: $white !important;
+        }
+    }
+}

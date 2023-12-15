@@ -1,0 +1,433 @@
+@import 'src/scss/variables';
+.invoive-band {
+    border: 1px solid $border-light;
+    background-color: $white;
+    .header{
+    background-color: #84ff503b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    width: auto;
+    
+    h2 {
+        font-size: 33px;
+        margin: 0;
+    }
+    }
+    .right-penal {
+        display: flex;
+        flex-direction: column;
+        p {
+            margin-top: 0;
+            font-size: 16px;
+            text-align: right;
+        }
+    }
+    .left-penal {
+        img {
+            width: 157px;
+        }
+    }
+
+}
+.invoice-info-band {
+    padding: 0px 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    ul.left-panel{
+        width: 40%;
+    }
+    ul li {
+        margin-bottom: 7px;
+        color: rgba(25, 32, 57, 0.7215686275);
+        font-size: 14px;
+        font-weight: 500;
+        
+    }
+    ul.right-panel {
+        margin-top: 20px;
+        span {
+            width: 137px;
+            display: inline-flex;
+            color: #192039b8;
+            font-weight: 500!important;
+        }
+        li {
+            margin-top: 12px!important;
+            color: rgb(34 34 52 / 90%)!important;
+            font-weight: 600!important;
+        }
+    }
+}
+.invo-details-band {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(6 11 20 / 1%);
+    margin: 30px;
+    padding: 30px;
+    border: 1px solid $border-light;
+    ul li {
+        margin-bottom: 4px !important;
+        color: rgba(25, 32, 57, 0.7215686275);
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .paid-band {
+        background-color: $white;
+        border: 1px solid $border-light;
+        display: flex;
+        padding: 8px 21px 8px 10px;
+        border-radius: 32px;
+        align-items: center;
+        .header-band {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            h4 {
+                margin: 0;
+                background-color: rgb(132 255 80 / 50%);
+                color: $text;
+                padding: 13px 25px;
+                font-size: 17px;
+                font-weight: 600;
+                border-radius: 31px;
+                display: flex;
+                align-items: center;
+                padding-top: 17px;
+            }
+            span{
+                padding: 0px 15px;
+                color: #192038c4;
+                font-weight: 500;
+            }
+        }
+        .price {
+            display: flex;
+            font-size: 32px;
+            opacity: 0.9;
+            margin: 0;
+            span {
+                font-weight: 400;
+                font-size: 21px;
+                margin-left: 8px;
+                opacity: 0.9;
+            }
+        }
+    }
+    .li-group{
+        margin-top: 15px;
+    }
+    .li-group li:last-child {
+        border: none;
+    }
+    .li-group li span {
+        color: $text;
+        margin-right: 9px;
+    }
+    .li-group li {
+        margin-bottom: 36px;
+        display: flex;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $border-dark;
+        width: fit-content;
+        padding-top: 4px;
+    }
+
+    ul.right-panel {
+        display: flex;
+        align-items: flex-end;
+    }
+}
+
+.product-list{
+    margin: 0px 30px;
+    margin-bottom: 30px;
+    border: 1px solid $border-light; 
+    .table-list {
+        overflow: overlay;
+    }
+    
+    .table-list table {
+        box-shadow: none;
+        overflow: hidden;
+    }
+    .table-list table .mdc-data-table__cell, .mdc-data-table__header-cell {
+        padding: 0 10px 0 10px;
+        text-transform: capitalize;
+    }
+    .table-list table .mdc-data-table__cell {
+        box-sizing: border-box;
+        overflow: hidden;
+        text-align: left;
+        text-overflow: ellipsis;
+        padding: 10px;
+    }
+    .table-list table .mdc-data-table__cell {
+        border-bottom: 1px solid $border-light;
+        font-size: 15px !important;
+        color: #192039bd !important;
+        font-weight: 500;
+    }
+    .table-list table tr.mat-mdc-header-row.mdc-data-table__header-row.cdk-header-row.ng-star-inserted th {
+        font-weight: 400;
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(25, 32, 57, 0.8509803922);
+        border: none;
+        background-color: #E8E8E9;
+    }
+    .mat-mdc-table .mdc-data-table__header-row {
+        height: 48px;
+    }
+}
+
+.paymnet-details-band {
+    margin: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .total-card {
+        border: 1px solid $border-light;
+        li {
+            color: rgb(34 34 52 / 93%) !important;
+            font-weight: 500 !important;
+            margin-bottom: 10px;
+        }
+        span {
+            width: 232px;
+            display: inline-flex;
+            color: rgb(25 32 57 / 78%)!important;
+            font-weight: 500 !important;
+        }
+        .top-penal {
+            padding: 20px;
+            padding-bottom: 0px;
+            li:first-child {
+                padding-top: 0;
+            }
+            li {
+                border-bottom: 1px solid $border-light;
+                padding: 15px 0px;
+                margin-bottom: 0 !important;
+            }
+
+        }
+        .total-text {
+            padding: 13px 20px;
+            background-color: #e8e8e9;
+            margin-bottom: 0px!important;
+        }
+    }
+    .left-penal h5 {
+        font-size: 16px;
+        color: #192039cf;
+        font-weight: 500;
+        
+    }
+    .payment-type-card {
+        padding: 13px 20px;
+        background-color: rgba(208, 255, 188, 0.2);
+        border: 1px solid $border-light;
+         li {
+            margin-bottom: 9px;
+            color: $p-text;
+            font-size: 15px;
+            font-weight: 500;
+            border-bottom: 1px solid $border-dark;
+            padding: 12px 0px;
+            margin: 0 !important;
+            span {
+                width: 190px;
+                display: inline-flex;
+            }
+        }
+        li:last-child {
+            border-bottom:0px;
+        }
+    }
+}
+.footer {
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    .text-band span {
+        font-size: 15px;
+        color: #192039cc;
+        a{
+            color: $text;
+            font-weight: 600;
+        }
+    }
+    .bottom-hr {
+        width: 100%;
+        height: 7px;
+        background: $primary;
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+}
+
+
+@media only screen and (max-width: 991px){
+    .invoive-band {
+        .header{
+            padding: 26px;
+        }
+        .left-penal {
+            img{
+                width: 135px;
+            }
+        }
+        .right-penal {
+            p{
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+            h2{
+                font-size: 25px;
+            }
+        }
+
+        .invo-details-band{
+            margin: 20px;
+            padding: 20px;
+            .paid-band {
+                padding: 7px 13px 7px 7px;
+                width: max-content;
+                .header-band span{
+                    padding: 0px 15px;
+                    font-size: 15px;
+                }
+                .price {
+                    font-size: 24px;
+                }
+                .header-band h4{
+                    padding: 9px 22px;
+                    font-size: 15px;
+                    font-weight: 600;
+                    border-radius: 31px;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+        .product-list{
+            margin: 0px 20px;
+        }
+        .paymnet-details-band{
+            margin: 20px;
+            .payment-type-card{
+                padding: 12px 12px;
+                li span{
+                    width: 160px;
+                    display: inline-flex;
+                }
+
+            }
+            .total-card .top-penal {
+                padding: 15px;
+            }
+            .total-text {
+                padding: 13px 15px;
+            }
+        }
+        
+        
+        
+    }
+}
+
+
+
+@media only screen and (max-width: 767px){
+    .invoive-band {
+        .header{
+            padding: 20px;
+        }
+        .left-penal {
+            img{
+                width: 120px;
+            }
+        }
+        .right-penal {
+            p{
+                margin-bottom: 12px;
+            }
+            h2{
+                font-size: 20px;
+            }
+        }
+
+        .invo-details-band{
+            margin: 15px;
+            padding: 15px;
+            flex-direction: column;
+            .paid-band {
+                padding: 7px 13px 7px 7px;
+                width: max-content;
+                margin-top: 8px;
+                .header-band span{
+                    padding: 0px 12px;
+                    font-size: 14px;
+                    width: 155px;
+                }
+                .price {
+                    font-size: 19px;
+                }
+                .header-band h4{
+                    padding: 9px 16px;
+                    font-size: 14px;
+                }
+            }
+        }
+        .product-list{
+            margin: 0px 15px;
+        }
+        .paymnet-details-band{
+            margin: 15px;
+            flex-direction: column;
+            .payment-type-card{
+                padding: 12px 12px;
+            }
+            .total-card .top-penal {
+                padding: 15px;
+            }
+            .total-text {
+                padding: 13px 15px;
+            }
+            .left-penal {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .right-penal {
+                width: 100%;
+            }
+        }
+        .footer{
+            padding: 20px;
+            .text-band {
+                h2{
+                    font-size: 18px;
+                }
+                span {
+                    font-size: 14px;
+                    a{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        
+        table .mdc-data-table__cell, .product-list .mdc-data-table__header-cell {
+            font-size: 15px;
+            text-transform: capitalize;
+        } 
+    }
+
+}
+.bottom-bar{
+    display: block !important;
+}

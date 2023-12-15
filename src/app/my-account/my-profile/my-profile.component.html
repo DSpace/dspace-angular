@@ -1,0 +1,116 @@
+<!-- Personal Information form -->
+<div class="m-main">
+    <div class="main-title-band">
+        <h4>My Profile</h4>
+    </div>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="white-card-box">
+            <div class="gray-title h-65">
+                <div class="left-penal">
+                    <h5>Personal Information</h5>
+                </div>
+                <div class="right-penal" *ngIf="!isEdit">
+                    <button class="primary-btn icon-btn mr-0" type="button" (click)="edit()"><mat-icon aria-hidden="false"
+                            aria-label="Example home svg" svgIcon="vite_edit"></mat-icon>Edit</button>
+                </div>
+                <div class="right-penal buttons" *ngIf="!!isEdit">
+                    <button class="primary-btn icon-btn mr-0" type="button" (click)="cancel()">Cancel</button>
+                    <button class="primary-btn icon-btn mr-0" type="button" (click)="onSubmit()">Save</button>
+                </div>
+            </div>
+            <div class="content-card-band profile-details-band">
+                <ul>
+                    <!-- Use this class in li for edit  class="edit-active" -->
+                    <li>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" placeholder="Enter Your First name" [ngClass]="!isEdit ? '' :'edit-view'"
+                                formControlName="first_name" [readonly]="!isEdit" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Enter Your Last name" [ngClass]="!isEdit ? '' :'edit-view'"
+                                formControlName="last_name" [readonly]="!isEdit" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <div class="verified-input">
+                                <input type="email" placeholder="Enter Your Email Id" formControlName="email"
+                                    [ngClass]="!isEdit ? '' :'edit-view'" [readonly]="!isEdit" /> <span class="verified-band"> <img
+                                        src="assets/icons/officially.svg">Verified</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="number" maxlength="9" placeholder="Enter Your Mobile Number"
+                                [ngClass]="!isEdit ? '' :'edit-view'" formControlName="phone" [readonly]="!isEdit" />
+                        </div>
+                    </li>
+                    <li class="password-band" *ngIf="socialLogin">
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="change your password, we need to send a reset link to your email address"
+                                [ngClass]="!isEdit ? '' :'edit-view'" [readonly]="!isEdit" />
+                        </div>
+                        <button class="primary-btn icon-btn W-fit-content" type="button" (click)="sendEmail()">Send
+                            Email</button>
+
+                    </li>
+                    <!-- <li class="password-band" *ngIf="changePasswordClick">
+                        <label>change your password, we need to send a reset link to your email address</label>
+                        <button class="primary-btn icon-btn W-fit-content" type="button" (click)="sendEmail()">Send
+                            Email</button>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Address form -->
+        <div class="white-card-box mt-25">
+            <div class="gray-title h-65">
+                <div class="left-penal">
+                    <h5>Address</h5>
+                </div>
+                <!-- <div class="right-penal">
+                    <button class="primary-btn icon-btn mr-0" type="button"><mat-icon aria-hidden="false"
+                            aria-label="Example home svg" svgIcon="vite_edit"></mat-icon>Edit</button>
+                </div> -->
+            </div>
+            <div class="content-card-band profile-details-band">
+                <ul>
+                    <!-- Use this class in li for edit  class="edit-active" -->
+                    <li>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" placeholder="Enter Your Address" [ngClass]="!isEdit ? '' :'edit-view'" formControlName="address" [readonly]="!isEdit" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" placeholder="Enter Your country name" [ngClass]="!isEdit ? '' :'edit-view'" formControlName="country" [readonly]="!isEdit" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" placeholder="Enter Your city name" [ngClass]="!isEdit ? '' :'edit-view'" formControlName="city" [readonly]="!isEdit" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <label>Postal Code</label>
+                            <input type="text" placeholder="Enter Your pin code" [ngClass]="!isEdit ? '' :'edit-view'" formControlName="postal_code" [readonly]="!isEdit" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>

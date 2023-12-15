@@ -1,0 +1,90 @@
+<section class="bg-white">
+    <div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="round-container bg-line">
+          <div class="title-band mb-30 slider-title">
+            <div class="icon-title d-flex"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_location-red-line"></mat-icon><h4 class="ml-10">Popular Destinations</h4></div>
+            <div class="right-penal">
+              <div class="swiper-prev-next-btn"> 
+                <button (click)="slidePrev()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                <button (click)="slideNext()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+              </div>
+            </div>
+          </div>
+          <swiper #swiper [virtual]="true" [config]="config">
+              <ng-template swiperSlide>
+                <div class="city-card">
+                <div class="img-band">
+                  <img src="assets/image/toronto-city.jpg">
+                </div>
+                <div class="title">
+                  <h3>Toronto</h3>
+                </div>
+              </div></ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/vancouver-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>vancouver</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/ottawa-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>ottawa</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+             
+            </swiper>
+
+      </div>
+    </div>
+    </div>
+</section>

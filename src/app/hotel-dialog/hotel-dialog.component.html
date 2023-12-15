@@ -1,0 +1,87 @@
+
+
+<div class="slide_left-baar">
+    <div class="model-box">
+        <a class="model-close" (click)="close()">
+            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_close-outline"></mat-icon>
+        </a>
+        <div class="model-title-band">
+            <h4>Search Hotels</h4>
+            <p>Find a hotel that suits your preferences!</p>
+        </div>
+        <div class="model-content-band">
+            <form>
+                <div class="count-box">
+                    <label>Rooms</label>
+
+                    <div class="travelers-count-band box-shadow-none rooms-count-band m-0">
+                        <div class="travelers-count-box">
+                            <mat-form-field>
+                                <div class="counter-form">
+                                    <button class="disabled" mat-button  mat-icon-button matPrefix aria-label="Remove" (click)="incrementValue(-_step)" [disabled]="shouldDisableDecrement(_value)">
+                                        <img class="count" src="assets/icons/remove.svg">
+                                    </button>
+                                    <input matInput type="number" [(ngModel)]="_value" />
+                                    <button mat-button mat-icon-button matSuffixaria-label="Add" (click)="incrementValue(_step)" [disabled]="shouldDisableIncrement(_value)">
+                                        <img class="count" src="assets/icons/add.svg">
+                                    </button>
+                                </div>
+                            </mat-form-field>    
+                        </div> 
+                    </div>
+                    
+                </div>
+                
+                <div class="count-box">
+                    <label>Guests</label>
+
+                    <div class="travelers-count-band box-shadow-none m-0">
+                        <div class="travelers-count-box">
+                            <div class="text-band">
+                                <h6>Adults</h6>
+                                <div class="info-text">Older 12 years</div>
+                            </div>
+                            <mat-form-field>
+                                <div class="counter-form">
+                                    <button class="disabled" mat-button  mat-icon-button matPrefix aria-label="Remove" (click)="incrementValue(-_step)" [disabled]="shouldDisableDecrement(_value)">
+                                        <img class="count" src="assets/icons/remove.svg">
+                                    </button>
+                                    <input matInput type="number" [(ngModel)]="_value" />
+                                    <button mat-button mat-icon-button matSuffixaria-label="Add" (click)="incrementValue(_step)" [disabled]="shouldDisableIncrement(_value)">
+                                        <img class="count" src="assets/icons/add.svg">
+                                    </button>
+                                </div>
+                            </mat-form-field>    
+                        </div>
+                        <div class="travelers-count-box">
+                            <div class="text-band">
+                                <h6>Children</h6>
+                                <div class="info-text">Less than 12 years</div>
+                            </div>
+                            <mat-form-field>
+                                <div class="counter-form">
+                                    <button class="disabled" mat-button  mat-icon-button matPrefix aria-label="Remove" (click)="incrementValue(-_step)" [disabled]="shouldDisableDecrement(_value)">
+                                        <img class="count" src="assets/icons/remove.svg">
+                                    </button>
+                                    <input matInput type="number" [(ngModel)]="_value" />
+                                    <button mat-button mat-icon-button matSuffixaria-label="Add" (click)="incrementValue(_step)" [disabled]="shouldDisableIncrement(_value)">
+                                        <img class="count" src="assets/icons/add.svg">
+                                    </button>
+                                </div>
+                            </mat-form-field>    
+                        </div> 
+                    </div>
+                    
+                </div>
+            
+
+            </form>
+
+
+        </div>
+
+        <div class="model-action">
+            <button class="primary-btn" (click)="close()">Search</button>
+        </div>
+    </div>
+</div>

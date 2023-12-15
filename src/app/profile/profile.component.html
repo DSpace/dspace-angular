@@ -1,0 +1,129 @@
+
+
+<div class="main mt-0" *ngIf="!isMobile">
+    <div class="bootstrap-wrapper">
+        <div class="container">
+          <div class="main-title-band">
+              <h4>Profile</h4>
+          </div>
+          <div class="row g-3">
+              <div class="col-12 col-md-12 col-lg-4 col-xl-4 cus-col-4">
+                  <div class="white-card">
+                      <div class="profile-penal">
+                          <div class="user-profile-band">
+                              <div class="img-band">
+                                  <div class="user big-lg a">
+                                      <span class="user-name">A</span>
+                                  </div>
+                                  <button class="round-small-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                              </div>
+                              <div class="user-info">
+                                  <h5>peter lynch <span class="officially"><img class="" src="assets/icons/officially.svg"></span></h5> 
+                                  <p>info.peter@gmail.com</p>
+                              </div>
+                          </div>
+                          <div class="account-nav">
+                              <ul>
+                                  <li [ngClass]="showProfile ? 'active':''" (click)="myProfileClick()">
+                                      <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                              svgIcon="vite_my-profile"></mat-icon></div>My Profile
+                                  </li>
+                                  <li [ngClass]="showUpComingTrips ? 'active':''" (click)="upcomingTripsClick()">
+                                      <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                              svgIcon="vite_my-profile"></mat-icon></div>trips
+                                  </li>
+                              </ul>
+                              <ul class="logout-nav">
+                                  <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_logout"></mat-icon>Logout</li>
+                              </ul>
+                          </div>
+                          <div class="img-band-penal">
+                              <img src="assets/image/profile-bg-travel-image-01.svg">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-12 col-md-12 col-lg-8 col-xl-8 cus-col-8" *ngIf="!isMobile && !viewMenu">
+                  <app-my-profile *ngIf="!!showProfile"></app-my-profile>
+                  <app-my-upcoming-trips *ngIf="!!showUpComingTrips"></app-my-upcoming-trips>
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="main mt-0" *ngIf="!!isMobile">
+  <div class="bootstrap-wrapper">
+      <div class="container">
+        <div class="main-title-band" *ngIf="!viewMenu">
+            <h4>My Account</h4>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4 cus-col-4">
+                <div class="white-card"  *ngIf="!viewMenu">
+                    <div class="profile-penal">
+                        <div class="user-profile-band">
+                            <div class="img-band">
+                                <div class="user big-lg">
+                                    <span class="user-name">J</span>
+                                </div>
+                                <button class="round-small-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                            </div>
+                            <div class="user-info">
+                                <h5>Jenny Wilson <span class="officially"><img class="" src="assets/icons/officially.svg"></span></h5> 
+                                <p>info.jenny@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="account-nav" >
+                            <ul>
+                                <li [ngClass]="showProfile ? 'active':''" (click)="myProfileClick()">
+                                    <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_my-profile"></mat-icon></div>My Profile
+                                </li>
+                                <li [ngClass]="showUpComingTrips ? 'active':''" (click)="upcomingTripsClick()">
+                                    <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_my-profile"></mat-icon></div>my upcoming trips
+                                </li>
+                                <li [ngClass]="showBookdeTrips ? 'active':''" (click)="bookedTripsClick()">
+                                    <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_my-booked-trips"></mat-icon></div>my booked trips
+                                </li>
+                                <li [ngClass]="showCompanions ? 'active':''" (click)="companionsClick()">
+                                    <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_my-companions"></mat-icon></div>My companions
+                                </li>
+                                <li [ngClass]="showPaymentDetails ? 'active':''" (click)="paymentClick()">
+                                    <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_payment-details"></mat-icon></div>Payment details
+                                </li>
+                                <li [ngClass]="showFavouritesTrip ? 'active':''" (click)="favouriteTripsClick()">
+                                    <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_my-favourites-trips"></mat-icon></div>my favourites trips
+                                </li>
+                                <li [ngClass]="showSettings ? 'active':''" (click)="settingsClick()">
+                                    <div class="icon-band"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_settings"></mat-icon></div>Settings
+                                </li>
+                            </ul>
+                            <ul class="logout-nav">
+                                <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_logout"></mat-icon>Logout</li>
+                            </ul>
+                        </div>
+                        <div class="img-band-penal">
+                            <img src="assets/image/profile-bg-travel-image-01.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 cus-col-8" *ngIf="!!viewMenu">
+                <app-my-profile *ngIf="!!showProfile"></app-my-profile>
+                <app-my-upcoming-trips *ngIf="!!showUpComingTrips"></app-my-upcoming-trips>
+                <app-my-booked-trips *ngIf="!!showBookdeTrips"></app-my-booked-trips>
+                <app-my-companions *ngIf="!!showCompanions"></app-my-companions>
+                <app-payment-details *ngIf="!!showPaymentDetails"></app-payment-details>
+                <app-my-favourites-trip *ngIf="!!showFavouritesTrip"></app-my-favourites-trip>
+                <app-settings *ngIf="!!showSettings"></app-settings>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

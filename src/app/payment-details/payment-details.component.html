@@ -1,0 +1,68 @@
+<!-- Personal Information form -->
+<div class="m-main mobile-section-account">
+    <div class="white-card-box h-full-100">
+        <div class="gray-title h-65">
+            <div class="left-penal">
+                <h5>Payment details</h5>
+            </div>
+        </div>
+        <div class="content-card-band small-content upcoming-trip-band">
+            <div class="bootstrap-wrapper">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let count of savedCards">
+                        <div class="payment-card">
+                            <div class="top-band">
+                                <h6 class="m-0">credit card</h6>
+                                <div class="trips-menu-band line-menu-gray">
+                                    <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false"
+                                            aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                        <!-- <button mat-menu-item>Delete</button> -->
+                                        <ul>
+                                            <li (click)="openPatmentContent()"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                                    svgIcon="vite_edit"></mat-icon>Edit
+                                            </li>
+                                            <li (click)="deleteCard(count)"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>delete</li>
+                                        </ul>
+                                    </mat-menu>
+                                </div>
+
+                            </div>
+                            <div class="bottom-band mt-15">
+                                <div class="card-details">
+                                    <div class="card-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                            svgIcon="vite_master-card"></mat-icon></div><span class="card-number">{{count.card_number}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="payment-card add-card des-add-payment" (click)="openPatmentContent()">
+                            <div class="add-text"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                    svgIcon="vite_add-card"></mat-icon>Add New Card</div>
+                        </div>
+                        <div class="titile-btn m-add-payment">
+                            <button class="primary-btn W-fit-content d-flex align-items-center"
+                                (click)="openPatmentContent()" type="button">
+                                <div class="round-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                        svgIcon="vite_add-outline"></mat-icon></div>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="overlay-bg-fade" *ngIf="!!showPaymentForm">
+
+</div>
+
+<div *ngIf="!!showPaymentForm" class="right-panel-content" [ngClass]="!!showPaymentForm ? 'animate-it-panel' : ''">
+    <app-add-card-dialog (rightPaneInitlized)="onintlize()" (closePanel)="openPatmentContent()"></app-add-card-dialog>
+</div>

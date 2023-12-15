@@ -1,0 +1,215 @@
+<ng-container *ngIf="!headerService.showHeader && !headerService.hide">
+    <div class="header mobile-header">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark" (scroll)="onscroll()"
+            [ngClass]="navbarfixed?'fixed':'nofixed'">
+            <div class="m-left-band">
+                <div class="sidebaar-menu" (click)="menu()">
+                    <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-line"></mat-icon>
+                </div>
+            </div>
+            <div class="left-band m-center-band">
+                <div class="logo white d-flex" routerLink="/home">
+                    <img src="assets/image/logo-white.svg">
+                </div>
+                <div class="logo d-flex" routerLink="/home">
+                    <img src="assets/image/logo.svg">
+                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item" routerLinkActive="active" (click)="routeEvent('home')">
+                        <a class="nav-link" routerLink="home">Home</a>
+                    </li>
+                    <li class="nav-item" (click)="routeEvent('feeds')">
+                        <a class="nav-link" routerLink="feeds">Feeds</a>
+                    </li>
+                    <li class="nav-item" (click)="routeEvent('budget')">
+                        <a class="nav-link" routerLink="budget-planner">Budget planner</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="right-band m-right-band" *ngIf="this.logincheck == 'true'">
+                
+                <div class="m-btn-group" >
+                    <button class="primary icon-btn" routerLink="/my-trips"> <img src="assets/icons/my-trips.svg"> My
+                        Trips</button>
+                    <button class="primary round-btn" routerLink="/notifications" type="button"><mat-icon
+                            aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_notification"></mat-icon></button>
+                    <button class="primary round-btn" routerLink="/chat" type="button"><mat-icon aria-hidden="false"
+                            aria-label="Example home svg" svgIcon="vite_chat"></mat-icon></button>
+                </div>
+
+                <div class="user-band" [matMenuTriggerFor]="menuprofile">
+                    <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-line"></mat-icon>
+                    <div class="user">
+                        <span class="user-name">{{ getFirstLetter(FirstName) }}</span>
+                    </div>
+                </div>
+                <mat-menu  #menuprofile="matMenu" class="user-band-menu" xPosition="before">
+                    <div class="user-profile-menu">
+                        <div class="user-name-dropdown">
+
+                            <div class="user">
+                                <span class="user-name">{{ getFirstLetter(FirstName) }}</span>
+                            </div>
+
+                            <h6>{{FirstName}} {{LastName}}</h6>
+                        </div>
+                        <ul class="header-dropwon-menu">
+                            <li routerLink="my-account">My Account</li>
+                            <li>My booked trips</li>
+                            <li (click)="logout()">Log out</li>
+                        </ul>
+                    </div>
+                </mat-menu>
+               
+              
+            </div>
+            <button  *ngIf="this.logincheck == false" class="primary login-btn" type="button" routerLink="/login">Login</button> 
+               
+        </nav>
+    </div>
+    <div class="bottom-bar">
+        <div class="bottom-menu-nav">
+            <ul>
+                <li class="home-tab active" routerLink="/home">
+                    <div class="tab-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_home-outline"></mat-icon></div>
+                    <span>Home</span>
+                </li>
+                <li class="feeds-tab" routerLink="/feeds">
+                    <div class="tab-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_feeds-outline"></mat-icon></div>
+                    <span>feeds</span>
+                </li>
+                <li class="my-trip-tab" routerLink="/my-trips">
+                    <div class="tab-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_my-trips-outline"></mat-icon></div>
+                    <span>My Trips</span>
+                </li>
+                <li class="budget-tab" routerLink="/budget-planner">
+                    <div class="tab-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_budget-plan-outline"></mat-icon></div>
+                    <span>Budget</span>
+                </li>
+                <li class="chat-tab" routerLink="/chat">
+                    <div class="tab-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_chat-outline"></mat-icon></div>
+                    <span>Chat</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="!!headerService.showHeader && !headerService.hide">
+    <div class="header mobile-header">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed">
+            <div class="m-left-band">
+                <div class="sidebaar-menu" (click)="menu()">
+                    <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-line"></mat-icon>
+                </div>
+            </div>
+            <div class="left-band m-center-band without-login">
+                <div class="logo white d-flex" routerLink="/home">
+                    <img src="assets/image/logo-white.svg">
+                </div>
+                <div class="logo d-flex" routerLink="/home">
+                    <img src="assets/image/logo.svg">
+                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item" [ngClass]="currentPage ==='home' ? 'active':''" (click)="routeEvent('home')">
+                        <a class="nav-link" routerLink="home">Home</a>
+                    </li>
+                    <li class="nav-item" [ngClass]="currentPage ==='feeds' ? 'active':''" (click)="routeEvent('feeds')">
+                        <a class="nav-link" routerLink="feeds">Feeds</a>
+                    </li>
+                    <li class="nav-item" [ngClass]="currentPage ==='budget' ? 'active':''" (click)="routeEvent('budget')">
+                        <a class="nav-link" routerLink="budget-planner">Budget planner</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-band m-right-band" *ngIf="this.logincheck == 'true'">
+                
+                <div class="m-btn-group" >
+                    <button class="primary icon-btn" routerLink="/my-trips"> <img src="assets/icons/my-trips.svg"> My
+                        Trips</button>
+                    <button class="primary round-btn" routerLink="/notifications" type="button"><mat-icon
+                            aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_notification"></mat-icon></button>
+                    <button class="primary round-btn" routerLink="/chat" type="button"><mat-icon aria-hidden="false"
+                            aria-label="Example home svg" svgIcon="vite_chat"></mat-icon></button>
+                </div>
+
+                <div class="user-band" [matMenuTriggerFor]="menuprofile">
+                    <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-line"></mat-icon>
+                    <div class="user">
+                        <span class="user-name">{{ getFirstLetter(FirstName) }}</span>
+                    </div>
+                </div>
+                <mat-menu  #menuprofile="matMenu" class="user-band-menu" xPosition="before">
+                    <div class="user-profile-menu">
+                        <div class="user-name-dropdown">
+
+                            <div class="user">
+                                <span class="user-name">{{ getFirstLetter(FirstName) }}</span>
+                            </div>
+
+                            <h6>{{FirstName}} {{LastName}}</h6>
+                        </div>
+                        <ul class="header-dropwon-menu">
+                            <li routerLink="my-account">My Account</li>
+                            <li>My booked trips</li>
+                            <li (click)="logout()">Log out</li>
+                        </ul>
+                    </div>
+                </mat-menu>
+               
+              
+            </div>
+            <div class="right-band" *ngIf="this.logincheck == false">
+                <button class="primary login-btn" type="button" routerLink="/login">Login</button> 
+            </div>
+        </nav>
+    </div>
+</ng-container>
+
+<div class="overlay-bg-fade" *ngIf="!!openMenu">
+</div>
+<div class="sidebaar-mobile" [ngClass]="!!openMenu ? 'opensidebaar':'closesidebaar'">
+    <div class="close-btn" (click)="close()"><mat-icon aria-hidden="false" aria-label="Example home svg"
+            svgIcon="vite_close"></mat-icon></div>
+    <ul class="nav-list">
+        <li class="active" routerLink="/home" (click)="close()"><a><mat-icon aria-hidden="false"
+                    aria-label="Example home svg" svgIcon="vite_home-outline"></mat-icon>Home</a></li>
+        <li routerLink="/my-account" (click)="close()"><a><mat-icon aria-hidden="false" aria-label="Example home svg"
+                    svgIcon="vite_person-outline" class="icon-bg"></mat-icon>My Account</a></li>
+        <li routerLink="/my-trips" (click)="close()"><a><mat-icon aria-hidden="false" aria-label="Example home svg"
+                    svgIcon="vite_my-trips-outline"></mat-icon>My Trips</a></li>
+        <li routerLink="/my-account" (click)="close()"><a><mat-icon aria-hidden="false" aria-label="Example home svg"
+                    svgIcon="vite_my-trips-outline"></mat-icon>My Booked Trips</a></li>
+        <li routerLink="/feeds" (click)="close()"><a><mat-icon aria-hidden="false" aria-label="Example home svg"
+                    svgIcon="vite_feeds-outline-menu"></mat-icon>Feeds</a></li>
+        <li routerLink="/budget-planner" (click)="close()"><a><mat-icon aria-hidden="false"
+                    aria-label="Example home svg" svgIcon="vite_budget-planner-menu"></mat-icon>Budget planner</a></li>
+        <li routerLink="/chat" (click)="close()"><a><mat-icon aria-hidden="false" aria-label="Example home svg"
+                    svgIcon="vite_chat-menu"></mat-icon>Chat</a></li>
+        <li routerLink="/notifications" (click)="close()"><a><mat-icon aria-hidden="false" aria-label="Example home svg"
+                    svgIcon="vite_notification-outline"></mat-icon>Notifications</a></li>
+    </ul>
+    <div class="bottom-menu">
+        <ul>
+            <li routerLink="/Login"><a href="#"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                        svgIcon="vite_logout"></mat-icon>Log Out</a></li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .nav-mat-menu .mat-mdc-menu-panel.mat-mdc-menu-panel {
+        padding: 0 !important;
+    }
+
+    .nav-mat-menu .mat-mdc-menu-panel.mat-mdc-menu-panel {
+        min-width: 200px !important;
+    }
+</style>

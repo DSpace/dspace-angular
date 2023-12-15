@@ -1,0 +1,24 @@
+
+<div class="model-box">
+    <a (click)="close()" class="close-model">
+        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_close-outline"></mat-icon>
+    </a>
+
+    <div class="clipart-bg">
+        <img src="assets/image/yellow-clipart-bg.jpg">
+    </div>
+    <div class="model-content-band">
+        <div class="icon-band">
+            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_trip-bag"></mat-icon>
+        </div>
+        <div class="text-band">
+            <h4>Join Trip</h4>
+            <p>Are you sure you want to join this trip.</p>
+        </div>
+        <div class="model-action model-action-relative">
+            <button type="button" class="primary-btn" (click)="sendresquest();">yes</button>
+            <button type="button" class="primary-btn outline" (click)="close();">No</button>
+        </div>
+    </div>
+</div>
+

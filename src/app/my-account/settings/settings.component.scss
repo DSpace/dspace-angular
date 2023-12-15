@@ -1,0 +1,34 @@
+.icon-round-band {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    margin-right: 10px;
+    img {
+        width: 21px;
+        height: auto;
+    }
+}
+.text-band {
+    margin-top: 5px;
+    h6 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+    p {
+        line-height: 19px;
+        margin-top: 0;
+        font-size: 14px;
+        margin-bottom: 0;
+        height: 56px;
+    }
+}
+
+.small-white-card {
+    display: flex;
+    align-items: flex-start;
+}

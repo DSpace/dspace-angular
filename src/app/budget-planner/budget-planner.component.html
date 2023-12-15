@@ -1,0 +1,275 @@
+<div class="main">
+    <div class="bootstrap-wrapper">
+        <div class="main-container center">
+            <div class="main-penal bg-line">
+                <div class="clipart left-01">
+                    <img src="assets/image/montreal-clipart.png" alt="montreal">
+                </div>
+                <div class="clipart left-top-02">
+                    <img src="assets/image/toronto-clipart.png" alt="/toronto">
+                </div>
+                <div class="clipart right-top-03">
+                    <img src="assets/image/ottawa-clipart.png" alt="ottawa">
+                </div>
+                <div class="clipart right-04">
+                    <img src="assets/image/vancouver-clipaart.png" alt="vancouver">
+                </div>
+                <div class="title-band">
+                    <h3>Budget Planner</h3>
+                    <p>Try our travel budget calculator now!</p>
+                </div>
+            </div>
+
+            <div class="search-penal">
+                <div class="penal-row">
+                    <div class="destination-band">
+                        <form class="search-form">
+                            <div class="form-group">
+                                <label class="icon-label"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                        svgIcon="vite_location-outline"></mat-icon><span>location</span></label>
+                                <input type="text" placeholder="Enter destination (Cities Only)">
+                            </div>
+                            <div class="m-flex-group">
+                            <div class="form-group">
+                                <label class="icon-label"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                        svgIcon="vite_date-outline"></mat-icon><span>days</span></label>
+                                <input type="text" placeholder="Add days">
+                            </div>
+                            <div class="form-group ">
+                                <label class="icon-label"><mat-icon aria-hidden="false" aria-label="Example home svg" class="w-26"
+                                        svgIcon="vite_people-outline"></mat-icon><span>peoples</span></label>
+                                <input type="text" placeholder="Add Peoples">
+                            </div>
+                            </div>
+                            <div class="form-group last-child-border-none">
+                                <label class="icon-label"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_activity-outline"></mat-icon><span>activities</span></label>
+                                <input type="text" placeholder="Select Activities">
+                            </div>
+                        </form>
+                        <div class="search-action">
+                            <button><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                    svgIcon="vite_search-outline-bold"></mat-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="city-container">
+
+
+            <!-- first city -->
+            <div class="bootstrap-wrapper">
+                <div class="titile-band">
+                    <h4>Toronto</h4>
+                </div>
+                <swiper #swiper [virtual]="true" [config]="config01">
+                    <ng-template swiperSlide>
+                        <div class="budget-card" routerLink="/city-budget-details">
+                            <div class="top-text">
+                                <p>Average Daily Cost</p>
+                                <h4><span>$</span>140</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-user"></mat-icon><span>1 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Week</p>
+                                <h4><span>$</span>1,960</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>2 Weeks</p>
+                                <h4><span>$</span>3,920</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Month</p>
+                                <h4><span>$</span>8,400</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                  </swiper>
+
+                <!-- <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="budget-card" routerLink="/city-budget-details">
+                            <div class="top-text">
+                                <p>Average Daily Cost</p>
+                                <h4><span>$</span>140</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-user"></mat-icon><span>1 Person</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Week</p>
+                                <h4><span>$</span>1,960</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>2 Weeks</p>
+                                <h4><span>$</span>3,920</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Month</p>
+                                <h4><span>$</span>8,400</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- second city -->
+            <div class="bootstrap-wrapper">
+                <div class="titile-band">
+                    <h4>Vancouver</h4>
+                </div>
+
+                <swiper #swiper [virtual]="true" [config]="config02">
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>Average Daily Cost</p>
+                                <h4><span>$</span>194</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-user"></mat-icon><span>1 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Week</p>
+                                <h4><span>$</span>2,716</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>2 Weeks</p>
+                                <h4><span>$</span>5,432</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Month</p>
+                                <h4><span>$</span>11,640</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                  </swiper>
+            </div>
+
+            <!-- three city -->
+            <div class="bootstrap-wrapper">
+                <div class="titile-band">
+                    <h4>Montreal</h4>
+                </div>
+
+                <swiper #swiper [virtual]="true" [config]="config03">
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>Average Daily Cost</p>
+                                <h4><span>$</span>288</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-user"></mat-icon><span>1 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Week</p>
+                                <h4><span>$</span>4,032</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>2 Weeks</p>
+                                <h4><span>$</span>8,064</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template swiperSlide>
+                        <div class="budget-card">
+                            <div class="top-text">
+                                <p>One Month</p>
+                                <h4><span>$</span>17,280</h4>
+                            </div>
+                            <div class="icon-box">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_round-two-user"></mat-icon><span>2 Person</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                  </swiper>
+
+            </div>
+
+
+            
+        </div>
+    </div>
+
+</div>

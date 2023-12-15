@@ -1,0 +1,28 @@
+@import 'src/scss/variables';
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    label {
+        margin-bottom: 9px;
+        font-size: 15px;
+        font-weight: 500;
+        color: $text;
+    }
+    input {
+        height: 48px;
+        border-radius: 10px;
+        border: 1px solid $border-dark;
+        background: $white;
+        padding: 5px 14px;
+        font-size: 14px;
+        font-family: 'Epilogue', sans-serif;
+    }
+    
+}
+.m-p-unset{
+    padding: 0px;
+}
+.m-p-8 {
+    padding: 0px 8px;
+}

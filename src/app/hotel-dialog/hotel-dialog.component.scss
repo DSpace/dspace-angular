@@ -1,0 +1,18 @@
+
+@import 'src/scss/variables';
+
+.count-box {
+    margin-top: 25px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 15px;
+    display: block;
+}
+
+input:focus-visible {
+    outline: none !important;
+ }

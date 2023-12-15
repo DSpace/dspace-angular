@@ -1,0 +1,100 @@
+
+
+<div class="slide_left-baar">
+    <div class="model-box">
+        <a class="model-close" (click)="close()">
+            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_close-outline"></mat-icon>
+        </a>
+        <div class="model-title-band">
+            <h4>Search flights</h4>
+            <p>Find available flights from your city</p>
+        </div>
+        <div class="model-content-band">
+            <form>
+                <div class="city-band">
+                    <div class="location js-location">
+                        <div class="location__head js-location-head">
+                        <input class="location__input js-location-input" type="text" name="location" autocomplete="off" placeholder="Departure City">
+                        <!-- <button class="location__clear js-location-clear">
+                            <svg class="icon icon-close-circle">
+                            <use xlink:href="#icon-close-circle"></use>
+                            </svg>
+                        </button> -->
+                        </div>
+                        <!-- <div class="location__body js-location-body">
+                        <div class="location__list"><a class="location__item js-location-item" href="#">New York, NY</a><a class="location__item js-location-item" href="#">New York, Manhattan</a><a class="location__item js-location-item" href="#">New Zealand</a><a class="location__item js-location-item" href="#">New Smyrna Beach, FL</a><a class="location__item js-location-item" href="#">Newark, NJ</a></div>
+                        </div> -->
+                    </div>
+                    <div class="fomr-to-divider">
+                        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_form-to"></mat-icon>
+                    </div>
+                    <div class="location js-location">
+                        <div class="location__head js-location-head">
+                        <input class="location__input js-location-input ml-10" type="text" name="location" autocomplete="off" placeholder="Arrival City">
+                        <!-- <button class="location__clear js-location-clear">
+                            <svg class="icon icon-close-circle">
+                            <use xlink:href="#icon-close-circle"></use>
+                            </svg>
+                        </button> -->
+                        </div>
+                        <!-- <div class="location__body js-location-body">
+                        <div class="location__list"><a class="location__item js-location-item" href="#">New York, NY</a><a class="location__item js-location-item" href="#">New York, Manhattan</a><a class="location__item js-location-item" href="#">New Zealand</a><a class="location__item js-location-item" href="#">New Smyrna Beach, FL</a><a class="location__item js-location-item" href="#">Newark, NJ</a></div>
+                        </div> -->
+                    </div> 
+                </div>
+
+                
+                <div class="count-box">
+                    <label>Travellers</label>
+
+                    <div class="travelers-count-band box-shadow-none m-0">
+                        <div class="travelers-count-box">
+                            <div class="text-band">
+                                <h6>Adults</h6>
+                                <div class="info-text">Older 12 years</div>
+                            </div>
+                            <mat-form-field>
+                                <div class="counter-form">
+                                    <button class="disabled" mat-button  mat-icon-button matPrefix aria-label="Remove" (click)="incrementValue(-_step)" [disabled]="shouldDisableDecrement(_value)">
+                                        <img class="count" src="assets/icons/remove.svg">
+                                    </button>
+                                    <input matInput type="number" [(ngModel)]="_value" />
+                                    <button mat-button mat-icon-button matSuffixaria-label="Add" (click)="incrementValue(_step)" [disabled]="shouldDisableIncrement(_value)">
+                                        <img class="count" src="assets/icons/add.svg">
+                                    </button>
+                                </div>
+                            </mat-form-field>    
+                        </div>
+                        <div class="travelers-count-box">
+                            <div class="text-band">
+                                <h6>Children</h6>
+                                <div class="info-text">Less than 12 years</div>
+                            </div>
+                            <mat-form-field>
+                                <div class="counter-form">
+                                    <button class="disabled" mat-button  mat-icon-button matPrefix aria-label="Remove" (click)="incrementValue(-_step)" [disabled]="shouldDisableDecrement(_value)">
+                                        <img class="count" src="assets/icons/remove.svg">
+                                    </button>
+                                    <input matInput type="number" [(ngModel)]="_value" />
+                                    <button mat-button mat-icon-button matSuffixaria-label="Add" (click)="incrementValue(_step)" [disabled]="shouldDisableIncrement(_value)">
+                                        <img class="count" src="assets/icons/add.svg">
+                                    </button>
+                                </div>
+                            </mat-form-field>    
+                        </div> 
+                    </div>
+                    
+                </div>
+            
+
+            </form>
+
+
+        </div>
+
+        <div class="model-action">
+            <button class="primary-btn" (click)="close()">Search</button>
+        </div>
+
+    </div>
+</div>

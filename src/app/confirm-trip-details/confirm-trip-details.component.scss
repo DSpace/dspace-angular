@@ -1,0 +1,70 @@
+@import 'src/scss/variables';
+
+.book-btn.confirm{
+    position: relative;
+    .icon {
+        position: absolute;
+        background-color: $primary;
+        padding: 10px;
+        border-radius: 29px;
+        left: -7px;
+        top: -3px;
+        z-index: 99;
+        width: 42px;
+        height: 42px;
+    }
+    .booking-btn {
+        position: relative;
+        height: 37px!important;
+        padding-left: 44px;
+        width: fit-content!important;
+        background-color: $white;
+        border: 1px solid $border-light;
+        color: $text;
+        font-weight: 600;
+    }
+    .booking-btn.outline {
+        background-color: transparent;
+        color: $text;
+        font-weight: 600;
+        border: 1px solid rgb(6 12 21 / 17%);
+    }
+}
+
+// booking button ---end---
+
+.primary-outline-btn {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid $border-dark;
+    padding: 0px 15px ;
+    color: $text;
+    font-weight: 500;
+    height: 37px!important;
+    width: fit-content;
+    line-height: 0;
+    mat-icon {
+        margin-right: 8px;
+        width: 24px;
+    }
+}
+.primary-outline-btn:hover {
+    border-color: $text;
+    transition: all 0.5s;
+}
+.back-btn.View.invoice {
+    width: auto;
+    color: $white;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px 10px 15px;
+    margin-left: 7px;
+    text-transform: capitalize;
+    .icon img {
+        width: 19px;
+        margin-right: 7px;
+    }
+}
+
+

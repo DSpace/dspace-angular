@@ -1,0 +1,12 @@
+
+@import 'src/scss/variables';
+@media only screen and (max-width: 991px){
+    h1 {font-size: 28px; color: $text; margin-top: 0; margin-bottom: 10px;  font-weight: semibold; text-transform: capitalize; font-family: 'Epilogue', sans-serif; }
+    h2 {font-size: 26px; color: $text; margin-top: 0; margin-bottom: 10px; font-weight: bold; text-transform: capitalize; font-family: 'Epilogue', sans-serif; }
+    h3 {font-size: 22px; color: $text; margin-top: 0; margin-bottom: 10px; font-weight: 600; text-transform: capitalize; font-family: 'Epilogue', sans-serif; }
+    h4 {font-size: 18px; color: $text; margin-top: 0; margin-bottom: 10px; font-weight: bold; text-transform: capitalize; font-family: 'Epilogue', sans-serif; }
+    h5 {font-size: 16px; color: $text; margin-top: 0; margin-bottom: 10px; font-weight: 600; text-transform: capitalize; font-family: 'Epilogue', sans-serif; }
+    h6 {font-size: 16px; color: $text; margin-top: 0; margin-bottom: 10px; font-weight: 500; text-transform: capitalize; font-family: 'Epilogue', sans-serif; }
+    p {font-size: 14px; color: $p-text;} 
+    a {font-size: 15px; color:  var(--color-link); font-family: 'Epilogue', sans-serif;}
+}

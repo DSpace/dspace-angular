@@ -1,0 +1,93 @@
+@import 'src/scss/variables';
+
+.payment-card:hover {
+    border: 1px solid $primary;
+    transition: all 0.5s;
+    transform: translateY(-3px);
+}
+.payment-card {
+    border: 1px solid $border-dark;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.08);
+    background: $white;
+    .top-band{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $border-light;
+        padding-bottom: 6px;
+        h6 {
+            font-size: 15px;
+            padding: 4px 0px;
+        }
+    }
+    .card-details {
+        display: flex;
+        padding: 10px;
+        background-color: $border-light;
+        border-radius: 37px;
+        align-items: center;
+        .card-icon {
+            display: flex;
+            mat-icon {
+                width: 29px;
+                margin-right: 10px;
+            }
+        }
+        .visa-icon{
+            mat-icon{
+                width: 40px;
+            }
+        }
+        .card-number {
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+}
+
+.payment-card.add-card {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #84ff5026;
+    border-style: dashed;
+    border-color: #84ff506b;
+    border-width: 2px;
+    cursor: pointer;
+    &:hover {
+        border-color: rgb(132 255 80);
+    }
+
+    .add-text {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: $text;
+        mat-icon {
+            margin-right: 10px;
+            width: 30px;
+        }
+    }
+}
+.payment-card.add-card:hover .add-text {
+    text-decoration: underline;
+}
+
+.m-add-payment{
+    display: none !important;
+}
+@media only screen and (max-width: 991px){
+    .des-add-payment {
+        display: none !important;
+    }
+    .m-add-payment{
+        display: block !important;
+    }
+}
+
+
+

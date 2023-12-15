@@ -1,0 +1,268 @@
+<div class="main mt-0 d-p-md">
+    <div class="bootstrap-wrapper">
+        <div class="container m-p-0 m-width-full">
+            <div class="main-title-band top-header m-overlay-header" (scroll)="onscroll()" [ngClass]="navbarfixed?'fixed':'nofixed'">
+                <div class="text-band">
+                    <h5>7 Days trip in Toronto, Canada</h5>
+                    <ul>
+                        <li><mat-icon aria-hidden="false" aria-label="Example home svg" class="fill-color" svgIcon="vite_total-user"></mat-icon>2 Person </li>
+                        <li class="m-budget-price"><mat-icon aria-hidden="false" aria-label="Example home svg" class="fill-color" svgIcon="vite_city-budget"></mat-icon><span>Budget: $1,960</span></li>
+                    </ul>
+                </div>
+                <div class="action-band bottom-bar overlay-bottom-white">
+                    <button class="icon-btn primary-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_gen-star"></mat-icon>generate trip</button>
+                </div>
+            </div>
+
+            <div class="row g-3 m-p-0 m-m-0">
+                <div class="col-md-12 col-lg-6 col-xl-6 m-p-0">
+                    <div class="city-info-band">
+                        <div class="img-band">
+                            <img src="assets/image/toronto-city-details.jpg">
+                        </div>
+                        <div class="text-band">
+                            <h5>About</h5>
+                            <p>Toronto is a vibrant and multicultural city located in Canada. It is the capital of the province of Ontario and is considered one of the major financial and cultural centers of the country. With its diverse population, thriving arts and entertainment scene, and a wide range of attractions, Toronto offers something for everyone.</p>
+                        </div>
+                    </div>
+                    <div class="total-spent-catg">
+                        <div class="row g-3 m-p-0 m-m-0">
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4">
+                                <div class="icon-price-card yellow-card">
+                                    <div class="icon-title">
+                                        <img src="assets/icons/food.svg"><h6>food</h6>
+                                    </div>
+                                    <h4>$996</h4>
+                                </div>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4">
+                                <div class="icon-price-card green-card">
+                                    <div class="icon-title">
+                                        <img src="assets/icons/ticket.svg"><h6>ticket</h6>
+                                    </div>
+                                    <h4>$575</h4>
+                                </div>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4">
+                                <div class="icon-price-card blue-card">
+                                    <div class="icon-title">
+                                       <img src="assets/icons/white-round-transposition.svg"><h6>transposition</h6>
+                                    </div>
+                                    <h4>$389</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6 col-xl-6  m-p-0">
+                    <div class="budget-trip-itinerary-band">
+                        <div class="trip-itinerary-band">
+                            <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true" [expanded]="true" (closed)="panelOpenState = false">
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <div class="accordion-header"><span class="days">Day 01</span> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$300</span></div></div>
+                                    </mat-panel-title>
+                                  </mat-expansion-panel-header>
+            
+                                  <div class="place-band">
+                                    <ul>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/art-gallery-of-ontario.jpg" alt="Art Gallery of Ontario">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5 class="text-overflow">Art Gallery of Ontario</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.7</span>32,511 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>120  minutes</p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="ticket-price-band">
+                                                <span>$110</span>
+                                            </div>
+
+                                        </li>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/royal-ontrio-museum.jpg" alt="Royal Ontrio Museum">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5 class="text-overflow">Royal Ontrio Museum</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.6</span>54,551 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>120  minutes</p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="ticket-price-band free">
+                                                <span>Free</span>
+                                            </div>
+                                        </li>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/lunch-360-restaurant.jpg" alt="Lunch: 360 Restaurant">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5 class="text-overflow">Lunch: 360 Restaurant</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>120  minutes</p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="ticket-price-band">
+                                                <span>$30</span>
+                                            </div>
+                                        </li>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/hockey-hall-of-fame.jpg" alt="Hockey Hall of Fame">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5 class="text-overflow">Hockey Hall of Fame</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.7</span>4,861Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>120  minutes</p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="ticket-price-band">
+                                                <span>$120</span>
+                                            </div>
+                                        </li>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/st-lawrence-market.jpg" alt="St. Lawrence Market">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5 class="text-overflow">St. Lawrence Market</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.6</span>30,661 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>120  minutes</p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="ticket-price-band free">
+                                                <span>Free</span>
+                                            </div>
+                                        </li>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/dinner-la-maquette.jpg" alt="Dinner: La Maquette">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5 class="text-overflow">Dinner: La Maquette</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.2</span>1000 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>120  minutes</p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="ticket-price-band">
+                                                <span>$40</span>
+                                            </div>
+                                        </li>
+            
+                                    </ul>
+                                  </div>
+
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 02</span> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$280</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 03</span> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$219</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 04</span> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$318</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 05</span> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$315</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 06</span> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$265</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 07</span> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$263</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                            </mat-accordion>
+            
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

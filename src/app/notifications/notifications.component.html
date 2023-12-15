@@ -1,0 +1,278 @@
+
+  <div class="main mt-0">
+      <div class="bootstrap-wrapper">
+          <div class="container">
+              <div class="main-title-band">
+                  <h4>Notifications</h4>
+              </div>
+              <div class="white-card" >
+                <ul class="people-list-band">
+                    <li *ngFor="let no of notification;let i = index;">
+                        <div class="top-band">
+                            <div class="user-info-band">
+                                <div class="user w big" [style.background-color]="getColor(i)">
+                                    <span class="user-name">{{getFirstLetter(no.message)}}</span>
+                                </div>
+                                
+                                <div class="info-band">
+                                    <div class="message-text">
+                                        <p class="text-band">{{no.message}}</p>
+                                        <!-- <span>15 mint ago</span> -->
+                                    </div>
+                                    <div class="message-box-action" *ngIf="!no.trips">
+                                            <div class="trip-card">
+                                                <div class="left-penal">
+                                                    <div class="img-band">
+                                                        <img src="assets/image/vancouver.jpg" alt="toronto">
+                                                    </div>
+                                                    <div class="bottom-band">
+                                                        <h5 class="titile">{{no.trip.search_term.destination}}</h5>
+                                                        <div class="user-trip-info">
+                                                            <p class="days">{{no.trip.search_term.trip_days}} days With {{no.trip.search_term.group_type}}
+                                                                <!-- <span class="date">- 05 Aug </span> -->
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="action-band">
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_chat"></mat-icon>send message</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="time-action">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>
+                            </div>
+                        </div>
+                    </li>
+
+                
+
+                </ul>
+              </div>
+              <div infiniteScroll (scrolled)="onScroll()"></div>
+          </div>
+      </div>
+  </div>
+
+      <!-- <li>
+                        <div class="top-band">
+                            <div class="user-info-band">
+                                <div class="user m big">
+                                    <span class="user-name">M</span>
+                                </div>
+                                <div class="info-band">
+                                    <div class="message-text">
+                                        <p class="text-band"><a>Mary Ann</a> has requested to join your trip <a href="#">Vancouver,canada </a>Review now!</p>
+                                        <span>15 mint ago</span>
+                                    </div>
+                                    <div class="message-box-action">
+                                            <div class="trip-card">
+                                                <div class="left-penal">
+                                                    <div class="img-band">
+                                                        <img src="assets/image/toronto.jpg" alt="toronto">
+                                                    </div>
+                                                    <div class="bottom-band">
+                                                        <h5 class="titile">Vancouver,Canada</h5>
+                                                        <div class="user-trip-info">
+                                                            <p class="days">10 days With Family <span class="date">- 05 Aug </span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="action-band">
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10 green">Accept</button>
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10 red">Reject</button>
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_chat"></mat-icon>send message</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="time-action">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="top-band">
+                            <div class="user-info-band">
+                                <div class="user big">
+                                    <span class="user-name">J</span>
+                                </div>
+                                <div class="info-band">
+                                    <div class="message-text">
+                                        <p class="text-band"><a>Jenny Wilson</a> Your trip <a>#54658</a> status has changed from <a href="#">'Pending'</a> to<a href="#">'Pending'</a></p>
+                                        <span>15 mint ago</span>
+                                    </div>
+                                    
+                                    <div class="message-box-action">
+                                            <div class="trip-card">
+                                                <div class="left-penal">
+                                                    <div class="img-band">
+                                                        <img src="assets/image/toronto.jpg" alt="toronto">
+                                                    </div>
+                                                    <div class="bottom-band">
+                                                        <h5 class="titile">Vancouver,Canada</h5>
+                                                        <div class="user-trip-info">
+                                                            <p class="days">10 days With Family <span class="date">- 05 Aug </span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <div class="action-band">
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10 green">Accept</button>
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10 red">Reject</button>
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_chat"></mat-icon>send message</button>
+                                                </div> 
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="time-action">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="top-band">
+                            <div class="user-info-band">
+                                <div class="user g big">
+                                    <span class="user-name">G</span>
+                                </div>
+                                <div class="info-band">
+                                    <div class="message-text">
+                                        <p class="text-band"><a>Gracy</a> Gracy has sent you a message regarding the trip <a href="#">Vancouver,canada. </a>Check it out!</p>
+                                        <span>15 mint ago</span>
+                                    </div>
+                                   
+                                    <div class="message-box-action">
+                                            <div class="trip-card">
+                                                <div class="left-penal">
+                                                    <div class="img-band">
+                                                        <img src="assets/image/toronto.jpg" alt="toronto">
+                                                    </div>
+                                                    <div class="bottom-band">
+                                                        <h5 class="titile">Vancouver,Canada</h5>
+                                                        <div class="user-trip-info">
+                                                            <p class="days">10 days With Family <span class="date">- 05 Aug </span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <div class="action-band">
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10 green">Accept</button>
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10 red">Reject</button>
+                                                    <button type="button" class="primary-btn primary-small-btn mr-10"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_chat"></mat-icon>send message</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="time-action">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="top-band">
+                            <div class="user-info-band">
+                                <div class="user big">
+                                    <span class="user-name">J</span>
+                                </div>
+                                <div class="info-band">
+                                    <div class="message-text">
+                                        <p class="text-band"><a>Jenny Wilson</a> Admin has chosen new dates for the trip. Check the updated itinerary and Confirm.</p>
+                                        <span>15 mint ago</span>
+                                    </div>
+                                    
+                                    <div class="message-box-action">
+                                            <div class="trip-card">
+                                                <div class="left-penal">
+                                                    <div class="img-band">
+                                                        <img src="assets/image/toronto.jpg" alt="toronto">
+                                                    </div>
+                                                    <div class="bottom-band">
+                                                        <h5 class="titile">Vancouver,Canada</h5>
+                                                        <div class="user-trip-info">
+                                                            <p class="days">10 days With Family <span class="date">- 05 Aug</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="action-band">
+                                                  <button type="button" class="primary-btn primary-small-btn fill mr-10">View Trip</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="time-action">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="top-band">
+                            <div class="user-info-band">
+                                <div class="user big">
+                                    <span class="user-name">J</span>
+                                </div>
+                                <div class="info-band">
+                                    <div class="message-text">
+                                        <p class="text-band"><a>Jenny Wilson</a> Your trip has been successfully rescheduled by the admin. Enjoy your upcoming journey!</p>
+                                        <span>15 mint ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="time-action">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="top-band">
+                            <div class="user-info-band">
+                                <div class="user big">
+                                    <span class="user-name">J</span>
+                                </div>
+                                <div class="info-band">
+                                    <div class="info-band">
+                                        <div class="message-text">
+                                            <p class="text-band"><a>Jenny Wilson</a> Your trip's invoice has been generated.</p>
+                                            <span>15 mint ago</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="message-box-action">
+                                            <div class="trip-card">
+                                                <div class="left-penal">
+                                                    <div class="img-band">
+                                                        <img src="assets/image/toronto.jpg" alt="toronto">
+                                                    </div>
+                                                    <div class="bottom-band">
+                                                        <h5 class="titile">Vancouver,Canada</h5>
+                                                        <div class="user-trip-info">
+                                                            <p class="days">10 days With Family <span class="date">- 05 Aug</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="action-band">
+                                                  <button type="button" class="primary-btn primary-small-btn mr-10"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_invoice-black"></mat-icon>Download invoice</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="time-action">
+                                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>
+                            </div>
+                        </div>
+                    </li> -->

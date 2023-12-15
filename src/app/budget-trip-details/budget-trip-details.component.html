@@ -1,0 +1,709 @@
+<div class="main mt-0 d-p-lg">
+    <div class="bootstrap-wrapper">
+    <div class="fluid-container">
+        <div class="row m-0">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-7 p-0 m-md-cus-70">
+            
+        <div class="header">
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark trip-details-nav">
+                <div class="left-band">
+                    <div class="logo">
+                        <a routerLink="/home"><img src="assets/image/logo.svg"></a>
+                    </div>
+                </div>
+                <div class="right-band  d-flex m-right-band ">
+                    <button class="primary btn-icon" mat-button [matMenuTriggerFor]="menu" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon> Share</button>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                       <div class="share-model">
+                            <div class="titile-band">
+                                <h5>Share your trip</h5>
+                                <p>Excited about your upcoming trip? Share the adventure with your friends!</p>
+                            </div>
+                            <div class="copy-link-band">
+                               <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_link-outline"></mat-icon><input type="text" placeholder="" value="https://tripson.com/u/Je.." matinput><button class="primary-btn">Copy link</button>
+                            </div>
+                            <ul class="soical-share-list">
+                                <li><a href=""><img src="assets/icons/twitter.jpg"></a></li>
+                                <li><a href=""><img src="assets/icons/whatsapp.png"></a></li>
+                                <li><a href=""><img src="assets/icons/instagram.jpg"></a></li>
+                                <li><a href=""><img src="assets/icons/gmail.jpg"></a></li>
+                                <li><a href=""><img src="assets/icons/snapchat.jpg"></a></li>
+                            </ul>
+                       </div>
+                    </mat-menu>
+                    
+                    <button class="primary round-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_notification"></mat-icon></button>
+                    <button class="primary round-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_chat"></mat-icon></button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="trip-details-band">
+                <div class="trip-bg-card">
+                    <div class="img-band">
+                        <img src="assets/image/vancouver-bg.jpg">
+                    </div>
+                    <div class="trip-header">
+                        <div class="left-band">
+                            <button class="back-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_back-outline"></mat-icon></button>
+                        </div>
+                        <div class="right-band">
+                            <div class="toogle-band">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" [(ngModel)]="selected">
+                                    <div class="slider"></div>
+                                </label>
+                                <span>Public</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="trip-action-card">
+                    <div class="trip-action-box">
+                        <div class="titile-band  mb-10 d-flex justify-content-between align-items-flex-start">
+                                <div class="left-penal">
+                                    <p>Your Trip to</p>
+                                    <h4 class="trip-name">Vancouver,Canada</h4>
+                                </div>
+                                <div class="right-penal d-flex">
+                                    <div class="budget-total-band mr-10">
+                                        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_city-budget"></mat-icon>
+                                        <span>Budget:$1,960</span>
+                                    </div>
+                                   
+                                </div>
+                        </div>
+                        <div class="bottom-band">
+                            <div class="user-trip-info">
+                                <div class="user a-logo">
+                                    <span class="user-name">A</span>
+                                </div>
+                                <p class="days">10 days With Family</p>
+                            </div>
+                            <div class="action-btn">
+                                <div class="bottom-bar m-book-action-btn">
+                                    <div class="book-btn" routerLink="/book-ticket"><div class="icon"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_tripon-ticket"></mat-icon></div><button class="primary-btn booking-btn mr-10">Book With TripsOn</button></div>
+                                    <div class="book-btn outline-book" routerLink="/manually-trip-detail"><div class="icon"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_book-myself"></mat-icon></div><button class="primary-btn booking-btn outline">Book by myself</button></div>
+                                </div>
+                                <div class="map-view">
+                                    <button class="primary-btn icon-btn white-icon" (click)="viewmap()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon>Map View</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trip-service-band">
+                <div class="trips-days-filter">
+                    <div class="sidebar-opener" (click)="sidebarShow = !sidebarShow">
+                        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_days-menu"></mat-icon>
+                    </div>
+                  <div class="sidebar-slider" [class.sidebar-slide-in]="sidebarShow">
+                    <div class="titile-band">
+                        <h6>Trip Days</h6><div class="sidebar-close"(click)="sidebarShow = !sidebarShow"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_close"></mat-icon></div>
+                    </div>
+                    <div class="sidebar-content">
+                        <div class="total-days-list">
+                            <ul>
+                                <li class="active"><span>Day 1</span> <p class="date-text">Mon,Aug 21</p></li>
+                                <li><span>Day 1</span> <p class="date-text">Tue,Aug 22</p></li>
+                                <li><span>Day 1</span> <p class="date-text">Wed,Aug 23</p></li>
+                                <li><span>Day 1</span> <p class="date-text">Thu,Aug 24</p></li>
+                                <li><span>Day 1</span> <p class="date-text">Fir,Aug 25</p></li>
+                                <li><span>Day 1</span> <p class="date-text">Sat,Aug 26</p></li>
+                                <li><span>Day 1</span> <p class="date-text">Sun,Aug 27</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+                    <!-- itinerary tab -->
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-btn"><div class="icon-tab"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_Itinerary"></mat-icon></div> Itinerary</div>
+                        </ng-template>
+                        <div class="trip-itinerary-band">
+                            <mat-accordion>
+                                <mat-expansion-panel (opened)="panelOpenState = true" [expanded]="true" (closed)="panelOpenState = false">
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <div class="accordion-header"><div class="day-text"><span class="days">Day 1 </span> <span class="date">- Aug 21</span></div> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$300</span></div></div>
+                                    </mat-panel-title>
+                                  </mat-expansion-panel-header>
+            
+                                  <div class="place-band budget-place-band">
+                                    <ul>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5>Stanley Park</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                    <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_rainy"></mat-icon> 22.6°</span>
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            <div class="right-band">
+                                                <div class="ticket-price-band">
+                                                    <span>$110</span>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon> Edit</li>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon> Delete</li>
+                                                        </ul>
+                                                    </mat-menu>
+
+                                                    <div class="m-action-btn">
+                                                        <button class="round-icon-btn edit-btn" type="button" (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                                                        <button class="round-icon-btn delete-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon></button>
+                                                    </div>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="divider">
+                                            <div class="transport-row">
+                                                <span class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_walk-fill"></mat-icon> 3-4 min</span>
+                                                <a href="">get directions</a>
+                                            </div>
+                                        </div>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                    <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_partly-cloudy"></mat-icon> 26.5°</span>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="right-band">
+                                                <div class="ticket-price-band free">
+                                                    <span>Free</span>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon> Edit</li>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon> Delete</li>
+                                                        </ul>
+                                                    </mat-menu>
+
+                                                    <div class="m-action-btn">
+                                                        <button class="round-icon-btn edit-btn" type="button" (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                                                        <button class="round-icon-btn delete-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon></button>
+                                                    </div>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="divider">
+                                            <div class="transport-row">
+                                                <span class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_walk-fill"></mat-icon> 3-4 min</span>
+                                                <a href="">get directions</a>
+                                            </div>
+                                        </div>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5>Vancouver Aquarium</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                    <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_partly-cloudy"></mat-icon> 26.5°</span>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="right-band">
+                                                <div class="ticket-price-band">
+                                                    <span>$30</span>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon> Edit</li>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon> Delete</li>
+                                                        </ul>
+                                                    </mat-menu>
+
+                                                    <div class="m-action-btn">
+                                                        <button class="round-icon-btn edit-btn" type="button" (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                                                        <button class="round-icon-btn delete-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon></button>
+                                                    </div>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5>Stanley Park</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                    <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_rainy"></mat-icon> 22.6°</span>
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            <div class="right-band">
+                                                <div class="ticket-price-band">
+                                                    <span>$120</span>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon> Edit</li>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon> Delete</li>
+                                                        </ul>
+                                                    </mat-menu>
+
+                                                    <div class="m-action-btn">
+                                                        <button class="round-icon-btn edit-btn" type="button" (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                                                        <button class="round-icon-btn delete-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon></button>
+                                                    </div>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="divider">
+                                            <div class="transport-row">
+                                                <span class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_walk-fill"></mat-icon> 3-4 min</span>
+                                                <a href="">get directions</a>
+                                            </div>
+                                        </div>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                    <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_partly-cloudy"></mat-icon> 26.5°</span>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="right-band">
+                                                <div class="ticket-price-band free">
+                                                    <span>Free</span>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon> Edit</li>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon> Delete</li>
+                                                        </ul>
+                                                    </mat-menu>
+
+                                                    <div class="m-action-btn">
+                                                        <button class="round-icon-btn edit-btn" type="button" (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                                                        <button class="round-icon-btn delete-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon></button>
+                                                    </div>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="divider">
+                                            <div class="transport-row">
+                                                <span class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_walk-fill"></mat-icon> 3-4 min</span>
+                                                <a href="">get directions</a>
+                                            </div>
+                                        </div>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5>Vancouver Aquarium</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                    <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_partly-cloudy"></mat-icon> 26.5°</span>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="right-band">
+                                                <div class="ticket-price-band">
+                                                    <span>$40</span>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon> Edit</li>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon> Delete</li>
+                                                        </ul>
+                                                    </mat-menu>
+
+                                                    <div class="m-action-btn">
+                                                        <button class="round-icon-btn edit-btn" type="button" (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                                                        <button class="round-icon-btn delete-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon></button>
+                                                    </div>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="divider">
+                                            <div class="transport-row">
+                                                <span class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_walk-fill"></mat-icon> 3-4 min</span>
+                                                <a href="">get directions</a>
+                                            </div>
+                                        </div>
+                                        <li class="place-card">
+                                            <div class="left-penal">
+                                            <div class="w-30">
+                                            <div class="img-band">
+                                                <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                            </div>
+                                            </div>
+                                            <div class="place-detail">
+                                                <div class="top-box">
+                                                    <h5>Museum of Anthropology at UBC</h5>
+                                                    <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                </div>
+                                                <div class="bottom-box">
+                                                    <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                    <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_partly-cloudy"></mat-icon> 26.5°</span>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="right-band">
+                                                <div class="ticket-price-band free">
+                                                    <span>Free</span>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon> Edit</li>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon> Delete</li>
+                                                        </ul>
+                                                    </mat-menu>
+
+                                                    <div class="m-action-btn">
+                                                        <button class="round-icon-btn edit-btn" type="button" (click)="openReplacePlaceContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon></button>
+                                                        <button class="round-icon-btn delete-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon></button>
+                                                    </div>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </div>
+                                        </li>
+
+            
+                                    </ul>
+                                    <div class="total-spent-catg">
+                                            <ul>
+                                                <li>
+                                                    <div class="icon-price-card yellow-card">
+                                                        <div class="icon-title">
+                                                            <img src="assets/icons/food.svg"><h6>food</h6>
+                                                        </div>
+                                                        <h4>$180</h4>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="icon-price-card green-card">
+                                                        <div class="icon-title">
+                                                            <img src="assets/icons/ticket.svg"><h6>ticket</h6>
+                                                        </div>
+                                                        <h4>$70</h4>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="icon-price-card blue-card">
+                                                        <div class="icon-title">
+                                                           <img src="assets/icons/white-round-transposition.svg"><h6>transposition</h6>
+                                                        </div>
+                                                        <h4>$50</h4>
+                                                    </div>
+                                                </li>
+                                            </ul> 
+                                    </div>
+                                  </div>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><div class="day-text"><span class="days">Day 2 </span> <span class="date">- Aug 22</span></div> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$280</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><div class="day-text"><span class="days">Day 3 </span> <span class="date">- Aug 23</span></div> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$219</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+                                
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><div class="day-text"><span class="days">Day 4 </span> <span class="date">- Aug 24</span></div> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$318</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><div class="day-text"><span class="days">Day 5 </span> <span class="date">- Aug 25</span></div> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$315</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><div class="day-text"><span class="days">Day 6 </span> <span class="date">- Aug 26</span></div> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$265</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><div class="day-text"><span class="days">Day 7 </span> <span class="date">- Aug 27</span></div> <div class="total-spent-icon-band"><img src="assets/icons/total-spent.png"><span>$263</span></div></div>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <p>This is the primary content of the panel.</p>
+                                </mat-expansion-panel>
+            
+                              </mat-accordion>
+            
+                              
+                        </div>
+                    </mat-tab>
+                    <!-- itinerary tab ---End--- -->
+
+
+                    <!-- Flight tab -->
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-btn"><div class="icon-tab flight"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_flight"></mat-icon></div>Flights</div>
+                        </ng-template>
+                        <div class="search-band trip-flights-band">
+                            <div class="titile-band">
+                                <h5>flight</h5>
+                                <button class="one-line-btn" type="button" (click)="openFlightContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon>Edit Preferences</button>
+                            </div>
+
+                            <div class="brand-card">
+                                <div class="row g-3">
+                                    <div class="col-4 col-md-3">
+                                        <div class="card-box">
+                                            <div class="img-band">
+                                                <img src="assets/image/kiwi.png" alt="Kiwi">
+                                            </div>
+                                            <h6>Kiwi</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="card-box">
+                                            <div class="img-band">
+                                                <img src="assets/image/kayak.png" alt="Kayak">
+                                            </div>
+                                            <h6>Kayak</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="card-box">
+                                            <div class="img-band">
+                                                <img src="assets/image/skyscanner.png" alt="Skyscanner">
+                                            </div>
+                                            <h6>Skyscanner</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="card-box">
+                                            <div class="img-band">
+                                                <img src="assets/image/expedia.png" alt="Expedia">
+                                            </div>
+                                            <h6>Expedia</h6>
+                                        </div>
+                                    </div>
+                                   
+                                   
+                                    
+                                </div>
+                            </div>
+
+                            <!-- <div class="search-card">
+                                <div class="img-band">
+                                    <img src="assets/image/plane.gif">
+                                </div>
+                                <div class="text-band">
+                                    <p>You haven't searched for flights yet</p>
+                                </div>
+                                <div class="action-btn">
+                                   <button class="primary-btn icon-btn W-fit-content" (click)="openFlightContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_search-outline"></mat-icon>Search Flights</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </mat-tab>
+                    <!-- Flight tab ---End--- -->
+
+                    <!-- hotel tab -->
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-btn"><div class="icon-tab hotel"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_hotel"></mat-icon></div>Hotels</div>
+                          </ng-template>
+                          <div class="search-band trip-hotel-band">
+                            <div class="titile-band">
+                                <h5>Hotel</h5>
+                                <button class="one-line-btn" type="button" (click)="openHotelContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_edit"></mat-icon>Edit Preferences</button>
+                            </div>
+                            <div class="brand-card">
+                                <div class="row g-3">
+                                    <div class="col-4 col-md-3">
+                                        <div class="card-box">
+                                            <div class="img-band">
+                                                <img src="assets/image/hotels.png" alt="Hotels">
+                                            </div>
+                                            <h6>Hotels</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="card-box">
+                                            <div class="img-band">
+                                                <img src="assets/image/airbnb.png" alt="Airbnb">
+                                            </div>
+                                            <h6>Airbnb</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="card-box">
+                                            <div class="img-band">
+                                                <img src="assets/image/booking.png" alt="Booking">
+                                            </div>
+                                            <h6>Booking</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="search-card">
+                                <div class="img-band">
+                                    <img src="assets/image/hotel.gif">
+                                </div>
+                                <div class="text-band">
+                                    <p>You haven't searched for hotels yet</p>
+                                </div>
+                                <div class="action-btn">
+                                    <button class="primary-btn icon-btn W-fit-content" (click)="openHotelContent()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_search-outline"></mat-icon>Search Hotels</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </mat-tab>
+                    <!-- hotel tab ---end--- -->
+                </mat-tab-group>
+            </div>
+
+
+            
+        </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-5 p-0 m-md-cus-30">
+            <div class="m-map-view" [ngClass]="!!openmap ? 'openviewmap':'closeviewmap'" >
+                <div class="map-band">
+                    <div class="close-map"(click)="close()"> <div class="close-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_close"></mat-icon> </div> <span>Exit Map</span> </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d33049.260972363125!2d-123.1524548071034!3d49.2865134800021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1695985281535!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="overlay-bg-fade" *ngIf="!!showFlightForm || !!showHotelForm || !!showReplacePlace" >
+    <div *ngIf="!!showFlightForm" class="right-panel-content" [ngClass]="!!addFlightForm ? 'animate-it-panel' : ''">
+          <app-flight-dialog (rightPaneInitlized)="onintlize()"
+          (closePanel)="openFlightContent()">
+          </app-flight-dialog>
+      </div>
+</div>
+
+<div *ngIf="!!showHotelForm" class="right-panel-content" [ngClass]="!!addHotelForm ? 'animate-it-panel' : ''">
+    <app-hotel-dialog (rightPaneInitlized)="onintlize()"
+    (closePanel)="openHotelContent()">
+    </app-hotel-dialog>
+</div>
+
+<div *ngIf="!!showReplacePlace" class="right-panel-content" [ngClass]="!!addReplacePlace ? 'animate-it-panel' : ''">
+    <app-replace-place-dialog (rightPaneInitlized)="onintlize()"
+      (closePanel)="openReplacePlaceContent()"></app-replace-place-dialog>
+  </div>
+

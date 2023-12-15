@@ -1,0 +1,77 @@
+@import 'src/scss/variables';
+
+.profile-details-band{
+    ul li{
+        padding: 8px 0px;
+        border-bottom: 1px solid #eee;
+        &:last-child {
+            border-bottom: 0px;
+            padding-bottom: 0;
+        }
+        &:first-child {
+            padding-top: 0;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            label {
+                font-size: 15px;
+                font-weight: 500;
+                width: 20%;
+                min-width: 20%;
+                color: #060c15;
+                opacity: 0.9;
+            }
+            input {
+                border: 1px solid #e7e7e700;
+                padding: 11px;
+                font-size: 14px;
+                font-weight: 600;
+                color: #060C15;
+                font-family: "Epilogue", sans-serif;
+                border-radius: 8px;
+                background-color: #eeeeee00;
+            }
+        }
+        
+    }
+}
+
+.edit-active{
+    padding: 12px 0px !important;
+    input{
+        border: 1px solid #e7e7e7 !important;
+        background-color: #eeeeee4f !important;
+    }
+}
+
+li.password-band {
+    display: flex;
+    justify-content: space-between;
+    .form-group {
+        width: 70%;
+        label{
+            width: 29% !important;
+        }
+    }
+    button{
+        border-radius: 9px !important;
+        color: #060c15 !important;  
+        background-color: $border-light !important;
+        height: 40px;
+    }
+}
+
+.verified-input {
+    display: flex;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+}
+
+input.edit-view {
+    border: 1px solid $border-light !important;
+    background: #eeeeee70 !important;
+}

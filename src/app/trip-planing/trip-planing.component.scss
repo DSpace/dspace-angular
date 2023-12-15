@@ -1,0 +1,475 @@
+@import 'src/scss/variables';
+
+.top-step-baar {
+    background-color: #F8FFF5;
+    text-align: center;
+    padding: 35px 0px;
+    .icon-head h5 {
+        margin-bottom: -4px;
+        margin-left: 10px;
+    }
+    .icon-head {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       mat-icon {
+            width: 30px;
+            height: 30px;
+        } 
+    }
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.trip-details-container{
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 50px;
+    label {
+        font-size: 17px;
+        font-weight: 500;
+        margin-bottom: 18px;
+        display: block;
+        color: $text;
+    }
+}
+
+.date-band {
+    display: flex;
+}
+.end-date , .start-date {
+    width: 100%;
+    position: relative;
+}
+.date-band{
+    display: flex;
+    background: $white;
+    padding: 4px;
+    border-radius: 12px;
+    border: 2px solid $border-dark;
+}
+
+.step-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.start-date:before {
+    content: "";
+    width: 2px;
+    background-color: $border-light;
+    position: absolute;
+    right: 0;
+    top: 11px;
+    height: 47px;
+    z-index: 999;
+    bottom: 0;
+}
+
+.select-card{
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid $border-dark;
+    border-radius: 15px;
+    padding: 26px 0px;
+    h5 {
+        margin: 0;
+        opacity: 0.8;
+        font-size: 16px;
+        text-align: center;
+    }
+    .icon img {
+        opacity: 0.7;
+        margin-bottom: 24px;
+        width: 64px;
+    }
+}
+
+.budget-band{
+    .icon img {
+        opacity: 1;
+        margin-bottom: 18px;
+        width: 81px;
+    }
+}
+
+.select-card.active h5 {
+    opacity: 1!important;
+}
+.select-card.active .icon img {
+    opacity: 1!important;
+}
+.select-card.active {
+    border-color: $primary;
+    background-color: #EDFFE5;
+    transition: all 0.5s;
+}
+.travel-group-type-band{
+    .icon img {
+        opacity:1;
+        margin-bottom: 12px;
+        width: 84px;
+    }
+}
+.counter-box{
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid $border-dark;
+    border-radius: 12px;
+    height: 60px;
+    align-items: center;
+    padding: 0px 20px;
+    .info-text {
+        color: $p-text;
+    }
+}
+
+
+.icon img {
+    width: 20px;
+}
+.chips-card .icon {
+    margin-right: 9px;
+}
+
+.sub-interest-band {
+    padding: 20px;
+    border: 1px solid $border-dark;
+    border-radius: 15px;
+    background-color: #eeeeee29;
+}
+
+.action-title label {
+    margin-bottom: 0px!important;
+}
+
+.transport-band .select-box {
+    .icon {
+        width: 68px;
+        height: 68px;
+        margin-bottom: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50px;
+        border: 1px solid $border-light;
+        background-color: #eeeeee40;
+        img {
+            opacity: 1;
+            margin-bottom: 0;
+            width: 44px;
+        }
+    }
+}
+
+.step-actions {
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        mat-icon {
+            width: 19px;
+            margin-right: 5px;
+            padding: 0;
+            height: 19px;
+            margin-top: -2px;
+        }
+    }
+    .next-btn mat-icon {
+        margin-left: 5px;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .top-step-baar .icon-head h5{
+        margin-left: 5px;
+    }
+    .select-card{
+        padding: 20px 0px;
+        .icon img{
+            margin-bottom: 11px;
+            width: 42px;
+        }
+        h5{
+            font-size: 15px;
+        }  
+    }
+    .trip-details-container label{
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .trip-details-container{
+        margin-top: 25px;
+    }
+    .divider-row {
+        margin: 27px 0px;
+        span {
+            top: 13px;
+        }
+    }
+    .header.mobile-header .navbar  {
+        display: none !important;
+    }
+    .step-actions {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: $white;
+        padding: 16px;
+        border-top: 1px solid #eeeeeea8;
+        box-shadow:0px 7px 30px rgba(0, 0, 0, 0.14);
+        button {
+            line-height: 0;
+            mat-icon {
+                margin-right: -9px;
+                margin-top: -2px;
+            }
+        }
+    }
+
+    .travel-group-type-band{
+        .select-card{
+            padding: 10px 0px;
+            .icon img{
+                margin-bottom: 11px;
+                width: 64px;
+            }
+        }
+    }
+    .sub-interest-band{
+        padding: 15px;
+        .mt-15{
+            margin-top: 7px;
+        }
+    }
+    .step-actions{
+        justify-content: space-between;
+
+        .secondary-btn {
+            border: none;
+            width: fit-content;
+            padding: 0;
+        }
+        .secondary-btn mat-icon {
+            margin-right: 3px !important;
+            margin-top: -2px !important;
+        }
+    }
+    .chips-card .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+        height: 45px;
+        padding: 10px 18px;
+    }
+    .budget-band{
+        .select-card{
+            padding: 15px 0px;
+        }
+        .select-card .icon img{
+            margin-bottom: 10px;
+            width: 60px;
+        }
+    }
+    .transport-band{
+        .select-card {
+            padding: 15px 0px;
+            .icon{
+                width: 56px;
+                height: 56px;
+                min-width: 56px;
+                min-height: 56px;
+                margin-bottom: 13px;
+                img{
+                    width: 34px;
+                }
+            }
+            h5{
+                height: 28px;
+            }
+        }
+    
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .date-band{
+        display: flex;
+        flex-direction: column;
+    }
+    .top-step-baar .icon-head mat-icon{
+        width: 25px;
+        height: 25px;
+    }
+    .step-title p {
+        padding: 0px 16px;
+        line-height: 19px;
+        margin-top: 10px;
+    }
+    .top-step-baar{
+        padding: 25px 0px 15px 0px;
+    }
+    .start-date:before {
+        content: "";
+        width: 94% !important;
+        background-color: $border-light;
+        bottom: 0;
+        top: unset;
+        border-bottom: 1px solid $border-light;
+        margin: 0 auto;
+        right: 0;
+        left: 0;
+        height: 0px;
+    }
+    .trip-details-container{
+        max-width: 680px;
+    }
+
+    
+}
+.select-box.disabled-btn {
+    opacity: 0.4;
+}
+.date-band.disabled-btn {
+    opacity: 0.4;
+}
+
+.custom-active-class {
+    border-color: #84ff50 !important;
+    background-color: #edffe5 !important;
+}
+
+ul.multi-chips-list li.custom-active-class {
+    border-color: #84ff50 !important;
+    background-color: #fff !important;
+}
+ul.multi-chips-list{
+    display: flex;
+}
+ul.multi-chips-list li {
+    padding: 10px 15px;
+    background-color: #fff;
+    margin-right: 8px;
+    border: 2px solid #eeee;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgb(6 12 21 / 90%);
+    cursor: pointer;
+}
+
+.slider-container {
+    position: relative;
+    width: 300px;
+    margin: 50px auto;
+  }
+  
+  .slider-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 10px;
+    background-color: #ccc;
+    transform: translateY(-50%);
+  }
+  
+  .slider-circle {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #007BFF;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+  }
+ 
+
+.advance-budget-band{
+    padding: 20px 20px;
+    background-color: #fff;
+    margin-top: 12px;
+    border-radius: 15px;
+    border: 1px solid #eee;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+// budget slider 
+.budet-slider-band{
+    padding: 13px 0px;
+    border-bottom: 1px solid;
+    color: #ECECED;
+    .mat-mdc-card {
+        box-shadow: none !important;
+        background: transparent;
+    }
+    h5 {
+        margin-bottom: 0;
+        opacity: 0.9;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .steps-value {
+        ul {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -6px;
+            width: 100%;
+            li {
+                a {
+                    font-size: 18px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-family: 'Epilogue';
+                    color: rgb(6 12 21 / 70%);
+                }
+            }
+        }
+        .steps-value-list.one{
+            width: 36%;
+            text-align: left;
+        }
+        .steps-value-list.two{
+            width: 26%;
+        }
+        .steps-value-list.three{
+            width: 26%;
+            text-align: center;
+        }
+        .steps-value-list.four{
+            width: 25%;
+            text-align: right;
+        }
+      
+    }
+    
+    mat-slider {
+        margin: 0px !important;
+    }
+    .mat-mdc-slider .mdc-slider__thumb-knob {
+        background-color: #84ff50 !important;
+        border-color: #060c15 !important;
+    }
+    .mat-mdc-slider .mdc-slider__thumb-knob {
+        box-shadow: var(--mdc-slider-handle-elevation, 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12));
+        border: 2px solid #060c15 !important;
+    }
+    .mat-mdc-slider.mat-primary {
+        --mdc-slider-active-track-color: #060c15 !important;
+        --mat-mdc-slider-hover-ripple-color: rgb(132 255 80 / 21%) !important;
+        --mat-mdc-slider-focus-ripple-color: rgb(132 255 80 / 21%) !important;
+    }
+    
+}
+.budet-slider-band:first-child {
+    padding-top: 0;
+}
+.budet-slider-band:last-child {
+    padding-bottom: 0;
+    border: none;
+}

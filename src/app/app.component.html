@@ -1,3 +1,4 @@
-<ds-themed-root
-  [shouldShowFullscreenLoader]="(isAuthBlocking$ | async) || (isThemeLoading$ | async)"
-  [shouldShowRouteLoader]="isRouteLoading$ | async"></ds-themed-root>
+<app-main-nav></app-main-nav>
+<div class="router-container" >
+  <router-outlet></router-outlet>
+</div>

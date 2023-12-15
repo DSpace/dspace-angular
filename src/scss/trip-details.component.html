@@ -1,0 +1,157 @@
+
+
+<div class="main">
+    
+    <div class="bootstrap-wrapper">
+    <div class="fluid-container">
+        <div class="row">
+        <div class="col-md-7 pr-0">
+            
+        <div class="header">
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed trip-details-nav">
+                <div class="left-band">
+                    <!-- <div class="logo white">
+                        <img src="assets/image/logo-white.svg">
+                    </div> -->
+                    <div class="logo">
+                        <img src="assets/image/logo.svg">
+                    </div>
+                </div>
+                <div class="right-band">
+                    <button class="primary" type="button">Share</button>
+                </div>
+            </nav>
+        </div>
+            <div class="trip-details-band">
+                <div class="trip-bg-card">
+                    <div class="img-band">
+                        <img src="assets/image/vancouver-bg.jpg">
+                    </div>
+                    <div class="trip-header">
+                        <div class="left-band">
+                            <button class="back-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_back-outline"></mat-icon></button>
+                        </div>
+                        <div class="right-band">
+                            <div class="toogle-band">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" [(ngModel)]="selected">
+                                    <div class="slider"></div>
+                                </label>
+                                <span>Public</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="trip-action-card">
+                    <div class="trip-action-box">
+                        <div class="titile-band mb-20">
+                            <p>Your Trip to</p>
+                            <h4 class="trip-name">Vancouver,Canada</h4>
+                        </div>
+                        <div class="bottom-band">
+                            <div class="user-trip-info">
+                                <div class="user a-logo">
+                                    <span class="user-name">A</span>
+                                </div>
+                                <p class="days">10 days With Family</p>
+                            </div>
+                            <div class="action-btn">
+                                <button class="primary-btn icon-btn">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trip-itinerary-band">
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" [expanded]="true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="accordion-header"><span class="days">Day 1</span> <span class="date">-Aug 21</span></div>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <p>This is the primary content of the panel.</p>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            <div class="accordion-header"><span class="days">Day 2</span> <span class="date">-Aug 22</span></div>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>This is the primary content of the panel.</p>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            <div class="accordion-header"><span class="days">Day 3</span> <span class="date">-Aug 23</span></div>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>This is the primary content of the panel.</p>
+                    </mat-expansion-panel>
+<!-- 
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            <div class="accordion-header"><span class="days">Day 3</span> <span class="date">-Aug 23</span></div>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>This is the primary content of the panel.</p>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            <div class="accordion-header"><span class="days">Day 3</span> <span class="date">-Aug 23</span></div>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>This is the primary content of the panel.</p>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            <div class="accordion-header"><span class="days">Day 3</span> <span class="date">-Aug 23</span></div>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>This is the primary content of the panel.</p>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            <div class="accordion-header"><span class="days">Day 3</span> <span class="date">-Aug 23</span></div>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>This is the primary content of the panel.</p>
+                    </mat-expansion-panel> -->
+                  </mat-accordion>
+            </div>
+        </div>
+        <div class="col-md-5 pl-0">
+            <div class="map-band">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d33049.260972363125!2d-123.1524548071034!3d49.2865134800021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1695985281535!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+</div>
+
+<!-- <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <div class="accordion-header"><span class="days">Day 1</span> <span class="date">-Aug 21</span></div>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+</mat-accordion> -->
+
+

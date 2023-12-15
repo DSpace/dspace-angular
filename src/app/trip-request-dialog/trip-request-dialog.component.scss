@@ -1,0 +1,115 @@
+@import 'src/scss/variables';
+
+.time-action span {
+    font-size: 13px;
+}
+.info-band {
+    p{
+        font-size: 15px;
+    }
+}
+.content-card-band {
+    padding: 0px;
+}
+.action-band{
+    display: flex;
+    margin-left: 6px;
+    .round-icon-btn {
+        width: 37px;
+        padding: 10px;
+        height: 37px;
+        min-width: 37px;
+        margin-left: 6px;
+        line-height: 0;
+        mat-icon {
+            width: 17px;
+            height: 13px;
+        }
+    }
+    .chat{
+        border: 1px solid $border-dark;
+        mat-icon {
+            width: 15px;
+            height: 15px;
+        }
+    }
+    
+}
+.people-list-band {
+    li {
+        padding: 13px 10px;
+        margin-bottom: 0;
+        border-radius: 15px;
+        transition: all 0.5s;
+        border: 1px solid $border-light !important;
+        margin-bottom: 10px;
+        background-color: $white;
+        &:hover {
+            box-shadow: 0px 15px 30px rgb(0 0 0 / 5%);
+        }
+    }
+    .round-icon-btn:hover mat-icon svg path {
+        stroke: $white;
+    }
+    .round-icon-btn.green-bg:hover {
+        background-color: $success !important;
+        transition: all 0.5s;
+    }
+    .round-icon-btn.danger-bg:hover {
+        background-color: $danger !important;
+        transition: all 0.5s;
+    }
+    .round-icon-btn.chat:hover {
+        background-color: $text !important;
+    }
+}
+
+
+@media only screen and (max-width: 991px){
+    .gray-title.m-filter-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 100% !important;
+        margin-top: 15px;
+        .right-penal .filter-tab {
+            margin: 12px 0px;
+        }
+    }
+    .people-list-band.m-people-list {
+        .top-band {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: flex-end!important;
+            .time-action {
+                padding-top: 10px;
+                margin-bottom: -4px;
+            }
+        }
+        .action-band {
+            margin-top: -19px;
+            button {
+                line-height: 0;
+                width: 32px !important;
+                height: 32px !important;
+                min-width: 32px !important;
+                padding: 0px !important;
+                mat-icon {
+                    width: 12px !important;
+                }
+            }
+        }
+    }
+    .people-list-band li{
+        padding: 10px 8px;
+        .big {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+        }
+    }
+  }
+
+
+

@@ -1,0 +1,96 @@
+@import 'src/scss/variables';
+.main {
+    background-color: $body-bg;
+}
+
+.booking-process-band{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    .text-band{
+        text-align: center;
+        margin-top: 26px;
+        margin-bottom: 20px;
+        h4{
+            font-size: 22px;
+        }
+        p {
+            line-height: 22px;
+            font-size: 15px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+    }
+}
+
+.total-price {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    h4 {
+        margin: 0;
+        opacity: 0.9;
+    }
+    span {
+        margin-bottom: 14px;
+        display: block;
+        font-weight: 600;
+        color: rgb(6 12 21 / 60%);
+    }
+}
+.mat-mdc-card {
+    background: transparent;
+    box-shadow: none;
+}
+.mat-mdc-progress-spinner {
+    display: block;
+    overflow: hidden;
+    line-height: 0;
+    height: 200px!important;
+    width: 200px!important;
+}
+
+.mat-mdc-card {
+    background: transparent;
+    box-shadow: none;
+}
+.mat-mdc-progress-spinner {
+    display: block;
+    overflow: hidden;
+    line-height: 0;
+    height: 200px!important;
+    width: 200px!important;
+    background-color: rgb(161 163 161 / 15%)!important;
+    border-radius: 400px!important;
+}
+.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle, .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #84ff50!important;
+}
+.mdc-circular-progress__determinate-circle-graphic, .mdc-circular-progress__indeterminate-circle-graphic {
+  fill: rgb(255 255 255)!important;
+}
+
+
+@media only screen and (max-width: 991px){
+    .m-main-cus{
+        margin-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+    .mat-mdc-progress-spinner{
+        height: 165px !important;
+        width: 165px !important;
+    }
+    .text-band{
+        margin-top: 15px !important;
+        h4{
+            font-size: 20px !important;
+        }
+        p {
+            font-size: 15px !important;
+        }
+    }
+}

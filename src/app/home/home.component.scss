@@ -1,0 +1,334 @@
+@import 'src/scss/variables';
+
+.hero-band{
+    .text-band {
+        padding-top: 200px;
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        width: 55%;
+        position: inherit;
+        h1 {
+            color:$white;
+            line-height: 60px;
+        }
+    }
+    .destination-band {
+        width: 65%;
+    }
+    .current-location-band {
+        width: 35%;
+        margin-right: 1px;
+    }
+    .serach-band{
+        display: flex;
+        align-items: flex-end;
+      }
+}
+.card-band{
+    border-radius: 20px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    img {
+        width: 100%;
+        display: block;
+    }
+    span.round-text {
+        position: absolute;
+        background-color: rgb(255 255 255 / 10%);
+        bottom: -1px;
+        margin: 14px auto;
+        width: 225px;
+        right: 0;
+        left: 0;
+        text-align: center;
+        padding: 13px;
+        border-radius: 37px;
+        backdrop-filter: blur(10px);
+        border: 1px solid #ffffff12;
+        h6 {
+            color: $white;
+            font-size: 20px;
+            margin: 0;
+        }
+    }
+}
+
+.trip-card{
+    .img-band {
+        overflow: hidden;
+        border-radius: 17px;
+        height: 200px;
+        width: 100%;
+        position: relative;
+    }
+    .img-band img {
+        width: 100%;
+        display: block;
+        height: 100%;
+    }
+    .titile {
+        margin-bottom: 14px;
+        
+    }
+    .bottom-band {
+        margin-top: 15px;
+    }
+    .user-trip-info{
+        display: flex;
+        align-items: center;
+        float: left;
+    }
+    .days {
+        color: $p-text-dark;
+        margin: 0px !important;
+        padding: 0px 7px;
+    }
+}
+
+.mat-grid-tile {
+    overflow: inherit!important;
+}
+.round-container {
+    padding: 10px;
+    background-color: #EFFFE9;
+    padding: 50px 50px;
+    border-radius: 25px;
+    border: 1px solid #84ff5014;
+}
+.city-card{
+    position: relative;
+    overflow: hidden;
+    height: 320px;
+    border-radius: 20px;
+    cursor: pointer;
+    .img-band {
+        height: 100%;
+        width: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .title{
+        position: absolute;
+        bottom: 14px;
+        right: 0;
+        margin: 0 auto;
+        display: block;
+        background-color: #ffffff00;
+        left: 0;
+        text-align: center;
+        z-index: 2;
+        h3{
+            color: $white;
+            font-weight: 400!important;
+            font-size: 24px;
+        }
+    }
+}
+.city-card:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(3deg, #000000bf, transparent);
+}
+.city-card:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(3deg, #000000bf, transparent);
+    z-index: 1;
+}
+.city-card:hover img {
+    transform: scale(1.1);
+    transition: all 0.9s;
+}
+.city-card:hover::before {
+    width: 100%;
+    transform: scale(1.1);
+    transition: all 0.9s;
+}
+
+
+// Fotter 
+
+// swiper 
+
+.swiper-prev-next-btn button {
+    width: 45px;
+    height: 45px;
+    border-radius: 42px;
+    border: none;
+    background-color: $white;
+    border: 1px solid $border-dark;
+    box-shadow: 0px 10px 20px #0000000a;
+}
+.swiper-prev-next-btn button:first-child {
+    margin-right: 8px;
+}
+.swiper-prev-next-btn button:first-child mat-icon {
+    transform: rotate(180deg);
+}
+.swiper-prev-next-btn mat-icon {
+    width: 20px;
+    margin-top: 3px;
+    margin-left: -1px;
+}
+.slider-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4{
+        margin-bottom: 0px;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .round-container {
+        border-radius: 0px !important;
+        padding: 40px 15px !important;
+        padding-right: 0px !important;
+    }
+}
+
+
+@media only screen and (max-width: 1024px){
+    .hero-band {
+        .text-band{
+            width: 70%;
+            h1 {
+                color: $white;
+                line-height: 49px;
+                font-size: 35px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1200px){
+.card-band span.round-text{
+    margin: 14px auto;
+    width: 198px;
+}
+.hero-band .text-band h1 {
+    line-height: 50px;
+    font-size: 34px;
+}
+}
+
+
+
+@media only screen and (max-width: 991px){
+    .hero-band { 
+        .destination-band .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+            border-radius: 100px;
+            height: 60px;
+        }
+        .current-location-band {
+            display: none;
+        }
+        .destination-band {
+            width: 100% !important;
+        }
+        .text-band {
+            padding-top: 132px;
+            width: 89%;
+            h1{
+                line-height: 33px;
+                font-weight: 600;
+                font-size: 21px;
+            }
+            h5{         
+                font-size: 16px;
+                margin-top: 15px;
+            }
+        }
+        .primary-btn-inner {
+            height: 44px;
+            width: 115px !important;
+            top: 8px;
+            right: 8px;
+            font-size: 14px !important;
+        }
+        .serach-band:before{
+            height: 60px;
+        }
+    }
+    .background-bg-summer {
+        height: 362px !important;
+    }
+    .m-season-section {
+        .card-band {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid $border-light;
+            padding: 18px 0px;
+            box-shadow: 0px 0px 30px rgb(0 0 0 / 4%);
+            .round-img-band {
+                width: 65px;
+                height: 65px;
+                border-radius: 50px;
+                overflow: hidden;
+                margin-top: 0;
+            }
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .round-text {
+                position: unset !important;
+                margin: 0px !important;
+                padding: 0px !important;
+                width: 100% !important;
+                h6{
+                    font-size: 16px !important;
+                    color: rgb(6 12 21 / 80%) !important;
+                    margin-top: 13px !important;
+                    font-weight: 600;
+                }
+            }
+        }
+        .round-container {
+            padding: 25px;
+            padding-right: 0px;
+        }
+        .icon-title {
+            h4{
+                margin-left: 0px;
+            }
+            mat-icon{
+                display: none;
+            }
+        }
+        button.text-btn{
+            font-size: 16px;
+        }
+        .mat-mdc-menu-panel.mat-mdc-menu-panel {
+            margin-top: 32px !important;
+        }
+        .city-card .title h3{
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+       
+}
+
+
+.trip-days-date .trip-date {
+    float: left;
+    font-size: 13px;
+    padding: 0px 8px;
+    background-color: #fff;
+    padding: 6px 9px;
+    border-radius: 34px;
+    border: 1px solid #eee;
+    font-weight: 500;
+    color: rgba(6, 12, 21, 0.8);
+    margin-top: 5px;
+}

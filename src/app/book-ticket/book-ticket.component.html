@@ -1,0 +1,270 @@
+
+
+<div class="main d-p-md">
+
+    <div class="titile-banner titile-banner-bg">
+        <div class="bootstrap-wrapper">
+        <div class="container">
+            <h4>Book Ticket</h4>
+        </div>
+        </div>
+    </div>
+
+    <div class="bootstrap-wrapper mt-top-80">
+        <div class="container">
+            <div class="row g-3 div-reverse-swipe">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                    <div class="card-white card-white m-card-white">
+                        <div class="m-p-15">
+                            <div class="card-title-band">
+                                <h5>Trip Details</h5>
+                            </div>
+                            <div class="trip-form-info">
+                                <div class="date-band">
+                                        <div class="start-date">
+                                            <mat-form-field>
+                                                <mat-label>Start Date</mat-label>
+                                                <input matInput [matDatepicker]="picker" [formControl]="sDate"  (focus)="picker.open()">
+                                                <mat-datepicker-toggle matSuffix  [for]="picker" ></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="end-date">
+                                        <mat-form-field>
+                                            <mat-label>End Date</mat-label>
+                                            <input matInput [matDatepicker]="picker2" [formControl]="eDate" (focus)="picker2.open()">
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            <div class="form-flex">
+                                <div class="icon-form location-band">
+                                    <div class="input-icon">
+                                        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_location-input"></mat-icon>
+                                    </div>
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>location</mat-label>
+                                        <input matInput placeholder="location" value={{tripData.search_term.destination}} disabled="true">
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="icon-form total-people-band">
+                                    <div class="input-icon">
+                                        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_user-group-outline"></mat-icon>
+                                    </div>
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>People</mat-label>
+                                        <input matInput placeholder="People" value={{totalPeople}} disabled="true">
+                                    </mat-form-field> 
+                                </div>
+                            </div>
+                        </div>                      
+                        </div>
+                        <div class="booking-trip-itinerary-band trip-service-band">
+                            <div class="trip-itinerary-band">
+                                <mat-accordion>
+                                    <mat-expansion-panel (opened)="panelOpenState = true" [expanded]="true" (closed)="panelOpenState = false">
+                                      <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 1</span> <span class="date">-Aug 21</span></div>
+                                        </mat-panel-title>
+                                      </mat-expansion-panel-header>
+                
+                                      <div class="place-band">
+                                        <ul>
+                                            <li class="place-card">
+                                                <div class="left-penal">
+                                                <div class="w-30">
+                                                <div class="img-band">
+                                                    <img src="assets/image/stanley-park.jpg" alt="Stanley Park">
+                                                </div>
+                                                </div>
+                                                <div class="place-detail">
+                                                    <div class="top-box">
+                                                        <h5>Stanley Park</h5>
+                                                        <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.8</span>13,781 Reviews</p>
+                                                    </div>
+                                                    <div class="bottom-box">
+                                                        <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>10:00 - 11:30</p>
+                                                        <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_rainy"></mat-icon> 22.6°</span>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon>Location</li>
+                                                        </ul>
+                                                    </mat-menu>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                                
+                                            </li>
+                                            <div class="divider">
+                                                <div class="transport-row">
+                                                    <span class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_walk-fill"></mat-icon> 3-4 min</span>
+                                                    <a href="">get directions</a>
+                                                </div>
+                                            </div>
+                                            <li class="place-card">
+                                                <div class="left-penal">
+                                                <div class="w-30">
+                                                <div class="img-band">
+                                                    <img src="assets/image/museum-of-anthropology-at-ubc.jpg" alt="Museum of Anthropology at UBC">
+                                                </div>
+                                                </div>
+                                                <div class="place-detail">
+                                                    <div class="top-box">
+                                                        <h5>Museum of Anthropology at UBC</h5>
+                                                        <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.4</span>14,781 Reviews</p>
+                                                    </div>
+                                                    <div class="bottom-box">
+                                                        <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>11:45 - 13:00</p>
+                                                        <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_partly-cloudy"></mat-icon> 26.5°</span>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon>Location</li>
+                                                        </ul>
+                                                    </mat-menu>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </li>
+                                            <div class="divider">
+                                                <div class="transport-row">
+                                                    <span class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_walk-fill"></mat-icon> 3-4 min</span>
+                                                    <a href="">get directions</a>
+                                                </div>
+                                            </div>
+                                            <li class="place-card">
+                                                <div class="left-penal">
+                                                <div class="w-30">
+                                                <div class="img-band">
+                                                    <img src="assets/image/vancouver-aquarium.jpg" alt="Vancouver Aquarium">
+                                                </div>
+                                                </div>
+                                                <div class="place-detail">
+                                                    <div class="top-box">
+                                                        <h5>Vancouver Aquarium</h5>
+                                                        <p><span class="rating-band"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_star"></mat-icon>4.3</span>12,781 Reviews</p>
+                                                    </div>
+                                                    <div class="bottom-box">
+                                                        <p class="time"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_time"></mat-icon>13:15 - 16:30</p>
+                                                        <span class="weather-info"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_partly-cloudy"></mat-icon> 26.5°</span>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="action-band m-action-group-btn">
+                                                    <button mat-button [matMenuTriggerFor]="menubtn" class="m-dropdown-btn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                                                    <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                                                        <ul>
+                                                            <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon>Location</li>
+                                                        </ul>
+                                                    </mat-menu>
+                                                    <button class="round-icon-btn map-btn" type="button"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_map"></mat-icon></button>
+                                                </div>
+                                            </li>
+                
+                                        </ul>
+                                      </div>
+                                    </mat-expansion-panel>
+                
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 2</span> <span class="date">-Aug 22</span></div>
+                                          </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <p>This is the primary content of the panel.</p>
+                                    </mat-expansion-panel>
+                
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 3</span> <span class="date">-Aug 23</span></div>
+                                          </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <p>This is the primary content of the panel.</p>
+                                    </mat-expansion-panel>
+                                    
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 4</span> <span class="date">-Aug 24</span></div>
+                                          </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <p>This is the primary content of the panel.</p>
+                                    </mat-expansion-panel>
+                
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 5</span> <span class="date">-Aug 25</span></div>
+                                          </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <p>This is the primary content of the panel.</p>
+                                    </mat-expansion-panel>
+                
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 6</span> <span class="date">-Aug 26</span></div>
+                                          </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <p>This is the primary content of the panel.</p>
+                                    </mat-expansion-panel>
+                
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            <div class="accordion-header"><span class="days">Day 7</span> <span class="date">-Aug 27</span></div>
+                                          </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <p>This is the primary content of the panel.</p>
+                                    </mat-expansion-panel>
+                
+                                  </mat-accordion>
+                
+                                  
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4">
+                    <div class="summary-band">
+                    <div class="card-white">
+                        
+                            <div class="card-title-band">
+                                <h5>Order Summary</h5>
+                            </div>
+                            <div class="fare-breakup-band">
+                                <h6>Fare Breakup</h6>
+                                <ul>
+                                    <li><span class="sub-text">Sub total :</span><p>$2742.81</p></li>
+                                    <li><span class="sub-text">HST :</span><p>$50.00</p></li>
+                                </ul>
+                            </div>
+                            <ul class="total-text">
+                                <li><span >Final Price </span> <p>$2792.81</p></li>
+                            </ul>
+                            <div class="bottom-bar overlay-bottom-white">
+                                <div class="fixed-btn-md">
+                                    <button type="button" class="primary-btn w-full-100 mt-15" (click)="checkoutClick()">checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

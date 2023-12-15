@@ -1,0 +1,311 @@
+@import 'src/scss/variables';
+
+
+.fare-breakup-band {
+    background-color: rgb(132 255 80 / 5%);
+    border: 1px solid $border-light;
+    padding: 14px 14px 3px 14px;
+    border-radius: 11px;
+    h6 {
+        font-weight: 600;
+    }
+    ul li {
+        display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #00000014;
+        p {
+            font-size: 15px;
+            color: $text;
+            font-weight: 600;
+        }
+        span {
+            font-size: 16px;
+            font-weight: 500;
+            color: rgb(6 12 21 / 80%);
+        }
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+}
+.total-text {
+    background-color: $white;
+    border: 1px solid $border-dark;
+    border-radius: 10px;
+    padding: 4px 14px;
+    margin-top: 10px;
+    li{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p {
+            font-size: 16px;
+            font-weight: 700;
+            color: $text;
+        }
+
+    } 
+    span {
+        font-weight: 500;
+    }
+
+}
+
+.titile-banner-bg {
+    height: 220px;
+}
+
+.mt-120{
+    margin-top: -142px;
+}
+.titile-banner-bg:before {
+    background: linear-gradient(359deg, #060c15, #060c1554);
+}
+.accordion-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    .icon-text {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 16px;
+        mat-icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 10px;
+        }
+    }
+}
+.form-band {
+    width: 100%;
+    .form-grid {
+        display: flex;
+        .form-group {
+            width: 100%;
+            margin-right: 14px;
+        }
+        .form-group:last-child {
+            margin-right: 0;
+        }
+    }
+    a {
+        text-align: right;
+        display: block;
+    }
+    .form-action {
+        text-align: center;
+        width: 100%;
+        margin-top: 28px;
+        .primary-btn {
+            width: 100%;
+        }
+        p {
+            font-size: 15px;
+            margin-top: 21px;
+            margin-bottom: 0;
+            a {
+                display: inline-block;
+                color: $text;
+                font-weight: 600;
+                margin-left: 5px;
+            }
+        }
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+        label {
+            margin-bottom: 9px;
+            font-size: 15px;
+            font-weight: 500;
+            color: $text;
+        }
+        input {
+            height: 42px;
+            border-radius: 10px;
+            border: 1px solid $border-dark;
+            background: $white;
+            padding: 5px 14px;
+            font-size: 14px;
+            font-family: 'Epilogue', sans-serif;
+        }
+        
+    }
+}
+.form-band {
+    width: 100%;
+    .form-grid {
+        display: flex;
+        .form-group {
+            width: 100%;
+            margin-right: 14px;
+        }
+        .form-group:last-child {
+            margin-right: 0;
+        }
+    }
+    .form-group {
+        input {
+            height: 42px;
+        }
+    }
+}
+.input-48 input{
+    height: 48px!important;
+}
+.action-btn {
+    float: right;
+}
+.next-btn-band{
+    margin-top: 25px;
+    margin-bottom: 7px;
+    .primary-btn {
+        width: fit-content;
+        padding: 0 43px;
+    }
+}
+.booking-title {
+    padding: 19px 0px 10px 0px;
+    border-top: 1px solid $border-dark;
+}
+
+.coupon-band {
+    position: relative;
+    width: fit-content;
+    input {
+      height: 50px;
+      border: 1px solid $border-dark;
+      border-radius: 32px;
+      position: relative;
+      width: 350px;
+      padding: 10px 0px 10px 48px;
+      font-size: 15px;
+      color: $text;
+      border-radius: 54px!important;
+      border: 1px dashed #84ff50c4!important;
+      height: 53px!important;
+      background-color: rgb(132 255 80 / 6%)!important;
+  }
+    button {
+        position: absolute;
+        right: 8px;
+        height: 37px;
+        padding: 10px 26px !important;
+        width: -moz-fit-content;
+        width: fit-content;
+        top: 8px;
+        font-size: 14px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1803921569);
+    }
+}
+
+
+@media only screen and (max-width: 991px){
+    .titile-banner-bg {
+        height: 195px;
+        h4 {
+            padding-top: 32px;
+            font-size: 19px;
+        }
+    }
+    .card-title-band h5 {
+        font-size: 17px;
+    }
+    .card-white {
+        padding: 12px;
+    }
+    .m-card-white {
+        padding: 0px !important;
+    }
+    .m-p-15 {
+        padding: 12px;
+    }
+    .next-btn-band{
+        margin-bottom: 0 !important;
+        .primary-btn{
+            width: 100%;
+        }
+    }
+    .form-band {
+        .form-grid{
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group input{
+            height: 42px;
+            padding: 0 14px !important;
+        }
+        .form-group label{
+            font-size: 14px;
+            font-weight: 500;
+            color: rgb(6 12 21 / 90%);
+        }
+    }
+    .mt-m-0{
+        margin-top: 0px !important;
+    }
+    .coupon-band{
+        width: 100%;
+        input{
+            width: 100%;
+        }
+        button{
+            height: 37px;
+            padding: 0px 26px !important;
+            line-height: 37px;
+        }
+    }
+
+}
+.bottom-bar {
+    display: block !important;
+}
+.m-p-unset{
+    padding: 0px;
+}
+.m-p-8 {
+    padding: 0px 8px;
+}
+
+
+.trip-card.horizontal-trip-card {
+    display: flex;
+    border: 1px solid $border-light;
+    padding: 8px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    .img-band {
+        border-radius: 12px;
+        height: 90px !important;
+        width: 90px !important;
+        min-width: 90px !important;
+    }
+    .left-penal{
+        display: flex;
+        align-items: center;
+        .bottom-band{
+            margin-top: 0;
+            margin-left: 10px;
+            h5 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            .total-people {
+                display: block;
+                background: rgb(0 0 0 / 1%);
+                padding: 5px 8px;
+                border: 1px solid $border-dark;
+                width: fit-content;
+                font-size: 14px;
+                margin-top: 10px;
+                border-radius: 7px;
+                font-weight: 500;
+                color: rgb(6 12 21 / 80%);
+            }
+        }
+    }
+}

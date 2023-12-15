@@ -1,0 +1,561 @@
+
+<div class="main">
+   
+    <div class="bootstrap-wrapper">
+        <div class="top-step-baar">
+            <div class="m-close-btn">
+                <div class="action-title">
+                    <button class="back-btn"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                            svgIcon="vite_close"></mat-icon></button>
+                </div>
+            </div>
+            <app-trip-header [curruntStep]="curruntStep"></app-trip-header>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="(100 / totalSteps) * curruntStep"></mat-progress-bar>
+        <div class="trip-details-container mt-40">
+            <ng-container *ngIf="curruntStep === 1">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Select start dates</label>
+                        <div class="{{isDisableddate}}">
+                            <div class="start-date">
+                                <mat-form-field>
+                                    <mat-label>Start Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" (focus)="picker.open()"
+                                        (dateChange)="onDateSelection()" [formControl]="sDate" [min]="minDate" />
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="end-date">
+                                <mat-form-field>
+                                    <mat-label>End Date</mat-label>
+                                    <input matInput [matDatepicker]="picker2" (focus)="picker2.open()"
+                                        (dateChange)="onDateSelection()" [formControl]="eDate" [min]="minEndDate" />
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="divider-row">
+                            <div class="line"></div><span>Or</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="season-band">
+                            <label>Which season you are planning to visit?</label>
+                            <div class="{{isDisabled}}">
+                                <div class="row g-3">
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedSeason == 'Winter'  ? 'select-card active' : 'select-card'"
+                                            (click)="setSeason('Winter')">
+                                            <div class="icon">
+                                                <img src="assets/icons/line-winter.png">
+                                            </div>
+                                            <h5>Winter</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedSeason == 'Spring'  ? 'select-card active' : 'select-card'"
+                                            (click)="setSeason('Spring')">
+                                            <div class="icon">
+                                                <img src="assets/icons/line-spring.png">
+                                            </div>
+                                            <h5>Spring</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedSeason == 'Summer'  ? 'select-card active' : 'select-card'"
+                                            (click)="setSeason('Summer')">
+                                            <div class="icon">
+                                                <img src="assets/icons/line-summer.png">
+                                            </div>
+                                            <h5>Summer</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedSeason == 'Fall'  ? 'select-card active' : 'select-card'"
+                                            (click)="setSeason('Fall')">
+                                            <div class="icon">
+                                                <img src="assets/icons/line-fall.png">
+                                            </div>
+                                            <h5>Fall</h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>
+            <ng-container *ngIf="curruntStep === 2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>How many days will your trip be ?</label>
+                        <div class="days-band">
+                            <div class="counter-box">
+                                <div class="info-text">Number of days</div>
+                                <mat-form-field>
+                                    <div class="counter-form">
+                                        <button class="disabled" mat-button mat-icon-button matPrefix
+                                            aria-label="Remove" (click)="incrementValue(-_step)">
+                                            <img class="count" src="assets/icons/remove.svg">
+                                        </button>
+                                        <input matInput type="number" [(ngModel)]="_value" readonly />
+                                        <button mat-button mat-icon-button matSuffixaria-label="Add"
+                                            (click)="incrementValue(_step)">
+                                            <img class="count" src="assets/icons/add.svg">
+                                        </button>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="travel-group-type-band mt-30">
+                            <label>Select your travel group type.</label>
+                            <div class="select-box">
+                                <div class="row g-3">
+                                    <div class="col-4 col-md-3">
+                                        <div class="text-center"
+                                            (click)="showDiv.previous = false;showDiv.current = false;showDiv.next = false">
+                                            <div [ngClass]="selectedPeoplevalue == 'single'  ? 'select-card active' : 'select-card'"
+                                                (click)="setPeople('single')">
+
+                                                <div class="icon">
+                                                    <img src="assets/icons/single.png">
+                                                </div>
+                                                <h5>Single</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="text-center"
+                                            (click)="showDiv.previous = false;showDiv.current = false;showDiv.next = false">
+                                            <div [ngClass]="selectedPeoplevalue == 'couple'  ? 'select-card active' : 'select-card'"
+                                                (click)="setPeople('couple')">
+
+                                                <div class="icon">
+                                                    <img src="assets/icons/couple.png">
+                                                </div>
+                                                <h5>Couple</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="text-center"
+                                            (click)="showDiv.previous = true;showDiv.current = false;showDiv.next = false">
+                                            <div [ngClass]="selectedPeoplevalue == 'family'  ? 'select-card active' : 'select-card'"
+                                                (click)="setPeople('family')">
+
+                                                <div class="icon">
+                                                    <img src="assets/icons/family.png">
+                                                </div>
+                                                <h5>Family</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div class="text-center"
+                                            (click)="showDiv.previous = true;showDiv.current = false;showDiv.next = false">
+                                            <div [ngClass]="selectedPeoplevalue == 'group'  ? 'select-card active' : 'select-card'"
+                                                (click)="setPeople('group')">
+
+                                                <div class="icon">
+                                                    <img src="assets/icons/group.png">
+                                                </div>
+                                                <h5>Group</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="showDiv.previous == true" class="travelers-count-band">
+                            <div class="travelers-count-box">
+                                <div class="text-band">
+                                    <h6>Adults</h6>
+                                    <div class="info-text">Older 12 years</div>
+                                </div>
+                                <mat-form-field>
+                                    <div class="counter-form">
+                                        <button class="disabled" mat-button mat-icon-button matPrefix
+                                            aria-label="Remove" (click)="incrementValueadult(-_step)">
+                                            <img class="count" src="assets/icons/remove.svg">
+                                        </button>
+                                        <input matInput type="number" [(ngModel)]="_familyAdults"  readonly/>
+                                        <button mat-button mat-icon-button matSuffixaria-label="Add"
+                                            (click)="incrementValueadult(_step)">
+                                            <img class="count" src="assets/icons/add.svg">
+                                        </button>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                            <div class="travelers-count-box">
+                                <div class="text-band">
+                                    <h6>Children</h6>
+                                    <div class="info-text">Less than 12 years</div>
+                                </div>
+                                <mat-form-field>
+                                    <div class="counter-form">
+                                        <button class="disabled" mat-button mat-icon-button matPrefix
+                                            aria-label="Remove" (click)="incrementValuechildren(-_step)">
+                                            <img class="count" src="assets/icons/remove.svg">
+                                        </button>
+                                        <input matInput type="number" [(ngModel)]="_familyChildren" readonly/>
+                                        <button mat-button mat-icon-button matSuffixaria-label="Add" 
+                                            (click)="incrementValuechildren(_step)" readonly>
+                                            <img class="count" src="assets/icons/add.svg">
+                                        </button>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </ng-container>
+            <!-- <ng-container *ngIf="curruntStep === 3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="action-title">
+                            <button class="back-btn "><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_back-outline"></mat-icon></button> <label>Choose your interests</label>
+                        </div>
+                        <div class="interest-band">
+                            <div class="chips-card">
+                                <mat-chip-listbox aria-label="Fish selection">
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/historical.png"></div>Historical</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/nature.png"></div>Nature</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/art.png"></div> Art</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/entertainment.png"></div>Entertainment</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/adventure.png"></div>Adventure</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/food.png"></div>Food</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/outdoors.png"></div>Outdoors</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/shoping.png"></div>shopping</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/outdoors.png"></div>Outdoors</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/museum.png"></div>Museums</mat-chip-option>
+                                    <mat-chip-option><div class="icon"><img src="assets/icons/gem.png"></div>Hidden Gems</mat-chip-option>
+                                </mat-chip-listbox>
+                            </div>
+                        </div>
+                        <div class="sub-interest-band">
+                            <div class="interest-band">
+                                <div class="chips-card">
+                                    <mat-chip-listbox aria-label="Fish selection">
+                                        <mat-chip-option selected><div class="icon"><img src="assets/icons/shoping.png"></div>shopping</mat-chip-option>
+                                    </mat-chip-listbox>
+                                </div>
+                            </div>
+                            <div class="chips-card sub-chips-card mt-15">
+                                <mat-chip-listbox aria-label="Fish selection">
+                                    <mat-chip-option>groceries</mat-chip-option>
+                                    <mat-chip-option>electronics</mat-chip-option>
+                                    <mat-chip-option>clothing</mat-chip-option>
+                                    <mat-chip-option>Books and Reading</mat-chip-option>
+                                    <mat-chip-option>Toys</mat-chip-option>
+                                    <mat-chip-option>Games</mat-chip-option>
+                                    <mat-chip-option>Cosmetics</mat-chip-option>
+                                    <mat-chip-option>Stationery</mat-chip-option>
+                                    <mat-chip-option>Health and Wellness</mat-chip-option>
+                                    <mat-chip-option>Sports Equipment</mat-chip-option>
+                                </mat-chip-listbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </ng-container> -->
+            <ng-container *ngIf="curruntStep === 3">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- <label>Choose your interests</label> -->
+                        <div class="action-title">
+                            <button class="back-btn" *ngIf="selectcategoryhideshow == true"
+                                (click)="backcategory()"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                                    svgIcon="vite_back-outline"></mat-icon></button>
+                            <label>Choose your interests</label>
+                        </div>
+                        <div class="interest-band" *ngIf="selectcategoryhideshow != true">
+                            <div class="chips-card">
+                                <mat-chip-listbox aria-label="Fish selection">
+                                    <mat-chip-option  
+                                     *ngFor="let cat of categories"  (click)="selectCategory(cat)" 
+                                     [class.custom-active-class]="isSelectedCategory(cat)" 
+                                    >
+                                        <div class="icon"><img src={{cat.category_icon}}></div>{{cat.category_name}}
+                                    </mat-chip-option>
+
+                                </mat-chip-listbox>
+                            </div>
+                        </div>
+                        <div *ngIf="selectcategoryhideshow == true">
+                            <div class="sub-interest-band" *ngIf="!!selectedCategory">
+                                <div class="interest-band">
+                                    <div class="chips-card">
+                                        <mat-chip-listbox aria-label="Fish selection">
+                                            <mat-chip-option>
+                                                <div class="icon"><img src={{selectedCategory.category_icon}}></div>
+                                                {{selectedCategory.category_name}}
+                                            </mat-chip-option>
+                                        </mat-chip-listbox>
+                                    </div>
+                                </div>
+                                <div class="chips-card sub-chips-card mt-15 sub-catg-band">
+                                    <ul class="multi-chips-list">
+                                        <li [class.custom-active-class]="isSelected(item)"
+                                            [class.custom-inactive-class]="!isSelected(item)"
+                                            (click)="selectSubCategory(item)"
+                                            *ngFor="let item of showSubCategories">{{item.category_name}}</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </ng-container>
+            <ng-container *ngIf="curruntStep === 4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="budget-band">
+                            <label>What is your budget?</label>
+                            <div class="select-box g-3">
+                                <div class="row">
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedBudget == '$$$'  ? 'select-card active' : 'select-card'"
+                                            (click)="setBudget1('$$$')">
+                                            <div class="icon">
+                                                <img src="assets/icons/budget-3.png">
+                                            </div>
+                                            <h5 class="font-18">$$$</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedBudget == '$$$$'  ? 'select-card active' : 'select-card'"
+                                            (click)="setBudget2('$$$$')">
+                                            <div class="icon">
+                                                <img src="assets/icons/budget-4.png">
+                                            </div>
+                                            <h5 class="font-18">$$$$</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedBudget == '$$$$$'  ? 'select-card active' : 'select-card'"
+                                            (click)="setBudget3('$$$$$')">
+                                            <div class="icon">
+                                                <img src="assets/icons/budget-5.png">
+                                            </div>
+                                            <h5 class="font-18">$$$$$</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedBudget == 'Advance'  ? 'select-card active' : 'select-card'"
+                                            (click)="setBudget('Advance')">
+                                            <div class="icon">
+                                                <img src="assets/icons/advance-budget.png">
+                                            </div>
+                                            <h5>Advance</h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="advance-budget-band" *ngIf="progreessshow != false">
+                            <div class="budget-slider">
+                                
+                                <div class="budet-slider-band">
+                                    <div class=""><h5>Hotel</h5></div>
+                                    <mat-card class="example-result-card">
+                                          <mat-slider
+                                              class="example-margin"
+                                              [disabled]="disabled"
+                                              [max]="max1"
+                                              [min]="min1"
+                                              [step]="step1"
+                                              [discrete]="thumbLabel"
+                                              [showTickMarks]="showTicks">
+                                            <input matSliderThumb [(ngModel)]="value" #slider (change)="onSliderChange($event)">
+                                          </mat-slider>
+                                    </mat-card>
+                                    <div class="steps-value">
+                                        <ul>
+                                            <li class="steps-value-list one"><a href="#">$</a></li>
+                                            <li class="steps-value-list two"><a href="#">$$</a></li>
+                                            <li class="steps-value-list three"><a href="#">$$$</a></li>
+                                            <li class="steps-value-list four"><a href="#">$$$$</a></li>
+                                        </ul>
+                                    </div>
+                                </div>   
+                                <div class="budet-slider-band">
+                                    <div class=""><h5>Flight</h5></div>
+                                    <mat-card class="example-result-card">
+                                          <mat-slider
+                                              class="example-margin"
+                                              [disabled]="disabled"
+                                              [max]="max1"
+                                              [min]="min1"
+                                              [step]="step1"
+                                              [discrete]="thumbLabel"
+                                              [showTickMarks]="showTicks">
+                                            <input matSliderThumb [(ngModel)]="value1" #slider (change)="onSliderChangeFlight($event)">
+                                          </mat-slider>
+                                    </mat-card>
+                                    <div class="steps-value">
+                                        <ul>
+                                            <li class="steps-value-list one"><a href="#">$</a></li>
+                                            <li class="steps-value-list two"><a href="#">$$</a></li>
+                                            <li class="steps-value-list three"><a href="#">$$$</a></li>
+                                            <li class="steps-value-list four"><a href="#">$$$$</a></li>
+                                        </ul>
+                                    </div>
+                                </div>   
+                                <div class="budet-slider-band">
+                                    <div class=""><h5>Ticket</h5></div>
+                                    <mat-card class="example-result-card">
+                                          <mat-slider
+                                              class="example-margin"
+                                              [disabled]="disabled"
+                                              [max]="max1"
+                                              [min]="min1"
+                                              [step]="step1"
+                                              [discrete]="thumbLabel"
+                                              [showTickMarks]="showTicks">
+                                            <input matSliderThumb [(ngModel)]="value2" #slider (change)="onSliderChangeTicket($event)">
+                                          </mat-slider>
+                                    </mat-card>
+                                    <div class="steps-value">
+                                        <ul>
+                                            <li class="steps-value-list one"><a href="#">$</a></li>
+                                            <li class="steps-value-list two"><a href="#">$$</a></li>
+                                            <li class="steps-value-list three"><a href="#">$$$</a></li>
+                                            <li class="steps-value-list four"><a href="#">$$$$</a></li>
+                                        </ul>
+                                    </div>
+                                </div>                        
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </ng-container>
+            <ng-container *ngIf="curruntStep === 5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="transport-band">
+                            <label class="line-height-22">Preferred mode of transport during the trip.</label>
+                            <div class="select-box">
+                                <div class="row g-3">
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedTransType == 'Taxi'  ? 'select-card active' : 'select-card'"
+                                            (click)="setTransportationType('Taxi')">
+                                            <div class="icon">
+                                                <img src="assets/icons/taxi.png">
+                                            </div>
+                                            <h5>Taxi</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedTransType == 'Public transport'  ? 'select-card active' : 'select-card'"
+                                            (click)="setTransportationType('Public transport')">
+                                            <div class="icon">
+                                                <img src="assets/icons/public-transport.png">
+                                            </div>
+                                            <h5>Public transport</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedTransType == 'By Cars'  ? 'select-card active' : 'select-card'"
+                                            (click)="setTransportationType('By Cars')">
+                                            <div class="icon">
+                                                <img src="assets/icons/cars.png">
+                                            </div>
+                                            <h5>By Cars</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedTransType == 'By Walk'  ? 'select-card active' : 'select-card'"
+                                            (click)="setTransportationType('By Walk')">
+                                            <div class="icon">
+                                                <img src="assets/icons/walk.png">
+                                            </div>
+                                            <h5>By Walk</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="transport-band mt-30">
+                            <label class="line-height-22">How would you like to reach your destination?</label>
+                            <div class="select-box">
+                                <div class="row g-3">
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedDestTransType == 'ByFlight'  ? 'select-card active' : 'select-card'"
+                                            (click)="setDestTransportationType('ByFlight')">
+                                            <div class="icon">
+                                                <img src="assets/icons/flight.png">
+                                            </div>
+                                            <h5>By Flight</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedDestTransType == 'ByCar'  ? 'select-card active' : 'select-card'"
+                                            (click)="setDestTransportationType('ByCar')">
+                                            <div class="icon">
+                                                <img src="assets/icons/my-car.png">
+                                            </div>
+                                            <h5>My Car</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3">
+                                        <div [ngClass]="selectedDestTransType == 'ByPublic'  ? 'select-card active' : 'select-card'"
+                                            (click)="setDestTransportationType('ByPublic')">
+                                            <div class="icon">
+                                                <img src="assets/icons/public-transport-2.png">
+                                            </div>
+                                            <h5>Public transport</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </ng-container>
+        </div>
+
+
+
+        <div class="step-actions">
+            <button class="secondary-btn mr-15" *ngIf="curruntStep !== 1" (click)="previus()"><mat-icon
+                    aria-hidden="false" aria-label="Example home svg"
+                    svgIcon="vite_back-outline"></mat-icon>Back</button>
+                    <button class="primary-btn next-btn" *ngIf="selectcategoryhideshow == true" selectcategoryhideshow (click)="Subcategorysave()">Save <mat-icon
+                        aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+            <button class="primary-btn next-btn" *ngIf="selectcategoryhideshow != true" (click)="next()">Next <mat-icon
+                    aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+        </div>
+    </div>
+</div>
+

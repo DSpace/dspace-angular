@@ -1,0 +1,70 @@
+@import 'src/scss/variables';
+.mat-mdc-tab-labels {
+    background-color: #00000012;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 63px;
+}
+.trip-action-box.fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    max-width: 58.3%;
+    top: 95px;
+    border-radius: 0;
+}
+.trip-action-box.fixed .titile-band {
+    display: none;
+}
+.trip-action-box.fixed{
+    position: fixed;
+    left: 0;
+    right: 0;
+    max-width: 58.3%;
+    top: 94px;
+    border-radius: 0;
+    transition: all 0.1s;
+}
+.action-btn {
+    display: flex;
+    .icon {
+        position: absolute;
+        background-color: $primary;
+        padding: 10px;
+        border-radius: 29px;
+        left: -9px;
+        top: -5px;
+        z-index: 99;
+        width: 45px;
+        height: 45px;
+    }
+    .book-btn{
+        position: relative;
+    }
+    .booking-btn {
+        position: relative;
+        height: 37px;
+        padding-left: 44px;
+        width: fit-content;
+    }
+    .booking-btn.outline {
+        background-color: transparent;
+        color: $text;
+        font-weight: 600;
+        border: 1px solid rgb(6 12 21 / 17%);
+    }
+    .book-btn.outline-book .icon mat-icon svg path {
+        fill: #84FF50!important;
+    }
+    .book-btn.outline-book .mat-icon {
+        width: 19px;
+    }
+    .book-btn.outline-book .icon {
+        left: 5px;
+        width: 30px;
+        height: 30px;
+        top: 4px;
+        background-color: $text;
+        padding: 3px 6px;
+    }
+}

@@ -1,0 +1,84 @@
+
+@import 'src/scss/variables';
+
+.trip-card {
+    margin-bottom: 30px;
+    background-color: $white;
+    padding: 0px;
+    border: 1px solid $border-light;
+    border-radius: 18px;
+    box-shadow: 0px 10px 30px rgb(0 0 0 / 4%);
+    .img-band {
+        height: 150px;
+        &:before {
+            background: (179deg, rgb(6 12 21 / 21%), rgb(6 12 21 / 49%)) !important;
+        }
+    }
+    .titile {
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
+    .user {
+        width: 31px;
+        height: 31px;
+        min-width: 31px;
+    }
+    .bottom-band {
+        margin-top: 15px;
+        padding: 0px 8px 8px 8px;
+    }
+    .trips-menu-band button {
+        border-radius: 32px;
+        height: 30px;
+        width: 30px;
+        min-width: 30px;
+    }
+}
+
+.ticket-status-card {
+    position: absolute;
+    bottom: 12px;
+    left: 10px;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
+    z-index: 1;
+    .ticket-btn {
+        display: flex;
+        align-items: center;
+        background-color: $white;
+        padding: 5px 5px;
+        border-radius: 39px;
+        font-size: 14px;
+        font-weight: 600;
+        p {
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            margin: 0px 6px;
+            color: #000;
+        }
+    }
+    .round-box {
+        width: 26px;
+        height: 26px;
+        background-color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 38px;
+        img {
+            width: 18px!important;
+        }
+    }
+}
+
+.pending .round-box{
+    background-color: #F5D15A !important;
+}
+.success .round-box{
+    background-color: $primary !important;
+}
+.manually .round-box{
+    background-color: $text !important;
+}

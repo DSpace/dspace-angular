@@ -1,0 +1,74 @@
+
+
+<div class="slide_left-baar">
+    <div class="model-box">
+        <form [formGroup]="card">
+        <a class="model-close" (click)="close()">
+            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_close-outline"></mat-icon>
+        </a>
+        <div class="model-title-band">
+            <h4>Add New Card</h4>
+        </div>
+        <div class="model-content-band">
+           <div class="add-card-band">
+                <div class="form-band mt-25 input-48">
+                    <div class="row g-3">
+                        <div class="col-md-12 m-p-8">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" required="required" autocomplete="off" placeholder="9817 0000 0000 0000" formControlName="card_number" (input)="onCardNumberInput($event)"  />
+                                <div class="error-message" *ngIf="submitted && card.get('card_number').errors?.required" @fadeIn @fadeOut>
+                                    *Required!
+                                </div>
+                                <div class="error-message" *ngIf="card.get('card_number').errors?.pattern" @fadeIn @fadeOut>
+                                    *Card number not Valid!
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <div class="col-md-6 mt-0">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" placeholder="MM/YY" formControlName="expiry_date" (input)="onExpiryDateInput($event)" />
+                                <!-- <mat-error class="tooltrip-message-box alert-box" *ngIf="submitted && card.get('expiry_date').errors?.required" @fadeIn @fadeOut>
+                                    <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_alert-msg"></mat-icon>  *Required!
+                                </mat-error> -->
+                                <div class="error-message" *ngIf="submitted && card.get('expiry_date').errors?.required" @fadeIn @fadeOut>
+                                    *Required!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-0">
+                            <div class="form-group">
+                                <label>CVC/CVV</label>
+                                <input type="number" placeholder="Enter CVC/CVV" formControlName="cvv" (input)="onCVVInput($event)"/>
+                                <div class="error-message" *ngIf="submitted && card.get('cvv').errors?.required" @fadeIn @fadeOut>
+                                    *Required!
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-12 mt-m-0 m-p-8">
+                            <div class="form-group mb-0">
+                                <label>Card Holder Name</label>
+                                <input type="text" placeholder="Enter Cardholder’s Full Name" formControlName="card_holder_name" (input)="onNameInput($event)" />
+                                <!-- <mat-error class="tooltrip-message-box alert-box" *ngIf="submitted && card.get('card_holder_name').errors?.required" @fadeIn @fadeOut>
+                                    <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_alert-msg"></mat-icon>  *Required!
+                                </mat-error> -->
+                                <div class="error-message" *ngIf="submitted && card.get('card_holder_name').errors?.required" @fadeIn @fadeOut>
+                                    *Required!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+           </div>
+        </div>
+
+        <div class="model-action">
+            <button class="primary-btn" (click)="saveCard()">Save</button>
+        </div>
+    </form>
+    </div>
+</div>

@@ -1,0 +1,340 @@
+@import 'src/scss/variables';
+
+.main {
+    background: $body-bg;
+}
+
+// notifications
+.white-card {
+    background-color: $white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid $border-light;
+    box-shadow: 0px 10px 30px rgb(0 0 0 / 4%);
+}
+.people-list-band{
+    .info-band{
+        margin-left: 12px;
+        width: 100%;
+    }
+    li{
+        .top-band {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            .user-info-band {
+                float: left;
+                display: flex;
+                align-items: flex-start;
+                width: 100%;
+                .text-band {
+                    font-size: 15px;
+                    margin: 0;
+                    line-height: 20px;
+                    color: rgb(6 12 21 / 80%);
+                    font-weight: 500;
+                    a {
+                        color: $text;
+                        font-weight: 600;
+                    }
+                }
+                
+            }
+            .time-action {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                min-width: auto;
+                span {
+                    font-size: 14px;
+                    color: rgb(6 12 21 / 60%);
+                }
+               mat-icon {
+                    width: 18px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+
+.primary-small-btn{
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid $border-dark;
+    padding: 8px 17px!important;
+    color: $text;
+    font-weight: 500;
+    height: 36px;
+    width: fit-content;
+    font-size: 14px;
+    mat-icon {
+        margin-right: 8px;
+        width: 18px;
+    }
+}
+.fill{
+    background: $text !important;
+    color: $white;
+}
+
+
+.primary-small-btn:hover {
+    border-color: $text;
+    transition: all 0.5s;
+}
+
+
+.message-box-action{
+    .trip-card {
+        border: 1px solid $border-light;
+        width: fit-content;
+        padding: 6px;
+        border-radius: 15px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 10px 30px #0000000a;
+        background-color: $white;
+        margin-bottom: 0px;
+        .left-penal {
+            display: flex;
+            align-items: center;
+            margin-right: 35px;
+            .img-band {
+                display: flex;
+                width: 80px;
+                height: 80px;
+                border-radius: 12px;
+                overflow: hidden;
+                min-width: 80px;
+                min-height: 80px !important;
+                max-height: 80px !important;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            } 
+        }
+        .bottom-band {
+            margin-left: 12px;
+            margin-top: 0 !important;
+            h5 {
+                font-size: 16px;
+            }
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+}
+
+.people-list-band li:hover {
+    border-radius: 10px;
+    background-color: $border-dark;
+    transition: all 0.5s;
+}
+.people-list-band li:last-child {
+    border-bottom: 1px solid #0000;
+}
+.people-list-band li:last-child {
+    border-bottom: 1px solid #0000;
+    &:hover {
+        border-bottom: 1px solid $border-light;
+    }
+}
+.people-list-band li {
+    padding: 16px 10px;
+    margin-bottom: 0;
+    border-radius: 0px;
+    border-bottom: 1px solid $border-light;
+    border-top: 1px solid #eee0;
+    border-right: 1px solid #eee0;
+    border-left: 1px solid #eee0;
+    &:hover {
+        border-radius: 10px;
+        background-color: #f7f7f761;
+        transition: all 0.5s;
+        border-top: 1px solid $border-light;
+        border-right: 1px solid $border-light;
+        border-left: 1px solid $border-light;
+    }
+}
+
+.action-band {
+    display: flex;
+}
+.green {
+    background-color: rgb(132 255 80 / 29%) !important;
+}
+.red {
+    background-color: rgb(255 167 167 / 45%) !important;
+}
+
+.trip-card:hover {
+    transform: scale(1.02);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.message-text p.text-band {
+    float: left;
+}
+.message-text {
+    display: inline-block;
+    width: 100%;
+}
+.message-text span {
+    float: right;
+    text-align: right;
+    font-size: 14px;
+    color: rgb(6 12 21 / 60%);
+    margin-top: 5px;
+}
+
+@media only screen and (max-width: 1199px){
+    .people-list-band li .top-band .user-info-band .text-band {
+        width: 100% !important;
+    }
+    .message-text span{
+        float: left;
+        color: rgba(6, 12, 21, 0.6);
+        margin-top: 9px;
+        font-weight: 500;
+    }
+}
+
+@media only screen and (max-width: 991px){
+.message-box-action .trip-card {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    .action-band{
+            display: inline-block !important;
+            padding: 8px 0px 0px;
+            margin-top: 10px;
+            border-top: 1px solid $border-light;
+            width: 100%;
+        button{
+            float: left;
+        }
+    }
+    .left-penal{
+        margin-right: unset;
+        width: 100%;
+    }
+    }
+    .primary-small-btn{
+        margin-bottom: 4px;
+    }
+
+}
+
+
+@media only screen and (max-width: 767px){
+    .white-card{
+        padding: 6px;
+    }
+.people-list-band{
+    .info-band{
+        margin-left: 10px;
+        width: 100%;
+    }
+    
+    li{
+        padding: 12px 6px;
+        .top-band {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            .user-info-band {
+                float: left;
+                display: flex;
+                align-items: flex-start;
+                .text-band {
+                    font-size: 14px;
+                    a {
+                        color: $text;
+                        font-weight: 600;
+                        font-size: 14px;
+                    }
+                }
+                
+            }
+            .time-action {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                span {
+                    font-size: 14px;
+                    color: rgb(6 12 21 / 60%);
+                }
+               mat-icon {
+                    width: 18px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+
+.message-box-action{
+    .trip-card {
+        border: 1px solid $border-light;
+        width: 100%;
+        padding: 6px;
+        border-radius: 15px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 10px 30px #0000000a;
+        background-color: $white;
+        margin-bottom: 0px;
+        .left-penal {
+            display: flex;
+            align-items: center;
+            .img-band {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+                min-height: 60px !important;
+                max-height: 60px !important;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            } 
+        }
+        .bottom-band {
+            margin-left: 12px;
+            margin-top: 0 !important;
+            h5 {
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 136px;
+            }
+            p {
+                margin-bottom: 0;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 13px;
+                margin-bottom: 0;
+                margin-left: 0;
+                margin-top: 0;
+            }
+        }
+    }
+
+}
+
+}

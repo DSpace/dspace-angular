@@ -1,0 +1,12 @@
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    .form-group {
+        width: 100%;
+        margin-right: 15px;
+    }
+    .form-group:last-child {
+        margin-right: 0px;
+    }
+}

@@ -1,0 +1,24 @@
+
+<div class="model-box">
+    <a (click)="close()" class="close-model">
+        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_close-outline"></mat-icon>
+    </a>
+
+    <div class="clipart-bg">
+        <img src="assets/image/red-clipart-bg.jpg">
+    </div>
+    <div class="model-content-band">
+        <div class="icon-band ">
+            <img src="assets/icons/trip-cancel-white.svg">
+        </div>
+        <div class="text-band">
+            <h4>Cancel Trips</h4>
+            <p>Are You Sure You Want to Cancel this trip</p>
+        </div>
+        <div class="model-action model-action-relative">
+            <button type="button" class="primary-btn" routerLink="/cancel-trip-details" (click)="close()">yes</button>
+            <button type="button" class="primary-btn outline" (click)="close()">No</button>
+        </div>
+    </div>
+</div>
+

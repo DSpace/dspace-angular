@@ -1,0 +1,103 @@
+<div class="main mt-0 pb-0">
+    <div class="bootstrap-wrapper">
+
+        <div class="login-section login-bg m-login-section signup-band">
+            <div class="action-title m-login-back">
+                <button class="back-btn"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                        svgIcon="vite_back-outline"></mat-icon></button>
+            </div>
+            <div class="left-penal">
+                <div class="text-box">
+                    <div class="logo-band">
+                        <img src="assets/image/logo-white.svg">
+                    </div>
+                    <h2>Welcome to TripsOn</h2>
+                    <p class="m-titile-text">Enter your credentials to access your account.</p>
+                    <p class="des-titile-text">We,re excited to help you plan your dream vactions and unforgettable
+                        adventures once you create your first travel plan, it will appear here for easy access and
+                        organization.</p>
+                </div>
+            </div>
+
+            <div class="right-penal">
+                <div class="login-card">
+                    <div class="clipart-bg">
+                        <img src="assets/image/green-clipart-bg.jpg">
+                    </div>
+                    <div class="login-band">
+                        <div class="action-title des-login-back">
+                            <button class="back-btn" routerLink="/login"><mat-icon aria-hidden="false"
+                                    aria-label="Example home svg" svgIcon="vite_back-outline"></mat-icon></button>
+                        </div>
+                        <div class="titile-band">
+                            <h4>Create Your Account</h4>
+                            <p>Enter The field below to get started.</p>
+                        </div>
+                        <div class="soical-login-band">
+                            <button class="" (click)="loginWithFacebook()"><img src="assets/icons/gmail-login.png">Sign Up With Google</button>
+                            <button class=""><img src="assets/icons/facebook-login.png">Sign Up With Facebook</button>
+                        </div>
+                        <div class="divider-row">
+                            <div class="line"></div><span>Or</span>
+                        </div>
+                        <div class="form-band">
+                            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" required="required" autocomplete="off" placeholder="Enter Your Frist name" formControlName="first_name" />
+                                        <mat-error class="tooltrip-message-box alert-box" *ngIf="submitted && registerForm.get('first_name').errors?.required" @fadeIn @fadeOut>
+                                            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_alert-msg"></mat-icon>  *Required!
+                                        </mat-error>
+                                    </div>
+                                    <!-- <div class="error-message" *ngIf="registerForm.get('first_name').hasError('first_name')">
+                                        First Name is required.
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" required="required" autocomplete="off" placeholder="Enter Your Last name" formControlName="last_name" />
+                                        <mat-error class="tooltrip-message-box alert-box" *ngIf="submitted && registerForm.get('last_name').errors?.required" @fadeIn @fadeOut>
+                                            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_alert-msg"></mat-icon>  *Required!
+                                        </mat-error>
+                                    </div>
+                                    <!-- <div class="error-message" *ngIf="registerForm.get('last_name').hasError('last_name')">
+                                        Last Name is required.
+                                    </div> -->
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" required="required" autocomplete="off" placeholder="Enter Your Email" formControlName="email"  required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                                    <mat-error class="tooltrip-message-box alert-box" *ngIf="submitted && registerForm.get('email').errors?.required" @fadeIn @fadeOut>
+                                        <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_alert-msg"></mat-icon>  *Required!
+                                    </mat-error>
+                                    <mat-error class="tooltrip-message-box warning-box" *ngIf="submitted && registerForm.get('email').errors?.pattern" @fadeIn @fadeOut>
+                                            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_warning-msg"></mat-icon> *Please Enter Valid Email
+                                    </mat-error>
+                                </div>
+                                <!-- <div class="error-message" *ngIf="registerForm.get('email').hasError('email')">
+                                    Invalid email format.
+                                </div> -->
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" required="required" autocomplete="off" placeholder="Enter Your Password"
+                                        formControlName="password" required />
+                                        <mat-error class="invalid-feedback tooltrip-message-box alert-box" *ngIf="submitted && registerForm.get('password').errors?.required " @fadeIn @fadeOut>
+                                            <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_alert-msg"></mat-icon> *Required!
+                                          </mat-error>
+                                    <!-- <div class="error-message" *ngIf="registerForm.get('password').hasError('password')">
+                                        Password is required.
+                                    </div> -->
+                                </div>
+                                <div class="form-action">
+                                    <button type="submit" class="primary-btn">Sign up</button>
+                                    <p>Already have an account?<a routerLink="/login">Sign In</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

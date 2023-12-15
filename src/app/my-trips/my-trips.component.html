@@ -1,0 +1,205 @@
+<div class="main mt-0">
+  <div class="bootstrap-wrapper">
+    <div class="container">
+      <div class="main-title-band d-flex align-items-center justify-content-between">
+        <h4>My Trips</h4>
+        <div class="titile-btn">
+          <button class="primary-btn W-fit-content d-flex align-items-center" type="button" routerLink="/home">
+            <div class="round-icon"><mat-icon aria-hidden="false" aria-label="Example home svg"
+                svgIcon="vite_add-outline"></mat-icon></div><span class="btn-text">Plan new trip</span>
+          </button>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let item of mytrip">
+          <div class="trip-card" (click)="activityClick(item)">
+            <div class="img-band">
+              <img src="assets/image/vancouver.jpg" alt="vancouver">
+              <div class="trips-menu-band">
+                <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false"
+                    aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                  <!-- <button mat-menu-item>Delete</button> -->
+                  <ul>
+                    <li><mat-icon aria-hidden="false" aria-label="Example home svg"
+                        svgIcon="vite_delete"></mat-icon>Delete</li>
+                    <li><mat-icon aria-hidden="false" aria-label="Example home svg"
+                        svgIcon="vite_share"></mat-icon>Share</li>
+                  </ul>
+                </mat-menu>
+              </div>
+              <div class="ticket-status-card">
+                <span class="ticket-btn pending" *ngIf="item.status == 1">
+                  <div class="round-box">
+                    <img src="assets/icons/pending-ticket.svg">
+                  </div>
+                  <p>Status Pending</p>
+                </span>
+                <span class="ticket-btn pending" *ngIf="item.status == 3">
+                  <div class="round-box">
+                    <img src="assets/icons/pending-ticket.svg">
+                  </div>
+                  <p>Status In-Progress</p>
+                </span>
+                <span class="ticket-btn cancel" *ngIf="item.status == 4">
+                  <div class="round-box"><img src="assets/icons/cancel-fill.svg"></div>
+                  <p>Status Cancel</p>
+                </span>
+                <span class="ticket-btn manually" *ngIf="item.status == 2">
+                  <div class="round-box"><img src="assets/icons/manually.svg"></div>
+                  <p>Manually</p>
+                </span>
+
+              </div>
+            </div>
+            <div class="bottom-band " routerLink="/pending-trip-details">
+              <h5 class="titile">Trip To {{item.search_term.destination}}</h5>
+              <div class="trip-days-date">
+                <div class="user-trip-info">
+                  <div class="user">
+                    <span class="user-name">{{getFirstLetter(first_name)}}</span>
+                  </div>
+                  <p class="days">{{item.search_term.trip_days}} days With {{item.search_term.group_type}}</p>
+                </div>
+                <!-- <span class="trip-date">02 Aug,23</span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                    <div class="trip-card" >
+                        <div class="img-band">
+                          <img src="assets/image/vancouver.jpg" alt="vancouver">
+                          <div class="trips-menu-band">
+                            <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                            <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                               <button mat-menu-item>Delete</button> 
+                              <ul>
+                                <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>Delete</li>
+                                <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                              </ul>
+                            </mat-menu>
+                          </div>
+                          <div class="ticket-status-card ">
+                             <span class="ticket-btn success"><div class="round-box"><img src="assets/icons/tripon-ticket.svg"></div> <p>Booked By TripsOn</p></span>
+                          </div>
+                        </div>
+                        <div class="bottom-band" routerLink="/confirm-trip-details">
+                          <h5 class="titile">Trip To Vancouver</h5>
+                          <div class="trip-days-date">
+                            <div class="user-trip-info">
+                              <div class="user">
+                                <span class="user-name">J</span>
+                              </div>
+                              <p class="days">7 days With Family</p>
+                            </div>
+                            <span class="trip-date">05 Aug,23</span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <div class="trip-card" >
+                      <div class="img-band">
+                        <img src="assets/image/vancouver.jpg" alt="vancouver">
+                        <div class="trips-menu-band">
+                          <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                          <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                            <button mat-menu-item>Delete</button>
+                            <ul>
+                              <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>Delete</li>
+                              <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                            </ul>
+                          </mat-menu>
+                        </div>
+                        <div class="ticket-status-card ">
+                           <span class="ticket-btn cancel"><div class="round-box"><img src="assets/icons/cancel-fill.svg"></div> <p>Status Cancel</p></span>
+                        </div>
+                      </div>
+                      <div class="bottom-band" routerLink="/cancel-trip-details">
+                        <h5 class="titile">Trip To Vancouver</h5>
+                        <div class="trip-days-date">
+                          <div class="user-trip-info">
+                            <div class="user">
+                              <span class="user-name">J</span>
+                            </div>
+                            <p class="days">7 days With Family</p>
+                          </div>
+                          <span class="trip-date">02 Aug,23</span>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <div class="trip-card">
+                      <div class="img-band">
+                        <img src="assets/image/vancouver.jpg" alt="vancouver">
+                        <div class="trips-menu-band">
+                          <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                          <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                           <button mat-menu-item>Delete</button> 
+                            <ul>
+                              <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>Delete</li>
+                              <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                            </ul>
+                          </mat-menu>
+                        </div>
+                        <div class="ticket-status-card">
+                           <span class="ticket-btn manually"><div class="round-box"><img src="assets/icons/manually.svg"></div> <p>Manually</p></span>
+                        </div>
+                      </div>
+                      <div class="bottom-band">
+                        <h5 class="titile">Trip To Vancouver</h5>
+                        <div class="trip-days-date">
+                          <div class="user-trip-info">
+                            <div class="user">
+                              <span class="user-name">J</span>
+                            </div>
+                            <p class="days">7 days With Family</p>
+                          </div>
+                          <span class="trip-date">02 Aug,23</span>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+               <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                    <div class="trip-card">
+                        <div class="img-band">
+                          <img src="assets/image/toronto.jpg" alt="toronto">
+                          <div class="trips-menu-band">
+                            <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+                            <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                           <button mat-menu-item>Delete</button> 
+                              <ul>
+                                <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_delete"></mat-icon>Delete</li>
+                                <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                              </ul>
+                            </mat-menu>
+                          </div>
+                          <div class="ticket-status-card">
+                             <span class="ticket-btn manually"><div class="round-box"><img src="assets/icons/manually.svg"></div> <p>Manually</p></span>
+                          </div>
+                        </div>
+                        <div class="bottom-band">
+                          <h5 class="titile">Trip To toronto</h5>
+                          <div class="trip-days-date">
+                            <div class="user-trip-info">
+                              <div class="user">
+                                <span class="user-name">J</span>
+                              </div>
+                              <p class="days">7 days With Family</p>
+                            </div>
+                            <span class="trip-date">02 Aug,23</span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                    
+                </div> -->
+      </div>
+      <div infiniteScroll (scrolled)="onScroll()"></div>
+    </div>
+  </div>
+</div>

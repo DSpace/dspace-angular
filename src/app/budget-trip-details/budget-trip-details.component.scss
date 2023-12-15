@@ -1,0 +1,291 @@
+@import 'src/scss/variables';
+
+// booking button
+.action-btn {
+    display: flex;
+    .icon {
+        position: absolute;
+        background-color: $primary;
+        padding: 10px;
+        border-radius: 29px;
+        left: -9px;
+        top: -5px;
+        z-index: 99;
+        width: 45px;
+        height: 45px;
+    }
+    .book-btn{
+        position: relative;
+    }
+    .booking-btn {
+        position: relative;
+        height: 37px;
+        padding-left: 44px;
+        width: fit-content;
+    }
+    .booking-btn.outline {
+        background-color: transparent;
+        color: $text;
+        font-weight: 600;
+        border: 1px solid rgb(6 12 21 / 17%);
+    }
+    .book-btn.outline-book .icon mat-icon svg path {
+        fill: #84FF50!important;
+    }
+    .book-btn.outline-book .mat-icon {
+        width: 19px;
+    }
+    .book-btn.outline-book .icon {
+        left: 5px;
+        width: 30px;
+        height: 30px;
+        top: 4px;
+        background-color: $text;
+        padding: 3px 6px;
+    }
+}
+
+// budget button 
+
+.budget-total-band {
+    display: flex;
+    align-items: center;
+    background-color: $white;
+    border: 1px solid $border-dark;
+    padding: 0px 12px;
+    border-radius: 43px;
+    height: 38px;
+    mat-icon {
+        width: 21px;
+        margin-right: 7px;
+    }
+    span {
+        font-size: 15px;
+        margin-top: 1px;
+        font-weight: 600;
+        color: rgb(6 12 21 / 85%);
+    }
+}
+
+
+// booking button ---end---
+.trip-itinerary-band span.mat-expansion-indicator {
+    margin-right: 3px !important;
+    margin-top: 0px !important;
+    height: 24px !important;
+}
+mat-panel-title{
+    .accordion-header {
+        font-size: 18px;
+        font-weight: 500;
+        color: #060c15;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        span.days {
+            font-size: 17px;
+            margin-left: 8px;
+        }
+        }
+        .total-spent-icon-band {
+            background-color: $border-light;
+            padding: 3px 5px;
+            border-radius: 31px;
+            display: flex;
+            align-items: center;
+            span {
+                font-weight: 600;
+                font-size: 15px;
+                margin-left: 7px;
+                margin-right: 6px;
+                margin-top: 2px;
+            }
+            img {
+                width: 68px;
+            }
+        }
+    }
+
+.total-spent-catg {
+        padding: 10px !important;
+        background-color: $white;
+        border: 1px solid $border-light;
+        margin-top: 14px;
+        border-radius: 15px;
+        li:last-child {
+            margin-right: 0;
+        }
+        li {
+            width: 33.33%;
+            margin-right: 12px;
+        }
+        ul {
+            display: flex;
+        }
+        .icon-price-card {
+            display: flex;
+            flex-direction: column;
+            background-color: $white;
+            padding: 10px;
+            border-radius: 15px;
+            &:hover {
+                transition: all 0.5s;
+            }
+            h4 {
+                margin: 0;
+                font-size: 20px;
+                opacity: 0.9;
+            }
+            .icon-title {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                margin-bottom: 12px;
+                img {
+                    width: 36px;
+                }
+                h6 {
+                    font-weight: 600;
+                    font-size: 14px;
+                    opacity: 0.8;
+                    margin-left: 8px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+        
+        .yellow-card{
+        background-color: #FFF4D9;
+            &:hover {
+                background-color: #ffdc85!important;
+            }
+        }
+        .green-card{
+            background-color: #D3EEDC;
+            &:hover {
+                background-color: #90ebae!important;
+            }
+        }
+        .blue-card{
+            background-color: #E0EEF7;
+            &:hover {
+                background-color: #a9dafa!important;
+            }
+        }
+        
+    }
+.place-card{
+    .right-band {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+    .ticket-price-band {
+        display: flex;
+        align-items: center;
+        span {
+            height: 33px;
+            padding: 0px 0px;
+            border-radius: 50px;
+            background-color: rgba(132, 255, 80, 0.17);
+            line-height: 35px;
+            font-size: 16px;
+            font-weight: 700;
+            border: 1px solid $primary;
+            display: block;
+            width: 80px;
+            text-align: center;
+        }
+        
+    }
+    .free span {
+        background-color: #eeeeeea6 !important;
+        border-color: $border-dark !important;
+    }
+
+    @media only screen and (max-width: 767px){
+        .budget-total-band{
+            padding: 0px 9px;
+            border-radius: 43px;
+            height: 32px;
+            margin-right: 0;
+            mat-icon{
+                width: 18px;
+                margin-right: 5px;
+            }
+            span{
+                font-size: 13px;
+                margin-top: 1px;
+                font-weight: 600;
+                color: rgba(6, 12, 21, 0.85);
+            }
+        }
+        .budget-place-band{
+            .place-card {
+                .left-penal{
+                    flex-direction: column;
+                    .place-detail {
+                        margin-left: 0px !important;
+                        margin-top: 14px;
+                    }
+                } 
+                .right-band {
+                    display: flex;
+                    align-items: stretch;
+                    justify-content: space-between;
+                    flex-direction: unset;
+                }
+                .m-action-group-btn {
+                    display: flex;
+                    align-items: flex-end;
+                    flex-direction: column;
+                    justify-content: space-between
+                }
+                .ticket-price-band span {
+                    height: 30px;
+                    padding: 0px 0px;
+                    line-height: 32px;
+                    font-size: 16px;
+                    width: 77px;
+                }
+                .ticket-price-band {
+                    align-items: flex-start;
+                    margin-top: 29px;
+                    margin-right: -39px;
+                }
+               
+            }
+            
+        }
+        .total-spent-catg {
+            padding: 8px !important;
+            margin-top: 14px;
+            .icon-price-card {
+                display: flex;
+                flex-direction: column !important;
+                padding: 8px;
+                align-items: center !important;
+                h4 {
+                    font-size: 18px;
+                }
+                .icon-title {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    margin-bottom: 12px;
+                    img {
+                        width: 33px;
+                    }
+                    h6 {
+                        margin-left: 0px;
+                        margin-top: 8px;
+                    }
+                }
+            }
+        }
+
+    }
+    

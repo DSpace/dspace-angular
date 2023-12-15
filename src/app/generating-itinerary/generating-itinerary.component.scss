@@ -1,0 +1,46 @@
+@import 'src/scss/variables';
+.main {
+    background-color: $body-bg;
+}
+.generating-trip-band {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    // padding-top: 80px;
+    .img-band img {
+        width: 460px;
+    }
+    .text-band{
+        text-align: center;
+        width: 56%;
+        margin-top: 48px;
+        margin-bottom: 20px;
+        h4{
+            font-size: 22px;
+        }
+        p {
+            line-height: 22px;
+            font-size: 15px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+}
+.loader-band {
+        width: 50%;
+        .info-text {
+            background-color: rgba(238, 238, 238, 0.7019607843);
+            padding: 11px 19px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 15px!important;
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            color: #454545;
+        }
+    } 
+}
+
+    

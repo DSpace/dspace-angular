@@ -1,0 +1,243 @@
+<div class="main mt-0 d-p-0 pb-0">
+  <form>
+  <div class="hero-band background-bg-summer">
+    <div class="text-band text-center">
+      <h1>Discover and Enjoy Your new Places and Experiences</h1>
+      <h5 class="mt-25 mb-15 text-white weight-500">Lets plan your trip</h5>
+      <div class="serach-band">
+        <div class="current-location-band">
+          <div class="start-point-band">
+            <div class="start-point-box">
+              <div class="icon-band">
+                <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_location-red"></mat-icon>
+              </div>
+              <app-google-places-search
+              title="Start Point"
+              [formcontrol]="formControl"
+              (placeSelected)="onPlaceSelected($event)"
+              ></app-google-places-search>
+              
+            </div>
+          </div>
+        </div>
+        <div class="destination-band">
+          <app-google-places-search
+          title="Destination Point"
+          [formcontrol]="formControl"
+          (placeSelected)="onPlaceSelected1($event)"
+          ></app-google-places-search>
+            <button class="primary-btn-inner" type="button" (click)="starttrip();">Start Trip</button>
+            <!-- <button class="primary-btn-inner" type="button" routerLink="/trip-plan">Start Trip</button> -->
+        </div>
+     </div>
+     </div>
+  </div>
+</form>
+  <section class="bg-white m-season-section">
+    <div class="bootstrap-wrapper">
+      <div class="container">
+        <div class="title-band mb-50">
+          <h4>Choose your favourite season</h4>
+        </div>
+      <div class="row g-3">
+          <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+            <div class="card-band">
+                <div class="round-img-band">
+                  <img src="assets/image/winter-bg.jpg" alt="winter">
+                </div>
+                <span class="round-text"><h6>Winter</h6></span>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+            <div class="card-band">
+              <div class="round-img-band">
+                <img src="assets/image/spring-bg.jpg" alt="spring">
+              </div>
+              <span class="round-text"><h6>Spring</h6></span>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+            <div class="card-band">
+              <div class="round-img-band">
+                <img src="assets/image/winter-small-bg.jpg" alt="summer">
+              </div>
+              <span class="round-text"><h6>Summer</h6></span>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+          <div class="card-band">
+            <div class="round-img-band">
+              <img src="assets/image/fall-bg.jpg" alt="fall">
+            </div>
+            <span class="round-text"><h6>Fall</h6></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+  </section>
+  <section class="light-green-bg border-top">
+    <div class="bootstrap-wrapper">
+    <div class="container slider-container">
+    <div class="title-band mb-50">
+      <h4>Recent Public Trips</h4>
+    </div>
+    <swiper #swiper [virtual]="true" [config]="config01">
+      <ng-template swiperSlide>
+        <div class="trip-card">
+          <div class="img-band">
+            <img src="assets/image/vancouver.jpg" alt="vancouver">
+            <div class="trips-menu-band">
+              <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+              <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                <!-- <button mat-menu-item>Delete</button> -->
+                <ul>
+                  <li (click)="openshare()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                </ul>
+              </mat-menu>
+            </div>
+          </div>
+          <div class="bottom-band">
+            <h5 class="titile">Trip To Vancouver</h5>
+            <div class="trip-days-date">
+              <div class="user-trip-info">
+                <div class="user">
+                  <span class="user-name">J</span>
+                </div>
+                <p class="days">7 days With Family</p>
+              </div>
+              <span class="trip-date">02 Aug,23</span>
+            </div>
+          </div>
+      </div>
+    </ng-template>
+      <ng-template swiperSlide>
+        <div class="trip-card">
+          <div class="img-band">
+            <img src="assets/image/toronto.jpg" alt="toronto">
+            <div class="trips-menu-band">
+              <button mat-button [matMenuTriggerFor]="menubtn"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_menu-icon"></mat-icon></button>
+              <mat-menu #menubtn="matMenu" xPosition="before" class="menu-list">
+                <!-- <button mat-menu-item>Delete</button> -->
+                <ul>
+                  <li><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_share"></mat-icon>Share</li>
+                </ul>
+              </mat-menu>
+            </div>
+          </div>
+          <div class="bottom-band">
+            <h5 class="titile">Trip To toronto</h5>
+            <div class="trip-days-date">
+              <div class="user-trip-info">
+                <div class="user a-logo">
+                  <span class="user-name">A</span>
+                </div>
+                <p class="days">7 days With Family</p>
+              </div>
+              <span class="trip-date">05 Aug,23</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      
+    </swiper>
+
+  </div>
+  </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="bootstrap-wrapper">
+    <div class="container slider-container-p-0">
+        <div class="round-container bg-line">
+          <div class="title-band mb-30 slider-title">
+            <div class="icon-title d-flex"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_location-red-line"></mat-icon><h4 class="ml-10">Popular Destinations</h4></div>
+            <div class="right-penal d-flex">
+              <button class="text-btn" routerLink="/popular-destinations">View All <mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_arrow-right-outline"></mat-icon> </button>
+              <div class="swiper-prev-next-btn m-slider-btn-none"> 
+                <button (click)="slidePrev01()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+                <button (click)="slideNext01()"><mat-icon aria-hidden="false" aria-label="Example home svg" svgIcon="vite_right-arrow"></mat-icon></button>
+              </div>
+            </div>
+          </div>
+          <swiper #swiper [virtual]="true" [config]="destinations">
+              <ng-template swiperSlide>
+                <div class="city-card" routerLink="/destinations-trips">
+                  <div class="img-band">
+                    <img src="assets/image/toronto-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>Toronto</h3>
+                  </div>
+              </div></ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/vancouver-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>vancouver</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/ottawa-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>ottawa</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template swiperSlide>
+                <div class="city-card">
+                  <div class="img-band">
+                    <img src="assets/image/montreal-city.jpg">
+                  </div>
+                  <div class="title">
+                    <h3>montreal</h3>
+                  </div>
+                </div>
+              </ng-template>
+             
+            </swiper>
+
+      </div>
+    </div>
+    </div>
+</section>
+
+<app-footer></app-footer>
+</div>
