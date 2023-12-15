@@ -53,7 +53,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
 
   public inboundPatterns: string[] = notifyPatterns;
   public outboundPatterns: string[] = notifyPatterns;
-  public isNewForm: boolean;
+  public isNewService: boolean;
   public areControlsInitialized: boolean;
   itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
   config: FindListOptions = Object.assign(new FindListOptions(), {
@@ -118,11 +118,11 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       combineLatestWith(this.route.url)
     ).subscribe(([params, segment]) => {
       this.serviceId = params.serviceId;
-      this.isNewForm = segment[0].path === 'new';
+      this.isNewService = segment[0].path === 'new';
       this.formModel.addControl('notifyServiceInboundPatterns', this.formBuilder.array([this.createInboundPatternFormGroup()]));
       this.formModel.addControl('notifyServiceOutboundPatterns',  this.formBuilder.array([this.createOutboundPatternFormGroup()]));
       this.areControlsInitialized = true;
-      if (this.serviceId && !this.isNewForm) {
+      if (this.serviceId && !this.isNewService) {
         this.fetchServiceData(this.serviceId);
       }
     });
@@ -657,7 +657,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       isNew: true
     };
 
-    if (this.isNewForm) {
+    if (this.isNewService) {
       delete outBoundFormGroup.isNew;
     }
 
@@ -677,7 +677,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       isNew: true
     };
 
-    if (this.isNewForm) {
+    if (this.isNewService) {
       delete inBoundFormGroup.isNew;
     }
 
