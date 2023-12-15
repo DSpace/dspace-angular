@@ -462,12 +462,16 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
 
     const notifyServiceOutboundPatterns = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
     const notifyServiceInboundPatterns = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+    const deletedInboundPatternsLength = this.deletedInboundPatterns.length;
+    const deletedOutboundPatternsLength = this.deletedOutboundPatterns.length;
     // If no inbound or outbound patterns are specified, close the modal and return
-    // noify the user that no patterns are specified
+    // notify the user that no patterns are specified
     if (
-      (notifyServiceOutboundPatterns.length === 0 && !notifyServiceOutboundPatterns[0]?.value) ||
-      (notifyServiceInboundPatterns.length === 0 && !notifyServiceInboundPatterns[0]?.value)) {
+      (notifyServiceOutboundPatterns.length === deletedOutboundPatternsLength ) ||
+      (notifyServiceInboundPatterns.length === deletedInboundPatternsLength)) {
       this.notificationService.warning(this.translateService.get('ldn-service-notification.created.warning.title'));
+      this.deletedOutboundPatterns = [];
+      this.deletedInboundPatterns = [];
       this.closeModal();
       return;
     }
