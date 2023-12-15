@@ -5,8 +5,8 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -18,8 +18,6 @@ import { EPeopleRegistryComponent } from './epeople-registry.component';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -31,17 +29,15 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
   let fixture: ComponentFixture<EPeopleRegistryComponent>;
-  let translateService: TranslateService;
   let builderService: FormBuilderService;
 
-  let mockEPeople;
+  let mockEPeople: EPerson[];
   let ePersonDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
-  let modalService;
+  let modalService: NgbModal;
+  let paginationService: PaginationServiceStub;
 
-  let paginationService;
-
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
     jasmine.getEnv().allowRespy(true);
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
@@ -99,7 +95,7 @@ describe('EPeopleRegistryComponent', () => {
       deleteEPerson(ePerson: EPerson): Observable<boolean> {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
           return (ePerson2.uuid !== ePerson.uuid);
-            });
+        });
         return observableOf(true);
       },
       editEPerson(ePerson: EPerson) {
@@ -119,17 +115,11 @@ describe('EPeopleRegistryComponent', () => {
       isAuthorized: observableOf(true)
     });
     builderService = getMockFormBuilderService();
-    translateService = getMockTranslateService();
 
     paginationService = new PaginationServiceStub();
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
+        TranslateModule.forRoot(),
       ],
       declarations: [EPeopleRegistryComponent],
       providers: [
@@ -148,7 +138,7 @@ describe('EPeopleRegistryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EPeopleRegistryComponent);
     component = fixture.componentInstance;
-    modalService = (component as any).modalService;
+    modalService = TestBed.inject(NgbModal);
     spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
     fixture.detectChanges();
   });
@@ -158,10 +148,10 @@ describe('EPeopleRegistryComponent', () => {
   });
 
   it('should display list of ePeople', () => {
-    const ePeopleIdsFound = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
+    const ePeopleIdsFound: DebugElement[] = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
     expect(ePeopleIdsFound.length).toEqual(2);
     mockEPeople.map((ePerson: EPerson) => {
-      expect(ePeopleIdsFound.find((foundEl) => {
+      expect(ePeopleIdsFound.find((foundEl: DebugElement) => {
         return (foundEl.nativeElement.textContent.trim() === ePerson.uuid);
       })).toBeTruthy();
     });
@@ -169,7 +159,7 @@ describe('EPeopleRegistryComponent', () => {
 
   describe('search', () => {
     describe('when searching with scope/query (scope metadata)', () => {
-      let ePeopleIdsFound;
+      let ePeopleIdsFound: DebugElement[];
       beforeEach(fakeAsync(() => {
         component.search({ scope: 'metadata', query: EPersonMock2.name });
         tick();
@@ -179,14 +169,14 @@ describe('EPeopleRegistryComponent', () => {
 
       it('should display search result', () => {
         expect(ePeopleIdsFound.length).toEqual(1);
-        expect(ePeopleIdsFound.find((foundEl) => {
+        expect(ePeopleIdsFound.find((foundEl: DebugElement) => {
           return (foundEl.nativeElement.textContent.trim() === EPersonMock2.uuid);
         })).toBeTruthy();
       });
     });
 
     describe('when searching with scope/query (scope email)', () => {
-      let ePeopleIdsFound;
+      let ePeopleIdsFound: DebugElement[];
       beforeEach(fakeAsync(() => {
         component.search({ scope: 'email', query: EPersonMock.email });
         tick();
@@ -196,7 +186,7 @@ describe('EPeopleRegistryComponent', () => {
 
       it('should display search result', () => {
         expect(ePeopleIdsFound.length).toEqual(1);
-        expect(ePeopleIdsFound.find((foundEl) => {
+        expect(ePeopleIdsFound.find((foundEl: DebugElement) => {
           return (foundEl.nativeElement.textContent.trim() === EPersonMock.uuid);
         })).toBeTruthy();
       });
@@ -228,19 +218,12 @@ describe('EPeopleRegistryComponent', () => {
     });
   });
 
-  describe('delete EPerson button when the isAuthorized returns false', () => {
-    let ePeopleDeleteButton;
-    beforeEach(() => {
-      spyOn(authorizationService, 'isAuthorized').and.returnValue(observableOf(false));
-      component.initialisePage();
-      fixture.detectChanges();
-    });
 
-    it('should be disabled', () => {
-      ePeopleDeleteButton = fixture.debugElement.queryAll(By.css('#epeople tr td div button.delete-button'));
-      ePeopleDeleteButton.forEach((deleteButton: DebugElement) => {
-        expect(deleteButton.nativeElement.disabled).toBe(true);
-      });
-    });
+  it('should hide delete EPerson button when the isAuthorized returns false', () => {
+    spyOn(authorizationService, 'isAuthorized').and.returnValue(observableOf(false));
+    component.initialisePage();
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('#epeople tr td div button.delete-button'))).toBeNull();
   });
 });
