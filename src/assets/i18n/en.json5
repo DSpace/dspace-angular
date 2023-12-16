@@ -160,7 +160,13 @@
 
   "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
 
+  "admin.registries.metadata.schemas.select": "Select",
+
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   "admin.registries.metadata.schemas.table.delete": "Delete selected",
+
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   "admin.registries.metadata.schemas.table.id": "ID",
 
