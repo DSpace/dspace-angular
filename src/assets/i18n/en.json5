@@ -128,6 +128,8 @@
 
   "admin.registries.bitstream-formats.table.name": "Name",
 
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
   "admin.registries.bitstream-formats.table.id": "ID",
 
   "admin.registries.bitstream-formats.table.return": "Back",
@@ -142,7 +144,9 @@
 
   "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
-  "admin.registries.bitstream-formats.select": "Select bitstream format",
+  "admin.registries.bitstream-formats.select": "Select",
+
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
