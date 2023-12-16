@@ -1110,6 +1110,8 @@
 
   "collection.select.empty": "No collections to show",
 
+  "collection.select.table.selected": "Selected collections",
+
   "collection.select.table.select": "Select collection",
 
   "collection.select.table.deselect": "Deselect collection",
@@ -2543,6 +2545,8 @@
   "item.select.confirm": "Confirm selected",
 
   "item.select.empty": "No items to show",
+
+  "item.select.table.selected": "Selected items",
 
   "item.select.table.select": "Select item",
 
