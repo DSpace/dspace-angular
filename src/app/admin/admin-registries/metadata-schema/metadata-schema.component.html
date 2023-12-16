@@ -2,7 +2,7 @@
   <div class="metadata-schema row">
     <div class="col-12" *ngVar="(metadataSchema$ | async) as schema">
 
-      <h2 id="header" class="border-bottom pb-2">{{'admin.registries.schema.head' | translate}}: "{{schema?.prefix}}"</h2>
+      <h1 id="header" class="border-bottom pb-2">{{'admin.registries.schema.head' | translate}}: "{{schema?.prefix}}"</h1>
 
       <p id="description" class="pb-2">{{'admin.registries.schema.description' | translate:{ namespace: schema?.namespace } }}</p>
 
@@ -10,7 +10,7 @@
         [metadataSchema]="schema"
         (submitForm)="forceUpdateFields()"></ds-metadata-field-form>
 
-      <h3>{{'admin.registries.schema.fields.head' | translate}}</h3>
+      <h2>{{'admin.registries.schema.fields.head' | translate}}</h2>
 
       <ng-container *ngVar="(metadataFields$ | async)?.payload as fields">
         <ds-pagination
