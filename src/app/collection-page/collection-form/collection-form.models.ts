@@ -1,6 +1,7 @@
 import { DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 import { environment } from '../../../environments/environment';
+import { DynamicSelectModel } from '@ng-dynamic-forms/core';
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',
@@ -12,6 +13,10 @@ export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<s
  * The dynamic form fields used for creating/editing a collection
  * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
  */
+const uploadrequiredLevelOptions = [
+  { label: 'Yes', value: 'true' },
+  { label: 'No', value: 'false' },
+];
 export const collectionFormModels: DynamicFormControlModel[] = [
   new DynamicInputModel({
     id: 'title',
@@ -48,5 +53,9 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     id: 'license',
     name: 'dc.rights.license',
     spellCheck: environment.form.spellCheck,
+  }), new DynamicSelectModel({
+    id: 'uploadrequired',
+    name: 'dspace.upload.required',
+    options: uploadrequiredLevelOptions,
   })
 ];
