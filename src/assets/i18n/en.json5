@@ -898,6 +898,8 @@
 
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
+  "collection.browse.logo": "Browse for a collection logo",
+
   "collection.create.head": "Create a Collection",
 
   "collection.create.notifications.success": "Successfully created the Collection",
@@ -1094,6 +1096,8 @@
 
   "collection.listelement.badge": "Collection",
 
+  "collection.logo": "Collection logo",
+
   "collection.page.browse.recent.head": "Recent Submissions",
 
   "collection.page.browse.recent.empty": "No items to show",
@@ -1180,6 +1184,8 @@
 
   "communityList.collapse": "Collapse {{ name }}",
 
+  "community.browse.logo": "Browse for a community logo",
+
   "community.create.head": "Create a Community",
 
   "community.create.notifications.success": "Successfully created the Community",
@@ -1255,6 +1261,8 @@
   "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
 
   "community.listelement.badge": "Community",
+
+  "community.logo": "Community logo",
 
   "comcol-role.edit.no-group": "None",
 
