@@ -36,6 +36,11 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Input() scope: string;
 
+  /**
+   * Display the h1 title in the section
+   */
+  @Input() displayTitle = true;
+
   scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
   /**

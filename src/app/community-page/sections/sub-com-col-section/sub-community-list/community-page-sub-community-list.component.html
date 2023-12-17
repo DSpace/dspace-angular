@@ -1,6 +1,6 @@
 <ng-container *ngVar="(subCommunitiesRDObs | async) as subCommunitiesRD">
   <div *ngIf="subCommunitiesRD?.hasSucceeded && subCommunitiesRD?.payload.totalElements > 0" @fadeIn>
-    <h2>{{'community.sub-community-list.head' | translate}}</h2>
+    <h3>{{'community.sub-community-list.head' | translate}}</h3>
     <ds-viewable-collection
       [config]="config"
       [sortConfig]="sortConfig"
