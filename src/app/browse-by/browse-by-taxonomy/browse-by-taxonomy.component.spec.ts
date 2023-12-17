@@ -43,6 +43,7 @@ describe('BrowseByTaxonomyComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BrowseByTaxonomyComponent);
     component = fixture.componentInstance;
+    spyOn(component, 'updateQueryParams').and.callThrough();
     fixture.detectChanges();
     detail1 = new VocabularyEntryDetail();
     detail2 = new VocabularyEntryDetail();
@@ -62,6 +63,7 @@ describe('BrowseByTaxonomyComponent', () => {
     expect(component.selectedItems).toContain(detail1);
     expect(component.selectedItems.length).toBe(1);
     expect(component.filterValues).toEqual(['HUMANITIES and RELIGION,equals'] );
+    expect(component.updateQueryParams).toHaveBeenCalled();
   });
 
   it('should handle select event with multiple selected items', () => {
@@ -71,6 +73,7 @@ describe('BrowseByTaxonomyComponent', () => {
     expect(component.selectedItems).toContain(detail1, detail2);
     expect(component.selectedItems.length).toBe(2);
     expect(component.filterValues).toEqual(['HUMANITIES and RELIGION,equals', 'TECHNOLOGY,equals'] );
+    expect(component.updateQueryParams).toHaveBeenCalled();
   });
 
   it('should handle deselect event', () => {
@@ -83,6 +86,33 @@ describe('BrowseByTaxonomyComponent', () => {
     expect(component.selectedItems).toContain(detail2);
     expect(component.selectedItems.length).toBe(1);
     expect(component.filterValues).toEqual(['TECHNOLOGY,equals'] );
+    expect(component.updateQueryParams).toHaveBeenCalled();
+  });
+
+  describe('updateQueryParams', () => {
+    beforeEach(() => {
+      component.facetType = 'subject';
+      component.filterValues = ['HUMANITIES and RELIGION,equals', 'TECHNOLOGY,equals'];
+    });
+
+    it('should update the queryParams with the selected filterValues', () => {
+      component.updateQueryParams();
+
+      expect(component.queryParams).toEqual({
+        'f.subject': ['HUMANITIES and RELIGION,equals', 'TECHNOLOGY,equals'],
+      });
+    });
+
+    it('should include the scope if present', () => {
+      component.scope = '67f849f1-2499-4872-8c61-9e2b47d71068';
+
+      component.updateQueryParams();
+
+      expect(component.queryParams).toEqual({
+        'f.subject': ['HUMANITIES and RELIGION,equals', 'TECHNOLOGY,equals'],
+        'scope': '67f849f1-2499-4872-8c61-9e2b47d71068',
+      });
+    });
   });
 
   afterEach(() => {

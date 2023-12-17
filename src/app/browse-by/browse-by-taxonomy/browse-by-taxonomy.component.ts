@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, OnDestroy, Input } from '@angular/core';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { Context } from '../../core/shared/context.model';
+import { hasValue } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
@@ -71,7 +72,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * The parameters used in the URL
    */
-  queryParams: any;
+  queryParams: Params;
 
   /**
    * Resolved browse-by definition
@@ -99,6 +100,9 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, closed: true };
     }));
+    this.subs.push(this.scope$.subscribe(() => {
+      this.updateQueryParams();
+    }));
   }
 
   ngOnChanges(): void {
@@ -112,9 +116,9 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
    * @param detail VocabularyEntryDetail to be added
    */
   onSelect(detail: VocabularyEntryDetail): void {
-      this.selectedItems.push(detail);
-      this.filterValues = this.selectedItems
-        .map((item: VocabularyEntryDetail) => `${item.value},equals`);
+    this.selectedItems.push(detail);
+    this.filterValues = this.selectedItems
+      .map((item: VocabularyEntryDetail) => `${item.value},equals`);
     this.updateQueryParams();
   }
 
@@ -124,18 +128,25 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
    * @param detail VocabularyEntryDetail to be removed
    */
   onDeselect(detail: VocabularyEntryDetail): void {
-    this.selectedItems = this.selectedItems.filter((entry: VocabularyEntryDetail) => { return entry.id !== detail.id; });
-    this.filterValues = this.filterValues.filter((value: string) => { return value !== `${detail.value},equals`; });
+    this.selectedItems = this.selectedItems.filter((entry: VocabularyEntryDetail) => {
+      return entry.id !== detail.id;
+    });
+    this.filterValues = this.filterValues.filter((value: string) => {
+      return value !== `${detail.value},equals`;
+    });
     this.updateQueryParams();
   }
 
   /**
    * Updates queryParams based on the current facetType and filterValues.
    */
-  private updateQueryParams(): void {
+  updateQueryParams(): void {
     this.queryParams = {
       ['f.' + this.facetType]: this.filterValues
     };
+    if (hasValue(this.scope)) {
+      this.queryParams.scope = this.scope;
+    }
   }
 
   ngOnDestroy(): void {
