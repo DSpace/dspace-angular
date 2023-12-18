@@ -50,15 +50,22 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
    * Request a copy of an item
    * @param itemRequest
    */
-  requestACopy(itemRequest: ItemRequest): Observable<RemoteData<ItemRequest>> {
+  requestACopy(itemRequest: ItemRequest, captchaToken: string = null): Observable<RemoteData<ItemRequest>> {
     const requestId = this.requestService.generateRequestId();
 
     const href$ = this.getItemRequestEndpoint();
+    
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    if (captchaToken) {
+      headers = headers.append('x-recaptcha-token', captchaToken);
+    }
+    options.headers = headers;
 
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PostRequest(requestId, href, itemRequest);
+        const request = new PostRequest(requestId, href, itemRequest,options);
         this.requestService.send(request);
       })
     ).subscribe();

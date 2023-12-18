@@ -61,7 +61,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
  */
   checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
   disableUntilChecked = true;
-
+  captchaToken:string;
   captchaVersion(): Observable<string> {
     this.cdRef.detectChanges();
     return this.googleRecaptchaService.captchaVersion();
@@ -208,7 +208,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     itemRequest.requestName = this.name.value;
     itemRequest.requestMessage = this.message.value;
 
-    this.itemRequestDataService.requestACopy(itemRequest).pipe(
+    this.itemRequestDataService.requestACopy(itemRequest,this.captchaToken).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
@@ -279,7 +279,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         ).subscribe((token) => {
           if (isNotEmpty(token)) {
             // this.onSubmit();
-
+            this.captchaToken = token;
             this.registrationVerification = true;
 
           } else {
