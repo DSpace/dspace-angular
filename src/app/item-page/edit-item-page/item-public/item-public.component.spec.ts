@@ -74,7 +74,7 @@ describe('ItemPublicComponent', () => {
   });
 
   it('should render a page with messages based on the \'public\' messageKey', () => {
-    const header = fixture.debugElement.query(By.css('h2')).nativeElement;
+    const header = fixture.debugElement.query(By.css('h1')).nativeElement;
     expect(header.innerHTML).toContain('item.edit.public.header');
     const description = fixture.debugElement.query(By.css('p')).nativeElement;
     expect(description.innerHTML).toContain('item.edit.public.description');

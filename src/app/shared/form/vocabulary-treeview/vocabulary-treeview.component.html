@@ -1,8 +1,9 @@
-<ds-alert [content]="'vocabulary-treeview.info' | translate" [type]="'alert-info'"></ds-alert>
-<div class="treeview-header row">
+<ds-alert [content]="'vocabulary-treeview.info' | translate" [type]="AlertType.Info"></ds-alert>
+<div class="treeview-header row mb-1">
   <div class="col-12">
     <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()">
+      <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
+             [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
         <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
           {{'vocabulary-treeview.search.form.search' | translate}}
@@ -19,15 +20,15 @@
 </div>
 <div class="treeview-container">
   <ds-themed-loading *ngIf="loading | async" [showMessage]="false"></ds-themed-loading>
-  <h4 *ngIf="!(loading | async) && dataSource.data.length === 0" class="text-center text-muted mt-4" >
+  <h2 *ngIf="!(loading | async) && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
     <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
-  </h4>
+  </h2>
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <!-- Leaf node -->
     <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
-        <button type="button" class="btn btn-default" cdkTreeNodeToggle>
-          <span class="fas fa-fw fa-angle-right invisible" aria-hidden="true"></span>
-        </button>
+      <span aria-hidden="true" type="button" class="btn btn-default px-2 mr-1" cdkTreeNodeToggle>
+        <i class="fas fa-fw fa-angle-right invisible"></i>
+      </span>
           <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
                  [class.text-success]="node.isSelected"
                  [ngbTooltip]="node.item?.otherInformation?.note"
@@ -55,11 +56,10 @@
 
     <!-- expandable node -->
     <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChildren" cdkTreeNodePadding class="d-flex">
-        <button type="button" class="btn btn-default" cdkTreeNodeToggle
+        <button type="button" class="btn btn-default px-2 mr-1" cdkTreeNodeToggle
                 [attr.aria-label]="'toggle ' + node.name"
                 (click)="loadChildren(node)">
-          <span class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"
-                aria-hidden="true"></span>
+          <i class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"></i>
         </button>
 
           <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
