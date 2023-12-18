@@ -639,7 +639,7 @@ export class DefaultAppConfig implements AppConfig {
   addToAnyPlugin: AddToAnyPluginConfig = {
     scriptUrl: 'https://static.addtoany.com/menu/page.js',
     socialNetworksEnabled: false,
-    buttons: ['facebook', 'twitter', 'linkedin', 'email', 'copy_link'],
+    buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
     showPlusButton: true,
     showCounters: true,
     title: 'DSpace CRIS 7 demo',
