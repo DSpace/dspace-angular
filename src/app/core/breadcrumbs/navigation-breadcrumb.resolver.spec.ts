@@ -1,4 +1,4 @@
-import {NavigationBreadcrumbResolver} from './navigation-breadcrumb.resolver';
+import { NavigationBreadcrumbResolver } from './navigation-breadcrumb.resolver';
 
 describe('NavigationBreadcrumbResolver', () => {
   describe('resolve', () => {

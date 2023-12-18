@@ -1,7 +1,7 @@
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {NavigationBreadcrumbsService} from './navigation-breadcrumb.service';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
 
 /**
  * The class that resolves a BreadcrumbConfig object with an i18n key string for a route and related parents
