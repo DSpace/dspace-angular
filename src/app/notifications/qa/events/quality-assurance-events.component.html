@@ -4,10 +4,6 @@
       <h2 class="border-bottom pb-2">
         <div class="d-flex justify-content-between">
           {{'notifications.events.title'| translate}}
-          <a class="btn btn-outline-secondary" [routerLink]="['/admin/notifications/quality-assurance']">
-            <i class="fas fa-angle-double-left"></i>
-            {{'quality-assurance.events.back' | translate}}
-          </a>
         </div>
       </h2>
       <ds-alert [type]="'alert-info'" [content]="'quality-assurance.events.description'"></ds-alert>
