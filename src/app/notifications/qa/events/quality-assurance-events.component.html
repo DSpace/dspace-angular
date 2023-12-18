@@ -102,13 +102,17 @@
                         <button *ngIf="!eventElement.hasProject"
                                 class="btn btn-outline-primary btn-sm"
                                 [disabled]="eventElement.isRunning"
-                                (click)="openModalLookup(eventElement); $event.stopPropagation();">
+                                (click)="openModalLookup(eventElement); $event.stopPropagation();"
+                                [attr.aria-label]="'quality-assurance.event.modal.project.select' | translate"
+                        >
                           <i class="fas fa-search"></i>
                         </button>
                         <button *ngIf="eventElement.hasProject"
                                 class="btn btn-outline-danger btn-sm"
                                 [disabled]="eventElement.isRunning"
-                                (click)="removeProject(eventElement)">
+                                (click)="removeProject(eventElement)"
+                                [attr.aria-label]="'quality-assurance.event.modal.project.remove' | translate"
+                        >
                           <i class="fas fa-trash-alt"></i>
                         </button>
                       </div>
@@ -121,7 +125,9 @@
                               ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
                               container="body"
                               [disabled]="eventElement.isRunning"
-                              (click)="modalChoice('ACCEPTED', eventElement, acceptModal)">
+                              (click)="modalChoice('ACCEPTED', eventElement, acceptModal)"
+                              [attr.aria-label]="'quality-assurance.event.action.import' | translate"
+                      >
                         <i class="fas fa-check"></i>
                       </button>
                       <button *ngIf="showTopic.indexOf('/PROJECT') == -1"
@@ -129,21 +135,27 @@
                               ngbTooltip="{{'quality-assurance.event.action.accept' | translate}}"
                               container="body"
                               [disabled]="eventElement.isRunning"
-                              (click)="executeAction('ACCEPTED', eventElement)">
+                              (click)="executeAction('ACCEPTED', eventElement)"
+                              [attr.aria-label]="'quality-assurance.event.action.accept' | translate"
+                      >
                         <i class="fas fa-check"></i>
                       </button>
                       <button class="btn btn-outline-dark btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.ignore' | translate}}"
                               container="body"
                               [disabled]="eventElement.isRunning"
-                              (click)="openModal('DISCARDED', eventElement, ignoreModal)">
+                              (click)="openModal('DISCARDED', eventElement, ignoreModal)"
+                              [attr.aria-label]="'quality-assurance.event.action.ignore' | translate"
+                      >
                         <i class="fas fa-ban"></i>
                       </button>
                       <button class="btn btn-outline-danger btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.reject' | translate}}"
                               container="body"
                               [disabled]="eventElement.isRunning"
-                              (click)="openModal('REJECTED', eventElement, rejectModal)">
+                              (click)="openModal('REJECTED', eventElement, rejectModal)"
+                              [attr.aria-label]="'quality-assurance.event.action.reject' | translate"
+                      >
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </div>
