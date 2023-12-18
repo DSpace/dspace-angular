@@ -1,5 +1,5 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, forwardRef } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +30,8 @@ import { SubmissionObjectDataService } from '../../../../../../core/submission/s
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { ChipsComponent } from '../../../../chips/chips.component';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -94,8 +96,7 @@ function init() {
 
 }
 
-// TODO: enable this test suite and fix it
-xdescribe('DsDynamicRelationGroupComponent test suite', () => {
+describe('DsDynamicRelationGroupComponent test suite', () => {
   let testComp: TestComponent;
   let groupComp: DsDynamicRelationGroupComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -142,11 +143,17 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
     ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
+      .overrideComponent(DsDynamicRelationGroupComponent, {
+        remove: {
+          imports: [ThemedLoadingComponent, ChipsComponent, forwardRef(() => FormComponent)]
+        }
+      })
     .compileComponents();
 
   }));
 
-  describe('', () => {
+  // TODO: enable and fix this
+  xdescribe('', () => {
     // synchronous beforeEach
     beforeEach(() => {
       html = `<ds-dynamic-relation-group [model]="model"
@@ -165,7 +172,8 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
       testComp = null;
     });
 
-    it('should create DsDynamicRelationGroupComponent', inject([DsDynamicRelationGroupComponent], (app: DsDynamicRelationGroupComponent) => {
+    // TODO: enable and fix this
+    xit('should create DsDynamicRelationGroupComponent', inject([DsDynamicRelationGroupComponent], (app: DsDynamicRelationGroupComponent) => {
 
       expect(app).toBeDefined();
     }));
@@ -193,7 +201,8 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
       groupComp = null;
     });
 
-    it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
+    // TODO: enable and fix this
+    xit('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
       const formModel = service.modelFromConfiguration(submissionId, formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips([], 'value', 'dc.contributor.author');
@@ -204,7 +213,8 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
       expect(groupComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
     }));
 
-    it('should save a new chips item', () => {
+    // TODO: enable and fix this
+    xit('should save a new chips item', () => {
       control1.setValue('test author');
       (model1 as any).value = new FormFieldMetadataValueObject('test author');
       control2.setValue('test affiliation');
@@ -225,7 +235,8 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
       });
     });
 
-    it('should clear form inputs', () => {
+    // TODO: enable and fix this
+    xit('should clear form inputs', () => {
       control1.setValue('test author');
       (model1 as any).value = new FormFieldMetadataValueObject('test author');
       control2.setValue('test affiliation');
@@ -267,7 +278,8 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
       groupComp = null;
     });
 
-    it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
+    // TODO: enable and fix this
+    xit('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
       const formModel = service.modelFromConfiguration(submissionId, formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips(modelValue, 'value', 'dc.contributor.author');

@@ -70,8 +70,7 @@ const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
 
 const formMetadataMock = ['dc.title', 'dc.description'];
 
-// TODO: enable this test suite and fix it
-xdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
+describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileEditComponent;
   let compAsAny: any;
@@ -119,7 +118,7 @@ xdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
         SubmissionSectionUploadFileEditComponent,
         NgbModal,
         NgbActiveModal,
-        FormComponent,
+        FormsModule,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
     ],
@@ -190,7 +189,8 @@ xdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('should init form model properly', () => {
+    // TODO: enable and fix this
+    xit('should init form model properly', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
       const maxStartDate = {year: 2022, month: 1, day: 12};
@@ -225,7 +225,8 @@ xdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(comp.setOptions).toHaveBeenCalled();
     });
 
-    it('should update form model on group select', () => {
+    // TODO: enable and fix this
+    xit('should update form model on group select', () => {
 
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
@@ -331,24 +332,16 @@ xdescribe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule
-    ]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [
+    SubmissionSectionUploadFileEditComponent,
+    CommonModule,
+    FormsModule,
+    FormComponent,
+    ReactiveFormsModule
+  ]
 })
 class TestComponent {
-
-  availableGroups;
-  availableAccessConditionOptions;
-  collectionId = mockSubmissionCollectionId;
-  collectionPolicyType;
-  fileIndexes = [];
-  fileList = [];
-  fileNames = [];
-  sectionId = 'upload';
-  submissionId = mockSubmissionId;
 }
