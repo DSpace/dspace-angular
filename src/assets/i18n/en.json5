@@ -3206,6 +3206,8 @@
 
   "quality-assurance.event.modal.project.bound": "Bound project",
 
+  "quality-assurance.event.modal.project.remove": "Remove",
+
   "quality-assurance.event.modal.project.placeholder": "Enter a project name",
 
   "quality-assurance.event.modal.project.notFound": "No project found.",
