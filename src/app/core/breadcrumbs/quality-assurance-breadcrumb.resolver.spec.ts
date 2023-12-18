@@ -12,7 +12,7 @@ describe('QualityAssuranceBreadcrumbResolver', () => {
       route = {
         paramMap: {
           get: function (param) {
-            return this[param]
+            return this[param];
           },
           sourceId: 'testSourceId',
           topicId: 'testTopicId'

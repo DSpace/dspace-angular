@@ -2,10 +2,10 @@ import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
-import {map} from 'rxjs/operators';
-import {getFirstCompletedRemoteData} from '../shared/operators';
-import {TranslateService} from '@ngx-translate/core';
-import {QualityAssuranceTopicDataService} from "../notifications/qa/topics/quality-assurance-topic-data.service";
+import { map } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { QualityAssuranceTopicDataService } from '../notifications/qa/topics/quality-assurance-topic-data.service';
 
 
 
