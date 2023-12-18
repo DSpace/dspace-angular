@@ -145,7 +145,6 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         return this.getQualityAssuranceEvents();
       })
     ).subscribe((events: QualityAssuranceEventData[]) => {
-      console.log(events);
       this.eventsUpdated$.next(events);
       this.isEventPageLoading.next(false);
     });
@@ -361,7 +360,6 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         if (rd.hasSucceeded) {
           this.totalElements$.next(rd.payload.totalElements);
           if (rd.payload.totalElements > 0) {
-            console.log(rd.payload.page);
             return this.fetchEvents(rd.payload.page);
           } else {
             return of([]);
