@@ -99,7 +99,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**
    * The quality assurance source base url for project search
    */
-  public sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlForProjectSearch;
+  public sourceUrlForProjectSearch: string;
   /**
    * The FindListOptions object
    */
@@ -136,7 +136,10 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     this.isEventPageLoading.next(true);
 
     this.activatedRoute.paramMap.pipe(
-      map((params) => params.get('topicId')),
+    tap((params) => {
+      this.sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlMapForProjectSearch[params.get('sourceId')];
+    }),
+    map((params) => params.get('topicId')),
       take(1),
       switchMap((id: string) => {
         const regEx = /!/g;

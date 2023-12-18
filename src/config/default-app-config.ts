@@ -435,7 +435,9 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   qualityAssuranceConfig: QualityAssuranceConfig = {
-    sourceUrlForProjectSearch: 'https://explore.openaire.eu/search/project?projectId=',
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId='
+    },
     pageSize: 5,
   };
 }

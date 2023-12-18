@@ -9,7 +9,7 @@ export class QualityAssuranceConfig implements Config {
   /**
    * Url for project search on quality assurance resource
    */
-  public sourceUrlForProjectSearch: string;
+  public sourceUrlMapForProjectSearch: {[key: string]: string};
   /**
    * default count of QA sources to load
    */
