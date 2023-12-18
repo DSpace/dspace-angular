@@ -7,9 +7,9 @@ import { Config } from './config.interface';
 export class QualityAssuranceConfig implements Config {
 
   /**
-   * Url for OAIRE resources
+   * Url for project search on quality assurance resource
    */
-  public openAireUrl: string;
+  public sourceUrlForProjectSearch: string;
   /**
    * default count of QA sources to load
    */

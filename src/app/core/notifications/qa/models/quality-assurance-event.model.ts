@@ -22,7 +22,7 @@ export interface QualityAssuranceEventMessageObject {
 /**
  * The interface representing the Quality Assurance event message
  */
-export interface OpenaireQualityAssuranceEventMessageObject {
+export interface SourceQualityAssuranceEventMessageObject {
   /**
    * The type of 'value'
    */
@@ -69,9 +69,9 @@ export interface OpenaireQualityAssuranceEventMessageObject {
   title: string;
 
   /**
-   * The OPENAIRE ID.
+   * The Source ID.
    */
-  openaireId: string;
+  sourceId: string;
 
   /**
    * The PID href.
@@ -136,7 +136,7 @@ export class QualityAssuranceEventObject implements CacheableObject {
    * The suggestion data. Data may vary depending on the source
    */
   @autoserialize
-  message: OpenaireQualityAssuranceEventMessageObject;
+  message: SourceQualityAssuranceEventMessageObject;
 
   /**
    * The type of this ConfigObject

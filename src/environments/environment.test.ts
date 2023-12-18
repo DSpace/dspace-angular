@@ -307,7 +307,7 @@ export const environment: BuildConfig = {
     sortDirection:'ASC',
   },
   qualityAssuranceConfig: {
-    openAireUrl: 'https://explore.openaire.eu/search/project?projectId=',
+    sourceUrlForProjectSearch: 'https://explore.openaire.eu/search/project?projectId=',
     pageSize: 5,
   },
 

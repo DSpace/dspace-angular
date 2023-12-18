@@ -13,7 +13,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
-  OpenaireQualityAssuranceEventMessageObject,
+  SourceQualityAssuranceEventMessageObject,
   QualityAssuranceEventObject,
 } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
@@ -180,7 +180,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
   public ngOnInit(): void {
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'notifications-project-bound', pageSize: this.pageSize });
     this.projectTitle = (this.externalSourceEntry.projectTitle !== null) ? this.externalSourceEntry.projectTitle
-      : (this.externalSourceEntry.event.message as OpenaireQualityAssuranceEventMessageObject).title;
+      : (this.externalSourceEntry.event.message as SourceQualityAssuranceEventMessageObject).title;
     this.searchOptions = Object.assign(new PaginatedSearchOptions(
       {
         configuration: this.configuration,

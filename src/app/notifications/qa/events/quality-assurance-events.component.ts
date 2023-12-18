@@ -10,7 +10,7 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import {
-  OpenaireQualityAssuranceEventMessageObject,
+  SourceQualityAssuranceEventMessageObject,
   QualityAssuranceEventObject
 } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import {
@@ -97,9 +97,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public showMore = false;
   /**
-   * The Open Aire base url for project search
+   * The quality assurance source base url for project search
    */
-  public openAireUrl = environment.qualityAssuranceConfig.openAireUrl;
+  public sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlForProjectSearch;
   /**
    * The FindListOptions object
    */
@@ -332,7 +332,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * Check if the event has a valid href.
    * @param event
    */
-  public hasPIDHref(event: OpenaireQualityAssuranceEventMessageObject): boolean {
+  public hasPIDHref(event: SourceQualityAssuranceEventMessageObject): boolean {
     return this.getPIDHref(event) !== null;
   }
 
@@ -340,7 +340,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * Get the event pid href.
    * @param event
    */
-  public getPIDHref(event: OpenaireQualityAssuranceEventMessageObject): string {
+  public getPIDHref(event: SourceQualityAssuranceEventMessageObject): string {
     return event.pidHref;
   }
 
