@@ -1,30 +1,30 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
+import {NgbDropdownModule, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LdnServiceFormComponent} from './ldn-service-form.component';
+import {ChangeDetectorRef, EventEmitter} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {RouterTestingModule} from '@angular/router/testing';
-import {NgbDropdownModule, NgbModal, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {PaginationService} from 'ngx-pagination';
+import {NotificationsService} from '../../../shared/notifications/notifications.service';
 import {LdnItemfiltersService} from '../ldn-services-data/ldn-itemfilters-data.service';
 import {LdnServicesService} from '../ldn-services-data/ldn-services-data.service';
-import {NotificationsService} from 'src/app/shared/notifications/notifications.service';
-import {Router} from '@angular/router';
-import {RouterStub} from 'src/app/shared/testing/router.stub';
-import {createPaginatedList} from 'src/app/shared/testing/utils.test';
-import {Itemfilter} from '../ldn-services-model/ldn-service-itemfilters';
-import {createSuccessfulRemoteDataObject$} from 'src/app/shared/remote-data.utils';
+import {RouterStub} from '../../../shared/testing/router.stub';
+import {MockActivatedRoute} from '../../../shared/mocks/active-router.mock';
+import {NotificationsServiceStub} from '../../../shared/testing/notifications-service.stub';
 import {of} from 'rxjs';
-import {EventEmitter} from '@angular/core';
+import {RouteService} from '../../../core/services/route.service';
+import {provideMockStore} from '@ngrx/store/testing';
 
-describe('LdnServiceFormComponent', () => {
+describe('LdnServiceFormEditComponent', () => {
   let component: LdnServiceFormComponent;
   let fixture: ComponentFixture<LdnServiceFormComponent>;
 
   let ldnServicesService: any;
   let ldnItemfiltersService: any;
-  let notificationsService: any;
-
-  const itemFiltersRdPL$ = createSuccessfulRemoteDataObject$(createPaginatedList([new Itemfilter()]));
+  let cdRefStub: any;
+  let modalService: any;
 
   const translateServiceStub = {
     get: () => of('translated-text'),
@@ -32,53 +32,45 @@ describe('LdnServiceFormComponent', () => {
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
-};
+  };
 
   beforeEach(async () => {
-    ldnItemfiltersService = jasmine.createSpyObj('ldnItemfiltersService', {
-      findAll: jasmine.createSpy('findAll'),
+    ldnServicesService = {
+      update: () => ({}),
+    };
+    ldnItemfiltersService = {
+      findAll: () => of(['item1', 'item2']),
+    };
+    cdRefStub = Object.assign({
+      detectChanges: () => fixture.detectChanges()
     });
-
-    ldnServicesService = jasmine.createSpyObj('ldnServicesService', {
-      create: jasmine.createSpy('create'),
-    });
-
-    notificationsService = jasmine.createSpyObj('notificationsService', {
-      success: jasmine.createSpy('success'),
-      error: jasmine.createSpy('error'),
-    });
+    modalService = {
+      open: () => {/*comment*/
+      }
+    };
 
     await TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule,
-        NgbModalModule,
-        TranslateModule.forRoot(),
-        NgbDropdownModule
-      ],
+      imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule],
+      declarations: [LdnServiceFormComponent],
       providers: [
-        {provide: LdnItemfiltersService, useValue: ldnItemfiltersService},
         {provide: LdnServicesService, useValue: ldnServicesService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: TranslateService, useValue: translateServiceStub},
+        {provide: LdnItemfiltersService, useValue: ldnItemfiltersService},
         {provide: Router, useValue: new RouterStub()},
-        {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            }
-          }
-        },
-        FormBuilder
-      ],
-      declarations: [LdnServiceFormComponent]
+        {provide: ActivatedRoute, useValue: new MockActivatedRoute()},
+        {provide: ChangeDetectorRef, useValue: cdRefStub},
+        {provide: NgbModal, useValue: modalService},
+        {provide: NotificationsService, useValue: NotificationsServiceStub},
+        {provide: TranslateService, useValue: translateServiceStub},
+        {provide: PaginationService, useValue: {}},
+        FormBuilder,
+        RouteService,
+        provideMockStore({}),
+      ]
     })
       .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(LdnServiceFormComponent);
     component = fixture.componentInstance;
-    ldnItemfiltersService.findAll.and.returnValue(itemFiltersRdPL$);
     fixture.detectChanges();
   });
 
