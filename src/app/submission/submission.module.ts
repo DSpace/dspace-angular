@@ -72,6 +72,7 @@ import {
   CoarNotifyConfigDataService
 } from './sections/section-coar-notify/coar-notify-config-data.service';
 import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { SubmissionSectionDuplicatesComponent } from './sections/duplicates/section-duplicates.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -81,7 +82,8 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionSherpaPoliciesComponent,
-  SubmissionSectionCoarNotifyComponent
+  SubmissionSectionCoarNotifyComponent,
+  SubmissionSectionDuplicatesComponent
 ];
 
 const DECLARATIONS = [

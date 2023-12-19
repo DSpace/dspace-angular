@@ -242,6 +242,26 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     );
   }
 
+  public getDuplicatesEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('duplicates', `${url}/${itemId}`))
+    );
+  }
+
+  public getDuplicates(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
+    const hrefObs = this.getDuplicatesEndpoint(itemId).pipe(
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+    );
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildList<Item>(hrefObs);
+  }
+
   /**
    * Get the endpoint to move the item
    * @param itemId

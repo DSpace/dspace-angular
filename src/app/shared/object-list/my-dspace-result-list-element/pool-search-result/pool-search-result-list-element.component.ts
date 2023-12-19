@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
+import {map, mergeMap, tap} from 'rxjs/operators';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -22,6 +22,8 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
+import {PaginatedList} from "../../../../core/data/paginated-list.model";
+import {Duplicate} from "../../duplicate-data/duplicate.model";
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -56,6 +58,11 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
 
   /**
+   * The potential duplicates of this workflow item
+   */
+  public duplicates$: Observable<Duplicate[]>;
+
+  /**
    * The index of this list element
    */
   public index: number;
@@ -81,7 +88,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   ngOnInit() {
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
-      followLink('item', {}, followLink('bundles')),
+      followLink('item', {}, followLink('bundles'), followLink('duplicates')),
       followLink('submitter')
     ), followLink('action'));
 
@@ -100,6 +107,19 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       tap((itemRD: RemoteData<Item>) => {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
+          console.dir(itemRD.payload);
+          this.duplicates$ = itemRD.payload.duplicates.pipe(
+            getFirstCompletedRemoteData(),
+            map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
+              console.dir(remoteData);
+              if (remoteData.hasSucceeded) {
+                if (remoteData.payload.page) {
+                  console.dir(remoteData.payload.page);
+                  return remoteData.payload.page;
+                }
+              }
+            })
+          );
         }
       })
     ).subscribe();

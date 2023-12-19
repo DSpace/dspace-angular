@@ -21,6 +21,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { mergeMap, tap } from 'rxjs/operators';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
+import {Duplicate} from "../../duplicate-data/duplicate.model";
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -49,6 +50,11 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
    * The workflowitem object that belonging to the result object
    */
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
+
+  /**
+   * The potential duplicates of this item
+   */
+  public duplicates$: Observable<Duplicate[]>;
 
   /**
    * Display thumbnails if required by configuration
