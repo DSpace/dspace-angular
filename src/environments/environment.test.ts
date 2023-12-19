@@ -309,7 +309,7 @@ export const environment: BuildConfig = {
   },
   qualityAssuranceConfig: {
     sourceUrlMapForProjectSearch: {
-      openaire: 'https://explore.openaire.eu/search/project?projectId='
+      openaire: 'https://explore.openaire.eu/search/project?projectId=',
     },
     pageSize: 5,
   },

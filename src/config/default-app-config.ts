@@ -18,11 +18,11 @@ import { LangConfig } from './lang-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { QualityAssuranceConfig } from './quality-assurance.config';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import { QualityAssuranceConfig } from './quality-assurance.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -438,7 +438,7 @@ export class DefaultAppConfig implements AppConfig {
 
   qualityAssuranceConfig: QualityAssuranceConfig = {
     sourceUrlMapForProjectSearch: {
-      openaire: 'https://explore.openaire.eu/search/project?projectId='
+      openaire: 'https://explore.openaire.eu/search/project?projectId=',
     },
     pageSize: 5,
   };

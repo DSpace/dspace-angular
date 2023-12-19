@@ -530,126 +530,126 @@ export class MenuResolver implements Resolve<boolean> {
   createSiteAdministratorMenuSections() {
     combineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
+      this.authorizationService.isAuthorized(FeatureID.CanSeeQA),
     ])
-    .subscribe(([authorized, canSeeQA]) => {
-      const menuList = [
+      .subscribe(([authorized, canSeeQA]) => {
+        const menuList = [
         /* Notifications */
-        {
-          id: 'notifications',
-          active: false,
-          visible: authorized && canSeeQA,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.notifications'
-          } as TextMenuItemModel,
-          icon: 'bell',
-          index: 4
-        },
-        {
-          id: 'notifications_quality-assurance',
-          parentID: 'notifications',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.quality-assurance',
-            link: '/admin/notifications/quality-assurance'
-          } as LinkMenuItemModel,
-        },
-        /*  Admin Search */
-        {
-          id: 'admin_search',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.admin_search',
-            link: '/admin/search',
-          } as LinkMenuItemModel,
-          icon: 'search',
-          index: 5,
-        },
-        /*  Registries */
-        {
-          id: 'registries',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.registries',
-          } as TextMenuItemModel,
-          icon: 'list',
-          index: 6,
-        },
-        {
-          id: 'registries_metadata',
-          parentID: 'registries',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.registries_metadata',
-            link: 'admin/registries/metadata',
-          } as LinkMenuItemModel,
-        },
-        {
-          id: 'registries_format',
-          parentID: 'registries',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.registries_format',
-            link: 'admin/registries/bitstream-formats',
-          } as LinkMenuItemModel,
-        },
+          {
+            id: 'notifications',
+            active: false,
+            visible: authorized && canSeeQA,
+            model: {
+              type: MenuItemType.TEXT,
+              text: 'menu.section.notifications',
+            } as TextMenuItemModel,
+            icon: 'bell',
+            index: 4,
+          },
+          {
+            id: 'notifications_quality-assurance',
+            parentID: 'notifications',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.quality-assurance',
+              link: '/admin/notifications/quality-assurance',
+            } as LinkMenuItemModel,
+          },
+          /*  Admin Search */
+          {
+            id: 'admin_search',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.admin_search',
+              link: '/admin/search',
+            } as LinkMenuItemModel,
+            icon: 'search',
+            index: 5,
+          },
+          /*  Registries */
+          {
+            id: 'registries',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.TEXT,
+              text: 'menu.section.registries',
+            } as TextMenuItemModel,
+            icon: 'list',
+            index: 6,
+          },
+          {
+            id: 'registries_metadata',
+            parentID: 'registries',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.registries_metadata',
+              link: 'admin/registries/metadata',
+            } as LinkMenuItemModel,
+          },
+          {
+            id: 'registries_format',
+            parentID: 'registries',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.registries_format',
+              link: 'admin/registries/bitstream-formats',
+            } as LinkMenuItemModel,
+          },
 
-        /* Curation tasks */
-        {
-          id: 'curation_tasks',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.curation_task',
-            link: 'admin/curation-tasks',
-          } as LinkMenuItemModel,
-          icon: 'filter',
-          index: 7,
-        },
+          /* Curation tasks */
+          {
+            id: 'curation_tasks',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.curation_task',
+              link: 'admin/curation-tasks',
+            } as LinkMenuItemModel,
+            icon: 'filter',
+            index: 7,
+          },
 
-        /* Workflow */
-        {
-          id: 'workflow',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.workflow',
-            link: '/admin/workflow',
-          } as LinkMenuItemModel,
-          icon: 'user-check',
-          index: 11,
-        },
-        {
-          id: 'system_wide_alert',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.system-wide-alert',
-            link: '/admin/system-wide-alert',
-          } as LinkMenuItemModel,
-          icon: 'exclamation-circle',
-          index: 12,
-        },
-      ];
+          /* Workflow */
+          {
+            id: 'workflow',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.workflow',
+              link: '/admin/workflow',
+            } as LinkMenuItemModel,
+            icon: 'user-check',
+            index: 11,
+          },
+          {
+            id: 'system_wide_alert',
+            active: false,
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.system-wide-alert',
+              link: '/admin/system-wide-alert',
+            } as LinkMenuItemModel,
+            icon: 'exclamation-circle',
+            index: 12,
+          },
+        ];
 
-      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
-        shouldPersistOnRouteChange: true,
-      })));
-    });
+        menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
+          shouldPersistOnRouteChange: true,
+        })));
+      });
   }
 
   /**

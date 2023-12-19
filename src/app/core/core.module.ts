@@ -1,8 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import {
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
@@ -14,7 +23,11 @@ import { isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
-import { MOCK_RESPONSE_MAP, mockResponseMap, ResponseMapMock } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
+import {
+  MOCK_RESPONSE_MAP,
+  mockResponseMap,
+  ResponseMapMock,
+} from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
@@ -94,6 +107,9 @@ import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-oper
 import { MetadataService } from './metadata/metadata.service';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
+import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
@@ -108,7 +124,10 @@ import { ResourcePolicyDataService } from './resource-policy/resource-policy-dat
 import { RoleService } from './roles/role.service';
 import { LinkHeadService } from './services/link-head.service';
 import { ServerResponseService } from './services/server-response.service';
-import { NativeWindowFactory, NativeWindowService } from './services/window.service';
+import {
+  NativeWindowFactory,
+  NativeWindowService,
+} from './services/window.service';
 import { Authorization } from './shared/authorization.model';
 import { Bitstream } from './shared/bitstream.model';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -173,9 +192,6 @@ import { TaskObject } from './tasks/models/task-object.model';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
-import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

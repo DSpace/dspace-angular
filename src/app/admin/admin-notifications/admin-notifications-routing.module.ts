@@ -4,18 +4,16 @@ import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
-import { QUALITY_ASSURANCE_EDIT_PATH } from './admin-notifications-routing-paths';
-import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
-import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
-import { AdminQualityAssuranceTopicsPageResolver } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
-import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.resolver';
-import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
-import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
 import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import { QualityAssuranceBreadcrumbService } from '../../core/breadcrumbs/quality-assurance-breadcrumb.service';
-import {
-  SourceDataResolver
-} from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.resolver';
+import { QUALITY_ASSURANCE_EDIT_PATH } from './admin-notifications-routing-paths';
+import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
+import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.resolver';
+import { SourceDataResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.resolver';
+import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
+import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
+import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
+import { AdminQualityAssuranceTopicsPageResolver } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
 
 @NgModule({
   imports: [
@@ -27,13 +25,13 @@ import {
         pathMatch: 'full',
         resolve: {
           breadcrumb: QualityAssuranceBreadcrumbResolver,
-          openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver
+          openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver,
         },
         data: {
           title: 'admin.quality-assurance.page.title',
           breadcrumbKey: 'admin.quality-assurance',
-          showBreadcrumbsFluid: false
-        }
+          showBreadcrumbsFluid: false,
+        },
       },
       {
         canActivate: [ AuthenticatedGuard ],
@@ -43,13 +41,13 @@ import {
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
           openaireQualityAssuranceSourceParams: AdminQualityAssuranceSourcePageResolver,
-          sourceData: SourceDataResolver
+          sourceData: SourceDataResolver,
         },
         data: {
           title: 'admin.notifications.source.breadcrumbs',
           breadcrumbKey: 'admin.notifications.source',
-          showBreadcrumbsFluid: false
-        }
+          showBreadcrumbsFluid: false,
+        },
       },
       {
         canActivate: [ AuthenticatedGuard ],
@@ -58,15 +56,15 @@ import {
         pathMatch: 'full',
         resolve: {
           breadcrumb: QualityAssuranceBreadcrumbResolver,
-          openaireQualityAssuranceEventsParams: AdminQualityAssuranceEventsPageResolver
+          openaireQualityAssuranceEventsParams: AdminQualityAssuranceEventsPageResolver,
         },
         data: {
           title: 'admin.notifications.event.page.title',
           breadcrumbKey: 'admin.notifications.event',
-          showBreadcrumbsFluid: false
-        }
-      }
-    ])
+          showBreadcrumbsFluid: false,
+        },
+      },
+    ]),
   ],
   providers: [
     I18nBreadcrumbResolver,
@@ -76,8 +74,8 @@ import {
     AdminQualityAssuranceEventsPageResolver,
     AdminQualityAssuranceSourcePageResolver,
     QualityAssuranceBreadcrumbResolver,
-    QualityAssuranceBreadcrumbService
-  ]
+    QualityAssuranceBreadcrumbService,
+  ],
 })
 /**
  * Routing module for the Notifications section of the admin sidebar

@@ -1,19 +1,23 @@
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
-import { suggestionNotificationsReducers } from './notifications.reducer';
-import { NotificationsStateService } from './notifications-state.service';
+
 import {
   qualityAssuranceSourceObjectMissingPid,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
   qualityAssuranceTopicObjectMissingPid,
   qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid
+  qualityAssuranceTopicObjectMorePid,
 } from '../shared/mocks/notifications.mock';
-import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
+import { suggestionNotificationsReducers } from './notifications.reducer';
+import { NotificationsStateService } from './notifications-state.service';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
+import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
 
 describe('NotificationsStateService', () => {
   let service: NotificationsStateService;
@@ -33,9 +37,9 @@ describe('NotificationsStateService', () => {
               totalPages: 0,
               currentPage: 0,
               totalElements: 0,
-              totalLoadedPages: 0
-            }
-          }
+              totalLoadedPages: 0,
+            },
+          },
         };
       } else {
         initialState = {
@@ -44,16 +48,16 @@ describe('NotificationsStateService', () => {
               topics: [
                 qualityAssuranceTopicObjectMorePid,
                 qualityAssuranceTopicObjectMoreAbstract,
-                qualityAssuranceTopicObjectMissingPid
+                qualityAssuranceTopicObjectMissingPid,
               ],
               processing: false,
               loaded: true,
               totalPages: 1,
               currentPage: 1,
               totalElements: 3,
-              totalLoadedPages: 1
-            }
-          }
+              totalLoadedPages: 1,
+            },
+          },
         };
       }
     }
@@ -67,8 +71,8 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
-          ]
+            { provide: NotificationsStateService, useValue: service },
+          ],
         }).compileComponents();
       });
 
@@ -83,7 +87,7 @@ describe('NotificationsStateService', () => {
         it('Should return an empty array', () => {
           const result = service.getQualityAssuranceTopics();
           const expected = cold('(a)', {
-            a: []
+            a: [],
           });
           expect(result).toBeObservable(expected);
         });
@@ -93,7 +97,7 @@ describe('NotificationsStateService', () => {
         it('Should return zero (0)', () => {
           const result = service.getQualityAssuranceTopicsTotalPages();
           const expected = cold('(a)', {
-            a: 0
+            a: 0,
           });
           expect(result).toBeObservable(expected);
         });
@@ -103,7 +107,7 @@ describe('NotificationsStateService', () => {
         it('Should return minus one (0)', () => {
           const result = service.getQualityAssuranceTopicsCurrentPage();
           const expected = cold('(a)', {
-            a: 0
+            a: 0,
           });
           expect(result).toBeObservable(expected);
         });
@@ -113,7 +117,7 @@ describe('NotificationsStateService', () => {
         it('Should return zero (0)', () => {
           const result = service.getQualityAssuranceTopicsTotals();
           const expected = cold('(a)', {
-            a: 0
+            a: 0,
           });
           expect(result).toBeObservable(expected);
         });
@@ -123,7 +127,7 @@ describe('NotificationsStateService', () => {
         it('Should return TRUE', () => {
           const result = service.isQualityAssuranceTopicsLoading();
           const expected = cold('(a)', {
-            a: true
+            a: true,
           });
           expect(result).toBeObservable(expected);
         });
@@ -133,7 +137,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceTopicsLoaded();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -143,7 +147,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceTopicsProcessing();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -159,8 +163,8 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
-          ]
+            { provide: NotificationsStateService, useValue: service },
+          ],
         }).compileComponents();
       });
 
@@ -178,8 +182,8 @@ describe('NotificationsStateService', () => {
             a: [
               qualityAssuranceTopicObjectMorePid,
               qualityAssuranceTopicObjectMoreAbstract,
-              qualityAssuranceTopicObjectMissingPid
-            ]
+              qualityAssuranceTopicObjectMissingPid,
+            ],
           });
           expect(result).toBeObservable(expected);
         });
@@ -189,7 +193,7 @@ describe('NotificationsStateService', () => {
         it('Should return one (1)', () => {
           const result = service.getQualityAssuranceTopicsTotalPages();
           const expected = cold('(a)', {
-            a: 1
+            a: 1,
           });
           expect(result).toBeObservable(expected);
         });
@@ -199,7 +203,7 @@ describe('NotificationsStateService', () => {
         it('Should return minus zero (1)', () => {
           const result = service.getQualityAssuranceTopicsCurrentPage();
           const expected = cold('(a)', {
-            a: 1
+            a: 1,
           });
           expect(result).toBeObservable(expected);
         });
@@ -209,7 +213,7 @@ describe('NotificationsStateService', () => {
         it('Should return three (3)', () => {
           const result = service.getQualityAssuranceTopicsTotals();
           const expected = cold('(a)', {
-            a: 3
+            a: 3,
           });
           expect(result).toBeObservable(expected);
         });
@@ -219,7 +223,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceTopicsLoading();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -229,7 +233,7 @@ describe('NotificationsStateService', () => {
         it('Should return TRUE', () => {
           const result = service.isQualityAssuranceTopicsLoaded();
           const expected = cold('(a)', {
-            a: true
+            a: true,
           });
           expect(result).toBeObservable(expected);
         });
@@ -239,7 +243,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceTopicsProcessing();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -255,8 +259,8 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
-          ]
+            { provide: NotificationsStateService, useValue: service },
+          ],
         }).compileComponents();
       });
 
@@ -291,9 +295,9 @@ describe('NotificationsStateService', () => {
               totalPages: 0,
               currentPage: 0,
               totalElements: 0,
-              totalLoadedPages: 0
-            }
-          }
+              totalLoadedPages: 0,
+            },
+          },
         };
       } else {
         initialState = {
@@ -302,16 +306,16 @@ describe('NotificationsStateService', () => {
               source: [
                 qualityAssuranceSourceObjectMorePid,
                 qualityAssuranceSourceObjectMoreAbstract,
-                qualityAssuranceSourceObjectMissingPid
+                qualityAssuranceSourceObjectMissingPid,
               ],
               processing: false,
               loaded: true,
               totalPages: 1,
               currentPage: 1,
               totalElements: 3,
-              totalLoadedPages: 1
-            }
-          }
+              totalLoadedPages: 1,
+            },
+          },
         };
       }
     }
@@ -325,8 +329,8 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
-          ]
+            { provide: NotificationsStateService, useValue: service },
+          ],
         }).compileComponents();
       });
 
@@ -341,7 +345,7 @@ describe('NotificationsStateService', () => {
         it('Should return an empty array', () => {
           const result = service.getQualityAssuranceSource();
           const expected = cold('(a)', {
-            a: []
+            a: [],
           });
           expect(result).toBeObservable(expected);
         });
@@ -351,7 +355,7 @@ describe('NotificationsStateService', () => {
         it('Should return zero (0)', () => {
           const result = service.getQualityAssuranceSourceTotalPages();
           const expected = cold('(a)', {
-            a: 0
+            a: 0,
           });
           expect(result).toBeObservable(expected);
         });
@@ -361,7 +365,7 @@ describe('NotificationsStateService', () => {
         it('Should return minus one (0)', () => {
           const result = service.getQualityAssuranceSourceCurrentPage();
           const expected = cold('(a)', {
-            a: 0
+            a: 0,
           });
           expect(result).toBeObservable(expected);
         });
@@ -371,7 +375,7 @@ describe('NotificationsStateService', () => {
         it('Should return zero (0)', () => {
           const result = service.getQualityAssuranceSourceTotals();
           const expected = cold('(a)', {
-            a: 0
+            a: 0,
           });
           expect(result).toBeObservable(expected);
         });
@@ -381,7 +385,7 @@ describe('NotificationsStateService', () => {
         it('Should return TRUE', () => {
           const result = service.isQualityAssuranceSourceLoading();
           const expected = cold('(a)', {
-            a: true
+            a: true,
           });
           expect(result).toBeObservable(expected);
         });
@@ -391,7 +395,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceSourceLoaded();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -401,7 +405,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceSourceProcessing();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -417,8 +421,8 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
-          ]
+            { provide: NotificationsStateService, useValue: service },
+          ],
         }).compileComponents();
       });
 
@@ -436,8 +440,8 @@ describe('NotificationsStateService', () => {
             a: [
               qualityAssuranceSourceObjectMorePid,
               qualityAssuranceSourceObjectMoreAbstract,
-              qualityAssuranceSourceObjectMissingPid
-            ]
+              qualityAssuranceSourceObjectMissingPid,
+            ],
           });
           expect(result).toBeObservable(expected);
         });
@@ -447,7 +451,7 @@ describe('NotificationsStateService', () => {
         it('Should return one (1)', () => {
           const result = service.getQualityAssuranceSourceTotalPages();
           const expected = cold('(a)', {
-            a: 1
+            a: 1,
           });
           expect(result).toBeObservable(expected);
         });
@@ -457,7 +461,7 @@ describe('NotificationsStateService', () => {
         it('Should return minus zero (1)', () => {
           const result = service.getQualityAssuranceSourceCurrentPage();
           const expected = cold('(a)', {
-            a: 1
+            a: 1,
           });
           expect(result).toBeObservable(expected);
         });
@@ -467,7 +471,7 @@ describe('NotificationsStateService', () => {
         it('Should return three (3)', () => {
           const result = service.getQualityAssuranceSourceTotals();
           const expected = cold('(a)', {
-            a: 3
+            a: 3,
           });
           expect(result).toBeObservable(expected);
         });
@@ -477,7 +481,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceSourceLoading();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -487,7 +491,7 @@ describe('NotificationsStateService', () => {
         it('Should return TRUE', () => {
           const result = service.isQualityAssuranceSourceLoaded();
           const expected = cold('(a)', {
-            a: true
+            a: true,
           });
           expect(result).toBeObservable(expected);
         });
@@ -497,7 +501,7 @@ describe('NotificationsStateService', () => {
         it('Should return FALSE', () => {
           const result = service.isQualityAssuranceSourceProcessing();
           const expected = cold('(a)', {
-            a: false
+            a: false,
           });
           expect(result).toBeObservable(expected);
         });
@@ -513,8 +517,8 @@ describe('NotificationsStateService', () => {
           ],
           providers: [
             provideMockStore({ initialState }),
-            { provide: NotificationsStateService, useValue: service }
-          ]
+            { provide: NotificationsStateService, useValue: service },
+          ],
         }).compileComponents();
       });
 
@@ -535,7 +539,7 @@ describe('NotificationsStateService', () => {
         });
       });
     });
-   });
+  });
 
 
 });

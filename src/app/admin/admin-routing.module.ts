@@ -7,8 +7,8 @@ import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curati
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import {
+  NOTIFICATIONS_MODULE_PATH,
   REGISTRIES_MODULE_PATH,
-  NOTIFICATIONS_MODULE_PATH
 } from './admin-routing-paths';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';

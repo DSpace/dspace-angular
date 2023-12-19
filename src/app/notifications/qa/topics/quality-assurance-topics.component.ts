@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
-
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import {
-  QualityAssuranceTopicObject
-} from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+  Component,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
+
+import { AdminQualityAssuranceTopicsPageParams } from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import {
-  AdminQualityAssuranceTopicsPageParams
-} from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRoute } from '@angular/router';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 /**
@@ -33,7 +37,7 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'btp',
     pageSize: 10,
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
   /**
    * The Quality Assurance topic list sort options.
@@ -71,7 +75,7 @@ export class QualityAssuranceTopicsComponent implements OnInit {
     private paginationService: PaginationService,
     private activatedRoute: ActivatedRoute,
     private notificationsStateService: NotificationsStateService,
-    private qualityAssuranceTopicsService: QualityAssuranceTopicsService
+    private qualityAssuranceTopicsService: QualityAssuranceTopicsService,
   ) {
   }
 
@@ -91,10 +95,10 @@ export class QualityAssuranceTopicsComponent implements OnInit {
   ngAfterViewInit(): void {
     this.subs.push(
       this.notificationsStateService.isQualityAssuranceTopicsLoaded().pipe(
-        take(1)
+        take(1),
       ).subscribe(() => {
         this.getQualityAssuranceTopics();
-      })
+      }),
     );
   }
 
@@ -127,7 +131,7 @@ export class QualityAssuranceTopicsComponent implements OnInit {
     ).subscribe((options: PaginationComponentOptions) => {
       this.notificationsStateService.dispatchRetrieveQualityAssuranceTopics(
         options.pageSize,
-        options.currentPage
+        options.currentPage,
       );
     });
   }

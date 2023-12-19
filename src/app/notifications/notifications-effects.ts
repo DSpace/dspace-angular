@@ -3,5 +3,5 @@ import { QualityAssuranceTopicsEffects } from './qa/topics/quality-assurance-top
 
 export const notificationsEffects = [
   QualityAssuranceTopicsEffects,
-  QualityAssuranceSourceEffects
+  QualityAssuranceSourceEffects,
 ];

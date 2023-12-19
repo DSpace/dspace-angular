@@ -1,7 +1,11 @@
-import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import {
+  ActionReducerMap,
+  createFeatureSelector,
+} from '@ngrx/store';
+
 import {
   qualityAssuranceSourceReducer,
-  QualityAssuranceSourceState
+  QualityAssuranceSourceState,
 } from './qa/source/quality-assurance-source.reducer';
 import {
   qualityAssuranceTopicsReducer,
@@ -18,7 +22,7 @@ export interface SuggestionNotificationsState {
 
 export const suggestionNotificationsReducers: ActionReducerMap<SuggestionNotificationsState> = {
   qaTopic: qualityAssuranceTopicsReducer,
-  qaSource: qualityAssuranceSourceReducer
+  qaSource: qualityAssuranceSourceReducer,
 };
 
 export const suggestionNotificationsSelector = createFeatureSelector<SuggestionNotificationsState>('suggestionNotifications');

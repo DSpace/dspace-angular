@@ -1,23 +1,36 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchResult } from '../../../shared/search/models/search-result.model';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
-import { Context } from '../../../core/shared/context.model';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
-  SourceQualityAssuranceEventMessageObject,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import {
   QualityAssuranceEventObject,
+  SourceQualityAssuranceEventMessageObject,
 } from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { Context } from '../../../core/shared/context.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
+import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchResult } from '../../../shared/search/models/search-result.model';
 
 /**
  * The possible types of import for the external entry
@@ -79,7 +92,7 @@ export interface QualityAssuranceEventData {
 @Component({
   selector: 'ds-project-entry-import-modal',
   styleUrls: ['./project-entry-import-modal.component.scss'],
-  templateUrl: './project-entry-import-modal.component.html'
+  templateUrl: './project-entry-import-modal.component.html',
 })
 /**
  * Component to display a modal window for linking a project to an Quality Assurance event
@@ -185,14 +198,14 @@ export class ProjectEntryImportModalComponent implements OnInit {
       {
         configuration: this.configuration,
         query: this.projectTitle,
-        pagination: this.pagination
-      }
+        pagination: this.pagination,
+      },
     ));
     this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
     this.subs.push(
       this.localEntitiesRD$.subscribe(
-        () => this.isLoading$ = observableOf(false)
-      )
+        () => this.isLoading$ = observableOf(false),
+      ),
     );
   }
 
@@ -215,14 +228,14 @@ export class ProjectEntryImportModalComponent implements OnInit {
         {
           configuration: this.configuration,
           query: (searchTitle) ? searchTitle.replace(filterRegEx, '') : searchTitle,
-          pagination: this.pagination
-        }
+          pagination: this.pagination,
+        },
       ));
       this.localEntitiesRD$ = this.searchService.search(this.searchOptions);
       this.subs.push(
         this.localEntitiesRD$.subscribe(
-          () => this.isLoading$ = observableOf(false)
-        )
+          () => this.isLoading$ = observableOf(false),
+        ),
       );
     }
   }
