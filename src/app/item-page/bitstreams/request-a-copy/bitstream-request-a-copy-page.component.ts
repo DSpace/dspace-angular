@@ -61,7 +61,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
  */
   checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
   disableUntilChecked = true;
-  captchaToken:string;
+  captchaToken: string;
   captchaVersion(): Observable<string> {
     this.cdRef.detectChanges();
     return this.googleRecaptchaService.captchaVersion();

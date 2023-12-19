@@ -52,16 +52,13 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
    */
   requestACopy(itemRequest: ItemRequest, captchaToken: string = null): Observable<RemoteData<ItemRequest>> {
     const requestId = this.requestService.generateRequestId();
-
     const href$ = this.getItemRequestEndpoint();
-    
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     if (captchaToken) {
       headers = headers.append('x-recaptcha-token', captchaToken);
     }
     options.headers = headers;
-
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
@@ -69,7 +66,6 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
         this.requestService.send(request);
       })
     ).subscribe();
-
     return this.rdbService.buildFromRequestUUID<ItemRequest>(requestId).pipe(
       getFirstCompletedRemoteData()
     );
