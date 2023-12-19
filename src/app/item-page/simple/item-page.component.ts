@@ -18,7 +18,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { RegistryService } from 'src/app/core/registry/registry.service';
 import { MetadataBitstream } from 'src/app/core/metadata/metadata-bitstream.model';
-import { Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 
 /**
@@ -103,6 +103,11 @@ export class ItemPageComponent implements OnInit {
 
   canShowCurlDownload = false;
 
+  /**
+   * True if the item has files, false otherwise.
+   */
+  hasFiles: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     protected route: ActivatedRoute,
     private router: Router,
@@ -127,7 +132,7 @@ export class ItemPageComponent implements OnInit {
       map((item) => getItemPageRoute(item))
     );
 
-    this.showTombstone();
+    this.processItem();
 
     this.registryService
       .getMetadataBitstream(this.itemHandle, 'ORIGINAL,TEXT,THUMBNAIL')
@@ -137,6 +142,14 @@ export class ItemPageComponent implements OnInit {
         this.generateCurlCommand();
         this.sumFileSizes();
       });
+  }
+
+  /**
+   * Check if the item has files and assign the result into the `hasFiles` variable.
+   * */
+  private checkIfItemHasFiles(item: Item) {
+    const hasFilesMetadata = item.metadata?.['local.has.files']?.[0]?.value;
+    this.hasFiles.next(hasFilesMetadata !== 'no');
   }
 
   sumFileSizes() {
@@ -167,7 +180,10 @@ export class ItemPageComponent implements OnInit {
     this.totalFileSizes = totalBytes.toFixed(2) + ' ' + finalUnit;
   }
 
-  showTombstone() {
+  /**
+   * Process the tombstone of the Item and check if it has files or not.
+   */
+  processItem() {
     // if the item is withdrawn
     let isWithdrawn = false;
     // metadata value from `dc.relation.isreplacedby`
@@ -181,6 +197,9 @@ export class ItemPageComponent implements OnInit {
         this.itemHandle = item.handle;
         isWithdrawn = item.isWithdrawn;
         isReplaced = item.metadata['dc.relation.isreplacedby']?.[0]?.value;
+
+        // check if the item has files
+        this.checkIfItemHasFiles(item);
       });
 
     // do not show tombstone for non withdrawn items
