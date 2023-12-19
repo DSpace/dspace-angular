@@ -203,7 +203,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       groupComp = null;
     });
 
-    // TODO: enable and fix this
     it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
       const formModel = service.modelFromConfiguration(submissionId, formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);

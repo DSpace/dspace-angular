@@ -70,6 +70,22 @@ const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
 
 const formMetadataMock = ['dc.title', 'dc.description'];
 
+const initialState: any = {
+  core: {
+    'bitstreamFormats': {},
+    'cache/object': {},
+    'cache/syncbuffer': {},
+    'cache/object-updates': {},
+    'data/request': {},
+    'history': {},
+    'index': {},
+    'auth': {},
+    'json/patch': {},
+    'metaTag': {},
+    'route': {},
+  }
+};
+
 describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
   let comp: SubmissionSectionUploadFileEditComponent;
@@ -94,6 +110,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const fileData: any = mockUploadFiles[0];
   const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
 
+  const mockCdRef = Object.assign({
+    detectChanges: () => undefined
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
@@ -112,13 +132,12 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
-        provideMockStore({}),
+        provideMockStore({initialState}),
         FormBuilderService,
-        ChangeDetectorRef,
+        {provide: ChangeDetectorRef, useValue: mockCdRef},
         SubmissionSectionUploadFileEditComponent,
         NgbModal,
         NgbActiveModal,
-        FormsModule,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
     ],
@@ -189,14 +208,13 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny = null;
     });
 
-    // TODO: enable and fix this
-    xit('should init form model properly', () => {
+    it('should init form model properly', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
       const maxStartDate = {year: 2022, month: 1, day: 12};
       const maxEndDate = {year: 2019, month: 7, day: 12};
 
-      comp.ngOnInit();
+      comp.formModel = compAsAny.buildFileEditForm();
 
       expect(comp.formModel).toBeDefined();
       expect(comp.formModel.length).toBe(2);
@@ -225,13 +243,12 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(comp.setOptions).toHaveBeenCalled();
     });
 
-    // TODO: enable and fix this
-    xit('should update form model on group select', () => {
+    it('should update form model on group select', () => {
 
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
 
-      comp.ngOnInit();
+      comp.formModel = compAsAny.buildFileEditForm();
 
       const model: DynamicSelectModel<string> = formbuilderService.findById('name', comp.formModel, 0);
       const formGroup = formbuilderService.createFormGroup(comp.formModel);
