@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
@@ -32,6 +32,7 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ChipsComponent } from '../../../../chips/chips.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -152,8 +153,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
   }));
 
-  // TODO: enable and fix this
-  xdescribe('', () => {
+  describe('', () => {
     // synchronous beforeEach
     beforeEach(() => {
       html = `<ds-dynamic-relation-group [model]="model"
@@ -172,8 +172,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       testComp = null;
     });
 
-    // TODO: enable and fix this
-    xit('should create DsDynamicRelationGroupComponent', inject([DsDynamicRelationGroupComponent], (app: DsDynamicRelationGroupComponent) => {
+    it('should create DsDynamicRelationGroupComponent', inject([DsDynamicRelationGroupComponent], (app: DsDynamicRelationGroupComponent) => {
 
       expect(app).toBeDefined();
     }));
@@ -339,9 +338,14 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
     selector: 'ds-test-cmp',
     template: ``,
     standalone: true,
-    imports: [FormsModule,
-        ReactiveFormsModule,
-        NgbModule]
+    imports: [
+      DsDynamicRelationGroupComponent,
+      NgIf,
+      AsyncPipe,
+      NgbTooltipModule,
+      TranslateModule,
+      NgClass,
+    ]
 })
 class TestComponent {
 
