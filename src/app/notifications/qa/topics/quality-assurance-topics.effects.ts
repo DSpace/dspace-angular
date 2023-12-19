@@ -47,9 +47,11 @@ export class QualityAssuranceTopicsEffects {
         map((topics: PaginatedList<QualityAssuranceTopicObject>) =>
           new AddTopicsAction(topics.page, topics.totalPages, topics.currentPage, topics.totalElements),
         ),
-        catchError((error: Error) => {
-          if (error) {
+        catchError((error: unknown) => {
+          if (error instanceof Error) {
             console.error(error.message);
+          } else {
+            console.error('Unexpected object thrown', error);
           }
           return observableOf(new RetrieveAllTopicsErrorAction());
         }),

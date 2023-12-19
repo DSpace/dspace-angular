@@ -47,9 +47,11 @@ export class QualityAssuranceSourceEffects {
         map((sources: PaginatedList<QualityAssuranceSourceObject>) =>
           new AddSourceAction(sources.page, sources.totalPages, sources.currentPage, sources.totalElements),
         ),
-        catchError((error: Error) => {
-          if (error) {
+        catchError((error: unknown) => {
+          if (error instanceof Error) {
             console.error(error.message);
+          } else {
+            console.error('Unexpected object thrown', error);
           }
           return observableOf(new RetrieveAllSourceErrorAction());
         }),
