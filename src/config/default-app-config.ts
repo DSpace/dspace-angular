@@ -22,6 +22,7 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { QualityAssuranceConfig } from './quality-assurance.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -433,5 +434,12 @@ export class DefaultAppConfig implements AppConfig {
   comcolSelectionSort: DiscoverySortConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
+  };
+
+  qualityAssuranceConfig: QualityAssuranceConfig = {
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId='
+    },
+    pageSize: 5,
   };
 }

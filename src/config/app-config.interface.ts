@@ -17,6 +17,7 @@ import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
+import { QualityAssuranceConfig } from './quality-assurance.config';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { ServerConfig } from './server-config.interface';
@@ -49,6 +50,7 @@ interface AppConfig extends Config {
   markdown: MarkdownConfig;
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
+  qualityAssuranceConfig: QualityAssuranceConfig;
 }
 
 /**
