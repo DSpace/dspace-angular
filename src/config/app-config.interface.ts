@@ -23,6 +23,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LanguageHashesConfig } from './languageHashes-config.interface';
+import {QualityAssuranceConfig} from './quality-assurance.config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -50,6 +51,7 @@ interface AppConfig extends Config {
   markdown: MarkdownConfig;
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
+  qualityAssuranceConfig: QualityAssuranceConfig;
 }
 
 /**

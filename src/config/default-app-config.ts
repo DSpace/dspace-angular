@@ -23,6 +23,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LanguageHashesConfig } from './languageHashes-config.interface';
+import {QualityAssuranceConfig} from './quality-assurance.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -436,5 +437,12 @@ export class DefaultAppConfig implements AppConfig {
   comcolSelectionSort: DiscoverySortConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
+  };
+
+  qualityAssuranceConfig: QualityAssuranceConfig = {
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId='
+    },
+    pageSize: 5,
   };
 }
