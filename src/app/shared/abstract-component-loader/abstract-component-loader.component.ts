@@ -2,7 +2,7 @@ import { Component, ComponentRef, Input, OnChanges, OnDestroy, OnInit, SimpleCha
 import { Context } from '../../core/shared/context.model';
 import { ThemeService } from '../theme-support/theme.service';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { Subscription } from 'rxjs';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 
@@ -57,21 +57,15 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
    * Set up the dynamic child component
    */
   ngOnInit(): void {
-    if (hasNoValue(this.compRef)) {
-      this.instantiateComponent();
-    }
+    this.instantiateComponent();
   }
 
   /**
    * Whenever the inputs change, update the inputs of the dynamic component
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (hasNoValue(this.compRef)) {
-      // sometimes the component has not been initialized yet, so it first needs to be initialized
-      // before being called again
-      this.instantiateComponent();
-    } else {
-      if (this.inputNamesDependentForComponent.some((name: any) => hasValue(changes[name]) && changes[name].previousValue !== changes[name].currentValue)) {
+    if (hasValue(this.compRef)) {
+      if (this.inputNamesDependentForComponent.some((name: keyof this & string) => hasValue(changes[name]) && changes[name].previousValue !== changes[name].currentValue)) {
         // Recreate the component when the @Input()s used by getComponent() aren't up-to-date anymore
         this.destroyComponentInstance();
         this.instantiateComponent();
@@ -123,7 +117,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
 
   /**
    * Connect the inputs and outputs of this component to the dynamic component,
-   * to ensure they're in sync
+   * to ensure they're in sync, the ngOnChanges method will automatically be called by setInput
    */
   public connectInputsAndOutputs(): void {
     if (isNotEmpty(this.inputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
