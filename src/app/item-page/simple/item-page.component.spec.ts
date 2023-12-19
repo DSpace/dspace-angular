@@ -31,10 +31,16 @@ import { MetadataBitstreamDataService } from 'src/app/core/data/metadata-bitstre
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { MetadataValue } from '../../core/shared/metadata.models';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-  metadata: [],
+  metadata: {
+    'local.has.files': [Object.assign(new MetadataValue(), {
+      value: 'yes',
+      language: undefined
+    })]
+  },
   relationships: createRelationshipsObservable()
 });
 
@@ -205,6 +211,18 @@ describe('ItemPageComponent', () => {
       const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader'));
       expect(objectLoader.nativeElement).toBeDefined();
     });
+  });
+
+  describe('when the item has the file', () => {
+    it('should display license and files section', waitForAsync(async () => {
+      comp.itemRD$ = createSuccessfulRemoteDataObject$(mockItem);
+      fixture.detectChanges();
+
+      void fixture.whenStable().then(() => {
+        const objectLoader = fixture.debugElement.query(By.css('ds-clarin-license-info'));
+        expect(objectLoader.nativeElement).toBeDefined();
+      });
+    }));
   });
 
 });
