@@ -1,10 +1,9 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
@@ -22,24 +21,35 @@ import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { storeModuleConfig } from '../../../../../../app.reducer';
 import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
-import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
-import { ChipsComponent } from '../../../../chips/chips.component';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { provideMockStore } from '@ngrx/store/testing';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
 export let FORM_GROUP_TEST_GROUP;
 
 const submissionId = '1234';
-
+const initialState: any = {
+  core: {
+    'bitstreamFormats': {},
+    'cache/object': {},
+    'cache/syncbuffer': {},
+    'cache/object-updates': {},
+    'data/request': {},
+    'history': {},
+    'index': {},
+    'auth': {},
+    'json/patch': {},
+    'metaTag': {},
+    'route': {},
+  }
+};
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
     disabled: false,
@@ -121,7 +131,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot(),
         FormComponent,
         DsDynamicRelationGroupComponent,
@@ -135,8 +144,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
+        provideMockStore({initialState}),
         { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: Store, useClass: StoreMock },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectDataService, useValue: {}},
         { provide: SubmissionService, useValue: {}},
@@ -144,11 +153,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
     ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
-      .overrideComponent(DsDynamicRelationGroupComponent, {
-        remove: {
-          imports: [ThemedLoadingComponent, ChipsComponent, forwardRef(() => FormComponent)]
-        }
-      })
     .compileComponents();
 
   }));
@@ -180,7 +184,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
   describe('when init model value is empty', () => {
     beforeEach(inject([FormBuilderService], (service: FormBuilderService) => {
-
       groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
       groupComp = groupFixture.componentInstance; // FormComponent test instance
       groupComp.formId = 'testForm';
@@ -201,7 +204,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
     });
 
     // TODO: enable and fix this
-    xit('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
+    it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
       const formModel = service.modelFromConfiguration(submissionId, formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips([], 'value', 'dc.contributor.author');
@@ -212,8 +215,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       expect(groupComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
     }));
 
-    // TODO: enable and fix this
-    xit('should save a new chips item', () => {
+    it('should save a new chips item', () => {
       control1.setValue('test author');
       (model1 as any).value = new FormFieldMetadataValueObject('test author');
       control2.setValue('test affiliation');
@@ -234,8 +236,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       });
     });
 
-    // TODO: enable and fix this
-    xit('should clear form inputs', () => {
+    it('should clear form inputs', () => {
       control1.setValue('test author');
       (model1 as any).value = new FormFieldMetadataValueObject('test author');
       control2.setValue('test affiliation');
@@ -277,8 +278,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       groupComp = null;
     });
 
-    // TODO: enable and fix this
-    xit('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
+    it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
       const formModel = service.modelFromConfiguration(submissionId, formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips(modelValue, 'value', 'dc.contributor.author');
