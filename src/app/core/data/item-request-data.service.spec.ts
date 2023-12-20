@@ -8,6 +8,8 @@ import { ItemRequest } from '../shared/item-request.model';
 import { PostRequest } from './request.models';
 import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import { RestRequestMethod } from './rest-request-method';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe('ItemRequestDataService', () => {
   let service: ItemRequestDataService;
@@ -40,8 +42,11 @@ describe('ItemRequestDataService', () => {
 
   describe('requestACopy', () => {
     it('should send a POST request containing the provided item request', (done) => {
+      let headers = new HttpHeaders();
+      const options: HttpOptions = Object.create({});
+      options.headers = headers;
       service.requestACopy(itemRequest).subscribe(() => {
-        expect(requestService.send).toHaveBeenCalledWith(new PostRequest(requestId, restApiEndpoint, itemRequest));
+        expect(requestService.send).toHaveBeenCalledWith(new PostRequest(requestId, restApiEndpoint, itemRequest,options));
         done();
       });
     });

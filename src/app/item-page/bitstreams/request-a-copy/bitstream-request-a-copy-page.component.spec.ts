@@ -254,7 +254,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         component.email.patchValue('user@name.org');
         component.allfiles.patchValue('false');
         component.message.patchValue('I would like to request a copy');
-
+        component.captchaToken = 'googleRecaptchaToken';
         component.onSubmit();
         const itemRequest = Object.assign(new ItemRequest(),
           {
@@ -266,7 +266,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
             requestMessage: 'I would like to request a copy'
           });
 
-        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest);
+        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest,component.captchaToken);
         expect(notificationsService.success).toHaveBeenCalled();
         expect(location.back).toHaveBeenCalled();
       });
@@ -288,6 +288,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         component.email.patchValue('user@name.org');
         component.allfiles.patchValue('false');
         component.message.patchValue('I would like to request a copy');
+        component.captchaToken = 'googleRecaptchaToken';
 
         component.onSubmit();
         const itemRequest = Object.assign(new ItemRequest(),
@@ -300,7 +301,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
             requestMessage: 'I would like to request a copy'
           });
 
-        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest);
+        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest,component.captchaToken);
         expect(notificationsService.error).toHaveBeenCalled();
         expect(location.back).not.toHaveBeenCalled();
       });
