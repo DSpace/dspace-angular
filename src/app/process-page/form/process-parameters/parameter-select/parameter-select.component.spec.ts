@@ -1,15 +1,21 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ParameterSelectComponent } from './parameter-select.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { By } from '@angular/platform-browser';
+import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
+import { of as observableOf } from 'rxjs';
 
 describe('ParameterSelectComponent', () => {
   let component: ParameterSelectComponent;
   let fixture: ComponentFixture<ParameterSelectComponent>;
   let scriptParams: ScriptParameter[];
+
+  const translateServiceStub = {
+    get: () => observableOf('---')
+  };
 
   function init() {
     scriptParams = [
@@ -35,6 +41,14 @@ describe('ParameterSelectComponent', () => {
     imports: [FormsModule, ParameterSelectComponent],
     schemas: [NO_ERRORS_SCHEMA]
 })
+      .overrideComponent(ParameterSelectComponent, {
+        remove: {
+          imports: [ParameterValueInputComponent]
+        },
+        add: {
+          imports: [MockTranslatePipe]
+        }
+      })
       .compileComponents();
   }));
 
@@ -67,3 +81,14 @@ describe('ParameterSelectComponent', () => {
     expect(button).toBeNull();
   });
 });
+
+@Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
+  name: 'translate',
+  standalone: true
+})
+class MockTranslatePipe implements PipeTransform {
+  transform(value: string): string {
+    return value;
+  }
+}
