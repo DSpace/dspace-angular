@@ -16,6 +16,7 @@ import { RequestService } from '../../core/data/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
+import { RouterMock } from '../../shared/mocks/router.mock';
 
 describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
@@ -67,7 +68,7 @@ describe('ProcessFormComponent', () => {
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
-        { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
+        { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
