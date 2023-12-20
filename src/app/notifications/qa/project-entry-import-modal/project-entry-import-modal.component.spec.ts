@@ -20,6 +20,11 @@ import {
   qualityAssuranceEventObjectMissingProjectFound,
   NotificationsMockDspaceObject
 } from '../../../shared/mocks/notifications.mock';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 
 const eventData = {
   event: qualityAssuranceEventObjectMissingProjectFound,
@@ -80,11 +85,22 @@ describe('ProjectEntryImportModalComponent test suite', () => {
     providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: SearchService, useValue: searchServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
         { provide: SelectableListService, useValue: jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']) },
         ProjectEntryImportModalComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then();
+})
+      .overrideComponent(ProjectEntryImportModalComponent, {
+        remove: {
+          imports: [
+            LoadingComponent,
+            ThemedSearchResultsComponent,
+            AlertComponent
+          ]
+        }
+      })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
