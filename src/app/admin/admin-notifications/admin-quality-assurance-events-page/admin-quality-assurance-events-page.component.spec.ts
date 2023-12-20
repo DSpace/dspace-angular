@@ -1,6 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page.component';
+import { QualityAssuranceEventsComponent } from '../../../notifications/qa/events/quality-assurance-events.component';
 
 describe('AdminQualityAssuranceEventsPageComponent', () => {
   let component: AdminQualityAssuranceEventsPageComponent;
@@ -11,6 +12,11 @@ describe('AdminQualityAssuranceEventsPageComponent', () => {
     imports: [AdminQualityAssuranceEventsPageComponent],
     schemas: [NO_ERRORS_SCHEMA]
 })
+    .overrideComponent(AdminQualityAssuranceEventsPageComponent, {
+        remove: {
+          imports: [QualityAssuranceEventsComponent]
+        }
+      })
     .compileComponents();
   }));
 
