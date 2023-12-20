@@ -12,11 +12,15 @@ const QUERY = 'test query';
 
 @Component({
   template: `
-    <ds-configuration-search-page [configuration]="'${CONFIGURATION}'"
-                                  [fixedFilterQuery]="'${QUERY}'"
-                                  #configurationSearchPage>
-    </ds-configuration-search-page>
+      <ds-configuration-search-page [configuration]="'${CONFIGURATION}'"
+                                    [fixedFilterQuery]="'${QUERY}'"
+                                    #configurationSearchPage>
+      </ds-configuration-search-page>
   `,
+  imports: [
+    ConfigurationSearchPageComponent
+  ],
+  standalone: true
 })
 class HostComponent {
   @ViewChild('configurationSearchPage') configurationSearchPage: ConfigurationSearchPageComponent;
