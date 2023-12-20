@@ -8,14 +8,22 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { NotificationsStateService } from '../../notifications-state.service';
 import { AdminQualityAssuranceSourcePageParams } from '../../../admin/admin-notifications/admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
 import { hasValue } from '../../../shared/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 
 /**
  * Component to display the Quality Assurance source list.
  */
 @Component({
-  selector: 'ds-quality-assurance-source',
-  templateUrl: './quality-assurance-source.component.html',
-  styleUrls: ['./quality-assurance-source.component.scss']
+    selector: 'ds-quality-assurance-source',
+    templateUrl: './quality-assurance-source.component.html',
+    styleUrls: ['./quality-assurance-source.component.scss'],
+    standalone: true,
+    imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule]
 })
 export class QualityAssuranceSourceComponent implements OnInit {
 

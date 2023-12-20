@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, from, Observable, of, Subscription } from 'rxjs';
 import { distinctUntilChanged, last, map, mergeMap, scan, switchMap, take, tap } from 'rxjs/operators';
 
@@ -31,14 +31,20 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import {environment} from '../../../../environments/environment';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 
 /**
  * Component to display the Quality Assurance event list.
  */
 @Component({
-  selector: 'ds-quality-assurance-events',
-  templateUrl: './quality-assurance-events.component.html',
-  styleUrls: ['./quality-assurance-events.component.scss'],
+    selector: 'ds-quality-assurance-events',
+    templateUrl: './quality-assurance-events.component.html',
+    styleUrls: ['./quality-assurance-events.component.scss'],
+    standalone: true,
+    imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule]
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**

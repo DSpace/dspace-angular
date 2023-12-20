@@ -31,22 +31,20 @@ describe('QualityAssuranceSourceComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceSourceComponent,
-        TestComponent,
-      ],
-      providers: [
+        TestComponent
+    ],
+    providers: [
         { provide: NotificationsStateService, useValue: mockNotificationsStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), params: observableOf({}) } },
         { provide: PaginationService, useValue: paginationService },
         QualityAssuranceSourceComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then(() => {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then(() => {
       mockNotificationsStateService.getQualityAssuranceSource.and.returnValue(observableOf([
         qualityAssuranceSourceObjectMorePid,
         qualityAssuranceSourceObjectMoreAbstract
@@ -144,8 +142,10 @@ describe('QualityAssuranceSourceComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [CommonModule]
 })
 class TestComponent {
 

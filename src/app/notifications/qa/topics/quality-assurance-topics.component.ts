@@ -14,16 +14,23 @@ import {
   AdminQualityAssuranceTopicsPageParams
 } from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 
 /**
  * Component to display the Quality Assurance topic list.
  */
 @Component({
-  selector: 'ds-quality-assurance-topic',
-  templateUrl: './quality-assurance-topics.component.html',
-  styleUrls: ['./quality-assurance-topics.component.scss'],
+    selector: 'ds-quality-assurance-topic',
+    templateUrl: './quality-assurance-topics.component.html',
+    styleUrls: ['./quality-assurance-topics.component.scss'],
+    standalone: true,
+    imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule]
 })
 export class QualityAssuranceTopicsComponent implements OnInit {
   /**

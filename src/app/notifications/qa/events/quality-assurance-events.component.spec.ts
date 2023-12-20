@@ -103,15 +103,13 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceEventsComponent,
-        TestComponent,
-      ],
-      providers: [
+        TestComponent
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub(activatedRouteParamsMap, activatedRouteParams) },
         { provide: QualityAssuranceEventDataService, useValue: qualityAssuranceEventRestServiceStub },
         { provide: NgbModal, useValue: modalStub },
@@ -119,9 +117,9 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
         QualityAssuranceEventsComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
     scheduler = getTestScheduler();
   }));
 
@@ -332,8 +330,10 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [CommonModule]
 })
 class TestComponent {
 

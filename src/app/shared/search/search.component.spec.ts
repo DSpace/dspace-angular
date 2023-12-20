@@ -199,8 +199,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   searchConfigurationServiceStub.paginatedSearchOptions = new BehaviorSubject(new PaginatedSearchOptions({pagination: {id: 'default'} as any}));
 
   TestBed.configureTestingModule({
-    declarations: [...additionalDeclarations],
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType, ...additionalDeclarations],
     providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {

@@ -33,28 +33,26 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceTopicsComponent,
-        TestComponent,
-      ],
-      providers: [
+        TestComponent
+    ],
+    providers: [
         { provide: NotificationsStateService, useValue: mockNotificationsStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
-          paramMap: {
-            get: () => 'openaire',
-          },
-        }}},
+                    paramMap: {
+                        get: () => 'openaire',
+                    },
+                } } },
         { provide: PaginationService, useValue: paginationService },
         QualityAssuranceTopicsComponent,
         // tslint:disable-next-line: no-empty
-        { provide: QualityAssuranceTopicsService, useValue: { setSourceId: (sourceId: string) => { } }}
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then(() => {
+        { provide: QualityAssuranceTopicsService, useValue: { setSourceId: (sourceId: string) => { } } }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then(() => {
       mockNotificationsStateService.getQualityAssuranceTopics.and.returnValue(observableOf([
         qualityAssuranceTopicObjectMorePid,
         qualityAssuranceTopicObjectMoreAbstract
@@ -152,8 +150,10 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [CommonModule]
 })
 class TestComponent {
 

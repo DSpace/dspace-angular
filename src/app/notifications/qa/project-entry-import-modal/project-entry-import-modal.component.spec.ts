@@ -71,22 +71,20 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
   beforeEach(async (() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ProjectEntryImportModalComponent,
-        TestComponent,
-      ],
-      providers: [
+        TestComponent
+    ],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SelectableListService, useValue: jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']) },
         ProjectEntryImportModalComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -202,8 +200,10 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [CommonModule]
 })
 class TestComponent {
   eventData = eventData;

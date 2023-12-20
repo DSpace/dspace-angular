@@ -79,17 +79,17 @@ describe('AuthNavMenuComponent', () => {
         }),
         TranslateModule.forRoot(),
         AuthNavMenuComponent
-        ],
-        declarations: [BrowserOnlyMockPipe],
-        providers: [
-          { provide: HostWindowService, useValue: window },
-          { provide: AuthService, useValue: authService },
-          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-        ],
-        schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
-      })
+    ],
+    declarations: [BrowserOnlyMockPipe],
+    providers: [
+        { provide: HostWindowService, useValue: window },
+        { provide: AuthService, useValue: authService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ]
+})
         .compileComponents();
     }));
 

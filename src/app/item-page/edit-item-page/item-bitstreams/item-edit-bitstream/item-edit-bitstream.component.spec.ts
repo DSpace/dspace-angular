@@ -79,7 +79,8 @@ describe('ItemEditBitstreamComponent', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         ItemEditBitstreamComponent,
-        VarDirective],
+        VarDirective
+    ],
     declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },

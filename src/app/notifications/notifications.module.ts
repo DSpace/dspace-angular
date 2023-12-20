@@ -60,23 +60,21 @@ const PROVIDERS = [
 
 @NgModule({
     imports: [
-        ...MODULES
+        ...MODULES,
+        ...COMPONENTS,
+        ...DIRECTIVES,
+        ...ENTRY_COMPONENTS
     ],
-  declarations: [
-    ...COMPONENTS,
-    ...DIRECTIVES,
-    ...ENTRY_COMPONENTS
-  ],
-  providers: [
-    ...PROVIDERS
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
-  ],
-  exports: [
-    ...COMPONENTS,
-    ...DIRECTIVES
-  ]
+    providers: [
+        ...PROVIDERS
+    ],
+    entryComponents: [
+        ...ENTRY_COMPONENTS
+    ],
+    exports: [
+        ...COMPONENTS,
+        ...DIRECTIVES
+    ]
 })
 
 /**

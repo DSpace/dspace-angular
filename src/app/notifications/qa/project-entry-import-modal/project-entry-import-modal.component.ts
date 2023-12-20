@@ -18,6 +18,13 @@ import {
 } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Item } from '../../../core/shared/item.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 /**
  * The possible types of import for the external entry
@@ -77,9 +84,11 @@ export interface QualityAssuranceEventData {
 }
 
 @Component({
-  selector: 'ds-project-entry-import-modal',
-  styleUrls: ['./project-entry-import-modal.component.scss'],
-  templateUrl: './project-entry-import-modal.component.html'
+    selector: 'ds-project-entry-import-modal',
+    styleUrls: ['./project-entry-import-modal.component.scss'],
+    templateUrl: './project-entry-import-modal.component.html',
+    standalone: true,
+    imports: [RouterLink, NgIf, FormsModule, LoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule]
 })
 /**
  * Component to display a modal window for linking a project to an Quality Assurance event

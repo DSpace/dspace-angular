@@ -9,9 +9,9 @@ describe('AdminQualityAssuranceSourcePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminQualityAssuranceSourcePageComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    imports: [AdminQualityAssuranceSourcePageComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   });
 

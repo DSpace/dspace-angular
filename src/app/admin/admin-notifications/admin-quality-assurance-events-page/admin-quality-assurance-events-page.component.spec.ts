@@ -8,9 +8,9 @@ describe('AdminQualityAssuranceEventsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminQualityAssuranceEventsPageComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    imports: [AdminQualityAssuranceEventsPageComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   }));
 

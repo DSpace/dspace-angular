@@ -9,19 +9,17 @@ import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assura
 import {NotificationsModule} from '../../notifications/notifications.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    CoreModule.forRoot(),
-    AdminNotificationsRoutingModule,
-    NotificationsModule
-  ],
-  declarations: [
-    AdminQualityAssuranceTopicsPageComponent,
-    AdminQualityAssuranceEventsPageComponent,
-    AdminQualityAssuranceSourcePageComponent
-  ],
-  entryComponents: []
+    imports: [
+        CommonModule,
+        SharedModule,
+        CoreModule.forRoot(),
+        AdminNotificationsRoutingModule,
+        NotificationsModule,
+        AdminQualityAssuranceTopicsPageComponent,
+        AdminQualityAssuranceEventsPageComponent,
+        AdminQualityAssuranceSourcePageComponent
+    ],
+    entryComponents: []
 })
 /**
  * This module handles all components related to the notifications pages
