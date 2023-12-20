@@ -135,7 +135,7 @@ describe('ReviewersListComponent', () => {
     translateService = getMockTranslateService();
 
     paginationService = new PaginationServiceStub();
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
     imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
             loader: {

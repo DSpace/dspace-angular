@@ -11,6 +11,7 @@ import { HealthInfoComponent } from './health-info/health-info.component';
 import { HealthPanelComponent } from './health-panel/health-panel.component';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgIf, AsyncPipe } from '@angular/common';
+import { AlertType } from '../shared/alert/alert-type';
 
 @Component({
     selector: 'ds-health-page',
@@ -40,6 +41,8 @@ export class HealthPageComponent implements OnInit {
    * Represent if the response from health info endpoint is already retrieved or not
    */
   healthInfoResponseInitialised: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  readonly AlertType = AlertType;
 
   constructor(private healthDataService: HealthService) {
   }

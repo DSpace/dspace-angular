@@ -34,9 +34,9 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;

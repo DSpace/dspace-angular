@@ -151,7 +151,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when a click occurs on the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'toggleActiveSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > button'));
         sidebarToggler.triggerEventHandler('click', {
           preventDefault: () => {/**/
           }
@@ -193,7 +193,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse enters the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'activateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > button'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/
           }
@@ -208,7 +208,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse leaves the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'deactivateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > button'));
         sidebarToggler.triggerEventHandler('mouseleave', {
           preventDefault: () => {/**/
           }
@@ -223,7 +223,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when a click occurs on the section header link', () => {
       beforeEach(() => {
         spyOn(menuService, 'toggleActiveSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > button'));
         sidebarToggler.triggerEventHandler('click', {
           preventDefault: () => {/**/
           }

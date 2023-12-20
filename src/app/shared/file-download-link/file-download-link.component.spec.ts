@@ -12,6 +12,7 @@ import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -43,7 +44,10 @@ describe('FileDownloadLinkComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-      imports: [FileDownloadLinkComponent,],
+      imports: [
+        TranslateModule.forRoot(),
+        FileDownloadLinkComponent
+      ],
       providers: [
         RouterLinkDirectiveStub,
         { provide: AuthorizationDataService, useValue: authorizationService },

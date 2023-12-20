@@ -22,6 +22,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { AlertComponent } from '../../alert/alert.component';
+import { AlertType } from '../../alert/alert-type';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -120,6 +121,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   private subs: Subscription[] = [];
+
+  readonly AlertType = AlertType;
 
   /**
    * Initialize instance variables

@@ -9,13 +9,14 @@ import { of as observableOf, combineLatest as observableCombineLatest, Observabl
 import { Item } from '../../core/shared/item.model';
 import { NgClass, NgIf, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'ds-file-download-link',
     templateUrl: './file-download-link.component.html',
     styleUrls: ['./file-download-link.component.scss'],
     standalone: true,
-    imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe]
+    imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule]
 })
 /**
  * Component displaying a download link

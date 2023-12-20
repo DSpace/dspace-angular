@@ -32,6 +32,7 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -112,6 +113,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   protected subs: Subscription[] = [];
 
   private retrieveExternalSourcesSub: Subscription;
+
+  public readonly AlertType = AlertType;
 
   /**
    * Initialize the component variables.

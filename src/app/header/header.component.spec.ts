@@ -45,6 +45,7 @@ describe('HeaderComponent', () => {
         HeaderComponent
     ],
     providers: [
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: MenuService, useValue: menuService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
         { provide: LocaleService, useValue: mockLocaleService },

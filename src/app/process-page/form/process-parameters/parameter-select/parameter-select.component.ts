@@ -5,6 +5,7 @@ import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
 import { controlContainerFactory } from '../../process-form.component';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 import { NgFor, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component to select a single parameter for a process
@@ -19,7 +20,7 @@ import { NgFor, NgIf } from '@angular/common';
             deps: [[new Optional(), NgForm]]
         }],
     standalone: true,
-    imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf]
+    imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf, TranslateModule]
 })
 export class ParameterSelectComponent {
   @Input() index: number;

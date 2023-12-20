@@ -6,13 +6,14 @@ import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { VarDirective } from '../../../utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'ds-selectable-list-item-control',
     // styleUrls: ['./selectable-list-item-control.component.scss'],
     templateUrl: './selectable-list-item-control.component.html',
     standalone: true,
-    imports: [VarDirective, NgIf, FormsModule, AsyncPipe]
+    imports: [VarDirective, NgIf, FormsModule, AsyncPipe, TranslateModule]
 })
 /**
  * Component for rendering list item that has a control (checkbox or radio button) because it's selectable

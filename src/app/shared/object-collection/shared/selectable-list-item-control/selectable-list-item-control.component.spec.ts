@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { VarDirective } from '../../../utils/var.directive';
 import { of as observableOf } from 'rxjs';
 import { ListableObject } from '../listable-object.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SelectableListItemControlComponent', () => {
   let comp: SelectableListItemControlComponent;
@@ -44,7 +45,7 @@ describe('SelectableListItemControlComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [FormsModule, SelectableListItemControlComponent, VarDirective],
+    imports: [FormsModule, SelectableListItemControlComponent, VarDirective, TranslateModule.forRoot()],
     providers: [
         {
             provide: SelectableListService,

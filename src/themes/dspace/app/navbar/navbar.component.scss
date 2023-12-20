@@ -54,8 +54,8 @@ a.navbar-brand img {
   max-height: var(--ds-header-logo-height);
 }
 
-.navbar-nav {
-  ::ng-deep a.nav-link {
+.navbar-nav ::ng-deep {
+  a.nav-link, .btn.nav-link {
     color: var(--ds-navbar-link-color);
 
     &:hover, &:focus {

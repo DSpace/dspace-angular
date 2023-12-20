@@ -21,6 +21,7 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AlertType } from '../shared/alert/alert-type';
 
 @Component({
     selector: 'ds-subscriptions-page',
@@ -62,6 +63,8 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    * The rxjs subscription used to retrieve the result list
    */
   sub: rxjsSubscription = null;
+
+  readonly AlertType = AlertType;
 
   constructor(
     private paginationService: PaginationService,

@@ -14,6 +14,7 @@ import { NgIf, AsyncPipe } from '@angular/common';
 @Component({
     selector: 'ds-access-status-badge',
     templateUrl: './access-status-badge.component.html',
+    styleUrls: ['./access-status-badge.component.scss'],
     standalone: true,
     imports: [NgIf, AsyncPipe, TranslateModule]
 })

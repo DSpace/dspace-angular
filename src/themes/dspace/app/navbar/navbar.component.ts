@@ -13,6 +13,7 @@ import { NgClass, NgIf, NgFor, NgComponentOutlet, AsyncPipe } from '@angular/com
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemedLangSwitchComponent } from 'src/app/shared/lang-switch/themed-lang-switch.component';
 import { ThemedSearchNavbarComponent } from 'src/app/search-navbar/themed-search-navbar.component';
+import { ThemedUserMenuComponent } from '../../../../app/shared/auth-nav-menu/user-menu/themed-user-menu.component';
 
 /**
  * Component representing the public navbar
@@ -23,7 +24,7 @@ import { ThemedSearchNavbarComponent } from 'src/app/search-navbar/themed-search
     templateUrl: './navbar.component.html',
     animations: [slideMobileNav],
     standalone: true,
-    imports: [NgbDropdownModule, ThemedLangSwitchComponent, ThemedSearchNavbarComponent, NgClass, RouterLink, NgIf, UserMenuComponent, NgFor, NgComponentOutlet, SearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, AsyncPipe, TranslateModule]
+    imports: [NgbDropdownModule, ThemedLangSwitchComponent, ThemedSearchNavbarComponent, NgClass, RouterLink, NgIf, UserMenuComponent, NgFor, NgComponentOutlet, SearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, AsyncPipe, TranslateModule, ThemedUserMenuComponent]
 })
 export class NavbarComponent extends BaseComponent {
 }
