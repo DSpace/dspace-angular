@@ -514,7 +514,7 @@ export class DefaultAppConfig implements AppConfig {
       vocabulary: 'srsc',
       enabled: false
     }
-    ];
+  ];
 
   // Configuration that determines the metadata sorting of community and collection edition and creation when there are not a search query.
   comcolSelectionSort: DiscoverySortConfig = {
@@ -612,9 +612,6 @@ export class DefaultAppConfig implements AppConfig {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
-    },
-    breadcrumbs: {
-      charLimit: 10,
     }
   };
 
