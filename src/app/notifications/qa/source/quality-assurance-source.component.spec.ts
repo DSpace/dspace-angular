@@ -15,6 +15,9 @@ import { NotificationsStateService } from '../../notifications-state.service';
 import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 describe('QualityAssuranceSourceComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceSourceComponent>;
@@ -44,7 +47,17 @@ describe('QualityAssuranceSourceComponent test suite', () => {
         QualityAssuranceSourceComponent
     ],
     schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then(() => {
+})
+      .overrideComponent(QualityAssuranceSourceComponent, {
+        remove: {
+          imports: [
+            AlertComponent,
+            LoadingComponent,
+            PaginationComponent
+          ]
+        }
+      })
+      .compileComponents().then(() => {
       mockNotificationsStateService.getQualityAssuranceSource.and.returnValue(observableOf([
         qualityAssuranceSourceObjectMorePid,
         qualityAssuranceSourceObjectMoreAbstract
