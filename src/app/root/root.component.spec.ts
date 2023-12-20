@@ -29,6 +29,11 @@ import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsBoardComponent } from '../shared/notifications/notifications-board/notifications-board.component';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
+import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
+import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { ThemedFooterComponent } from '../footer/themed-footer.component';
 
 describe('RootComponent', () => {
   let component: RootComponent;
@@ -67,7 +72,15 @@ describe('RootComponent', () => {
 })
 .overrideComponent(RootComponent, {
   remove: {
-    imports: [NotificationsBoardComponent, SystemWideAlertBannerComponent]
+    imports: [
+      ThemedAdminSidebarComponent,
+      SystemWideAlertBannerComponent,
+      ThemedHeaderNavbarWrapperComponent,
+      ThemedBreadcrumbsComponent,
+      ThemedLoadingComponent,
+      ThemedFooterComponent,
+      NotificationsBoardComponent
+    ]
   }
 })
 .compileComponents();
