@@ -22,6 +22,7 @@ import { NoContent } from '../../shared/NoContent.model';
 import { getAllCompletedRemoteData } from '../../shared/operators';
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 import { hasValue } from '../../../shared/empty.util';
+import { SearchData, SearchDataImpl } from '../base/search-data';
 
 /**
  * Create an InjectionToken for the default JS setTimeout function, purely so we can mock it during
@@ -34,10 +35,11 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
 
 @Injectable()
 @dataService(PROCESS)
-export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
+export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process>, SearchData<Process> {
 
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
+  private searchData: SearchData<Process>;
   protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
 
   constructor(
@@ -54,6 +56,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
 
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -107,6 +110,23 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   findAll(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   *
+   * @param searchMethod                The search method for the Process
+   * @param options                     The FindListOptions object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true.
+   * @param reRequestOnStale            Whether the request should automatically be re-
+   *                                    requested after the response becomes stale.
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should automatically be resolved.
+   * @return {Observable<RemoteData<PaginatedList<Process>>>}
+   *    Return an observable that emits a paginated list of processes
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
