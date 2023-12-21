@@ -699,6 +699,9 @@
   "clarin.license.agreement.notification.check.email": "You will receive email with download link.",
 
   "clarin.license.agreement.notification.cannot.send.email": "Error: cannot send the email.",
+
+  "clarin.bitstream.expired.dtoken.message": "The download token is expired, you will be redirected to the download page.",
+
   "bitstream.download.page.back": "Back" ,
 
 

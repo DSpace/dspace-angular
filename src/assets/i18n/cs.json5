@@ -1039,6 +1039,10 @@
 
   // "clarin.license.agreement.notification.cannot.send.email": "Error: cannot send the email.",
   "clarin.license.agreement.notification.cannot.send.email": "Error: cannot send the email.",
+
+  // "clarin.bitstream.expired.dtoken.message": "The download token is expired, you will be redirected to the download page.",
+  "clarin.bitstream.expired.dtoken.message": "Platnost tokenu pro stahování vypršel, budete přesměrováni na stránku stahování.",
+
   // "bitstream.download.page.back": "Back" ,
   "bitstream.download.page.back" : "Zpět",
 
