@@ -70,9 +70,12 @@
                 </div>
               </div>
             </div>
-            <button type="button" [class.mt-2]="serviceIndex > 0" class="btn btn-secondary ml-2" role="button"
+            <button *ngIf="ldnServiceByPattern[ldnPattern.pattern].services.length > 1"
+                    type="button" [class.mt-2]="serviceIndex > 0"
+                    class="btn btn-secondary ml-2"
+                    role="button"
                     title="{{'form.remove' | translate}}"
-                    attr.aria-label="{{'form.remove' | translate}}"
+                    [attr.aria-label]="'form.remove' | translate"
                     (click)="removeService(ldnPattern, serviceIndex)"
             >
               <span><i class="fas fa-trash" aria-hidden="true"></i></span>

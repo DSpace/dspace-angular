@@ -8,7 +8,7 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from '../models/section-data.model';
 
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
@@ -20,7 +20,7 @@ import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { filter, map, take, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { LdnPattern } from "./submission-coar-notify.config";
+import { LdnPattern } from './submission-coar-notify.config';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.
@@ -103,17 +103,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
         getFirstCompletedRemoteData()
       ).subscribe((data) => {
         if (data.hasSucceeded) {
-          // remove mock data after impl
-          this.patterns = [ {
-            "pattern":"request-review",
-            "multipleRequest":true
-          },{
-            "pattern":"request-endorsement",
-            "multipleRequest":true
-          },{
-            "pattern":"request-ingest",
-            "multipleRequest":false
-          } ];
+          this.patterns = data.payload.page[0].patterns;
           this.initSelectedServicesByPattern();
         }
       }));
@@ -123,6 +113,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * Handles the change event of a select element.
    * @param pattern - The pattern of the select element.
    * @param index - The index of the select element.
+   * @param selectedService - The selected LDN service.
    */
   onChange(pattern: string, index: number, selectedService: LdnService | null) {
     // do nothing if the selected value is the same as the previous one
@@ -145,10 +136,11 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
     const hasPrevValueStored = hasValue(this.previousServices[pattern].services[index]) && this.previousServices[pattern].services[index].id !== selectedService?.id;
     if (hasPrevValueStored) {
-      // replace the path
       // when there is a previous value stored and it is different from the new one
-      this.operationsBuilder.replace(this.pathCombiner.getPath([pattern, index.toString()]), selectedService?.id, true);
-    } else {
+      this.operationsBuilder.flushOperation(this.pathCombiner.getPath([pattern, '-']));
+    }
+
+    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored)) {
       // add the path when there is no previous value stored
       this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), [selectedService.id], false, true);
     }
@@ -171,12 +163,11 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
         this.subs.push(
           this.filterServices(ldnPattern.pattern)
             .subscribe((services: LdnService[]) => {
-              const selectedServices = services.filter((service) => {
+              this.ldnServiceByPattern[ldnPattern.pattern].services = services.filter((service) => {
                 const selection = (this.sectionData.data[ldnPattern.pattern] as LdnService[]).find((s: LdnService) => s.id === service.id);
                 this.addService(ldnPattern, selection);
                 return this.sectionData.data[ldnPattern.pattern].includes(service.id);
               });
-              this.ldnServiceByPattern[ldnPattern.pattern].services = selectedServices;
             })
         );
       } else {
@@ -191,7 +182,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   /**
    * Adds a new service to the selected services for the given pattern.
-   * @param pattern - The pattern to add the new service to.
+   * @param ldnPattern - The pattern to add the new service to.
    * @param newService - The new service to add.
    */
   addService(ldnPattern: LdnPattern, newService: LdnService) {
@@ -216,10 +207,10 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       // Remove the service at the specified index from the array
       this.ldnServiceByPattern[ldnPattern.pattern].services.splice(serviceIndex, 1);
       this.previousServices[ldnPattern.pattern]?.services.splice(serviceIndex, 1);
-      this.operationsBuilder.replace(this.pathCombiner.getPath([ldnPattern.pattern, serviceIndex.toString()]), null, true);
+      this.operationsBuilder.flushOperation(this.pathCombiner.getPath([ldnPattern.pattern, '-']));
       this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
     }
-    if(!this.ldnServiceByPattern[ldnPattern.pattern].services.length) {
+    if (!this.ldnServiceByPattern[ldnPattern.pattern].services.length) {
       this.addNewService(ldnPattern);
     }
   }
@@ -316,7 +307,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    * Add new row to dropdown for multiple service selection
    * @param ldnPattern - the related LDN pattern where the service is added
    */
-  addNewService(ldnPattern: LdnPattern) : void {
+  addNewService(ldnPattern: LdnPattern): void {
     //idle new service for new selection
     this.ldnServiceByPattern[ldnPattern.pattern].services.push(null);
   }
