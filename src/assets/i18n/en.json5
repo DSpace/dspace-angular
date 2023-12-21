@@ -2178,6 +2178,8 @@
 
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
 
+  "item.edit.bitstreams.headers.synchronized": "Synchronized",
+
   "item.edit.bitstreams.headers.actions": "Actions",
 
   "item.edit.bitstreams.headers.bundle": "Bundle",

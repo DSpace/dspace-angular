@@ -48,4 +48,11 @@
       </div>
     </div>
   </div>
+  <div class="{{columnSizes.columns[4].buildClasses()}} row-element d-flex align-items-center justify-content-center">
+    <div class="float-left d-flex align-items-center overflow-hidden">
+        <span class="text-center">
+          <i [class]="bitstream.storeNumber === syncStoresNumber ? 'fas fa-check' : 'fas fa-times'"></i>
+        </span>
+    </div>
+  </div>
 </ng-template>
