@@ -1,4 +1,4 @@
-<div class="container" >
+<div *ngIf="(showAttributes | async) == true" class="container" >
   <div *ngIf="(verificationToken$ | async) != null">
     <h5 class="display-4">{{'clarin.autoregistration.welcome.message' | translate}} {{dspaceName$ | async}}</h5>
     <div class="alert alert-info" role="alert" style="width: 100%">
