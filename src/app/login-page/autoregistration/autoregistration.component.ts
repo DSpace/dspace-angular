@@ -23,6 +23,7 @@ import { hasSucceeded } from 'src/app/core/data/request-entry-state.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { getBaseUrl } from '../../shared/clarin-shared-util';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { RemoteData } from '../../core/data/remote-data';
 
 /**
  * This component is showed up when the user has clicked on the `verification token`.
@@ -62,6 +63,12 @@ export class AutoregistrationComponent implements OnInit {
    */
   baseUrl = '';
 
+  /**
+   * Show attributes passed from the IdP or not.
+   * It could be disabled by the cfg property `authentication-shibboleth.show.idp-attributes`
+   */
+  showAttributes: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(protected router: Router,
     public route: ActivatedRoute,
     private requestService: RequestService,
@@ -82,6 +89,14 @@ export class AutoregistrationComponent implements OnInit {
     // Load the `ClarinVerificationToken` based on the `verificationToken` value
     this.loadVerificationToken();
     await this.assignBaseUrl();
+    await this.loadShowAttributes().then((value: RemoteData<ConfigurationProperty>) => {
+      const stringBoolean = value?.payload?.values?.[0];
+      this.showAttributes.next(stringBoolean === 'true');
+    });
+
+    if (this.showAttributes.value === false) {
+      this.sendAutoLoginRequest();
+    }
   }
 
   /**
@@ -241,8 +256,17 @@ export class AutoregistrationComponent implements OnInit {
         return baseUrlResponse?.values?.[0];
       });
   }
-}
 
+  /**
+   * Load the `authentication-shibboleth.show.idp-attributes` property from the cfg
+   */
+  async loadShowAttributes(): Promise<any> {
+    return await this.configurationService.findByPropertyName('authentication-shibboleth.show.idp-attributes')
+      .pipe(
+        getFirstCompletedRemoteData()
+      ).toPromise();
+  }
+}
 /**
  * ShibHeaders string value from the verificationToken$ parsed to the objects.
  */
