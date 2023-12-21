@@ -1,5 +1,5 @@
 import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
-import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../suggestion-notifications.reducer';
+import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../../notifications/notifications.reducer';
 import { SuggestionTarget } from '../../core/suggestion-notifications/reciter-suggestions/models/suggestion-target.model';
 import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
 import {subStateSelector} from '../../submission/selectors';

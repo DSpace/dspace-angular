@@ -15,7 +15,7 @@ import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { SearchModule } from '../shared/search/search.module';
 import { UploadModule } from '../shared/upload/upload.module';
-import { SuggestionNotificationsModule } from '../suggestion-notifications/suggestion-notifications.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -27,15 +27,15 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule,
-        SearchModule,
-        MyDspacePageRoutingModule,
-        MyDspaceSearchModule.withEntryComponents(),
-        UploadModule,
-        SuggestionNotificationsModule,
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    SearchModule,
+    MyDspacePageRoutingModule,
+    MyDspaceSearchModule.withEntryComponents(),
+    UploadModule,
+    NotificationsModule
+  ],
   declarations: DECLARATIONS,
   providers: [
     MyDSpaceGuard,

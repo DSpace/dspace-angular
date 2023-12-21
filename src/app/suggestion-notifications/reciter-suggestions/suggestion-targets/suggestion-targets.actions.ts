@@ -152,4 +152,5 @@ export type SuggestionTargetsActions
   | ClearSuggestionTargetsAction
   | MarkUserSuggestionsAsVisitedAction
   | RetrieveTargetsBySourceAction
-  | RetrieveAllTargetsErrorAction;
+  | RetrieveAllTargetsErrorAction
+  | RefreshUserSuggestionsAction;

@@ -20,7 +20,7 @@ import {
   RefreshUserSuggestionsAction,
   RetrieveTargetsBySourceAction
 } from './suggestion-targets.actions';
-import { SuggestionNotificationsState } from '../../suggestion-notifications.reducer';
+import { SuggestionNotificationsState } from '../../../notifications/notifications.reducer';
 
 /**
  * The service handling the Suggestion targets State.
