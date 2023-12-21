@@ -685,8 +685,8 @@ export class MenuResolver implements Resolve<boolean> {
           visible: authorized,
           model: {
             type: MenuItemType.LINK,
-            text: 'menu.section.notify-dasboard',
-            link: '/admin/notify-dasboard'
+            text: 'menu.section.notify-dashboard',
+            link: '/admin/notify-dashboard'
           } as LinkMenuItemModel,
           icon: 'gauge',
           index: 13

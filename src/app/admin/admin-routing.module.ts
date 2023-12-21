@@ -8,6 +8,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { LDN_PATH, REGISTRIES_MODULE_PATH, NOTIFICATIONS_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
+import { AdminNotifyDashboardComponent } from "./admin-notify-dashboard/admin-notify-dashboard.component";
 
 @NgModule({
   imports: [
@@ -68,6 +69,12 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         loadChildren: () => import('../system-wide-alert/system-wide-alert.module').then((m) => m.SystemWideAlertModule),
         data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
+      },
+      {
+        path: 'notify-dashboard',
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
+        component: AdminNotifyDashboardComponent,
+        data: {title: 'todo', breadcrumbKey: 'todo'}
       },
     ]),
   ],
