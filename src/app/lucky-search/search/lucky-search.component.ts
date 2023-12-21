@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, mergeMap, Observable, of } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
@@ -9,11 +9,15 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../../shared/search/models/search-filter.model';
 import { LuckySearchService } from '../lucky-search.service';
 import { Router } from '@angular/router';
-import { switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { Context } from '../../core/shared/context.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { Item } from '../../core/shared/item.model';
+import { BitstreamDataService, MetadataFilter } from '../../core/data/bitstream-data.service';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { hasValue } from '../../shared/empty.util';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 
 @Component({
   selector: 'ds-lucky-search',
@@ -46,8 +50,17 @@ export class LuckySearchComponent implements OnInit {
   };
   context: Context = Context.ItemPage;
 
+  private TITLE_METADATA = 'dc.title';
+  private SOURCE_METADATA = 'dc.source';
+  private DESCRIPTION_METADATA = 'dc.description';
+
+  bitstreamFilters: MetadataFilter[];
+  bitstreams$ = new BehaviorSubject([]);
+  item$ = new BehaviorSubject(null);
+
   constructor(private luckySearchService: LuckySearchService,
               private router: Router,
+              private bitstreamDataService: BitstreamDataService,
               public searchConfigService: SearchConfigurationService) {
   }
 
@@ -55,7 +68,7 @@ export class LuckySearchComponent implements OnInit {
     this.searchOptions$ = this.getSearchOptions();
     this.readResult();
     const urlTree = this.router.parseUrl(this.router.url);
-    if (urlTree.queryParams) {
+    if (urlTree?.queryParams) {
       Object.keys(urlTree.queryParams).forEach((key) => {
         if (key && key === 'index') {
           this.currentFilter.identifier = urlTree.queryParams[key];
@@ -64,6 +77,7 @@ export class LuckySearchComponent implements OnInit {
           this.currentFilter.value = urlTree.queryParams[key];
         }
       });
+      this.bitstreamFilters = this.parseBitstreamFilters(urlTree.queryParams);
     }
     if (!(this.currentFilter.value !== '' && this.currentFilter.identifier !== '')) {
       this.showEmptySearchSection = true;
@@ -87,34 +101,92 @@ export class LuckySearchComponent implements OnInit {
 
   }
 
+  getDescription(bitstream: Bitstream): string {
+    return bitstream.firstMetadataValue(this.DESCRIPTION_METADATA);
+  }
+
+  fileName(bitstream: Bitstream): string {
+    const title = bitstream.firstMetadataValue(this.TITLE_METADATA);
+    return hasValue(title) ? title : bitstream.firstMetadataValue(this.SOURCE_METADATA);
+  }
+
+  getSize(bitstream: Bitstream): number {
+    return bitstream.sizeBytes;
+  }
+
   private readResult() {
-    this.resultsRD$.subscribe((res: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-      if (!res) {
-        return;
-      }
-      const total = res.payload.totalElements;
-      if (total === 0) {
-        // show message
-        this.showEmptySearchSection = true;
-      } else {
-        if (total === 1) {
-          const url = getItemPageRoute(res.payload.page[0].indexableObject as Item) ;
-          // redirect to items detail page
-          this.redirectToItemsDetailPage(url);
-        } else {
-          // show message and all list of results
-          this.showMultipleSearchSection = true;
-        }
-      }
-    });
+    this.resultsRD$
+      .pipe(
+        filter(res => !!res),
+        mergeMap(res => this.handleResultAndRedirectIfNeeded(res))
+      ).subscribe();
+  }
+
+  private handleResultAndRedirectIfNeeded(res: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) {
+    const total = res.payload.totalElements;
+    if (total === 0) {
+      this.showEmptySearchSection = true;
+    } else if (total === 1) {
+      return this.handleSingleItemResult(res);
+    } else {
+      this.showMultipleSearchSection = true;
+    }
+    return of(null);
+  }
+
+  private handleSingleItemResult(res: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) {
+    const item = res.payload.page[0].indexableObject as Item;
+    if (this.isBitstreamSearch()) {
+      return this.loadBitstreamsAndRedirectIfNeeded(item);
+    } else {
+      this.redirect(getItemPageRoute(item));
+    }
+    return of(null);
+  }
+
+  private isBitstreamSearch() {
+    return this.bitstreamFilters?.length;
   }
 
   private getSearchOptions(): Observable<PaginatedSearchOptions> {
     return this.searchConfigService.paginatedSearchOptions;
   }
 
-  public redirectToItemsDetailPage(url): void {
+  public redirect(url): void {
     this.router.navigateByUrl(url, {replaceUrl: true});
   }
 
+  private parseBitstreamFilters(queryParams): MetadataFilter[] {
+    const metadataName = queryParams?.bitstreamMetadata;
+    const metadataValue = queryParams?.bitstreamValue;
+    if (!!metadataName && !!metadataValue) {
+
+      const metadataNames = Array.isArray(metadataName) ? metadataName : [metadataName];
+      const metadataValues = Array.isArray(metadataValue) ? metadataValue : [metadataValue];
+
+      return metadataNames.map((name, index) => ({
+        metadataName: name,
+        metadataValue: metadataValues[index]
+      } as MetadataFilter));
+    }
+    return [];
+  }
+
+  private loadBitstreamsAndRedirectIfNeeded(item: Item): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    return this.bitstreamDataService.findByItem(item.uuid, 'ORIGINAL', this.bitstreamFilters, {})
+      .pipe(
+        getFirstSucceededRemoteData(),
+        tap(bitstreamsResult => {
+          const bitstreams = bitstreamsResult.payload?.page;
+          this.bitstreams$.next(bitstreams);
+          this.item$.next(item);
+
+          if (!bitstreams?.length) {
+            this.showEmptySearchSection = true;
+          } else if (bitstreams.length === 1) {
+            this.redirect(getBitstreamDownloadRoute(bitstreams[0]));
+          }
+        })
+      );
+  }
 }
