@@ -643,8 +643,6 @@ export class DefaultAppConfig implements AppConfig {
     showPlusButton: true,
     showCounters: true,
     title: 'DSpace CRIS 7 demo',
-    // link: 'https://dspacecris7.4science.cloud/',
-    // The link to be shown in the shared post, if different from document.location.origin
   };
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
