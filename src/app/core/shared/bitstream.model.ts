@@ -11,6 +11,9 @@ import {BUNDLE} from './bundle.resource-type';
 import {Bundle} from './bundle.model';
 import { ChildHALResource } from './child-hal-resource.model';
 
+// Store number if the bitstream is stored in the both stores (S3 and local)
+export const SYNCHRONIZED_STORES_NUMBER = 77;
+
 @typedObject
 @inheritSerialization(DSpaceObject)
 export class Bitstream extends DSpaceObject implements ChildHALResource {
@@ -33,6 +36,12 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    */
   @autoserialize
   bundleName: string;
+
+  /**
+   * The number of the store where the bitstream is store, it could be S3, local or both.
+   */
+  @autoserialize
+  storeNumber: number;
 
   /**
    * The {@link HALLink}s for this Bitstream

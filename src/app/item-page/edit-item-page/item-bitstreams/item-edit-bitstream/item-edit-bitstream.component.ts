@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Bitstream, SYNCHRONIZED_STORES_NUMBER } from '../../../../core/shared/bitstream.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Observable } from 'rxjs';
@@ -62,6 +62,11 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
    * The format of the bitstream
    */
   format$: Observable<BitstreamFormat>;
+
+  /**
+   * The value of the store number if the bitstream is stored in both stores (S3 and local)
+   */
+  syncStoresNumber = SYNCHRONIZED_STORES_NUMBER;
 
   constructor(private objectUpdatesService: ObjectUpdatesService,
               private dsoNameService: DSONameService,

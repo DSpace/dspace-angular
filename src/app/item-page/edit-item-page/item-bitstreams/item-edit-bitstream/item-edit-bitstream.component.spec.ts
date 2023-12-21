@@ -21,8 +21,9 @@ let fixture: ComponentFixture<ItemEditBitstreamComponent>;
 const columnSizes = new ResponsiveTableSizes([
   new ResponsiveColumnSizes(2, 2, 3, 4, 4),
   new ResponsiveColumnSizes(2, 3, 3, 3, 3),
-  new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-  new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+  new ResponsiveColumnSizes(1, 1, 1, 1, 1),
+  new ResponsiveColumnSizes(5, 4, 3, 2, 2),
+  new ResponsiveColumnSizes(2, 2, 2, 2, 2)
 ]);
 
 const format = Object.assign(new BitstreamFormat(), {

@@ -32,6 +32,7 @@
       <div class="{{columnSizes.columns[1].buildClasses()}} row-element">{{'item.edit.bitstreams.headers.description' | translate}}</div>
       <div class="{{columnSizes.columns[2].buildClasses()}} text-center row-element">{{'item.edit.bitstreams.headers.format' | translate}}</div>
       <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">{{'item.edit.bitstreams.headers.actions' | translate}}</div>
+      <div class="{{columnSizes.columns[4].buildClasses()}} text-center row-element">{{'item.edit.bitstreams.headers.synchronized' | translate}}</div>
     </div>
     <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles"
                                    [bundle]="bundle"

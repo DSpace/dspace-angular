@@ -3212,6 +3212,9 @@
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty" : "Tato položka neobsahuje žádné bitstreamy. Klikněte na tlačítko pro nahrání a jeden vytvořte.",
 
+  // "item.edit.bitstreams.headers.synchronized": "Synchronized",
+  "item.edit.bitstreams.headers.synchronized": "Synchronizováno",
+
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions" : "Akce",
 
