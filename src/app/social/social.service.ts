@@ -55,14 +55,6 @@ export class SocialService {
   }
 
   /**
-   * Returns the homepage link to be used by AddToAny.
-   * If no link is provided in the configuration then the current page url will be used.
-   */
-  get link(): string {
-    return environment.addToAnyPlugin.link ?? null;
-  }
-
-  /**
    * Import the AddToAny JavaScript
    */
   initializeAddToAnyScript(): any {
