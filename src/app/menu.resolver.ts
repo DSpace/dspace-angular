@@ -679,6 +679,18 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'exclamation-circle',
           index: 12
         },
+        {
+          id: 'notify_dashboard',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notify-dasboard',
+            link: '/admin/notify-dasboard'
+          } as LinkMenuItemModel,
+          icon: 'gauge',
+          index: 13
+        },
       ];
 
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
