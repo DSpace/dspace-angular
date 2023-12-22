@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('AdminNotifyMetricsComponent', () => {
   let component: AdminNotifyMetricsComponent;
@@ -8,6 +9,7 @@ describe('AdminNotifyMetricsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [ AdminNotifyMetricsComponent ]
     })
     .compileComponents();

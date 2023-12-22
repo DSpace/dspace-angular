@@ -285,6 +285,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SplitPipe } from './utils/split.pipe';
 import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
+import { NotificationBoxComponent } from './notification-box/notification-box.component';
 
 const MODULES = [
   CommonModule,
@@ -469,7 +470,8 @@ const ENTRY_COMPONENTS = [
   AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  NotificationBoxComponent
 ];
 
 const PROVIDERS = [

@@ -13,7 +13,6 @@ import {
   NOTIFY_DASHBOARD_MODULE_PATH
 } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
-import { AdminNotifyDashboardComponent } from "./admin-notify-dashboard/admin-notify-dashboard.component";
 
 @NgModule({
   imports: [

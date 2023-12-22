@@ -1,33 +1,29 @@
-import { AdminNotifyMetricsRow } from "./admin-notify-metrics.model";
+import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 
 export const AdminNotifyMetricsRowsConfig: AdminNotifyMetricsRow[] = [
   {
     title: 'Number of received LDN',
     boxes: [
       {
-        color: 'blue',
+        color: '#B8DAFF',
         title: 'Accepted',
-        index: 0
       },
       {
-        color: 'green',
+        color: '#D4EDDA',
         title: 'Processed LDN',
-        index: 1
       },
       {
-        color: 'red',
+        color: '#FDBBC7',
         title: 'Failure',
-        index: 2
       },
       {
-        color: 'red',
+        color: '#FDBBC7',
         title: 'Untrusted',
-        index: 3
       },
       {
-        color: 'grey',
+        color: '#43515F',
         title: 'Incoming LDM messages',
-        index: 4
+        textColor: '#fff'
       },
     ]
   },
@@ -35,30 +31,26 @@ export const AdminNotifyMetricsRowsConfig: AdminNotifyMetricsRow[] = [
     title: 'Number of generated LDN',
     boxes: [
       {
-        color: 'green',
+        color: '#D4EDDA',
         title: 'Delivered',
-        index: 0
       },
       {
-        color: 'blue',
+        color: '#B8DAFF',
         title: 'Queued',
-        index: 1
       },
       {
-        color: 'yellow',
+        color: '#FDEEBB',
         title: 'Queued for retry',
-        index: 2
       },
       {
-        color: 'red',
+        color: '#FDBBC7',
         title: 'Failure',
-        index: 3
       },
       {
-        color: 'grey',
+        color: '#43515F',
         title: 'Outgoing LDM messages',
-        index: 4
+        textColor: '#fff'
       },
     ]
   }
-]
+];

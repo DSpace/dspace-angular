@@ -1,7 +1,8 @@
 export interface AdminNotifyMetricsBox {
   color: string;
+  textColor?: string;
   title: string;
-  index: number
+  count?: number
 }
 
 export interface AdminNotifyMetricsRow {

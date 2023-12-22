@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AdminNotifyMetricsRow } from "./admin-notify-metrics.model";
-import { AdminNotifyMetricsRowsConfig } from "./admin-notify-metrics.config";
+import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
+import { AdminNotifyMetricsRowsConfig } from './admin-notify-metrics.config';
 
 @Component({
   selector: 'ds-admin-notify-metrics',
