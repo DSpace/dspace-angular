@@ -71,6 +71,7 @@ describe('SuggestionsPopupComponent', () => {
     });
 
     it('should show a notification when new publication suggestions are available', () => {
+      
       expect((component as any).notificationsService.success).toHaveBeenCalled();
       expect(suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction).toHaveBeenCalled();
     });

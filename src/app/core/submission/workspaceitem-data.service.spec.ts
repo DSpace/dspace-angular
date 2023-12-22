@@ -77,23 +77,26 @@ describe('WorkspaceitemDataService test', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const comparatorEntry = {} as any;
   const store = {} as Store<CoreState>;
   const pageInfo = new PageInfo();
 
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkspaceitemDataService(
+      comparator,
+      halService,
+      http,
+      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      halService,
-      notificationsService,
+      store
     );
   }
 
   describe('composition', () => {
-    const initService = () => new WorkspaceitemDataService(null, null, null, null, null);
+    const initService = () => new WorkspaceitemDataService(null, null,
+      null, null, null, null, null, null);
     testSearchDataImplementation(initService);
     testDeleteDataImplementation(initService);
   });
