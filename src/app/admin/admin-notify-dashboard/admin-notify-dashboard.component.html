@@ -1,1 +1,28 @@
-<p>admin-notify-dashboard works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom pb-2">{{'admin-notify-dashboard.title'| translate}}</h2>
+      <div>
+        <ul ngbNav #nav="ngbNav" [activeId]="'metrics'" class="nav-tabs">
+          <li [ngbNavItem]="'metrics'">
+            <a ngbNavLink>{{'admin-notify-dashboard.metrics' | translate}}</a>
+            <ng-template ngbNavContent>
+              <div id="metrics">
+                <ds-admin-notify-metrics></ds-admin-notify-metrics>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="'logs'">
+            <a ngbNavLink>{{'admin-notify-dashboard.logs' | translate}}</a>
+            <ng-template ngbNavContent>
+              <div id="logs">
+                <ds-admin-notify-logs></ds-admin-notify-logs>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+    </div>
+  </div>
+</div>

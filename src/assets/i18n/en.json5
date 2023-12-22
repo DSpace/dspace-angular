@@ -28,6 +28,8 @@
 
   "admin.notifications.recitersuggestion.page.title": "Suggestions",
 
+  "admin.notify.dashboard": "Dashboard",
+
   "error-page.description.401": "unauthorized",
 
   "error-page.description.403": "forbidden",
@@ -3075,7 +3077,9 @@
 
   "menu.section.icon.export": "Export menu section",
 
-  "menu.section.notify-dashboard": "Notify Dashboard",
+  "menu.section.notify_dashboard": "Dashboard",
+
+  "menu.section.coar_notify": "COAR Notify",
 
   "menu.section.icon.find": "Find menu section",
 
@@ -3438,6 +3442,14 @@
   "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
 
   "quality-assurance.event.reason": "Reason",
+
+  "admin-notify-dashboard.title": "Notify Dashboard",
+
+  "admin-notify-dashboard.metrics": "Notify metrics",
+
+  "admin-notify-dashboard.logs": "Notify logs",
+
+  "admin.notify.dashboard.breadcrumbs": "Dashboard",
 
   "orgunit.listelement.badge": "Organizational Unit",
 

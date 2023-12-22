@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div *ngFor="let rows of boxesConfig">
+    <div *ngFor="let box of rows.boxes">
+      <div [ngStyle]="{'background-color': box.color}">
+        <!--Here will go the actual count coming from the REST endpoint -->
+        <div>0</div>
+        <div>{{ box.title | translate }}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -362,19 +362,6 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'terminal',
           index: 10
         },
-        /* LDN Services */
-        {
-          id: 'ldn_services',
-          active: false,
-          visible: isSiteAdmin,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.services',
-            link: '/admin/ldn/services'
-          } as LinkMenuItemModel,
-          icon: 'inbox',
-          index: 14
-        },
         {
           id: 'health',
           active: false,
@@ -679,17 +666,40 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'exclamation-circle',
           index: 12
         },
+        /* COAR Notify section */
         {
-          id: 'notify_dashboard',
+          id: 'coar_notify',
           active: false,
           visible: authorized,
           model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.coar_notify'
+          } as TextMenuItemModel,
+          icon: 'inbox',
+          index: 13
+        },
+        {
+          id: 'notify_dashboard',
+          active: false,
+          parentID: 'coar_notify',
+          visible: authorized,
+          model: {
             type: MenuItemType.LINK,
-            text: 'menu.section.notify-dashboard',
+            text: 'menu.section.notify_dashboard',
             link: '/admin/notify-dashboard'
           } as LinkMenuItemModel,
-          icon: 'gauge',
-          index: 13
+        },
+        /* LDN Services */
+        {
+          id: 'ldn_services',
+          active: false,
+          parentID: 'coar_notify',
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services',
+            link: '/admin/ldn/services'
+          } as LinkMenuItemModel,
         },
       ];
 

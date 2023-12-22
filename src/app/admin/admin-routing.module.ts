@@ -6,7 +6,12 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import { LDN_PATH, REGISTRIES_MODULE_PATH, NOTIFICATIONS_MODULE_PATH } from './admin-routing-paths';
+import {
+  LDN_PATH,
+  REGISTRIES_MODULE_PATH,
+  NOTIFICATIONS_MODULE_PATH,
+  NOTIFY_DASHBOARD_MODULE_PATH
+} from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { AdminNotifyDashboardComponent } from "./admin-notify-dashboard/admin-notify-dashboard.component";
 
@@ -71,10 +76,9 @@ import { AdminNotifyDashboardComponent } from "./admin-notify-dashboard/admin-no
         data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
       },
       {
-        path: 'notify-dashboard',
-        resolve: { breadcrumb: I18nBreadcrumbResolver },
-        component: AdminNotifyDashboardComponent,
-        data: {title: 'todo', breadcrumbKey: 'todo'}
+        path: NOTIFY_DASHBOARD_MODULE_PATH,
+        loadChildren: () => import('./admin-notify-dashboard/admin-notify-dashboard.module')
+          .then((m) => m.AdminNotifyDashboardModule),
       },
     ]),
   ],
