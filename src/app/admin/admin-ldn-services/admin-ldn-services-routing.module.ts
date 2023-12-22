@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LdnServicesOverviewComponent} from './ldn-services-directory/ldn-services-directory.component';
-import {NavigationBreadcrumbResolver} from '../../core/breadcrumbs/navigation-breadcrumb.resolver';
-import {I18nBreadcrumbResolver} from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LdnServicesOverviewComponent } from './ldn-services-directory/ldn-services-directory.component';
+import { NavigationBreadcrumbResolver } from '../../core/breadcrumbs/navigation-breadcrumb.resolver';
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.component';
 
 
