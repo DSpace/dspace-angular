@@ -6,7 +6,7 @@ import { VarDirective } from '../utils/var.directive';
 import { ThemeService } from './theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TestComponent } from './test/test.component.spec';
-import { ThemeConfig } from '../../../config/theme.model';
+import { ThemeConfig } from '../../../config/theme.config';
 
 @Component({
   selector: 'ds-test-themed-component',

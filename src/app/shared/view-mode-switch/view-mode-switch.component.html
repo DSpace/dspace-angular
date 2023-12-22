@@ -1,5 +1,7 @@
 <div class="btn-group" data-toggle="buttons">
     <button *ngIf="isToShow(viewModeEnum.ListElement)"
+            [attr.aria-current]="currentMode === viewModeEnum.ListElement"
+            [attr.aria-label]="'search.view-switch.show-list' | translate"
        routerLink="."
        [queryParams]="{view: 'list'}"
        queryParamsHandling="merge"
@@ -8,9 +10,11 @@
        [class.active]="currentMode === viewModeEnum.ListElement"
        class="btn btn-secondary"
        [attr.data-test]="'list-view' | dsBrowserOnly">
-       <span class="fas fa-list"></span><span class="sr-only">{{'search.view-switch.show-list' | translate}}</span>
+       <i class="fas fa-list"></i>
     </button>
     <button *ngIf="isToShow(viewModeEnum.GridElement)"
+            [attr.aria-current]="currentMode === viewModeEnum.GridElement"
+            [attr.aria-label]="'search.view-switch.show-grid' | translate"
        routerLink="."
        [queryParams]="{view: 'grid'}"
        queryParamsHandling="merge"
@@ -19,7 +23,7 @@
        [class.active]="currentMode === viewModeEnum.GridElement"
        class="btn btn-secondary"
        [attr.data-test]="'grid-view' | dsBrowserOnly">
-       <span class="fas fa-th-large"></span><span class="sr-only">{{'search.view-switch.show-grid' | translate}}</span>
+       <i class="fas fa-th-large"></i>
     </button>
     <button *ngIf="isToShow(viewModeEnum.DetailedListElement)"
        routerLink="."

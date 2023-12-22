@@ -1,7 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 
-import { map } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,9 +15,9 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { CoreState } from '../../../core/core-state.model';
-import { lowerCase } from 'lodash/string';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { AlertType } from '../../alert/alert-type';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -49,11 +48,6 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Whether to allow selecting multiple values with checkboxes
    */
   @Input() multiSelect = false;
-
-  /**
-   * Contain a descriptive message for this vocabulary retrieved from i18n files
-   */
-  description: Observable<string>;
 
   /**
    * A map containing the current node showed by the tree
@@ -111,6 +105,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   private subs: Subscription[] = [];
+
+  readonly AlertType = AlertType;
 
   /**
    * Initialize instance variables
@@ -216,12 +212,6 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       })
     );
 
-    this.translate.get(`search.filters.filter.${this.vocabularyOptions.name}.head`).pipe(
-      map((type) => lowerCase(type)),
-    ).subscribe(
-      (type) => this.description = this.translate.get('vocabulary-treeview.info', { type })
-    );
-
     this.loading = this.vocabularyTreeviewService.isLoading();
 
     this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null);
@@ -305,6 +295,15 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       this.vocabularyTreeviewService.restoreNodes();
     }
   }
+
+  add() {
+    const userVocabularyEntry = {
+      value: this.searchText,
+      display: this.searchText,
+    } as VocabularyEntryDetail;
+    this.select.emit(userVocabularyEntry);
+  }
+
 
   /**
    * Unsubscribe from all subscriptions
