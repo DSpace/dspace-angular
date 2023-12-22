@@ -1,6 +1,6 @@
-:root {
-    --green1: #4de0b4;
-}
+// :root {
+//     --green1: #4de0b4;
+// }
 
 html {
     position: relative;
@@ -49,7 +49,14 @@ ds-admin-sidebar {
 .klaro
 .cookie-notice
 .cm-btn.cm-btn-success {
-    color: #333333;
+    color: #333333 !important;
+    background-color: #4de0b4 !important;
+}
+
+.klaro
+.cookie-notice
+a{
+    color: #4de0b4 !important;
 }
 
 .media-viewer
