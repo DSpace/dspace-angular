@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, map, switchMap, take, tap, find, startWith } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -27,6 +27,7 @@ import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
+import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
 
 @Component({
   selector: 'ds-process-detail',
@@ -84,8 +85,6 @@ export class ProcessDetailComponent implements OnInit {
    */
   protected modalRef: NgbModalRef;
 
-  private refreshTimerSub?: Subscription;
-
   constructor(
     @Inject(PLATFORM_ID) protected platformId: object,
     protected route: ActivatedRoute,
@@ -109,7 +108,7 @@ export class ProcessDetailComponent implements OnInit {
     this.processRD$ = this.route.data.pipe(
       switchMap((data) => {
         if (isPlatformBrowser(this.platformId)) {
-          return this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000);
+          return this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000, ...PROCESS_PAGE_FOLLOW_LINKS);
         } else {
           return [data.process as RemoteData<Process>];
         }
@@ -125,7 +124,7 @@ export class ProcessDetailComponent implements OnInit {
 
     this.filesRD$ = this.processRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      switchMap((process: Process) => this.processService.getFiles(process.processId))
+      switchMap((process: Process) => process.files),
     );
   }
 

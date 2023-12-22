@@ -12,7 +12,7 @@ import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
 import { BitstreamDataService } from '../bitstream-data.service';
 import { IdentifiableDataService } from '../base/identifiable-data.service';
-import { FollowLinkConfig, followLink } from '../../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
 import { FindListOptions } from '../find-list-options.model';
 import { dataService } from '../base/data-service.decorator';
@@ -35,25 +35,10 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
 @Injectable()
 @dataService(PROCESS)
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
+
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
   protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
-
-  /**
-   * Return true if the given process has the given status
-   * @protected
-   */
-  protected static statusIs(process: Process, status: ProcessStatus): boolean {
-    return hasValue(process) && process.processStatus === status;
-  }
-
-  /**
-   * Return true if the given process has the status COMPLETED or FAILED
-   */
-  public static hasCompletedOrFailed(process: Process): boolean {
-    return  ProcessDataService.statusIs(process, ProcessStatus.COMPLETED) ||
-      ProcessDataService.statusIs(process, ProcessStatus.FAILED);
-  }
 
   constructor(
     protected requestService: RequestService,
@@ -69,6 +54,22 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
 
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+  }
+
+  /**
+   * Return true if the given process has the given status
+   * @protected
+   */
+  protected static statusIs(process: Process, status: ProcessStatus): boolean {
+    return hasValue(process) && process.processStatus === status;
+  }
+
+  /**
+   * Return true if the given process has the status COMPLETED or FAILED
+   */
+  public static hasCompletedOrFailed(process: Process): boolean {
+    return ProcessDataService.statusIs(process, ProcessStatus.COMPLETED) ||
+      ProcessDataService.statusIs(process, ProcessStatus.FAILED);
   }
 
   /**
@@ -153,11 +154,14 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    * status. That makes it more convenient to retrieve that process for a component: you can replace
    * a findByID call with this method, rather than having to do a separate findById, and then call
    * this method
-   * @param processId
-   * @param pollingIntervalInMs
+   *
+   * @param processId           The ID of the {@link Process} to poll
+   * @param pollingIntervalInMs The interval for how often the request needs to be polled
+   * @param linksToFollow       List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be
+   *                            automatically resolved
    */
-  public autoRefreshUntilCompletion(processId: string, pollingIntervalInMs = 5000): Observable<RemoteData<Process>> {
-    const process$ = this.findById(processId, true, true, followLink('script'))
+  public autoRefreshUntilCompletion(processId: string, pollingIntervalInMs = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<Process>> {
+    const process$: Observable<RemoteData<Process>> = this.findById(processId, true, true, ...linksToFollow)
       .pipe(
         getAllCompletedRemoteData(),
       );

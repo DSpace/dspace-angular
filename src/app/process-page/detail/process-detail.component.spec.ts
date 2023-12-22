@@ -27,7 +27,6 @@ import { ProcessDataService } from '../../core/data/processes/process-data.servi
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -35,6 +34,10 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RouterTestingModule } from '@angular/router/testing';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -44,44 +47,18 @@ describe('ProcessDetailComponent', () => {
   let nameService: DSONameService;
   let bitstreamDataService: BitstreamDataService;
   let httpClient: HttpClient;
-  let route: ActivatedRoute;
+  let route: ActivatedRouteStub;
+  let router: RouterStub;
+  let modalService;
+  let notificationsService: NotificationsServiceStub;
 
   let process: Process;
   let fileName: string;
   let files: Bitstream[];
 
-  let processOutput;
-
-  let modalService;
-  let notificationsService;
-
-  let router;
+  let processOutput: string;
 
   function init() {
-    processOutput = 'Process Started';
-    process = Object.assign(new Process(), {
-      processId: 1,
-      scriptName: 'script-name',
-      processStatus: 'COMPLETED',
-      parameters: [
-        {
-          name: '-f',
-          value: 'file.xml'
-        },
-        {
-          name: '-i',
-          value: 'identifier'
-        }
-      ],
-      _links: {
-        self: {
-          href: 'https://rest.api/processes/1'
-        },
-        output: {
-          href: 'https://rest.api/processes/1/output'
-        }
-      }
-    });
     fileName = 'fake-file-name';
     files = [
       Object.assign(new Bitstream(), {
@@ -99,6 +76,33 @@ describe('ProcessDetailComponent', () => {
         }
       })
     ];
+    processOutput = 'Process Started';
+    process = Object.assign(new Process(), {
+      processId: 1,
+      scriptName: 'script-name',
+      processStatus: 'COMPLETED',
+      parameters: [
+        {
+          name: '-f',
+          value: 'file.xml'
+        },
+        {
+          name: '-i',
+          value: 'identifier'
+        }
+      ],
+      files: createSuccessfulRemoteDataObject$(Object.assign(new PaginatedList(), {
+        page: files,
+      })),
+      _links: {
+        self: {
+          href: 'https://rest.api/processes/1'
+        },
+        output: {
+          href: 'https://rest.api/processes/1/output'
+        }
+      },
+    });
     const logBitstream = Object.assign(new Bitstream(), {
       id: 'output.log',
       _links: {
@@ -127,33 +131,22 @@ describe('ProcessDetailComponent', () => {
 
     notificationsService = new NotificationsServiceStub();
 
-    router = jasmine.createSpyObj('router', {
-      navigateByUrl:{}
-    });
+    router = new RouterStub();
 
-    route = jasmine.createSpyObj('route', {
-      data: observableOf({ process: createSuccessfulRemoteDataObject$(process) }),
-      snapshot: {
-        params: { id: process.processId }
-      }
+    route = new ActivatedRouteStub({
+      id: process.processId,
+    }, {
+      process: createSuccessfulRemoteDataObject$(process),
     });
   }
 
   beforeEach(waitForAsync(() => {
     init();
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), RouterTestingModule],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            data: observableOf({ process: createSuccessfulRemoteDataObject(process) }),
-            snapshot: {
-              params: { id: process.processId }
-            }
-          }
-        },
+        { provide: ActivatedRoute, useValue: route },
         { provide: ProcessDataService, useValue: processService },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: DSONameService, useValue: nameService },
@@ -258,6 +251,8 @@ describe('ProcessDetailComponent', () => {
   describe('deleteProcess', () => {
     it('should delete the process and navigate back to the overview page on success', () => {
       spyOn(component, 'closeModal');
+      spyOn(router, 'navigateByUrl').and.callThrough();
+
       component.deleteProcess(process);
 
       expect(processService.delete).toHaveBeenCalledWith(process.processId);
@@ -268,6 +263,7 @@ describe('ProcessDetailComponent', () => {
     it('should delete the process and not navigate on error', () => {
       (processService.delete as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
       spyOn(component, 'closeModal');
+      spyOn(router, 'navigateByUrl').and.callThrough();
 
       component.deleteProcess(process);
 
