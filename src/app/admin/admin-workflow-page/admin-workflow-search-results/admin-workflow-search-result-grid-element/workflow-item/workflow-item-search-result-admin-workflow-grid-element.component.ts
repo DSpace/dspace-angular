@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ComponentRef, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
@@ -23,6 +23,7 @@ import {
 import { take } from 'rxjs/operators';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
@@ -33,7 +34,7 @@ import { ThemeService } from '../../../../../shared/theme-support/theme.service'
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page
  */
-export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkflowItemSearchResult, WorkflowItem> {
+export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkflowItemSearchResult, WorkflowItem> implements OnDestroy, OnInit {
   /**
    * Directive used to render the dynamic component in
    */
@@ -54,8 +55,9 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
    */
   public item$: Observable<Item>;
 
+  protected compRef: ComponentRef<Component>;
+
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     private themeService: ThemeService,
@@ -73,26 +75,35 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$.pipe(take(1)).subscribe((item: Item) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
+        const component: GenericConstructor<Component> = this.getComponent(item);
 
         const viewContainerRef = this.listableObjectDirective.viewContainerRef;
         viewContainerRef.clear();
 
-        const componentRef = viewContainerRef.createComponent(
-          componentFactory,
-          0,
-          undefined,
-          [
-            [this.badges.nativeElement],
-            [this.buttons.nativeElement]
-          ]);
-        (componentRef.instance as any).object = item;
-        (componentRef.instance as any).index = this.index;
-        (componentRef.instance as any).linkType = this.linkType;
-        (componentRef.instance as any).listID = this.listID;
-        componentRef.changeDetectorRef.detectChanges();
+        this.compRef = viewContainerRef.createComponent(
+          component, {
+            index: 0,
+            injector: undefined,
+            projectableNodes: [
+              [this.badges.nativeElement],
+              [this.buttons.nativeElement],
+            ],
+          },
+        );
+        (this.compRef.instance as any).object = item;
+        (this.compRef.instance as any).index = this.index;
+        (this.compRef.instance as any).linkType = this.linkType;
+        (this.compRef.instance as any).listID = this.listID;
+      this.compRef.changeDetectorRef.detectChanges();
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
   }
 
   /**

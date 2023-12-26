@@ -1,12 +1,11 @@
 import {
   Component,
-  ComponentFactoryResolver,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild, ComponentRef
 } from '@angular/core';
 import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
@@ -64,8 +63,7 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-  }
+  protected compRef: ComponentRef<Component>;
 
   /**
    * Fetch, create and initialize the relevant component
@@ -74,13 +72,11 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
 
     const comp = this.getComponentByWorkflowTaskOption(this.option);
     if (hasValue(comp)) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
-
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
 
-      const componentRef = viewContainerRef.createComponent(componentFactory);
-      const componentInstance = (componentRef.instance as ClaimedTaskActionsAbstractComponent);
+      this.compRef = viewContainerRef.createComponent(comp);
+      const componentInstance = (this.compRef.instance as ClaimedTaskActionsAbstractComponent);
       componentInstance.item = this.item;
       componentInstance.object = this.object;
       componentInstance.workflowitem = this.workflowitem;
@@ -98,6 +94,10 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
    * Unsubscribe from open subscriptions
    */
   ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

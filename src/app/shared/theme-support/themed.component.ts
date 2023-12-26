@@ -6,7 +6,6 @@ import {
   SimpleChanges,
   OnInit,
   OnDestroy,
-  ComponentFactoryResolver,
   ChangeDetectorRef,
   OnChanges
 } from '@angular/core';
@@ -31,7 +30,6 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   protected inAndOutputNames: (keyof T & keyof this)[] = [];
 
   constructor(
-    protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
     protected themeService: ThemeService
   ) {
@@ -87,8 +85,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
         }
       }),
     ).subscribe((constructor: GenericConstructor<T>) => {
-      const factory = this.resolver.resolveComponentFactory(constructor);
-      this.compRef = this.vcr.createComponent(factory);
+      this.compRef = this.vcr.createComponent(constructor);
       this.connectInputsAndOutputs();
       this.cdr.markForCheck();
     });

@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ComponentRef, OnDestroy } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
@@ -13,6 +13,7 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
@@ -23,15 +24,16 @@ import { ThemeService } from '../../../../../shared/theme-support/theme.service'
 /**
  * The component for displaying a list element for an item search result on the admin search page
  */
-export class ItemAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnInit {
+export class ItemAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnDestroy, OnInit {
   @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
   @ViewChild('badges', { static: true }) badges: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
+  protected compRef: ComponentRef<Component>;
+
   constructor(protected truncatableService: TruncatableService,
               protected bitstreamDataService: BitstreamDataService,
               private themeService: ThemeService,
-              private componentFactoryResolver: ComponentFactoryResolver
   ) {
     super(truncatableService, bitstreamDataService);
   }
@@ -41,23 +43,32 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    */
   ngOnInit(): void {
     super.ngOnInit();
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    const component: GenericConstructor<Component> = this.getComponent();
 
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(
-      componentFactory,
-      0,
-      undefined,
-      [
-        [this.badges.nativeElement],
-        [this.buttons.nativeElement]
-      ]);
-    (componentRef.instance as any).object = this.object;
-    (componentRef.instance as any).index = this.index;
-    (componentRef.instance as any).linkType = this.linkType;
-    (componentRef.instance as any).listID = this.listID;
+    this.compRef = viewContainerRef.createComponent(
+      component, {
+        index: 0,
+        injector: undefined,
+        projectableNodes: [
+          [this.badges.nativeElement],
+          [this.buttons.nativeElement],
+        ],
+      },
+    );
+    (this.compRef.instance as any).object = this.object;
+    (this.compRef.instance as any).index = this.index;
+    (this.compRef.instance as any).linkType = this.linkType;
+    (this.compRef.instance as any).listID = this.listID;
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
   }
 
   /**

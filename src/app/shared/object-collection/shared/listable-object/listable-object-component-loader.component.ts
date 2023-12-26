@@ -23,7 +23,7 @@ import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue, isNotEmpty } from '../../../empty.util';
+import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 
@@ -141,7 +141,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * Setup the dynamic child component
    */
   ngOnInit(): void {
-    this.instantiateComponent(this.object);
+    if (hasNoValue(this.compRef)) {
+      this.instantiateComponent(this.object);
+    }
   }
 
   /**
@@ -153,7 +155,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

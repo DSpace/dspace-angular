@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild, ComponentRef, OnDestroy } from '@angular/core';
 import {
   MetadataRepresentation,
   MetadataRepresentationType
@@ -19,8 +19,9 @@ import { ThemeService } from '../theme-support/theme.service';
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context
  */
-export class MetadataRepresentationLoaderComponent implements OnInit {
+export class MetadataRepresentationLoaderComponent implements OnDestroy, OnInit {
   private componentRefInstance: MetadataRepresentationListElementComponent;
+  protected compRef: ComponentRef<MetadataRepresentationListElementComponent>;
 
   /**
    * The item or metadata to determine the component for
@@ -47,7 +48,6 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
   @ViewChild(MetadataRepresentationDirective, {static: true}) mdRepDirective: MetadataRepresentationDirective;
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private themeService: ThemeService,
     @Inject(METADATA_REPRESENTATION_COMPONENT_FACTORY) private getMetadataRepresentationComponent: (entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>,
   ) {
@@ -57,14 +57,21 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
    * Set up the dynamic child component
    */
   ngOnInit(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    const component: GenericConstructor<MetadataRepresentationListElementComponent> = this.getComponent();
 
     const viewContainerRef = this.mdRepDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    this.componentRefInstance = componentRef.instance as MetadataRepresentationListElementComponent;
+    this.compRef = viewContainerRef.createComponent(component);
+    this.componentRefInstance = this.compRef.instance as MetadataRepresentationListElementComponent;
     this.componentRefInstance.metadataRepresentation = this.mdRepresentation;
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
   }
 
   /**
