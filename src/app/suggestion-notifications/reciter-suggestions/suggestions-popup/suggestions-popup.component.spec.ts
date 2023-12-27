@@ -13,11 +13,13 @@ import { SuggestionsService } from '../suggestions.service';
 describe('SuggestionsPopupComponent', () => {
   let component: SuggestionsPopupComponent;
   let fixture: ComponentFixture<SuggestionsPopupComponent>;
+  let notificationsService: NotificationsService;
 
   const suggestionStateService = jasmine.createSpyObj('SuggestionTargetsStateService', {
     hasUserVisitedSuggestions: jasmine.createSpy('hasUserVisitedSuggestions'),
     getCurrentUserSuggestionTargets: jasmine.createSpy('getCurrentUserSuggestionTargets'),
-    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
+    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction'),
+    dispatchRefreshUserSuggestionsAction: jasmine.createSpy('dispatchRefreshUserSuggestionsAction')
   });
 
   const mockNotificationInterpolation = { count: 12, source: 'source', suggestionId: 'id', displayName: 'displayName' };
@@ -60,19 +62,20 @@ describe('SuggestionsPopupComponent', () => {
   describe('when there are publication suggestions', () => {
 
     beforeEach(() => {
-
       suggestionStateService.hasUserVisitedSuggestions.and.returnValue(observableOf(false));
       suggestionStateService.getCurrentUserSuggestionTargets.and.returnValue(observableOf([mockSuggestionTargetsObjectOne]));
       suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction.and.returnValue(observableOf(null));
+      suggestionStateService.dispatchRefreshUserSuggestionsAction.and.returnValue(observableOf(null));
 
       fixture = TestBed.createComponent(SuggestionsPopupComponent);
       component = fixture.componentInstance;
+      notificationsService = (component as any).notificationsService;
       fixture.detectChanges();
     });
 
     it('should show a notification when new publication suggestions are available', () => {
-      
-      expect((component as any).notificationsService.success).toHaveBeenCalled();
+      expect(notificationsService.success).toHaveBeenCalled();
+      expect(suggestionStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
       expect(suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction).toHaveBeenCalled();
     });
 

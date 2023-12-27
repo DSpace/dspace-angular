@@ -21,6 +21,9 @@ import { RequestEntry } from '../data/request-entry.model';
 import { CoreState } from '../core-state.model';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
 import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
+import { SearchData } from '../data/base/search-data';
+import { DeleteData } from '../data/base/delete-data';
+import { RequestParam } from '../cache/models/request-param.model';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;
@@ -68,22 +71,20 @@ describe('WorkspaceitemDataService test', () => {
   const wsiRD = createSuccessfulRemoteDataObject(wsi);
 
   const endpointURL = `https://rest.api/rest/api/submission/workspaceitems`;
-  const searchRequestURL = `https://rest.api/rest/api/submission/workspaceitems/search/item?uuid=1234-1234`;
-  const searchRequestURL$ = observableOf(searchRequestURL);
 
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
 
   objectCache = {} as ObjectCacheService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
-  const comparator = {} as any;
+  const comparatorEntry = {} as any;
   const store = {} as Store<CoreState>;
   const pageInfo = new PageInfo();
 
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkspaceitemDataService(
-      comparator,
+      comparatorEntry,
       halService,
       http,
       notificationsService,
@@ -95,10 +96,11 @@ describe('WorkspaceitemDataService test', () => {
   }
 
   describe('composition', () => {
-    const initService = () => new WorkspaceitemDataService(null, null,
-      null, null, null, null, null, null);
-    testSearchDataImplementation(initService);
-    testDeleteDataImplementation(initService);
+    const initSearchService = () => new WorkspaceitemDataService(null, null, null, null, null, null, null, null) as unknown as SearchData<any>;
+    const initDeleteService = () => new WorkspaceitemDataService(null, null, null, null, null, null, null, null) as unknown as DeleteData<any>;
+
+    testSearchDataImplementation(initSearchService);
+    testDeleteDataImplementation(initDeleteService);
   });
 
   describe('', () => {
@@ -129,7 +131,6 @@ describe('WorkspaceitemDataService test', () => {
       service = initTestService();
 
       spyOn((service as any), 'findByHref').and.callThrough();
-      spyOn((service as any), 'getSearchByHref').and.returnValue(searchRequestURL$);
     });
 
     afterEach(() => {
@@ -140,8 +141,8 @@ describe('WorkspaceitemDataService test', () => {
       it('should proxy the call to DataService.findByHref', () => {
         scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
         scheduler.flush();
-
-        expect((service as any).findByHref).toHaveBeenCalledWith(searchRequestURL$, true, true);
+        const searchUrl = service.getIDHref('item', [new RequestParam('uuid', encodeURIComponent('1234-1234'))]);
+        expect((service as any).findByHref).toHaveBeenCalledWith(searchUrl, true, true);
       });
 
       it('should return a RemoteData<WorkspaceItem> for the search', () => {
