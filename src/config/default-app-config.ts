@@ -23,6 +23,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import {QualityAssuranceConfig} from './quality-assurance.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
