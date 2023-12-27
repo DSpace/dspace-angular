@@ -251,7 +251,7 @@
             <div class="col">
               <div #outboundPatternDropdown="ngbDropdown" class="w-100" id="additionalOutboundPattern{{i}}"
                    ngbDropdown
-                   placement="bottom-start">
+                   placement="top-start">
                 <div class="position-relative right-addon" role="combobox">
                   <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                      ngbDropdownToggle></i>
@@ -266,7 +266,7 @@
                     type="text"
                   />
                   <div aria-labelledby="outboundPatternDropdownButton"
-                       class="dropdown-menu scrollable-dropdown-menu w-100 "
+                       class="dropdown-menu dropdown-menu-top w-100 "
                        ngbDropdownMenu>
                     <div class="scrollable-menu" role="listbox">
                       <button (click)="selectOutboundPattern(pattern, i); $event.stopPropagation()"
@@ -355,7 +355,7 @@
 
     <div
       (click)="addOutboundPattern()"
-      class="add-pattern-link mb-4">{{ 'ldn-new-service.form.label.addPattern' | translate }}
+      class="add-pattern-link mb-5">{{ 'ldn-new-service.form.label.addPattern' | translate }}
     </div>
 
 
