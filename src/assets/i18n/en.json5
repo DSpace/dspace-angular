@@ -6196,11 +6196,11 @@
 
   "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
 
-  "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
+  "submission.sections.submit.progressbar.itemAccessConditions": "Item access conditions",
 
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
-  "submission.sections.submit.progressbar.CustomUrlStep": "Custom url",
+  "submission.sections.submit.progressbar.custom-url": "Custom url",
 
   "submission.sections.submit.progressbar.describe.equipment": "Equipment basic information",
 
