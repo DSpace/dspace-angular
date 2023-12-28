@@ -6,7 +6,7 @@ import { distinctUntilChanged, take } from 'rxjs/operators';
 
 import {
   OpenaireSuggestionTarget
-} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SuggestionTargetsStateService } from './suggestion-targets.state.service';

@@ -9,18 +9,18 @@ import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.m
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import { SuggestionBulkResult, SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
+import { SuggestionBulkResult, SuggestionsService } from '../notifications/reciter-suggestions/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { OpenaireSuggestion } from '../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
-import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestion } from '../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestionTarget } from '../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { AuthService } from '../core/auth/auth.service';
 import {
   SuggestionApproveAndImport
-} from '../openaire/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
+} from '../notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import {
   SuggestionTargetsStateService
-} from '../openaire/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+} from '../notifications/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { FindListOptions } from '../core/data/find-list-options.model';

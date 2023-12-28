@@ -6,7 +6,7 @@ import { SuggestionsService } from '../suggestions.service';
 import { takeUntil } from 'rxjs/operators';
 import {
   OpenaireSuggestionTarget
-} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { combineLatest, Subject } from 'rxjs';
 

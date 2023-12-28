@@ -2,8 +2,8 @@
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 
-import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
-import { SUGGESTION } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-objects.resource-type';
+import { OpenaireSuggestion } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
+import { SUGGESTION } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-objects.resource-type';
 
 export const mockSuggestionPublicationOne: OpenaireSuggestion =  {
   id: '24694772',

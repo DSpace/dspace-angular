@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { SuggestionsPageRoutingModule } from './suggestions-page-routing.module';
-import { OpenaireModule } from '../openaire/openaire.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @NgModule({
   declarations: [SuggestionsPageComponent],
   imports: [
     CommonModule,
     SharedModule,
-    OpenaireModule,
+    NotificationsModule,
     SuggestionsPageRoutingModule
   ]
 })

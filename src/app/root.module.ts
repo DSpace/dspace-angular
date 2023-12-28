@@ -42,7 +42,7 @@ import {
 import { FooterModule } from './footer/footer.module';
 import { SocialModule } from './social/social.module';
 import { ExploreModule } from './shared/explore/explore.module';
-import { OpenaireModule } from './openaire/openaire.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 const IMPORTS = [
   CommonModule,
@@ -53,7 +53,7 @@ const IMPORTS = [
   ExploreModule,
   FooterModule,
   SocialModule,
-  OpenaireModule
+  NotificationsModule
 ];
 
 const PROVIDERS = [

@@ -4,8 +4,8 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 
 import { RemoteData } from '../core/data/remote-data';
-import { OpenaireSuggestionTarget } from '../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
-import { SuggestionsService } from '../openaire/reciter-suggestions/suggestions.service';
+import { OpenaireSuggestionTarget } from '../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionsService } from '../notifications/reciter-suggestions/suggestions.service';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**

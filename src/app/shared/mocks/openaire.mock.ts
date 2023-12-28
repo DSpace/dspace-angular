@@ -14,8 +14,8 @@ import {
 import { SearchResult } from '../search/models/search-result.model';
 import {
   OpenaireSuggestionTarget
-} from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
-import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+} from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestion } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

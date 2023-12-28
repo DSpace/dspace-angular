@@ -1,10 +1,11 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 import { subStateSelector } from '../../shared/selector.util';
-import { openaireSelector, OpenaireState } from '../openaire.reducer';
+import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../notifications.reducer';
 import {
   OpenaireSuggestionTarget
-} from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { SuggestionTargetEntry, SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
+
 
 // Reciter Suggestion Targets
 // ----------------------------------------------------------------------------
@@ -12,10 +13,10 @@ import { SuggestionTargetEntry, SuggestionTargetState } from './suggestion-targe
 /**
  * Returns the Reciter Suggestion Targets State.
  * @function reciterSuggestionTargetStateSelector
- * @return {OpenaireState}
+ * @return {SuggestionNotificationsState}
  */
-export function reciterSuggestionTargetStateSelector(): MemoizedSelector<OpenaireState, SuggestionTargetState> {
-  return subStateSelector<OpenaireState, SuggestionTargetState>(openaireSelector, 'suggestionTarget');
+export function reciterSuggestionTargetStateSelector(): MemoizedSelector<SuggestionNotificationsState, SuggestionTargetState> {
+  return subStateSelector<SuggestionNotificationsState, SuggestionTargetState>(suggestionNotificationsSelector, 'suggestionTarget');
 }
 
 /**
@@ -23,7 +24,7 @@ export function reciterSuggestionTargetStateSelector(): MemoizedSelector<Openair
  * @function reciterSuggestionTargetObjectSelector
  * @return {SuggestionTargetEntry}
  */
-export function reciterSuggestionSourceSelector(source: string): MemoizedSelector<OpenaireState, SuggestionTargetEntry> {
+export function reciterSuggestionSourceSelector(source: string): MemoizedSelector<SuggestionNotificationsState, SuggestionTargetEntry> {
   return createSelector(reciterSuggestionTargetStateSelector(),(state: SuggestionTargetState) => state.sources[source]);
 }
 
@@ -32,7 +33,7 @@ export function reciterSuggestionSourceSelector(source: string): MemoizedSelecto
  * @function reciterSuggestionTargetObjectSelector
  * @return {OpenaireSuggestionTarget[]}
  */
-export function reciterSuggestionTargetObjectSelector(source: string): MemoizedSelector<OpenaireState, OpenaireSuggestionTarget[]> {
+export function reciterSuggestionTargetObjectSelector(source: string): MemoizedSelector<SuggestionNotificationsState, OpenaireSuggestionTarget[]> {
   return createSelector(reciterSuggestionSourceSelector(source), (state: SuggestionTargetEntry) => state.targets);
 }
 

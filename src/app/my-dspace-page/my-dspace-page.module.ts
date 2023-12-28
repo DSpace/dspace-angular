@@ -16,7 +16,7 @@ import {
 import {
   MyDSpaceNewExternalDropdownComponent
 } from './my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
-import { OpenaireModule } from '../openaire/openaire.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 import {
   MyDSpaceNewBulkImportComponent
 } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
@@ -41,7 +41,7 @@ const DECLARATIONS = [
     SearchModule,
     MyDspacePageRoutingModule,
     MyDspaceSearchModule.withEntryComponents(),
-    OpenaireModule,
+    NotificationsModule,
     UploadModule,
   ],
   declarations: DECLARATIONS,

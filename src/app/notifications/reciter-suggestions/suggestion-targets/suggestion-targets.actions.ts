@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
 import {
   OpenaireSuggestionTarget
-} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * For each action type in A action group, make a simple

@@ -1,7 +1,7 @@
 import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
 import {
   OpenaireSuggestionTarget
-} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * The interface representing the OpenAIRE suggestion targets state.

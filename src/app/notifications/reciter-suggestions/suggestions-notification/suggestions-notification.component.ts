@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OpenaireSuggestionTarget } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { TranslateService } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

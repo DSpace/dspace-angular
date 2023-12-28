@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { OpenaireSuggestion } from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestion } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
 import { Item } from '../../../core/shared/item.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 

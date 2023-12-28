@@ -1,5 +1,5 @@
 import { ResourceType } from '../../core/shared/resource-type';
-import { OpenaireSuggestionTarget } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+import { OpenaireSuggestionTarget } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

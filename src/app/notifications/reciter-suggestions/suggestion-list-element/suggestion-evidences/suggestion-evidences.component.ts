@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { fadeIn } from '../../../../shared/animations/fade';
-import { SuggestionEvidences } from '../../../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { SuggestionEvidences } from '../../../../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
 
 @Component({
   selector: 'ds-suggestion-evidences',

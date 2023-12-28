@@ -9,7 +9,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import {
   OpenaireSuggestionTarget
-} from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -19,7 +19,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
 } from '../../core/shared/operators';
-import { OpenaireSuggestion } from '../../core/openaire/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestion } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NoContent } from '../../core/shared/NoContent.model';
@@ -29,13 +29,13 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import {
   QualityAssuranceSuggestionDataService
-} from '../../core/openaire/reciter-suggestions/suggestions/quality-assurance-suggestion-data.service';
+} from '../../core/notifications/reciter-suggestions/suggestions/quality-assurance-suggestion-data.service';
 import {
   QualityAssuranceSuggestionTargetDataService
-} from '../../core/openaire/reciter-suggestions/targets/quality-assurance-suggestion-target-data.service';
+} from '../../core/notifications/reciter-suggestions/targets/quality-assurance-suggestion-target-data.service';
 import {
   OpenaireSuggestionSource
-} from '../../core/openaire/reciter-suggestions/models/openaire-suggestion-source.model';
+} from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-source.model';
 
 export interface SuggestionBulkResult {
   success: number;

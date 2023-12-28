@@ -15,14 +15,14 @@ import {
 } from '../selectors';
 import {
   OpenaireSuggestionTarget
-} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import {
   ClearSuggestionTargetsAction,
   MarkUserSuggestionsAsVisitedAction,
   RefreshUserSuggestionsAction,
   RetrieveTargetsBySourceAction
 } from './suggestion-targets.actions';
-import { OpenaireState } from '../../openaire.reducer';
+import { SuggestionNotificationsState } from '../../notifications.reducer';
 
 /**
  * The service handling the Suggestion targets State.
@@ -32,9 +32,9 @@ export class SuggestionTargetsStateService {
 
   /**
    * Initialize the service variables.
-   * @param {Store<OpenaireState>} store
+   * @param {Store<SuggestionNotificationsState>} store
    */
-  constructor(private store: Store<OpenaireState>) { }
+  constructor(private store: Store<SuggestionNotificationsState>) { }
 
   /**
    * Returns the list of Reciter Suggestion Targets from the state.

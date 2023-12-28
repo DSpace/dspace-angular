@@ -7,6 +7,10 @@ import {
   qualityAssuranceTopicsReducer,
   QualityAssuranceTopicState,
 } from './qa/topics/quality-assurance-topics.reducer';
+import {
+  SuggestionTargetsReducer,
+  SuggestionTargetState
+} from './reciter-suggestions/suggestion-targets/suggestion-targets.reducer';
 
 /**
  * The OpenAIRE State
@@ -14,11 +18,13 @@ import {
 export interface SuggestionNotificationsState {
   'qaTopic': QualityAssuranceTopicState;
   'qaSource': QualityAssuranceSourceState;
+  'suggestionTarget': SuggestionTargetState;
 }
 
 export const suggestionNotificationsReducers: ActionReducerMap<SuggestionNotificationsState> = {
   qaTopic: qualityAssuranceTopicsReducer,
-  qaSource: qualityAssuranceSourceReducer
+  qaSource: qualityAssuranceSourceReducer,
+  suggestionTarget: SuggestionTargetsReducer,
 };
 
 export const suggestionNotificationsSelector = createFeatureSelector<SuggestionNotificationsState>('suggestionNotifications');

@@ -13,7 +13,7 @@ import { RecentItemListComponent } from './recent-item-list/recent-item-list.com
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
-import { OpenaireModule } from '../openaire/openaire.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 import { ExploreModule } from '../shared/explore/explore.module';
 
 const DECLARATIONS = [
@@ -34,7 +34,7 @@ const DECLARATIONS = [
     ResearchEntitiesModule.withEntryComponents(),
     ExploreModule,
     HomePageRoutingModule,
-    OpenaireModule,
+    NotificationsModule,
     StatisticsModule.forRoot()
   ],
   declarations: [

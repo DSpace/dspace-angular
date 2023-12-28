@@ -47,7 +47,7 @@ import { FileSectionComponent } from './app/item-page/simple/field-components/fi
 import { HomePageComponent } from './app/home-page/home-page.component';
 import { RootComponent } from './app/root/root.component';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-import { OpenaireModule } from '../../app/openaire/openaire.module';
+import { NotificationsModule } from '../../app/notifications/notifications.module';
 import { BrowseBySwitcherComponent } from './app/browse-by/browse-by-switcher/browse-by-switcher.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
@@ -318,7 +318,7 @@ const DECLARATIONS = [
     FormModule,
     RequestCopyModule,
     ContextMenuModule,
-    OpenaireModule,
+    NotificationsModule,
     CrisItemPageModule,
     CrisStatisticsPageModule,
     MiradorViewerModule,

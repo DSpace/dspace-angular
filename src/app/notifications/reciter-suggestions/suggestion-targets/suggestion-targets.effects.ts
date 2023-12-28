@@ -20,7 +20,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
 import {
   OpenaireSuggestionTarget
-} from '../../../core/openaire/reciter-suggestions/models/openaire-suggestion-target.model';
+} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 
 /**

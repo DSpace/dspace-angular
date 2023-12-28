@@ -12,8 +12,9 @@ import { ThemedProfilePageComponent } from './themed-profile-page.component';
 import { FormModule } from '../shared/form/form.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
-import { OpenaireModule } from '../openaire/openaire.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 import { ProfilePageAccessTokenComponent } from './profile-page-access-token/profile-page-access-token.component';
+
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { ProfilePageAccessTokenComponent } from './profile-page-access-token/pro
     SharedModule,
     FormModule,
     UiSwitchModule,
-    OpenaireModule
+    NotificationsModule
   ],
   exports: [
     ProfilePageComponent,
