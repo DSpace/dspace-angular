@@ -43,11 +43,11 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -118,7 +118,7 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           # Run tests in Chrome, headless mode (default)
           browser: chrome
@@ -191,7 +191,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Download artifacts from previous 'tests' job
       - name: Download coverage artifacts
@@ -203,10 +203,14 @@ jobs:
       # Retry action: https://github.com/marketplace/actions/retry-action
       # Codecov action: https://github.com/codecov/codecov-action
       - name: Upload coverage to Codecov.io
-        uses: Wandalen/wretry.action@v1.0.36
+        uses: Wandalen/wretry.action@v1.3.0
         with:
           action: codecov/codecov-action@v3
-          # Try upload 5 times max
+          # Ensure codecov-action throws an error when it fails to upload
+          # This allows us to auto-restart the action if an error is thrown
+          with: |
+            fail_ci_if_error: true
+          # Try re-running action 5 times max
           attempt_limit: 5
           # Run again in 30 seconds
           attempt_delay: 30000

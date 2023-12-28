@@ -2376,16 +2376,6 @@
   // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.", (Auto-Translated)
   "comcol-role.edit.scorereviewers.description": "Os revisores podem dar uma pontuação para os envios de entrada, isso definirá se o envio será rejeitado ou não.",
 
-  // "comcol-role.edit.scorereviewers.name": "Score Reviewers",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.name": "Score Reviewers",
-
-  // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-  // TODO New key - Add a translation
-  "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.",
-
-
-
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Descrição curta",
 
@@ -2508,6 +2498,9 @@
   // "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
   // TODO New key - Add a translation
   "context-menu.actions.dso-page-edit.ITEM.btn": "Administer",
+
+  // "community.sub-community-list.head": "Communities in this Community",
+  "community.sub-community-list.head": "Comunidades nesta Comunidade",
 
   // "context-menu.actions.edit-item-relationships.btn.fundings": "Manage Fundings",
   // TODO New key - Add a translation
@@ -5476,6 +5469,12 @@
   // "menu.section.browse_global_by_nsi": "By Norwegian Science Index", (Auto-Translated)
   "menu.section.browse_global_by_nsi": "Pelo Índice de Ciências Norueguesas",
 
+  // "menu.section.browse_global_by_srsc": "By Subject Category", (Auto-Translated)
+  "menu.section.browse_global_by_srsc": "Por categoria de assunto",
+
+  // "menu.section.browse_global_by_nsi": "By Norwegian Science Index", (Auto-Translated)
+  "menu.section.browse_global_by_nsi": "Pelo Índice de Ciências Norueguesas",
+
   // "menu.section.explore_fundings": "Fundings",
   // TODO New key - Add a translation
   "menu.section.explore_fundings": "Fundings",
@@ -6073,16 +6072,12 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Minhas Submissões",
 
-  // "mydspace.show.supervisedWorkspace": "Supervised items",
-  // TODO New key - Add a translation
-  "mydspace.show.supervisedWorkspace": "Supervised items",
+  // "mydspace.show.supervisedWorkspace": "Supervised items", (Auto-Translated)
+  "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
   // "mydspace.show.otherworkspace": "Other Workspace Submissions",
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
-
-  // "mydspace.show.supervisedWorkspace": "Supervised items", (Auto-Translated)
-  "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Arquivado",
@@ -8280,6 +8275,9 @@
   // "statistics.reports.title": "Reports",
   // TODO New key - Add a translation
   "statistics.reports.title": "Reports",
+
+  // "statistics.table.no-name": "(object name could not be loaded)", (Auto-Translated)
+  "statistics.table.no-name": "(o nome do objeto não pôde ser carregado)",
 
   // "statistics.table.no-name": "(object name could not be loaded)", (Auto-Translated)
   "statistics.table.no-name": "(o nome do objeto não pôde ser carregado)",

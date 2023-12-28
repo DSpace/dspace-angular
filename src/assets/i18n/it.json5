@@ -691,6 +691,9 @@
   // "admin.access-control.groups.table.edit.buttons.edit": "Edit \"{{name}}\"",
   "admin.access-control.groups.table.edit.buttons.edit": "Modifica \"{{name}}\"",
 
+  // "admin.access-control.groups.table.edit.buttons.remove": "Delete \"{{name}}\"",
+  "admin.access-control.groups.table.edit.buttons.remove": "Elimina \"{{name}}\"",
+
   // "admin.access-control.groups.table.type": "Type",
   "admin.access-control.groups.table.type": "type",
 
@@ -1760,7 +1763,6 @@
 
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   "collection.edit.logo.upload": "Trascina qui il logo da caricare per la collezione",
-
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Modificata correttamente la collezione",
 
@@ -2927,7 +2929,7 @@
   "confirmation-modal.export-batch.cancel": "Annulla",
 
   // "confirmation-modal.export-batch.confirm": "Export",
-  "confirmation-modal.export-batch.confirm": "Export",
+  "confirmation-modal.export-batch.confirm": "Esporta",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
   "confirmation-modal.delete-eperson.header": "Elimina EPerson \"{{ dsoName }}\"",
@@ -3661,7 +3663,7 @@
   "health-page.error.msg": "Il servizio di health check è temporaneamente non disponibile.",
 
   // "health-page.property.status": "Status code",
-  "health-page.property.status": "Status code",
+  "health-page.property.status": "Codice di stato",
 
   // "health-page.section.db.title": "Database",
   "health-page.section.db.title": "Database",
@@ -6092,20 +6094,20 @@
   // "mydspace.show.otherworkspace": "Other Workspace Submissions",
   "mydspace.show.otherworkspace": "Altri insierimenti in workspace",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archiviati",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archiviati",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Convalida",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Convalida",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "In attesa del controllo",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "In attesa del controllo",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Workflow",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Workspace",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",
@@ -9302,7 +9304,7 @@
   "submission.sections.submit.progressbar.license": "Licenza di deposito",
 
   // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
+  "submission.sections.submit.progressbar.sherpapolicy": "Policy di Sherpa",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Carica file",
@@ -10089,7 +10091,6 @@
   "workspace-item.delete.notification.error.title": "Something went wrong",
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
-  // TODO New key - Add a translation
   "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
 
   // "workflow-item.advanced.title": "Advanced workflow",
@@ -10098,7 +10099,7 @@
   // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
   "workflow-item.selectrevieweraction.notification.success.title": "Revisore selezionato",
 
-  // "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+  // "workflow-item.selectrevieweraction.notification.success.content": "Il revisore per questo item nel workflow è stato selezionato con successo",
   "workflow-item.selectrevieweraction.notification.success.content": "Il revisore per questo item nel workflow è stato selezionato con successo",
 
   // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",

@@ -29,7 +29,7 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import { EPersonMock2 } from 'src/app/shared/testing/eperson.mock';
+import { EPersonMock2 } from '../../../../shared/testing/eperson.mock';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 

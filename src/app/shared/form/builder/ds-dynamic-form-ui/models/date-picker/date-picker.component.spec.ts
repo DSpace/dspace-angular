@@ -1,7 +1,7 @@
 // Load the implementations that should be tested
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, Renderer2 } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';

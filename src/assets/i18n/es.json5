@@ -5162,10 +5162,6 @@
   // TODO New key - Add a translation
   "item.preview.dc.identifier.scopus": "Scopus ID",
 
-  // "item.preview.dc.publisher" : "Publisher",
-  // TODO New key - Add a translation
-  "item.preview.dc.publisher": "Publisher",
-
   // "item.preview.dc.relation.grantno" : "Grant no.",
   // TODO New key - Add a translation
   "item.preview.dc.relation.grantno": "Grant no.",
@@ -6095,6 +6091,9 @@
   // "menu.section.explore_orgunits": "Organizations",
   // TODO New key - Add a translation
   "menu.section.explore_orgunits": "Organizations",
+
+  // "menu.section.browse_global_by_srsc": "By Subject Category",
+  "menu.section.browse_global_by_srsc": "Por categoría",
 
   // "menu.section.browse_global_by_srsc": "By Subject Category",
   "menu.section.browse_global_by_srsc": "Por categoría",
@@ -8759,6 +8758,12 @@
 
   // "search.results.response.500": "An error occurred during query execution, please try again later",
   "search.results.response.500": "Ocurrió un error durante la ejecución de la consulta, intente nuevamente más tarde",
+
+  // "default.search.results.head": "Search Results",
+  "default.search.results.head": "Resultados de la búsqueda",
+
+  // "default-relationships.search.results.head": "Search Results",
+  "default-relationships.search.results.head": "Resultados de la búsqueda",
 
   // "search.sidebar.close": "Back to results",
   "search.sidebar.close": "Volver a resultados",

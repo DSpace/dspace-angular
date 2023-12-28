@@ -6841,19 +6841,19 @@
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
-  // "mydspace.status.archived": "Archived",
+  // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Αρχειοθετημένα",
 
-  // "mydspace.status.validation": "Validation",
+  // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Επικύρωση",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
   "mydspace.status.mydspaceWaitingController": "Αναμονή για τον ελεγκτή",
 
-  // "mydspace.status.workflow": "Workflow",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
   "mydspace.status.mydspaceWorkflow": "Ροή εργασιών",
 
-  // "mydspace.status.workspace": "Workspace",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
   "mydspace.status.mydspaceWorkspace": "Χώρος εργασίας",
 
   // "mydspace.title": "MyDSpace",

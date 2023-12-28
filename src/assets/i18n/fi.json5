@@ -22,14 +22,6 @@
   "500.page-internal-server-error": "Palvelu ei ole saatavilla",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
-  // TODO New key - Add a translation
-  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
-
-  // "500.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "500.link.home-page": "Take me to the home page",
-
-  // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
   "500.help": "Palvelin ei tilapäisesti pysty käsittelemään pyyntöäsi huoltokatkon tai kapasiteettiongelmien vuoksi. Yritä myöhemmin uudelleen.",
 
   // "500.link.home-page": "Take me to the home page",
@@ -1044,12 +1036,10 @@
   "admin.access-control.groups.form.tooltip.editGroupPage": "Tällä sivulla voit muokata ryhmän ominaisuuksia ja jäseniä. Yläosassa voit muokata ryhmän nimeä ja kuvausta, paitsi jos kyseessä on kokoelman tai yhteisön ylläpitäjäryhmä, jolloin ryhmän nimi ja kuvaus luodaan automaattisesti, eikä niitä voi muokata. Muissa osioissa voit muokata ryhmän jäsenyyttä. Katso lisätietoja wiki-sivulta (https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Voit lisätä tai poistaa ryhmän käyttäjän joko napsauttamalla 'Selaa kaikkia' -painiketta tai käyttämällä alla olevaa hakupalkkia käyttäjien etsimiseen (käytä hakupalkin vasemmalla puolella olevaa pudotusvalikkoa valitaksesi, haetaanko metatietojen vai sähköpostin perusteella). Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevaan luetteloon, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  // TODO New key - Add a translation
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä tai poistaa alaryhmän tähän ryhmään tai tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia ryhmien etsimiseen. Napsauta sitten luettelossa plus-kuvaketta jokaisen ryhmän kohdalla, jonka haluat lisätä, tai roskakorikuvaketta jokaisen ryhmän kohdalla, jonka haluat poistaa. Luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.notifications.openairebroker.breadcrumbs": "OpenAIRE Broker",
   // TODO New key - Add a translation
@@ -1074,12 +1064,6 @@
   // "admin.notifications.recitersuggestion.page.title": "Suggestions",
   // TODO New key - Add a translation
   "admin.notifications.recitersuggestion.page.title": "Suggestions",
-
-  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Voit lisätä tai poistaa ryhmän käyttäjän joko napsauttamalla 'Selaa kaikkia' -painiketta tai käyttämällä alla olevaa hakupalkkia käyttäjien etsimiseen (käytä hakupalkin vasemmalla puolella olevaa pudotusvalikkoa valitaksesi, haetaanko metatietojen vai sähköpostin perusteella). Napsauta sitten plus-kuvaketta jokaisen käyttäjän kohdalla, jonka haluat lisätä alla olevaan luetteloon, tai roskakorikuvaketta jokaisen käyttäjän kohdalla, jonka haluat poistaa. Alla olevassa luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
-
-  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Jos haluat lisätä tai poistaa alaryhmän tähän ryhmään tai tästä ryhmästä, napsauta joko 'Selaa kaikkia' -painiketta tai käytä alla olevaa hakupalkkia ryhmien etsimiseen. Napsauta sitten luettelossa plus-kuvaketta jokaisen ryhmän kohdalla, jonka haluat lisätä, tai roskakorikuvaketta jokaisen ryhmän kohdalla, jonka haluat poistaa. Luettelossa voi olla useita sivuja: voit siirtyä seuraaville sivuille luettelon alapuolella olevilla sivunohjaimilla. Kun olet valmis, tallenna muutokset napsauttamalla yläosassa olevaa Tallenna-painiketta.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Ylläpitäjän haku",
@@ -1139,11 +1123,6 @@
   "admin.workflow.item.policies": "Käytännöt",
 
   // "admin.workflow.item.supervision": "Supervision",
-  // TODO New key - Add a translation
-  "admin.workflow.item.supervision": "Supervision",
-
-
-  // "admin.workflow.item.supervision": "Supervision",
   "admin.workflow.item.supervision": "Valvonta",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
@@ -1186,7 +1165,6 @@
   "admin.batch-import.page.dropMsgReplace": "Pudota korvataksesi importoitava erän ZIP-tiedosto",
 
   // "admin.metadata-import.page.button.return": "Back",
-  // TODO Source message changed - Revise the translation
   "admin.metadata-import.page.button.return": "Paluu",
 
   // "admin.metadata-import.page.button.proceed": "Proceed",
@@ -1218,143 +1196,6 @@
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
   "admin.metadata-import.page.validateOnly.hint": "Kun tämä valitaan, ladattu CSV-tiedosto validoidaan. Saat raportin havaituista muutoksista, mutta muutoksia ei tallenneta.",
-
-  // "advanced-workflow-action.rating.form.rating.label": "Rating",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.rating.label": "Rating",
-
-  // "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.rating.error": "You must rate the item",
-
-  // "advanced-workflow-action.rating.form.review.label": "Review",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.review.label": "Review",
-
-  // "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating",
-
-  // "advanced-workflow-action.rating.description": "Please select a rating below",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.description": "Please select a rating below",
-
-  // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review",
-
-
-  // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
-
-  // "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
-
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
-
-  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
-  // TODO New key - Add a translation
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search",
-
-  // "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
-  // TODO New key - Add a translation
-  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
-
-  // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-
-  // "advanced-workflow-action.rating.form.rating.label": "Rating",
-  "advanced-workflow-action.rating.form.rating.label": "Arviointi",
-
-  // "admin.batch-import.page.remove": "remove",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.remove": "remove",
 
 
   // "alert.close.aria": "Close",
@@ -1423,6 +1264,9 @@
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Sähköpostiosoite",
 
+  // "advanced-workflow-action.rating.form.rating.label": "Rating",
+  "advanced-workflow-action.rating.form.rating.label": "Arviointi",
+
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "Käyttäjätunnus",
 
@@ -1470,10 +1314,6 @@
 
   // "auth.messages.expired": "Your session has expired. Please log in again.",
   "auth.messages.expired": "Istuntosi on vanhentunut. Kirjaudu uudelleen.",
-
-  // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
-  // TODO New key - Add a translation
-  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
 
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
   "auth.messages.token-refresh-failed": "Istuntotunnisteen päivittäminen epäonnistui. Kirjaudu uudelleen.",
@@ -2379,14 +2219,6 @@
   // "community.edit.logo.delete-undo.title": "Undo delete",
   "community.edit.logo.delete-undo.title": "Kumoa poisto",
 
-  // "community.edit.logo.delete.title": "Delete logo",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete.title": "Delete logo",
-
-  // "community.edit.logo.delete-undo.title": "Undo delete",
-  // TODO New key - Add a translation
-  "community.edit.logo.delete-undo.title": "Undo delete",
-
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Yhteisön logo",
 
@@ -2666,15 +2498,6 @@
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   "cookies.consent.app.description.google-recaptcha": "Käytämme Googlen reCAPTCHA-palvelua rekisteröinnin ja salasanan palauttamisen yhteydessä.",
 
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-
-  // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
-
-
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Toiminnallinen",
 
@@ -2766,39 +2589,7 @@
   // "dso.name.unnamed": "Unnamed",
   "dso.name.unnamed": "Nimeämätön",
 
-  // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  // TODO New key - Add a translation
-  "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-
-  // "deny-request-copy.email.subject": "Request copy of document",
-  // TODO New key - Add a translation
-  "deny-request-copy.email.subject": "Request copy of document",
-
-  // "deny-request-copy.error": "An error occurred",
-  // TODO New key - Add a translation
-  "deny-request-copy.error": "An error occurred",
-
-  // "deny-request-copy.header": "Deny document copy request",
-  // TODO New key - Add a translation
-  "deny-request-copy.header": "Deny document copy request",
-
-  // "deny-request-copy.intro": "This message will be sent to the applicant of the request",
-  // TODO New key - Add a translation
-  "deny-request-copy.intro": "This message will be sent to the applicant of the request",
-
-  // "deny-request-copy.success": "Successfully denied item request",
-  // TODO New key - Add a translation
-  "deny-request-copy.success": "Successfully denied item request",
-
-
-
-  // "dso.name.untitled": "Untitled",
-  // TODO New key - Add a translation
-  "dso.name.untitled": "Untitled",
-
-
-
-  // "dso-selector.create.collection.head": "New collection",
+   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Uusi kokoelma",
 
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
@@ -3221,18 +3012,6 @@
 
   // "form.drag": "Drag",
   "form.drag": "Raahaa",
-
-  // "form.copy": "Duplicate",
-  // TODO New key - Add a translation
-  "form.copy": "Duplicate",
-
-  // "form.discard": "Discard",
-  // TODO New key - Add a translation
-  "form.discard": "Discard",
-
-  // "form.drag": "Drag",
-  // TODO New key - Add a translation
-  "form.drag": "Drag",
 
   // "form.edit": "Edit",
   "form.edit": "Muokkaa",
@@ -3928,10 +3707,6 @@
   // "item.edit.metadata.reset-order-button": "Undo reorder",
   "item.edit.metadata.reset-order-button": "Kumoa uudelleenjärjestäminen",
 
-  // "item.edit.metadata.reset-order-button": "Undo reorder",
-  // TODO New key - Add a translation
-  "item.edit.metadata.reset-order-button": "Undo reorder",
-
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Tallenna",
 
@@ -3952,14 +3727,6 @@
 
   // "item.edit.move.discard-button": "Discard",
   "item.edit.move.discard-button": "Hylkää",
-
-  // "item.edit.move.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.move.save-button": "Save",
-
-  // "item.edit.move.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.move.discard-button": "Discard",
 
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
   "item.edit.move.description": "Valitse kokoelma, johon haluat siirtää tietueen. Voit antaa hakulausekkeen kokoelmien määrän pienentämiseksi.",
@@ -4166,10 +3933,6 @@
 
   // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
   "item.edit.tabs.status.buttons.unauthorized": "Sinulla ei ole valtuuksia suorittaa tätä toimintoa",
-
-  // "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.unauthorized": "You're not authorized to perform this action",
 
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw this item",
   "item.edit.tabs.status.buttons.withdraw.button": "Poista tämä kohde",
@@ -5021,6 +4784,9 @@
   // "menu.section.browse_global_by_srsc": "By Subject Category",
   "menu.section.browse_global_by_srsc": "Aihekategorian mukaan",
 
+  // "menu.section.browse_global_by_srsc": "By Subject Category",
+  "menu.section.browse_global_by_srsc": "Aihekategorian mukaan",
+
   // "menu.section.explore_fundings": "Fundings",
   // TODO New key - Add a translation
   "menu.section.explore_fundings": "Fundings",
@@ -5240,17 +5006,8 @@
   // "mydspace.breadcrumbs": "MyDSpace",
   "mydspace.breadcrumbs": "Oma DSpace",
 
-  // "metadata-export-search.tooltip": "Export search results as CSV",
-  // TODO New key - Add a translation
-  "metadata-export-search.tooltip": "Export search results as CSV",
-
-  // "metadata-export-search.submit.success": "The export was started successfully",
-  // TODO New key - Add a translation
-  "metadata-export-search.submit.success": "The export was started successfully",
-
-  // "metadata-export-search.submit.error": "Starting the export has failed",
-  // TODO New key - Add a translation
-  "metadata-export-search.submit.error": "Starting the export has failed",
+  // "mydspace.description": "",
+  "mydspace.description": "",
 
 
   // "metric-badges.scopusCitation": "Scopus© Citations",
@@ -5385,10 +5142,6 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Tallennuksesi",
 
-  // "mydspace.show.supervisedWorkspace": "Supervised items",
-  // TODO New key - Add a translation
-  "mydspace.show.supervisedWorkspace": "Supervised items",
-
   // "mydspace.show.otherworkspace": "Other Workspace Submissions",
   // TODO New key - Add a translation
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
@@ -5512,10 +5265,6 @@
 
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Sivutusvaihtoehdot",
-
-  // "pagination.options.description": "Pagination options",
-  // TODO New key - Add a translation
-  "pagination.options.description": "Pagination options",
 
   // "pagination.results-per-page": "Results Per Page",
   "pagination.results-per-page": "Tuloksia sivulla",
@@ -6007,6 +5756,14 @@
   // TODO New key - Add a translation
   "media-viewer.playlist": "Playlist",
 
+  // "media-viewer.next": "Next",
+  "media-viewer.next": "Seuraava",
+
+  // "media-viewer.previous": "Previous",
+  "media-viewer.previous": "Edellinen",
+
+  // "media-viewer.playlist": "Playlist",
+  "media-viewer.playlist": "Soittolista",
 
   // "register-email.title": "New user registration",
   "register-email.title": "Uuden käyttäjän rekisteröinti",
@@ -6504,10 +6261,6 @@
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   "search.filters.filter.creativeDatePublished.label": "Hae julkaisuaikaa",
 
-  // "search.filters.filter.creativeDatePublished.label": "Search date published",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.label": "Search date published",
-
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Toimittaja",
 
@@ -6538,27 +6291,14 @@
   // "search.filters.filter.dateIssued.head": "Date",
   "search.filters.filter.dateIssued.head": "Päivämäärä",
 
-  // "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
-  // TODO Source message changed - Revise the translation
-  "search.filters.filter.dateIssued.max.placeholder": "Suurin päivämäärä",
-
   // "search.filters.filter.dateIssued.max.label": "End",
   "search.filters.filter.dateIssued.max.label": "Loppu",
 
-  // "search.filters.filter.dateIssued.max.label": "End",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.max.label": "End",
-
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
-  // TODO Source message changed - Revise the translation
   "search.filters.filter.dateIssued.min.placeholder": "Pienin päivämäärä",
 
   // "search.filters.filter.dateIssued.min.label": "Start",
   "search.filters.filter.dateIssued.min.label": "Alku",
-
-  // "search.filters.filter.dateIssued.min.label": "Start",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateIssued.min.label": "Start",
 
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
   "search.filters.filter.dateSubmitted.head": "Tallennusajankohta",
@@ -6682,10 +6422,6 @@
 
   // "search.filters.filter.scope.label": "Search scope filter",
   "search.filters.filter.scope.label": "Hae hakusuodatinta",
-
-  // "search.filters.filter.scope.label": "Search scope filter",
-  // TODO New key - Add a translation
-  "search.filters.filter.scope.label": "Search scope filter",
 
   // "search.filters.filter.show-less": "Collapse",
   "search.filters.filter.show-less": "Sulje",
@@ -6845,7 +6581,7 @@
   "search.view-switch.show-detail": "Näytä lisätiedot",
 
   // "search.view-switch.show-grid": "Show as grid",
-  "search.view-switch.show-grid": "Näydä ruudukkona",
+  "search.view-switch.show-grid": "Näytä ruudukkona",
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Näytä luettelona",
@@ -7317,6 +7053,24 @@
   // "submission.import-external.preview.title.Project": "Project Preview",
   // TODO New key - Add a translation
   "submission.import-external.preview.title.Project": "Project Preview",
+
+  // "submission.import-external.preview.title.Publication": "Publication Preview",
+  "submission.import-external.preview.title.Publication": "Julkaisun esikatselu",
+
+  // "submission.import-external.preview.title.none": "Item Preview",
+  "submission.import-external.preview.title.none": "Tietueen esikatselu",
+
+  // "submission.import-external.preview.title.Journal": "Journal Preview",
+  "submission.import-external.preview.title.Journal": "Kausijulkaisun esikatselu",
+
+  // "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
+  "submission.import-external.preview.title.OrgUnit": "Organisaatioyksikön esikatselu",
+
+  // "submission.import-external.preview.title.Person": "Person Preview",
+  "submission.import-external.preview.title.Person": "Käyttäjän esikatselu",
+
+  // "submission.import-external.preview.title.Project": "Project Preview",
+  "submission.import-external.preview.title.Project": "Projektin esikatselu",
 
   // "submission.import-external.preview.title.Publication": "Publication Preview",
   "submission.import-external.preview.title.Publication": "Julkaisun esikatselu",
@@ -8617,6 +8371,14 @@
   // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
   "subscriptions.table.empty.message": "Sinulla ei tällä hetkellä ole tilauksia. Voit tilata yhteisön tai kokoelman sähköposti-ilmoitukset kohteen sivulla olevalla tilauspainikkeella.",
 
+  // "subscriptions.modal.new-subscription-form.type.content+statistics": "Content and Statistics",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.type.content+statistics": "Content and Statistics",
+
+  // "subscriptions.modal.new-subscription-form.type.statistics": "Statistics",
+  // TODO New key - Add a translation
+  "subscriptions.modal.new-subscription-form.type.statistics": "Statistics",
+
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Pienoiskuva",
 
@@ -8640,181 +8402,6 @@
 
   // "thumbnail.person.placeholder": "No Profile Picture Available",
   "thumbnail.person.placeholder": "Ei profiilikuva saatavilla",
-
-  // "subscriptions.collection": "Subscriptions for collections",
-  // TODO New key - Add a translation
-  "subscriptions.collection": "Subscriptions for collections",
-
-  // "subscriptions.community": "Subscriptions for communities",
-  // TODO New key - Add a translation
-  "subscriptions.community": "Subscriptions for communities",
-
-  // "subscriptions.subscription_type": "Subscription type",
-  // TODO New key - Add a translation
-  "subscriptions.subscription_type": "Subscription type",
-
-  // "subscriptions.frequency": "Subscription frequency",
-  // TODO New key - Add a translation
-  "subscriptions.frequency": "Subscription frequency",
-
-  // "subscriptions.frequency.D": "Daily",
-  // TODO New key - Add a translation
-  "subscriptions.frequency.D": "Daily",
-
-  // "subscriptions.frequency.M": "Monthly",
-  // TODO New key - Add a translation
-  "subscriptions.frequency.M": "Monthly",
-
-  // "subscriptions.frequency.W": "Weekly",
-  // TODO New key - Add a translation
-  "subscriptions.frequency.W": "Weekly",
-
-  // "subscriptions.tooltip": "Subscribe",
-  // TODO New key - Add a translation
-  "subscriptions.tooltip": "Subscribe",
-
-  // "subscriptions.modal.title": "Subscriptions",
-  // TODO New key - Add a translation
-  "subscriptions.modal.title": "Subscriptions",
-
-  // "subscriptions.modal.type-frequency": "Type and frequency",
-  // TODO New key - Add a translation
-  "subscriptions.modal.type-frequency": "Type and frequency",
-
-  // "subscriptions.modal.close": "Close",
-  // TODO New key - Add a translation
-  "subscriptions.modal.close": "Close",
-
-  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
-  // TODO New key - Add a translation
-  "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
-
-  // "subscriptions.modal.new-subscription-form.type.content": "Content",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.type.content": "Content",
-
-  // "subscriptions.modal.new-subscription-form.type.content+statistics": "Content and Statistics",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.type.content+statistics": "Content and Statistics",
-
-  // "subscriptions.modal.new-subscription-form.type.statistics": "Statistics",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.type.statistics": "Statistics",
-
-  // "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
-
-  // "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
-
-  // "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
-
-  // "subscriptions.modal.new-subscription-form.submit": "Submit",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.submit": "Submit",
-
-  // "subscriptions.modal.new-subscription-form.processing": "Processing...",
-  // TODO New key - Add a translation
-  "subscriptions.modal.new-subscription-form.processing": "Processing...",
-
-  // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
-  // TODO New key - Add a translation
-  "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
-
-  // "subscriptions.modal.delete.success": "Subscription deleted successfully",
-  // TODO New key - Add a translation
-  "subscriptions.modal.delete.success": "Subscription deleted successfully",
-
-  // "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
-  // TODO New key - Add a translation
-  "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
-
-  // "subscriptions.modal.create.error": "An error occurs during the subscription creation",
-  // TODO New key - Add a translation
-  "subscriptions.modal.create.error": "An error occurs during the subscription creation",
-
-  // "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
-  // TODO New key - Add a translation
-  "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
-
-  // "subscriptions.modal.update.error": "An error occurs during the subscription update",
-  // TODO New key - Add a translation
-  "subscriptions.modal.update.error": "An error occurs during the subscription update",
-
-  // "subscriptions.table.dso": "Subject",
-  // TODO New key - Add a translation
-  "subscriptions.table.dso": "Subject",
-
-  // "subscriptions.table.subscription_type": "Subscription Type",
-  // TODO New key - Add a translation
-  "subscriptions.table.subscription_type": "Subscription Type",
-
-  // "subscriptions.table.subscription_frequency": "Subscription Frequency",
-  // TODO New key - Add a translation
-  "subscriptions.table.subscription_frequency": "Subscription Frequency",
-
-  // "subscriptions.table.action": "Action",
-  // TODO New key - Add a translation
-  "subscriptions.table.action": "Action",
-
-  // "subscriptions.table.edit": "Edit",
-  // TODO New key - Add a translation
-  "subscriptions.table.edit": "Edit",
-
-  // "subscriptions.table.delete": "Delete",
-  // TODO New key - Add a translation
-  "subscriptions.table.delete": "Delete",
-
-  // "subscriptions.table.not-available": "Not available",
-  // TODO New key - Add a translation
-  "subscriptions.table.not-available": "Not available",
-
-  // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
-  // TODO New key - Add a translation
-  "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
-
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
-  // TODO New key - Add a translation
-  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
-
-
-  // "thumbnail.default.alt": "Thumbnail Image",
-  // TODO New key - Add a translation
-  "thumbnail.default.alt": "Thumbnail Image",
-
-  // "thumbnail.default.placeholder": "No Thumbnail Available",
-  // TODO New key - Add a translation
-  "thumbnail.default.placeholder": "No Thumbnail Available",
-
-  // "thumbnail.project.alt": "Project Logo",
-  // TODO New key - Add a translation
-  "thumbnail.project.alt": "Project Logo",
-
-  // "thumbnail.project.placeholder": "Project Placeholder Image",
-  // TODO New key - Add a translation
-  "thumbnail.project.placeholder": "Project Placeholder Image",
-
-  // "thumbnail.orgunit.alt": "OrgUnit Logo",
-  // TODO New key - Add a translation
-  "thumbnail.orgunit.alt": "OrgUnit Logo",
-
-  // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
-  // TODO New key - Add a translation
-  "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
-
-  // "thumbnail.person.alt": "Profile Picture",
-  // TODO New key - Add a translation
-  "thumbnail.person.alt": "Profile Picture",
-
-  // "thumbnail.person.placeholder": "No Profile Picture Available",
-  // TODO New key - Add a translation
-  "thumbnail.person.placeholder": "No Profile Picture Available",
-
-
 
   // "title": "DSpace Cris",
   // TODO Source message changed - Revise the translation
@@ -8880,14 +8467,6 @@
   // "otherworkspace.search.results.head": "Workspace submissions",
   // TODO New key - Add a translation
   "otherworkspace.search.results.head": "Workspace submissions",
-
-  // "supervisedWorkspace.search.results.head": "Supervised Items",
-  // TODO New key - Add a translation
-  "supervisedWorkspace.search.results.head": "Supervised Items",
-
-  // "workspace.search.results.head": "Your submissions",
-  // TODO New key - Add a translation
-  "workspace.search.results.head": "Your submissions",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Hallinnoi työnkulkua",

@@ -23,6 +23,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { getFinishedRemoteData } from '../../core/shared/operators';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { UUIDService } from '../../core/shared/uuid.service';
 
 /**
@@ -92,6 +93,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   protected subs: Subscription[] = [];
 
   private retrieveExternalSourcesSub: Subscription;
+
+  public readonly AlertType = AlertType;
 
   /**
    * Initialize the component variables.

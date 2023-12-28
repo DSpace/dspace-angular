@@ -37,8 +37,8 @@ nav.navbar {
     }
 }
 
-.navbar-nav {
-  ::ng-deep a.nav-link {
+.navbar-nav ::ng-deep {
+  a.nav-link, .btn.nav-link {
     color: var(--ds-navbar-link-color);
 
     &:hover, &:focus {

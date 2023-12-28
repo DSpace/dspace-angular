@@ -50,6 +50,8 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.repeatable = config.repeatable;
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
+    this.repeatable = config.repeatable;
+    // This was a subscription, then an async setTimeout, but it seems unnecessary
     this.hiddenUpdates.subscribe((hidden: boolean) => {
       this.hidden = hidden;
       const parentModel = this.getRootParent(this);

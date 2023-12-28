@@ -1,7 +1,7 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <div *ngVar="(originals$ | async)?.payload as originals">
         <div *ngIf="hasValuesInBundle(originals)">
-            <h5 class="simple-view-element-header">{{"item.page.filesection.original.bundle" | translate}}</h5>
+            <h3 class="h5 simple-view-element-header">{{"item.page.filesection.original.bundle" | translate}}</h3>
             <ds-pagination *ngIf="originals?.page?.length > 0"
                            [hideGear]="true"
                            [hidePagerWhenSinglePage]="true"
@@ -44,7 +44,7 @@
     </div>
     <div *ngVar="(licenses$ | async)?.payload as licenses">
         <div *ngIf="hasValuesInBundle(licenses)">
-            <h5 class="simple-view-element-header">{{"item.page.filesection.license.bundle" | translate}}</h5>
+            <h3 class="h5 simple-view-element-header">{{"item.page.filesection.license.bundle" | translate}}</h3>
             <ds-pagination *ngIf="licenses?.page?.length > 0"
                            [hideGear]="true"
                            [hidePagerWhenSinglePage]="true"

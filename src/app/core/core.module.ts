@@ -181,6 +181,9 @@ import { SequenceService } from './shared/sequence.service';
 import { CoreState } from './core-state.model';
 import { GroupDataService } from './eperson/group-data.service';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
+import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { RatingAdvancedWorkflowInfo } from './tasks/models/rating-advanced-workflow-info.model';
 import { AdvancedWorkflowInfo } from './tasks/models/advanced-workflow-info.model';
 import { SelectReviewerAdvancedWorkflowInfo } from './tasks/models/select-reviewer-advanced-workflow-info.model';
@@ -455,19 +458,20 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
+    QualityAssuranceTopicObject,
+    QualityAssuranceEventObject,
+    OpenaireSuggestion,
+    OpenaireSuggestionTarget,
+    OpenaireSuggestionSource,
     ItemExportFormat,
     Section,
     EditItem,
     EditItemMode,
-    OpenaireBrokerTopicObject,
-    OpenaireBrokerEventObject,
-    OpenaireSuggestion,
-    OpenaireSuggestionTarget,
-    OpenaireSuggestionSource,
     StatisticsCategory,
     Root,
     SearchConfig,
     SubmissionAccessesModel,
+    QualityAssuranceSourceObject,
     AccessStatusObject,
     ResearcherProfile,
     OrcidQueue,
