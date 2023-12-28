@@ -2,6 +2,7 @@ export interface AdminNotifyMetricsBox {
   color: string;
   textColor?: string;
   title: string;
+  config: string;
   count?: number
 }
 

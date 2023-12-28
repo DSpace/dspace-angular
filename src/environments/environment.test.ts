@@ -317,5 +317,70 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
+  ],
+
+  notifyMetrics: [
+    {
+      title: 'Number of received LDN',
+      boxes: [
+        {
+          color: '#B8DAFF',
+          title: 'Accepted',
+          config: 'NOTIFY.incoming.accepted'
+        },
+        {
+          color: '#D4EDDA',
+          title: 'Processed LDN',
+          config: 'NOTIFY.incoming.processed'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'Failure',
+          config: 'NOTIFY.incoming.failure'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'Untrusted',
+          config: 'NOTIFY.incoming.untrusted'
+        },
+        {
+          color: '#43515F',
+          title: 'Incoming LDM messages',
+          textColor: '#fff',
+          config: ''
+        },
+      ]
+    },
+    {
+      title: 'Number of generated LDN',
+      boxes: [
+        {
+          color: '#D4EDDA',
+          title: 'Delivered',
+          config: 'NOTIFY.outgoing.delivered'
+        },
+        {
+          color: '#B8DAFF',
+          title: 'Queued',
+          config: 'NOTIFY.outgoing.queued'
+        },
+        {
+          color: '#FDEEBB',
+          title: 'Queued for retry',
+          config: 'NOTIFY.outgoing.queued_for_retry'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'Failure',
+          config: 'NOTIFY.outgoing.failure'
+        },
+        {
+          color: '#43515F',
+          title: 'Outgoing LDM messages',
+          textColor: '#fff',
+          config: ''
+        },
+      ]
+    }
   ]
 };

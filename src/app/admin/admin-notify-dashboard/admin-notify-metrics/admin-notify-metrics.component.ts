@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
-import { AdminNotifyMetricsRowsConfig } from './admin-notify-metrics.config';
 
 @Component({
   selector: 'ds-admin-notify-metrics',
@@ -9,5 +8,6 @@ import { AdminNotifyMetricsRowsConfig } from './admin-notify-metrics.config';
 })
 export class AdminNotifyMetricsComponent {
 
-  boxesConfig: AdminNotifyMetricsRow[] = AdminNotifyMetricsRowsConfig;
+  @Input()
+  boxesConfig: AdminNotifyMetricsRow[];
 }
