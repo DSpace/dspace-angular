@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MenuProviderService } from '../shared/menu/menu-provider.service';
+import { resolveRouteMenus } from '../shared/menu/menu.resolver';
+import { StatisticsMenuProvider } from '../shared/menu/providers/statistics.menu';
 
 import { HomePageResolver } from './home-page.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
@@ -15,22 +18,10 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
         pathMatch: 'full',
         data: {
           title: 'home.title',
-          menu: {
-            public: [{
-              id: 'statistics_site',
-              active: true,
-              visible: true,
-              index: 2,
-              model: {
-                type: MenuItemType.LINK,
-                text: 'menu.section.statistics',
-                link: 'statistics',
-              } as LinkMenuItemModel,
-            }],
-          },
         },
         resolve: {
-          site: HomePageResolver
+          site: HomePageResolver,
+          menu: resolveRouteMenus(StatisticsMenuProvider), // todo: sometimes this doesn't show up!
         }
       }
     ])

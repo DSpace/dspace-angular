@@ -1,5 +1,6 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { rotate } from '../../../shared/animations/rotate';
+import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 import { slide } from '../../../shared/animations/slide';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
@@ -51,13 +52,13 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
   expanded: Observable<boolean>;
 
   constructor(
-    @Inject('sectionDataProvider') menuSection,
+    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     private variableService: CSSVariableService,
     protected injector: Injector,
     protected router: Router,
   ) {
-    super(menuSection, menuService, injector, router);
+    super(section, menuService, injector, router);
   }
 
   /**

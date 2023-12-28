@@ -1,17 +1,38 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuSectionComponent } from './menu-section.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import { AbstractMenuSectionComponent } from './abstract-menu-section.component';
 import { MenuService } from '../menu.service';
 import { MenuServiceStub } from '../../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 import { LinkMenuItemComponent } from '../menu-item/link-menu-item.component';
 import { MenuSection } from '../menu-section.model';
 
+@Component({
+  selector: 'ds-some-menu-section',
+  template: '',
+})
+class SomeMenuSectionComponent extends AbstractMenuSectionComponent {
+  constructor(
+    @Inject('sectionDataProvider') protected section: MenuSection,
+    protected menuService: MenuService,
+    protected injector: Injector,
+  ) {
+    super(menuService, injector);
+  }
+}
+
 describe('MenuSectionComponent', () => {
-  let comp: MenuSectionComponent;
-  let fixture: ComponentFixture<MenuSectionComponent>;
+  let comp: AbstractMenuSectionComponent;
+  let fixture: ComponentFixture<AbstractMenuSectionComponent>;
   let menuService: MenuService;
   let dummySection;
 
@@ -23,20 +44,20 @@ describe('MenuSectionComponent', () => {
     } as any;
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [MenuSectionComponent],
+      declarations: [AbstractMenuSectionComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: MenuService, useClass: MenuServiceStub },
-        { provide: MenuSection, useValue: dummySection },
+        { provide: 'sectionDataProvider', useValue: dummySection },
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(MenuSectionComponent, {
+    }).overrideComponent(SomeMenuSectionComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuSectionComponent);
+    fixture = TestBed.createComponent(SomeMenuSectionComponent);
     comp = fixture.componentInstance;
     menuService = (comp as any).menuService;
     spyOn(comp as any, 'getMenuItemComponent').and.returnValue(LinkMenuItemComponent);

@@ -1,16 +1,14 @@
-import { MenuSectionComponent } from './menu-section/menu-section.component';
-import { MenuComponent } from './menu.component';
-import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterModule } from '@angular/router';
-import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
-import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
-import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { ExternalLinkMenuItemComponent } from './menu-item/external-link-menu-item.component';
+import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
+import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
+import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
+import { MenuComponent } from './menu.component';
 
 const COMPONENTS = [
-  MenuSectionComponent,
   MenuComponent,
 ];
 

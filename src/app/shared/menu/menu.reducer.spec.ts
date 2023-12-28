@@ -18,7 +18,7 @@ import {
 } from './menu.actions';
 import { menusReducer } from './menu.reducer';
 import { initialMenusState} from './initial-menus-state';
-import { MenuSectionIndex } from './menu-section-Index.model';
+import { MenuSectionIndex } from './menu-section-index.model';
 import { MenuID } from './menu-id.model';
 
 let visibleSection1;

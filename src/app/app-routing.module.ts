@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, NoPreloading } from '@angular/router';
-import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
-
-import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+  NoPreloading,
+  RouterModule,
+} from '@angular/router';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
@@ -24,22 +21,24 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
-import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
-import { ReloadGuard } from './core/reload/reload.guard';
-import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
+import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
+
+import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
-import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
-import {
-  GroupAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import {
-  ThemedPageInternalServerErrorComponent
-} from './page-internal-server-error/themed-page-internal-server-error.component';
+import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
+import { ReloadGuard } from './core/reload/reload.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
+import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
+import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
+import { MenuProviderService } from './shared/menu/menu-provider.service';
+import { resolveStaticMenus } from './shared/menu/menu.resolver';
 
 @NgModule({
   imports: [
@@ -50,7 +49,10 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
         path: '',
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
-        resolve: [MenuResolver],
+        resolve: [
+          resolveStaticMenus(),
+          // MenuResolver,
+        ],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },
           {

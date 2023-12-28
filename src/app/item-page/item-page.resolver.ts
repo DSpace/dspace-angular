@@ -14,7 +14,9 @@ import { ItemResolver } from './item.resolver';
  * This class represents a resolver that requests a specific item before the route is activated and will redirect to the
  * entity page
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ItemPageResolver extends ItemResolver {
   constructor(
     protected itemService: ItemDataService,

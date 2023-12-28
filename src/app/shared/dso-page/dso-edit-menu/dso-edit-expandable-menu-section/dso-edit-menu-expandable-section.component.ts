@@ -1,6 +1,6 @@
 import { Component, Inject, Injector } from '@angular/core';
 import { rendersSectionForMenu } from 'src/app/shared/menu/menu-section.decorator';
-import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
+import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 import { MenuService } from '../../../menu/menu.service';
 import { Router } from '@angular/router';
 import { MenuID } from 'src/app/shared/menu/menu-id.model';
@@ -19,7 +19,7 @@ import { hasValue } from '../../../empty.util';
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
 })
 @rendersSectionForMenu(MenuID.DSO_EDIT, true)
-export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent {
+export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionComponent {
 
   menuID: MenuID = MenuID.DSO_EDIT;
   itemModel;
@@ -27,13 +27,13 @@ export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent 
   renderIcons$: Observable<boolean>;
 
   constructor(
-    @Inject('sectionDataProvider') menuSection: MenuSection,
+    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
     protected router: Router,
   ) {
-    super(menuSection, menuService, injector);
-    this.itemModel = menuSection.model;
+    super(menuService, injector);
+    this.itemModel = section.model;
   }
 
   ngOnInit(): void {

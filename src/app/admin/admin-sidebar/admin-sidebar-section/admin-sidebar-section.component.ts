@@ -1,5 +1,5 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
+import { AbstractMenuSectionComponent } from '../../../shared/menu/menu-section/abstract-menu-section.component';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 
 })
 @rendersSectionForMenu(MenuID.ADMIN, false)
-export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {
+export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 
   /**
    * This section resides in the Admin Sidebar
@@ -33,16 +33,17 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
   isDisabled: boolean;
 
   constructor(
-    @Inject('sectionDataProvider') menuSection: MenuSection,
+    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
     protected router: Router,
   ) {
-    super(menuSection, menuService, injector);
-    this.itemModel = menuSection.model as LinkMenuItemModel;
+    super(menuService, injector);
+    this.itemModel = section.model as LinkMenuItemModel;
   }
 
   ngOnInit(): void {
+    // todo: should support all menu entries?
     this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
     super.ngOnInit();
   }

@@ -1,27 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { LinkService } from '../core/cache/builders/link.service';
+import { resolveRouteMenus } from '../shared/menu/menu.resolver';
+import { SubscribeMenuProvider } from '../shared/menu/providers/comcol-subscribe.menu';
+import { DSpaceObjectEditMenuProvider } from '../shared/menu/providers/dso-edit.menu';
+import { StatisticsMenuProvider } from '../shared/menu/providers/statistics.menu';
+import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
+import {
+  COLLECTION_CREATE_PATH,
+  COLLECTION_EDIT_PATH,
+  ITEMTEMPLATE_PATH,
+} from './collection-page-routing-paths';
 
 import { CollectionPageResolver } from './collection-page.resolver';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
-import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
-import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
-import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
-import { LinkService } from '../core/cache/builders/link.service';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import {
-  ITEMTEMPLATE_PATH,
-  COLLECTION_EDIT_PATH,
-  COLLECTION_CREATE_PATH
-} from './collection-page-routing-paths';
-import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -36,7 +37,11 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         resolve: {
           dso: CollectionPageResolver,
           breadcrumb: CollectionBreadcrumbResolver,
-          menu: DSOEditMenuResolver
+          menu: resolveRouteMenus(
+            StatisticsMenuProvider,
+            DSpaceObjectEditMenuProvider,
+            SubscribeMenuProvider,
+          ),
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -68,21 +73,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             pathMatch: 'full',
           }
         ],
-        data: {
-          menu: {
-            public: [{
-              id: 'statistics_collection_:id',
-              active: true,
-              visible: true,
-              index: 2,
-              model: {
-                type: MenuItemType.LINK,
-                text: 'menu.section.statistics',
-                link: 'statistics/collections/:id/',
-              } as LinkMenuItemModel,
-            }],
-          },
-        },
       },
     ])
   ],

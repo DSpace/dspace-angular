@@ -14,7 +14,7 @@ import { initialMenusState} from './initial-menus-state';
 import { hasValue } from '../empty.util';
 import { MenusState } from './menus-state.model';
 import { MenuState } from './menu-state.model';
-import { MenuSectionIndex } from './menu-section-Index.model';
+import { MenuSectionIndex } from './menu-section-index.model';
 import { MenuSections } from './menu-sections.model';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';

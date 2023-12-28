@@ -1,4 +1,5 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
+import { MenuSection } from '../../shared/menu/menu-section.model';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { slide } from '../../shared/animations/slide';
@@ -23,12 +24,13 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    */
   menuID = MenuID.PUBLIC;
 
-  constructor(@Inject('sectionDataProvider') menuSection,
-              protected menuService: MenuService,
-              protected injector: Injector,
-              private windowService: HostWindowService
+  constructor(
+    @Inject('sectionDataProvider') protected section: MenuSection,
+    protected menuService: MenuService,
+    protected injector: Injector,
+    private windowService: HostWindowService,
   ) {
-    super(menuSection, menuService, injector);
+    super(section, menuService, injector);
   }
 
   ngOnInit() {
