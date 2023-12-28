@@ -61,10 +61,10 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
         ],
       },
     );
-    (this.compRef.instance as any).object = this.object;
-    (this.compRef.instance as any).index = this.index;
-    (this.compRef.instance as any).linkType = this.linkType;
-    (this.compRef.instance as any).listID = this.listID;
+    this.compRef.setInput('object',this.object);
+    this.compRef.setInput('index', this.index);
+    this.compRef.setInput('linkType', this.linkType);
+    this.compRef.setInput('listID', this.listID);
   }
 
   ngOnDestroy(): void {

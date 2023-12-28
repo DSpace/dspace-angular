@@ -77,28 +77,27 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$.pipe(take(1)).subscribe((item: Item) => {
-        const component: GenericConstructor<Component> = this.getComponent(item);
+      const component: GenericConstructor<Component> = this.getComponent(item);
 
-        const viewContainerRef = this.listableObjectDirective.viewContainerRef;
-        viewContainerRef.clear();
+      const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+      viewContainerRef.clear();
 
-        this.compRef = viewContainerRef.createComponent(
-          component, {
-            index: 0,
-            injector: undefined,
-            projectableNodes: [
-              [this.badges.nativeElement],
-              [this.buttons.nativeElement],
-            ],
-          },
-        );
-        (this.compRef.instance as any).object = item;
-        (this.compRef.instance as any).index = this.index;
-        (this.compRef.instance as any).linkType = this.linkType;
-        (this.compRef.instance as any).listID = this.listID;
+      this.compRef = viewContainerRef.createComponent(
+        component, {
+          index: 0,
+          injector: undefined,
+          projectableNodes: [
+            [this.badges.nativeElement],
+            [this.buttons.nativeElement],
+          ],
+        },
+      );
+      this.compRef.setInput('object', item);
+      this.compRef.setInput('index', this.index);
+      this.compRef.setInput('linkType', this.linkType);
+      this.compRef.setInput('listID', this.listID);
       this.compRef.changeDetectorRef.detectChanges();
-      }
-    );
+    });
   }
 
   ngOnDestroy(): void {
