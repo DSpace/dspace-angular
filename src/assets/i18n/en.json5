@@ -3449,6 +3449,26 @@
 
   "admin-notify-dashboard.logs": "Notify logs",
 
+  "admin-notify-dashboard.received-ldn": "Number of received LDN",
+
+  "admin-notify-dashboard.generated-ldn": "Number of generated LDN",
+
+  "admin-notify-dashboard.accepted": "Accepted",
+
+  "admin-notify-dashboard.processed": "Processed LDN",
+
+  "admin-notify-dashboard.failure": "Failure",
+
+  "admin-notify-dashboard.untrusted": "Untrusted",
+
+  "admin-notify-dashboard.delivered": "Delivered",
+
+  "admin-notify-dashboard.queued": "Queued",
+
+  "admin-notify-dashboard.queued-for-retry": "Queued for retry",
+
+  "admin-notify-dashboard.involved-items": "Involved items",
+
   "admin.notify.dashboard.breadcrumbs": "Dashboard",
 
   "orgunit.listelement.badge": "Organizational Unit",

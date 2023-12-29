@@ -197,7 +197,7 @@ import {
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { NotifyRequestsStatusDataService } from './data/notify-services-status-data.service';
-import { AdminNotifyMessage } from "../admin/admin-notify-dashboard/models/admin-notify-message.model";
+import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
 
 
 /**

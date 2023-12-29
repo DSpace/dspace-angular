@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {
   AdminNotifyMetricsBox
-} from "../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model";
+} from '../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 
 @Component({
   selector: 'ds-notification-box',

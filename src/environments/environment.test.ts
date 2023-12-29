@@ -321,64 +321,66 @@ export const environment: BuildConfig = {
 
   notifyMetrics: [
     {
-      title: 'Number of received LDN',
+      title: 'admin-notify-dashboard.received-ldn',
       boxes: [
         {
           color: '#B8DAFF',
-          title: 'Accepted',
+          title: 'admin-notify-dashboard.accepted',
           config: 'NOTIFY.incoming.accepted'
         },
         {
           color: '#D4EDDA',
-          title: 'Processed LDN',
+          title: 'admin-notify-dashboard.processed',
           config: 'NOTIFY.incoming.processed'
         },
         {
           color: '#FDBBC7',
-          title: 'Failure',
+          title: 'admin-notify-dashboard.failure',
           config: 'NOTIFY.incoming.failure'
         },
         {
           color: '#FDBBC7',
-          title: 'Untrusted',
+          title: 'admin-notify-dashboard.untrusted',
           config: 'NOTIFY.incoming.untrusted'
         },
         {
           color: '#43515F',
-          title: 'Incoming LDM messages',
+          title: 'admin-notify-dashboard.involved-items',
           textColor: '#fff',
-          config: ''
+          config: '',
+          isRowAggregateCount: true
         },
       ]
     },
     {
-      title: 'Number of generated LDN',
+      title: 'admin-notify-dashboard.generated-ldn',
       boxes: [
         {
           color: '#D4EDDA',
-          title: 'Delivered',
+          title: 'admin-notify-dashboard.delivered',
           config: 'NOTIFY.outgoing.delivered'
         },
         {
           color: '#B8DAFF',
-          title: 'Queued',
+          title: 'admin-notify-dashboard.queued',
           config: 'NOTIFY.outgoing.queued'
         },
         {
           color: '#FDEEBB',
-          title: 'Queued for retry',
+          title: 'admin-notify-dashboard.queued-for-retry',
           config: 'NOTIFY.outgoing.queued_for_retry'
         },
         {
           color: '#FDBBC7',
-          title: 'Failure',
+          title: 'admin-notify-dashboard.failure',
           config: 'NOTIFY.outgoing.failure'
         },
         {
           color: '#43515F',
-          title: 'Outgoing LDM messages',
+          title: 'admin-notify-dashboard.involved-items',
           textColor: '#fff',
-          config: ''
+          config: '',
+          isRowAggregateCount: true
         },
       ]
     }

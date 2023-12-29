@@ -1,8 +1,8 @@
 import { deserialize, inheritSerialization } from 'cerialize';
-import { typedObject } from "../../../core/cache/builders/build-decorators";
-import { ADMIN_NOTIFY_MESSAGE } from "./admin-notify-message.resource-type";
-import { excludeFromEquals } from "../../../core/utilities/equals.decorators";
-import { DSpaceObject } from "../../../core/shared/dspace-object.model";
+import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 /**
  * A message that includes admin notify info

@@ -3,7 +3,8 @@ export interface AdminNotifyMetricsBox {
   textColor?: string;
   title: string;
   config: string;
-  count?: number
+  count?: number;
+  isRowAggregateCount?: boolean;
 }
 
 export interface AdminNotifyMetricsRow {

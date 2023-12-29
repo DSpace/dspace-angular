@@ -25,7 +25,7 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import {
   AdminNotifyMetricsRow
-} from "../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model";
+} from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
