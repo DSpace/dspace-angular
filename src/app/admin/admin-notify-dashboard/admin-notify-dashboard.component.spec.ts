@@ -3,11 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { SearchService } from "../../core/shared/search/search.service";
-import { createSuccessfulRemoteDataObject$ } from "../../shared/remote-data.utils";
-import { buildPaginatedList } from "../../core/data/paginated-list.model";
-import { AdminNotifySearchResult } from "./models/admin-notify-message-search-result.model";
-import { AdminNotifyMessage } from "./models/admin-notify-message.model";
+import { SearchService } from '../../core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
+import { AdminNotifyMessage } from './models/admin-notify-message.model';
 
 describe('AdminNotifyDashboardComponent', () => {
   let component: AdminNotifyDashboardComponent;

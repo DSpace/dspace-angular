@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationBoxComponent } from './notification-box.component';
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule } from '@ngx-translate/core';
 import {
   AdminNotifyMetricsBox
-} from "../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model";
+} from '../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 
 describe('NotificationBoxComponent', () => {
   let component: NotificationBoxComponent;
@@ -13,11 +13,11 @@ describe('NotificationBoxComponent', () => {
 
   beforeEach(async () => {
     mockBoxConfig = {
-      "color": "#D4EDDA",
-      "title": "admin-notify-dashboard.delivered",
-      "config": "NOTIFY.outgoing.delivered",
-      "count": 79
-    }
+      'color': '#D4EDDA',
+      'title': 'admin-notify-dashboard.delivered',
+      'config': 'NOTIFY.outgoing.delivered',
+      'count': 79
+    };
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
