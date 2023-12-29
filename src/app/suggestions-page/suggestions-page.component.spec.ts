@@ -9,7 +9,7 @@ import { of as observableOf } from 'rxjs';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { SuggestionListElementComponent } from '../notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../notifications/reciter-suggestions/suggestions.service';
-import { getMockOpenaireStateService, getMockSuggestionsService } from '../shared/mocks/openaire.mock';
+import { getMockNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/notifications.mock';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
 import { OpenaireSuggestion } from '../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
 import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/reciter-suggestion.mock';
@@ -39,7 +39,7 @@ describe('SuggestionPageComponent', () => {
   let fixture: ComponentFixture<SuggestionsPageComponent>;
   let scheduler: TestScheduler;
   const mockSuggestionsService = getMockSuggestionsService();
-  const mockSuggestionsTargetStateService = getMockOpenaireStateService();
+  const mockSuggestionsTargetStateService = getMockNotificationsStateService();
   const suggestionTargetsList: PaginatedList<OpenaireSuggestion> = buildPaginatedList(new PageInfo(), [mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
   const router = new RouterStub();
   const routeStub = {

@@ -16,8 +16,8 @@ import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data
 import {
   openaireSuggestionTargetReciterOne,
   openaireSuggestionTargetScopusOne,
-  openaireSuggestionTargetScopusTwo,
-} from '../../../../shared/mocks/openaire.mock';
+  openaireSuggestionTargetScopusTwo
+} from '../../../../shared/mocks/notifications.mock';
 import { RequestEntry } from '../../../data/request-entry.model';
 import { QualityAssuranceSuggestionTargetDataService } from './quality-assurance-suggestion-target-data.service';
 import { FindListOptions } from '../../../data/find-list-options.model';

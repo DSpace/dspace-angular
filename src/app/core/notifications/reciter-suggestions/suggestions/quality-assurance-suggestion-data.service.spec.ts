@@ -13,7 +13,7 @@ import { PageInfo } from '../../../shared/page-info.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
-import { openaireSuggestion, } from '../../../../shared/mocks/openaire.mock';
+import { openaireSuggestion } from '../../../../shared/mocks/notifications.mock';
 import { RequestEntry } from '../../../data/request-entry.model';
 import { QualityAssuranceSuggestionDataService } from './quality-assurance-suggestion-data.service';
 import { FindListOptions } from '../../../data/find-list-options.model';
