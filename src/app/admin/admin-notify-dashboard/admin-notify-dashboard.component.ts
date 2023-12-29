@@ -3,10 +3,21 @@ import { SearchService } from "../../core/shared/search/search.service";
 import { environment } from "../../../environments/environment";
 import { PaginatedSearchOptions } from "../../shared/search/models/paginated-search-options.model";
 import { PaginationComponentOptions } from "../../shared/pagination/pagination-component-options.model";
-import { concatAll, concatWith, flatMap, forkJoin, from, mergeAll, switchMap } from "rxjs";
-import { concat, delay } from "rxjs/operators";
-import { getFirstSucceededRemoteData } from "../../core/shared/operators";
+import {
+  listableObjectComponent
+} from "../../shared/object-collection/shared/listable-object/listable-object.decorator";
+import { ViewMode } from "../../core/shared/view-mode.model";
+import { Context } from "../../core/shared/context.model";
+import { AdminNotifySearchResult } from "./models/admin-notify-message-search-result.model";
+import { forkJoin, Observable } from "rxjs";
+import { getFirstCompletedRemoteData } from "../../core/shared/operators";
+import { map } from "rxjs/operators";
+import { SearchObjects } from "../../shared/search/models/search-objects.model";
+import { AdminNotifyMetricsBox, AdminNotifyMetricsRow } from "./admin-notify-metrics/admin-notify-metrics.model";
+import { DSpaceObject } from "../../core/shared/dspace-object.model";
 
+
+@listableObjectComponent(AdminNotifySearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
   selector: 'ds-admin-notify-dashboard',
   templateUrl: './admin-notify-dashboard.component.html',
@@ -14,7 +25,9 @@ import { getFirstSucceededRemoteData } from "../../core/shared/operators";
 })
 export class AdminNotifyDashboardComponent implements OnInit{
 
-  metricsConfig = environment.notifyMetrics;
+  public notifyMetricsRows$: Observable<AdminNotifyMetricsRow[]>
+
+  private metricsConfig = environment.notifyMetrics;
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'single-result-options',
     pageSize: 1
@@ -22,14 +35,56 @@ export class AdminNotifyDashboardComponent implements OnInit{
   constructor(private searchService: SearchService) {}
 
   ngOnInit() {
-    const discoveryConfigurations = this.metricsConfig
+    const mertricsRowsConfigurations = this.metricsConfig
       .map(row => row.boxes)
       .map(boxes => boxes.map(box => box.config).filter(config => !!config));
-    const mergedConfigurations = discoveryConfigurations[0].concat(discoveryConfigurations[1]);
-    const searchConfigurations = mergedConfigurations
+    const flatConfigurations = [].concat(...mertricsRowsConfigurations.map((config) => config));
+    const searchConfigurations = flatConfigurations
       .map(config => Object.assign(new PaginatedSearchOptions({}),
       { configuration: config, pagination: this.singleResultOptions }
     ));
-    // TODO: check for search completion before executing next one
+
+    this.notifyMetricsRows$ = forkJoin(searchConfigurations.map(config => this.searchService.search(config)
+        .pipe(
+          getFirstCompletedRemoteData(),
+          map(response => this.mapSearchObjectsToMetricsBox(response.payload)),
+        )
+      )
+    ).pipe(
+      map(metricBoxes => this.mapUpdatedBoxesToMetricsRows(metricBoxes))
+    )
+  }
+
+  /**
+   * Function to map received SearchObjects to notify boxes config
+   *
+   * @param searchObject The object to map
+   * @private
+   */
+  private mapSearchObjectsToMetricsBox(searchObject: SearchObjects<DSpaceObject>) : AdminNotifyMetricsBox {
+    const objectConfig = searchObject.configuration;
+    const count = searchObject.pageInfo.totalElements;
+    const metricsBoxes = [].concat(...this.metricsConfig.map((config) => config.boxes));
+
+    return {
+      ...metricsBoxes.find(box => box.config === objectConfig),
+      count
+    }
+  }
+
+  /**
+   * Function to map updated boxes with count to each row of the configuration
+   *
+   * @param boxes The object to map
+   * @private
+   */
+  private mapUpdatedBoxesToMetricsRows(boxes: AdminNotifyMetricsBox[]) : AdminNotifyMetricsRow[] {
+    return this.metricsConfig.map(row => {
+        return {
+          ...row,
+          boxes: row.boxes.map(box => boxes.find(boxWithCount => boxWithCount.config === box.config))
+            .filter(box => !!box)
+        }
+    })
   }
 }

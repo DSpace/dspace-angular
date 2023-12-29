@@ -8,7 +8,7 @@
             <a ngbNavLink>{{'admin-notify-dashboard.metrics' | translate}}</a>
             <ng-template ngbNavContent>
               <div id="metrics">
-                <ds-admin-notify-metrics [boxesConfig]="metricsConfig"></ds-admin-notify-metrics>
+                <ds-admin-notify-metrics [boxesConfig]="notifyMetricsRows$ | async"></ds-admin-notify-metrics>
               </div>
             </ng-template>
           </li>
