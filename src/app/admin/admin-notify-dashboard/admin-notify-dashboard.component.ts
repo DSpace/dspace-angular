@@ -82,26 +82,7 @@ export class AdminNotifyDashboardComponent implements OnInit{
     return this.metricsConfig.map(row => {
         return {
           ...row,
-          boxes: row.boxes.map(rowBox => {
-            // TODO remove aggregate once rest is updated
-            if (rowBox.isRowAggregateCount) {
-              const currentRowBoxesWithCount = row.boxes.filter(box => !box.isRowAggregateCount)
-                .map(notAggregateBox => {
-                  return {
-                    ...notAggregateBox,
-                    count: boxesWithCount.find(boxWithCount => boxWithCount.config === notAggregateBox.config)?.count
-                  };
-                });
-              return {
-                ...rowBox,
-                count: currentRowBoxesWithCount.map(box => box.count).reduce((accumulator, currentValue) => {
-                  return accumulator + currentValue;
-                },0)
-              };
-            } else {
-              return boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config);
-            }
-          })
+          boxes: row.boxes.map(rowBox =>boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config))
         };
     });
   }

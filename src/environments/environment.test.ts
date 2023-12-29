@@ -347,8 +347,7 @@ export const environment: BuildConfig = {
           color: '#43515F',
           title: 'admin-notify-dashboard.involved-items',
           textColor: '#fff',
-          config: '',
-          isRowAggregateCount: true
+          config: 'NOTIFY.incoming.involvedItems',
         },
       ]
     },
@@ -379,8 +378,7 @@ export const environment: BuildConfig = {
           color: '#43515F',
           title: 'admin-notify-dashboard.involved-items',
           textColor: '#fff',
-          config: '',
-          isRowAggregateCount: true
+          config: 'NOTIFY.outgoing.involvedItems',
         },
       ]
     }

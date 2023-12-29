@@ -4,7 +4,6 @@ export interface AdminNotifyMetricsBox {
   title: string;
   config: string;
   count?: number;
-  isRowAggregateCount?: boolean;
 }
 
 export interface AdminNotifyMetricsRow {
