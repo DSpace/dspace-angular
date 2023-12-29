@@ -2589,7 +2589,7 @@
   // "dso.name.unnamed": "Unnamed",
   "dso.name.unnamed": "Nimeämätön",
 
-   // "dso-selector.create.collection.head": "New collection",
+  // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Uusi kokoelma",
 
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
