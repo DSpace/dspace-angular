@@ -83,6 +83,7 @@ export class AdminNotifyDashboardComponent implements OnInit{
         return {
           ...row,
           boxes: row.boxes.map(rowBox => {
+            // TODO remove aggregate once rest is updated
             if (rowBox.isRowAggregateCount) {
               const currentRowBoxesWithCount = row.boxes.filter(box => !box.isRowAggregateCount)
                 .map(notAggregateBox => {
