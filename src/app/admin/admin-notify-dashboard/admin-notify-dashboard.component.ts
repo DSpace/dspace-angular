@@ -89,8 +89,8 @@ export class AdminNotifyDashboardComponent implements OnInit{
                   return {
                     ...notAggregateBox,
                     count: boxesWithCount.find(boxWithCount => boxWithCount.config === notAggregateBox.config)?.count
-                  }
-              })
+                  };
+                });
               return {
                 ...rowBox,
                 count: currentRowBoxesWithCount.map(box => box.count).reduce((accumulator, currentValue) => {
