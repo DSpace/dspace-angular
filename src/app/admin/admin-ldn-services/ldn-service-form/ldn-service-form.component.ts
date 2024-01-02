@@ -204,7 +204,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
         this.closeModal();
       } else {
         if (!this.formModel.errors) {
-          this.showLdnUrlError();
+          this.setLdnUrlError();
         }
         this.notificationService.error(this.translateService.get('ldn-service-notification.created.failure.title'),
           this.translateService.get('ldn-service-notification.created.failure.body'));
@@ -495,7 +495,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
             this.translateService.get('admin.registries.services-formats.modify.success.content'));
         } else {
           if (!this.formModel.errors) {
-            this.showLdnUrlError();
+            this.setLdnUrlError();
           }
           this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
             this.translateService.get('admin.registries.services-formats.modify.failure.content'));
@@ -722,9 +722,9 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
 
 
   /**
-   * Show ldnUrl error in case of unprocessable entity and provided value
+   * set ldnUrl error in case of unprocessable entity and provided value
    */
-  private showLdnUrlError(): void {
+  private setLdnUrlError(): void {
     const control = this.formModel.controls.ldnUrl;
     const controlErrors = control.errors || {};
     control.setErrors({...controlErrors, ldnUrlAlreadyAssociated: true });
