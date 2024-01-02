@@ -5,9 +5,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
@@ -15,6 +13,8 @@ import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../shared/empty.util';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ProcessOverviewService } from './process-overview.service';
+import { ProcessStatus } from '../processes/process-status.model';
 
 @Component({
   selector: 'ds-process-overview',
@@ -24,6 +24,8 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
  * Component displaying a list of all processes in a paginated table
  */
 export class ProcessOverviewComponent implements OnInit, OnDestroy {
+
+  protected readonly ProcessStatus = ProcessStatus;
 
   /**
    * List of all processes
@@ -56,6 +58,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
   isProcessingSub: Subscription;
 
   constructor(protected processService: ProcessDataService,
+              protected processOverviewService: ProcessOverviewService,
               protected paginationService: PaginationService,
               protected ePersonService: EPersonDataService,
               protected modalService: NgbModal,
@@ -75,17 +78,6 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
   setProcesses() {
     this.processesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
       switchMap((config) => this.processService.findAll(config, true, false))
-    );
-  }
-
-  /**
-   * Get the name of an EPerson by ID
-   * @param id  ID of the EPerson
-   */
-  getEpersonName(id: string): Observable<string> {
-    return this.ePersonService.findById(id).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
     );
   }
 
