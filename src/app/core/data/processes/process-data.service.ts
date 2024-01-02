@@ -6,7 +6,7 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { Observable } from 'rxjs';
-import { switchMap, filter, distinctUntilChanged, find } from 'rxjs/operators';
+import { switchMap, filter, distinctUntilChanged, find, tap, throttleTime } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
@@ -113,7 +113,6 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   }
 
   /**
-   *
    * @param searchMethod                The search method for the Process
    * @param options                     The FindListOptions object
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
@@ -127,6 +126,28 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * @param searchMethod                The search method for the Process
+   * @param options                     The FindListOptions object
+   * @param pollingIntervalInMs         The interval by which the search will be repeated
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should automatically be resolved.
+   * @return {Observable<RemoteData<PaginatedList<Process>>>}
+   *    Return an observable that emits a paginated list of processes every interval
+   */
+  autoRefreshingSearchBy(searchMethod: string, options?: FindListOptions, pollingIntervalInMs: number = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
+    return this.searchBy(searchMethod, options, false, true, ...linksToFollow)
+      .pipe(
+        getAllCompletedRemoteData(),
+        throttleTime(pollingIntervalInMs),
+        tap((processListRD: RemoteData<PaginatedList<Process>>) => {
+          setTimeout(() => {
+            this.invalidateByHref(processListRD.payload._links.self.href);
+          }, pollingIntervalInMs);
+        }),
+      );
   }
 
   /**
