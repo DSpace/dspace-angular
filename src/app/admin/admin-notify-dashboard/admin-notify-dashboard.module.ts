@@ -6,6 +6,8 @@ import { AdminNotifyDashboardRoutingModule } from './admin-notify-dashboard-rout
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import { AdminNotifyLogsComponent } from './admin-notify-logs/admin-notify-logs.component';
 import { SharedModule } from '../../shared/shared.module';
+import { SearchModule } from "../../shared/search/search.module";
+import { SearchPageModule } from "../../search-page/search-page.module";
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule,
     RouterModule,
     SharedModule,
-    AdminNotifyDashboardRoutingModule
+    AdminNotifyDashboardRoutingModule,
+    SearchModule,
+    SearchPageModule,
   ],
   declarations: [
     AdminNotifyDashboardComponent,
