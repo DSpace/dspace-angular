@@ -2236,7 +2236,7 @@
 
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
 
-  "item.edit.bitstreams.headers.synchronized": "Synchronized",
+  "item.edit.bitstreams.headers.synchronized": "Sync | Checksum",
 
   "item.edit.bitstreams.headers.actions": "Actions",
 
@@ -2273,6 +2273,18 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.checksum.algorithm": "Algorithm: ",
+
+  "item.edit.bitstreams.checksum.value": "Value: ",
+
+  "item.edit.bitstreams.checksum.database": "DB",
+
+  "item.edit.bitstreams.checksum.active-store": "Active store",
+
+  "item.edit.bitstreams.checksum.sync-store": "Sync store",
+
+
 
   "item.edit.delete.cancel": "Cancel",
 

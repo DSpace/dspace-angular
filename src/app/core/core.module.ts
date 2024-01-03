@@ -189,6 +189,8 @@ import { ClarinUserMetadataDataService } from './data/clarin/clarin-user-metadat
 import { ClarinLicenseResourceMappingService } from './data/clarin/clarin-license-resource-mapping-data.service';
 import { ClarinVerificationTokenDataService } from './data/clarin/clarin-verification-token-data.service';
 import { ClruaDataService } from './data/clarin/clrua-data.service';
+import { BitstreamChecksum } from './shared/bitstream-checksum.model';
+import { BitstreamChecksumDataService } from './bitstream-checksum-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -322,7 +324,8 @@ const PROVIDERS = [
   OrcidQueueDataService,
   OrcidHistoryDataService,
   SupervisionOrderDataService,
-  HandleDataService
+  HandleDataService,
+  BitstreamChecksumDataService
 ];
 
 /**
@@ -335,6 +338,7 @@ export const models =
     Bundle,
     Bitstream,
     BitstreamFormat,
+    BitstreamChecksum,
     Item,
     Site,
     Collection,

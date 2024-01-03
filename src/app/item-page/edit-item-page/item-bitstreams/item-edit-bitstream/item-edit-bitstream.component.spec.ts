@@ -14,6 +14,7 @@ import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
 import { RouterLinkDirectiveStub } from '../../../../shared/testing/router-link-directive.stub';
+import { BitstreamChecksum } from '../../../../core/shared/bitstream-checksum.model';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -29,6 +30,22 @@ const columnSizes = new ResponsiveTableSizes([
 const format = Object.assign(new BitstreamFormat(), {
   shortDescription: 'PDF'
 });
+
+const checksum = Object.assign(new BitstreamChecksum(), {
+  activeStore: {
+    checkSumAlgorithm: 'MD5',
+    value: '123'
+  },
+  synchronizedStore: {
+    checkSumAlgorithm: 'MD5',
+    value: '456'
+  },
+  databaseChecksum: {
+    checkSumAlgorithm: 'MD5',
+    value: '789'
+  }
+});
+
 const bitstream = Object.assign(new Bitstream(), {
   uuid: 'bitstreamUUID',
   name: 'Fake Bitstream',
@@ -38,7 +55,8 @@ const bitstream = Object.assign(new Bitstream(), {
     content: { href: 'content-link' }
   },
 
-  format: createSuccessfulRemoteDataObject$(format)
+  format: createSuccessfulRemoteDataObject$(format),
+  checksum: createSuccessfulRemoteDataObject$(checksum)
 });
 const fieldUpdate = {
   field: bitstream,
@@ -82,7 +100,7 @@ describe('ItemEditBitstreamComponent', () => {
         RouterLinkDirectiveStub
       ],
       providers: [
-        { provide: ObjectUpdatesService, useValue: objectUpdatesService }
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
