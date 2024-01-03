@@ -144,6 +144,8 @@ describe('New Submission page', () => {
 
         // Wait for upload to complete before proceeding
         cy.wait('@upload');
+        // Check the upload success notice
+        cy.get('ds-notification').contains('Upload successful');
         // Close the upload success notice
         cy.get('[data-dismiss="alert"]').click({multiple: true});
 

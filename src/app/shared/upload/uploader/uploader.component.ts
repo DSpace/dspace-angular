@@ -1,7 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { firstValueFrom, Observable, of as observableOf } from 'rxjs';
-import { FileItem, FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileUploaderOptions} from 'ng2-file-upload';
 import uniqueId from 'lodash/uniqueId';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -18,6 +29,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { TranslateService } from '@ngx-translate/core';
+import { FileLikeObject } from 'ng2-file-upload/file-upload/file-like-object.class';
 
 export const MAX_UPLOAD_FILE_SIZE_CFG_PROPERTY = 'spring.servlet.multipart.max-file-size';
 @Component({
@@ -28,7 +40,7 @@ export const MAX_UPLOAD_FILE_SIZE_CFG_PROPERTY = 'spring.servlet.multipart.max-f
   encapsulation: ViewEncapsulation.Emulated
 })
 
-export class UploaderComponent {
+export class UploaderComponent implements OnInit, AfterViewInit {
 
   /**
    * The message to show when drag files on the drop zone
@@ -120,6 +132,12 @@ export class UploaderComponent {
       queueLimit: this.uploadFilesOptions.maxFileNumber,
     });
 
+    // Update the max file size in the uploader options. Fetch the max file size from the BE configuration.
+    void this.getMaxFileSizeInBytes().then((maxFileSize) => {
+      this.uploader.options.maxFileSize = maxFileSize === -1 ? undefined : maxFileSize;
+      this.uploader.setOptions(this.uploader.options);
+    });
+
     if (isUndefined(this.enableDragOverDocument)) {
       this.enableDragOverDocument = false;
     }
@@ -139,19 +157,6 @@ export class UploaderComponent {
       this.onBeforeUpload = () => {return;};
     }
     this.uploader.onBeforeUploadItem = async (item) => {
-      // Check if the file size is within the maximum upload size
-      const canUpload = await this.checkFileSizeLimit(item);
-      // If the file size is too large, emit an error and cancel all uploads
-      if (!canUpload) {
-        this.onUploadError.emit({
-          item: item,
-          response: this.translate.instant('submission.sections.upload.upload-failed.size-limit-exceeded'),
-          status: 400,
-          headers: {}
-        });
-        this.uploader.cancelAll();
-        return;
-      }
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }
@@ -192,6 +197,16 @@ export class UploaderComponent {
 
       this.onUploadError.emit({ item: item, response: response, status: status, headers: headers });
       this.uploader.cancelAll();
+    };
+    this.uploader.onWhenAddingFileFailed = (item: any, filter: any, options: any) => {
+      if (this.itemFileSizeExceeded(item, options)) {
+        this.onUploadError.emit({
+          item: item,
+          response: this.translate.instant('submission.sections.upload.upload-failed.size-limit-exceeded'),
+          status: 400,
+          headers: {}
+        });
+      }
     };
     this.uploader.onProgressAll = () => this.onProgress();
     this.uploader.onProgressItem = () => this.onProgress();
@@ -247,20 +262,20 @@ export class UploaderComponent {
     this.cookieService.set(XSRF_COOKIE, token);
   }
 
-  // Check if the file size is within the maximum upload size
-  private async checkFileSizeLimit(item: FileItem): Promise<boolean> {
+  private async getMaxFileSizeInBytes() {
     const maxFileUploadSize = await firstValueFrom(this.getMaxFileUploadSizeFromCfg());
     if (maxFileUploadSize) {
       const maxSizeInGigabytes = parseInt(maxFileUploadSize?.[0], 10);
-      const maxSizeInBytes = this.gigabytesToBytes(maxSizeInGigabytes);
-      // If maxSizeInBytes is -1, it means the value in the config is invalid. The file won't be uploaded and the user
-      // will see error messages in the UI.
-      if (maxSizeInBytes === -1) {
-        return false;
-      }
-      return item?.file?.size <= maxSizeInBytes;
+      return this.gigabytesToBytes(maxSizeInGigabytes);
     }
-    return false;
+    // If maxSizeInBytes is -1, it means the value in the config is invalid. The file won't be uploaded and the user
+    // will see error messages in the UI.
+    return -1;
+  }
+  // Check if the file size is exceeded the maximum upload size
+  private itemFileSizeExceeded(item: FileLikeObject, options: FileUploaderOptions): boolean {
+    const maxSizeInBytes = options.maxFileSize;
+    return item?.size > maxSizeInBytes;
   }
 
   // Convert gigabytes to bytes
