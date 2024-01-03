@@ -55,6 +55,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
   pageInfo: PageInfo = new PageInfo();
   searching = false;
+  loadingInitialValue = false;
   searchFailed = false;
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
   click$ = new Subject<string>();
@@ -148,6 +149,15 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    */
   changeSearchingStatus(status: boolean) {
     this.searching = status;
+    this.cdr.detectChanges();
+  }
+
+  /**
+   * Changes the loadingInitialValue status
+   * @param status
+   */
+  changeLoadingInitialValueStatus(status: boolean) {
+    this.loadingInitialValue = status;
     this.cdr.detectChanges();
   }
 
@@ -257,8 +267,10 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   setCurrentValue(value: any, init = false): void {
     let result: string;
     if (init) {
+      this.changeLoadingInitialValueStatus(true);
       this.getInitValueFromModel()
         .subscribe((formValue: FormFieldMetadataValueObject) => {
+          this.changeLoadingInitialValueStatus(false);
           this.currentValue = formValue;
           this.cdr.detectChanges();
         });
