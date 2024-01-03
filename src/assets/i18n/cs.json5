@@ -1517,7 +1517,7 @@
 
 
   // "collection.edit.tabs.curate.head": "Curate",
-  "collection.edit.tabs.curate.head" : "",
+  "collection.edit.tabs.curate.head" : "Kurátor",
 
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
   "collection.edit.tabs.curate.title" : "Úprava kolekce - kurátor",
@@ -2168,7 +2168,7 @@
   "curation-task.task.vscan.label" : "Virová kontrola",
 
   // "curation-task.task.register-doi.label": "Register DOI",
-  "curation-task.task.register-doi.label" : "Registrovat DOI",
+  "curation-task.task.registerdoi.label" : "Registrovat DOI",
 
 
 
