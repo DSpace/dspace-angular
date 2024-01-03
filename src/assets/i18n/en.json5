@@ -2152,6 +2152,8 @@
 
   "item.edit.metadata.edit.value": "Edit value",
 
+  "item.edit.metadata.edit.authority.key": "Edit authority key",
+
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -2205,6 +2207,12 @@
   "item.edit.metadata.reset-order-button": "Undo reorder",
 
   "item.edit.metadata.save-button": "Save",
+
+  "item.edit.metadata.authority.label": "Authority: ",
+
+  "item.edit.metadata.edit.buttons.open-authority-edition": "Unlock the authority key value for manual editing",
+
+  "item.edit.metadata.edit.buttons.close-authority-edition": "Lock the authority key value for manual editing",
 
   "item.edit.modify.overview.field": "Field",
 
