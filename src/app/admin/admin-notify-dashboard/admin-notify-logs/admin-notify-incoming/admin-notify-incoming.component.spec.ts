@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminNotifyLogsComponent } from './admin-notify-logs.component';
+import { AdminNotifyIncomingComponent } from './admin-notify-incoming.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('AdminNotifyLogsComponent', () => {
-  let component: AdminNotifyLogsComponent;
-  let fixture: ComponentFixture<AdminNotifyLogsComponent>;
+  let component: AdminNotifyIncomingComponent;
+  let fixture: ComponentFixture<AdminNotifyIncomingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyLogsComponent ]
+      declarations: [ AdminNotifyIncomingComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminNotifyLogsComponent);
+    fixture = TestBed.createComponent(AdminNotifyIncomingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

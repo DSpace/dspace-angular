@@ -102,6 +102,11 @@ export class SearchComponent implements OnInit {
   @Input() searchEnabled = true;
 
   /**
+   * Config param for route service
+   */
+  @Input() routeConfigParam: string;
+
+  /**
    * The width of the sidebar (bootstrap columns)
    */
   @Input() sideBarWidth = 3;
@@ -292,8 +297,12 @@ export class SearchComponent implements OnInit {
 
     this.searchConfigService.setPaginationId(this.paginationId);
 
+    if (this.routeConfigParam) {
+      this.searchConfigService.setRouteConfigurationParamName(this.routeConfigParam);
+    }
+
     if (hasValue(this.configuration)) {
-      this.routeService.setParameter('configuration', this.configuration);
+      this.routeService.setParameter(this.routeConfigParam ?? 'configuration', this.configuration);
     }
     if (hasValue(this.fixedFilterQuery)) {
       this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);

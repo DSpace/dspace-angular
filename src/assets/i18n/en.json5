@@ -3471,6 +3471,22 @@
 
   "admin.notify.dashboard.breadcrumbs": "Dashboard",
 
+  "NOTIFY.incoming.search.results.head": "Incoming",
+
+  "search.filters.filter.relateditem.head": "Related item",
+
+  "search.filters.filter.origin.head": "Origin",
+
+  "search.filters.filter.target.head": "Target",
+
+  "search.filters.filter.queue_status.head": "Queue status",
+
+  "search.filters.filter.activity_stream_type.head": "Activity stream type",
+
+  "search.filters.filter.coar_notify_type.head": "Coar notify type",
+
+  "search.filters.filter.notification_type.head": "Notification type",
+
   "orgunit.listelement.badge": "Organizational Unit",
 
   "orgunit.listelement.no-title": "Untitled",

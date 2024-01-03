@@ -3,12 +3,6 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { environment } from '../../../environments/environment';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import {
-  listableObjectComponent
-} from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { Context } from '../../core/shared/context.model';
-import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
 import { forkJoin, Observable } from 'rxjs';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { map } from 'rxjs/operators';
@@ -16,8 +10,6 @@ import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { AdminNotifyMetricsBox, AdminNotifyMetricsRow } from './admin-notify-metrics/admin-notify-metrics.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
-
-@listableObjectComponent(AdminNotifySearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
   selector: 'ds-admin-notify-dashboard',
   templateUrl: './admin-notify-dashboard.component.html',

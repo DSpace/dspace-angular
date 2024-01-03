@@ -28,6 +28,7 @@ import { FacetConfigResponseParsingService } from '../../data/facet-config-respo
 import { ViewMode } from '../view-mode.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { DspaceRestResponseParsingService } from '../../data/dspace-rest-response-parsing.service';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -59,6 +60,11 @@ export class SearchConfigurationService implements OnDestroy {
    * Emits the current search options including pagination and sort
    */
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions>;
+
+  /**
+   * The name of the param to enhance and store the route config
+   */
+  public routeConfigurationName: string;
 
   /**
    * Default pagination settings
@@ -105,7 +111,7 @@ export class SearchConfigurationService implements OnDestroy {
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService,) {
+              protected rdb: RemoteDataBuildService) {
 
     this.initDefaults();
   }
@@ -131,7 +137,7 @@ export class SearchConfigurationService implements OnDestroy {
   getCurrentConfiguration(defaultConfiguration: string) {
     return observableCombineLatest([
       this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
-      this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
+      this.routeService.getRouteParameterValue(this.routeConfigurationName ?? 'configuration').pipe(startWith(undefined))
     ]).pipe(
       map(([queryConfig, routeConfig]) => {
         return queryConfig || routeConfig || defaultConfiguration;
@@ -483,7 +489,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {string} configurationName the name of the configuration
    * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
    */
-  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+  getConfig(scope?: string, configurationName?: string, facetParser?: DspaceRestResponseParsingService): Observable<RemoteData<SearchFilterConfig[]>> {
     const href$ = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
       map((url: string) => this.getConfigUrl(url, scope, configurationName)),
     );
@@ -533,5 +539,14 @@ export class SearchConfigurationService implements OnDestroy {
     return this.getCurrentViewMode(defaultViewMode).pipe(map((view) => {
       return { view };
     }));
+  }
+
+  /**
+   * Set param to use for multiple configurations on same page and reload search subscriptions
+   */
+  setRouteConfigurationParamName(configName: string): void {
+    this.routeConfigurationName = configName;
+    this.unsubscribeFromSearchOptions(this.paginationID);
+    this.setSearchSubscription(this.paginationID, this.paginatedSearchOptions.value);
   }
 }
