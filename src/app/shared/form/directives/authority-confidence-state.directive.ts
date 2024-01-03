@@ -28,6 +28,7 @@ import { isNotEmpty, isNull } from '../../empty.util';
 import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
 import { environment } from '../../../../environments/environment';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
@@ -40,7 +41,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   /**
    * The metadata value
    */
-  @Input() authorityValue: VocabularyEntry | FormFieldMetadataValueObject | string;
+  @Input() authorityValue: VocabularyEntry | FormFieldMetadataValueObject | MetadataValue | string;
 
   /**
    * A boolean representing if to show html icon if authority value is empty
@@ -128,6 +129,10 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
     }
 
     if (isNotEmpty(value) && value instanceof FormFieldMetadataValueObject) {
+      confidence = value.confidence;
+    }
+
+    if (isNotEmpty(value) && value instanceof MetadataValue) {
       confidence = value.confidence;
     }
 
