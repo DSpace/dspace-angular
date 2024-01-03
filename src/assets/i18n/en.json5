@@ -3471,6 +3471,12 @@
 
   "admin.notify.dashboard.breadcrumbs": "Dashboard",
 
+  "admin.notify.dashboard.inbound": "Inbound messages",
+
+  "admin.notify.dashboard.outbound": "Outbound messages",
+
+  "admin.notify.dashboard.breadcrumbs": "Dashboard",
+
   "NOTIFY.incoming.search.results.head": "Incoming",
 
   "search.filters.filter.relateditem.head": "Related item",
@@ -3486,6 +3492,38 @@
   "search.filters.filter.coar_notify_type.head": "Coar notify type",
 
   "search.filters.filter.notification_type.head": "Notification type",
+
+  "search.filters.filter.relateditem.label": "Search related items",
+
+  "search.filters.filter.queue_status.label": "Search queue status",
+
+  "search.filters.filter.target.label": "Search target",
+
+  "search.filters.filter.activity_stream_type.label": "Search activity stream type",
+
+  "search.filters.filter.coar_notify_type.label": "Search COAR notify type",
+
+  "search.filters.filter.notification_type.label": "Search notification type",
+
+  "search.filters.filter.relateditem.placeholder": "Related items",
+
+  "search.filters.filter.target.placeholder": "Target",
+
+  "search.filters.filter.queue_status.placeholder": "Queue status",
+
+  "search.filters.filter.activity_stream_type.placeholder": "Activity stream type",
+
+  "search.filters.filter.coar_notify_type.placeholder": "COAR notify type",
+
+  "search.filters.filter.notification_type.placeholder": "Notification type",
+
+  "sorting.queue_last_start_time.DESC": "Last started queue Descending",
+
+  "sorting.queue_last_start_time.ASC": "Last started queue Ascending",
+
+  "sorting.queue_attempts.DESC": "Queue attempted Descending",
+
+  "sorting.queue_attempts.ASC": "Queue attempted Ascending",
 
   "orgunit.listelement.badge": "Organizational Unit",
 

@@ -16,7 +16,9 @@
             <a ngbNavLink>{{'admin-notify-dashboard.logs' | translate}}</a>
             <ng-template ngbNavContent>
               <div id="logs">
+                <div class="col-12 text-left h4 my-4">{{'admin.notify.dashboard.inbound' | translate}}</div>
                 <ds-admin-notify-incoming></ds-admin-notify-incoming>
+                <div class="col-12 text-left h4 my-4">{{'admin.notify.dashboard.outbound' | translate}}</div>
                 <ds-admin-notify-outgoing></ds-admin-notify-outgoing>
               </div>
             </ng-template>
