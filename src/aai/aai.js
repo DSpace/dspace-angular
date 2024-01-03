@@ -18,9 +18,11 @@
       textHelpMore: "First check you are searching under the right country.\nIf your provider is not listed, please read <a href='https://lindat.mff.cuni.cz/how-do-i-sign-up' style='text-decoration: underline; font-weight: bold;'>these instructions</a> to obtain an account."
     };
     this.setup = function(options) {
+      var targetUrl = '';
       var opts = jQuery.extend({}, this.defaults, options),
           defaultCallback = function(e) {
-            window.location = opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target=' + opts.target + '&entityID=' + window.encodeURIComponent(e.entityID);
+            targetUrl = opts.target + '?redirectUrl=' + window.location.href;
+            window.location = opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target=' + targetUrl + '&entityID=' + window.encodeURIComponent(e.entityID);
           };
       //console.log(opts);
       if(!opts.target){
@@ -33,7 +35,7 @@
           opts.ourEntityID,
           opts.responseUrl,
           [ ],
-          opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target='+opts.target+'&entityID=');
+          opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target=' + targetUrl + '&entityID=');
         djc.discoPath = window.location.origin + (namespace === '' ? namespace : '/' + namespace) + "/assets/";
         djc.metadata = [opts.metadataFeed];
         djc.subtitle = "Login via Your home institution (e.g. university)";
