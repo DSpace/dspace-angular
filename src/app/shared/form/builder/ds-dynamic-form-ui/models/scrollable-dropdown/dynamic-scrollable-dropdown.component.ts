@@ -40,6 +40,8 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: any;
+  public inputText: string = null;
+  public acceptableKeys = ['Space', 'NumpadMultiply', 'NumpadAdd', 'NumpadSubtract', 'NumpadDecimal', 'Semicolon', 'Equal', 'Comma', 'Minus', 'Period', 'Quote', 'Backquote'];
 
   constructor(protected vocabularyService: VocabularyService,
               protected cdr: ChangeDetectorRef,
@@ -54,32 +56,25 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    */
   ngOnInit() {
     this.updatePageInfo(this.model.maxOptions, 1);
-    this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
+    this.loadOptions();
+  }
+
+  loadOptions() {
+    this.loading = true;
+    this.vocabularyService.getVocabularyEntriesByValue(this.inputText, false, this.model.vocabularyOptions, this.pageInfo).pipe(
       getFirstSucceededRemoteDataPayload(),
-      catchError(() => observableOf(buildPaginatedList(
-        new PageInfo(),
-        []
-        ))
-      ))
-      .subscribe((list: PaginatedList<VocabularyEntry>) => {
-        this.optionsList = list.page;
-        if (this.model.value) {
-          this.setCurrentValue(this.model.value, true);
-        }
-
-        this.updatePageInfo(
-          list.pageInfo.elementsPerPage,
-          list.pageInfo.currentPage,
-          list.pageInfo.totalElements,
-          list.pageInfo.totalPages
-        );
-        this.cdr.detectChanges();
-      });
-
-    this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
-      .subscribe((value) => {
-        this.setCurrentValue(value);
-      });
+      catchError(() => observableOf(buildPaginatedList(new PageInfo(), []))),
+      tap(() => this.loading = false)
+    ).subscribe((list: PaginatedList<VocabularyEntry>) => {
+      this.optionsList = list.page;
+      this.updatePageInfo(
+        list.pageInfo.elementsPerPage,
+        list.pageInfo.currentPage,
+        list.pageInfo.totalElements,
+        list.pageInfo.totalPages
+      );
+      this.cdr.detectChanges();
+    });
   }
 
   /**
@@ -94,6 +89,8 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
+      this.inputText = null;
+      this.loadOptions();
       sdRef.open();
     }
   }
@@ -112,7 +109,41 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       sdRef.toggle();
     } else if (keyName === 'ArrowDown' || keyName === 'ArrowUp') {
       this.openDropdown(sdRef);
+    } else if (keyName === 'Backspace') {
+      this.removeKeyFromInput();
+    } else if (this.isAcceptableKey(keyName)) {
+      this.addKeyToInput(keyName);
     }
+  }
+
+  addKeyToInput(keyName: string) {
+    if (this.inputText === null) {
+      this.inputText = '';
+    }
+    this.inputText += keyName;
+    // When a new key is added, we need to reset the page info
+    this.updatePageInfo(this.model.maxOptions, 1);
+    this.loadOptions();
+  }
+
+  removeKeyFromInput() {
+    if (this.inputText !== null) {
+      this.inputText = this.inputText.slice(0, -1);
+      if (this.inputText === '') {
+        this.inputText = null;
+      }
+      this.loadOptions();
+    }
+  }
+
+
+  isAcceptableKey(keyPress: string): boolean {
+    // allow all letters and numbers
+    if (keyPress.length == 1 && keyPress.match(/^[a-zA-Z0-9]*$/)) {
+      return true;
+    }
+    // Some other characters like space, dash, etc should be allowed as well
+    return this.acceptableKeys.includes(keyPress);
   }
 
   /**
@@ -127,7 +158,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.totalElements,
         this.pageInfo.totalPages
       );
-      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.pageInfo).pipe(
+      this.vocabularyService.getVocabularyEntriesByValue(this.inputText, false, this.model.vocabularyOptions, this.pageInfo).pipe(
         getFirstSucceededRemoteDataPayload(),
         catchError(() => observableOf(buildPaginatedList(
           new PageInfo(),
