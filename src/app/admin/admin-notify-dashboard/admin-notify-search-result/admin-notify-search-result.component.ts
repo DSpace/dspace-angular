@@ -21,6 +21,5 @@ export class AdminNotifySearchResultComponent  extends TabulatableResultListElem
     public indexableObjects: AdminNotifyMessage[];
     ngOnInit() {
       this.indexableObjects = this.objects.page.map(object => object.indexableObject);
-      console.log(this.objects.page)
     }
 }
