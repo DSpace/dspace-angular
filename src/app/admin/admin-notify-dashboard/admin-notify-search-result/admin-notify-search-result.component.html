@@ -1,4 +1,4 @@
-<div class="d-flex bg-light w-100 align-items-center">
+<div class="w-100">
   <div class="table-responsive">
     <table id="formats" class="table table-striped table-hover">
       <thead>
@@ -11,21 +11,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let object of indexableObjects">
+        <tr *ngFor="let message of notifyMessages">
           <td>
-              <div>{{object.queueTimeout}}</div>
+              <div>{{message.queueTimeout}}</div>
           </td>
           <td>
-              <div>{{object.source}}</div>
+              <div>{{message.source}}</div>
           </td>
           <td>
-            <div>{{object.target}}</div>
+            <div>{{message.target}}</div>
           </td>
           <td>
-            <div>{{object.coarNotifyType}}</div>
+            <div>{{message.coarNotifyType}}</div>
           </td>
           <td>
-            <div>{{object.queueStatusLabel}}</div>
+            <div>{{message.queueStatusLabel}}</div>
           </td>
         </tr>
       </tbody>

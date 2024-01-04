@@ -14,8 +14,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.compo
 import { AdminNotifySearchConfigurationService } from './config/admin-notify-search-configuration.service';
 import { AdminNotifySearchFilterService } from './config/admin-notify-filter-service';
 import { AdminNotifySearchFilterConfig } from './config/admin-notify-search-filter-config';
-import { ViewMode } from "../../core/shared/view-mode.model";
-import { Router } from "@angular/router";
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { Router } from '@angular/router';
 
 export const FILTER_SEARCH: InjectionToken<SearchFilterService> = new InjectionToken<SearchFilterService>('searchFilterService');
 

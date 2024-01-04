@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { ViewMode } from "../../core/shared/view-mode.model";
-import { PaginationComponentOptions } from "../pagination/pagination-component-options.model";
-import { SortDirection, SortOptions } from "../../core/cache/models/sort-options.model";
-import { CollectionElementLinkType } from "../object-collection/collection-element-link.type";
-import { Context } from "../../core/shared/context.model";
-import { BehaviorSubject} from "rxjs";
-import { RemoteData } from "../../core/data/remote-data";
-import { PaginatedList } from "../../core/data/paginated-list.model";
-import { ListableObject } from "../object-collection/shared/listable-object.model";
-import { fadeIn } from "../animations/fade";
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { Context } from '../../core/shared/context.model';
+import { BehaviorSubject} from 'rxjs';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { fadeIn } from '../animations/fade';
 
 
 @Component({
@@ -151,7 +151,7 @@ export class ObjectTableComponent {
    * Initialize the instance variables
    */
   ngOnInit(): void {
-    console.log('table rendered')
+    console.log('table rendered');
   }
 
   /**

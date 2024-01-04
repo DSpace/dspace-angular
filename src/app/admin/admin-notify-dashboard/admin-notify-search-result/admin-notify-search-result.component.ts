@@ -5,11 +5,11 @@ import { Context } from '../../../core/shared/context.model';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import {
   tabulatableObjectsComponent
-} from "../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator";
+} from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
 import {
   TabulatableResultListElementsComponent
-} from "../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component";
-import { PaginatedList } from "../../../core/data/paginated-list.model";
+} from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 @tabulatableObjectsComponent(AdminNotifySearchResult, ViewMode.Table, Context.CoarNotify)
 @Component({
@@ -18,8 +18,8 @@ import { PaginatedList } from "../../../core/data/paginated-list.model";
   styleUrls: ['./admin-notify-search-result.component.scss']
 })
 export class AdminNotifySearchResultComponent  extends TabulatableResultListElementsComponent<PaginatedList<AdminNotifyMessage>, AdminNotifyMessage> implements OnInit{
-    public indexableObjects: AdminNotifyMessage[];
+    public notifyMessages: AdminNotifyMessage[];
     ngOnInit() {
-      this.indexableObjects = this.objects.page.map(object => object.indexableObject);
+      this.notifyMessages = this.objects.page.map(object => object.indexableObject);
     }
 }

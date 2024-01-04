@@ -11,18 +11,18 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { ListableObject } from "../listable-object.model";
-import { ViewMode } from "../../../../core/shared/view-mode.model";
-import { Context } from "../../../../core/shared/context.model";
-import { CollectionElementLinkType } from "../../collection-element-link.type";
-import { combineLatest, Observable, of as observableOf, Subscription } from "rxjs";
-import { ThemeService } from "../../../theme-support/theme.service";
-import { hasNoValue, hasValue, isNotEmpty } from "../../../empty.util";
-import { take } from "rxjs/operators";
-import { GenericConstructor } from "../../../../core/shared/generic-constructor";
-import { TabulatableObjectsDirective } from "./tabulatable-objects.directive";
-import { PaginatedList } from "../../../../core/data/paginated-list.model";
-import { getTabulatableObjectsComponent } from "./tabulatable-objects.decorator";
+import { ListableObject } from '../listable-object.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { Context } from '../../../../core/shared/context.model';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
+import { take } from 'rxjs/operators';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';
 
 @Component({
   selector: 'ds-tabulatable-objects-loader',

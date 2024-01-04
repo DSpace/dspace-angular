@@ -290,13 +290,13 @@ import { ObjectTableComponent } from './object-table/object-table.component';
 import { TabulatableObjectsLoaderComponent } from './object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
 import {
   TabulatableObjectsDirective
-} from "./object-collection/shared/tabulatable-objects/tabulatable-objects.directive";
+} from './object-collection/shared/tabulatable-objects/tabulatable-objects.directive';
 import {
   AbstractTabulatableElementComponent
-} from "./object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component";
+} from './object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component';
 import {
   TabulatableResultListElementsComponent
-} from "./object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component";
+} from './object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 
 const MODULES = [
   CommonModule,

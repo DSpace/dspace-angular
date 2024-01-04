@@ -188,11 +188,11 @@ export class SearchService implements OnDestroy {
   }
 
   /**
-   * Method to directly attach the indexableObjects to search results, instead of using RemoteData.
+   * Method to directly attach the notifyMessages to search results, instead of using RemoteData.
    * For compatibility with the way the search was written originally
    *
    * @param sqr$:                       a SearchObjects RemotaData Observable without its
-   *                                    indexableObjects attached
+   *                                    notifyMessages attached
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
@@ -205,7 +205,7 @@ export class SearchService implements OnDestroy {
     return sqr$.pipe(
       switchMap((resultsRd: RemoteData<SearchObjects<T>>) => {
         if (hasValue(resultsRd.payload) && isNotEmpty(resultsRd.payload.page)) {
-          // retrieve the indexableObjects for all search results on the page
+          // retrieve the notifyMessages for all search results on the page
           const searchResult$Array: Observable<SearchResult<T>>[] = resultsRd.payload.page.map((result: SearchResult<T>) =>
             this.dspaceObjectService.findByHref(result._links.indexableObject.href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow as any).pipe(
               getFirstCompletedRemoteData(),
@@ -227,7 +227,7 @@ export class SearchService implements OnDestroy {
           );
 
           // Swap the original page in the remoteData with the new one, now that the results have the
-          // correct types, and all indexableObjects are directly attached.
+          // correct types, and all notifyMessages are directly attached.
           return observableCombineLatest(searchResult$Array).pipe(
             map((page: SearchResult<T>[]) => {
 
