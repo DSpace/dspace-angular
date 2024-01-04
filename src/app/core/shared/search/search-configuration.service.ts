@@ -44,7 +44,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Endpoint link path for retrieving facet config incl values
    */
-  private facetLinkPathPrefix = 'discover/facets/';
+  protected facetLinkPathPrefix = 'discover/facets/';
 
   /**
    * Default pagination id
@@ -463,7 +463,7 @@ export class SearchConfigurationService implements OnDestroy {
     return this.rdb.buildFromHref(href$);
   }
 
-  private getConfigUrl(url: string, scope?: string, configurationName?: string) {
+  protected getConfigUrl(url: string, scope?: string, configurationName?: string) {
     const args: string[] = [];
 
     if (isNotEmpty(scope)) {

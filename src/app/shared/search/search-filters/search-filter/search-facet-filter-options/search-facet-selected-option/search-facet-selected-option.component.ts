@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -10,6 +10,7 @@ import { FacetValue } from '../../../../models/facet-value.model';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { FILTER_SEARCH } from "../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -57,7 +58,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   searchLink: string;
 
   constructor(protected searchService: SearchService,
-              protected filterService: SearchFilterService,
+              @Inject(FILTER_SEARCH) protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService

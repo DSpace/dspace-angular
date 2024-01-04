@@ -162,7 +162,6 @@ export class SearchService implements OnDestroy {
         getResponseParser: getResponseParserFn,
         searchOptions: searchOptions
       });
-
       this.requestService.send(request, useCachedVersionIfAvailable);
     });
 

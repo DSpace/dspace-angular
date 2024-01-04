@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, InjectionToken, OnInit } from '@angular/core';
 import { SearchService } from '../../core/shared/search/search.service';
 import { environment } from '../../../environments/environment';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -9,11 +9,32 @@ import { map } from 'rxjs/operators';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { AdminNotifyMetricsBox, AdminNotifyMetricsRow } from './admin-notify-metrics/admin-notify-metrics.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { FILTER_CONFIG, SearchFilterService } from "../../core/shared/search/search-filter.service";
+import { SEARCH_CONFIG_SERVICE } from "../../my-dspace-page/my-dspace-page.component";
+import { AdminNotifySearchConfigurationService } from "./config/admin-notify-search-configuration.service";
+import { AdminNotifySearchFilterService } from "./config/admin-notify-filter-service";
+import { AdminNotifySearchFilterConfig } from "./config/admin-notify-search-filter-config";
+
+export const FILTER_SEARCH: InjectionToken<SearchFilterService> = new InjectionToken<SearchFilterService>('searchFilterService');
 
 @Component({
   selector: 'ds-admin-notify-dashboard',
   templateUrl: './admin-notify-dashboard.component.html',
   styleUrls: ['./admin-notify-dashboard.component.scss'],
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: AdminNotifySearchConfigurationService
+    },
+    {
+      provide: FILTER_SEARCH,
+      useClass: AdminNotifySearchFilterService
+    },
+    {
+      provide: FILTER_CONFIG,
+      useClass: AdminNotifySearchFilterConfig
+    }
+  ]
 })
 export class AdminNotifyDashboardComponent implements OnInit{
 

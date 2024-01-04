@@ -26,6 +26,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { FILTER_SEARCH } from "../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -41,7 +42,7 @@ import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-tr
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
 
   constructor(protected searchService: SearchService,
-              protected filterService: SearchFilterService,
+              @Inject(FILTER_SEARCH) protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               protected modalService: NgbModal,
