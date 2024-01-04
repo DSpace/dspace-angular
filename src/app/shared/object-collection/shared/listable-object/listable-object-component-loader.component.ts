@@ -154,7 +154,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   }
 
   private instantiateComponent(object: ListableObject, changes?: SimpleChanges): void {
-
     const component = this.getComponent(object.getRenderTypes(), this.viewMode, this.context);
 
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;

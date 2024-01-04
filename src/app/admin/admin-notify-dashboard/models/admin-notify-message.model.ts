@@ -56,6 +56,12 @@ export class AdminNotifyMessage extends DSpaceObject {
   @autoserialize
   queueStatus: number;
 
+  /**
+   * The status of the queue
+   */
+  @autoserialize
+  indexableObject: AdminNotifyMessage;
+
   @deserialize
   _links: {
     self: {

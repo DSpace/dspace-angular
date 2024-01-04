@@ -12,7 +12,7 @@
               </div>
             </ng-template>
           </li>
-          <li [ngbNavItem]="'logs'">
+          <li [ngbNavItem]="'logs'" (click)="activateTableMode()">
             <a ngbNavLink>{{'admin-notify-dashboard.logs' | translate}}</a>
             <ng-template ngbNavContent>
               <div id="logs">

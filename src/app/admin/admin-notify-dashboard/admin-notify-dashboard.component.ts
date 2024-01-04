@@ -14,6 +14,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.compo
 import { AdminNotifySearchConfigurationService } from './config/admin-notify-search-configuration.service';
 import { AdminNotifySearchFilterService } from './config/admin-notify-filter-service';
 import { AdminNotifySearchFilterConfig } from './config/admin-notify-search-filter-config';
+import { ViewMode } from "../../core/shared/view-mode.model";
+import { Router } from "@angular/router";
 
 export const FILTER_SEARCH: InjectionToken<SearchFilterService> = new InjectionToken<SearchFilterService>('searchFilterService');
 
@@ -45,7 +47,8 @@ export class AdminNotifyDashboardComponent implements OnInit{
     id: 'single-result-options',
     pageSize: 1
   });
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService,
+              private router: Router) {}
 
   ngOnInit() {
     const mertricsRowsConfigurations = this.metricsConfig
@@ -98,5 +101,29 @@ export class AdminNotifyDashboardComponent implements OnInit{
           boxes: row.boxes.map(rowBox =>boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config))
         };
     });
+  }
+
+  /**
+   * Activate Table view mode for search result rendering
+   */
+  activateTableMode() {
+    this.searchService.setViewMode(ViewMode.Table, this.getSearchLinkParts());
+  }
+
+  /**
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
+   */
+  public getSearchLink(): string {
+    return this.searchService.getSearchLink();
+  }
+
+  /**
+   * @returns {string[]} The base path to the search page, or the current page when inPlaceSearch is true, split in separate pieces
+   */
+  public getSearchLinkParts(): string[] {
+    if (this.searchService) {
+      return [];
+    }
+    return this.getSearchLink().split('/');
   }
 }
