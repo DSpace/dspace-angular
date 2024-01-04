@@ -1,12 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { Context } from '../../../../core/shared/context.model';
-import { AdminNotifySearchConfigurationService } from "../../config/admin-notify-search-configuration.service";
-import { FILTER_SEARCH } from "../../admin-notify-dashboard.component";
-import { AdminNotifySearchFilterService } from "../../config/admin-notify-filter-service";
-import { FILTER_CONFIG } from "../../../../core/shared/search/search-filter.service";
-import { AdminNotifySearchFilterConfig } from "../../config/admin-notify-search-filter-config";
+import { AdminNotifySearchConfigurationService } from '../../config/admin-notify-search-configuration.service';
+import { FILTER_SEARCH } from '../../admin-notify-dashboard.component';
+import { AdminNotifySearchFilterService } from '../../config/admin-notify-filter-service';
+import { FILTER_CONFIG } from '../../../../core/shared/search/search-filter.service';
+import { AdminNotifySearchFilterConfig } from '../../config/admin-notify-search-filter-config';
 
 
 @Component({
@@ -33,7 +32,7 @@ export class AdminNotifyIncomingComponent {
   constructor(@Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: AdminNotifySearchConfigurationService,
               @Inject(FILTER_SEARCH) public searchFilterService: AdminNotifySearchFilterService,
               @Inject(FILTER_CONFIG) public filterConfig: AdminNotifySearchFilterConfig) {
-    const incomingPrefix = 'incoming.f'
+    const incomingPrefix = 'incoming.f';
     this.searchConfigService.setParamPrefix(incomingPrefix);
     this.searchFilterService.setParamPrefix(incomingPrefix);
     this.filterConfig.paramNamePrefix = incomingPrefix;

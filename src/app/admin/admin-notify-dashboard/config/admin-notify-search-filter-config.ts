@@ -1,20 +1,23 @@
 import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { SearchFilterConfig } from "../../../shared/search/models/search-filter-config.model";
-import { autoserialize, autoserializeAs, deserialize } from "cerialize";
-import { HALLink } from "../../../core/shared/hal-link.model";
-import { excludeFromEquals } from "../../../core/utilities/equals.decorators";
-import { SEARCH_FILTER_CONFIG } from "../../../shared/search/models/types/search-filter-config.resource-type";
-import { FilterType } from "../../../shared/search/models/filter-type.model";
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import { HALLink } from '../../../core/shared/hal-link.model';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { SEARCH_FILTER_CONFIG } from '../../../shared/search/models/types/search-filter-config.resource-type';
+import { FilterType } from '../../../shared/search/models/filter-type.model';
 
 /**
  * The configuration for a search filter
  */
 @typedObject
 export class AdminNotifySearchFilterConfig implements SearchFilterConfig {
+  static type = SEARCH_FILTER_CONFIG;
+
+  /**
+   * The prefix of this filter
+   */
   @autoserialize
   namePrefix: string;
-
-  static type = SEARCH_FILTER_CONFIG;
 
   /**
    * The object type,
@@ -87,4 +90,5 @@ export class AdminNotifySearchFilterConfig implements SearchFilterConfig {
    */
   get paramName(): string {
     return `${this.namePrefix}.${this.name}`;
-  }}
+  }
+}

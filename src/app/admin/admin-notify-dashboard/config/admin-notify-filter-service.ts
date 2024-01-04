@@ -1,9 +1,8 @@
-import { Inject, Injectable } from "@angular/core";
-import { FILTER_CONFIG, SearchFilterService } from "../../../core/shared/search/search-filter.service";
-import { Store } from "@ngrx/store";
-import { SearchFiltersState } from "../../../shared/search/search-filters/search-filter/search-filter.reducer";
-import { RouteService } from "../../../core/services/route.service";
-import { SearchFilterConfig } from "../../../shared/search/models/search-filter-config.model";
+import { Injectable } from '@angular/core';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+import { Store } from '@ngrx/store';
+import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
+import { RouteService } from '../../../core/services/route.service';
 
 
 /**
@@ -15,7 +14,7 @@ export class AdminNotifySearchFilterService extends SearchFilterService {
   public filterPrefix: string;
   constructor(protected store: Store<SearchFiltersState>,
               protected routeService: RouteService) {
-    super(store, routeService)
+    super(store, routeService);
   }
 
   /**
@@ -30,7 +29,7 @@ export class AdminNotifySearchFilterService extends SearchFilterService {
    * Set prefix to be used for route filters
    * @param prefix
    */
-  setParamPrefix(prefix: string) : void {
+  setParamPrefix(prefix: string): void {
     this.filterPrefix = prefix;
   }
 }

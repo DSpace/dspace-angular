@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
-import { FILTER_SEARCH } from "../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
+import { FILTER_SEARCH } from '../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 @Component({
   selector: 'ds-search-filter',

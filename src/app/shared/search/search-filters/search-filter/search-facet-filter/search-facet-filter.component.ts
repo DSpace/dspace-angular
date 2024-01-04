@@ -35,7 +35,7 @@ import { currentPath } from '../../../../utils/route.utils';
 import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 import { FacetValues } from '../../../models/facet-values.model';
-import { FILTER_SEARCH } from "../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
+import { FILTER_SEARCH } from '../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 @Component({
   selector: 'ds-search-facet-filter',

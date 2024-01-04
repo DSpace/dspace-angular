@@ -14,7 +14,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { FILTER_SEARCH } from "../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
+import { FILTER_SEARCH } from '../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 const rangeDelimiter = '-';
 

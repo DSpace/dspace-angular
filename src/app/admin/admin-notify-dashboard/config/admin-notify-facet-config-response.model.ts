@@ -3,8 +3,8 @@ import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { deserialize } from 'cerialize';
 import { HALLink } from '../../../core/shared/hal-link.model';
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { AdminNotifySearchFilterConfig } from "./admin-notify-search-filter-config";
-import { FACET_CONFIG_RESPONSE } from "../../../shared/search/models/types/facet-config-response.resouce-type";
+import { AdminNotifySearchFilterConfig } from './admin-notify-search-filter-config';
+import { FACET_CONFIG_RESPONSE } from '../../../shared/search/models/types/facet-config-response.resouce-type';
 
 /**
  * The response from the discover/facets endpoint

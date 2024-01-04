@@ -26,7 +26,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
-import { FILTER_SEARCH } from "../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
+import { FILTER_SEARCH } from '../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',

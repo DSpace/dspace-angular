@@ -200,9 +200,9 @@ import { NotifyRequestsStatusDataService } from './data/notify-services-status-d
 import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
 import {
   AdminNotifyFacetResponseParsingService
-} from "../admin/admin-notify-dashboard/config/admin-notify-facet-response-parsing.service";
-import { FILTER_SEARCH } from "../admin/admin-notify-dashboard/admin-notify-dashboard.component";
-import { AdminNotifySearchFilterService } from "../admin/admin-notify-dashboard/config/admin-notify-filter-service";
+} from '../admin/admin-notify-dashboard/config/admin-notify-facet-response-parsing.service';
+import { FILTER_SEARCH } from '../admin/admin-notify-dashboard/admin-notify-dashboard.component';
+import { AdminNotifySearchFilterService } from '../admin/admin-notify-dashboard/config/admin-notify-filter-service';
 
 
 /**

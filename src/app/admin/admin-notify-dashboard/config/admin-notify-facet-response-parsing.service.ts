@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FacetConfigResponseParsingService } from "../../../core/data/facet-config-response-parsing.service";
-import { RestRequest } from "../../../core/data/rest-request.model";
-import { RawRestResponse } from "../../../core/dspace-rest/raw-rest-response.model";
-import { ParsedResponse } from "../../../core/cache/response.models";
-import { DSpaceSerializer } from "../../../core/dspace-rest/dspace.serializer";
-import { AdminNotifySearchFilterConfig } from "./admin-notify-search-filter-config";
-import { FacetConfigResponse } from "../../../shared/search/models/facet-config-response.model";
+import { FacetConfigResponseParsingService } from '../../../core/data/facet-config-response-parsing.service';
+import { RestRequest } from '../../../core/data/rest-request.model';
+import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
+import { ParsedResponse } from '../../../core/cache/response.models';
+import { DSpaceSerializer } from '../../../core/dspace-rest/dspace.serializer';
+import { AdminNotifySearchFilterConfig } from './admin-notify-search-filter-config';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
 
 @Injectable()
 export class AdminNotifyFacetResponseParsingService extends FacetConfigResponseParsingService {

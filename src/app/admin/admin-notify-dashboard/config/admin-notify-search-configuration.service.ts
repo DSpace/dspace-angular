@@ -1,27 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
-import { first, map, take } from 'rxjs/operators';
-import { SearchConfigurationService } from "../../../core/shared/search/search-configuration.service";
-import { RouteService } from "../../../core/services/route.service";
-import { LinkService } from "../../../core/cache/builders/link.service";
-import { HALEndpointService } from "../../../core/shared/hal-endpoint.service";
-import { RequestService } from "../../../core/data/request.service";
-import { RemoteDataBuildService } from "../../../core/cache/builders/remote-data-build.service";
-import { PaginationService } from "../../../core/pagination/pagination.service";
-import { DspaceRestResponseParsingService } from "../../../core/data/dspace-rest-response-parsing.service";
-import { RemoteData } from "../../../core/data/remote-data";
-import { SearchFilterConfig } from "../../../shared/search/models/search-filter-config.model";
-import { GetRequest } from "../../../core/data/request.models";
-import { GenericConstructor } from "../../../core/shared/generic-constructor";
-import { ResponseParsingService } from "../../../core/data/parsing.service";
-import { FacetConfigResponseParsingService } from "../../../core/data/facet-config-response-parsing.service";
-import { FacetConfigResponse } from "../../../shared/search/models/facet-config-response.model";
-import { hasNoValue, isNotEmpty } from "../../../shared/empty.util";
-import { AdminNotifyFacetResponseParsingService } from "./admin-notify-facet-response-parsing.service";
-import { AdminNotifySearchFilterConfig } from "./admin-notify-search-filter-config";
-import { AdminNotifyFacetConfigResponse } from "./admin-notify-facet-config-response.model";
-import { SearchFilter } from "../../../shared/search/models/search-filter.model";
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { RouteService } from '../../../core/services/route.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { RequestService } from '../../../core/data/request.service';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { GetRequest } from '../../../core/data/request.models';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { ResponseParsingService } from '../../../core/data/parsing.service';
+import { hasNoValue, isNotEmpty } from '../../../shared/empty.util';
+import { AdminNotifyFacetResponseParsingService } from './admin-notify-facet-response-parsing.service';
+import { AdminNotifySearchFilterConfig } from './admin-notify-search-filter-config';
+import { AdminNotifyFacetConfigResponse } from './admin-notify-facet-config-response.model';
+import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 
 
 
@@ -64,7 +60,7 @@ export class AdminNotifySearchConfigurationService extends SearchConfigurationSe
    * Set prefix to be used for route filters
    * @param prefix
    */
-  setParamPrefix(prefix: string) : void {
+  setParamPrefix(prefix: string): void {
     this.paramPrefix = prefix;
   }
 

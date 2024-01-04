@@ -12,7 +12,7 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
-import { FILTER_SEARCH } from "../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
+import { FILTER_SEARCH } from '../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 @Component({
   selector: 'ds-search-filters',
