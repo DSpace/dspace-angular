@@ -164,7 +164,8 @@ export class SearchConfigurationService implements OnDestroy {
    */
   getCurrentQuery(defaultQuery: string) {
     return this.routeService.getQueryParameterValue('query').pipe(map((query) => {
-      return query || defaultQuery;
+      const queryFromURL = query || defaultQuery;
+      return decodeURIComponent(queryFromURL) ?? '';
     }));
   }
 
