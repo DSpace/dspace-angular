@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
@@ -139,7 +139,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
 
   isAcceptableKey(keyPress: string): boolean {
     // allow all letters and numbers
-    if (keyPress.length == 1 && keyPress.match(/^[a-zA-Z0-9]*$/)) {
+    if (keyPress.length === 1 && keyPress.match(/^[a-zA-Z0-9]*$/)) {
       return true;
     }
     // Some other characters like space, dash, etc should be allowed as well
