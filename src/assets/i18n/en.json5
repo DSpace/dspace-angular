@@ -510,6 +510,16 @@
 
   "admin.access-control.groups.form.return": "Back",
 
+  "admin.quality-assurance.breadcrumbs": "Quality Assurance",
+
+  "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
+
+  "admin.notifications.event.page.title": "Quality Assurance Suggestions",
+
+  "admin.quality-assurance.page.title": "Quality Assurance",
+
+  "admin.notifications.source.breadcrumbs": "Quality Assurance Source",
+
   "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
 
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
@@ -2912,6 +2922,8 @@
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
+  "menu.section.icon.notifications": "Notifications menu section",
+
   "menu.section.import": "Import",
 
   "menu.section.import_batch": "Batch Import (ZIP)",
@@ -2929,6 +2941,12 @@
   "menu.section.new_item_version": "Item Version",
 
   "menu.section.new_process": "Process",
+
+  "menu.section.notifications": "Notifications",
+
+  "menu.section.quality-assurance": "Quality Assurance",
+
+  "menu.section.notifications_reciter": "Publication Claim",
 
   "menu.section.pin": "Pin sidebar",
 
@@ -3095,6 +3113,138 @@
   "nav.user.description": "User profile bar",
 
   "none.listelement.badge": "Item",
+
+  "quality-assurance.title": "Quality Assurance",
+
+  "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+
+  "quality-assurance.source.description": "Below you can see all the notification's sources.",
+
+  "quality-assurance.topics": "Current Topics",
+
+  "quality-assurance.source": "Current Sources",
+
+  "quality-assurance.table.topic": "Topic",
+
+  "quality-assurance.table.source": "Source",
+
+  "quality-assurance.table.last-event": "Last Event",
+
+  "quality-assurance.table.actions": "Actions",
+
+  "quality-assurance.button.detail": "Show details",
+
+  "quality-assurance.noTopics": "No topics found.",
+
+  "quality-assurance.noSource": "No sources found.",
+
+  "notifications.events.title": "Quality Assurance Suggestions",
+
+  "quality-assurance.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
+
+  "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
+
+  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic.",
+
+  "quality-assurance.loading": "Loading ...",
+
+  "quality-assurance.events.topic": "Topic:",
+
+  "quality-assurance.noEvents": "No suggestions found.",
+
+  "quality-assurance.event.table.trust": "Trust",
+
+  "quality-assurance.event.table.publication": "Publication",
+
+  "quality-assurance.event.table.details": "Details",
+
+  "quality-assurance.event.table.project-details": "Project details",
+
+  "quality-assurance.event.table.actions": "Actions",
+
+  "quality-assurance.event.action.accept": "Accept suggestion",
+
+  "quality-assurance.event.action.ignore": "Ignore suggestion",
+
+  "quality-assurance.event.action.reject": "Reject suggestion",
+
+  "quality-assurance.event.action.import": "Import project and accept suggestion",
+
+  "quality-assurance.event.table.pidtype": "PID Type:",
+
+  "quality-assurance.event.table.pidvalue": "PID Value:",
+
+  "quality-assurance.event.table.subjectValue": "Subject Value:",
+
+  "quality-assurance.event.table.abstract": "Abstract:",
+
+  "quality-assurance.event.table.suggestedProject": "OpenAIRE Suggested Project data",
+
+  "quality-assurance.event.table.project": "Project title:",
+
+  "quality-assurance.event.table.acronym": "Acronym:",
+
+  "quality-assurance.event.table.code": "Code:",
+
+  "quality-assurance.event.table.funder": "Funder:",
+
+  "quality-assurance.event.table.fundingProgram": "Funding program:",
+
+  "quality-assurance.event.table.jurisdiction": "Jurisdiction:",
+
+  "quality-assurance.events.back": "Back to topics",
+
+  "quality-assurance.event.table.less": "Show less",
+
+  "quality-assurance.event.table.more": "Show more",
+
+  "quality-assurance.event.project.found": "Bound to the local record:",
+
+  "quality-assurance.event.project.notFound": "No local record found",
+
+  "quality-assurance.event.sure": "Are you sure?",
+
+  "quality-assurance.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+
+  "quality-assurance.event.reject.description": "This operation can't be undone. Reject this suggestion?",
+
+  "quality-assurance.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
+
+  "quality-assurance.event.action.cancel": "Cancel",
+
+  "quality-assurance.event.action.saved": "Your decision has been saved successfully.",
+
+  "quality-assurance.event.action.error": "An error has occurred. Your decision has not been saved.",
+
+  "quality-assurance.event.modal.project.title": "Choose a project to bound",
+
+  "quality-assurance.event.modal.project.publication": "Publication:",
+
+  "quality-assurance.event.modal.project.bountToLocal": "Bound to the local record:",
+
+  "quality-assurance.event.modal.project.select": "Project search",
+
+  "quality-assurance.event.modal.project.search": "Search",
+
+  "quality-assurance.event.modal.project.clear": "Clear",
+
+  "quality-assurance.event.modal.project.cancel": "Cancel",
+
+  "quality-assurance.event.modal.project.bound": "Bound project",
+
+  "quality-assurance.event.modal.project.remove": "Remove",
+
+  "quality-assurance.event.modal.project.placeholder": "Enter a project name",
+
+  "quality-assurance.event.modal.project.notFound": "No project found.",
+
+  "quality-assurance.event.project.bounded": "The project has been linked successfully.",
+
+  "quality-assurance.event.project.removed": "The project has been successfully unlinked.",
+
+  "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
+
+  "quality-assurance.event.reason": "Reason",
 
   "orgunit.listelement.badge": "Organizational Unit",
 
@@ -3839,6 +3989,10 @@
   "search.filters.filter.submitter.label": "Search submitter",
 
   "search.filters.filter.show-tree": "Browse {{ name }} tree",
+
+  "search.filters.filter.funding.head": "Funding",
+
+  "search.filters.filter.funding.placeholder": "Funding",
 
   "search.filters.filter.supervisedBy.head": "Supervised By",
 
