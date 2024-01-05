@@ -19,6 +19,7 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
+import { FILTER_SEARCH } from "../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -102,7 +103,7 @@ describe('SearchFacetOptionComponent', () => {
           }
         },
         {
-          provide: SearchFilterService, useValue: {
+          provide: FILTER_SEARCH, useValue: {
             getSelectedValuesForFilter: () => selectedValues,
             isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
             getPage: (paramName: string) => page,

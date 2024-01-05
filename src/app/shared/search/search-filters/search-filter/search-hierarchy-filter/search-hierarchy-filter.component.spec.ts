@@ -26,6 +26,7 @@ import { SearchConfigurationServiceStub } from '../../../../testing/search-confi
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { FacetValue} from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { FILTER_SEARCH } from "../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchHierarchyFilterComponent', () => {
 
@@ -67,7 +68,7 @@ describe('SearchHierarchyFilterComponent', () => {
       ],
       providers: [
         { provide: SearchService, useValue: searchService },
-        { provide: SearchFilterService, useValue: searchFilterService },
+        { provide: FILTER_SEARCH, useValue: searchFilterService },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: Router, useValue: router },
         { provide: NgbModal, useValue: ngbModal },

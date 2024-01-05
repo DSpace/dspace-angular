@@ -9,6 +9,7 @@ import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { FILTER_SEARCH } from "../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
@@ -36,7 +37,7 @@ describe('SearchFiltersComponent', () => {
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: SearchFilterService, useValue: searchFiltersStub },
+        { provide: FILTER_SEARCH, useValue: searchFiltersStub },
 
       ],
       schemas: [NO_ERRORS_SCHEMA]

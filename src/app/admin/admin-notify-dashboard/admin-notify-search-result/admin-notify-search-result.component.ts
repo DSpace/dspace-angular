@@ -12,7 +12,6 @@ import {
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { objects } from "../../../shared/search/search-results/search-results.component.spec";
 
 @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
 @Component({
@@ -32,8 +31,7 @@ export class AdminNotifySearchResultComponent  extends TabulatableResultListElem
    * Map messages on init for readable representation
    */
   ngOnInit() {
-    console.log(this.objects.page.splice(0,2))
-    this.notifyMessages = this.objects.page.map(object => {
+    this.notifyMessages = this.objects?.page.map(object => {
       const indexableObject = object.indexableObject;
       indexableObject.coarNotifyType = indexableObject.coarNotifyType.split(':')[1];
       indexableObject.queueStatusLabel = QueueStatusMap[indexableObject.queueStatusLabel];

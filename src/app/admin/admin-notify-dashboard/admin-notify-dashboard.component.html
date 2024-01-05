@@ -12,12 +12,19 @@
               </div>
             </ng-template>
           </li>
-          <li [ngbNavItem]="'logs'" (click)="activateTableMode()">
-            <a ngbNavLink>{{'admin-notify-dashboard.logs' | translate}}</a>
+          <li [ngbNavItem]="'inbound'" (click)="activateTableMode()">
+            <a ngbNavLink>{{'admin.notify.dashboard.inbound' | translate}}</a>
             <ng-template ngbNavContent>
-              <div id="logs">
+              <div id="inbound">
                 <div class="col-12 text-left h4 my-4">{{'admin.notify.dashboard.inbound' | translate}}</div>
                 <ds-admin-notify-incoming></ds-admin-notify-incoming>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="'outbound'" (click)="activateTableMode()">
+            <a ngbNavLink>{{'admin.notify.dashboard.outbound'| translate}}</a>
+            <ng-template ngbNavContent>
+              <div id="outbound">
                 <div class="col-12 text-left h4 my-4">{{'admin.notify.dashboard.outbound' | translate}}</div>
                 <ds-admin-notify-outgoing></ds-admin-notify-outgoing>
               </div>

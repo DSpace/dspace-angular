@@ -3509,6 +3509,10 @@
 
   "search.filters.filter.target.placeholder": "Target",
 
+  "search.filters.filter.origin.label": "Search source",
+
+  "search.filters.filter.origin.placeholder": "Source",
+
   "search.filters.filter.queue_status.placeholder": "Queue status",
 
   "search.filters.filter.activity_stream_type.placeholder": "Activity stream type",

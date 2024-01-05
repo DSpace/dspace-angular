@@ -14,6 +14,7 @@ import { SearchConfigurationServiceStub } from '../../../testing/search-configur
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { FILTER_SEARCH } from "../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -70,7 +71,7 @@ describe('SearchFilterComponent', () => {
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {
-          provide: SearchFilterService,
+          provide: FILTER_SEARCH,
           useValue: mockFilterService
         },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },

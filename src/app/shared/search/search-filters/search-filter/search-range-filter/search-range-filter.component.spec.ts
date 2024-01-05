@@ -25,6 +25,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouteService } from '../../../../../core/services/route.service';
+import { FILTER_SEARCH } from "../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -106,7 +107,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         {
-          provide: SearchFilterService, useValue: {
+          provide: FILTER_SEARCH, useValue: {
             getSelectedValuesForFilter: () => selectedValues,
             isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
             getPage: (paramName: string) => page,
