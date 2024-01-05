@@ -196,7 +196,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
 
     return process$.pipe(
       distinctUntilChanged((previous: RemoteData<Process>, current: RemoteData<Process>) =>
-        previous.payload.processStatus === current.payload.processStatus
+        previous.payload?.processStatus === current.payload?.processStatus,
       )
     );
   }
