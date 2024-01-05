@@ -73,10 +73,6 @@ export class AbstractTabulatableElementComponent<T extends PaginatedList<Listabl
    */
   contexts = Context;
 
-  constructor(
-    public dsoNameService: DSONameService,
-  ) {
-  }
 
 }
 

@@ -12,11 +12,4 @@ import { SearchResult } from '../../../search/models/search-result.model';
   selector: 'ds-search-result-list-element',
   template: ``
 })
-export class TabulatableResultListElementsComponent<T extends PaginatedList<K>, K extends SearchResult<any>> extends AbstractTabulatableElementComponent<T> {
-  public constructor(protected truncatableService: TruncatableService,
-                     public dsoNameService: DSONameService,
-                     @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
-    super(dsoNameService);
-  }
-
-}
+export class TabulatableResultListElementsComponent<T extends PaginatedList<K>, K extends SearchResult<any>> extends AbstractTabulatableElementComponent<T> {}

@@ -31,11 +31,8 @@ export class AdminNotifySearchResultComponent  extends TabulatableResultListElem
       QUEUE_STATUS_UNMAPPED_ACTION: 'Unmapped action',
     };
 
-    constructor(private modalService: NgbModal,
-                protected truncatableService: TruncatableService,
-                public dsoNameService: DSONameService,
-                @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
-      super(truncatableService, dsoNameService, appConfig);
+    constructor(private modalService: NgbModal) {
+      super();
     }
 
   /**
@@ -50,7 +47,7 @@ export class AdminNotifySearchResultComponent  extends TabulatableResultListElem
     });
   }
 
-  /**
+    /**
    * Open modal for details visualization
    * @param message the message to be displayed
    */

@@ -133,7 +133,7 @@ export function getListableObjectComponent(types: (string | GenericConstructor<L
  * @param defaults        the default values to use for each level, in case no value is found for the key at that index
  * @returns matchAndLevel a {@link MatchRelevancy} object containing the match and its level of relevancy
  */
-function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRelevancy {
+export function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRelevancy {
   let currentMap = typeMap;
   let level = -1;
   let relevancy = 0;

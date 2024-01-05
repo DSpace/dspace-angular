@@ -6,7 +6,7 @@ import { ListableObject } from '../listable-object.model';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,
-  DEFAULT_VIEW_MODE,
+  DEFAULT_VIEW_MODE, getMatch,
   MatchRelevancy, resolveTheme
 } from '../listable-object/listable-object.decorator';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
@@ -15,7 +15,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 const map = new Map();
 
 /**
- * Decorator used for rendering a listable object
+ * Decorator used for rendering tabulatable objects
  * @param objectType The object type or entity type the component represents
  * @param viewMode The view mode the component represents
  * @param context The optional context the component represents
@@ -40,12 +40,12 @@ export function tabulatableObjectsComponent(objectsType: string | GenericConstru
 }
 
 /**
- * Getter to retrieve the matching listable object component
+ * Getter to retrieve the matching tabulatable objects component
  *
  * Looping over the provided types, it'll attempt to find the best match depending on the {@link MatchRelevancy} returned by getMatch()
  * The most relevant match between types is kept and eventually returned
  *
- * @param types The types of which one should match the listable component
+ * @param types The types of which one should match the tabulatable component
  * @param viewMode The view mode that should match the components
  * @param context The context that should match the components
  * @param theme The theme that should match the components
@@ -62,47 +62,4 @@ export function getTabulatableObjectsComponent(types: (string | GenericConstruct
     }
   }
   return hasValue(currentBestMatch) ? currentBestMatch.match : null;
-}
-
-/**
- * Find an object within a nested map, matching the provided keys as best as possible, falling back on defaults wherever
- * needed.
- *
- * Starting off with a Map, it loops over the provided keys, going deeper into the map until it finds a value
- * If at some point, no value is found, it'll attempt to use the default value for that index instead
- * If the default value exists, the index is stored in the "level"
- * If no default value exists, 1 is added to "relevancy"
- * See {@link MatchRelevancy} what these represent
- *
- * @param typeMap         a multi-dimensional map
- * @param keys            the keys of the multi-dimensional map to loop over. Each key represents a level within the map
- * @param defaults        the default values to use for each level, in case no value is found for the key at that index
- * @returns matchAndLevel a {@link MatchRelevancy} object containing the match and its level of relevancy
- */
-function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRelevancy {
-  let currentMap = typeMap;
-  let level = -1;
-  let relevancy = 0;
-  for (let i = 0; i < keys.length; i++) {
-    // If we're currently checking the theme, resolve it first to take extended themes into account
-    let currentMatch = defaults[i] === DEFAULT_THEME ? resolveTheme(currentMap, keys[i]) : currentMap.get(keys[i]);
-    if (hasNoValue(currentMatch)) {
-      currentMatch = currentMap.get(defaults[i]);
-      if (level === -1) {
-        level = i;
-      }
-    } else {
-      relevancy++;
-    }
-    if (hasValue(currentMatch)) {
-      if (currentMatch instanceof Map) {
-        currentMap = currentMatch as Map<any, any>;
-      } else {
-        return new MatchRelevancy(currentMatch, level > -1 ? level : i + 1, relevancy);
-      }
-    } else {
-      return null;
-    }
-  }
-  return null;
 }
