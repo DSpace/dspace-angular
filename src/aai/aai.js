@@ -3,7 +3,7 @@
   function AAI() {
     var host = 'https://' + window.location.hostname,
         ourEntityID = host.match("lindat.mff.cuni.cz") ? "https://ufal-point.mff.cuni.cz" : host;
-    var namespace = ''
+    var namespace = '';
     this.defaults = {
       //host : 'https://ufal-point.mff.cuni.cz',
       host : host, //better default (useful when testing on ufal-point-dev)
@@ -21,7 +21,28 @@
       var targetUrl = '';
       var opts = jQuery.extend({}, this.defaults, options),
           defaultCallback = function(e) {
-            targetUrl = opts.target + '?redirectUrl=' + window.location.href;
+            targetUrl = opts.target + '?redirectUrl=';
+            // E.g. Redirect to Item page
+            var redirectUrl = window.location.href;
+
+            // Redirection could be initiated from the login page; in that case,
+            // we need to retrieve the redirect URL from the URL parameters.
+            var urlParams = '';
+            var redirectUrlFromLogin = '';
+            var splitQMarks = window.location.href.split('?');
+            if (splitQMarks.length > 1) {
+              // The redirect URL is in the `1` index of the array in the Shibboleth redirect from the login page
+              urlParams = new URLSearchParams(splitQMarks[1]);
+              redirectUrlFromLogin = urlParams.get('redirectUrl') || null;
+            }
+
+            if (redirectUrlFromLogin != null && redirectUrlFromLogin !== '') {
+              // Redirect from the login page with retrieved redirect URL
+              redirectUrl = window.location.origin + (namespace === '' ? namespace : '/' + namespace) + redirectUrlFromLogin;
+            }
+
+            // Encode the redirect URL
+            targetUrl += window.encodeURIComponent(redirectUrl);
             window.location = opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target=' + targetUrl + '&entityID=' + window.encodeURIComponent(e.entityID);
           };
       //console.log(opts);
