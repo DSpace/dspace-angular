@@ -3,7 +3,6 @@ import { ListableObject } from '../listable-object.model';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 

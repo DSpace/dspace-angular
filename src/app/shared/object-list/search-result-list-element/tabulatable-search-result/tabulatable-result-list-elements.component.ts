@@ -1,10 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   AbstractTabulatableElementComponent
 } from '../../../object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { SearchResult } from '../../../search/models/search-result.model';
 

@@ -7,7 +7,7 @@ import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,
   DEFAULT_VIEW_MODE, getMatch,
-  MatchRelevancy, resolveTheme
+  MatchRelevancy
 } from '../listable-object/listable-object.decorator';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
@@ -11,9 +11,6 @@ import {
 } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TruncatableService } from '../../../shared/truncatable/truncatable.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
 
 @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
