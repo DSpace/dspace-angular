@@ -437,6 +437,13 @@ export class DefaultAppConfig implements AppConfig {
     sortDirection:'ASC',
   };
 
+  qualityAssuranceConfig: QualityAssuranceConfig = {
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId='
+    },
+    pageSize: 5,
+  };
+
   advancefilter: AdvanceSearchConfig[] = [
     { filter: 'title' },
     { filter: 'author' },
