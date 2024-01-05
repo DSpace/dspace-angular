@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <h4 class="modal-title">Message Detail</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="d-flex modal-body flex-column p-4">
+    <div *ngFor="let key of notifyMessageKeys">
+      <div class="d-flex w-100 justify-content-between mb-4">
+        <div class="font-weight-bold mr-5">{{ key }}</div>
+        <div class="text-nowrap text-truncate">{{ notifyMessage[key] }}</div>
+      </div>
+    </div>
+</div>

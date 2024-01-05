@@ -1,22 +1,22 @@
-<div class="w-100">
-  <div class="table-responsive">
-    <table id="formats" class="table table-striped table-hover">
+  <div class="table-responsive mt-2">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th scope="col">Timestamp</th>
-          <th scope="col">Source</th>
+          <th scope="col">Origin</th>
           <th scope="col">Target</th>
           <th scope="col">Type</th>
           <th scope="col">Status</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let message of notifyMessages">
           <td>
-              <div>{{message.queueTimeout}}</div>
+            <div class="text-nowrap">{{message.queueTimeout}}</div>
           </td>
           <td>
-              <div>{{message.source}}</div>
+            <div>{{message.origin}}</div>
           </td>
           <td>
             <div>{{message.target}}</div>
@@ -27,8 +27,13 @@
           <td>
             <div>{{message.queueStatusLabel}}</div>
           </td>
+          <td>
+            <div class="d-flex flex-column">
+              <button class="btn mb-2 btn-dark" (click)="openDetailModal(message)">Detail</button>
+              <button class="btn btn-warning">Reprocess</button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-</div>

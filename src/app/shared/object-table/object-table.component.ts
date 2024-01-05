@@ -148,13 +148,6 @@ export class ObjectTableComponent {
   }
 
   /**
-   * Initialize the instance variables
-   */
-  ngOnInit(): void {
-    console.log('table rendered');
-  }
-
-  /**
    * Emits the current page when it changes
    * @param event The new page
    */
@@ -205,5 +198,4 @@ export class ObjectTableComponent {
   goNext() {
     this.next.emit(true);
   }
-
 }

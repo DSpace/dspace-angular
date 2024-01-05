@@ -1,70 +1,16 @@
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
+import { hasNoValue, hasValue } from '../../../empty.util';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObject } from '../listable-object.model';
-import { environment } from '../../../../../environments/environment';
-import { ThemeConfig } from '../../../../../config/theme.config';
-import { InjectionToken } from '@angular/core';
+import {
+  DEFAULT_CONTEXT,
+  DEFAULT_THEME,
+  DEFAULT_VIEW_MODE,
+  MatchRelevancy, resolveTheme
+} from '../listable-object/listable-object.decorator';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 
-export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
-export const DEFAULT_CONTEXT = Context.Any;
-export const DEFAULT_THEME = '*';
-
-/**
- * A class used to compare two matches and their relevancy to determine which of the two gains priority over the other
- *
- * "level" represents the index of the first default value that was used to find the match with:
- * ViewMode being index 0, Context index 1 and theme index 2. Examples:
- * - If a default value was used for context, but not view-mode and theme, the "level" will be 1
- * - If a default value was used for view-mode and context, but not for theme, the "level" will be 0
- * - If no default value was used for any of the fields, the "level" will be 3
- *
- * "relevancy" represents the amount of values that didn't require a default value to fall back on. Examples:
- * - If a default value was used for theme, but not view-mode and context, the "relevancy" will be 2
- * - If a default value was used for view-mode and context, but not for theme, the "relevancy" will be 1
- * - If a default value was used for all fields, the "relevancy" will be 0
- * - If no default value was used for any of the fields, the "relevancy" will be 3
- *
- * To determine which of two MatchRelevancies is the most relevant, we compare "level" and "relevancy" in that order.
- * If any of the two is higher than the other, that match is most relevant. Examples:
- * - { level: 1, relevancy: 1 } is more relevant than { level: 0, relevancy: 2 }
- * - { level: 1, relevancy: 1 } is less relevant than { level: 1, relevancy: 2 }
- * - { level: 1, relevancy: 1 } is more relevant than { level: 1, relevancy: 0 }
- * - { level: 1, relevancy: 1 } is less relevant than { level: 2, relevancy: 0 }
- * - { level: 1, relevancy: 1 } is more relevant than null
- */
-class MatchRelevancy {
-  constructor(public match: any,
-              public level: number,
-              public relevancy: number) {
-  }
-
-  isMoreRelevantThan(otherMatch: MatchRelevancy): boolean {
-    if (hasNoValue(otherMatch)) {
-      return true;
-    }
-    if (otherMatch.level > this.level) {
-      return false;
-    }
-    if (otherMatch.level === this.level && otherMatch.relevancy > this.relevancy) {
-      return false;
-    }
-    return true;
-  }
-
-  isLessRelevantThan(otherMatch: MatchRelevancy): boolean {
-    return !this.isMoreRelevantThan(otherMatch);
-  }
-}
-
-/**
- * Factory to allow us to inject getThemeConfigFor so we can mock it in tests
- */
-export const GET_THEME_CONFIG_FOR_FACTORY = new InjectionToken<(str) => ThemeConfig>('getThemeConfigFor', {
-  providedIn: 'root',
-  factory: () => getThemeConfigFor
-});
 
 const map = new Map();
 
@@ -75,7 +21,7 @@ const map = new Map();
  * @param context The optional context the component represents
  * @param theme The optional theme for the component
  */
-export function tabulatableObjectsComponent(objectsType: string | GenericConstructor<ListableObject>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT, theme = DEFAULT_THEME) {
+export function tabulatableObjectsComponent(objectsType: string | GenericConstructor<PaginatedList<ListableObject>>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT, theme = DEFAULT_THEME) {
   return function decorator(component: any) {
     if (hasNoValue(objectsType)) {
       return;
@@ -107,7 +53,7 @@ export function tabulatableObjectsComponent(objectsType: string | GenericConstru
 export function getTabulatableObjectsComponent(types: (string | GenericConstructor<ListableObject>)[], viewMode: ViewMode, context: Context = DEFAULT_CONTEXT, theme: string = DEFAULT_THEME) {
   let currentBestMatch: MatchRelevancy = null;
   for (const type of types) {
-    const typeMap = map.get(type);
+    const typeMap = map.get(PaginatedList<typeof type>);
     if (hasValue(typeMap)) {
       const match = getMatch(typeMap, [viewMode, context, theme], [DEFAULT_VIEW_MODE, DEFAULT_CONTEXT, DEFAULT_THEME]);
       if (hasNoValue(currentBestMatch) || currentBestMatch.isLessRelevantThan(match)) {
@@ -160,35 +106,3 @@ function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRe
   }
   return null;
 }
-
-/**
- * Searches for a ThemeConfig by its name;
- */
-export const getThemeConfigFor = (themeName: string): ThemeConfig => {
-  return environment.themes.find(theme => theme.name === themeName);
-};
-
-/**
- * Find a match in the given map for the given theme name, taking theme extension into account
- *
- * @param contextMap A map of theme names to components
- * @param themeName The name of the theme to check
- * @param checkedThemeNames The list of theme names that are already checked
- */
-export const resolveTheme = (contextMap: Map<any, any>, themeName: string, checkedThemeNames: string[] = []): any => {
-  const match = contextMap.get(themeName);
-  if (hasValue(match)) {
-    return match;
-  } else {
-    const cfg = getThemeConfigFor(themeName);
-    if (hasValue(cfg) && isNotEmpty(cfg.extends)) {
-      const nextTheme = cfg.extends;
-      const nextCheckedThemeNames = [...checkedThemeNames, themeName];
-      if (checkedThemeNames.includes(nextTheme)) {
-        throw new Error('Theme extension cycle detected: ' + [...nextCheckedThemeNames, nextTheme].join(' -> '));
-      } else {
-        return resolveTheme(contextMap, nextTheme, nextCheckedThemeNames);
-      }
-    }
-  }
-};

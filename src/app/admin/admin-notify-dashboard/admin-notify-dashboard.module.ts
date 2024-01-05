@@ -12,6 +12,7 @@ import { AdminNotifySearchResultComponent } from './admin-notify-search-result/a
 import {
   AdminNotifyOutgoingComponent
 } from './admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component';
+import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal/admin-notify-detail-modal.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {
     AdminNotifyMetricsComponent,
     AdminNotifyIncomingComponent,
     AdminNotifyOutgoingComponent,
-    AdminNotifySearchResultComponent
+    AdminNotifySearchResultComponent,
+    AdminNotifyDetailModalComponent
   ]
 })
 export class AdminNotifyDashboardModule {

@@ -34,7 +34,7 @@ export const DEFAULT_THEME = '*';
  * - { level: 1, relevancy: 1 } is less relevant than { level: 2, relevancy: 0 }
  * - { level: 1, relevancy: 1 } is more relevant than null
  */
-class MatchRelevancy {
+export class MatchRelevancy {
   constructor(public match: any,
               public level: number,
               public relevancy: number) {

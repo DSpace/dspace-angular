@@ -27,10 +27,34 @@ export class AdminNotifyMessage extends DSpaceObject {
   coarNotifyType: string;
 
   /**
+   * The type of the activity
+   */
+  @autoserialize
+  activityStreamType: string;
+
+  /**
+   * The object the message reply to
+   */
+  @autoserialize
+  inReplyTo: string;
+
+  /**
+   * The attempts of the queue
+   */
+  @autoserialize
+  queueAttempts: number;
+
+  /**
+   * Timestamp of the last queue attempt
+   */
+  @autoserialize
+  queueLastStartTime: string;
+
+  /**
    * The type of the activity stream
    */
   @autoserialize
-  source: number;
+  origin: number;
 
   /**
    * The type of the activity stream
@@ -56,11 +80,6 @@ export class AdminNotifyMessage extends DSpaceObject {
   @autoserialize
   queueStatus: number;
 
-  /**
-   * The status of the queue
-   */
-  @autoserialize
-  indexableObject: AdminNotifyMessage;
 
   @deserialize
   _links: {
