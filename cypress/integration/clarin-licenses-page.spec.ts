@@ -17,7 +17,7 @@ describe('License Administration Page', () => {
     // Login as admin
     cy.loginViaForm(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
 
-    cy.visit('/licenses');
+    cy.visit('/licenses/manage-table');
 
     // <ds-clarin-license-table> tag must be loaded
     cy.get('ds-clarin-license-table').should('exist');

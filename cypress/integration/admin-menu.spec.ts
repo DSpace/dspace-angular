@@ -21,6 +21,6 @@ describe('Admin Menu Page', () => {
     cy.get('.sidebar-top-level-items a[href = "/handle-table"]').scrollIntoView().should('be.visible');
 
     // Check licenses redirect url in the <a> tag
-    cy.get('.sidebar-top-level-items a[href = "/licenses"]').scrollIntoView().should('be.visible');
+    cy.get('.sidebar-top-level-items a[href = "/licenses/manage-table"]').scrollIntoView().should('be.visible');
   });
 });

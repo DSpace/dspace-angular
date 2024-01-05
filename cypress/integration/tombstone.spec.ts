@@ -62,6 +62,9 @@ const TOMBSTONED_ITEM_MESSAGE = 'This item has been withdrawn';
 describe('Admin Tombstone  Page', () => {
   beforeEach(() => {
     cy.visit('/login');
+    // Cancel discojuice login - only if it is popped up
+    cy.wait(500);
+    cy.get('.discojuice_close').should('exist').click();
     // Login as admin
     cy.loginViaForm(TEST_ADMIN_USER, TEST_ADMIN_PASSWORD);
     cy.visit('/');
