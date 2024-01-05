@@ -17,7 +17,7 @@ docker pull $DSPACE_UI_IMAGE
 pushd ../..
 echo "====="
 docker compose --env-file $ENVFILE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml pull
-docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d --no-build --remove-orphans
+docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d --no-build
 popd
 
 # Create admin user
@@ -26,9 +26,9 @@ pushd ../..
 echo "====="
 #docker compose --env-file $ENVFILE -p $PROJECT -f docker/matomo-w-db.yml pull
 #docker compose --env-file $ENVFILE -p $PROJECT -f docker/matomo-w-db.yml up -d --no-build
-docker compose --env-file $ENVFILE -p $PROJECT -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en -o dataquest
-docker compose --env-file $ENVFILE -p $PROJECT -f docker/cli.yml run --rm dspace-cli user --add -m user@test.edu -g meno -s priezvisko -l en -p user -o dataquest
-docker compose --env-file $ENVFILE -p $PROJECT -f docker/cli.yml run --rm dspace-cli version
+docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en -o dataquest
+docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/cli.yml run --rm dspace-cli user --add -m user@test.edu -g meno -s priezvisko -l en -p user -o dataquest
+docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/cli.yml run --rm dspace-cli version
 
 echo "====="
 echo "Logs"
