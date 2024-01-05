@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal.component';
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 
 describe('AdminNotifyDetailModalComponent', () => {
   let component: AdminNotifyDetailModalComponent;
@@ -8,7 +9,8 @@ describe('AdminNotifyDetailModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminNotifyDetailModalComponent ]
+      declarations: [ AdminNotifyDetailModalComponent ],
+      providers: [NgbActiveModal]
     })
     .compileComponents();
 

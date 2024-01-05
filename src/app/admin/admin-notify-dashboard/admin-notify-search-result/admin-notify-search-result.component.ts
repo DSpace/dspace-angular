@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
+import { AdminNotifyMessage, QueueStatusMap } from '../models/admin-notify-message.model';
 import {
   tabulatableObjectsComponent
 } from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
@@ -12,6 +12,7 @@ import {
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
+import { objects } from "../../../shared/search/search-results/search-results.component.spec";
 
 @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
 @Component({
@@ -21,12 +22,7 @@ import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/ad
 })
 export class AdminNotifySearchResultComponent  extends TabulatableResultListElementsComponent<PaginatedList<AdminNotifySearchResult>, AdminNotifySearchResult> implements OnInit{
     public notifyMessages: AdminNotifyMessage[];
-
-    private queueStatusMap = {
-      QUEUE_STATUS_PROCESSED: 'Processed',
-      QUEUE_STATUS_FAILED: 'Failed',
-      QUEUE_STATUS_UNMAPPED_ACTION: 'Unmapped action',
-    };
+    public reprocessStatus = QueueStatusMap.QUEUE_STATUS_QUEUED_FOR_RETRY;
 
     constructor(private modalService: NgbModal) {
       super();
@@ -36,10 +32,11 @@ export class AdminNotifySearchResultComponent  extends TabulatableResultListElem
    * Map messages on init for readable representation
    */
   ngOnInit() {
+    console.log(this.objects.page.splice(0,2))
     this.notifyMessages = this.objects.page.map(object => {
       const indexableObject = object.indexableObject;
       indexableObject.coarNotifyType = indexableObject.coarNotifyType.split(':')[1];
-      indexableObject.queueStatusLabel = this.queueStatusMap[indexableObject.queueStatusLabel];
+      indexableObject.queueStatusLabel = QueueStatusMap[indexableObject.queueStatusLabel];
       return indexableObject;
     });
   }

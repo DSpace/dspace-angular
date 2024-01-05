@@ -30,7 +30,7 @@
           <td>
             <div class="d-flex flex-column">
               <button class="btn mb-2 btn-dark" (click)="openDetailModal(message)">Detail</button>
-              <button class="btn btn-warning">Reprocess</button>
+              <button *ngIf="message.queueStatusLabel === reprocessStatus" class="btn btn-warning">Reprocess</button>
             </div>
           </td>
         </tr>

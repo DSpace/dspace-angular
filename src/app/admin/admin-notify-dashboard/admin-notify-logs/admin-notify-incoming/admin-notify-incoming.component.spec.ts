@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminNotifyIncomingComponent } from './admin-notify-incoming.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from "@angular/router";
 
 describe('AdminNotifyLogsComponent', () => {
   let component: AdminNotifyIncomingComponent;
@@ -10,7 +11,8 @@ describe('AdminNotifyLogsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyIncomingComponent ]
+      declarations: [ AdminNotifyIncomingComponent ],
+      providers: [ActivatedRoute]
     })
     .compileComponents();
 

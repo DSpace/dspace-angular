@@ -148,7 +148,7 @@ export class TabulatableObjectsLoaderComponent implements OnInit, OnChanges, OnD
 
   private instantiateComponent(objects: PaginatedList<ListableObject>, changes?: SimpleChanges): void {
     // objects need to have same render type so we access just the first in the page
-    const component = this.getComponent(objects.page[0].getRenderTypes(), this.viewMode, this.context);
+    const component = this.getComponent(objects.page[0]?.getRenderTypes(), this.viewMode, this.context);
 
     const viewContainerRef = this.tabulatableObjectsDirective.viewContainerRef;
     viewContainerRef.clear();

@@ -6,6 +6,15 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 
+export enum QueueStatusMap {
+  QUEUE_STATUS_PROCESSED = 'Processed',
+  QUEUE_STATUS_FAILED = 'Failed',
+  QUEUE_STATUS_UNMAPPED_ACTION = 'Unmapped action',
+  QUEUE_STATUS_QUEUED_FOR_RETRY = 'Queued for retry',
+  QUEUE_STATUS_PROCESSING = 'Processing',
+  QUEUE_STATUS_QUEUED = 'Queued',
+  QUEUE_STATUS_UNTRUSTED = 'Untrusted',
+};
 /**
  * A message that includes admin notify info
  */
