@@ -3573,6 +3573,20 @@
 
   "notify-message-result.reprocess": "Reprocess",
 
+  "notify-queue-status.processed": "Processed",
+
+  "notify-queue-status.failed": "Failed",
+
+  "notify-queue-status.queue_retry": "Queued for retry",
+
+  "notify-queue-status.unmapped_action": "Unmapped action",
+
+  "notify-queue-status.processing": "Processing",
+
+  "notify-queue-status.queued": "Queued",
+
+  "notify-queue-status.untrusted": "Untrusted",
+
   "orgunit.listelement.badge": "Repository Item",
 
   "orgunit.listelement.no-title": "Untitled",

@@ -8,10 +8,10 @@ import {
 } from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   AdminNotifyIncomingComponent
-} from "./admin-notify-logs/admin-notify-incoming/admin-notify-incoming.component";
+} from './admin-notify-logs/admin-notify-incoming/admin-notify-incoming.component';
 import {
   AdminNotifyOutgoingComponent
-} from "./admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component";
+} from './admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component';
 
 @NgModule({
   imports: [

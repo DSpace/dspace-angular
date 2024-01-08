@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { Context } from '../../../../core/shared/context.model';
-import { SearchConfigurationService } from "../../../../core/shared/search/search-configuration.service";
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 
 @Component({

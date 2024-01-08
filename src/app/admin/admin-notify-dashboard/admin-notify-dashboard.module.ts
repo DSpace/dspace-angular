@@ -14,8 +14,8 @@ import {
 import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal/admin-notify-detail-modal.component';
 import {
   AdminNotifySearchResultComponent
-} from "./admin-notify-search-result/admin-notify-search-result.component";
-import { AdminNotifyMessagesService } from "./services/admin-notify-messages.service";
+} from './admin-notify-search-result/admin-notify-search-result.component';
+import { AdminNotifyMessagesService } from './services/admin-notify-messages.service';
 
 
 @NgModule({

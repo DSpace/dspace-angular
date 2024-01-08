@@ -13,21 +13,21 @@
       <tbody>
         <tr *ngFor="let message of (messagesSubject$ | async)">
           <td>
-            <div>{{message.queueTimeout}}</div>
+            <div>{{ message.queueTimeout }}</div>
           </td>
           <td>
-            <div *ngIf="isInbound">{{message.context}}</div>
-            <div *ngIf="!isInbound">{{message.object}}</div>
+            <div *ngIf="isInbound">{{ message.context }}</div>
+            <div *ngIf="!isInbound">{{ message.object }}</div>
           </td>
           <td>
-            <div *ngIf="isInbound">{{message.origin}}</div>
-            <div *ngIf="!isInbound">{{message.target}}</div>
+            <div *ngIf="isInbound">{{ message.origin }}</div>
+            <div *ngIf="!isInbound">{{ message.target }}</div>
           </td>
           <td>
-            <div>{{message.coarNotifyType}}</div>
+            <div>{{ message.coarNotifyType }}</div>
           </td>
           <td>
-            <div>{{message.queueStatusLabel}}</div>
+            <div>{{ message.queueStatusLabel | translate}}</div>
           </td>
           <td>
             <div class="d-flex flex-column">

@@ -64,7 +64,6 @@ export class SearchNavbarComponent {
     const queryParams = Object.assign({}, data);
     const linkToNavigateTo = [this.searchService.getSearchLink().replace('/', '')];
     this.searchForm.reset();
-
     this.router.navigate(linkToNavigateTo, {
       queryParams: queryParams,
       queryParamsHandling: 'merge'

@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';

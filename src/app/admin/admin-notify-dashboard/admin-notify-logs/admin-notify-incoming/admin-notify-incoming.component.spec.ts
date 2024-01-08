@@ -2,18 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminNotifyIncomingComponent } from './admin-notify-incoming.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute } from "@angular/router";
-import { MockActivatedRoute } from "../../../../shared/mocks/active-router.mock";
-import { provideMockStore } from "@ngrx/store/testing";
-import { HALEndpointService } from "../../../../core/shared/hal-endpoint.service";
-import { SEARCH_CONFIG_SERVICE } from "../../../../my-dspace-page/my-dspace-page.component";
-import { FILTER_CONFIG, SearchFilterService } from "../../../../core/shared/search/search-filter.service";
-import { RouteService } from "../../../../core/services/route.service";
-import { routeServiceStub } from "../../../../shared/testing/route-service.stub";
-import { RequestService } from "../../../../core/data/request.service";
-import { RemoteDataBuildService } from "../../../../core/cache/builders/remote-data-build.service";
-import { getMockRemoteDataBuildService } from "../../../../shared/mocks/remote-data-build.service.mock";
-import { SearchConfigurationService } from "../../../../core/shared/search/search-configuration.service";
+import { ActivatedRoute } from '@angular/router';
+import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
+import { provideMockStore } from '@ngrx/store/testing';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { RouteService } from '../../../../core/services/route.service';
+import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
+import { RequestService } from '../../../../core/data/request.service';
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
+import { getMockRemoteDataBuildService } from '../../../../shared/mocks/remote-data-build.service.mock';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('AdminNotifyIncomingComponent', () => {
   let component: AdminNotifyIncomingComponent;

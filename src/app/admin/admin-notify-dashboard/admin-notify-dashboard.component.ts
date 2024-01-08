@@ -1,4 +1,4 @@
-import { Component, InjectionToken, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../core/shared/search/search.service';
 import { environment } from '../../../environments/environment';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -12,7 +12,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Router } from '@angular/router';
-import { SearchConfigurationService } from "../../core/shared/search/search-configuration.service";
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 
 
 @Component({

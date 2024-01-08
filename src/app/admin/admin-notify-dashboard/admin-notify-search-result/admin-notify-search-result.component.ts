@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
@@ -12,14 +12,10 @@ import {
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { LdnServicesService } from "../../admin-ldn-services/ldn-services-data/ldn-services-data.service";
-import { BehaviorSubject, from, Observable, of, scan, Subscription, switchMap } from "rxjs";
-import { combineLatest, filter, map, mergeMap, tap } from "rxjs/operators";
-import { getAllSucceededRemoteDataPayload } from "../../../core/shared/operators";
-import { ItemDataService } from "../../../core/data/item-data.service";
-import { AdminNotifyMessagesService } from "../services/admin-notify-messages.service";
-import { SearchConfigurationService } from "../../../core/shared/search/search-configuration.service";
-import { SEARCH_CONFIG_SERVICE } from "../../../my-dspace-page/my-dspace-page.component";
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 
 @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
 @Component({
@@ -55,7 +51,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    * Map messages on init for readable representation
    */
   ngOnInit() {
-    this.mapDetailsToMessages()
+    this.mapDetailsToMessages();
     this.subs.push(this.searchConfigService.getCurrentConfiguration('')
       .subscribe(configuration => {
         this.isInbound = configuration === 'NOTIFY.incoming';
@@ -102,10 +98,10 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     this.subs.push(
       this.adminNotifyMessagesService.reprocessMessage(message, this.messagesSubject$)
         .subscribe(response => {
-          this.messagesSubject$.next(response)
+          this.messagesSubject$.next(response);
         }
       )
-    )
+    );
   }
 
 
@@ -116,7 +112,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
   private mapDetailsToMessages() {
     this.subs.push(this.adminNotifyMessagesService.getDetailedMessages(this.objects?.page.map(pageResult => pageResult.indexableObject))
       .subscribe(response => {
-        this.messagesSubject$.next(response)
-    }))
+        this.messagesSubject$.next(response);
+    }));
   }
 }
