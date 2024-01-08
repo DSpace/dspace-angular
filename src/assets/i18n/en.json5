@@ -3529,7 +3529,51 @@
 
   "sorting.queue_attempts.ASC": "Queue attempted Ascending",
 
-  "orgunit.listelement.badge": "Organizational Unit",
+  "type.notify-detail-modal": "Type",
+
+  "id.notify-detail-modal": "Id",
+
+  "coarNotifyType.notify-detail-modal": "Coar Notify type",
+
+  "activityStreamType.notify-detail-modal": "Activity stream type",
+
+  "inReplyTo.notify-detail-modal": "In reply to",
+
+  "object.notify-detail-modal": "Repository Item",
+
+  "context.notify-detail-modal": "Repository Item",
+
+  "queueAttempts.notify-detail-modal": "Queue attempts",
+
+  "queueLastStartTime.notify-detail-modal": "Queue last started",
+
+  "origin.notify-detail-modal": "LDN Service",
+
+  "target.notify-detail-modal": "LDN Service",
+
+  "queueStatusLabel.notify-detail-modal": "Queue status",
+
+  "queueTimeout.notify-detail-modal": "Queue timeout",
+
+  "notify-message-modal.title": "Message Detail",
+
+  "notify-message-result.timestamp": "Timestamp",
+
+  "notify-message-result.repositoryItem": "Repository Item",
+
+  "notify-message-result.ldnService": "LDN Service",
+
+  "notify-message-result.type": "Type",
+
+  "notify-message-result.status": "Status",
+
+  "notify-message-result.action": "Action",
+
+  "notify-message-result.detail": "Detail",
+
+  "notify-message-result.reprocess": "Reprocess",
+
+  "orgunit.listelement.badge": "Repository Item",
 
   "orgunit.listelement.no-title": "Untitled",
 

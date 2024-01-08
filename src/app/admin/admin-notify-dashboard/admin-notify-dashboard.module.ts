@@ -8,14 +8,13 @@ import { AdminNotifyIncomingComponent } from './admin-notify-logs/admin-notify-i
 import { SharedModule } from '../../shared/shared.module';
 import { SearchModule } from '../../shared/search/search.module';
 import { SearchPageModule } from '../../search-page/search-page.module';
-import { AdminNotifyIncomingSearchResultComponent } from './admin-notify-search-result/incoming/admin-notify-incoming-search-result.component';
 import {
   AdminNotifyOutgoingComponent
 } from './admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component';
 import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal/admin-notify-detail-modal.component';
 import {
-  AdminNotifyOutgoingSearchResultComponent
-} from "./admin-notify-search-result/outgoing/admin-notify-outgoing-search-result.component";
+  AdminNotifySearchResultComponent
+} from "./admin-notify-search-result/admin-notify-search-result.component";
 import { AdminNotifyMessagesService } from "./services/admin-notify-messages.service";
 
 
@@ -36,8 +35,7 @@ import { AdminNotifyMessagesService } from "./services/admin-notify-messages.ser
     AdminNotifyMetricsComponent,
     AdminNotifyIncomingComponent,
     AdminNotifyOutgoingComponent,
-    AdminNotifyIncomingSearchResultComponent,
-    AdminNotifyOutgoingSearchResultComponent,
+    AdminNotifySearchResultComponent,
     AdminNotifyDetailModalComponent
   ]
 })

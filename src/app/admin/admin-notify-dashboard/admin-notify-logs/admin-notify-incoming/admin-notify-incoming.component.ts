@@ -16,7 +16,7 @@ import { SearchConfigurationService } from "../../../../core/shared/search/searc
   ]
 })
 export class AdminNotifyIncomingComponent {
-  protected readonly context = Context.CoarNotifyIncoming;
+  protected readonly context = Context.CoarNotify;
   constructor(@Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
   }
 }

@@ -1,0 +1,43 @@
+  <div class="table-responsive mt-2">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr class="text-nowrap">
+          <th scope="col">{{ 'notify-message-result.timestamp' | translate}}</th>
+          <th scope="col">{{'notify-message-result.repositoryItem' | translate}}</th>
+          <th scope="col">{{ 'notify-message-result.ldnService' | translate}}</th>
+          <th scope="col">{{ 'notify-message-result.type' | translate }}</th>
+          <th scope="col">{{ 'notify-message-result.status' | translate  }}</th>
+          <th scope="col">{{ 'notify-message-result.action' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let message of (messagesSubject$ | async)">
+          <td>
+            <div>{{message.queueTimeout}}</div>
+          </td>
+          <td>
+            <div *ngIf="isInbound">{{message.context}}</div>
+            <div *ngIf="!isInbound">{{message.object}}</div>
+          </td>
+          <td>
+            <div *ngIf="isInbound">{{message.origin}}</div>
+            <div *ngIf="!isInbound">{{message.target}}</div>
+          </td>
+          <td>
+            <div>{{message.coarNotifyType}}</div>
+          </td>
+          <td>
+            <div>{{message.queueStatusLabel}}</div>
+          </td>
+          <td>
+            <div class="d-flex flex-column">
+              <button class="btn mb-2 btn-dark" (click)="openDetailModal(message)">{{ 'notify-message-result.detail' | translate }}</button>
+              <button *ngIf="message.queueStatusLabel === reprocessStatus" (click)="reprocessMessage(message)" class="btn btn-warning">
+                {{ 'notify-message-result.reprocess' | translate }}
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

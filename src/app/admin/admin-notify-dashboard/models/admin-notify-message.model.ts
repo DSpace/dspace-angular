@@ -1,10 +1,11 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import { Observable } from "rxjs";
 
 export enum QueueStatusMap {
   QUEUE_STATUS_PROCESSED = 'Processed',
@@ -106,6 +107,25 @@ export class AdminNotifyMessage extends DSpaceObject {
    */
   @autoserialize
   queueStatus: number;
+
+  /**
+   * Thumbnail link used when browsing items with showThumbs config enabled.
+   */
+  @autoserialize
+  thumbnail: string;
+
+  /**
+   * The observable pointing to the item itself
+   */
+  @autoserialize
+  item: Observable<AdminNotifyMessage>;
+
+  /**
+   * The observable pointing to the access status of the item
+   */
+  @autoserialize
+  accessStatus: Observable<AdminNotifyMessage>;
+
 
 
   @deserialize

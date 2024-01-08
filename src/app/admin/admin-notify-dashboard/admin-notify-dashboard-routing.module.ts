@@ -34,11 +34,27 @@ import {
         path: 'inbound',
         component: AdminNotifyIncomingComponent,
         canActivate: [SiteAdministratorGuard],
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+        },
+        data: {
+          title: 'admin.notify.dashboard.page.title',
+          breadcrumbKey: 'admin.notify.dashboard',
+          showBreadcrumbsFluid: false
+        },
       },
       {
         path: 'outbound',
         component: AdminNotifyOutgoingComponent,
         canActivate: [SiteAdministratorGuard],
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+        },
+        data: {
+          title: 'admin.notify.dashboard.page.title',
+          breadcrumbKey: 'admin.notify.dashboard',
+          showBreadcrumbsFluid: false
+        },
       }
     ])
   ],

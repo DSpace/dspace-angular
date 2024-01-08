@@ -40,6 +40,5 @@ export enum Context {
 
   Bitstream = 'bitstream',
 
-  CoarNotifyIncoming = 'coarNotifyIncoming',
-  CoarNotifyOutgoing = 'coarNotifyOutgoing',
+  CoarNotify = 'coarNotify',
 }
