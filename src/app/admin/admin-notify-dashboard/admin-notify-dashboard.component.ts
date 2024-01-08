@@ -10,8 +10,6 @@ import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { AdminNotifyMetricsBox, AdminNotifyMetricsRow } from './admin-notify-metrics/admin-notify-metrics.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { Router } from '@angular/router';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 
 
@@ -35,8 +33,8 @@ export class AdminNotifyDashboardComponent implements OnInit{
     id: 'single-result-options',
     pageSize: 1
   });
-  constructor(private searchService: SearchService,
-              private router: Router) {}
+  constructor(private searchService: SearchService) {
+  }
 
   ngOnInit() {
     const mertricsRowsConfigurations = this.metricsConfig
@@ -89,13 +87,6 @@ export class AdminNotifyDashboardComponent implements OnInit{
           boxes: row.boxes.map(rowBox =>boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config))
         };
     });
-  }
-
-  /**
-   * Activate Table view mode for search result rendering
-   */
-  activateTableMode() {
-    this.searchService.setViewMode(ViewMode.Table, this.getSearchLinkParts());
   }
 
   /**
