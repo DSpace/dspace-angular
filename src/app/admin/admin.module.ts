@@ -34,7 +34,7 @@ const ENTRY_COMPONENTS = [
   declarations: [
     AdminCurationTasksComponent,
     MetadataImportPageComponent,
-    BatchImportPageComponent,
+    BatchImportPageComponent
   ]
 })
 export class AdminModule {

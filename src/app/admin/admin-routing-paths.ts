@@ -15,6 +15,7 @@ export function getRegistriesModuleRoute() {
 export function getNotificationsModuleRoute() {
   return new URLCombiner(getAdminModuleRoute(), NOTIFICATIONS_MODULE_PATH).toString();
 }
+
 export function getLdnServicesModuleRoute() {
   return new URLCombiner(getAdminModuleRoute(), LDN_PATH).toString();
 }

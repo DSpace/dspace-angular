@@ -71,7 +71,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   constructor(
     private searchService: SearchService,
-    protected filterService: SearchFilterService,
+    private filterService: SearchFilterService,
     private router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
   }

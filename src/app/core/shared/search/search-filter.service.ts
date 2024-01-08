@@ -34,8 +34,8 @@ export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new Injectio
 @Injectable()
 export class SearchFilterService {
 
-  constructor(protected store: Store<SearchFiltersState>,
-              protected routeService: RouteService) {
+  constructor(private store: Store<SearchFiltersState>,
+              private routeService: RouteService) {
   }
 
   /**
