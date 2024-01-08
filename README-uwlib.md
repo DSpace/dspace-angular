@@ -9,6 +9,7 @@
  - README-uwlib.md
 
 Make changes on itsds-dspace_7.x branch
+![UW libraries ITS workflow](/docs/uw-workflow.png)
 
 ## References
  - [Installation](https://wiki.lyrasis.org/display/DSDOC7x/Installing+DSpace#InstallingDSpace-InstallingtheFrontend(UserInterface))
