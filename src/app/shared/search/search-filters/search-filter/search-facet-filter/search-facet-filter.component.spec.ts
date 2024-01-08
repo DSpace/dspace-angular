@@ -24,7 +24,6 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { FILTER_SEARCH } from "../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -101,7 +100,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         {
-          provide: FILTER_SEARCH, useValue: {
+          provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => observableOf(selectedValues),
             isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
             getPage: (paramName: string) => page,

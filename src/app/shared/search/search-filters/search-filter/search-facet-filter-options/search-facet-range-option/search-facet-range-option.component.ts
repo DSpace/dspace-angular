@@ -14,7 +14,6 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { FILTER_SEARCH } from '../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 const rangeDelimiter = '-';
 
@@ -65,7 +64,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   searchLink: string;
 
   constructor(protected searchService: SearchService,
-              @Inject(FILTER_SEARCH) protected filterService: SearchFilterService,
+              protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService

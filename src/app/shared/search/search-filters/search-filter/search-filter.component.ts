@@ -11,7 +11,6 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
-import { FILTER_SEARCH } from '../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 @Component({
   selector: 'ds-search-filter',
@@ -72,7 +71,7 @@ export class SearchFilterComponent implements OnInit {
   private readonly sequenceId: number;
 
   constructor(
-    @Inject(FILTER_SEARCH) private filterService: SearchFilterService,
+    private filterService: SearchFilterService,
     private searchService: SearchService,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
     private sequenceService: SequenceService,

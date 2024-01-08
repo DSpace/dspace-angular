@@ -10,7 +10,6 @@ import { FacetValue } from '../../../../models/facet-value.model';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { FILTER_SEARCH } from '../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -58,7 +57,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   searchLink: string;
 
   constructor(protected searchService: SearchService,
-              @Inject(FILTER_SEARCH) protected filterService: SearchFilterService,
+              protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService

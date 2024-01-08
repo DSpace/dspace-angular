@@ -198,11 +198,6 @@ import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-
 import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { NotifyRequestsStatusDataService } from './data/notify-services-status-data.service';
 import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
-import {
-  AdminNotifyFacetResponseParsingService
-} from '../admin/admin-notify-dashboard/config/admin-notify-facet-response-parsing.service';
-import { FILTER_SEARCH } from '../admin/admin-notify-dashboard/admin-notify-dashboard.component';
-import { AdminNotifySearchFilterService } from '../admin/admin-notify-dashboard/config/admin-notify-filter-service';
 
 
 /**
@@ -235,10 +230,6 @@ const PROVIDERS = [
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
   { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
-  {
-    provide: FILTER_SEARCH,
-    useClass: SearchFilterService
-  },
   EPersonDataService,
   LinkHeadService,
   HALEndpointService,
@@ -254,7 +245,6 @@ const PROVIDERS = [
   EndpointMapResponseParsingService,
   FacetValueResponseParsingService,
   FacetConfigResponseParsingService,
-  AdminNotifyFacetResponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   MyDSpaceResponseParsingService,
@@ -294,7 +284,6 @@ const PROVIDERS = [
   SearchService,
   SidebarService,
   SearchFilterService,
-  AdminNotifySearchFilterService,
   SearchConfigurationService,
   SelectableListService,
   RelationshipTypeDataService,

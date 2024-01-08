@@ -3,35 +3,19 @@
     <div class="col-12">
       <h2 class="border-bottom pb-2">{{'admin-notify-dashboard.title'| translate}}</h2>
       <div>
-        <ul ngbNav #nav="ngbNav" [activeId]="'metrics'" class="nav-tabs">
-          <li [ngbNavItem]="'metrics'">
-            <a ngbNavLink>{{'admin-notify-dashboard.metrics' | translate}}</a>
-            <ng-template ngbNavContent>
-              <div id="metrics">
-                <ds-admin-notify-metrics *ngIf="(notifyMetricsRows$ | async)?.length" [boxesConfig]="notifyMetricsRows$ | async"></ds-admin-notify-metrics>
-              </div>
-            </ng-template>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">{{'admin-notify-dashboard.metrics' | translate}}</a>
           </li>
-          <li [ngbNavItem]="'inbound'" (click)="activateTableMode()">
-            <a ngbNavLink>{{'admin.notify.dashboard.inbound' | translate}}</a>
-            <ng-template ngbNavContent>
-              <div id="inbound">
-                <div class="col-12 text-left h4 my-4">{{'admin.notify.dashboard.inbound' | translate}}</div>
-                <ds-admin-notify-incoming></ds-admin-notify-incoming>
-              </div>
-            </ng-template>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'inbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.inbound' | translate}}</a>
           </li>
-          <li [ngbNavItem]="'outbound'" (click)="activateTableMode()">
-            <a ngbNavLink>{{'admin.notify.dashboard.outbound'| translate}}</a>
-            <ng-template ngbNavContent>
-              <div id="outbound">
-                <div class="col-12 text-left h4 my-4">{{'admin.notify.dashboard.outbound' | translate}}</div>
-                <ds-admin-notify-outgoing></ds-admin-notify-outgoing>
-              </div>
-            </ng-template>
-          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'outbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.outbound' | translate}}</a>
         </ul>
-        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        <div class="mt-2">
+          <ds-admin-notify-metrics *ngIf="(notifyMetricsRows$ | async)?.length" [boxesConfig]="notifyMetricsRows$ | async"></ds-admin-notify-metrics>
+        </div>
       </div>
     </div>
   </div>

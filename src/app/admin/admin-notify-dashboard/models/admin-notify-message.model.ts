@@ -30,6 +30,12 @@ export class AdminNotifyMessage extends DSpaceObject {
   type = ADMIN_NOTIFY_MESSAGE;
 
   /**
+   * The id of the message
+   */
+  @autoserialize
+  id: string;
+
+  /**
    * The type of the notification
    */
   @autoserialize
@@ -48,6 +54,18 @@ export class AdminNotifyMessage extends DSpaceObject {
   inReplyTo: string;
 
   /**
+   * The object the message relates to
+   */
+  @autoserialize
+  object: string;
+
+  /**
+   * The context of the message
+   */
+  @autoserialize
+  context: string;
+
+  /**
    * The attempts of the queue
    */
   @autoserialize
@@ -63,13 +81,13 @@ export class AdminNotifyMessage extends DSpaceObject {
    * The type of the activity stream
    */
   @autoserialize
-  origin: number;
+  origin: number | string;
 
   /**
    * The type of the activity stream
    */
   @autoserialize
-  target: number;
+  target: number | string;
 
   /**
    * The label for the status of the queue

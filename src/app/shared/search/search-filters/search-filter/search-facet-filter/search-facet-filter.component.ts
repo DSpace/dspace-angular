@@ -35,7 +35,6 @@ import { currentPath } from '../../../../utils/route.utils';
 import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 import { FacetValues } from '../../../models/facet-values.model';
-import { FILTER_SEARCH } from '../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -99,7 +98,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   currentUrl: string;
 
   constructor(protected searchService: SearchService,
-              @Inject(FILTER_SEARCH) protected filterService: SearchFilterService,
+              protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,

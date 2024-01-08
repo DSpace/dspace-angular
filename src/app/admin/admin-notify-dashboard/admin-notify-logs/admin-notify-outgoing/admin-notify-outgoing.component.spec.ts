@@ -7,15 +7,13 @@ import { MockActivatedRoute } from "../../../../shared/mocks/active-router.mock"
 import { provideMockStore } from "@ngrx/store/testing";
 import { HALEndpointService } from "../../../../core/shared/hal-endpoint.service";
 import { SEARCH_CONFIG_SERVICE } from "../../../../my-dspace-page/my-dspace-page.component";
-import { AdminNotifySearchConfigurationService } from "../../config/admin-notify-search-configuration.service";
-import { FILTER_SEARCH } from "../../admin-notify-dashboard.component";
-import { AdminNotifySearchFilterService } from "../../config/admin-notify-filter-service";
 import { FILTER_CONFIG } from "../../../../core/shared/search/search-filter.service";
 import { RouteService } from "../../../../core/services/route.service";
 import { routeServiceStub } from "../../../../shared/testing/route-service.stub";
 import { RequestService } from "../../../../core/data/request.service";
 import { getMockRemoteDataBuildService } from "../../../../shared/mocks/remote-data-build.service.mock";
 import { RemoteDataBuildService } from "../../../../core/cache/builders/remote-data-build.service";
+import { SearchConfigurationService } from "../../../../core/shared/search/search-configuration.service";
 
 describe('AdminNotifyOutgoingComponent', () => {
   let component: AdminNotifyOutgoingComponent;
@@ -38,9 +36,7 @@ describe('AdminNotifyOutgoingComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ AdminNotifyOutgoingComponent ],
       providers: [
-        { provide: SEARCH_CONFIG_SERVICE, useValue: AdminNotifySearchConfigurationService },
-        { provide: FILTER_SEARCH, useValue: AdminNotifySearchFilterService },
-        { provide: FILTER_CONFIG, useValue: AdminNotifySearchConfigurationService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: SearchConfigurationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: HALEndpointService, useValue: halService },

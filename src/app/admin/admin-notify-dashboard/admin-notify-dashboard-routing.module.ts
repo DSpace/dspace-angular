@@ -6,6 +6,12 @@ import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.componen
 import {
   SiteAdministratorGuard
 } from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  AdminNotifyIncomingComponent
+} from "./admin-notify-logs/admin-notify-incoming/admin-notify-incoming.component";
+import {
+  AdminNotifyOutgoingComponent
+} from "./admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component";
 
 @NgModule({
   imports: [
@@ -22,8 +28,18 @@ import {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
           showBreadcrumbsFluid: false
-        }
+        },
       },
+      {
+        path: 'inbound',
+        component: AdminNotifyIncomingComponent,
+        canActivate: [SiteAdministratorGuard],
+      },
+      {
+        path: 'outbound',
+        component: AdminNotifyOutgoingComponent,
+        canActivate: [SiteAdministratorGuard],
+      }
     ])
   ],
   providers: [

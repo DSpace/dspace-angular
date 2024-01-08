@@ -8,11 +8,15 @@ import { AdminNotifyIncomingComponent } from './admin-notify-logs/admin-notify-i
 import { SharedModule } from '../../shared/shared.module';
 import { SearchModule } from '../../shared/search/search.module';
 import { SearchPageModule } from '../../search-page/search-page.module';
-import { AdminNotifySearchResultComponent } from './admin-notify-search-result/admin-notify-search-result.component';
+import { AdminNotifyIncomingSearchResultComponent } from './admin-notify-search-result/incoming/admin-notify-incoming-search-result.component';
 import {
   AdminNotifyOutgoingComponent
 } from './admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component';
 import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal/admin-notify-detail-modal.component';
+import {
+  AdminNotifyOutgoingSearchResultComponent
+} from "./admin-notify-search-result/outgoing/admin-notify-outgoing-search-result.component";
+import { AdminNotifyMessagesService } from "./services/admin-notify-messages.service";
 
 
 @NgModule({
@@ -24,12 +28,16 @@ import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal/adm
     SearchModule,
     SearchPageModule,
   ],
+  providers: [
+    AdminNotifyMessagesService
+  ],
   declarations: [
     AdminNotifyDashboardComponent,
     AdminNotifyMetricsComponent,
     AdminNotifyIncomingComponent,
     AdminNotifyOutgoingComponent,
-    AdminNotifySearchResultComponent,
+    AdminNotifyIncomingSearchResultComponent,
+    AdminNotifyOutgoingSearchResultComponent,
     AdminNotifyDetailModalComponent
   ]
 })

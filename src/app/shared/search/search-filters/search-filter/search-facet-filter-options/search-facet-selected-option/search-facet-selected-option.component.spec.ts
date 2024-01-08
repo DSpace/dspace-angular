@@ -17,7 +17,6 @@ import { SearchFacetSelectedOptionComponent } from './search-facet-selected-opti
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { FILTER_SEARCH } from "../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchFacetSelectedOptionComponent', () => {
   let comp: SearchFacetSelectedOptionComponent;
@@ -127,7 +126,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
           }
         },
         {
-          provide: FILTER_SEARCH, useValue: {
+          provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => selectedValues,
             isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
             getPage: (paramName: string) => page,

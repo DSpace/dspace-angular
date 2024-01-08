@@ -23,7 +23,6 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FILTER_SEARCH } from "../../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component";
 
 describe('SearchFacetRangeOptionComponent', () => {
   let comp: SearchFacetRangeOptionComponent;
@@ -77,7 +76,7 @@ describe('SearchFacetRangeOptionComponent', () => {
           }
         },
         {
-          provide: FILTER_SEARCH, useValue: {
+          provide: SearchFilterService, useValue: {
             isFilterActiveWithValue: (paramName: string, filterValue: string) => observableOf(true),
             getPage: (paramName: string) => page,
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */

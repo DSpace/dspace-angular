@@ -21,7 +21,6 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
 import { yearFromString } from 'src/app/shared/date.util';
-import { FILTER_SEARCH } from '../../../../../admin/admin-notify-dashboard/admin-notify-dashboard.component';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL
@@ -93,7 +92,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   keyboardControl: boolean;
 
   constructor(protected searchService: SearchService,
-              @Inject(FILTER_SEARCH) protected filterService: SearchFilterService,
+              protected filterService: SearchFilterService,
               protected router: Router,
               protected rdbs: RemoteDataBuildService,
               private translateService: TranslateService,
