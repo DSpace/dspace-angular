@@ -52,7 +52,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   @ViewChild('resetFormModal', {static: true}) resetFormModal: TemplateRef<any>;
 
   public inboundPatterns: string[] = notifyPatterns;
-  public outboundPatterns: string[] = notifyPatterns;
   public isNewService: boolean;
   public areControlsInitialized: boolean;
   itemfiltersRD$: Observable<RemoteData<PaginatedList<Itemfilter>>>;
@@ -66,21 +65,16 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   @Input() public ldnUrl: string;
   @Input() public score: number;
   @Input() public inboundPattern: string;
-  @Input() public outboundPattern: string;
   @Input() public constraint: string;
   @Input() public automatic: boolean;
   @Input() public headerKey: string;
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
   @Output() cancelForm: EventEmitter<any> = new EventEmitter();
   markedForDeletionInboundPattern: number[] = [];
-  markedForDeletionOutboundPattern: number[] = [];
-  selectedOutboundPatterns: string[];
   selectedInboundPatterns: string[];
   selectedInboundItemfilters: string[];
-  selectedOutboundItemfilters: string[];
   protected serviceId: string;
   private deletedInboundPatterns: number[] = [];
-  private deletedOutboundPatterns: number[] = [];
   private modalRef: any;
   private service: LdnService;
   private selectPatternDefaultLabeli18Key = 'ldn-service.form.label.placeholder.default-select';
@@ -106,7 +100,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       url: ['', Validators.required],
       ldnUrl: ['', Validators.required],
       score: ['', [Validators.required, Validators.pattern('^0*(\.[0-9]+)?$|^1(\.0+)?$')]], inboundPattern: [''],
-      outboundPattern: [''],
       constraintPattern: [''],
       enabled: [''],
       type: LDN_SERVICE.value,
@@ -120,7 +113,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       this.serviceId = params.serviceId;
       this.isNewService = segment[0].path === 'new';
       this.formModel.addControl('notifyServiceInboundPatterns', this.formBuilder.array([this.createInboundPatternFormGroup()]));
-      this.formModel.addControl('notifyServiceOutboundPatterns',  this.formBuilder.array([this.createOutboundPatternFormGroup()]));
       this.areControlsInitialized = true;
       if (this.serviceId && !this.isNewService) {
         this.fetchServiceData(this.serviceId);
@@ -154,14 +146,13 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
     const ldnUrl = this.formModel.get('ldnUrl').value;
 
     const hasInboundPattern = this.checkPatterns(this.formModel.get('notifyServiceInboundPatterns') as FormArray);
-    const hasOutboundPattern = this.checkPatterns(this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
 
     if (!name || !url || !ldnUrl || (!score && score !== 0) || this.formModel.get('score').invalid) {
       this.closeModal();
       return;
     }
 
-    if (!hasInboundPattern || !hasOutboundPattern) {
+    if (!hasInboundPattern) {
       this.notificationService.warning(this.translateService.get('ldn-service-notification.created.warning.title'));
       this.closeModal();
       return;
@@ -169,14 +160,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
 
 
     this.formModel.value.notifyServiceInboundPatterns = this.formModel.value.notifyServiceInboundPatterns.map((pattern: {
-      pattern: string;
-      patternLabel: string
-    }) => {
-      const {patternLabel, ...rest} = pattern;
-      return rest;
-    });
-
-    this.formModel.value.notifyServiceOutboundPatterns = this.formModel.value.notifyServiceOutboundPatterns.map((pattern: {
       pattern: string;
       patternLabel: string
     }) => {
@@ -242,8 +225,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
             type: this.service.type,
             enabled: this.service.enabled
           });
-          this.filterPatternObjectsAndPickLabel('notifyServiceInboundPatterns', false);
-          this.filterPatternObjectsAndPickLabel('notifyServiceOutboundPatterns', true);
+          this.filterPatternObjectsAndPickLabel('notifyServiceInboundPatterns');
         }
       },
     );
@@ -252,25 +234,16 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   /**
    * Filters pattern objects, initializes form groups, assigns labels, and adds them to the specified form array so the correct string is shown in the dropdown..
    * @param formArrayName - The name of the form array to be populated
-   * @param isOutbound - A boolean indicating whether the patterns are outbound (true) or inbound (false)
    */
-  filterPatternObjectsAndPickLabel(formArrayName: string, isOutbound: boolean) {
+  filterPatternObjectsAndPickLabel(formArrayName: string) {
     const PatternsArray = this.formModel.get(formArrayName) as FormArray;
     PatternsArray.clear();
     let servicesToUse;
-    if (isOutbound) {
-      servicesToUse = this.service.notifyServiceOutboundPatterns;
-    } else {
       servicesToUse = this.service.notifyServiceInboundPatterns;
-    }
 
     servicesToUse.forEach((patternObj: NotifyServicePattern) => {
       let patternFormGroup;
-      if (isOutbound) {
-        patternFormGroup = this.initializeOutboundPatternFormGroup();
-      } else {
-        patternFormGroup = this.initializeInboundPatternFormGroup();
-      }
+      patternFormGroup = this.initializeInboundPatternFormGroup();
       const newPatternObjWithLabel = Object.assign(new NotifyServicePattern(), {
         ...patternObj,
         patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternObj?.pattern + '.label')
@@ -298,21 +271,10 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
     this.createReplaceOperation(patchOperations, 'score', '/score');
 
     this.handlePatterns(patchOperations, 'notifyServiceInboundPatterns');
-    this.handlePatterns(patchOperations, 'notifyServiceOutboundPatterns');
-
-
     this.deletedInboundPatterns.forEach(index => {
       const removeOperation: Operation = {
         op: 'remove',
         path: `notifyServiceInboundPatterns[${index}]`
-      };
-      patchOperations.push(removeOperation);
-    });
-
-    this.deletedOutboundPatterns.forEach(index => {
-      const removeOperation: Operation = {
-        op: 'remove',
-        path: `notifyServiceOutboundPatterns[${index}]`
       };
       patchOperations.push(removeOperation);
     });
@@ -333,36 +295,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   addInboundPattern() {
     const notifyServiceInboundPatternsArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
     notifyServiceInboundPatternsArray.push(this.createInboundPatternFormGroup());
-  }
-
-  /**
-   * Adds a new outbound pattern form group to the array of outbound patterns in the form
-   */
-  addOutboundPattern() {
-    const notifyServiceOutboundPatternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-    notifyServiceOutboundPatternsArray.push(this.createOutboundPatternFormGroup());
-  }
-
-  /**
-   * Selects an outbound pattern by updating its values based on the provided pattern value and index
-   * @param patternValue - The selected pattern value
-   * @param index - The index of the outbound pattern in the array
-   */
-  selectOutboundPattern(patternValue: string, index: number): void {
-    const patternArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
-    patternArray.controls[index].patchValue({pattern: patternValue});
-    patternArray.controls[index].patchValue({patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternValue + '.label')});
-
-  }
-
-  /**
-   * Selects an outbound item filter by updating its value based on the provided filter value and index
-   * @param filterValue - The selected filter value
-   * @param index - The index of the inbound pattern in the array
-   */
-  selectOutboundItemFilter(filterValue: string, index: number) {
-    const filterArray = (this.formModel.get('notifyServiceOutboundPatterns') as FormArray);
-    filterArray.controls[index].patchValue({constraint: filterValue});
   }
 
   /**
@@ -450,7 +382,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   patchService() {
     this.deleteMarkedInboundPatterns();
-    this.deleteMarkedOutboundPatterns();
 
     const patchOperations = this.generatePatchOperations();
     this.formModel.markAllAsTouched();
@@ -460,17 +391,12 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const notifyServiceOutboundPatterns = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
     const notifyServiceInboundPatterns = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
     const deletedInboundPatternsLength = this.deletedInboundPatterns.length;
-    const deletedOutboundPatternsLength = this.deletedOutboundPatterns.length;
-    // If no inbound or outbound patterns are specified, close the modal and return
+    // If no inbound patterns are specified, close the modal and return
     // notify the user that no patterns are specified
-    if (
-      (notifyServiceOutboundPatterns.length === deletedOutboundPatternsLength ) ||
-      (notifyServiceInboundPatterns.length === deletedInboundPatternsLength)) {
+    if (notifyServiceInboundPatterns.length === deletedInboundPatternsLength) {
       this.notificationService.warning(this.translateService.get('ldn-service-notification.created.warning.title'));
-      this.deletedOutboundPatterns = [];
       this.deletedInboundPatterns = [];
       this.closeModal();
       return;
@@ -523,27 +449,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Marks the specified outbound pattern for deletion
-   * @param index - The index of the outbound pattern in the array
-   */
-  markForOutboundPatternDeletion(index: number) {
-    if (!this.markedForDeletionOutboundPattern.includes(index)) {
-      this.markedForDeletionOutboundPattern.push(index);
-    }
-  }
-
-  /**
-   * Unmarks the specified outbound pattern for deletion
-   * @param index - The index of the outbound pattern in the array
-   */
-  unmarkForOutboundPatternDeletion(index: number) {
-    const i = this.markedForDeletionOutboundPattern.indexOf(index);
-    if (i !== -1) {
-      this.markedForDeletionOutboundPattern.splice(i, 1);
-    }
-  }
-
-  /**
    * Deletes marked inbound patterns from the form model
    */
   deleteMarkedInboundPatterns() {
@@ -563,29 +468,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
     }
 
     this.markedForDeletionInboundPattern = [];
-  }
-
-  /**
-   * Deletes marked outbound patterns from the form model
-   */
-  deleteMarkedOutboundPatterns() {
-    this.markedForDeletionOutboundPattern.sort((a, b) => b - a);
-    const patternsArray = this.formModel.get('notifyServiceOutboundPatterns') as FormArray;
-
-    for (const index of this.markedForDeletionOutboundPattern) {
-      if (index >= 0 && index < patternsArray.length) {
-        const patternGroup = patternsArray.at(index) as FormGroup;
-        const patternValue = patternGroup.value;
-        if (patternValue.isNew) {
-          patternsArray.removeAt(index);
-        } else {
-
-          this.deletedOutboundPatterns.push(index);
-        }
-      }
-    }
-
-    this.markedForDeletionOutboundPattern = [];
   }
 
   /**
@@ -646,25 +528,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Creates a form group for outbound patterns
-   * @returns The form group for outbound patterns
-   */
-  private createOutboundPatternFormGroup(): FormGroup {
-    const outBoundFormGroup = {
-      pattern: '',
-      patternLabel: this.translateService.instant(this.selectPatternDefaultLabeli18Key),
-      constraint: '',
-      isNew: true
-    };
-
-    if (this.isNewService) {
-      delete outBoundFormGroup.isNew;
-    }
-
-    return this.formBuilder.group(outBoundFormGroup);
-  }
-
-  /**
    * Creates a form group for inbound patterns
    * @returns The form group for inbound patterns
    */
@@ -682,18 +545,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
     }
 
     return this.formBuilder.group(inBoundFormGroup);
-  }
-
-  /**
-   * Initializes an existing form group for outbound patterns
-   * @returns The initialized form group for outbound patterns
-   */
-  private initializeOutboundPatternFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      pattern: '',
-      patternLabel: '',
-      constraint: '',
-    });
   }
 
   /**
