@@ -71,7 +71,7 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
         ) : of(message),
       ),
       mergeMap(message =>
-        message.context ? this.itemDataService.findById(message.context.toString()).pipe(
+        message.context ? this.itemDataService.findById(message.context).pipe(
           getAllSucceededRemoteDataPayload(),
           map(detail => ({...message, context: detail.name}))
         ) : of(message),

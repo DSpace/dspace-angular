@@ -27,7 +27,6 @@ import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator'
 @Component({
   selector: 'ds-tabulatable-objects-loader',
   templateUrl: './tabulatable-objects-loader.component.html',
-  styleUrls: ['./tabulatable-objects-loader.component.scss']
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)

@@ -5,7 +5,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'ds-admin-notify-detail-modal',
   templateUrl: './admin-notify-detail-modal.component.html',
-  styleUrls: ['./admin-notify-detail-modal.component.scss']
 })
 export class AdminNotifyDetailModalComponent {
   @Input() notifyMessage: AdminNotifyMessage;

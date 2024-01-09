@@ -4,11 +4,11 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="container p-4">
+<div class="modal-body p-4">
     <div *ngFor="let key of notifyMessageKeys">
       <div class="row mb-4">
         <div class="font-weight-bold col-sm">{{ key + '.notify-detail-modal' | translate}}</div>
-        <div class="text-nowrap col-sm text-right">{{ notifyMessage[key] | translate }}</div>
+        <div class="text-truncate col-sm text-right">{{ notifyMessage[key] | translate }}</div>
       </div>
     </div>
 </div>

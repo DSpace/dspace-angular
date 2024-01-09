@@ -7,7 +7,6 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 @Component({
   selector: 'ds-admin-notify-incoming',
   templateUrl: './admin-notify-incoming.component.html',
-  styleUrls: ['./admin-notify-incoming.component.scss'],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,

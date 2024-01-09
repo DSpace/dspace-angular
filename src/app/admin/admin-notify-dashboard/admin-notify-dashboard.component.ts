@@ -16,7 +16,6 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 @Component({
   selector: 'ds-admin-notify-dashboard',
   templateUrl: './admin-notify-dashboard.component.html',
-  styleUrls: ['./admin-notify-dashboard.component.scss'],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
@@ -33,6 +32,7 @@ export class AdminNotifyDashboardComponent implements OnInit{
     id: 'single-result-options',
     pageSize: 1
   });
+
   constructor(private searchService: SearchService) {
   }
 
@@ -84,25 +84,8 @@ export class AdminNotifyDashboardComponent implements OnInit{
     return this.metricsConfig.map(row => {
         return {
           ...row,
-          boxes: row.boxes.map(rowBox =>boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config))
+          boxes: row.boxes.map(rowBox => boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config))
         };
     });
-  }
-
-  /**
-   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
-   */
-  public getSearchLink(): string {
-    return this.searchService.getSearchLink();
-  }
-
-  /**
-   * @returns {string[]} The base path to the search page, or the current page when inPlaceSearch is true, split in separate pieces
-   */
-  public getSearchLinkParts(): string[] {
-    if (this.searchService) {
-      return [];
-    }
-    return this.getSearchLink().split('/');
   }
 }
