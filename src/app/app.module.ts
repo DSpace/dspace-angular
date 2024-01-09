@@ -31,6 +31,11 @@ import { RootModule } from './root.module';
 import { models, provideCore } from './core/provide-core';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { listableObjects } from './core/provide-listable-objects';
+import { workflowTasks } from './core/provide-workflow-tasks';
+import { metadataRepresentations } from './core/provide-metadata-representation';
+import { renderStartsWith } from './core/provide-render-starts-with';
+import { renderBrowseBy } from './core/provide-render-browse-by';
+import { renderAuthMethod } from './core/provide-render-auth-method';
 
 export function getConfig() {
   return environment;
@@ -127,4 +132,9 @@ export class AppModule {
   /* Use models object so all decorators are actually called */
   modelList = models;
   listableObjects = listableObjects;
+  workflowTasks = workflowTasks;
+  metadataRepresentations = metadataRepresentations;
+  renderStartsWith = renderStartsWith;
+  renderBrowseBy = renderBrowseBy;
+  renderAuthMethod = renderAuthMethod;
 }

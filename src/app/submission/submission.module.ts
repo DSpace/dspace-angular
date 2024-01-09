@@ -42,12 +42,12 @@ import {
   SubmissionImportExternalCollectionComponent
 } from './import-external/import-external-collection/submission-import-external-collection.component';
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
-import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
-import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
-import { ThemedSubmissionSectionUploadFileComponent } from './sections/upload/file/themed-section-upload-file.component';
+import {
+  ThemedSubmissionSectionUploadFileComponent
+} from './sections/upload/file/themed-section-upload-file.component';
 import { FormModule } from '../shared/form/form.module';
 import { NgbAccordionModule, NgbCollapseModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
@@ -64,7 +64,7 @@ import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
-import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
+import { SubmissionSectionIdentifiersComponent } from './sections/identifiers/section-identifiers.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -111,8 +111,6 @@ const DECLARATIONS = [
         CommonModule,
         StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
         EffectsModule.forFeature(submissionEffects),
-        JournalEntitiesModule.withEntryComponents(),
-        ResearchEntitiesModule.withEntryComponents(),
         FormModule,
         NgbModalModule,
         NgbCollapseModule,

@@ -4,10 +4,10 @@ import { MetadataImportPageComponent } from './admin-import-metadata-page/metada
 import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import { AdminWorkflowModuleModule } from './admin-workflow-page/admin-workflow.module';
-import { AdminSearchModule } from './admin-search-page/admin-search.module';
 import { AdminSidebarSectionComponent } from './admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
-import { ExpandableAdminSidebarSectionComponent } from './admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
+import {
+  ExpandableAdminSidebarSectionComponent
+} from './admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { UploadModule } from '../shared/upload/upload.module';
@@ -24,8 +24,6 @@ const ENTRY_COMPONENTS = [
         AdminRoutingModule,
         AdminRegistriesModule,
         AccessControlModule,
-        AdminSearchModule.withEntryComponents(),
-        AdminWorkflowModuleModule.withEntryComponents(),
         UiSwitchModule,
         UploadModule,
         AdminCurationTasksComponent,

@@ -28,8 +28,6 @@ import {
   AbstractIncrementalListComponent
 } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
-import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
-import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
@@ -51,7 +49,9 @@ import { UploadModule } from '../shared/upload/upload.module';
 import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
 import { ItemAlertsComponent } from './alerts/item-alerts.component';
 import { ItemVersionsModule } from './versions/item-versions.module';
-import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import {
+  BitstreamRequestACopyPageComponent
+} from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
 import { ItemSharedModule } from './item-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
@@ -112,8 +112,6 @@ const DECLARATIONS = [
         ItemVersionsModule,
         ItemSharedModule,
         StatisticsModule.forRoot(),
-        JournalEntitiesModule.withEntryComponents(),
-        ResearchEntitiesModule.withEntryComponents(),
         NgxGalleryModule,
         NgbAccordionModule,
         ResultsBackButtonModule,
