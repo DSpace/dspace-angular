@@ -116,7 +116,7 @@ export class SuggestionsDataService {
   }
 
   /**
-   * Return the list of Suggestion Target
+   * Return the list of Suggestion Sources
    *
    * @param options
    *    Find list options object.
