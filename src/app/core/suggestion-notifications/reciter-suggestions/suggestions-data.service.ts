@@ -33,7 +33,7 @@ import { SuggestionTargetDataService } from './target/suggestion-target-data.ser
 /**
  * A private DataService implementation to delegate specific methods to.
  */
-class SuggestionDataServiceImpl extends DataService<Suggestion> {
+export class SuggestionDataServiceImpl extends DataService<Suggestion> {
   /**
    * The REST endpoint.
    */
@@ -70,7 +70,6 @@ class SuggestionDataServiceImpl extends DataService<Suggestion> {
 @dataService(SUGGESTION)
 export class SuggestionsDataService {
   protected searchFindBySourceMethod = 'findBySource';
-  protected searchFindByTargetMethod = 'findByTarget';
   protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';
 
   /**
@@ -168,7 +167,6 @@ export class SuggestionsDataService {
     ...linksToFollow: FollowLinkConfig<SuggestionTarget>[]
   ): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
     options.searchParams = [new RequestParam('target', userId)];
-    //return this.suggestionTargetsDataService.getTargetsByUser(this.searchFindByTargetMethod, options, ...linksToFollow);
     return this.suggestionTargetsDataService.getTargetsByUser(userId, options, ...linksToFollow);
   }
 
@@ -191,14 +189,6 @@ export class SuggestionsDataService {
    */
   public deleteSuggestion(suggestionId: string): Observable<RemoteData<NoContent>> {
     return this.suggestionsDataService.delete(suggestionId);
-  }
-
-  /**
-   * Used to fetch Suggestion notification for user
-   * @suggestionId
-   */
-  public getSuggestion(suggestionId: string, ...linksToFollow: FollowLinkConfig<Suggestion>[]): Observable<RemoteData<Suggestion>> {
-    return this.suggestionsDataService.findById(suggestionId, true, true, ...linksToFollow);
   }
 
   /**

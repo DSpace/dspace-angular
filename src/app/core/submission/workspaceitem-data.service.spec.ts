@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -8,7 +8,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { PageInfo } from '../shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
@@ -24,6 +24,8 @@ import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 import { SearchData } from '../data/base/search-data';
 import { DeleteData } from '../data/base/delete-data';
 import { RequestParam } from '../cache/models/request-param.model';
+import { PostRequest } from '../data/request.models';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;
@@ -109,7 +111,7 @@ describe('WorkspaceitemDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: observableOf(endpointURL)
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -125,7 +127,8 @@ describe('WorkspaceitemDataService test', () => {
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
           a: wsiRD
-        })
+        }),
+        buildFromRequestUUID: createSuccessfulRemoteDataObject$({})
       });
 
       service = initTestService();
@@ -154,6 +157,19 @@ describe('WorkspaceitemDataService test', () => {
       });
 
     });
-  });
 
+    describe('importExternalSourceEntry', () => {
+      it('should send a POST request containing the provided item request', (done) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'text/uri-list');
+        options.headers = headers;
+
+        service.importExternalSourceEntry('externalHref', 'testId').subscribe(() => {
+          expect(requestService.send).toHaveBeenCalledWith(new PostRequest(requestUUID, `${endpointURL}?owningCollection=testId`, 'externalHref', options));
+          done();
+        });
+      });
+    });
+  });
 });
