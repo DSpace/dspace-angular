@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
 import { EditCommunityPageRoutingModule } from './edit-community-page.routing.module';
 import { EditCommunityPageComponent } from './edit-community-page.component';
 import { CommunityCurateComponent } from './community-curate/community-curate.component';
@@ -21,7 +20,6 @@ import {
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         EditCommunityPageRoutingModule,
         CommunityFormModule,
         ComcolModule,

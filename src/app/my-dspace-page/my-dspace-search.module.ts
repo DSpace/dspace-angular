@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
 
 import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { WorkspaceItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workspace-item-search-result/workspace-item-search-result-list-element.component';
@@ -56,7 +55,6 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         MyDspacePageRoutingModule,
         MyDSpaceActionsModule,
         ResearchEntitiesModule.withEntryComponents(),

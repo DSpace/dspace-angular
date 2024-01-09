@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '../shared/shared.module';
 
 import { CommunityPageComponent } from './community-page.component';
 import { CommunityPageSubCollectionListComponent } from './sub-collection-list/community-page-sub-collection-list.component';
@@ -33,7 +32,6 @@ const DECLARATIONS = [CommunityPageComponent,
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         CommunityPageRoutingModule,
         StatisticsModule.forRoot(),
         CommunityFormModule,

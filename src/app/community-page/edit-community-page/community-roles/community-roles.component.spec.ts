@@ -8,7 +8,6 @@ import { Community } from '../../../core/shared/community.model';
 import { By } from '@angular/platform-browser';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,7 +55,6 @@ describe('CommunityRolesComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         ComcolModule,
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,

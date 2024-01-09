@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SharedModule } from '../../shared/shared.module';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
 import { RequestService } from '../../core/data/request.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -19,7 +18,7 @@ describe('DeleteCommunityPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, DeleteCommunityPageComponent],
+    imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, DeleteCommunityPageComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CommunityDataService, useValue: {} },

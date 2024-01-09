@@ -19,7 +19,6 @@ import { Item } from '../../../core/shared/item.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -210,7 +209,7 @@ describe('ItemRelationshipsComponent', () => {
 
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-    imports: [SharedModule, TranslateModule.forRoot(), ItemRelationshipsComponent],
+    imports: [TranslateModule.forRoot(), ItemRelationshipsComponent],
     providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ItemDataService, useValue: itemService },

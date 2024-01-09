@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../../core/shared/item.model';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../shared.module';
 import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
 import { ObjectSelectService } from '../object-select.service';
 import { HostWindowService } from '../../host-window.service';
@@ -97,7 +96,7 @@ describe('ItemSelectComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
     providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },

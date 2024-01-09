@@ -6,7 +6,6 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CollectionRolesComponent } from './collection-roles.component';
 import { Collection } from '../../../core/shared/collection.model';
-import { SharedModule } from '../../../shared/shared.module';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -71,7 +70,6 @@ describe('CollectionRolesComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         ComcolModule,
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,

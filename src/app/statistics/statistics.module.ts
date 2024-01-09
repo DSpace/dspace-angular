@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
 import { ViewTrackerComponent } from './angulartics/dspace/view-tracker.component';
 import { StatisticsEndpoint } from './statistics-endpoint.model';
 
@@ -14,7 +13,6 @@ export const models = [
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         ViewTrackerComponent
     ],
     exports: [

@@ -20,7 +20,6 @@ import { NotificationComponent } from './shared/notifications/notification/notif
 import {
   NotificationsBoardComponent
 } from './shared/notifications/notifications-board/notifications-board.component';
-import { SharedModule } from './shared/shared.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { RootComponent } from './root/root.component';
@@ -47,7 +46,6 @@ import { SystemWideAlertModule } from './system-wide-alert/system-wide-alert.mod
 
 const IMPORTS = [
   CommonModule,
-  SharedModule.withEntryComponents(),
   NavbarModule,
   SystemWideAlertModule,
   NgbModule,

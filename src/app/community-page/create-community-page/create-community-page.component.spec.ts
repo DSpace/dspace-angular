@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouteService } from '../../core/services/route.service';
-import { SharedModule } from '../../shared/shared.module';
 import { of as observableOf } from 'rxjs';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { CreateCommunityPageComponent } from './create-community-page.component';
@@ -22,7 +21,7 @@ describe('CreateCommunityPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, CreateCommunityPageComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, CreateCommunityPageComponent],
       providers: [
         { provide: CommunityDataService, useValue: { findById: () => observableOf({}) } },
         { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },

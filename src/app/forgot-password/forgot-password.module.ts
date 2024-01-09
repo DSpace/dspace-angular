@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
 import { ForgotEmailComponent } from './forgot-password-email/forgot-email.component';
 import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
 import { RegisterEmailFormModule } from '../register-email-form/register-email-form.module';
@@ -12,7 +11,6 @@ import { ThemedForgotEmailComponent } from './forgot-password-email/themed-forgo
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         ForgotPasswordRoutingModule,
         RegisterEmailFormModule,
         ProfilePageModule,

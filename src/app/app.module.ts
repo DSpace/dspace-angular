@@ -19,7 +19,6 @@ import { appReducers, AppState, storeModuleConfig } from './app.reducer';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { NavbarModule } from './navbar/navbar.module';
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
-import { SharedModule } from './shared/shared.module';
 import { environment } from '../environments/environment';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
@@ -31,6 +30,7 @@ import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
 import { models, provideCore } from './core/provide-core';
 import { ThemedRootComponent } from './root/themed-root.component';
+import { listableObjects } from './core/provide-listable-objects';
 
 export function getConfig() {
   return environment;
@@ -48,7 +48,6 @@ export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
 
 const IMPORTS = [
   CommonModule,
-  SharedModule,
   NavbarModule,
   HttpClientModule,
   AppRoutingModule,
@@ -127,4 +126,5 @@ export class AppModule {
 
   /* Use models object so all decorators are actually called */
   modelList = models;
+  listableObjects = listableObjects;
 }

@@ -26,7 +26,6 @@ import { getMockTranslateService } from '../../../shared/mocks/translate.service
 import { cold, hot } from 'jasmine-marbles';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 
@@ -53,7 +52,6 @@ describe('SubmissionUploadFilesComponent Component', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-        SharedModule,
         TranslateModule.forRoot(),
         SubmissionUploadFilesComponent,
         TestComponent
@@ -203,8 +201,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 @Component({
     selector: 'ds-test-cmp',
     template: ``,
-    standalone: true,
-    imports: [SharedModule]
+    standalone: true
 })
 class TestComponent {
 

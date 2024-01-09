@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
 
 import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
@@ -28,7 +27,6 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         SearchModule,
         MyDspacePageRoutingModule,
         MyDspaceSearchModule.withEntryComponents(),

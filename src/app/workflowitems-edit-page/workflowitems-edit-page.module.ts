@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
 import { SubmissionModule } from '../submission/submission.module';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back/workflow-item-send-back.component';
@@ -35,7 +34,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         SubmissionModule,
         StatisticsModule,
         ItemPageModule,

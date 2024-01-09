@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../../shared/shared.module';
 import {
   WorkflowItemSearchResultAdminWorkflowGridElementComponent
 } from './admin-workflow-search-results/admin-workflow-search-result-grid-element/workflow-item/workflow-item-search-result-admin-workflow-grid-element.component';
@@ -39,7 +38,6 @@ const ENTRY_COMPONENTS = [
 @NgModule({
     imports: [
         SearchModule,
-        SharedModule.withEntryComponents(),
         AdminWorkflowPageComponent,
         SupervisionOrderGroupSelectorComponent,
         SupervisionOrderStatusComponent,
@@ -58,7 +56,7 @@ export class AdminWorkflowModuleModule {
    */
   static withEntryComponents() {
     return {
-      ngModule: SharedModule,
+      ngModule: AdminWorkflowModuleModule,
       providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
     };
   }

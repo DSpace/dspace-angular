@@ -8,7 +8,6 @@ import { of as observableOf } from 'rxjs';
 import { ComColDataService } from '../../../../../core/data/comcol-data.service';
 import { Community } from '../../../../../core/shared/community.model';
 import { NotificationsService } from '../../../../notifications/notifications.service';
-import { SharedModule } from '../../../../shared.module';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
@@ -71,7 +70,7 @@ describe('ComColMetadataComponent', () => {
   beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule],
       providers: [
         { provide: ComColDataService, useValue: communityDataServiceStub },
         { provide: Router, useValue: routerStub },

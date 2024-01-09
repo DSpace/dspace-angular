@@ -7,7 +7,6 @@
  */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { UploaderComponent } from './uploader/uploader.component';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
@@ -20,7 +19,6 @@ const COMPONENTS = [
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         FileUploadModule,
         ...COMPONENTS
     ],

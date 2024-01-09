@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LogInContainerComponent } from './log-in-container.component';
 import { authReducer } from '../../../core/auth/auth.reducer';
-import { SharedModule } from '../../shared.module';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
@@ -38,7 +37,6 @@ describe('LogInContainerComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
-        SharedModule,
         TranslateModule.forRoot(),
         RouterTestingModule,
         TestComponent
@@ -116,7 +114,6 @@ describe('LogInContainerComponent', () => {
     standalone: true,
     imports: [FormsModule,
         ReactiveFormsModule,
-        SharedModule,
         RouterTestingModule]
 })
 class TestComponent {

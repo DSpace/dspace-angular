@@ -9,7 +9,6 @@ import { Item } from '../../core/shared/item.model';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -65,7 +64,6 @@ describe('ItemStatisticsPageComponent', () => {
     imports: [
         TranslateModule.forRoot(),
         CommonModule,
-        SharedModule,
         ItemStatisticsPageComponent,
         StatisticsTableComponent
     ],

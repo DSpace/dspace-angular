@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { authMethodsMock, AuthServiceStub } from '../testing/auth-service.stub';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared.module';
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { ActivatedRoute } from '@angular/router';
@@ -63,7 +62,6 @@ describe('LogInComponent', () => {
             }
         }),
         RouterTestingModule,
-        SharedModule,
         TranslateModule.forRoot(),
         TestComponent
     ],
@@ -138,8 +136,7 @@ describe('LogInComponent', () => {
     standalone: true,
     imports: [FormsModule,
         ReactiveFormsModule,
-        RouterTestingModule,
-        SharedModule]
+        RouterTestingModule]
 })
 class TestComponent {
 

@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
 import { of as observableOf } from 'rxjs';
 import { EditCommunityPageComponent } from './edit-community-page.component';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -38,7 +37,7 @@ describe('EditCommunityPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditCommunityPageComponent],
+    imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCommunityPageComponent],
     providers: [
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },

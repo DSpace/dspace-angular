@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
 import { NewProcessComponent } from './new/new-process.component';
 import { ScriptsSelectComponent } from './form/scripts-select/scripts-select.component';
 import { ScriptHelpComponent } from './form/script-help/script-help.component';
@@ -19,7 +18,6 @@ import { ProcessFormComponent } from './form/process-form.component';
 
 @NgModule({
     imports: [
-        SharedModule,
         NewProcessComponent,
         ScriptsSelectComponent,
         ScriptHelpComponent,

@@ -9,7 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CommunityPageSubCollectionListComponent } from './community-page-sub-collection-list.component';
 import { Community } from '../../core/shared/community.model';
-import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
@@ -149,7 +148,6 @@ describe('CommunityPageSubCollectionList Component', () => {
     TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,

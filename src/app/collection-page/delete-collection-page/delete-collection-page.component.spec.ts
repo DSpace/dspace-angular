@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
 import { of as observableOf } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DeleteCollectionPageComponent } from './delete-collection-page.component';
@@ -19,7 +18,7 @@ describe('DeleteCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, DeleteCollectionPageComponent],
+    imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, DeleteCollectionPageComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: {} },

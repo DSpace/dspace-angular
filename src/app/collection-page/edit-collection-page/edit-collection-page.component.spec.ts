@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
-import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { of as observableOf } from 'rxjs';
 
@@ -38,7 +37,7 @@ describe('EditCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditCollectionPageComponent],
+    imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCollectionPageComponent],
     providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },

@@ -5,7 +5,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
@@ -49,7 +48,6 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule,
         CommunityAdminSearchResultGridElementComponent
     ],
     providers: [

@@ -43,7 +43,6 @@ import {
   DsDynamicFormControlContainerComponent,
   dsDynamicFormControlMapFn
 } from './ds-dynamic-form-control-container.component';
-import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
@@ -211,7 +210,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         ReactiveFormsModule,
         NgbModule,
         DynamicFormsCoreModule.forRoot(),
-        SharedModule,
         TranslateModule.forRoot(),
         NgxMaskModule.forRoot(),
       ],

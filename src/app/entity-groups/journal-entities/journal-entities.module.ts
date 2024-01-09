@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
 import { JournalComponent } from './item-pages/journal/journal.component';
 import { JournalIssueComponent } from './item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './item-pages/journal-volume/journal-volume.component';
@@ -49,7 +48,6 @@ const ENTRY_COMPONENTS = [
     imports: [
         CommonModule,
         ItemSharedModule,
-        SharedModule,
         ResultsBackButtonModule,
         DsoPageModule,
         ...ENTRY_COMPONENTS

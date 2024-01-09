@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { StatisticsModule } from '../statistics/statistics.module';
@@ -21,7 +20,6 @@ const components = [
     imports: [
         CommonModule,
         SearchModule,
-        SharedModule.withEntryComponents(),
         StatisticsModule.forRoot(),
         JournalEntitiesModule.withEntryComponents(),
         ResearchEntitiesModule.withEntryComponents(),

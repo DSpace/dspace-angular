@@ -44,7 +44,6 @@ import { ConfigurationProperty } from '../../core/shared/configuration-property.
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
-import { SharedModule } from '../shared.module';
 import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
 import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
 
@@ -119,7 +118,6 @@ describe('BrowseByComponent', () => {
         BrowseByRoutingModule,
         AccessControlRoutingModule,
         CommonModule,
-        SharedModule,
         NgbModule,
         TranslateModule.forRoot({
             loader: {

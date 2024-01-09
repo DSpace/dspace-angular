@@ -5,7 +5,6 @@ import { of as observableOf } from 'rxjs';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../../shared/shared.module';
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsType } from '../sections-type';
@@ -171,7 +170,6 @@ describe('SubmissionSectionCcLicensesComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-        SharedModule,
         TranslateModule.forRoot(),
         SubmissionSectionCcLicensesComponent
     ],

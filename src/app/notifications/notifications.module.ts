@@ -4,7 +4,6 @@ import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { CoreModule } from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
 import { storeModuleConfig } from '../app.reducer';
 import { QualityAssuranceTopicsComponent } from './qa/topics/quality-assurance-topics.component';
 import { QualityAssuranceEventsComponent } from './qa/events/quality-assurance-events.component';
@@ -29,7 +28,6 @@ import {
 
 const MODULES = [
   CommonModule,
-  SharedModule,
   SearchModule,
   CoreModule.forRoot(),
   StoreModule.forFeature('suggestionNotifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),

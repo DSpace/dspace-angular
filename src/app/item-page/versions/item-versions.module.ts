@@ -7,7 +7,6 @@
  */
 
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
 import { ItemVersionsComponent } from './item-versions.component';
 import { ItemVersionsNoticeComponent } from './notice/item-versions-notice.component';
 
@@ -18,7 +17,6 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
-        SharedModule,
         ...DECLARATIONS
     ],
     exports: [

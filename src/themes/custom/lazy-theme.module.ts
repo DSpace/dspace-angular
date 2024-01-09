@@ -22,7 +22,6 @@ import { RegisterEmailFormModule } from '../../app/register-email-form/register-
 import { ResearchEntitiesModule } from '../../app/entity-groups/research-entities/research-entities.module';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { SearchPageModule } from '../../app/search-page/search-page.module';
-import { SharedModule } from '../../app/shared/shared.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -309,7 +308,6 @@ const DECLARATIONS = [
         RouterModule,
         ScrollToModule,
         SearchPageModule,
-        SharedModule,
         SharedBrowseByModule,
         ResultsBackButtonModule,
         StatisticsModule,

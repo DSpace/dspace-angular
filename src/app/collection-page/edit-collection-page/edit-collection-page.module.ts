@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
 import { EditCollectionPageRoutingModule } from './edit-collection-page.routing.module';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
@@ -24,7 +23,6 @@ import { AccessControlFormModule } from '../../shared/access-control-form-contai
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         EditCollectionPageRoutingModule,
         CollectionFormModule,
         ResourcePoliciesModule,

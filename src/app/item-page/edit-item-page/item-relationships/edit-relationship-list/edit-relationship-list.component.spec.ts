@@ -11,7 +11,6 @@ import { RelationshipType } from '../../../../core/shared/item-relationships/rel
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { SharedModule } from '../../../../shared/shared.module';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
@@ -229,7 +228,7 @@ describe('EditRelationshipListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    imports: [SharedModule, TranslateModule.forRoot(), EditRelationshipListComponent],
+    imports: [TranslateModule.forRoot(), EditRelationshipListComponent],
     providers: [
         provideMockStore({initialState}),
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },

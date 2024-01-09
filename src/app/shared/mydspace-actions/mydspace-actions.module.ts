@@ -7,7 +7,6 @@
  */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared.module';
 import { ClaimedTaskActionsApproveComponent } from './claimed-task/approve/claimed-task-actions-approve.component';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task/reject/claimed-task-actions-reject.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
@@ -42,7 +41,6 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         ...DECLARATIONS
     ],
     providers: [

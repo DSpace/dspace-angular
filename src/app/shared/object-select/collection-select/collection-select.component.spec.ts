@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../shared.module';
 import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
 import { ObjectSelectService } from '../object-select.service';
 import { HostWindowService } from '../../host-window.service';
@@ -72,7 +71,7 @@ describe('CollectionSelectComponent', () => {
   const paginationService = new PaginationServiceStub();
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
     providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },

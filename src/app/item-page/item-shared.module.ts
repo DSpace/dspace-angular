@@ -2,7 +2,6 @@ import { RelatedEntitiesSearchComponent } from './simple/related-entities/relate
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchModule } from '../shared/search/search.module';
-import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { dsDynamicFormControlMapFn } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
@@ -38,7 +37,6 @@ const COMPONENTS = [
     imports: [
         CommonModule,
         SearchModule,
-        SharedModule,
         TranslateModule,
         ...COMPONENTS
     ],

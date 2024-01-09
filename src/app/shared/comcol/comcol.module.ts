@@ -13,7 +13,6 @@ import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/del
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from './comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
-import { SharedModule } from '../shared.module';
 import { FormModule } from '../form/form.module';
 import { UploadModule } from '../upload/upload.module';
 
@@ -36,7 +35,6 @@ const COMPONENTS = [
     imports: [
         CommonModule,
         FormModule,
-        SharedModule,
         UploadModule,
         ...COMPONENTS
     ],

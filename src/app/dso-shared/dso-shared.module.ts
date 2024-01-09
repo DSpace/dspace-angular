@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
 import { DsoEditMetadataComponent } from './dso-edit-metadata/dso-edit-metadata.component';
 import { MetadataFieldSelectorComponent } from './dso-edit-metadata/metadata-field-selector/metadata-field-selector.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata/dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
@@ -10,7 +9,6 @@ import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-e
 
 @NgModule({
     imports: [
-        SharedModule,
         DsoEditMetadataComponent,
         ThemedDsoEditMetadataComponent,
         MetadataFieldSelectorComponent,

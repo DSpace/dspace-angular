@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { CollectionAdminSearchResultGridElementComponent } from './collection-admin-search-result-grid-element.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
@@ -47,7 +46,6 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule,
         CollectionAdminSearchResultGridElementComponent
       ],
       providers: [

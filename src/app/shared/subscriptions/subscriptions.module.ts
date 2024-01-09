@@ -6,7 +6,6 @@ import { SubscriptionViewComponent } from './subscription-view/subscription-view
 import { SubscriptionModalComponent } from './subscription-modal/subscription-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 const COMPONENTS = [
@@ -21,7 +20,6 @@ const COMPONENTS = [
         ReactiveFormsModule,
         TranslateModule,
         RouterModule,
-        SharedModule,
         ...COMPONENTS
     ],
     exports: [

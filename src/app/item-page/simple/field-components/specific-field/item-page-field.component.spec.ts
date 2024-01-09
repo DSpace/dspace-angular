@@ -10,7 +10,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { environment } from '../../../../../environments/environment';
 import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
-import { SharedModule } from '../../../../shared/shared.module';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { By } from '@angular/platform-browser';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
@@ -47,7 +46,6 @@ describe('ItemPageFieldComponent', () => {
                 useClass: TranslateLoaderMock
             }
         }),
-        SharedModule,
         ItemPageFieldComponent, MetadataValuesComponent
     ],
     providers: [

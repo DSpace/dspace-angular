@@ -1,7 +1,6 @@
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
@@ -32,7 +31,7 @@ describe('EditItemTemplatePageComponent', () => {
       findByCollectionID: createSuccessfulRemoteDataObject$({})
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule, EditItemTemplatePageComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditItemTemplatePageComponent],
       providers: [
         { provide: ItemTemplateDataService, useValue: itemTemplateService },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },

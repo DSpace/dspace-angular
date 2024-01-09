@@ -11,7 +11,6 @@ import { CommunityPageSubCommunityListComponent } from './community-page-sub-com
 import { Community } from '../../core/shared/community.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { SharedModule } from '../../shared/shared.module';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
@@ -150,7 +149,6 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
     TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,

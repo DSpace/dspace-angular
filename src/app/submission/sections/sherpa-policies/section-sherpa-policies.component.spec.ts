@@ -1,4 +1,3 @@
-import { SharedModule } from '../../../shared/shared.module';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
@@ -66,7 +65,6 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
             }
         }),
         NgbCollapseModule,
-        SharedModule,
         SubmissionSectionSherpaPoliciesComponent
     ],
     providers: [

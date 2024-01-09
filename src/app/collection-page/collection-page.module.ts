@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '../shared/shared.module';
 
 import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageRoutingModule } from './collection-page-routing.module';
@@ -22,7 +21,6 @@ import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         CollectionPageRoutingModule,
         StatisticsModule.forRoot(),
         EditItemPageModule,

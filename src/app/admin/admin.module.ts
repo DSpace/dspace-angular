@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
 import { AccessControlModule } from '../access-control/access-control.module';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
@@ -27,7 +26,6 @@ const ENTRY_COMPONENTS = [
         AccessControlModule,
         AdminSearchModule.withEntryComponents(),
         AdminWorkflowModuleModule.withEntryComponents(),
-        SharedModule,
         UiSwitchModule,
         UploadModule,
         AdminCurationTasksComponent,

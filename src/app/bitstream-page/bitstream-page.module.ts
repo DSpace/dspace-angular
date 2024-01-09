@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
 import { EditBitstreamPageComponent } from './edit-bitstream-page/edit-bitstream-page.component';
 import { BitstreamPageRoutingModule } from './bitstream-page-routing.module';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
@@ -15,7 +14,6 @@ import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-e
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         BitstreamPageRoutingModule,
         FormModule,
         ResourcePoliciesModule,

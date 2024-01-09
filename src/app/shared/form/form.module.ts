@@ -18,7 +18,6 @@ import { DsDatePickerInlineComponent } from './builder/ds-dynamic-form-ui/models
 import { DsDynamicLookupRelationSearchTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/selection-tab/dynamic-lookup-relation-selection-tab.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
-import { SharedModule } from '../shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchModule } from '../search/search.module';
 import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
@@ -85,7 +84,6 @@ const DIRECTIVES = [
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         SearchModule,
-        SharedModule,
         TranslateModule,
         SortablejsModule,
         NgxMaskModule.forRoot(),

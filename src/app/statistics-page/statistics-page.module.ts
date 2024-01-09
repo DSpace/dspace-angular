@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '../shared/shared.module';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { UsageReportDataService } from '../core/statistics/usage-report-data.service';
 import { SiteStatisticsPageComponent } from './site-statistics-page/site-statistics-page.component';
@@ -29,7 +28,6 @@ const components = [
 @NgModule({
     imports: [
         CommonModule,
-        SharedModule,
         StatisticsModule.forRoot(),
         ...components
     ],
