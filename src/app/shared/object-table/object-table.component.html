@@ -17,7 +17,7 @@
   (next)="goNext()"
   [retainScrollPosition]="true"
 >
-  <div class="row" *ngIf="objects?.hasSucceeded">
+  <div *ngIf="objects?.hasSucceeded">
     <div @fadeIn>
       <ds-tabulatable-objects-loader [objects]="objects.payload"
                                      [context]="context"
