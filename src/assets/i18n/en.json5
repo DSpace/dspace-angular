@@ -3445,9 +3445,7 @@
 
   "admin-notify-dashboard.title": "Notify Dashboard",
 
-  "admin-notify-dashboard.metrics": "Notify metrics",
-
-  "admin-notify-dashboard.logs": "Notify logs",
+  "admin-notify-dashboard.metrics": "Metrics",
 
   "admin-notify-dashboard.received-ldn": "Number of received LDN",
 
