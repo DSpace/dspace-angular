@@ -13,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { EMPTY } from 'rxjs';
+import { HostWindowService } from "../../../shared/host-window.service";
+import { HostWindowServiceStub } from "../../../shared/testing/host-window-service.stub";
 
 describe('AdminNotifySearchResultComponent', () => {
   let component: AdminNotifySearchResultComponent;
@@ -62,6 +64,7 @@ describe('AdminNotifySearchResultComponent', () => {
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(1080) },
       ]
     })
     .compileComponents();

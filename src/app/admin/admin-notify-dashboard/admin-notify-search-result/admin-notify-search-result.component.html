@@ -2,18 +2,18 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr class="text-nowrap">
-          <th scope="col">{{ 'notify-message-result.timestamp' | translate}}</th>
+          <th *ngIf="!(isXsOrSm$ | async)" scope="col">{{ 'notify-message-result.timestamp' | translate}}</th>
           <th scope="col">{{'notify-message-result.repositoryItem' | translate}}</th>
           <th scope="col">{{ 'notify-message-result.ldnService' | translate}}</th>
-          <th scope="col">{{ 'notify-message-result.type' | translate }}</th>
+          <th *ngIf="!(isXsOrSm$ | async)" scope="col">{{ 'notify-message-result.type' | translate }}</th>
           <th scope="col">{{ 'notify-message-result.status' | translate  }}</th>
           <th scope="col">{{ 'notify-message-result.action' | translate }}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let message of (messagesSubject$ | async)">
-          <td>
-            <div>{{ message.queueTimeout }}</div>
+          <td  *ngIf="!(isXsOrSm$ | async)">
+            <div>{{ message.queueLastStartTime }}</div>
           </td>
           <td>
             <div *ngIf="isInbound">{{ message.context }}</div>
@@ -23,7 +23,7 @@
             <div *ngIf="isInbound">{{ message.origin }}</div>
             <div *ngIf="!isInbound">{{ message.target }}</div>
           </td>
-          <td>
+          <td  *ngIf="!(isXsOrSm$ | async)">
             <div>{{ message.coarNotifyType }}</div>
           </td>
           <td>

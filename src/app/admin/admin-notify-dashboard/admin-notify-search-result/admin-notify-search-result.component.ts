@@ -12,10 +12,11 @@ import {
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { HostWindowService } from "../../../shared/host-window.service";
 
 @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
 @Component({
@@ -33,6 +34,8 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
   public reprocessStatus = QueueStatusMap.QUEUE_STATUS_QUEUED_FOR_RETRY;
   //we check on one type of config to render specific table headers
   public isInbound: boolean;
+  public isXsOrSm$: Observable<boolean>;
+
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -42,7 +45,8 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
 
     constructor(private modalService: NgbModal,
                 private adminNotifyMessagesService: AdminNotifyMessagesService,
-                @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
+                @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+                private windowService: HostWindowService) {
       super();
     }
 
@@ -56,6 +60,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
         this.isInbound = configuration === 'NOTIFY.incoming';
       })
     );
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   ngOnDestroy() {
