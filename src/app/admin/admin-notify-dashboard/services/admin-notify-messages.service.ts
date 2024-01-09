@@ -9,10 +9,12 @@ import {NotificationsService} from '../../../shared/notifications/notifications.
 import { BehaviorSubject, from, Observable, of, scan } from 'rxjs';
 import { ADMIN_NOTIFY_MESSAGE } from '../models/admin-notify-message.resource-type';
 import { AdminNotifyMessage, QueueStatusMap } from '../models/admin-notify-message.model';
-import { map, mergeMap } from 'rxjs/operators';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { GetRequest } from '../../../core/data/request.models';
+import { RestRequest } from '../../../core/data/rest-request.model';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages endpoint.
@@ -24,6 +26,9 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 @Injectable()
 @dataService(ADMIN_NOTIFY_MESSAGE)
 export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNotifyMessage> {
+
+  protected reprocessEndpoint = 'enqueueretry';
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -86,8 +91,17 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
    * @param messageSubject the current visualised messages source
    */
   public reprocessMessage(message: AdminNotifyMessage, messageSubject: BehaviorSubject<AdminNotifyMessage[]>): Observable<AdminNotifyMessage[]> {
-    return this.findById(message.id).pipe(
+    const requestId = this.requestService.generateRequestId();
+
+
+    return this.halService.getEndpoint(this.reprocessEndpoint).pipe(
+      map(endpoint => endpoint.replace('{id}', message.id)),
+      map((endpointURL: string) => new GetRequest(requestId, endpointURL)),
+      tap(request => this.requestService.send(request)),
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<AdminNotifyMessage>(request.uuid)),
+      getFirstCompletedRemoteData(),
       getAllSucceededRemoteDataPayload(),
+    ).pipe(
       map(reprocessedMessage => this.formatMessageLabels(reprocessedMessage)),
       mergeMap((newMessage) =>  messageSubject.pipe(
         map(messages => {
