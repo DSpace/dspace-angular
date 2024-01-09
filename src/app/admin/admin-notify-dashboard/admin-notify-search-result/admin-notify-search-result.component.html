@@ -16,12 +16,10 @@
             <div>{{ message.queueLastStartTime }}</div>
           </td>
           <td>
-            <div *ngIf="isInbound">{{ message.context }}</div>
-            <div *ngIf="!isInbound">{{ message.object }}</div>
+            <a [routerLink]="'/items/' + (isInbound ? message.context : message.object)">{{ message.relatedItem }}</a>
           </td>
           <td>
-            <div *ngIf="isInbound">{{ message.origin }}</div>
-            <div *ngIf="!isInbound">{{ message.target }}</div>
+            <div>{{ message.ldnService }}</div>
           </td>
           <td>
             <div>{{ message.coarNotifyType }}</div>

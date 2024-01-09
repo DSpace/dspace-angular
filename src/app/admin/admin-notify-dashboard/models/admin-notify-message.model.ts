@@ -61,6 +61,18 @@ export class AdminNotifyMessage extends DSpaceObject {
   object: string;
 
   /**
+   * The name of the related item
+   */
+  @autoserialize
+  relatedItem: string;
+
+  /**
+   * The name of the related ldn service
+   */
+  @autoserialize
+  ldnService: string;
+
+  /**
    * The context of the message
    */
   @autoserialize

@@ -58,27 +58,15 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
   public getDetailedMessages(messages: AdminNotifyMessage[]): Observable<AdminNotifyMessage[]> {
     return from(messages.map(message => this.formatMessageLabels(message))).pipe(
       mergeMap(message =>
-        message.target ? this.ldnServicesService.findById(message.target.toString()).pipe(
+        message.target || message.origin ? this.ldnServicesService.findById((message.target || message.origin).toString()).pipe(
           getAllSucceededRemoteDataPayload(),
-          map(detail => ({...message, target: detail.name}))
+          map(detail => ({...message, ldnService: detail.name}))
         ) : of(message),
       ),
       mergeMap(message =>
-        message.object ? this.itemDataService.findById(message.object.toString()).pipe(
+        message.object || message.context  ? this.itemDataService.findById(message.object || message.context).pipe(
           getAllSucceededRemoteDataPayload(),
-          map(detail => ({...message, object: detail.name}))
-        ) : of(message),
-      ),
-      mergeMap(message =>
-        message.origin ? this.ldnServicesService.findById(message.origin.toString()).pipe(
-          getAllSucceededRemoteDataPayload(),
-          map(detail => ({...message, origin: detail.name}))
-        ) : of(message),
-      ),
-      mergeMap(message =>
-        message.context ? this.itemDataService.findById(message.context).pipe(
-          getAllSucceededRemoteDataPayload(),
-          map(detail => ({...message, context: detail.name}))
+          map(detail => ({...message, relatedItem: detail.name}))
         ) : of(message),
       ),
       scan((acc: any, value: any) => [...acc, value], []),
@@ -92,7 +80,6 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
    */
   public reprocessMessage(message: AdminNotifyMessage, messageSubject: BehaviorSubject<AdminNotifyMessage[]>): Observable<AdminNotifyMessage[]> {
     const requestId = this.requestService.generateRequestId();
-
 
     return this.halService.getEndpoint(this.reprocessEndpoint).pipe(
       map(endpoint => endpoint.replace('{id}', message.id)),

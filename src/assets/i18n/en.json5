@@ -3473,9 +3473,11 @@
 
   "admin.notify.dashboard.inbound": "Inbound messages",
 
+  "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
+
   "admin.notify.dashboard.outbound": "Outbound messages",
 
-  "admin.notify.dashboard.breadcrumbs": "Dashboard",
+  "admin.notify.dashboard.outbound-logs": "Logs/Outbound",
 
   "NOTIFY.incoming.search.results.head": "Incoming",
 
