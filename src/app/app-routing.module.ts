@@ -61,8 +61,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'home',
-            loadChildren: () => import('./home-page/home-page.module')
-              .then((m) => m.HomePageModule),
+            loadChildren: () => import('./home-page/home-page-routes')
+              .then((m) => m.ROUTES),
             data: { showBreadcrumbs: false },
             canActivate: [EndUserAgreementCurrentUserGuard]
           },

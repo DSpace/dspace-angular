@@ -20,7 +20,6 @@ import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { TranslateModule } from '@ngx-translate/core';
-import { HomePageModule } from '../../app/home-page/home-page.module';
 import { AppModule } from '../../app/app.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { RouterModule } from '@angular/router';
@@ -64,7 +63,6 @@ const DECLARATIONS = [
     EditItemPageModule,
     ItemVersionsModule,
     FormsModule,
-    HomePageModule,
     HttpClientModule,
     IdlePreloadModule,
     InfoModule,
