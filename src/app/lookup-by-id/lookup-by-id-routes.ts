@@ -1,26 +1,19 @@
 import { LookupGuard } from './lookup-guard';
-import { NgModule } from '@angular/core';
-import { RouterModule, UrlSegment } from '@angular/router';
+import { Route, UrlSegment } from '@angular/router';
 import { isNotEmpty } from '../shared/empty.util';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
-@NgModule({
-  imports: [
-    RouterModule.forChild([
-      {
-        matcher: urlMatcher,
-        canActivate: [LookupGuard],
-        component: ThemedObjectNotFoundComponent  }
-    ])
-  ],
-  providers: [
-    LookupGuard
-  ]
-})
+export const ROUTES: Route[] = [
+  {
+    matcher: urlMatcher,
+    providers: [
+      LookupGuard
+    ],
+    canActivate: [LookupGuard],
+    component: ThemedObjectNotFoundComponent
+  }
+];
 
-export class LookupRoutingModule {
-
-}
 
 export function urlMatcher(url) {
   // The expected path is :idType/:id

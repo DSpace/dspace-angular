@@ -74,14 +74,14 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'id',
-            loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
-              .then((m) => m.LookupIdModule),
+            loadChildren: () => import('./lookup-by-id/lookup-by-id-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'handle',
-            loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
-              .then((m) => m.LookupIdModule),
+            loadChildren: () => import('./lookup-by-id/lookup-by-id-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
