@@ -86,8 +86,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: REGISTER_PATH,
-            loadChildren: () => import('./register-page/register-page.module')
-              .then((m) => m.RegisterPageModule),
+            loadChildren: () => import('./register-page/register-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [SiteRegisterGuard]
           },
           {
