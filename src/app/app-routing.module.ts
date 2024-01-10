@@ -223,8 +223,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: HEALTH_PAGE_PATH,
-            loadChildren: () => import('./health-page/health-page.module')
-              .then((m) => m.HealthPageModule)
+            loadChildren: () => import('./health-page/health-page-routes')
+              .then((m) => m.ROUTES)
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
