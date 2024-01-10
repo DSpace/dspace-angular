@@ -163,8 +163,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'logout',
-            loadChildren: () => import('./logout-page/logout-page.module')
-              .then((m) => m.LogoutPageModule)
+            loadChildren: () => import('./logout-page/logout-page-routes')
+              .then((m) => m.ROUTES)
           },
           {
             path: 'submit',
