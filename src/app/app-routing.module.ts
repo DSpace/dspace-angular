@@ -180,8 +180,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'workspaceitems',
-            loadChildren: () => import('./workspaceitems-edit-page/workspaceitems-edit-page.module')
-              .then((m) => m.WorkspaceitemsEditPageModule),
+            loadChildren: () => import('./workspaceitems-edit-page/workspaceitems-edit-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
