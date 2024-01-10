@@ -233,8 +233,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'subscriptions',
-            loadChildren: () => import('./subscriptions-page/subscriptions-page-routing.module')
-              .then((m) => m.SubscriptionsPageRoutingModule),
+            loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard]
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
