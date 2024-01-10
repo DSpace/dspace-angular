@@ -198,8 +198,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: PROCESS_MODULE_PATH,
-            loadChildren: () => import('./process-page/process-page.module')
-              .then((m) => m.ProcessPageModule),
+            loadChildren: () => import('./process-page/process-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
