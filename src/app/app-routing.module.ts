@@ -208,7 +208,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: REQUEST_COPY_MODULE_PATH,
-            loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
+            loadChildren: () => import('./request-copy/request-copy-routes').then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
