@@ -168,8 +168,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'submit',
-            loadChildren: () => import('./submit-page/submit-page.module')
-              .then((m) => m.SubmitPageModule),
+            loadChildren: () => import('./submit-page/submit-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
