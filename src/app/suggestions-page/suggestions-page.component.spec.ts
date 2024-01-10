@@ -7,7 +7,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SuggestionsPageComponent } from './suggestions-page.component';
-import { SuggestionListElementComponent } from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
+import {
+  SuggestionApproveAndImport,
+  SuggestionListElementComponent
+} from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../suggestion-notifications/reciter-suggestions/suggestions.service';
 import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/suggestion.mock';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
@@ -103,5 +106,112 @@ describe('SuggestionPageComponent', () => {
     expect(component.suggestionId).toBe(mockSuggestionTargetsObjectOne.id);
     expect(component.researcherName).toBe(mockSuggestionTargetsObjectOne.display);
     expect(component.updatePage).toHaveBeenCalled();
+  });
+
+  it('should update page on pagination change', () => {
+    spyOn(component, 'updatePage').and.stub();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    component.onPaginationChange();
+    expect(component.updatePage).toHaveBeenCalled();
+  });
+
+  it('should update suggestion on page update', (done) => {
+    spyOn(component.processing$, 'next');
+    spyOn(component.suggestionsRD$, 'next');
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    paginationService.getFindListOptions().subscribe(() => {
+      expect(component.processing$.next).toHaveBeenCalled();
+      expect(mockSuggestionsService.getSuggestions).toHaveBeenCalled();
+      expect(component.suggestionsRD$.next).toHaveBeenCalled();
+      expect(mockSuggestionsService.clearSuggestionRequests).toHaveBeenCalled();
+      done();
+    });
+    component.updatePage();
+  });
+
+  it('should flag suggestion for deletion', () => {
+    spyOn(component, 'updatePage').and.stub();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    component.notMine('1');
+    expect(mockSuggestionsService.notMine).toHaveBeenCalledWith('1');
+    expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
+    expect(component.updatePage).toHaveBeenCalled();
+  });
+
+  it('should flag all suggestion for deletion', () => {
+    spyOn(component, 'updatePage').and.stub();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    component.notMineAllSelected();
+    expect(mockSuggestionsService.notMineMultiple).toHaveBeenCalled();
+    expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
+    expect(component.updatePage).toHaveBeenCalled();
+  });
+
+  it('should approve and import', () => {
+    spyOn(component, 'updatePage').and.stub();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    component.approveAndImport({collectionId: '1234'} as unknown as SuggestionApproveAndImport);
+    expect(mockSuggestionsService.approveAndImport).toHaveBeenCalled();
+    expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
+    expect(component.updatePage).toHaveBeenCalled();
+  });
+
+  it('should approve and import multiple suggestions', () => {
+    spyOn(component, 'updatePage').and.stub();
+
+    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.flush();
+    component.approveAndImportAllSelected({collectionId: '1234'} as unknown as SuggestionApproveAndImport);
+    expect(mockSuggestionsService.approveAndImportMultiple).toHaveBeenCalled();
+    expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
+    expect(component.updatePage).toHaveBeenCalled();
+  });
+
+  it('should select and deselect suggestion', () => {
+    component.selectedSuggestions = {};
+    component.onSelected(mockSuggestionPublicationOne, true);
+    expect(component.selectedSuggestions[mockSuggestionPublicationOne.id]).toBe(mockSuggestionPublicationOne);
+    component.onSelected(mockSuggestionPublicationOne, false);
+    expect(component.selectedSuggestions[mockSuggestionPublicationOne.id]).toBeUndefined();
+  });
+
+  it('should toggle all suggestions', () => {
+    component.selectedSuggestions = {};
+    component.onToggleSelectAll([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
+    expect(component.selectedSuggestions[mockSuggestionPublicationOne.id]).toEqual(mockSuggestionPublicationOne);
+    expect(component.selectedSuggestions[mockSuggestionPublicationTwo.id]).toEqual(mockSuggestionPublicationTwo);
+    component.onToggleSelectAll([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
+    expect(component.selectedSuggestions).toEqual({});
+  });
+
+  it('should return all selected suggestions count', () => {
+    component.selectedSuggestions = {};
+    component.onToggleSelectAll([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
+    expect(component.getSelectedSuggestionsCount()).toEqual(2);
+  });
+
+  it('should check if all collection is fixed', () => {
+      component.isCollectionFixed([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
+      expect(mockSuggestionsService.isCollectionFixed).toHaveBeenCalled();
+  });
+
+  it('should translate suggestion source', () => {
+      component.translateSuggestionSource();
+      expect(mockSuggestionsService.translateSuggestionSource).toHaveBeenCalled();
+  });
+
+  it('should translate suggestion type', () => {
+      component.translateSuggestionType();
+      expect(mockSuggestionsService.translateSuggestionType).toHaveBeenCalled();
   });
 });
