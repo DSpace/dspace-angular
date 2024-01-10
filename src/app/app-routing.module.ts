@@ -217,8 +217,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'statistics',
-            loadChildren: () => import('./statistics-page/statistics-page-routing.module')
-              .then((m) => m.StatisticsPageRoutingModule),
+            loadChildren: () => import('./statistics-page/statistics-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
