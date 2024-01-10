@@ -1,8 +1,30 @@
 // Override or add CSS variables for your theme here
+.display-3 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+a {
+  color: #607890;
+  text-decoration: none;
+  background-color: transparent;
+}
 
 :root {
-  //--ds-header-logo-height: 80px;
+  --ds-header-logo-height: 50px;
   //--ds-header-logo-height-xs: 50px;
   //--ds-header-icon-color: #{$link-color};
   //--ds-header-icon-color-hover: #{darken($link-color, 15%)};
-}
+  --ds-header-bg: #4B2E83;
+  --ds-navbar-bg: #AAB8C6;
+  --ds-header-icon-color: WHITE;
+  --ds-header-icon-color-hover: WHITE;
+  --ds-home-news-link-color: #607890;
+  --ds-footer-bg: #4B2E83;
+ }
