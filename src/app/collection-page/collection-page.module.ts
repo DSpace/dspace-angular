@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 
 
 import { CollectionPageComponent } from './collection-page.component';
-import { CollectionPageRoutingModule } from './collection-page-routing.module';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
-import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
+import {
+  ThemedEditItemTemplatePageComponent
+} from './edit-item-template-page/themed-edit-item-template-page.component';
 import { EditItemPageModule } from '../item-page/edit-item-page/edit-item-page.module';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 import { SearchService } from '../core/shared/search/search.service';
@@ -21,7 +22,6 @@ import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 @NgModule({
     imports: [
         CommonModule,
-        CollectionPageRoutingModule,
         StatisticsModule.forRoot(),
         EditItemPageModule,
         CollectionFormModule,

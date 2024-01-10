@@ -104,8 +104,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: COLLECTION_MODULE_PATH,
-            loadChildren: () => import('./collection-page/collection-page.module')
-              .then((m) => m.CollectionPageModule),
+            loadChildren: () => import('./collection-page/collection-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
