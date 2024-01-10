@@ -192,8 +192,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: PROFILE_MODULE_PATH,
-            loadChildren: () => import('./profile-page/profile-page.module')
-              .then((m) => m.ProfilePageModule),
+            loadChildren: () => import('./profile-page/profile-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {

@@ -10,7 +10,6 @@ import { IdlePreloadModule } from 'angular-idle-preload';
 import { MenuModule } from '../../app/shared/menu/menu.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProfilePageModule } from '../../app/profile-page/profile-page.module';
 import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { SearchPageModule } from '../../app/search-page/search-page.module';
@@ -281,7 +280,6 @@ const DECLARATIONS = [
         DsoPageModule,
         NavbarModule,
         NgbModule,
-        ProfilePageModule,
         RegisterEmailFormModule,
         RouterModule,
         ScrollToModule,
