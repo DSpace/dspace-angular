@@ -1,7 +1,32 @@
+/* After editing this file, you must run the following yarn command to incorporate any changes into the default settings:
+
+    yarn merge-i18n -s src/themes/uwlib/assets/i18n */
+
 {
   // DSpace default: "All of DSpace"
   "menu.section.browse_global": "Browse DSpace",
 
   // DSpace default: "DSpace Angular :: "
+
   "repository.title.prefix": "DSpace :: ",
+
+  // DSpace default: "Communities in DSpace"
+
+  "home.top-level-communities.head": "Communities in ResearchWorks",
+
+  // DSpace default: "Recent Submissions"
+
+  "home.recent-submissions.head": "Recently Added",
+
+  // DSpace default: "Browse DSpace"
+
+  "menu.section.browse_global": "Browse ResearchWorks",
+
+  // DSpace default: "Search the repository ..."
+
+  "search.search-form.placeholder": "Search ResearchWorks",
+
+  // no DSpace default
+
+  "footer.link.uwscholarlypublishing": "UW Scholarly Publishing Services",
 }
