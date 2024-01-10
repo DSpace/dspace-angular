@@ -134,8 +134,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'mydspace',
-            loadChildren: () => import('./my-dspace-page/my-dspace-page.module')
-              .then((m) => m.MyDSpacePageModule),
+            loadChildren: () => import('./my-dspace-page/my-dspace-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {

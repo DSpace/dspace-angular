@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
-
-import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
@@ -31,7 +28,6 @@ const DECLARATIONS = [
     imports: [
         CommonModule,
         SearchModule,
-        MyDspacePageRoutingModule,
         UploadModule,
         ...DECLARATIONS
     ],
