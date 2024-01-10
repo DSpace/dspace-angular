@@ -23,7 +23,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppModule } from '../../app/app.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { RouterModule } from '@angular/router';
-import { CommunityListPageModule } from '../../app/community-list-page/community-list-page.module';
 import { InfoModule } from '../../app/info/info.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { CommunityPageModule } from '../../app/community-page/community-page.module';
@@ -55,7 +54,6 @@ const DECLARATIONS = [
     CollectionPageModule,
     CommonModule,
     CommunityFormModule,
-    CommunityListPageModule,
     CommunityPageModule,
     DragDropModule,
     ItemSharedModule,
