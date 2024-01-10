@@ -146,8 +146,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'browse',
-            loadChildren: () => import('./browse-by/browse-by-page.module')
-              .then((m) => m.BrowseByPageModule),
+            loadChildren: () => import('./browse-by/browse-by-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
