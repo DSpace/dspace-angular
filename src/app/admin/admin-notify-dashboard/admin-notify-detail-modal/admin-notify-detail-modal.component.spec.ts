@@ -7,12 +7,14 @@ import { TranslateModule } from '@ngx-translate/core';
 describe('AdminNotifyDetailModalComponent', () => {
   let component: AdminNotifyDetailModalComponent;
   let fixture: ComponentFixture<AdminNotifyDetailModalComponent>;
+  const modalStub = jasmine.createSpyObj('modalStub', ['close']);
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ AdminNotifyDetailModalComponent ],
-      providers: [NgbActiveModal]
+      providers: [{ provide: NgbActiveModal, useValue: modalStub }]
     })
     .compileComponents();
 
@@ -23,5 +25,12 @@ describe('AdminNotifyDetailModalComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should close', () => {
+    spyOn(component.response, 'emit');
+    component.closeModal();
+    expect(modalStub.close).toHaveBeenCalled();
+    expect(component.response.emit).toHaveBeenCalledWith(true);
   });
 });

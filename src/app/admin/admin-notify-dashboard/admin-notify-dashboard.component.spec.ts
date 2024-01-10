@@ -21,6 +21,11 @@ describe('AdminNotifyDashboardComponent', () => {
   let searchResult3;
   let results;
 
+  const mockBoxes = [
+    { title: 'admin-notify-dashboard.received-ldn', boxes: [ undefined, undefined, undefined, undefined, undefined ] },
+    { title: 'admin-notify-dashboard.generated-ldn', boxes: [ undefined, undefined, undefined, undefined, undefined ] }
+  ];
+
   beforeEach(async () => {
     item1 = Object.assign(new AdminNotifyMessage(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
     item2 = Object.assign(new AdminNotifyMessage(), { uuid: 'c8279647-1acc-41ae-b036-951d5f65649b' });
@@ -42,7 +47,11 @@ describe('AdminNotifyDashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
+    component.notifyMetricsRows$.subscribe(boxes => {
+      expect(boxes).toEqual(mockBoxes);
+      done();
+    });
     expect(component).toBeTruthy();
   });
 });
