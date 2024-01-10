@@ -140,8 +140,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'search',
-            loadChildren: () => import('./search-page/search-page-routing.module')
-              .then((m) => m.SearchPageRoutingModule),
+            loadChildren: () => import('./search-page/search-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
