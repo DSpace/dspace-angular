@@ -122,14 +122,14 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: LEGACY_BITSTREAM_MODULE_PATH,
-            loadChildren: () => import('./bitstream-page/bitstream-page.module')
-              .then((m) => m.BitstreamPageModule),
+            loadChildren: () => import('./bitstream-page/bitstream-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: BITSTREAM_MODULE_PATH,
-            loadChildren: () => import('./bitstream-page/bitstream-page.module')
-              .then((m) => m.BitstreamPageModule),
+            loadChildren: () => import('./bitstream-page/bitstream-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
