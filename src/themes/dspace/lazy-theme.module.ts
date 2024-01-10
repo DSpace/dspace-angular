@@ -25,7 +25,6 @@ import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { RouterModule } from '@angular/router';
 import { InfoModule } from '../../app/info/info.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
-import { CommunityPageModule } from '../../app/community-page/community-page.module';
 import { CollectionPageModule } from '../../app/collection-page/collection-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
@@ -54,7 +53,6 @@ const DECLARATIONS = [
     CollectionPageModule,
     CommonModule,
     CommunityFormModule,
-    CommunityPageModule,
     DragDropModule,
     ItemSharedModule,
     ItemPageModule,

@@ -98,8 +98,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: COMMUNITY_MODULE_PATH,
-            loadChildren: () => import('./community-page/community-page.module')
-              .then((m) => m.CommunityPageModule),
+            loadChildren: () => import('./community-page/community-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
