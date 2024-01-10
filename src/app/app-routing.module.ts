@@ -110,14 +110,14 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: ITEM_MODULE_PATH,
-            loadChildren: () => import('./item-page/item-page.module')
-              .then((m) => m.ItemPageModule),
+            loadChildren: () => import('./item-page/item-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'entities/:entity-type',
-            loadChildren: () => import('./item-page/item-page.module')
-              .then((m) => m.ItemPageModule),
+            loadChildren: () => import('./item-page/item-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {

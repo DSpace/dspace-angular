@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 
 import { ItemPageComponent } from './simple/item-page.component';
-import { ItemPageRoutingModule } from './item-page-routing.module';
 import { MetadataUriValuesComponent } from './field-components/metadata-uri-values/metadata-uri-values.component';
 import {
   ItemPageAuthorFieldComponent
@@ -107,7 +106,6 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
         CommonModule,
-        ItemPageRoutingModule,
         EditItemPageModule,
         ItemVersionsModule,
         ItemSharedModule,

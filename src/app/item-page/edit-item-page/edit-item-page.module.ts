@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { NgbTooltipModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { EditItemPageRoutingModule } from './edit-item-page.routing.module';
 import { EditItemPageComponent } from './edit-item-page.component';
 import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemOperationComponent } from './item-operation/item-operation.component';
@@ -53,7 +52,6 @@ import {
     imports: [
         CommonModule,
         NgbTooltipModule,
-        EditItemPageRoutingModule,
         SearchPageModule,
         DragDropModule,
         ResourcePoliciesModule,
