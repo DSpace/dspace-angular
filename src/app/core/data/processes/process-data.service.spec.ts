@@ -23,6 +23,9 @@ import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { BitstreamFormatDataService } from '../bitstream-format-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TestScheduler } from 'rxjs/testing';
+import { testSearchDataImplementation } from '../base/search-data.spec';
+import { PaginatedList } from '../paginated-list.model';
+import { FindListOptions } from '../find-list-options.model';
 
 describe('ProcessDataService', () => {
   let testScheduler;
@@ -36,6 +39,7 @@ describe('ProcessDataService', () => {
     const initService = () => new ProcessDataService(null, null, null, null, null, null, null, null);
     testFindAllDataImplementation(initService);
     testDeleteDataImplementation(initService);
+    testSearchDataImplementation(initService);
   });
 
   let requestService;
@@ -121,6 +125,73 @@ describe('ProcessDataService', () => {
 
       expect(processDataService.findById).toHaveBeenCalledTimes(1);
       expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('autoRefreshingSearchBy', () => {
+    beforeEach(waitForAsync(() => {
+      testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
+      TestBed.configureTestingModule({
+        imports: [],
+        providers: [
+          ProcessDataService,
+          { provide: RequestService, useValue: null },
+          { provide: RemoteDataBuildService, useValue: null },
+          { provide: ObjectCacheService, useValue: null },
+          { provide: ReducerManager, useValue: null },
+          { provide: HALEndpointService, useValue: null },
+          { provide: DSOChangeAnalyzer, useValue: null },
+          { provide: BitstreamFormatDataService, useValue: null },
+          { provide: NotificationsService, useValue: null },
+          { provide: TIMER_FACTORY, useValue: mockTimer },
+        ]
+      });
+
+      processDataService = TestBed.inject(ProcessDataService);
+    }));
+
+    it('should refresh after the specified interval', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        const runningProcess = Object.assign(new Process(), {
+          _links: {
+            self: {
+              href: 'https://rest.api/processes/123'
+            }
+          }
+        });
+        runningProcess.processStatus = ProcessStatus.RUNNING;
+        const completedProcess = new Process();
+        completedProcess.processStatus = ProcessStatus.COMPLETED;
+
+        const runningProcessPagination: PaginatedList<Process> = Object.assign(new PaginatedList(), {
+          page: [runningProcess],
+        });
+        const completedProcessPagination: PaginatedList<Process> = Object.assign(new PaginatedList(), {
+          page: [completedProcess],
+        });
+
+        const runningProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcessPagination);
+        const completedProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcessPagination);
+
+        spyOn(processDataService, 'invalidateByHref');
+
+        spyOn(processDataService, 'searchBy').and.returnValue(
+          cold('r 150ms c', {
+            'r': runningProcessRD,
+            'c': completedProcessRD
+          })
+        );
+
+        let process$ = processDataService.autoRefreshingSearchBy('byProperty', new FindListOptions(), 100);
+        expectObservable(process$).toBe('r 150ms c', {
+          'r': runningProcessRD,
+          'c': completedProcessRD
+        });
+      });
+
+      expect(processDataService.searchBy).toHaveBeenCalledTimes(1);
     });
   });
 });
