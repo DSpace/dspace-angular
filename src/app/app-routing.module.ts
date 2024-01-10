@@ -204,7 +204,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: INFO_MODULE_PATH,
-            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule)
+            loadChildren: () => import('./info/info-routes').then((m) => m.ROUTES)
           },
           {
             path: REQUEST_COPY_MODULE_PATH,
