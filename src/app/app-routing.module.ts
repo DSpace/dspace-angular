@@ -152,8 +152,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: ADMIN_MODULE_PATH,
-            loadChildren: () => import('./admin/admin.module')
-              .then((m) => m.AdminModule),
+            loadChildren: () => import('./admin/admin-routes')
+              .then((m) => m.ROUTES),
             canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {

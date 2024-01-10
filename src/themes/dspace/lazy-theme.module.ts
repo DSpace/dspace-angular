@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminRegistriesModule } from '../../app/admin/admin-registries/admin-registries.module';
-import { BitstreamFormatsModule } from '../../app/admin/admin-registries/bitstream-formats/bitstream-formats.module';
 import { CollectionFormModule } from '../../app/collection-page/collection-form/collection-form.module';
 import { CommunityFormModule } from '../../app/community-page/community-form/community-form.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -43,10 +41,8 @@ const DECLARATIONS = [
 
 @NgModule({
   imports: [
-    AdminRegistriesModule,
     AppModule,
     RootModule,
-    BitstreamFormatsModule,
     BrowseByPageModule,
     ResultsBackButtonModule,
     CollectionFormModule,
