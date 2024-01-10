@@ -186,8 +186,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: WORKFLOW_ITEM_MODULE_PATH,
-            loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page.routes')
-              .then((m) => m.workflowItemsEditPageRoutes),
+            loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {

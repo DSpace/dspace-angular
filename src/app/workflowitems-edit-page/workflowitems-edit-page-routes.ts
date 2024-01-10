@@ -21,7 +21,7 @@ import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 
-export const workflowItemsEditPageRoutes: Routes = [
+export const ROUTES: Routes = [
   {
     path: ':id',
     resolve: {wfi: WorkflowItemPageResolver},
