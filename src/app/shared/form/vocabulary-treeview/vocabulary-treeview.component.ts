@@ -14,6 +14,7 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { AlertType } from '../../alert/alert-type';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEntry | VocabularyEntryDetail;
@@ -109,6 +110,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   private subs: Subscription[] = [];
+
+  readonly AlertType = AlertType;
 
   /**
    * Initialize instance variables

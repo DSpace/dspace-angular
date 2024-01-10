@@ -1,6 +1,6 @@
 <div class="container">
     <div class="d-flex">
-        <h2 class="flex-grow-1">{{'process.overview.title' | translate}}</h2>
+        <h1 class="flex-grow-1">{{'process.overview.title' | translate}}</h1>
     </div>
     <div class="d-flex justify-content-end">
         <button *ngIf="processBulkDeleteService.hasSelected()" class="btn btn-primary mr-2"
@@ -44,9 +44,11 @@
                     <td>{{process.endTime | date:dateFormat:'UTC'}}</td>
                     <td>{{process.processStatus}}</td>
                     <td>
-                        <button class="btn btn-outline-danger"
-                                (click)="processBulkDeleteService.toggleDelete(process.processId)"><i
-                                class="fas fa-trash"></i></button>
+                        <button [attr.aria-label]="'process.overview.delete-process' | translate"
+                                (click)="processBulkDeleteService.toggleDelete(process.processId)"
+                                class="btn btn-outline-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
                 </tbody>
