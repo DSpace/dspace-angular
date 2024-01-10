@@ -92,8 +92,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: FORGOT_PASSWORD_PATH,
-            loadChildren: () => import('./forgot-password/forgot-password.module')
-              .then((m) => m.ForgotPasswordModule),
+            loadChildren: () => import('./forgot-password/forgot-password-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
