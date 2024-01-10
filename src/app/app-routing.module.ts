@@ -174,8 +174,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: 'import-external',
-            loadChildren: () => import('./import-external-page/import-external-page.module')
-              .then((m) => m.ImportExternalPageModule),
+            loadChildren: () => import('./import-external-page/import-external-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
