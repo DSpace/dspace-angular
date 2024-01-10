@@ -90,6 +90,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
       this.inputText = null;
+      this.updatePageInfo(this.model.maxOptions, 1);
       this.loadOptions();
       sdRef.open();
     }
