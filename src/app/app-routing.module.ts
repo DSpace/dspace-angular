@@ -228,7 +228,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
-            loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
+            loadChildren: () => import('./access-control/access-control-routes').then((m) => m.ROUTES),
             canActivate: [GroupAdministratorGuard, EndUserAgreementCurrentUserGuard],
           },
           {

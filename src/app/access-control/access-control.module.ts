@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AccessControlRoutingModule } from './access-control-routing.module';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
@@ -30,7 +29,6 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     imports: [
         CommonModule,
         RouterModule,
-        AccessControlRoutingModule,
         FormModule,
         NgbAccordionModule,
         SearchModule,
