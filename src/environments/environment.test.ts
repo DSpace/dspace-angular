@@ -319,11 +319,5 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
-  ],
-  advancefilter: [
-    { filter: 'title' },
-    { filter: 'author' },
-    { filter: 'subject' },
-    { filter: 'entityType' }
   ]
 };

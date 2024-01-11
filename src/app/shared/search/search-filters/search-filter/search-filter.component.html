@@ -9,10 +9,7 @@
     <label class="h5 d-inline-block mb-0">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}
     </label>
-    <span class="filter-toggle flex-grow-1 fas p-auto"
-          [ngClass]="(collapsed$ | async) ? 'fa-plus' : 'fa-minus'"
-          [title]="((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate">
-    </span>
+    
     <i class="filter-toggle flex-grow-1 fas p-auto"
        aria-hidden="true"
        [ngClass]="(collapsed$ | async) ? 'fa-plus' : 'fa-minus'"

@@ -4,8 +4,5 @@
         <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
     </div>
 </div>
-<ds-advanced-search [currentScope]="currentScope" [searchConfig]="searchConfig"
-    [currentConfiguration]="currentConfiguration" [filters]="filters" [refreshFilters]="refreshFilters"
-    [searchOptions]="searchOptions" [inPlaceSearch]="inPlaceSearch"></ds-advanced-search>
 <a class="btn btn-primary" *ngIf="inPlaceSearch" [routerLink]="[searchLink]" [queryParams]="clearParams | async"
     queryParamsHandling="merge" role="button"><i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}</a>
