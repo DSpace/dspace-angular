@@ -5,8 +5,8 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
-import { Observable } from 'rxjs';
-import { switchMap, filter, distinctUntilChanged, find, tap, throttleTime } from 'rxjs/operators';
+import { Observable, timer, concatMap } from 'rxjs';
+import { switchMap, filter, distinctUntilChanged, find, tap } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
@@ -19,7 +19,7 @@ import { dataService } from '../base/data-service.decorator';
 import { DeleteData, DeleteDataImpl } from '../base/delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NoContent } from '../../shared/NoContent.model';
-import { getAllCompletedRemoteData } from '../../shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../shared/operators';
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 import { hasValue } from '../../../shared/empty.util';
 import { SearchData, SearchDataImpl } from '../base/search-data';
@@ -138,16 +138,21 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    *    Return an observable that emits a paginated list of processes every interval
    */
   autoRefreshingSearchBy(searchMethod: string, options?: FindListOptions, pollingIntervalInMs: number = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
-    return this.searchBy(searchMethod, options, false, true, ...linksToFollow)
-      .pipe(
-        getAllCompletedRemoteData(),
-        throttleTime(pollingIntervalInMs),
-        tap((processListRD: RemoteData<PaginatedList<Process>>) => {
-          setTimeout(() => {
-            this.invalidateByHref(processListRD.payload._links.self.href);
-          }, pollingIntervalInMs);
-        }),
-      );
+    // Create observable that emits every pollingInterval
+    return timer(0, pollingIntervalInMs).pipe(
+        concatMap(() => {
+          // Every time the timer emits, request the current state of the processes
+          return this.searchBy(searchMethod, options, false, false, ...linksToFollow).pipe(
+              getFirstCompletedRemoteData(),
+              tap((processListRD: RemoteData<PaginatedList<Process>>) => {
+                // Once the response has been received, invalidate the response right before the next request
+                setTimeout(() => {
+                  this.invalidateByHref(processListRD.payload._links.self.href);
+                }, Math.max(pollingIntervalInMs - 100, 0));
+              }),
+          );
+        })
+    );
   }
 
   /**
