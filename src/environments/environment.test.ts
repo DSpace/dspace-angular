@@ -317,5 +317,70 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
+  ],
+
+  notifyMetrics: [
+    {
+      title: 'admin-notify-dashboard.received-ldn',
+      boxes: [
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.accepted',
+          config: 'NOTIFY.incoming.accepted'
+        },
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.processed',
+          config: 'NOTIFY.incoming.processed'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.failure',
+          config: 'NOTIFY.incoming.failure'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.untrusted',
+          config: 'NOTIFY.incoming.untrusted'
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.involved-items',
+          textColor: '#fff',
+          config: 'NOTIFY.incoming.involvedItems',
+        },
+      ]
+    },
+    {
+      title: 'admin-notify-dashboard.generated-ldn',
+      boxes: [
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.delivered',
+          config: 'NOTIFY.outgoing.delivered'
+        },
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.queued',
+          config: 'NOTIFY.outgoing.queued'
+        },
+        {
+          color: '#FDEEBB',
+          title: 'admin-notify-dashboard.queued-for-retry',
+          config: 'NOTIFY.outgoing.queued_for_retry'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.failure',
+          config: 'NOTIFY.outgoing.failure'
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.involved-items',
+          textColor: '#fff',
+          config: 'NOTIFY.outgoing.involvedItems',
+        },
+      ]
+    }
   ]
 };

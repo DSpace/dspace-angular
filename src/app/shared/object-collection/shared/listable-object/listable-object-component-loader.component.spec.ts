@@ -18,7 +18,7 @@ const testType = 'TestType';
 const testContext = Context.Search;
 const testViewMode = ViewMode.StandalonePage;
 
-class TestType extends ListableObject {
+export class TestType extends ListableObject {
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [testType];
   }

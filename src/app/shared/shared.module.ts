@@ -285,6 +285,18 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SplitPipe } from './utils/split.pipe';
 import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
+import { NotificationBoxComponent } from './notification-box/notification-box.component';
+import { ObjectTableComponent } from './object-table/object-table.component';
+import { TabulatableObjectsLoaderComponent } from './object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
+import {
+  TabulatableObjectsDirective
+} from './object-collection/shared/tabulatable-objects/tabulatable-objects.directive';
+import {
+  AbstractTabulatableElementComponent
+} from './object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component';
+import {
+  TabulatableResultListElementsComponent
+} from './object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 
 const MODULES = [
   CommonModule,
@@ -348,7 +360,9 @@ const COMPONENTS = [
   ThemedObjectListComponent,
   ObjectDetailComponent,
   ObjectGridComponent,
+  ObjectTableComponent,
   AbstractListableElementComponent,
+  AbstractTabulatableElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,
   RSSComponent,
@@ -414,6 +428,7 @@ const ENTRY_COMPONENTS = [
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
+  TabulatableResultListElementsComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
   CollectionGridElementComponent,
@@ -469,7 +484,9 @@ const ENTRY_COMPONENTS = [
   AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  NotificationBoxComponent,
+  TabulatableObjectsLoaderComponent,
 ];
 
 const PROVIDERS = [
@@ -488,6 +505,7 @@ const DIRECTIVES = [
   RoleDirective,
   MetadataRepresentationDirective,
   ListableObjectDirective,
+  TabulatableObjectsDirective,
   ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,

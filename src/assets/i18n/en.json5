@@ -28,6 +28,8 @@
 
   "admin.notifications.recitersuggestion.page.title": "Suggestions",
 
+  "admin.notify.dashboard": "Dashboard",
+
   "error-page.description.401": "unauthorized",
 
   "error-page.description.403": "forbidden",
@@ -3075,6 +3077,10 @@
 
   "menu.section.icon.export": "Export menu section",
 
+  "menu.section.notify_dashboard": "Dashboard",
+
+  "menu.section.coar_notify": "COAR Notify",
+
   "menu.section.icon.find": "Find menu section",
 
   "menu.section.icon.health": "Health check menu section",
@@ -3437,7 +3443,199 @@
 
   "quality-assurance.event.reason": "Reason",
 
-  "orgunit.listelement.badge": "Organizational Unit",
+  "admin-notify-dashboard.title": "Notify Dashboard",
+
+  "admin-notify-dashboard.metrics": "Metrics",
+
+  "admin-notify-dashboard.received-ldn": "Number of received LDN",
+
+  "admin-notify-dashboard.generated-ldn": "Number of generated LDN",
+
+  "admin-notify-dashboard.accepted": "Accepted",
+
+  "admin-notify-dashboard.processed": "Processed LDN",
+
+  "admin-notify-dashboard.failure": "Failure",
+
+  "admin-notify-dashboard.untrusted": "Untrusted",
+
+  "admin-notify-dashboard.delivered": "Delivered",
+
+  "admin-notify-dashboard.queued": "Queued",
+
+  "admin-notify-dashboard.queued-for-retry": "Queued for retry",
+
+  "admin-notify-dashboard.involved-items": "Involved items",
+
+  "admin.notify.dashboard.breadcrumbs": "Dashboard",
+
+  "admin.notify.dashboard.inbound": "Inbound messages",
+
+  "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
+
+  "admin.notify.dashboard.outbound": "Outbound messages",
+
+  "admin.notify.dashboard.outbound-logs": "Logs/Outbound",
+
+  "NOTIFY.incoming.search.results.head": "Incoming",
+
+  "search.filters.filter.relateditem.head": "Related item",
+
+  "search.filters.filter.origin.head": "Origin",
+
+  "search.filters.filter.target.head": "Target",
+
+  "search.filters.filter.queue_status.head": "Queue status",
+
+  "search.filters.filter.activity_stream_type.head": "Activity stream type",
+
+  "search.filters.filter.coar_notify_type.head": "COAR Notify type",
+
+  "search.filters.filter.notification_type.head": "Notification type",
+
+  "search.filters.filter.relateditem.label": "Search related items",
+
+  "search.filters.filter.queue_status.label": "Search queue status",
+
+  "search.filters.filter.target.label": "Search target",
+
+  "search.filters.filter.activity_stream_type.label": "Search activity stream type",
+
+  "search.filters.filter.coar_notify_type.label": "Search COAR Notify type",
+
+  "search.filters.filter.notification_type.label": "Search notification type",
+
+  "search.filters.filter.relateditem.placeholder": "Related items",
+
+  "search.filters.filter.target.placeholder": "Target",
+
+  "search.filters.filter.origin.label": "Search source",
+
+  "search.filters.filter.origin.placeholder": "Source",
+
+  "search.filters.filter.queue_status.placeholder": "Queue status",
+
+  "search.filters.filter.activity_stream_type.placeholder": "Activity stream type",
+
+  "search.filters.filter.coar_notify_type.placeholder": "COAR Notify type",
+
+  "search.filters.filter.notification_type.placeholder": "Notification",
+
+  "search.filters.coar_notify_type.coar-notify:ReviewAction": "Review action",
+
+  "notify-detail-modal.coar-notify:ReviewAction": "Review action",
+
+  "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Endorsement action",
+
+  "notify-detail-modal.coar-notify:EndorsementAction": "Endorsement action",
+
+  "search.filters.coar_notify_type.coar-notify:IngestAction": "Ingest action",
+
+  "notify-detail-modal.coar-notify:IngestAction": "Ingest action",
+
+  "search.filters.coar_notify_type.coar-notify:RelationshipAction": "Relationship action",
+
+  "notify-detail-modal.coar-notify:RelationshipAction": "Relationship action",
+
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED": "Queued",
+
+  "notify-detail-modal.QUEUE_STATUS_QUEUED": "Queued",
+
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+
+  "notify-detail-modal.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSING": "Processing",
+
+  "notify-detail-modal.QUEUE_STATUS_PROCESSING": "Processing",
+
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSED": "Processed",
+
+  "notify-detail-modal.QUEUE_STATUS_PROCESSED": "Processed",
+
+  "search.filters.queue_status.QUEUE_STATUS_FAILED": "Failed",
+
+  "notify-detail-modal.QUEUE_STATUS_FAILED": "Failed",
+
+  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+
+  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+
+  "search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
+
+  "notify-detail-modal.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
+
+  "sorting.queue_last_start_time.DESC": "Last started queue Descending",
+
+  "sorting.queue_last_start_time.ASC": "Last started queue Ascending",
+
+  "sorting.queue_attempts.DESC": "Queue attempted Descending",
+
+  "sorting.queue_attempts.ASC": "Queue attempted Ascending",
+
+  "type.notify-detail-modal": "Type",
+
+  "id.notify-detail-modal": "Id",
+
+  "coarNotifyType.notify-detail-modal": "COAR Notify type",
+
+  "activityStreamType.notify-detail-modal": "Activity stream type",
+
+  "inReplyTo.notify-detail-modal": "In reply to",
+
+  "object.notify-detail-modal": "Repository Item",
+
+  "context.notify-detail-modal": "Repository Item",
+
+  "queueAttempts.notify-detail-modal": "Queue attempts",
+
+  "queueLastStartTime.notify-detail-modal": "Queue last started",
+
+  "origin.notify-detail-modal": "LDN Service",
+
+  "target.notify-detail-modal": "LDN Service",
+
+  "queueStatusLabel.notify-detail-modal": "Queue status",
+
+  "queueTimeout.notify-detail-modal": "Queue timeout",
+
+  "notify-message-modal.title": "Message Detail",
+
+  "notify-message-result.timestamp": "Timestamp",
+
+  "notify-message-result.repositoryItem": "Repository Item",
+
+  "notify-message-result.ldnService": "LDN Service",
+
+  "notify-message-result.type": "Type",
+
+  "notify-message-result.status": "Status",
+
+  "notify-message-result.action": "Action",
+
+  "notify-message-result.detail": "Detail",
+
+  "notify-message-result.reprocess": "Reprocess",
+
+  "notify-queue-status.processed": "Processed",
+
+  "notify-queue-status.failed": "Failed",
+
+  "notify-queue-status.queue_retry": "Queued for retry",
+
+  "notify-queue-status.unmapped_action": "Unmapped action",
+
+  "notify-queue-status.processing": "Processing",
+
+  "notify-queue-status.queued": "Queued",
+
+  "notify-queue-status.untrusted": "Untrusted",
+
+  "ldnService.notify-detail-modal": "LDN Service",
+
+  "relatedItem.notify-detail-modal": "Related Item",
+
+  "orgunit.listelement.badge": "Repository Item",
 
   "orgunit.listelement.no-title": "Untitled",
 

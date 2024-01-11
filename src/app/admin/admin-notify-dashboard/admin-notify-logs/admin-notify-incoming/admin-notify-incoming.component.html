@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom pb-2">{{'admin-notify-dashboard.title'| translate}}</h2>
+      <div>
+        <div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'../'">{{'admin-notify-dashboard.metrics' | translate}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active">{{'admin.notify.dashboard.inbound-logs' | translate}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="'../outbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.outbound-logs' | translate}}</a>
+          </ul>
+
+          <div class="col-12 text-left h4 my-4">{{'admin.notify.dashboard.inbound' | translate}}</div>
+          <ds-themed-search
+            [configuration]="'NOTIFY.incoming'"
+            [showViewModes]="false"
+            [searchEnabled]="false"
+            [context]="context"
+          ></ds-themed-search>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
