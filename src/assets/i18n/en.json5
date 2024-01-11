@@ -3489,7 +3489,7 @@
 
   "search.filters.filter.activity_stream_type.head": "Activity stream type",
 
-  "search.filters.filter.coar_notify_type.head": "Coar notify type",
+  "search.filters.filter.coar_notify_type.head": "COAR notify type",
 
   "search.filters.filter.notification_type.head": "Notification type",
 
@@ -3577,7 +3577,7 @@
 
   "id.notify-detail-modal": "Id",
 
-  "coarNotifyType.notify-detail-modal": "Coar Notify type",
+  "coarNotifyType.notify-detail-modal": "COAR Notify type",
 
   "activityStreamType.notify-detail-modal": "Activity stream type",
 
