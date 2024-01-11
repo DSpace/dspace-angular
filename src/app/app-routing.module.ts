@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, NoPreloading } from '@angular/router';
+import { importProvidersFrom, NgModule } from '@angular/core';
+import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
@@ -40,6 +40,11 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import { storeModuleConfig } from './app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { submissionReducers, SubmissionState } from './submission/submission.reducers';
+import { submissionEffects } from './submission/submission.effects';
 
 @NgModule({
   imports: [
@@ -170,6 +175,11 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: 'submit',
             loadChildren: () => import('./submit-page/submit-page-routes')
               .then((m) => m.ROUTES),
+            providers: [
+              importProvidersFrom(
+              StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+              EffectsModule.forFeature(submissionEffects),
+            )],
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
@@ -182,10 +192,20 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: 'workspaceitems',
             loadChildren: () => import('./workspaceitems-edit-page/workspaceitems-edit-page-routes')
               .then((m) => m.ROUTES),
+            providers: [
+              importProvidersFrom(
+                StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+                EffectsModule.forFeature(submissionEffects),
+              )],
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: WORKFLOW_ITEM_MODULE_PATH,
+            providers: [
+              importProvidersFrom(
+                StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+                EffectsModule.forFeature(submissionEffects),
+              )],
             loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page-routes')
               .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
