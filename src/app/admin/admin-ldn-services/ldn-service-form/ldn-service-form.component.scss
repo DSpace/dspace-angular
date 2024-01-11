@@ -129,13 +129,15 @@ textarea {
   bottom: 0;
   background-color: var(--bs-gray-400);
   padding: calc(var(--bs-spacer) / 2);
-  z-index: var(--ds-submission-footer-z-index);
+  z-index: calc(var(--ds-submission-footer-z-index) + 1);
 }
 
 .marked-for-deletion {
   background-color: lighten($red, 30%);
 }
 
-
+.dropdown-menu-top, .scrollable-dropdown-menu  {
+  z-index: var(--ds-submission-footer-z-index);
+}
 
 
