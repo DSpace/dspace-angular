@@ -48,6 +48,29 @@
       </div>
     </div>
 
+    <!-- In the IP section -->
+    <div class="mb-5 mt-5">
+      <label for="ipRangeMin" class="font-weight-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
+      <div class="d-flex">
+        <input [class.invalid-field]="formModel.get('ipRangeMin').invalid && formModel.get('ipRangeMin').touched"
+               [placeholder]="'ldn-new-service.form.placeholder.ipRange' | translate" class="form-control mr-2"
+               formControlName="ipRangeMin"
+               id="ipRangeMin"
+               name="ipRangeMin"
+               type="text">
+        <input [class.invalid-field]="formModel.get('ipRangeMax').invalid && formModel.get('ipRangeMax').touched"
+               [placeholder]="'ldn-new-service.form.placeholder.ipRange' | translate" class="form-control"
+               formControlName="ipRangeMax"
+               id="ipRangeMax"
+               name="ipRangeMax"
+               type="text">
+      </div>
+
+      <div *ngIf="(formModel.get('ipRangeMin').invalid && formModel.get('ipRangeMin').touched) || (formModel.get('ipRangeMax').invalid && formModel.get('ipRangeMax').touched)" class="error-text">
+        {{ 'ldn-new-service.form.error.ipRange' | translate }}
+      </div>
+    </div>
+
     <!-- In the ldnUrl section -->
     <div class="mb-5 mt-5">
       <label for="ldnUrl" class="font-weight-bold">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>

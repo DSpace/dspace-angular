@@ -29,6 +29,7 @@ import {combineLatestWith, Observable, Subscription} from 'rxjs';
 import {PaginationService} from '../../../core/pagination/pagination.service';
 import {FindListOptions} from '../../../core/data/find-list-options.model';
 import {NotifyServicePattern} from '../ldn-services-model/ldn-service-patterns.model';
+import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
 
 
 /**
@@ -63,6 +64,8 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   @Input() public description: string;
   @Input() public url: string;
   @Input() public ldnUrl: string;
+  @Input() public ipRangeMin: string;
+  @Input() public ipRangeMax: string;
   @Input() public score: number;
   @Input() public inboundPattern: string;
   @Input() public constraint: string;
@@ -99,6 +102,8 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       description: [''],
       url: ['', Validators.required],
       ldnUrl: ['', Validators.required],
+      ipRangeMin: ['', [Validators.required, new IpV4Validator()]],
+      ipRangeMax: ['', [new IpV4Validator()]],
       score: ['', [Validators.required, Validators.pattern('^0*(\.[0-9]+)?$|^1(\.0+)?$')]], inboundPattern: [''],
       constraintPattern: [''],
       enabled: [''],
