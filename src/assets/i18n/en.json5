@@ -1000,6 +1000,7 @@
   "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.ldnurl": "LDN URL is required",
+  "ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated": "This LDN Inbox URL is associated to another registered service. Please enter a different LDN Inbox URL",
   "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
 

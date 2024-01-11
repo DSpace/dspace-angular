@@ -9,7 +9,12 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import {LDN_SERVICE} from '../ldn-services-model/ldn-service.resource-type';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LdnServicesService} from '../ldn-services-data/ldn-services-data.service';
@@ -198,6 +203,9 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
         this.sendBack();
         this.closeModal();
       } else {
+        if (!this.formModel.errors) {
+          this.setLdnUrlError();
+        }
         this.notificationService.error(this.translateService.get('ldn-service-notification.created.failure.title'),
           this.translateService.get('ldn-service-notification.created.failure.body'));
         this.closeModal();
@@ -486,6 +494,9 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
           this.notificationService.success(this.translateService.get('admin.registries.services-formats.modify.success.head'),
             this.translateService.get('admin.registries.services-formats.modify.success.content'));
         } else {
+          if (!this.formModel.errors) {
+            this.setLdnUrlError();
+          }
           this.notificationService.error(this.translateService.get('admin.registries.services-formats.modify.failure.head'),
             this.translateService.get('admin.registries.services-formats.modify.failure.content'));
           this.closeModal();
@@ -707,5 +718,15 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       constraint: '',
       automatic: '',
     });
+  }
+
+
+  /**
+   * set ldnUrl error in case of unprocessable entity and provided value
+   */
+  private setLdnUrlError(): void {
+    const control = this.formModel.controls.ldnUrl;
+    const controlErrors = control.errors || {};
+    control.setErrors({...controlErrors, ldnUrlAlreadyAssociated: true });
   }
 }
