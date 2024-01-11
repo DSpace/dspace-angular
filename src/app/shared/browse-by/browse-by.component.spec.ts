@@ -44,8 +44,6 @@ import { ConfigurationProperty } from '../../core/shared/configuration-property.
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
-import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
-import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
 
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'custom')
 @Component({
@@ -115,8 +113,6 @@ describe('BrowseByComponent', () => {
     themeService = getMockThemeService('dspace');
     TestBed.configureTestingModule({
     imports: [
-        BrowseByRoutingModule,
-        AccessControlRoutingModule,
         CommonModule,
         NgbModule,
         TranslateModule.forRoot({

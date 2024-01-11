@@ -15,7 +15,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { of } from 'rxjs';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 
@@ -80,7 +79,6 @@ describe('AuthNavMenuComponent', () => {
         TranslateModule.forRoot(),
         AuthNavMenuComponent
     ],
-    declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: HostWindowService, useValue: window },
         { provide: AuthService, useValue: authService },

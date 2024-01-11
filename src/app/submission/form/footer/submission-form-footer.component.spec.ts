@@ -15,7 +15,6 @@ import { SubmissionRestServiceStub } from '../../../shared/testing/submission-re
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
 
@@ -37,7 +36,6 @@ describe('SubmissionFormFooterComponent', () => {
         SubmissionFormFooterComponent,
         TestComponent
     ],
-    declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SubmissionRestService, useClass: SubmissionRestServiceStub },

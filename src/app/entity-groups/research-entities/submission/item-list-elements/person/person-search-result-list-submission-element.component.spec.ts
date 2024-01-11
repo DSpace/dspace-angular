@@ -30,7 +30,6 @@ import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { BrowseByRoutingModule } from '../../../../../browse-by/browse-by-routing.module';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 
@@ -111,7 +110,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(async () => {
     init();
     await TestBed.configureTestingModule({
-      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe, BrowseByRoutingModule],
+      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
@@ -210,7 +209,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe, BrowseByRoutingModule],
+      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },

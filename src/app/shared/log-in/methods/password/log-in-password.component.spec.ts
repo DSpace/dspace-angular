@@ -15,7 +15,6 @@ import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
@@ -60,7 +59,6 @@ describe('LogInPasswordComponent', () => {
         TranslateModule.forRoot(),
         LogInPasswordComponent
     ],
-    declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },

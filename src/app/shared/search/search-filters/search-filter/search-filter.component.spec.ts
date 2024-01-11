@@ -13,7 +13,6 @@ import { FilterType } from '../../models/filter-type.model';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
-import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
 describe('SearchFilterComponent', () => {
@@ -64,7 +63,6 @@ describe('SearchFilterComponent', () => {
 
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFilterComponent],
-    declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {

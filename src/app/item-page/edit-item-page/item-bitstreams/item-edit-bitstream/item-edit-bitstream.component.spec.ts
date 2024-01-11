@@ -12,7 +12,6 @@ import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
-import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -81,7 +80,6 @@ describe('ItemEditBitstreamComponent', () => {
         ItemEditBitstreamComponent,
         VarDirective
     ],
-    declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }

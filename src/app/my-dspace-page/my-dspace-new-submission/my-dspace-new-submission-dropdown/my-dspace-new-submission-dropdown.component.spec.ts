@@ -12,7 +12,6 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 
 export function getMockEntityTypeService(): EntityTypeDataService {
   const type1: ItemType = {
@@ -88,7 +87,6 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         MyDSpaceNewSubmissionDropdownComponent,
         TestComponent
     ],
-    declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
         { provide: NgbModal, useValue: modalStub },
@@ -138,7 +136,6 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         MyDSpaceNewSubmissionDropdownComponent,
         TestComponent
     ],
-    declarations: [BrowserOnlyMockPipe],
     providers: [
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
         { provide: NgbModal, useValue: modalStub },
