@@ -20,7 +20,7 @@ export const CAPTCHA_NAME = 'google-recaptcha';
 export class GoogleRecaptchaService {
 
   private renderer: Renderer2;
-x
+
   /**
    * A Google Recaptcha version
    */
