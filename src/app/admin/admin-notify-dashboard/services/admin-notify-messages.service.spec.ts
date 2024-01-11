@@ -19,7 +19,7 @@ import {
 } from '../admin-notify-search-result/admin-notify-search-result.component.spec';
 import { take } from 'rxjs/operators';
 import { deepClone } from 'fast-json-patch';
-import { AdminNotifyMessage } from "../models/admin-notify-message.model";
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 
 describe('AdminNotifyMessagesService test', () => {
   let service: AdminNotifyMessagesService;
@@ -31,7 +31,7 @@ describe('AdminNotifyMessagesService test', () => {
   let ldnServicesService: LdnServicesService;
   let itemDataService: ItemDataService;
   let responseCacheEntry: RequestEntry;
-  let mockMessages : AdminNotifyMessage[];
+  let mockMessages: AdminNotifyMessage[];
 
   const endpointURL = `https://rest.api/rest/api/ldn/messages`;
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
@@ -54,7 +54,7 @@ describe('AdminNotifyMessagesService test', () => {
   }
 
   beforeEach(() => {
-    mockMessages = deepClone(mockUnformattedAdminNotifyMessages)
+    mockMessages = deepClone(mockUnformattedAdminNotifyMessages);
     objectCache = {} as ObjectCacheService;
     notificationsService = {} as NotificationsService;
     responseCacheEntry = new RequestEntry();

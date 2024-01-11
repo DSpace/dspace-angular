@@ -16,7 +16,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { DatePipe } from "@angular/common";
+import { DatePipe } from '@angular/common';
 
 @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
 @Component({
@@ -48,13 +48,13 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    * @private
    */
 
-  private dateTypeKeys: string[] = ['queueLastStartTime', 'queueTimeout']
+  private dateTypeKeys: string[] = ['queueLastStartTime', 'queueTimeout'];
 
   /**
    * The format for the date values
    * @private
    */
-  private dateFormat: string = 'YYYY/MM/d hh:mm:ss'
+  private dateFormat = 'YYYY/MM/d hh:mm:ss';
 
     constructor(private modalService: NgbModal,
                 private adminNotifyMessagesService: AdminNotifyMessagesService,
@@ -100,10 +100,10 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
 
     const messageKeys = Object.keys(messageToOpen);
     messageKeys.forEach(key => {
-      if(this.dateTypeKeys.includes(key)) {
+      if (this.dateTypeKeys.includes(key)) {
         messageToOpen[key] = this.datePipe.transform(messageToOpen[key], this.dateFormat);
       }
-    })
+    });
 
     modalRef.componentInstance.notifyMessage = messageToOpen;
     modalRef.componentInstance.notifyMessageKeys = messageKeys;
