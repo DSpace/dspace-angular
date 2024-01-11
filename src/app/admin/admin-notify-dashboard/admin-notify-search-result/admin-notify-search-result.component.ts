@@ -16,6 +16,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { DatePipe } from "@angular/common";
 
 @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
 @Component({
@@ -42,8 +43,22 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    */
   private subs: Subscription[] = [];
 
+  /**
+   * Keys to be formatted as date
+   * @private
+   */
+
+  private dateTypeKeys: string[] = ['queueLastStartTime', 'queueTimeout']
+
+  /**
+   * The format for the date values
+   * @private
+   */
+  private dateFormat: string = 'YYYY/MM/d hh:mm:ss'
+
     constructor(private modalService: NgbModal,
                 private adminNotifyMessagesService: AdminNotifyMessagesService,
+                private datePipe: DatePipe,
                 @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
       super();
     }
@@ -72,13 +87,10 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     const modalRef = this.modalService.open(AdminNotifyDetailModalComponent);
     const messageToOpen = {...message};
     // we delete not necessary or not readable keys
-    if (this.isInbound) {
-      delete messageToOpen.target;
-      delete messageToOpen.object;
-    } else {
-      delete messageToOpen.context;
-      delete messageToOpen.origin;
-    }
+    delete messageToOpen.target;
+    delete messageToOpen.object;
+    delete messageToOpen.context;
+    delete messageToOpen.origin;
     delete messageToOpen._links;
     delete messageToOpen.metadata;
     delete messageToOpen.thumbnail;
@@ -87,6 +99,12 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     delete messageToOpen.queueStatus;
 
     const messageKeys = Object.keys(messageToOpen);
+    messageKeys.forEach(key => {
+      if(this.dateTypeKeys.includes(key)) {
+        messageToOpen[key] = this.datePipe.transform(messageToOpen[key], this.dateFormat);
+      }
+    })
+
     modalRef.componentInstance.notifyMessage = messageToOpen;
     modalRef.componentInstance.notifyMessageKeys = messageKeys;
   }

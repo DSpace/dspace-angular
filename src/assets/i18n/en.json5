@@ -3587,6 +3587,10 @@
 
   "notify-queue-status.untrusted": "Untrusted",
 
+  "ldnService.notify-detail-modal": "LDN Service",
+
+  "relatedItem.notify-detail-modal": "Related Item",
+
   "orgunit.listelement.badge": "Repository Item",
 
   "orgunit.listelement.no-title": "Untitled",

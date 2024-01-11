@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyDashboardRoutingModule } from './admin-notify-dashboard-routing.module';
@@ -28,7 +28,8 @@ import { AdminNotifyMessagesService } from './services/admin-notify-messages.ser
     SearchPageModule,
   ],
   providers: [
-    AdminNotifyMessagesService
+    AdminNotifyMessagesService,
+    DatePipe
   ],
   declarations: [
     AdminNotifyDashboardComponent,

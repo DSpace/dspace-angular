@@ -12,8 +12,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let message of (messagesSubject$ | async)">
-          <td>
-            <div>{{ message.queueLastStartTime }}</div>
+          <td class="text-nowrap">
+            <div>{{ message.queueLastStartTime | date:"YYYY/MM/d hh:mm:ss" }}</div>
           </td>
           <td>
             <a [routerLink]="'/items/' + (isInbound ? message.context : message.object)">{{ message.relatedItem }}</a>

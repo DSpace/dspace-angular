@@ -7,8 +7,8 @@
 <div class="modal-body p-4">
     <div *ngFor="let key of notifyMessageKeys">
       <div class="row mb-4">
-        <div class="font-weight-bold col-sm">{{ key + '.notify-detail-modal' | translate}}</div>
-        <div class="text-truncate col-sm text-right">{{ notifyMessage[key] | translate }}</div>
+        <div class="font-weight-bold col">{{ key + '.notify-detail-modal' | translate}}</div>
+        <div class="col text-right">{{ notifyMessage[key] | translate }}</div>
       </div>
     </div>
 </div>
