@@ -37,6 +37,11 @@ export class VocabularyTreeviewModalComponent implements OnInit {
   @Input() multiSelect = false;
 
   /**
+   * A boolean representing if to show the add button or not
+   */
+  @Input() showAdd = true;
+
+  /**
    * Contain a descriptive message for this vocabulary retrieved from i18n files
    */
   description: string;

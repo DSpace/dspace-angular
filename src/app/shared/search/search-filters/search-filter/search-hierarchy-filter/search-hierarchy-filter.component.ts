@@ -10,7 +10,8 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER
+  REFRESH_FILTER,
+  SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -18,14 +19,15 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FacetValue } from '../../../models/facet-value.model';
-import { getFacetValueForType } from '../../../search.utils';
+import { addOperatorToFilterValue, getFacetValueForType } from '../../../search.utils';
 import { filter, map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
-import { addOperatorToFilterValue } from '../../../search.utils';
-import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import {
+  VocabularyTreeviewModalComponent
+} from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -91,6 +93,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true
     };
+    modalRef.componentInstance.showAdd = false;
     modalRef.result.then((detail: VocabularyEntryDetail) => {
       this.selectedValues$
         .pipe(take(1))
