@@ -6,16 +6,6 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { Observable } from 'rxjs';
-
-export enum QueueStatusMap {
-  QUEUE_STATUS_PROCESSED = 'notify-queue-status.processed',
-  QUEUE_STATUS_FAILED = 'notify-queue-status.processed',
-  QUEUE_STATUS_UNMAPPED_ACTION = 'notify-queue-status.unmapped_action',
-  QUEUE_STATUS_QUEUED_FOR_RETRY = 'notify-queue-status.queue_retry',
-  QUEUE_STATUS_PROCESSING = 'notify-queue-status.processing',
-  QUEUE_STATUS_QUEUED = 'notify-queue-status.queued',
-  QUEUE_STATUS_UNTRUSTED = 'notify-queue-status.untrusted',
-}
 /**
  * A message that includes admin notify info
  */

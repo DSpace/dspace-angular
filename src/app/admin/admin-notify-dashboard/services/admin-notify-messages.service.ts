@@ -8,7 +8,7 @@ import {HALEndpointService} from '../../../core/shared/hal-endpoint.service';
 import {NotificationsService} from '../../../shared/notifications/notifications.service';
 import { BehaviorSubject, from, Observable, of, scan } from 'rxjs';
 import { ADMIN_NOTIFY_MESSAGE } from '../models/admin-notify-message.resource-type';
-import { AdminNotifyMessage, QueueStatusMap } from '../models/admin-notify-message.model';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
@@ -41,21 +41,13 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
     super('messages', requestService, rdbService, objectCache, halService);
   }
 
-  /**
-   * Map labels to readable info for user
-   * @param message the message to which map the labels
-   */
-  public formatMessageLabels(message: AdminNotifyMessage): AdminNotifyMessage {
-    message.queueStatusLabel = QueueStatusMap[message.queueStatusLabel];
-    return message;
-  }
 
   /**
    * Add detailed information to each message
    * @param messages the messages to which add detailded info
    */
   public getDetailedMessages(messages: AdminNotifyMessage[]): Observable<AdminNotifyMessage[]> {
-    return from(messages.map(message => this.formatMessageLabels(message))).pipe(
+    return from(messages).pipe(
       mergeMap(message =>
         message.target || message.origin ? this.ldnServicesService.findById((message.target || message.origin).toString()).pipe(
           getAllSucceededRemoteDataPayload(),
@@ -88,7 +80,6 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
       getFirstCompletedRemoteData(),
       getAllSucceededRemoteDataPayload(),
     ).pipe(
-      map(reprocessedMessage => this.formatMessageLabels(reprocessedMessage)),
       mergeMap((newMessage) =>  messageSubject.pipe(
         map(messages => {
           const messageToUpdate = messages.find(currentMessage => currentMessage.id === message.id);

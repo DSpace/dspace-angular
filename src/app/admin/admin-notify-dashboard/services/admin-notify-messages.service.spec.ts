@@ -14,9 +14,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestEntryState } from '../../../core/data/request-entry-state.model';
 import {
-  mockAdminNotifyMessages,
-  mockUnformattedAdminNotifyMessages
-} from '../admin-notify-search-result/admin-notify-search-result.component.spec';
+  mockAdminNotifyMessages} from '../admin-notify-search-result/admin-notify-search-result.component.spec';
 import { take } from 'rxjs/operators';
 import { deepClone } from 'fast-json-patch';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
@@ -54,7 +52,7 @@ describe('AdminNotifyMessagesService test', () => {
   }
 
   beforeEach(() => {
-    mockMessages = deepClone(mockUnformattedAdminNotifyMessages);
+    mockMessages = deepClone(mockAdminNotifyMessages);
     objectCache = {} as ObjectCacheService;
     notificationsService = {} as NotificationsService;
     responseCacheEntry = new RequestEntry();
@@ -94,11 +92,6 @@ describe('AdminNotifyMessagesService test', () => {
   describe('Admin Notify service', () => {
     it('should be defined', () => {
       expect(service).toBeDefined();
-    });
-
-    it('should format message labels', () => {
-      const formattedMessage = service.formatMessageLabels(mockMessages[0]);
-      expect(formattedMessage).toEqual(mockAdminNotifyMessages[0]);
     });
 
     it('should get details for messages', (done) => {

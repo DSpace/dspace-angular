@@ -3519,7 +3519,51 @@
 
   "search.filters.filter.coar_notify_type.placeholder": "COAR notify type",
 
-  "search.filters.filter.notification_type.placeholder": "Notification type",
+  "search.filters.filter.notification_type.placeholder": "Notification",
+
+  "search.filters.coar_notify_type.coar-notify:ReviewAction": "Review action",
+
+  "notify-detail-modal.coar-notify:ReviewAction": "Review action",
+
+  "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Endorsement action",
+
+  "notify-detail-modal.coar-notify:EndorsementAction": "Endorsement action",
+
+  "search.filters.coar_notify_type.coar-notify:IngestAction": "Ingest action",
+
+  "notify-detail-modal.coar-notify:IngestAction": "Ingest action",
+
+  "search.filters.coar_notify_type.coar-notify:RelationshipAction": "Relationship action",
+
+  "notify-detail-modal.coar-notify:RelationshipAction": "Relationship action",
+
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED": "Queued",
+
+  "notify-detail-modal.QUEUE_STATUS_QUEUED": "Queued",
+
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+
+  "notify-detail-modal.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSING": "Processing",
+
+  "notify-detail-modal.QUEUE_STATUS_PROCESSING": "Processing",
+
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSED": "Processed",
+
+  "notify-detail-modal.QUEUE_STATUS_PROCESSED": "Processed",
+
+  "search.filters.queue_status.QUEUE_STATUS_FAILED": "Failed",
+
+  "notify-detail-modal.QUEUE_STATUS_FAILED": "Failed",
+
+  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+
+  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+
+  "search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
+
+  "notify-detail-modal.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
 
   "sorting.queue_last_start_time.DESC": "Last started queue Descending",
 

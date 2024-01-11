@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf, of } from 'rxjs';
-import { AdminNotifyMessage, QueueStatusMap } from '../models/admin-notify-message.model';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
@@ -75,13 +75,6 @@ export const mockAdminNotifyMessages = [
     'relatedItem': 'test coar demo'
   }
 ] as unknown as AdminNotifyMessage[];
-
-export const mockUnformattedAdminNotifyMessages = mockAdminNotifyMessages.map(
-  message => ({
-    ...message,
-    queueStatusLabel:  Object.keys(QueueStatusMap)[Object.values(QueueStatusMap).indexOf(message.queueStatusLabel as unknown as QueueStatusMap)]
-  })
-) as unknown as AdminNotifyMessage[];
 describe('AdminNotifySearchResultComponent', () => {
   let component: AdminNotifySearchResultComponent;
   let fixture: ComponentFixture<AdminNotifySearchResultComponent>;

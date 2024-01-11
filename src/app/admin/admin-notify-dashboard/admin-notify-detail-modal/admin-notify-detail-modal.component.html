@@ -8,7 +8,10 @@
     <div *ngFor="let key of notifyMessageKeys">
       <div class="row mb-4">
         <div class="font-weight-bold col">{{ key + '.notify-detail-modal' | translate}}</div>
-        <div class="col text-right">{{ notifyMessage[key] | translate }}</div>
+        <div class="col text-right">{{
+          ('notify-detail-modal.' + notifyMessage[key] | translate) !==  ('notify-detail-modal.' + notifyMessage[key]) ?
+          ('notify-detail-modal.' + notifyMessage[key] | translate) :
+          notifyMessage[key]}}</div>
       </div>
     </div>
 </div>

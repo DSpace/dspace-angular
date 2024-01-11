@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
-import { AdminNotifyMessage, QueueStatusMap } from '../models/admin-notify-message.model';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import {
   tabulatableObjectsComponent
 } from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
@@ -32,7 +32,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AdminNotifySearchResultComponent extends TabulatableResultListElementsComponent<PaginatedList<AdminNotifySearchResult>, AdminNotifySearchResult> implements OnInit, OnDestroy{
   public messagesSubject$: BehaviorSubject<AdminNotifyMessage[]> = new BehaviorSubject([]);
-  public reprocessStatus = QueueStatusMap.QUEUE_STATUS_QUEUED_FOR_RETRY;
+  public reprocessStatus = 'QUEUE_STATUS_QUEUED_FOR_RETRY';
   //we check on one type of config to render specific table headers
   public isInbound: boolean;
 
