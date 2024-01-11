@@ -22,7 +22,7 @@ import {
 import { FormEntry, FormError, FormTouchedState } from './form.reducer';
 import { environment } from '../../../environments/environment';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FormService {
 
   constructor(

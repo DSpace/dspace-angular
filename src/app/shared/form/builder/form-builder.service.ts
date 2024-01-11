@@ -46,7 +46,7 @@ import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FormBuilderService extends DynamicFormService {
 
   private typeBindModel: DynamicFormControlModel;

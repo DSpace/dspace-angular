@@ -49,7 +49,7 @@ import { SubmissionSectionError } from '../objects/submission-section-error.mode
 /**
  * A service that provides methods used in submission process.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SectionsService {
 
   /**
