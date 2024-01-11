@@ -24,7 +24,7 @@ export const mockAdminNotifyMessages = [
   {
     'type': 'message',
     'id': 'urn:uuid:5fb3af44-d4f8-4226-9475-2d09c2d8d9e0',
-    'coarNotifyType': 'ReviewAction',
+    'coarNotifyType': 'coar-notify:ReviewAction',
     'activityStreamType': 'TentativeReject',
     'inReplyTo': 'urn:uuid:f7289ad5-0955-4c86-834c-fb54a736778b',
     'object': null,
@@ -50,7 +50,7 @@ export const mockAdminNotifyMessages = [
   {
     'type': 'message',
     'id': 'urn:uuid:544c8777-e826-4810-a625-3e394cc3660d',
-    'coarNotifyType': 'IngestAction',
+    'coarNotifyType': 'coar-notify:IngestAction',
     'activityStreamType': 'Announce',
     'inReplyTo': 'urn:uuid:b2ad72d6-6ea9-464f-b385-29a78417f6b8',
     'object': null,
@@ -78,7 +78,6 @@ export const mockAdminNotifyMessages = [
 export const mockUnformattedAdminNotifyMessages = mockAdminNotifyMessages.map(
   message => ({
     ...message,
-    coarNotifyType: 'coar:' + message.coarNotifyType,
     queueStatusLabel:  Object.keys(QueueStatusMap)[Object.values(QueueStatusMap).indexOf(message.queueStatusLabel as unknown as QueueStatusMap)]
   })
 ) as unknown as AdminNotifyMessage[];

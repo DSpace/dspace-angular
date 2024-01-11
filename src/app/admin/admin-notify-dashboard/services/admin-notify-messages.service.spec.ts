@@ -1,5 +1,4 @@
-import { TestScheduler } from 'rxjs/testing';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import { AdminNotifyMessagesService } from './admin-notify-messages.service';
 import { RequestService } from '../../../core/data/request.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -20,9 +19,9 @@ import {
 } from '../admin-notify-search-result/admin-notify-search-result.component.spec';
 import { take } from 'rxjs/operators';
 import { deepClone } from 'fast-json-patch';
+import { AdminNotifyMessage } from "../models/admin-notify-message.model";
 
 describe('AdminNotifyMessagesService test', () => {
-  let scheduler: TestScheduler;
   let service: AdminNotifyMessagesService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -32,8 +31,9 @@ describe('AdminNotifyMessagesService test', () => {
   let ldnServicesService: LdnServicesService;
   let itemDataService: ItemDataService;
   let responseCacheEntry: RequestEntry;
+  let mockMessages : AdminNotifyMessage[];
 
-  const endpointURL = `https://rest.api/rest/api/messages`;
+  const endpointURL = `https://rest.api/rest/api/ldn/messages`;
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
   const remoteDataMocks = {
     Success: new RemoteData(null, null, null, RequestEntryState.Success, null, null, 200),
@@ -54,8 +54,7 @@ describe('AdminNotifyMessagesService test', () => {
   }
 
   beforeEach(() => {
-    scheduler = getTestScheduler();
-
+    mockMessages = deepClone(mockUnformattedAdminNotifyMessages)
     objectCache = {} as ObjectCacheService;
     notificationsService = {} as NotificationsService;
     responseCacheEntry = new RequestEntry();
@@ -78,7 +77,7 @@ describe('AdminNotifyMessagesService test', () => {
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: createSuccessfulRemoteDataObject$({}, 500),
       buildList: cold('a', { a: remoteDataMocks.Success }),
-      buildFromRequestUUID: createSuccessfulRemoteDataObject$(deepClone(mockUnformattedAdminNotifyMessages))
+      buildFromRequestUUID: createSuccessfulRemoteDataObject$(mockMessages)
     });
 
     ldnServicesService = jasmine.createSpyObj('ldnServicesService', {
@@ -89,9 +88,7 @@ describe('AdminNotifyMessagesService test', () => {
       findById: createSuccessfulRemoteDataObject$({name: testRelatedItemName}),
     });
 
-
     service = initTestService();
-
   });
 
   describe('Admin Notify service', () => {
@@ -100,12 +97,12 @@ describe('AdminNotifyMessagesService test', () => {
     });
 
     it('should format message labels', () => {
-      const formattedMessage = service.formatMessageLabels(deepClone(mockUnformattedAdminNotifyMessages[0]));
+      const formattedMessage = service.formatMessageLabels(mockMessages[0]);
       expect(formattedMessage).toEqual(mockAdminNotifyMessages[0]);
     });
 
     it('should get details for messages', (done) => {
-      service.getDetailedMessages(deepClone(mockUnformattedAdminNotifyMessages)).pipe(take(1)).subscribe((detailedMessages) => {
+      service.getDetailedMessages(mockMessages).pipe(take(1)).subscribe((detailedMessages) => {
         expect(detailedMessages[0].ldnService).toEqual(testLdnServiceName);
         expect(detailedMessages[0].relatedItem).toEqual(testRelatedItemName);
         done();
@@ -113,11 +110,10 @@ describe('AdminNotifyMessagesService test', () => {
     });
 
     it('should reprocess message', (done) => {
-      const messages = deepClone(mockUnformattedAdminNotifyMessages);
-      const behaviorSubject = new BehaviorSubject(messages);
-      service.reprocessMessage(messages[0], behaviorSubject).pipe(take(1)).subscribe((reprocessedMessages) => {
+      const behaviorSubject = new BehaviorSubject(mockMessages);
+      service.reprocessMessage(mockMessages[0], behaviorSubject).pipe(take(1)).subscribe((reprocessedMessages) => {
         expect(reprocessedMessages.length).toEqual(2);
-        expect(reprocessedMessages).toEqual(messages);
+        expect(reprocessedMessages).toEqual(mockMessages);
         done();
       });
     });

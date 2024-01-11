@@ -46,7 +46,6 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
    * @param message the message to which map the labels
    */
   public formatMessageLabels(message: AdminNotifyMessage): AdminNotifyMessage {
-    message.coarNotifyType = message.coarNotifyType?.split(':')[1];
     message.queueStatusLabel = QueueStatusMap[message.queueStatusLabel];
     return message;
   }
