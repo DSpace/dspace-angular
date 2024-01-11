@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from "@ngx-translate/core";
+import { MissingTranslationHelper } from "../../../shared/translate/missing-translation.helper";
 
 @Component({
   selector: 'ds-admin-notify-detail-modal',
@@ -17,7 +19,9 @@ export class AdminNotifyDetailModalComponent {
   response = new EventEmitter<boolean>();
 
 
-  constructor(protected activeModal: NgbActiveModal) {
+  constructor(protected activeModal: NgbActiveModal,
+              public translationsService: TranslateService) {
+    this.translationsService.missingTranslationHandler = new MissingTranslationHelper();
   }
 
 
