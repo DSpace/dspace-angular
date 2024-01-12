@@ -13,15 +13,14 @@ import {NG_VALIDATORS, Validator, UntypedFormControl} from '@angular/forms';
  */
 export class IpV4Validator implements Validator {
   validate(formControl: UntypedFormControl): {[key: string]: boolean} | null {
-    const ipv4Regex = /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
     const ipValue = formControl.value;
     const ipParts = ipValue?.split('.');
-    const numberOfParts = ipParts.length;
 
-    if (ipValue && (numberOfParts !== 4 || !ipv4Regex.test(ipValue))) {
-      return {isValidIp: false};
+    if (ipv4Regex.test(ipValue) && ipParts.every(part => parseInt(part) <= 255)) {
+      return null;
     }
 
-    return null;
+    return {isValidIp: false}
   }
 }
