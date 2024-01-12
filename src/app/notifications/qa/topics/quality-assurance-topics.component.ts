@@ -10,9 +10,6 @@ import {
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import {
-  AdminQualityAssuranceTopicsPageParams
-} from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActivatedRoute } from '@angular/router';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -20,6 +17,7 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core
 import { Item } from '../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -153,7 +151,7 @@ export class QualityAssuranceTopicsComponent implements OnInit {
    *
    * @param eventsRouteParams
    */
-  protected updatePaginationFromRouteParams(eventsRouteParams: AdminQualityAssuranceTopicsPageParams) {
+  protected updatePaginationFromRouteParams(eventsRouteParams: QualityAssuranceTopicsPageParams) {
     if (eventsRouteParams.currentPage) {
       this.paginationConfig.currentPage = eventsRouteParams.currentPage;
     }

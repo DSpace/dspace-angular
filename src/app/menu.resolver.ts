@@ -47,7 +47,7 @@ import {
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
-import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './quality-assurance-notifications-pages/notifications-pages-routing-paths';
 
 /**
  * Creates all of the app's menus

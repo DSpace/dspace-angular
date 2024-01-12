@@ -1,21 +1,21 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page.component';
+import { QualityAssuranceEventsPageComponent } from './quality-assurance-events-page.component';
 
-describe('AdminQualityAssuranceEventsPageComponent', () => {
-  let component: AdminQualityAssuranceEventsPageComponent;
-  let fixture: ComponentFixture<AdminQualityAssuranceEventsPageComponent>;
+describe('QualityAssuranceEventsPageComponent', () => {
+  let component: QualityAssuranceEventsPageComponent;
+  let fixture: ComponentFixture<QualityAssuranceEventsPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminQualityAssuranceEventsPageComponent ],
+      declarations: [ QualityAssuranceEventsPageComponent ],
       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminQualityAssuranceEventsPageComponent);
+    fixture = TestBed.createComponent(QualityAssuranceEventsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

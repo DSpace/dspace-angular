@@ -1,6 +1,6 @@
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getAdminModuleRoute } from '../app-routing-paths';
-import { getQualityAssuranceEditRoute } from './admin-notifications/admin-notifications-routing-paths';
+import { getQualityAssuranceEditRoute } from '../quality-assurance-notifications-pages/notifications-pages-routing-paths';
 
 export const REGISTRIES_MODULE_PATH = 'registries';
 export const NOTIFICATIONS_MODULE_PATH = 'notifications';

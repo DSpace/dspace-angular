@@ -160,8 +160,8 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
           },
           {
             path: NOTIFICATIONS_MODULE_PATH,
-            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
-              .then((m) => m.AdminNotificationsModule),
+            loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
+              .then((m) => m.NotificationsPageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
