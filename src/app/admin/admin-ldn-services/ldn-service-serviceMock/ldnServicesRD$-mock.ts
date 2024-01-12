@@ -26,13 +26,6 @@ export const mockLdnService: LdnService = {
       automatic: 'true',
     },
   ],
-  notifyServiceOutboundPatterns: [
-    {
-      pattern: 'patternC',
-      constraint: 'itemFilterC',
-      automatic: 'true',
-    },
-  ],
   type: LDN_SERVICE,
   _links: {
     self: {
@@ -68,13 +61,6 @@ export const mockLdnServices: LdnService[] = [{
       automatic: 'true',
     },
   ],
-  notifyServiceOutboundPatterns: [
-    {
-      pattern: 'patternC',
-      constraint: 'itemFilterC',
-      automatic: 'true',
-    },
-  ],
   type: LDN_SERVICE,
   _links: {
     self: {
@@ -102,13 +88,6 @@ export const mockLdnServices: LdnService[] = [{
     {
       pattern: 'patternB',
       constraint: 'itemFilterB',
-      automatic: 'true',
-    },
-  ],
-  notifyServiceOutboundPatterns: [
-    {
-      pattern: 'patternC',
-      constraint: 'itemFilterC',
       automatic: 'true',
     },
   ],
