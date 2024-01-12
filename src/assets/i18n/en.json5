@@ -3469,6 +3469,8 @@
 
   "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
 
+  "admin.notify.dashboard.configuration": "Configuration: ",
+
   "admin.notify.dashboard.outbound": "Outbound messages",
 
   "admin.notify.dashboard.outbound-logs": "Logs/Outbound",

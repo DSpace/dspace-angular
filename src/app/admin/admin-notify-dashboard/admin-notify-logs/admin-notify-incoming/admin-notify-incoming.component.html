@@ -17,14 +17,23 @@
 
           <div class="container my-4">
             <div class="row">
-              <div class="col-12 col-md-3 text-left h4">{{'admin.notify.dashboard.inbound' | translate}}</div>
+              <div class="col-12 col-md-3 text-left h4">{{'admin.notify.dashboard.outbound' | translate}}</div>
               <div class="col-md-9">
                 <ds-search-labels [inPlaceSearch]="true"></ds-search-labels>
+                <div class="h4">
+                  <button (click)="resetDefaultConfiguration()" *ngIf="(selectedSearchConfig$ | async) !== defaultConfiguration" class="badge badge-primary mr-1 mb-1">
+                    {{'admin.notify.dashboard.configuration' | translate}} {{ selectedSearchConfig$ | async }}
+                    <span> ×</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+
+
           <ds-themed-search
-            [configuration]="defaultConfiguration"
+            *ngIf="!isLoading"
+            [configuration]="selectedSearchConfig$ | async"
             [showViewModes]="false"
             [searchEnabled]="false"
             [context]="context"
