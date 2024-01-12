@@ -7,7 +7,7 @@ import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifi
 import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
 import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
 import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
-import {SuggestionNotificationsModule} from '../../suggestion-notifications/suggestion-notifications.module';
+import {NotificationsModule} from '../../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import {SuggestionNotificationsModule} from '../../suggestion-notifications/sugg
     SharedModule,
     CoreModule.forRoot(),
     AdminNotificationsRoutingModule,
-    SuggestionNotificationsModule
+    NotificationsModule
   ],
   declarations: [
     AdminNotificationsSuggestionTargetsPageComponent,

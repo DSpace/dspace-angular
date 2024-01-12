@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-12">
       <div class="d-flex justify-content-between border-bottom">
-        <h2>{{ type + '.edit.head' | translate }}</h2>
-        <div>
+        <h1>{{ type + '.edit.head' | translate }}</h1>
+        <div class="my-auto">
           <a class="btn btn-danger"
              [routerLink]="((type === 'community') ? '/communities/' : '/collections/') + (dsoRD$ | async)?.payload.uuid + '/delete'">
             <i class="fas fa-trash"></i> {{type + '.edit.delete' | translate}}</a>
