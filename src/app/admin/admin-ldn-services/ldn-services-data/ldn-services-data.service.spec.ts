@@ -106,7 +106,7 @@ describe('LdnServicesService test', () => {
             spyOn(service, 'searchBy').and.returnValue(observableOf(null));
             spyOn((service as any).searchData, 'searchBy').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([mockLdnService])));
 
-            service.findByInboundPattern('testPattern').subscribe((result) => {
+            service.findByInboundPattern('testPattern').subscribe(() => {
                 expect(service.searchBy).toHaveBeenCalledWith('byInboundPattern', findListOptions, undefined, undefined );
                 done();
             });
