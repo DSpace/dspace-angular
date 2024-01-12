@@ -12,10 +12,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  getEPersonEditRoute,
-  getEPersonsRoute,
-} from '../../access-control/access-control-routing-paths';
+import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
@@ -71,6 +68,8 @@ import {
 import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
 import { EPERSON } from './models/eperson.resource-type';
+
+// todo: optimize imports
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -347,13 +346,6 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
       }
     });
     return getEPersonEditRoute(ePerson.id);
-  }
-
-  /**
-   * Get EPeople admin page
-   */
-  public getEPeoplePageRouterLink(): string {
-    return getEPersonsRoute();
   }
 
   /**

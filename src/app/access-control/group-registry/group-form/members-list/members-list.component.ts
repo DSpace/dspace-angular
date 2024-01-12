@@ -33,6 +33,9 @@ import {
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { getEPersonEditRoute } from '../../../access-control-routing-paths';
+
+// todo: optimize imports
 
 /**
  * Keys to keep track of specific subscriptions
@@ -140,6 +143,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   // current active group being edited
   groupBeingEdited: Group;
+
+  readonly getEPersonEditRoute = getEPersonEditRoute;
 
   constructor(
     protected groupDataService: GroupDataService,

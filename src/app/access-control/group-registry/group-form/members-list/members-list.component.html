@@ -24,8 +24,7 @@
         <tr *ngFor="let eperson of (ePeopleMembersOfGroup | async)?.page">
           <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
-               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+            <a [routerLink]="getEPersonEditRoute(eperson.id)">
               {{ dsoNameService.getName(eperson) }}
             </a>
           </td>
@@ -106,8 +105,7 @@
         <tr *ngFor="let eperson of (ePeopleSearch | async)?.page">
           <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
-               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+            <a [routerLink]="getEPersonEditRoute(eperson.id)">
               {{ dsoNameService.getName(eperson) }}
             </a>
           </td>

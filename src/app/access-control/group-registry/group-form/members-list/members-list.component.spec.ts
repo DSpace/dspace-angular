@@ -62,6 +62,8 @@ import { PaginationServiceStub } from '../../../../shared/testing/pagination-ser
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { MembersListComponent } from './members-list.component';
 
+// todo: optimize imports
+
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
   let fixture: ComponentFixture<MembersListComponent>;
@@ -98,9 +100,6 @@ describe('MembersListComponent', () => {
       },
       clearLinkRequests() {
         // empty
-      },
-      getEPeoplePageRouterLink(): string {
-        return '/access-control/epeople';
       },
     };
     groupsDataServiceStub = {

@@ -62,6 +62,8 @@ import { PaginationServiceStub } from '../../../../shared/testing/pagination-ser
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { ReviewersListComponent } from './reviewers-list.component';
 
+// todo: optimize imports
+
 // NOTE: Because ReviewersListComponent extends MembersListComponent, the below tests ONLY validate
 // features which are *unique* to ReviewersListComponent. All other features are tested in the
 // members-list.component.spec.ts file.
@@ -101,9 +103,6 @@ describe('ReviewersListComponent', () => {
       },
       clearLinkRequests() {
         // empty
-      },
-      getEPeoplePageRouterLink(): string {
-        return '/access-control/epeople';
       },
     };
     groupsDataServiceStub = {
