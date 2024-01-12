@@ -4,16 +4,16 @@ import { CommonModule } from '@angular/common';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { SuggestionsPageRoutingModule } from './suggestions-page-routing.module';
-import { SuggestionsService } from '../suggestion-notifications/reciter-suggestions/suggestions.service';
-import { SuggestionNotificationsModule } from '../suggestion-notifications/suggestion-notifications.module';
-import { SuggestionsDataService } from '../core/suggestion-notifications/reciter-suggestions/suggestions-data.service';
+import { SuggestionsService } from '../notifications/reciter-suggestions/suggestions.service';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { SuggestionsDataService } from '../core/notifications/reciter-suggestions/suggestions-data.service';
 
 @NgModule({
   declarations: [SuggestionsPageComponent],
   imports: [
     CommonModule,
     SharedModule,
-    SuggestionNotificationsModule,
+    NotificationsModule,
     SuggestionsPageRoutingModule
   ],
   providers: [

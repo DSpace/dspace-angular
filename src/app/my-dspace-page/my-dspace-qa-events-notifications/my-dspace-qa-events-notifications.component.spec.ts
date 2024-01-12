@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications.component';
-import { QualityAssuranceSourceDataService } from '../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
-import { QualityAssuranceSourceObject } from 'src/app/core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 
 describe('MyDspaceQaEventsNotificationsComponent', () => {
   let component: MyDspaceQaEventsNotificationsComponent;

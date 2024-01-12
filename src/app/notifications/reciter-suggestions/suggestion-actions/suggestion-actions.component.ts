@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Suggestion } from '../../../core/suggestion-notifications/reciter-suggestions/models/suggestion.model';
+import { Suggestion } from '../../../core/notifications/reciter-suggestions/models/suggestion.model';
 import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-list-element.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { take } from 'rxjs/operators';
