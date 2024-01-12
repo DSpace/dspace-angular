@@ -2,10 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { Context } from '../../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from "@angular/router";
-import { ViewMode } from "../../../../core/shared/view-mode.model";
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class AdminNotifyIncomingComponent implements OnInit{
   ngOnInit() {
     this.selectedSearchConfig$ = this.searchConfigService.getCurrentConfiguration(this.defaultConfiguration).pipe(
         tap(() => this.isLoading = false)
-    )
+    );
   }
 
   public resetDefaultConfiguration() {
@@ -42,7 +42,7 @@ export class AdminNotifyIncomingComponent implements OnInit{
         configuration: this.defaultConfiguration,
         view: ViewMode.Table
       },
-    })
+    });
   }
 
   /**

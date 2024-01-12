@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
-import { ActivatedRoute, Router } from "@angular/router";
-import { ViewMode } from "../../../core/shared/view-mode.model";
+import { Router } from '@angular/router';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-admin-notify-metrics',
@@ -29,6 +29,6 @@ export class AdminNotifyMetricsComponent {
         configuration: searchConfig,
         view: ViewMode.Table
       },
-    })
+    });
   }
 }
