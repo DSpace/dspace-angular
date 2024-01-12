@@ -8,8 +8,7 @@ import { MenuID } from '../../shared/menu/menu-id.model';
  * Themed wrapper for ExpandableNavbarSectionComponent
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-themed-expandable-navbar-section]',
+  selector: 'ds-themed-expandable-navbar-section',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
 })

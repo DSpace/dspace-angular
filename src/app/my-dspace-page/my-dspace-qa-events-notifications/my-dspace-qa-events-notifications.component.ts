@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { QualityAssuranceSourceDataService } from '../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../core/shared/operators';
 import { Observable, of, tap } from 'rxjs';
-import { QualityAssuranceSourceObject } from '../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
+import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 
 @Component({
   selector: 'ds-my-dspace-qa-events-notifications',

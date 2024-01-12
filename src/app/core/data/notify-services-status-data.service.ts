@@ -7,7 +7,7 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
 import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { NOTIFYREQUEST} from '../../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
-import { Observable, map, take, tap } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
 

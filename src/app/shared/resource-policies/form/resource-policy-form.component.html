@@ -9,13 +9,13 @@
     <label for="ResourcePolicyObject">{{'resource-policies.form.eperson-group-list.label' | translate}}</label>
     <input id="ResourcePolicyObject" class="form-control mb-3" type="text" [value]="resourcePolicyTargetName$ | async">
     <ul ngbNav #nav="ngbNav" class="nav-pills" [(activeId)]="navActiveId" (navChange)="onNavChange($event)">
-      <li [ngbNavItem]="'eperson'">
+      <li [ngbNavItem]="'eperson'" role="presentation">
         <a ngbNavLink>{{'resource-policies.form.eperson-group-list.tab.eperson' | translate}}</a>
         <ng-template ngbNavContent>
           <ds-eperson-group-list (select)="updateObjectSelected($event, true)"></ds-eperson-group-list>
         </ng-template>
       </li>
-      <li [ngbNavItem]="'group'">
+      <li [ngbNavItem]="'group'" role="presentation">
         <a ngbNavLink>{{'resource-policies.form.eperson-group-list.tab.group' | translate}}</a>
         <ng-template ngbNavContent>
           <ds-eperson-group-list [isListOfEPerson]="false"

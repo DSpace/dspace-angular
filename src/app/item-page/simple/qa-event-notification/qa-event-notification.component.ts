@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
 import { Observable, filter } from 'rxjs';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { QualityAssuranceSourceDataService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { hasValue } from '../../../shared/empty.util';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { hasValue } from 'src/app/shared/empty.util';
 
 @Component({
   selector: 'ds-qa-event-notification',

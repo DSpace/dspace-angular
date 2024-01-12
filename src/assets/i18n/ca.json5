@@ -4190,20 +4190,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Els seus enviaments",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arxivat",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arxivat",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validació",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validació",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Esperant el controlador",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Esperant el controlador",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Flux de treball",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Flux de treball",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espai de treball",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Espai de treball",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "El meu DSpace",

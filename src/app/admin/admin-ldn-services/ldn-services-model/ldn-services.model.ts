@@ -44,9 +44,6 @@ export class LdnService extends CacheableObject {
   @autoserialize
   notifyServiceInboundPatterns?: NotifyServicePattern[];
 
-  @autoserialize
-  notifyServiceOutboundPatterns?: NotifyServicePattern[];
-
   @deserialize
   _links: {
     self: {

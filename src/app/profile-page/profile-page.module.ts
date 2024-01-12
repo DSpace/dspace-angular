@@ -12,7 +12,7 @@ import { ThemedProfilePageComponent } from './themed-profile-page.component';
 import { FormModule } from '../shared/form/form.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
-import { SuggestionNotificationsModule } from '../suggestion-notifications/suggestion-notifications.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { SuggestionNotificationsModule } from '../suggestion-notifications/sugge
         SharedModule,
         FormModule,
         UiSwitchModule,
-        SuggestionNotificationsModule
+        NotificationsModule
     ],
   exports: [
     ProfilePageComponent,
