@@ -37,6 +37,12 @@ import { XhrFactory } from '@angular/common';
 import { ServerXhrService } from '../../app/core/services/server-xhr.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import { coreReducers } from '../../app/core/core.reducers';
+import { storeModuleConfig } from '../../app/app.reducer';
+import { CoreState } from '../../app/core/core-state.model';
+import { EffectsModule } from '@ngrx/effects';
+import { coreEffects } from '../../app/core/core.effects';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
@@ -50,6 +56,8 @@ export function createTranslateLoader(transferState: TransferState) {
     }),
     NoopAnimationsModule,
     ServerTransferStateModule,
+    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+    EffectsModule.forFeature(coreEffects),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

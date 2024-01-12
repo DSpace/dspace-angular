@@ -82,11 +82,6 @@ export const provideCore = () => {
   console.log('provideCore');
   return makeEnvironmentProviders([
     { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
-
-    importProvidersFrom(
-      StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
-      EffectsModule.forFeature(coreEffects)
-    ),
   ]);
 };
 

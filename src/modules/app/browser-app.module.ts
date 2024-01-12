@@ -33,6 +33,12 @@ import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-requ
 import { BrowserInitService } from './browser-init.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import { coreReducers } from '../../app/core/core.reducers';
+import { storeModuleConfig } from '../../app/app.reducer';
+import { CoreState } from '../../app/core/core-state.model';
+import { EffectsModule } from '@ngrx/effects';
+import { coreEffects } from '../../app/core/core.effects';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -56,6 +62,8 @@ export function getRequest(transferState: TransferState): any {
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
+    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+    EffectsModule.forFeature(coreEffects),
     BrowserTransferStateModule,
     TranslateModule.forRoot({
       loader: {
