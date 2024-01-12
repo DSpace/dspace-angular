@@ -9,7 +9,7 @@
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';
 import { ProcessDataService, TIMER_FACTORY } from './process-data.service';
 import { testDeleteDataImplementation } from '../base/delete-data.spec';
-import { waitForAsync, TestBed } from '@angular/core/testing';
+import { waitForAsync, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { RequestService } from '../request.service';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
@@ -26,6 +26,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { testSearchDataImplementation } from '../base/search-data.spec';
 import { PaginatedList } from '../paginated-list.model';
 import { FindListOptions } from '../find-list-options.model';
+import { of } from 'rxjs';
 
 describe('ProcessDataService', () => {
   let testScheduler;
@@ -130,9 +131,7 @@ describe('ProcessDataService', () => {
 
   describe('autoRefreshingSearchBy', () => {
     beforeEach(waitForAsync(() => {
-      testScheduler = new TestScheduler((actual, expected) => {
-        expect(actual).toEqual(expected);
-      });
+
       TestBed.configureTestingModule({
         imports: [],
         providers: [
@@ -152,8 +151,7 @@ describe('ProcessDataService', () => {
       processDataService = TestBed.inject(ProcessDataService);
     }));
 
-    it('should refresh after the specified interval', () => {
-      testScheduler.run(({ cold, expectObservable }) => {
+    it('should refresh after the specified interval', fakeAsync(() => {
         const runningProcess = Object.assign(new Process(), {
           _links: {
             self: {
@@ -162,36 +160,33 @@ describe('ProcessDataService', () => {
           }
         });
         runningProcess.processStatus = ProcessStatus.RUNNING;
-        const completedProcess = new Process();
-        completedProcess.processStatus = ProcessStatus.COMPLETED;
 
         const runningProcessPagination: PaginatedList<Process> = Object.assign(new PaginatedList(), {
           page: [runningProcess],
-        });
-        const completedProcessPagination: PaginatedList<Process> = Object.assign(new PaginatedList(), {
-          page: [completedProcess],
+          _links: {
+            self: {
+              href: 'https://rest.api/processesList/456'
+            }
+          }
         });
 
         const runningProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcessPagination);
-        const completedProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcessPagination);
 
         spyOn(processDataService, 'invalidateByHref');
-
         spyOn(processDataService, 'searchBy').and.returnValue(
-          cold('r 150ms c', {
-            'r': runningProcessRD,
-            'c': completedProcessRD
-          })
+          of(runningProcessRD)
         );
 
-        let process$ = processDataService.autoRefreshingSearchBy('byProperty', new FindListOptions(), 100);
-        expectObservable(process$).toBe('r 150ms c', {
-          'r': runningProcessRD,
-          'c': completedProcessRD
-        });
-      });
+        let sub = processDataService.autoRefreshingSearchBy('byProperty', new FindListOptions(), 200).subscribe();
+        tick(0);
+        expect(processDataService.searchBy).toHaveBeenCalledTimes(1);
+        tick(450);
+        expect(processDataService.searchBy).toHaveBeenCalledTimes(3);
+        sub.unsubscribe();
 
-      expect(processDataService.searchBy).toHaveBeenCalledTimes(1);
-    });
+        flush();
+
+        expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(3);
+    }));
   });
 });
