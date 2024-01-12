@@ -63,7 +63,7 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
   /**
    * counts for the active filters
    */
-  availableFilters = false;
+  searchFilterCount = 0;
 
   /**
    * Link to the search page
@@ -112,9 +112,11 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
   }
 
   ngAfterViewChecked() {
-    this.availableFilters = false;
+    this.searchFilterCount = 0;
     this.searchFilter._results.forEach(element => {
-      this.availableFilters = element.nativeElement?.children[0]?.children.length > 0;
+      if (element.nativeElement?.children[0]?.children.length > 0) {
+        this.searchFilterCount++;
+      }
     });
   }
 
