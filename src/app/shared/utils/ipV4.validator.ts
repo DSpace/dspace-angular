@@ -17,10 +17,10 @@ export class IpV4Validator implements Validator {
     const ipValue = formControl.value;
     const ipParts = ipValue?.split('.');
 
-    if (ipv4Regex.test(ipValue) && ipParts.every(part => parseInt(part) <= 255)) {
+    if (ipv4Regex.test(ipValue) && ipParts.every(part => parseInt(part, 10) <= 255)) {
       return null;
     }
 
-    return {isValidIp: false}
+    return {isValidIp: false};
   }
 }

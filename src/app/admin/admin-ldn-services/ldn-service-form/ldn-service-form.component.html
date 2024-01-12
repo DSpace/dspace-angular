@@ -48,26 +48,29 @@
       </div>
     </div>
 
-    <!-- In the IP section -->
+    <!-- In the IP range section -->
     <div class="mb-5 mt-5">
-      <label for="ipRangeMin" class="font-weight-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
+      <label for="lowerIp" class="font-weight-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
       <div class="d-flex">
-        <input [class.invalid-field]="formModel.get('ipRangeMin').invalid && formModel.get('ipRangeMin').touched"
-               [placeholder]="'ldn-new-service.form.placeholder.ipRange' | translate" class="form-control mr-2"
-               formControlName="ipRangeMin"
-               id="ipRangeMin"
-               name="ipRangeMin"
+        <input [class.invalid-field]="formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched"
+               [placeholder]="'ldn-new-service.form.placeholder.lowerIp' | translate" class="form-control mr-2"
+               formControlName="lowerIp"
+               id="lowerIp"
+               name="lowerIp"
                type="text">
-        <input [class.invalid-field]="formModel.get('ipRangeMax').invalid && formModel.get('ipRangeMax').touched"
-               [placeholder]="'ldn-new-service.form.placeholder.ipRange' | translate" class="form-control"
-               formControlName="ipRangeMax"
-               id="ipRangeMax"
-               name="ipRangeMax"
+        <input [class.invalid-field]="formModel.get('upperIp').invalid && formModel.get('upperIp').touched"
+               [placeholder]="'ldn-new-service.form.placeholder.upperIp' | translate" class="form-control"
+               formControlName="upperIp"
+               id="upperIp"
+               name="upperIp"
                type="text">
       </div>
 
-      <div *ngIf="(formModel.get('ipRangeMin').invalid && formModel.get('ipRangeMin').touched) || (formModel.get('ipRangeMax').invalid && formModel.get('ipRangeMax').touched)" class="error-text">
+      <div *ngIf="(formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)" class="error-text">
         {{ 'ldn-new-service.form.error.ipRange' | translate }}
+      </div>
+      <div *ngIf="!(formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)" class="text-muted">
+        {{ 'ldn-new-service.form.hint.ipRange' | translate }}
       </div>
     </div>
 
@@ -107,7 +110,7 @@
       <div class="col">
         <label class="font-weight-bold">{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
       </div>
-      <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern)">
+      <ng-container *ngIf="formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern">
         <div class="col">
           <label class="font-weight-bold">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
         </div>
@@ -168,7 +171,7 @@
 
             <div class="col">
               <ng-container
-                *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
+                *ngIf="formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern">
                 <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
                      placement="top-start">
                   <div class="position-relative right-addon" role="combobox">

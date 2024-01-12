@@ -285,7 +285,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SplitPipe } from './utils/split.pipe';
 import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
-import { IpV4Validator } from "./utils/ipV4.validator";
+import { IpV4Validator } from './utils/ipV4.validator';
 
 const MODULES = [
   CommonModule,
