@@ -388,9 +388,9 @@ export class DefaultAppConfig implements AppConfig {
     },
   ];
   // The default bundles that should always be displayed when you edit or add a bundle even when no bundle has been
-  // added to the item yet.
+  // added to the item yet. IIIF_MANIFEST will only appear if IIIF is enabled for the item.
   bundle: BundleConfig = {
-    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE']
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE', 'IIIF_MANIFEST']
   };
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.

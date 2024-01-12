@@ -288,7 +288,7 @@ export const environment: BuildConfig = {
     },
   ],
   bundle: {
-    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE', 'IIIF_MANIFEST'],
   },
   mediaViewer: {
     image: true,
