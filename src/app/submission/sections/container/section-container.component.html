@@ -43,7 +43,7 @@
             [type]="AlertTypeEnum.Error" (close)="sectionRef.removeError(i)"></ds-alert>
         </div>
         <div id="sectionContent_{{sectionData.id}}" (click)="sectionRef.setFocus($event)">
-          <ng-container *ngComponentOutlet="getSectionContent(); injector: objectInjector;"></ng-container>
+          <ng-container *ngComponentOutlet="(getSectionContent() | async); injector: objectInjector;"></ng-container>
         </div>
       </ng-template>
     </ngb-panel>

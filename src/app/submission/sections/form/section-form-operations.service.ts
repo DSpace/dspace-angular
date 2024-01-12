@@ -30,7 +30,7 @@ import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-fo
 /**
  * The service handling all form section operations
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SectionFormOperationsService {
 
   /**

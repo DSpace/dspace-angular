@@ -36,6 +36,7 @@ import { metadataRepresentations } from './core/provide-metadata-representation'
 import { renderStartsWith } from './core/provide-render-starts-with';
 import { renderBrowseBy } from './core/provide-render-browse-by';
 import { renderAuthMethod } from './core/provide-render-auth-method';
+import { NgxMaskModule } from 'ngx-mask';
 
 export function getConfig() {
   return environment;
@@ -119,6 +120,7 @@ const PROVIDERS = [
   imports: [
     BrowserModule.withServerTransition({appId: 'dspace-angular'}),
     ...IMPORTS,
+    NgxMaskModule.forRoot(),
     ThemedRootComponent
   ],
   providers: [

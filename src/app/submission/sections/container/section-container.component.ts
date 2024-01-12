@@ -103,7 +103,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
   /**
    * Find the correct component based on the section's type
    */
-  getSectionContent(): string {
+  getSectionContent() {
     return rendersSectionType(this.sectionData.sectionType);
   }
 }

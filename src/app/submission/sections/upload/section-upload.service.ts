@@ -17,7 +17,7 @@ import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/m
 /**
  * A service that provides methods to handle submission's bitstream state.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SectionUploadService {
 
   /**
