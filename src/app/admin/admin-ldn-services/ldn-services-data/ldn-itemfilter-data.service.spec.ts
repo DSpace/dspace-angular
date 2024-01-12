@@ -1,19 +1,19 @@
-import { TestScheduler } from "rxjs/testing";
-import { LdnItemfiltersService } from "./ldn-itemfilters-data.service";
-import { RequestService } from "../../../core/data/request.service";
-import { RemoteDataBuildService } from "../../../core/cache/builders/remote-data-build.service";
-import { ObjectCacheService } from "../../../core/cache/object-cache.service";
-import { HALEndpointService } from "../../../core/shared/hal-endpoint.service";
-import { NotificationsService } from "../../../shared/notifications/notifications.service";
-import { RequestEntry } from "../../../core/data/request-entry.model";
-import { RemoteData } from "../../../core/data/remote-data";
-import { RequestEntryState } from "../../../core/data/request-entry-state.model";
-import { cold, getTestScheduler } from "jasmine-marbles";
-import { RestResponse } from "../../../core/cache/response.models";
-import { of } from "rxjs";
-import { createSuccessfulRemoteDataObject$ } from "../../../shared/remote-data.utils";
-import { FindAllData } from "../../../core/data/base/find-all-data";
-import { testFindAllDataImplementation } from "../../../core/data/base/find-all-data.spec";
+import { TestScheduler } from 'rxjs/testing';
+import { LdnItemfiltersService } from './ldn-itemfilters-data.service';
+import { RequestService } from '../../../core/data/request.service';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { RequestEntry } from '../../../core/data/request-entry.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestEntryState } from '../../../core/data/request-entry-state.model';
+import { cold, getTestScheduler } from 'jasmine-marbles';
+import { RestResponse } from '../../../core/cache/response.models';
+import { of } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { FindAllData } from '../../../core/data/base/find-all-data';
+import { testFindAllDataImplementation } from '../../../core/data/base/find-all-data.spec';
 
 describe('LdnItemfiltersService test', () => {
   let scheduler: TestScheduler;
@@ -78,8 +78,12 @@ describe('LdnItemfiltersService test', () => {
   });
 
   describe('get endpoint', () => {
-    service.getEndpoint()
-    expect(halService.getEndpoint).toHaveBeenCalledWith('linkPath')
+    it('should retrieve correct endpoint', (done) => {
+      service.getEndpoint().subscribe(() => {
+        expect(halService.getEndpoint).toHaveBeenCalledWith('itemfilters');
+        done();
+      });
+    });
   });
 
 });
