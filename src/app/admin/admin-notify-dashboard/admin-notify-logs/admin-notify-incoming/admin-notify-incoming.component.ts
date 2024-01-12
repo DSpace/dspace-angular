@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { Context } from '../../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
@@ -14,8 +14,14 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
     }
   ]
 })
-export class AdminNotifyIncomingComponent {
+export class AdminNotifyIncomingComponent implements OnInit{
+  public defaultConfiguration = 'NOTIFY.incoming';
   protected readonly context = Context.CoarNotify;
   constructor(@Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
   }
+
+  ngOnInit() {
+    this.searchConfigService.getCurrentConfiguration('').subscribe(x => console.log(x));
+  }
+
 }

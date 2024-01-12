@@ -73,25 +73,28 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
     const requestId = this.requestService.generateRequestId();
 
     return this.halService.getEndpoint(this.reprocessEndpoint).pipe(
-      map(endpoint => endpoint.replace('{id}', message.id)),
-      map((endpointURL: string) => new GetRequest(requestId, endpointURL)),
-      tap(request => this.requestService.send(request)),
-      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<AdminNotifyMessage>(request.uuid)),
-      getFirstCompletedRemoteData(),
-      getAllSucceededRemoteDataPayload(),
+        map(endpoint => endpoint.replace('{id}', message.id)),
+        map((endpointURL: string) => new GetRequest(requestId, endpointURL)),
+        tap(request => this.requestService.send(request)),
+        switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<AdminNotifyMessage>(request.uuid)),
+        getFirstCompletedRemoteData(),
+        getAllSucceededRemoteDataPayload(),
+        mergeMap(reprocessedMessage => this.getDetailedMessages([reprocessedMessage])),
     ).pipe(
-      mergeMap((newMessage) =>  messageSubject.pipe(
-        map(messages => {
-          const messageToUpdate = messages.find(currentMessage => currentMessage.id === message.id);
-          const indexOfMessageToUpdate = messages.indexOf(messageToUpdate);
-          newMessage.target = messageToUpdate.target;
-          newMessage.object = messageToUpdate.object;
-          newMessage.origin = messageToUpdate.origin;
-          newMessage.context = messageToUpdate.context;
-          messages[indexOfMessageToUpdate] = newMessage;
-          return messages;
-        })
-      )),
+        mergeMap((newMessages) =>  messageSubject.pipe(
+            map(messages => {
+                const detailedReprocessedMessage = newMessages[0];
+                const messageToUpdate = messages.find(currentMessage => currentMessage.id === message.id);
+                const indexOfMessageToUpdate = messages.indexOf(messageToUpdate);
+                detailedReprocessedMessage.target = message.target;
+                detailedReprocessedMessage.object = message.object;
+                detailedReprocessedMessage.origin = message.origin;
+                detailedReprocessedMessage.context = message.context;
+                messages[indexOfMessageToUpdate] = detailedReprocessedMessage;
+
+                return messages;
+            })
+        )),
     );
   }
 }
