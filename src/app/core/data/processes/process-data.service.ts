@@ -5,7 +5,7 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
-import { Observable, timer, concatMap } from 'rxjs';
+import { Observable, timer as rxjsTimer, concatMap } from 'rxjs';
 import { switchMap, filter, distinctUntilChanged, find, tap } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
@@ -139,7 +139,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   autoRefreshingSearchBy(searchMethod: string, options?: FindListOptions, pollingIntervalInMs: number = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
     // Create observable that emits every pollingInterval
-    return timer(0, pollingIntervalInMs).pipe(
+    return rxjsTimer(0, pollingIntervalInMs).pipe(
         concatMap(() => {
           // Every time the timer emits, request the current state of the processes
           return this.searchBy(searchMethod, options, false, false, ...linksToFollow).pipe(
