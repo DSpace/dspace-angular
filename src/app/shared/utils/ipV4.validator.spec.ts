@@ -1,4 +1,3 @@
-import { MarkdownPipe } from './markdown.pipe';
 import { IpV4Validator } from "./ipV4.validator";
 import { TestBed } from "@angular/core/testing";
 import { UntypedFormControl, UntypedFormGroup } from "@angular/forms";
