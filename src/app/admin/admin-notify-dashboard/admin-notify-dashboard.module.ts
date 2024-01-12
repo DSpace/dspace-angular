@@ -18,6 +18,9 @@ import {
 import { AdminNotifyMessagesService } from './services/admin-notify-messages.service';
 
 
+const ENTRY_COMPONENTS = [
+  AdminNotifySearchResultComponent
+];
 @NgModule({
   imports: [
     CommonModule,
@@ -32,14 +35,19 @@ import { AdminNotifyMessagesService } from './services/admin-notify-messages.ser
     DatePipe
   ],
   declarations: [
+    ...ENTRY_COMPONENTS,
     AdminNotifyDashboardComponent,
     AdminNotifyMetricsComponent,
     AdminNotifyIncomingComponent,
     AdminNotifyOutgoingComponent,
-    AdminNotifySearchResultComponent,
     AdminNotifyDetailModalComponent
   ]
 })
 export class AdminNotifyDashboardModule {
-
+  static withEntryComponents() {
+    return {
+      ngModule: AdminNotifyDashboardModule,
+      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+    };
+  }
 }

@@ -9,4 +9,8 @@ export class AdminNotifyMetricsComponent {
 
   @Input()
   boxesConfig: AdminNotifyMetricsRow[];
+
+  public navigateToSelectedSearchConfig($event: string) {
+    console.log($event);
+  }
 }

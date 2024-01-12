@@ -70,7 +70,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     this.mapDetailsToMessages();
     this.subs.push(this.searchConfigService.getCurrentConfiguration('')
       .subscribe(configuration => {
-        this.isInbound = configuration === 'NOTIFY.incoming';
+        this.isInbound = configuration.startsWith('NOTIFY.incoming');
       })
     );
   }

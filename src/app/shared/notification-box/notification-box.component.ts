@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AdminNotifyMetricsBox
 } from '../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
@@ -16,4 +16,9 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 })
 export class NotificationBoxComponent {
   @Input() boxConfig: AdminNotifyMetricsBox;
+  @Output() selectedBoxConfig: EventEmitter<string> = new EventEmitter();
+
+  public onClick(boxConfig: AdminNotifyMetricsBox) {
+    this.selectedBoxConfig.emit(boxConfig.config);
+  }
 }
