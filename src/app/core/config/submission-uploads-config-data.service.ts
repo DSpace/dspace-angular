@@ -13,7 +13,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SubmissionUploadsConfigDataService extends ConfigDataService {
   constructor(
     protected requestService: RequestService,
