@@ -100,7 +100,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
 
   /**
    * Open modal for details visualization
-   * @param message the message to be displayed
+   * @param notifyMessage the message to be displayed
    */
   openDetailModal(notifyMessage: AdminNotifyMessage) {
     const modalRef = this.modalService.open(AdminNotifyDetailModalComponent);
