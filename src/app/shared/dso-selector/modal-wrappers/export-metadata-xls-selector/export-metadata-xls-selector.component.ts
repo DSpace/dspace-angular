@@ -28,7 +28,7 @@ import { getProcessDetailRoute } from '../../../../process-page/process-page-rou
   templateUrl: '../dso-selector-modal-wrapper.component.html',
 })
 export class ExportMetadataXlsSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
-  configuration = 'backend';
+  configuration = 'communityOrCollection';
   objectType = DSpaceObjectType.DSPACEOBJECT;
   selectorTypes = [DSpaceObjectType.COLLECTION];
   action = SelectorActionType.EXPORT_METADATA_XLS;
