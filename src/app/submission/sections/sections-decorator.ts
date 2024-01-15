@@ -1,4 +1,3 @@
-
 import { SectionsType } from './sections-type';
 import { defer } from 'rxjs';
 
@@ -11,14 +10,6 @@ const submissionSectionsMap = {
   [SectionsType.SubmissionForm]: defer(() => import('./form/section-form.component').then(m => m.SubmissionSectionFormComponent)),
   [SectionsType.Identifiers]: defer(() => import('./identifiers/section-identifiers.component').then(m => m.SubmissionSectionIdentifiersComponent))
 };
-export function renderSectionFor(sectionType: SectionsType) {
-  return function decorator(objectElement: any) {
-    if (!objectElement) {
-      return;
-    }
-    // submissionSectionsMap.set(sectionType, objectElement);
-  };
-}
 
 export function rendersSectionType(sectionType: SectionsType) {
   return submissionSectionsMap[sectionType];

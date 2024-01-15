@@ -17,8 +17,6 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -57,7 +55,6 @@ import { NgIf } from '@angular/common';
   ],
   standalone: true
 })
-@renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 
   /**

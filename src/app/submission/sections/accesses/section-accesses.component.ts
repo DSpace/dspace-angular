@@ -5,9 +5,6 @@ import { UntypedFormControl } from '@angular/forms';
 import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionModelComponent } from '../models/section.model';
@@ -73,7 +70,6 @@ import { NgIf } from '@angular/common';
   ],
   standalone: true
 })
-@renderSectionFor(SectionsType.AccessesCondition)
 export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
   /**

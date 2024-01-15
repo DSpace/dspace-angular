@@ -8,8 +8,6 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import {
   WorkspaceitemSectionSherpaPoliciesObject
 } from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionModelComponent } from '../models/section.model';
@@ -45,7 +43,6 @@ import { VarDirective } from '../../../shared/utils/var.directive';
   ],
   standalone: true
 })
-@renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 
   /**

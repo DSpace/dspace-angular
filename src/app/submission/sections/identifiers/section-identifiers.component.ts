@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SectionsType } from '../sections-type';
 import { SectionModelComponent } from '../models/section.model';
-import { renderSectionFor } from '../sections-decorator';
 import { SectionDataObject } from '../models/section-data.model';
 import { SubmissionService } from '../../submission.service';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionsService } from '../sections.service';
-import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
+import {
+  WorkspaceitemSectionIdentifiersObject
+} from '../../../core/submission/models/workspaceitem-section-identifiers.model';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { VarDirective } from '../../../shared/utils/var.directive';
 
@@ -34,7 +34,6 @@ import { VarDirective } from '../../../shared/utils/var.directive';
   standalone: true
 })
 
-@renderSectionFor(SectionsType.Identifiers)
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent {
   /**
    * The Alert categories.
