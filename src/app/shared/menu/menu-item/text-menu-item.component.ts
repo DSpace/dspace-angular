@@ -1,7 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { TextMenuItemModel } from './models/text.model';
-import { rendersMenuItemForType } from '../menu-item.decorator';
-import { MenuItemType } from '../menu-item-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
@@ -13,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
     standalone: true,
     imports: [TranslateModule]
 })
-@rendersMenuItemForType(MenuItemType.TEXT)
 export class TextMenuItemComponent {
   item: TextMenuItemModel;
   constructor(@Inject('itemModelProvider') item: TextMenuItemModel) {

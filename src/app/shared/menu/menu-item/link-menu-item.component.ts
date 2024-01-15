@@ -1,8 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { LinkMenuItemModel } from './models/link.model';
-import { rendersMenuItemForType } from '../menu-item.decorator';
 import { isNotEmpty } from '../../empty.util';
-import { MenuItemType } from '../menu-item-type.model';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass } from '@angular/common';
@@ -16,7 +14,6 @@ import { NgClass } from '@angular/common';
     standalone: true,
     imports: [NgClass, RouterLink, TranslateModule]
 })
-@rendersMenuItemForType(MenuItemType.LINK)
 export class LinkMenuItemComponent implements OnInit {
   item: LinkMenuItemModel;
   hasLink: boolean;
