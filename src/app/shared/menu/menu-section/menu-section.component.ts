@@ -40,7 +40,7 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    */
   sectionMap$: BehaviorSubject<Map<string, {
     injector: Injector,
-    component: GenericConstructor<MenuSectionComponent>
+    component: Observable<GenericConstructor<MenuSectionComponent>>
   }>> = new BehaviorSubject(new Map());
 
   /**
