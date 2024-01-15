@@ -28,7 +28,7 @@ const ENTRY_COMPONENTS = [
     SharedModule,
     AdminNotifyDashboardRoutingModule,
     SearchModule,
-    SearchPageModule,
+    SearchPageModule
   ],
   providers: [
     AdminNotifyMessagesService,
