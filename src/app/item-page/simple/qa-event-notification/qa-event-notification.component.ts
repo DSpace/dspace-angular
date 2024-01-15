@@ -5,8 +5,9 @@ import { Observable, filter } from 'rxjs';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { QualityAssuranceSourceDataService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { hasValue } from 'src/app/shared/empty.util';
 
@@ -52,5 +53,13 @@ export class QaEventNotificationComponent {
         filter((pl: PaginatedList<QualityAssuranceSourceObject>) => hasValue(pl)),
         getPaginatedListPayload(),
       );
+  }
+
+  /**
+   * Returns the quality assurance route.
+   * @returns The quality assurance route.
+   */
+  getQualityAssuranceRoute(): string {
+    return getNotificatioQualityAssuranceRoute();
   }
 }

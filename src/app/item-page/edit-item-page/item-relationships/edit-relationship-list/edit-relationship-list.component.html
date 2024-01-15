@@ -1,10 +1,10 @@
-<h5>
+<h2 class="h4">
     {{getRelationshipMessageKey() | async | translate}}
     <button class="ml-2 btn btn-success" [disabled]="(hasChanges | async)" (click)="openLookup()">
         <i class="fas fa-plus"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.relationships.edit.buttons.add" | translate}}</span>
     </button>
-</h5>
+</h2>
 <ng-container *ngVar="updates$ | async as updates">
     <ng-container *ngIf="updates && !(loading$ | async)">
         <ng-container *ngVar="updates | dsObjectValues as updateValues">

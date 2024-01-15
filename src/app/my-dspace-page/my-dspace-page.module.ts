@@ -15,7 +15,7 @@ import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { SearchModule } from '../shared/search/search.module';
 import { UploadModule } from '../shared/upload/upload.module';
-import { SuggestionNotificationsModule } from '../suggestion-notifications/suggestion-notifications.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
 const DECLARATIONS = [
@@ -36,7 +36,7 @@ const DECLARATIONS = [
         MyDspacePageRoutingModule,
         MyDspaceSearchModule.withEntryComponents(),
         UploadModule,
-        SuggestionNotificationsModule,
+        NotificationsModule,
     ],
   declarations: DECLARATIONS,
   providers: [
