@@ -8,11 +8,6 @@ describe('Header', () => {
         cy.get('ds-header').should('be.visible');
 
         // Analyze <ds-header> for accessibility
-        testA11y({
-            include: ['ds-header'],
-            exclude: [
-                ['#search-navbar-container'] // search in navbar has duplicative ID. Will be fixed in #1174
-            ],
-        });
+        testA11y('ds-header');
     });
 });
