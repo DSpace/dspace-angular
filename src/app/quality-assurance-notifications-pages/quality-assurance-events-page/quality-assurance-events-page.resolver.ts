@@ -4,7 +4,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 /**
  * Interface for the route parameters.
  */
-export interface AdminQualityAssuranceEventsPageParams {
+export interface AssuranceEventsPageParams {
   pageId?: string;
   pageSize?: number;
   currentPage?: number;
@@ -14,7 +14,7 @@ export interface AdminQualityAssuranceEventsPageParams {
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
 @Injectable()
-export class AdminQualityAssuranceEventsPageResolver implements Resolve<AdminQualityAssuranceEventsPageParams> {
+export class QualityAssuranceEventsPageResolver implements Resolve<AssuranceEventsPageParams> {
 
   /**
    * Method for resolving the parameters in the current route.
@@ -22,7 +22,7 @@ export class AdminQualityAssuranceEventsPageResolver implements Resolve<AdminQua
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
    * @returns AdminQualityAssuranceEventsPageParams Emits the route parameters
    */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): AdminQualityAssuranceEventsPageParams {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): AssuranceEventsPageParams {
     return {
       pageId: route.queryParams.pageId,
       pageSize: parseInt(route.queryParams.pageSize, 10),
