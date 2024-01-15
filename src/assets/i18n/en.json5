@@ -3609,6 +3609,10 @@
 
   "sorting.queue_attempts.ASC": "Queue attempted Ascending",
 
+  "NOTIFY.incoming.involvedItems.search.results.head": "Related items",
+
+  "NOTIFY.outgoing.involvedItems.search.results.head": "Related items",
+
   "type.notify-detail-modal": "Type",
 
   "id.notify-detail-modal": "Id",

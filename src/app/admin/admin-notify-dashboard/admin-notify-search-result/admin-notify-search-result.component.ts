@@ -53,20 +53,16 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    * Keys to be not shown in detail
    * @private
    */
-  private hiddenKeys: string[] = [
-    'target',
-    'object',
-    'context',
-    'origin',
-    '_links',
-    'metadata',
-    'thumbnail',
-    'item',
-    'accessStatus',
-    'queueStatus',
-    'notificationId',
-    'notificationType',
-    'message'
+  private messageKeys: string[] = [
+    'type',
+    'id',
+    'coarNotifyType',
+    'activityStreamType',
+    'inReplyTo',
+    'queueAttempts',
+    'queueLastStartTime',
+    'queueStatusLabel',
+    'queueTimeout'
   ];
 
   /**
@@ -105,10 +101,8 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
   openDetailModal(notifyMessage: AdminNotifyMessage) {
     const modalRef = this.modalService.open(AdminNotifyDetailModalComponent);
     const messageToOpen = {...notifyMessage};
-    // we exclude not necessary or not readable keys
-    const messageKeys = Object.keys(messageToOpen).filter(key => !this.hiddenKeys.includes(key));
 
-    messageKeys.forEach(key => {
+    this.messageKeys.forEach(key => {
       if (this.dateTypeKeys.includes(key)) {
         messageToOpen[key] = this.datePipe.transform(messageToOpen[key], this.dateFormat);
       }
@@ -117,7 +111,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     messageToOpen.message = JSON.stringify(JSON.parse(notifyMessage.message), null, 2);
 
     modalRef.componentInstance.notifyMessage = messageToOpen;
-    modalRef.componentInstance.notifyMessageKeys = messageKeys;
+    modalRef.componentInstance.notifyMessageKeys = this.messageKeys;
   }
 
   /**
