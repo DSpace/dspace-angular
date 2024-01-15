@@ -1,7 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { hasValue } from '../../empty.util';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -20,7 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule]
 })
-@renderStartsWithFor(StartsWithType.date)
 export class StartsWithDateComponent extends StartsWithAbstractComponent {
 
   /**

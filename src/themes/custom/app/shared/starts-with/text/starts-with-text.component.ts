@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { renderStartsWithFor, StartsWithType } from '../../../../../../app/shared/starts-with/starts-with-decorator';
 import {
   StartsWithTextComponent as BaseComponent
 } from '../../../../../../app/shared/starts-with/text/starts-with-text.component';
@@ -15,6 +14,5 @@ import { TranslateModule } from '@ngx-translate/core';
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
-@renderStartsWithFor(StartsWithType.text)
 export class StartsWithTextComponent extends BaseComponent {
 }

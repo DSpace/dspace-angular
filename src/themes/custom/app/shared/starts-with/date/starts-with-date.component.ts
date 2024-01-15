@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { renderStartsWithFor, StartsWithType } from '../../../../../../app/shared/starts-with/starts-with-decorator';
 import {
   StartsWithDateComponent as BaseComponent
 } from '../../../../../../app/shared/starts-with/date/starts-with-date.component';
@@ -16,6 +15,5 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule]
 })
-@renderStartsWithFor(StartsWithType.date)
 export class StartsWithDateComponent extends BaseComponent {
 }
