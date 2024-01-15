@@ -26,7 +26,7 @@ import { DiscoverySortConfig } from './discovery-sort.config';
 import {QualityAssuranceConfig} from './quality-assurance.config';
 import {
   AdminNotifyMetricsRow
-} from "../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model";
+} from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
