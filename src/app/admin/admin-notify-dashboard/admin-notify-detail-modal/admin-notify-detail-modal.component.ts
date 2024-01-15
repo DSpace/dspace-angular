@@ -3,10 +3,14 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
+import { fadeIn } from '../../../shared/animations/fade';
 
 @Component({
   selector: 'ds-admin-notify-detail-modal',
   templateUrl: './admin-notify-detail-modal.component.html',
+  animations: [
+    fadeIn
+  ]
 })
 export class AdminNotifyDetailModalComponent {
   @Input() notifyMessage: AdminNotifyMessage;
@@ -17,6 +21,8 @@ export class AdminNotifyDetailModalComponent {
    */
   @Output()
   response = new EventEmitter<boolean>();
+
+  public isCoarMessageVisible = false;
 
 
   constructor(protected activeModal: NgbActiveModal,
@@ -31,5 +37,9 @@ export class AdminNotifyDetailModalComponent {
   closeModal() {
     this.activeModal.close();
     this.response.emit(true);
+  }
+
+  toggleCoarMessage() {
+    this.isCoarMessageVisible = !this.isCoarMessageVisible;
   }
 }

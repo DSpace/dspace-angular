@@ -3503,6 +3503,28 @@
 
   "search.filters.filter.activity_stream_type.label": "Search activity stream type",
 
+  "search.filters.applied.f.queue_status": "Queue Status",
+
+  "search.filters.queue_status.1,authority": "Queued",
+
+  "search.filters.queue_status.2,authority": "Processing",
+
+  "search.filters.queue_status.3,authority": "Processed",
+
+  "search.filters.queue_status.4,authority": "Failed",
+
+  "search.filters.queue_status.5,authority": "Untrusted",
+
+  "search.filters.queue_status.6,authority": "Unmapped Action",
+
+  "search.filters.queue_status.7,authority": "Queued for retry",
+
+  "search.filters.applied.f.activity_stream_type": "Activity stream type",
+
+  "search.filters.applied.f.coar_notify_type": "COAR Notify type",
+
+  "search.filters.applied.f.notification_type": "Notification type",
+
   "search.filters.filter.coar_notify_type.label": "Search COAR Notify type",
 
   "search.filters.filter.notification_type.label": "Search notification type",
@@ -3529,17 +3551,25 @@
 
   "search.filters.coar_notify_type.coar-notify:ReviewAction": "Review action",
 
+  "search.filters.coar_notify_type.coar-notify:ReviewAction,authority": "Review action",
+
   "notify-detail-modal.coar-notify:ReviewAction": "Review action",
 
   "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Endorsement action",
+
+  "search.filters.coar_notify_type.coar-notify:EndorsementAction,authority": "Endorsement action",
 
   "notify-detail-modal.coar-notify:EndorsementAction": "Endorsement action",
 
   "search.filters.coar_notify_type.coar-notify:IngestAction": "Ingest action",
 
+  "search.filters.coar_notify_type.coar-notify:IngestAction,authority": "Ingest action",
+
   "notify-detail-modal.coar-notify:IngestAction": "Ingest action",
 
   "search.filters.coar_notify_type.coar-notify:RelationshipAction": "Relationship action",
+
+  "search.filters.coar_notify_type.coar-notify:RelationshipAction,authority": "Relationship action",
 
   "notify-detail-modal.coar-notify:RelationshipAction": "Relationship action",
 
@@ -3579,6 +3609,10 @@
 
   "sorting.queue_attempts.ASC": "Queue attempted Ascending",
 
+  "NOTIFY.incoming.involvedItems.search.results.head": "Related items",
+
+  "NOTIFY.outgoing.involvedItems.search.results.head": "Related items",
+
   "type.notify-detail-modal": "Type",
 
   "id.notify-detail-modal": "Id",
@@ -3606,6 +3640,8 @@
   "queueTimeout.notify-detail-modal": "Queue timeout",
 
   "notify-message-modal.title": "Message Detail",
+
+  "notify-message-modal.show-more": "Show more",
 
   "notify-message-result.timestamp": "Timestamp",
 
