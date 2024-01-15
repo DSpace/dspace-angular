@@ -3469,6 +3469,10 @@
 
   "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
 
+  "admin.notify.dashboard.configuration": "Configuration: ",
+
+  "search.filters.applied.f.relateditem": "Related items",
+
   "admin.notify.dashboard.outbound": "Outbound messages",
 
   "admin.notify.dashboard.outbound-logs": "Logs/Outbound",

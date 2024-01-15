@@ -51,6 +51,26 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
   private dateTypeKeys: string[] = ['queueLastStartTime', 'queueTimeout'];
 
   /**
+   * Keys to be not shown in detail
+   * @private
+   */
+
+  private hiddenKeys: string[] = [
+    'target',
+    'object',
+    'context',
+    'origin',
+    '_links',
+    'metadata',
+    'thumbnail',
+    'item',
+    'accessStatus',
+    'queueStatus',
+    'notificationId',
+    'notificationType',
+  ];
+
+  /**
    * The format for the date values
    * @private
    */
@@ -87,18 +107,8 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     const modalRef = this.modalService.open(AdminNotifyDetailModalComponent);
     const messageToOpen = {...message};
     // we delete not necessary or not readable keys
-    delete messageToOpen.target;
-    delete messageToOpen.object;
-    delete messageToOpen.context;
-    delete messageToOpen.origin;
-    delete messageToOpen._links;
-    delete messageToOpen.metadata;
-    delete messageToOpen.thumbnail;
-    delete messageToOpen.item;
-    delete messageToOpen.accessStatus;
-    delete messageToOpen.queueStatus;
 
-    const messageKeys = Object.keys(messageToOpen);
+    const messageKeys = Object.keys(messageToOpen).filter(key => !this.hiddenKeys.includes(key));
     messageKeys.forEach(key => {
       if (this.dateTypeKeys.includes(key)) {
         messageToOpen[key] = this.datePipe.transform(messageToOpen[key], this.dateFormat);
