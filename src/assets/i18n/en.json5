@@ -3483,6 +3483,8 @@
 
   "search.filters.filter.origin.head": "Origin",
 
+  "search.filters.filter.ldn_service.head": "LDN Service",
+
   "search.filters.filter.target.head": "Target",
 
   "search.filters.filter.queue_status.head": "Queue status",
@@ -3512,6 +3514,10 @@
   "search.filters.filter.origin.label": "Search source",
 
   "search.filters.filter.origin.placeholder": "Source",
+
+  "search.filters.filter.ldn_service.label": "Search LDN Service",
+
+  "search.filters.filter.ldn_service.placeholder": "LDN Service",
 
   "search.filters.filter.queue_status.placeholder": "Queue status",
 
