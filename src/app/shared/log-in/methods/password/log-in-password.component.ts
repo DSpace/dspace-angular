@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -9,8 +9,6 @@ import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
 import { isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
@@ -21,7 +19,7 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 /**
  * /users/sign-in
@@ -35,7 +33,6 @@ import { NgIf, AsyncPipe } from '@angular/common';
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe]
 })
-@renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
 
   /**

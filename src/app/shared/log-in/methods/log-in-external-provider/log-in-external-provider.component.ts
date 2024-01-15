@@ -13,8 +13,6 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
 import { CoreState } from '../../../../core/core-state.model';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -24,9 +22,6 @@ import { TranslateModule } from '@ngx-translate/core';
     standalone: true,
     imports: [TranslateModule]
 })
-@renderAuthMethodFor(AuthMethodType.Oidc)
-@renderAuthMethodFor(AuthMethodType.Shibboleth)
-@renderAuthMethodFor(AuthMethodType.Orcid)
 export class LogInExternalProviderComponent implements OnInit {
 
   /**
