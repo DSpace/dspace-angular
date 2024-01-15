@@ -6,7 +6,10 @@ import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from './section-coar-notify-service.resource-type';
 
-
+export  interface LdnPattern {
+  pattern: string,
+  multipleRequest: boolean
+}
 /** A SubmissionCoarNotifyConfig and its properties. */
 @typedObject
 @inheritSerialization(CacheableObject)
@@ -24,7 +27,7 @@ export class SubmissionCoarNotifyConfig extends CacheableObject {
   uuid: string;
 
   @autoserialize
-  patterns: string[];
+  patterns: LdnPattern[];
 
   @deserialize
   _links: {
