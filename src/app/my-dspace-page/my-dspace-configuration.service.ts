@@ -28,7 +28,7 @@ export const MyDSpaceConfigurationToContextMap = new Map([
 /**
  * Service that performs all actions that have to do with the current mydspace configuration
  */
-@Injectable()
+@Injectable({providedIn: 'root' })
 export class MyDSpaceConfigurationService extends SearchConfigurationService {
   /**
    * Default pagination settings

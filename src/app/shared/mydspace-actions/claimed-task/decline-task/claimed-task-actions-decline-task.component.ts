@@ -1,9 +1,8 @@
 import { Component, Injector } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -12,12 +11,11 @@ import {
 } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
 
-@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_DECLINE_TASK)
 @Component({
     selector: 'ds-claimed-task-actions-decline-task',
     templateUrl: './claimed-task-actions-decline-task.component.html',

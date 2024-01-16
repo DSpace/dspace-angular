@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  rendersAdvancedWorkflowTaskOption
-} from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
-import { UntypedFormGroup, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
 import {
@@ -20,7 +17,6 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
 /**
  * The page on which reviewers can rate submitted items.
  */
-@rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_RATING)
 @Component({
   selector: 'ds-advanced-workflow-action-rating-reviewer',
   templateUrl: './advanced-workflow-action-rating.component.html',
