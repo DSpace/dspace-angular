@@ -50,7 +50,7 @@ describe('MetricAltmetricComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should render badge div', () => {
-    const div = fixture.debugElement.queryAll(By.css('div'))[3];
+    const div = fixture.debugElement.queryAll(By.css('div'))[2];
     expect(div.nativeElement.className).toEqual('altmetric-embed');
     expect(div.nativeElement.dataset.badgePopover).toEqual('bottom');
     expect(div.nativeElement.dataset.doi).toEqual('10.1056/Test');
