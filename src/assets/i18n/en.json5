@@ -3471,21 +3471,25 @@
 
   "admin-notify-dashboard.generated-ldn": "Number of generated LDN",
 
-  "admin-notify-dashboard.accepted": "Accepted",
+  "admin-notify-dashboard.NOTIFY.incoming.accepted": "Accepted",
 
-  "admin-notify-dashboard.processed": "Processed LDN",
+  "admin-notify-dashboard.NOTIFY.incoming.processed": "Processed LDN",
 
-  "admin-notify-dashboard.failure": "Failure",
+  "admin-notify-dashboard.NOTIFY.incoming.failure": "Failure",
 
-  "admin-notify-dashboard.untrusted": "Untrusted",
+  "admin-notify-dashboard.NOTIFY.outgoing.failure": "Failure",
 
-  "admin-notify-dashboard.delivered": "Delivered",
+  "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Untrusted",
 
-  "admin-notify-dashboard.queued": "Queued",
+  "admin-notify-dashboard.NOTIFY.outgoing.delivered": "Delivered",
 
-  "admin-notify-dashboard.queued-for-retry": "Queued for retry",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued": "Queued",
 
-  "admin-notify-dashboard.involved-items": "Involved items",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry": "Queued for retry",
+
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Involved items",
+
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Involved items",
 
   "admin.notify.dashboard.breadcrumbs": "Dashboard",
 
@@ -3493,7 +3497,7 @@
 
   "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
 
-  "admin.notify.dashboard.configuration": "Configuration: ",
+  "admin.notify.dashboard.filter": "Filter: ",
 
   "search.filters.applied.f.relateditem": "Related items",
 
@@ -3665,7 +3669,7 @@
 
   "notify-message-modal.title": "Message Detail",
 
-  "notify-message-modal.show-more": "Show more",
+  "notify-message-modal.show-message": "Show message",
 
   "notify-message-result.timestamp": "Timestamp",
 

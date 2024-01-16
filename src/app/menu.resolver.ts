@@ -171,7 +171,8 @@ export class MenuResolver implements Resolve<boolean> {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
       this.authorizationService.isAuthorized(FeatureID.CanEditItem),
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem]) => {
+      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem, canSeeQA]) => {
       const newSubMenuList = [
         {
           id: 'new_community',
@@ -300,12 +301,50 @@ export class MenuResolver implements Resolve<boolean> {
         icon: 'pencil-alt',
         index: 1
       };
+      const notificationSubMenuList = [
+        /* Notifications */
+        {
+          id: 'notifications',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_quality-assurance',
+          parentID: 'notifications',
+          active: false,
+          visible: canSeeQA,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.quality-assurance',
+            link: '/notifications/quality-assurance'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'notifications_reciter',
+          parentID: 'notifications',
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_reciter',
+            link: '/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
+          } as LinkMenuItemModel,
+        },
+      ];
 
       const menuList = [
         ...newSubMenuList,
         newSubMenu,
         ...editSubMenuList,
         editSubMenu,
+        ...notificationSubMenuList,
+
         // TODO: enable this menu item once the feature has been implemented
         // {
         //   id: 'new_item_version',
@@ -543,46 +582,9 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator
    */
   createSiteAdministratorMenuSections() {
-    combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
-    ])
-    .subscribe(([authorized, canSeeQA]) => {
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+      .subscribe((authorized) => {
       const menuList = [
-        /* Notifications */
-        {
-          id: 'notifications',
-          active: false,
-          visible: authorized && canSeeQA,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.notifications'
-          } as TextMenuItemModel,
-          icon: 'bell',
-          index: 4
-        },
-        {
-          id: 'notifications_quality-assurance',
-          parentID: 'notifications',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.quality-assurance',
-            link: '/notifications/quality-assurance'
-          } as LinkMenuItemModel,
-        },
-        {
-          id: 'notifications_reciter',
-          parentID: 'notifications',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.notifications_reciter',
-            link: '/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
-          } as LinkMenuItemModel,
-        },
         /*  Admin Search */
         {
           id: 'admin_search',
