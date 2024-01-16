@@ -206,6 +206,13 @@ export class MetadataService {
       this.setCitationTechnicalReportNumberTag();
     }
 
+    this.setOpenGraphTitleTag();
+    this.setOpenGraphDescriptionTag();
+    //this.setOpenGraphImageTag();
+
+    this.setTwitterTitleTag();
+    this.setTwitterDescriptionTag();
+    //this.setTwitterImageTag();
   }
 
   /**
@@ -465,6 +472,56 @@ export class MetadataService {
         );
       });
     }
+  }
+
+  /**
+   * Add <meta name="og:title" ... >  to the <head>
+   */
+  private setOpenGraphTitleTag(): void {
+    const value = this.getMetaTagValue('dc.title');
+    this.addMetaTag('og:title', value);
+  }
+
+  /**
+   * Add <meta name="og:description" ... >  to the <head>
+   */
+  private setOpenGraphDescriptionTag(): void {
+    // TODO: truncate abstract
+    const value = this.getMetaTagValue('dc.description.abstract');
+    this.addMetaTag('og:description', value);
+  }
+
+  /**
+   * Add <meta name="og:image" ... >  to the <head>
+   */
+  private setOpenGraphImageTag(): void {
+    const value = '';
+    this.addMetaTag('og:image', value);
+  }
+
+  /**
+   * Add <meta name="twitter:title" ... >  to the <head>
+   */
+  private setTwitterTitleTag(): void {
+    const value = this.getMetaTagValue('dc.title');
+    this.addMetaTag('twitter:title', value);
+  }
+
+  /**
+   * Add <meta name="twitter:description" ... >  to the <head>
+   */
+  private setTwitterDescriptionTag(): void {
+    // TODO: truncate abstract
+    const value = this.getMetaTagValue('dc.description.abstract');
+    this.addMetaTag('twitter:description', value);
+  }
+
+  /**
+   * Add <meta name="twitter:image" ... >  to the <head>
+   */
+  private setTwitterImageTag(): void {
+    const value = '';
+    this.addMetaTag('twitter:image', value);
   }
 
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
