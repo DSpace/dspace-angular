@@ -1,4 +1,6 @@
 import { defer } from 'rxjs';
+import { StartsWithDateComponent } from './date/starts-with-date.component';
+import { StartsWithTextComponent } from './text/starts-with-text.component';
 
 const startsWithMap = new Map();
 
@@ -10,8 +12,8 @@ export enum StartsWithType {
   date = 'Date'
 }
 
-startsWithMap.set(StartsWithType.text, defer(() => import('./text/starts-with-text.component').then(m => m.StartsWithTextComponent)));
-startsWithMap.set(StartsWithType.date, defer(() => import('./date/starts-with-date.component').then(m => m.StartsWithDateComponent)));
+startsWithMap.set(StartsWithType.text, StartsWithTextComponent);
+startsWithMap.set(StartsWithType.date, StartsWithDateComponent);
 
 
 /**

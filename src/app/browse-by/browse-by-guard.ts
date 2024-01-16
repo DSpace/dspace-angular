@@ -13,7 +13,7 @@ import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { RemoteData } from '../core/data/remote-data';
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 /**
  * A guard taking care of the correct route.data being set for the Browse-By components
  */

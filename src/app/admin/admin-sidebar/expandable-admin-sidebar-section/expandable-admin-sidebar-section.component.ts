@@ -7,11 +7,10 @@ import { bgColor } from '../../../shared/animations/bgColor';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgComponentOutlet, NgFor, NgIf } from '@angular/common';
 
 /**
  * Represents a expandable section in the sidebar
@@ -25,7 +24,6 @@ import { NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe } from '@angular/com
   imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule]
 })
 
-@rendersSectionForMenu(MenuID.ADMIN, true)
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
   /**
    * This section resides in the Admin Sidebar

@@ -1,5 +1,4 @@
 import { Component, Inject, Injector } from '@angular/core';
-import { rendersSectionForMenu } from 'src/app/shared/menu/menu-section.decorator';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 import { MenuService } from '../../../menu/menu.service';
 import { Router } from '@angular/router';
@@ -9,7 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../../../empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgFor, NgIf, NgComponentOutlet, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgComponentOutlet, NgFor, NgIf } from '@angular/common';
 import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 /**
@@ -22,7 +21,6 @@ import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap'
     standalone: true,
     imports: [NgbDropdownModule, NgbTooltipModule, NgFor, NgIf, NgComponentOutlet, TranslateModule, AsyncPipe]
 })
-@rendersSectionForMenu(MenuID.DSO_EDIT, true)
 export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent {
 
   menuID: MenuID = MenuID.DSO_EDIT;

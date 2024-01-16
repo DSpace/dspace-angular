@@ -1,5 +1,4 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { rendersSectionForMenu } from 'src/app/shared/menu/menu-section.decorator';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 import { MenuService } from '../../../menu/menu.service';
 import { isNotEmpty } from '../../../empty.util';
@@ -20,7 +19,6 @@ import { NgIf } from '@angular/common';
     standalone: true,
     imports: [NgIf, NgbTooltipModule, RouterLink, TranslateModule]
 })
-@rendersSectionForMenu(MenuID.DSO_EDIT, false)
 export class DsoEditMenuSectionComponent extends MenuSectionComponent implements OnInit {
 
   menuID: MenuID = MenuID.DSO_EDIT;
