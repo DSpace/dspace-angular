@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { BrowseByTitlePageComponent } from './browse-by-title-page.component';
-import {BrowseByDataType, rendersBrowseBy} from '../browse-by-switcher/browse-by-decorator';
 
 /**
  * Themed wrapper for BrowseByTitlePageComponent
@@ -13,7 +12,6 @@ import {BrowseByDataType, rendersBrowseBy} from '../browse-by-switcher/browse-by
     standalone: true
 })
 
-@rendersBrowseBy(BrowseByDataType.Title)
 export class ThemedBrowseByTitlePageComponent
   extends ThemedComponent<BrowseByTitlePageComponent> {
   protected getComponentName(): string {

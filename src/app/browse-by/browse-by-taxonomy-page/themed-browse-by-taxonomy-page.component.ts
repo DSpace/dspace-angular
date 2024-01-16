@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.component';
 
 @Component({
@@ -12,7 +11,6 @@ import { BrowseByTaxonomyPageComponent } from './browse-by-taxonomy-page.compone
 /**
  * Themed wrapper for BrowseByTaxonomyPageComponent
  */
-@rendersBrowseBy('hierarchy')
 export class ThemedBrowseByTaxonomyPageComponent extends ThemedComponent<BrowseByTaxonomyPageComponent>{
 
   protected getComponentName(): string {

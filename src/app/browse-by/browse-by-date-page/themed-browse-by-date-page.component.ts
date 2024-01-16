@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { BrowseByDatePageComponent } from './browse-by-date-page.component';
-import {BrowseByDataType, rendersBrowseBy} from '../browse-by-switcher/browse-by-decorator';
 
 /**
  * Themed wrapper for BrowseByDatePageComponent
@@ -13,7 +12,6 @@ import {BrowseByDataType, rendersBrowseBy} from '../browse-by-switcher/browse-by
     standalone: true
 })
 
-@rendersBrowseBy(BrowseByDataType.Date)
 export class ThemedBrowseByDatePageComponent
   extends ThemedComponent<BrowseByDatePageComponent> {
   protected getComponentName(): string {
