@@ -17,4 +17,9 @@ export interface WorkspaceitemSectionLicenseObject {
    * A boolean representing if license has been granted
    */
   granted: boolean;
+
+  /**
+   * TAMU Customization - A string representing which license has been selected
+   */
+  selected?: string;
 }

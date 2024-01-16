@@ -4524,7 +4524,7 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
-  "submission.sections.license.granted-label": "I confirm the license above",
+  "submission.sections.license.granted-label": "I accept the terms of this license.",
 
   "submission.sections.license.required": "You must accept the license",
 
@@ -5253,4 +5253,24 @@
   "communityList.expandAll": "Expand All",
 
   "communityList.collapseAll": "Collapse All",
+
+  "submission.sections.proxy-license.header": "Granting a License",
+
+  "submission.sections.proxy-license.last-step-label": "There is one last step:",
+
+  "submission.sections.proxy-license.last-step": "In order for OAKTrust to reproduce, translate and distribute your submission worldwide, you must agree to the following terms.",
+
+  "submission.sections.proxy-license.instructions": "Please select the license that best matches your situation, grant the license by selecting 'I accept the terms of this license.'; and then click '+Deposit'.",
+
+  "submission.sections.proxy-license.label": "Distribution license: ",
+
+  "submission.sections.proxy-license.permission-upload-label": "Proxy Submission License: ",
+
+  "submission.sections.proxy-license.permission-upload-instructions": "If you have a separate permission document from the copyright owner authorizing the release of this item, please attach it here.",
+
+  "submission.sections.proxy-license.permission-upload-successful": "Proxy license permission upload successful",
+
+  "submission.sections.proxy-license.permission-upload-failed": "Proxy license permission upload failed",
+
+  "submission.sections.proxy-license.permission-upload-drop-message": "Drop permission document to attach to the item",
 }

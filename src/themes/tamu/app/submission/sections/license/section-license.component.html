@@ -1,0 +1,40 @@
+<div class="ml-3 mb-1">
+    <div class="h4">{{"submission.sections.proxy-license.header" | translate}}</div>
+    <p>
+        <span class="font-weight-bolder">{{"submission.sections.proxy-license.last-step-label" | translate}} </span>
+        <span>{{"submission.sections.proxy-license.last-step" | translate}}</span>
+    </p>
+    <p>{{"submission.sections.proxy-license.instructions" | translate}}</p>
+</div>
+
+<div #labelWrapper [hidden]="(license | async) === undefined" class="tamu-control-license tamu-control-label">
+    <label class="font-weight-bolder">{{"submission.sections.proxy-license.label" | translate}}</label>
+</div>
+
+<div #licenseWrapper [hidden]="(license | async) === undefined" class="tamu-control-license">
+    <p [innerHTML]="license | async"></p>
+</div>
+
+<div #uploaderWrapper class="mb-1" [hidden]="(proxy | async) === false" class="tamu-control-license">
+    <label class="font-weight-bolder">{{"submission.sections.proxy-license.permission-upload-label" | translate}}</label>
+    <ds-uploader *ngIf="uploadFilesOptions.url"
+                [dropMsg]="dropMsg"
+                [dropOverDocumentMsg]="dropOverDocumentMsg"
+                [enableDragOverDocument]="enableDragOverDocument"
+                [onBeforeUpload]="onBeforeUpload"
+                [uploadFilesOptions]="uploadFilesOptions"
+                (onCompleteItem)="onCompleteItem($event)"
+                (onUploadError)="onUploadError()"></ds-uploader>
+    <small class="form-text text-muted">{{"submission.sections.proxy-license.permission-upload-instructions" | translate}}</small>
+</div>
+
+<div #formWrapper>
+    <ds-form *ngIf="formModel" #formRef="formComponent"
+            [formId]="formId"
+            [formModel]="formModel"
+            [formLayout]="formLayout"
+            [displaySubmit]="displaySubmit"
+            [displayCancel]="false"
+            (dfChange)="onChange($event)">
+    </ds-form>
+</div>
