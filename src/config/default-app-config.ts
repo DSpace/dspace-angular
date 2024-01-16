@@ -664,7 +664,7 @@ export class DefaultAppConfig implements AppConfig {
     {
       type: 'altmetric',
       icon: null,
-      class: 'alert-light',
+      class: '',
     },
     {
       type: 'plumX',
@@ -674,32 +674,32 @@ export class DefaultAppConfig implements AppConfig {
     {
       type: 'dimensions',
       icon: 'fa fa-cubes',
-      class: 'alert-light',
+      class: '',
     },
     {
       type: 'google-scholar',
       icon: '/assets/images/google-scholar.svg',
-      class: 'alert-info',
+      class: 'alert alert-info',
     },
     {
       type: 'embedded-view',
       icon: 'fa fa-eye',
-      class: 'alert-success'
+      class: 'alert alert-success'
     },
     {
       type: 'embedded-download',
       icon: 'fa fa-cloud-download-alt',
-      class: 'alert-danger',
+      class: 'alert alert-danger',
     },
     {
       type: 'view',
       icon: 'fa fa-eye',
-      class: 'alert-success',
+      class: 'alert alert-success',
     },
     {
       type: 'download',
       icon: 'fa fa-cloud-download-alt',
-      class: 'alert-danger',
+      class: 'alert alert-danger',
     },
   ];
 

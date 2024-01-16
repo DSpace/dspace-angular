@@ -2,11 +2,12 @@
 	border: 1px solid black;
 	border-radius: 3px;
 }
-:host {
-	display: flex;
-	// flex:1;
-}
 
 ngb-accordion {
 	flex-grow: 1;
+}
+
+// This class should be applied to the altmetrics box in the CRIS layout tool
+.altmetrics-wrapper {
+  padding: 15px 70px;
 }
