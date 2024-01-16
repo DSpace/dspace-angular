@@ -19,3 +19,12 @@
     color: var(--ds-header-icon-color-hover);
   }
 }
+
+.dropdownLogin, .dropdownLogout {
+  &:not(:focus-visible).active,
+  &:not(:focus-visible):active,
+  &:not(:focus-visible).active:focus,
+  &:not(:focus-visible):active:focus {
+    box-shadow: unset;
+  }
+}

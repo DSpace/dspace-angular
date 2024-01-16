@@ -22,7 +22,6 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'ds-admin-notify-search-result',
   templateUrl: './admin-notify-search-result.component.html',
-  styleUrls: ['./admin-notify-search-result.component.scss'],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
@@ -54,20 +53,16 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    * Keys to be not shown in detail
    * @private
    */
-
-  private hiddenKeys: string[] = [
-    'target',
-    'object',
-    'context',
-    'origin',
-    '_links',
-    'metadata',
-    'thumbnail',
-    'item',
-    'accessStatus',
-    'queueStatus',
-    'notificationId',
-    'notificationType',
+  private messageKeys: string[] = [
+    'type',
+    'id',
+    'coarNotifyType',
+    'activityStreamType',
+    'inReplyTo',
+    'queueAttempts',
+    'queueLastStartTime',
+    'queueStatusLabel',
+    'queueTimeout'
   ];
 
   /**
@@ -101,22 +96,22 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
 
   /**
    * Open modal for details visualization
-   * @param message the message to be displayed
+   * @param notifyMessage the message to be displayed
    */
-  openDetailModal(message: AdminNotifyMessage) {
+  openDetailModal(notifyMessage: AdminNotifyMessage) {
     const modalRef = this.modalService.open(AdminNotifyDetailModalComponent);
-    const messageToOpen = {...message};
-    // we delete not necessary or not readable keys
+    const messageToOpen = {...notifyMessage};
 
-    const messageKeys = Object.keys(messageToOpen).filter(key => !this.hiddenKeys.includes(key));
-    messageKeys.forEach(key => {
+    this.messageKeys.forEach(key => {
       if (this.dateTypeKeys.includes(key)) {
         messageToOpen[key] = this.datePipe.transform(messageToOpen[key], this.dateFormat);
       }
     });
+    // format COAR message for technical visualization
+    messageToOpen.message = JSON.stringify(JSON.parse(notifyMessage.message), null, 2);
 
     modalRef.componentInstance.notifyMessage = messageToOpen;
-    modalRef.componentInstance.notifyMessageKeys = messageKeys;
+    modalRef.componentInstance.notifyMessageKeys = this.messageKeys;
   }
 
   /**

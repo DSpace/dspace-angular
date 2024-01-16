@@ -5,6 +5,15 @@
   justify-content: center;
 }
 
+.btn.nav-link {
+  text-align: left;
+  border: none;
+
+  &:active, &:focus {
+    box-shadow: none !important;
+  }
+}
+
 .dropdown-menu {
     background-color: var(--ds-expandable-navbar-bg);
     overflow: hidden;

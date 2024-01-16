@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QaEventNotificationComponent } from './qa-event-notification.component';
-import { QualityAssuranceSourceDataService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';

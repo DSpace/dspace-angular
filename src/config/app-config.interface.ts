@@ -23,6 +23,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import {QualityAssuranceConfig} from './quality-assurance.config';
 import {
   AdminNotifyMetricsRow
 } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
@@ -53,6 +54,7 @@ interface AppConfig extends Config {
   markdown: MarkdownConfig;
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
+  qualityAssuranceConfig: QualityAssuranceConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
 }
 

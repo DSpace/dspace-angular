@@ -48,6 +48,7 @@ export class AdminNotifyLogsResultComponent implements OnInit{
   }
 
   /**
+   * Get resolved url from route
    *
    * @param route url path
    * @returns url path

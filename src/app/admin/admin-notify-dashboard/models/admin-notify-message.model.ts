@@ -81,6 +81,12 @@ export class AdminNotifyMessage extends DSpaceObject {
   context: string;
 
   /**
+   * The related COAR message
+   */
+  @autoserialize
+  message: string;
+
+  /**
    * The attempts of the queue
    */
   @autoserialize

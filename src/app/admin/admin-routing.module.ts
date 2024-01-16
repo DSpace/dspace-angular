@@ -6,22 +6,12 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import {
-  LDN_PATH,
-  REGISTRIES_MODULE_PATH,
-  NOTIFICATIONS_MODULE_PATH,
-  NOTIFY_DASHBOARD_MODULE_PATH
-} from './admin-routing-paths';
+import { LDN_PATH, NOTIFY_DASHBOARD_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
-      {
-        path: NOTIFICATIONS_MODULE_PATH,
-        loadChildren: () => import('./admin-notifications/admin-notifications.module')
-          .then((m) => m.AdminNotificationsModule),
-      },
       {
         path: REGISTRIES_MODULE_PATH,
         loadChildren: () => import('./admin-registries/admin-registries.module')
@@ -77,7 +67,7 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
       {
         path: NOTIFY_DASHBOARD_MODULE_PATH,
         loadChildren: () => import('./admin-notify-dashboard/admin-notify-dashboard.module')
-          .then((m) => m.AdminNotifyDashboardModule),
+            .then((m) => m.AdminNotifyDashboardModule),
       },
     ]),
   ],
