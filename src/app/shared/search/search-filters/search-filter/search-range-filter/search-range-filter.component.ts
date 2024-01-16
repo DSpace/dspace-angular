@@ -1,11 +1,9 @@
 import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { isPlatformBrowser, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgFor, NgIf } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { FilterType } from '../../../models/filter-type.model';
-import { renderFacetFor } from '../search-filter-type-decorator';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
@@ -21,7 +19,9 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
 import { yearFromString } from 'src/app/shared/date.util';
-import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import {
+  SearchFacetRangeOptionComponent
+} from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import { NouisliderComponent } from 'ng2-nouislider';
 import { FormsModule } from '@angular/forms';
@@ -53,7 +53,6 @@ export const RANGE_FILTER_MAX_SUFFIX = '.max';
 /**
  * Component that represents a range facet for a specific filter configuration
  */
-@renderFacetFor(FilterType.range)
 export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Fallback minimum for the range

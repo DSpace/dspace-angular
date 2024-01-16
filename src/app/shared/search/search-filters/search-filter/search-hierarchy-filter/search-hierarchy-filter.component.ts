@@ -1,6 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { renderFacetFor } from '../search-filter-type-decorator';
-import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -10,7 +8,8 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER
+  REFRESH_FILTER,
+  SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -18,20 +17,27 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FacetValue } from '../../../models/facet-value.model';
-import { getFacetValueForType } from '../../../search.utils';
+import { addOperatorToFilterValue, getFacetValueForType } from '../../../search.utils';
 import { filter, map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
-import { addOperatorToFilterValue } from '../../../search.utils';
-import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import {
+  VocabularyTreeviewModalComponent
+} from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
-import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
-import { NgFor, NgIf, AsyncPipe, LowerCasePipe } from '@angular/common';
+import {
+  FilterInputSuggestionsComponent
+} from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import {
+  SearchFacetOptionComponent
+} from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
+import {
+  SearchFacetSelectedOptionComponent
+} from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { AsyncPipe, LowerCasePipe, NgFor, NgIf } from '@angular/common';
 
 @Component({
     selector: 'ds-search-hierarchy-filter',
@@ -45,7 +51,6 @@ import { NgFor, NgIf, AsyncPipe, LowerCasePipe } from '@angular/common';
 /**
  * Component that represents a hierarchy facet for a specific filter configuration
  */
-@renderFacetFor(FilterType.hierarchy)
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
 
   constructor(protected searchService: SearchService,
