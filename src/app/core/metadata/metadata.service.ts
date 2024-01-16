@@ -464,7 +464,7 @@ export class MetadataService {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
 
-      // Retrieve the THUMBNAIL bundle for the item
+      // Retrieve the bundle for the item
       this.bundleDataService.findByItemAndName(
         item,
         bundleName,
