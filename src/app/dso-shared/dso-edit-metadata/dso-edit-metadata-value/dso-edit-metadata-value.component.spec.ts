@@ -149,7 +149,7 @@ describe('DsoEditMetadataValueComponent', () => {
       let btn: DebugElement;
 
       beforeEach(() => {
-        btn = fixture.debugElement.query(By.css(`#metadata-${name}-btn`));
+        btn = fixture.debugElement.query(By.css(`button[data-test="metadata-${name}-btn"]`));
       });
 
       if (exists) {
