@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { NumberPickerComponent } from './number-picker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { createTestComponent } from '../../testing/utils.test';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('NumberPickerComponent test suite', () => {
 
@@ -23,7 +24,8 @@ describe('NumberPickerComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgbModule
+        NgbModule,
+        TranslateModule.forRoot()
       ],
       declarations: [
         NumberPickerComponent,
