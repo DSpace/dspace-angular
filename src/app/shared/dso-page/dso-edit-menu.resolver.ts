@@ -28,6 +28,9 @@ import { AuthService } from '../../core/auth/auth.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
+import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
+import { Community } from '../../core/shared/community.model';
+import { Collection } from '../../core/shared/collection.model';
 
 /**
  * Creates the menus for the dspace object pages
@@ -94,6 +97,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   getDsoMenus(dso, route, state): Observable<MenuSection[]>[] {
     return [
       this.getItemMenu(dso),
+      this.getComColMenu(dso),
       this.getCommonMenu(dso, state)
     ];
   }
@@ -216,6 +220,39 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             }
           ];
         }),
+      );
+    } else {
+      return observableOf([]);
+    }
+  }
+
+  /**
+   * Get Community/Collection-specific menus
+   */
+  protected getComColMenu(dso): Observable<MenuSection[]> {
+    if (dso instanceof Community || dso instanceof Collection) {
+      return combineLatest([
+        this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
+      ]).pipe(
+        map(([canSubscribe]) => {
+          return [
+            {
+              id: 'subscribe',
+              active: false,
+              visible: canSubscribe,
+              model: {
+                type: MenuItemType.ONCLICK,
+                text: 'subscriptions.tooltip',
+                function: () => {
+                  const modalRef = this.modalService.open(SubscriptionModalComponent);
+                  modalRef.componentInstance.dso = dso;
+                }
+              } as OnClickMenuItemModel,
+              icon: 'bell',
+              index: 4
+            },
+          ];
+        })
       );
     } else {
       return observableOf([]);

@@ -5,7 +5,9 @@
            [id]="entry.id"
            [ngModel]="entry.checked"
            (ngModelChange)="this.toggleCheckbox.emit($event);">
-    <label class="custom-control-label" [for]="entry.id"></label>
+    <label class="custom-control-label" [for]="entry.id"
+           [attr.aria-label]="(entry.checked ? 'resource-policies.table.headers.deselect' : 'resource-policies.table.headers.select') | translate">
+    </label>
   </div>
 </td>
 <th scope="row">

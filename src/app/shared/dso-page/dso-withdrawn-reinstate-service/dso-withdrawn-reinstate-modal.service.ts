@@ -5,10 +5,10 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/withdrawn-reinstate-modal.component';
 import {
   QualityAssuranceEventDataService
-} from '../../../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
+} from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import {
   QualityAssuranceEventObject
-} from '../../../core/suggestion-notifications/qa/models/quality-assurance-event.model';
+} from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../notifications/notifications.service';

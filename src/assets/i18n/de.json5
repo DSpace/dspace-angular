@@ -1382,7 +1382,7 @@
 
 
   // "community.create.head": "Create a Community",
-  "community.create.head": "Sammlung anlegen",
+  "community.create.head": "Bereich anlegen",
 
   // "community.create.notifications.success": "Successfully created the Community",
   "community.create.notifications.success": "Bereich erfolgreich angelegt",
@@ -1712,7 +1712,8 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Virenscan",
 
-
+  // "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "DOI registrieren",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Aufgabe:",
@@ -3484,20 +3485,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Ihre Veröffentlichungen",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archiviert",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archiviert",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validierung",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validierung",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Warten auf die Überprüfung",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Warten auf die Überprüfung",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Geschäftsgang",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Geschäftsgang",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Arbeitsbereich",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Arbeitsbereich",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mein DSpace",
@@ -4486,6 +4487,21 @@
 
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Ja",
+
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Archiviert",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Validierung",
+
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  "search.filters.namedresourcetype.Waiting for Controller": "Warten auf die Überprüfung",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "Geschäftsgang",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Arbeitsbereich",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Ja",

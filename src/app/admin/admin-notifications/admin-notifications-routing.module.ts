@@ -11,10 +11,14 @@ import { AdminQualityAssuranceTopicsPageResolver } from './admin-quality-assuran
 import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.resolver';
 import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
 import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
-import { SourceDataResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.reslover';
 import {
   SiteAdministratorGuard
 } from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
+import { QualityAssuranceBreadcrumbService } from '../../core/breadcrumbs/quality-assurance-breadcrumb.service';
+import {
+  SourceDataResolver
+} from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.resolver';
 
 @NgModule({
   imports: [
@@ -25,7 +29,7 @@ import {
         component: AdminQualityAssuranceTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
+          breadcrumb: QualityAssuranceBreadcrumbResolver,
           openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver
         },
         data: {
@@ -56,7 +60,7 @@ import {
         component: AdminQualityAssuranceEventsPageComponent,
         pathMatch: 'full',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
+          breadcrumb: QualityAssuranceBreadcrumbResolver,
           openaireQualityAssuranceEventsParams: AdminQualityAssuranceEventsPageResolver
         },
         data: {
@@ -73,7 +77,9 @@ import {
     SourceDataResolver,
     AdminQualityAssuranceTopicsPageResolver,
     AdminQualityAssuranceEventsPageResolver,
-    AdminQualityAssuranceSourcePageResolver
+    AdminQualityAssuranceSourcePageResolver,
+    QualityAssuranceBreadcrumbResolver,
+    QualityAssuranceBreadcrumbService
   ]
 })
 /**

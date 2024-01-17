@@ -38,6 +38,8 @@ import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { getEPersonsRoute } from '../../access-control-routing-paths';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -194,6 +196,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     public requestService: RequestService,
     private epersonRegistrationService: EpersonRegistrationService,
     public dsoNameService: DSONameService,
+    protected route: ActivatedRoute,
+    protected router: Router,
   ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
@@ -213,7 +217,9 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * This method will initialise the page
    */
   initialisePage() {
-
+    this.subs.push(this.epersonService.findById(this.route.snapshot.params.id).subscribe((ePersonRD: RemoteData<EPerson>) => {
+      this.epersonService.editEPerson(ePersonRD.payload);
+    }));
     observableCombineLatest([
       this.translateService.get(`${this.messagePrefix}.firstName`),
       this.translateService.get(`${this.messagePrefix}.lastName`),
@@ -339,6 +345,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
   onCancel() {
     this.epersonService.cancelEditEPerson();
     this.cancelForm.emit();
+    void this.router.navigate([getEPersonsRoute()]);
   }
 
   /**
@@ -390,6 +397,8 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.created.success', { name: this.dsoNameService.getName(ePersonToCreate) }));
         this.submitForm.emit(ePersonToCreate);
+        this.epersonService.clearEPersonRequests();
+        void this.router.navigateByUrl(getEPersonsRoute());
       } else {
         this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.created.failure', { name: this.dsoNameService.getName(ePersonToCreate) }));
         this.cancelForm.emit();
@@ -429,6 +438,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.edited.success', { name: this.dsoNameService.getName(editedEperson) }));
         this.submitForm.emit(editedEperson);
+        void this.router.navigateByUrl(getEPersonsRoute());
       } else {
         this.notificationsService.error(this.translateService.get(this.labelPrefix + 'notification.edited.failure', { name: this.dsoNameService.getName(editedEperson) }));
         this.cancelForm.emit();
@@ -495,6 +505,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     ).subscribe(({ restResponse, eperson }: { restResponse: RemoteData<NoContent> | null, eperson: EPerson }) => {
       if (restResponse?.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.labelPrefix + 'notification.deleted.success', { name: this.dsoNameService.getName(eperson) }));
+        void this.router.navigate([getEPersonsRoute()]);
       } else {
         this.notificationsService.error(`Error occurred when trying to delete EPerson with id: ${eperson?.id} with code: ${restResponse?.statusCode} and message: ${restResponse?.errorMessage}`);
       }
@@ -539,16 +550,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     if (hasValue(this.emailValueChangeSubscribe)) {
       this.emailValueChangeSubscribe.unsubscribe();
     }
-  }
-
-  /**
-   * This method will ensure that the page gets reset and that the cache is cleared
-   */
-  reset() {
-    this.epersonService.getActiveEPerson().pipe(take(1)).subscribe((eperson: EPerson) => {
-      this.requestService.removeByHrefSubstring(eperson.self);
-    });
-    this.initialisePage();
   }
 
   /**

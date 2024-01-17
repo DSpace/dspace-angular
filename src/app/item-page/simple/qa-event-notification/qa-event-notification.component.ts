@@ -4,8 +4,8 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { Observable } from 'rxjs';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { QualityAssuranceSourceDataService } from '../../../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
-import { QualityAssuranceSourceObject } from '../../../core/suggestion-notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { map, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 @Component({

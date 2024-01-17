@@ -1,5 +1,5 @@
 rest:
-  ssl: false
-  host: localhost
-  port: 8080
+  ssl: true
+  host: sandbox.dspace.org
+  port: 443
   nameSpace: /server

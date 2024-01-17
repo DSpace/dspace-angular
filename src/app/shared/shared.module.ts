@@ -192,6 +192,7 @@ import {
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { ThemedLogInComponent } from './log-in/themed-log-in.component';
 import { MissingTranslationHelper } from './translate/missing-translation.helper';
 import { FileValidator } from './utils/require-file.validator';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
@@ -273,9 +274,6 @@ import {
   AdvancedClaimedTaskActionRatingComponent
 } from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
 import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
-import {
-  DsoPageSubscriptionButtonComponent
-} from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
@@ -284,13 +282,11 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import {
-  QualityAssuranceEventDataService
-} from '../core/suggestion-notifications/qa/events/quality-assurance-event-data.service';
 import { SplitPipe } from './utils/split.pipe';
-import {
-  QualityAssuranceSourceDataService
-} from '../core/suggestion-notifications/qa/source/quality-assurance-source-data.service';
+import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
+import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
+import { QualityAssuranceEventDataService } from '../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceSourceDataService } from '../core/notifications/qa/source/quality-assurance-source-data.service';
 
 const MODULES = [
   CommonModule,
@@ -340,12 +336,15 @@ const COMPONENTS = [
   AuthNavMenuComponent,
   ThemedAuthNavMenuComponent,
   UserMenuComponent,
+  ThemedUserMenuComponent,
   DsSelectComponent,
   ErrorComponent,
   LangSwitchComponent,
+  ThemedLangSwitchComponent,
   LoadingComponent,
   ThemedLoadingComponent,
   LogInComponent,
+  ThemedLogInComponent,
   LogOutComponent,
   ObjectListComponent,
   ThemedObjectListComponent,
@@ -403,7 +402,6 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
-  DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
   ContextHelpWrapperComponent,
   EpersonGroupListComponent,
