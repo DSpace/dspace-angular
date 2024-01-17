@@ -168,14 +168,20 @@ describe('New Submission page', () => {
         // This should display the <ds-create-item-parent-selector> (popup window)
         cy.get('ds-create-item-parent-selector').should('be.visible');
 
-        // Click on the first Collection button to seelect a collection (actual collection doesn't matter)
-        cy.get('ds-authorized-collection-selector button:first-child').click();
+        // Type in a known Collection name in the search box
+        cy.get('ds-authorized-collection-selector input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_PERSON_COLLECTION_NAME'));
+
+        // Click on the button matching that known Collection name
+        cy.get('ds-authorized-collection-selector button[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_PERSON_COLLECTION_NAME')).concat('"]')).click();
 
         // New URL should include /workspaceitems, as we've started a new submission
         cy.url().should('include', '/workspaceitems');
 
         // The Submission edit form tag should be visible
         cy.get('ds-submission-edit').should('be.visible');
+
+        // A Collection menu button should exist & its value should be the selected collection
+        cy.get('#collectionControlsMenuButton span').should('have.text', Cypress.env('DSPACE_TEST_SUBMIT_PERSON_COLLECTION_NAME'));
 
         // 3 sections should be visible by default
         cy.get('div#section_personStep').should('be.visible');
