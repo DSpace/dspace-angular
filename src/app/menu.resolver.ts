@@ -284,18 +284,6 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'users',
           index: 0
         },
-        /* News */
-        {
-          id: 'new',
-          active: false,
-          visible: isCollectionAdmin || isCommunityAdmin || isSiteAdmin,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.new'
-          } as TextMenuItemModel,
-          icon: 'plus',
-          index: 0
-        },
         {
           id: 'new_community',
           parentID: 'new',
