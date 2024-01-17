@@ -102,7 +102,8 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-    imports: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
+    imports: [TruncatePipe],
+    declarations: [OrgUnitSearchResultListSubmissionElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
@@ -127,7 +128,6 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [OrgUnitInputSuggestionsComponent]}
     }).compileComponents();
   }));
 

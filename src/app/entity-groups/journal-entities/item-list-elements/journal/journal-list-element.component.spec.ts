@@ -49,7 +49,8 @@ describe('JournalListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-    imports: [JournalListElementComponent, TruncatePipe, TranslateModule.forRoot()],
+    imports: [TruncatePipe, TranslateModule.forRoot()],
+    declarations: [JournalListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },

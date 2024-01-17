@@ -13,7 +13,8 @@ describe('BitstreamListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [CommonModule, TranslateModule, RouterTestingModule, BitstreamListItemComponent],
+    imports: [CommonModule, TranslateModule, RouterTestingModule],
+    declarations: [BitstreamListItemComponent],
     providers: [{ provide: DSONameService, useValue: new DSONameServiceMock() }]
 })
     .compileComponents();

@@ -71,8 +71,8 @@ describe('WorkspaceItemSearchResultAdminWorkflowListElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        WorkspaceItemSearchResultAdminWorkflowListElementComponent
     ],
+    declarations: [WorkspaceItemSearchResultAdminWorkflowListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },

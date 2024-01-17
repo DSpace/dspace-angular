@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
+import {
+  CollectionAdminSearchResultListElementComponent
+} from './collection-admin-search-result-list-element.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
@@ -18,9 +20,6 @@ import { environment } from '../../../../../../environments/environment';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import {
-  CollectionSearchResultListElementComponent
-} from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 
 describe('CollectionAdminSearchResultListElementComponent', () => {
   let component: CollectionAdminSearchResultListElementComponent;
@@ -41,8 +40,8 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        CollectionAdminSearchResultListElementComponent
     ],
+    declarations: [CollectionAdminSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -51,9 +50,6 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
-      .overrideComponent(CollectionAdminSearchResultListElementComponent, {
-        remove: { imports: [CollectionSearchResultListElementComponent]}
-      })
       .compileComponents();
   }));
 

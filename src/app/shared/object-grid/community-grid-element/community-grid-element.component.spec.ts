@@ -43,8 +43,8 @@ describe('CommunityGridElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
-        CommunityGridElementComponent
     ],
+    declarations: [CommunityGridElementComponent],
     providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: LinkService, useValue: linkService },
@@ -52,9 +52,6 @@ describe('CommunityGridElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(CommunityGridElementComponent, {
-      remove: {
-        imports: [RouterLink, ThemedThumbnailComponent]
-      },
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

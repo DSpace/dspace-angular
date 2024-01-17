@@ -57,8 +57,8 @@ describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        WorkflowItemSearchResultAdminWorkflowListElementComponent
     ],
+    declarations: [WorkflowItemSearchResultAdminWorkflowListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: LinkService, useValue: linkService },

@@ -71,8 +71,9 @@ describe('ClaimedApprovedSearchResultListElementComponent', () => {
     imports: [
         TranslateModule.forRoot(),
         NoopAnimationsModule,
-        ClaimedApprovedSearchResultListElementComponent, VarDirective
+        VarDirective
     ],
+    declarations: [ClaimedApprovedSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ThemeService, useValue: getMockThemeService() },

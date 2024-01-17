@@ -202,9 +202,9 @@ describe('ItemSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        ItemSearchResultListElementComponent,
         TruncatePipe
       ],
+      declarations: [ItemSearchResultListElementComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

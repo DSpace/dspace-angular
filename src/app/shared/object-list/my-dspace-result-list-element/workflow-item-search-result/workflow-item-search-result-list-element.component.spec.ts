@@ -77,7 +77,8 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, WorkflowItemSearchResultListElementComponent],
+    imports: [NoopAnimationsModule],
+    declarations: [WorkflowItemSearchResultListElementComponent],
     providers: [
       {provide: TruncatableService, useValue: mockTruncatableService},
       {provide: ItemDataService, useValue: {}},
@@ -88,13 +89,6 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: {
-        imports: [
-          ListableObjectComponentLoaderComponent,
-          WorkflowitemActionsComponent,
-          ThemedLoadingComponent
-        ]
-      }
     }).compileComponents();
   }));
 

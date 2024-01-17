@@ -103,8 +103,11 @@ describe('JournalComponent', () => {
             }
         }),
         RouterTestingModule,
-        JournalComponent, GenericItemPageFieldComponent, TruncatePipe
+        GenericItemPageFieldComponent, TruncatePipe
     ],
+      declarations: [
+        JournalComponent
+      ],
     providers: [
       {provide: ItemDataService, useValue: {}},
       {provide: TruncatableService, useValue: mockTruncatableService},
@@ -131,17 +134,6 @@ describe('JournalComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(JournalComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: {
-        imports: [
-          ThemedResultsBackButtonComponent,
-          ThemedItemPageTitleFieldComponent,
-          DsoEditMenuComponent,
-          MetadataFieldWrapperComponent,
-          ThemedThumbnailComponent,
-          RelatedItemsComponent,
-          TabbedRelatedEntitiesSearchComponent,
-        ]
-      }
     })
       .overrideComponent(GenericItemPageFieldComponent, {
         remove: {imports: [MetadataValuesComponent]}

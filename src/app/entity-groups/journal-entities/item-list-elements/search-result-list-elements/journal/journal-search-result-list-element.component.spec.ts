@@ -80,7 +80,8 @@ const enviromentNoThumbs = {
 describe('JournalSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot(),],
+    imports: [TruncatePipe, TranslateModule.forRoot()],
+    declarations: [JournalSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -90,13 +91,7 @@ describe('JournalSearchResultListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalSearchResultListElementComponent, {
-      add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [
-          ThumbnailComponent,
-          ThemedBadgesComponent,
-          TruncatableComponent,
-          TruncatablePartComponent
-        ]}
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

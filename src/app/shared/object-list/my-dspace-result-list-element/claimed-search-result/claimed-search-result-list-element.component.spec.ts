@@ -88,9 +88,9 @@ describe('ClaimedSearchResultListElementComponent', () => {
     imports: [
       TranslateModule.forRoot(),
       NoopAnimationsModule,
-      ClaimedSearchResultListElementComponent,
       VarDirective
     ],
+    declarations: [ClaimedSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -103,7 +103,6 @@ describe('ClaimedSearchResultListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ClaimedSearchResultListElementComponent, {
-      remove: { imports: [ClaimedTaskActionsComponent] },
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

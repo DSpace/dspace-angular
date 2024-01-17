@@ -57,7 +57,8 @@ const environmentUseThumbs = {
 describe('CommunitySearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommunitySearchResultListElementComponent, TruncatePipe],
+    imports: [TruncatePipe],
+    declarations: [CommunitySearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },

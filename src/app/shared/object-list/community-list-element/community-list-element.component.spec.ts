@@ -36,7 +36,7 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
 describe('CommunityListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommunityListElementComponent],
+    declarations: [CommunityListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },

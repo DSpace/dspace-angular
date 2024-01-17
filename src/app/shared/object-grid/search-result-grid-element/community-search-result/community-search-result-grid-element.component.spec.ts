@@ -70,8 +70,9 @@ describe('CommunitySearchResultGridElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
-        CommunitySearchResultGridElementComponent, TruncatePipe
+        TruncatePipe
     ],
+    declarations: [CommunitySearchResultGridElementComponent],
     providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },

@@ -46,7 +46,8 @@ describe('JournalVolumeListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalVolumeListElementComponent, TruncatePipe],
+    imports: [TruncatePipe],
+    declarations: [JournalVolumeListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },

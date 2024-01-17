@@ -64,8 +64,9 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        WorkflowItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective
+        ItemGridElementComponent, ListableObjectDirective
     ],
+    declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent],
     providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ThemeService, useValue: themeService },
@@ -81,9 +82,6 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 })
       .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
-        remove: {
-          imports: [WorkflowItemAdminWorkflowActionsComponent]
-        },
         add: {
           entryComponents: [ItemGridElementComponent]
         }

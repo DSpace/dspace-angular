@@ -38,7 +38,8 @@ describe('ProjectListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ProjectListElementComponent, TruncatePipe, TranslateModule.forRoot()],
+      imports: [TruncatePipe, TranslateModule.forRoot()],
+      declarations: [ProjectListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: mockTruncatableService },

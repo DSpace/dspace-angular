@@ -87,7 +87,8 @@ describe('OrgUnitSearchResultListElementComponent', () => {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }), OrgUnitSearchResultListElementComponent, TruncatePipe],
+        }), TruncatePipe],
+    declarations: [OrgUnitSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },

@@ -60,10 +60,10 @@ describe('OrgUnitGridElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        OrgUnitGridElementComponent,
         TruncatePipe,
         TranslateModule.forRoot()
       ],
+      declarations: [OrgUnitGridElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: mockTruncatableService },

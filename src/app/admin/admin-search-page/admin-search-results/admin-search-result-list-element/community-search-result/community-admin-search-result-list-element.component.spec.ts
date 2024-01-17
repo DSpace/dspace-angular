@@ -16,9 +16,6 @@ import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import {
-  CommunitySearchResultListElementComponent
-} from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 
 describe('CommunityAdminSearchResultListElementComponent', () => {
   let component: CommunityAdminSearchResultListElementComponent;
@@ -36,20 +33,17 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        CommunityAdminSearchResultListElementComponent
-    ],
-    providers: [
-      { provide: TruncatableService, useValue: mockTruncatableService },
-      { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }],
-    schemas: [NO_ERRORS_SCHEMA]
-})
-      .overrideComponent(CommunityAdminSearchResultListElementComponent, {
-        remove:  { imports: [CommunitySearchResultListElementComponent]}
-      })
+      ],
+      declarations: [CommunityAdminSearchResultListElementComponent],
+      providers: [
+        {provide: TruncatableService, useValue: mockTruncatableService},
+        {provide: DSONameService, useClass: DSONameServiceMock},
+        {provide: APP_CONFIG, useValue: environment}],
+      schemas: [NO_ERRORS_SCHEMA]
+    })
       .compileComponents();
   }));
 

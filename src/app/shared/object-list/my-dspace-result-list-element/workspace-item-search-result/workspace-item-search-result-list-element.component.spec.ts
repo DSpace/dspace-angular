@@ -78,7 +78,8 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, WorkspaceItemSearchResultListElementComponent],
+    imports: [NoopAnimationsModule],
+    declarations: [WorkspaceItemSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ItemDataService, useValue: {} },
@@ -90,7 +91,6 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [ListableObjectComponentLoaderComponent, WorkspaceitemActionsComponent, ThemedLoadingComponent,]}
     }).compileComponents();
   }));
 

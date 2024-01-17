@@ -75,7 +75,8 @@ const enviromentNoThumbs = {
 describe('ProjectSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [ProjectSearchResultListElementComponent, TruncatePipe],
+    imports: [TruncatePipe],
+    declarations: [ProjectSearchResultListElementComponent],
     providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: TruncatableService, useValue: mockTruncatableService },
@@ -86,11 +87,6 @@ describe('ProjectSearchResultListElementComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(ProjectSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [
-          ThumbnailComponent,
-          TruncatableComponent,
-          ThemedBadgesComponent
-        ]}
     }).compileComponents();
   }));
 
@@ -144,7 +140,8 @@ describe('ProjectSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [ProjectSearchResultListElementComponent, TruncatePipe],
+    imports: [TruncatePipe],
+    declarations: [ProjectSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

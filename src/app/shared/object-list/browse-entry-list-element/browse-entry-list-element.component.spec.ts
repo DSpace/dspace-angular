@@ -36,7 +36,8 @@ describe('BrowseEntryListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [BrowseEntryListElementComponent, TruncatePipe],
+    imports: [TruncatePipe],
+    declarations: [BrowseEntryListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: { mockValue } },

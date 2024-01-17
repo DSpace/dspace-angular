@@ -76,8 +76,9 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
-          WorkspaceItemSearchResultAdminWorkflowGridElementComponent, ItemGridElementComponent, ListableObjectDirective
+          ItemGridElementComponent, ListableObjectDirective
         ],
+        declarations: [WorkspaceItemSearchResultAdminWorkflowGridElementComponent],
         providers: [
           { provide: LinkService, useValue: linkService },
           { provide: ThemeService, useValue: themeService },

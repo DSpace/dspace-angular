@@ -110,7 +110,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(async () => {
     init();
     await TestBed.configureTestingModule({
-      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+      imports: [TruncatePipe],
+      declarations: [PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
@@ -209,7 +210,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+      imports: [TruncatePipe],
+      declarations: [PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
@@ -230,9 +232,6 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
-      remove: {
-        imports: [ThumbnailComponent]
-      },
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

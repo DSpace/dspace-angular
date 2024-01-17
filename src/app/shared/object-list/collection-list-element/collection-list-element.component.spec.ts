@@ -59,7 +59,7 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
 describe('CollectionListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CollectionListElementComponent],
+    declarations: [CollectionListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },

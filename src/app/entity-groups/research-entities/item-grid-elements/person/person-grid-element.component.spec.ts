@@ -48,16 +48,14 @@ describe('PersonGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, PersonGridElementComponent, TruncatePipe],
+      imports: [NoopAnimationsModule, TruncatePipe],
+      declarations: [PersonGridElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PersonGridElementComponent, {
-      remove: {
-        imports: [PersonSearchResultGridElementComponent]
-      },
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

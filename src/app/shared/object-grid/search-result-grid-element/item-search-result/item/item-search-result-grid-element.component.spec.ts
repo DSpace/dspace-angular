@@ -223,8 +223,9 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-        component, TruncatePipe
+        TruncatePipe
     ],
+    declarations: [component],
     providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: ObjectCacheService, useValue: {} },
@@ -243,7 +244,6 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(component, {
         add: { changeDetection: ChangeDetectionStrategy.Default },
-        remove: { imports: [ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent]}
       }).compileComponents();
     }));
 

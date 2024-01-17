@@ -87,8 +87,9 @@ describe('JournalIssueSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [
       TranslateModule.forRoot(),
-      JournalIssueSearchResultListElementComponent, TruncatePipe
+      TruncatePipe
     ],
+    declarations: [JournalIssueSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

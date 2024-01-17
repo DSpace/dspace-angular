@@ -58,7 +58,8 @@ describe('JournalVolumeGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, JournalVolumeGridElementComponent, TruncatePipe, TranslateModule.forRoot()],
+      imports: [NoopAnimationsModule, TruncatePipe, TranslateModule.forRoot()],
+      declarations: [JournalVolumeGridElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },

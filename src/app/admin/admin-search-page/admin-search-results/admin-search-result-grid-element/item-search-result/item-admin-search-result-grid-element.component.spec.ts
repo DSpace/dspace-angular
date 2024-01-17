@@ -60,9 +60,9 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([]),
-        ItemAdminSearchResultGridElementComponent
+        RouterTestingModule.withRoutes([])
     ],
+    declarations: [ItemAdminSearchResultGridElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
