@@ -123,47 +123,4 @@ export class LinkService {
     return result;
   }
 
-  /**
-   * Check if the provided link is internal, i.e., it starts with a '/' or matches the current URL.
-   *
-   * @param link The link to be checked.
-   * @param currentURL The current URL to compare against.
-   * @returns A boolean indicating whether the link is internal.
-   */
-  public isLinkInternal(link: string, currentURL: string): boolean {
-    // Create a Domain object for the provided link
-    const currentDomain = new URL(currentURL).hostname;
-
-    return link.startsWith('/')
-      || link.startsWith(currentURL)
-      || link.startsWith(currentDomain)
-      || link === currentDomain
-      || !link.includes('://');
-  }
-
-  /**
-   * Transform an internal link based on the current URL.
-   *
-   * @param link The link to be transformed.
-   * @param currentURL The current URL used for transformation.
-   * @returns The transformed internal link.
-   */
-  public transformInternalLink(link: string, currentURL: string): string {
-    // Create a Domain object for the provided link
-    const currentDomain = new URL(currentURL).hostname;
-
-    if (link.startsWith(currentURL)) {
-      const currentSegments = link.substring(currentURL.length);
-      return currentSegments.startsWith('/') ? currentSegments : `/${currentSegments}`;
-    }
-
-    if (link.startsWith(currentDomain)) {
-      const currentSegments = link.substring(currentDomain.length);
-      return currentSegments.startsWith('/') ? currentSegments : `/${currentSegments}`;
-    }
-
-    return link;
-
-  }
-
 }
