@@ -3465,6 +3465,8 @@
 
   "admin-notify-dashboard.title": "Notify Dashboard",
 
+  "admin-notify-dashboard.description": "The Notify dashboard monitor the general usage of the COAR Notify protocol across the repository. In the “Metrics” tab are statistics about usage of the COAR Notify protocol. In the “Logs/Inbound” and “Logs/Outbound” tabs it’s possible to search and check the individual status of each LDN message, either received or sent.",
+
   "admin-notify-dashboard.metrics": "Metrics",
 
   "admin-notify-dashboard.received-ldn": "Number of received LDN",
