@@ -1,4 +1,4 @@
-import { Config } from "./config.interface";
+import { Config } from './config.interface';
 
 export interface LayoutConfig extends Config {
   logo: LogoLayoutConfig;

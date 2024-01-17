@@ -23,7 +23,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import {QualityAssuranceConfig} from './quality-assurance.config';
-import { LayoutConfig } from "./layout-config.interfaces";
+import { LayoutConfig } from './layout-config.interfaces';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
