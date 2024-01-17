@@ -30,7 +30,6 @@ import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
 import { models, provideCore } from './core/provide-core';
 import { ThemedRootComponent } from './root/themed-root.component';
-import { listableObjects } from './core/provide-listable-objects';
 import { workflowTasks } from './core/provide-workflow-tasks';
 import { metadataRepresentations } from './core/provide-metadata-representation';
 import { renderStartsWith } from './core/provide-render-starts-with';
@@ -135,7 +134,6 @@ export class AppModule {
 
   /* Use models object so all decorators are actually called */
   modelList = models;
-  listableObjects = listableObjects;
   workflowTasks = workflowTasks;
   metadataRepresentations = metadataRepresentations;
   renderStartsWith = renderStartsWith;
