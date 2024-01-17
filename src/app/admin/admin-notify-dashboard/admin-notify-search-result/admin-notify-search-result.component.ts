@@ -22,6 +22,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'ds-admin-notify-search-result',
   templateUrl: './admin-notify-search-result.component.html',
+  styleUrls: ['./admin-notify-search-result.component.scss'],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,

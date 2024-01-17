@@ -461,27 +461,27 @@ export class DefaultAppConfig implements AppConfig {
       boxes: [
         {
           color: '#B8DAFF',
-          title: 'admin-notify-dashboard.accepted',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.accepted',
           config: 'NOTIFY.incoming.accepted'
         },
         {
           color: '#D4EDDA',
-          title: 'admin-notify-dashboard.processed',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.processed',
           config: 'NOTIFY.incoming.processed'
         },
         {
           color: '#FDBBC7',
-          title: 'admin-notify-dashboard.failure',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.failure',
           config: 'NOTIFY.incoming.failure'
         },
         {
           color: '#FDBBC7',
-          title: 'admin-notify-dashboard.untrusted',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted',
           config: 'NOTIFY.incoming.untrusted'
         },
         {
           color: '#43515F',
-          title: 'admin-notify-dashboard.involved-items',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.incoming.involvedItems',
         },
@@ -492,27 +492,27 @@ export class DefaultAppConfig implements AppConfig {
       boxes: [
         {
           color: '#D4EDDA',
-          title: 'admin-notify-dashboard.delivered',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered',
           config: 'NOTIFY.outgoing.delivered'
         },
         {
           color: '#B8DAFF',
-          title: 'admin-notify-dashboard.queued',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued',
           config: 'NOTIFY.outgoing.queued'
         },
         {
           color: '#FDEEBB',
-          title: 'admin-notify-dashboard.queued-for-retry',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry',
           config: 'NOTIFY.outgoing.queued_for_retry'
         },
         {
           color: '#FDBBC7',
-          title: 'admin-notify-dashboard.failure',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.failure',
           config: 'NOTIFY.outgoing.failure'
         },
         {
           color: '#43515F',
-          title: 'admin-notify-dashboard.involved-items',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.outgoing.involvedItems',
         },

@@ -13,13 +13,16 @@
     <tbody>
       <tr *ngFor="let message of (messagesSubject$ | async)">
         <td class="text-nowrap">
-          <div>{{ message.queueLastStartTime | date:"YYYY/MM/d hh:mm:ss" }}</div>
+          <div *ngIf="message.queueLastStartTime">{{ message.queueLastStartTime | date:"YYYY/MM/d hh:mm:ss" }}</div>
+          <div *ngIf="!message.queueLastStartTime">n/a</div>
+        </td>
+        <td class="cell-small text-truncate">
+          <a *ngIf="message.relatedItem" [routerLink]="'/items/' + (isInbound ? message.context : message.object)">{{ message.relatedItem }}</a>
+          <div *ngIf="!message.relatedItem">n/a</div>
         </td>
         <td>
-          <a [routerLink]="'/items/' + (isInbound ? message.context : message.object)">{{ message.relatedItem }}</a>
-        </td>
-        <td>
-          <div>{{ message.ldnService }}</div>
+          <div *ngIf="message.ldnService">{{ message.ldnService }}</div>
+          <div *ngIf="!message.ldnService">n/a</div>
         </td>
         <td>
           <div>{{ message.activityStreamType }}</div>

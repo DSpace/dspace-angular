@@ -5,6 +5,7 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 import { Observable } from 'rxjs';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-admin-notify-logs-result',
@@ -22,6 +23,7 @@ export class AdminNotifyLogsResultComponent implements OnInit{
   defaultConfiguration: string;
 
   public selectedSearchConfig$: Observable<string>;
+  public isInbound$: Observable<boolean>;
 
   protected readonly context = Context.CoarNotify;
   constructor(@Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -36,6 +38,9 @@ export class AdminNotifyLogsResultComponent implements OnInit{
     };
 
     this.selectedSearchConfig$ = this.searchConfigService.getCurrentConfiguration(this.defaultConfiguration);
+    this.isInbound$ = this.selectedSearchConfig$.pipe(
+      map(config => config.startsWith('NOTIFY.incoming'))
+    );
   }
 
   public resetDefaultConfiguration() {
