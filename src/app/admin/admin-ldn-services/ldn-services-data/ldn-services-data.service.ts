@@ -29,8 +29,6 @@ import {Operation} from 'fast-json-patch';
 import {RestRequestMethod} from '../../../core/data/rest-request-method';
 import {CreateData, CreateDataImpl} from '../../../core/data/base/create-data';
 import {LdnServiceConstrain} from '../ldn-services-model/ldn-service.constrain.model';
-import {getFirstCompletedRemoteData} from '../../../core/shared/operators';
-import {hasValue} from '../../../shared/empty.util';
 import {SearchDataImpl} from '../../../core/data/base/search-data';
 import {RequestParam} from '../../../core/cache/models/request-param.model';
 
@@ -77,10 +75,11 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
    * Creates an LDN service by sending a POST request to the REST API.
    *
    * @param {LdnService} object - The LDN service object to be created.
+   * @param params Array with additional params to combine with query string
    * @returns {Observable<RemoteData<LdnService>>} - Observable containing the result of the creation operation.
    */
-  create(object: LdnService): Observable<RemoteData<LdnService>> {
-    return this.createData.create(object);
+  create(object: LdnService, ...params: RequestParam[]): Observable<RemoteData<LdnService>> {
+    return this.createData.create(object, ...params);
   }
 
   /**
@@ -149,7 +148,7 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
   findByInboundPattern(pattern: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
     const params = [new RequestParam('pattern', pattern)];
     const findListOptions = Object.assign(new FindListOptions(), options, {searchParams: params});
-    return this.searchData.searchBy(this.findByPatternEndpoint, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.searchBy(this.findByPatternEndpoint, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -174,6 +173,25 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
     return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<LdnService>[]): Observable<RemoteData<PaginatedList<LdnService>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
   public invoke(serviceName: string, serviceId: string, parameters: LdnServiceConstrain[], files: File[]): Observable<RemoteData<LdnService>> {
     const requestId = this.requestService.generateRequestId();
     this.getBrowseEndpoint().pipe(
@@ -186,15 +204,6 @@ export class LdnServicesService extends IdentifiableDataService<LdnService> impl
     ).subscribe((request: RestRequest) => this.requestService.send(request));
 
     return this.rdbService.buildFromRequestUUID<LdnService>(requestId);
-  }
-
-  public ldnServiceWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
-    return this.findById(scriptName).pipe(
-      getFirstCompletedRemoteData(),
-      map((rd: RemoteData<LdnService>) => {
-        return hasValue(rd.payload);
-      }),
-    );
   }
 
   private getInvocationFormData(constrain: LdnServiceConstrain[], files: File[]): FormData {

@@ -47,6 +47,12 @@ export class LdnService extends CacheableObject {
   ldnUrl: string;
 
   @autoserialize
+  lowerIp: string;
+
+  @autoserialize
+  upperIp: string;
+
+  @autoserialize
   notifyServiceInboundPatterns?: NotifyServicePattern[];
 
   @deserialize
