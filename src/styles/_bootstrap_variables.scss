@@ -46,7 +46,7 @@ $dark:      darken(#2b4e72, 17%) !default;  // Blue gray (darker)
 
 /*** OTHER BOOTSTRAP VARIABLES ***/
 
-$link-color: #006666 !default;
+$link-color: #1F7293 !default;
 $link-hover-color: darken($link-color, 15%) !default;
 
 // The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
@@ -77,7 +77,8 @@ $ds-expandable-navbar-bg: #fff !default;
 $ds-navbar-link-color: $link-color !default;
 $ds-navbar-link-color-hover: #{darken($ds-navbar-link-color, 15%)} !default;
 
-$ds-slider-color: $success !default;
+$ds-slider-color: darken(#94BA65, 17%) !default;
+$ds-slider-handle-color: darken(#2B4E72, 17%) !default;
 
 $ds-admin-sidebar-bg: darken(#2b4e72, 17%) !default;
 $ds-admin-sidebar-active-bg: darken($ds-admin-sidebar-bg, 3%) !default;
