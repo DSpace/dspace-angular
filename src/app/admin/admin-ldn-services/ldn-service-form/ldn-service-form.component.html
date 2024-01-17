@@ -34,17 +34,37 @@
                 class="form-control" formControlName="description" id="description" name="description"></textarea>
     </div>
 
-    <!-- In the url section -->
     <div class="mb-5 mt-5">
-      <label for="url" class="font-weight-bold">{{ 'ldn-new-service.form.label.url' | translate }}</label>
-      <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
-             [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control"
-             formControlName="url"
-             id="url"
-             name="url"
-             type="text">
-      <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
-        {{ 'ldn-new-service.form.error.url' | translate }}
+      <!-- In the url section -->
+      <div class="d-flex align-items-center">
+        <div class="d-flex flex-column w-50 mr-2">
+          <label for="url" class="font-weight-bold">{{ 'ldn-new-service.form.label.url' | translate }}</label>
+          <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
+                 [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control"
+                 formControlName="url"
+                 id="url"
+                 name="url"
+                 type="text">
+          <div *ngIf="formModel.get('url').invalid && formModel.get('url').touched" class="error-text">
+            {{ 'ldn-new-service.form.error.url' | translate }}
+          </div>
+        </div>
+
+        <div class="d-flex flex-column w-50">
+          <label for="score" class="font-weight-bold">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+          <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
+                 [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
+                 id="score"
+                 name="score"
+                 min="0"
+                 max="1"
+                 step=".01"
+                 class="form-control"
+                 type="number">
+          <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
+            {{ 'ldn-new-service.form.error.score' | translate }}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -65,7 +85,6 @@
                name="upperIp"
                type="text">
       </div>
-
       <div *ngIf="(formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)" class="error-text">
         {{ 'ldn-new-service.form.error.ipRange' | translate }}
       </div>
@@ -88,22 +107,6 @@
       </div>
     </div>
 
-    <!-- In the score section -->
-    <div class="mb-2">
-      <label for="score" class="font-weight-bold">{{ 'ldn-new-service.form.label.score' | translate }}</label>
-      <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
-             [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
-             id="score"
-             name="score"
-             min="0"
-             max="1"
-             step=".01"
-             class="form-control"
-             type="number">
-      <div *ngIf="formModel.get('score').invalid && formModel.get('score').touched" class="error-text">
-        {{ 'ldn-new-service.form.error.score' | translate }}
-      </div>
-    </div>
 
     <!-- In the Inbound Patterns Labels section -->
     <div class="row mb-1 mt-5" *ngIf="areControlsInitialized">
@@ -160,8 +163,6 @@
                               ngbDropdownItem
                               type="button">
                         <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
-                        <div
-                          class="small-text">{{ 'ldn-service.form.pattern.' + pattern + '.description' | translate }}</div>
                       </button>
                     </div>
                   </div>
