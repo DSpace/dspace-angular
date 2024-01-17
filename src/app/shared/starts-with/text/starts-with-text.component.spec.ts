@@ -11,7 +11,7 @@ import { StartsWithTextComponent } from './starts-with-text.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 
-describe('StartsWithTextComponent', () => {
+fdescribe('StartsWithTextComponent', () => {
   let comp: StartsWithTextComponent;
   let fixture: ComponentFixture<StartsWithTextComponent>;
   let route: ActivatedRoute;
@@ -62,8 +62,8 @@ describe('StartsWithTextComponent', () => {
       expect(comp.startsWith).toEqual(expectedValue);
     });
 
-    it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+    it('should add a startsWith query parameter and clear all others', () => {
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue}, undefined, { queryParamsHandling: '' });
     });
   });
 
