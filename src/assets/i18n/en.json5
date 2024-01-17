@@ -3404,7 +3404,7 @@
 
   "quality-assurance.event.table.more": "Show more",
 
-  "quality-assurance.event.table.event.message.serviceName": "Service Name:",
+  "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
 
   "quality-assurance.event.table.event.message.link": "Link:",
 
