@@ -1,12 +1,15 @@
 import { MenuItemType } from './menu-item-type.model';
-import { defer } from 'rxjs';
+import { ExternalLinkMenuItemComponent } from './menu-item/external-link-menu-item.component';
+import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
+import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
+import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
 
 const menuMenuItemComponentMap = new Map();
 
-menuMenuItemComponentMap.set(MenuItemType.EXTERNAL, defer(() => import('./menu-item/external-link-menu-item.component').then(m => m.ExternalLinkMenuItemComponent)));
-menuMenuItemComponentMap.set(MenuItemType.LINK, defer(() => import('./menu-item/link-menu-item.component').then(m => m.LinkMenuItemComponent)));
-menuMenuItemComponentMap.set(MenuItemType.ONCLICK, defer(() => import('./menu-item/onclick-menu-item.component').then(m => m.OnClickMenuItemComponent)));
-menuMenuItemComponentMap.set(MenuItemType.TEXT, defer(() => import('./menu-item/text-menu-item.component').then(m => m.TextMenuItemComponent)));
+menuMenuItemComponentMap.set(MenuItemType.EXTERNAL, ExternalLinkMenuItemComponent);
+menuMenuItemComponentMap.set(MenuItemType.LINK, LinkMenuItemComponent);
+menuMenuItemComponentMap.set(MenuItemType.ONCLICK, OnClickMenuItemComponent);
+menuMenuItemComponentMap.set(MenuItemType.TEXT, TextMenuItemComponent);
 
 /**
  * Decorator function to link a MenuItemType to a Component

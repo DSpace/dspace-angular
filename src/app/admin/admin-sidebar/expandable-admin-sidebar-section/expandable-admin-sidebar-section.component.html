@@ -19,7 +19,7 @@
       <div class="toggle">
         <span id="sidebarName-{{section.id}}" class="section-header-text">
           <ng-container
-            *ngComponentOutlet="(sectionMap$ | async).get(section.id).component | async; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
+            *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
         </span>
         <i class="fas fa-chevron-right fa-pull-right"
            [@rotate]="(expanded | async) ? 'expanded' : 'collapsed'"
@@ -29,7 +29,7 @@
       <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(expanded | async)">
         <li *ngFor="let subSection of (subSections$ | async)">
           <ng-container
-            *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component | async; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
+            *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
         </li>
       </ul>
     </div>
