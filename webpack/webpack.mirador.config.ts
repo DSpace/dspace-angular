@@ -6,7 +6,7 @@ const fs = require('fs');
 module.exports = {
   mode: 'production',
   entry: {
-    mirador: fs.existsSync('./src/mirador-viewer/config.local.js')? './src/mirador-viewer/config.local.js' :
+    mirador: fs.existsSync('./src/mirador-viewer/config.local.js') ? './src/mirador-viewer/config.local.js' :
       './src/mirador-viewer/config.default.js'
   },
   output: {
