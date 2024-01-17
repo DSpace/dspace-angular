@@ -37,6 +37,7 @@ import { renderStartsWith } from './core/provide-render-starts-with';
 import { renderBrowseBy } from './core/provide-render-browse-by';
 import { renderAuthMethod } from './core/provide-render-auth-method';
 import { NgxMaskModule } from 'ngx-mask';
+import { ListableModule } from './core/shared/listable.module';
 
 export function getConfig() {
   return environment;
@@ -66,6 +67,7 @@ const IMPORTS = [
   StoreDevModules,
   EagerThemesModule,
   RootModule,
+  ListableModule
 ];
 
 const PROVIDERS = [

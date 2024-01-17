@@ -1,7 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  listableObjectComponent
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Context } from '../../../../../core/shared/context.model';
@@ -15,18 +19,12 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
-import { FormsModule } from '@angular/forms';
-import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
-import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
     selector: 'ds-person-search-result-list-submission-element',
     styleUrls: ['./person-search-result-list-submission-element.component.scss'],
     templateUrl: './person-search-result-list-submission-element.component.html',
-    standalone: true,
-    imports: [NgIf, ThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe]
 })
 
 /**

@@ -1,7 +1,11 @@
 import { Component, Inject } from '@angular/core';
 
-import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
-import { ClaimedDeclinedTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
+import {
+  listableObjectComponent
+} from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  ClaimedDeclinedTaskSearchResult
+} from '../../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
@@ -9,16 +13,14 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { followLink } from '../../../../utils/follow-link-config.model';
-import { SearchResultListElementComponent } from '../../../search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../../search-result-list-element/search-result-list-element.component';
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 import { Context } from '../../../../../core/shared/context.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-item-list-preview.component';
-import { NgIf, AsyncPipe } from '@angular/common';
-import { VarDirective } from '../../../../utils/var.directive';
 
 /**
  * This component renders claimed task declined object for the search result in the list view.
@@ -27,8 +29,6 @@ import { VarDirective } from '../../../../utils/var.directive';
     selector: 'ds-claimed-declined-search-result-list-element',
     styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
     templateUrl: './claimed-declined-search-result-list-element.component.html',
-    standalone: true,
-    imports: [VarDirective, NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule]
 })
 @listableObjectComponent(ClaimedDeclinedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {

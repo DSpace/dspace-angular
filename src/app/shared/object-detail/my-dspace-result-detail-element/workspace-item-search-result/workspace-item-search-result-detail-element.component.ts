@@ -15,8 +15,6 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Context } from '../../../../core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
-import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 
 /**
  * This component renders workspace item object for the search result in the detail view.
@@ -25,8 +23,6 @@ import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-p
     selector: 'ds-workspace-item-search-result-detail-element',
     styleUrls: ['../search-result-detail-element.component.scss', './workspace-item-search-result-detail-element.component.scss'],
     templateUrl: './workspace-item-search-result-detail-element.component.html',
-    standalone: true,
-    imports: [ItemDetailPreviewComponent, WorkspaceitemActionsComponent]
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.DetailedListElement)

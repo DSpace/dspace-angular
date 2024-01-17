@@ -1,8 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  listableObjectComponent
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Context } from '../../../../../core/shared/context.model';
@@ -18,9 +22,6 @@ import { SelectableListService } from '../../../../../shared/object-list/selecta
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
-import { FormsModule } from '@angular/forms';
-import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';
-import { NgIf } from '@angular/common';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -28,8 +29,6 @@ import { NgIf } from '@angular/common';
     selector: 'ds-person-search-result-list-submission-element',
     styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
     templateUrl: './org-unit-search-result-list-submission-element.component.html',
-    standalone: true,
-    imports: [NgIf, OrgUnitInputSuggestionsComponent, FormsModule]
 })
 
 /**

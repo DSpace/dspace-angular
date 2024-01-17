@@ -14,13 +14,10 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { isNotEmpty, hasValue } from '../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../empty.util';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from 'src/app/core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
-import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders pool task object for the search result in the detail view.
@@ -29,8 +26,6 @@ import { NgIf, AsyncPipe } from '@angular/common';
     selector: 'ds-pool-search-result-detail-element',
     styleUrls: ['../search-result-detail-element.component.scss'],
     templateUrl: './pool-search-result-detail-element.component.html',
-    standalone: true,
-    imports: [NgIf, ItemDetailPreviewComponent, PoolTaskActionsComponent, AsyncPipe]
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.DetailedListElement)

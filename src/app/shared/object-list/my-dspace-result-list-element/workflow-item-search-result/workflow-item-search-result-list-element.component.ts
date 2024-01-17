@@ -11,17 +11,15 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../search-result-list-element/search-result-list-element.component';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../core/shared/context.model';
-import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
-import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders workflowitem object for the search result in the list view.
@@ -30,8 +28,6 @@ import { NgIf, NgClass, AsyncPipe } from '@angular/common';
     selector: 'ds-workflow-item-my-dspace-result-list-element',
     styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
     templateUrl: './workflow-item-search-result-list-element.component.html',
-    standalone: true,
-    imports: [NgIf, ListableObjectComponentLoaderComponent, NgClass, WorkflowitemActionsComponent, ThemedLoadingComponent, AsyncPipe]
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement)
