@@ -113,7 +113,7 @@
       <div class="col">
         <label class="font-weight-bold">{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
       </div>
-      <ng-container *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern)">
+      <ng-container *ngIf="formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern">
         <div class="col">
           <label class="font-weight-bold">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
         </div>
@@ -172,7 +172,7 @@
 
             <div class="col">
               <ng-container
-                *ngIf="!!(formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern)">
+                *ngIf="formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern">
                 <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
                      placement="top-start">
                   <div class="position-relative right-addon" role="combobox">
