@@ -31,7 +31,6 @@ import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-co
     CdkDragHandle,
     forwardRef(() => DsDynamicFormControlContainerComponent),
     NgTemplateOutlet,
-    DsDynamicFormControlContainerComponent
   ],
   standalone: true
 })

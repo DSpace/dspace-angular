@@ -1,15 +1,21 @@
 import { SectionsType } from './sections-type';
-import { defer } from 'rxjs';
+import { SubmissionSectionAccessesComponent } from './accesses/section-accesses.component';
+import { SubmissionSectionLicenseComponent } from './license/section-license.component';
+import { SubmissionSectionCcLicensesComponent } from './cc-license/submission-section-cc-licenses.component';
+import { SubmissionSectionSherpaPoliciesComponent } from './sherpa-policies/section-sherpa-policies.component';
+import { SubmissionSectionUploadComponent } from './upload/section-upload.component';
+import { SubmissionSectionFormComponent } from './form/section-form.component';
+import { SubmissionSectionIdentifiersComponent } from './identifiers/section-identifiers.component';
 
 const submissionSectionsMap = new Map();
 
-submissionSectionsMap.set(SectionsType.AccessesCondition, defer(() => import('./accesses/section-accesses.component').then(m => m.SubmissionSectionAccessesComponent)));
-submissionSectionsMap.set(SectionsType.License, defer(() => import('./license/section-license.component').then(m => m.SubmissionSectionLicenseComponent)));
-submissionSectionsMap.set(SectionsType.CcLicense, defer(() => import('./cc-license/submission-section-cc-licenses.component').then(m => m.SubmissionSectionCcLicensesComponent)));
-submissionSectionsMap.set(SectionsType.SherpaPolicies, defer(() => import('./sherpa-policies/section-sherpa-policies.component').then(m => m.SubmissionSectionSherpaPoliciesComponent)));
-submissionSectionsMap.set(SectionsType.Upload, defer(() => import('./upload/section-upload.component').then(m => m.SubmissionSectionUploadComponent)));
-submissionSectionsMap.set(SectionsType.SubmissionForm, defer(() => import('./form/section-form.component').then(m => m.SubmissionSectionFormComponent)));
-submissionSectionsMap.set(SectionsType.Identifiers, defer(() => import('./identifiers/section-identifiers.component').then(m => m.SubmissionSectionIdentifiersComponent)));
+submissionSectionsMap.set(SectionsType.AccessesCondition, SubmissionSectionAccessesComponent);
+submissionSectionsMap.set(SectionsType.License, SubmissionSectionLicenseComponent);
+submissionSectionsMap.set(SectionsType.CcLicense, SubmissionSectionCcLicensesComponent);
+submissionSectionsMap.set(SectionsType.SherpaPolicies, SubmissionSectionSherpaPoliciesComponent);
+submissionSectionsMap.set(SectionsType.Upload, SubmissionSectionUploadComponent);
+submissionSectionsMap.set(SectionsType.SubmissionForm, SubmissionSectionFormComponent);
+submissionSectionsMap.set(SectionsType.Identifiers, SubmissionSectionIdentifiersComponent);
 
 export function renderSectionFor(sectionType: SectionsType) {
   return function decorator(objectElement: any) {
