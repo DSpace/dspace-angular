@@ -68,6 +68,30 @@
       </div>
     </div>
 
+    <!-- In the IP range section -->
+    <div class="mb-5 mt-5">
+      <label for="lowerIp" class="font-weight-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
+      <div class="d-flex">
+        <input [class.invalid-field]="formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched"
+               [placeholder]="'ldn-new-service.form.placeholder.lowerIp' | translate" class="form-control mr-2"
+               formControlName="lowerIp"
+               id="lowerIp"
+               name="lowerIp"
+               type="text">
+        <input [class.invalid-field]="formModel.get('upperIp').invalid && formModel.get('upperIp').touched"
+               [placeholder]="'ldn-new-service.form.placeholder.upperIp' | translate" class="form-control"
+               formControlName="upperIp"
+               id="upperIp"
+               name="upperIp"
+               type="text">
+      </div>
+      <div *ngIf="(formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)" class="error-text">
+        {{ 'ldn-new-service.form.error.ipRange' | translate }}
+      </div>
+      <div *ngIf="!(formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)" class="text-muted">
+        {{ 'ldn-new-service.form.hint.ipRange' | translate }}
+      </div>
+    </div>
 
     <!-- In the ldnUrl section -->
     <div class="mb-5 mt-5">
