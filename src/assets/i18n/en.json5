@@ -3523,6 +3523,14 @@
 
   "search.filters.filter.notification_type.placeholder": "Notification",
 
+  "search.filters.filter.notifyRelation.head": "Notify Relation",
+
+  "search.filters.filter.notifyRelation.label": "Relation",
+
+  "search.filters.filter.notifyReview.head": "Notify Review",
+
+  "search.filters.filter.notifyReview.label": "Review",
+
   "search.filters.coar_notify_type.coar-notify:ReviewAction": "Review action",
 
   "notify-detail-modal.coar-notify:ReviewAction": "Review action",
