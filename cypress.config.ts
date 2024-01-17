@@ -25,9 +25,11 @@ export default defineConfig({
     DSPACE_TEST_ENTITY_PUBLICATION: '6160810f-1e53-40db-81ef-f6621a727398',
     // Search term (should return results) used in search tests
     DSPACE_TEST_SEARCH_TERM: 'test',
-    // Collection used for submission tests
+    // Main Collection used for submission tests. Should be able to accept normal Item objects
     DSPACE_TEST_SUBMIT_COLLECTION_NAME: 'Sample Collection',
     DSPACE_TEST_SUBMIT_COLLECTION_UUID: '9d8334e9-25d3-4a67-9cea-3dffdef80144',
+    // Collection used for Person entity submission tests. MUST be configured with EntityType=Person.
+    DSPACE_TEST_SUBMIT_PERSON_COLLECTION_NAME: 'People',
     // Account used to test basic submission process
     DSPACE_TEST_SUBMIT_USER: 'dspacedemo+submit@gmail.com',
     DSPACE_TEST_SUBMIT_USER_PASSWORD: 'dspace',
