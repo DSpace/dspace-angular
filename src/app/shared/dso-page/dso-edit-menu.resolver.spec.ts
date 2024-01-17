@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
 import { MenuService } from '../menu/menu.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
@@ -39,6 +39,7 @@ describe('DSOEditMenuResolver', () => {
   let researcherProfileService;
   let notificationsService;
   let translate;
+  let mockNgbModal;
 
   const dsoRoute = (dso: DSpaceObject) => {
     return {
@@ -140,6 +141,11 @@ describe('DSOEditMenuResolver', () => {
       success: {},
       error: {},
     });
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({})} as NgbModalRef
+      )
+    };
 
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
@@ -151,12 +157,7 @@ describe('DSOEditMenuResolver', () => {
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },
-        {
-            provide: NgbModal, useValue: {
-                open: () => {
-                }
-            }
-        }
+        { provide: NgbModal, useValue: mockNgbModal }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 });

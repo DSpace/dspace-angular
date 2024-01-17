@@ -12,9 +12,8 @@ import { buildPaginatedList } from '../../../../../core/data/paginated-list.mode
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
-import {
-  ItemSearchResultGridElementComponent
-} from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
+
+
 
 const mockItem = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),

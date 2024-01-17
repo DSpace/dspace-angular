@@ -31,9 +31,9 @@ import { RequestService } from '../../../core/data/request.service';
 import { environment } from '../../../../environments/environment';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { ThemedLoadingComponent } from "../../../shared/loading/themed-loading.component";
-import { FormComponent } from "../../../shared/form/form.component";
-import { CollectionSourceControlsComponent } from "./collection-source-controls/collection-source-controls.component";
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { FormComponent } from '../../../shared/form/form.component';
+import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
 /**
  * Component for managing the content source of the collection

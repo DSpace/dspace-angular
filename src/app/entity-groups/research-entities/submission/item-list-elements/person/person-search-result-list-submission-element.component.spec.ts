@@ -26,7 +26,6 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { PersonSearchResultListSubmissionElementComponent } from './person-search-result-list-submission-element.component';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { REQUEST } from '@nguniversal/express-engine/tokens';

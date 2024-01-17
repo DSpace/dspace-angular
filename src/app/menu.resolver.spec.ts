@@ -11,14 +11,14 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from './shared/menu/menu.service';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from './core/data/processes/script-data.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { MenuID } from './shared/menu/menu-id.model';
 import { BrowseService } from './core/browse/browse.service';
 import { cold } from 'jasmine-marbles';
-import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
+import createSpy = jasmine.createSpy;
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
@@ -37,6 +37,7 @@ describe('MenuResolver', () => {
   let browseService;
   let authorizationService;
   let scriptService;
+  let mockNgbModal;
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
@@ -52,6 +53,11 @@ describe('MenuResolver', () => {
     scriptService = jasmine.createSpyObj('scriptService', {
       scriptWithNameExistsAndCanExecute: observableOf(true)
     });
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({})} as NgbModalRef
+      )
+    };
 
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
@@ -60,12 +66,7 @@ describe('MenuResolver', () => {
         { provide: BrowseService, useValue: browseService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
-        {
-            provide: NgbModal, useValue: {
-                open: () => {
-                }
-            }
-        }
+        { provide: NgbModal, useValue: mockNgbModal }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 });

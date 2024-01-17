@@ -20,11 +20,8 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Context } from '../../../../core/shared/context.model';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
-import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+
+
 
 let component: WorkflowItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultListElementComponent>;

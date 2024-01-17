@@ -17,11 +17,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { FormsModule } from "@angular/forms";
-import { UiSwitchModule } from "ngx-ui-switch";
+import { FormsModule } from '@angular/forms';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   FileDropzoneNoUploaderComponent
-} from "../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component";
+} from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
   selector: 'ds-batch-import-page',

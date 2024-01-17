@@ -13,8 +13,8 @@ import { AsyncPipe } from '@angular/common';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { TranslateModule } from '@ngx-translate/core';
 
-// eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
     name: 'translate',
     standalone: true
 })

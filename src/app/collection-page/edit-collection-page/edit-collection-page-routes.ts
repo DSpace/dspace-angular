@@ -1,5 +1,4 @@
-import { Route, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { Route } from '@angular/router';
 import { CollectionItemMapperComponent } from '../collection-item-mapper/collection-item-mapper.component';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';

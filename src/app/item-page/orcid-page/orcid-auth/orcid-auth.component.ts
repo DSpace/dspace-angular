@@ -10,8 +10,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
-import { AlertComponent } from "../../../shared/alert/alert.component";
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 
 @Component({
   selector: 'ds-orcid-auth',

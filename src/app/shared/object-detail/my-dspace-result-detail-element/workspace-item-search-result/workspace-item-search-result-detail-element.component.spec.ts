@@ -14,8 +14,6 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { Context } from '../../../../core/shared/context.model';
-import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
-import { WorkspaceitemActionsComponent } from '../../../../shared/mydspace-actions/workspaceitem/workspaceitem-actions.component';
 
 let component: WorkspaceItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultDetailElementComponent>;

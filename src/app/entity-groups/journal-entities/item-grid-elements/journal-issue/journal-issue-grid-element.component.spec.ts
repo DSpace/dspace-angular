@@ -12,9 +12,8 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import {
-  JournalIssueSearchResultGridElementComponent
-} from '../search-result-grid-elements/journal-issue/journal-issue-search-result-grid-element.component';
+
+
 
 const mockItem = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),

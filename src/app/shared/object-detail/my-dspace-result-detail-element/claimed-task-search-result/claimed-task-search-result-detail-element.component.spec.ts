@@ -25,8 +25,6 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
-import { ClaimedTaskActionsComponent } from '../../../../shared/mydspace-actions/claimed-task/claimed-task-actions.component';
 
 let component: ClaimedTaskSearchResultDetailElementComponent;
 let fixture: ComponentFixture<ClaimedTaskSearchResultDetailElementComponent>;

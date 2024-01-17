@@ -16,8 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 
-// eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
     name: 'translate',
     standalone: true
 })

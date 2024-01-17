@@ -13,9 +13,6 @@ import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
-import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
-import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 

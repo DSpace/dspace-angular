@@ -14,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   ModifyItemOverviewComponent
-} from "../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component";
+} from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 
 @Component({
   selector: 'ds-workspaceitems-delete-page',

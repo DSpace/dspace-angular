@@ -12,7 +12,7 @@ import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { NgIf } from "@angular/common";
+import { NgIf } from '@angular/common';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;

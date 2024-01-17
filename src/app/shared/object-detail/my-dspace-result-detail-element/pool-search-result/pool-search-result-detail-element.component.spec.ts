@@ -18,8 +18,6 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
-import { PoolTaskActionsComponent } from '../../../../shared/mydspace-actions/pool-task/pool-task-actions.component';
 
 let component: PoolSearchResultDetailElementComponent;
 let fixture: ComponentFixture<PoolSearchResultDetailElementComponent>;

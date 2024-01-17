@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,7 +8,7 @@ import { RelationshipType } from '../../../../core/shared/item-relationships/rel
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
 import { EditRelationshipComponent } from './edit-relationship.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
@@ -30,6 +31,7 @@ let fieldUpdate1;
 let fieldUpdate2;
 let relationships;
 let relationshipType;
+let mockNgbModal;
 
 let fixture: ComponentFixture<EditRelationshipComponent>;
 let comp: EditRelationshipComponent;
@@ -121,18 +123,19 @@ describe('EditRelationshipComponent', () => {
       saveRemoveFieldUpdate: jasmine.createSpy('saveRemoveFieldUpdate'),
     };
 
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({})} as NgbModalRef
+      )
+    };
+
     spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
 
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), EditRelationshipComponent],
     providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        {
-            provide: NgbModal, useValue: {
-                open: () => {
-                }
-            },
-        },
+        { provide: NgbModal, useValue: mockNgbModal },
         { provide: ThemeService, useValue: getMockThemeService() }
     ], schemas: [
         NO_ERRORS_SCHEMA

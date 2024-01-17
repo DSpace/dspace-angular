@@ -36,7 +36,6 @@ import { NotificationsServiceStub } from '../../../testing/notifications-service
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;

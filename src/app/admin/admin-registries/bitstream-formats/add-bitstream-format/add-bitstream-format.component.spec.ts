@@ -18,6 +18,7 @@ import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormatFormComponent } from '../format-form/format-form.component';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 
 describe('AddBitstreamFormatComponent', () => {
   let comp: AddBitstreamFormatComponent;
@@ -37,15 +38,6 @@ describe('AddBitstreamFormatComponent', () => {
   let notificationService: NotificationsServiceStub;
   let bitstreamFormatDataService: BitstreamFormatDataService;
 
-  const formBuilderServiceStub = {
-    createFormGroup: () => {
-      return {
-        patchValue: () => { },
-        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void { },
-      };
-    }
-  };
-
   const initAsync = () => {
     router = new RouterStub();
     notificationService = new NotificationsServiceStub();
@@ -61,7 +53,7 @@ describe('AddBitstreamFormatComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         { provide: FormService, useValue: getMockFormService() },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -108,7 +100,7 @@ describe('AddBitstreamFormatComponent', () => {
           { provide: NotificationsService, useValue: notificationService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
           { provide: FormService, useValue: getMockFormService() },
-          { provide: FormBuilderService, useValue: formBuilderServiceStub },
+          { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA]
       })

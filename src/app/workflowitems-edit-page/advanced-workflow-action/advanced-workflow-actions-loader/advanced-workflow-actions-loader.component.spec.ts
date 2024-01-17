@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 import { Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, Directive, Injector, NO_ERRORS_SCHEMA, NgModule, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, Directive, Injector, NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
 import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
 import {
   rendersAdvancedWorkflowTaskOption

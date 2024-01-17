@@ -5,9 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 
 let communityGridElementComponent: CommunityGridElementComponent;
 let fixture: ComponentFixture<CommunityGridElementComponent>;

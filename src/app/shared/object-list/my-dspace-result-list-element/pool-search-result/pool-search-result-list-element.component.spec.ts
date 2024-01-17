@@ -29,7 +29,6 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { PoolTaskActionsComponent } from './../../../../shared/mydspace-actions/pool-task/pool-task-actions.component';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;

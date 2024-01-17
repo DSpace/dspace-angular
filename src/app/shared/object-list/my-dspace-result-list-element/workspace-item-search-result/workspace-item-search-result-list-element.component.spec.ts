@@ -22,11 +22,8 @@ import { Context } from '../../../../core/shared/context.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
-import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+
+
 
 let component: WorkspaceItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultListElementComponent>;

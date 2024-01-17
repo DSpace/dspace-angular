@@ -1,4 +1,3 @@
-import { defer } from 'rxjs';
 import { StartsWithDateComponent } from './date/starts-with-date.component';
 import { StartsWithTextComponent } from './text/starts-with-text.component';
 

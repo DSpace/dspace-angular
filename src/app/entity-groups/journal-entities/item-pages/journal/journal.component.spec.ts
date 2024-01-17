@@ -40,21 +40,14 @@ import { mockRouteService } from '../../../../item-page/simple/item-types/shared
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import {
-  ThemedResultsBackButtonComponent
-} from '../../../../shared/results-back-button/themed-results-back-button.component';
-import {
-  ThemedItemPageTitleFieldComponent
-} from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
-import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  MetadataFieldWrapperComponent
-} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
-import {
-  TabbedRelatedEntitiesSearchComponent
-} from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+
+
+
+
+
+
+
+
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import {
   MetadataValuesComponent

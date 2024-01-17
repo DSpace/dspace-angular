@@ -6,7 +6,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bundle } from '../shared/bundle.model';
-import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { PaginatedList } from './paginated-list.model';
@@ -22,7 +21,6 @@ import { PatchData, PatchDataImpl } from './base/patch-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RestRequestMethod } from './rest-request-method';
 import { Operation } from 'fast-json-patch';
-import { dataService } from './base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API

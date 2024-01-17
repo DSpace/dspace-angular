@@ -5,7 +5,7 @@ import { DynamicNGBootstrapCheckboxComponent } from '@ng-dynamic-forms/ui-ng-boo
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { DynamicCustomSwitchModel } from './custom-switch.model';
-import { NgClass } from "@angular/common";
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'ds-custom-switch',

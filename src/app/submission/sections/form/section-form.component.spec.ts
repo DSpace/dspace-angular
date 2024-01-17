@@ -178,7 +178,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: ThemeService, useValue: themeService },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         { provide: ObjectCacheService, useValue: { remove: () => { }, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         { provide: RequestService, useValue: { removeByHrefSubstring: () => { }, hasByHref$: () => observableOf(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },

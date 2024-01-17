@@ -6,7 +6,7 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { FileValidator } from "../../utils/require-file.validator";
+import { FileValidator } from '../../utils/require-file.validator';
 
 /**
  * Component to have a file dropzone without that dropping/choosing a file in browse automatically triggers

@@ -13,8 +13,8 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
-import { PaginationComponent } from "../../../shared/pagination/pagination.component";
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 /**
  * This component renders a list of bitstream formats

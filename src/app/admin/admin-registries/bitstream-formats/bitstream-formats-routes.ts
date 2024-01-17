@@ -8,7 +8,7 @@ import { I18nBreadcrumbResolver } from '../../../core/breadcrumbs/i18n-breadcrum
 const BITSTREAMFORMAT_EDIT_PATH = ':id/edit';
 const BITSTREAMFORMAT_ADD_PATH = 'add';
 
-const providers = [BitstreamFormatsResolver]
+const providers = [BitstreamFormatsResolver];
 
 export const ROUTES: Route[] = [
   {

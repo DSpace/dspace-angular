@@ -12,7 +12,7 @@ import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -50,6 +50,12 @@ describe('AdminSidebarComponent', () => {
     children: []
   };
 
+  const mockNgbModal = {
+    open: jasmine.createSpy('open').and.returnValue(
+      { componentInstance: {}, closed: observableOf({})} as NgbModalRef
+    )
+  };
+
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -68,12 +74,7 @@ describe('AdminSidebarComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ActivatedRoute, useValue: routeStub },
-        {
-            provide: NgbModal, useValue: {
-                open: () => {
-                }
-            }
-        }
+        { provide: NgbModal, useValue: mockNgbModal }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(AdminSidebarComponent, {

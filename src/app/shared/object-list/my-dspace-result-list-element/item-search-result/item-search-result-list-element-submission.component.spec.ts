@@ -17,8 +17,6 @@ import { Context } from '../../../../core/shared/context.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
-import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
-import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;

@@ -31,16 +31,16 @@ import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import {
   ThemedDynamicLookupRelationExternalSourceTabComponent
-} from "./external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component";
-import { TranslateModule } from "@ngx-translate/core";
-import { ThemedLoadingComponent } from "../../../../loading/themed-loading.component";
-import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
+} from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import {
   ThemedDynamicLookupRelationSearchTabComponent
-} from "./search-tab/themed-dynamic-lookup-relation-search-tab.component";
+} from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import {
   DsDynamicLookupRelationSelectionTabComponent
-} from "./selection-tab/dynamic-lookup-relation-selection-tab.component";
+} from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',

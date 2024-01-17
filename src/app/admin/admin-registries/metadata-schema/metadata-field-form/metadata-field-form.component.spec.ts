@@ -13,6 +13,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { FormComponent } from '../../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 
 describe('MetadataFieldFormComponent', () => {
   let component: MetadataFieldFormComponent;
@@ -36,16 +37,6 @@ describe('MetadataFieldFormComponent', () => {
     },
     clearMetadataFieldRequests: () => observableOf(undefined)
   };
-  const formBuilderServiceStub = {
-    createFormGroup: () => {
-      return {
-        patchValue: () => {
-        },
-        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
-        },
-      };
-    }
-  };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   beforeEach(waitForAsync(() => {
@@ -53,7 +44,7 @@ describe('MetadataFieldFormComponent', () => {
     imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataFieldFormComponent, EnumKeysPipe],
     providers: [
         { provide: RegistryService, useValue: registryServiceStub },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub }
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })

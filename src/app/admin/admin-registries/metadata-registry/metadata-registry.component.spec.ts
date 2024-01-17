@@ -30,6 +30,7 @@ import { ConfigurationProperty } from '../../../core/shared/configuration-proper
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
 import { RouterLink } from '@angular/router';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -86,15 +87,6 @@ describe('MetadataRegistryComponent', () => {
     }))
   });
 
-  const formBuilderServiceStub = {
-    createFormGroup: () => {
-      return {
-        patchValue: () => { },
-        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void { },
-      };
-    }
-  };
-
   const mockGroupService = jasmine.createSpyObj('groupService',
   {
     // findByHref: jasmine.createSpy('findByHref'),
@@ -136,7 +128,7 @@ describe('MetadataRegistryComponent', () => {
           provide: SearchConfigurationService,
           useValue: new SearchConfigurationServiceStub(),
         },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

@@ -10,8 +10,6 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { Context } from '../../../../core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
-import { ItemActionsComponent } from '../../../../shared/mydspace-actions/item/item-actions.component';
 
 let component: ItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<ItemSearchResultDetailElementComponent>;

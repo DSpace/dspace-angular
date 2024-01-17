@@ -1,4 +1,4 @@
-import { importProvidersFrom, makeEnvironmentProviders } from '@angular/core';
+import { makeEnvironmentProviders } from '@angular/core';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { MOCK_RESPONSE_MAP, ResponseMapMock } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { HttpClient } from '@angular/common/http';
@@ -70,12 +70,6 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
-import { Action, StoreConfig, StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { coreReducers } from './core.reducers';
-import { storeModuleConfig } from '../app.reducer';
-import { CoreState } from './core-state.model';
-import { coreEffects } from './core.effects';
 
 
 export const provideCore = () => {
