@@ -153,7 +153,7 @@ describe('PersonSearchResultListElementComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock
         }
-      }), PersonSearchResultListElementComponent, TruncatePipe],
+      }), TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

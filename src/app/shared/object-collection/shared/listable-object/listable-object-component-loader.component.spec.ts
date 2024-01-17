@@ -23,6 +23,7 @@ import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
 import { CookieService } from 'src/app/core/services/cookie.service';
 import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { ListableModule } from '../../../../core/shared/listable.module';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -44,15 +45,13 @@ describe('ListableObjectComponentLoaderComponent', () => {
   let comp: ListableObjectComponentLoaderComponent;
   let fixture: ComponentFixture<ListableObjectComponentLoaderComponent>;
 
-  let themeService: ThemeService;
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         ListableObjectComponentLoaderComponent,
-        ItemListElementComponent,
-        ListableObjectDirective
+        ListableObjectDirective,
+        ListableModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [

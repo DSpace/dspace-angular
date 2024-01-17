@@ -18,13 +18,16 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
-import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
+import {
+  AccessStatusObject
+} from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { FileService } from '../../../../../core/shared/file.service';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
+import { ListableModule } from '../../../../../core/shared/listable.module';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -57,23 +60,24 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-    imports: [
-        NoopAnimationsModule,
-        TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
-    ],
-    declarations: [ItemAdminSearchResultGridElementComponent],
-    providers: [
-        { provide: TruncatableService, useValue: mockTruncatableService },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: ThemeService, useValue: mockThemeService },
-        { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
-        { provide: AuthService, useClass: AuthServiceStub },
-        { provide: FileService, useClass: FileServiceStub },
-        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        imports: [
+          NoopAnimationsModule,
+          TranslateModule.forRoot(),
+          RouterTestingModule.withRoutes([]),
+          ListableModule
+        ],
+        declarations: [ItemAdminSearchResultGridElementComponent],
+        providers: [
+          { provide: TruncatableService, useValue: mockTruncatableService },
+          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ThemeService, useValue: mockThemeService },
+          { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
+          { provide: AuthService, useClass: AuthServiceStub },
+          { provide: FileService, useClass: FileServiceStub },
+          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      })
       .compileComponents();
   }));
 

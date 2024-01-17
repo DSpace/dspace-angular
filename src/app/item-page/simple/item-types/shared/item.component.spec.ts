@@ -132,7 +132,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
             },
           }),
           RouterTestingModule,
-          component,
           GenericItemPageFieldComponent,
           TruncatePipe,
           AsyncPipe,
