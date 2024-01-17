@@ -27,6 +27,18 @@ export class AdminNotifyMessage extends DSpaceObject {
   id: string;
 
   /**
+   * The id of the notification
+   */
+  @autoserialize
+  notificationId: string;
+
+  /**
+   * The type of the notification
+   */
+  @autoserialize
+  notificationType: string;
+
+  /**
    * The type of the notification
    */
   @autoserialize
@@ -67,6 +79,12 @@ export class AdminNotifyMessage extends DSpaceObject {
    */
   @autoserialize
   context: string;
+
+  /**
+   * The related COAR message
+   */
+  @autoserialize
+  message: string;
 
   /**
    * The attempts of the queue

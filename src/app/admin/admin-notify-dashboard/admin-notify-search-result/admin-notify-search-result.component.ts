@@ -22,7 +22,6 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'ds-admin-notify-search-result',
   templateUrl: './admin-notify-search-result.component.html',
-  styleUrls: ['./admin-notify-search-result.component.scss'],
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
@@ -49,6 +48,22 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    */
 
   private dateTypeKeys: string[] = ['queueLastStartTime', 'queueTimeout'];
+
+  /**
+   * Keys to be not shown in detail
+   * @private
+   */
+  private messageKeys: string[] = [
+    'type',
+    'id',
+    'coarNotifyType',
+    'activityStreamType',
+    'inReplyTo',
+    'queueAttempts',
+    'queueLastStartTime',
+    'queueStatusLabel',
+    'queueTimeout'
+  ];
 
   /**
    * The format for the date values
@@ -81,32 +96,22 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
 
   /**
    * Open modal for details visualization
-   * @param message the message to be displayed
+   * @param notifyMessage the message to be displayed
    */
-  openDetailModal(message: AdminNotifyMessage) {
+  openDetailModal(notifyMessage: AdminNotifyMessage) {
     const modalRef = this.modalService.open(AdminNotifyDetailModalComponent);
-    const messageToOpen = {...message};
-    // we delete not necessary or not readable keys
-    delete messageToOpen.target;
-    delete messageToOpen.object;
-    delete messageToOpen.context;
-    delete messageToOpen.origin;
-    delete messageToOpen._links;
-    delete messageToOpen.metadata;
-    delete messageToOpen.thumbnail;
-    delete messageToOpen.item;
-    delete messageToOpen.accessStatus;
-    delete messageToOpen.queueStatus;
+    const messageToOpen = {...notifyMessage};
 
-    const messageKeys = Object.keys(messageToOpen);
-    messageKeys.forEach(key => {
+    this.messageKeys.forEach(key => {
       if (this.dateTypeKeys.includes(key)) {
         messageToOpen[key] = this.datePipe.transform(messageToOpen[key], this.dateFormat);
       }
     });
+    // format COAR message for technical visualization
+    messageToOpen.message = JSON.stringify(JSON.parse(notifyMessage.message), null, 2);
 
     modalRef.componentInstance.notifyMessage = messageToOpen;
-    modalRef.componentInstance.notifyMessageKeys = messageKeys;
+    modalRef.componentInstance.notifyMessageKeys = this.messageKeys;
   }
 
   /**

@@ -13,7 +13,7 @@ import { RecentItemListComponent } from './recent-item-list/recent-item-list.com
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
-import { SuggestionNotificationsModule } from '../suggestion-notifications/suggestion-notifications.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -33,7 +33,7 @@ const DECLARATIONS = [
         ResearchEntitiesModule.withEntryComponents(),
         HomePageRoutingModule,
         StatisticsModule.forRoot(),
-        SuggestionNotificationsModule
+        NotificationsModule
     ],
   declarations: [
     ...DECLARATIONS,

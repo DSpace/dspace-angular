@@ -6,7 +6,7 @@
       <p>{{'collection.edit.item-mapper.description' | translate}}</p>
 
       <ul ngbNav (navChange)="tabChange($event)" [destroyOnHide]="true" #tabs="ngbNav" class="nav-tabs">
-        <li [ngbNavItem]="'browseTab'">
+        <li [ngbNavItem]="'browseTab'" role="presentation">
           <a ngbNavLink>{{'collection.edit.item-mapper.tabs.browse' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="mt-2">
@@ -23,7 +23,7 @@
             </div>
           </ng-template>
         </li>
-        <li [ngbNavItem]="'mapTab'">
+        <li [ngbNavItem]="'mapTab'" role="presentation">
           <a ngbNavLink>{{'collection.edit.item-mapper.tabs.map' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="row mt-2">

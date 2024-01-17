@@ -19,6 +19,7 @@ import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/ad
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { DatePipe } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 export const mockAdminNotifyMessages = [
@@ -46,7 +47,8 @@ export const mockAdminNotifyMessages = [
     'item': {},
     'accessStatus': {},
     'ldnService': 'NOTIFY inbox - Automatic service',
-    'relatedItem': 'test coar 2 demo'
+    'relatedItem': 'test coar 2 demo',
+    'message': '{"@context":["https://www.w3.org/ns/activitystreams","https://purl.org/coar/notify"],"id":"urn:uuid:668f26e0-2e8d-4118-b0d2-ee713523bc45","type":["Reject","coar-notify:IngestAction"],"actor":{"id":"https://generic-service.com","type":["Service"],"name":"Generic Service"},"context":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Document"],"ietf:cite-as":"https://doi.org/10.4598/12123488"},"object":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Offer"]},"origin":{"id":"https://generic-service.com/system","type":["Service"],"inbox":"https://notify-inbox.info/inbox7"},"target":{"id":"https://some-organisation.org","type":["Organization"],"inbox":"https://dspace-coar.4science.cloud/server/ldn/inbox"},"inReplyTo":"urn:uuid:d9b4010a-f128-4815-abb2-83707a2ee9cf"}'
   },
   {
     'type': 'message',
@@ -72,7 +74,8 @@ export const mockAdminNotifyMessages = [
     'item': {},
     'accessStatus': {},
     'ldnService': 'NOTIFY inbox - Automatic service',
-    'relatedItem': 'test coar demo'
+    'relatedItem': 'test coar demo',
+    'message': '{"@context":["https://www.w3.org/ns/activitystreams","https://purl.org/coar/notify"],"id":"urn:uuid:668f26e0-2e8d-4118-b0d2-ee713523bc45","type":["Reject","coar-notify:IngestAction"],"actor":{"id":"https://generic-service.com","type":["Service"],"name":"Generic Service"},"context":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Document"],"ietf:cite-as":"https://doi.org/10.4598/12123488"},"object":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Offer"]},"origin":{"id":"https://generic-service.com/system","type":["Service"],"inbox":"https://notify-inbox.info/inbox7"},"target":{"id":"https://some-organisation.org","type":["Organization"],"inbox":"https://dspace-coar.4science.cloud/server/ldn/inbox"},"inReplyTo":"urn:uuid:d9b4010a-f128-4815-abb2-83707a2ee9cf"}'
   }
 ] as unknown as AdminNotifyMessage[];
 describe('AdminNotifySearchResultComponent', () => {
@@ -131,12 +134,14 @@ describe('AdminNotifySearchResultComponent', () => {
         { provide: RemoteDataBuildService, useValue: rdbService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         DatePipe
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifySearchResultComponent);
     component = fixture.componentInstance;
+    component.searchConfigService = searchConfigService;
     modalService = (component as any).modalService;
     spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
     fixture.detectChanges();

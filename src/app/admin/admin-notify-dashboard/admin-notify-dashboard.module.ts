@@ -16,6 +16,7 @@ import {
   AdminNotifySearchResultComponent
 } from './admin-notify-search-result/admin-notify-search-result.component';
 import { AdminNotifyMessagesService } from './services/admin-notify-messages.service';
+import { AdminNotifyLogsResultComponent } from './admin-notify-logs/admin-notify-logs-result/admin-notify-logs-result.component';
 
 
 const ENTRY_COMPONENTS = [
@@ -28,7 +29,7 @@ const ENTRY_COMPONENTS = [
     SharedModule,
     AdminNotifyDashboardRoutingModule,
     SearchModule,
-    SearchPageModule,
+    SearchPageModule
   ],
   providers: [
     AdminNotifyMessagesService,
@@ -40,7 +41,9 @@ const ENTRY_COMPONENTS = [
     AdminNotifyMetricsComponent,
     AdminNotifyIncomingComponent,
     AdminNotifyOutgoingComponent,
-    AdminNotifyDetailModalComponent
+    AdminNotifyDetailModalComponent,
+    AdminNotifySearchResultComponent,
+    AdminNotifyLogsResultComponent
   ]
 })
 export class AdminNotifyDashboardModule {

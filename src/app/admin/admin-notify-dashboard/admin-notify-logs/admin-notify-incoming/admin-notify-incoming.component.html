@@ -15,20 +15,7 @@
               <a class="nav-link" [routerLink]="'../outbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.outbound-logs' | translate}}</a>
           </ul>
 
-          <div class="container my-4">
-            <div class="row">
-              <div class="col-12 col-md-3 text-left h4">{{'admin.notify.dashboard.inbound' | translate}}</div>
-              <div class="col-md-9">
-                <ds-search-labels [inPlaceSearch]="true"></ds-search-labels>
-              </div>
-            </div>
-          </div>
-          <ds-themed-search
-            [configuration]="defaultConfiguration"
-            [showViewModes]="false"
-            [searchEnabled]="false"
-            [context]="context"
-          ></ds-themed-search>
+          <ds-admin-notify-logs-result [defaultConfiguration]="'NOTIFY.incoming'" ></ds-admin-notify-logs-result>
         </div>
       </div>
     </div>

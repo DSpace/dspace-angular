@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h2 id="header" class="pb-2">{{'submission.import-external.title' + ((label) ? '.' + label : '') | translate}}</h2>
+      <h1 id="header" class="pb-2">{{'submission.import-external.title' + ((label) ? '.' + label : '') | translate}}</h1>
       <ds-submission-import-external-searchbar
         [initExternalSourceData]="reload$.value"
         (externalSourceData) = "getExternalSourceData($event)">
@@ -11,7 +11,7 @@
   <div class="row" *ngIf="reload$.value.entity">
     <div *ngIf="reload$.value.sourceId !== ''" class="col-md-12">
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
-        <h3 *ngIf="entriesRD && entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title' | translate}}</h3>
+        <h2 *ngIf="entriesRD && entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title' | translate}}</h2>
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !(isLoading$ | async) && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
@@ -25,15 +25,15 @@
         <ds-themed-loading *ngIf="(isLoading$ | async)"
                     message="{{'loading.search-results' | translate}}"></ds-themed-loading>
         <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" data-test="empty-external-entry-list">
-          <ds-alert [type]="'alert-info'">{{ 'search.results.empty' | translate }}</ds-alert>
+          <ds-alert [type]="AlertType.Info">{{ 'search.results.empty' | translate }}</ds-alert>
         </div>
         <div *ngIf="!(isLoading$ | async) && entriesRD.statusCode === 500" data-test="empty-external-error-500">
-          <ds-alert [type]="'alert-info'">{{ 'search.results.response.500' | translate }}</ds-alert>
+          <ds-alert [type]="AlertType.Info">{{ 'search.results.response.500' | translate }}</ds-alert>
         </div>
       </ng-container>
     </div>
     <div *ngIf="reload$.value.sourceId === ''" class="col-md-12">
-      <ds-alert [type]="'alert-info'">
+      <ds-alert [type]="AlertType.Info">
         <p class="lead mb-0">{{'submission.import-external.page.hint' | translate}}</p>
       </ds-alert>
     </div>

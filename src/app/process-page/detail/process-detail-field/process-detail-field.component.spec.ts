@@ -32,7 +32,7 @@ describe('ProcessDetailFieldComponent', () => {
   });
 
   it('should display the given title', () => {
-    const header = fixture.debugElement.query(By.css('h4')).nativeElement;
+    const header = fixture.debugElement.query(By.css('h2')).nativeElement;
     expect(header.textContent).toContain(title);
   });
 });

@@ -2,7 +2,7 @@
   <div class="groups-registry row">
     <div class="col-12">
       <div class="d-flex justify-content-between border-bottom mb-3">
-        <h2 id="header" class="pb-2">{{messagePrefix + 'head' | translate}}</h2>
+        <h1 id="header" class="pb-2">{{messagePrefix + 'head' | translate}}</h1>
         <div>
           <button class="mr-auto btn btn-success"
                   [routerLink]="'create'">
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <h3 id="search" class="border-bottom pb-2">{{messagePrefix + 'search.head' | translate}}</h3>
+      <h2 id="search" class="border-bottom pb-2">{{messagePrefix + 'search.head' | translate}}</h2>
       <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
         <div class="flex-grow-1 mr-3">
           <div class="form-group input-group">

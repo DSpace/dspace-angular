@@ -9,7 +9,7 @@
     <ds-themed-loading *ngIf="!item || !collection"></ds-themed-loading>
     <ng-container *ngIf="item && collection">
         <ul ngbNav #nav="ngbNav" class="nav-tabs">
-            <li ngbNavItem>
+            <li ngbNavItem role="presentation">
                 <a ngbNavLink>{{'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + relationshipOptions.relationshipType | translate  : { count: (totalInternal$ | async)} }}</a>
                 <ng-template ngbNavContent>
                     <ds-themed-dynamic-lookup-relation-search-tab
@@ -31,7 +31,7 @@
                     </ds-themed-dynamic-lookup-relation-search-tab>
                 </ng-template>
             </li>
-            <li ngbNavItem *ngFor="let source of (externalSourcesRD$ | async); let idx = index">
+            <li ngbNavItem *ngFor="let source of (externalSourcesRD$ | async); let idx = index" role="presentation">
                 <a ngbNavLink>{{'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + source.id | translate  : { count: (totalExternal$ | async)[idx] } }}</a>
                 <ng-template ngbNavContent>
                     <ds-themed-dynamic-lookup-relation-external-source-tab
@@ -49,7 +49,7 @@
                     </ds-themed-dynamic-lookup-relation-external-source-tab>
                 </ng-template>
             </li>
-            <li ngbNavItem *ngIf="!isEditRelationship">
+            <li ngbNavItem *ngIf="!isEditRelationship" role="presentation">
                 <a ngbNavLink>{{'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : { count: (selection$ | async)?.length } }}</a>
                 <ng-template ngbNavContent>
                     <ds-dynamic-lookup-relation-selection-tab
