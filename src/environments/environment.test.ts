@@ -331,29 +331,34 @@ export const environment: BuildConfig = {
       boxes: [
         {
           color: '#B8DAFF',
-          title: 'admin-notify-dashboard.accepted',
-          config: 'NOTIFY.incoming.accepted'
+          title: 'admin-notify-dashboard.NOTIFY.incoming.accepted',
+          config: 'NOTIFY.incoming.accepted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description'
         },
         {
           color: '#D4EDDA',
-          title: 'admin-notify-dashboard.processed',
-          config: 'NOTIFY.incoming.processed'
+          title: 'admin-notify-dashboard.NOTIFY.incoming.processed',
+          config: 'NOTIFY.incoming.processed',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description'
         },
         {
           color: '#FDBBC7',
-          title: 'admin-notify-dashboard.failure',
-          config: 'NOTIFY.incoming.failure'
+          title: 'admin-notify-dashboard.NOTIFY.incoming.failure',
+          config: 'NOTIFY.incoming.failure',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description'
         },
         {
           color: '#FDBBC7',
-          title: 'admin-notify-dashboard.untrusted',
-          config: 'NOTIFY.incoming.untrusted'
+          title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted',
+          config: 'NOTIFY.incoming.untrusted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description'
         },
         {
           color: '#43515F',
-          title: 'admin-notify-dashboard.involved-items',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.incoming.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description'
         },
       ]
     },
@@ -362,29 +367,34 @@ export const environment: BuildConfig = {
       boxes: [
         {
           color: '#D4EDDA',
-          title: 'admin-notify-dashboard.delivered',
-          config: 'NOTIFY.outgoing.delivered'
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered',
+          config: 'NOTIFY.outgoing.delivered',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
         },
         {
           color: '#B8DAFF',
-          title: 'admin-notify-dashboard.queued',
-          config: 'NOTIFY.outgoing.queued'
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued',
+          config: 'NOTIFY.outgoing.queued',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description'
         },
         {
           color: '#FDEEBB',
-          title: 'admin-notify-dashboard.queued-for-retry',
-          config: 'NOTIFY.outgoing.queued_for_retry'
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry',
+          config: 'NOTIFY.outgoing.queued_for_retry',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description'
         },
         {
           color: '#FDBBC7',
-          title: 'admin-notify-dashboard.failure',
-          config: 'NOTIFY.outgoing.failure'
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.failure',
+          config: 'NOTIFY.outgoing.failure',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description'
         },
         {
           color: '#43515F',
-          title: 'admin-notify-dashboard.involved-items',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.outgoing.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description'
         },
       ]
     }

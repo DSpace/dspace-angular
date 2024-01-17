@@ -4,7 +4,7 @@
     <div class="col-md-9">
       <div class="h4">
         <button (click)="resetDefaultConfiguration()" *ngIf="(selectedSearchConfig$ | async) !== defaultConfiguration" class="badge badge-primary mr-1 mb-1">
-          {{'admin.notify.dashboard.filter' | translate}} {{ 'admin-notify-dashboard.' + (selectedSearchConfig$ | async)  | translate}}
+          {{ 'admin-notify-logs.' + (selectedSearchConfig$ | async)  | translate}}
           <span> ×</span>
         </button>
       </div>
