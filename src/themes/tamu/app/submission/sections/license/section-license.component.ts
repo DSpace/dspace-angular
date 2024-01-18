@@ -2,9 +2,11 @@ import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@an
 import { DynamicCheckboxModel, DynamicFormLayout, DynamicRadioGroupModel, MATCH_DISABLED } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
+import { ActivatedRoute, Data } from '@angular/router';
 import { AuthService } from '../../../../../../app/core/auth/auth.service';
+import { BitstreamDataService } from '../../../../../../app/core/data/bitstream-data.service';
 import { CollectionDataService } from '../../../../../../app/core/data/collection-data.service';
 import { PaginatedList } from '../../../../../../app/core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../app/core/data/remote-data';
@@ -30,6 +32,7 @@ import { SectionsType } from '../../../../../../app/submission/sections/sections
 import { SectionsService } from '../../../../../../app/submission/sections/sections.service';
 import { SubmissionService } from '../../../../../../app/submission/submission.service';
 import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
+import { Item } from 'src/app/core/shared/item.model';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -73,7 +76,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    */
   public dropOverDocumentMsg = 'submission.sections.proxy-license.permission-upload-drop-message';
 
-  public proxyLicense: Observable<Bitstream>;
+  public proxyLicense: Observable<any>;
 
   public get license(): Observable<string> {
     return this._license.asObservable();
@@ -108,9 +111,9 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   private _selected: BehaviorSubject<string>;
 
   constructor(
-    // private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    // private bitstreamService: BitstreamDataService,
+    private bitstreamService: BitstreamDataService,
     private halEndpointService: HALEndpointService,
     private notificationsService: NotificationsService,
     protected changeDetectorRef: ChangeDetectorRef,
@@ -157,38 +160,30 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
     );
 
     // observe the proxy bitstream!
-    // this.activatedRoute.data.pipe(
-    //   map((data: any) => data.wsi),
-    //   map((wsi: RemoteData<any>) => wsi.payload),
-    //   switchMap((data: any) => data.item.pipe(
-    //     map((item: RemoteData<any>) => item.payload),
-    //     switchMap((item: any) => {
-    //       console.log(item);
-    //       return this.bitstreamService
-    //         .findAllByItemAndBundleName(item, 'LICENSE', {}, true, true).pipe(
-    //           map((data: RemoteData<PaginatedList<Bitstream>>) => data.payload),
-    //           map((page: PaginatedList<Bitstream>) => page.page),
-    //           map((bitstreams: Array<Bitstream>) => bitstreams
-    //             .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION'))));
-    //     })))
-    // ).subscribe((bitstream: any) => {
-    //   console.log('observing the proxy bitstream', bitstream);
-    // });
+    this.proxyLicense = this.activatedRoute.data.pipe(
+      tap(console.log),
+      map((data: Data) => data.wsi),
+      tap(console.log),
+      filter((wsird: RemoteData<WorkspaceItem>) => !!wsird && wsird.isSuccess),
+      map((wsird: RemoteData<WorkspaceItem>) => wsird.payload),
+      tap(console.log),
+      switchMap((wi: WorkspaceItem) => wi.item.pipe(
+        tap(console.log),
+        filter((ird: RemoteData<Item>) => !!ird && ird.isSuccess),
+        map((ird: RemoteData<Item>) => ird.payload),
+        tap(console.log),
+        switchMap((item: Item) => this.bitstreamService
+          .findAllByItemAndBundleName(item, 'LICENSE', {}, true, true).pipe(
+            filter((bplrd: RemoteData<PaginatedList<Bitstream>>) => !!bplrd && bplrd.isSuccess),
+            map((bplrd: RemoteData<PaginatedList<Bitstream>>) => bplrd.payload),
+            map((bpl: PaginatedList<Bitstream>) => bpl.page),
+            map((bitstreams: Array<Bitstream>) => bitstreams
+              .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION')))))))
+    );
 
-    // this.submissionService.retrieveSubmission(this.submissionId).pipe(
-    //   filter((data: RemoteData<SubmissionObject>) => !!data && data.isSuccess),
-    //   map((data: RemoteData<SubmissionObject>) => data.payload),
-    //   switchMap((submission: SubmissionObject) => this.bitstreamService
-    //     .findAllByItemAndBundleName(submission.item, 'LICENSE', {}, true, true).pipe(
-    //       filter((data: RemoteData<PaginatedList<Bitstream>>) => !!data && data.isSuccess),
-    //       map((data: RemoteData<PaginatedList<Bitstream>>) => data.payload),
-    //       map((page: PaginatedList<Bitstream>) => page.page),
-    //       map((bitstreams: Array<Bitstream>) => bitstreams
-    //         .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION'))))))
-    //   .subscribe((bitstream: any) => {
-    //     console.log('retrieve the proxy bitstream', bitstream);
-    //   });;
-
+    this.proxyLicense.subscribe((bitstream: any) => {
+      console.log('observing the proxy bitstream', bitstream);
+    });
 
     // get the license by following collection licenses link
     this.collectionDataService.findById(this.collectionId, true, true, followLink('licenses')).pipe(
@@ -254,10 +249,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
             if (name === 'proxy') {
               control.parentNode.insertBefore(this.uploaderWrapper.nativeElement, control.nextSibling);
-
-              // this.proxyLicense = this.fetchProxyLicenseBitstream();
-
-              // this.proxyLicense.subscribe(console.log);
             }
 
             control.parentNode.insertBefore(this.licenseWrapper.nativeElement, control.nextSibling);
@@ -290,7 +281,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * @returns empty observable
    */
   public onBeforeUpload = () => {
-    // this.submissionService.dispatchSave(this.submissionId, true);
     return of();
   };
 
@@ -300,15 +290,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   public onCompleteItem(workspaceitem: WorkspaceItem) {
     const { sections } = workspaceitem;
     if (sections && isNotEmpty(sections)) {
-      Object.keys(sections)
-        .forEach((sectionId) => {
-          this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.License)
-            .pipe(take(1))
-            .subscribe(() => {
-              const sectionData = normalizeSectionData(sections[sectionId]);
-              this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData);
-            });
-        });
+      this.submissionService.dispatchSave(this.submissionId, true);
       this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
     }
   }
