@@ -77,11 +77,11 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   public dropOverDocumentMsg = 'submission.sections.proxy-license.permission-upload-drop-message';
 
   public get proxy(): Observable<Bitstream> {
-    return this._proxy.asObservable()
+    return this._proxy.asObservable();
   }
 
   public get license(): Observable<string> {
-    return this._license.asObservable()
+    return this._license.asObservable();
   }
 
   public get selected(): Observable<string> {
