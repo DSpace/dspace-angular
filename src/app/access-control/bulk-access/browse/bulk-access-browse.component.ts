@@ -3,7 +3,6 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
@@ -27,6 +26,7 @@ import {
 import {
   ListableObjectComponentLoaderComponent
 } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-bulk-access-browse',

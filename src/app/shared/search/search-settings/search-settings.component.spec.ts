@@ -12,11 +12,11 @@ import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { VarDirective } from '../../utils/var.directive';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 describe('SearchSettingsComponent', () => {
 

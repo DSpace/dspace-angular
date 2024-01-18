@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { map, take } from 'rxjs/operators';
@@ -10,6 +9,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, AsyncPipe } from '@angular/common';
 import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-page-size-selector',

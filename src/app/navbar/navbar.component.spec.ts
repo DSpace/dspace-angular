@@ -16,7 +16,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowseService } from '../core/browse/browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-decorator';
 import { Item } from '../core/shared/item.model';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { ThemeService } from '../shared/theme-support/theme.service';
@@ -30,6 +29,7 @@ import { EPersonMock } from '../shared/testing/eperson.mock';
 import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
+import { BrowseByDataType } from '../browse-by/browse-by-data-type';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;

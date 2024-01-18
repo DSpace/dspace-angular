@@ -13,7 +13,6 @@ import { HostWindowService } from '../host-window.service';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
 import { RouteService } from '../../core/services/route.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchResult } from './models/search-result.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
@@ -34,7 +33,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
-import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
@@ -46,6 +45,7 @@ import { ThemedSearchResultsComponent } from './search-results/themed-search-res
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { NgIf, NgTemplateOutlet, AsyncPipe } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-search',

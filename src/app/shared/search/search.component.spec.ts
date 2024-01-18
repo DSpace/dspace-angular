@@ -19,7 +19,6 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../../core/services/route.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -39,6 +38,7 @@ import { ThemedSearchResultsComponent } from './search-results/themed-search-res
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;

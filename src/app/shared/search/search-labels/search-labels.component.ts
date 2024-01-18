@@ -1,5 +1,4 @@
 import { Component, Inject, Input } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { Observable } from 'rxjs';
 import { Params, Router } from '@angular/router';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
@@ -7,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { SearchLabelComponent } from './search-label/search-label.component';
 import { NgFor, AsyncPipe } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-search-labels',

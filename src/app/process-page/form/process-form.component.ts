@@ -3,17 +3,17 @@ import { Script } from '../scripts/script.model';
 import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
 import { Router, RouterLink } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { isEmpty } from '../../shared/empty.util';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ScriptHelpComponent } from './script-help/script-help.component';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
@@ -157,6 +157,3 @@ export class ProcessFormComponent implements OnInit {
   }
 }
 
-export function controlContainerFactory(controlContainer?: ControlContainer) {
-  return controlContainer;
-}

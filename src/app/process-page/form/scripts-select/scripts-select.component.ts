@@ -8,9 +8,9 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
-import { controlContainerFactory } from '../process-form.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { controlContainerFactory } from '../process-form-factory';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 

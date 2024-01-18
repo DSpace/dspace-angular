@@ -27,7 +27,6 @@ import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
@@ -35,6 +34,7 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 
 
 

@@ -6,7 +6,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { createTestComponent } from '../../testing/utils.test';
 import { GroupSearchBoxComponent } from './group-search-box.component';
-import { SearchEvent } from '../eperson-group-list.component';
+
+import { SearchEvent } from '../eperson-group-list-event-type';
 
 describe('GroupSearchBoxComponent test suite', () => {
   let comp: GroupSearchBoxComponent;

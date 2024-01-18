@@ -13,7 +13,6 @@ import { FormBuilderService } from '../../../../../shared/form/builder/form-buil
 import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../../../../submission.service';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import {
   mockFileFormData,
   mockSubmissionCollectionId,
@@ -53,6 +52,7 @@ import {
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
 import { NgxMaskModule } from 'ngx-mask';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {

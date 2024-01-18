@@ -3,13 +3,13 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { FormsModule } from '@angular/forms';
 import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
 import { NgIf, NgFor } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-search-settings',

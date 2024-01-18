@@ -24,12 +24,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-
-export interface SearchEvent {
-  scope: string;
-  query: string;
-}
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { SearchEvent } from './eperson-group-list-event-type';
 
 @Component({
     selector: 'ds-eperson-group-list',

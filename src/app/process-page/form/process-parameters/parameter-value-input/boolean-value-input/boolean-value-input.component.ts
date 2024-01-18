@@ -1,8 +1,8 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { controlContainerFactory } from '../../../process-form.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { controlContainerFactory } from '../../../process-form-factory';
 
 /**
  * Represents the value of a boolean parameter

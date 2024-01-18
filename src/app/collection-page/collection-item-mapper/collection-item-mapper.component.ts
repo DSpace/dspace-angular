@@ -23,7 +23,6 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
@@ -34,6 +33,7 @@ import { ThemedSearchFormComponent } from '../../shared/search-form/themed-searc
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-collection-item-mapper',

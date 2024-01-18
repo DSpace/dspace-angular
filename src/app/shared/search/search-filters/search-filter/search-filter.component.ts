@@ -9,12 +9,12 @@ import { slide } from '../../../animations/slide';
 import { isNotEmpty } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { NgIf, NgClass, AsyncPipe, LowerCasePipe } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-search-filter',

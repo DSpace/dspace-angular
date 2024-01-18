@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { SearchService } from '../core/shared/search/search.service';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import {
+  SearchConfigurationOption
+} from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { MyDSpaceConfigurationService, SEARCH_CONFIG_SERVICE } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { Context } from '../core/shared/context.model';
@@ -17,7 +18,6 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { RoleDirective } from '../shared/roles/role.directive';
 
 export const MYDSPACE_ROUTE = '/mydspace';
-export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
  * This component represents the whole mydspace page

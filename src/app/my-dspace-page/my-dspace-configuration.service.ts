@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { combineLatest, Observable } from 'rxjs';
@@ -6,7 +6,9 @@ import { first, map } from 'rxjs/operators';
 
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { RoleService } from '../core/roles/role.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import {
+  SearchConfigurationOption
+} from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
@@ -24,6 +26,7 @@ export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workflow, Context.Workflow]
 ]);
 
+export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration

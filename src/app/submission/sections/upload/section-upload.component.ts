@@ -31,9 +31,7 @@ import {
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { TranslateModule } from '@ngx-translate/core';
-
-export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
-export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
+import { POLICY_DEFAULT_NO_LIST, POLICY_DEFAULT_WITH_LIST } from './section-upload-constants';
 
 export interface AccessConditionGroupsMapEntry {
   accessCondition: string;

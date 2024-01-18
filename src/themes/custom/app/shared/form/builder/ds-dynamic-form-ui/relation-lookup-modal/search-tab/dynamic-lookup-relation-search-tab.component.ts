@@ -2,7 +2,6 @@ import {
   DsDynamicLookupRelationSearchTabComponent as BaseComponent
 } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { Component } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-page.component';
 import {
   SearchConfigurationService
 } from '../../../../../../../../../app/core/shared/search/search-configuration.service';
@@ -11,6 +10,7 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemedSearchComponent } from '../../../../../../../../../app/shared/search/themed-search.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',

@@ -6,16 +6,16 @@ import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import {
-  RANGE_FILTER_MAX_SUFFIX,
-  RANGE_FILTER_MIN_SUFFIX
-} from '../../search-range-filter/search-range-filter.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { NgIf, AsyncPipe } from '@angular/common';
+import {
+  RANGE_FILTER_MAX_SUFFIX,
+  RANGE_FILTER_MIN_SUFFIX
+} from '../../search-range-filter/search-range-filter-constants';
 
 const rangeDelimiter = '-';
 

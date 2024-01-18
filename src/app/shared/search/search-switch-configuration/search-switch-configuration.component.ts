@@ -4,7 +4,6 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { hasValue } from '../../empty.util';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { SearchConfigurationOption } from './search-configuration-option.model';
@@ -14,6 +13,7 @@ import findIndex from 'lodash/findIndex';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-search-switch-configuration',

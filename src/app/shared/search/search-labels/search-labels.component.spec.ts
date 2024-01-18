@@ -9,8 +9,8 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { SearchServiceStub } from '../../testing/search-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchLabelComponent } from './search-label/search-label.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;

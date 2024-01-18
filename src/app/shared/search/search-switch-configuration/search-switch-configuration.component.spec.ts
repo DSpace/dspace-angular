@@ -10,10 +10,11 @@ import { NavigationExtras, Router } from '@angular/router';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { MYDSPACE_ROUTE, SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Context } from '../../../core/shared/context.model';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 describe('SearchSwitchConfigurationComponent', () => {
 

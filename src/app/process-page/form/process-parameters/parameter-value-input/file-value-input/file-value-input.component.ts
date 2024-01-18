@@ -1,11 +1,11 @@
 import { Component, Optional } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
 import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
-import { controlContainerFactory } from '../../../process-form.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 import { FileValidator } from '../../../../../shared/utils/require-file.validator';
 import { FileValueAccessorDirective } from '../../../../../shared/utils/file-value-accessor.directive';
+import { controlContainerFactory } from '../../../process-form-factory';
 
 /**
  * Represents the user inputted value of a file parameter

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { SearchModule } from '../shared/search/search.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
-import { dsDynamicFormControlMapFn } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { ItemVersionsDeleteModalComponent } from './versions/item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSummaryModalComponent } from './versions/item-versions-summary-modal/item-versions-summary-modal.component';
@@ -15,6 +14,9 @@ import { RelatedItemsComponent } from './simple/related-items/related-items-comp
 import {
   ThemedMetadataRepresentationListComponent
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
+import {
+    dsDynamicFormControlMapFn
+} from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.map';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,

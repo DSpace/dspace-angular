@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 import {
   SearchFiltersComponent as BaseComponent,
 } from '../../../../../../app/shared/search/search-filters/search-filters.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import {
@@ -17,6 +16,7 @@ import {
 } from '../../../../../../app/shared/search/search-filters/search-filter/search-filter.component';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 
 
 @Component({

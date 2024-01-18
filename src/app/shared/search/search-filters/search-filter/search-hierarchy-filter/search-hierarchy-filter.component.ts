@@ -13,7 +13,6 @@ import {
 } from '../../../../../core/shared/search/search-filter.service';
 import { Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FacetValue } from '../../../models/facet-value.model';
@@ -38,6 +37,7 @@ import {
   SearchFacetSelectedOptionComponent
 } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 import { AsyncPipe, LowerCasePipe, NgFor, NgIf } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-search-hierarchy-filter',

@@ -7,7 +7,6 @@ import { Observable, of as observableOf } from 'rxjs';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { SearchLabelComponent } from './search-label.component';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -16,6 +15,7 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;

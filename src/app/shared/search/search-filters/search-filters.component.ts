@@ -9,12 +9,12 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
     selector: 'ds-search-filters',

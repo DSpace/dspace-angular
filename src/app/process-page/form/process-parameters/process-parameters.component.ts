@@ -4,10 +4,10 @@ import { ProcessParameter } from '../../processes/process-parameter.model';
 import { hasValue } from '../../../shared/empty.util';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
-import { controlContainerFactory } from '../process-form.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { NgIf, NgFor } from '@angular/common';
+import { controlContainerFactory } from '../process-form-factory';
 
 /**
  * Component that represents the selected list of parameters for a script

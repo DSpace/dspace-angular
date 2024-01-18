@@ -31,7 +31,6 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './section-upload-file-edit.model';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { hasNoValue, hasValue, isNotEmpty, isNotNull } from '../../../../../shared/empty.util';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
@@ -59,6 +58,7 @@ import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/mi
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 
 /**
  * This component represents the edit form for bitstream

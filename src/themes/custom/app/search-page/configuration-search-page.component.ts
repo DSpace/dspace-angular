@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { pushInOut } from '../../../../app/shared/animations/push';
-import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
 import {
   ConfigurationSearchPageComponent as BaseComponent
@@ -17,6 +16,7 @@ import {
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 import { SearchLabelsComponent } from '../../../../app/shared/search/search-labels/search-labels.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-configuration-search-page',
