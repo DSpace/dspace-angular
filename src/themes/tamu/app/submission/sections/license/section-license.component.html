@@ -15,7 +15,7 @@
     <p [innerHTML]="license | async"></p>
 </div>
 
-<div #uploaderWrapper class="mb-1" [hidden]="(proxy | async) === false" class="tamu-control-license">
+<div #uploaderWrapper class="mb-1" [hidden]="(selected | async) !== 'proxy'" class="tamu-control-license">
     <label class="font-weight-bolder">{{"submission.sections.proxy-license.permission-upload-label" | translate}}</label>
     <ds-uploader *ngIf="uploadFilesOptions.url"
                 [dropMsg]="dropMsg"
@@ -25,7 +25,7 @@
                 [uploadFilesOptions]="uploadFilesOptions"
                 (onCompleteItem)="onCompleteItem($event)"
                 (onUploadError)="onUploadError()"></ds-uploader>
-    <div *ngIf="proxyLicense | async; let proxy">
+    <div *ngIf="proxy | async; let proxy">
         <span *ngIf="proxy.metadata['dc.source'] && proxy.metadata['dc.source'].length > 0">{{proxy.metadata['dc.source'][0].value}}</span>
     </div>
     <small class="form-text text-muted">{{"submission.sections.proxy-license.permission-upload-instructions" | translate}}</small>

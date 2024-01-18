@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { DynamicCheckboxModel, DynamicFormLayout, DynamicRadioGroupModel, MATCH_DISABLED } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../../../../../app/core/auth/auth.service';
 import { BitstreamDataService } from '../../../../../../app/core/data/bitstream-data.service';
@@ -76,14 +76,16 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    */
   public dropOverDocumentMsg = 'submission.sections.proxy-license.permission-upload-drop-message';
 
-  public proxyLicense: Observable<Bitstream>;
+  public get proxy(): Observable<Bitstream> {
+    return this._proxy.asObservable()
+  }
 
   public get license(): Observable<string> {
     return this._license.asObservable()
   }
 
-  public get proxy(): Observable<boolean> {
-    return this._proxy.asObservable();
+  public get selected(): Observable<string> {
+    return this._selected.asObservable();
   }
 
   /**
@@ -106,16 +108,17 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    */
   @ViewChild('formWrapper') private formWrapper: ElementRef;
 
+  private _proxy: BehaviorSubject<Bitstream>;
+
   private _license: BehaviorSubject<string>;
 
-  private _proxy: BehaviorSubject<boolean>;
+  private _selected: BehaviorSubject<string>;
 
   constructor(
     private authService: AuthService,
     private bitstreamService: BitstreamDataService,
     private halEndpointService: HALEndpointService,
     private notificationsService: NotificationsService,
-    private operationsService: SubmissionJsonPatchOperationsService,
     protected changeDetectorRef: ChangeDetectorRef,
     protected collectionDataService: CollectionDataService,
     protected formBuilderService: FormBuilderService,
@@ -143,8 +146,9 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
       injectedSectionData,
       injectedSubmissionId
     );
+    this._proxy = new BehaviorSubject<Bitstream>(undefined);
     this._license = new BehaviorSubject<string>(undefined);
-    this._proxy = new BehaviorSubject<boolean>(false);
+    this._selected = new BehaviorSubject<string>(undefined);
   }
 
   ngOnInit(): void {
@@ -205,8 +209,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
             (grantedFormControlModel as DynamicCheckboxModel).value = false;
           }
 
-          const isProxy = name === 'proxy';
-
           // simple workaround opposed to shimming themed custom dynamic form model component
           setTimeout(() => {
             let children = this.formWrapper.nativeElement.children;
@@ -221,32 +223,27 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
             control.parentNode.insertBefore(this.labelWrapper.nativeElement, control.nextSibling);
 
-            if (isProxy) {
+            if (name === 'proxy') {
               control.parentNode.insertBefore(this.uploaderWrapper.nativeElement, control.nextSibling);
 
-              this.proxyLicense = this.submissionService.retrieveSubmission(this.submissionId).pipe(
-                filter((data: RemoteData<SubmissionObject>) => !!data && data.isSuccess),
-                map((data: RemoteData<SubmissionObject>) => data.payload),
-                take(1),
-                switchMap((submission: SubmissionObject) => {
-                  return this.bitstreamService.findAllByItemAndBundleName(submission.item, 'LICENSE', {}, true, true).pipe(
-                    filter((data: RemoteData<PaginatedList<Bitstream>>) => !!data && data.isSuccess),
-                    map((data: RemoteData<PaginatedList<Bitstream>>) => data.payload),
-                    map((page: PaginatedList<Bitstream>) => page.page),
-                    map((bitstreams: Array<Bitstream>) => bitstreams
-                        .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION'))),
-                  )
-                }));
+              // another workaround, this time to not using the store
+              setTimeout(() => {
+                // should be one subscritpion with multiple action dispatched
+                this.fetchProxyLicenseBitstream().pipe(take(1)).subscribe((bitstream: Bitstream) => {
+                  this._proxy.next(bitstream);
+                });
+              });
 
-                this.proxyLicense.subscribe(console.log);
+            } else {
+              this._proxy.next(undefined);
             }
 
             control.parentNode.insertBefore(this.licenseWrapper.nativeElement, control.nextSibling);
 
             const license = getLicense(name);
-
-            this._proxy.next(isProxy);
             this._license.next(license.text.replace(/\n/g, '<br>'));
+
+            this._selected.next(name);
           });
         })
       );
@@ -271,13 +268,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * @returns empty observable
    */
   public onBeforeUpload = () => {
-    // const sub: Subscription = this.operationsService.jsonPatchByResourceType(
-    //   this.submissionService.getSubmissionObjectLinkName(),
-    //   this.submissionId,
-    //   'sections')
-    //   .subscribe();
-    // this.subs.push(sub);
-    // return sub;
     return of();
   };
 
@@ -296,7 +286,11 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
               this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData);
             });
         });
-        this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
+      // preferably dispatch action here to update observable to the store
+      this.fetchProxyLicenseBitstream().pipe(take(1)).subscribe((bitstream: Bitstream) => {
+        this._proxy.next(bitstream);
+      });
+      this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
     }
   }
 
@@ -305,6 +299,26 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    */
   public onUploadError() {
     this.notificationsService.error(null, this.translateService.get('submission.sections.proxy-license.permission-upload-failed'));
+  }
+
+  /**
+   * Convenience method opposed to dispatching action and subscribing to the store.
+   * 
+   * @returns Proxy license bitstream if attached
+   */
+  private fetchProxyLicenseBitstream(): Observable<Bitstream> {
+    return this.submissionService.retrieveSubmission(this.submissionId).pipe(
+      filter((data: RemoteData<SubmissionObject>) => !!data && data.isSuccess),
+      map((data: RemoteData<SubmissionObject>) => data.payload),
+      switchMap((submission: SubmissionObject) => {
+        return this.bitstreamService.findAllByItemAndBundleName(submission.item, 'LICENSE', {}, true, true).pipe(
+          filter((data: RemoteData<PaginatedList<Bitstream>>) => !!data && data.isSuccess),
+          map((data: RemoteData<PaginatedList<Bitstream>>) => data.payload),
+          map((page: PaginatedList<Bitstream>) => page.page),
+          map((bitstreams: Array<Bitstream>) => bitstreams
+            .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION'))),
+        )
+      }));
   }
 
 }
