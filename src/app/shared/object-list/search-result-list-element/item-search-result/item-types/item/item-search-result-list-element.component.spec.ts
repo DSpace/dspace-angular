@@ -13,16 +13,12 @@ import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
 import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
 import { AuthService } from '../../../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
-import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
-import { ThumbnailComponent } from '../../../../../../thumbnail/thumbnail.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;

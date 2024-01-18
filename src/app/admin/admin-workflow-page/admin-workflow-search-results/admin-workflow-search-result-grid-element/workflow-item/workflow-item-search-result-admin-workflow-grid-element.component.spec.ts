@@ -15,9 +15,6 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  ItemGridElementComponent
-} from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import {
   ListableObjectDirective
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import {

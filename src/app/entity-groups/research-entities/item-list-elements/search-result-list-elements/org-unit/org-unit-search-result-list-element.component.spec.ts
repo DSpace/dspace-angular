@@ -15,12 +15,6 @@ import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loade
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
-import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
-import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
-import {
-  TruncatablePartComponent
-} from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../../core/auth/auth.service';
