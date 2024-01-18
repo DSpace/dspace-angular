@@ -25,6 +25,9 @@
                 [uploadFilesOptions]="uploadFilesOptions"
                 (onCompleteItem)="onCompleteItem($event)"
                 (onUploadError)="onUploadError()"></ds-uploader>
+    <div *ngIf="proxyLicense | async; let proxy">
+        <span *ngIf="proxy.metadata['dc.source'] && proxy.metadata['dc.source'].length > 0">{{proxy.metadata['dc.source'][0].value}}</span>
+    </div>
     <small class="form-text text-muted">{{"submission.sections.proxy-license.permission-upload-instructions" | translate}}</small>
 </div>
 

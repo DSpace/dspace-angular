@@ -10,11 +10,14 @@ import { CollectionDataService } from '../../../../../../app/core/data/collectio
 import { PaginatedList } from '../../../../../../app/core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../app/core/data/remote-data';
 import { JsonPatchOperationsBuilder } from '../../../../../../app/core/json-patch/builder/json-patch-operations-builder';
+import { Bitstream } from '../../../../../../app/core/shared/bitstream.model';
 import { Collection } from '../../../../../../app/core/shared/collection.model';
 import { HALEndpointService } from '../../../../../../app/core/shared/hal-endpoint.service';
 import { License } from '../../../../../../app/core/shared/license.model';
+import { SubmissionObject } from '../../../../../../app/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/submission/models/workspaceitem-section-license.model';
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../../app/core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../../../../app/core/submission/submission-response-parsing.service';
 import { isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
 import { FormBuilderService } from '../../../../../../app/shared/form/builder/form-builder.service';
@@ -30,8 +33,6 @@ import { SectionsType } from '../../../../../../app/submission/sections/sections
 import { SectionsService } from '../../../../../../app/submission/sections/sections.service';
 import { SubmissionService } from '../../../../../../app/submission/submission.service';
 import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
-import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -44,8 +45,6 @@ import { Bitstream } from 'src/app/core/shared/bitstream.model';
 })
 @renderSectionFor(SectionsType.License)
 export class SubmissionSectionLicenseComponent extends BaseComponent {
-
-  public licenseBitstreams: Observable<PaginatedList<Bitstream>>;
 
   /**
   * The [[DynamicFormLayout]] object
@@ -77,6 +76,16 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    */
   public dropOverDocumentMsg = 'submission.sections.proxy-license.permission-upload-drop-message';
 
+  public proxyLicense: Observable<Bitstream>;
+
+  public get license(): Observable<string> {
+    return this._license.asObservable()
+  }
+
+  public get proxy(): Observable<boolean> {
+    return this._proxy.asObservable();
+  }
+
   /**
    * The license label wrapper element reference
    */
@@ -99,21 +108,14 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
   private _license: BehaviorSubject<string>;
 
-  public get license(): Observable<string> {
-    return this._license.asObservable();
-  }
-
   private _proxy: BehaviorSubject<boolean>;
-
-  public get proxy(): Observable<boolean> {
-    return this._proxy.asObservable();
-  }
 
   constructor(
     private authService: AuthService,
     private bitstreamService: BitstreamDataService,
     private halEndpointService: HALEndpointService,
     private notificationsService: NotificationsService,
+    private operationsService: SubmissionJsonPatchOperationsService,
     protected changeDetectorRef: ChangeDetectorRef,
     protected collectionDataService: CollectionDataService,
     protected formBuilderService: FormBuilderService,
@@ -222,17 +224,21 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
             if (isProxy) {
               control.parentNode.insertBefore(this.uploaderWrapper.nativeElement, control.nextSibling);
 
-              this.licenseBitstreams = this.submissionService.retrieveSubmission(this.submissionId).pipe(
+              this.proxyLicense = this.submissionService.retrieveSubmission(this.submissionId).pipe(
                 filter((data: RemoteData<SubmissionObject>) => !!data && data.isSuccess),
                 map((data: RemoteData<SubmissionObject>) => data.payload),
+                take(1),
                 switchMap((submission: SubmissionObject) => {
                   return this.bitstreamService.findAllByItemAndBundleName(submission.item, 'LICENSE', {}, true, true).pipe(
                     filter((data: RemoteData<PaginatedList<Bitstream>>) => !!data && data.isSuccess),
                     map((data: RemoteData<PaginatedList<Bitstream>>) => data.payload),
+                    map((page: PaginatedList<Bitstream>) => page.page),
+                    map((bitstreams: Array<Bitstream>) => bitstreams
+                        .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION'))),
                   )
                 }));
 
-                this.licenseBitstreams.subscribe(console.log);
+                this.proxyLicense.subscribe(console.log);
             }
 
             control.parentNode.insertBefore(this.licenseWrapper.nativeElement, control.nextSibling);
@@ -265,6 +271,13 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * @returns empty observable
    */
   public onBeforeUpload = () => {
+    // const sub: Subscription = this.operationsService.jsonPatchByResourceType(
+    //   this.submissionService.getSubmissionObjectLinkName(),
+    //   this.submissionId,
+    //   'sections')
+    //   .subscribe();
+    // this.subs.push(sub);
+    // return sub;
     return of();
   };
 
@@ -276,10 +289,14 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
     if (sections && isNotEmpty(sections)) {
       Object.keys(sections)
         .forEach((sectionId) => {
-          const sectionData = normalizeSectionData(sections[sectionId]);
-          this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
-          this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData);
+          this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.License)
+            .pipe(take(1))
+            .subscribe(() => {
+              const sectionData = normalizeSectionData(sections[sectionId]);
+              this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData);
+            });
         });
+        this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
     }
   }
 
