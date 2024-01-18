@@ -290,7 +290,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * @returns empty observable
    */
   public onBeforeUpload = () => {
-    this.submissionService.dispatchSave(this.submissionId, true);
+    // this.submissionService.dispatchSave(this.submissionId, true);
     return of();
   };
 
