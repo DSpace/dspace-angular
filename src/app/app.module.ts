@@ -66,7 +66,7 @@ const IMPORTS = [
   StoreDevModules,
   EagerThemesModule,
   RootModule,
-  ListableModule
+  ListableModule.withEntryComponents()
 ];
 
 const PROVIDERS = [
