@@ -297,7 +297,7 @@ import {
 import {
   TabulatableResultListElementsComponent
 } from './object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
-import { IpV4Validator } from "./utils/ipV4.validator";
+import { IpV4Validator } from './utils/ipV4.validator';
 
 const MODULES = [
   CommonModule,
