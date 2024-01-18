@@ -16,7 +16,8 @@ describe('NotificationBoxComponent', () => {
       'color': '#D4EDDA',
       'title': 'admin-notify-dashboard.delivered',
       'config': 'NOTIFY.outgoing.delivered',
-      'count': 79
+      'count': 79,
+      'description': 'box description'
     };
 
     await TestBed.configureTestingModule({
