@@ -1770,6 +1770,10 @@
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  "form.number-picker.increment": "Increment {{field}}",
+
   "grant-deny-request-copy.deny": "Don't send copy",
 
   "grant-deny-request-copy.email.back": "Back",
