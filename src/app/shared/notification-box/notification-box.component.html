@@ -3,6 +3,7 @@
      [ngStyle]="{'background-color': boxConfig.color}"
      [dsHoverClass]="'shadow-lg'"
      (click)="onClick(boxConfig)"
+     [title]="boxConfig.description | translate"
 >
   <div [ngStyle]="{'color': boxConfig.textColor}" class="d-flex flex-column justify-content-center align-items-center">
     <div class="mb-3 font-weight-bold box-counter">{{ boxConfig.count ?? 0 }}</div>

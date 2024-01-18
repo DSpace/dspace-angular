@@ -3465,6 +3465,8 @@
 
   "admin-notify-dashboard.title": "Notify Dashboard",
 
+  "admin-notify-dashboard.description": "The Notify dashboard monitor the general usage of the COAR Notify protocol across the repository. In the “Metrics” tab are statistics about usage of the COAR Notify protocol. In the “Logs/Inbound” and “Logs/Outbound” tabs it’s possible to search and check the individual status of each LDN message, either received or sent.",
+
   "admin-notify-dashboard.metrics": "Metrics",
 
   "admin-notify-dashboard.received-ldn": "Number of received LDN",
@@ -3473,23 +3475,63 @@
 
   "admin-notify-dashboard.NOTIFY.incoming.accepted": "Accepted",
 
+  "admin-notify-dashboard.NOTIFY.incoming.accepted.description": "Accepted inbound notifications",
+
+  "admin-notify-logs.NOTIFY.incoming.accepted": "Currently displaying: Accepted notifications",
+
   "admin-notify-dashboard.NOTIFY.incoming.processed": "Processed LDN",
+
+  "admin-notify-dashboard.NOTIFY.incoming.processed.description": "Processed inbound notifications",
+
+  "admin-notify-logs.NOTIFY.incoming.processed": "Currently displaying: Processed LDN",
+
+  "admin-notify-logs.NOTIFY.incoming.failure": "Currently displaying: Failed notifications",
 
   "admin-notify-dashboard.NOTIFY.incoming.failure": "Failure",
 
+  "admin-notify-dashboard.NOTIFY.incoming.failure.description": "Failed inbound notifications",
+
+  "admin-notify-logs.NOTIFY.outgoing.failure": "Currently displaying: Failed notifications",
+
   "admin-notify-dashboard.NOTIFY.outgoing.failure": "Failure",
+
+  "admin-notify-dashboard.NOTIFY.outgoing.failure.description": "Failed outbound notifications",
+
+  "admin-notify-logs.NOTIFY.incoming.untrusted": "Currently displaying: Untrusted notifications",
 
   "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Untrusted",
 
+  "admin-notify-dashboard.NOTIFY.incoming.untrusted.description": "Inbound notifications not trusted",
+
+  "admin-notify-logs.NOTIFY.incoming.delivered": "Currently displaying: Delivered notifications",
+
+  "admin-notify-dashboard.NOTIFY.incoming.delivered.description": "Inbound notifications successfully delivered",
+
   "admin-notify-dashboard.NOTIFY.outgoing.delivered": "Delivered",
+
+  "admin-notify-logs.NOTIFY.outgoing.delivered": "Currently displaying: Delivered notifications",
+
+  "admin-notify-dashboard.NOTIFY.outgoing.delivered.description": "Outbound notifications successfully delivered",
+
+  "admin-notify-logs.NOTIFY.outgoing.queued": "Currently displaying: Queued notifications",
+
+  "admin-notify-dashboard.NOTIFY.outgoing.queued.description": "Notifications currently queued",
 
   "admin-notify-dashboard.NOTIFY.outgoing.queued": "Queued",
 
+  "admin-notify-logs.NOTIFY.outgoing.queued_for_retry": "Currently displaying: Queued for retry notifications",
+
   "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry": "Queued for retry",
+
+  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Notifications currently queued for retry",
 
   "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Involved items",
 
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items related to inbound notifications",
+
   "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Involved items",
+
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items related to outbound notifications",
 
   "admin.notify.dashboard.breadcrumbs": "Dashboard",
 
