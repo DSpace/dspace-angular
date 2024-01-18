@@ -62,7 +62,7 @@
                          [routerLink]="['/items', eventElement?.target?.id]">{{eventElement.title}}</a>
                     <span *ngIf="!eventElement?.target">{{eventElement.title}}</span>
                     <div *ngIf="eventElement?.event?.message?.serviceId">
-                      <span class="small pr-1">{{'quality-assurance.event.table.event.message.serviceName' | translate}}</span>
+                      <span class="small pr-1">{{'quality-assurance.event.table.event.message.serviceUrl' | translate}}</span>
                       <span class="badge badge-info">{{eventElement.event.message.serviceId}}</span>
                     </div>
                     <div *ngIf="eventElement?.event?.message?.href" class="d-flex align-items-center">

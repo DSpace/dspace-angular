@@ -11,8 +11,12 @@ import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { of } from 'rxjs';
-import { LdnService } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
+import {
+  LdnService,
+  LdnServiceByPattern
+} from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SubmissionSectionCoarNotifyComponent', () => {
   let component: SubmissionSectionCoarNotifyComponent;
@@ -25,10 +29,11 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   let sectionService: jasmine.SpyObj<SectionsService>;
   let cdRefStub: any;
 
+
   const patterns: SubmissionCoarNotifyConfig[] = Object.assign(
     [new SubmissionCoarNotifyConfig()],
     {
-      patterns: ['review', 'endorsment'],
+      patterns: [{pattern: 'review', multipleRequest: false}, {pattern: 'endorsment', multipleRequest: false}],
     }
   );
   const patternsPL = createPaginatedList(patterns);
@@ -46,6 +51,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
       'remove',
       'replace',
       'add',
+      'flushOperation',
     ]);
     sectionService = jasmine.createSpyObj('SectionsService', [
       'dispatchRemoveSectionErrors',
@@ -57,6 +63,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     await TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [SubmissionSectionCoarNotifyComponent],
       providers: [
         { provide: LdnServicesService, useValue: ldnServicesService },
@@ -105,7 +112,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   });
 
   describe('onChange', () => {
-    const pattern = 'review';
+    const ldnPattern = {pattern: 'review', multipleRequest: false};
     const index = 0;
     const selectedService: LdnService = Object.assign(new LdnService(), {
       id: 1,
@@ -119,12 +126,18 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     beforeEach(() => {
-      component.ldnServiceByPattern[pattern] = [];
+      component.ldnServiceByPattern[ldnPattern.pattern] = {
+        allowsMultipleRequests: false,
+        services: []
+      } as LdnServiceByPattern;
+
+      component.patterns = [];
     });
 
     it('should do nothing if the selected value is the same as the previous one', () => {
-      component.ldnServiceByPattern[pattern][index] = selectedService;
-      component.onChange(pattern, index, selectedService);
+
+      component.ldnServiceByPattern[ldnPattern.pattern].services[index] = selectedService;
+      component.onChange(ldnPattern.pattern, index, selectedService);
 
       expect(componentAsAny.operationsBuilder.remove).not.toHaveBeenCalled();
       expect(componentAsAny.operationsBuilder.replace).not.toHaveBeenCalled();
@@ -132,14 +145,14 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     it('should remove the path when the selected value is null', () => {
-      component.ldnServiceByPattern[pattern][index] = selectedService;
-      component.onChange(pattern, index, null);
+      component.ldnServiceByPattern[ldnPattern.pattern].services[index] = selectedService;
+      component.onChange(ldnPattern.pattern, index, null);
 
-      expect(componentAsAny.operationsBuilder.remove).toHaveBeenCalledWith(
-        componentAsAny.pathCombiner.getPath([pattern, index.toString()])
+      expect(componentAsAny.operationsBuilder.flushOperation).toHaveBeenCalledWith(
+        componentAsAny.pathCombiner.getPath([ldnPattern.pattern, '-'])
       );
-      expect(component.ldnServiceByPattern[pattern][index]).toBeNull();
-      expect(component.previousServices[pattern][index]).toBeNull();
+      expect(component.ldnServiceByPattern[ldnPattern.pattern].services[index]).toBeNull();
+      expect(component.previousServices[ldnPattern.pattern].services[index]).toBeNull();
     });
 
     it('should replace the path when there is a previous value stored and it is different from the new one', () => {
@@ -153,45 +166,49 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
         ],
         description: 'test',
       });
-      component.ldnServiceByPattern[pattern][index] = previousService;
-      component.previousServices[pattern] = [];
-      component.previousServices[pattern][index] = previousService.id;
-      component.onChange(pattern, index, selectedService);
+      component.ldnServiceByPattern[ldnPattern.pattern].services[index] = previousService;
+      component.previousServices[ldnPattern.pattern] = {
+        allowsMultipleRequests: false,
+        services: [previousService]
+      } as LdnServiceByPattern;
 
-      expect(componentAsAny.operationsBuilder.replace).toHaveBeenCalledWith(
-        componentAsAny.pathCombiner.getPath([pattern, index.toString()]),
-        selectedService.id,
+      component.onChange(ldnPattern.pattern, index, selectedService);
+
+      expect(componentAsAny.operationsBuilder.add).toHaveBeenCalledWith(
+        componentAsAny.pathCombiner.getPath([ldnPattern.pattern, '-']),
+        [selectedService.id],
+        false,
         true
       );
-      expect(component.ldnServiceByPattern[pattern][index]).toEqual(
+      expect(component.ldnServiceByPattern[ldnPattern.pattern].services[index]).toEqual(
         selectedService
       );
-      expect(component.previousServices[pattern][index]).toEqual(
+      expect(component.previousServices[ldnPattern.pattern].services[index].id).toEqual(
         selectedService.id
       );
     });
 
     it('should add the path when there is no previous value stored', () => {
-      component.onChange(pattern, index, selectedService);
+      component.onChange(ldnPattern.pattern, index, selectedService);
 
       expect(componentAsAny.operationsBuilder.add).toHaveBeenCalledWith(
-        componentAsAny.pathCombiner.getPath([pattern, '-']),
+        componentAsAny.pathCombiner.getPath([ldnPattern.pattern, '-']),
         [selectedService.id],
         false,
         true
       );
-      expect(component.ldnServiceByPattern[pattern][index]).toEqual(
+      expect(component.ldnServiceByPattern[ldnPattern.pattern].services[index]).toEqual(
         selectedService
       );
-      expect(component.previousServices[pattern][index]).toEqual(
+      expect(component.previousServices[ldnPattern.pattern].services[index].id).toEqual(
         selectedService.id
       );
     });
   });
 
   describe('initSelectedServicesByPattern', () => {
-    const pattern1 = 'review';
-    const pattern2 = 'endorsement';
+    const pattern1 = {pattern: 'review', multipleRequest: false};
+    const pattern2 = {pattern: 'endorsement', multipleRequest: false};
     const service1: LdnService = Object.assign(new LdnService(), {
       id: 1,
       name: 'service1',
@@ -226,34 +243,43 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     const services = [service1, service2, service3];
 
     beforeEach(() => {
+      ldnServicesService.findByInboundPattern.and.returnValue(
+          createSuccessfulRemoteDataObject$(createPaginatedList(services))
+      );
+      component.ldnServiceByPattern[pattern1.pattern] = {
+        allowsMultipleRequests: false,
+        services: []
+      } as LdnServiceByPattern;
+
+      component.ldnServiceByPattern[pattern2.pattern] = {
+        allowsMultipleRequests: false,
+        services: []
+      } as LdnServiceByPattern;
+
+      component.patterns = [pattern1, pattern2];
+
       spyOn(component, 'filterServices').and.callFake((pattern) => {
-        return of(
-          services.filter((service) =>
-            component.hasInboundPattern(service, pattern)
-          )
-        );
+        return of(services);
       });
     });
 
     it('should initialize the selected services by pattern', () => {
-      component.patterns = [pattern1, pattern2];
       component.initSelectedServicesByPattern();
 
-      expect(component.ldnServiceByPattern[pattern1]).toEqual([null]);
-      expect(component.ldnServiceByPattern[pattern2]).toEqual([null]);
+      expect(component.ldnServiceByPattern[pattern1.pattern].services).toEqual([null]);
+      expect(component.ldnServiceByPattern[pattern2.pattern].services).toEqual([null]);
     });
 
     it('should add the service to the selected services by pattern if the section data has a value for the pattern', () => {
-      component.patterns = [pattern1, pattern2];
-      component.sectionData.data[pattern1] = [service1.id, service3.id];
-      component.sectionData.data[pattern2] = [service2.id, service3.id];
+      component.sectionData.data[pattern1.pattern] = [service1, service3];
+      component.sectionData.data[pattern2.pattern] = [service2, service3];
       component.initSelectedServicesByPattern();
 
-      expect(component.ldnServiceByPattern[pattern1]).toEqual([
+      expect(component.ldnServiceByPattern[pattern1.pattern].services).toEqual([
         service1,
         service3,
       ]);
-      expect(component.ldnServiceByPattern[pattern2]).toEqual([
+      expect(component.ldnServiceByPattern[pattern2.pattern].services).toEqual([
         service2,
         service3,
       ]);
@@ -261,62 +287,70 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   });
 
   describe('addService', () => {
-    const pattern = 'review';
+    const ldnPattern = {pattern: 'review', multipleRequest: false};
     const service: any = {
       id: 1,
       name: 'service1',
-      notifyServiceInboundPatterns: [{ pattern: pattern }],
+      notifyServiceInboundPatterns: [{ pattern: ldnPattern.pattern }],
     };
 
     beforeEach(() => {
-      component.ldnServiceByPattern[pattern] = [];
+      component.ldnServiceByPattern[ldnPattern.pattern] = {
+        allowsMultipleRequests: false,
+        services: []
+      } as LdnServiceByPattern;
     });
 
     it('should push the new service to the array corresponding to the pattern', () => {
-      component.addService(pattern, service);
+      component.addService(ldnPattern, service);
 
-      expect(component.ldnServiceByPattern[pattern]).toEqual([service]);
+      expect(component.ldnServiceByPattern[ldnPattern.pattern].services).toEqual([service]);
     });
   });
 
   describe('removeService', () => {
-    const pattern = 'review';
+    const ldnPattern = {pattern: 'review', multipleRequest: false};
     const service1: LdnService = Object.assign(new LdnService(), {
       id: 1,
       name: 'service1',
       notifyServiceInboundPatterns: [
         Object.assign(new NotifyServicePattern(), {
-          pattern: pattern,
+          pattern: ldnPattern.pattern,
         }),
       ],
     });
     const service2: LdnService = Object.assign(new LdnService(), {
-      id: 1,
-      name: 'service1',
+      id: 2,
+      name: 'service2',
       notifyServiceInboundPatterns: [
         Object.assign(new NotifyServicePattern(), {
-          pattern: pattern,
+          pattern: ldnPattern.pattern,
         }),
       ],
     });
     const service3: LdnService = Object.assign(new LdnService(), {
-      id: 1,
-      name: 'service1',
+      id: 3,
+      name: 'service3',
       notifyServiceInboundPatterns: [
         Object.assign(new NotifyServicePattern(), {
-          pattern: pattern,
+          pattern: ldnPattern.pattern,
         }),
       ],
     });
 
     beforeEach(() => {
-      component.ldnServiceByPattern[pattern] = [service1, service2, service3];
+      component.ldnServiceByPattern[ldnPattern.pattern] = {
+        allowsMultipleRequests: false,
+        services: []
+      } as LdnServiceByPattern;
     });
 
-    it('should remove the service at the specified index from the array corresponding to the pattern', () => {
-      component.removeService(pattern, 1);
 
-      expect(component.ldnServiceByPattern[pattern]).toEqual([
+    it('should remove the service at the specified index from the array corresponding to the pattern', () => {
+      component.ldnServiceByPattern[ldnPattern.pattern].services = [service1, service2, service3];
+      component.removeService(ldnPattern, 1);
+
+      expect(component.ldnServiceByPattern[ldnPattern.pattern].services).toEqual([
         service1,
         service3,
       ]);

@@ -125,7 +125,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     if (!this.previousServices[pattern]) {
       this.previousServices[pattern] = {
         services: [],
-        allowsMultipleRequests: this.patterns[pattern]?.multipleRequest
+        allowsMultipleRequests: this.patterns.find(ldnPattern => ldnPattern.pattern === pattern)?.multipleRequest
       };
     }
 
@@ -166,7 +166,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
               this.ldnServiceByPattern[ldnPattern.pattern].services = services.filter((service) => {
                 const selection = (this.sectionData.data[ldnPattern.pattern] as LdnService[]).find((s: LdnService) => s.id === service.id);
                 this.addService(ldnPattern, selection);
-                return this.sectionData.data[ldnPattern.pattern].includes(service.id);
+                return this.sectionData.data[ldnPattern.pattern].includes(service);
               });
             })
         );
