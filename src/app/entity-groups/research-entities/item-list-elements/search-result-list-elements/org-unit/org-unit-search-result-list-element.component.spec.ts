@@ -159,7 +159,8 @@ describe('OrgUnitSearchResultListElementComponent', () => {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }), OrgUnitSearchResultListElementComponent, TruncatePipe],
+        }), TruncatePipe],
+    declarations: [OrgUnitSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -170,7 +171,6 @@ describe('OrgUnitSearchResultListElementComponent', () => {
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(OrgUnitSearchResultListElementComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: { imports: [ ThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,]}
     }).compileComponents();
   }));
 

@@ -172,7 +172,8 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe],
+      declarations: [JournalVolumeSearchResultListElementComponent],
       providers: [
         {provide: TruncatableService, useValue: mockTruncatableService},
         {provide: DSONameService, useClass: DSONameServiceMock},

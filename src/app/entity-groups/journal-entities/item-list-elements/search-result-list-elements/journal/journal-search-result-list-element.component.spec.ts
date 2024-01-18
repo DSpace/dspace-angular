@@ -141,7 +141,8 @@ describe('JournalSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot()],
+    imports: [TruncatePipe, TranslateModule.forRoot()],
+    declarations: [JournalSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

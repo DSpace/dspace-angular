@@ -17,9 +17,6 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  ItemGridElementComponent
-} from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import {
   ListableObjectDirective
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import {
@@ -41,6 +38,7 @@ import { NotificationsServiceStub } from '../../../../../shared/testing/notifica
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { ListableModule } from '../../../../../core/shared/listable.module';
 
 describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkspaceItemSearchResultAdminWorkflowGridElementComponent;
@@ -76,7 +74,8 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
-          ItemGridElementComponent, ListableObjectDirective
+          ListableModule,
+          ListableObjectDirective
         ],
         declarations: [WorkspaceItemSearchResultAdminWorkflowGridElementComponent],
         providers: [
@@ -94,11 +93,6 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           { provide: AuthorizationDataService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA]
-      })
-      .overrideComponent(WorkspaceItemSearchResultAdminWorkflowGridElementComponent, {
-        set: {
-          entryComponents: [ItemGridElementComponent]
-        }
       })
       .compileComponents();
   }));

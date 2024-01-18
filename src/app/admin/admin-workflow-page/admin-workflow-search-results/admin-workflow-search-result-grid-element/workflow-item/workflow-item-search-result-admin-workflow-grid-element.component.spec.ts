@@ -33,6 +33,7 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { ListableModule } from '../../../../../core/shared/listable.module';
 
 describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
@@ -63,7 +64,8 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        ItemGridElementComponent, ListableObjectDirective
+        ListableObjectDirective,
+        ListableModule
     ],
     declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent],
     providers: [
@@ -80,11 +82,6 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 })
-      .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
-        add: {
-          entryComponents: [ItemGridElementComponent]
-        }
-      })
       .compileComponents();
   }));
 

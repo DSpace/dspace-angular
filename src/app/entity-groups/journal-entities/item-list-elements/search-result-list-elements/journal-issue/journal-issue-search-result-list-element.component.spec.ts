@@ -99,14 +99,8 @@ describe('JournalIssueSearchResultListElementComponent', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalIssueSearchResultListElementComponent, {
-      add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [
-          ThumbnailComponent,
-          ThemedBadgesComponent,
-          TruncatableComponent,
-          TruncatablePartComponent,
-        ]}
-    }).compileComponents();
+      add: { changeDetection: ChangeDetectionStrategy.Default }}
+    ).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
@@ -184,7 +178,8 @@ describe('JournalIssueSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JournalIssueSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot(),],
+    imports: [TruncatePipe, TranslateModule.forRoot(),],
+    declarations: [JournalIssueSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

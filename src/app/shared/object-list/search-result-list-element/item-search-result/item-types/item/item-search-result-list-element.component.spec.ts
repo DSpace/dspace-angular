@@ -221,8 +221,7 @@ describe('ItemSearchResultListElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultListElementComponent, {
-      add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [ThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent] }
+      add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
@@ -396,7 +395,8 @@ describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ItemSearchResultListElementComponent, TruncatePipe, TranslateModule.forRoot()],
+      imports: [TruncatePipe, TranslateModule.forRoot()],
+      declarations: [ItemSearchResultListElementComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

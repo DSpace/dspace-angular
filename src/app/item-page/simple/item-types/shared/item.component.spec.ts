@@ -136,6 +136,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           TruncatePipe,
           AsyncPipe,
         ],
+        declarations: [component],
         providers: [
           {
             provide: APP_CONFIG,
