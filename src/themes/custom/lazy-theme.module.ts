@@ -81,7 +81,7 @@ import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 
-import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
+import { ComcolPageHandleComponent } from './app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 import {
   ExpandableNavbarSectionComponent
@@ -92,7 +92,7 @@ import {
 import { LoadingComponent } from './app/shared/loading/loading.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
-import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
+import { ComcolPageBrowseByComponent } from './app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
 import { CommunityPageSubCommunityListComponent } from './app/community-page/sub-community-list/community-page-sub-community-list.component';
 import { CommunityPageSubCollectionListComponent } from './app/community-page/sub-collection-list/community-page-sub-collection-list.component';
