@@ -155,10 +155,17 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         this.topic = id;
         return this.getQualityAssuranceEvents();
       })
-    ).subscribe((events: QualityAssuranceEventData[]) => {
-      this.eventsUpdated$.next(events);
-      this.isEventPageLoading.next(false);
-    });
+    ).subscribe(
+      {
+        next: (events: QualityAssuranceEventData[]) => {
+          this.eventsUpdated$.next(events);
+          this.isEventPageLoading.next(false);
+        },
+        error: (error) => {
+          this.isEventPageLoading.next(false);
+        }
+      }
+    );
   }
 
   /**
@@ -378,7 +385,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       switchMap((rd: RemoteData<PaginatedList<QualityAssuranceEventObject>>) => {
         if (rd.hasSucceeded) {
           this.totalElements$.next(rd.payload.totalElements);
-          if (rd.payload.totalElements > 0) {
+          if (rd.payload?.page?.length > 0) {
             return this.fetchEvents(rd.payload.page);
           } else {
             return of([]);
