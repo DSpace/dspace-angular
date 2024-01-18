@@ -28,7 +28,7 @@ export class DsoWithdrawnReinstateModalService {
     private notificationsService: NotificationsService,
     protected authorizationService: AuthorizationDataService,
     private translateService: TranslateService,
-    protected qaEventDataService: QualityAssuranceEventDataService
+    protected qaEventDataService: QualityAssuranceEventDataService,
   ) {}
 
   /**
@@ -62,6 +62,7 @@ export class DsoWithdrawnReinstateModalService {
           const message = (correctionType === 'request-withdrawn') ? withdrawnMessage : reinstateMessage;
           this.notificationsService.success(this.translateService.get(message));
           this.authorizationService.invalidateAuthorizationsRequestCache();
+          this.router.navigate([this.router.url]); // refresh page
         } else {
           this.notificationsService.error(this.translateService.get('correction-type.manage-relation.action.notification.error'));
         }

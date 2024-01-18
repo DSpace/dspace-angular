@@ -1,10 +1,10 @@
-<ng-container *ngIf="(getQualityAssuranceSources$() | async)?.length > 0">
-  <ng-container *ngFor="let source of (getQualityAssuranceSources$() | async)">
+<ng-container *ngIf="(sources$ | async) as sources">
+  <ng-container *ngFor="let source of sources">
     <div class="alert alert-info d-flex flex-row" *ngIf="source.totalEvents > 0">
       <div class="w-100 d-flex justify-content-between">
         <div class="pl-4 align-self-center">{{ this.item.isArchived ? ('qa-event-notification.check.notification-withdrawn' | translate)
                                                                     : ('qa-event-notification.check.notification-reinstate' | translate) }} </div>
-        <button [routerLink]="['/admin/notifications/quality-assurance/' + source.id]"
+        <button [routerLink]="[ getQualityAssuranceRoute(), (source.id | dsSplit: ':')[0]]"
                 class="btn btn-primary align-self-center">{{ this.item.isArchived ? ('qa-event-notification-undo-withdrawn.check.button' | translate)
                                                                                   : ('qa-event-notification-undo-reinstate.check.button' | translate) }}</button>
       </div>

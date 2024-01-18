@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { Observable } from 'rxjs';
@@ -6,9 +6,11 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -20,17 +22,40 @@ import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routin
 /**
  * Component for displaying quality assurance event notifications for an item.
  */
-export class QaEventNotificationComponent {
+export class QaEventNotificationComponent implements OnChanges {
   /**
    * The item to display quality assurance event notifications for.
    */
   @Input() item: Item;
+
+  /**
+   * An observable that emits an array of QualityAssuranceSourceObject.
+   */
+  sources$: Observable<QualityAssuranceSourceObject[]>;
   /**
    * The type of alert to display for the notification.
    */
   constructor(
-    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService
-  ) { }
+    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService,
+    private router: Router,
+    private chd: ChangeDetectorRef
+  ) {
+    this.router.events.pipe().subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.sources$ = this.getQualityAssuranceSources$();
+        this.chd.markForCheck();
+      }
+    });
+   }
+
+  /**
+    * Detect changes to the item input and update the sources$ observable.
+   */
+   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.item && changes.item.currentValue.uuid !== changes.item.previousValue?.uuid) {
+      this.sources$ = this.getQualityAssuranceSources$();
+    }
+   }
   /**
    * Returns an Observable of QualityAssuranceSourceObject[] for the current item.
    * @returns An Observable of QualityAssuranceSourceObject[] for the current item.
@@ -40,11 +65,10 @@ export class QaEventNotificationComponent {
     const findListTopicOptions: FindListOptions = {
       searchParams: [new RequestParam('target', this.item.uuid)]
     };
-    return this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions)
+    return this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions, false)
       .pipe(
         getFirstCompletedRemoteData(),
-        tap(console.log),
-        map((data: RemoteData<any>) => {
+        map((data: RemoteData<PaginatedList<QualityAssuranceSourceObject>>) => {
           if (data.hasSucceeded) {
             return data.payload.page;
           }

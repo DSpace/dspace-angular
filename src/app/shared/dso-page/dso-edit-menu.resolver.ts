@@ -193,7 +193,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             {
               id: 'withdrawn-item',
               active: false,
-              visible: dso.isArchived && correction.totalElements > 0,
+              visible: dso.isArchived && correction?.totalElements > 0,
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.withdrawn',
@@ -207,7 +207,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             {
               id: 'reinstate-item',
               active: false,
-              visible: dso.isWithdrawn && correction.totalElements > 0,
+              visible: dso.isWithdrawn && correction?.totalElements > 0,
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.reinstate',
