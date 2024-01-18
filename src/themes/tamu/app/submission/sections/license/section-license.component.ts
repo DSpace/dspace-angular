@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 
 import { AuthService } from '../../../../../../app/core/auth/auth.service';
+import { BitstreamDataService } from '../../../../../../app/core/data/bitstream-data.service';
 import { CollectionDataService } from '../../../../../../app/core/data/collection-data.service';
 import { PaginatedList } from '../../../../../../app/core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../app/core/data/remote-data';
@@ -15,7 +16,7 @@ import { License } from '../../../../../../app/core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/submission/models/workspaceitem-section-license.model';
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../../../../app/core/submission/submission-response-parsing.service';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
+import { isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
 import { FormBuilderService } from '../../../../../../app/shared/form/builder/form-builder.service';
 import { FormService } from '../../../../../../app/shared/form/form.service';
 import { NotificationsService } from '../../../../../../app/shared/notifications/notifications.service';
@@ -28,8 +29,9 @@ import { renderSectionFor } from '../../../../../../app/submission/sections/sect
 import { SectionsType } from '../../../../../../app/submission/sections/sections-type';
 import { SectionsService } from '../../../../../../app/submission/sections/sections.service';
 import { SubmissionService } from '../../../../../../app/submission/submission.service';
-import parseSectionErrors from '../../../../../../app/submission/utils/parseSectionErrors';
 import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -42,6 +44,8 @@ import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
 })
 @renderSectionFor(SectionsType.License)
 export class SubmissionSectionLicenseComponent extends BaseComponent {
+
+  public licenseBitstreams: Observable<PaginatedList<Bitstream>>;
 
   /**
   * The [[DynamicFormLayout]] object
@@ -107,6 +111,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
   constructor(
     private authService: AuthService,
+    private bitstreamService: BitstreamDataService,
     private halEndpointService: HALEndpointService,
     private notificationsService: NotificationsService,
     protected changeDetectorRef: ChangeDetectorRef,
@@ -152,8 +157,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
         })
     );
 
-
-    // get the license by following collection link
+    // get the license by following collection licenses link
     this.collectionDataService.findById(this.collectionId, true, true, followLink('licenses')).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
       take(1),
@@ -201,7 +205,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
           const isProxy = name === 'proxy';
 
-          // temporary workaround to figuring out theming custom dynamic form model component
+          // simple workaround opposed to shimming themed custom dynamic form model component
           setTimeout(() => {
             let children = this.formWrapper.nativeElement.children;
             while (!!children && children.length > 0 && !children[0].classList.contains('tamu-control')) {
@@ -217,6 +221,18 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
             if (isProxy) {
               control.parentNode.insertBefore(this.uploaderWrapper.nativeElement, control.nextSibling);
+
+              this.licenseBitstreams = this.submissionService.retrieveSubmission(this.submissionId).pipe(
+                filter((data: RemoteData<SubmissionObject>) => !!data && data.isSuccess),
+                map((data: RemoteData<SubmissionObject>) => data.payload),
+                switchMap((submission: SubmissionObject) => {
+                  return this.bitstreamService.findAllByItemAndBundleName(submission.item, 'LICENSE', {}, true, true).pipe(
+                    filter((data: RemoteData<PaginatedList<Bitstream>>) => !!data && data.isSuccess),
+                    map((data: RemoteData<PaginatedList<Bitstream>>) => data.payload),
+                  )
+                }));
+
+                this.licenseBitstreams.subscribe(console.log);
             }
 
             control.parentNode.insertBefore(this.licenseWrapper.nativeElement, control.nextSibling);
@@ -243,53 +259,32 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
     });
   }
 
-   /**
-    * Save submission before to upload a file
-    */
-   public onBeforeUpload = () => {
+  /**
+   * Nothing to do here
+   *
+   * @returns empty observable
+   */
+  public onBeforeUpload = () => {
     return of();
-   };
+  };
 
   /**
-   * Parse the submission object retrieved from REST after upload
-   *
-   * @param workspaceitem
-   *    The submission object retrieved from REST
+   * Show success notification on upload successful
    */
   public onCompleteItem(workspaceitem: WorkspaceItem) {
     const { sections } = workspaceitem;
-    const { errors } = workspaceitem;
-    console.log(sections);
-    console.log(errors);
-    const errorsList = parseSectionErrors(errors);
-    console.log(errorsList);
     if (sections && isNotEmpty(sections)) {
       Object.keys(sections)
         .forEach((sectionId) => {
           const sectionData = normalizeSectionData(sections[sectionId]);
-          console.log(sectionData);
-          const sectionErrors = errorsList[sectionId];
-          console.log(sectionErrors);
-          this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.License)
-            .pipe(take(1))
-            .subscribe((isUpload) => {
-              if (isUpload) {
-                // Look for errors on upload
-                if ((isEmpty(sectionErrors))) {
-                  this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
-                } else {
-                  console.log('these', sectionErrors);
-                  this.notificationsService.error(null, this.translateService.get('submission.sections.proxy-license.permission-upload-failed'));
-                }
-              }
-            });
-          this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
+          this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
+          this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData);
         });
     }
   }
 
   /**
-   * Show error notification on upload fails
+   * Show error notification on upload failed
    */
   public onUploadError() {
     this.notificationsService.error(null, this.translateService.get('submission.sections.proxy-license.permission-upload-failed'));
