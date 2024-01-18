@@ -18,7 +18,6 @@ import { ItemPageFieldComponent } from './simple/field-components/specific-field
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
-import { PublicationComponent } from './simple/item-types/publication/publication.component';
 import { ItemComponent } from './simple/item-types/shared/item.component';
 import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
@@ -26,7 +25,6 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import {
   AbstractIncrementalListComponent
 } from './simple/abstract-incremental-list/abstract-incremental-list.component';
-import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MediaViewerComponent } from './media-viewer/media-viewer.component';
@@ -59,11 +57,6 @@ import {
   ThemedFullFileSectionComponent
 } from './full/field-components/file-section/themed-full-file-section.component';
 
-const ENTRY_COMPONENTS = [
-  // put only entry components that use custom decorator
-  PublicationComponent,
-  UntypedItemComponent
-];
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -81,8 +74,6 @@ const DECLARATIONS = [
   CollectionsComponent,
   FullFileSectionComponent,
   ThemedFullFileSectionComponent,
-  PublicationComponent,
-  UntypedItemComponent,
   ItemComponent,
   UploadBitstreamComponent,
   AbstractIncrementalListComponent,
@@ -122,15 +113,5 @@ const DECLARATIONS = [
     ]
 })
 export class ItemPageModule {
-  /**
-   * NOTE: this method allows to resolve issue with components that using a custom decorator
-   * which are not loaded during SSR otherwise
-   */
-  static withEntryComponents() {
-    return {
-      ngModule: ItemPageModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
-    };
-  }
 
 }

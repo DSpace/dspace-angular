@@ -17,16 +17,21 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
-import { MetadataMap  } from '../../../../core/shared/metadata.models';
+import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import {
-  createRelationshipsObservable, getIIIFEnabled, getIIIFSearchEnabled, mockRouteService
+  GenericItemPageFieldComponent
+} from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import {
+  createRelationshipsObservable,
+  getIIIFEnabled,
+  getIIIFSearchEnabled,
+  mockRouteService
 } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
@@ -37,34 +42,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import {
-  BrowseDefinitionDataServiceStub
-} from '../../../../shared/testing/browse-definition-data-service.stub';
+import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import {
-  ThemedResultsBackButtonComponent
-} from '../../../../shared/results-back-button/themed-results-back-button.component';
-import { MiradorViewerComponent } from '../../../mirador-viewer/mirador-viewer.component';
-import {
-  ThemedItemPageTitleFieldComponent
-} from '../../field-components/specific-field/title/themed-item-page-field.component';
-import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  MetadataFieldWrapperComponent
-} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { ThemedMediaViewerComponent } from '../../../media-viewer/themed-media-viewer.component';
-import { ThemedFileSectionComponent } from '../../field-components/file-section/themed-file-section.component';
-import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
-import {
-  ThemedMetadataRepresentationListComponent
-} from '../../metadata-representation-list/themed-metadata-representation-list.component';
-import { RelatedItemsComponent } from '../../related-items/related-items-component';
-import {
-  ItemPageAbstractFieldComponent
-} from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
-import { CollectionsComponent } from '../../../field-components/collections/collections.component';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
 
 const noMetadata = new MetadataMap();
 
@@ -95,8 +76,9 @@ describe('PublicationComponent', () => {
             }
         }),
         RouterTestingModule,
-        PublicationComponent, GenericItemPageFieldComponent, TruncatePipe
+        GenericItemPageFieldComponent, TruncatePipe
     ],
+    declarations: [PublicationComponent],
     providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: mockTruncatableService },
@@ -118,27 +100,11 @@ describe('PublicationComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: APP_CONFIG, useValue: environment },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(PublicationComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: {imports: [
-          ThemedResultsBackButtonComponent,
-          MiradorViewerComponent,
-          ThemedItemPageTitleFieldComponent,
-          DsoEditMenuComponent,
-          MetadataFieldWrapperComponent,
-          ThemedThumbnailComponent,
-          ThemedMediaViewerComponent,
-          ThemedFileSectionComponent,
-          ItemPageDateFieldComponent,
-          ThemedMetadataRepresentationListComponent,
-          GenericItemPageFieldComponent,
-          RelatedItemsComponent,
-          ItemPageAbstractFieldComponent,
-          ItemPageUriFieldComponent,
-          CollectionsComponent,
-        ]}
     });
   }));
 

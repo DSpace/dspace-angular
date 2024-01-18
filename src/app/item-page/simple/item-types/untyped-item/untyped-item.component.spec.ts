@@ -45,29 +45,8 @@ import { ItemVersionsSharedService } from '../../../versions/item-versions-share
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import {
-  ThemedItemPageTitleFieldComponent
-} from '../../field-components/specific-field/title/themed-item-page-field.component';
-import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  MetadataFieldWrapperComponent
-} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { ThemedMediaViewerComponent } from '../../../media-viewer/themed-media-viewer.component';
-import { ThemedFileSectionComponent } from '../../field-components/file-section/themed-file-section.component';
-import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
-import {
-  ThemedMetadataRepresentationListComponent
-} from '../../metadata-representation-list/themed-metadata-representation-list.component';
-import { MiradorViewerComponent } from '../../../mirador-viewer/mirador-viewer.component';
-import {
-  ThemedResultsBackButtonComponent
-} from '../../../../shared/results-back-button/themed-results-back-button.component';
-import { CollectionsComponent } from '../../../field-components/collections/collections.component';
-import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
-import {
-  ItemPageAbstractFieldComponent
-} from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
 
 const noMetadata = new MetadataMap();
 
@@ -98,8 +77,9 @@ describe('UntypedItemComponent', () => {
             }
         }),
         RouterTestingModule,
-        UntypedItemComponent, GenericItemPageFieldComponent, TruncatePipe
+        GenericItemPageFieldComponent, TruncatePipe
     ],
+    declarations: [UntypedItemComponent],
     providers: [
       {provide: ItemDataService, useValue: {}},
       {provide: TruncatableService, useValue: mockTruncatableService},
@@ -113,38 +93,21 @@ describe('UntypedItemComponent', () => {
       {provide: NotificationsService, useValue: {}},
       {provide: HttpClient, useValue: {}},
       {provide: DSOChangeAnalyzer, useValue: {}},
-        { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: VersionHistoryDataService, useValue: {} },
-        { provide: VersionDataService, useValue: {} },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: WorkspaceitemDataService, useValue: {} },
-        { provide: SearchService, useValue: {} },
-        { provide: ItemDataService, useValue: {} },
-        { provide: ItemVersionsSharedService, useValue: {} },
-        { provide: RouteService, useValue: mockRouteService },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+      { provide: DefaultChangeAnalyzer, useValue: {} },
+      { provide: VersionHistoryDataService, useValue: {} },
+      { provide: VersionDataService, useValue: {} },
+      { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+      { provide: WorkspaceitemDataService, useValue: {} },
+      { provide: SearchService, useValue: {} },
+      { provide: ItemDataService, useValue: {} },
+      { provide: ItemVersionsSharedService, useValue: {} },
+      { provide: RouteService, useValue: mockRouteService },
+      { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+      { provide: APP_CONFIG, useValue: environment },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(UntypedItemComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: {
-        imports: [
-          ThemedItemPageTitleFieldComponent,
-          DsoEditMenuComponent,
-          MetadataFieldWrapperComponent,
-          ThemedThumbnailComponent,
-          ThemedMediaViewerComponent,
-          ThemedFileSectionComponent,
-          ItemPageDateFieldComponent,
-          ThemedMetadataRepresentationListComponent,
-          GenericItemPageFieldComponent,
-          MiradorViewerComponent,
-          ThemedResultsBackButtonComponent,
-          CollectionsComponent,
-          ItemPageUriFieldComponent,
-          ItemPageAbstractFieldComponent
-        ]
-      }
     });
   }));
 

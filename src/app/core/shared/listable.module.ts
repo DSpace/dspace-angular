@@ -295,6 +295,23 @@ import {
   WorkflowItemAdminWorkflowActionsComponent
 } from '../../admin/admin-workflow-page/admin-workflow-search-results/actions/workflow-item/workflow-item-admin-workflow-actions.component';
 import { FormsModule } from '@angular/forms';
+import { PublicationComponent } from '../../item-page/simple/item-types/publication/publication.component';
+import { UntypedItemComponent } from '../../item-page/simple/item-types/untyped-item/untyped-item.component';
+import { MiradorViewerComponent } from '../../item-page/mirador-viewer/mirador-viewer.component';
+import { ThemedMediaViewerComponent } from '../../item-page/media-viewer/themed-media-viewer.component';
+import {
+  ThemedFileSectionComponent
+} from '../../item-page/simple/field-components/file-section/themed-file-section.component';
+import {
+  ItemPageDateFieldComponent
+} from '../../item-page/simple/field-components/specific-field/date/item-page-date-field.component';
+import {
+  ItemPageAbstractFieldComponent
+} from '../../item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import {
+  ItemPageUriFieldComponent
+} from '../../item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { CollectionsComponent } from '../../item-page/field-components/collections/collections.component';
 
 
 @NgModule({
@@ -380,6 +397,8 @@ import { FormsModule } from '@angular/forms';
     ClaimedTaskSearchResultDetailElementComponent,
     PoolSearchResultDetailElementComponent,
     ItemSearchResultListElementSubmissionComponent,
+    PublicationComponent,
+    UntypedItemComponent
   ],
   imports: [
     CommonModule,
@@ -415,6 +434,13 @@ import { FormsModule } from '@angular/forms';
     WorkspaceItemAdminWorkflowActionsComponent,
     WorkflowItemAdminWorkflowActionsComponent,
     FormsModule,
+    MiradorViewerComponent,
+    ThemedMediaViewerComponent,
+    ThemedFileSectionComponent,
+    ItemPageDateFieldComponent,
+    ItemPageAbstractFieldComponent,
+    ItemPageUriFieldComponent,
+    CollectionsComponent,
   ]
 })
 export class ListableModule { }
