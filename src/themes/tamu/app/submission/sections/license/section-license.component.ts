@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { ActivatedRoute, Data } from '@angular/router';
+import { Item } from 'src/app/core/shared/item.model';
 import { AuthService } from '../../../../../../app/core/auth/auth.service';
 import { BitstreamDataService } from '../../../../../../app/core/data/bitstream-data.service';
 import { CollectionDataService } from '../../../../../../app/core/data/collection-data.service';
@@ -17,7 +18,6 @@ import { HALEndpointService } from '../../../../../../app/core/shared/hal-endpoi
 import { License } from '../../../../../../app/core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/submission/models/workspaceitem-section-license.model';
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
-import { normalizeSectionData } from '../../../../../../app/core/submission/submission-response-parsing.service';
 import { isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
 import { FormBuilderService } from '../../../../../../app/shared/form/builder/form-builder.service';
 import { FormService } from '../../../../../../app/shared/form/form.service';
@@ -32,7 +32,6 @@ import { SectionsType } from '../../../../../../app/submission/sections/sections
 import { SectionsService } from '../../../../../../app/submission/sections/sections.service';
 import { SubmissionService } from '../../../../../../app/submission/submission.service';
 import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
-import { Item } from 'src/app/core/shared/item.model';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -161,17 +160,12 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
     // observe the proxy bitstream!
     this.proxyLicense = this.activatedRoute.data.pipe(
-      tap(console.log),
       map((data: Data) => data.wsi),
-      tap(console.log),
       filter((wsird: RemoteData<WorkspaceItem>) => !!wsird && wsird.isSuccess),
       map((wsird: RemoteData<WorkspaceItem>) => wsird.payload),
-      tap(console.log),
       switchMap((wi: WorkspaceItem) => wi.item.pipe(
-        tap(console.log),
         filter((ird: RemoteData<Item>) => !!ird && ird.isSuccess),
         map((ird: RemoteData<Item>) => ird.payload),
-        tap(console.log),
         switchMap((item: Item) => this.bitstreamService
           .findAllByItemAndBundleName(item, 'LICENSE', {}, true, true).pipe(
             filter((bplrd: RemoteData<PaginatedList<Bitstream>>) => !!bplrd && bplrd.isSuccess),
@@ -180,10 +174,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
             map((bitstreams: Array<Bitstream>) => bitstreams
               .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION')))))))
     );
-
-    this.proxyLicense.subscribe((bitstream: any) => {
-      console.log('observing the proxy bitstream', bitstream);
-    });
 
     // get the license by following collection licenses link
     this.collectionDataService.findById(this.collectionId, true, true, followLink('licenses')).pipe(
@@ -226,8 +216,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
         (selectionFormControlModel as DynamicRadioGroupModel<string>).valueChanges.pipe(
           filter((name: string) => !!name)
         ).subscribe((name: string) => {
-
-          console.log('select changed', name);
 
           if (name !== (this.sectionData.data as WorkspaceitemSectionLicenseObject).selected) {
             (grantedFormControlModel as DynamicCheckboxModel).value = false;
@@ -290,6 +278,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   public onCompleteItem(workspaceitem: WorkspaceItem) {
     const { sections } = workspaceitem;
     if (sections && isNotEmpty(sections)) {
+      // save the selected license upon successful proxy license upload
       this.submissionService.dispatchSave(this.submissionId, true);
       this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
     }
