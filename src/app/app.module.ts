@@ -33,10 +33,10 @@ import { ThemedRootComponent } from './root/themed-root.component';
 import { workflowTasks } from './core/provide-workflow-tasks';
 import { metadataRepresentations } from './core/provide-metadata-representation';
 import { renderStartsWith } from './core/provide-render-starts-with';
-import { renderBrowseBy } from './core/provide-render-browse-by';
 import { renderAuthMethod } from './core/provide-render-auth-method';
 import { NgxMaskModule } from 'ngx-mask';
 import { ListableModule } from './core/shared/listable.module';
+import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 
 export function getConfig() {
   return environment;
@@ -137,6 +137,6 @@ export class AppModule {
   workflowTasks = workflowTasks;
   metadataRepresentations = metadataRepresentations;
   renderStartsWith = renderStartsWith;
-  renderBrowseBy = renderBrowseBy;
+  browseByDecoratorMap = BROWSE_BY_DECORATOR_MAP;
   renderAuthMethod = renderAuthMethod;
 }
