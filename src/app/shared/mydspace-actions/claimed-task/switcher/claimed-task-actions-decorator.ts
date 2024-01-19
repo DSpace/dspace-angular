@@ -90,13 +90,13 @@ export function rendersAdvancedWorkflowTaskOption(option: string) {
 /**
  * Get the component used for rendering a ClaimedTaskActions page by option type
  */
-export function getComponentByWorkflowTaskOption(option: string) {
+export function getComponentByWorkflowTaskOption(option: string): WorkflowTaskOptionComponent {
   return WORKFLOW_TASK_OPTION_DECORATOR_MAP.get(option);
 }
 
 /**
  * Get the component used for rendering a AdvancedClaimedTaskActions page by option type
  */
-export function getAdvancedComponentByWorkflowTaskOption(option: string) {
+export function getAdvancedComponentByWorkflowTaskOption(option: string): AdvancedWorkflowTaskOptionComponent {
   return ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP.get(option);
 }

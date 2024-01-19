@@ -41,6 +41,7 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SubmissionUploadsConfigService', {
@@ -182,6 +183,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: ThemeService, useValue: getMockThemeService()},
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         SubmissionSectionUploadComponent
     ],

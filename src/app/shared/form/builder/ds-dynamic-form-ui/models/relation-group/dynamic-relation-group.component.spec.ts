@@ -25,10 +25,11 @@ import { FormRowModel } from '../../../../../../core/config/models/config-submis
 import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP, APP_DYNAMIC_FORM_CONTROL_FN } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { provideMockStore } from '@ngrx/store/testing';
+import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -150,6 +151,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         { provide: SubmissionObjectDataService, useValue: {}},
         { provide: SubmissionService, useValue: {}},
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
     ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

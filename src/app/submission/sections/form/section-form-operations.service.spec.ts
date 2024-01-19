@@ -29,7 +29,10 @@ import {
 } from '../../../shared/mocks/form-models.mock';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import {
+  DynamicRowArrayModel
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 describe('SectionFormOperationsService test suite', () => {
   let formBuilderService: any;
@@ -74,6 +77,7 @@ describe('SectionFormOperationsService test suite', () => {
       providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         SectionFormOperationsService
       ]
     }).compileComponents().then();

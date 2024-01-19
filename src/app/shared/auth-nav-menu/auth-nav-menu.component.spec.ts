@@ -17,6 +17,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -68,26 +69,27 @@ describe('AuthNavMenuComponent', () => {
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
-    imports: [
-        NoopAnimationsModule,
-        StoreModule.forRoot(authReducer, {
+        imports: [
+          NoopAnimationsModule,
+          StoreModule.forRoot(authReducer, {
             runtimeChecks: {
-                strictStateImmutability: false,
-                strictActionImmutability: false
+              strictStateImmutability: false,
+              strictActionImmutability: false
             }
-        }),
-        TranslateModule.forRoot(),
-        AuthNavMenuComponent
-    ],
-    providers: [
-        { provide: HostWindowService, useValue: window },
-        { provide: AuthService, useValue: authService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-    ]
-})
+          }),
+          TranslateModule.forRoot(),
+          AuthNavMenuComponent
+        ],
+        providers: [
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+          { provide: HostWindowService, useValue: window },
+          { provide: AuthService, useValue: authService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        ],
+        schemas: [
+          CUSTOM_ELEMENTS_SCHEMA
+        ]
+      })
         .compileComponents();
     }));
 
@@ -260,26 +262,26 @@ describe('AuthNavMenuComponent', () => {
 
       // refine the test module by declaring the test component
       TestBed.configureTestingModule({
-    imports: [
-        NoopAnimationsModule,
-        StoreModule.forRoot(authReducer, {
+        imports: [
+          NoopAnimationsModule,
+          StoreModule.forRoot(authReducer, {
             runtimeChecks: {
-                strictStateImmutability: false,
-                strictActionImmutability: false
+              strictStateImmutability: false,
+              strictActionImmutability: false
             }
-        }),
-        TranslateModule.forRoot(),
-        AuthNavMenuComponent
-    ],
-    providers: [
-        { provide: HostWindowService, useValue: window },
-        { provide: AuthService, useValue: authService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-    ]
-})
+          }),
+          TranslateModule.forRoot(),
+          AuthNavMenuComponent
+        ],
+        providers: [
+          { provide: HostWindowService, useValue: window },
+          { provide: AuthService, useValue: authService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        ],
+        schemas: [
+          CUSTOM_ELEMENTS_SCHEMA
+        ]
+      })
         .compileComponents();
 
     }));

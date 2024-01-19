@@ -1,7 +1,7 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -37,13 +37,16 @@ import { RouterMock } from '../../mocks/router.mock';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { SubmissionObjectDataService } from './../../../core/submission/submission-object-data.service';
-import { SubmissionService } from './../../../submission/submission.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import {
+  DsDynamicTypeBindRelationService
+} from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { SubmissionService } from '../../../submission/submission.service';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP, APP_DYNAMIC_FORM_CONTROL_FN } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 import { NgxMaskModule } from 'ngx-mask';
 import { provideMockStore } from '@ngrx/store/testing';
+import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -208,6 +211,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: SubmissionObjectDataService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
         provideMockStore({})
       ],
       schemas: [

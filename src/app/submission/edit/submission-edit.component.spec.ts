@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -17,7 +17,9 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
+import {
+  SubmissionJsonPatchOperationsServiceStub
+} from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
@@ -27,6 +29,7 @@ import { SectionsServiceStub } from '../../shared/testing/sections-service.stub'
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { provideMockStore } from '@ngrx/store/testing';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -73,6 +76,7 @@ describe('SubmissionEditComponent Component', () => {
         { provide: HALEndpointService, useValue: halService },
         { provide: SectionsService, useValue: new SectionsServiceStub() },
         { provide: ThemeService, useValue: themeService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         provideMockStore()
     ],
     schemas: [NO_ERRORS_SCHEMA]

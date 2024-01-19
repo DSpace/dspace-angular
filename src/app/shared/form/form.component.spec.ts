@@ -25,6 +25,7 @@ import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 
 let TEST_FORM_MODEL;
 
@@ -138,7 +139,7 @@ describe('FormComponent test suite', () => {
     init();
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -147,16 +148,17 @@ describe('FormComponent test suite', () => {
         TranslateModule.forRoot(),
         FormComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         DynamicFormValidationService,
         FormBuilderService,
         FormComponent,
         FormService,
         { provide: Store, useClass: StoreMock }
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .overrideComponent(FormComponent, {
         remove: {
@@ -443,18 +445,18 @@ describe('FormComponent test suite', () => {
 
 // declare a test component
 @Component({
-    exportAs: 'formComponent',
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [
-        CommonModule,
-        FormComponent,
-        DsDynamicFormComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        NgbModule,
-        DynamicFormsCoreModule]
+  exportAs: 'formComponent',
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormComponent,
+    DsDynamicFormComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    DynamicFormsCoreModule]
 })
 class TestComponent {
 

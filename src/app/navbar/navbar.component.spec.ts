@@ -29,7 +29,7 @@ import { EPersonMock } from '../shared/testing/eperson.mock';
 import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
-import { BrowseByDataType } from '../browse-by/browse-by-data-type';
+import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;

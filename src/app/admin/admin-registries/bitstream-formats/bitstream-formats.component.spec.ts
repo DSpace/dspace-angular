@@ -30,6 +30,7 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { provideMockStore } from '@ngrx/store/testing';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -120,6 +121,7 @@ describe('BitstreamFormatsComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
       providers: [
         provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
         {provide: HostWindowService, useValue: new HostWindowServiceStub(0)},
         {provide: NotificationsService, useValue: notificationsServiceStub},

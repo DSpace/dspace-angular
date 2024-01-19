@@ -13,17 +13,19 @@ import { of as observableOf } from 'rxjs';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  MetadataFieldWrapperComponent
+} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { APP_CONFIG } from './../../../../../config/app-config.interface';
-import { environment } from './../.././../../../environments/environment';
-import { ThemeService } from './../.././../../shared/theme-support/theme.service';
-import { getMockThemeService } from './../.././../../shared/mocks/theme-service.mock';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from './../.././../../shared/testing/active-router.stub';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 
 describe('FileSectionComponent', () => {
   let comp: FileSectionComponent;
@@ -70,6 +72,7 @@ describe('FileSectionComponent', () => {
         }
       }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe],
       providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: APP_CONFIG, useValue: environment },

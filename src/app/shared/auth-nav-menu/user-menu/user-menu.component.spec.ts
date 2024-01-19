@@ -16,6 +16,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 describe('UserMenuComponent', () => {
 
@@ -74,6 +75,7 @@ describe('UserMenuComponent', () => {
     providers: [
         { provide: AuthService, useValue: authService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
     ],
     schemas: [
         NO_ERRORS_SCHEMA

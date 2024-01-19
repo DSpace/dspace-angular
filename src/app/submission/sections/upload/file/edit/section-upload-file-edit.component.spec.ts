@@ -49,7 +49,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import {
   DsDynamicTypeBindRelationService
 } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
 import { NgxMaskModule } from 'ngx-mask';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
@@ -140,6 +140,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         NgbActiveModal,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).compileComponents().then();

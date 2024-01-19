@@ -38,9 +38,14 @@ import { License } from '../../../core/shared/license.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { cold } from 'jasmine-marbles';
 import { provideMockStore } from '@ngrx/store/testing';
-import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import {
+  DsDynamicTypeBindRelationService
+} from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP, APP_DYNAMIC_FORM_CONTROL_FN } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
+import {
+  dsDynamicFormControlMapFn
+} from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -158,6 +163,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         FormBuilderService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
         SubmissionSectionLicenseComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
