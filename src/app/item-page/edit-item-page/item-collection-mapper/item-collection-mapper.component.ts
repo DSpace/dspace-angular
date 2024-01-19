@@ -148,7 +148,8 @@ export class ItemCollectionMapperComponent implements OnInit {
       switchMap(([itemCollectionsRD, owningCollectionRD, searchOptions]) => {
         return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
           query: this.buildQuery([...itemCollectionsRD.payload.page, owningCollectionRD.payload], searchOptions.query),
-          dsoTypes: [DSpaceObjectType.COLLECTION]
+          dsoTypes: [DSpaceObjectType.COLLECTION],
+          configuration: 'communityorCollection',
         }), 10000).pipe(
           toDSpaceObjectListRD(),
           startWith(undefined)
