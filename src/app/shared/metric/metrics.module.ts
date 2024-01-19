@@ -19,6 +19,7 @@ import { MetricBadgesComponent } from '../object-list/metric-badges/metric-badge
 import { MetricDonutsComponent } from '../object-list/metric-donuts/metric-donuts.component';
 import { FormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../directives/directives.module';
+import { BrowserKlaroService } from '../cookies/browser-klaro.service';
 
 const PIPES = [
   MetricStyleConfigPipe,
@@ -45,6 +46,10 @@ const COMPONENTS = [
   MetricDefaultComponent
 ];
 
+const PROVIDERS = [
+  BrowserKlaroService
+];
+
 @NgModule({
   declarations: [
     ...PIPES,
@@ -56,6 +61,9 @@ const COMPONENTS = [
       missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
       useDefaultLang: true
     }),
+  ],
+  providers: [
+    ...PROVIDERS
   ],
   exports: [
     ...COMPONENTS,

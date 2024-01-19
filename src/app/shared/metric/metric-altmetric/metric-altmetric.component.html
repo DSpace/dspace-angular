@@ -1,5 +1,5 @@
 <div class="row d-flex align-items-center"
-     *ngIf="!failed && !(isHidden$ | async) && (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)">
+     *ngIf="!failed && canLoadScript && !(isHidden$ | async) && (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)">
   <div class="col-5 text-left">
     <div #metricChild>
       <div
@@ -20,4 +20,7 @@
       {{ metric.metricType | translate }}
     </div>
   </div>
+</div>
+<div role="button" class="col-7" (click)="requestSettingsConsent.emit(true)" *ngIf="!canLoadScript">
+  {{ "third-party-metrics-cookies.message" | translate: {metricType: metric.metricType | titlecase} }}
 </div>

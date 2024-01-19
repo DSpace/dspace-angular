@@ -1,4 +1,4 @@
-<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && !(isHidden$ | async)">
+<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && canLoadScript && !(isHidden$ | async)">
   <div [ngSwitch]="(remark | dsListMetricProps: 'type':isListElement)" [class.person-type-plumX]="isListElement">
     <ng-container *ngSwitchCase="'Person'">
       <a *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
@@ -30,4 +30,7 @@
       >{{ remark | dsListMetricProps: "placeholder":isListElement }}</a>
     </ng-container>
   </div>
+</div>
+<div role="button" class="col-7" (click)="requestSettingsConsent.emit(true)" *ngIf="!canLoadScript">
+  {{ "third-party-metrics-cookies.message" | translate: {metricType: metric.metricType | titlecase} }}
 </div>
