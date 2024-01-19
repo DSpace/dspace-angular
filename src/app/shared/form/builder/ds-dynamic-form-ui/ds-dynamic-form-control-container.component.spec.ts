@@ -79,7 +79,11 @@ import { FormService } from '../../form.service';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { FormBuilderService } from '../form-builder.service';
 import { NgxMaskModule } from 'ngx-mask';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  APP_DYNAMIC_FORM_CONTROL_FN
+} from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';
 
@@ -235,7 +239,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
           }
         },
         { provide: NgZone, useValue: new NgZone({}) },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {
@@ -243,6 +249,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
 
       const ngZone = TestBed.inject(NgZone);
+
 
       // eslint-disable-next-line @typescript-eslint/ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());

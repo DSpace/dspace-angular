@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ThemeService } from '../../../theme-support/theme.service';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
@@ -65,7 +65,8 @@ describe('ListableObjectComponentLoaderComponent', () => {
       },
         provideMockStore({}),
         { provide: ThemeService, useValue: getMockThemeService('dspace') },
-        { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } }
+        { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {

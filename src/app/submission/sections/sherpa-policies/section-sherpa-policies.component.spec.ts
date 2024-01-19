@@ -21,6 +21,7 @@ import { MetadataInformationComponent } from './metadata-information/metadata-in
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 describe('SubmissionSectionSherpaPoliciesComponent', () => {
   let component: SubmissionSectionSherpaPoliciesComponent;
@@ -74,6 +75,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
         { provide: Store, useValue: storeStub },
         { provide: 'sectionDataProvider', useValue: sectionData },
         { provide: 'submissionIdProvider', useValue: '1508' },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
     ]
 })
         .overrideComponent(SubmissionSectionSherpaPoliciesComponent, {

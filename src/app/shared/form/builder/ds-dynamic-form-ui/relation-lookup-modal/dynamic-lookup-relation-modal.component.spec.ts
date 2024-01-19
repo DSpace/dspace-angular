@@ -25,6 +25,7 @@ import { WorkspaceItem } from '../../../../../core/submission/models/workspaceit
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
+import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -129,6 +130,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
             }
         },
         { provide: NgZone, useValue: new NgZone({}) },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         NgbActiveModal,
         provideMockStore()
     ],

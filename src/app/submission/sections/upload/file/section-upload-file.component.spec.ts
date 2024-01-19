@@ -12,8 +12,12 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import {
+  SubmissionJsonPatchOperationsServiceStub
+} from '../../../../shared/testing/submission-json-patch-operations-service.stub';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import {
@@ -35,7 +39,7 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
-
+import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 
 
 const configMetadataFormMock = {
@@ -97,6 +101,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,

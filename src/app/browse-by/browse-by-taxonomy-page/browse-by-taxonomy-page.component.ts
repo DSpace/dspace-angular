@@ -1,13 +1,11 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { BROWSE_BY_COMPONENT_FACTORY } from '../browse-by-switcher/browse-by-decorator';
 import { map } from 'rxjs/operators';
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -69,14 +67,12 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
   browseByComponentSubs: Subscription[] = [];
 
   public constructor( protected route: ActivatedRoute,
-                      protected themeService: ThemeService,
-                      @Inject(BROWSE_BY_COMPONENT_FACTORY) private getComponentByBrowseByType: (browseByType, theme) => GenericConstructor<any>) {
+                      protected themeService: ThemeService) {
   }
 
   ngOnInit(): void {
     this.browseByComponent = this.route.data.pipe(
       map((data: { browseDefinition: BrowseDefinition }) => {
-        this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName());
         return data.browseDefinition;
       })
     );

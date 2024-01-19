@@ -39,12 +39,17 @@ import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
 import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
 import { provideMockStore } from '@ngrx/store/testing';
-import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  DsDynamicTypeBindRelationService
+} from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { SubmissionService } from '../../submission.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP, APP_DYNAMIC_FORM_CONTROL_FN } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 import { CommonModule } from '@angular/common';
+import {
+  dsDynamicFormControlMapFn
+} from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -116,6 +121,8 @@ describe('SubmissionSectionAccessesComponent', () => {
         { provide: SubmissionObjectDataService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
         FormBuilderService,
         provideMockStore({})
     ]
@@ -133,7 +140,6 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
       fixture.detectChanges();
     }));
-
 
     it('should create', () => {
       expect(component).toBeTruthy();
@@ -187,8 +193,6 @@ describe('SubmissionSectionAccessesComponent', () => {
 
   describe('when canDescoverable is false', () => {
 
-
-
     beforeEach(async () => {
       formService = getMockFormService();
       await TestBed.configureTestingModule({
@@ -213,6 +217,8 @@ describe('SubmissionSectionAccessesComponent', () => {
         { provide: SubmissionObjectDataService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
         FormBuilderService,
         provideMockStore({})
 

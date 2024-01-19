@@ -39,6 +39,7 @@ import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sid
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -229,7 +230,8 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         {
             provide: SEARCH_CONFIG_SERVICE,
             useValue: searchConfigurationServiceStub
-        }
+        },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(compType, {

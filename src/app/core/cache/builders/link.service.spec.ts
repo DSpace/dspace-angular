@@ -11,6 +11,7 @@ import { isEmpty } from 'rxjs/operators';
 import { FindListOptions } from '../../data/find-list-options.model';
 import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
 import { of } from 'rxjs';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 const TEST_MODEL = new ResourceType('authorization');
 let result: any;
@@ -48,6 +49,9 @@ let testDataService: TestDataService = new TestDataService();
 
 let testModel: TestModel;
 
+const mockMap = {
+  [TEST_MODEL.value]: () => new Promise((resolve) => resolve(TestDataService))
+};
 describe('LinkService', () => {
   let service: LinkService;
   beforeEach(() => {
@@ -95,7 +99,10 @@ describe('LinkService', () => {
             propertyName: 'successor',
           }
         ]),
-      }]
+      }, {
+          provide: APP_DATA_SERVICES_MAP,
+          useValue: mockMap
+        }]
     });
     service = TestBed.inject(LinkService);
     testDataService = TestBed.inject(TestDataService);

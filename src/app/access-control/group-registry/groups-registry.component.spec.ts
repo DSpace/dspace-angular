@@ -37,6 +37,7 @@ import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 
 describe('GroupsRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -191,6 +192,7 @@ describe('GroupsRegistryComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         provideMockStore(),
     ],
     schemas: [NO_ERRORS_SCHEMA]
