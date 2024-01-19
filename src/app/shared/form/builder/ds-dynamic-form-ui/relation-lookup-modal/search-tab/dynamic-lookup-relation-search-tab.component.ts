@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';

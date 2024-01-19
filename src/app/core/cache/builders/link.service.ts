@@ -1,4 +1,4 @@
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Injector } from '@angular/core';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
@@ -10,7 +10,8 @@ import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { lazyService } from '../../lazy-service';
 import { catchError, switchMap } from 'rxjs/operators';
-import { LAZY_DATA_SERVICES } from '../../data-services-map';
+import { APP_DATA_SERVICES_MAP, LazyDataServicesMap } from '../../../../config/app-config.interface';
+
 
 /**
  * A Service to handle the resolving and removing
@@ -21,6 +22,7 @@ export class LinkService {
 
   constructor(
     protected injector: Injector,
+    @Inject(APP_DATA_SERVICES_MAP) private map: InjectionToken<LazyDataServicesMap>,
     @Inject(LINK_DEFINITION_FACTORY) private getLinkDefinition: <T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>,
     @Inject(LINK_DEFINITION_MAP_FACTORY) private getLinkDefinitions: <T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>,
   ) {
@@ -50,7 +52,7 @@ export class LinkService {
   public resolveLinkWithoutAttaching<T extends HALResource, U extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): Observable<RemoteData<U | PaginatedList<U>>> {
     const matchingLinkDef = this.getLinkDefinition(model.constructor, linkToFollow.name);
     if (hasValue(matchingLinkDef)) {
-      const lazyProvider$: Observable<HALDataService<any>> = lazyService(LAZY_DATA_SERVICES[matchingLinkDef.resourceType.value], this.injector);
+      const lazyProvider$: Observable<HALDataService<any>> = lazyService(this.map[matchingLinkDef.resourceType.value], this.injector);
       return lazyProvider$.pipe(
         switchMap((provider: HALDataService<any>) => {
             const link = model._links[matchingLinkDef.linkName];

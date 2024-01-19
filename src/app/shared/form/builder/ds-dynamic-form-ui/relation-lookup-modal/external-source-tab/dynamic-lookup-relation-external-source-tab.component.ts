@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ComponentRef } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
+import { Component, ComponentRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Router } from '@angular/router';
 import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
@@ -15,8 +15,12 @@ import { fadeIn, fadeInOut } from '../../../../../animations/fade';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
-import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import {
+  ExternalSourceEntryImportModalComponent
+} from './external-source-entry-import-modal/external-source-entry-import-modal.component';
+import {
+  ThemedExternalSourceEntryImportModalComponent
+} from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 import { hasValue, hasValueOperator } from '../../../../../empty.util';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { Item } from '../../../../../../core/shared/item.model';

@@ -13,13 +13,7 @@ import {
   ThemedBrowseByTaxonomyPageComponent
 } from '../browse-by-taxonomy-page/themed-browse-by-taxonomy-page.component';
 import { ThemedBrowseByTitlePageComponent } from '../browse-by-title-page/themed-browse-by-title-page.component';
-
-export enum BrowseByDataType {
-  Title = 'title',
-  Metadata = 'text',
-  Date = 'date',
-  Hierarchy = 'hierarchy'
-}
+import { BrowseByDataType } from './browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 

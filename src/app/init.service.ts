@@ -10,7 +10,7 @@ import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { APP_INITIALIZER, Inject, Provider, Type } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
-import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP, AppConfig } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import isEqual from 'lodash/isEqual';
@@ -24,6 +24,7 @@ import { isAuthenticationBlocking } from './core/auth/selectors';
 import { distinctUntilChanged, find } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MenuService } from './shared/menu/menu.service';
+import { LAZY_DATA_SERVICES } from './core/data-services-map';
 
 /**
  * Performs the initialization of the app.
@@ -89,6 +90,10 @@ export abstract class InitService {
         useFactory: (initService: InitService) => initService.init(),
         deps: [ InitService ],
         multi: true,
+      },
+      {
+        provide: APP_DATA_SERVICES_MAP,
+        useValue: LAZY_DATA_SERVICES,
       },
     ];
   }

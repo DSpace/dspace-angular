@@ -1,7 +1,7 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { SortOption } from './sort-option.model';
 import { BrowseDefinition } from './browse-definition.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-data-type';
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 
 /**
  * Super class for NonHierarchicalBrowseDefinition models,

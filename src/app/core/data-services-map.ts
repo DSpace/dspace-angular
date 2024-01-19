@@ -46,8 +46,6 @@ import { VERSION } from './shared/version.resource-type';
 import { FEATURE } from './shared/feature.resource-type';
 import { DSPACE_OBJECT } from './shared/dspace-object.resource-type';
 import { BITSTREAM_FORMAT } from './shared/bitstream-format.resource-type';
-import { Type } from '@angular/core';
-import { HALDataService } from './data/base/hal-data-service.interface';
 import { SYSTEMWIDEALERT } from '../system-wide-alert/system-wide-alert.resource-type';
 import {
   ACCESS_STATUS
@@ -56,8 +54,9 @@ import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resour
 import { SCRIPT } from '../process-page/scripts/script.resource-type';
 import { PROCESS } from '../process-page/processes/process.resource-type';
 import { IDENTIFIERS } from '../shared/object-list/identifier-data/identifier-data.resource-type';
+import { LazyDataServicesMap } from '../../config/app-config.interface';
 
-export const LAZY_DATA_SERVICES: {[key: string]: () => Promise<Type<HALDataService<any>>>} = {
+export const LAZY_DATA_SERVICES: LazyDataServicesMap = {
   [AUTHORIZATION.value]: () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService),
   [BROWSE_DEFINITION.value]: () => import('./browse/browse-definition-data.service').then(m => m.BrowseDefinitionDataService),
   [BULK_ACCESS_CONDITION_OPTIONS.value]: () => import('./config/bulk-access-config-data.service').then(m => m.BulkAccessConfigDataService),
