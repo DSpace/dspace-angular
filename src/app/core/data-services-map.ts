@@ -23,8 +23,8 @@ import { BUNDLE } from './shared/bundle.resource-type';
 import { CONFIG_PROPERTY } from './shared/config-property.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.resource-type';
-import { WorkspaceItem } from './submission/models/workspaceitem.model';
-import { WorkflowItem } from './submission/models/workflowitem.model';
+import { WORKSPACEITEM } from './eperson/models/workspaceitem.resource-type';
+import { WORKFLOWITEM } from './eperson/models/workflowitem.resource-type';
 import { SUBMISSION_CC_LICENSE_URL } from './submission/models/submission-cc-licence-link.resource-type';
 import { SUBMISSION_CC_LICENSE } from './submission/models/submission-cc-licence.resource-type';
 import { RESOURCE_POLICY } from './resource-policy/models/resource-policy.resource-type';
@@ -80,8 +80,8 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = {
   [POOL_TASK.value]: () => import('./tasks/pool-task-data.service').then(m => m.PoolTaskDataService),
   [CLAIMED_TASK.value]: () => import('./tasks/claimed-task-data.service').then(m => m.ClaimedTaskDataService),
   [SUPERVISION_ORDER.value]: () => import('./supervision-order/supervision-order-data.service').then(m => m.SupervisionOrderDataService),
-  [WorkspaceItem.type.value]: () => import('./submission/workspaceitem-data.service').then(m => m.WorkspaceitemDataService),
-  [WorkflowItem.type.value]: () => import('./submission/workflowitem-data.service').then(m => m.WorkflowItemDataService),
+  [WORKSPACEITEM.value]: () => import('./submission/workspaceitem-data.service').then(m => m.WorkspaceitemDataService),
+  [WORKFLOWITEM.value]: () => import('./submission/workflowitem-data.service').then(m => m.WorkflowItemDataService),
   [VOCABULARY.value]: () => import('./submission/vocabularies/vocabulary.data.service').then(m => m.VocabularyDataService),
   [VOCABULARY_ENTRY_DETAIL.value]: () => import('./submission/vocabularies/vocabulary-entry-details.data.service').then(m => m.VocabularyEntryDetailsDataService),
   [SUBMISSION_CC_LICENSE_URL.value]: () => import('./submission/submission-cc-license-url-data.service').then(m => m.SubmissionCcLicenseUrlDataService),

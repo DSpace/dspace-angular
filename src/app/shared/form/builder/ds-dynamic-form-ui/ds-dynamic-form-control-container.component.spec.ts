@@ -1,6 +1,6 @@
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
 
@@ -25,7 +25,9 @@ import {
   DynamicSliderModel,
   DynamicSwitchModel,
   DynamicTextAreaModel,
-  DynamicTimePickerModel, MATCH_VISIBLE, OR_OPERATOR
+  DynamicTimePickerModel,
+  MATCH_VISIBLE,
+  OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -39,10 +41,7 @@ import {
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
-} from './ds-dynamic-form-control-container.component';
+import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
@@ -55,7 +54,9 @@ import { DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
 import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
 import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
-import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import {
+  DsDynamicScrollableDropdownComponent
+} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -80,6 +81,7 @@ import { FormBuilderService } from '../form-builder.service';
 import { NgxMaskModule } from 'ngx-mask';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
+import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
