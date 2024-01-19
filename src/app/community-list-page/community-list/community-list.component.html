@@ -35,9 +35,7 @@
       </button>
       <div class="d-flex flex-row">
         <span class="align-middle pt-2 lead">
-          <a [routerLink]="node.route" class="lead">
-            {{ dsoNameService.getName(node.payload) }}
-          </a>
+          <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
           <span class="pr-2">&nbsp;</span>
           <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead">{{node.payload.archivedItemsCount}}</span>
         </span>
@@ -73,9 +71,7 @@
         <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
       </button>
       <h6 class="align-middle pt-2">
-        <a [routerLink]="node.route" class="lead">
-          {{ dsoNameService.getName(node.payload) }}
-        </a>
+        <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
       </h6>
     </div>
     <ds-truncatable [id]="node.id">

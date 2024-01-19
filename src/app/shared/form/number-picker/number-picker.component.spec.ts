@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { NumberPickerComponent } from './number-picker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { createTestComponent } from '../../testing/utils.test';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('NumberPickerComponent test suite', () => {
 
@@ -24,6 +25,7 @@ describe('NumberPickerComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
+        TranslateModule.forRoot(),
         NumberPickerComponent,
         TestComponent
     ],
@@ -40,7 +42,6 @@ describe('NumberPickerComponent test suite', () => {
   beforeEach(() => {
     html = `
       <ds-number-picker
-        tabindex="1"
         [disabled]="disabled"
         [min]="min"
         [max]="max"
