@@ -32,27 +32,41 @@ import {
   AdvancedClaimedTaskActionSelectReviewerComponent
 } from '../select-reviewer/advanced-claimed-task-action-select-reviewer.component';
 
-const workflowOptions = new Map();
-const advancedWorkflowOptions = new Map();
+export type WorkflowTaskOptionComponent =
+  typeof ClaimedTaskActionsApproveComponent |
+  typeof ClaimedTaskActionsDeclineTaskComponent |
+  typeof ClaimedTaskActionsEditMetadataComponent |
+  typeof AdvancedClaimedTaskActionRatingComponent |
+  typeof ClaimedTaskActionsRejectComponent |
+  typeof ClaimedTaskActionsReturnToPoolComponent |
+  typeof AdvancedClaimedTaskActionSelectReviewerComponent;
 
-workflowOptions.set(WORKFLOW_TASK_OPTION_APPROVE, ClaimedTaskActionsApproveComponent);
-workflowOptions.set(WORKFLOW_TASK_OPTION_DECLINE_TASK, ClaimedTaskActionsDeclineTaskComponent);
-workflowOptions.set(WORKFLOW_TASK_OPTION_EDIT_METADATA, ClaimedTaskActionsEditMetadataComponent);
-workflowOptions.set(ADVANCED_WORKFLOW_TASK_OPTION_RATING, AdvancedClaimedTaskActionRatingComponent);
-workflowOptions.set(WORKFLOW_TASK_OPTION_REJECT, ClaimedTaskActionsRejectComponent);
-workflowOptions.set(WORKFLOW_TASK_OPTION_RETURN_TO_POOL, ClaimedTaskActionsReturnToPoolComponent);
-workflowOptions.set(ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedClaimedTaskActionSelectReviewerComponent);
+export type AdvancedWorkflowTaskOptionComponent =
+  typeof AdvancedWorkflowActionRatingComponent |
+  typeof AdvancedWorkflowActionSelectReviewerComponent;
 
-advancedWorkflowOptions.set(ADVANCED_WORKFLOW_TASK_OPTION_RATING, AdvancedWorkflowActionRatingComponent);
-advancedWorkflowOptions.set(ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedWorkflowActionSelectReviewerComponent);
+export const WORKFLOW_TASK_OPTION_DECORATOR_MAP = new Map<string, WorkflowTaskOptionComponent>([
+  [WORKFLOW_TASK_OPTION_APPROVE, ClaimedTaskActionsApproveComponent],
+  [WORKFLOW_TASK_OPTION_DECLINE_TASK, ClaimedTaskActionsDeclineTaskComponent],
+  [WORKFLOW_TASK_OPTION_EDIT_METADATA, ClaimedTaskActionsEditMetadataComponent],
+  [ADVANCED_WORKFLOW_TASK_OPTION_RATING, AdvancedClaimedTaskActionRatingComponent],
+  [WORKFLOW_TASK_OPTION_REJECT, ClaimedTaskActionsRejectComponent],
+  [WORKFLOW_TASK_OPTION_RETURN_TO_POOL, ClaimedTaskActionsReturnToPoolComponent],
+  [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedClaimedTaskActionSelectReviewerComponent]
+]);
+
+export const ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP = new Map<string, AdvancedWorkflowTaskOptionComponent>([
+  [ADVANCED_WORKFLOW_TASK_OPTION_RATING, AdvancedWorkflowActionRatingComponent],
+  [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedWorkflowActionSelectReviewerComponent]
+]);
 
 /**
  * Decorator used for rendering ClaimedTaskActions pages by option type
  */
 export function rendersWorkflowTaskOption(option: string) {
   return function decorator(component: any) {
-    if (hasNoValue(workflowOptions.get(option))) {
-      workflowOptions.set(option, component);
+    if (hasNoValue(WORKFLOW_TASK_OPTION_DECORATOR_MAP.get(option))) {
+      WORKFLOW_TASK_OPTION_DECORATOR_MAP.set(option, component);
     } else {
       throw new Error(`There can't be more than one component to render ClaimedTaskActions for option "${option}"`);
     }
@@ -64,8 +78,8 @@ export function rendersWorkflowTaskOption(option: string) {
  */
 export function rendersAdvancedWorkflowTaskOption(option: string) {
   return function decorator(component: any) {
-    if (hasNoValue(advancedWorkflowOptions.get(option))) {
-      advancedWorkflowOptions.set(option, component);
+    if (hasNoValue(ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP.get(option))) {
+      ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP.set(option, component);
     } else {
       throw new Error(`There can't be more than one component to render AdvancedClaimedTaskActions for option "${option}"`);
     }
@@ -76,12 +90,12 @@ export function rendersAdvancedWorkflowTaskOption(option: string) {
  * Get the component used for rendering a ClaimedTaskActions page by option type
  */
 export function getComponentByWorkflowTaskOption(option: string) {
-  return workflowOptions.get(option);
+  return WORKFLOW_TASK_OPTION_DECORATOR_MAP.get(option);
 }
 
 /**
  * Get the component used for rendering a AdvancedClaimedTaskActions page by option type
  */
 export function getAdvancedComponentByWorkflowTaskOption(option: string) {
-  return advancedWorkflowOptions.get(option);
+  return ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP.get(option);
 }

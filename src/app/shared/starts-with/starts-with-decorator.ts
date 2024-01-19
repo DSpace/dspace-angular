@@ -1,8 +1,6 @@
 import { StartsWithDateComponent } from './date/starts-with-date.component';
 import { StartsWithTextComponent } from './text/starts-with-text.component';
 
-const startsWithMap = new Map();
-
 /**
  * An enum that defines the type of StartsWith options
  */
@@ -11,9 +9,11 @@ export enum StartsWithType {
   date = 'Date'
 }
 
-startsWithMap.set(StartsWithType.text, StartsWithTextComponent);
-startsWithMap.set(StartsWithType.date, StartsWithDateComponent);
-
+type StartsWithComponentType = typeof StartsWithDateComponent | typeof StartsWithTextComponent;
+export const STARTS_WITH_DECORATOR_MAP = new Map<StartsWithType, StartsWithComponentType>([
+  [StartsWithType.text,StartsWithTextComponent],
+  [StartsWithType.date,StartsWithDateComponent],
+]);
 
 /**
  * Fetch a decorator to render a StartsWith component for type
@@ -24,7 +24,7 @@ export function renderStartsWithFor(type: StartsWithType) {
     if (!objectElement) {
       return;
     }
-    startsWithMap.set(type, objectElement);
+    STARTS_WITH_DECORATOR_MAP.set(type, objectElement);
   };
 }
 
@@ -33,5 +33,5 @@ export function renderStartsWithFor(type: StartsWithType) {
  * @param type
  */
 export function getStartsWithComponent(type: StartsWithType) {
-  return startsWithMap.get(type);
+  return STARTS_WITH_DECORATOR_MAP.get(type);
 }

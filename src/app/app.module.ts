@@ -30,13 +30,18 @@ import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
 import { models, provideCore } from './core/provide-core';
 import { ThemedRootComponent } from './root/themed-root.component';
-import { workflowTasks } from './core/provide-workflow-tasks';
-import { metadataRepresentations } from './core/provide-metadata-representation';
-import { renderStartsWith } from './core/provide-render-starts-with';
 import { NgxMaskModule } from 'ngx-mask';
 import { ListableModule } from './core/shared/listable.module';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
+import { STARTS_WITH_DECORATOR_MAP } from './shared/starts-with/starts-with-decorator';
+import {
+  ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP,
+  WORKFLOW_TASK_OPTION_DECORATOR_MAP
+} from './shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
+import {
+  METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP
+} from './shared/metadata-representation/metadata-representation.decorator';
 
 export function getConfig() {
   return environment;
@@ -134,9 +139,10 @@ export class AppModule {
 
   /* Use models object so all decorators are actually called */
   modelList = models;
-  workflowTasks = workflowTasks;
-  metadataRepresentations = metadataRepresentations;
-  renderStartsWith = renderStartsWith;
+  workflowTasks = WORKFLOW_TASK_OPTION_DECORATOR_MAP;
+  advancedWorfklowTasks = ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP;
+  metadataRepresentations = METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP;
+  startsWithDecoratorMap = STARTS_WITH_DECORATOR_MAP;
   browseByDecoratorMap = BROWSE_BY_DECORATOR_MAP;
   authMethodForDecoratorMap = AUTH_METHOD_FOR_DECORATOR_MAP;
 }
