@@ -20,8 +20,8 @@
       [image]="(thumbnailsRD$ | async)?.payload?.page[0]?._links.content.href || thumbnailPlaceholder"
       [preview]="false"
     ></ds-themed-media-viewer-image>
-    <ds-thumbnail *ngIf="!(mediaOptions.image && mediaOptions.video)"
-                  [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
-    </ds-thumbnail>
+    <ds-themed-thumbnail *ngIf="!(mediaOptions.image && mediaOptions.video)"
+                         [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
+    </ds-themed-thumbnail>
   </ng-template>
 </ng-container>

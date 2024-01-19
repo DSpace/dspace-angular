@@ -118,8 +118,8 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
-      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
+    it('should add the thumbnail element', () => {
+      const thumbnail = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
   });
@@ -223,8 +223,8 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
-      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
+    it('should add the thumbnail element', () => {
+      const thumbnail = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnail).toBeFalsy();
     });
   });

@@ -2,12 +2,12 @@
   <div *ngIf="showThumbnails" class="col-3 col-md-2">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
        [routerLink]="[itemPageRoute]" class="dont-break-out">
-    <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
-    </ds-thumbnail>
+    <ds-themed-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
+    </ds-themed-thumbnail>
     </a>
     <span *ngIf="linkType == linkTypes.None" class="dont-break-out">
-    <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
-    </ds-thumbnail>
+    <ds-themed-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
+    </ds-themed-thumbnail>
     </span>
   </div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
