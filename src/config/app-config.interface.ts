@@ -1,4 +1,4 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, Type } from '@angular/core';
 import { makeStateKey } from '@angular/platform-browser';
 import { Config } from './config.interface';
 import { ServerConfig } from './server-config.interface';
@@ -22,7 +22,8 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
-import {QualityAssuranceConfig} from './quality-assurance.config';
+import { QualityAssuranceConfig } from './quality-assurance.config';
+import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -59,6 +60,11 @@ interface AppConfig extends Config {
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
+
+export interface LazyDataServicesMap {
+  [type: string]: () => Promise<Type<HALDataService<any>>>
+}
+export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new InjectionToken<LazyDataServicesMap>('APP_DATA_SERVICES_MAP');
 
 export {
   AppConfig,

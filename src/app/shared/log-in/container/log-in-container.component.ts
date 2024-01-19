@@ -1,5 +1,5 @@
-import { Component, Injector, Input, OnInit, Type } from '@angular/core';
-import { rendersAuthMethodType } from '../methods/log-in.methods-decorator';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { AuthMethodTypeComponent, rendersAuthMethodType } from '../methods/log-in.methods-decorator';
 import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { NgComponentOutlet } from '@angular/common';
 
@@ -50,7 +50,7 @@ export class LogInContainerComponent implements OnInit {
   /**
    * Find the correct component based on the AuthMethod's type
    */
-  getAuthMethodContent(): Type<Component> {
+  getAuthMethodContent(): AuthMethodTypeComponent {
     return rendersAuthMethodType(this.authMethod.authMethodType);
   }
 
