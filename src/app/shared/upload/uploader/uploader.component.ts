@@ -109,6 +109,7 @@ export class UploaderComponent {
       autoUpload: this.uploadFilesOptions.autoUpload,
       method: this.uploadFilesOptions.method,
       queueLimit: this.uploadFilesOptions.maxFileNumber,
+      // TAMU Customization - include additional parameter map to provide section id
       additionalParameter: this.uploadFilesOptions.additionalParameter,
     });
 

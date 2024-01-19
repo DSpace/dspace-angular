@@ -23,7 +23,7 @@ export class UploaderOptions {
   maxFileNumber: number;
 
   /**
-   * Additional parameters to inform which step made upload request
+   * TAMU Customization - Additional parameters to inform which step made upload request
    */
   additionalParameter?: {
     [key: string]: any;
