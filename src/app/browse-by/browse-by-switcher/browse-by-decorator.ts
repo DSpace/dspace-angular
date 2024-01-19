@@ -40,7 +40,7 @@ export const BROWSE_BY_DECORATOR_MAP =
  * Decorator used for rendering Browse-By pages by type
  * @param browseByType  The type of page
  * @param theme The optional theme for the component
- * @deprecated
+ * @deprecated Standalone components are not compatible with this decorator. Use the BROWSE_BY_DECORATOR_MAP instead.
  */
 export function rendersBrowseBy(browseByType: BrowseByDataType, theme = DEFAULT_THEME) {
   return function decorator(component: any) {
