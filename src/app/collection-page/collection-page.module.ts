@@ -16,26 +16,24 @@ import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
-import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 
 @NgModule({
     imports: [
-        CommonModule,
-        StatisticsModule.forRoot(),
-        EditItemPageModule,
-        CollectionFormModule,
-        ComcolModule,
-        DsoSharedModule,
-        DsoPageModule,
-        CollectionPageComponent,
-        ThemedCollectionPageComponent,
-        CreateCollectionPageComponent,
-        DeleteCollectionPageComponent,
-        EditItemTemplatePageComponent,
-        ThemedEditItemTemplatePageComponent,
-        CollectionItemMapperComponent
-    ],
+    CommonModule,
+    StatisticsModule.forRoot(),
+    EditItemPageModule,
+    CollectionFormModule,
+    ComcolModule,
+    DsoPageModule,
+    CollectionPageComponent,
+    ThemedCollectionPageComponent,
+    CreateCollectionPageComponent,
+    DeleteCollectionPageComponent,
+    EditItemTemplatePageComponent,
+    ThemedEditItemTemplatePageComponent,
+    CollectionItemMapperComponent
+],
     providers: [
         SearchService,
     ]

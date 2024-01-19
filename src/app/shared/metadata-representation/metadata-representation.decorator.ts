@@ -74,6 +74,7 @@ export const METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP =
  * @param mdRepresentationType The metadata representation type the component represents
  * @param context The optional context the component represents
  * @param theme The optional theme for the component
+ * @deprecated
  */
 export function metadataRepresentationComponent(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context = DEFAULT_CONTEXT, theme = DEFAULT_THEME) {
   return function decorator(component: any) {

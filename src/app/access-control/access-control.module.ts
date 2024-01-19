@@ -15,7 +15,6 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { BulkAccessBrowseComponent } from './bulk-access/browse/bulk-access-browse.component';
 import { BulkAccessSettingsComponent } from './bulk-access/settings/bulk-access-settings.component';
 import { SearchModule } from '../shared/search/search.module';
-import { AccessControlFormModule } from '../shared/access-control-form-container/access-control-form.module';
 
 /**
  * Condition for displaying error messages on email form field
@@ -32,7 +31,6 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
         FormModule,
         NgbAccordionModule,
         SearchModule,
-        AccessControlFormModule,
         EPeopleRegistryComponent,
         EPersonFormComponent,
         GroupsRegistryComponent,

@@ -38,6 +38,7 @@ menuComponentMap.get(MenuID.DSO_EDIT).get(true).set(DEFAULT_THEME, DsoEditMenuEx
  * Decorator function to render a MenuSection for a menu
  * @param {MenuID} menuID The ID of the Menu in which the section is rendered
  * @param {boolean} expandable True when the section should be expandable, false when if should not
+ * @deprecated
  * @returns {(menuSectionWrapperComponent: GenericConstructor) => void}
  */
 export function rendersSectionForMenu(menuID: MenuID, expandable: boolean, theme = DEFAULT_THEME) {

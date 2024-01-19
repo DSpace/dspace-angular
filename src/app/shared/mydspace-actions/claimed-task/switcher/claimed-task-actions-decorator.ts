@@ -75,6 +75,7 @@ export function rendersWorkflowTaskOption(option: string) {
 
 /**
  * Decorator used for rendering AdvancedClaimedTaskActions pages by option type
+ * @deprecated
  */
 export function rendersAdvancedWorkflowTaskOption(option: string) {
   return function decorator(component: any) {

@@ -18,6 +18,7 @@ export const STARTS_WITH_DECORATOR_MAP = new Map<StartsWithType, StartsWithCompo
 /**
  * Fetch a decorator to render a StartsWith component for type
  * @param type
+ * @deprecated
  */
 export function renderStartsWithFor(type: StartsWithType) {
   return function decorator(objectElement: any) {

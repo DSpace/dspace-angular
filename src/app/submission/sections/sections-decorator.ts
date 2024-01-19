@@ -17,6 +17,9 @@ submissionSectionsMap.set(SectionsType.Upload, SubmissionSectionUploadComponent)
 submissionSectionsMap.set(SectionsType.SubmissionForm, SubmissionSectionFormComponent);
 submissionSectionsMap.set(SectionsType.Identifiers, SubmissionSectionIdentifiersComponent);
 
+/**
+ * @deprecated
+ */
 export function renderSectionFor(sectionType: SectionsType) {
   return function decorator(objectElement: any) {
     if (!objectElement) {

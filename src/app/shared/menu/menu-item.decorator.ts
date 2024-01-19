@@ -14,6 +14,7 @@ menuMenuItemComponentMap.set(MenuItemType.TEXT, TextMenuItemComponent);
 /**
  * Decorator function to link a MenuItemType to a Component
  * @param {MenuItemType} type The MenuItemType of the MenuSection's model
+ * @deprecated
  * @returns {(sectionComponent: GenericContructor) => void}
  */
 export function rendersMenuItemForType(type: MenuItemType) {

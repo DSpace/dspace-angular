@@ -13,6 +13,9 @@ export const AUTH_METHOD_FOR_DECORATOR_MAP = new Map<AuthMethodType, AuthMethodT
   [AuthMethodType.Orcid, LogInExternalProviderComponent]
 ]);
 
+/**
+ * @deprecated
+ */
 export function renderAuthMethodFor(authMethodType: AuthMethodType) {
   return function decorator(objectElement: any) {
     if (!objectElement) {

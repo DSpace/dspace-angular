@@ -43,7 +43,6 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
 import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
 import { UploadModule } from '../shared/upload/upload.module';
-import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
 import { ItemAlertsComponent } from './alerts/item-alerts.component';
 import { ItemVersionsModule } from './versions/item-versions.module';
 import {
@@ -96,18 +95,17 @@ const DECLARATIONS = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        EditItemPageModule,
-        ItemVersionsModule,
-        ItemSharedModule,
-        StatisticsModule.forRoot(),
-        NgxGalleryModule,
-        NgbAccordionModule,
-        ResultsBackButtonModule,
-        UploadModule,
-        DsoPageModule,
-        ...DECLARATIONS
-    ],
+    CommonModule,
+    EditItemPageModule,
+    ItemVersionsModule,
+    ItemSharedModule,
+    StatisticsModule.forRoot(),
+    NgxGalleryModule,
+    NgbAccordionModule,
+    UploadModule,
+    DsoPageModule,
+    ...DECLARATIONS
+],
     exports: [
         ...DECLARATIONS,
     ]

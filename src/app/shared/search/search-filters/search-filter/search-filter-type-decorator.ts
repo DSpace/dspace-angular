@@ -19,6 +19,7 @@ filterTypeMap.set(FilterType.range, SearchRangeFilterComponent);
 /**
  * Sets the mapping for a facet component in relation to a filter type
  * @param {FilterType} type The type for which the matching component is mapped
+ * @deprecated
  * @returns Decorator function that performs the actual mapping on initialization of the facet component
  */
 export function renderFacetFor(type: FilterType) {
