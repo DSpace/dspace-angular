@@ -23,16 +23,19 @@ import {hasValue} from '../../shared/empty.util';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { NoContent } from '../shared/NoContent.model';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
+import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { PaginatedList } from '../data/paginated-list.model';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
 @Injectable()
 @dataService(WorkspaceItem.type)
-export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> {
+export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
   protected linkPath = 'workspaceitems';
   protected searchByItemLinkPath = 'item';
   private deleteData: DeleteData<WorkspaceItem>;
+  private searchData: SearchData<WorkspaceItem>;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
@@ -45,25 +48,11 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
     protected store: Store<CoreState>) {
     super('workspaceitems', requestService, rdbService, objectCache, halService);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
-
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
   public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.delete(objectId, copyVirtualMetadata);
   }
-
-  /**
-   * Delete an existing object on the server
-   * @param   href The self link of the object to be removed
-   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
-   *                            metadata should be saved as real metadata
-   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
-   *          errorMessage, timeCompleted, etc
-   *          Only emits once all request related to the DSO has been invalidated.
-   */
-  public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
-    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
-  }
-
   /**
    * Return the WorkspaceItem object found through the UUID of an item
    *
@@ -107,4 +96,11 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
     return this.rdbService.buildFromRequestUUID(requestId);
   }
 
+  deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
+  }
+
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<PaginatedList<WorkspaceItem>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
 }

@@ -33,7 +33,7 @@ import { SuggestionTargetDataService } from './target/suggestion-target-data.ser
 /**
  * A private DataService implementation to delegate specific methods to.
  */
-class SuggestionDataServiceImpl extends DataService<Suggestion> {
+export class SuggestionDataServiceImpl extends DataService<Suggestion> {
   /**
    * The REST endpoint.
    */

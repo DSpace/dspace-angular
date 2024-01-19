@@ -28,10 +28,9 @@ export class SuggestionTargetDataService extends IdentifiableDataService<Suggest
 
   protected linkPath = 'suggestiontargets';
   private findAllData: FindAllData<SuggestionTarget>;
-  private searchBy: SearchData<SuggestionTarget>;
+  private searchData: SearchData<SuggestionTarget>;
   protected searchFindBySourceMethod = 'findBySource';
   protected searchFindByTargetMethod = 'findByTarget';
-  protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';
 
   constructor(
     protected requestService: RequestService,
@@ -44,7 +43,7 @@ export class SuggestionTargetDataService extends IdentifiableDataService<Suggest
     protected comparator: DefaultChangeAnalyzer<SuggestionTarget>) {
     super('suggestiontargets', requestService, rdbService, objectCache, halService);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
-    this.searchBy = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
   /**
    * Return the list of Suggestion Target for a given source
@@ -65,22 +64,7 @@ export class SuggestionTargetDataService extends IdentifiableDataService<Suggest
   ): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
     options.searchParams = [new RequestParam('source', source)];
 
-    return this.searchBy.searchBy(this.searchFindBySourceMethod, options, true, true, ...linksToFollow);
-  }
-  /**
-   * Return a single Suggestion target.
-   *
-   * @param id                          The Suggestion Target id
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   *
-   * @return Observable<RemoteData<QualityAssuranceSourceObject>>    The Quality Assurance source.
-   */
-  public getTarget(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<SuggestionTarget>[]): Observable<RemoteData<SuggestionTarget>> {
-    return this.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    return this.searchBy(this.searchFindBySourceMethod, options, true, true, ...linksToFollow);
   }
 
   /**
@@ -102,7 +86,7 @@ export class SuggestionTargetDataService extends IdentifiableDataService<Suggest
   ): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
     options.searchParams = [new RequestParam('target', userId)];
 
-    return this.searchBy.searchBy(this.searchFindByTargetMethod, options, true, true, ...linksToFollow);
+    return this.searchBy(this.searchFindByTargetMethod, options, true, true, ...linksToFollow);
   }
   /**
    * Return a Suggestion Target for a given id
@@ -115,6 +99,43 @@ export class SuggestionTargetDataService extends IdentifiableDataService<Suggest
    */
   public getTargetById(targetId: string): Observable<RemoteData<SuggestionTarget>> {
     return this.findById(targetId);
+  }
+
+  /**
+   * Make a new FindListRequest with given search method
+   *
+   * @param searchMethod                The search method for the object
+   * @param options                     The [[FindListOptions]] object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<SuggestionTarget>[]): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+
+  /**
+   * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
+   * info should be added to the objects
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
+   */
+  findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<SuggestionTarget>[]): Observable<RemoteData<PaginatedList<SuggestionTarget>>> {
+    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
 }
