@@ -2,11 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-  BehaviorSubject
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -15,8 +11,8 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import {
-  getFirstCompletedRemoteData,
   getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
   getRemoteDataPayload
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -26,6 +22,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { getEPersonEditRoute } from '../../../access-control-routing-paths';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -145,6 +142,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   // current active group being edited
   groupBeingEdited: Group;
+
+  readonly getEPersonEditRoute = getEPersonEditRoute;
 
   constructor(
     protected groupDataService: GroupDataService,

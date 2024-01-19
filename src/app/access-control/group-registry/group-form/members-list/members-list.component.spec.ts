@@ -71,9 +71,6 @@ describe('MembersListComponent', () => {
       clearLinkRequests() {
         // empty
       },
-      getEPeoplePageRouterLink(): string {
-        return '/access-control/epeople';
-      }
     };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
