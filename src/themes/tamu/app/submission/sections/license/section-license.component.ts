@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicCheckboxModel, DynamicFormLayout, DynamicRadioGroupModel, MATCH_DISABLED } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,14 +11,13 @@ import { CollectionDataService } from '../../../../../../app/core/data/collectio
 import { PaginatedList } from '../../../../../../app/core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../app/core/data/remote-data';
 import { JsonPatchOperationsBuilder } from '../../../../../../app/core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '../../../../../../app/core/shared/bitstream.model';
 import { Collection } from '../../../../../../app/core/shared/collection.model';
 import { HALEndpointService } from '../../../../../../app/core/shared/hal-endpoint.service';
-import { Item } from '../../../../../../app/core/shared/item.model';
 import { License } from '../../../../../../app/core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/submission/models/workspaceitem-section-license.model';
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
-import { isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
+import { normalizeSectionData } from '../../../../../../app/core/submission/submission-response-parsing.service';
+import { isEmpty, isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
 import { FormBuilderService } from '../../../../../../app/shared/form/builder/form-builder.service';
 import { FormService } from '../../../../../../app/shared/form/form.service';
 import { NotificationsService } from '../../../../../../app/shared/notifications/notifications.service';
@@ -31,7 +29,9 @@ import { SectionDataObject } from '../../../../../../app/submission/sections/mod
 import { renderSectionFor } from '../../../../../../app/submission/sections/sections-decorator';
 import { SectionsType } from '../../../../../../app/submission/sections/sections-type';
 import { SectionsService } from '../../../../../../app/submission/sections/sections.service';
+import { SectionUploadService } from '../../../../../../app/submission/sections/upload/section-upload.service';
 import { SubmissionService } from '../../../../../../app/submission/submission.service';
+import parseSectionErrors from '../../../../../../app/submission/utils/parseSectionErrors';
 import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
 
 /**
@@ -68,13 +68,13 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * i18n message label
    * @type {string}
    */
-  public dropMsg = 'submission.sections.proxy-license.permission-upload-drop-message';
+  public dropMsg = 'submission.sections.proxy-license.upload-drop-message';
 
   /**
    * i18n message label
    * @type {string}
    */
-  public dropOverDocumentMsg = 'submission.sections.proxy-license.permission-upload-drop-message';
+  public dropOverDocumentMsg = 'submission.sections.proxy-license.upload-drop-message';
 
   public proxyLicense: Observable<any>;
 
@@ -117,12 +117,12 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   private _removing_proxy: BehaviorSubject<boolean>;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private bitstreamService: BitstreamDataService,
     private halEndpointService: HALEndpointService,
     private modalService: NgbModal,
     private notificationsService: NotificationsService,
+    private sectionUploadService: SectionUploadService,
     protected changeDetectorRef: ChangeDetectorRef,
     protected collectionDataService: CollectionDataService,
     protected formBuilderService: FormBuilderService,
@@ -170,36 +170,13 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
         })
     );
 
-    // observe the proxy bitstream
-    this.proxyLicense = this.activatedRoute.data.pipe(
-      map((data: Data) => data.wsi),
-      tap((d) => console.log('1', d)),
-      filter((wsird: RemoteData<WorkspaceItem>) => !!wsird && wsird.isSuccess),
-      tap((d) => console.log('2', d)),
-      map((wsird: RemoteData<WorkspaceItem>) => wsird.payload),
-      tap((d) => console.log('3', d)),
-      switchMap((wi: WorkspaceItem) => wi.item.pipe(
-        tap((d) => console.log('4', d)),
-        filter((ird: RemoteData<Item>) => !!ird && ird.isSuccess),
-        tap((d) => console.log('5', d)),
-        map((ird: RemoteData<Item>) => ird.payload),
-        tap((d) => console.log('6', d)),
-        switchMap((item: Item) => this.bitstreamService
-          .findAllByItemAndBundleName(item, 'LICENSE', {}, true, true).pipe(
-            tap((d) => console.log('7', d)),
-            filter((bplrd: RemoteData<PaginatedList<Bitstream>>) => !!bplrd && bplrd.isSuccess),
-            tap((d) => console.log('8', d)),
-            map((bplrd: RemoteData<PaginatedList<Bitstream>>) => bplrd.payload),
-            tap((d) => console.log('9', d)),
-            map((bpl: PaginatedList<Bitstream>) => bpl.page),
-            tap((d) => console.log('10', d)),
-            map((bitstreams: Array<Bitstream>) => bitstreams
-              .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION')))))))
-    );
-
-    this.proxyLicense.subscribe((b) => {
-      console.log('result', b);
-    });
+    this.proxyLicense = this.sectionUploadService.getUploadedFileList(this.submissionId, this.sectionData.id)
+      .pipe(
+        tap(() => this._removing_proxy.next(false)),
+        filter((files) => !!files && files.length),
+        map((files) => files.find((file) => file.metadata['dc.description']
+          && file.metadata['dc.description'].length > 0
+          && file.metadata['dc.description'][0].value === 'Proxy license')));
 
     // get the license by following collection licenses link
     this.collectionDataService.findById(this.collectionId, true, true, followLink('licenses')).pipe(
@@ -292,16 +269,17 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * Open confirm modal and remove when confirmed.
    *
    * @param content element reference for modal
-   * @param bitstream proxy license bitstream
+   * @param proxy license bitstream
    */
-  public confirmRemoveProxy(content, bitstream): void {
+  public confirmRemoveProxy(content, proxy): void {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
           this._removing_proxy.next(true);
-          this.bitstreamService.delete(bitstream.id).pipe(take(1)).subscribe((results) => {
+          this.bitstreamService.delete(proxy.uuid).pipe(take(1)).subscribe(() => {
             this._removing_proxy.next(false);
-            // this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
+            this.sectionUploadService.removeUploadedFile(this.submissionId, this.sectionData.id, proxy.uuid);
+            this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.remove-successful'));
           });
         }
       }
@@ -322,8 +300,27 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    */
   public onCompleteItem(workspaceitem: WorkspaceItem) {
     const { sections } = workspaceitem;
+    const { errors } = workspaceitem;
+    const errorsList = parseSectionErrors(errors);
     if (sections && isNotEmpty(sections)) {
-      this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
+      Object.keys(sections)
+        .forEach((sectionId) => {
+          const sectionData = normalizeSectionData(sections[sectionId]);
+          const sectionErrors = errorsList[sectionId];
+          this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.License)
+            .pipe(take(1))
+            .subscribe((isLicence) => {
+              if (isLicence) {
+                // Look for errors on upload
+                if ((isEmpty(sectionErrors))) {
+                  this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.upload-successful'));
+                } else {
+                  this.notificationsService.error(null, this.translateService.get('submission.sections.proxy-license.upload-failed'));
+                }
+              }
+            });
+          this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
+        });
     }
   }
 
@@ -331,7 +328,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * Show error notification on upload failed
    */
   public onUploadError() {
-    this.notificationsService.error(null, this.translateService.get('submission.sections.proxy-license.permission-upload-failed'));
+    this.notificationsService.error(null, this.translateService.get('submission.sections.proxy-license.upload-failed'));
   }
 
 }

@@ -1,3 +1,4 @@
+import { WorkspaceitemSectionUploadFileObject } from './workspaceitem-section-upload-file.model';
 
 /**
  * An interface to represent submission's license section data.
@@ -22,4 +23,9 @@ export interface WorkspaceitemSectionLicenseObject {
    * TAMU Customization - A string representing which license has been selected
    */
   selected?: string;
+
+  /**
+   * TAMU Customization - A list of license files [[WorkspaceitemSectionUploadFileObject]]
+   */
+  files?: WorkspaceitemSectionUploadFileObject[];
 }

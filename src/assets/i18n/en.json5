@@ -5273,4 +5273,16 @@
   "submission.sections.proxy-license.permission-upload-failed": "Proxy license permission upload failed",
 
   "submission.sections.proxy-license.permission-upload-drop-message": "Drop permission document to attach to the item",
+
+  "submission.sections.proxy-license.upload-label": "Proxy Submission License: ",
+
+  "submission.sections.proxy-license.upload-drop-message": "Drop permission document to attach to the item",
+
+  "submission.sections.proxy-license.upload-instructions": "If you have a separate permission document from the copyright owner authorizing the release of this item, please attach it here.",
+
+  "submission.sections.proxy-license.upload-successful": "Proxy license upload successful",
+
+  "submission.sections.proxy-license.upload-failed": "Proxy license upload failed",
+
+  "submission.sections.proxy-license.remove-successful": "Proxy license remove successful",
 }
