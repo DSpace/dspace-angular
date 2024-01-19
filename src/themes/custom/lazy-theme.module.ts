@@ -157,6 +157,7 @@ import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-
 import { FormModule } from '../../app/shared/form/form.module';
 import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import { SearchComponent } from './app/shared/search/search.component';
+import { ItemListPreviewComponent } from './app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -241,6 +242,7 @@ const DECLARATIONS = [
   ItemStatusComponent,
   EditBitstreamPageComponent,
   SearchComponent,
+  ItemListPreviewComponent,
 ];
 
 @NgModule({
