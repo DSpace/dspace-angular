@@ -3,17 +3,17 @@ import {
   ComponentFactoryResolver,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
-  ViewChild,
-  OnChanges,
   SimpleChanges,
-  ComponentRef,
+  Type,
+  ViewChild,
 } from '@angular/core';
 import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
-import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
@@ -64,7 +64,7 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
   /**
    * The reference to the dynamic component
    */
-  protected compRef: ComponentRef<Component>;
+  protected compRef;
 
   /**
    * The list of input and output names for the dynamic component
@@ -105,7 +105,7 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
   }
 
   private instantiateComponent(changes?: SimpleChanges): void {
-    const comp = this.getComponentByWorkflowTaskOption(this.option);
+    const comp = this.getComponentByWorkflowTaskOption(this.option) as Type<unknown>;
     if (hasValue(comp)) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
 
