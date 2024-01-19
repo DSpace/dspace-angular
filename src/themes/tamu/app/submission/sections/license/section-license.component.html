@@ -25,9 +25,31 @@
                 [uploadFilesOptions]="uploadFilesOptions"
                 (onCompleteItem)="onCompleteItem($event)"
                 (onUploadError)="onUploadError()"></ds-uploader>
-    <div *ngIf="proxyLicense | async; let proxy">
-        <span *ngIf="proxy.metadata['dc.source'] && proxy.metadata['dc.source'].length > 0">{{proxy.metadata['dc.source'][0].value}}</span>
-    </div>
+    <ng-container *ngIf="proxyLicense | async; let proxy">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="float-left w-75" *ngIf="proxy.metadata['dc.source'] && proxy.metadata['dc.source'].length > 0">
+                    <span class="h3">{{proxy.metadata['dc.source'][0].value}} <span class="text-muted">({{proxy.sizeBytes | dsFileSize}})</span></span>
+                </div>
+                <div class="float-right w-15">
+                    <ng-container>
+                      <ds-themed-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
+                                                    [bitstream]="proxy" [enableRequestACopy]="false">
+                        <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
+                      </ds-themed-file-download-link>
+                      <button class="btn btn-link-focus"
+                              [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
+                              title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
+                              [disabled]="(removingProxy | async)"
+                              (click)="$event.preventDefault();confirmRemoveProxy(content, proxy);">
+                        <i *ngIf="(removingProxy | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
+                        <i *ngIf="!(removingProxy | async)" class="fa fa-trash fa-2x text-danger"></i>
+                      </button>
+                    </ng-container>
+                  </div>
+            </div>
+        </div>
+    </ng-container>
     <small class="form-text text-muted">{{"submission.sections.proxy-license.permission-upload-instructions" | translate}}</small>
 </div>
 
@@ -41,3 +63,21 @@
             (dfChange)="onChange($event)">
     </ds-form>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+                (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
+        <button type="button" class="btn btn-danger"
+                (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
+    </div>
+</ng-template>

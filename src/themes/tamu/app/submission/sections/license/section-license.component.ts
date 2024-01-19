@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicCheckboxModel, DynamicFormLayout, DynamicRadioGroupModel, MATCH_DISABLED } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
-import { ActivatedRoute, Data } from '@angular/router';
-import { Item } from 'src/app/core/shared/item.model';
 import { AuthService } from '../../../../../../app/core/auth/auth.service';
 import { BitstreamDataService } from '../../../../../../app/core/data/bitstream-data.service';
 import { CollectionDataService } from '../../../../../../app/core/data/collection-data.service';
@@ -15,6 +15,7 @@ import { JsonPatchOperationsBuilder } from '../../../../../../app/core/json-patc
 import { Bitstream } from '../../../../../../app/core/shared/bitstream.model';
 import { Collection } from '../../../../../../app/core/shared/collection.model';
 import { HALEndpointService } from '../../../../../../app/core/shared/hal-endpoint.service';
+import { Item } from '../../../../../../app/core/shared/item.model';
 import { License } from '../../../../../../app/core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/submission/models/workspaceitem-section-license.model';
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
@@ -85,6 +86,10 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
     return this._selected.asObservable();
   }
 
+  public get removingProxy(): Observable<boolean> {
+    return this._removing_proxy.asObservable();
+  }
+
   /**
    * The license label wrapper element reference
    */
@@ -109,11 +114,14 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
   private _selected: BehaviorSubject<string>;
 
+  private _removing_proxy: BehaviorSubject<boolean>;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private bitstreamService: BitstreamDataService,
     private halEndpointService: HALEndpointService,
+    private modalService: NgbModal,
     private notificationsService: NotificationsService,
     protected changeDetectorRef: ChangeDetectorRef,
     protected collectionDataService: CollectionDataService,
@@ -144,6 +152,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
     );
     this._license = new BehaviorSubject<string>(undefined);
     this._selected = new BehaviorSubject<string>(undefined);
+    this._removing_proxy = new BehaviorSubject<boolean>(false);
   }
 
   ngOnInit(): void {
@@ -161,22 +170,36 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
         })
     );
 
-    // observe the proxy bitstream!
+    // observe the proxy bitstream
     this.proxyLicense = this.activatedRoute.data.pipe(
       map((data: Data) => data.wsi),
+      tap((d) => console.log('1', d)),
       filter((wsird: RemoteData<WorkspaceItem>) => !!wsird && wsird.isSuccess),
+      tap((d) => console.log('2', d)),
       map((wsird: RemoteData<WorkspaceItem>) => wsird.payload),
+      tap((d) => console.log('3', d)),
       switchMap((wi: WorkspaceItem) => wi.item.pipe(
+        tap((d) => console.log('4', d)),
         filter((ird: RemoteData<Item>) => !!ird && ird.isSuccess),
+        tap((d) => console.log('5', d)),
         map((ird: RemoteData<Item>) => ird.payload),
+        tap((d) => console.log('6', d)),
         switchMap((item: Item) => this.bitstreamService
           .findAllByItemAndBundleName(item, 'LICENSE', {}, true, true).pipe(
+            tap((d) => console.log('7', d)),
             filter((bplrd: RemoteData<PaginatedList<Bitstream>>) => !!bplrd && bplrd.isSuccess),
+            tap((d) => console.log('8', d)),
             map((bplrd: RemoteData<PaginatedList<Bitstream>>) => bplrd.payload),
+            tap((d) => console.log('9', d)),
             map((bpl: PaginatedList<Bitstream>) => bpl.page),
+            tap((d) => console.log('10', d)),
             map((bitstreams: Array<Bitstream>) => bitstreams
               .find((bitstream: Bitstream) => bitstream.name.startsWith('PERMISSION')))))))
     );
+
+    this.proxyLicense.subscribe((b) => {
+      console.log('result', b);
+    });
 
     // get the license by following collection licenses link
     this.collectionDataService.findById(this.collectionId, true, true, followLink('licenses')).pipe(
@@ -224,7 +247,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
             (grantedFormControlModel as DynamicCheckboxModel).value = false;
           }
 
-          // simple workaround opposed to shimming themed custom dynamic form model component
           setTimeout(() => {
             let children = this.formWrapper.nativeElement.children;
             while (!!children && children.length > 0 && !children[0].classList.contains('tamu-control')) {
@@ -267,6 +289,26 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   }
 
   /**
+   * Open confirm modal and remove when confirmed.
+   *
+   * @param content element reference for modal
+   * @param bitstream proxy license bitstream
+   */
+  public confirmRemoveProxy(content, bitstream): void {
+    this.modalService.open(content).result.then(
+      (result) => {
+        if (result === 'ok') {
+          this._removing_proxy.next(true);
+          this.bitstreamService.delete(bitstream.id).pipe(take(1)).subscribe((results) => {
+            this._removing_proxy.next(false);
+            // this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
+          });
+        }
+      }
+    );
+  }
+
+  /**
    * Nothing to do here
    *
    * @returns empty observable
@@ -281,8 +323,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   public onCompleteItem(workspaceitem: WorkspaceItem) {
     const { sections } = workspaceitem;
     if (sections && isNotEmpty(sections)) {
-      // save the selected license upon successful proxy license upload
-      this.submissionService.dispatchSave(this.submissionId, true);
       this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.permission-upload-successful'));
     }
   }
