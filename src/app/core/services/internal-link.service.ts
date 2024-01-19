@@ -19,7 +19,6 @@ export class InternalLinkService {
    * Check if the provided link is internal, i.e., it starts with a '/' or matches the current URL.
    *
    * @param link The link to be checked.
-   * @param currentURL The current URL to compare against.
    * @returns A boolean indicating whether the link is internal.
    */
   public isLinkInternal(link: string): boolean {
@@ -34,13 +33,12 @@ export class InternalLinkService {
   }
 
   /**
-   * Transform an internal link based on the current URL.
+   * Get the relative path for an internal link based on the current URL.
    *
-   * @param link The link to be transformed.
-   * @param currentURL The current URL used for transformation.
-   * @returns The transformed internal link.
+   * @param link The internal link to be transformed.
+   * @returns The relative path for the given internal link.
    */
-  public transformInternalLink(link: string): string {
+  public getRelativePath(link: string): string {
     // Create a Domain object for the provided link
     const currentDomain = new URL(this.currentURL).hostname;
 
