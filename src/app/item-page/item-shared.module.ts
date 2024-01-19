@@ -26,9 +26,8 @@ import { RelatedItemsComponent } from './simple/related-items/related-items-comp
 import {
   ThemedMetadataRepresentationListComponent
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
-import {
-  dsDynamicFormControlMapFn
-} from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
+
+import { dsDynamicFormControlMapFn } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,

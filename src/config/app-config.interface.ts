@@ -24,6 +24,7 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
+import { DynamicFormControl } from '@ng-dynamic-forms/core/lib/component/dynamic-form-control-interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -64,7 +65,11 @@ const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
 export interface LazyDataServicesMap {
   [type: string]: () => Promise<Type<HALDataService<any>>>
 }
+
+export type  DynamicFormControlFn = (model: string) => Type<DynamicFormControl>;
 export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new InjectionToken<LazyDataServicesMap>('APP_DATA_SERVICES_MAP');
+
+export const APP_DYNAMIC_FORM_CONTROL_FN: InjectionToken<DynamicFormControlFn> = new InjectionToken<DynamicFormControlFn>('APP_DYNAMIC_FORM_CONTROL_FN');
 
 export {
   AppConfig,
