@@ -109,6 +109,7 @@ export class UploaderComponent {
       autoUpload: this.uploadFilesOptions.autoUpload,
       method: this.uploadFilesOptions.method,
       queueLimit: this.uploadFilesOptions.maxFileNumber,
+      additionalParameter: this.uploadFilesOptions.additionalParameter,
     });
 
     if (isUndefined(this.enableDragOverDocument)) {

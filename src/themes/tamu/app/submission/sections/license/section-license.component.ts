@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@an
 import { DynamicCheckboxModel, DynamicFormLayout, DynamicRadioGroupModel, MATCH_DISABLED } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 
 import { ActivatedRoute, Data } from '@angular/router';
 import { Item } from 'src/app/core/shared/item.model';
@@ -152,6 +152,9 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
         filter((href: string) => isNotEmpty(href)),
         distinctUntilChanged())
         .subscribe((endpointURL) => {
+          this.uploadFilesOptions.additionalParameter = {
+            sectionId: this.sectionData.id
+          };
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
           this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
           this.changeDetectorRef.detectChanges();
