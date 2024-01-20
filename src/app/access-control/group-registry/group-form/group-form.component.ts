@@ -420,7 +420,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   delete() {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((group: Group) => {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = group;
+      modalRef.componentInstance.name = this.dsoNameService.getName(group);
       modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-group.modal.header';
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-group.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-group.modal.cancel';
