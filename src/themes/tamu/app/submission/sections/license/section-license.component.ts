@@ -17,7 +17,7 @@ import { License } from '../../../../../../app/core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/submission/models/workspaceitem-section-license.model';
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../../../../app/core/submission/submission-response-parsing.service';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
+import { isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
 import { FormBuilderService } from '../../../../../../app/shared/form/builder/form-builder.service';
 import { FormService } from '../../../../../../app/shared/form/form.service';
 import { NotificationsService } from '../../../../../../app/shared/notifications/notifications.service';
