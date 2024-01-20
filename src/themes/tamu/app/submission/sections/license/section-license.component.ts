@@ -78,17 +78,11 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
   public proxyLicense: Observable<any>;
 
-  public get license(): Observable<string> {
-    return this._license.asObservable();
-  }
+  public license: BehaviorSubject<string>;
 
-  public get selected(): Observable<string> {
-    return this._selected.asObservable();
-  }
+  public selected: BehaviorSubject<string>;
 
-  public get removingProxy(): Observable<boolean> {
-    return this._removing_proxy.asObservable();
-  }
+  public removingProxy: BehaviorSubject<boolean>;
 
   /**
    * The license label wrapper element reference
@@ -109,12 +103,6 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * The license step form wrapper element reference
    */
   @ViewChild('formWrapper') private formWrapper: ElementRef;
-
-  private _license: BehaviorSubject<string>;
-
-  private _selected: BehaviorSubject<string>;
-
-  private _removing_proxy: BehaviorSubject<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -150,9 +138,9 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
       injectedSectionData,
       injectedSubmissionId
     );
-    this._license = new BehaviorSubject<string>(undefined);
-    this._selected = new BehaviorSubject<string>(undefined);
-    this._removing_proxy = new BehaviorSubject<boolean>(false);
+    this.license = new BehaviorSubject<string>(undefined);
+    this.selected = new BehaviorSubject<string>(undefined);
+    this.removingProxy = new BehaviorSubject<boolean>(false);
   }
 
   ngOnInit(): void {
@@ -172,13 +160,13 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
 
     this.proxyLicense = this.sectionUploadService.getUploadedFileList(this.submissionId, this.sectionData.id)
       .pipe(
-        tap(() => this._removing_proxy.next(false)),
+        tap(() => this.removingProxy.next(false)),
         filter((files) => !!files && files.length),
         map((files) => files.find((file) => file.metadata['dc.description']
           && file.metadata['dc.description'].length > 0
           && file.metadata['dc.description'][0].value === 'Proxy license')));
 
-    // get the license by following collection licenses link
+    // get the available licenses by following collection licenses link
     this.collectionDataService.findById(this.collectionId, true, true, followLink('licenses')).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
       take(1),
@@ -244,9 +232,9 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
             control.parentNode.insertBefore(this.licenseWrapper.nativeElement, control.nextSibling);
 
             const license = getLicense(name);
-            this._license.next(license.text.replace(/\n/g, '<br>'));
+            this.license.next(license.text.replace(/\n/g, '<br>'));
 
-            this._selected.next(name);
+            this.selected.next(name);
           });
         })
       );
@@ -275,9 +263,9 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-          this._removing_proxy.next(true);
+          this.removingProxy.next(true);
           this.bitstreamService.delete(proxy.uuid).pipe(take(1)).subscribe(() => {
-            this._removing_proxy.next(false);
+            this.removingProxy.next(false);
             this.sectionUploadService.removeUploadedFile(this.submissionId, this.sectionData.id, proxy.uuid);
             this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.remove-successful'));
           });
@@ -296,7 +284,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
   };
 
   /**
-   * Show success notification on upload successful
+   * Show success notification on upload successful and update section data
    */
   public onCompleteItem(workspaceitem: WorkspaceItem) {
     const { sections } = workspaceitem;
@@ -311,12 +299,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
             .pipe(take(1))
             .subscribe((isLicence) => {
               if (isLicence) {
-                // Look for errors on upload
-                if ((isEmpty(sectionErrors))) {
-                  this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.upload-successful'));
-                } else {
-                  this.notificationsService.error(null, this.translateService.get('submission.sections.proxy-license.upload-failed'));
-                }
+                this.notificationsService.success(null, this.translateService.get('submission.sections.proxy-license.upload-successful'));
               }
             });
           this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData, sectionErrors, sectionErrors);
