@@ -16,7 +16,7 @@ const map = new Map();
 
 /**
  * Decorator used for rendering tabulatable objects
- * @param objectType The object type or entity type the component represents
+ * @param objectsType The object type or entity type the component represents
  * @param viewMode The view mode the component represents
  * @param context The optional context the component represents
  * @param theme The optional theme for the component
@@ -54,6 +54,8 @@ export function getTabulatableObjectsComponent(types: (string | GenericConstruct
   let currentBestMatch: MatchRelevancy = null;
   for (const type of types) {
     const typeMap = map.get(PaginatedList<typeof type>);
+    console.log(typeMap, 'd3ewfde');
+
     if (hasValue(typeMap)) {
       const match = getMatch(typeMap, [viewMode, context, theme], [DEFAULT_VIEW_MODE, DEFAULT_CONTEXT, DEFAULT_THEME]);
       if (hasNoValue(currentBestMatch) || currentBestMatch.isLessRelevantThan(match)) {
