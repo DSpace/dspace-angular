@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { TabulatableObjectsLoaderComponent } from './tabulatable-objects-loader.component';
 import { ThemeService } from '../../../theme-support/theme.service';
@@ -14,8 +14,13 @@ import {
   TabulatableResultListElementsComponent
 } from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { TestType } from '../listable-object/listable-object-component-loader.component.spec';
+import { By } from '@angular/platform-browser';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+
 
 const testType = 'TestType';
+const testContext = Context.CoarNotify;
+const testViewMode = ViewMode.Table;
 
 class TestTypes extends PaginatedList<ListableObject> {
   page: TestType[] = [new TestType()];
@@ -48,12 +53,55 @@ describe('TabulatableObjectsLoaderComponent', () => {
     fixture = TestBed.createComponent(TabulatableObjectsLoaderComponent);
     component = fixture.componentInstance;
     component.objects = new TestTypes();
-    component.context = Context.Search;
+    component.context = Context.CoarNotify;
     spyOn(component, 'getComponent').and.returnValue(TabulatableResultListElementsComponent as any);
+    spyOn(component as any, 'connectInputsAndOutputs').and.callThrough();
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('When the component is rendered', () => {
+    it('should call the getTabulatableObjectComponent function with the right types, view mode and context', () => {
+      expect(component.getComponent).toHaveBeenCalledWith([testType], testViewMode, testContext);
+    });
+
+    it('should connectInputsAndOutputs of loaded component', () => {
+      expect((component as any).connectInputsAndOutputs).toHaveBeenCalled();
+    });
+  });
+
+  describe('When a reloadedObject is emitted', () => {
+    let tabulatableComponent;
+    let reloadedObject: any;
+
+    beforeEach(() => {
+      spyOn((component as any), 'instantiateComponent').and.returnValue(null);
+      spyOn((component as any).contentChange, 'emit').and.returnValue(null);
+
+      tabulatableComponent = fixture.debugElement.query(By.css('ds-search-result-table-element')).componentInstance;
+      reloadedObject = 'object';
+    });
+
+    it('should re-instantiate the listable component', fakeAsync(() => {
+      expect((component as any).instantiateComponent).not.toHaveBeenCalled();
+
+      (tabulatableComponent as any).reloadedObject.emit(reloadedObject);
+      tick(200);
+
+      expect((component as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject, undefined);
+    }));
+
+    it('should re-emit it as a contentChange', fakeAsync(() => {
+      expect((component as any).contentChange.emit).not.toHaveBeenCalled();
+
+      (tabulatableComponent as any).reloadedObject.emit(reloadedObject);
+      tick(200);
+
+      expect((component as any).contentChange.emit).toHaveBeenCalledWith(reloadedObject);
+    }));
+
   });
 });

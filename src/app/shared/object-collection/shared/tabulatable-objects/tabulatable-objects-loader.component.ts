@@ -39,7 +39,7 @@ export class TabulatableObjectsLoaderComponent implements OnInit, OnChanges, OnD
 
 
   /**
-   * The context of listable object
+   * The context of tabulatable object
    */
   @Input() context: Context;
 

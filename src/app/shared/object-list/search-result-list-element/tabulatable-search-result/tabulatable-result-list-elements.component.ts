@@ -6,7 +6,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { SearchResult } from '../../../search/models/search-result.model';
 
 @Component({
-  selector: 'ds-search-result-list-element',
+  selector: 'ds-search-result-table-element',
   template: ``
 })
 export class TabulatableResultListElementsComponent<T extends PaginatedList<K>, K extends SearchResult<any>> extends AbstractTabulatableElementComponent<T> {}
