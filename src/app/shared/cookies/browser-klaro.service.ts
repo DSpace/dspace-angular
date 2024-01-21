@@ -343,17 +343,17 @@ export class BrowserKlaroService extends KlaroService {
   }
 
   watchConsentUpdates() {
-    const that = this;
     this.lazyKlaro.then(({getManager}) => {
-      const manager = getManager(this.klaroConfig)
+      const manager = getManager(this.klaroConfig);
+      const consentsSubject$ = this.consentsUpdates$;
       manager.watch({
         update(_, eventName, consents) {
-          if(eventName === 'consents') {
-            that.consentsUpdates$.next(consents)
+          if (eventName === 'consents') {
+            consentsSubject$.next(consents);
           }
         }
-      })
-    })
+      });
+    });
   }
 
   /**
