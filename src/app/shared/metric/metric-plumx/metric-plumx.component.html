@@ -31,6 +31,7 @@
     </ng-container>
   </div>
 </div>
-<div role="button" class="col-7" (click)="requestSettingsConsent.emit(true)" *ngIf="!canLoadScript">
+<div class="col-7" *ngIf="!canLoadScript">
   {{ "third-party-metrics-cookies.message" | translate: {metricType: metric.metricType | titlecase} }}
+  <div role="button" class="btn-link" (click)="requestSettingsConsent.emit(true)">{{"third-party-metrics-cookies.consent-settings" | translate}}</div>
 </div>

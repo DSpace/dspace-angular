@@ -50,14 +50,16 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
   private thirdPartyMetrics = ['plumX', 'altmetric', 'dimensions'];
 
+  private browserKlaroService: BrowserKlaroService;
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private metricLoaderService: MetricLoaderService,
-    private browserKlaroService: BrowserKlaroService,
     private klaroService: KlaroService,
   ) {
-    (this.klaroService as BrowserKlaroService).watchConsentUpdates();
-    this.consentUpdates$ = (this.klaroService as BrowserKlaroService).consentsUpdates$;
+    this.browserKlaroService = (this.klaroService as BrowserKlaroService);
+    this.browserKlaroService.watchConsentUpdates();
+    this.consentUpdates$ = this.browserKlaroService.consentsUpdates$;
   }
 
   ngOnInit() {
@@ -135,10 +137,11 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
       ),
       componentInstance.requestSettingsConsent.pipe(startWith(undefined))
     ]).subscribe(([consents, request]) => {
+      console.log(consents)
       canLoadScript = this.getCanLoadScript(consents);
 
       if(request && !canLoadScript) {
-        this.klaroService.showSettings();
+        this.browserKlaroService.showSettings();
       }
 
       if(canLoadScript) {

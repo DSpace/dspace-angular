@@ -7293,5 +7293,7 @@
 
   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
 
-  "third-party-metrics-cookies.message": "{{ metricType }} badge is blocked by your consent settings",
+  "third-party-metrics-cookies.message": "{{ metricType }} badge is blocked by your ",
+
+  "third-party-metrics-cookies.consent-settings": "consent settings",
 }
