@@ -58,6 +58,7 @@ export class MetricLoaderService {
   /**
    * Load required data for the metricType and then return the Component type.
    * @param metricType
+   * @param canLoadScript
    * @return the ComponentClass for the metricType
    */
   public loadMetricTypeComponent(metricType: string, canLoadScript = true): Promise<any> {

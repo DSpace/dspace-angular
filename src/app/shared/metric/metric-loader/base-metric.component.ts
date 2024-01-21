@@ -36,6 +36,11 @@ export abstract class BaseMetricComponent {
   canLoadScript: boolean;
 
   /**
+   * A boolean to force rendering without data
+   */
+  visibleWithoutData: boolean;
+
+  /**
    * Get the detail url form metric remark if present.
    */
   getDetailUrl() {

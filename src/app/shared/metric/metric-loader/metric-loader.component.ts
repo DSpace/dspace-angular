@@ -9,15 +9,14 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { Metric } from '../../../core/shared/metric.model';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
 import { hasValue } from '../../empty.util';
-import { BrowserKlaroService } from '../../cookies/browser-klaro.service';
+import { BrowserKlaroService, CookieConsents } from '../../cookies/browser-klaro.service';
 import { KlaroService } from '../../cookies/klaro.service';
-import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { distinctUntilChanged, startWith } from "rxjs/operators";
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -41,6 +40,8 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
   isVisible$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
+  consentUpdates$: BehaviorSubject<any>;
+
   subscription: Subscription;
 
   cookiesSubscription: Subscription;
@@ -53,34 +54,41 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private metricLoaderService: MetricLoaderService,
     private browserKlaroService: BrowserKlaroService,
-    private cookies: KlaroService,
-    private router: Router,
-    @Inject(DOCUMENT) private _document: Document,
+    private klaroService: KlaroService,
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
+    (this.klaroService as BrowserKlaroService).watchConsentUpdates();
+    this.consentUpdates$ = (this.klaroService as BrowserKlaroService).consentsUpdates$;
   }
 
   ngOnInit() {
-    this.cookiesSubscription = this.browserKlaroService.getSavedPreferences().subscribe((preferences) => {
-      const canLoadScript = (hasValue(preferences) && preferences.acknowledgement && this.thirdPartyMetrics.includes(this.metric.metricType))
-        || !this.thirdPartyMetrics.includes(this.metric.metricType);
-
-      this.loadComponent(this.metric, canLoadScript);
+    this.cookiesSubscription = this.browserKlaroService.getSavedPreferences().subscribe((consents) => {
+      this.loadComponent(this.metric, this.getCanLoadScript(consents));
     });
   }
 
-  loadComponent(metric: Metric, canLoadScript: boolean) {
+  loadComponent(metric: Metric, canLoadScript: boolean, forceRendering?: boolean) {
     if (!metric) {
       return;
     }
     this.metricLoaderService.loadMetricTypeComponent(metric.metricType, canLoadScript).then((component) => {
-      this.instantiateComponent(component, metric, canLoadScript);
+      if(hasValue(this.cookiesSubscription) && canLoadScript) {
+        this.container.clear();
+        this.cookiesSubscription.unsubscribe()
+      }
+      this.instantiateComponent(component, metric, canLoadScript, forceRendering);
     });
   }
 
-  instantiateComponent(component: any, metric: Metric, canLoadScript: boolean) {
+  /**
+   * Instantiate component in view container
+   *
+   * @param component
+   * @param metric
+   * @param canLoadScript
+   * @param forceRendering
+   */
+
+  instantiateComponent(component: any, metric: Metric, canLoadScript: boolean, forceRendering?: boolean) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(component);
     this.componentType = component;
     const ref = this.container.createComponent(factory);
@@ -89,13 +97,11 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
     componentInstance.hideLabel = this.hideLabel;
     componentInstance.isListElement = this.isListElement;
     componentInstance.canLoadScript = canLoadScript;
+    componentInstance.visibleWithoutData = forceRendering;
 
 
     if (!canLoadScript) {
-      this.settingsSubscription = componentInstance.requestSettingsConsent.subscribe(() => {
-        this.cookies.showSettings();
-        //TODO: find a way to reload page once setting have been accepted also via footer
-      });
+      this.reloadComponentOnConsentsChange(componentInstance, canLoadScript)
     }
 
     this.subscription = componentInstance.hide.subscribe((event) => {
@@ -106,9 +112,39 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
     ref.changeDetectorRef.detectChanges();
   }
 
+  /**
+   * get condition to check if badge can load a script
+   * @param consents
+   */
+  private getCanLoadScript(consents: CookieConsents) : boolean {
+    return (hasValue(consents) && consents.acknowledgement && this.thirdPartyMetrics.includes(this.metric.metricType))
+      || !this.thirdPartyMetrics.includes(this.metric.metricType);
+  }
 
-  public refreshPageForMetricsBadge(): void {
-    this.router.navigateByUrl(this.router.url);
+  /**
+   * Listen to cookie consents change and reload component
+   *
+   * @param componentInstance
+   * @param canLoadScript
+   * @private
+   */
+  private reloadComponentOnConsentsChange(componentInstance: BaseMetricComponent, canLoadScript: boolean) : void {
+    this.settingsSubscription = combineLatest([
+      this.consentUpdates$.pipe(distinctUntilChanged(
+        (previousConsents, currentConsents) => JSON.stringify(previousConsents) === JSON.stringify(currentConsents))
+      ),
+      componentInstance.requestSettingsConsent.pipe(startWith(undefined))
+    ]).subscribe(([consents, request]) => {
+      canLoadScript = this.getCanLoadScript(consents);
+
+      if(request && !canLoadScript) {
+        this.klaroService.showSettings();
+      }
+
+      if(canLoadScript) {
+        this.loadComponent(this.metric, canLoadScript, true)
+      }
+    });
   }
 
 

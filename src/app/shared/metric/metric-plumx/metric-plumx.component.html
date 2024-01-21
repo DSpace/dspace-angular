@@ -1,7 +1,7 @@
-<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && canLoadScript && !(isHidden$ | async)">
+<div class="row d-flex align-items-center justify-content-center" *ngIf="(remark && canLoadScript && !(isHidden$ | async)) || (canLoadScript && visibleWithoutData)">
   <div [ngSwitch]="(remark | dsListMetricProps: 'type':isListElement)" [class.person-type-plumX]="isListElement">
     <ng-container *ngSwitchCase="'Person'">
-      <a *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
+      <a *ngIf="(remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)) || visibleWithoutData"
          [href]="remark | dsListMetricProps: 'href':isListElement"
          class="plumx-person"
          data-site="plum"
@@ -15,11 +15,11 @@
       >{{ remark | dsListMetricProps: "placeholder":isListElement }}</a>
     </ng-container>
     <ng-container *ngSwitchCase="'Publication'">
-      <a *ngIf="remark && (remark | dsListMetricProps: 'data-publication-badge-enabled':isListElement == true)"
+      <a *ngIf="(remark && (remark | dsListMetricProps: 'data-publication-badge-enabled':isListElement == true)) || visibleWithoutData"
          [href]="remark | dsListMetricProps: 'href':isListElement"
          class="plumx-plum-print-popup"
          [attr.data-popup]="remark | dsListMetricProps: 'data-popup':isListElement"
-         [attr.data-hide-when-empty]="remark | dsListMetricProps: 'data-hide-when-empty':isListElement"
+         [attr.data-hide-when-empty]="visibleWithoutData ? false : (remark | dsListMetricProps: 'data-hide-when-empty':isListElement)"
          [attr.data-hide-usage]="remark | dsListMetricProps: 'data-hide-usage':isListElement"
          [attr.data-hide-captures]="remark | dsListMetricProps: 'data-hide-captures':isListElement"
          [attr.data-hide-mentions]="remark | dsListMetricProps: 'data-hide-mentions':isListElement"

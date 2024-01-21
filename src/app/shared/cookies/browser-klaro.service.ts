@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
@@ -17,6 +17,11 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 
+export interface CookieConsents {
+  acknowledgement: boolean;
+  authentication: boolean;
+  preferences: boolean;
+}
 /**
  * Metadata field to store a user's cookie consent preferences in
  */
@@ -69,6 +74,12 @@ export class BrowserKlaroService extends KlaroService {
    * Initial Klaro configuration
    */
   klaroConfig = cloneDeep(klaroConfiguration);
+
+  /**
+   * Subject to emit updates in the consents
+   */
+  consentsUpdates$:  BehaviorSubject<CookieConsents> = new BehaviorSubject<CookieConsents>(null);
+
 
   constructor(
     private translateService: TranslateService,
@@ -329,6 +340,20 @@ export class BrowserKlaroService extends KlaroService {
    */
   getStorageName(identifier: string) {
     return 'klaro-' + identifier;
+  }
+
+  watchConsentUpdates() {
+    const that = this;
+    this.lazyKlaro.then(({getManager}) => {
+      const manager = getManager(this.klaroConfig)
+      manager.watch({
+        update(_, eventName, consents) {
+          if(eventName === 'consents') {
+            that.consentsUpdates$.next(consents)
+          }
+        }
+      })
+    })
   }
 
   /**
