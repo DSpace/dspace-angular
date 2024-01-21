@@ -43,7 +43,7 @@ import { SECTION_LICENSE_FORM_LAYOUT } from './section-license.model';
   templateUrl: './section-license.component.html',
   // templateUrl: '../../../../../../app/submission/sections/license/section-license.component.html',
 })
-@renderSectionFor(SectionsType.License)
+@renderSectionFor(SectionsType.License, 'tamu')
 export class SubmissionSectionLicenseComponent extends BaseComponent {
 
   /**
