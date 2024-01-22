@@ -133,7 +133,7 @@ export const klaroConfiguration: any = {
       cookies: [
         [/^klaro-.+$/],
         HAS_AGREED_END_USER
-      ],
+      ]
     },
     {
       name: GOOGLE_ANALYTICS_KLARO_KEY,
