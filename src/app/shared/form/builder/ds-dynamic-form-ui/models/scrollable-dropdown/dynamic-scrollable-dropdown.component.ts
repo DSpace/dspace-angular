@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
@@ -28,6 +37,8 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
   templateUrl: './dynamic-scrollable-dropdown.component.html'
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
+  @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;
+
   @Input() bindId = true;
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicScrollableDropdownModel;
@@ -41,6 +52,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   public pageInfo: PageInfo;
   public optionsList: any;
   public inputText: string = null;
+  public selectedIndex = 0;
   public acceptableKeys = ['Space', 'NumpadMultiply', 'NumpadAdd', 'NumpadSubtract', 'NumpadDecimal', 'Semicolon', 'Equal', 'Comma', 'Minus', 'Period', 'Quote', 'Backquote'];
 
   constructor(protected vocabularyService: VocabularyService,
@@ -73,6 +85,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         list.pageInfo.totalElements,
         list.pageInfo.totalPages
       );
+      this.selectedIndex = 0;
       this.cdr.detectChanges();
     });
   }
@@ -96,6 +109,23 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     }
   }
 
+  navigateDropdown(event: KeyboardEvent) {
+    if (event.key === 'ArrowDown') {
+      this.selectedIndex = Math.min(this.selectedIndex + 1, this.optionsList.length - 1);
+    } else if (event.key === 'ArrowUp') {
+      this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+    }
+    this.scrollToSelected();
+  }
+
+  scrollToSelected() {
+    const dropdownItems = this.dropdownMenu.nativeElement.querySelectorAll('.dropdown-item');
+    const selectedItem = dropdownItems[this.selectedIndex];
+    if (selectedItem) {
+      selectedItem.scrollIntoView({ block: 'nearest' });
+    }
+  }
+
   /**
    * KeyDown handler to allow toggling the dropdown via keyboard
    * @param event KeyboardEvent
@@ -104,12 +134,19 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   selectOnKeyDown(event: KeyboardEvent, sdRef: NgbDropdown) {
     const keyName = event.key;
 
-    if (keyName === ' ' || keyName === 'Enter') {
+    if (keyName === 'Enter') {
       event.preventDefault();
       event.stopPropagation();
-      sdRef.toggle();
+      if (sdRef.isOpen()) {
+        this.onSelect(this.optionsList[this.selectedIndex]);
+        sdRef.close();
+      } else {
+        sdRef.open();
+      }
     } else if (keyName === 'ArrowDown' || keyName === 'ArrowUp') {
-      this.openDropdown(sdRef);
+      event.preventDefault();
+      event.stopPropagation();
+      this.navigateDropdown(event);
     } else if (keyName === 'Backspace') {
       this.removeKeyFromInput();
     } else if (this.isAcceptableKey(keyName)) {
