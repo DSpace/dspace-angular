@@ -15,6 +15,8 @@ import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { ThemeServiceStub } from '../../../shared/testing/theme-service.stub';
 import { SectionDataObject } from '../models/section-data.model';
 import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
 
@@ -51,6 +53,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
   const sectionsServiceStub: SectionsServiceStub = new SectionsServiceStub();
+  const themeServiceStub: ThemeServiceStub = new ThemeServiceStub();
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
@@ -60,6 +63,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
     sectionsServiceStub.getShownSectionErrors.and.returnValue(observableOf([]));
     submissionServiceStub.getActiveSectionId.and.returnValue(observableOf('traditionalpageone'));
+    themeServiceStub.getThemeName.and.returnValue('dspace');
+    themeServiceStub.getThemeConfigFor.and.returnValue({ name: 'dspace' });
   }
 
   // waitForAsync beforeEach
@@ -78,6 +83,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: ThemeService, useValue: themeServiceStub },
         SubmissionSectionContainerComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

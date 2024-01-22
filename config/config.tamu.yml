@@ -1,0 +1,47 @@
+rest:
+  ssl: true
+  host: api-dev.library.tamu.edu
+  port: 443
+  nameSpace: /dspace7
+
+mediaViewer:
+  image: true
+  video: false
+
+themes:
+  - name: capstone
+    extends: tamu
+    # handle: '1969.1/94971'
+    uuid: '330feb1a-a3b8-4ba1-91cd-adb9369b6fb3'
+  - name: esl
+    extends: tamu
+    # handle: '1969.1/1656'
+    uuid: '7243d893-6c7e-44fc-aa74-ecfbf7dc771c'
+  - name: periodicals
+    extends: tamu
+    # regex: '1969.1\/94990|1969.1\/6062'
+    regex: '0e87eb5c-ce4a-4e74-9d33-fcbfb5066209|4d390df8-2edf-4633-bfde-5b2df685c459'
+  - name: image-gallery
+    extends: tamu
+    # regex: '1969.1\/91004|1969.1\/590|1969.1\/97046|1969.1\/86434|1969.1\/128952|1969.1\/148733|1969.1\/155981|1969.1\/188336|1969.1\/155981|1969.1\/188335|1969.1\/194556|1969.1\/195994'
+    regex: 'befb7166-392b-445b-b907-1f4363bb6dfb|ed211f67-86ad-41ff-9696-fe0e7e17e1cb|d61f515b-8153-4718-9b9d-1ce679c955a0|c431e202-fc5b-46c8-b188-00901e1e215a|7c2ac72f-fd7a-4f27-b701-eb6e0539a876|beea4d64-0ff6-4e58-9f7b-489e1d6c6f75|282ec515-7b66-4492-b4d0-ae66d76f516b|6d433be8-7a28-4dc7-a245-f8dfbb7a513c|282ec515-7b66-4492-b4d0-ae66d76f516b|a3923d8b-249c-4b7d-8459-0c83953f7d8f|7c61a02c-2176-4c5a-9dd8-919353159e91|a4116d8b-8135-4449-a1b0-3378d5c7ecad'
+  - name: tamu
+    headTags:
+    - tagName: link
+      attributes:
+        rel: icon
+        href: assets/tamu/images/favicons/favicon.ico
+        sizes: any
+    - tagName: link
+      attributes:
+        rel: icon
+        href: assets/tamu/images/favicons/favicon.svg
+        type: image/svg+xml
+    - tagName: link
+      attributes:
+        rel: apple-touch-icon
+        href: assets/tamu/images/favicons/apple-touch-icon.png
+    - tagName: link
+      attributes:
+        rel: manifest
+        href: assets/tamu/images/favicons/manifest.webmanifest

@@ -33,6 +33,8 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
   @deserialize
   _links: {
     license: HALLink;
+    // TAMU Customization - available licenses HALLink for this collection
+    licenses: HALLink;
     harvester: HALLink;
     mappedItems: HALLink;
     itemtemplate: HALLink;
@@ -53,6 +55,13 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
    */
   @link(LICENSE)
   license?: Observable<RemoteData<License>>;
+
+  /**
+   * TAMU Customization - The available licenses for this Collection
+   * Will be undefined unless the licenses {@link HALLink} has been resolved.
+   */
+  @link(LICENSE)
+  licenses?: Observable<RemoteData<PaginatedList<License>>>;
 
   /**
    * The logo for this Collection

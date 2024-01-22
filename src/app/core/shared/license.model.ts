@@ -19,4 +19,11 @@ export class License extends DSpaceObject {
    */
   @autoserialize
   text: string;
+
+  /**
+   * TAMU Customization - The radio label for the license
+   */
+  @autoserialize
+  label?: string;
+
 }
