@@ -1,0 +1,51 @@
+/* Styles par défaut */
+.carousel {
+  width: 100% !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.vedette-home {
+  width: 100%!important;
+  height: 300px!important;
+  object-fit: cover!important;
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  padding: 20px;
+}
+
+.carousel-caption:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-caption h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.carousel-caption p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Styles pour les écrans plus petits (par exemple, tablettes et téléphones) */
+@media (max-width: 768px) {
+  .vedette-home {
+    height: 200px; /* Ajustez la hauteur pour les écrans plus petits */
+  }
+
+  .carousel-caption {
+    padding: 10px; /* Réduire l'espace intérieur de la légende */
+  }
+
+  .carousel-caption h3 {
+    font-size: 18px; /* Réduire la taille de la police du titre */
+    margin-bottom: 5px; /* Réduire la marge en bas du titre */
+  }
+
+  .carousel-caption p {
+    font-size: 14px; /* Réduire la taille de la police de la description */
+  }
+}
