@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../core/shared/operators';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
 
@@ -30,11 +30,6 @@ export class MyDspaceQaEventsNotificationsComponent implements OnInit {
     this.sources$ = this.qualityAssuranceSourceDataService.getSources()
       .pipe(
         getFirstCompletedRemoteData(),
-        tap((rd) => {
-          if (rd.hasFailed) {
-            throw new Error('Can\'t retrieve Quality Assurance sources');
-          }
-        }),
         getRemoteDataPayload(),
         getPaginatedListPayload(),
       );

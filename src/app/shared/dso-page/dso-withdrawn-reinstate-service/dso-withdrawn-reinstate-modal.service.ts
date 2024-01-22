@@ -50,6 +50,15 @@ export class DsoWithdrawnReinstateModalService {
        );
   }
 
+  /**
+   * Sends a quality assurance request.
+   *
+   * @param target - The target - the item's UUID.
+   * @param correctionType - The type of correction.
+   * @param reason - The reason for the request.
+   * Reloads the current page in order to update the withdrawn/reinstate button.
+   * and desplay a notification box.
+   */
   sendQARequest(target: string, correctionType: string, reason: string): void {
      this.qaEventDataService.postData(target, correctionType, '', reason)
        .pipe (
@@ -62,11 +71,24 @@ export class DsoWithdrawnReinstateModalService {
           const message = (correctionType === 'request-withdrawn') ? withdrawnMessage : reinstateMessage;
           this.notificationsService.success(this.translateService.get(message));
           this.authorizationService.invalidateAuthorizationsRequestCache();
-          this.router.navigate([this.router.url]); // refresh page
+          this.reloadPage(true);
         } else {
           this.notificationsService.error(this.translateService.get('correction-type.manage-relation.action.notification.error'));
         }
       });
+  }
+
+  /**
+   * Reloads the current page or navigates to a specified URL.
+   * @param self - A boolean indicating whether to reload the current page (true) or navigate to a specified URL (false).
+   * @param urlToNavigateTo - The URL to navigate to if `self` is false.
+   * skipLocationChange:true means dont update the url to / when navigating
+   */
+  reloadPage(self: boolean, urlToNavigateTo?: string) {
+    const url = self ? this.router.url : urlToNavigateTo;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`/${url}`]);
+    });
   }
 }
 

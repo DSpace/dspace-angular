@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { Observable } from 'rxjs';
@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -37,16 +36,7 @@ export class QaEventNotificationComponent implements OnChanges {
    */
   constructor(
     private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService,
-    private router: Router,
-    private chd: ChangeDetectorRef
-  ) {
-    this.router.events.pipe().subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.sources$ = this.getQualityAssuranceSources$();
-        this.chd.markForCheck();
-      }
-    });
-   }
+  ) { }
 
   /**
     * Detect changes to the item input and update the sources$ observable.
