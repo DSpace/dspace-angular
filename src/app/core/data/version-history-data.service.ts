@@ -91,7 +91,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
     requestHeaders = requestHeaders.append('Content-Type', 'text/uri-list');
     requestOptions.headers = requestHeaders;
 
-    return this.halService.getEndpoint(this.versionsEndpoint).pipe(
+    const response$ = this.halService.getEndpoint(this.versionsEndpoint).pipe(
       take(1),
       map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${summary}` : `${endpointUrl}`),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, itemHref, requestOptions)),
@@ -99,6 +99,16 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData()
     ) as Observable<RemoteData<Version>>;
+
+    response$.subscribe((versionRD: RemoteData<Version>) => {
+      // invalidate version history
+      // note: we should do this regardless of whether the request succeeds,
+      //       because it may have failed due to cached data that is out of date
+      this.requestService.setStaleByHrefSubstring(versionRD.payload._links.self.href);
+      this.requestService.setStaleByHrefSubstring(versionRD.payload._links.versionhistory.href);
+    });
+
+    return response$;
   }
 
   /**
@@ -158,14 +168,20 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
    * @returns `true` if a workspace item exists, `false` otherwise, or `null` if a version history does not exist
    */
   hasDraftVersion$(versionHref: string): Observable<boolean> {
-    return this.versionDataService.findByHref(versionHref, true, true, followLink('versionhistory')).pipe(
+    return this.versionDataService.findByHref(versionHref, false, true, followLink('versionhistory')).pipe(
       getFirstCompletedRemoteData(),
       switchMap((res) => {
         if (res.hasSucceeded && !res.hasNoContent) {
-          return of(res).pipe(
-            getFirstSucceededRemoteDataPayload(),
-            switchMap((version) => this.versionDataService.getHistoryFromVersion(version)),
-            map((versionHistory) => versionHistory ? versionHistory.draftVersion : false),
+          return res.payload.versionhistory.pipe(
+            getFirstCompletedRemoteData(),
+            map((versionHistoryRD) => {
+              if (res.hasSucceeded) {
+                const versionHistory = versionHistoryRD.payload;
+                return versionHistory ? versionHistory.draftVersion : false;
+              } else {
+                return false;
+              }
+            }),
           );
         } else {
           return of(false);
