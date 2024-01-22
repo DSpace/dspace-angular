@@ -4,7 +4,7 @@
       {{model.placeholder}} <span *ngIf="model.required">*</span>
     </legend>
     <ds-number-picker
-      tabindex="1"
+      tabindex="0"
       [id]="model.id + '_year'"
       [disabled]="model.disabled"
       [min]="minYear"
@@ -21,7 +21,7 @@
     ></ds-number-picker>
 
     <ds-number-picker
-      tabindex="2"
+      tabindex="0"
       [id]="model.id + '_month'"
       [min]="minMonth"
       [max]="maxMonth"
@@ -37,7 +37,7 @@
     ></ds-number-picker>
 
     <ds-number-picker
-      tabindex="3"
+      tabindex="0"
       [id]="model.id + '_day'"
       [min]="minDay"
       [max]="maxDay"
