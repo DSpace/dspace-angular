@@ -2,8 +2,7 @@
      *ngIf="(!failed &&
       canLoadScript &&
       !(isHidden$ | async) &&
-      (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)) ||
-      (canLoadScript && visibleWithoutData)"
+      (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true))"
 >
   <div class="col-5 text-left">
     <div #metricChild>

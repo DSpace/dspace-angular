@@ -38,12 +38,15 @@ export class MetricPlumxComponent extends BaseMetricComponent implements OnInit,
       // use the method to find and render all placeholders that haven't already been initialized
       this._window.nativeWindow.__plumX.widgets.init();
 
-      this.unlistenerEmpty = this.renderer2.listen(
-        this._window.nativeWindow,
-        'plum:widget-empty', event => {
-          this.isHidden$.next(true);
-          this.hide.emit(true);
-        });
+      if (!this.visibleWithoutData) {
+        this.unlistenerEmpty = this.renderer2.listen(
+          this._window.nativeWindow,
+          'plum:widget-empty', event => {
+            this.isHidden$.next(true);
+            this.hide.emit(true);
+          });
+      }
+
       this.unlistenerError = this.renderer2.listen(
         this._window.nativeWindow,
         'plum:widget-error', event => {

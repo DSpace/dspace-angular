@@ -33,12 +33,12 @@ export abstract class BaseMetricComponent {
   /**
    * A boolean to check if the component can load the associated script
    */
-  canLoadScript: boolean;
+  canLoadScript = true;
 
   /**
    * A boolean to force rendering without data
    */
-  visibleWithoutData: boolean;
+  visibleWithoutData = false;
 
   /**
    * Get the detail url form metric remark if present.

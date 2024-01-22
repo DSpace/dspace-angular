@@ -40,7 +40,7 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
   isVisible$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-  consentUpdates$: BehaviorSubject<any>;
+  consentUpdates$: BehaviorSubject<CookieConsents>;
 
   subscription: Subscription;
 

@@ -1,7 +1,7 @@
-<div class="row d-flex align-items-center justify-content-center" *ngIf="(remark && canLoadScript && !(isHidden$ | async)) || (canLoadScript && visibleWithoutData)">
+<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && canLoadScript && !(isHidden$ | async)">
   <div [ngSwitch]="(remark | dsListMetricProps: 'type':isListElement)" [class.person-type-plumX]="isListElement">
     <ng-container *ngSwitchCase="'Person'">
-      <a *ngIf="(remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)) || visibleWithoutData"
+      <a *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
          [href]="remark | dsListMetricProps: 'href':isListElement"
          class="plumx-person"
          data-site="plum"
@@ -15,7 +15,7 @@
       >{{ remark | dsListMetricProps: "placeholder":isListElement }}</a>
     </ng-container>
     <ng-container *ngSwitchCase="'Publication'">
-      <a *ngIf="(remark && (remark | dsListMetricProps: 'data-publication-badge-enabled':isListElement == true)) || visibleWithoutData"
+      <a *ngIf="remark && (remark | dsListMetricProps: 'data-publication-badge-enabled':isListElement == true)"
          [href]="remark | dsListMetricProps: 'href':isListElement"
          class="plumx-plum-print-popup"
          [attr.data-popup]="remark | dsListMetricProps: 'data-popup':isListElement"
@@ -31,7 +31,7 @@
     </ng-container>
   </div>
 </div>
-<div class="col-7" *ngIf="!canLoadScript">
+<div class="alert-light col-7" *ngIf="!canLoadScript">
   {{ "third-party-metrics-cookies.message" | translate: {metricType: metric.metricType | titlecase} }}
   <div role="button" class="btn-link" (click)="requestSettingsConsent.emit(true)">{{"third-party-metrics-cookies.consent-settings" | translate}}</div>
 </div>
