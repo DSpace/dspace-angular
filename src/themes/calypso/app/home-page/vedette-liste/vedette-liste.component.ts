@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { VedetteService } from '../../../service/vedette.service'; // Mettez le bon chemin
-import { Vedette } from '../../../models/Vedette'; // Mettez le bon chemin
+import { VedetteService } from '../../../service/vedette.service';
+import { Vedette } from '../../../models/Vedette';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-vedette-liste',
@@ -10,7 +11,7 @@ import { Vedette } from '../../../models/Vedette'; // Mettez le bon chemin
   providers: [NgbCarouselConfig],
 })
 export class VedetteListeComponent implements OnInit {
-  images: Vedette[] = [];
+  images$: Observable<Vedette[]>;
 
   constructor(
     private vedetteService: VedetteService,
@@ -22,12 +23,6 @@ export class VedetteListeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
-  }
-
-  private loadData(): void {
-    this.vedetteService.getImages().subscribe((images) => {
-      this.images = images;
-    });
+    this.images$ = this.vedetteService.getImages();
   }
 }

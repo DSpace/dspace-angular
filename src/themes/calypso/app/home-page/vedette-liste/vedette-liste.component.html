@@ -1,7 +1,5 @@
 <div class="row">
-  <h5>Test vedette</h5>
-
-  <div *ngIf="images.length > 0; else loading">
+  <ng-container *ngIf="images$ | async as images; else loading">
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let image of images">
         <img [src]="image.imageUrl" class="d-block w-100" alt="{{ image.title }}">
@@ -11,6 +9,6 @@
         </div>
       </ng-template>
     </ngb-carousel>
-  </div>
-  <ng-template #loading>Chargement en cours...</ng-template>
+  </ng-container>
+  <ng-template #loading>...</ng-template>
 </div>
