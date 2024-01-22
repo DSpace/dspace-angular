@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Renderer2 } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,8 @@ import {
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
 import { By } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
 
 export const DATE_TEST_GROUP = new UntypedFormGroup({
@@ -49,6 +51,13 @@ describe('DsDatePickerComponent test suite', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
+    const translateServiceStub = {
+      get: () => observableOf('test-message'),
+      onLangChange: new EventEmitter(),
+      onTranslationChange: new EventEmitter(),
+      onDefaultLangChange: new EventEmitter()
+    };
+
     TestBed.configureTestingModule({
     imports: [
         NgbModule,
@@ -58,6 +67,7 @@ describe('DsDatePickerComponent test suite', () => {
     providers: [
         ChangeDetectorRef,
         DsDatePickerComponent,
+        { provide: TranslateService, useValue: translateServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: Renderer2, useValue: renderer2 },
