@@ -114,8 +114,7 @@ describe('MetricLoaderComponent', () => {
 
     it('should return false for restricted metrics', fakeAsync(() => {
       const consentRejected = {...consentsAccepted, acknowledgement: false};
-      const restrictedMetric = {...metric1Mock, metricType: 'altmetric'};
-      component.metric = restrictedMetric;
+      component.metric = {...metric1Mock, metricType: 'altmetric'};
       expect((component as any).getCanLoadScript(consentRejected)).toBeFalsy();
     }));
 
