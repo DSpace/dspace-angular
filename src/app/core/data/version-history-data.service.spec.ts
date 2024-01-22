@@ -65,6 +65,10 @@ describe('VersionHistoryDataService', () => {
       },
     },
   });
+  const version1WithDraft = Object.assign(new Version(), {
+    ...version1,
+    versionhistory: createSuccessfulRemoteDataObject$(versionHistoryDraft),
+  });
   const versions = [version1, version2];
   versionHistory.versions = createSuccessfulRemoteDataObject$(createPaginatedList(versions));
   const item1 = Object.assign(new Item(), {
@@ -186,21 +190,18 @@ describe('VersionHistoryDataService', () => {
   });
 
   describe('hasDraftVersion$', () => {
-    beforeEach(waitForAsync(() => {
-      versionService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$<Version>(version1));
-    }));
     it('should return false if draftVersion is false', fakeAsync(() => {
-      versionService.getHistoryFromVersion.and.returnValue(of(versionHistory));
+      versionService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$<Version>(version1));
       service.hasDraftVersion$('href').subscribe((res) => {
         expect(res).toBeFalse();
       });
     }));
+
     it('should return true if draftVersion is true', fakeAsync(() => {
-      versionService.getHistoryFromVersion.and.returnValue(of(versionHistoryDraft));
+      versionService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$<Version>(version1WithDraft));
       service.hasDraftVersion$('href').subscribe((res) => {
         expect(res).toBeTrue();
       });
     }));
   });
-
 });
