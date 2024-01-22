@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
@@ -8,6 +7,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { REGISTRIES_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
+import { ThemedMetadataImportPageComponent } from './admin-import-metadata-page/themed-metadata-import-page.component';
 
 @NgModule({
   imports: [
@@ -38,7 +38,7 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
       {
         path: 'metadata-import',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        component: MetadataImportPageComponent,
+        component: ThemedMetadataImportPageComponent,
         data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' }
       },
       {

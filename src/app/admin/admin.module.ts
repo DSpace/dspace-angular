@@ -12,6 +12,7 @@ import { ExpandableAdminSidebarSectionComponent } from './admin-sidebar/expandab
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { UploadModule } from '../shared/upload/upload.module';
+import { ThemedMetadataImportPageComponent } from './admin-import-metadata-page/themed-metadata-import-page.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -34,6 +35,7 @@ const ENTRY_COMPONENTS = [
   declarations: [
     AdminCurationTasksComponent,
     MetadataImportPageComponent,
+    ThemedMetadataImportPageComponent,
     BatchImportPageComponent
   ]
 })
