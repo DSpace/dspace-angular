@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
 import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { isEmpty } from '../../empty.util';
 import { NgClass } from '@angular/common';
 
@@ -13,7 +13,8 @@ import { NgClass } from '@angular/common';
   ],
   imports: [
     NgClass,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   standalone: true
 })
