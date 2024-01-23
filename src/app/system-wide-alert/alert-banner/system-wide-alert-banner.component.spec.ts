@@ -13,7 +13,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 
 
-fdescribe('SystemWideAlertBannerComponent', () => {
+describe('SystemWideAlertBannerComponent', () => {
   let comp: SystemWideAlertBannerComponent;
   let fixture: ComponentFixture<SystemWideAlertBannerComponent>;
   let systemWideAlertDataService: SystemWideAlertDataService;
