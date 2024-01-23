@@ -1,4 +1,4 @@
-<div *ngIf="(systemWideAlert$ |async)?.active">
+<div *ngIf="(systemWideAlert$ |async)?.active && (systemWideAlert$ |async)?.message">
     <div class="rounded-0 alert alert-warning w100">
         <div class="container">
             <span class="font-weight-bold">
