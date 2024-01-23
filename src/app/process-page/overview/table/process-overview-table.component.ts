@@ -71,7 +71,10 @@ export class ProcessOverviewTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paginationId = 'processOverviewTable' + this.processStatus;
+    // Creates an ID from the first 2 characters of the process status.
+    // Should two process status values ever start with the same substring,
+    // increase the number of characters until the ids are distinct.
+    this.paginationId = this.processStatus.toLowerCase().substring(0,2);
 
     let defaultPaginationOptions = Object.assign(new PaginationComponentOptions(), {
       id: this.paginationId,
