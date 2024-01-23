@@ -25,7 +25,8 @@ export class VedetteListeComponent implements OnInit {
 
   ngOnInit(): void {
     this.images$ = this.vedetteService.getImagesHome().pipe(
-      map(images => this.vedetteService.shuffleArray(images)) // Mélanger le tableau d'images
+      map(images => this.vedetteService.shuffleArray(images)), // Mélanger le tableau d'images
+      map(shuffledImages => shuffledImages.slice(0, 5)) // Prendre les 5 premières images du tableau mélangé
     );
   }
 
