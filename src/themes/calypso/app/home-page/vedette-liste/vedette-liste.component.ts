@@ -3,6 +3,7 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { VedetteService } from '../../../service/vedette.service';
 import { Vedette } from '../../../models/Vedette';
 import { Observable } from 'rxjs';
+import {  map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-vedette-liste',
@@ -23,6 +24,9 @@ export class VedetteListeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.images$ = this.vedetteService.getImages();
+    this.images$ = this.vedetteService.getImagesHome().pipe(
+      map(images => this.vedetteService.shuffleArray(images)) // Mélanger le tableau d'images
+    );
   }
+
 }
