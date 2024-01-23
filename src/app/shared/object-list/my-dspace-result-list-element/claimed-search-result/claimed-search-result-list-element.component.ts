@@ -18,10 +18,11 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
-import { mergeMap, tap } from 'rxjs/operators';
+import {map, mergeMap, tap} from 'rxjs/operators';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
+import { PaginatedList } from "../../../../core/data/paginated-list.model";
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -54,7 +55,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   /**
    * The potential duplicates of this item
    */
-  public duplicates$: Observable<Duplicate[]>;
+  public duplicates$: Observable<Duplicate[]> = new Observable<Duplicate[]>();
 
   /**
    * Display thumbnails if required by configuration
@@ -96,6 +97,16 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
       tap((itemRD: RemoteData<Item>) => {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
+          this.duplicates$ = itemRD.payload.duplicates.pipe(
+            getFirstCompletedRemoteData(),
+            map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
+              if (remoteData.hasSucceeded) {
+                if (remoteData.payload.page) {
+                  return remoteData.payload.page;
+                }
+              }
+            })
+          );
         }
       })
     ).subscribe();

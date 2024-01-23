@@ -60,7 +60,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   /**
    * The potential duplicates of this workflow item
    */
-  public duplicates$: Observable<Duplicate[]>;
+  public duplicates$: Observable<Duplicate[]> = new Observable<Duplicate[]>();
 
   /**
    * The index of this list element
@@ -107,11 +107,9 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       tap((itemRD: RemoteData<Item>) => {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
-          console.dir(itemRD.payload);
           this.duplicates$ = itemRD.payload.duplicates.pipe(
             getFirstCompletedRemoteData(),
             map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
-              console.dir(remoteData);
               if (remoteData.hasSucceeded) {
                 if (remoteData.payload.page) {
                   return remoteData.payload.page;
@@ -124,6 +122,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     ).subscribe();
 
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+
   }
 
   ngOnDestroy() {

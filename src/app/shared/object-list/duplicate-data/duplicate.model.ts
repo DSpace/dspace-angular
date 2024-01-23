@@ -21,4 +21,7 @@ export class Duplicate {
    */
   @autoserialize
   metadata: MetadataMap;
+
+  @autoserialize
+  type: string;
 }

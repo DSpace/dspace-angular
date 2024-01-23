@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -11,7 +11,6 @@ import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SubmissionService } from '../../submission.service';
@@ -39,10 +38,6 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import {Duplicate} from "../../../shared/object-list/duplicate-data/duplicate.model";
 import {MetadataValue} from "../../../core/shared/metadata.models";
-import {
-  WorkspaceitemSectionDuplicatesObject
-} from "../../../core/submission/models/workspaceitem-section-duplicates.model";
-import {SectionDataObject} from "../models/section-data.model";
 import {defaultUUID} from "../../../shared/mocks/uuid.service.mock";
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
@@ -76,19 +71,15 @@ const duplicates: Duplicate[]= [{
         'confidence': -1,
         'place': 0
       })]
-    }
+    },
+    type: "DUPLICATE"
   }];
 
-const potentialDuplicates: WorkspaceitemSectionDuplicatesObject = {
-  potentialDuplicates: duplicates
-};
-
-const sectionObject: SectionDataObject = {
+const sectionObject = {
   header: 'submission.sections.submit.progressbar.duplicates',
-  config: 'https://dspace.org/api/config/submissionforms/duplicates',
   mandatory: true,
   opened: true,
-  data: potentialDuplicates,
+  data: {potentialDuplicates: duplicates},
   errorsToShow: [],
   serverValidationErrors: [],
   id: 'duplicates',
@@ -160,8 +151,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
-        FormBuilderService,
-        SubmissionSectionDuplicatesComponent
+        FormBuilderService
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -177,9 +167,9 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionObject));
-      const html = `<ds-submission-section-duplicates></ds-submission-section-duplicates>`;
-      testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
+      testFixture = TestBed.createComponent(SubmissionSectionDuplicatesComponent);
       testComp = testFixture.componentInstance;
+
     });
 
     afterEach(() => {
@@ -187,7 +177,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
     });
 
     it('should create SubmissionSectionDuplicatesComponent', () => {
-      expect(testComp).toBeDefined();
+      expect(testComp).toBeTruthy();
     });
   });
 
@@ -217,7 +207,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
       compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
       spyOn(comp, 'getSectionStatus').and.returnValue(observableOf(true));
-      spyOn(comp, 'getDuplicateData').and.returnValue(observableOf(potentialDuplicates));
+      spyOn(comp, 'getDuplicateData').and.returnValue(observableOf({potentialDuplicates: duplicates}));
       expect(comp.isLoading).toBeTruthy();
       comp.onSectionInit();
       fixture.detectChanges();
