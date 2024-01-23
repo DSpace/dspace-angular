@@ -1,11 +1,11 @@
 <div class="item-page-field">
   <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
     <div class="simple-view-element">
-      <h2 class="simple-view-element-header">
+      <h2 *ngIf="showTitle" class="simple-view-element-header">
         {{ "item.page.metrics" | translate }}
       </h2>
       <div class="simple-view-element-body">
-        <ds-item-page-altmetric-field [item]="item"></ds-item-page-altmetric-field>
+        <ds-item-page-altmetric-field (widgetLoaded)="someWidgetHasLoaded($event)" [item]="item"></ds-item-page-altmetric-field>
       </div>
     </div>
   </ds-metadata-field-wrapper>

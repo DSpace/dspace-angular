@@ -13,4 +13,12 @@ export class ItemPageMetricsFieldComponent extends ItemPageFieldComponent {
 
   @Input() item: Item;
 
+  public showTitle = false;
+
+  public someWidgetHasLoaded(widgetLoaded: boolean) {
+    if (widgetLoaded) {
+      this.showTitle = true;
+    }
+  }
+
 }

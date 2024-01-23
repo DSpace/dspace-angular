@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Input, Output } from '@angular/core';
 import { ExternalScriptLoaderService } from 'src/app/shared/utils/scripts-loader/external-script-loader.service';
 import {
   ExternalScriptsNames,
@@ -13,6 +13,8 @@ import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 })
 export class ItemPageAltmetricFieldComponent implements AfterViewInit {
   @Input() item: Item;
+
+  @Output() widgetLoaded = new EventEmitter<boolean>();
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
@@ -51,5 +53,10 @@ export class ItemPageAltmetricFieldComponent implements AfterViewInit {
       element.script === ExternalScriptsNames.ALTMETRIC &&
       element.status === ExternalScriptsStatus.ALREADY_LOADED
     );
+  }
+
+  @HostListener('window:altmetric:show', ['$event'])
+  private onWidgetShow(event: Event) {
+    this.widgetLoaded.emit(true);
   }
 }
