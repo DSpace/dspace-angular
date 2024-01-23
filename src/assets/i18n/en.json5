@@ -3612,13 +3612,13 @@
 
   "reciter.suggestion.suggestionFor": "Suggestion for",
 
-  "reciter.suggestion.source.oaire": "OpenAIRE Graph",
+  "reciter.suggestion.source.openaire": "OpenAIRE Graph",
 
   "reciter.suggestion.from.source": "from the ",
 
   "reciter.suggestion.totalScore": "Total Score",
 
-  "reciter.suggestion.type.oaire": "OpenAIRE",
+  "reciter.suggestion.type.openaire": "OpenAIRE",
 
   "register-email.title": "New user registration",
 
