@@ -10,10 +10,9 @@ import { ProcessStatus } from '../processes/process-status.model';
 import { DatePipe } from '@angular/common';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
-
-
 /**
- * Service to retrieve
+ * Service to manage the processes displayed in the
+ * {@Link ProcessOverviewComponent} and the {@Link ProcessOverviewTableComponent}
  */
 @Injectable({
   providedIn: 'root',
