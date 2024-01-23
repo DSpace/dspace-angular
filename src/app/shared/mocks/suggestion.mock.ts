@@ -1,6 +1,7 @@
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { SearchResult } from '../search/models/search-result.model';
+import { of as observableOf } from 'rxjs';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1333,7 +1334,8 @@ export function getMockSuggestionNotificationsStateService(): any {
     getOpenaireBrokerTopicsCurrentPage: jasmine.createSpy('getOpenaireBrokerTopicsCurrentPage'),
     getOpenaireBrokerTopicsTotals: jasmine.createSpy('getOpenaireBrokerTopicsTotals'),
     dispatchRetrieveOpenaireBrokerTopics: jasmine.createSpy('dispatchRetrieveOpenaireBrokerTopics'),
-    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
+    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction'),
+    dispatchRefreshUserSuggestionsAction: undefined
   });
 }
 /**
@@ -1342,10 +1344,17 @@ export function getMockSuggestionNotificationsStateService(): any {
 export function getMockSuggestionsService(): any {
   return jasmine.createSpyObj('SuggestionsService', {
     getTargets: jasmine.createSpy('getTargets'),
-    getSuggestions: jasmine.createSpy('getSuggestions'),
+    getSuggestions: observableOf([]),
     clearSuggestionRequests: jasmine.createSpy('clearSuggestionRequests'),
     deleteReviewedSuggestion: jasmine.createSpy('deleteReviewedSuggestion'),
     retrieveCurrentUserSuggestions: jasmine.createSpy('retrieveCurrentUserSuggestions'),
     getTargetUuid: jasmine.createSpy('getTargetUuid'),
+    notMine: observableOf(null),
+    notMineMultiple: observableOf({success: 1, fails: 0}),
+    approveAndImportMultiple: observableOf({success: 1, fails: 0}),
+    approveAndImport: observableOf({id: '1234'}),
+    isCollectionFixed: false,
+    translateSuggestionSource: 'testSource',
+    translateSuggestionType: 'testType',
   });
 }
