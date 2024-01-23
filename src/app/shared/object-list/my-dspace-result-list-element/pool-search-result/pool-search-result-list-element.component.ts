@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import {map, mergeMap, tap} from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
