@@ -23,7 +23,7 @@ import { getDSORoute } from '../../app-routing-paths';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { DsoWithdrawnReinstateModalService, REQUEST_REINSTATE, REQUEST_WITHDRAWN } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { RequestParam } from '../../core/cache/models/request-param.model';
@@ -193,7 +193,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             {
               id: 'withdrawn-item',
               active: false,
-              visible: dso.isArchived && correction?.totalElements > 0,
+              visible: dso.isArchived && correction?.page.some((c) => c.topic === REQUEST_WITHDRAWN),
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.withdrawn',
@@ -207,7 +207,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             {
               id: 'reinstate-item',
               active: false,
-              visible: dso.isWithdrawn && correction?.totalElements > 0,
+              visible: dso.isWithdrawn && correction?.page.some((c) => c.topic === REQUEST_REINSTATE),
               model: {
                 type: MenuItemType.ONCLICK,
                 text:'item.page.reinstate',

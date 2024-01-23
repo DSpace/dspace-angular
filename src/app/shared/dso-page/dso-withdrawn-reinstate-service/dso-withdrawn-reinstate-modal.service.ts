@@ -15,6 +15,10 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { take } from 'rxjs/operators';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { Item } from 'src/app/core/shared/item.model';
+
+export const REQUEST_WITHDRAWN = 'REQUEST/WITHDRAWN';
+export const REQUEST_REINSTATE = 'REQUEST/REINSTATE';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +38,7 @@ export class DsoWithdrawnReinstateModalService {
   /**
    * Open the create withdrawn modal for the provided dso
    */
-  openCreateWithdrawnReinstateModal(dso, correctionType: string, state: boolean): void {
+  openCreateWithdrawnReinstateModal(dso: Item, correctionType: string, state: boolean): void {
     const target = dso.id;
     // Open modal
     const activeModal = this.modalService.open(ItemWithdrawnReinstateModalComponent);

@@ -4,16 +4,37 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { of } from 'rxjs';
+import { DsoWithdrawnReinstateModalService } from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 
 describe('ItemAlertsComponent', () => {
   let component: ItemAlertsComponent;
   let fixture: ComponentFixture<ItemAlertsComponent>;
   let item: Item;
+  let authorizationService;
+  let dsoWithdrawnReinstateModalService;
+  let correctionTypeDataService;
 
   beforeEach(waitForAsync(() => {
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: of(true)
+    });
+    dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', {
+      openCreateWithdrawnReinstateModal: {}
+    });
+    correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService', {
+      findByItem: of({})
+    });
     TestBed.configureTestingModule({
       declarations: [ItemAlertsComponent],
       imports: [TranslateModule.forRoot()],
+      providers: [
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
+        { provide: CorrectionTypeDataService, useValue: correctionTypeDataService }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

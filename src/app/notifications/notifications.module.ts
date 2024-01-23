@@ -26,6 +26,7 @@ import { QualityAssuranceSourceService } from './qa/source/quality-assurance-sou
 import {
   QualityAssuranceSourceDataService
 } from '../core/notifications/qa/source/quality-assurance-source-data.service';
+import { GetEPersonDataPipe } from './qa/events/get-ePerson-data.pipe';
 
 const MODULES = [
   CommonModule,
@@ -55,7 +56,11 @@ const PROVIDERS = [
   QualityAssuranceSourceService,
   QualityAssuranceTopicDataService,
   QualityAssuranceSourceDataService,
-  QualityAssuranceEventDataService
+  QualityAssuranceEventDataService,
+];
+
+const PIPES = [
+  GetEPersonDataPipe
 ];
 
 @NgModule({
@@ -65,7 +70,8 @@ const PROVIDERS = [
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
+    ...PIPES
   ],
   providers: [
     ...PROVIDERS
@@ -75,7 +81,8 @@ const PROVIDERS = [
   ],
   exports: [
     ...COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
+    ...PIPES
   ]
 })
 

@@ -1916,6 +1916,10 @@
 
   "item.alerts.withdrawn": "This item has been withdrawn",
 
+  "item.alerts.reinstate-request": "Request reinstate",
+
+  "quality-assurance.event.table.person-who-requested": "Requested by",
+
   "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
 
   "item.edit.authorizations.title": "Edit item's Policies",

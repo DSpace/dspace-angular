@@ -36,9 +36,14 @@
                 <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') !== -1" scope="col" class="content-col">
                   {{'quality-assurance.event.table.project-details' | translate}}
                 </th>
-                <th *ngIf="hasDetailColumn() && (showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1)" scope="col" class="content-col">
-                  {{'quality-assurance.event.table.reasons' | translate}}
-                </th>
+                <ng-container *ngIf="hasDetailColumn() && (showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1)">
+                  <th scope="col" class="content-col">
+                    {{'quality-assurance.event.table.reasons' | translate}}
+                  </th>
+                  <th scope="col" class="content-col">
+                    {{'quality-assurance.event.table.person-who-requested' | translate}}
+                  </th>
+                </ng-container>
                 <th scope="col" class="button-col">{{'quality-assurance.event.table.actions' | translate}}</th>
               </tr>
               </thead>
@@ -76,14 +81,24 @@
                       {{ (showMore ? 'quality-assurance.event.table.less': 'quality-assurance.event.table.more') | translate }}
                     </button>
                   </td>
-
-                  <td *ngIf="showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1">
-                    <p>
-                      <span *ngIf="eventElement.event.message">
-                        <span class="badge badge-info">{{eventElement.event.message.reason}}</span><br>
-                      </span>
-                    </p>
-                  </td>
+                  <ng-container *ngIf="showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1">
+                    <td>
+                      <p>
+                        <span *ngIf="eventElement.event.message">
+                          <span class="badge badge-info">{{eventElement.event.message.reason}}</span><br>
+                        </span>
+                      </p>
+                    </td>
+                    <td>
+                      <p>
+                        <span *ngIf="eventElement.event.originalId">
+                          <a target="_blank" [routerLink]="getEntityPageRoute(eventElement.event.originalId)">
+                            {{ (eventElement.event.originalId | dsGetEPersonData | async)?.name }}
+                          </a>
+                        </span>
+                      </p>
+                    </td>
+                  </ng-container>
 
                   <td *ngIf="showTopic.indexOf('/PROJECT') !== -1">
                     <p>
