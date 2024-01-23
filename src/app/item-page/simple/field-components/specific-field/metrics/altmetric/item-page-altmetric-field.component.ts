@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input } from '@angular/core';
 import { ExternalScriptLoaderService } from 'src/app/shared/utils/scripts-loader/external-script-loader.service';
 import {
   ExternalScriptsNames,
   ExternalScriptsStatus,
 } from 'src/app/shared/utils/scripts-loader/external-script.model';
 import { Item } from '../../../../../../core/shared/item.model';
+import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-item-page-altmetric-field',
@@ -13,9 +14,16 @@ import { Item } from '../../../../../../core/shared/item.model';
 export class ItemPageAltmetricFieldComponent implements AfterViewInit {
   @Input() item: Item;
 
-  constructor(private scriptLoader: ExternalScriptLoaderService) {}
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    private scriptLoader: ExternalScriptLoaderService
+  ) {}
 
   ngAfterViewInit() {
+    if (!this.appConfig.item.showAltmetricBadge) {
+      return;
+    }
+
     this.scriptLoader
       .load(ExternalScriptsNames.ALTMETRIC)
       .then((data) => this.reloadBadge(data))
