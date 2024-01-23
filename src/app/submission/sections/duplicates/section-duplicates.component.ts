@@ -104,11 +104,18 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
     return observableOf(!this.isLoading);
   }
 
+  /**
+   * Get duplicate data as observable from the section data
+   */
   public getDuplicateData(): Observable<WorkspaceitemSectionDuplicatesObject> {
     return this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType) as
       Observable<WorkspaceitemSectionDuplicatesObject>;
   }
 
+  /**
+   * Construct and return an item link for use with a preview item stub
+   * @param uuid
+   */
   public getItemLink(uuid: any) {
     return new URLCombiner(getItemModuleRoute(), uuid).toString();
   }
