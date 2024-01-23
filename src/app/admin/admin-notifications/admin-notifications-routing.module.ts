@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
-import {  NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin-notifications-routing-paths';
+import {  PUBLICATION_CLAIMS_PATH } from './admin-notifications-routing-paths';
 import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
 import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
 import { QUALITY_ASSURANCE_EDIT_PATH } from './admin-notifications-routing-paths';
@@ -25,7 +25,7 @@ import {
     RouterModule.forChild([
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_RECITER_SUGGESTION_PATH}`,
+        path: `${PUBLICATION_CLAIMS_PATH}`,
         component: AdminNotificationsSuggestionTargetsPageComponent,
         pathMatch: 'full',
         resolve: {
