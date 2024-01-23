@@ -18,9 +18,7 @@ export class GetEPersonDataPipe implements PipeTransform {
   transform(personId: string): Observable<EPerson> {
    return this.ePersonDataService.findById(personId, true).pipe(
       getFirstCompletedRemoteData(),
-      getRemoteDataPayload(),
-      tap((ePerson: EPerson) => {console.log(ePerson)})
+      getRemoteDataPayload()
     );
   }
-
 }

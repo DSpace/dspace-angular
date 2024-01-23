@@ -2480,7 +2480,7 @@
 
   "item.page.version.create": "Create new version",
 
-  "item.page.withdrawn": "Withdrawn this Item",
+  "item.page.withdrawn": "Withdraw this Item",
 
   "item.page.reinstate": "Reinstate this Item",
 
@@ -2616,7 +2616,7 @@
 
   "item.qa.withdrawn-reinstate.modal.button.confirm.tooltip": "Send request",
 
-  "qa-withdrown.create.modal.button.confirm": "Withdrawn",
+  "qa-withdrown.create.modal.button.confirm": "Withdraw",
 
   "qa-reinstate.create.modal.button.confirm": "Reinstate",
 
@@ -2630,7 +2630,7 @@
 
   "item.version.create.modal.form.summary.label": "Summary",
 
-  "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdrawn this item",
+  "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
 
   "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
 
@@ -2648,7 +2648,7 @@
 
   "item.qa.withdrawn.modal.submitted.header": "Sending withdrawn request...",
 
-  "qa-event-notification.check.notification-withdrawn": "You have requested to withdrawn this item.",
+  "qa-event-notification.check.notification-withdrawn": "You have requested to withdraw this item.",
 
   "qa-event-notification.check.notification-reinstate": "You have requested to reinstate this item.",
 
