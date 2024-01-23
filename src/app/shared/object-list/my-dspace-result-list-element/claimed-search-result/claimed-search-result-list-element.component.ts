@@ -18,11 +18,11 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
-import {map, mergeMap, tap} from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
-import { PaginatedList } from "../../../../core/data/paginated-list.model";
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',

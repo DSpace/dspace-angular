@@ -36,9 +36,9 @@ import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import {Duplicate} from "../../../shared/object-list/duplicate-data/duplicate.model";
-import {MetadataValue} from "../../../core/shared/metadata.models";
-import {defaultUUID} from "../../../shared/mocks/uuid.service.mock";
+import { Duplicate} from '../../../shared/object-list/duplicate-data/duplicate.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -56,7 +56,7 @@ function getMockCollectionDataService(): CollectionDataService {
   });
 }
 
-const duplicates: Duplicate[]= [{
+const duplicates: Duplicate[] = [{
     title: 'Unique title',
     uuid: defaultUUID,
     workflowItemId: 1,
@@ -72,7 +72,7 @@ const duplicates: Duplicate[]= [{
         'place': 0
       })]
     },
-    type: "DUPLICATE"
+    type: 'DUPLICATE'
   }];
 
 const sectionObject = {
