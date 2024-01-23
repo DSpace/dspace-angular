@@ -17,13 +17,14 @@ describe('ItemAlertsComponent', () => {
   let dsoWithdrawnReinstateModalService;
   let correctionTypeDataService;
 
+  const itemMock = Object.assign(new Item(), {
+    uuid: 'item-uuid',
+    id: 'item-uuid',
+  });
+
   beforeEach(waitForAsync(() => {
-    authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: of(true)
-    });
-    dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', {
-      openCreateWithdrawnReinstateModal: {}
-    });
+    authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+    dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService',['openCreateWithdrawnReinstateModal']);
     correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService', {
       findByItem: of({})
     });
@@ -43,6 +44,7 @@ describe('ItemAlertsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemAlertsComponent);
     component = fixture.componentInstance;
+    component.item = itemMock;
     fixture.detectChanges();
   });
 
@@ -103,6 +105,49 @@ describe('ItemAlertsComponent', () => {
     it('should not display the withdrawn alert', () => {
       const privateWarning = fixture.debugElement.query(By.css('.withdrawn-warning'));
       expect(privateWarning).toBeNull();
+    });
+  });
+
+  describe('show reinstate button', () => {
+    it('should return false if user is an admin', () => {
+      const isAdmin$ = of(true);
+      authorizationService.isAuthorized.and.returnValue(isAdmin$);
+      const result$ = component.showReinstateButton$();
+      result$.subscribe((result) => {
+        expect(result).toBe(false);
+      });
+    });
+
+    it('should return false if no correction types are found', () => {
+      const isAdmin$ = of(false);
+      authorizationService.isAuthorized.and.returnValue(isAdmin$);
+      correctionTypeDataService.findByItem.and.returnValue(of([]));
+      const result$ = component.showReinstateButton$();
+      result$.subscribe((result) => {
+        expect(result).toBe(false);
+      });
+    });
+
+    it('should return false if no correction type with topic "REQUEST_REINSTATE" is found', () => {
+      const isAdmin$ = of(false);
+      authorizationService.isAuthorized.and.returnValue(isAdmin$);
+      correctionTypeDataService.findByItem.and.returnValue(of([{ topic: 'OTHER_TOPIC' }]));
+      const result$ = component.showReinstateButton$();
+      result$.subscribe((result) => {
+        expect(result).toBe(false);
+      });
+    });
+
+    it('should return true if user is not an admin and correction type with topic "REQUEST_REINSTATE" is found', () => {
+      const isAdmin$ = of(false);
+      authorizationService.isAuthorized.and.returnValue(isAdmin$);
+      correctionTypeDataService.findByItem.and.returnValue(of([{ topic: 'REQUEST_REINSTATE' }]));
+
+      const result$ = component.showReinstateButton$();
+
+      result$.subscribe((result) => {
+        expect(result).toBe(true);
+      });
     });
   });
 });

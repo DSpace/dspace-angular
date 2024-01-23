@@ -20,6 +20,7 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core
 import { Item } from '../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+import { format } from 'date-fns';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -199,6 +200,20 @@ export class QualityAssuranceTopicsComponent implements OnInit {
    */
   getQualityAssuranceRoute(): string {
     return getNotificatioQualityAssuranceRoute();
+  }
+
+  /**
+   * Formats the given date string into the format 'yyyy-MM-dd HH:mm:ss'.
+   * If the date is falsy, an empty string is returned.
+   *
+   * @param date - The date string to format.
+   * @returns The formatted date string.
+   */
+  formatDate(date: string): string {
+    if (!date) {
+      return '';
+    }
+    return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
   }
 
   /**

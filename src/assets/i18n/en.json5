@@ -2648,6 +2648,10 @@
 
   "item.qa.withdrawn.modal.submitted.header": "Sending withdrawn request...",
 
+  "correction-type.manage-relation.action.notification.reinstate": "Reinstate request sent.",
+
+  "correction-type.manage-relation.action.notification.withdrawn": "Withdraw request sent.",
+
   "qa-event-notification.check.notification-withdrawn": "You have requested to withdraw this item.",
 
   "qa-event-notification.check.notification-reinstate": "You have requested to reinstate this item.",

@@ -38,7 +38,7 @@
               <tbody>
                 <tr *ngFor="let topicElement of (topics$ | async); let i = index">
                   <td>{{topicElement.name}}</td>
-                  <td>{{topicElement.lastEvent}}</td>
+                  <td>{{formatDate(topicElement.lastEvent)}}</td>
                   <td>
                     <div class="btn-group edit-field">
                       <button

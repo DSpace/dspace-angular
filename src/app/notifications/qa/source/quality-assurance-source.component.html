@@ -34,7 +34,7 @@
                 <tbody>
                   <tr *ngFor="let sourceElement of (sources$ | async); let i = index">
                     <td>{{sourceElement.id}}</td>
-                    <td>{{sourceElement.lastEvent}}</td>
+                    <td>{{formatDate(sourceElement.lastEvent)}}</td>
                     <td>
                       <div class="btn-group edit-field">
                         <button

@@ -38,7 +38,7 @@ export class DsoWithdrawnReinstateModalService {
   /**
    * Open the create withdrawn modal for the provided dso
    */
-  openCreateWithdrawnReinstateModal(dso: Item, correctionType: string, state: boolean): void {
+  openCreateWithdrawnReinstateModal(dso: Item, correctionType: 'request-reinstate' | 'request-withdrawn', state: boolean): void {
     const target = dso.id;
     // Open modal
     const activeModal = this.modalService.open(ItemWithdrawnReinstateModalComponent);
@@ -63,16 +63,17 @@ export class DsoWithdrawnReinstateModalService {
    * Reloads the current page in order to update the withdrawn/reinstate button.
    * and desplay a notification box.
    */
-  sendQARequest(target: string, correctionType: string, reason: string): void {
+  sendQARequest(target: string, correctionType: 'request-reinstate' | 'request-withdrawn', reason: string): void {
      this.qaEventDataService.postData(target, correctionType, '', reason)
        .pipe (
         getFirstCompletedRemoteData()
-       )
-      .subscribe((res: RemoteData<QualityAssuranceEventObject>) => {
-        if (res.hasSucceeded) {
-          const withdrawnMessage = 'Withdrawn request sent.';
-          const reinstateMessage = 'Reinstate request sent.';
-          const message = (correctionType === 'request-withdrawn') ? withdrawnMessage : reinstateMessage;
+     )
+       .subscribe((res: RemoteData<QualityAssuranceEventObject>) => {
+         if (res.hasSucceeded) {
+           const message = (correctionType === 'request-withdrawn')
+                            ? 'correction-type.manage-relation.action.notification.withdrawn'
+                            : 'correction-type.manage-relation.action.notification.reinstate';
+
           this.notificationsService.success(this.translateService.get(message));
           this.authorizationService.invalidateAuthorizationsRequestCache();
           this.reloadPage(true);
