@@ -17,6 +17,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 
 
 describe('ProcessOverviewTableComponent', () => {
@@ -28,6 +30,7 @@ describe('ProcessOverviewTableComponent', () => {
   let paginationService; // : PaginationService; Not typed as the stub does not fully implement PaginationService
   let processBulkDeleteService: ProcessBulkDeleteService;
   let modalService: NgbModal;
+  let authService; // : AuthService; Not typed as the mock does not fully implement AuthService
 
   let processes: Process[];
   let ePerson: EPerson;
@@ -99,6 +102,8 @@ describe('ProcessOverviewTableComponent', () => {
     modalService = jasmine.createSpyObj('modalService', {
       open: {}
     });
+
+    authService = new AuthServiceMock();
   }
 
   beforeEach(waitForAsync(() => {
@@ -113,6 +118,7 @@ describe('ProcessOverviewTableComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
