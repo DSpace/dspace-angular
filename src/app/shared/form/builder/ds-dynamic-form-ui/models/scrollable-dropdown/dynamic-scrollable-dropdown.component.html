@@ -27,7 +27,7 @@
            (keydown)="selectOnKeyDown($event, sdRef)">
   </div>
 
-  <div ngbDropdownMenu
+  <div #dropdownMenu ngbDropdownMenu
        class="dropdown-menu scrollable-dropdown-menu w-100"
        [attr.aria-label]="model.placeholder">
     <div class="scrollable-menu"
@@ -41,7 +41,8 @@
          [scrollWindow]="false">
 
       <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">{{'form.no-results' | translate}}</button>
-      <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList"
+      <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList; let i = index"
+              [class.active]="i === selectedIndex"
               (keydown.enter)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
               title="{{ listEntry.display }}" role="option"
               [attr.id]="listEntry.display == (currentValue|async) ? ('combobox_' + id + '_selected') : null">
