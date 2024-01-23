@@ -35,6 +35,7 @@ const mockResultObject: PoolTaskSearchResult = new PoolTaskSearchResult();
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
+  duplicates: observableOf([]),
   bundles: observableOf({}),
   metadata: {
     'dc.title': [

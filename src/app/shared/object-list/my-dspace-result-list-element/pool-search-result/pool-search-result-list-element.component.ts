@@ -114,7 +114,6 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
               console.dir(remoteData);
               if (remoteData.hasSucceeded) {
                 if (remoteData.payload.page) {
-                  console.dir(remoteData.payload.page);
                   return remoteData.payload.page;
                 }
               }

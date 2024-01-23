@@ -10,9 +10,9 @@ export class Duplicate {
   @autoserialize
   uuid: string;
   @autoserialize
-  workflowItemId: bigint;
+  workflowItemId: number;
   @autoserialize
-  workspaceItemId: bigint;
+  workspaceItemId: number;
   @autoserialize
   owningCollection: string;
 

@@ -9,12 +9,12 @@ import { SectionDataObject } from '../models/section-data.model';
 import { SubmissionService } from '../../submission.service';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionsService } from '../sections.service';
-import {map} from "rxjs/operators";
-import {ItemDataService} from "../../../core/data/item-data.service";
 import {
   WorkspaceitemSectionDuplicatesObject
 } from "../../../core/submission/models/workspaceitem-section-duplicates.model";
 import {Metadata} from "../../../core/shared/metadata.utils";
+import {URLCombiner} from "../../../core/url-combiner/url-combiner";
+import {getItemModuleRoute} from "../../../item-page/item-page-routing-paths";
 
 /**
  * Detect duplicates step
@@ -48,18 +48,11 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
   protected subs: Subscription[] = [];
 
   /**
-   * Section data observable
-   */
-  public data$: Observable<WorkspaceitemSectionDuplicatesObject>;
-
-  /**
    * Initialize instance variables.
    *
    * @param {TranslateService} translate
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
-   * @param itemDataService
-   * @param nameService
    * @param {string} injectedCollectionId
    * @param {SectionDataObject} injectedSectionData
    * @param {string} injectedSubmissionId
@@ -67,8 +60,6 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
   constructor(protected translate: TranslateService,
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
-              private itemDataService: ItemDataService,
-              // private nameService: DSONameService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -84,13 +75,7 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
    */
   onSectionInit() {
     this.isLoading = false;
-    this.data$ = this.getDuplicateData().pipe(
-      map((data: WorkspaceitemSectionDuplicatesObject) => {
-        console.dir(data);
-        return data;
-      })
-    );
-}
+  }
 
   /**
    * Check if identifier section has read-only visibility
@@ -121,6 +106,10 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
   public getDuplicateData(): Observable<WorkspaceitemSectionDuplicatesObject> {
     return this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType) as
       Observable<WorkspaceitemSectionDuplicatesObject>;
+  }
+
+  public getItemLink(uuid: any) {
+    return new URLCombiner(getItemModuleRoute(), uuid).toString();
   }
 
   protected readonly Metadata = Metadata;
