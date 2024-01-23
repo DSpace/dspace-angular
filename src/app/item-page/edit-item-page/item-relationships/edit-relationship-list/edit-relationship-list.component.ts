@@ -9,9 +9,7 @@ import {
   Observable,
   Subscription
 } from 'rxjs';
-import {
-  RelationshipIdentifiable
-} from '../../../../core/data/object-updates/object-updates.reducer';
+import { RelationshipIdentifiable } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { defaultIfEmpty, map, mergeMap, startWith, switchMap, take, tap, toArray } from 'rxjs/operators';
@@ -25,7 +23,9 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import {
+  DsDynamicLookupRelationModalComponent
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
@@ -114,6 +114,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
   private relatedEntityType$: Observable<ItemType>;
 
+  getRelationshipMessageKey$: Observable<string>;
+
   /**
    * The list ID to save selected entities under
    */
@@ -176,30 +178,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
-  }
-
-  /**
-   * Get the i18n message key for this relationship type
-   */
-  public getRelationshipMessageKey(): Observable<string> {
-
-    return observableCombineLatest(
-      this.getLabel(),
-      this.relatedEntityType$,
-    ).pipe(
-      map(([label, relatedEntityType]) => {
-        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
-          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
-          if (relationshipLabel !== relatedEntityType.label) {
-            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
-          } else {
-            return `relationships.is${relationshipLabel}Of`;
-          }
-        } else {
-          return label;
-        }
-      }),
-    );
   }
 
   /**
@@ -495,6 +473,24 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         console.warn(`The item ${this.item.uuid} is not on the right or the left side of relationship type ${this.relationshipType.uuid}`);
         return undefined;
       })
+    );
+
+    this.getRelationshipMessageKey$ = observableCombineLatest(
+      this.getLabel(),
+      this.relatedEntityType$,
+    ).pipe(
+      map(([label, relatedEntityType]) => {
+        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
+          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
+          if (relationshipLabel !== relatedEntityType.label) {
+            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
+          } else {
+            return `relationships.is${relationshipLabel}Of`;
+          }
+        } else {
+          return label;
+        }
+      }),
     );
 
 
