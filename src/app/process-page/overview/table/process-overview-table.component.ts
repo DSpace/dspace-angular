@@ -14,6 +14,9 @@ import { map, switchMap } from 'rxjs/operators';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { redirectOn4xx } from '../../../core/shared/authorized.operators';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-process-overview-table',
@@ -61,7 +64,10 @@ export class ProcessOverviewTableComponent implements OnInit {
               protected processBulkDeleteService: ProcessBulkDeleteService,
               protected ePersonDataService: EPersonDataService,
               protected dsoNameService: DSONameService,
-              protected paginationService: PaginationService) {
+              protected paginationService: PaginationService,
+              protected router: Router,
+              protected auth: AuthService,
+              ) {
   }
 
   ngOnInit() {
@@ -77,13 +83,12 @@ export class ProcessOverviewTableComponent implements OnInit {
       .pipe(
         map((paginationOptions: PaginationComponentOptions) =>
           this.processOverviewService.getFindListOptions(paginationOptions)),
-        switchMap(
-        (findListOptions: FindListOptions) => {
-          return this.processOverviewService.getProcessesByProcessStatus(
-            this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null);
-        }
-      ));
-
+        switchMap((findListOptions: FindListOptions) =>
+          this.processOverviewService.getProcessesByProcessStatus(
+            this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null)
+        ),
+        redirectOn4xx(this.router, this.auth),
+      );
   }
 
   /**
