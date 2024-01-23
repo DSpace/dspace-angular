@@ -66,13 +66,13 @@ import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
-import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
+import { SubmissionSectionIdentifiersComponent } from './sections/identifiers/section-identifiers.component';
+import { SubmissionSectionDuplicatesComponent } from './sections/duplicates/section-duplicates.component';
 import { SubmissionSectionCoarNotifyComponent } from './sections/section-coar-notify/section-coar-notify.component';
 import {
   CoarNotifyConfigDataService
 } from './sections/section-coar-notify/coar-notify-config-data.service';
 import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { SubmissionSectionDuplicatesComponent } from './sections/duplicates/section-duplicates.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -104,6 +104,7 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionUploadFileViewComponent,
   SubmissionSectionIdentifiersComponent,
+  SubmissionSectionDuplicatesComponent,
   SubmissionImportExternalComponent,
   ThemedSubmissionImportExternalComponent,
   SubmissionImportExternalSearchbarComponent,

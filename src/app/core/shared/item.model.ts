@@ -26,7 +26,7 @@ import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badg
 import { HandleObject } from './handle-object.model';
 import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
-import {Duplicate} from "../../shared/object-list/duplicate-data/duplicate.model";
+import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
 
 /**
  * Class representing a DSpace Item
@@ -134,7 +134,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
   identifiers?: Observable<RemoteData<IdentifierData>>;
 
   @link(ITEM, true, 'duplicates')
-  duplicates?: Observable<RemoteData<PaginatedList<Duplicate>>>
+  duplicates?: Observable<RemoteData<PaginatedList<Duplicate>>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

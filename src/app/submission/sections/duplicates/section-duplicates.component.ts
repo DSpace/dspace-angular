@@ -11,10 +11,10 @@ import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionsService } from '../sections.service';
 import {
   WorkspaceitemSectionDuplicatesObject
-} from "../../../core/submission/models/workspaceitem-section-duplicates.model";
-import {Metadata} from "../../../core/shared/metadata.utils";
-import {URLCombiner} from "../../../core/url-combiner/url-combiner";
-import {getItemModuleRoute} from "../../../item-page/item-page-routing-paths";
+} from '../../../core/submission/models/workspaceitem-section-duplicates.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
+import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 
 /**
  * Detect duplicates step
@@ -29,6 +29,7 @@ import {getItemModuleRoute} from "../../../item-page/item-page-routing-paths";
 
 @renderSectionFor(SectionsType.Duplicates)
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent {
+  protected readonly Metadata = Metadata;
   /**
    * The Alert categories.
    * @type {AlertType}
@@ -112,5 +113,5 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
     return new URLCombiner(getItemModuleRoute(), uuid).toString();
   }
 
-  protected readonly Metadata = Metadata;
+
 }

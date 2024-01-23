@@ -4,7 +4,13 @@
                                [showSubmitter]="showSubmitter"
                                [badgeContext]="badgeContext"
                                [workflowItem]="workflowitem$.value"></ds-themed-item-list-preview>
-
+  <ng-container *ngVar="(duplicates$|async).length as duplicateCount">
+    <div [ngClass]="'col-md-12'" *ngIf="duplicateCount > 0">
+      <div class="d-flex">
+        {{ duplicateCount }} {{ 'submission.workflow.tasks.duplicates' | translate }}
+      </div>
+    </div>
+  </ng-container>
   <div class="row">
     <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 pl-3' : ''">
       <ds-claimed-task-actions [item]="item$.value"

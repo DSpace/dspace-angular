@@ -1,5 +1,5 @@
-import {autoserialize} from "cerialize";
-import {MetadataMap} from "../../../core/shared/metadata.models";
+import { autoserialize } from 'cerialize';
+import { MetadataMap } from '../../../core/shared/metadata.models';
 
 export class Duplicate {
   /**

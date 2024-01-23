@@ -21,7 +21,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { mergeMap, tap } from 'rxjs/operators';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
-import {Duplicate} from "../../duplicate-data/duplicate.model";
+import { Duplicate } from '../../duplicate-data/duplicate.model';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',

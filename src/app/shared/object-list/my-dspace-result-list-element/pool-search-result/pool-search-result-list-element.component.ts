@@ -22,8 +22,8 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
-import {PaginatedList} from "../../../../core/data/paginated-list.model";
-import {Duplicate} from "../../duplicate-data/duplicate.model";
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { Duplicate } from '../../duplicate-data/duplicate.model';
 
 /**
  * This component renders pool task object for the search result in the list view.
