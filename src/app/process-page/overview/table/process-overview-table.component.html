@@ -26,15 +26,15 @@
             </thead>
 
             <tbody>
-            <tr *ngFor="let process of processesRD?.payload?.page"
-                [class.table-danger]="processBulkDeleteService.isToBeDeleted(process.processId)">
-              <td>{{process.processStatus}}</td>
-              <td><a [routerLink]="['/processes/', process.processId]">{{process.scriptName}}</a></td>
-              <td *ngVar="(getEPersonName(process.userId) | async) as ePersonName">{{ePersonName}}</td>
-              <td>{{getInfoValueMethod(process)}}</td>
+            <tr *ngFor="let tableEntry of processesRD?.payload?.page"
+                [class.table-danger]="processBulkDeleteService.isToBeDeleted(tableEntry.process.processId)">
+              <td>{{tableEntry.process.processStatus}}</td>
+              <td><a [routerLink]="['/processes/', tableEntry.process.processId]">{{tableEntry.process.scriptName}}</a></td>
+              <td>{{tableEntry.user}}</td>
+              <td>{{tableEntry.info}}</td>
               <td>
                 <button class="btn btn-outline-danger"
-                        (click)="processBulkDeleteService.toggleDelete(process.processId)">
+                        (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
