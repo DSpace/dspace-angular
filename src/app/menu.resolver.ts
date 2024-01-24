@@ -561,13 +561,13 @@ export class MenuResolver implements Resolve<boolean> {
           } as LinkMenuItemModel,
         },
         {
-          id: 'notifications_reciter',
+          id: 'notifications_publication-claim',
           parentID: 'notifications',
           active: false,
           visible: authorized,
           model: {
             type: MenuItemType.LINK,
-            text: 'menu.section.notifications_reciter',
+            text: 'menu.section.notifications_publication-claim',
             link: '/admin/notifications/' + PUBLICATION_CLAIMS_PATH
           } as LinkMenuItemModel,
         },

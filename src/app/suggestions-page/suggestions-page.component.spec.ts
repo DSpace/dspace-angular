@@ -10,23 +10,23 @@ import { SuggestionsPageComponent } from './suggestions-page.component';
 import {
   SuggestionApproveAndImport,
   SuggestionListElementComponent
-} from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
-import { SuggestionsService } from '../suggestion-notifications/reciter-suggestions/suggestions.service';
+} from '../suggestion-notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionsService } from '../suggestion-notifications/suggestions.service';
 import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/suggestion.mock';
 import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { Suggestion } from '../core/suggestion-notifications/reciter-suggestions/models/suggestion.model';
-import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/reciter-suggestion.mock';
-import { SuggestionEvidencesComponent } from '../suggestion-notifications/reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { Suggestion } from '../core/suggestion-notifications/models/suggestion.model';
+import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/publication-claim.mock';
+import { SuggestionEvidencesComponent } from '../suggestion-notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../shared/testing/router.stub';
-import { mockSuggestionTargetsObjectOne } from '../shared/mocks/reciter-suggestion-targets.mock';
+import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
 import { AuthService } from '../core/auth/auth.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
-import { SuggestionTargetsStateService } from '../suggestion-notifications/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionTargetsStateService } from '../suggestion-notifications/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { PageInfo } from '../core/shared/page-info.model';
@@ -138,7 +138,7 @@ describe('SuggestionPageComponent', () => {
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    component.notMine('1');
+    component.ignoreSuggestion('1');
     expect(mockSuggestionsService.notMine).toHaveBeenCalledWith('1');
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
@@ -149,7 +149,7 @@ describe('SuggestionPageComponent', () => {
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    component.notMineAllSelected();
+    component.ignoreSuggestionAllSelected();
     expect(mockSuggestionsService.notMineMultiple).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();

@@ -19,7 +19,7 @@
                                      [isBulk]="true"
                                      [isCollectionFixed]="isCollectionFixed(suggestionsRD.page)"
                                      (approveAndImport)="approveAndImportAllSelected($event)"
-                                     (notMineClicked)="notMineAllSelected()"></ds-suggestion-actions>
+                                     (ignoreSuggestionClicked)="ignoreSuggestionAllSelected()"></ds-suggestion-actions>
               <i class='fas fa-circle-notch fa-spin' *ngIf="isBulkOperationPending"></i>
             </div>
             <ds-loading *ngIf="(processing$ | async)"></ds-loading>
@@ -35,7 +35,7 @@
                     [object]="object"
                     [isSelected]="selectedSuggestions[object.id]"
                     [isCollectionFixed]="isCollectionFixed([object])"
-                    (notMineClicked)="notMine($event)"
+                    (ignoreSuggestionClicked)="ignoreSuggestion($event)"
                     (selected)="onSelected(object, $event)"
                     (approveAndImport)="approveAndImport($event)"></ds-suggestion-list-item>
                 </li>

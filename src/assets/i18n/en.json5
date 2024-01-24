@@ -24,9 +24,9 @@
 
   "404.page-not-found": "page not found",
 
-  "admin.notifications.recitersuggestion.breadcrumbs": "Suggestions",
+  "admin.notifications.publicationclaim.breadcrumbs": "Suggestions",
 
-  "admin.notifications.recitersuggestion.page.title": "Suggestions",
+  "admin.notifications.publicationclaim.page.title": "Suggestions",
 
   "error-page.description.401": "unauthorized",
 
@@ -2950,7 +2950,7 @@
 
   "menu.section.quality-assurance": "Quality Assurance",
 
-  "menu.section.notifications_reciter": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Publication Claim",
 
   "menu.section.pin": "Pin sidebar",
 
@@ -3562,63 +3562,67 @@
 
   "media-viewer.playlist": "Playlist",
 
-  "reciter.suggestion.loading": "Loading ...",
+  "suggestion.loading": "Loading ...",
 
-  "reciter.suggestion.title": "Suggestions",
+  "suggestion.title": "Publication Claims",
 
-  "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
+  "suggestion.title.breadcrumbs": "Publication Claims",
 
-  "reciter.suggestion.targets": "Current Suggestions",
+  "suggestion.targets.description": "Below you can see all the suggestions ",
 
-  "reciter.suggestion.table.name": "Researcher Name",
+  "suggestion.targets": "Current Suggestions",
 
-  "reciter.suggestion.table.actions": "Actions",
+  "suggestion.table.name": "Researcher Name",
 
-  "reciter.suggestion.button.review": "Review {{ total }} suggestion(s)",
+  "suggestion.table.actions": "Actions",
 
-  "reciter.suggestion.noTargets": "No target found.",
+  "suggestion.button.review": "Review {{ total }} suggestion(s)",
 
-  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+  "suggestion.button.review.title": "Review {{ total }} suggestion(s) for ",
 
-  "reciter.suggestion.evidence.type": "Type",
+  "suggestion.noTargets": "No target found.",
 
-  "reciter.suggestion.evidence.score": "Score",
+  "suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
 
-  "reciter.suggestion.evidence.notes": "Notes",
+  "suggestion.evidence.type": "Type",
 
-  "reciter.suggestion.approveAndImport": "Approve & import",
+  "suggestion.evidence.score": "Score",
 
-  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
+  "suggestion.evidence.notes": "Notes",
 
-  "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
+  "suggestion.approveAndImport": "Approve & import",
 
-  "reciter.suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+  "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
 
-  "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+  "suggestion.approveAndImport.bulk": "Approve & import Selected",
 
-  "reciter.suggestion.notMine": "Not mine",
+  ".suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
 
-  "reciter.suggestion.notMine.success": "The suggestion has been discarded",
+  "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
 
-  "reciter.suggestion.notMine.bulk": "Not mine Selected",
+  "suggestion.ignoreSuggestion": "Ignore Suggestion",
 
-  "reciter.suggestion.notMine.bulk.success": "{{ count }} suggestions have been discarded ",
+  "suggestion.ignoreSuggestion.success": "The suggestion has been discarded",
 
-  "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+  "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
 
-  "reciter.suggestion.seeEvidence": "See evidence",
+  "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
 
-  "reciter.suggestion.hideEvidence": "Hide evidence",
+  "suggestion.ignoreSuggestion.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
 
-  "reciter.suggestion.suggestionFor": "Suggestion for",
+  "suggestion.seeEvidence": "See evidence",
 
-  "reciter.suggestion.source.openaire": "OpenAIRE Graph",
+  "suggestion.hideEvidence": "Hide evidence",
 
-  "reciter.suggestion.from.source": "from the ",
+  "suggestion.suggestionFor": "Suggestion for",
 
-  "reciter.suggestion.totalScore": "Total Score",
+  "suggestion.source.openaire": "OpenAIRE Graph",
 
-  "reciter.suggestion.type.openaire": "OpenAIRE",
+  "suggestion.from.source": "from the ",
+
+  "suggestion.totalScore": "Total Score",
+
+  "suggestion.type.openaire": "OpenAIRE",
 
   "register-email.title": "New user registration",
 

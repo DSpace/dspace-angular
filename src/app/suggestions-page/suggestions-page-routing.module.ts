@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SuggestionsPageResolver } from './suggestions-page.resolver';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -13,11 +13,11 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         path: ':targetId',
         resolve: {
           suggestionTargets: SuggestionsPageResolver,
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: ItemBreadcrumbResolver//I18nBreadcrumbResolver
         },
         data: {
-          title: 'admin.notifications.recitersuggestion.page.title',
-          breadcrumbKey: 'admin.notifications.recitersuggestion',
+          title: 'admin.notifications.publicationclaim.page.title',
+          breadcrumbKey: 'admin.notifications.publicationclaim',
           showBreadcrumbsFluid: false
         },
         canActivate: [AuthenticatedGuard],
@@ -27,7 +27,8 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
     ])
   ],
   providers: [
-    SuggestionsPageResolver
+    SuggestionsPageResolver,
+    ItemBreadcrumbResolver
   ]
 })
 export class SuggestionsPageRoutingModule {

@@ -5,8 +5,8 @@ import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import {  PUBLICATION_CLAIMS_PATH } from './admin-notifications-routing-paths';
-import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
-import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
+import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+import { AdminNotificationsPublicationClaimPageResolver } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page-resolver.service';
 import { QUALITY_ASSURANCE_EDIT_PATH } from './admin-notifications-routing-paths';
 import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
 import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
@@ -30,11 +30,11 @@ import {
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          reciterSuggestionTargetParams: AdminNotificationsSuggestionTargetsPageResolver
+          suggestionTargetParams: AdminNotificationsPublicationClaimPageResolver
         },
         data: {
-          title: 'admin.notifications.recitersuggestion.page.title',
-          breadcrumbKey: 'admin.notifications.recitersuggestion',
+          title: 'admin.notifications.publicationclaim.page.title',
+          breadcrumbKey: 'admin.notifications.publicationclaim',
           showBreadcrumbsFluid: false
         }
       },
@@ -89,7 +89,7 @@ import {
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
-    AdminNotificationsSuggestionTargetsPageResolver,
+    AdminNotificationsPublicationClaimPageResolver,
     SourceDataResolver,
     AdminQualityAssuranceSourcePageResolver,
     AdminQualityAssuranceTopicsPageResolver,
