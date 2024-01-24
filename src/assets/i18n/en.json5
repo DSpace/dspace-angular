@@ -142,6 +142,8 @@
 
   "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
+  "admin.registries.bitstream-formats.select": "Select bitstream format",
+
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
@@ -248,6 +250,14 @@
 
   "admin.access-control.epeople.title": "EPeople",
 
+  "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+
+  "admin.access-control.epeople.edit.title": "New EPerson",
+
+  "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+
+  "admin.access-control.epeople.add.title": "Add EPerson",
+
   "admin.access-control.epeople.head": "EPeople",
 
   "admin.access-control.epeople.search.head": "Search",
@@ -326,7 +336,7 @@
 
   "admin.access-control.epeople.form.goToGroups": "Add to groups",
 
-  "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
 
   "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
 
@@ -426,10 +436,6 @@
 
   "admin.access-control.groups.form.members-list.headMembers": "Current Members",
 
-  "admin.access-control.groups.form.members-list.search.scope.metadata": "Metadata",
-
-  "admin.access-control.groups.form.members-list.search.scope.email": "E-mail (exact)",
-
   "admin.access-control.groups.form.members-list.search.button": "Search",
 
   "admin.access-control.groups.form.members-list.table.id": "ID",
@@ -486,8 +492,6 @@
 
   "admin.access-control.groups.form.subgroups-list.table.edit.buttons.add": "Add subgroup with name \"{{name}}\"",
 
-  "admin.access-control.groups.form.subgroups-list.table.edit.currentGroup": "Current group",
-
   "admin.access-control.groups.form.subgroups-list.notification.success.addSubgroup": "Successfully added subgroup: \"{{name}}\"",
 
   "admin.access-control.groups.form.subgroups-list.notification.failure.addSubgroup": "Failed to add subgroup: \"{{name}}\"",
@@ -506,11 +510,21 @@
 
   "admin.access-control.groups.form.return": "Back",
 
+  "admin.quality-assurance.breadcrumbs": "Quality Assurance",
+
+  "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
+
+  "admin.notifications.event.page.title": "Quality Assurance Suggestions",
+
+  "admin.quality-assurance.page.title": "Quality Assurance",
+
+  "admin.notifications.source.breadcrumbs": "Quality Assurance Source",
+
   "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
 
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
   "admin.search.breadcrumbs": "Administrative Search",
 
@@ -623,10 +637,6 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)",
 
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
 
@@ -782,6 +792,8 @@
 
   "browse.comcol.by.srsc": "By Subject Category",
 
+  "browse.comcol.by.nsi": "By Norwegian Science Index",
+
   "browse.comcol.by.title": "By Title",
 
   "browse.comcol.head": "Browse",
@@ -803,6 +815,8 @@
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+
+  "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -859,6 +873,8 @@
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
   "browse.startsWith.input": "Filter",
+
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
 
   "browse.taxonomy.button": "Browse",
 
@@ -1088,6 +1104,10 @@
 
   "collection.select.empty": "No collections to show",
 
+  "collection.select.table.select": "Select collection",
+
+  "collection.select.table.deselect": "Deselect collection",
+
   "collection.select.table.title": "Title",
 
   "collection.source.controls.head": "Harvest Controls",
@@ -1256,7 +1276,7 @@
 
   "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
 
-  "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
 
   "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
 
@@ -1392,7 +1412,7 @@
 
   "curation-task.task.vscan.label": "Virus Scan",
 
-  "curation-task.task.register-doi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "Register DOI",
 
   "curation.form.task-select.label": "Task:",
 
@@ -1613,6 +1633,8 @@
   "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
   "feed.description": "Syndication feed",
+
+  "file-download-link.restricted": "Restricted bitstream",
 
   "file-section.error.header": "Error obtaining files for this item",
 
@@ -2088,6 +2110,10 @@
 
   "item.edit.metadata.discard-button": "Discard",
 
+  "item.edit.metadata.edit.language": "Edit language",
+
+  "item.edit.metadata.edit.value": "Edit value",
+
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -2161,6 +2187,8 @@
   "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
 
   "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
+
+  "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
 
   "item.edit.move.move": "Move",
 
@@ -2502,6 +2530,10 @@
 
   "item.select.empty": "No items to show",
 
+  "item.select.table.select": "Select item",
+
+  "item.select.table.deselect": "Deselect item",
+
   "item.select.table.author": "Author",
 
   "item.select.table.collection": "Collection",
@@ -2601,6 +2633,10 @@
   "itemtemplate.edit.metadata.add-button": "Add",
 
   "itemtemplate.edit.metadata.discard-button": "Discard",
+
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
 
@@ -2768,8 +2804,6 @@
 
   "login.form.new-user": "New user? Click here to register.",
 
-  "login.form.or-divider": "or",
-
   "login.form.oidc": "Log in with OIDC",
 
   "login.form.orcid": "Log in with ORCID",
@@ -2825,6 +2859,8 @@
   "menu.section.browse_global_by_subject": "By Subject",
 
   "menu.section.browse_global_by_srsc": "By Subject Category",
+
+  "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
 
   "menu.section.browse_global_by_title": "By Title",
 
@@ -2886,6 +2922,8 @@
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
+  "menu.section.icon.notifications": "Notifications menu section",
+
   "menu.section.import": "Import",
 
   "menu.section.import_batch": "Batch Import (ZIP)",
@@ -2903,6 +2941,12 @@
   "menu.section.new_item_version": "Item Version",
 
   "menu.section.new_process": "Process",
+
+  "menu.section.notifications": "Notifications",
+
+  "menu.section.quality-assurance": "Quality Assurance",
+
+  "menu.section.notifications_reciter": "Publication Claim",
 
   "menu.section.pin": "Pin sidebar",
 
@@ -3070,6 +3114,138 @@
 
   "none.listelement.badge": "Item",
 
+  "quality-assurance.title": "Quality Assurance",
+
+  "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+
+  "quality-assurance.source.description": "Below you can see all the notification's sources.",
+
+  "quality-assurance.topics": "Current Topics",
+
+  "quality-assurance.source": "Current Sources",
+
+  "quality-assurance.table.topic": "Topic",
+
+  "quality-assurance.table.source": "Source",
+
+  "quality-assurance.table.last-event": "Last Event",
+
+  "quality-assurance.table.actions": "Actions",
+
+  "quality-assurance.button.detail": "Show details",
+
+  "quality-assurance.noTopics": "No topics found.",
+
+  "quality-assurance.noSource": "No sources found.",
+
+  "notifications.events.title": "Quality Assurance Suggestions",
+
+  "quality-assurance.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
+
+  "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
+
+  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic.",
+
+  "quality-assurance.loading": "Loading ...",
+
+  "quality-assurance.events.topic": "Topic:",
+
+  "quality-assurance.noEvents": "No suggestions found.",
+
+  "quality-assurance.event.table.trust": "Trust",
+
+  "quality-assurance.event.table.publication": "Publication",
+
+  "quality-assurance.event.table.details": "Details",
+
+  "quality-assurance.event.table.project-details": "Project details",
+
+  "quality-assurance.event.table.actions": "Actions",
+
+  "quality-assurance.event.action.accept": "Accept suggestion",
+
+  "quality-assurance.event.action.ignore": "Ignore suggestion",
+
+  "quality-assurance.event.action.reject": "Reject suggestion",
+
+  "quality-assurance.event.action.import": "Import project and accept suggestion",
+
+  "quality-assurance.event.table.pidtype": "PID Type:",
+
+  "quality-assurance.event.table.pidvalue": "PID Value:",
+
+  "quality-assurance.event.table.subjectValue": "Subject Value:",
+
+  "quality-assurance.event.table.abstract": "Abstract:",
+
+  "quality-assurance.event.table.suggestedProject": "OpenAIRE Suggested Project data",
+
+  "quality-assurance.event.table.project": "Project title:",
+
+  "quality-assurance.event.table.acronym": "Acronym:",
+
+  "quality-assurance.event.table.code": "Code:",
+
+  "quality-assurance.event.table.funder": "Funder:",
+
+  "quality-assurance.event.table.fundingProgram": "Funding program:",
+
+  "quality-assurance.event.table.jurisdiction": "Jurisdiction:",
+
+  "quality-assurance.events.back": "Back to topics",
+
+  "quality-assurance.event.table.less": "Show less",
+
+  "quality-assurance.event.table.more": "Show more",
+
+  "quality-assurance.event.project.found": "Bound to the local record:",
+
+  "quality-assurance.event.project.notFound": "No local record found",
+
+  "quality-assurance.event.sure": "Are you sure?",
+
+  "quality-assurance.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+
+  "quality-assurance.event.reject.description": "This operation can't be undone. Reject this suggestion?",
+
+  "quality-assurance.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
+
+  "quality-assurance.event.action.cancel": "Cancel",
+
+  "quality-assurance.event.action.saved": "Your decision has been saved successfully.",
+
+  "quality-assurance.event.action.error": "An error has occurred. Your decision has not been saved.",
+
+  "quality-assurance.event.modal.project.title": "Choose a project to bound",
+
+  "quality-assurance.event.modal.project.publication": "Publication:",
+
+  "quality-assurance.event.modal.project.bountToLocal": "Bound to the local record:",
+
+  "quality-assurance.event.modal.project.select": "Project search",
+
+  "quality-assurance.event.modal.project.search": "Search",
+
+  "quality-assurance.event.modal.project.clear": "Clear",
+
+  "quality-assurance.event.modal.project.cancel": "Cancel",
+
+  "quality-assurance.event.modal.project.bound": "Bound project",
+
+  "quality-assurance.event.modal.project.remove": "Remove",
+
+  "quality-assurance.event.modal.project.placeholder": "Enter a project name",
+
+  "quality-assurance.event.modal.project.notFound": "No project found.",
+
+  "quality-assurance.event.project.bounded": "The project has been linked successfully.",
+
+  "quality-assurance.event.project.removed": "The project has been successfully unlinked.",
+
+  "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
+
+  "quality-assurance.event.reason": "Reason",
+
   "orgunit.listelement.badge": "Organizational Unit",
 
   "orgunit.listelement.no-title": "Untitled",
@@ -3131,6 +3307,14 @@
   "person.search.title": "Person Search",
 
   "process.new.select-parameters": "Parameters",
+
+  "process.new.select-parameter": "Select parameter",
+
+  "process.new.add-parameter": "Add a parameter...",
+
+  "process.new.delete-parameter": "Delete parameter",
+
+  "process.new.parameter.label": "Parameter value",
 
   "process.new.cancel": "Cancel",
 
@@ -3257,6 +3441,8 @@
   "process.overview.table.actions": "Actions",
 
   "process.overview.delete": "Delete {{count}} processes",
+
+  "process.overview.delete-process": "Delete process",
 
   "process.overview.delete.clear": "Clear delete selection",
 
@@ -3614,6 +3800,14 @@
 
   "resource-policies.table.headers.group": "Group",
 
+  "resource-policies.table.headers.select-all": "Select all",
+
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  "resource-policies.table.headers.select": "Select",
+
+  "resource-policies.table.headers.deselect": "Deselect",
+
   "resource-policies.table.headers.id": "ID",
 
   "resource-policies.table.headers.name": "Name",
@@ -3630,6 +3824,8 @@
 
   "resource-policies.table.headers.title.for.collection": "Policies for Collection",
 
+  "root.skip-to-content": "Skip to main content",
+
   "search.description": "",
 
   "search.switch-configuration.title": "Show",
@@ -3639,6 +3835,8 @@
   "search.breadcrumbs": "Search",
 
   "search.search-form.placeholder": "Search the repository ...",
+
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   "search.filters.applied.f.author": "Author",
 
@@ -3812,6 +4010,10 @@
 
   "search.filters.filter.show-tree": "Browse {{ name }} tree",
 
+  "search.filters.filter.funding.head": "Funding",
+
+  "search.filters.filter.funding.placeholder": "Funding",
+
   "search.filters.filter.supervisedBy.head": "Supervised By",
 
   "search.filters.filter.supervisedBy.placeholder": "Supervised By",
@@ -3831,6 +4033,16 @@
   "search.filters.discoverable.true": "No",
 
   "search.filters.discoverable.false": "Yes",
+
+  "search.filters.namedresourcetype.Archived": "Archived",
+
+  "search.filters.namedresourcetype.Validation": "Validation",
+
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+
+  "search.filters.namedresourcetype.Workflow": "Workflow",
+
+  "search.filters.namedresourcetype.Workspace": "Workspace",
 
   "search.filters.withdrawn.true": "Yes",
 
@@ -3883,6 +4095,10 @@
   "search.view-switch.show-grid": "Show as grid",
 
   "search.view-switch.show-list": "Show as list",
+
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  "selectable-list-item-control.select": "Select item",
 
   "sorting.ASC": "Ascending",
 
@@ -4756,6 +4972,8 @@
 
   "vocabulary-treeview.search.form.search": "Search",
 
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+
   "vocabulary-treeview.search.no-result": "There were no items to show",
 
   "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
@@ -5172,6 +5390,8 @@
 
   "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
 
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   "system-wide-alert.form.label.preview": "System-wide alert preview",
 
   "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
@@ -5194,7 +5414,15 @@
 
   "access-control-item-header-toggle": "Item's Metadata",
 
+  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+
+  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+
   "access-control-bitstream-header-toggle": "Bitstreams",
+
+  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+
+  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
 
   "access-control-mode": "Mode",
 
@@ -5212,11 +5440,15 @@
 
   "access-control-bitstreams-selected": "bitstreams selected",
 
+  "access-control-bitstreams-select": "Select bitstreams",
+
   "access-control-cancel": "Cancel",
 
   "access-control-execute": "Execute",
 
   "access-control-add-more": "Add more",
+
+  "access-control-remove": "Remove access condition",
 
   "access-control-select-bitstreams-modal.title": "Select bitstreams",
 
@@ -5235,5 +5467,7 @@
   "access-control-option-end-date": "Grant access until",
 
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+
+  "vocabulary-treeview.search.form.add": "Add",
 
 }

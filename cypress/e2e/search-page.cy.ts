@@ -27,21 +27,7 @@ describe('Search Page', () => {
         cy.get('[data-test="filter-toggle"]').click({ multiple: true });
 
         // Analyze <ds-search-page> for accessibility issues
-        testA11y(
-            {
-                include: ['ds-search-page'],
-                exclude: [
-                    ['nouislider'] // Date filter slider is missing ARIA labels. Will be fixed by #1175
-                ],
-            },
-            {
-                rules: {
-                    // Search filters fail these two "moderate" impact rules
-                    'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
-                }
-            } as Options
-        );
+        testA11y('ds-search-page');
     });
 
     it('should have a working grid view that passes accessibility tests', () => {

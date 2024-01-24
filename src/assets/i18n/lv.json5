@@ -3492,20 +3492,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Jūsu Iesniegumi",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arhivēts",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arhivēts",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validācija",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validācija",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Gaida kontrolieri",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Gaida kontrolieri",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Darba plūsma",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Darba plūsma",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Darbavieta",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Darbavieta",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mans DSpace",

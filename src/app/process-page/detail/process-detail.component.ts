@@ -17,7 +17,7 @@ import {
   getFirstSucceededRemoteDataPayload, getAllSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { hasValue } from '../../shared/empty.util';
 import { ProcessStatus } from '../processes/process-status.model';
 import { Process } from '../processes/process.model';

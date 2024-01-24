@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 id="header">{{'system-wide-alert.form.header' | translate}}</h2>
+    <h1 id="header">{{'system-wide-alert.form.header' | translate}}</h1>
     <div [formGroup]="alertForm" [class]="'ng-invalid'">
         <div class="form-group">
             <div class="row mb-2">
@@ -30,6 +30,7 @@
     <div class="row">
         <div class="col mb-2 d-flex align-items-end">
             <ui-switch size="small"
+                       [ariaLabel]="'system-wide-alert.form.label.countdownTo.enable' | translate"
                        [checked]="counterEnabled$ |async"
                        (change)="setCounterEnabled($event)"></ui-switch>
             <span class="ml-2">{{ 'system-wide-alert.form.label.countdownTo.enable' | translate }}</span>
@@ -49,8 +50,9 @@
                             #d="ngbDatepicker"
                             (ngModelChange)="updatePreviewTime()"
                     />
-                    <button class="btn btn-outline-secondary fas fa-calendar" (click)="d.toggle()"
-                            type="button"></button>
+                    <button [attr.aria-label]="'system-wide-alert-form.select-date-by-calendar' | translate"
+                            (click)="d.toggle()" class="btn btn-outline-secondary fas fa-calendar" type="button">
+                    </button>
                 </div>
             </div>
             <div class="col-12 d-md-none">
