@@ -92,9 +92,9 @@
                     <td>
                       <p>
                         <span *ngIf="eventElement.event.originalId">
-                          <a target="_blank" [routerLink]="getEntityPageRoute(eventElement.event.originalId)">
-                            {{ (eventElement.event.originalId | dsGetEPersonData | async)?.name }}
-                          </a>
+                          <span class="badge badge-info">
+                            {{ (eventElement.event.originalId | dsGetEPersonData | async)?.email }}
+                          </span>
                         </span>
                       </p>
                     </td>
