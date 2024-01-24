@@ -81,12 +81,13 @@
   --ds-home-news-background-color: #{$gray-200};
 
   --ds-breadcrumb-bg: #{$gray-200} !important;
-  --ds-breadcrumb-link-color: #{$cyan};
+  --ds-breadcrumb-link-color: #{darken($cyan, 10%)};
   --ds-breadcrumb-link-active-color: #{darken($cyan, 30%)};
   --ds-breadcrumb-max-length: 200px;
 
-  --ds-slider-color: #{$green};
+  --ds-slider-color: #{darken($green, 20%)};
   --ds-slider-handle-width: 18px;
+  --ds-slider-handle-color: #{darken($blue, 17%)};
 
   --ds-search-form-scope-max-width: 150px;
 

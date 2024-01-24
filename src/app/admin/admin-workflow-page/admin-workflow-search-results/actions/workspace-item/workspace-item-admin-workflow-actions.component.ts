@@ -124,7 +124,7 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
    */
   deleteSupervisionOrder(supervisionOrderEntry: SupervisionOrderListEntry) {
     const modalRef = this.modalService.open(ConfirmationModalComponent);
-    modalRef.componentInstance.dso = supervisionOrderEntry.group;
+    modalRef.componentInstance.name = this.dsoNameService.getName(supervisionOrderEntry.group);
     modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-supervision.modal.header';
     modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-supervision.modal.info';
     modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-supervision.modal.cancel';

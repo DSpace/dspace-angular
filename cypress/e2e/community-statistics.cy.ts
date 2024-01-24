@@ -1,11 +1,11 @@
-import { REGEX_MATCH_NON_EMPTY_TEXT, TEST_COMMUNITY } from 'cypress/support/e2e';
+import { REGEX_MATCH_NON_EMPTY_TEXT } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Community Statistics Page', () => {
-    const COMMUNITYSTATISTICSPAGE = '/statistics/communities/'.concat(TEST_COMMUNITY);
+    const COMMUNITYSTATISTICSPAGE = '/statistics/communities/'.concat(Cypress.env('DSPACE_TEST_COMMUNITY'));
 
     it('should load if you click on "Statistics" from a Community page', () => {
-        cy.visit('/communities/'.concat(TEST_COMMUNITY));
+        cy.visit('/communities/'.concat(Cypress.env('DSPACE_TEST_COMMUNITY')));
         cy.get('ds-navbar ds-link-menu-item a[title="Statistics"]').click();
         cy.location('pathname').should('eq', COMMUNITYSTATISTICSPAGE);
     });
@@ -18,7 +18,7 @@ describe('Community Statistics Page', () => {
     it('should contain a "Total visits per month" section', () => {
         cy.visit(COMMUNITYSTATISTICSPAGE);
         // Check just for existence because this table is empty in CI environment as it's historical data
-        cy.get('.'.concat(TEST_COMMUNITY).concat('_TotalVisitsPerMonth')).should('exist');
+        cy.get('.'.concat(Cypress.env('DSPACE_TEST_COMMUNITY')).concat('_TotalVisitsPerMonth')).should('exist');
     });
 
     it('should pass accessibility tests', () => {
