@@ -31,6 +31,8 @@ import {
   ItemEditBitstreamDragHandleComponent
 } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -42,10 +44,12 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
     ItemEditBitstreamBundleComponent,
     RouterLink,
     NgIf,
+    VarDirective,
     ItemEditBitstreamDragHandleComponent,
     NgForOf,
     ThemedLoadingComponent
   ],
+  providers: [ObjectValuesPipe],
   standalone: true
 })
 /**

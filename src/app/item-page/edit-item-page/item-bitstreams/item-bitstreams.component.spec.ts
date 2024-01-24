@@ -26,6 +26,11 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import {
+  ItemEditBitstreamDragHandleComponent
+} from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -165,7 +170,15 @@ describe('ItemBitstreamsComponent', () => {
     ], schemas: [
         NO_ERRORS_SCHEMA
     ]
-}).compileComponents();
+})
+      .overrideComponent(ItemBitstreamsComponent, {
+        remove: {
+          imports: [ItemEditBitstreamBundleComponent,
+            ItemEditBitstreamDragHandleComponent,
+            ThemedLoadingComponent]
+        }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
