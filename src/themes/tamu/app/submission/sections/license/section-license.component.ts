@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@an
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicCheckboxModel, DynamicFormLayout, DynamicRadioGroupModel, MATCH_DISABLED } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../../../../../app/core/auth/auth.service';
@@ -16,6 +16,7 @@ import { HALEndpointService } from '../../../../../../app/core/shared/hal-endpoi
 import { License } from '../../../../../../app/core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../../../../app/core/submission/models/workspaceitem-section-license.model';
 import { WorkspaceItem } from '../../../../../../app/core/submission/models/workspaceitem.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../../app/core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../../../../app/core/submission/submission-response-parsing.service';
 import { isNotEmpty, isNotUndefined } from '../../../../../../app/shared/empty.util';
 import { FormBuilderService } from '../../../../../../app/shared/form/builder/form-builder.service';
@@ -110,6 +111,7 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
     private halEndpointService: HALEndpointService,
     private modalService: NgbModal,
     private notificationsService: NotificationsService,
+    private operationsService: SubmissionJsonPatchOperationsService,
     private sectionUploadService: SectionUploadService,
     protected changeDetectorRef: ChangeDetectorRef,
     protected collectionDataService: CollectionDataService,
@@ -280,7 +282,13 @@ export class SubmissionSectionLicenseComponent extends BaseComponent {
    * @returns empty observable
    */
   public onBeforeUpload = () => {
-    return of();
+    const sub: Subscription = this.operationsService.jsonPatchByResourceType(
+      this.submissionService.getSubmissionObjectLinkName(),
+      this.submissionId,
+      'sections')
+      .subscribe();
+    this.subs.push(sub);
+    return sub;
   };
 
   /**
