@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
@@ -23,6 +23,7 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { NgIf } from '@angular/common';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -43,6 +44,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
               protected notificationsService: NotificationsService, protected translationService: TranslateService,
               protected scriptDataService: ScriptDataService,
               protected authorizationDataService: AuthorizationDataService,
+              protected dsoNameService: DSONameService,
               private modalService: NgbModal) {
     super(activeModal, route);
   }
@@ -54,7 +56,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
   navigate(dso: DSpaceObject): Observable<boolean> {
     if (dso instanceof Collection || dso instanceof Community) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = dso;
+      modalRef.componentInstance.name = this.dsoNameService.getName(dso);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.export-metadata.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata.cancel';
