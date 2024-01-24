@@ -193,9 +193,9 @@ windowSettings.manifestId = manifest;
       miradorShareDialogPlugin,
       miradorSharePlugin,
       miradorDownloadDialog,
-      miradorDownloadPlugin
-	  miradorImageToolsPlugin,
-	  textOverlayPlugin
+      miradorDownloadPlugin,
+	    miradorImageToolsPlugin,
+	    textOverlayPlugin
     ]
   )
 )(manifest);
