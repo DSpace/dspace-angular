@@ -23,6 +23,13 @@ export class UploaderOptions {
   maxFileNumber: number;
 
   /**
+   * TAMU Customization - Additional parameters to inform which step made upload request
+   */
+  additionalParameter?: {
+    [key: string]: any;
+  };
+
+  /**
    * The request method to use for the file upload request
    */
   method: RestRequestMethod = RestRequestMethod.POST;

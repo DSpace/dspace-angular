@@ -1,9 +1,10 @@
 import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 
-import { SectionsDirective } from '../sections.directive';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionDataObject } from '../models/section-data.model';
 import { rendersSectionType } from '../sections-decorator';
-import { AlertType } from '../../../shared/alert/alert-type';
+import { SectionsDirective } from '../sections.directive';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -50,12 +51,17 @@ export class SubmissionSectionContainerComponent implements OnInit {
    */
   @ViewChild('sectionRef') sectionRef: SectionsDirective;
 
+  // TAMU Customization - theme service to get active theme
+  private themeService: ThemeService;
+
   /**
    * Initialize instance variables
    *
    * @param {Injector} injector
    */
   constructor(private injector: Injector) {
+    // TAMU Customization - inject theme service
+    this.themeService = injector.get(ThemeService);
   }
 
   /**
@@ -88,6 +94,15 @@ export class SubmissionSectionContainerComponent implements OnInit {
    * Find the correct component based on the section's type
    */
   getSectionContent(): string {
-    return rendersSectionType(this.sectionData.sectionType);
+    // TAMU Customization - provide injected active theme to get themed section to render
+    let theme = this.themeService.getThemeName();
+    let themeConfig = this.themeService.getThemeConfigFor(theme);
+    // get theme "root class"
+    while (!!themeConfig.extends) {
+      themeConfig = this.themeService.getThemeConfigFor(theme);
+    }
+
+    return rendersSectionType(this.sectionData.sectionType, themeConfig.name);
+    // return rendersSectionType(this.sectionData.sectionType);
   }
 }

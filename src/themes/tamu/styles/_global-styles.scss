@@ -3,7 +3,8 @@
 // imports the base global style
 @import '../../../styles/_global-styles.scss';
 
-.facet-filter, .setting-option {
+.facet-filter,
+.setting-option {
   background-color: var(--bs-light);
   border-radius: var(--bs-border-radius);
 
@@ -20,4 +21,33 @@
   h4 {
     font-size: 1.1rem
   }
+}
+
+.tamu-control-input {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    text-align: left;
+    padding-left: 0px;
+    box-shadow: none !important;
+
+    input[type=radio] {
+      position: relative !important;
+    }
+
+    span {
+      margin-left: 10px !important;
+    }
+  }
+}
+
+.tamu-control-label {
+  font-weight: bold;
+  margin: 15px 0px 0px 0px;
+}
+
+
+.tamu-control-license {
+  margin: 0px 0px 10px 0px;
 }
