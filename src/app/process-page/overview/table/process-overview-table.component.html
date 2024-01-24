@@ -33,8 +33,9 @@
               <td>{{tableEntry.user}}</td>
               <td>{{tableEntry.info}}</td>
               <td>
-                <button class="btn btn-outline-danger"
-                        (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)">
+                <button [attr.aria-label]="'process.overview.delete-process' | translate"
+                        (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)"
+                        class="btn btn-outline-danger">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
