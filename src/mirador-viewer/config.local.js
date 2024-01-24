@@ -32,7 +32,7 @@ let sidbarPanel = 'info';
 let defaultView = 'single';
 let multipleItems = false;
 let thumbNavigation = 'off';
-let lang = 'en' // Default to english, but should not happen
+let lang = 'fr' // Default to english, but should not happen
 
 windowSettings.manifestId = manifest;
 
