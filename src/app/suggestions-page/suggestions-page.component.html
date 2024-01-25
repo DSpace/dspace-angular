@@ -6,9 +6,9 @@
 
             <h1>
               {{ translateSuggestionType() | translate }}
-              {{'reciter.suggestion.suggestionFor' | translate}}
+              {{'suggestion.suggestionFor' | translate}}
               <a target="_blank" [routerLink]="['/entities/person/', researcherUuid]">{{researcherName}}</a>
-              {{'reciter.suggestion.from.source' | translate}} {{ translateSuggestionSource() | translate }}
+              {{'suggestion.from.source' | translate}} {{ translateSuggestionSource() | translate }}
             </h1>
 
             <div class="mb-3 mt-3">
@@ -33,7 +33,7 @@
                 <li *ngFor="let object of suggestionsRD?.page; let i = index; let last = last" class="mt-4 mb-4">
                   <ds-suggestion-list-item
                     [object]="object"
-                    [isSelected]="selectedSuggestions[object.id]"
+                    [isSelected]="!!selectedSuggestions[object.id]"
                     [isCollectionFixed]="isCollectionFixed([object])"
                     (ignoreSuggestionClicked)="ignoreSuggestion($event)"
                     (selected)="onSelected(object, $event)"
