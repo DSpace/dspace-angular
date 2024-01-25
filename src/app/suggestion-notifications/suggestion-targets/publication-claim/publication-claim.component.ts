@@ -71,12 +71,7 @@ export class PublicationClaimComponent implements OnInit {
   ngOnInit(): void {
     this.targets$ = this.suggestionTargetsStateService.getSuggestionTargets();
     this.totalElements$ = this.suggestionTargetsStateService.getSuggestionTargetsTotals();
-  }
 
-  /**
-   * First Suggestion Targets loading after view initialization.
-   */
-  ngAfterViewInit(): void {
     this.subs.push(
       this.suggestionTargetsStateService.isSuggestionTargetsLoaded().pipe(
         take(1)
@@ -111,10 +106,8 @@ export class PublicationClaimComponent implements OnInit {
    *
    * @param {string} id
    *    the id of suggestion target
-   * @param {string} name
-   *    the name of suggestion target
    */
-  public redirectToSuggestions(id: string, name: string) {
+  public redirectToSuggestions(id: string) {
     this.router.navigate([getSuggestionPageRoute(id)]);
   }
 

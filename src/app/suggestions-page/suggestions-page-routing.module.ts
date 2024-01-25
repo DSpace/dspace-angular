@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SuggestionsPageResolver } from './suggestions-page.resolver';
 import { SuggestionsPageComponent } from './suggestions-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
+import { PublicationClaimBreadcrumbResolver } from '../core/breadcrumbs/publication-claim-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.reso
         path: ':targetId',
         resolve: {
           suggestionTargets: SuggestionsPageResolver,
-          breadcrumb: ItemBreadcrumbResolver//I18nBreadcrumbResolver
+          breadcrumb: PublicationClaimBreadcrumbResolver//I18nBreadcrumbResolver
         },
         data: {
           title: 'admin.notifications.publicationclaim.page.title',
@@ -28,7 +28,7 @@ import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.reso
   ],
   providers: [
     SuggestionsPageResolver,
-    ItemBreadcrumbResolver
+    PublicationClaimBreadcrumbResolver
   ]
 })
 export class SuggestionsPageRoutingModule {

@@ -1,7 +1,7 @@
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import { dataService, getLinkDefinition, link } from './build-decorators';
+import { dataService, getDataServiceFor, getLinkDefinition, link } from './build-decorators';
 
 class TestHALResource implements HALResource {
   _links: {
@@ -50,6 +50,12 @@ describe('build decorators', () => {
     describe(`set data service`, () => {
       it(`should throw error`, () => {
         expect(dataService(null)).toThrow();
+      });
+
+      it(`should set properly data service for type`, () => {
+        const target = new TestHALResource();
+        dataService(testType)(target);
+        expect(getDataServiceFor(testType)).toEqual(target);
       });
     });
   });
