@@ -23,7 +23,7 @@ import { NoContent } from '../core/shared/NoContent.model';
 import { environment } from '../../environments/environment';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import {FindListOptions} from '../core/data/find-list-options.model';
-import {SuggestionConfig} from '../../config/layout-config.interfaces';
+import {SuggestionConfig} from '../../config/suggestion-config.interfaces';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
 import {
   SuggestionSourceDataService
@@ -229,7 +229,7 @@ export class SuggestionsService {
   }
 
   /**
-   * Perform a bulk notMine operation.
+   * Perform a bulk ignoreSuggestion operation.
    * @param suggestions the array containing the suggestions
    */
   public ignoreSuggestionMultiple(suggestions: Suggestion[]): Observable<SuggestionBulkResult> {

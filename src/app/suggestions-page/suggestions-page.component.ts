@@ -28,6 +28,11 @@ import {redirectOn4xx} from '../core/shared/authorized.operators';
   templateUrl: './suggestions-page.component.html',
   styleUrls: ['./suggestions-page.component.scss'],
 })
+
+/**
+ * Component used to visualize one of the suggestions from the publication claim page or from the notification pop up
+ */
+
 export class SuggestionsPageComponent implements OnInit {
 
   /**
@@ -139,15 +144,6 @@ export class SuggestionsPageComponent implements OnInit {
       this.processing$.next(false);
       this.suggestionsRD$.next(results);
       this.suggestionService.clearSuggestionRequests();
-      // navigate to the mydspace if no suggestions remains
-
-      // if (results.totalElements === 0) {
-      //     const content = this.translateService.instant('reciter.suggestion.empty',
-      //       this.suggestionService.getNotificationSuggestionInterpolation(this.suggestionTarget));
-      //     this.notificationService.success('', content, {timeOut:0}, true);
-      // TODO if the target is not the current use route to the suggestion target page
-      //     this.router.navigate(['/mydspace']);
-      // }
     });
   }
 

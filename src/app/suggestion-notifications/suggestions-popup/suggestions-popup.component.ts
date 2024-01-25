@@ -18,7 +18,7 @@ import { combineLatest, Subject } from 'rxjs';
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
-  labelPrefix = 'mydspace.';
+  labelPrefix = 'notification.';
 
   subscription;
 
@@ -57,7 +57,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
    * @private
    */
   private showNotificationForNewSuggestions(suggestionTarget: SuggestionTarget): void {
-    const content = this.translateService.instant(this.labelPrefix + 'notification.suggestion',
+    const content = this.translateService.instant(this.labelPrefix + 'suggestion',
       this.suggestionsService.getNotificationSuggestionInterpolation(suggestionTarget));
     this.notificationsService.success('', content, {timeOut:0}, true);
   }

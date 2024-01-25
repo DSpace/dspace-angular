@@ -41,7 +41,6 @@ describe('SuggestionPageComponent', () => {
   let scheduler: TestScheduler;
   const mockSuggestionsService = getMockSuggestionsService();
   const mockSuggestionsTargetStateService = getMockSuggestionNotificationsStateService();
-  const suggestionTargetsList: PaginatedList<Suggestion> = buildPaginatedList(new PageInfo(), [mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
   const router = new RouterStub();
   const routeStub = {
     data: observableOf({
@@ -139,7 +138,7 @@ describe('SuggestionPageComponent', () => {
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
     component.ignoreSuggestion('1');
-    expect(mockSuggestionsService.notMine).toHaveBeenCalledWith('1');
+    expect(mockSuggestionsService.ignoreSuggestion).toHaveBeenCalledWith('1');
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
   });
@@ -150,7 +149,7 @@ describe('SuggestionPageComponent', () => {
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
     component.ignoreSuggestionAllSelected();
-    expect(mockSuggestionsService.notMineMultiple).toHaveBeenCalled();
+    expect(mockSuggestionsService.ignoreSuggestionMultiple).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
   });

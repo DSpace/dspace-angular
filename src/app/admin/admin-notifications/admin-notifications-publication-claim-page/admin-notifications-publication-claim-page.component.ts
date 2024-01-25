@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './admin-notifications-publication-claim-page.component.html',
   styleUrls: ['./admin-notifications-publication-claim-page.component.scss']
 })
-export class AdminNotificationsSuggestionTargetsPageComponent {
+export class AdminNotificationsPublicationClaimPageComponent {
 
 }

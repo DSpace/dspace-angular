@@ -26,7 +26,7 @@ import { QualityAssuranceSourceService } from './qa/source/quality-assurance-sou
 import {
   QualityAssuranceSourceDataService
 } from '../core/notifications/qa/source/quality-assurance-source-data.service';
-import { SuggestionTargetsComponent } from '../suggestion-notifications/suggestion-targets/suggestion-targets.component';
+import { PublicationClaimComponent } from '../suggestion-notifications/suggestion-targets/publication-claim/publication-claim.component';
 import { SuggestionActionsComponent } from '../suggestion-notifications/suggestion-actions/suggestion-actions.component';
 import {
   SuggestionListElementComponent
@@ -65,7 +65,7 @@ const COMPONENTS = [
   QualityAssuranceTopicsComponent,
   QualityAssuranceEventsComponent,
   QualityAssuranceSourceComponent,
-  SuggestionTargetsComponent,
+  PublicationClaimComponent,
   SuggestionActionsComponent,
   SuggestionListElementComponent,
   SuggestionEvidencesComponent,

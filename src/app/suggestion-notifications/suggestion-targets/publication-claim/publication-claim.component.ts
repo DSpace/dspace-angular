@@ -4,23 +4,23 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, take } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
-import { hasValue } from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
-import { getSuggestionPageRoute } from '../../suggestions-page/suggestions-page-routing-paths';
-import { SuggestionsService } from '../suggestions.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
+import { SuggestionTarget } from '../../../core/suggestion-notifications/models/suggestion-target.model';
+import { hasValue } from '../../../shared/empty.util';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
+import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
+import { SuggestionsService } from '../../suggestions.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * Component to display the Suggestion Target list.
  */
 @Component({
-  selector: 'ds-suggestion-target',
-  templateUrl: './suggestion-targets.component.html',
-  styleUrls: ['./suggestion-targets.component.scss'],
+  selector: 'ds-publication-claim',
+  templateUrl: './publication-claim.component.html',
+  styleUrls: ['./publication-claim.component.scss'],
 })
-export class SuggestionTargetsComponent implements OnInit {
+export class PublicationClaimComponent implements OnInit {
 
   /**
    * The source for which to list targets

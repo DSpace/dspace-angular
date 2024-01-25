@@ -11,7 +11,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RequestService } from '../data/request.service';
-import { DataService } from '../data/data.service';
+import { UpdateDataServiceImpl } from '../data/update-data-service';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { RemoteData } from '../data/remote-data';
@@ -31,13 +31,9 @@ import { SuggestionTargetDataService } from './target/suggestion-target-data.ser
 /* tslint:disable:max-classes-per-file */
 
 /**
- * A private DataService implementation to delegate specific methods to.
+ * A private UpdateDataServiceImpl implementation to delegate specific methods to.
  */
-export class SuggestionDataServiceImpl extends DataService<Suggestion> {
-  /**
-   * The REST endpoint.
-   */
-  protected linkPath = 'suggestions';
+export class SuggestionDataServiceImpl extends UpdateDataServiceImpl<Suggestion> {
 
   /**
    * Initialize service variables
@@ -49,6 +45,7 @@ export class SuggestionDataServiceImpl extends DataService<Suggestion> {
    * @param {NotificationsService} notificationsService
    * @param {HttpClient} http
    * @param {ChangeAnalyzer<Suggestion>} comparator
+   * @param responseMsToLive
    */
   constructor(
     protected requestService: RequestService,
@@ -58,8 +55,10 @@ export class SuggestionDataServiceImpl extends DataService<Suggestion> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<Suggestion>) {
-    super();
+    protected comparator: ChangeAnalyzer<Suggestion>,
+    protected responseMsToLive: number,
+  ) {
+    super('suggestions', requestService, rdbService, objectCache, halService, notificationsService ,responseMsToLive);
   }
 }
 
@@ -73,19 +72,21 @@ export class SuggestionsDataService {
   protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';
 
   /**
-   * A private DataService implementation to delegate specific methods to.
+   * A private UpdateDataServiceImpl implementation to delegate specific methods to.
    */
   private suggestionsDataService: SuggestionDataServiceImpl;
 
   /**
-   * A private DataService implementation to delegate specific methods to.
+   * A private UpdateDataServiceImpl implementation to delegate specific methods to.
    */
   private suggestionSourcesDataService: SuggestionSourceDataService;
 
   /**
-   * A private DataService implementation to delegate specific methods to.
+   * A private UpdateDataServiceImpl implementation to delegate specific methods to.
    */
   private suggestionTargetsDataService: SuggestionTargetDataService;
+
+  private responseMsToLive = 10 * 1000;
 
   /**
    * Initialize service variables
@@ -98,6 +99,7 @@ export class SuggestionsDataService {
    * @param {DefaultChangeAnalyzer<Suggestion>} comparatorSuggestions
    * @param {DefaultChangeAnalyzer<SuggestionSource>} comparatorSources
    * @param {DefaultChangeAnalyzer<SuggestionTarget>} comparatorTargets
+   * @param responseMsToLive
    */
   constructor(
     protected requestService: RequestService,
@@ -110,7 +112,7 @@ export class SuggestionsDataService {
     protected comparatorSources: DefaultChangeAnalyzer<SuggestionSource>,
     protected comparatorTargets: DefaultChangeAnalyzer<SuggestionTarget>,
   ) {
-    this.suggestionsDataService = new SuggestionDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorSuggestions);
+    this.suggestionsDataService = new SuggestionDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorSuggestions, this.responseMsToLive);
     this.suggestionSourcesDataService = new SuggestionSourceDataService(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorSources);
     this.suggestionTargetsDataService = new SuggestionTargetDataService(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorTargets);
   }

@@ -156,7 +156,7 @@ describe('SuggestionsService test', () => {
     });
 
     it('should delete suggestions', () => {
-      spyOn(service, 'notMine');
+      spyOn(service, 'ignoreSuggestion');
       service.ignoreSuggestionMultiple([mockSuggestionPublicationOne]);
       expect(service.ignoreSuggestion).toHaveBeenCalledWith(mockSuggestionPublicationOne.id);
     });

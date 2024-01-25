@@ -14,7 +14,7 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import {SuggestionConfig} from './layout-config.interfaces';
+import {SuggestionConfig} from './suggestion-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -304,6 +304,8 @@ export class DefaultAppConfig implements AppConfig {
     //   source: 'suggestionSource',
     //   collectionId: 'collectionUUID'
     // }
+    // If not mapped the suggestion service won't be able to approve and import the related suggestion
+    // or load the fixed suggestions collections that can be configured here adding the source and the UUID of the collection
   ];
 
   // Theme Config

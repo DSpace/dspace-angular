@@ -141,7 +141,7 @@ describe('WorkspaceitemDataService test', () => {
     });
 
     describe('findByItem', () => {
-      it('should proxy the call to DataService.findByHref', () => {
+      it('should proxy the call to UpdateDataServiceImpl.findByHref', () => {
         scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
         scheduler.flush();
         const searchUrl = service.getIDHref('item', [new RequestParam('uuid', encodeURIComponent('1234-1234'))]);

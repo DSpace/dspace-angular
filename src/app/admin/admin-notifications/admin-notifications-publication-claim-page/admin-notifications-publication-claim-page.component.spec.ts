@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-publication-claim-page.component';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
-describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
-  let component: AdminNotificationsSuggestionTargetsPageComponent;
-  let fixture: ComponentFixture<AdminNotificationsSuggestionTargetsPageComponent>;
+describe('AdminNotificationsPublicationClaimPageComponent', () => {
+  let component: AdminNotificationsPublicationClaimPageComponent;
+  let fixture: ComponentFixture<AdminNotificationsPublicationClaimPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -16,10 +16,10 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        AdminNotificationsSuggestionTargetsPageComponent
+        AdminNotificationsPublicationClaimPageComponent
       ],
       providers: [
-        AdminNotificationsSuggestionTargetsPageComponent
+        AdminNotificationsPublicationClaimPageComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -27,7 +27,7 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminNotificationsSuggestionTargetsPageComponent);
+    fixture = TestBed.createComponent(AdminNotificationsPublicationClaimPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -51,7 +51,7 @@ export interface SearchData<T extends CacheableObject> {
 }
 
 /**
- * A DataService feature to search for objects.
+ * A UpdateDataServiceImpl feature to search for objects.
  *
  * Concrete data services can use this feature by implementing {@link SearchData}
  * and delegating its method to an inner instance of this class.
