@@ -27,7 +27,6 @@ import {
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
-          showBreadcrumbsFluid: false
         },
       },
       {
@@ -40,7 +39,6 @@ import {
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
-          showBreadcrumbsFluid: false
         },
       },
       {
@@ -53,7 +51,6 @@ import {
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
-          showBreadcrumbsFluid: false
         },
       }
     ])
