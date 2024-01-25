@@ -169,18 +169,18 @@ describe('SuggestionsService test', () => {
     it('should get suggestion interpolation', () => {
       const result = service.getNotificationSuggestionInterpolation(suggestionTarget as SuggestionTarget);
       expect(result.count).toEqual(suggestionTarget.total);
-      expect(result.source).toEqual('reciter.suggestion.source.' + suggestionTarget.source);
-      expect(result.type).toEqual('reciter.suggestion.type.' + suggestionTarget.source);
+      expect(result.source).toEqual('suggestion.source.' + suggestionTarget.source);
+      expect(result.type).toEqual('suggestion.type.' + suggestionTarget.source);
       expect(result.suggestionId).toEqual(suggestionTarget.id);
       expect(result.displayName).toEqual(suggestionTarget.display);
     });
 
     it('should translate suggestion type', () => {
-        expect(service.translateSuggestionType('source')).toEqual('reciter.suggestion.type.source');
+        expect(service.translateSuggestionType('source')).toEqual('suggestion.type.source');
     });
 
     it('should translate suggestion source', () => {
-        expect(service.translateSuggestionSource('source')).toEqual('reciter.suggestion.source.source');
+        expect(service.translateSuggestionSource('source')).toEqual('suggestion.source.source');
     });
 
     it('should resolve collection id', () => {

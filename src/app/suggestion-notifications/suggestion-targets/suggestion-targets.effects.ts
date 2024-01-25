@@ -55,7 +55,7 @@ export class SuggestionTargetsEffects {
   retrieveAllTargetsErrorAction$ = createEffect(() => this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR),
     tap(() => {
-      this.notificationsService.error(null, this.translate.get('reciter.suggestion.target.error.service.retrieve'));
+      this.notificationsService.error(null, this.translate.get('suggestion.target.error.service.retrieve'));
     })
   ), { dispatch: false });
 
@@ -64,7 +64,7 @@ export class SuggestionTargetsEffects {
    */
   refreshUserSuggestionsAction$ = createEffect(() => this.actions$.pipe(
     ofType(SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS),
-    switchMap((action: RefreshUserSuggestionsAction) => {
+    switchMap(() => {
       return this.store$.select((state: any) => state.core.auth.userId)
         .pipe(
           switchMap((userId: string) => {

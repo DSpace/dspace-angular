@@ -13,8 +13,6 @@ import {
 } from '../suggestion-notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../suggestion-notifications/suggestions.service';
 import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/suggestion.mock';
-import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { Suggestion } from '../core/suggestion-notifications/models/suggestion.model';
 import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/publication-claim.mock';
 import { SuggestionEvidencesComponent } from '../suggestion-notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
@@ -29,7 +27,6 @@ import { getMockTranslateService } from '../shared/mocks/translate.service.mock'
 import { SuggestionTargetsStateService } from '../suggestion-notifications/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { PageInfo } from '../core/shared/page-info.model';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';

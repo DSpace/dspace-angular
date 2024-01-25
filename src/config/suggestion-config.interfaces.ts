@@ -1,4 +1,4 @@
-import { Config } from "./config.interface";
+import { Config } from './config.interface';
 
 export interface SuggestionConfig extends Config {
   source: string;

@@ -86,10 +86,10 @@ export class SuggestionActionsComponent {
   }
 
   ignoreSuggestionLabel(): string {
-    return this.isBulk ? 'reciter.suggestion.ignoreSuggestion.bulk' : 'reciter.suggestion.ignoreSuggestion' ;
+    return this.isBulk ? 'suggestion.ignoreSuggestion.bulk' : 'suggestion.ignoreSuggestion' ;
   }
 
   approveAndImportLabel(): string {
-    return this.isBulk ? 'reciter.suggestion.approveAndImport.bulk' : 'reciter.suggestion.approveAndImport';
+    return this.isBulk ? 'suggestion.approveAndImport.bulk' : 'suggestion.approveAndImport';
   }
 }

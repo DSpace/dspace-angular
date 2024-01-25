@@ -51,17 +51,14 @@ export class SuggestionsService {
 
   /**
    * Initialize the service variables.
-   * @param {AuthService} authService
    * @param {ResearcherProfileDataService} researcherProfileService
-   * @param {SuggestionSourceDataService} suggestionSourceDataService
    * @param {SuggestionTargetDataService} suggestionTargetDataService
    * @param {SuggestionsDataService} suggestionsDataService
+   * @param translateService
    */
   constructor(
-    private authService: AuthService,
     private researcherProfileService: ResearcherProfileDataService,
     private suggestionsDataService: SuggestionsDataService,
-    private suggestionSourceDataService: SuggestionSourceDataService,
     private suggestionTargetDataService: SuggestionTargetDataService,
     private translateService: TranslateService
   ) {
@@ -194,7 +191,7 @@ export class SuggestionsService {
     return workspaceitemService.importExternalSourceEntry(suggestion.externalSourceUri, resolvedCollectionId)
       .pipe(
         getFirstSucceededRemoteDataPayload(),
-        catchError((error) => of(null))
+        catchError(() => of(null))
       );
   }
 
@@ -204,7 +201,7 @@ export class SuggestionsService {
    */
   public ignoreSuggestion(suggestionId): Observable<RemoteData<NoContent>> {
     return this.deleteReviewedSuggestion(suggestionId).pipe(
-      catchError((error) => of(null))
+      catchError(() => of(null))
     );
   }
 
@@ -268,11 +265,11 @@ export class SuggestionsService {
   }
 
   public translateSuggestionType(source: string): string {
-    return 'reciter.suggestion.type.' + source;
+    return 'suggestion.type.' + source;
   }
 
   public translateSuggestionSource(source: string): string {
-    return 'reciter.suggestion.source.' + source;
+    return 'suggestion.source.' + source;
   }
 
   /**

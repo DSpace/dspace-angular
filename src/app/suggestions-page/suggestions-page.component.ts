@@ -152,7 +152,7 @@ export class SuggestionsPageComponent implements OnInit {
    * @suggestionId
    */
   ignoreSuggestion(suggestionId) {
-    this.suggestionService.ignoreSuggestion(suggestionId).subscribe((res) => {
+    this.suggestionService.ignoreSuggestion(suggestionId).subscribe(() => {
       this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
       this.updatePage();
     });
@@ -172,12 +172,12 @@ export class SuggestionsPageComponent implements OnInit {
         this.selectedSuggestions = {};
         if (results.success > 0) {
           this.notificationService.success(
-            this.translateService.get('reciter.suggestion.notMine.bulk.success',
+            this.translateService.get('suggestion.notMine.bulk.success',
               {count: results.success}));
         }
         if (results.fails > 0) {
           this.notificationService.error(
-            this.translateService.get('reciter.suggestion.notMine.bulk.error',
+            this.translateService.get('suggestion.notMine.bulk.error',
               {count: results.fails}));
         }
       });
@@ -190,7 +190,7 @@ export class SuggestionsPageComponent implements OnInit {
   approveAndImport(event: SuggestionApproveAndImport) {
     this.suggestionService.approveAndImport(this.workspaceItemService, event.suggestion, event.collectionId)
       .subscribe((workspaceitem: WorkspaceItem) => {
-        const content = this.translateService.instant('reciter.suggestion.approveAndImport.success', { workspaceItemId: workspaceitem.id });
+        const content = this.translateService.instant('suggestion.approveAndImport.success', { workspaceItemId: workspaceitem.id });
         this.notificationService.success('', content, {timeOut:0}, true);
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.updatePage();
@@ -212,12 +212,12 @@ export class SuggestionsPageComponent implements OnInit {
         this.selectedSuggestions = {};
         if (results.success > 0) {
           this.notificationService.success(
-            this.translateService.get('reciter.suggestion.approveAndImport.bulk.success',
+            this.translateService.get('suggestion.approveAndImport.bulk.success',
               {count: results.success}));
         }
         if (results.fails > 0) {
           this.notificationService.error(
-            this.translateService.get('reciter.suggestion.approveAndImport.bulk.error',
+            this.translateService.get('suggestion.approveAndImport.bulk.error',
               {count: results.fails}));
         }
     });

@@ -58,7 +58,7 @@ export class SuggestionDataServiceImpl extends UpdateDataServiceImpl<Suggestion>
     protected comparator: ChangeAnalyzer<Suggestion>,
     protected responseMsToLive: number,
   ) {
-    super('suggestions', requestService, rdbService, objectCache, halService, notificationsService ,responseMsToLive);
+    super('suggestions', requestService, rdbService, objectCache, halService, notificationsService, comparator ,responseMsToLive);
   }
 }
 
@@ -99,7 +99,6 @@ export class SuggestionsDataService {
    * @param {DefaultChangeAnalyzer<Suggestion>} comparatorSuggestions
    * @param {DefaultChangeAnalyzer<SuggestionSource>} comparatorSources
    * @param {DefaultChangeAnalyzer<SuggestionTarget>} comparatorTargets
-   * @param responseMsToLive
    */
   constructor(
     protected requestService: RequestService,
