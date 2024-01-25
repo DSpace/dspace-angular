@@ -9,7 +9,6 @@ import { of } from 'rxjs';
 import {
   AddTargetAction,
   AddUserSuggestionsAction,
-  RefreshUserSuggestionsAction,
   RetrieveAllTargetsErrorAction,
   RetrieveTargetsBySourceAction,
   SuggestionTargetActionTypes,

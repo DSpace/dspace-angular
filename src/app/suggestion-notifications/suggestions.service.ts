@@ -7,7 +7,6 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { SuggestionTarget } from '../core/suggestion-notifications/models/suggestion-target.model';
-import { AuthService } from '../core/auth/auth.service';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
 import {
@@ -25,9 +24,6 @@ import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import {FindListOptions} from '../core/data/find-list-options.model';
 import {SuggestionConfig} from '../../config/suggestion-config.interfaces';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-import {
-  SuggestionSourceDataService
-} from '../core/suggestion-notifications/source/suggestion-source-data.service';
 import {
   SuggestionTargetDataService
 } from '../core/suggestion-notifications/target/suggestion-target-data.service';
