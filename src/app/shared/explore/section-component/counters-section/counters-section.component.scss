@@ -1,6 +1,11 @@
 .counters-section {
-    width: 120px;
-    max-width: 120px;
+    min-width: 120px;
+    max-width: 140px;
+    color: var(--bs-gray-800);
+
+    &:hover {
+        color: #{darken($gray-800, 20%)};
+    }
 }
 
 .counters-label {

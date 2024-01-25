@@ -5,12 +5,14 @@
         <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
       </div>
       <ng-container *ngFor="let counter of (counterData$ | async)">
-        <a class="text-decoration-none" *ngIf="internalLinkService.isLinkInternal(counter.link)" [routerLink]="internalLinkService.getRelativePath(counter.link)">
-          <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
-        </a>
-        <a class="text-decoration-none" *ngIf="!internalLinkService.isLinkInternal(counter.link)" [href]="counter.link" [target]="'_blank'">
-          <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
-        </a>
+        <ng-container *ngIf="counter.link; else countersSectionContent">
+          <a class="text-decoration-none" *ngIf="internalLinkService.isLinkInternal(counter.link)" [routerLink]="internalLinkService.getRelativePath(counter.link)">
+            <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
+          </a>
+          <a class="text-decoration-none" *ngIf="!internalLinkService.isLinkInternal(counter.link)" [href]="counter.link" [target]="'_blank'">
+            <ng-container *ngTemplateOutlet="countersSectionContent"></ng-container>
+          </a>
+        </ng-container>
         <ng-template #countersSectionContent>
           <div class="d-flex flex-wrap flex-column justify-content-between align-items-center gapy-1 counters-section">
             <i class="d-block mb-2" [ngClass]="counter.icon"></i>
