@@ -1,5 +1,3 @@
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { AsyncSubject, from as observableFrom, Observable } from 'rxjs';
 import {
@@ -29,7 +27,6 @@ import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
 import { NoContent } from '../shared/NoContent.model';
 import { CacheableObject } from '../cache/cacheable-object.model';
-import { CoreState } from '../core-state.model';
 import { FindListOptions } from './find-list-options.model';
 import { FindAllData, FindAllDataImpl } from './base/find-all-data';
 import { SearchData, SearchDataImpl } from './base/search-data';
@@ -70,10 +67,7 @@ export interface UpdateDataService<T> {
  * invalidateByHref - invalidate the href making all requests as stale
  */
 
-export abstract class UpdateDataServiceImpl<T extends CacheableObject> extends IdentifiableDataService<T> implements FindAllData<T>, SearchData<T>, CreateData<T>, PatchData<T>, PutData<T>, DeleteData<T> {
-  protected abstract store: Store<CoreState>;
-  protected abstract http: HttpClient;
-
+export class UpdateDataServiceImpl<T extends CacheableObject> extends IdentifiableDataService<T> implements FindAllData<T>, SearchData<T>, CreateData<T>, PatchData<T>, PutData<T>, DeleteData<T> {
   private findAllData: FindAllDataImpl<T>;
   private searchData: SearchDataImpl<T>;
   private createData: CreateDataImpl<T>;
@@ -145,23 +139,6 @@ export abstract class UpdateDataServiceImpl<T extends CacheableObject> extends I
   findAll(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
-
-  /**
-   * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of
-   * {@link FollowLinkConfig}, to automatically resolve {@link HALLink}s of the object
-   * @param id                          ID of object we want to retrieve
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
-   *                                    {@link HALLink}s should be automatically resolved
-   */
-  findById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
-    const href$ = this.getIDHrefObs(encodeURIComponent(id), ...linksToFollow);
-    return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
 
   /**
    * Make a new FindListRequest with given search method

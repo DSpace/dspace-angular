@@ -1,12 +1,10 @@
 import { SuggestionsService } from './suggestions.service';
-import { AuthService } from '../core/auth/auth.service';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
 import {
   SuggestionsDataService
 } from '../core/suggestion-notifications/suggestions-data.service';
-import {
-  SuggestionSourceDataService
-} from '../core/suggestion-notifications/source/suggestion-source-data.service';
+
+
 import {
   SuggestionTargetDataService
 } from '../core/suggestion-notifications/target/suggestion-target-data.service';
@@ -29,10 +27,8 @@ import {
 describe('SuggestionsService test', () => {
   let scheduler: TestScheduler;
   let service: SuggestionsService;
-  let authService: AuthService;
   let researcherProfileService: ResearcherProfileDataService;
   let suggestionsDataService: SuggestionsDataService;
-  let suggestionSourceDataService: SuggestionSourceDataService;
   let suggestionTargetDataService: SuggestionTargetDataService;
   let translateService: any = {
     instant: (str) => str,
@@ -53,10 +49,8 @@ describe('SuggestionsService test', () => {
 
   function initTestService() {
     return new SuggestionsService(
-      authService,
       researcherProfileService,
       suggestionsDataService,
-      suggestionSourceDataService,
       suggestionTargetDataService,
       translateService
     );
@@ -64,11 +58,6 @@ describe('SuggestionsService test', () => {
 
   beforeEach(() => {
     scheduler = getTestScheduler();
-
-
-    suggestionSourceDataService = jasmine.createSpyObj('suggestionSourcesDataService', {
-      getSources: observableOf(null),
-    });
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
       findById: createSuccessfulRemoteDataObject$(mockResercherProfile as ResearcherProfile),
