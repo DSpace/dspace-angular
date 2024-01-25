@@ -30,6 +30,7 @@ export interface ProcessOverviewTableEntry {
 
 @Component({
   selector: 'ds-process-overview-table',
+  styleUrls: ['./process-overview-table.component.scss'],
   templateUrl: './process-overview-table.component.html'
 })
 export class ProcessOverviewTableComponent implements OnInit {
