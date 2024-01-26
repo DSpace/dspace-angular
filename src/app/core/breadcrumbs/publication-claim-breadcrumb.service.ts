@@ -1,12 +1,14 @@
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ItemDataService } from '../data/item-data.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { map } from 'rxjs/operators';
 import { DSONameService } from './dso-name.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../data/feature-authorization/feature-id';
 
 
 
@@ -22,7 +24,8 @@ export class PublicationClaimBreadcrumbService implements BreadcrumbsProviderSer
 
   constructor(private dataService: ItemDataService,
               private dsoNameService: DSONameService,
-              private tranlsateService: TranslateService) {
+              private tranlsateService: TranslateService,
+              protected authorizationService: AuthorizationDataService) {
   }
 
 
@@ -31,11 +34,11 @@ export class PublicationClaimBreadcrumbService implements BreadcrumbsProviderSer
    * @param key The key used to resolve the breadcrumb
    */
   getBreadcrumbs(key: string): Observable<Breadcrumb[]> {
-    return this.dataService.findById(key).pipe(
-      getFirstCompletedRemoteData(),
-      map((item) => {
-        return [new Breadcrumb(this.tranlsateService.instant(this.ADMIN_PUBLICATION_CLAIMS_BREADCRUMB_KEY), this.ADMIN_PUBLICATION_CLAIMS_PATH),
-          new Breadcrumb(this.dsoNameService.getName(item.payload), undefined)];
+    return combineLatest([this.dataService.findById(key).pipe(getFirstCompletedRemoteData()),this.authorizationService.isAuthorized(FeatureID.AdministratorOf)]).pipe(
+      map(([item, isAdmin]) => {
+        const itemName = this.dsoNameService.getName(item.payload);
+        return isAdmin ? [new Breadcrumb(this.tranlsateService.instant(this.ADMIN_PUBLICATION_CLAIMS_BREADCRUMB_KEY), this.ADMIN_PUBLICATION_CLAIMS_PATH),
+          new Breadcrumb(itemName, undefined)] : [new Breadcrumb(itemName, undefined)];
       })
     );
   }

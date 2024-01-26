@@ -3596,7 +3596,7 @@
 
   "suggestion.approveAndImport.bulk": "Approve & import Selected",
 
-  ".suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+  "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
 
   "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
 
@@ -3619,6 +3619,8 @@
   "suggestion.source.openaire": "OpenAIRE Graph",
 
   "suggestion.from.source": "from the ",
+
+  "suggestion.count.missing": "You have no publication claims left",
 
   "suggestion.totalScore": "Total Score",
 

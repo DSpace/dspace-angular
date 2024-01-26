@@ -75,7 +75,8 @@ export class SuggestionTargetsEffects {
           }),
           catchError((errors) => of(errors))
         );
-    })), { dispatch: false });
+    }))
+  );
 
   /**
    * Initialize the effect class variables.

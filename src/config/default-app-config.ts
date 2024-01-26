@@ -304,8 +304,9 @@ export class DefaultAppConfig implements AppConfig {
     //   source: 'suggestionSource',
     //   collectionId: 'collectionUUID'
     // }
-    // If not mapped the suggestion service won't be able to approve and import the related suggestion
-    // or load the fixed suggestions collections that can be configured here adding the source and the UUID of the collection
+    // This is used as a default fallback in case there aren't collections where to import the suggestion
+    // If not mapped the user will be allowed to import the suggestions only in the provided options, shown clicking the button "Approve and import"
+    // If not mapped and no options available for import the user won't be able to import the suggestions.
   ];
 
   // Theme Config

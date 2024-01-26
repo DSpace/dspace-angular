@@ -3,6 +3,7 @@ import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrumb.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { of } from 'rxjs';
 
 describe('PublicationClaimBreadcrumbService', () => {
   let service: PublicationClaimBreadcrumbService;
@@ -15,6 +16,10 @@ describe('PublicationClaimBreadcrumbService', () => {
 
   let dataService: any = {
     findById: (str) => createSuccessfulRemoteDataObject$(str),
+  };
+
+  let authorizationService: any = {
+    isAuthorized: (str) => of(true),
   };
 
   let exampleKey;
@@ -32,7 +37,7 @@ describe('PublicationClaimBreadcrumbService', () => {
   }));
 
   beforeEach(() => {
-    service = new PublicationClaimBreadcrumbService(dataService,dsoNameService,translateService);
+    service = new PublicationClaimBreadcrumbService(dataService,dsoNameService,translateService, authorizationService);
   });
 
   describe('getBreadcrumbs', () => {

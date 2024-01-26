@@ -172,12 +172,12 @@ export class SuggestionsPageComponent implements OnInit {
         this.selectedSuggestions = {};
         if (results.success > 0) {
           this.notificationService.success(
-            this.translateService.get('suggestion.notMine.bulk.success',
+            this.translateService.get('suggestion.ignoreSuggestion.bulk.success',
               {count: results.success}));
         }
         if (results.fails > 0) {
           this.notificationService.error(
-            this.translateService.get('suggestion.notMine.bulk.error',
+            this.translateService.get('suggestion.ignoreSuggestion.bulk.error',
               {count: results.fails}));
         }
       });
