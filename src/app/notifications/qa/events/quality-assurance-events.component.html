@@ -4,10 +4,6 @@
       <h2 class="border-bottom pb-2">
         <div class="d-flex justify-content-between">
           {{'notifications.events.title'| translate}}
-          <a class="btn btn-outline-secondary" (click)="goBack()">
-            <i class="fas fa-angle-double-left"></i>
-            {{'quality-assurance.events.back' | translate}}
-          </a>
         </div>
       </h2>
       <ds-alert *ngIf="!targetId"  [type]="'alert-info'">
@@ -182,14 +178,6 @@
           </div>
         </ng-container>
       </ds-pagination>
-    </div>
-  </div>
-  <div class="row text-right">
-    <div class="col-md-12">
-      <a class="btn btn-outline-secondary" (click)="goBack()">
-        <i class="fas fa-angle-double-left"></i>
-        {{'quality-assurance.events.back' | translate}}
-      </a>
     </div>
   </div>
 </div>
