@@ -4,7 +4,6 @@ import { isPlatformServer } from '@angular/common';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchObjects } from '../../../search/models/search-objects.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
@@ -44,7 +43,6 @@ export class CountersSectionComponent implements OnInit {
               private searchService: SearchService,
               private uuidService: UUIDService,
               @Inject(PLATFORM_ID) private platformId: Object,
-              @Inject(NativeWindowService) protected _window: NativeWindowRef,
   ) {
 
   }
