@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import {
   SiteAdministratorGuard
@@ -19,49 +18,42 @@ import {
       {
         canActivate: [SiteAdministratorGuard],
         path: '',
-        component: AdminNotifyDashboardComponent,
-        pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
         },
+        component: AdminNotifyDashboardComponent,
+        pathMatch: 'full',
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
-          showBreadcrumbsFluid: false
         },
       },
       {
         path: 'inbound',
-        component: AdminNotifyIncomingComponent,
-        canActivate: [SiteAdministratorGuard],
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
         },
+        component: AdminNotifyIncomingComponent,
+        canActivate: [SiteAdministratorGuard],
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
-          showBreadcrumbsFluid: false
         },
       },
       {
         path: 'outbound',
-        component: AdminNotifyOutgoingComponent,
-        canActivate: [SiteAdministratorGuard],
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
         },
+        component: AdminNotifyOutgoingComponent,
+        canActivate: [SiteAdministratorGuard],
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
-          showBreadcrumbsFluid: false
         },
       }
     ])
   ],
-  providers: [
-    I18nBreadcrumbResolver,
-    I18nBreadcrumbsService,
-  ]
 })
 /**
  * Routing module for the Notifications section of the admin sidebar
