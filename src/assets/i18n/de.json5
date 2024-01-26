@@ -2418,10 +2418,10 @@
   "cookies.consent.content-modal.title": "Informationen, die wir sammeln",
 
   // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "Dienstleistungen",
+  "cookies.consent.content-modal.services": "Dienste",
 
   // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "Dienstleistung",
+  "cookies.consent.content-modal.service": "Dienst",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Authentifizierung",
