@@ -2415,7 +2415,7 @@
   "cookies.consent.content-modal.privacy-policy.text": "Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
 
   // "cookies.consent.content-modal.title": "Information that we collect",
-  "cookies.consent.content-modal.title": "Information, die wir sammeln",
+  "cookies.consent.content-modal.title": "Informationen, die wir sammeln",
 
   // "cookies.consent.content-modal.services": "services",
   "cookies.consent.content-modal.services": "Dienstleistungen",
