@@ -88,7 +88,7 @@
       <div *ngIf="(formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)" class="error-text">
         {{ 'ldn-new-service.form.error.ipRange' | translate }}
       </div>
-      <div *ngIf="!(formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)" class="text-muted">
+      <div class="text-muted">
         {{ 'ldn-new-service.form.hint.ipRange' | translate }}
       </div>
     </div>
