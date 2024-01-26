@@ -96,6 +96,10 @@
       [fields]="['datacite.relation.isSupplementedBy']"
       [label]="'item.page.dataset'">
     </ds-item-page-uri-field>
+    <ds-item-page-uri-field [item]="object"
+      [fields]="['datacite.relation.isReferencedBy']"
+      [label]="'item.page.dataset'">
+    </ds-item-page-uri-field>
     <div>
       <a class="btn btn-outline-primary" role="button" [routerLink]="[itemPageRoute + '/full']">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
