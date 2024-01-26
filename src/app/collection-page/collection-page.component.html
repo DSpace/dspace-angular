@@ -22,16 +22,16 @@
                           [title]="'collection.page.handle'" >
                   </ds-themed-comcol-page-handle>
                   <!-- Introductory text -->
-                  <ds-comcol-page-content
+                  <ds-themed-comcol-page-content
                           [content]="collection.introductoryText"
                           [hasInnerHtml]="true">
-                  </ds-comcol-page-content>
+                  </ds-themed-comcol-page-content>
                   <!-- News -->
-                  <ds-comcol-page-content
+                  <ds-themed-comcol-page-content
                           [content]="collection.sidebarText"
                           [hasInnerHtml]="true"
                           [title]="'collection.page.news'">
-                  </ds-comcol-page-content>
+                  </ds-themed-comcol-page-content>
                 </header>
                 <div class="pl-2 space-children-mr">
                   <ds-dso-page-edit-button *ngIf="isCollectionAdmin$ | async"  [pageRoute]="collectionPageRoute$ | async" [dso]="collection" [tooltipMsg]="'collection.page.edit'"></ds-dso-page-edit-button>
@@ -65,10 +65,10 @@
             </section>
             <footer *ngIf="collection.copyrightText" class="border-top my-5 pt-4">
           <!-- Copyright -->
-          <ds-comcol-page-content
+          <ds-themed-comcol-page-content
                       [content]="collection.copyrightText"
                       [hasInnerHtml]="true">
-          </ds-comcol-page-content>
+          </ds-themed-comcol-page-content>
         </footer>
       </div>
     </div>

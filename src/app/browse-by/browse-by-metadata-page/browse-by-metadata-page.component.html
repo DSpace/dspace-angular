@@ -11,11 +11,11 @@
             [title]="parentContext.type+'.page.handle'" >
         </ds-themed-comcol-page-handle>
         <!-- Introductory text -->
-        <ds-comcol-page-content [content]="parentContext.introductoryText" [hasInnerHtml]="true">
-        </ds-comcol-page-content>
+        <ds-themed-comcol-page-content [content]="parentContext.introductoryText" [hasInnerHtml]="true">
+        </ds-themed-comcol-page-content>
         <!-- News -->
-        <ds-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
-        </ds-comcol-page-content>
+        <ds-themed-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
+        </ds-themed-comcol-page-content>
       </header>
       <!-- Browse-By Links -->
       <ds-themed-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-themed-comcol-page-browse-by>
@@ -49,8 +49,8 @@
     <div >
 
       <!-- Copyright -->
-      <ds-comcol-page-content [content]="parentContext.copyrightText" [hasInnerHtml]="true">
-      </ds-comcol-page-content>
+      <ds-themed-comcol-page-content [content]="parentContext.copyrightText" [hasInnerHtml]="true">
+      </ds-themed-comcol-page-content>
     </div>
   </footer>
 </ng-container>

@@ -13,12 +13,12 @@
           <ds-themed-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
           </ds-themed-comcol-page-handle>
           <!-- Introductory text -->
-          <ds-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
-          </ds-comcol-page-content>
+          <ds-themed-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
+          </ds-themed-comcol-page-content>
           <!-- News -->
-          <ds-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
+          <ds-themed-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
             [title]="'community.page.news'">
-          </ds-comcol-page-content>
+          </ds-themed-comcol-page-content>
         </header>
         <div class="pl-2 space-children-mr">
           <ds-dso-page-edit-button *ngIf="isCommunityAdmin$ | async" [pageRoute]="communityPageRoute$ | async" [dso]="communityPayload" [tooltipMsg]="'community.page.edit'"></ds-dso-page-edit-button>
@@ -35,8 +35,8 @@
       </section>
       <footer  *ngIf="communityPayload.copyrightText"  class="border-top my-5 pt-4">
         <!-- Copyright -->
-        <ds-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
-        </ds-comcol-page-content>
+        <ds-themed-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
+        </ds-themed-comcol-page-content>
       </footer>
     </div>
   </div>
