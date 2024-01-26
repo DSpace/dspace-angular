@@ -88,10 +88,11 @@
       </div>
 
       <div>
-        <label>&nbsp;</label>
+        <div style="margin-bottom: 0.5rem;">&nbsp;</div>
         <div class="input-group">
 
           <button type="button" class="btn btn-outline-danger"
+                  [ngbTooltip]="'access-control-remove' | translate"
                   [attr.aria-label]="'access-control-remove' | translate"
                   [disabled]="ngForm.disabled || form.accessControls.length === 1"
                   (click)="removeAccessControlItem(control.id)">
