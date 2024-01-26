@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -150,7 +149,6 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     private paginationService: PaginationService,
     private translateService: TranslateService,
     private itemService: ItemDataService,
-    private _location: Location
   ) {
   }
 
@@ -487,10 +485,4 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Navigates back to the previous location in the browser's history stack.
-   */
-  public goBack() {
-    this._location.back();
-  }
 }
