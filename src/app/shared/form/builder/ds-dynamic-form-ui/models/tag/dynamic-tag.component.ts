@@ -151,7 +151,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
    * @param event The value to emit.
    */
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue) && !this.instance.isPopupOpen()) {
+    if (isNotEmpty(this.currentValue) && (!this.model.hasAuthority || !this.instance.isPopupOpen())) {
       this.addTagsToChips();
     }
     this.blur.emit(event);
