@@ -3,7 +3,7 @@ import {
   Component,
   Inject,
   Input,
-  OnInit, ViewChild
+  OnInit
 } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { Context } from '../../../../core/shared/context.model';
@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { map } from 'rxjs/operators';
-import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 
 @Component({
   selector: 'ds-admin-notify-logs-result',
@@ -28,8 +27,6 @@ export class AdminNotifyLogsResultComponent implements OnInit {
 
   @Input()
   defaultConfiguration: string;
-
-  @ViewChild('searchComponent') searchComponent: ThemedSearchComponent;
 
 
   public selectedSearchConfig$: Observable<string>;
@@ -50,15 +47,18 @@ export class AdminNotifyLogsResultComponent implements OnInit {
     );
   }
 
-
+  /**
+   * Reset route state to default configuration
+   */
   public resetDefaultConfiguration() {
-    // we prevent cache use on reset so that the result are rendered properly
-    this.searchComponent.useCachedVersionIfAvailable = false;
-    this.router.navigate([this.getResolvedUrl(this.route.snapshot)], {
-      queryParams: {
-        configuration: this.defaultConfiguration,
-        view: ViewMode.Table,
-      },
+    //Idle navigation to trigger rendering of result on same page
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([this.getResolvedUrl(this.route.snapshot)], {
+        queryParams: {
+          configuration: this.defaultConfiguration,
+          view: ViewMode.Table,
+        },
+      });
     });
   }
 
