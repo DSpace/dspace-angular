@@ -47,22 +47,22 @@ describe('InternalLinkService', () => {
 
   describe('transformInternalLink', () => {
     it('should transform internal link by removing currentURL', () => {
-      const result = service.transformInternalLink('https://currentdomain/my-link');
+      const result = service.getRelativePath('https://currentdomain/my-link');
       expect(result).toBe('/my-link');
     });
 
     it('should transform internal link by adding leading "/" if missing', () => {
-      const result = service.transformInternalLink('currentdomain/my-link');
+      const result = service.getRelativePath('currentdomain/my-link');
       expect(result).toBe('/my-link');
     });
 
     it('should return unchanged link for external link', () => {
-      const result = service.transformInternalLink('https://externalDomain/my-link');
+      const result = service.getRelativePath('https://externalDomain/my-link');
       expect(result).toBe('https://externalDomain/my-link');
     });
 
     it('should return unchanged link for internal link with leading "/"', () => {
-      const result = service.transformInternalLink('/my-link');
+      const result = service.getRelativePath('/my-link');
       expect(result).toBe('/my-link');
     });
   });
