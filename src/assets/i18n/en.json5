@@ -3548,6 +3548,14 @@
 
   "search.filters.applied.f.relateditem": "Related items",
 
+  "search.filters.applied.f.ldn_service": "LDN Service",
+
+  "search.filters.applied.f.notifyReview": "Notify Review",
+
+  "search.filters.applied.f.notifyEndorsement": "Notify Endorsement",
+
+  "search.filters.applied.f.notifyRelation": "Notify Relation",
+
   "admin.notify.dashboard.outbound": "Outbound messages",
 
   "admin.notify.dashboard.outbound-logs": "Logs/Outbound",

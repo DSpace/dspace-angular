@@ -32,10 +32,17 @@ import { DatePipe } from '@angular/common';
 export class AdminNotifySearchResultComponent extends TabulatableResultListElementsComponent<PaginatedList<AdminNotifySearchResult>, AdminNotifySearchResult> implements OnInit, OnDestroy{
   public messagesSubject$: BehaviorSubject<AdminNotifyMessage[]> = new BehaviorSubject([]);
   public reprocessStatus = 'QUEUE_STATUS_QUEUED_FOR_RETRY';
-  public failureStatus = 'QUEUE_STATUS_FAILED';
-  public unmappedActionStatus = 'QUEUE_STATUS_UNMAPPED_ACTION';
   //we check on one type of config to render specific table headers
   public isInbound: boolean;
+
+  /**
+   * Statuses for which we display the reprocess button
+   */
+  public validStatusesForReprocess = [
+    'QUEUE_STATUS_UNTRUSTED',
+    'QUEUE_STATUS_FAILED',
+    'QUEUE_STATUS_UNMAPPED_ACTION'
+  ];
 
 
   /**
