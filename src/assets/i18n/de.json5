@@ -1639,6 +1639,12 @@
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Ablehnen",
 
+  // "cookies.consent.ok": "That's ok",
+  "cookies.consent.ok": "Zustimmen",
+
+  // "cookies.consent.save": "Save",
+  "cookies.consent.save": "Speichern",
+
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Wir sammeln und verarbeiten Ihre personenbezogenen Daten für die folgenden Zwecke: <strong>Authentifikation, Einstellungen, Zustimmungen und Statistiken</strong>. <br/> Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}.",
 
