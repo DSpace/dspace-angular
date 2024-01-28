@@ -282,6 +282,7 @@ import {
 import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
+import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
 
 const MODULES = [
   CommonModule,
@@ -374,7 +375,7 @@ const COMPONENTS = [
   ThemedStatusBadgeComponent,
   BadgesComponent,
   ThemedBadgesComponent,
-
+  StartsWithLoaderComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,

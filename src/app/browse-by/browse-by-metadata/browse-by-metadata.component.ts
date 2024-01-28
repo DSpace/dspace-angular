@@ -109,7 +109,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * The list of StartsWith options
    * Should be defined after ngOnInit is called!
    */
-  startsWithOptions;
+  startsWithOptions: (string | number)[];
 
   /**
    * The value we're browsing items for

@@ -1,10 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Component, OnInit } from '@angular/core';
 import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { hasValue } from '../../empty.util';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * A switchable component rendering StartsWith options for the type "Date".
@@ -16,7 +13,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
   templateUrl: './starts-with-date.component.html'
 })
 @renderStartsWithFor(StartsWithType.date)
-export class StartsWithDateComponent extends StartsWithAbstractComponent {
+export class StartsWithDateComponent extends StartsWithAbstractComponent implements OnInit {
 
   /**
    * A list of options for months to select from
@@ -32,14 +29,6 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
    * Currently selected year
    */
   startsWithYear: number;
-
-  public constructor(@Inject('startsWithOptions') public startsWithOptions: any[],
-                     @Inject('paginationId') public paginationId: string,
-                     protected paginationService: PaginationService,
-                     protected route: ActivatedRoute,
-                     protected router: Router) {
-    super(startsWithOptions, paginationId, paginationService, route, router);
-  }
 
   ngOnInit() {
     this.monthOptions = [
@@ -131,13 +120,6 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
     } else {
       this.startsWithYear = +startsWith;
     }
-  }
-
-  /**
-   * Get startsWithYear as a number;
-   */
-  getStartsWithYear() {
-    return this.startsWithYear;
   }
 
   /**
