@@ -3,6 +3,7 @@ import { hasValue, isEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Metadata } from '../shared/metadata.utils';
+import { Group } from '../eperson/models/group.model';
 
 /**
  * Returns a name for a {@link DSpaceObject} based
@@ -53,6 +54,19 @@ export class DSONameService {
       return dso.firstMetadataValue('organization.legalName');
     },
     Default: (dso: DSpaceObject): string => {
+      // TAMU Customization - return dc.description for groups with COLLECTION_{UUID}_{***} name format
+      if (!isEmpty(dso.name)) {
+        const nameParts = dso.name.split("_");
+        if (dso.type.toString() === 'group' && nameParts.length >= 3 && (nameParts[0] === "COLLECTION" || nameParts[0] === "COMMUNITY"))
+        {
+          const friendlyName = dso.firstMetadataValue("dc.description");
+          if (friendlyName) {
+            return dso.firstMetadataValue("dc.description");
+          }
+        }
+      }
+      // End TAMU Customization - return dc.description for groups with COLLECTION_{UUID}_{***} name format
+
       // If object doesn't have dc.title metadata use name property
       return dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
     }
