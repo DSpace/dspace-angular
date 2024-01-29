@@ -1,3 +1,23 @@
 .toggle-icon {
   font-size: calc(var(--bs-small-font-size) * 0.6);
 }
+
+.status-header {
+  width: var(--ds-process-overview-table-status-column-width);
+}
+
+.name-header {
+  width: var(--ds-process-overview-table-name-column-width);
+}
+
+.user-header {
+  width: var(--ds-process-overview-table-user-column-width);
+}
+
+.info-header {
+  width: var(--ds-process-overview-table-info-column-width);
+}
+
+.actions-header {
+  width: var(--ds-process-overview-table-actions-column-width);
+}
