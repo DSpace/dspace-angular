@@ -55,9 +55,9 @@ export class DSONameService {
     Default: (dso: DSpaceObject): string => {
       // TAMU Customization - return dc.description for groups with COLLECTION_{UUID}_{***} name format
       if (hasValue(dso.name)) {
-        const nameParts = dso.name.split("_");
+        const nameParts = dso.name.split('_');
         if (dso.type.toString() === 'group' && nameParts.length >= 3 && (nameParts[0] === 'COLLECTION' || nameParts[0] === 'COMMUNITY')) {
-          const friendlyName = dso.firstMetadataValue("dc.description");
+          const friendlyName = dso.firstMetadataValue('dc.description');
           if (hasValue(friendlyName)) {
             return friendlyName;
           }
