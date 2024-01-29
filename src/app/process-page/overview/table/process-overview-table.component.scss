@@ -2,6 +2,11 @@
   font-size: calc(var(--bs-small-font-size) * 0.6);
 }
 
+.badge-nb-processes {
+  font-size: var(--ds-process-overview-table-nb-processes-badge-size);
+  vertical-align: middle;
+}
+
 .status-header {
   width: var(--ds-process-overview-table-status-column-width);
 }

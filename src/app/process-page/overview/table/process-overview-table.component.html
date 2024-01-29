@@ -1,7 +1,15 @@
 <div class="container mb-4">
   <div class="d-flex" (click)="collapse.toggle()" [attr.aria-expanded]="!collapse.collapsed" role="button">
-    <h2 class="flex-grow-1">{{'process.overview.table.' + processStatus.toLowerCase() + '.title' | translate}}<span class="ml-2 toggle-icon"
-    ><i class="fas" [ngClass]="collapse.collapsed ? 'fa-angle-right' : 'fa-angle-down'"></i></span></h2>
+    <h2 class="flex-grow-1">
+      {{'process.overview.table.' + processStatus.toLowerCase() + '.title' | translate}}
+      <span class="badge badge-pill badge-primary badge-nb-processes"
+            *ngIf="(processesRD$ | async) as processesRD">
+        {{processesRD?.payload?.totalElements}}
+      </span>
+      <span class="ml-2 toggle-icon">
+        <i class="fas" [ngClass]="collapse.collapsed ? 'fa-angle-right' : 'fa-angle-down'"></i>
+      </span>
+    </h2>
   </div>
 
   <div ngbCollapse #collapse="ngbCollapse">
