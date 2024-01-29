@@ -12,7 +12,8 @@
       <ds-pagination *ngIf="processesRD?.payload?.totalElements > 0"
                      [paginationOptions]="(paginationOptions$ | async)"
                      [collectionSize]="processesRD?.payload?.totalElements"
-                     [retainScrollPosition]="true">
+                     [retainScrollPosition]="true"
+                     [hideGear]="true">
 
         <div class="table-responsive mt-1">
           <table class="table table-striped table-hover">
