@@ -19,6 +19,9 @@ describe('SystemWideAlertBannerComponent', () => {
   let systemWideAlertDataService: SystemWideAlertDataService;
 
   let systemWideAlert: SystemWideAlert;
+  let systemWideAlertEmptyMessage: SystemWideAlert;
+  let systemWideAlertNullMessage: SystemWideAlert;
+  let systemWideAlertUndefinedMessage: SystemWideAlert;
   let scheduler: TestScheduler;
 
   beforeEach(waitForAsync(() => {
@@ -34,6 +37,24 @@ describe('SystemWideAlertBannerComponent', () => {
       message: 'Test alert message',
       active: true,
       countdownTo: utcToZonedTime(countDownDate, 'UTC').toISOString()
+    });
+
+    systemWideAlertEmptyMessage = Object.assign(new SystemWideAlert(), {
+      alertId: 1,
+      message: '',
+      active: true
+    });
+
+    systemWideAlertNullMessage = Object.assign(new SystemWideAlert(), {
+      alertId: 1,
+      message: null,
+      active: true
+    });
+
+    systemWideAlertUndefinedMessage = Object.assign(new SystemWideAlert(), {
+      alertId: 1,
+      message: undefined,
+      active: true
     });
 
     systemWideAlertDataService = jasmine.createSpyObj('systemWideAlertDataService', {
@@ -105,6 +126,30 @@ describe('SystemWideAlertBannerComponent', () => {
 
     it('should not display an alert when none is present', () => {
       comp.systemWideAlert$.next(null);
+      fixture.detectChanges();
+
+      const banner = fixture.debugElement.queryAll(By.css('span'));
+      expect(banner.length).toEqual(0);
+    });
+
+    it('should not display an alert when no message is present', () => {
+      comp.systemWideAlert$.next(systemWideAlertEmptyMessage);
+      fixture.detectChanges();
+
+      const banner = fixture.debugElement.queryAll(By.css('span'));
+      expect(banner.length).toEqual(0);
+    });
+
+    it('should not display an alert when null message is present', () => {
+      comp.systemWideAlert$.next(systemWideAlertNullMessage);
+      fixture.detectChanges();
+
+      const banner = fixture.debugElement.queryAll(By.css('span'));
+      expect(banner.length).toEqual(0);
+    });
+
+    it('should not display an alert when undefined message is present', () => {
+      comp.systemWideAlert$.next(systemWideAlertUndefinedMessage);
       fixture.detectChanges();
 
       const banner = fixture.debugElement.queryAll(By.css('span'));
