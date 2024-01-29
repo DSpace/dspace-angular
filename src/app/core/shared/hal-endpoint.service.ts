@@ -1,5 +1,12 @@
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith, switchMap, take } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+  take,
+  tap, filter
+} from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { EndpointMapRequest } from '../data/request.models';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
@@ -9,7 +16,7 @@ import { EndpointMap } from '../cache/response.models';
 import { getFirstCompletedRemoteData } from './operators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
-import { UnCacheableObject } from './uncacheable-object.model';
+import { CacheableObject } from '../cache/cacheable-object.model';
 
 @Injectable()
 export class HALEndpointService {
@@ -33,9 +40,18 @@ export class HALEndpointService {
 
     this.requestService.send(request, true);
 
-    return this.rdbService.buildFromHref<UnCacheableObject>(href).pipe(
+    return this.rdbService.buildFromHref<CacheableObject>(href).pipe(
+      // Re-request stale responses
+      tap((rd: RemoteData<CacheableObject>) => {
+        if (hasValue(rd) && rd.isStale) {
+          this.getEndpointMapAt(href);
+        }
+      }),
+      // Filter out all stale responses. We're only interested in a single, non-stale,
+      // completed RemoteData
+      filter((rd: RemoteData<CacheableObject>) => !rd.isStale),
       getFirstCompletedRemoteData(),
-      map((response: RemoteData<UnCacheableObject>) => {
+      map((response: RemoteData<CacheableObject>) => {
         if (hasValue(response.payload)) {
           return response.payload._links;
         } else {
