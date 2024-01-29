@@ -478,7 +478,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
       take(1),
       switchMap((eperson: EPerson) => {
         const modalRef = this.modalService.open(ConfirmationModalComponent);
-        modalRef.componentInstance.dso = eperson;
+        modalRef.componentInstance.name = this.dsoNameService.getName(eperson);
         modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-eperson.header';
         modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
         modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';
