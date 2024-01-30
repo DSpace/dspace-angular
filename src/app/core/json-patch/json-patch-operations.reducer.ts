@@ -355,6 +355,7 @@ function addOperationToList(body: JsonPatchOperationObject[], actionType, target
 }
 
 /**
+ * TAMU Customization
  * Dedupe operation entries by op and path. This prevents processing unnecessary patches in a single PATCH request.
  *
  * @param body JSON patch operation object entries
