@@ -53,6 +53,18 @@ export class DSONameService {
       return dso.firstMetadataValue('organization.legalName');
     },
     Default: (dso: DSpaceObject): string => {
+      // TAMU Customization - return dc.description for groups with COLLECTION_{UUID}_{***} name format
+      if (hasValue(dso.name)) {
+        const nameParts = dso.name.split('_');
+        if (hasValue(dso.type) && dso.type.toString() === 'group' && nameParts.length >= 3 && (nameParts[0] === 'COLLECTION' || nameParts[0] === 'COMMUNITY')) {
+          const friendlyName = dso.firstMetadataValue('dc.description');
+          if (hasValue(friendlyName)) {
+            return friendlyName;
+          }
+        }
+      }
+      // End TAMU Customization - return dc.description for groups with COLLECTION_{UUID}_{***} name format
+
       // If object doesn't have dc.title metadata use name property
       return dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
     }
