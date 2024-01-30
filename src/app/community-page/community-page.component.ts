@@ -13,16 +13,14 @@ import { MetadataService } from '../core/metadata/metadata.service';
 
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteData } from '../core/shared/operators';
+import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { SortDirection } from '../core/cache/models/sort-options.model';
+
 @Component({
   selector: 'ds-community-page',
   styleUrls: ['./community-page.component.scss'],
@@ -57,14 +55,13 @@ export class CommunityPageComponent implements OnInit {
   constructor(
     private communityDataService: CommunityDataService,
     private metadata: MetadataService,
-    private paginationService: PaginationService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
-    public searchConfigurationService: SearchConfigurationService,
   ) {
+
   }
 
   ngOnInit(): void {
@@ -72,15 +69,6 @@ export class CommunityPageComponent implements OnInit {
       map((data) => data.dso as RemoteData<Community>),
       redirectOn4xx(this.router, this.authService)
     );
-    this.communityRD$.pipe(getFirstSucceededRemoteData()).subscribe((rd: RemoteData<Community>) => {
-      this.paginationService.updateRoute(this.searchConfigurationService.paginationID, {
-        sortField: 'dc.date.accessioned',
-        sortDirection: 'DESC' as SortDirection,
-        page: 1
-      }, { scope: rd.payload.id });
-    });
-
-
     this.logoRD$ = this.communityRD$.pipe(
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),

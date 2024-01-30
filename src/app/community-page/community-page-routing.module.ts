@@ -15,7 +15,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { SubComCollPageComponent } from './sub-com-coll-page/sub-com-coll-page.component';
+
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -34,15 +34,6 @@ import { SubComCollPageComponent } from './sub-com-coll-page/sub-com-coll-page.c
         runGuardsAndResolvers: 'always',
         children: [
           {
-            path: 'sub-com-col',
-            component: SubComCollPageComponent,
-            resolve: {
-              dso: CommunityPageResolver,
-              breadcrumb: CommunityBreadcrumbResolver,
-              menu: DSOEditMenuResolver
-            },
-          },
-          {
             path: COMMUNITY_EDIT_PATH,
             loadChildren: () => import('./edit-community-page/edit-community-page.module')
               .then((m) => m.EditCommunityPageModule),
@@ -53,7 +44,8 @@ import { SubComCollPageComponent } from './sub-com-coll-page/sub-com-coll-page.c
             pathMatch: 'full',
             component: DeleteCommunityPageComponent,
             canActivate: [AuthenticatedGuard],
-          }, {
+          },
+          {
             path: '',
             component: ThemedCommunityPageComponent,
             pathMatch: 'full',

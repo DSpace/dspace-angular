@@ -18,12 +18,11 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
-import { SearchModule } from '../shared/search/search.module';
+
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    SearchModule,
     CollectionPageRoutingModule,
     StatisticsModule.forRoot(),
     EditItemPageModule,

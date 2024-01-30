@@ -13,10 +13,6 @@ export function getCommunityPageRoute(communityId: string) {
   return new URLCombiner(getCommunityModuleRoute(), communityId).toString();
 }
 
-export function getCommunityCollectionPageRoute(id: string) {
-  return new URLCombiner(getCommunityModuleRoute(), id, COMMUNITY_SUB_COM_COL_PATH).toString();
-}
-
 export function getCommunityEditRoute(id: string) {
   return new URLCombiner(getCommunityModuleRoute(), id, COMMUNITY_EDIT_PATH).toString();
 }
@@ -32,4 +28,3 @@ export function getCommunityEditRolesRoute(id) {
 export const COMMUNITY_CREATE_PATH = 'create';
 export const COMMUNITY_EDIT_PATH = 'edit';
 export const COMMUNITY_EDIT_ROLES_PATH = 'roles';
-export const COMMUNITY_SUB_COM_COL_PATH = 'sub-com-col';

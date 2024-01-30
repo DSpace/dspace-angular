@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { getCommunityPageRoute, getCommunityCollectionPageRoute } from '../../../community-page/community-page-routing-paths';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -38,8 +38,8 @@ export class ComcolPageBrowseByComponent implements OnInit {
   currentOptionId$: Observable<string>;
 
   constructor(
-    protected route: ActivatedRoute,
-    protected router: Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private browseService: BrowseService
   ) {
   }
@@ -60,19 +60,15 @@ export class ComcolPageBrowseByComponent implements OnInit {
           if (this.contentType === 'collection') {
             this.allOptions = [{
               id: this.id,
-              label: 'collection.page.browse.search.head',
-              routerLink: getCollectionPageRoute(this.id),
+              label: 'collection.page.browse.recent.head',
+              routerLink: getCollectionPageRoute(this.id)
             }, ...this.allOptions];
           } else if (this.contentType === 'community') {
             this.allOptions = [{
               id: this.id,
-              label: 'community.search.head',
+              label: 'community.all-lists.head',
               routerLink: getCommunityPageRoute(this.id)
-            }, {
-              id: 'sub-com-col',
-                label: 'community.all-lists.head',
-                routerLink: getCommunityCollectionPageRoute(this.id),
-              }, ...this.allOptions];
+            }, ...this.allOptions];
           }
         }
       });

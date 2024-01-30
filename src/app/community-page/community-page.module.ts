@@ -20,8 +20,7 @@ import {
   ThemedCollectionPageSubCollectionListComponent
 } from './sub-collection-list/themed-community-page-sub-collection-list.component';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
-import { SearchModule } from '../shared/search/search.module';
-import { SubComCollPageComponent } from './sub-com-coll-page/sub-com-coll-page.component';
+
 const DECLARATIONS = [CommunityPageComponent,
   ThemedCommunityPageComponent,
   ThemedCommunityPageSubCommunityListComponent,
@@ -29,14 +28,12 @@ const DECLARATIONS = [CommunityPageComponent,
   ThemedCollectionPageSubCollectionListComponent,
   CommunityPageSubCommunityListComponent,
   CreateCommunityPageComponent,
-  DeleteCommunityPageComponent,
-  SubComCollPageComponent];
+  DeleteCommunityPageComponent];
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    SearchModule,
     CommunityPageRoutingModule,
     StatisticsModule.forRoot(),
     CommunityFormModule,
