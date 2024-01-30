@@ -260,6 +260,7 @@ export class FormBuilderService extends DynamicFormService {
                   (controlModel as any).metadataValue.place,
                   (controlModel as any).metadataValue.confidence,
                   (controlModel as any).metadataValue.otherInformation,
+                  (controlModel as any).metadataValue.source,
                   (controlModel as any).metadataValue.metadata);
               }
 
@@ -274,6 +275,7 @@ export class FormBuilderService extends DynamicFormService {
                   (controlModel as any).value.place,
                   (controlModel as any).value.confidence,
                   (controlModel as any).value.otherInformation,
+                  (controlModel as any).value.source,
                   (controlModel as any).value.metadata);
               }
             }
