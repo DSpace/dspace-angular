@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { Observable, of as observableOf } from 'rxjs';
@@ -32,7 +32,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicTagModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -89,6 +89,18 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
         }
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
+      // Add user input as last item of the list
+      map((list: VocabularyEntry[]) => {
+        if (list && list.length > 0) {
+          if (isNotEmpty(this.currentValue)) {
+            let vocEntry = new VocabularyEntry();
+            vocEntry.display = this.currentValue;
+            vocEntry.value = this.currentValue;
+            list.push(vocEntry);
+        }
+        }
+        return list;
+      }),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed));
 

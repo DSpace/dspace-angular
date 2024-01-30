@@ -13,6 +13,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { RouterTestingModule } from '@angular/router/testing';
 import { RouterLinkDirectiveStub } from '../../../../shared/testing/router-link-directive.stub';
 import { BitstreamChecksum } from '../../../../core/shared/bitstream-checksum.model';
 
@@ -92,7 +93,10 @@ describe('ItemEditBitstreamComponent', () => {
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         ItemEditBitstreamComponent,
         VarDirective,
@@ -100,7 +104,7 @@ describe('ItemEditBitstreamComponent', () => {
         RouterLinkDirectiveStub
       ],
       providers: [
-        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -152,11 +156,8 @@ describe('ItemEditBitstreamComponent', () => {
   describe('when the component loads', () => {
     it('should contain download button with a valid link to the bitstreams download page', () => {
       fixture.detectChanges();
-      const linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
-      const routerLinkQuery = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
-
-      expect(routerLinkQuery.length).toBe(2);
-      expect(routerLinkQuery[0].routerLink).toBe(comp.bitstreamDownloadUrl);
+      const downloadBtnHref = fixture.debugElement.query(By.css('[data-test="download-button"]')).nativeElement.getAttribute('href');
+      expect(downloadBtnHref).toEqual(comp.bitstreamDownloadUrl);
     });
   });
 

@@ -8,6 +8,7 @@ import {
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
   CheckAuthenticationTokenAction,
+  SetAuthCookieStatus,
   CheckAuthenticationTokenCookieAction,
   LogOutAction,
   LogOutErrorAction,
@@ -214,6 +215,28 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: true,
+      idle: false
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should set the authentication cookie status in response to a SET_AUTH_COOKIE_STATUS action', () => {
+    initialState = {
+      authenticated: true,
+      loaded: false,
+      blocking: false,
+      loading: true,
+      externalAuth: false,
+      idle: false
+    };
+    const action = new SetAuthCookieStatus(true);
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: true,
+      loaded: false,
+      blocking: false,
+      loading: true,
+      externalAuth: true,
       idle: false
     };
     expect(newState).toEqual(state);
@@ -575,9 +598,9 @@ describe('authReducer', () => {
       authMethods: [],
       idle: false
     };
-    const authMethods = [
-      new AuthMethod(AuthMethodType.Password),
-      new AuthMethod(AuthMethodType.Shibboleth, 'location')
+    const authMethods: AuthMethod[] = [
+      new AuthMethod(AuthMethodType.Password, 0),
+      new AuthMethod(AuthMethodType.Shibboleth, 1, 'location'),
     ];
     const action = new RetrieveAuthMethodsSuccessAction(authMethods);
     const newState = authReducer(initialState, action);
@@ -609,7 +632,7 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      authMethods: [new AuthMethod(AuthMethodType.Password)],
+      authMethods: [new AuthMethod(AuthMethodType.Password, 0)],
       idle: false
     };
     expect(newState).toEqual(state);

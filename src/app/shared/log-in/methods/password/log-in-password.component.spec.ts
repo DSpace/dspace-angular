@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { provideMockStore } from '@ngrx/store/testing';
@@ -8,8 +8,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LogInPasswordComponent } from './log-in-password.component';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EPersonMock } from '../../../testing/eperson.mock';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { storeModuleConfig } from '../../../../app.reducer';
@@ -17,6 +15,8 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
 import {of, of as observableOf} from 'rxjs';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { ActivatedRoute , Router} from '@angular/router';
@@ -30,15 +30,12 @@ describe('LogInPasswordComponent', () => {
   let component: LogInPasswordComponent;
   let fixture: ComponentFixture<LogInPasswordComponent>;
   let page: Page;
-  let user: EPerson;
   let initialState: any;
   let hardRedirectService: HardRedirectService;
   let authService: any;
   let configurationDataService: ConfigurationDataService;
 
   beforeEach(() => {
-    user = EPersonMock;
-
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       getCurrentRoute: {}
     });
@@ -74,7 +71,7 @@ describe('LogInPasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -87,7 +84,8 @@ describe('LogInPasswordComponent', () => {
       ],
       providers: [
         { provide: AuthService, useValue: authService },
-        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password) },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password, 0) },
         { provide: 'isStandalonePage', useValue: true },
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
@@ -111,7 +109,7 @@ describe('LogInPasswordComponent', () => {
 
   }));
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // create component and test fixture
     fixture = TestBed.createComponent(LogInPasswordComponent);
 
@@ -122,15 +120,13 @@ describe('LogInPasswordComponent', () => {
     page = new Page(component, fixture);
 
     // verify the fixture is stable (no pending tasks)
-    fixture.whenStable().then(() => {
-      page.addPageElements();
-    });
-
+    await fixture.whenStable();
+    page.addPageElements();
   });
 
   it('should create a FormGroup comprised of FormControls', () => {
     fixture.detectChanges();
-    expect(component.form instanceof FormGroup).toBe(true);
+    expect(component.form instanceof UntypedFormGroup).toBe(true);
   });
 
   it('should authenticate', () => {

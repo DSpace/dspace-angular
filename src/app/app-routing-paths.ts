@@ -125,6 +125,14 @@ export function getRequestCopyModulePath() {
   return `/${REQUEST_COPY_MODULE_PATH}`;
 }
 
+export const HEALTH_PAGE_PATH = 'health';
+
+export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
+
+export function getSubscriptionsModuleRoute() {
+  return `/${SUBSCRIPTIONS_MODULE_PATH}`;
+}
+
 export const LICENSES_MODULE_PATH = 'licenses';
 export function getLicensesModulePath() {
   return `/${LICENSES_MODULE_PATH}`;
@@ -139,12 +147,4 @@ export function getLicensesManageTablePath() {
 export const CONTRACT_PAGE_MODULE_PATH = 'contract';
 export function getLicenseContractPagePath() {
   return `/${CONTRACT_PAGE_MODULE_PATH}`;
-}
-
-export const HEALTH_PAGE_PATH = 'health';
-
-export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
-
-export function getSubscriptionsModuleRoute() {
-  return `/${SUBSCRIPTIONS_MODULE_PATH}`;
 }

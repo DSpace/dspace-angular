@@ -1,23 +1,23 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -86,9 +86,11 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   constructor(public groupDataService: GroupDataService,
               private translateService: TranslateService,
               private notificationsService: NotificationsService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private paginationService: PaginationService,
-              private router: Router) {
+              private router: Router,
+              public dsoNameService: DSONameService,
+  ) {
     this.currentSearchQuery = '';
   }
 
@@ -100,6 +102,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveSubGroups();
+        this.search({query: ''});
       }
     }));
   }
@@ -129,47 +132,6 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Whether or not the given group is a subgroup of the group currently being edited
-   * @param possibleSubgroup Group that is a possible subgroup (being tested) of the group currently being edited
-   */
-  isSubgroupOfGroup(possibleSubgroup: Group): Observable<boolean> {
-    return this.groupDataService.getActiveGroup().pipe(take(1),
-      mergeMap((activeGroup: Group) => {
-        if (activeGroup != null) {
-          if (activeGroup.uuid === possibleSubgroup.uuid) {
-            return observableOf(false);
-          } else {
-            return this.groupDataService.findListByHref(activeGroup._links.subgroups.href, {
-              currentPage: 1,
-              elementsPerPage: 9999
-            })
-              .pipe(
-                getFirstSucceededRemoteData(),
-                getRemoteDataPayload(),
-                map((listTotalGroups: PaginatedList<Group>) => listTotalGroups.page.filter((groupInList: Group) => groupInList.id === possibleSubgroup.id)),
-                map((groups: Group[]) => groups.length > 0));
-          }
-        } else {
-          return observableOf(false);
-        }
-      }));
-  }
-
-  /**
-   * Whether or not the given group is the current group being edited
-   * @param group Group that is possibly the current group being edited
-   */
-  isActiveGroup(group: Group): Observable<boolean> {
-    return this.groupDataService.getActiveGroup().pipe(take(1),
-      mergeMap((activeGroup: Group) => {
-        if (activeGroup != null && activeGroup.uuid === group.uuid) {
-          return observableOf(true);
-        }
-        return observableOf(false);
-      }));
-  }
-
-  /**
    * Deletes given subgroup from the group currently being edited
    * @param subgroup  Group we want to delete from the subgroups of the group currently being edited
    */
@@ -177,7 +139,12 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((activeGroup: Group) => {
       if (activeGroup != null) {
         const response = this.groupDataService.deleteSubGroupFromGroup(activeGroup, subgroup);
-        this.showNotifications('deleteSubgroup', response, subgroup.name, activeGroup);
+        this.showNotifications('deleteSubgroup', response, this.dsoNameService.getName(subgroup), activeGroup);
+        // Reload search results (if there is an active query).
+        // This will potentially add this deleted subgroup into the list of search results.
+        if (this.currentSearchQuery != null) {
+          this.search({query: this.currentSearchQuery});
+        }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
       }
@@ -193,7 +160,12 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         if (activeGroup.uuid !== subgroup.uuid) {
           const response = this.groupDataService.addSubGroupToGroup(activeGroup, subgroup);
-          this.showNotifications('addSubgroup', response, subgroup.name, activeGroup);
+          this.showNotifications('addSubgroup', response, this.dsoNameService.getName(subgroup), activeGroup);
+          // Reload search results (if there is an active query).
+          // This will potentially remove this added subgroup from search results.
+          if (this.currentSearchQuery != null) {
+            this.search({query: this.currentSearchQuery});
+          }
         } else {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.subgroupToAddIsActiveGroup'));
         }
@@ -204,28 +176,38 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Search in the groups (searches by group name and by uuid exact match)
+   * Search all non-member groups (searches by group name and by uuid exact match).  Used to search for
+   * groups that could be added to current group as a subgroup.
    * @param data  Contains query param
    */
   search(data: any) {
-    const query: string = data.query;
-    if (query != null && this.currentSearchQuery !== query) {
-      this.router.navigateByUrl(this.groupDataService.getGroupEditPageRouterLink(this.groupBeingEdited));
-      this.currentSearchQuery = query;
-      this.configSearch.currentPage = 1;
-    }
-    this.searchDone = true;
-
     this.unsubFrom(SubKey.SearchResults);
-    this.subs.set(SubKey.SearchResults, this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
-      switchMap((config) => this.groupDataService.searchGroups(this.currentSearchQuery, {
-        currentPage: config.currentPage,
-        elementsPerPage: config.pageSize
-      }, true, true, followLink('object')
-      ))
-    ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
-      this.searchResults$.next(rd);
-    }));
+    this.subs.set(SubKey.SearchResults,
+      this.paginationService.getCurrentPagination(this.configSearch.id, this.configSearch).pipe(
+        switchMap((paginationOptions) => {
+          const query: string = data.query;
+          if (query != null && this.currentSearchQuery !== query && this.groupBeingEdited) {
+            this.currentSearchQuery = query;
+            this.paginationService.resetPage(this.configSearch.id);
+          }
+          this.searchDone = true;
+
+          return this.groupDataService.searchNonMemberGroups(this.currentSearchQuery, this.groupBeingEdited.id, {
+            currentPage: paginationOptions.currentPage,
+            elementsPerPage: paginationOptions.pageSize
+          }, false, true, followLink('object'));
+        }),
+        getAllCompletedRemoteData(),
+        map((rd: RemoteData<any>) => {
+          if (rd.hasFailed) {
+            this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure', { cause: rd.errorMessage }));
+          } else {
+            return rd;
+          }
+        }))
+        .subscribe((rd: RemoteData<PaginatedList<Group>>) => {
+          this.searchResults$.next(rd);
+        }));
   }
 
   /**

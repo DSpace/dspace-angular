@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
@@ -42,6 +42,7 @@ describe('EPeopleRegistryComponent', () => {
   let paginationService;
 
   beforeEach(waitForAsync(() => {
+    jasmine.getEnv().allowRespy(true);
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
       activeEPerson: null,
@@ -98,7 +99,7 @@ describe('EPeopleRegistryComponent', () => {
       deleteEPerson(ePerson: EPerson): Observable<boolean> {
         this.allEpeople = this.allEpeople.filter((ePerson2: EPerson) => {
           return (ePerson2.uuid !== ePerson.uuid);
-        });
+            });
         return observableOf(true);
       },
       editEPerson(ePerson: EPerson) {
@@ -202,36 +203,6 @@ describe('EPeopleRegistryComponent', () => {
     });
   });
 
-  describe('toggleEditEPerson', () => {
-    describe('when you click on first edit eperson button', () => {
-      beforeEach(fakeAsync(() => {
-        const editButtons = fixture.debugElement.queryAll(By.css('.access-control-editEPersonButton'));
-        editButtons[0].triggerEventHandler('click', {
-          preventDefault: () => {/**/
-          }
-        });
-        tick();
-        fixture.detectChanges();
-      }));
-
-      it('editEPerson form is toggled', () => {
-        const ePeopleIds = fixture.debugElement.queryAll(By.css('#epeople tr td:first-child'));
-        ePersonDataServiceStub.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
-          if (ePeopleIds[0] && activeEPerson === ePeopleIds[0].nativeElement.textContent) {
-            expect(component.isEPersonFormShown).toEqual(false);
-          } else {
-            expect(component.isEPersonFormShown).toEqual(true);
-          }
-
-        });
-      });
-
-      it('EPerson search section is hidden', () => {
-        expect(fixture.debugElement.query(By.css('#search'))).toBeNull();
-      });
-    });
-  });
-
   describe('deleteEPerson', () => {
     describe('when you click on first delete eperson button', () => {
       let ePeopleIdsFoundBeforeDelete;
@@ -260,17 +231,16 @@ describe('EPeopleRegistryComponent', () => {
   describe('delete EPerson button when the isAuthorized returns false', () => {
     let ePeopleDeleteButton;
     beforeEach(() => {
-      authorizationService = jasmine.createSpyObj('authorizationService', {
-        isAuthorized: observableOf(false)
-      });
+      spyOn(authorizationService, 'isAuthorized').and.returnValue(observableOf(false));
+      component.initialisePage();
+      fixture.detectChanges();
     });
 
     it('should be disabled', () => {
       ePeopleDeleteButton = fixture.debugElement.queryAll(By.css('#epeople tr td div button.delete-button'));
-      ePeopleDeleteButton.forEach((deleteButton) => {
+      ePeopleDeleteButton.forEach((deleteButton: DebugElement) => {
         expect(deleteButton.nativeElement.disabled).toBe(true);
       });
-
     });
   });
 });

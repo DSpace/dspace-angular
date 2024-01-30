@@ -30,6 +30,9 @@ services:
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
       solr__P__server: http://dspacesolr:8983/solr
+      # Tell Statistics to commit all views immediately instead of waiting on Solr's autocommit.
+      # This allows us to generate statistics in e2e tests so that statistics pages can be tested thoroughly.
+      solr__D__statistics__P__autoCommit: 'false'
     depends_on:
     - dspacedb
     image: ${DSPACE_CI_IMAGE:-dataquest/dspace:dspace-7_x-test}
@@ -54,6 +57,7 @@ services:
     - |
       while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
       /dspace/bin/dspace database migrate force
+      /dspace/bin/dspace index-discovery -b
       catalina.sh run
   # DSpace database container
   # NOTE: This is customized to use our loadsql image, so that we are using a database with existing test data
@@ -63,7 +67,7 @@ services:
       # This LOADSQL should be kept in sync with the LOADSQL in
       # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
-      LOADSQL: https://github.com/dataquest-dev/DSpace/releases/download/data/dspace-test-database-dump_23.6.2023.sql
+      LOADSQL: https://github.com/dataquest-dev/DSpace/releases/download/data/dspace-test-database-dump_29.1.2024.sql
       PGDATA: /pgdata
     image: dspace/dspace-postgres-pgcrypto:loadsql
     networks:

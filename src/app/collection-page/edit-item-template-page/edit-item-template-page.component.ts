@@ -8,7 +8,8 @@ import { ItemTemplateDataService } from '../../core/data/item-template-data.serv
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-edit-item-template-page',
@@ -35,8 +36,11 @@ export class EditItemTemplatePageComponent implements OnInit {
    */
   AlertTypeEnum = AlertType;
 
-  constructor(protected route: ActivatedRoute,
-              public itemTemplateService: ItemTemplateDataService) {
+  constructor(
+    protected route: ActivatedRoute,
+    public itemTemplateService: ItemTemplateDataService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   ngOnInit(): void {

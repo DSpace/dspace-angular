@@ -1,20 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  inject,
-  TestBed,
-  tick,
-  waitForAsync
-} from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, BehaviorSubject } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../../core/cache/response.models';
 import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -26,17 +18,18 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { GroupMock, GroupMock2 } from '../../../../shared/testing/group-mock';
 import { SubgroupsListComponent } from './subgroups-list.component';
 import {
-  createSuccessfulRemoteDataObject$,
-  createSuccessfulRemoteDataObject
+  createSuccessfulRemoteDataObject$
 } from '../../../../shared/remote-data.utils';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { map } from 'rxjs/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { EPersonMock2 } from 'src/app/shared/testing/eperson.mock';
 
 describe('SubgroupsListComponent', () => {
   let component: SubgroupsListComponent;
@@ -45,44 +38,70 @@ describe('SubgroupsListComponent', () => {
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
-  let activeGroup;
-  let subgroups;
-  let allGroups;
+  let activeGroup: Group;
+  let subgroups: Group[];
+  let groupNonMembers: Group[];
   let routerStub;
   let paginationService;
+  // Define a new mock activegroup for all tests below
+  let mockActiveGroup: Group = Object.assign(new Group(), {
+    handle: null,
+    subgroups: [GroupMock2],
+    epersons: [EPersonMock2],
+    selfRegistered: false,
+    permanent: false,
+    _links: {
+        self: {
+            href: 'https://rest.api/server/api/eperson/groups/activegroupid',
+        },
+        subgroups: { href: 'https://rest.api/server/api/eperson/groups/activegroupid/subgroups' },
+        object: { href: 'https://rest.api/server/api/eperson/groups/activegroupid/object' },
+        epersons: { href: 'https://rest.api/server/api/eperson/groups/activegroupid/epersons' }
+    },
+    _name: 'activegroupname',
+    id: 'activegroupid',
+    uuid: 'activegroupid',
+    type: 'group',
+  });
 
   beforeEach(waitForAsync(() => {
-    activeGroup = GroupMock;
+    activeGroup = mockActiveGroup;
     subgroups = [GroupMock2];
-    allGroups = [GroupMock, GroupMock2];
+    groupNonMembers = [GroupMock];
     ePersonDataServiceStub = {};
     groupsDataServiceStub = {
       activeGroup: activeGroup,
-      subgroups$: new BehaviorSubject(subgroups),
+      subgroups: subgroups,
+      groupNonMembers: groupNonMembers,
       getActiveGroup(): Observable<Group> {
         return observableOf(this.activeGroup);
       },
       getSubgroups(): Group {
-        return this.activeGroup;
+        return this.subgroups;
       },
-      findListByHref(href: string): Observable<RemoteData<PaginatedList<Group>>> {
-        return this.subgroups$.pipe(
-          map((currentGroups: Group[]) => {
-            return createSuccessfulRemoteDataObject(buildPaginatedList<Group>(new PageInfo(), currentGroups));
-          })
-        );
+      // This method is used to get all the current subgroups
+      findListByHref(_href: string): Observable<RemoteData<PaginatedList<Group>>> {
+        return createSuccessfulRemoteDataObject$(buildPaginatedList<Group>(new PageInfo(), groupsDataServiceStub.getSubgroups()));
       },
       getGroupEditPageRouterLink(group: Group): string {
         return '/access-control/groups/' + group.id;
       },
-      searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
+      // This method is used to get all groups which are NOT currently a subgroup member
+      searchNonMemberGroups(query: string, group: string): Observable<RemoteData<PaginatedList<Group>>> {
         if (query === '') {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), allGroups));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), groupNonMembers));
         }
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
       },
-      addSubGroupToGroup(parentGroup, subgroup: Group): Observable<RestResponse> {
-        this.subgroups$.next([...this.subgroups$.getValue(), subgroup]);
+      addSubGroupToGroup(parentGroup, subgroupToAdd: Group): Observable<RestResponse> {
+        // Add group to list of subgroups
+        this.subgroups = [...this.subgroups, subgroupToAdd];
+        // Remove group from list of non-members
+        this.groupNonMembers.forEach( (group: Group, index: number) => {
+          if (group.id === subgroupToAdd.id) {
+            this.groupNonMembers.splice(index, 1);
+          }
+        });
         return observableOf(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
@@ -91,12 +110,15 @@ describe('SubgroupsListComponent', () => {
       clearGroupLinkRequests() {
         // empty
       },
-      deleteSubGroupFromGroup(parentGroup, subgroup: Group): Observable<RestResponse> {
-        this.subgroups$.next(this.subgroups$.getValue().filter((group: Group) => {
-          if (group.id !== subgroup.id) {
-            return group;
+      deleteSubGroupFromGroup(parentGroup, subgroupToDelete: Group): Observable<RestResponse> {
+        // Remove group from list of subgroups
+        this.subgroups.forEach( (group: Group, index: number) => {
+          if (group.id === subgroupToDelete.id) {
+            this.subgroups.splice(index, 1);
           }
-        }));
+        });
+        // Add group to list of non-members
+        this.groupNonMembers = [...this.groupNonMembers, subgroupToDelete];
         return observableOf(new RestResponse(true, 200, 'Success'));
       }
     };
@@ -105,7 +127,7 @@ describe('SubgroupsListComponent', () => {
     translateService = getMockTranslateService();
 
     paginationService = new PaginationServiceStub();
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
@@ -116,6 +138,7 @@ describe('SubgroupsListComponent', () => {
       ],
       declarations: [SubgroupsListComponent],
       providers: [SubgroupsListComponent,
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: FormBuilderService, useValue: builderService },
@@ -133,6 +156,7 @@ describe('SubgroupsListComponent', () => {
   });
   afterEach(fakeAsync(() => {
     fixture.destroy();
+    fixture.debugElement.nativeElement.remove();
     flush();
     component = null;
   }));
@@ -141,86 +165,78 @@ describe('SubgroupsListComponent', () => {
     expect(comp).toBeDefined();
   }));
 
-  it('should show list of subgroups of current active group', () => {
-    const groupIdsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup tr td:first-child'));
-    expect(groupIdsFound.length).toEqual(1);
-    activeGroup.subgroups.map((group: Group) => {
-      expect(groupIdsFound.find((foundEl) => {
-        return (foundEl.nativeElement.textContent.trim() === group.uuid);
-      })).toBeTruthy();
-    });
-  });
-
-  describe('if first group delete button is pressed', () => {
-    let groupsFound;
-    beforeEach(fakeAsync(() => {
-      const addButton = fixture.debugElement.query(By.css('#subgroupsOfGroup tbody .deleteButton'));
-      addButton.triggerEventHandler('click', {
-        preventDefault: () => {/**/
-        }
+  describe('current subgroup list', () => {
+    it('should show list of subgroups of current active group', () => {
+      const groupIdsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup tr td:first-child'));
+      expect(groupIdsFound.length).toEqual(1);
+      subgroups.map((group: Group) => {
+        expect(groupIdsFound.find((foundEl) => {
+          return (foundEl.nativeElement.textContent.trim() === group.uuid);
+        })).toBeTruthy();
       });
-      tick();
-      fixture.detectChanges();
-    }));
-    it('one less subgroup in list from 1 to 0 (of 2 total groups)', () => {
-      groupsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup tbody tr'));
-      expect(groupsFound.length).toEqual(0);
+    });
+
+    it('should show a delete button next to each subgroup', () => {
+      const subgroupsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup tbody tr'));
+      subgroupsFound.map((foundGroupRowElement: DebugElement) => {
+        const addButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-plus'));
+        const deleteButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-trash-alt'));
+        expect(addButton).toBeNull();
+        expect(deleteButton).not.toBeNull();
+      });
+    });
+
+    describe('if first group delete button is pressed', () => {
+      let groupsFound: DebugElement[];
+      beforeEach(() => {
+        const deleteButton = fixture.debugElement.query(By.css('#subgroupsOfGroup tbody .deleteButton'));
+        deleteButton.nativeElement.click();
+        fixture.detectChanges();
+      });
+      it('then no subgroup remains as a member of the active group', () => {
+        groupsFound = fixture.debugElement.queryAll(By.css('#subgroupsOfGroup tbody tr'));
+        expect(groupsFound.length).toEqual(0);
+      });
     });
   });
 
   describe('search', () => {
     describe('when searching with empty query', () => {
-      let groupsFound;
+      let groupsFound: DebugElement[];
       beforeEach(fakeAsync(() => {
         component.search({ query: '' });
+        fixture.detectChanges();
         groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
       }));
 
-      it('should display all groups', () => {
-        fixture.detectChanges();
-        groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
-        expect(groupsFound.length).toEqual(2);
-        groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
-        const groupIdsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr td:first-child'));
-        allGroups.map((group: Group) => {
-          expect(groupIdsFound.find((foundEl) => {
+      it('should display only non-member groups (i.e. groups that are not a subgroup)', () => {
+        const groupIdsFound: DebugElement[] = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr td:first-child'));
+        expect(groupIdsFound.length).toEqual(1);
+        groupNonMembers.map((group: Group) => {
+          expect(groupIdsFound.find((foundEl: DebugElement) => {
             return (foundEl.nativeElement.textContent.trim() === group.uuid);
           })).toBeTruthy();
         });
       });
 
-      describe('if group is already a subgroup', () => {
-        it('should have delete button, else it should have add button', () => {
+      it('should display an add button next to non-member groups, not a delete button', () => {
+        groupsFound.map((foundGroupRowElement: DebugElement) => {
+          const addButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-plus'));
+          const deleteButton: DebugElement = foundGroupRowElement.query(By.css('td:last-child .fa-trash-alt'));
+          expect(addButton).not.toBeNull();
+          expect(deleteButton).toBeNull();
+        });
+      });
+
+      describe('if first add button is pressed', () => {
+        beforeEach(() => {
+          const addButton: DebugElement = fixture.debugElement.query(By.css('#groupsSearch tbody .fa-plus'));
+          addButton.nativeElement.click();
           fixture.detectChanges();
+        });
+        it('then all (two) Groups are subgroups of the active group. No non-members left', () => {
           groupsFound = fixture.debugElement.queryAll(By.css('#groupsSearch tbody tr'));
-          const getSubgroups = groupsDataServiceStub.getSubgroups().subgroups;
-          if (getSubgroups !== undefined && getSubgroups.length > 0) {
-            groupsFound.map((foundGroupRowElement) => {
-              if (foundGroupRowElement.debugElement !== undefined) {
-                const addButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-                const deleteButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-                expect(addButton).toBeUndefined();
-                expect(deleteButton).toBeDefined();
-              }
-            });
-          } else {
-            getSubgroups.map((group: Group) => {
-              groupsFound.map((foundGroupRowElement) => {
-                if (foundGroupRowElement.debugElement !== undefined) {
-                  const groupId = foundGroupRowElement.debugElement.query(By.css('td:first-child'));
-                  const addButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-plus'));
-                  const deleteButton = foundGroupRowElement.debugElement.query(By.css('td:last-child .fa-trash-alt'));
-                  if (groupId.nativeElement.textContent === group.id) {
-                    expect(addButton).toBeUndefined();
-                    expect(deleteButton).toBeDefined();
-                  } else {
-                    expect(deleteButton).toBeUndefined();
-                    expect(addButton).toBeDefined();
-                  }
-                }
-              });
-            });
-          }
+          expect(groupsFound.length).toEqual(0);
         });
       });
     });

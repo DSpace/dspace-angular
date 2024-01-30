@@ -3,7 +3,6 @@ import 'reflect-metadata';
 import 'core-js/es/reflect';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { load as loadWebFont } from 'webfontloader';
 
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
@@ -24,14 +23,6 @@ const bootstrap = () => platformBrowserDynamic()
 const hasTransferState = document.querySelector('script#dspace-angular-state') !== null;
 
 const main = () => {
-  // Load fonts async
-  // https://github.com/typekit/webfontloader#configuration
-  loadWebFont({
-    google: {
-      families: ['Droid Sans']
-    }
-  });
-
   if (environment.production) {
     enableProdMode();
   }

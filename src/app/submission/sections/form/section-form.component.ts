@@ -39,6 +39,7 @@ import { WorkflowItem } from '../../../core/submission/models/workflowitem.model
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SPONSOR_METADATA_NAME } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-complex.model';
 import { AUTHOR_METADATA_FIELD_NAME } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/clarin-name.model';
 
@@ -119,6 +120,13 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    */
   protected subs: Subscription[] = [];
 
+  protected submissionObject: SubmissionObject;
+
+  /**
+   * A flag representing if this section is readonly
+   */
+  protected isSectionReadonly = false;
+
   protected workspaceItem: WorkspaceItem;
 
   /**
@@ -127,7 +135,6 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    */
   public sponsorRefreshTimeout = 20;
 
-  protected submissionObject: SubmissionObject;
   /**
    * The FormComponent reference
    */
@@ -185,13 +192,15 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType),
           this.submissionObjectService.findById(this.submissionId, true, false, followLink('item')).pipe(
             getFirstSucceededRemoteData(),
-            getRemoteDataPayload())
+            getRemoteDataPayload()),
+            this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope())
         ])),
       take(1))
-      .subscribe(([sectionData, submissionObject]: [WorkspaceitemSectionFormObject, SubmissionObject]) => {
+      .subscribe(([sectionData, submissionObject, isSectionReadOnly]: [WorkspaceitemSectionFormObject, SubmissionObject, boolean]) => {
         if (isUndefined(this.formModel)) {
           // this.sectionData.errorsToShow = [];
           this.submissionObject = submissionObject;
+          this.isSectionReadonly = isSectionReadOnly;
           // Is the first loading so init form
           this.initForm(sectionData);
           this.sectionData.data = sectionData;
@@ -238,7 +247,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
 
     const sectionDataToCheck = {};
     Object.keys(sectionData).forEach((key) => {
-      if (this.sectionMetadata && this.sectionMetadata.includes(key) && this.inCurrentSubmissionScope(key)) {
+      // todo: removing Relationships works due to a bug -- dspace.entity.type is included in sectionData, which is what triggers the update;
+      //       if we use this.sectionMetadata.includes(key), this field is filtered out and removed Relationships won't disappear from the form.
+      if (this.inCurrentSubmissionScope(key)) {
         sectionDataToCheck[key] = sectionData[key];
       }
     });
@@ -266,9 +277,15 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    const scope = this.formConfig?.rows.find(row => {
-      return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
-    }).fields?.[0]?.scope;
+    const scope = this.formConfig?.rows.find((row: FormRowModel) => {
+      if (row.fields?.[0]?.selectableMetadata) {
+        return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
+      } else if (row.fields?.[0]?.selectableRelationship) {
+        return row.fields?.[0]?.selectableRelationship.relationshipType === field.replace(/^relationship\./g, '');
+      } else {
+        return false;
+      }
+    })?.fields?.[0]?.scope;
 
     switch (scope) {
       case SubmissionScopeType.WorkspaceItem: {
@@ -296,11 +313,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
         this.formConfig,
         this.collectionId,
         sectionData,
-        this.submissionService.getSubmissionScope()
+        this.submissionService.getSubmissionScope(),
+        this.isSectionReadonly
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
-
     } catch (e) {
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
       const sectionError: SubmissionSectionError = {
@@ -428,7 +445,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @param metadataField input field which is updating
    * @param newMetadataValue value added to the input field
    */
-  private reinitializeForm(metadataField, newMetadataValue) {
+  public reinitializeForm(metadataField, newMetadataValue) {
     let metadataValueFromDB = '';
     // Counter to count update request timeout (20s)
     let counter = 0;

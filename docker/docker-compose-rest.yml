@@ -13,11 +13,15 @@
 version: '3.7'
 networks:
   dspacenet:
+    ipam:
+      config:
+        # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
+        # If you customize this value, be sure to customize the 'proxies.trusted.ipranges' env variable below.
+        - subnet: 172.23.0.0/16
 services:
   # DSpace (backend) webapp container
   dspace:
-    restart: unless-stopped
-    container_name: dspace${INSTANCE}
+    container_name: dspace
     environment:
       JAVA_OPTS: ${JAVA_OPTS:--Xmx4g}
       TZ: ${TIMEZONE:-Europe/Bratislava}
@@ -117,16 +121,14 @@ services:
     tty: true
     working_dir: /var/solr/data
     volumes:
-    # Mount our "solr_configs" volume available under the Solr's configsets folder (in a 'dspace' subfolder)
-    # This copies the Solr configs from main 'dspace' container into 'dspacesolr' via that volume
-    - solr_configs:/opt/solr/server/solr/configsets/dspace
     # Keep Solr data directory between reboots
     - solr_data:/var/solr/data
     - solr_logs:/var/solr/logs
     # Initialize all DSpace Solr cores using the mounted local configsets (see above), then start Solr
     # * First, run precreate-core to create the core (if it doesn't yet exist). If exists already, this is a no-op
-    # * Second, copy updated configs from mounted configsets to this core. If it already existed, this updates core
-    #   to the latest configs. If it's a newly created core, this is a no-op.
+    # * Second, copy configsets to this core:
+    #   Updates to Solr configs require the container to be rebuilt/restarted:
+    #   `docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d --build dspacesolr`
     entrypoint:
     - /bin/bash
     - '-c'

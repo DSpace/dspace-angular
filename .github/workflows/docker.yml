@@ -15,8 +15,8 @@ permissions:
 
 jobs:
   docker:
-    # Ensure this job never runs on forked repos. It's only executed for our repo
-    if: github.repository == 'dataquest-dev/dspace-angular'
+    # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
+    if: github.repository == 'dspace/dspace-angular'
     runs-on: ubuntu-latest
     env:
       # Define tags to use for Docker images based on Git tags/branches (for docker/metadata-action)
@@ -32,10 +32,6 @@ jobs:
       # We turn off 'latest' tag by default.
       TAGS_FLAVOR: |
         latest=false
-      # Architectures / Platforms for which we will build Docker images
-      # If this is a PR, we ONLY build for AMD64. For PRs we only do a sanity check test to ensure Docker builds work.
-      # If this is NOT a PR (e.g. a tag or merge commit), also build for ARM64.
-      PLATFORMS: linux/amd64${{ github.event_name != 'pull_request' && ', linux/arm64' || '' }}
 
     steps:
       # https://github.com/actions/checkout
@@ -59,16 +55,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      ###############################################
-      # Build/Push the 'dspace/dspace-angular' image
-      ###############################################
       # https://github.com/docker/metadata-action
       # Get Metadata for docker_build step below
       - name: Sync metadata (tags, labels) from GitHub to Docker for 'dspace-angular' image
         id: meta_build
         uses: docker/metadata-action@v4
         with:
-          images: dataquest/dspace-angular
+          images: dspace/dspace-angular
           tags: ${{ env.IMAGE_TAGS }}
           flavor: ${{ env.TAGS_FLAVOR }}
 
@@ -86,6 +79,63 @@ jobs:
           # Use tags / labels provided by 'docker/metadata-action' above
           tags: ${{ steps.meta_build.outputs.tags }}
           labels: ${{ steps.meta_build.outputs.labels }}
+
+  #############################################################
+  # Build/Push the 'dspace/dspace-angular' image ('-dist' tag)
+  #############################################################
+  dspace-angular-dist:
+    # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
+    if: github.repository == 'dspace/dspace-angular'
+    runs-on: ubuntu-latest
+
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout codebase
+        uses: actions/checkout@v3
+
+      # https://github.com/docker/setup-buildx-action
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU emulation to build for multiple architectures
+        uses: docker/setup-qemu-action@v2
+
+      # https://github.com/docker/login-action
+      - name: Login to DockerHub
+        # Only login if not a PR, as PRs only trigger a Docker build and not a push
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      # https://github.com/docker/metadata-action
+      # Get Metadata for docker_build_dist step below
+      - name: Sync metadata (tags, labels) from GitHub to Docker for 'dspace-angular-dist' image
+        id: meta_build_dist
+        uses: docker/metadata-action@v4
+        with:
+          images: dspace/dspace-angular
+          tags: ${{ env.IMAGE_TAGS }}
+          # As this is a "dist" image, its tags are all suffixed with "-dist". Otherwise, it uses the same
+          # tagging logic as the primary 'dspace/dspace-angular' image above.
+          flavor: ${{ env.TAGS_FLAVOR }}
+            suffix=-dist
+
+      - name: Build and push 'dspace-angular-dist' image
+        id: docker_build_dist
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile.dist
+          platforms: ${{ env.PLATFORMS }}
+          # For pull requests, we run the Docker build (to ensure no PR changes break the build),
+          # but we ONLY do an image push to DockerHub if it's NOT a PR
+          push: ${{ github.event_name != 'pull_request' }}
+          # Use tags / labels provided by 'docker/metadata-action' above
+          tags: ${{ steps.meta_build_dist.outputs.tags }}
+          labels: ${{ steps.meta_build_dist.outputs.labels }}
 
   deploy:
     needs: docker

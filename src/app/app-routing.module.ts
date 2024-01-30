@@ -218,7 +218,7 @@ import { STATIC_PAGE_PATH } from './static-page/static-page-routing-paths';
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: FORBIDDEN_PATH,
@@ -227,7 +227,8 @@ import { STATIC_PAGE_PATH } from './static-page/static-page-routing-paths';
           {
             path: 'statistics',
             loadChildren: () => import('./statistics-page/statistics-page-routing.module')
-              .then((m) => m.StatisticsPageRoutingModule)
+              .then((m) => m.StatisticsPageRoutingModule),
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: HEALTH_PAGE_PATH,
@@ -237,7 +238,7 @@ import { STATIC_PAGE_PATH } from './static-page/static-page-routing-paths';
           {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
-            canActivate: [GroupAdministratorGuard],
+            canActivate: [GroupAdministratorGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'subscriptions',
@@ -275,7 +276,7 @@ import { STATIC_PAGE_PATH } from './static-page/static-page-routing-paths';
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-}),
+})
   ],
   exports: [RouterModule],
 })

@@ -248,7 +248,7 @@ describe('AuthNavMenuComponent', () => {
           component = null;
         });
         it('should render UserMenuComponent component', () => {
-          const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-user-menu'));
+          const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-themed-user-menu'));
           expect(logoutDropdownMenu.nativeElement).toBeDefined();
         });
       });
@@ -358,7 +358,7 @@ describe('AuthNavMenuComponent', () => {
       });
 
       it('should render logout link', inject([Store], (store: Store<AppState>) => {
-        const logoutDropdownMenu = deNavMenuItem.query(By.css('a[id=logoutLink]'));
+        const logoutDropdownMenu = deNavMenuItem.query(By.css('a.logoutLink'));
         expect(logoutDropdownMenu.nativeElement).toBeDefined();
       }));
     });

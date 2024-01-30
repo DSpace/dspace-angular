@@ -137,7 +137,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
       const section = fixture.debugElement.query(By.css('[id^=\'sectionContent_\']'));
       expect(comp.getSectionContent).toHaveBeenCalled();
-      expect(section).toBeDefined();
+      expect(section).not.toBeNull();
     });
 
     it('should call removeSection properly', () => {
@@ -165,7 +165,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       fixture.detectChanges();
 
       sectionErrorsDiv = fixture.debugElement.query(By.css('[id^=\'sectionGenericError_\']'));
-      expect(sectionErrorsDiv).toBeDefined();
+      expect(sectionErrorsDiv).not.toBeNull();
     });
 
     it('should display warning icon', () => {
@@ -180,7 +180,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       const iconWarn = fixture.debugElement.query(By.css('i.text-warning'));
       const iconErr = fixture.debugElement.query(By.css('i.text-danger'));
       const iconSuccess = fixture.debugElement.query(By.css('i.text-success'));
-      expect(iconWarn).toBeDefined();
+      expect(iconWarn).not.toBeNull();
       expect(iconErr).toBeNull();
       expect(iconSuccess).toBeNull();
     });
@@ -198,7 +198,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       const iconErr = fixture.debugElement.query(By.css('i.text-danger'));
       const iconSuccess = fixture.debugElement.query(By.css('i.text-success'));
       expect(iconWarn).toBeNull();
-      expect(iconErr).toBeDefined();
+      expect(iconErr).not.toBeNull();
       expect(iconSuccess).toBeNull();
     });
 
@@ -216,7 +216,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       const iconSuccess = fixture.debugElement.query(By.css('i.text-success'));
       expect(iconWarn).toBeNull();
       expect(iconErr).toBeNull();
-      expect(iconSuccess).toBeDefined();
+      expect(iconSuccess).not.toBeNull();
     });
 
   });
@@ -224,7 +224,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
   template: ``
 })
 class TestComponent {

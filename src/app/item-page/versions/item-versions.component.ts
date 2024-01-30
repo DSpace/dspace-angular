@@ -1,5 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Item } from '../../core/shared/item.model';
+import { Version } from '../../core/shared/version.model';
+import { RemoteData } from '../../core/data/remote-data';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import { VersionHistory } from '../../core/shared/version-history.model';
 import {
   getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
@@ -8,13 +18,21 @@ import {
   getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload,
   getRemoteDataPayload
 } from '../../core/shared/operators';
-import { map, mergeMap, startWith, switchMap, take, tap} from 'rxjs/operators';
+import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { AlertType } from '../../shared/alert/alert-type';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import {hasValue, hasValueOperator, isNotEmpty, isNotNull} from '../../shared/empty.util';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
   getItemVersionRoute
 } from '../item-page-routing-paths';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -26,26 +44,14 @@ import { Router } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { Item } from 'src/app/core/shared/item.model';
-import { AlertType } from 'src/app/shared/alert/aletr-type';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { VersionHistory } from 'src/app/core/shared/version-history.model';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { VersionHistoryDataService } from 'src/app/core/data/version-history-data.service';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
-import { Version } from '../../core/shared/version.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { hasValue, hasValueOperator, isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import isEqual from 'lodash/isEqual';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import {WorkspaceItem} from '../../core/submission/models/workspaceitem.model';
+import {WorkspaceitemDataService} from '../../core/submission/workspaceitem-data.service';
+import {WorkflowItemDataService} from '../../core/submission/workflowitem-data.service';
+import {ConfigurationDataService} from '../../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -56,7 +62,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 /**
  * Component listing all available versions of the history the provided item is a part of
  */
-export class ItemVersionsComponent implements OnInit {
+export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   /**
    * The item to display a version history for
@@ -188,7 +194,7 @@ export class ItemVersionsComponent implements OnInit {
               private versionService: VersionDataService,
               private itemService: ItemDataService,
               private paginationService: PaginationService,
-              private formBuilder: FormBuilder,
+              private formBuilder: UntypedFormBuilder,
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
@@ -399,6 +405,7 @@ export class ItemVersionsComponent implements OnInit {
    * Show submitter in version history table
    */
   showSubmitter() {
+
     const includeSubmitter$ = this.configurationService.findByPropertyName('versioning.item.history.include.submitter').pipe(
       getFirstSucceededRemoteDataPayload(),
       map((configurationProperty) => configurationProperty.values[0]),

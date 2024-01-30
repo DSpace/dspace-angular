@@ -6,10 +6,11 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import { hasValue } from '../empty.util';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 
-export const authMethodsMock = [
-  new AuthMethod('password'),
-  new AuthMethod('shibboleth', 'dspace.test/shibboleth')
+export const authMethodsMock: AuthMethod[] = [
+  new AuthMethod(AuthMethodType.Password, 0),
+  new AuthMethod(AuthMethodType.Shibboleth, 1, 'dspace.test/shibboleth'),
 ];
 
 export class AuthServiceStub {
@@ -17,6 +18,7 @@ export class AuthServiceStub {
   token: AuthTokenInfo = new AuthTokenInfo('token_test');
   impersonating: string;
   private _tokenExpired = false;
+  private _isExternalAuth = false;
   private redirectUrl;
 
   constructor() {
@@ -121,6 +123,13 @@ export class AuthServiceStub {
 
   checkAuthenticationCookie() {
     return;
+  }
+  setExternalAuthStatus(externalCookie: boolean) {
+    this._isExternalAuth = externalCookie;
+  }
+
+  isExternalAuthentication(): Observable<boolean> {
+    return observableOf(this._isExternalAuth);
   }
 
   retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {

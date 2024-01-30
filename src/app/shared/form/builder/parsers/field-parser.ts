@@ -1,3 +1,5 @@
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { Inject, InjectionToken } from '@angular/core';
 
 import uniqueId from 'lodash/uniqueId';
@@ -22,6 +24,7 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -289,8 +292,8 @@ export abstract class FieldParser {
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     // Set read only option
-    controlModel.readOnly = this.parserOptions.readOnly;
-    controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.readOnly = this.parserOptions.readOnly || this.isFieldReadOnly(this.configData.visibility, this.configData.scope, this.parserOptions.submissionScope);
+    controlModel.disabled = controlModel.readOnly;
     if (hasValue(this.configData.selectableRelationship)) {
       controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
     }
@@ -326,6 +329,28 @@ export abstract class FieldParser {
     }
 
     return controlModel;
+  }
+
+  /**
+   * Checks if a field is read-only with the given scope.
+   * The field is readonly when submissionScope is WORKSPACE and the main visibility is READONLY
+   * or when submissionScope is WORKFLOW and the other visibility is READONLY
+   * @param visibility
+   * @param submissionScope
+   */
+  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
+    return isNotEmpty(submissionScope)
+      && isNotEmpty(fieldScope)
+      && isNotEmpty(visibility)
+      && ((
+          submissionScope === SubmissionScopeType.WorkspaceItem
+          && visibility.main === VisibilityType.READONLY
+          )
+        ||
+          (visibility.other === VisibilityType.READONLY
+          && submissionScope === SubmissionScopeType.WorkflowItem
+          )
+      );
   }
 
   /**

@@ -1,3 +1,4 @@
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
 import { autoserialize } from 'cerialize';
 
 import { LanguageCode } from './form-field-language-value.model';
@@ -124,6 +125,9 @@ export class FormFieldModel {
    */
   @autoserialize
   value: any;
+
+  @autoserialize
+  visibility: SectionVisibility;
 
   /**
    * Containing the definition of the complex input types - multiple inputs in one row

@@ -25,11 +25,19 @@ jobs:
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: '/server'
       DSPACE_REST_SSL: false
+      # Spin up UI on 127.0.0.1 to avoid host resolution issues in e2e tests with Node 18+
       DSPACE_UI_HOST: 127.0.0.1
       DSPACE_UI_PORT: 4000
+      # Ensure all SSR caching is disabled in test environment
+      DSPACE_CACHE_SERVERSIDE_BOTCACHE_MAX: 0
+      DSPACE_CACHE_SERVERSIDE_ANONYMOUSCACHE_MAX: 0
+      # Tell Cypress to run e2e tests using the same UI URL
+      CYPRESS_BASE_URL: http://127.0.0.1:4000
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
       #CHROME_VERSION: "90.0.4430.212-1"
+      # Bump Node heap size (OOM in CI after upgrading to Angular 15)
+      NODE_OPTIONS: '--max-old-space-size=4096'
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
@@ -67,7 +75,7 @@ jobs:
       # https://github.com/actions/cache/blob/main/examples.md#node---yarn
       - name: Get Yarn cache directory
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: Cache Yarn dependencies
         uses: actions/cache@v3
         with:
@@ -92,12 +100,16 @@ jobs:
       - name: Run specs (unit tests)
         run: yarn run test:headless
 
+      # Upload code coverage report to artifact (for one version of Node only),
+      # so that it can be shared with the 'codecov' job (see below)
       # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
-      # Upload coverage reports to Codecov (for one version of Node only)
-      # https://github.com/codecov/codecov-action
-      - name: Upload coverage to Codecov.io
-        uses: codecov/codecov-action@v3
-        if: matrix.node-version == '16.x'
+      - name: Upload code coverage report to Artifact
+        uses: actions/upload-artifact@v3
+        if: matrix.node-version == '18.x'
+        with:
+          name: dspace-angular coverage report
+          path: 'coverage/dspace-angular/lcov.info'
+          retention-days: 14
 
       # Using docker-compose start backend using CI configuration
       # and load assetstore from a cached copy
@@ -111,11 +123,10 @@ jobs:
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5
         with:
-          # Run tests in Chrome, headless mode
+          # Run tests in Chrome, headless mode (default)
           browser: chrome
-          headless: true
           # Start app before running tests (will be stopped automatically after tests finish)
           start: yarn run serve:ssr
           # Wait for backend & frontend to be available
@@ -175,3 +186,32 @@ jobs:
 
       - name: Shutdown Docker containers
         run: docker-compose -f ./docker/docker-compose-ci.yml down
+
+  # Codecov upload is a separate job in order to allow us to restart this separate from the entire build/test
+  # job above. This is necessary because Codecov uploads seem to randomly fail at times.
+  # See https://community.codecov.com/t/upload-issues-unable-to-locate-build-via-github-actions-api/3954
+  codecov:
+    # Must run after 'tests' job above
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Download artifacts from previous 'tests' job
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v3
+
+      # Now attempt upload to Codecov using its action.
+      # NOTE: We use a retry action to retry the Codecov upload if it fails the first time.
+      #
+      # Retry action: https://github.com/marketplace/actions/retry-action
+      # Codecov action: https://github.com/codecov/codecov-action
+      - name: Upload coverage to Codecov.io
+        uses: Wandalen/wretry.action@v1.0.36
+        with:
+          action: codecov/codecov-action@v3
+          # Try upload 5 times max
+          attempt_limit: 5
+          # Run again in 30 seconds
+          attempt_delay: 30000

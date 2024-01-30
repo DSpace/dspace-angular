@@ -47,7 +47,7 @@ import {
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
-import { getLicensesManageTablePath, getLicensesModulePath } from './app-routing-paths';
+import {getLicensesManageTablePath, getLicensesModulePath} from './app-routing-paths';
 
 /**
  * Creates all of the app's menus
@@ -696,6 +696,17 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.LINK,
             text: 'menu.section.access_control_groups',
             link: '/access-control/groups'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'access_control_bulk',
+          parentID: 'access_control',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.access_control_bulk',
+            link: '/access-control/bulk-access'
           } as LinkMenuItemModel,
         },
         // TODO: enable this menu item once the feature has been implemented

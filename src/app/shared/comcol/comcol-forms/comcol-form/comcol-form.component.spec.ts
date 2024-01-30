@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
@@ -30,9 +30,9 @@ describe('ComColFormComponent', () => {
       const controls = {};
       if (hasValue(fModel)) {
         fModel.forEach((controlModel) => {
-          controls[controlModel.id] = new FormControl((controlModel as any).value);
+          controls[controlModel.id] = new UntypedFormControl((controlModel as any).value);
         });
-        return new FormGroup(controls);
+        return new UntypedFormGroup(controls);
       }
       return undefined;
     }

@@ -5,12 +5,14 @@ import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { BrowseService } from '../../core/browse/browse.service';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
 
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [
-      Object.assign(new BrowseDefinition, {
+      Object.assign(new FlatBrowseDefinition(), {
       'id' : 'dateissued',
-      'metadataBrowse' : false,
+      'browseType': 'flatBrowse',
       'dataType' : 'date',
       'sortOptions' : EMPTY,
       'order' : 'ASC',
@@ -18,9 +20,9 @@ export const mockData: BrowseDefinition[] = [
       'metadataKeys' : [ 'dc.date.issued' ],
       '_links' : EMPTY
      }),
-     Object.assign(new BrowseDefinition, {
+     Object.assign(new ValueListBrowseDefinition(), {
       'id' : 'author',
-      'metadataBrowse' : true,
+      'browseType' : 'valueList',
       'dataType' : 'text',
       'sortOptions' : EMPTY,
       'order' : 'ASC',

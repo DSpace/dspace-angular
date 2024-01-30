@@ -8,6 +8,9 @@
       <div *ngIf="type === 'author'" class="d-inline">
         <ds-clarin-item-author-preview [item]="item"></ds-clarin-item-author-preview>
       </div>
+      <div *ngIf="type === 'sponsor'">
+        <ds-clarin-sponsor-item-field [item]="item"></ds-clarin-sponsor-item-field>
+      </div>
       <div class="dont-break-out d-inline" *ngFor="let mdValue of item?.allMetadata(fields); let last=last; let i = index">
         <a *ngIf="type === 'hyperlink'" [href]="mdValue.value">{{mdValue.value}}</a>
         <span *ngIf="type === 'search'">

@@ -13,12 +13,13 @@ import { AuthService } from '../core/auth/auth.service';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { HostWindowService } from '../shared/host-window.service';
-import { ThemeConfig } from '../../config/theme.model';
+import { ThemeConfig } from '../../config/theme.config';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
+import { hasValueOperator } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-root',
@@ -63,8 +64,8 @@ export class RootComponent implements OnInit {
   ngOnInit() {
     this.sidebarVisible = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
-    this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width');
-    this.totalSidebarWidth = this.cssService.getVariable('--ds-total-sidebar-width');
+    this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width').pipe(hasValueOperator());
+    this.totalSidebarWidth = this.cssService.getVariable('--ds-total-sidebar-width').pipe(hasValueOperator());
 
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
     this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])
@@ -75,6 +76,14 @@ export class RootComponent implements OnInit {
 
     if (this.router.url === getPageInternalServerErrorRoute()) {
       this.shouldShowRouteLoader = false;
+    }
+  }
+
+  skipToMainContent() {
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.tabIndex = -1;
+      mainContent.focus();
     }
   }
 }

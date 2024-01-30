@@ -4,6 +4,7 @@ import { Community } from '../../../core/shared/community.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-community-list-element',
@@ -14,4 +15,12 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
  * Component representing a list element for a community
  */
 @listableObjectComponent(Community, ViewMode.ListElement)
-export class CommunityListElementComponent extends AbstractListableElementComponent<Community> {}
+export class CommunityListElementComponent extends AbstractListableElementComponent<Community> {
+
+  constructor(
+    public dsoNameService: DSONameService,
+  ) {
+    super(dsoNameService);
+  }
+
+}

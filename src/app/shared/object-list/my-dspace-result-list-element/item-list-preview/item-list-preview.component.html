@@ -5,12 +5,8 @@
   </div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <div *ngIf="item" @fadeInOut>
-      <ng-container *ngIf="status">
-        <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
-      </ng-container>
       <div class="d-flex">
-        <ds-type-badge [object]="item"></ds-type-badge>
-        <ds-access-status-badge [item]="item" class="pl-1"></ds-access-status-badge>
+        <ds-themed-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-themed-badges>
       </div>
       <ds-truncatable [id]="item.id">
         <h3 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>

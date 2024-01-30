@@ -6,6 +6,7 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
 import { hasNoValue, hasValue } from '../../empty.util';
 import { followLink } from '../../utils/follow-link-config.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component representing a grid element for collection
@@ -21,8 +22,11 @@ export class CollectionGridElementComponent extends AbstractListableElementCompo
 > {
   private _object: Collection;
 
-  constructor(private linkService: LinkService) {
-    super();
+  constructor(
+    public dsoNameService: DSONameService,
+    private linkService: LinkService,
+  ) {
+    super(dsoNameService);
   }
 
   // @ts-ignore

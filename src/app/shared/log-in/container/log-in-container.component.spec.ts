@@ -13,19 +13,23 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of as observableOf } from 'rxjs';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { RouterMock } from '../../mocks/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('LogInContainerComponent', () => {
 
   let component: LogInContainerComponent;
   let fixture: ComponentFixture<LogInContainerComponent>;
 
-  const authMethod = new AuthMethod('password');
+  const authMethod = new AuthMethod(AuthMethodType.Password, 0);
 
   let hardRedirectService: HardRedirectService;
   let configurationDataService: ConfigurationDataService;
@@ -57,13 +61,15 @@ describe('LogInContainerComponent', () => {
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
         SharedModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        RouterTestingModule,
       ],
       declarations: [
         TestComponent
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: ActivatedRoute, useValue: {
@@ -146,6 +152,6 @@ describe('LogInContainerComponent', () => {
 class TestComponent {
 
   isStandalonePage = true;
-  authMethod = new AuthMethod('password');
+  authMethod = new AuthMethod(AuthMethodType.Password, 0);
 
 }

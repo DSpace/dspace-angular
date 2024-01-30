@@ -32,8 +32,10 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../core/shared/NoContent.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
 
-describe('GroupRegistryComponent', () => {
+describe('GroupsRegistryComponent', () => {
   let component: GroupsRegistryComponent;
   let fixture: ComponentFixture<GroupsRegistryComponent>;
   let ePersonDataServiceStub: any;
@@ -160,7 +162,7 @@ describe('GroupRegistryComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     setIsAuthorized(true, true);
     paginationService = new PaginationServiceStub();
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
           loader: {
@@ -171,6 +173,7 @@ describe('GroupRegistryComponent', () => {
       ],
       declarations: [GroupsRegistryComponent],
       providers: [GroupsRegistryComponent,
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
@@ -208,7 +211,7 @@ describe('GroupRegistryComponent', () => {
   it('should display community/collection name if present', () => {
     const collectionNamesFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(3)'));
     expect(collectionNamesFound.length).toEqual(2);
-    expect(collectionNamesFound[0].nativeElement.textContent).toEqual('');
+    expect(collectionNamesFound[0].nativeElement.textContent).toEqual(UNDEFINED_NAME);
     expect(collectionNamesFound[1].nativeElement.textContent).toEqual('testgroupid2objectName');
   });
 

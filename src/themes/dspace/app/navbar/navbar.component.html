@@ -12,15 +12,17 @@
         <li *ngIf="(isXsOrSm$ | async) && (isAuthenticated$ | async)">
             <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
         </li>
-        <ng-container *ngFor="let section of (sections | async)">
+        <li *ngFor="let section of (sections | async)">
           <ng-container *ngComponentOutlet="(sectionMap$ | async).get(section.id)?.component; injector: (sectionMap$ | async).get(section.id)?.injector;"></ng-container>
-        </ng-container>
+        </li>
       </ul>
     </div>
-    <ds-search-navbar class="navbar-collapsed"></ds-search-navbar>
-    <ds-lang-switch class="navbar-collapsed"></ds-lang-switch>
-    <ds-context-help-toggle class="navbar-collapsed"></ds-context-help-toggle>
-    <ds-themed-auth-nav-menu class="navbar-collapsed"></ds-themed-auth-nav-menu>
-    <ds-impersonate-navbar class="navbar-collapsed"></ds-impersonate-navbar>
+    <div class="navbar-buttons d-flex align-items-center gapx-1">
+      <ds-themed-search-navbar class="navbar-collapsed"></ds-themed-search-navbar>
+      <ds-themed-lang-switch class="navbar-collapsed"></ds-themed-lang-switch>
+      <ds-context-help-toggle class="navbar-collapsed"></ds-context-help-toggle>
+      <ds-themed-auth-nav-menu class="navbar-collapsed"></ds-themed-auth-nav-menu>
+      <ds-impersonate-navbar class="navbar-collapsed"></ds-impersonate-navbar>
+    </div>
   </div>
 </nav>

@@ -9,21 +9,21 @@
   "401.link.home-page": "Перейти на головну сторінку",
 
   // "401.unauthorized": "unauthorized",
- 
+
   "401.unauthorized": "Ви не авторизовані",
 
 
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
- 
+
   "403.help": "Ви не маєте дозволу на доступ до цієї сторінки. Ви можете скористатися кнопкою нижче, щоб повернутися на головну сторінку.",
 
   // "403.link.home-page": "Take me to the home page",
- 
+
   "403.link.home-page": "Перейти на головну сторінку",
 
   // "403.forbidden": "forbidden",
-  
+
   "403.forbidden": "заборонено",
 
 
@@ -38,11 +38,11 @@
   "404.page-not-found": "сторінка не знайдена",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  
+
   "admin.curation-tasks.breadcrumbs": "Управління системою",
 
   // "admin.curation-tasks.title": "System curation tasks",
-  
+
   "admin.curation-tasks.title": "Управління системою",
 
   // "admin.curation-tasks.header": "System curation tasks",
@@ -54,7 +54,7 @@
   "admin.registries.bitstream-formats.breadcrumbs": "Реєстр форматів",
 
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  
+
   "admin.registries.bitstream-formats.create.breadcrumbs": "Формат файлів",
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
@@ -91,7 +91,7 @@
   "admin.registries.bitstream-formats.description": "Цей список форматів файлів містить інформацію про відомі формати та рівень їх підтримки.",
 
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
-  
+
   "admin.registries.bitstream-formats.edit.breadcrumbs": "Формат файлу",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
@@ -232,7 +232,7 @@
 
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
-  
+
   "admin.registries.schema.breadcrumbs": "Схема метаданих",
 
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
@@ -310,15 +310,15 @@
 
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
-  
+
   "admin.access-control.epeople.actions.delete": "Видалити користувача",
 
   // "admin.access-control.epeople.actions.impersonate": "Impersonate EPerson",
-  
+
   "admin.access-control.epeople.actions.impersonate": "Видати себе за користувача",
 
   // "admin.access-control.epeople.actions.reset": "Скинути пароль",
- 
+
   "admin.access-control.epeople.actions.reset": "Скинути пароль",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
@@ -413,7 +413,7 @@
   "admin.access-control.epeople.form.notification.edited.failure": "Неможливо відредагувати користувача \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
- 
+
   "admin.access-control.epeople.form.notification.deleted.success": "Користувач \"{{name}}\" успішно видалений",
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
@@ -447,7 +447,7 @@
   "admin.access-control.groups.title": "Репозитарій :: Групи",
 
   // "admin.access-control.groups.title.singleGroup": "DSpace Angular :: Edit Group",
-  
+
   "admin.access-control.groups.title.singleGroup": "Репозитарій :: Редагувати групу",
 
   // "admin.access-control.groups.title.addGroup": "DSpace Angular :: New Group",
@@ -494,7 +494,7 @@
   "admin.access-control.groups.notification.deleted.success": "Група \"{{name}}\" успішно видалена",
 
   // "admin.access-control.groups.notification.deleted.failure.title": "Failed to delete group \"{{name}}\"",
-  
+
   "admin.access-control.groups.notification.deleted.failure.title": "Групу \"{{name}}\" видалити неможливо",
 
   // "admin.access-control.groups.notification.deleted.failure.content": "Cause: \"{{cause}}\"",
@@ -504,11 +504,11 @@
 
 
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
-  
+
   "admin.access-control.groups.form.alert.permanent": "Ця група є постійна, тому її не можна редагувати чи видаляти. Ви все ще можете так це додавати та видаляти учасників групи за допомогою цієї сторінки.",
 
   // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  
+
   "admin.access-control.groups.form.alert.workflowGroup": "Цю групу не можна змінити або видалити, оскільки вона відповідає за ролі в процесі подання чи опрацювання документів в \"{{name}}\" {{comcol}}. Ви можете видалити її <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> на сторінці {{comcol}} вкладки Редагування. Ви все ще можете додавати та видаляти учасників групи за допомогою цієї сторінки.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
@@ -533,7 +533,7 @@
   "admin.access-control.groups.form.notification.created.failure.groupNameInUse": "Неможливо створити групу: \"{{name}}\". Це ім'я вже зайняте .",
 
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
- 
+
   "admin.access-control.groups.form.notification.edited.failure": "Неможливо редагувати групу \"{{name}}\"",
 
   // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Ім'я \"{{name}}\" вже використовується!",
@@ -549,19 +549,19 @@
   "admin.access-control.groups.form.actions.delete": "Видалити групу",
 
   // "admin.access-control.groups.form.delete-group.modal.header": "Delete Group \"{{ dsoName }}\"",
- 
+
   "admin.access-control.groups.form.delete-group.modal.header": "Видалити групу \"{{ dsoName }}\"",
 
   // "admin.access-control.groups.form.delete-group.modal.info": "Are you sure you want to delete Group \"{{ dsoName }}\"",
- 
+
   "admin.access-control.groups.form.delete-group.modal.info": "Ви впевнені, що хочете видалити групу \"{{ dsoName }}\"?",
 
   // "admin.access-control.groups.form.delete-group.modal.cancel": "Cancel",
-  
+
   "admin.access-control.groups.form.delete-group.modal.cancel": "Відмінити",
 
   // "admin.access-control.groups.form.delete-group.modal.confirm": "Delete",
- 
+
   "admin.access-control.groups.form.delete-group.modal.confirm": "Видалити",
 
   // "admin.access-control.groups.form.notification.deleted.success": "Successfully deleted group \"{{ name }}\"",
@@ -569,11 +569,11 @@
   "admin.access-control.groups.form.notification.deleted.success": "Група \"{{ name }}\" успішно видалена",
 
   // "admin.access-control.groups.form.notification.deleted.failure.title": "Failed to delete group \"{{ name }}\"",
- 
+
   "admin.access-control.groups.form.notification.deleted.failure.title": "Неможливо видалити групу \"{{ name }}\"",
 
   // "admin.access-control.groups.form.notification.deleted.failure.content": "Cause: \"{{ cause }}\"",
- 
+
   "admin.access-control.groups.form.notification.deleted.failure.content": "Причина: \"{{ cause }}\"",
 
   // "admin.access-control.groups.form.members-list.head": "EPeople",
@@ -634,7 +634,7 @@
   "admin.access-control.groups.form.members-list.no-items": "Не знайдено жодного учасника групи",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
- 
+
   "admin.access-control.groups.form.subgroups-list.notification.failure": "Щось пішло не так: \"{{cause}}\"",
 
   // "admin.access-control.groups.form.subgroups-list.head": "Groups",
@@ -756,15 +756,15 @@
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
-  
+
   "admin.metadata-import.breadcrumbs": "Імпортувати метадані",
 
   // "admin.metadata-import.title": "Import Metadata",
- 
+
   "admin.metadata-import.title": "Імпортувати метадані",
 
   // "admin.metadata-import.page.header": "Import Metadata",
- 
+
   "admin.metadata-import.page.header": "Імпортувати метадані",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
@@ -788,7 +788,7 @@
   "admin.metadata-import.page.button.proceed": "Продовжити",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
-  
+
   "admin.metadata-import.page.error.addFile": "Спочатку виберіть файл",
 
 
@@ -1009,11 +1009,11 @@
 
 
   // "collection.edit.tabs.mapper.head": "Item Mapper",
-  
+
   "collection.edit.tabs.mapper.head": "Карта документа",
 
   // "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
-  
+
   "collection.edit.tabs.item-mapper.title": "Редагування зібрання - Карта документа",
 
   // "collection.edit.item-mapper.cancel": "Cancel",
@@ -1111,11 +1111,11 @@
   "collection.edit.tabs.curate.title": "Collection Edit - Curate",
 
   // "collection.edit.tabs.authorizations.head": "Authorizations",
-  
+
   "collection.edit.tabs.authorizations.head": "Авторизація",
 
   // "collection.edit.tabs.authorizations.title": "Collection Edit - Authorizations",
-  
+
   "collection.edit.tabs.authorizations.title": "Редагування зібрання - авторизація ",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
@@ -1192,19 +1192,19 @@
   "collection.edit.template.add-button": "Додати",
 
   // "collection.edit.template.breadcrumbs": "Item template",
-  
+
   "collection.edit.template.breadcrumbs": "Шаблон документа",
 
   // "collection.edit.template.cancel": "Cancel",
-  
+
   "collection.edit.template.cancel": "Відмінити",
 
   // "collection.edit.template.delete-button": "Delete",
-  
+
   "collection.edit.template.delete-button": "Видалити",
 
   // "collection.edit.template.edit-button": "Edit",
- 
+
   "collection.edit.template.edit-button": "Редагувати",
 
   // "collection.edit.template.head": "Edit Template Item for Collection \"{{ collection }}\"",
@@ -1212,7 +1212,7 @@
   "collection.edit.template.head": "Редагувати шаблон документа зібрання \"{{ collection }}\"",
 
   // "collection.edit.template.label": "Template item",
-  
+
   "collection.edit.template.label": "Шаблон документа",
 
   // "collection.edit.template.notifications.delete.error": "Failed to delete the item template",
@@ -1220,11 +1220,11 @@
   "collection.edit.template.notifications.delete.error": "Не вдалося видалити шаблон елемента",
 
   // "collection.edit.template.notifications.delete.success": "Шаблон документа успішно видалено",
- 
+
   "collection.edit.template.notifications.delete.success": "Шаблон документа успішно видалено",
 
   // "collection.edit.template.title": "Edit Template Item",
-  
+
   "collection.edit.template.title": "Редагувати шаблон документа",
 
 
@@ -1256,36 +1256,36 @@
 
 
   // "collection.listelement.badge": "Collection",
-  
+
   "collection.listelement.badge": "Зібрання",
 
 
-//"home.recent-submissions.head": "Recent Submissions",
-"home.recent-submissions.head": "Нові надходження",
+  //"home.recent-submissions.head": "Recent Submissions",
+  "home.recent-submissions.head": "Нові надходження",
 
 
-//"thumbnail.default.alt": "Thumbnail Image",
-"thumbnail.default.alt": "Ескіз",
+  //"thumbnail.default.alt": "Thumbnail Image",
+  "thumbnail.default.alt": "Ескіз",
 
-//  "thumbnail.default.placeholder": "No Thumbnail Available",
-"thumbnail.default.placeholder": "Ескіз недоступний",
+  //  "thumbnail.default.placeholder": "No Thumbnail Available",
+  "thumbnail.default.placeholder": "Ескіз недоступний",
 
-//  "thumbnail.project.alt": "Project Logo",
- "thumbnail.project.alt": "Логотип проекту",
+  //  "thumbnail.project.alt": "Project Logo",
+  "thumbnail.project.alt": "Логотип проекту",
 
-// TODO  "thumbnail.project.placeholder": "Project Placeholder Image",
- "thumbnail.project.placeholder": "Project Placeholder Image",
- 
-// "thumbnail.orgunit.alt": "OrgUnit Logo",
-"thumbnail.orgunit.alt": "Логотип організації",
+  // TODO  "thumbnail.project.placeholder": "Project Placeholder Image",
+  "thumbnail.project.placeholder": "Project Placeholder Image",
+
+  // "thumbnail.orgunit.alt": "OrgUnit Logo",
+  "thumbnail.orgunit.alt": "Логотип організації",
 
   "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
 
-//  "thumbnail.person.alt": "Profile Picture",
-"thumbnail.person.alt": "Зображення профілю",
+  //  "thumbnail.person.alt": "Profile Picture",
+  "thumbnail.person.alt": "Зображення профілю",
 
- // "thumbnail.person.placeholder": "No Profile Picture Available",
-"thumbnail.person.placeholder": "Зображення профілю відсутне",
+  // "thumbnail.person.placeholder": "No Profile Picture Available",
+  "thumbnail.person.placeholder": "Зображення профілю відсутне",
 
 
 
@@ -1350,7 +1350,7 @@
   "community.create.sub-head": "Створити підфонд фонду {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
- 
+
   "community.curate.header": "Основний фонд: {{community}}",
 
   // "community.delete.cancel": "Cancel",
@@ -1408,11 +1408,11 @@
   "community.edit.notifications.success": "Фонд успішно відредаговано",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
-  
+
   "community.edit.notifications.unauthorized": "У Вас немає повноважень для змін",
 
   // "community.edit.notifications.error": "An error occured while editing the Community",
-  
+
   "community.edit.notifications.error": "Виникла помилка при редагуванні фонду",
 
   // "community.edit.return": "Return",
@@ -1439,44 +1439,44 @@
   "community.edit.tabs.roles.title": "Редаувати фонд - ролі",
 
   // "community.edit.tabs.authorizations.head": "Authorizations",
-  
+
   "community.edit.tabs.authorizations.head": "Авторизація",
 
   // "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
-  
+
   "community.edit.tabs.authorizations.title": "Редагування фонду - авторизація",
 
 
 
   // "community.listelement.badge": "Community",
-  
+
   "community.listelement.badge": "Фонд",
 
 
 
   // "comcol-role.edit.no-group": "None",
-  
+
   "comcol-role.edit.no-group": "Жодної",
 
   // "comcol-role.edit.create": "Create",
-  
+
   "comcol-role.edit.create": "Створити",
 
   // "comcol-role.edit.restrict": "Restrict",
-  
+
   "comcol-role.edit.restrict": "Обмежити",
 
   // "comcol-role.edit.delete": "Delete",
-  
+
   "comcol-role.edit.delete": "Видалити",
 
 
   // "comcol-role.edit.community-admin.name": "Administrators",
-  
+
   "comcol-role.edit.community-admin.name": "Адміністратори",
 
   // "comcol-role.edit.collection-admin.name": "Administrators",
- 
+
   "comcol-role.edit.collection-admin.name": "Адміністратори",
 
 
@@ -1485,16 +1485,16 @@
   "comcol-role.edit.community-admin.description": "Адміністратори фонду можуть створювати підфонди або зібрання, а також керувати цими. Крім того, вони вирішують, хто може надсилати документи до будь-якого зібрання, редагувати метадані документа (після надсилання) і додавати (відображати) існуючі елементи з інших зібрань(за умови наданих повноважень).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
- 
+
   "comcol-role.edit.collection-admin.description": "Адміністратори зібрання вирішують, хто може надсилати документи до зібрання, редагувати метадані документів (після надсилання) і додавати документи з інших зібрань (за умови наданих повноважень).",
 
 
   // "comcol-role.edit.submitters.name": "Submitters",
-  
+
   "comcol-role.edit.submitters.name": "Подавачі/Submitters",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
-  
+
   "comcol-role.edit.submitters.description": "Користувачі та групи у яких є повноваження вносити документи до цього зібрання.",
 
 
@@ -1507,20 +1507,20 @@
   "comcol-role.edit.item_read.description": "Користувачі та групи, які можуть читати нові документи, що надіслані до цього зібрання. Зміни цієї ролі не мають зворотної сили. Існуючі документи в системі все ще будуть доступні для перегляду тим, хто мав доступ для читання на момент їх додавання.",
 
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
- 
+
   "comcol-role.edit.item_read.anonymous-group": "Для групи Anonymous встановлено права документа на читання.",
 
 
   // "comcol-role.edit.bitstream_read.name": "Доступ на читання для файла",
- 
+
   "comcol-role.edit.bitstream_read.name": "Доступ на читання для файла",
 
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  
+
   "comcol-role.edit.bitstream_read.description": "Адміністратори фонду можуть створювати підфонди або зібрання, а також керувати ними. Крім того, вони вирішують, хто може надсилати документи до будь-якого зібрання, редагувати метадані документа (після надсилання) і додавати документи з інших колекцій (за умови наявності прав доступу)..",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
-  
+
   "comcol-role.edit.bitstream_read.anonymous-group": "Для групи Anonymous встановлено права файла на читання",
 
 
@@ -1529,25 +1529,25 @@
   "comcol-role.edit.editor.name": "Редактори",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
-  
+
   "comcol-role.edit.editor.description": "Редактори мають повноваження редагувати метадані, приймати та відхиляти їх, зокрема, для документів, що заносяться у репозитарій.",
 
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
-  
+
   "comcol-role.edit.finaleditor.name": "Остаточні редактори",
 
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
-  
+
   "comcol-role.edit.finaleditor.description": "Остаточні редактори мають повноваження редагувати метадані, але не мають права відхилити документ.",
 
 
   // "comcol-role.edit.reviewer.name": "Reviewers",
-  
+
   "comcol-role.edit.reviewer.name": "Рецензенти",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
- 
+
   "comcol-role.edit.reviewer.description": "Рецензенти можуть приймати або відхиляти вхідні документи. Однак вони не можуть редагувати метадані.",
 
 
@@ -1571,7 +1571,7 @@
   "community.form.title": "Ім'я",
 
   // "community.page.edit": "Edit this community",
-  
+
   "community.page.edit": "Редагувати фонд",
 
   // "community.page.handle": "Permanent URI for this community",
@@ -1591,67 +1591,67 @@
 
   // "community.sub-community-list.head": "Communities of this Community",
   "community.sub-community-list.head": "Фонди, що знаходяться у цьому фонді",
-  
+
 
   // "cookies.consent.accept-all": "Accept all",
-    "cookies.consent.accept-all": "Прийняти все",
+  "cookies.consent.accept-all": "Прийняти все",
 
   // "cookies.consent.accept-selected": "Accept selected",
-   "cookies.consent.accept-selected": "Прийняти вибране",
+  "cookies.consent.accept-selected": "Прийняти вибране",
 
   // "cookies.consent.app.opt-out.description": "This app is loaded by default (but you can opt out)",
-    "cookies.consent.app.opt-out.description": "Цей додаток був завантажений по замовчуванню. Але Ви можете відмовитись від нього",
+  "cookies.consent.app.opt-out.description": "Цей додаток був завантажений по замовчуванню. Але Ви можете відмовитись від нього",
 
   // "cookies.consent.app.opt-out.title": "(opt-out)",
-    "cookies.consent.app.opt-out.title": "(відмовитись)",
+  "cookies.consent.app.opt-out.title": "(відмовитись)",
 
   // "cookies.consent.app.purpose": "purpose",
-    "cookies.consent.app.purpose": "ціль",
+  "cookies.consent.app.purpose": "ціль",
 
   // "cookies.consent.app.required.description": "This application is always required",
-    "cookies.consent.app.required.description": "Цей додаток завжди потрібний",
+  "cookies.consent.app.required.description": "Цей додаток завжди потрібний",
 
   // "cookies.consent.app.required.title": "(always required)",
-    "cookies.consent.app.required.title": "(завжди потрібний)",
+  "cookies.consent.app.required.title": "(завжди потрібний)",
 
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
-    "cookies.consent.update": "З часу вашого останнього відвідування відбулися зміни, підтвердьте це.",
+  "cookies.consent.update": "З часу вашого останнього відвідування відбулися зміни, підтвердьте це.",
 
   // "cookies.consent.close": "Close",
-   "cookies.consent.close": "Закрити",
+  "cookies.consent.close": "Закрити",
 
   // "cookies.consent.decline": "Decline",
-    "cookies.consent.decline": "Відхилити",
+  "cookies.consent.decline": "Відхилити",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-   "cookies.consent.content-notice.description": "Ми збираємо та обробляємо вашу особисту інформацію для таких цілей: <strong>автентифікація, налаштування та статистика</strong>. <br/> Щоб дізнатися більше, прочитайте нашу політику {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Ми збираємо та обробляємо вашу особисту інформацію для таких цілей: <strong>автентифікація, налаштування та статистика</strong>. <br/> Щоб дізнатися більше, прочитайте нашу політику {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
-    "cookies.consent.content-notice.learnMore": "Налаштувати",
+  "cookies.consent.content-notice.learnMore": "Налаштувати",
 
   // "cookies.consent.content-modal.description": "Here you can see and customize the information that we collect about you.",
   "cookies.consent.content-modal.description": "Тут ви можете переглянути та налаштувати збір інформаціїпро Вас.",
 
   // "cookies.consent.content-modal.privacy-policy.name": "privacy policy",
-   "cookies.consent.content-modal.privacy-policy.name": "політика приватності",
+  "cookies.consent.content-modal.privacy-policy.name": "політика приватності",
 
   // "cookies.consent.content-modal.privacy-policy.text": " {privacyPolicy}.",
-    "cookies.consent.content-modal.privacy-policy.text": "Детальніше - {privacyPolicy}.",
+  "cookies.consent.content-modal.privacy-policy.text": "Детальніше - {privacyPolicy}.",
 
   // "cookies.consent.content-modal.title": "Information that we collect",
-    "cookies.consent.content-modal.title": "Інформація, яку ми збираємо",
+  "cookies.consent.content-modal.title": "Інформація, яку ми збираємо",
 
   // "cookies.consent.app.title.authentication": "Authentication",
-    "cookies.consent.app.title.authentication": "Увійти",
+  "cookies.consent.app.title.authentication": "Увійти",
 
   // "cookies.consent.app.description.authentication": "Required for signing you in",
-   "cookies.consent.app.description.authentication": "Необхідно для входу",
+  "cookies.consent.app.description.authentication": "Необхідно для входу",
 
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Налаштування",
 
   // "cookies.consent.app.description.preferences": "Required for saving your preferences",
-    "cookies.consent.app.description.preferences": "Необхідно для збереження ваших налаштувань",
+  "cookies.consent.app.description.preferences": "Необхідно для збереження ваших налаштувань",
 
   // "cookies.consent.app.title.acknowledgement": "Acknowledgement",
   "cookies.consent.app.title.acknowledgement": "Підтвердження",
@@ -1663,60 +1663,60 @@
   "cookies.consent.app.title.google-analytics": "Google Analytics",
 
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
-   "cookies.consent.app.description.google-analytics": "Дозволяє нам відстежувати статистичні дані",
+  "cookies.consent.app.description.google-analytics": "Дозволяє нам відстежувати статистичні дані",
 
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Функціональний",
 
   // "cookies.consent.purpose.statistical": "Statistical",
-   "cookies.consent.purpose.statistical": "Статичний",
+  "cookies.consent.purpose.statistical": "Статичний",
 
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Перевірте посилання у метаданих",
+  "curation-task.task.checklinks.label": "Перевірте посилання у метаданих",
 
   // "curation-task.task.noop.label": "NOOP",
   // TODO New key - Add a translation
   "curation-task.task.noop.label": "NOOP",
 
   // "curation-task.task.profileformats.label": "Profile Bitstream Formats",
-   "curation-task.task.profileformats.label": "Профіль форматів файлів",
+  "curation-task.task.profileformats.label": "Профіль форматів файлів",
 
   // "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
-   "curation-task.task.requiredmetadata.label": "Перевірте наявність необхідних метаданих",
+  "curation-task.task.requiredmetadata.label": "Перевірте наявність необхідних метаданих",
 
   // "curation-task.task.translate.label": "Microsoft Translator",
   "curation-task.task.translate.label": "Microsoft Translator",
 
   // "curation-task.task.vscan.label": "Virus Scan",
-    "curation-task.task.vscan.label": "Перевірка на віруси",
+  "curation-task.task.vscan.label": "Перевірка на віруси",
 
 
 
   // "curation.form.task-select.label": "Task:",
-    "curation.form.task-select.label": "Завдання:",
+  "curation.form.task-select.label": "Завдання:",
 
   // "curation.form.submit": "Start",
-    "curation.form.submit": "Почати",
+  "curation.form.submit": "Почати",
 
   // "curation.form.submit.success.head": "The curation task has been started successfully",
-    "curation.form.submit.success.head": "Завдання успішно розпочате",
+  "curation.form.submit.success.head": "Завдання успішно розпочате",
 
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
-   "curation.form.submit.success.content": "Ви будете перенаправлені на сторінку відповідного процесу.",
+  "curation.form.submit.success.content": "Ви будете перенаправлені на сторінку відповідного процесу.",
 
   // "curation.form.submit.error.head": "Running the curation task failed",
-    "curation.form.submit.error.head": "Не вдалося виконати завдання",
+  "curation.form.submit.error.head": "Не вдалося виконати завдання",
 
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
-    "curation.form.submit.error.content": "Виникла помилка при спробі розпочати завдання.",
+  "curation.form.submit.error.content": "Виникла помилка при спробі розпочати завдання.",
 
   // "curation.form.handle.label": "Handle:",
 
   "curation.form.handle.label": "Handle:",
 
   // "curation.form.handle.hint": "Hint: Enter [your-handle-prefix]/0 to run a task across entire site (not all tasks may support this capability)",
-   "curation.form.handle.hint": "Підказка: Введіть [your-handle-prefix]/0 для запуску завдання на весь сайт (не всі види завдань це підтримують)",
+  "curation.form.handle.hint": "Підказка: Введіть [your-handle-prefix]/0 для запуску завдання на весь сайт (не всі види завдань це підтримують)",
 
 
 
@@ -1724,7 +1724,7 @@
   "dso-selector.create.collection.head": "Нове зібрання",
 
   // "dso-selector.create.collection.sub-level": "Create a new collection in",
-    "dso-selector.create.collection.sub-level": "Створити нове зібрання в",
+  "dso-selector.create.collection.sub-level": "Створити нове зібрання в",
 
   // "dso-selector.create.community.head": "New community",
   "dso-selector.create.community.head": "Новий фонд",
@@ -1755,7 +1755,7 @@
   "dso-selector.edit.item.head": "Редагувати документ",
 
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
-    "dso-selector.export-metadata.dspaceobject.head": "Експорт метаданих з",
+  "dso-selector.export-metadata.dspaceobject.head": "Експорт метаданих з",
 
   // "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.no-results": "{{ type }} не знайдено",
@@ -1766,28 +1766,28 @@
 
 
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
-   "confirmation-modal.export-metadata.header": "Експорт метаданих для {{ dsoName }}",
+  "confirmation-modal.export-metadata.header": "Експорт метаданих для {{ dsoName }}",
 
   // "confirmation-modal.export-metadata.info": "Are you sure you want to export metadata for {{ dsoName }}",
-    "confirmation-modal.export-metadata.info": "Ви впевнені, що хочете експортувати метадані для {{ dsoName }}?",
+  "confirmation-modal.export-metadata.info": "Ви впевнені, що хочете експортувати метадані для {{ dsoName }}?",
 
   // "confirmation-modal.export-metadata.cancel": "Cancel",
-    "confirmation-modal.export-metadata.cancel": "Скасувати",
+  "confirmation-modal.export-metadata.cancel": "Скасувати",
 
   // "confirmation-modal.export-metadata.confirm": "Export",
-   "confirmation-modal.export-metadata.confirm": "Скасувати",
+  "confirmation-modal.export-metadata.confirm": "Скасувати",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
   "confirmation-modal.delete-eperson.header": "Видалити користувача \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
-   "confirmation-modal.delete-eperson.info": "Ви впевнені, що хочете видалити користувача \"{{ dsoName }}\"?",
+  "confirmation-modal.delete-eperson.info": "Ви впевнені, що хочете видалити користувача \"{{ dsoName }}\"?",
 
   // "confirmation-modal.delete-eperson.cancel": "Cancel",
   "confirmation-modal.delete-eperson.cancel": "Скасувати",
 
   // "confirmation-modal.delete-eperson.confirm": "Delete",
-    "confirmation-modal.delete-eperson.confirm": "Видалити",
+  "confirmation-modal.delete-eperson.confirm": "Видалити",
 
 
   // "error.bitstream": "Error fetching bitstream",
@@ -1865,13 +1865,13 @@
   "footer.link.lyrasis": "LYRASIS",
 
   // "footer.link.cookies": "Cookie settings",
-    "footer.link.cookies": "Налаштування куків",
+  "footer.link.cookies": "Налаштування куків",
 
   // "footer.link.privacy-policy": "Privacy policy",
-   "footer.link.privacy-policy": "Політика приватності",
+  "footer.link.privacy-policy": "Політика приватності",
 
   // "footer.link.end-user-agreement":"End User Agreement",
-   "footer.link.end-user-agreement":"Угода користувача",
+  "footer.link.end-user-agreement": "Угода користувача",
 
 
 
@@ -1882,28 +1882,28 @@
   "forgot-email.form.info": "Зареєструйтесь для отримання повідомлень про нові надходження та отримайте можливість вносити документи.",
 
   // "forgot-email.form.email": "Email Address *",
-   "forgot-email.form.email": "Email *",
+  "forgot-email.form.email": "Email *",
 
   // "forgot-email.form.email.error.required": "Please fill in an email address",
   "forgot-email.form.email.error.required": "Введіть email",
 
   // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-   "forgot-email.form.email.error.pattern": "Ви повинні ввести правильний email",
+  "forgot-email.form.email.error.pattern": "Ви повинні ввести правильний email",
 
   // "forgot-email.form.email.hint": "This address will be verified and used as your login name.",
   "forgot-email.form.email.hint": "Ми провіримо цей email. Використовуйте його для входу у репозитарій",
 
   // "forgot-email.form.submit": "Submit",
-    "forgot-email.form.submit": "Надіслати",
+  "forgot-email.form.submit": "Надіслати",
 
   // "forgot-email.form.success.head": "Verification email sent",
-    "forgot-email.form.success.head": "На Ваш email було надіслане повідомлення",
+  "forgot-email.form.success.head": "На Ваш email було надіслане повідомлення",
 
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-    "forgot-email.form.success.content": "На {{ email }} було надіслане повідомлення, що містить спеціальне посилання та подальші інструкції.",
+  "forgot-email.form.success.content": "На {{ email }} було надіслане повідомлення, що містить спеціальне посилання та подальші інструкції.",
 
   // "forgot-email.form.error.head": "Error when trying to register email",
-    "forgot-email.form.error.head": "Виникла помилка при реєстрації email",
+  "forgot-email.form.error.head": "Виникла помилка при реєстрації email",
 
   // "forgot-email.form.error.content": "An error occured when registering the following email address: {{ email }}",
   "forgot-email.form.error.content": "Виникла помилка при реєстрації email: {{ email }}",
@@ -1911,31 +1911,31 @@
 
 
   // "forgot-password.title": "Forgot Password",
-    "forgot-password.title": "Забули пароль?",
+  "forgot-password.title": "Забули пароль?",
 
   // "forgot-password.form.head": "Forgot Password",
   "forgot-password.form.head": "Забули пароль?",
 
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box. It should be at least six characters long.",
-    "forgot-password.form.info": "Введіть новий пароль у поле нижче та підтвердьте його, ввівши його ще раз у друге поле. Він має містити щонайменше 6 символів.",
+  "forgot-password.form.info": "Введіть новий пароль у поле нижче та підтвердьте його, ввівши його ще раз у друге поле. Він має містити щонайменше 6 символів.",
 
   // "forgot-password.form.card.security": "Security",
-    "forgot-password.form.card.security": "Безпека",
+  "forgot-password.form.card.security": "Безпека",
 
   // "forgot-password.form.identification.header": "Identify",
-    "forgot-password.form.identification.header": "Ідентифікація",
+  "forgot-password.form.identification.header": "Ідентифікація",
 
   // "forgot-password.form.identification.email": "Email address: ",
   "forgot-password.form.identification.email": "Email: ",
 
   // "forgot-password.form.label.password": "Password",
-    "forgot-password.form.label.password": "Пароль",
+  "forgot-password.form.label.password": "Пароль",
 
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
-   "forgot-password.form.label.passwordrepeat": "Введіть ще раз для підтвердження",
+  "forgot-password.form.label.passwordrepeat": "Введіть ще раз для підтвердження",
 
   // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
-    "forgot-password.form.error.empty-password": "Введіть пароль у поле нижче.",
+  "forgot-password.form.error.empty-password": "Введіть пароль у поле нижче.",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
   "forgot-password.form.error.matching-passwords": "Паролі не співпадають.",
@@ -1944,16 +1944,16 @@
   "forgot-password.form.error.password-length": "Довжина пароля повинна становити не менше 6 символів.",
 
   // "forgot-password.form.notification.error.title": "Error when trying to submit new password",
-   "forgot-password.form.notification.error.title": "Виникла помилка при реєстрації нового пароля",
+  "forgot-password.form.notification.error.title": "Виникла помилка при реєстрації нового пароля",
 
   // "forgot-password.form.notification.success.content": "The password reset was successful. You have been logged in as the created user.",
-    "forgot-password.form.notification.success.content": "Пароль успішно скинуто. Ви увійшли під щойно створеним користувачем.",
+  "forgot-password.form.notification.success.content": "Пароль успішно скинуто. Ви увійшли під щойно створеним користувачем.",
 
   // "forgot-password.form.notification.success.title": "Password reset completed",
-   "forgot-password.form.notification.success.title": "Пароль скинуто успішно",
+  "forgot-password.form.notification.success.title": "Пароль скинуто успішно",
 
   // "forgot-password.form.submit": "Submit password",
-    "forgot-password.form.submit": "Надіслати пароль",
+  "forgot-password.form.submit": "Надіслати пароль",
 
 
 
@@ -2011,9 +2011,6 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Значення не введено",
 
-  // "form.other-information": {},
-  "form.other-information": {},
-
   // "form.remove": "Remove",
   "form.remove": "Видалити",
 
@@ -2027,7 +2024,7 @@
   "form.search": "Пошук",
 
   // "form.search-help": "Click here to look for an existing correspondence",
-    "form.search-help": "Клацніть тут, щоб знайти наявне листування",
+  "form.search-help": "Клацніть тут, щоб знайти наявне листування",
 
   // "form.submit": "Submit",
   "form.submit": "Надіслати",
@@ -2038,7 +2035,7 @@
   "home.description": "",
 
   // "home.breadcrumbs": "Home",
-    "home.breadcrumbs": "Головна",
+  "home.breadcrumbs": "Головна",
 
   // "home.title": "DSpace Angular :: Home",
   // TODO Change univer name
@@ -2059,55 +2056,55 @@
   "info.end-user-agreement.accept.error": "Виникла помилки при при фіксуванні Вашої згоди на користувацьку угоду",
 
   // "info.end-user-agreement.accept.success": "Successfully updated the End User Agreement",
-    "info.end-user-agreement.accept.success": "Користувацьку угоду успішно оновлено",
+  "info.end-user-agreement.accept.success": "Користувацьку угоду успішно оновлено",
 
   // "info.end-user-agreement.breadcrumbs": "End User Agreement",
-    "info.end-user-agreement.breadcrumbs": "Користувацька угода",
+  "info.end-user-agreement.breadcrumbs": "Користувацька угода",
 
   // "info.end-user-agreement.buttons.cancel": "Cancel",
   "info.end-user-agreement.buttons.cancel": "Відмінити",
 
   // "info.end-user-agreement.buttons.save": "Save",
-    "info.end-user-agreement.buttons.save": "Зберегти",
+  "info.end-user-agreement.buttons.save": "Зберегти",
 
   // "info.end-user-agreement.head": "End User Agreement",
-    "info.end-user-agreement.head": "Користувацька угода",
+  "info.end-user-agreement.head": "Користувацька угода",
 
   // "info.end-user-agreement.title": "End User Agreement",
-   "info.end-user-agreement.title": "Користувацька угода",
+  "info.end-user-agreement.title": "Користувацька угода",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
-    "info.privacy.breadcrumbs": "Заява про конфіденційність",
+  "info.privacy.breadcrumbs": "Заява про конфіденційність",
 
   // "info.privacy.head": "Privacy Statement",
-    "info.privacy.head": "Заява про конфіденційність",
+  "info.privacy.head": "Заява про конфіденційність",
 
   // "info.privacy.title": "Privacy Statement",
-    "info.privacy.title": "Заява про конфіденційність",
+  "info.privacy.title": "Заява про конфіденційність",
 
 
 
   // "item.alerts.private": "This item is private",
-    "item.alerts.private": "Доступ до документа закритий",
+  "item.alerts.private": "Доступ до документа закритий",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
-   "item.alerts.withdrawn": "Цей документ було вилучено",
+  "item.alerts.withdrawn": "Цей документ було вилучено",
 
 
 
   // "item.edit.authorizations.heading": "With this editor you can view and alter the policies of an item, plus alter policies of individual item components: bundles and bitstreams. Briefly, an item is a container of bundles, and bundles are containers of bitstreams. Containers usually have ADD/REMOVE/READ/WRITE policies, while bitstreams only have READ/WRITE policies.",
-    "item.edit.authorizations.heading": "За допомогою цього редактора ви можете переглядати та змінювати політики документа, а також змінювати політики окремих компонентів документа. Документ — це множина пакетів, а пакети — це множина файлів. Контейнери зазвичай мають політики ADD/REMOVE/READ/WRITE, тоді як файли мають лише політики READ/WRITE.",
+  "item.edit.authorizations.heading": "За допомогою цього редактора ви можете переглядати та змінювати політики документа, а також змінювати політики окремих компонентів документа. Документ — це множина пакетів, а пакети — це множина файлів. Контейнери зазвичай мають політики ADD/REMOVE/READ/WRITE, тоді як файли мають лише політики READ/WRITE.",
 
   // "item.edit.authorizations.title": "Edit item's Policies",
-   "item.edit.authorizations.title": "Редагувати політики документа",
+  "item.edit.authorizations.title": "Редагувати політики документа",
 
 
 
   // "item.badge.private": "Private",
-    "item.badge.private": "Приватне",
+  "item.badge.private": "Приватне",
 
   // "item.badge.withdrawn": "Withdrawn",
-    "item.badge.withdrawn": "Вилучено",
+  "item.badge.withdrawn": "Вилучено",
 
 
 
@@ -2120,7 +2117,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Створити контейнер файлів",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Цей документ не містить контейнеру файлів, щоб завантажити файл.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -2264,10 +2261,10 @@
 
 
   // "item.edit.tabs.mapper.head": "Collection Mapper",
-    "item.edit.tabs.mapper.head": "Карта зібрання",
+  "item.edit.tabs.mapper.head": "Карта зібрання",
 
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
-    "item.edit.tabs.item-mapper.title": "Редагування документа - карта зібрання",
+  "item.edit.tabs.item-mapper.title": "Редагування документа - карта зібрання",
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   "item.edit.item-mapper.buttons.add": "Карта документа до вибраного зібрання",
@@ -2341,7 +2338,7 @@
   "item.edit.metadata.edit.buttons.unedit": "Зупинити редагування",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
-    "item.edit.metadata.empty": "Документ не містить жодних метаданих. Клікніть Додати щоб почати додавати метадані.",
+  "item.edit.metadata.empty": "Документ не містить жодних метаданих. Клікніть Додати щоб почати додавати метадані.",
 
   // "item.edit.metadata.headers.edit": "Edit",
   "item.edit.metadata.headers.edit": "Редагувати",
@@ -2503,7 +2500,7 @@
   "item.edit.relationships.discard-button": "Відмінити",
 
   // "item.edit.relationships.edit.buttons.add": "Add",
-   "item.edit.relationships.edit.buttons.add": "Додати",
+  "item.edit.relationships.edit.buttons.add": "Додати",
 
   // "item.edit.relationships.edit.buttons.remove": "Remove",
   "item.edit.relationships.edit.buttons.remove": "Видалити",
@@ -2557,7 +2554,7 @@
   "item.edit.tabs.curate.head": "Curate",
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
-    // TODO translate
+  // TODO translate
   "item.edit.tabs.curate.title": "Редагування документа - Curate",
 
   // "item.edit.tabs.metadata.head": "Metadata",
@@ -2679,28 +2676,25 @@
 
 
   // "item.listelement.badge": "Item",
-    "item.listelement.badge": "Документ",
+  "item.listelement.badge": "Документ",
 
   // "item.page.description": "Description",
-    "item.page.description": "Опис",
-
-  // "item.page.edit": "Edit this item",
-    "item.page.edit": "Редагувати цей документ",
+  "item.page.description": "Опис",
 
   // "item.page.journal-issn": "Journal ISSN",
-    "item.page.journal-issn": "Номер ISSN",
+  "item.page.journal-issn": "Номер ISSN",
 
   // "item.page.journal-title": "Journal Title",
-    "item.page.journal-title": "Назва журналу",
+  "item.page.journal-title": "Назва журналу",
 
   // "item.page.publisher": "Publisher",
-    "item.page.publisher": "Видавець",
+  "item.page.publisher": "Видавець",
 
   // "item.page.titleprefix": "Item: ",
-    "item.page.titleprefix": "Документ: ",
+  "item.page.titleprefix": "Документ: ",
 
   // "item.page.volume-title": "Volume Title",
-    "item.page.volume-title": "Назва тому",
+  "item.page.volume-title": "Назва тому",
 
   // "item.search.results.head": "Результат пошуку за документами",
   "item.search.results.head": "Результат пошуку за документами",
@@ -2726,7 +2720,7 @@
   "item.page.date": "Дата",
 
   // "item.page.edit": "Edit this item",
-    "item.page.edit": "Редагувати цей документ",
+  "item.page.edit": "Редагувати цей документ",
 
   // "item.page.files": "Files",
   "item.page.files": "Файли",
@@ -2783,49 +2777,49 @@
   "item.page.uri": "URI",
 
   // "item.page.bitstreams.view-more": "Show more",
-    "item.page.bitstreams.view-more": "Показати більше",
+  "item.page.bitstreams.view-more": "Показати більше",
 
   // "item.page.bitstreams.collapse": "Collapse",
-    "item.page.bitstreams.collapse": "Згорнути",
+  "item.page.bitstreams.collapse": "Згорнути",
 
   // "item.page.filesection.original.bundle" : "Original bundle",
-    "item.page.filesection.original.bundle" : "Контейнер файлів",
+  "item.page.filesection.original.bundle": "Контейнер файлів",
 
   // "item.page.filesection.license.bundle" : "License bundle",
-   "item.page.filesection.license.bundle" : "Ліцензійна угода",
+  "item.page.filesection.license.bundle": "Ліцензійна угода",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
-    "item.preview.dc.identifier.uri": "Ідентифікатор:",
+  "item.preview.dc.identifier.uri": "Ідентифікатор:",
 
   // "item.preview.dc.contributor.author": "Authors:",
-    "item.preview.dc.contributor.author": "Автори:",
+  "item.preview.dc.contributor.author": "Автори:",
 
   // "item.preview.dc.date.issued": "Published date:",
-    "item.preview.dc.date.issued": "Дата публікації:",
+  "item.preview.dc.date.issued": "Дата публікації:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
-    "item.preview.dc.description.abstract": "Анотація:",
+  "item.preview.dc.description.abstract": "Анотація:",
 
   // "item.preview.dc.identifier.other": "Other identifier:",
-    "item.preview.dc.identifier.other": "Інший ідентифікатор:",
+  "item.preview.dc.identifier.other": "Інший ідентифікатор:",
 
   // "item.preview.dc.language.iso": "Language:",
-    "item.preview.dc.language.iso": "Мова:",
+  "item.preview.dc.language.iso": "Мова:",
 
   // "item.preview.dc.subject": "Subjects:",
-    "item.preview.dc.subject": "Ключові слова:",
+  "item.preview.dc.subject": "Ключові слова:",
 
   // "item.preview.dc.title": "Title:",
-    "item.preview.dc.title": "Назва:",
+  "item.preview.dc.title": "Назва:",
 
   // "item.preview.person.familyName": "Surname:",
-    "item.preview.person.familyName": "Прізвище:",
+  "item.preview.person.familyName": "Прізвище:",
 
   // "item.preview.person.givenName": "Name:",
-    "item.preview.person.givenName": "Ім'я:",
+  "item.preview.person.givenName": "Ім'я:",
 
   // "item.preview.person.identifier.orcid": "ORCID:",
-    "item.preview.person.identifier.orcid": "ORCID:",
+  "item.preview.person.identifier.orcid": "ORCID:",
 
 
   // "item.select.confirm": "Confirm selected",
@@ -2885,7 +2879,7 @@
   "journal.page.description": "Опис",
 
   // "journal.page.edit": "Edit this item",
-    "journal.page.edit": "Редагувати цей документ",
+  "journal.page.edit": "Редагувати цей документ",
 
   // "journal.page.editor": "Editor-in-Chief",
   "journal.page.editor": "Головний редактор",
@@ -2914,7 +2908,7 @@
   "journalissue.page.description": "Опис",
 
   // "journalissue.page.edit": "Edit this item",
-    "journalissue.page.edit": "Редагувати цей документ",
+  "journalissue.page.edit": "Редагувати цей документ",
 
   // "journalissue.page.issuedate": "Issue Date",
   "journalissue.page.issuedate": "Дата випуску",
@@ -2943,7 +2937,7 @@
   "journalvolume.page.description": "Опис",
 
   // "journalvolume.page.edit": "Edit this item",
-  
+
   "journalvolume.page.edit": "Редагувати цей документ",
 
   // "journalvolume.page.issuedate": "Issue Date",
@@ -3226,7 +3220,7 @@
   "menu.section.new_item_version": "Версія документа",
 
   // "menu.section.new_process": "Process",
-  
+
   "menu.section.new_process": "Процес",
 
 
@@ -3295,7 +3289,7 @@
 
 
   // "menu.section.workflow": "Administer Workflow",
-  
+
   "menu.section.workflow": "Керування процесу подачі документа",
 
 
@@ -3303,7 +3297,7 @@
   "mydspace.description": "",
 
   // "mydspace.general.text-here": "here",
-  
+
   "mydspace.general.text-here": "тут",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
@@ -3349,7 +3343,7 @@
   "mydspace.new-submission": "Надійшли нові документи",
 
   // "mydspace.new-submission-external": "Import metadata from external source",
- 
+
   "mydspace.new-submission-external": "Імпортувати метадані зі зовнішнього джерела",
 
   // "mydspace.new-submission-external-short": "Import metadata",
@@ -3389,20 +3383,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Ваші надіслані документи ",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Заархівовані",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Заархівовані",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Перевірка",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Перевірка",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Чекаємо контролера",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Чекаємо контролера",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Робочий процес",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Робочий процес",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Робоче середовище",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Робоче середовище",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Моє середовище",
@@ -3415,7 +3409,7 @@
   "mydspace.upload.upload-failed-manyentries": "Файл неможливо опрацювати. Виявлено забагато звернень, але дозволено лише одне для файлу..",
 
   // "mydspace.upload.upload-failed-moreonefile": "Unprocessable request. Only one file is allowed.",
-  
+
   "mydspace.upload.upload-failed-moreonefile": "Запит неможливо працювати. Дозволений тільки один файл",
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
@@ -3507,14 +3501,14 @@
   "person.listelement.badge": "Користувач",
 
   // "person.listelement.no-title": "No name found",
-  
+
   "person.listelement.no-title": "Ім'я не знайдено",
 
   // "person.page.birthdate": "Birth Date",
   "person.page.birthdate": "Дата народження",
 
   // "person.page.edit": "Edit this item",
-  
+
   "person.page.edit": "Редагувати документ",
 
   // "person.page.email": "Email Address",
@@ -3550,7 +3544,7 @@
 
 
   // "process.new.select-parameters": "Parameters",
-    "process.new.select-parameters": "Параметри",
+  "process.new.select-parameters": "Параметри",
 
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Відмінити",
@@ -3574,16 +3568,16 @@
   "process.new.parameter.file.required": "Виберіть файл",
 
   // "process.new.parameter.string.required": "Parameter value is required",
-    "process.new.parameter.string.required": "Цей параметр є обв'язковим",
+  "process.new.parameter.string.required": "Цей параметр є обв'язковим",
 
   // "process.new.parameter.type.value": "value",
-    "process.new.parameter.type.value": "значення",
+  "process.new.parameter.type.value": "значення",
 
   // "process.new.parameter.type.file": "file",
-   "process.new.parameter.type.file": "файл",
+  "process.new.parameter.type.file": "файл",
 
   // "process.new.parameter.required.missing": "The following parameters are required but still missing:",
-   "process.new.parameter.required.missing": "Наступні параметри є обов’язковими, але все ще відсутні:",
+  "process.new.parameter.required.missing": "Наступні параметри є обов’язковими, але все ще відсутні:",
 
   // "process.new.notification.success.title": "Success",
   "process.new.notification.success.title": "Успіх",
@@ -3592,7 +3586,7 @@
   "process.new.notification.success.content": "Процес успішно запущено",
 
   // "process.new.notification.error.title": "Error",
-   "process.new.notification.error.title": "Виникла якась помилка, бодай би вона скисла",
+  "process.new.notification.error.title": "Виникла якась помилка, бодай би вона скисла",
 
   // "process.new.notification.error.content": "An error occurred while creating this process",
   "process.new.notification.error.content": "Виникла помилка при створенні процесу",
@@ -3604,21 +3598,21 @@
   "process.new.title": "Створити новий процес",
 
   // "process.new.breadcrumbs": "Create a new process",
-    "process.new.breadcrumbs": "Створити новий процес",
+  "process.new.breadcrumbs": "Створити новий процес",
 
 
 
   // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Аргументи",
+  "process.detail.arguments": "Аргументи",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Процес не містить жодних аргументів",
+  "process.detail.arguments.empty": "Процес не містить жодних аргументів",
 
   // "process.detail.back" : "Back",
-  "process.detail.back" : "Повернутись",
+  "process.detail.back": "Повернутись",
 
   // "process.detail.output" : "Process Output",
-   "process.detail.output" : "Прооцес завершено",
+  "process.detail.output": "Прооцес завершено",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Отримати вихідні дані процесу",
@@ -3630,48 +3624,48 @@
   "process.detail.logs.none": "Процес не генерує вихідних даних",
 
   // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Вихідні файли",
+  "process.detail.output-files": "Вихідні файли",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Процес не містить жодних вихдних файлів",
+  "process.detail.output-files.empty": "Процес не містить жодних вихдних файлів",
 
   // "process.detail.script" : "Script",
-  "process.detail.script" : "Скрипт",
+  "process.detail.script": "Скрипт",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Процеси: {{ id }} - {{ name }}",
+  "process.detail.title": "Процеси: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Дата старту",
+  "process.detail.start-time": "Дата старту",
 
   // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Дата завершення",
+  "process.detail.end-time": "Дата завершення",
 
   // "process.detail.status" : "Status",
-  "process.detail.status" : "Статус",
+  "process.detail.status": "Статус",
 
   // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Створіть аналогічний процес",
+  "process.detail.create": "Створіть аналогічний процес",
 
 
 
   // "process.overview.table.finish" : "Finish time",
-  "process.overview.table.finish" : "Дата завершення",
+  "process.overview.table.finish": "Дата завершення",
 
   // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "ID процесу",
+  "process.overview.table.id": "ID процесу",
 
   // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Назва",
+  "process.overview.table.name": "Назва",
 
   // "process.overview.table.start" : "Start time",
-  "process.overview.table.start" : "Дата старту",
+  "process.overview.table.start": "Дата старту",
 
   // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Статус",
+  "process.overview.table.status": "Статус",
 
   // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Користувач",
+  "process.overview.table.user": "Користувач",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Огляд процесів",
@@ -3859,7 +3853,7 @@
   "register-page.create-profile.identification.last-name": "Прізвище *",
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  
+
   "register-page.create-profile.identification.last-name.error": "Заповніть поле прізвища",
 
   // "register-page.create-profile.identification.contact": "Contact Telephone",
@@ -3867,7 +3861,7 @@
   "register-page.create-profile.identification.contact": "Номер телефону",
 
   // "register-page.create-profile.identification.language": "Language",
- 
+
   "register-page.create-profile.identification.language": "Мова",
 
   // "register-page.create-profile.security.header": "Security",
@@ -3903,7 +3897,7 @@
   "register-page.create-profile.submit": "Повна реєстрація",
 
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  
+
   "register-page.create-profile.submit.error.content": "Щось пішло не так при реєстрації нового користувача.",
 
   // "register-page.create-profile.submit.error.head": "Registration failed",
@@ -3924,7 +3918,7 @@
   "register-page.registration.header": "Реєстрація нового користувача",
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  
+
   "register-page.registration.info": "Зареєструйтесь для отримання сповіщень про нові надходження та отримайте можливіть надсилати нові документи у репозиторій.",
 
   // "register-page.registration.email": "Email Address *",
@@ -3940,15 +3934,15 @@
   "register-page.registration.email.error.pattern": "Введіть правильну емейл адресу",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
-  
+
   "register-page.registration.email.hint": "Використовуйие цю адресу щоб увійти у репозиторій. Але перед тим вона буде перевірена",
 
   // "register-page.registration.submit": "Register",
-  
+
   "register-page.registration.submit": "Реєстрація",
 
   // "register-page.registration.success.head": "Verification email sent",
- 
+
   "register-page.registration.success.head": "email для підтвердження Вам надіслано",
 
   // "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
@@ -3960,7 +3954,7 @@
   "register-page.registration.error.head": "Виникла помилка при реєстрації email",
 
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
-  
+
   "register-page.registration.error.content": "Виникла помилка при реєстрації email: {{ email }}",
 
 
@@ -4027,7 +4021,7 @@
 
 
   // "resource-policies.add.button": "Add",
-  
+
   "resource-policies.add.button": "Додати",
 
   // "resource-policies.add.for.": "Add a new policy",
@@ -4035,11 +4029,11 @@
   "resource-policies.add.for.": "Додати нову політику",
 
   // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
-  
+
   "resource-policies.add.for.bitstream": "Додати нову політику для файлу",
 
   // "resource-policies.add.for.bundle": "Add a new Bundle policy",
- 
+
   "resource-policies.add.for.bundle": "AДодати нову політику для контейнеру файлів",
 
   // "resource-policies.add.for.item": "Add a new Item policy",
@@ -4051,7 +4045,7 @@
   "resource-policies.add.for.community": "Додати нову політику для фонду",
 
   // "resource-policies.add.for.collection": "Add a new Collection policy",
-  
+
   "resource-policies.add.for.collection": "Додати нову політику для зібрання",
 
   // "resource-policies.create.page.heading": "Create new resource policy for ",
@@ -4059,7 +4053,7 @@
   "resource-policies.create.page.heading": "Створити нову ресурсну політику для ",
 
   // "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
-  
+
   "resource-policies.create.page.failure.content": "Виникла помилка при створенні ресурсної політики.",
 
   // "resource-policies.create.page.success.content": "Operation successful",
@@ -4103,7 +4097,7 @@
   "resource-policies.edit.page.title": "Редагувати ресурсну політику",
 
   // "resource-policies.form.action-type.label": "Select the action type",
-  
+
   "resource-policies.form.action-type.label": "Виберіть тип дії",
 
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
@@ -4111,11 +4105,11 @@
   "resource-policies.form.action-type.required": "Ви повинні вибрати дію політики ресурсів.",
 
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
- 
+
   "resource-policies.form.eperson-group-list.label": "Особа чи група, якій буде надано дозвіл",
 
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
- 
+
   "resource-policies.form.eperson-group-list.select.btn": "Вибрати",
 
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
@@ -4127,7 +4121,7 @@
   "resource-policies.form.eperson-group-list.tab.group": "Шукати групу",
 
   // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
-  
+
   "resource-policies.form.eperson-group-list.table.headers.action": "Дія",
 
   // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
@@ -4139,7 +4133,7 @@
   "resource-policies.form.eperson-group-list.table.headers.name": "Назва",
 
   // "resource-policies.form.date.end.label": "End Date",
- 
+
   "resource-policies.form.date.end.label": "Кінцева дата",
 
   // "resource-policies.form.date.start.label": "Start Date",
@@ -4203,15 +4197,15 @@
   "resource-policies.table.headers.name": "Назва",
 
   // "resource-policies.table.headers.policyType": "type",
- 
+
   "resource-policies.table.headers.policyType": "Тип",
 
   // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  
+
   "resource-policies.table.headers.title.for.bitstream": "Політики для файла",
 
   // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
- 
+
   "resource-policies.table.headers.title.for.bundle": "Політики для контейнера файлів",
 
   // "resource-policies.table.headers.title.for.item": "Policies for Item",
@@ -4223,7 +4217,7 @@
   "resource-policies.table.headers.title.for.community": "Політики для фонду",
 
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
-  
+
   "resource-policies.table.headers.title.for.collection": "Політики для зібрання",
 
 
@@ -4524,11 +4518,11 @@
 
 
   // "sorting.ASC": "Ascending",
-  
+
   "sorting.ASC": "У порядку збільшення",
 
   // "sorting.DESC": "Descending",
-  
+
   "sorting.DESC": "У порядку зменшення",
 
   // "sorting.dc.title.ASC": "Title Ascending",
@@ -4543,35 +4537,35 @@
 
 
   // "statistics.title": "Statistics",
-  
+
   "statistics.title": "Статистика",
 
   // "statistics.header": "Statistics for {{ scope }}",
-  
+
   "statistics.header": "Статистика для {{ scope }}",
 
   // "statistics.breadcrumbs": "Statistics",
-  
+
   "statistics.breadcrumbs": "Статистика",
 
   // "statistics.page.no-data": "No data available",
-  
+
   "statistics.page.no-data": "Дані відсутні",
 
   // "statistics.table.no-data": "No data available",
-  
+
   "statistics.table.no-data": "Дані відсутні",
 
   // "statistics.table.title.TotalVisits": "Total visits",
-  
+
   "statistics.table.title.TotalVisits": "Всього відвідувань",
 
   // "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
-  
+
   "statistics.table.title.TotalVisitsPerMonth": "Всього відвідувань за місяць",
 
   // "statistics.table.title.TotalDownloads": "File Visits",
-  
+
   "statistics.table.title.TotalDownloads": "Скачувань файлів",
 
   // "statistics.table.title.TopCountries": "Top country views",
@@ -4579,7 +4573,7 @@
   "statistics.table.title.TopCountries": "Топ за країнами",
 
   // "statistics.table.title.TopCities": "Top city views",
- 
+
   "statistics.table.title.TopCities": "Топ за містами",
 
   // "statistics.table.header.views": "Views",
@@ -4620,7 +4614,7 @@
 
 
   // "submission.import-external.page.title": "Import metadata from an external source",
- 
+
   "submission.import-external.page.title": "Імпортувати метадані із зовнішніх джерел",
 
   // "submission.import-external.title": "Import metadata from an external source",
@@ -4628,7 +4622,7 @@
   "submission.import-external.title": "Імпортувати метадані із зовнішніх джерел",
 
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
-  
+
   "submission.import-external.page.hint": "Введіть запит вище, щоб знайти елементи з Інтернету для імпорту в репозиторій",
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
@@ -4636,15 +4630,15 @@
   "submission.import-external.back-to-my-dspace": "Повернутись до репозиторію",
 
   // "submission.import-external.search.placeholder": "Search the external source",
- 
+
   "submission.import-external.search.placeholder": "Шукати зовнішнє джерело даних",
 
   // "submission.import-external.search.button": "Search",
- 
+
   "submission.import-external.search.button": "Пошук",
 
   // "submission.import-external.search.button.hint": "Write some words to search",
-  
+
   "submission.import-external.search.button.hint": "Напишіть ключові слова для пошуку",
 
   // "submission.import-external.search.source.hint": "Pick an external source",
@@ -4652,7 +4646,7 @@
   "submission.import-external.search.source.hint": "Виберіть зовнішнє джерело даних",
 
   // "submission.import-external.source.arxiv": "arXiv",
-  
+
   "submission.import-external.source.arxiv": "arXiv",
 
   // "submission.import-external.source.loading": "Loading ...",
@@ -4727,7 +4721,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Локального автора успішно додано до вибраних",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
-  
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Локального автора успішно імпортовано та додано до вибраних",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
@@ -4761,7 +4755,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Імпортувати з Sherpa видання",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
-  
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Імпортувати з PubMed",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
@@ -4869,7 +4863,7 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Локальні томи видань ({{ count }})",
-  
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Локальні томи видань({{ count }})",
@@ -4912,15 +4906,15 @@
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
 
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Випуски видання",
-  
-      // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
+
+  // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Випуски видання",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Томи видання",
-  
+
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Томи видання",
@@ -4936,7 +4930,7 @@
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
 
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Фінансова агенція",
-  
+
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
 
   "submission.sections.describe.relationship-lookup.title.Project": "Проекти",
@@ -4992,13 +4986,13 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Вибрані томи видання",
-  
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Вибрані проекти",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
- 
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Вибрані публікації",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
@@ -5006,41 +5000,41 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Вибрані автори",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
- 
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Вибрані структурні одиниці",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
- 
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Вибрані пакети даних",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "ВИбрані файли даних",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Вибрані видання",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Вибрані випуски",
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Вибрані томи видання",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Вибрана фінансова агенція",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Вибране фінансування",
-  
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Вибрані випуски",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Вибрані структурні одиниці",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
@@ -5053,21 +5047,21 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Результати пошуку",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Результати пошуку",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Результати пошуку",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Результати пошуку",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
-  
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Результати пошуку",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Чи бажаєте ви зберегти \"{{ value }}\" як варіант імені для цього користувача, щоб ви та інші могли повторно використовувати його для майбутніх надсилань? Якщо ви цього не зробите, ви можете використовувати його для цього надсилання.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -5077,31 +5071,31 @@
   "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Використовуйте тільки для даного надсилання документів",
 
   // "submission.sections.ccLicense.type": "License Type",
-  
+
   "submission.sections.ccLicense.type": "Тип ліцензії",
 
   // "submission.sections.ccLicense.select": "Select a license type…",
-  
+
   "submission.sections.ccLicense.select": "Биберіть тип ліцензії…",
 
   // "submission.sections.ccLicense.change": "Change your license type…",
-  
+
   "submission.sections.ccLicense.change": "Змініть тип ліцензії…",
 
   // "submission.sections.ccLicense.none": "No licenses available",
-  
+
   "submission.sections.ccLicense.none": "Нема ліцензії",
 
   // "submission.sections.ccLicense.option.select": "Select an option…",
- 
+
   "submission.sections.ccLicense.option.select": "Виберіть опцію…",
 
   // "submission.sections.ccLicense.link": "You’ve selected the following license:",
- 
+
   "submission.sections.ccLicense.link": "Ви вибрали ліцензію:",
 
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
-  
+
   "submission.sections.ccLicense.confirmation": "Я даю згоду на цю ліцензію",
 
   // "submission.sections.general.add-more": "Add more",
@@ -5197,10 +5191,10 @@
   "submission.sections.upload.form.access-condition-label": "Умови доступу",
 
   // "submission.sections.upload.form.date-required": "Date is required.",
-  "submission.sections.upload.form.date-required": "Поле дати є обов\'язковим для заповнення.",
+  "submission.sections.upload.form.date-required": "Поле дати є обов'язковим для заповнення.",
 
   // "submission.sections.upload.form.from-label": "Grant access from",
-  
+
   "submission.sections.upload.form.from-label": "Надати доступ з",
 
   // "submission.sections.upload.form.from-placeholder": "From",
@@ -5210,10 +5204,10 @@
   "submission.sections.upload.form.group-label": "Група",
 
   // "submission.sections.upload.form.group-required": "Group is required.",
-  "submission.sections.upload.form.group-required": "Група є обов\'язковою.",
+  "submission.sections.upload.form.group-required": "Група є обов'язковою.",
 
   // "submission.sections.upload.form.until-label": "Grant access until",
-  
+
   "submission.sections.upload.form.until-label": "Надати доступ до",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
@@ -5349,7 +5343,7 @@
   "vocabulary-treeview.header": "Перегляд деревовидної структури",
 
   // "vocabulary-treeview.load-more": "Load more",
-  
+
   "vocabulary-treeview.load-more": "Детальніше",
 
   // "vocabulary-treeview.search.form.reset": "Reset",
@@ -5415,7 +5409,7 @@
   "workflow-item.delete.notification.success.content": "Робочий процес внесення документа був успішно видалений",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
-  
+
   "workflow-item.delete.notification.error.title": "Щось пішло не так",
 
   // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
@@ -5423,11 +5417,11 @@
   "workflow-item.delete.notification.error.content": "Документ з робочого процесу не може бути видалений",
 
   // "workflow-item.delete.title": "Delete workflow item",
-  
+
   "workflow-item.delete.title": "Видалити документ з робочого процесу",
 
   // "workflow-item.delete.header": "Delete workflow item",
-  
+
   "workflow-item.delete.header": "Видалити документ з робочого процесу",
 
   // "workflow-item.delete.button.cancel": "Cancel",
@@ -5440,7 +5434,7 @@
 
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
- 
+
   "workflow-item.send-back.notification.success.title": "Відіслати назад до користувача, котрий надіслав цей документ",
 
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
@@ -5469,7 +5463,7 @@
 
   // "workflow-item.send-back.button.confirm": "Send back"
 
-  "workflow-item.send-back.button.confirm": "Надіслати назад"
+  "workflow-item.send-back.button.confirm": "Надіслати назад",
 
 
 }

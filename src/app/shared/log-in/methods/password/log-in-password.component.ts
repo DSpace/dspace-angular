@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { firstValueFrom, Observable } from 'rxjs';
@@ -9,14 +9,18 @@ import {
   ResetAuthenticationMessagesAction
 } from '../../../../core/auth/auth.actions';
 
-import { getAuthenticationError, getAuthenticationInfo } from '../../../../core/auth/selectors';
+import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
 import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ActivatedRoute , Router} from '@angular/router';
 import { getBaseUrl } from '../../../clarin-shared-util';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
@@ -30,7 +34,7 @@ import { ConfigurationDataService } from '../../../../core/data/configuration-da
   selector: 'ds-log-in-password',
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
-  animations: [fadeOut],
+  animations: [fadeOut]
 })
 @renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
@@ -69,7 +73,7 @@ export class LogInPasswordComponent implements OnInit {
    * The authentication form.
    * @type {FormGroup}
    */
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   /**
    * The page from where the local login was initiated.
@@ -82,23 +86,18 @@ export class LogInPasswordComponent implements OnInit {
   public baseUrl = '';
 
   /**
-   * @constructor
-   * @param {AuthMethod} injectedAuthMethodModel
-   * @param {boolean} isStandalonePage
-   * @param {AuthService} authService
-   * @param {HardRedirectService} hardRedirectService
-   * @param {FormBuilder} formBuilder
-   * @param {Store<State>} store
-   * @param route
-   * @param router
-   * @param configurationService
+   * Whether the current user (or anonymous) is authorized to register an account
    */
+  public canRegister$: Observable<boolean>;
+
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
-    private formBuilder: FormBuilder,
-    private store: Store<CoreState>,
+    private hardRedirectService: HardRedirectService,
+    private formBuilder: UntypedFormBuilder,
+    protected store: Store<CoreState>,
+    protected authorizationService: AuthorizationDataService,
     private route: ActivatedRoute,
     protected router: Router,
     protected configurationService: ConfigurationDataService,
@@ -136,10 +135,20 @@ export class LogInPasswordComponent implements OnInit {
       })
     );
 
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
+
     // Load `dspace.ui.url` into `baseUrl` property.
     await this.assignBaseUrl();
     this.toggleDiscojuiceLogin();
     void this.setUpRedirectUrl();
+  }
+
+  getRegisterRoute() {
+    return getRegisterRoute();
+  }
+
+  getForgotRoute() {
+    return getForgotPasswordRoute();
   }
 
   /**

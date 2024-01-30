@@ -1,6 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
@@ -39,8 +39,8 @@ let TAG_TEST_GROUP;
 let TAG_TEST_MODEL_CONFIG;
 
 function init() {
-  TAG_TEST_GROUP = new FormGroup({
-    tag: new FormControl(),
+  TAG_TEST_GROUP = new UntypedFormGroup({
+    tag: new UntypedFormControl(),
   });
 
   TAG_TEST_MODEL_CONFIG = {
@@ -291,7 +291,7 @@ describe('DsDynamicTagComponent test suite', () => {
 })
 class TestComponent {
 
-  group: FormGroup = TAG_TEST_GROUP;
+  group: UntypedFormGroup = TAG_TEST_GROUP;
 
   model = new DynamicTagModel(TAG_TEST_MODEL_CONFIG);
 

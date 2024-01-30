@@ -26,8 +26,8 @@
   </div>
   <div class="chart pt-2">
     <canvas baseChart
-            [datasets]="chartData"
-            [labels]="chartLabels"
+            [datasets]="chartLabels.datasets"
+            [labels]="chartLabels.labels"
             [options]="chartOptions"
             [legend]="false"
             (chartClick)="chartClicked($event)"

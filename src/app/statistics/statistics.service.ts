@@ -31,11 +31,16 @@ export class StatisticsService {
   /**
    * To track a page view
    * @param dso: The dso which was viewed
+   * @param referrer: The referrer used by the client to reach the dso page
    */
-  trackViewEvent(dso: DSpaceObject) {
+  trackViewEvent(
+    dso: DSpaceObject,
+    referrer: string
+  ) {
     this.sendEvent('/statistics/viewevents', {
       targetId: dso.uuid,
-      targetType: (dso as any).type
+      targetType: (dso as any).type,
+      referrer
     });
   }
 
@@ -45,12 +50,14 @@ export class StatisticsService {
    * @param page: An object that describes the pagination status
    * @param sort: An object that describes the sort status
    * @param filters: An array of search filters used to filter the result set
+   * @param clickedObject: UUID of object clicked
    */
   trackSearchEvent(
     searchOptions: SearchOptions,
     page: { size: number, totalElements: number, totalPages: number, number: number },
     sort: { by: string, order: string },
-    filters?: { filter: string, operator: string, value: string, label: string }[]
+    filters?: { filter: string, operator: string, value: string, label: string }[],
+    clickedObject?: string,
   ) {
     const body = {
       query: searchOptions.query,
@@ -86,6 +93,9 @@ export class StatisticsService {
         });
       }
       Object.assign(body, { appliedFilters: bodyFilters });
+    }
+    if (hasValue(clickedObject)) {
+      Object.assign(body, { clickedObject });
     }
     this.sendEvent('/statistics/searchevents', body);
   }

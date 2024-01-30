@@ -146,7 +146,7 @@ describe('FileSectionComponent', () => {
 
     it('should contain a view less link', () => {
       const viewLess = fixture.debugElement.query(By.css('.bitstream-collapse'));
-      expect(viewLess).toBeDefined();
+      expect(viewLess).not.toBeNull();
     });
 
     it('clicking on the view less link should reset the pages and call getNextPage()', () => {

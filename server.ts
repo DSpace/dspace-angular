@@ -26,15 +26,15 @@ import * as ejs from 'ejs';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
-
 import axios from 'axios';
 import LRU from 'lru-cache';
 import isbot from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
+import { createHttpTerminator } from 'http-terminator';
 
-import { existsSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
@@ -54,7 +54,7 @@ import { buildAppConfig } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
-import { TOKENITEM } from 'src/app/core/auth/models/auth-token-info.model';
+import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 
 
 /*
@@ -176,6 +176,15 @@ export function app() {
    */
   router.use('/sitemap**', createProxyMiddleware({
     target: `${environment.rest.baseUrl}/sitemaps`,
+    pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
+    changeOrigin: true
+  }));
+
+  /**
+   * Proxy the linksets
+   */
+  router.use('/signposting**', createProxyMiddleware({
+    target: `${environment.rest.baseUrl}`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
     changeOrigin: true
   }));
@@ -312,22 +321,23 @@ function initCache() {
   if (botCacheEnabled()) {
     // Initialize a new "least-recently-used" item cache (where least recently used pages are removed first)
     // See https://www.npmjs.com/package/lru-cache
-    // When enabled, each page defaults to expiring after 1 day
+    // When enabled, each page defaults to expiring after 1 day (defined in default-app-config.ts)
     botCache = new LRU( {
       max: environment.cache.serverSide.botCache.max,
-      ttl: environment.cache.serverSide.botCache.timeToLive || 24 * 60 * 60 * 1000, // 1 day
-      allowStale: environment.cache.serverSide.botCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.botCache.timeToLive,
+      allowStale: environment.cache.serverSide.botCache.allowStale
     });
   }
 
   if (anonymousCacheEnabled()) {
     // NOTE: While caches may share SSR pages, this cache must be kept separately because the timeToLive
     // may expire pages more frequently.
-    // When enabled, each page defaults to expiring after 10 seconds (to minimize anonymous users seeing out-of-date content)
+    // When enabled, each page defaults to expiring after 10 seconds (defined in default-app-config.ts)
+    // to minimize anonymous users seeing out-of-date content
     anonymousCache = new LRU( {
       max: environment.cache.serverSide.anonymousCache.max,
-      ttl: environment.cache.serverSide.anonymousCache.timeToLive || 10 * 1000, // 10 seconds
-      allowStale: environment.cache.serverSide.anonymousCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.anonymousCache.timeToLive,
+      allowStale: environment.cache.serverSide.anonymousCache.allowStale
     });
   }
 }
@@ -366,9 +376,19 @@ function cacheCheck(req, res, next) {
   }
 
   // If cached copy exists, return it to the user.
-  if (cachedCopy) {
+  if (cachedCopy && cachedCopy.page) {
+    if (cachedCopy.headers) {
+      Object.keys(cachedCopy.headers).forEach((header) => {
+        if (cachedCopy.headers[header]) {
+          if (environment.cache.serverSide.debug) {
+            console.log(`Restore cached ${header} header`);
+          }
+          res.setHeader(header, cachedCopy.headers[header]);
+        }
+      });
+    }
     res.locals.ssr = true;  // mark response as SSR-generated (enables text compression)
-    res.send(cachedCopy);
+    res.send(cachedCopy.page);
 
     // Tell Express to skip all other handlers for this path
     // This ensures we don't try to re-render the page since we've already returned the cached copy
@@ -443,22 +463,50 @@ function saveToCache(req, page: any) {
     const key = getCacheKey(req);
     // Avoid caching "/reload/[random]" paths (these are hard refreshes after logout)
     if (key.startsWith('/reload')) { return; }
+    // Avoid caching not successful responses (status code different from 2XX status)
+    if (hasNotSucceeded(req.res.statusCode)) { return; }
 
+    // Retrieve response headers to save, if any
+    const headers = retrieveHeaders(req.res);
     // If bot cache is enabled, save it to that cache if it doesn't exist or is expired
     // (NOTE: has() will return false if page is expired in cache)
     if (botCacheEnabled() && !botCache.has(key)) {
-      botCache.set(key, page);
+      botCache.set(key, { page, headers });
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
     }
 
     // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
     if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
-      anonymousCache.set(key, page);
+      anonymousCache.set(key, { page, headers });
       if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
   }
 }
 
+/**
+ * Check if status code is different from 2XX
+ * @param statusCode
+ */
+function hasNotSucceeded(statusCode) {
+  const rgx = new RegExp(/^20+/);
+  return !rgx.test(statusCode);
+}
+
+function retrieveHeaders(response) {
+  const headers = Object.create({});
+  if (Array.isArray(environment.cache.serverSide.headers) && environment.cache.serverSide.headers.length > 0) {
+    environment.cache.serverSide.headers.forEach((header) => {
+      if (response.hasHeader(header)) {
+        if (environment.cache.serverSide.debug) {
+          console.log(`Save ${header} header to cache`);
+        }
+        headers[header] = response.getHeader(header);
+      }
+    });
+  }
+
+  return headers;
+}
 /**
  * Whether a user is authenticated or not
  */
@@ -479,23 +527,46 @@ function serverStarted() {
  * @param keys SSL credentials
  */
 function createHttpsServer(keys) {
-  createServer({
+  const listener = createServer({
     key: keys.serviceKey,
     cert: keys.certificate
   }, app).listen(environment.ui.port, environment.ui.host, () => {
     serverStarted();
   });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({server: listener});
+  process.on('SIGINT', () => {
+      void (async ()=> {
+        console.debug('Closing HTTPS server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTPS server closed');
+      })();
+      });
 }
 
+/**
+ * Create an HTTP server with the configured port and host.
+ */
 function run() {
   const port = environment.ui.port || 4000;
   const host = environment.ui.host || '/';
 
   // Start up the Node server
   const server = app();
-  server.listen(port, host, () => {
+  const listener = server.listen(port, host, () => {
     serverStarted();
   });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({server: listener});
+  process.on('SIGINT', () => {
+      void (async () => {
+        console.debug('Closing HTTP server on signal');
+        await terminator.terminate().catch(e => { console.error(e); });
+        console.debug('HTTP server closed.');return undefined;
+        })();
+      });
 }
 
 function start() {

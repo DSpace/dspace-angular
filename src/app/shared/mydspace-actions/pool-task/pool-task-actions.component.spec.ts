@@ -131,7 +131,13 @@ describe('PoolTaskActionsComponent', () => {
   it('should display claim task button', () => {
     const btn = fixture.debugElement.query(By.css('.btn-info'));
 
-    expect(btn).toBeDefined();
+    expect(btn).not.toBeNull();
+  });
+
+  it('should display view button', () => {
+    const btn = fixture.debugElement.query(By.css('button[data-test="view-btn"]'));
+
+    expect(btn).not.toBeNull();
   });
 
   it('should display view button', () => {

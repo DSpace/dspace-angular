@@ -1,7 +1,7 @@
 <td class="dso-info">
   <ng-container *ngIf="!!dso">
-    <ds-type-badge [object]="dso"></ds-type-badge>
-    <p><a [routerLink]="[getPageRoutePrefix(), dso.id]">{{dso.name}}</a></p>
+    <ds-themed-type-badge [object]="dso"></ds-themed-type-badge>
+    <p><a [routerLink]="[getPageRoutePrefix(), dso.id]">{{ dsoNameService.getName(dso) }}</a></p>
   </ng-container>
   <ng-container *ngIf="!dso">
     <p class="my-0">{{ 'subscriptions.table.not-available' | translate }}</p>

@@ -2,12 +2,10 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
-import {
-  MyDspaceItemStatusType
-} from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
 /**
@@ -32,9 +30,9 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() object: SearchResult<any>;
 
   /**
-   * Represent item's status
+   * Represents the badge context
    */
-  @Input() status: MyDspaceItemStatusType;
+  @Input() badgeContext: Context;
 
   /**
    * A boolean representing if to show submitter information
@@ -55,7 +53,7 @@ export class ItemListPreviewComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    private dsoNameService: DSONameService,
+    public dsoNameService: DSONameService,
   ) {
   }
 

@@ -3,6 +3,8 @@ import { hasValue } from '../shared/empty.util';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -21,6 +23,7 @@ export class FooterComponent implements OnInit {
   showTopFooter = false;
   showPrivacyPolicy = environment.info.enablePrivacyStatement;
   showEndUserAgreement = environment.info.enableEndUserAgreement;
+  showSendFeedback$: Observable<boolean>;
 
   /**
    * The company url which customized this DSpace with redirection to the DSpace section
@@ -32,14 +35,17 @@ export class FooterComponent implements OnInit {
    */
   themedByCompanyName$: Observable<RemoteData<ConfigurationProperty>>;
 
-  constructor(@Optional() private cookies: KlaroService,
-              protected configurationDataService: ConfigurationDataService) {
+  constructor(
+    @Optional() private cookies: KlaroService,
+    private authorizationService: AuthorizationDataService,
+    protected configurationDataService: ConfigurationDataService
+  ) {
+    this.showSendFeedback$ = this.authorizationService.isAuthorized(FeatureID.CanSendFeedback);
   }
 
   ngOnInit(): void {
     this.loadThemedByProps();
   }
-
   showCookieSettings() {
     if (hasValue(this.cookies)) {
       this.cookies.showSettings();

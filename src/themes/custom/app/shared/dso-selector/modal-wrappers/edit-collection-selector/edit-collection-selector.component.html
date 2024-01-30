@@ -6,6 +6,6 @@
   </div>
   <div class="modal-body">
     <h5 *ngIf="header" class="px-2">{{header | translate}}</h5>
-    <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" (onSelect)="selectObject($event)"></ds-dso-selector>
+    <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
   </div>
 </div>

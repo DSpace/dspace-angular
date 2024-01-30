@@ -147,12 +147,12 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
 
   constructor(
-    private searchService: SearchService,
-    private selectableListService: SelectableListService,
+    protected searchService: SearchService,
+    protected selectableListService: SelectableListService,
     public searchConfigService: SearchConfigurationService,
     public lookupRelationService: LookupRelationService,
-    private relationshipService: RelationshipDataService,
-    private paginationService: PaginationService
+    protected relationshipService: RelationshipDataService,
+    protected paginationService: PaginationService,
   ) {
   }
 

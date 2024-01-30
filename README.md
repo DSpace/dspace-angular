@@ -157,8 +157,8 @@ DSPACE_UI_SSL => DSPACE_SSL
 
 The same settings can also be overwritten by setting system environment variables instead, E.g.:
 ```bash
-export DSPACE_HOST=api7.dspace.org
-export DSPACE_UI_PORT=4200
+export DSPACE_HOST=demo.dspace.org
+export DSPACE_UI_PORT=4000
 ```
 
 The priority works as follows: **environment variable** overrides **variable in `.env` file** overrides external config set by `DSPACE_APP_CONFIG_PATH` overrides **`config.(prod or dev).yml`**
@@ -288,7 +288,7 @@ E2E tests (aka integration tests) use [Cypress.io](https://www.cypress.io/). Con
 The test files can be found in the `./cypress/integration/` folder.
 
 Before you can run e2e tests, two things are REQUIRED:
-1. You MUST be running the DSpace backend (i.e. REST API) locally. The e2e tests will *NOT* succeed if run against our demo REST API (https://api7.dspace.org/server/), as that server is uncontrolled and may have content added/removed at any time.
+1. You MUST be running the DSpace backend (i.e. REST API) locally. The e2e tests will *NOT* succeed if run against our demo/sandbox REST API (https://demo.dspace.org/server/ or https://sandbox.dspace.org/server/), as those sites may have content added/removed at any time.
     * After starting up your backend on localhost, make sure either your `config.prod.yml` or `config.dev.yml` has its `rest` settings defined to use that localhost backend.
 	* If you'd prefer, you may instead use environment variables as described at [Configuring](#configuring). For example:
        ```
@@ -413,8 +413,7 @@ dspace-angular
 │   ├── merge-i18n-files.ts                             *
 │   ├── serve.ts                                        *
 │   ├── sync-i18n-files.ts                              *
-│   ├── test-rest.ts                                    *
-│   └── webpack.js                                      *
+│   └── test-rest.ts                                    *
 ├── src                                                 * The source of the application
 │   ├── app                                             * The source code of the application, subdivided by module/page.
 │   ├── assets                                          * Folder for static resources

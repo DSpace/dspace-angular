@@ -1,6 +1,6 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 
@@ -22,7 +22,7 @@ describe('FormService test suite', () => {
   const formId = 'testForm';
   let service: FormService;
   let builderService: FormBuilderService;
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
 
   const formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({ id: 'author', value: 'test' }),
@@ -104,18 +104,18 @@ describe('FormService test suite', () => {
         .subscribe((state) => {
           state.forms = formState;
         });
-      const author: AbstractControl = new FormControl('test');
-      const title: AbstractControl = new FormControl(undefined, Validators.required);
-      const date: AbstractControl = new FormControl(undefined);
-      const description: AbstractControl = new FormControl(undefined);
+      const author: AbstractControl = new UntypedFormControl('test');
+      const title: AbstractControl = new UntypedFormControl(undefined, Validators.required);
+      const date: AbstractControl = new UntypedFormControl(undefined);
+      const description: AbstractControl = new UntypedFormControl(undefined);
 
-      const addressLocation: FormGroup = new FormGroup({
-        zipCode: new FormControl(undefined),
-        state: new FormControl(undefined),
-        city: new FormControl(undefined),
+      const addressLocation: UntypedFormGroup = new UntypedFormGroup({
+        zipCode: new UntypedFormControl(undefined),
+        state: new UntypedFormControl(undefined),
+        city: new UntypedFormControl(undefined),
       });
 
-      formGroup = new FormGroup({ author, title, date, description, addressLocation });
+      formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation });
       controls = { author, title, date, description , addressLocation };
       service = new FormService(builderService, store);
     })

@@ -13,12 +13,12 @@
 
                 <div class="file-section row mb-3" *ngFor="let file of originals?.page;">
                     <div class="col-3">
-                        <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
+                        <ds-themed-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-themed-thumbnail>
                     </div>
                     <div class="col-7">
                         <dl class="row">
                             <dt class="col-md-4">{{"item.page.filesection.name" | translate}}</dt>
-                            <dd class="col-md-8">{{file.name}}</dd>
+                            <dd class="col-md-8">{{ dsoNameService.getName(file) }}</dd>
 
                             <dt class="col-md-4">{{"item.page.filesection.size" | translate}}</dt>
                             <dd class="col-md-8">{{(file.sizeBytes) | dsFileSize }}</dd>
@@ -27,9 +27,10 @@
                             <dt class="col-md-4">{{"item.page.filesection.format" | translate}}</dt>
                             <dd class="col-md-8">{{(file.format | async)?.payload?.description}}</dd>
 
-
+                          <ng-container *ngIf="file.hasMetadata('dc.description')">
                             <dt class="col-md-4">{{"item.page.filesection.description" | translate}}</dt>
                             <dd class="col-md-8">{{file.firstMetadataValue("dc.description")}}</dd>
+                          </ng-container>
                         </dl>
                     </div>
                     <div class="col-2">
@@ -55,12 +56,12 @@
 
                 <div class="file-section row" *ngFor="let file of licenses?.page;">
                     <div class="col-3">
-                        <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
+                        <ds-themed-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-themed-thumbnail>
                     </div>
                     <div class="col-7">
                         <dl class="row">
                             <dt class="col-md-4">{{"item.page.filesection.name" | translate}}</dt>
-                            <dd class="col-md-8">{{file.name}}</dd>
+                            <dd class="col-md-8">{{ dsoNameService.getName(file) }}</dd>
 
                             <dt class="col-md-4">{{"item.page.filesection.size" | translate}}</dt>
                             <dd class="col-md-8">{{(file.sizeBytes) | dsFileSize }}</dd>

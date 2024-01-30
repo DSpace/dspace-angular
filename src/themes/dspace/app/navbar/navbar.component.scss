@@ -1,4 +1,13 @@
 nav.navbar {
+  align-items: baseline;
+
+  .navbar-inner-container {
+    border-top: 1px var(--ds-header-navbar-border-top-color) solid;
+  }
+}
+
+.navbar-nav {
+  background-color: var(--ds-navbar-bg);
   border-top: 1px var(--ds-header-navbar-border-top-color) solid;
   border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid;
   align-items: baseline;
@@ -13,13 +22,15 @@ nav.navbar {
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)-0.02) {
   .navbar {
-    width: 100%;
+    width: 100vw;
     background-color: var(--bs-white);
     position: absolute;
     overflow: hidden;
     height: 0;
+    z-index: var(--ds-nav-z-index);
     &.open {
       height: 100vh; //doesn't matter because wrapper is sticky
+      //border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
     }
   }
 }
@@ -55,8 +66,9 @@ a.navbar-brand img {
 .navbar-nav {
   ::ng-deep a.nav-link {
     color: var(--ds-navbar-link-color);
-  }
-  ::ng-deep a.nav-link:hover {
-    color: var(--ds-navbar-link-color-hover);
+
+    &:hover, &:focus {
+      color: var(--ds-navbar-link-color-hover);
+    }
   }
 }

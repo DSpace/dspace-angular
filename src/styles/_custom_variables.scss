@@ -16,7 +16,7 @@
 
   --lt-clarin-gray-border: #d7d7d7;
 
-  --ds-content-spacing: #{$spacer * 1.5};
+  --ds-content-spacing: #{$spacer}; // equivalent to Bootstrap spaces of size 3
 
   --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};
 
@@ -41,10 +41,14 @@
   --ds-header-logo-height-xs: 50px;
   --ds-header-icon-color: #{$link-color};
   --ds-header-icon-color-hover: #{$link-hover-color};
+  --ds-navbar-bg: var(--ds-header-bg);
   --ds-header-navbar-border-top-color: #{$white};
   --ds-header-navbar-border-bottom-color: #{$gray-400};
   --ds-navbar-link-color: #{$cyan};
   --ds-navbar-link-color-hover: #{darken($cyan, 15%)};
+  --ds-expandable-navbar-bg: var(--ds-navbar-bg);
+  --ds-expandable-navbar-link-color: var(--ds-navbar-link-color);
+  --ds-expandable-navbar-link-color-hover: var(--ds-navbar-link-color-hover);
 
   $admin-sidebar-bg: darken(#2B4E72, 17%);
   $admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);

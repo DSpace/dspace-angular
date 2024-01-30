@@ -1,4 +1,5 @@
-import { globalCSSImports, projectRoot } from './helpers';
+import { globalCSSImports, projectRoot, getFileHashes, calculateFileHash } from './helpers';
+import { EnvironmentPlugin } from 'webpack';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
@@ -18,8 +19,9 @@ export const copyWebpackOptions = {
         // use [\/|\\] to match both POSIX and Windows separators
         const matches = absoluteFilename.match(/.*[\/|\\]assets[\/|\\](.+)\.json5$/);
         if (matches) {
+          const fileHash: string = process.env.NODE_ENV === 'production' ? `.${calculateFileHash(absoluteFilename)}` : '';
           // matches[1] is the relative path from src/assets to the JSON5 file, without the extension
-          return path.join('assets', matches[1] + '.json');
+          return path.join('assets', `${matches[1]}${fileHash}.json`);
         }
       },
       transform(content) {
@@ -93,6 +95,9 @@ const SCSS_LOADERS = [
 
 export const commonExports = {
   plugins: [
+    new EnvironmentPlugin({
+      languageHashes: getFileHashes(path.join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
+    }),
     new CopyWebpackPlugin(copyWebpackOptions),
   ],
   module: {

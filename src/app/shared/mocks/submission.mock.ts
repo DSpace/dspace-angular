@@ -1668,11 +1668,7 @@ export const mockFileFormData = {
         ],
         endDate: [
           {
-            value: {
-              year: 2019,
-              month: 1,
-              day: 16
-            },
+            value: new Date('2019-01-16'),
             language: null,
             authority: null,
             display: {
@@ -1694,7 +1690,7 @@ export const mockFileFormData = {
             value: 'embargo',
             language: null,
             authority: null,
-            display: 'lease',
+            display: 'embargo',
             confidence: -1,
             place: 0,
             otherInformation: null
@@ -1702,11 +1698,7 @@ export const mockFileFormData = {
         ],
         startDate: [
           {
-            value: {
-              year: 2019,
-              month: 1,
-              day: 16
-            },
+            value: new Date('2019-01-16'),
             language: null,
             authority: null,
             display: {

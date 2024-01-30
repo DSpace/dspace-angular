@@ -19,9 +19,9 @@ import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import {TombstoneComponent} from './tombstone/tombstone.component';
-import { ClarinMatomoStatisticsComponent } from './clarin-matomo-statistics/clarin-matomo-statistics.component';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import { TombstoneComponent } from './tombstone/tombstone.component';
+import { ClarinMatomoStatisticsComponent } from './clarin-matomo-statistics/clarin-matomo-statistics.component';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
@@ -64,6 +64,11 @@ import {
           {
             path: REQUEST_COPY_MODULE_PATH,
             component: BitstreamRequestACopyPageComponent,
+          },
+          {
+            path: ORCID_PATH,
+            component: OrcidPageComponent,
+            canActivate: [AuthenticatedGuard, OrcidPageGuard]
           },
           {
             path: TOMBSTONE_ITEM_PATH,

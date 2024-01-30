@@ -9,6 +9,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-collection-search-result-grid-element',
@@ -23,11 +24,12 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
   private _dso: Collection;
 
   constructor(
+    public dsoNameService: DSONameService,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService
   ) {
-    super(truncatableService, bitstreamDataService);
+    super(dsoNameService, truncatableService, bitstreamDataService);
   }
 
   // @ts-ignore

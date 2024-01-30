@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Observable, of as observableOf, Subscription, zip as observableZip } from 'rxjs';
+import { Observable, Subscription, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -135,20 +135,16 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     );
 
     // Send out delete requests for all deleted bitstreams
-    const removedResponses$ = removedBitstreams$.pipe(
+    const removedResponses$: Observable<RemoteData<NoContent>> = removedBitstreams$.pipe(
       take(1),
-      switchMap((removedBistreams: Bitstream[]) => {
-        if (isNotEmpty(removedBistreams)) {
-          return observableZip(...removedBistreams.map((bitstream: Bitstream) => this.bitstreamService.delete(bitstream.id)));
-        } else {
-          return observableOf(undefined);
-        }
+      switchMap((removedBitstreams: Bitstream[]) => {
+        return this.bitstreamService.removeMultiple(removedBitstreams);
       })
     );
 
     // Perform the setup actions from above in order and display notifications
-    removedResponses$.pipe(take(1)).subscribe((responses: RemoteData<NoContent>[]) => {
-      this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
+    removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
+      this.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
       this.submitting = false;
     });
   }

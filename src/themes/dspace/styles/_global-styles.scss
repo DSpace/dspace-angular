@@ -18,7 +18,7 @@
     background-color: var(--bs-primary);
   }
 
-  h5 {
+  h4 {
     font-size: 1.1rem
   }
 }
@@ -40,6 +40,16 @@
   background-color: #fcf8e3 !important;
   border: 1px solid #fbeed5 !important;
   color: #c09853 !important;
+}
+
+header {
+  li > .navbar-section,
+  li > .expandable-navbar-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
 }
 
 .ng-toggle-on {

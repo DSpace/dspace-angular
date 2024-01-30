@@ -9,7 +9,7 @@ import {Subject} from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '../../../../empty.util';
+import {hasValue} from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 
@@ -55,6 +55,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.metadataFields = config.metadataFields;
     this.hint = config.hint;
     this.readOnly = config.readOnly;
+    this.disabled = config.readOnly;
     this.value = config.value;
     this.relationship = config.relationship;
     this.submissionId = config.submissionId;

@@ -2,7 +2,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -31,6 +31,10 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -43,6 +47,8 @@ describe('EPersonFormComponent', () => {
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
   let epersonRegistrationService: EpersonRegistrationService;
+  let route: ActivatedRouteStub;
+  let router: RouterStub;
 
   let paginationService;
 
@@ -106,6 +112,9 @@ describe('EPersonFormComponent', () => {
       },
       getEPersonByEmail(email): Observable<RemoteData<EPerson>> {
         return createSuccessfulRemoteDataObject$(null);
+      },
+      findById(_id: string, _useCachedVersionIfAvailable = true, _reRequestOnStale = true, ..._linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson>> {
+        return createSuccessfulRemoteDataObject$(null);
       }
     };
     builderService = Object.assign(getMockFormBuilderService(),{
@@ -116,9 +125,9 @@ describe('EPersonFormComponent', () => {
             const controlModel = model;
             const controlState = { value: controlModel.value, disabled: controlModel.disabled };
             const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
-            controls[model.id] = new FormControl(controlState, controlOptions);
+            controls[model.id] = new UntypedFormControl(controlState, controlOptions);
         });
-        return new FormGroup(controls, options);
+        return new UntypedFormGroup(controls, options);
       },
       createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
         return {
@@ -182,6 +191,8 @@ describe('EPersonFormComponent', () => {
     });
 
     paginationService = new PaginationServiceStub();
+    route = new ActivatedRouteStub();
+    router = new RouterStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
@@ -202,6 +213,8 @@ describe('EPersonFormComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: Router, useValue: router },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -263,24 +276,18 @@ describe('EPersonFormComponent', () => {
       fixture.detectChanges();
     });
     describe('firstName, lastName and email should be required', () => {
-      it('form should be invalid because the firstName is required', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.formGroup.controls.firstName.valid).toBeFalse();
-          expect(component.formGroup.controls.firstName.errors.required).toBeTrue();
-        });
-      }));
-      it('form should be invalid because the lastName is required', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.formGroup.controls.lastName.valid).toBeFalse();
-          expect(component.formGroup.controls.lastName.errors.required).toBeTrue();
-        });
-      }));
-      it('form should be invalid because the email is required', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.formGroup.controls.email.valid).toBeFalse();
-          expect(component.formGroup.controls.email.errors.required).toBeTrue();
-        });
-      }));
+      it('form should be invalid because the firstName is required', () => {
+        expect(component.formGroup.controls.firstName.valid).toBeFalse();
+        expect(component.formGroup.controls.firstName.errors.required).toBeTrue();
+      });
+      it('form should be invalid because the lastName is required', () => {
+        expect(component.formGroup.controls.lastName.valid).toBeFalse();
+        expect(component.formGroup.controls.lastName.errors.required).toBeTrue();
+      });
+      it('form should be invalid because the email is required', () => {
+        expect(component.formGroup.controls.email.valid).toBeFalse();
+        expect(component.formGroup.controls.email.errors.required).toBeTrue();
+      });
     });
 
     describe('after inserting information firstName,lastName and email not required', () => {
@@ -290,24 +297,18 @@ describe('EPersonFormComponent', () => {
         component.formGroup.controls.email.setValue('test@test.com');
         fixture.detectChanges();
       });
-      it('firstName should be valid because the firstName is set', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('firstName should be valid because the firstName is set', () => {
           expect(component.formGroup.controls.firstName.valid).toBeTrue();
           expect(component.formGroup.controls.firstName.errors).toBeNull();
-        });
-      }));
-      it('lastName should be valid because the lastName is set', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      });
+      it('lastName should be valid because the lastName is set', () => {
           expect(component.formGroup.controls.lastName.valid).toBeTrue();
           expect(component.formGroup.controls.lastName.errors).toBeNull();
-        });
-      }));
-      it('email should be valid because the email is set', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      });
+      it('email should be valid because the email is set', () => {
           expect(component.formGroup.controls.email.valid).toBeTrue();
           expect(component.formGroup.controls.email.errors).toBeNull();
-        });
-      }));
+      });
     });
 
 
@@ -316,12 +317,10 @@ describe('EPersonFormComponent', () => {
         component.formGroup.controls.email.setValue('test@test');
         fixture.detectChanges();
       });
-      it('email should not be valid because the email pattern', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('email should not be valid because the email pattern', () => {
           expect(component.formGroup.controls.email.valid).toBeFalse();
           expect(component.formGroup.controls.email.errors.pattern).toBeTruthy();
-        });
-      }));
+      });
     });
 
     describe('after already utilized email', () => {
@@ -336,12 +335,10 @@ describe('EPersonFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('email should not be valid because email is already taken', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('email should not be valid because email is already taken', () => {
           expect(component.formGroup.controls.email.valid).toBeFalse();
           expect(component.formGroup.controls.email.errors.emailTaken).toBeTruthy();
-        });
-      }));
+      });
     });
 
 
@@ -393,11 +390,9 @@ describe('EPersonFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new eperson using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
-        });
-      }));
+      it('should emit a new eperson using the correct values', () => {
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
+      });
     });
 
     describe('with an active eperson', () => {
@@ -428,11 +423,9 @@ describe('EPersonFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit the existing eperson using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
-        });
-      }));
+      it('should emit the existing eperson using the correct values', () => {
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
+      });
     });
   });
 
@@ -491,16 +484,16 @@ describe('EPersonFormComponent', () => {
 
     });
 
-    it('the delete button should be active if the eperson can be deleted', () => {
+    it('the delete button should be visible if the ePerson can be deleted', () => {
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton).not.toBeNull();
     });
 
-    it('the delete button should be disabled if the eperson cannot be deleted', () => {
+    it('the delete button should be hidden if the ePerson cannot be deleted', () => {
       component.canDelete$ = observableOf(false);
       fixture.detectChanges();
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(true);
+      expect(deleteButton).toBeNull();
     });
 
     it('should call the epersonFormComponent delete when clicked on the button', () => {

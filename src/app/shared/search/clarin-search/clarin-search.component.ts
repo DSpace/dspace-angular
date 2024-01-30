@@ -84,7 +84,7 @@ export class ClarinSearchComponent extends SearchComponent implements OnInit {
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
-    this.sub = combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
+    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
       filter(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
@@ -115,6 +115,6 @@ export class ClarinSearchComponent extends SearchComponent implements OnInit {
         this.retrieveSearchResults(newSearchOptions);
         this.retrieveFilters(searchOptions);
       }
-    });
+    }));
   }
 }

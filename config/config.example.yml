@@ -22,7 +22,7 @@ ui:
 # 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
 rest:
   ssl: true
-  host: api7.dspace.org
+  host: demo.dspace.org
   port: 443
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /server
@@ -75,7 +75,7 @@ cache:
     anonymousCache:
       # Maximum number of pages to cache. Default is zero (0) which means anonymous user cache is disabled.
       # As all pages are cached in server memory, increasing this value will increase memory needs.
-      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory. 
+      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory.
       max: 0
       # Amount of time after which cached pages are considered stale (in ms). After becoming stale, the cached
       # copy is automatically refreshed on the next request.
@@ -187,6 +187,9 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
+  - code: it
+    label: Italiano
+    active: true
   - code: lv
     label: Latviešu
     active: true
@@ -205,6 +208,9 @@ languages:
   - code: pt-BR
     label: Português do Brasil
     active: true
+  - code: sr-lat
+    label: Srpski (lat)
+    active: true
   - code: fi
     label: Suomi
     active: true
@@ -213,6 +219,9 @@ languages:
     active: true
   - code: tr
     label: Türkçe
+    active: true
+  - code: vi
+    label: Tiếng Việt
     active: true
   - code: kk
     label: Қазақ
@@ -225,6 +234,9 @@ languages:
     active: true
   - code: el
     label: Ελληνικά
+    active: true
+  - code: sr-cyr
+    label: Српски
     active: true
   - code: uk
     label: Yкраї́нська
@@ -286,33 +298,33 @@ themes:
   #
   # # A theme with a handle property will match the community, collection or item with the given
   # # handle, and all collections and/or items within it
-  # - name: 'custom',
-  #   handle: '10673/1233'
+  # - name: custom
+  #   handle: 10673/1233
   #
   # # A theme with a regex property will match the route using a regular expression. If it
   # # matches the route for a community or collection it will also apply to all collections
   # # and/or items within it
-  # - name: 'custom',
-  #   regex: 'collections\/e8043bc2.*'
+  # - name: custom
+  #   regex: collections\/e8043bc2.*
   #
   # # A theme with a uuid property will match the community, collection or item with the given
   # # ID, and all collections and/or items within it
-  # - name: 'custom',
-  #   uuid: '0958c910-2037-42a9-81c7-dca80e3892b4'
+  # - name: custom
+  #   uuid: 0958c910-2037-42a9-81c7-dca80e3892b4
   #
   # # The extends property specifies an ancestor theme (by name). Whenever a themed component is not found
   # # in the current theme, its ancestor theme(s) will be checked recursively before falling back to default.
-  # - name: 'custom-A',
-  #   extends: 'custom-B',
+  # - name: custom-A
+  #   extends: custom-B
   #   # Any of the matching properties above can be used
-  #   handle: '10673/34'
+  #   handle: 10673/34
   #
-  # - name: 'custom-B',
-  #   extends: 'custom',
-  #   handle: '10673/12'
+  # - name: custom-B
+  #   extends: custom
+  #   handle: 10673/12
   #
   # # A theme with only a name will match every route
-  # name: 'custom'
+  # name: custom
   #
   # # This theme will use the default bootstrap styling for DSpace components
   # - name: BASE_THEME_NAME
@@ -369,3 +381,8 @@ vocabularies:
   - filter: 'subject'
     vocabulary: 'srsc'
     enabled: true
+
+# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query.
+comcolSelectionSort:
+  sortField: 'dc.title'
+  sortDirection: 'ASC'

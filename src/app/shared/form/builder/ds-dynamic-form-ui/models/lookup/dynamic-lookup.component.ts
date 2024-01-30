@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { of as observableOf, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged } from 'rxjs/operators';
@@ -30,7 +30,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: any;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
