@@ -7821,4 +7821,9 @@
   // "item.preview.dc.identifier.eisbn": "EISBN",
   "item.preview.dc.identifier.eisbn": "EISBN",
 
+  // "community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descrição do logotipo",
+
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descrição do logotipo",
 }
