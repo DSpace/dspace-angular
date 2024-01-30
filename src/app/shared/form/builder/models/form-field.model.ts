@@ -126,6 +126,9 @@ export class FormFieldModel {
   @autoserialize
   value: any;
 
+  @autoserialize
+  visibility: SectionVisibility;
+
   /**
    * Containing the definition of the complex input types - multiple inputs in one row
    */

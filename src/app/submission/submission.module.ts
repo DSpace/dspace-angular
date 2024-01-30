@@ -80,6 +80,7 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionClarinLicenseComponent,
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
+  SubmissionSectionSherpaPoliciesComponent,
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionClarinLicenseDistributionComponent,
   SubmissionSectionClarinNoticeComponent,
@@ -113,6 +114,7 @@ const DECLARATIONS = [
   PublisherPolicyComponent,
   PublicationInformationComponent,
   MetadataInformationComponent,
+  ThemedSubmissionSectionUploadFileComponent,
 ];
 
 @NgModule({
@@ -129,7 +131,6 @@ const DECLARATIONS = [
     NgbCollapseModule,
     NgbAccordionModule,
     UploadModule,
-    NgbModalModule,
     NgToggleModule
   ],
   declarations: DECLARATIONS,

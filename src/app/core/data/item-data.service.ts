@@ -46,7 +46,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { dataService } from './base/data-service.decorator';
-import {SearchData, SearchDataImpl} from './base/search-data';
+import {SearchData} from './base/search-data';
 import {FollowLinkConfig} from '../../shared/utils/follow-link-config.model';
 
 /**
@@ -251,7 +251,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   public getMoveItemEndpoint(itemId: string, inheritPolicies: boolean): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
-      map((endpoint: string) => `${endpoint}/owningCollection`),
+      map((endpoint: string) => `${endpoint}/owningCollection?inheritPolicies=${inheritPolicies}`)
     );
   }
 
@@ -407,7 +407,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
  */
 @Injectable()
 @dataService(ITEM)
-export class ItemDataService extends BaseItemDataService implements SearchData<Item> {
+export class ItemDataService extends BaseItemDataService {
   private searchData: SearchData<Item>;
   constructor(
     protected requestService: RequestService,
@@ -420,7 +420,6 @@ export class ItemDataService extends BaseItemDataService implements SearchData<I
     protected bundleService: BundleDataService,
   ) {
     super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {

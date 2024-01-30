@@ -1,5 +1,4 @@
 {
-
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Você não tem autorização para acessar esta página. Clique no botão abaixo para ir à página inicial.",
 
@@ -26,7 +25,6 @@
 
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "Ir à página inicial",
-
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Não encontramos a página que você procura. A página pode ter sido movida ou apagada. Você pode utilizar o botão abaixo para voltar à página inicial. ",
@@ -56,7 +54,7 @@
   "access-status.embargo.listelement.badge": "Embargo",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
- "access-status.metadata.only.listelement.badge": "Somente Metadadados",
+  "access-status.metadata.only.listelement.badge": "Somente Metadadados",
 
   // "access-status.open.access.listelement.badge": "Open Access",
   "access-status.open.access.listelement.badge": "Acesso aberto (Open Access)",
@@ -69,18 +67,6 @@
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   "admin.curation-tasks.breadcrumbs": "Tarefas de Curadoria do Sistema",
-
-  // "admin.curation-tasks.title": "System curation tasks",
-  "admin.curation-tasks.title": "Tarefas de Curadoria do Sistema",
-
-  // "admin.curation-tasks.header": "System curation tasks",
-  "admin.curation-tasks.header": "Tarefas de Curadoria do Sistema",
-
-  // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
-  "admin.registries.bitstream-formats.breadcrumbs": "Formatar registro",
-
-  // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Formatar Bitstream",
 
   // "admin.curation-tasks.title": "System curation tasks",
   "admin.curation-tasks.title": "Tarefas de curadoria do sistema",
@@ -205,8 +191,8 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nome",
 
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  // "admin.registries.bitstream-formats.table.id": "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
   "admin.registries.bitstream-formats.table.return": "Voltar",
@@ -283,7 +269,7 @@
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Campo",
 
-  // TODO New key - Add a translation
+  // "admin.registries.schema.fields.table.id": "ID",
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
@@ -343,6 +329,30 @@
   // "admin.registries.schema.title": "Metadata Schema Registry",
   "admin.registries.schema.title": "Registro de Esquema de Metadados",
 
+  // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management", (Auto-Translated)
+  "admin.access-control.bulk-access.breadcrumbs": "Gerenciamento de acesso em massa",
+
+  // "administrativeBulkAccess.search.results.head": "Search Results", (Auto-Translated)
+  "administrativeBulkAccess.search.results.head": "Resultados da Busca",
+
+  // "admin.access-control.bulk-access": "Bulk Access Management", (Auto-Translated)
+  "admin.access-control.bulk-access": "Gerenciamento de acesso em massa",
+
+  // "admin.access-control.bulk-access.title": "Bulk Access Management", (Auto-Translated)
+  "admin.access-control.bulk-access.title": "Gerenciamento de acesso em massa",
+
+  // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects", (Auto-Translated)
+  "admin.access-control.bulk-access-browse.header": "Etapa 1: Selecione objetos",
+
+  // "admin.access-control.bulk-access-browse.search.header": "Search", (Auto-Translated)
+  "admin.access-control.bulk-access-browse.search.header": "Procurar",
+
+  // "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})", (Auto-Translated)
+  "admin.access-control.bulk-access-browse.selected.header": "Seleção atual ({{number}})",
+
+  // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform", (Auto-Translated)
+  "admin.access-control.bulk-access-settings.header": "Etapa 2: Operação para executar",
+
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Apagar EPerson",
 
@@ -366,7 +376,6 @@
 
   // "admin.access-control.epeople.search.head": "Search",
   "admin.access-control.epeople.search.head": "Procurar",
-
 
   // "admin.access-control.epeople.button.see-all": "Browse All",
   "admin.access-control.epeople.button.see-all": "Pesquisar Todos",
@@ -431,7 +440,6 @@
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
   "admin.access-control.epeople.form.canLogIn": "Pode entrar",
 
-
   // "admin.access-control.epeople.form.requireCertificate": "Requires certificate",
   "admin.access-control.epeople.form.requireCertificate": "Requer certificado",
 
@@ -461,7 +469,6 @@
 
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao apagar EPerson \"{{name}}\"",
-
 
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro destes grupos:",
@@ -751,32 +758,14 @@
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Voltar",
 
-  //"admin.batch-import.breadcrumbs": "Import Batch",
-  "admin.batch-import.breadcrumbs": "Importar um Lote",
+  // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.", (Auto-Translated)
+  "admin.access-control.groups.form.tooltip.editGroupPage": "Nesta página, você pode modificar as propriedades e os membros de um grupo. Na seção superior, você pode editar o nome e a descrição do grupo, a menos que este seja um grupo de administração para uma coleção ou comunidade; nesse caso, o nome e a descrição do grupo são gerados automaticamente e não podem ser editados. Nas seções a seguir, você pode editar a associação ao grupo.Veja [o wiki] (https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) para obter mais detalhes.",
 
-  //"admin.batch-import.title": "Import Batch",
-  "admin.batch-import.title": "Importar um Lote",
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.", (Auto-Translated)
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para adicionar ou remover uma EPerson para/deste grupo, clique no botão 'Navegar por tudo' ou use a barra de pesquisa abaixo para pesquisar usuários (use o dropdown à esquerda da barra de pesquisa para escolher se deve pesquisar por metadados ou por e-mail). Em seguida, clique no ícone mais para cada usuário que você deseja adicionar na lista abaixo, ou o ícone da lata de lixo para cada usuário que você deseja remover. A lista abaixo pode ter várias páginas: use os controles da página abaixo da lista para navegar até as próximas páginas.",
 
-  //"admin.batch-import.page.header": "Import Batch",
-  "admin.batch-import.page.header": "Importar um Lote",
-
-  //"admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
-  "admin.batch-import.page.help": "Selecione a Coleção para o qual deseja importar. Arraste ou selecione um arquivo zip no formato Simple Archive Format (SAF) que inclua os Items para importar",
-
-  //"admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
-  "admin.batch-import.page.dropMsg": "Arraste e solte um lote ZIP para importar",
-
-  //"admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
-  "admin.batch-import.page.dropMsgReplace": "Arraste e solte um lote ZIP para substituir o lote para importar",
-
-  //"admin.batch-import.page.error.addFile": "Select Zip file first!",
-  "admin.batch-import.page.error.addFile": "Selecione um arquivo ZIP primeiro!",
-
-  //"admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  "admin.batch-import.page.validateOnly.hint": "Quando selecionado , o ZIP enviado sera validado. Você receberá um relatório das alterações detectadas, mas nenhuma alteração será salva.",
-
-  //"admin.batch-import.page.remove": "remove",
-  "admin.batch-import.page.remove": "remover",
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.", (Auto-Translated)
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Para adicionar ou remover um subgrupo de/para este grupo, clique no botão 'Navegar por tudo' ou use a barra de pesquisa abaixo para pesquisar por grupos. Em seguida, clique no ícone mais para cada grupo que você deseja adicionar na lista abaixo, ou o ícone da lata de lixo para cada grupo que você deseja remover. A lista abaixo pode ter várias páginas: use os controles da página abaixo da lista para navegar até as próximas páginas.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Pesquisa Administrativa",
@@ -823,29 +812,59 @@
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "Workflow",
 
+  // "admin.workflow.item.workspace": "Workspace", (Auto-Translated)
+  "admin.workflow.item.workspace": "Área de trabalho",
+
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Apagar",
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Devolver",
 
+  // "admin.workflow.item.policies": "Policies", (Auto-Translated)
+  "admin.workflow.item.policies": "Políticas",
+
+  // "admin.workflow.item.supervision": "Supervision", (Auto-Translated)
+  "admin.workflow.item.supervision": "Supervisão",
+
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Importar Metadados",
+
+  // "admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "Importar um Lote",
 
   // "admin.metadata-import.title": "Import Metadata",
   "admin.metadata-import.title": "Importar Metadados",
 
+  // "admin.batch-import.title": "Import Batch",
+  "admin.batch-import.title": "Importar um Lote",
+
   // "admin.metadata-import.page.header": "Import Metadata",
   "admin.metadata-import.page.header": "Importar Metadados",
+
+  // "admin.batch-import.page.header": "Import Batch",
+  "admin.batch-import.page.header": "Importar um Lote",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Você arrastar soltar ou procurar arquivos CSV que contêm operações de metadados em lote em arquivos aqui",
 
+  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Selecione a Coleção para o qual deseja importar. Arraste ou selecione um arquivo zip no formato Simple Archive Format (SAF) que inclua os Items para importar",
+
+  // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source", (Auto-Translated)
+  "admin.batch-import.page.toggle.help": "É possível executar a importação com o upload de arquivo ou via URL, use o controle acima para definir a fonte de entrada",
+
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Arraste um CSV de metadados para importar",
 
+  // "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+  "admin.batch-import.page.dropMsg": "Arraste e solte um lote ZIP para importar",
+
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
   "admin.metadata-import.page.dropMsgReplace": "Solte para substituir o CSV de metadados a ser importado",
+
+  // "admin.batch-import.page.dropMsgReplace": "Drop to replace the batch ZIP to import",
+  "admin.batch-import.page.dropMsgReplace": "Arraste e solte um lote ZIP para substituir o lote para importar",
 
   // "admin.metadata-import.page.button.return": "Back",
   "admin.metadata-import.page.button.return": "Voltar",
@@ -853,17 +872,131 @@
   // "admin.metadata-import.page.button.proceed": "Proceed",
   "admin.metadata-import.page.button.proceed": "Continuar",
 
-  //"admin.metadata-import.page.button.select-collection": "Select Collection",
+  // "admin.metadata-import.page.button.select-collection": "Select Collection",
   "admin.metadata-import.page.button.select-collection": "Selecione a  Coleção",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Selecione o arquivo primeiro!",
+
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!", (Auto-Translated)
+  "admin.metadata-import.page.error.addFileUrl": "Insira o URL do arquivo primeiro!",
+
+  // "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  "admin.batch-import.page.error.addFile": "Selecione um arquivo ZIP primeiro!",
+
+  // "admin.metadata-import.page.toggle.upload": "Upload", (Auto-Translated)
+  "admin.metadata-import.page.toggle.upload": "Carregar",
+
+  // "admin.metadata-import.page.toggle.url": "URL", (Auto-Translated)
+  "admin.metadata-import.page.toggle.url": "URL",
+
+  // "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import", (Auto-Translated)
+  "admin.metadata-import.page.urlMsg": "Insira o URL do lote em ZIP para importar",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
   "admin.metadata-import.page.validateOnly": "Validar Somente",
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
   "admin.metadata-import.page.validateOnly.hint": "Quando selecionado, o CSV carregado será validado. Você receberá um relatório das alterações detectadas, mas nenhuma alteração será salva.",
+
+  // "advanced-workflow-action.rating.form.rating.label": "Rating", (Auto-Translated)
+  "advanced-workflow-action.rating.form.rating.label": "Avaliação",
+
+  // "advanced-workflow-action.rating.form.rating.error": "You must rate the item", (Auto-Translated)
+  "advanced-workflow-action.rating.form.rating.error": "Você deve avaliar o item",
+
+  // "advanced-workflow-action.rating.form.review.label": "Review", (Auto-Translated)
+  "advanced-workflow-action.rating.form.review.label": "Análise",
+
+  // "advanced-workflow-action.rating.form.review.error": "You must enter a review to submit this rating", (Auto-Translated)
+  "advanced-workflow-action.rating.form.review.error": "Você deve inserir uma revisão para enviar esta classificação",
+
+  // "advanced-workflow-action.rating.description": "Please select a rating below", (Auto-Translated)
+  "advanced-workflow-action.rating.description": "Selecione uma classificação abaixo",
+
+  // "advanced-workflow-action.rating.description-requiredDescription": "Please select a rating below and also add a review", (Auto-Translated)
+  "advanced-workflow-action.rating.description-requiredDescription": "Selecione uma classificação abaixo e também adicione uma revisão",
+
+  // "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting", (Auto-Translated)
+  "advanced-workflow-action.select-reviewer.description-single": "Selecione um único revisor abaixo antes de enviar",
+
+  // "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting", (Auto-Translated)
+  "advanced-workflow-action.select-reviewer.description-multiple": "Selecione um ou mais revisores abaixo antes de enviar",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Adicione EPeople",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Navegar por tudo",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Membros atuais",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadata", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.metadata": "Metadados",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exact)", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.scope.email": "E-mail (exato)",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Procurar",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.id": "ID",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Name", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.name": "Nome",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identity", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.identity": "Identidade",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "Email", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.email": "E-mail",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.netid": "NetID",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remove / Add", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit": "Remover / adicionar",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remove member with name \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.remove": "Remova o membro com o nome \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Successfully added member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.addMember": "Membro adicionado com sucesso: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Failed to add member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.addMember": "Falha ao adicionar membro: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Successfully deleted member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.success.deleteMember": "Membro excluído com sucesso: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Failed to delete member: \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.deleteMember": "Falha ao excluir membro: \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Add member with name \"{{name}}\"", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Adicionar membro com o nome \"{{name}}\"",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "Nenhum grupo ativo atual, envie um nome primeiro.",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "Ainda não há membros do grupo, procure e adicione.",
+
+  // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "No EPeople found in that search", (Auto-Translated)
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-items": "Nenhuma EPeople encontrou nessa pesquisa",
+
+  // "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.", (Auto-Translated)
+  "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "Nenhum revisor selecionado.",
+
+  // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.batch-import.page.validateOnly.hint": "Quando selecionado , o ZIP enviado sera validado. Você receberá um relatório das alterações detectadas, mas nenhuma alteração será salva.",
+
+  // "admin.batch-import.page.remove": "remove",
+  "admin.batch-import.page.remove": "remover",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Endereço de email ou senha inválidos.",
@@ -874,12 +1007,11 @@
   // "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
   "auth.messages.token-refresh-failed": "Falha ao atualizar seu token de sessão. Por favor faça login novamente.",
 
-  // "bitstream.download.page": "Now downloading {{bitstream}}..." ,
-  "bitstream.download.page": "Baixando {{bitstream}} agora ..." ,
+  // "bitstream.download.page": "Now downloading {{bitstream}}...",
+  "bitstream.download.page": "Baixando {{bitstream}} agora ...",
 
-  // "bitstream.download.page.back": "Back" ,
-  "bitstream.download.page.back": "Voltar" ,
-
+  // "bitstream.download.page.back": "Back",
+  "bitstream.download.page.back": "Voltar",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   "bitstream.edit.authorizations.link": "Editar as políticas do bitstream's",
@@ -899,7 +1031,7 @@
   // "bitstream.edit.form.description.label": "Description",
   "bitstream.edit.form.description.label": "Descrição",
 
-  // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Autorizações...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
+  // "bitstream.edit.form.embargo.hint": "The first day from which access is allowed. <b>This date cannot be modified on this form.</b> To set an embargo date for a bitstream, go to the <i>Item Status</i> tab, click <i>Authorizations...</i>, create or edit the bitstream's <i>READ</i> policy, and set the <i>Start Date</i> as desired.",
   "bitstream.edit.form.embargo.hint": "O primeiro dia a partir do qual o acesso é permitido. <b>Esta data não pode ser modificada neste formulário.</b> Para definir uma data de embargo para este bitstream, vá para a guia <i>Status do Item</i>, clique em <i>Autorizações...</i >, crie ou edite a política <i>READ</i> do bitstream e defina a <i>Data de Início</i> conforme desejado.",
 
   // "bitstream.edit.form.embargo.label": "Embargo until specific date",
@@ -932,6 +1064,9 @@
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
   "bitstream.edit.notifications.error.format.title": "Um erro ocorreu salvando o formato do bitstream's",
 
+  // "bitstream.edit.notifications.error.primaryBitstream.title": "An error occurred saving the primary bitstream", (Auto-Translated)
+  "bitstream.edit.notifications.error.primaryBitstream.title": "Ocorreu um erro salvando o BitStream primário",
+
   // "bitstream.edit.form.iiifLabel.label": "IIIF Label",
   "bitstream.edit.form.iiifLabel.label": "Etiqueta IIIF",
 
@@ -956,7 +1091,6 @@
   // "bitstream.edit.form.iiifHeight.hint": "The canvas height should usually match the image height.",
   "bitstream.edit.form.iiifHeight.hint": "A altura da tela geralmente deve corresponder à altura da imagem.",
 
-
   // "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
   "bitstream.edit.notifications.saved.content": "Suas alterações neste bitstream foram salvas.",
 
@@ -980,6 +1114,7 @@
 
   // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
   "bitstream-request-a-copy.intro.bitstream.one": "Solicitando o seguinte arquivo: ",
+
   // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
   "bitstream-request-a-copy.intro.bitstream.all": "Solicitando todos os arquivos. ",
 
@@ -1034,6 +1169,12 @@
   // "browse.comcol.by.subject": "By Subject",
   "browse.comcol.by.subject": "Por Assunto",
 
+  // "browse.comcol.by.srsc": "By Subject Category", (Auto-Translated)
+  "browse.comcol.by.srsc": "Por categoria de assunto",
+
+  // "browse.comcol.by.nsi": "By Norwegian Science Index", (Auto-Translated)
+  "browse.comcol.by.nsi": "Pelo Índice de Ciências Norueguesas",
+
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Por Título",
 
@@ -1063,6 +1204,12 @@
 
   // "browse.metadata.subject.breadcrumbs": "Browse by Subject",
   "browse.metadata.subject.breadcrumbs": "Pesquisar por Assunto",
+
+  // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category", (Auto-Translated)
+  "browse.metadata.srsc.breadcrumbs": "Navegue por categoria de assunto",
+
+  // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index", (Auto-Translated)
+  "browse.metadata.nsi.breadcrumbs": "Navegue pelo Índice de Ciência Norueguês",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Pesquisar por Título",
@@ -1145,14 +1292,32 @@
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
   "browse.startsWith.type_text": "Filtrar resultados informando as primeiras letras:",
 
+  // "browse.startsWith.input": "Filter", (Auto-Translated)
+  "browse.startsWith.input": "Filtro",
+
+  // "browse.taxonomy.button": "Browse", (Auto-Translated)
+  "browse.taxonomy.button": "Navegar",
+
   // "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
-  "browse.title": "Navegando {{ collection }} por {{ field }} {{ value }}",
+  "browse.title": "Navegando {{ collection }} por {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
   "browse.title.page": "Navegando {{ collection }} por {{ field }} {{ value }}",
 
+  // "search.browse.item-back": "Back to Results", (Auto-Translated)
+  "search.browse.item-back": "De volta aos resultados",
+
   // "chips.remove": "Remove chip",
   "chips.remove": "Remover chip",
+
+  // "claimed-approved-search-result-list-element.title": "Approved", (Auto-Translated)
+  "claimed-approved-search-result-list-element.title": "Approved",
+
+  // "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter", (Auto-Translated)
+  "claimed-declined-search-result-list-element.title": "Rejeitado, enviado de volta ao submissor",
+
+  // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow", (Auto-Translated)
+  "claimed-declined-task-search-result-list-element.title": "Recusou, enviado de volta ao fluxo de trabalho do gerente de revisão",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Criar uma coleção",
@@ -1247,8 +1412,8 @@
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
   "collection.edit.item-mapper.remove": "Remover mapeamentos selecionados",
 
-  // "collection.edit.item-mapper.search-form.placeholder": "Search Item to Map...",
-  "collection.edit.item-mapper.search-form.placeholder": "Pesquisar Item a Mapear...",
+  // "collection.edit.item-mapper.search-form.placeholder": "Search items...",
+  "collection.edit.item-mapper.search-form.placeholder": "Pesquisar Itens...",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
   "collection.edit.item-mapper.tabs.browse": "Navegar por itens mapeados",
@@ -1286,8 +1451,14 @@
   // "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.edit.notifications.success": "Coleção editada com sucesso",
 
-  // "collection.edit.return": "Return",
+  // "collection.edit.return": "Back",
   "collection.edit.return": "Voltar",
+
+  // "collection.edit.tabs.access-control.head": "Access Control", (Auto-Translated)
+  "collection.edit.tabs.access-control.head": "Controle de acesso",
+
+  // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control", (Auto-Translated)
+  "collection.edit.tabs.access-control.title": "Edição de coleção - Controle de acesso",
 
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Curadoria",
@@ -1412,7 +1583,6 @@
   // "collection.edit.template.title": "Edit Template Item",
   "collection.edit.template.title": "Editar Template de Item",
 
-
   // "collection.form.abstract": "Short Description",
   "collection.form.abstract": "Descrição curta",
 
@@ -1472,48 +1642,70 @@
 
   // "collection.source.controls.head": "Harvest Controls",
   "collection.source.controls.head": "Controles de Colheita(Harvest)",
+
   // "collection.source.controls.test.submit.error": "Something went wrong with initiating the testing of the settings",
   "collection.source.controls.test.submit.error": "Alguma coisa errada durante a inicialização e teste das configurações",
+
   // "collection.source.controls.test.failed": "The script to test the settings has failed",
   "collection.source.controls.test.failed": "O script de teste das configurações falhou",
+
   // "collection.source.controls.test.completed": "The script to test the settings has successfully finished",
   "collection.source.controls.test.completed": "O script de teste das configurações terminou com sucesso",
+
   // "collection.source.controls.test.submit": "Test configuration",
   "collection.source.controls.test.submit": "Testar a configuração",
+
   // "collection.source.controls.test.running": "Testing configuration...",
   "collection.source.controls.test.running": "Testando a configuração...",
+
   // "collection.source.controls.import.submit.success": "The import has been successfully initiated",
   "collection.source.controls.import.submit.success": "A importação foi iniciada com sucesso",
+
   // "collection.source.controls.import.submit.error": "Something went wrong with initiating the import",
   "collection.source.controls.import.submit.error": "Alguma coisa errada durante a inicialização da importação",
+
   // "collection.source.controls.import.submit": "Import now",
   "collection.source.controls.import.submit": "Importar agora",
+
   // "collection.source.controls.import.running": "Importing...",
   "collection.source.controls.import.running": "Importando...",
+
   // "collection.source.controls.import.failed": "An error occurred during the import",
   "collection.source.controls.import.failed": "Um erro ocorreu durante a importação",
+
   // "collection.source.controls.import.completed": "The import completed",
   "collection.source.controls.import.completed": "A importação concluiu",
+
   // "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
   "collection.source.controls.reset.submit.success": "A redefinição e reimportação foram iniciadas com sucesso",
+
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
   "collection.source.controls.reset.submit.error": "Alguma coisa errada durante a inicialização da redefinição e reimportação",
+
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
   "collection.source.controls.reset.failed": "Um erro ocorreu durante a redifinição e reimportação",
+
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
   "collection.source.controls.reset.completed": "Completou a redefinição e a reimportação",
+
   // "collection.source.controls.reset.submit": "Reset and reimport",
   "collection.source.controls.reset.submit": "Redefinir e reimportar",
+
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
   "collection.source.controls.reset.running": "Redefinindo e importando...",
+
   // "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.status": "Status da Colheita (Harvest):",
+
   // "collection.source.controls.harvest.start": "Harvest start time:",
   "collection.source.controls.harvest.start": "Hora de ínicio da Colheita(Harvest):",
+
   // "collection.source.controls.harvest.last": "Last time harvested:",
   "collection.source.controls.harvest.last": "Última hora de colhida:",
+
   // "collection.source.controls.harvest.message": "Harvest info:",
   "collection.source.controls.harvest.message": "Informação sobre Colheita (Harvest):",
+
   // "collection.source.controls.harvest.no-information": "N/A",
   "collection.source.controls.harvest.no-information": "N/D",
 
@@ -1622,6 +1814,12 @@
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
   "community.edit.tabs.curate.title": "Editar Comunidade - Curador",
 
+  // "community.edit.tabs.access-control.head": "Access Control", (Auto-Translated)
+  "community.edit.tabs.access-control.head": "Controle de acesso",
+
+  // "community.edit.tabs.access-control.title": "Community Edit - Access Control", (Auto-Translated)
+  "community.edit.tabs.access-control.title": "Edição da comunidade - Controle de acesso",
+
   // "community.edit.tabs.metadata.head": "Edit Metadata",
   "community.edit.tabs.metadata.head": "Editar Metadado",
 
@@ -1688,7 +1886,6 @@
   // "comcol-role.edit.item_read.anonymous-group": "Default read for incoming items is currently set to Anonymous.",
   "comcol-role.edit.item_read.anonymous-group": "A leitura padrão para itens de entrada está atualmente definida como Anônima.",
 
-
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Acesso de leitura de bitstream padrão",
 
@@ -1698,13 +1895,11 @@
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "A leitura padrão para bitstreams de entrada está atualmente definida como Anônima.",
 
-
   // "comcol-role.edit.editor.name": "Editors",
   "comcol-role.edit.editor.name": "Editores",
 
   // "comcol-role.edit.editor.description": "Editors are able to edit the metadata of incoming submissions, and then accept or reject them.",
   "comcol-role.edit.editor.description": "Editores podem editar metadados de submissões de entrada, e  aceitar ou rejeitar elas.",
-
 
   // "comcol-role.edit.finaleditor.name": "Final editors",
   "comcol-role.edit.finaleditor.name": "Editores Finais",
@@ -1712,13 +1907,17 @@
   // "comcol-role.edit.finaleditor.description": "Final editors are able to edit the metadata of incoming submissions, but will not be able to reject them.",
   "comcol-role.edit.finaleditor.description": "Editores Finais podem editar os metadadods de submissões de entrada, mas não podem rejeitar elas.",
 
-
   // "comcol-role.edit.reviewer.name": "Reviewers",
   "comcol-role.edit.reviewer.name": "Revisores",
 
   // "comcol-role.edit.reviewer.description": "Reviewers are able to accept or reject incoming submissions. However, they are not able to edit the submission's metadata.",
   "comcol-role.edit.reviewer.description": "Revisores podem aceitar ou rejeitar submissões de entrada.. Entretanto, eles não podem editar os metadados da submissão.",
 
+  // "comcol-role.edit.scorereviewers.name": "Score Reviewers", (Auto-Translated)
+  "comcol-role.edit.scorereviewers.name": "Revisores de pontuação",
+
+  // "comcol-role.edit.scorereviewers.description": "Reviewers are able to give a score to incoming submissions, this will define whether the submission will be rejected or not.", (Auto-Translated)
+  "comcol-role.edit.scorereviewers.description": "Os revisores podem dar uma pontuação para os envios de entrada, isso definirá se o envio será rejeitado ou não.",
 
   // "community.form.abstract": "Short Description",
   "community.form.abstract": "Descrição curta",
@@ -1753,11 +1952,11 @@
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Sub-Comunidade e Coleções",
 
-  // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "Coleções desta Comunidade",
+  // "community.sub-collection-list.head": "Collections in this Community",
+  "community.sub-collection-list.head": "Coleções nesta Comunidade",
 
-  // "community.sub-community-list.head": "Communities of this Community",
-  "community.sub-community-list.head": "Comunidades desta Comunidade",
+  // "community.sub-community-list.head": "Communities in this Community",
+  "community.sub-community-list.head": "Comunidades nesta Comunidade",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Aceitar tudo",
@@ -1780,6 +1979,12 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre requerido)",
 
+  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.", (Auto-Translated)
+  "cookies.consent.app.disable-all.description": "Use esse comutador para ativar ou desativar todos os serviços.",
+
+  // "cookies.consent.app.disable-all.title": "Enable or disable all services", (Auto-Translated)
+  "cookies.consent.app.disable-all.title": "Ativar ou desativar todos os serviços",
+
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Houve alterações desde sua última visita, atualize seu consentimento.",
 
@@ -1788,6 +1993,15 @@
 
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Recusar",
+
+  // "cookies.consent.ok": "That's ok", (Auto-Translated)
+  "cookies.consent.ok": "Isso está ok",
+
+  // "cookies.consent.save": "Save", (Auto-Translated)
+  "cookies.consent.save": "Salvar",
+
+  // "cookies.consent.content-notice.title": "Cookie Consent", (Auto-Translated)
+  "cookies.consent.content-notice.title": "Consentimento de cookies",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>. <br/> Para aprender mais, por favor leia  nossa {privacyPolicy}.",
@@ -1809,6 +2023,12 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informações que coletamos",
+
+  // "cookies.consent.content-modal.services": "services", (Auto-Translated)
+  "cookies.consent.content-modal.services": "Serviços",
+
+  // "cookies.consent.content-modal.service": "service", (Auto-Translated)
+  "cookies.consent.content-modal.service": "serviço",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Authenticação",
@@ -1834,17 +2054,29 @@
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   "cookies.consent.app.description.google-analytics": "Nos permite rastrear dados estatísticos",
 
+  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha", (Auto-Translated)
+  "cookies.consent.app.title.google-recaptcha": "Google reCAPTCHA",
+
+  // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery", (Auto-Translated)
+  "cookies.consent.app.description.google-recaptcha": "Usamos o serviço Google reCAPTCHA durante o registro e recuperação de senha",
+
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funcional",
 
   // "cookies.consent.purpose.statistical": "Statistical",
   "cookies.consent.purpose.statistical": "Estatística",
 
-  // "curation-task.task.citationpage.label":  "Generate Citation Page",
-  "curation-task.task.citationpage.label":  "Gerar página de citação",
+  // "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery", (Auto-Translated)
+  "cookies.consent.purpose.registration-password-recovery": "Registro e recuperação de senha",
 
-  // "curation-task.task.checklinks.label":  "Check Links in Metadata",
-  "curation-task.task.checklinks.label":  "Verificar links em metadados",
+  // "cookies.consent.purpose.sharing": "Sharing", (Auto-Translated)
+  "cookies.consent.purpose.sharing": "Compartilhamento",
+
+  // "curation-task.task.citationpage.label": "Generate Citation Page",
+  "curation-task.task.citationpage.label": "Gerar página de citação",
+
+  // "curation-task.task.checklinks.label": "Check Links in Metadata",
+  "curation-task.task.checklinks.label": "Verificar links em metadados",
 
   // "curation-task.task.noop.label": "NOOP",
   "curation-task.task.noop.label": "NOOP",
@@ -1860,6 +2092,9 @@
 
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Escanear Virus",
+
+  // "curation-task.task.registerdoi.label": "Register DOI", (Auto-Translated)
+  "curation-task.task.registerdoi.label": "Registrar DOI",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Tarefa:",
@@ -1909,6 +2144,9 @@
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Sem título",
 
+  // "dso.name.unnamed": "Unnamed", (Auto-Translated)
+  "dso.name.unnamed": "Sem nome",
+
   // "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.collection.head": "Nova coleção",
 
@@ -1917,6 +2155,9 @@
 
   // "dso-selector.create.community.head": "New community",
   "dso-selector.create.community.head": "Nova comunidade",
+
+  // "dso-selector.create.community.or-divider": "or", (Auto-Translated)
+  "dso-selector.create.community.or-divider": "ou",
 
   // "dso-selector.create.community.sub-level": "Create a new community in",
   "dso-selector.create.community.sub-level": "Criar uma nova coleção em",
@@ -1948,10 +2189,10 @@
   // "dso-selector.export-metadata.dspaceobject.head": "Export metadata from",
   "dso-selector.export-metadata.dspaceobject.head": "Exportar metadados de",
 
-  //"dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
+  // "dso-selector.export-batch.dspaceobject.head": "Export Batch (ZIP) from",
   "dso-selector.export-batch.dspaceobject.head": "Exportar Lote (ZIP) de",
 
-  //"dso-selector.import-batch.dspaceobject.head": "Import batch from",
+  // "dso-selector.import-batch.dspaceobject.head": "Import batch from",
   "dso-selector.import-batch.dspaceobject.head": "Importar lote de",
 
   // "dso-selector.no-results": "No {{ type }} found",
@@ -1969,6 +2210,9 @@
   // "dso-selector.set-scope.community.button": "Search all of DSpace",
   "dso-selector.set-scope.community.button": "Pesquisar em todo o DSpace",
 
+  // "dso-selector.set-scope.community.or-divider": "or", (Auto-Translated)
+  "dso-selector.set-scope.community.or-divider": "ou",
+
   // "dso-selector.set-scope.community.input-header": "Search for a community or collection",
   "dso-selector.set-scope.community.input-header": "Pesquisar uma comunidade ou coleção",
 
@@ -1984,6 +2228,48 @@
   // "dso-selector.claim.item.create-from-scratch": "Create a new one",
   "dso-selector.claim.item.create-from-scratch": "Criar um novo",
 
+  // "dso-selector.results-could-not-be-retrieved": "Something went wrong, please refresh again ↻", (Auto-Translated)
+  "dso-selector.results-could-not-be-retrieved": "Algo deu errado, por favor, recarregue novamente ↻",
+
+  // "supervision-group-selector.header": "Supervision Group Selector", (Auto-Translated)
+  "supervision-group-selector.header": "Seletor de grupo de supervisão",
+
+  // "supervision-group-selector.select.type-of-order.label": "Select a type of Order", (Auto-Translated)
+  "supervision-group-selector.select.type-of-order.label": "Selecione um tipo de pedido",
+
+  // "supervision-group-selector.select.type-of-order.option.none": "NONE", (Auto-Translated)
+  "supervision-group-selector.select.type-of-order.option.none": "NENHUM",
+
+  // "supervision-group-selector.select.type-of-order.option.editor": "EDITOR", (Auto-Translated)
+  "supervision-group-selector.select.type-of-order.option.editor": "EDITOR",
+
+  // "supervision-group-selector.select.type-of-order.option.observer": "OBSERVER", (Auto-Translated)
+  "supervision-group-selector.select.type-of-order.option.observer": "OBSERVADOR",
+
+  // "supervision-group-selector.select.group.label": "Select a Group", (Auto-Translated)
+  "supervision-group-selector.select.group.label": "Selecione um grupo",
+
+  // "supervision-group-selector.button.cancel": "Cancel", (Auto-Translated)
+  "supervision-group-selector.button.cancel": "Cancelar",
+
+  // "supervision-group-selector.button.save": "Save", (Auto-Translated)
+  "supervision-group-selector.button.save": "Salvar",
+
+  // "supervision-group-selector.select.type-of-order.error": "Please select a type of order", (Auto-Translated)
+  "supervision-group-selector.select.type-of-order.error": "Selecione um tipo de pedido",
+
+  // "supervision-group-selector.select.group.error": "Please select a group", (Auto-Translated)
+  "supervision-group-selector.select.group.error": "Selecione um grupo",
+
+  // "supervision-group-selector.notification.create.success.title": "Successfully created supervision order for group {{ name }}", (Auto-Translated)
+  "supervision-group-selector.notification.create.success.title": "Ordem de supervisão criada com sucesso para o grupo {{ name }}",
+
+  // "supervision-group-selector.notification.create.failure.title": "Error", (Auto-Translated)
+  "supervision-group-selector.notification.create.failure.title": "Erro",
+
+  // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group", (Auto-Translated)
+  "supervision-group-selector.notification.create.already-existing": "Já existe uma ordem de supervisão neste item para o grupo selecionado",
+
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Exportar metadados para {{ dsoName }}",
 
@@ -1996,16 +2282,16 @@
   // "confirmation-modal.export-metadata.confirm": "Export",
   "confirmation-modal.export-metadata.confirm": "Exportar",
 
-  //"confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
+  // "confirmation-modal.export-batch.header": "Export batch (ZIP) for {{ dsoName }}",
   "confirmation-modal.export-batch.header": "Exportar lote (ZIP) para {{ dsoName }}",
 
-  //"confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
+  // "confirmation-modal.export-batch.info": "Are you sure you want to export batch (ZIP) for {{ dsoName }}",
   "confirmation-modal.export-batch.info": "Você tem certeza que deseja exportar o lote (ZIP) para {{ dsoName }}",
-  
-  //"confirmation-modal.export-batch.cancel": "Cancel",
+
+  // "confirmation-modal.export-batch.cancel": "Cancel",
   "confirmation-modal.export-batch.cancel": "Cancelar",
 
-  //"confirmation-modal.export-batch.confirm": "Export",
+  // "confirmation-modal.export-batch.confirm": "Export",
   "confirmation-modal.export-batch.confirm": "Exportar",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
@@ -2031,6 +2317,18 @@
 
   // "confirmation-modal.delete-profile.confirm": "Delete",
   "confirmation-modal.delete-profile.confirm": "Apagar",
+
+  // "confirmation-modal.delete-subscription.header": "Delete Subscription", (Auto-Translated)
+  "confirmation-modal.delete-subscription.header": "Excluir assinatura",
+
+  // "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"", (Auto-Translated)
+  "confirmation-modal.delete-subscription.info": "Tem certeza de que deseja excluir a assinatura para \"{{ dsoName }}\"",
+
+  // "confirmation-modal.delete-subscription.cancel": "Cancel", (Auto-Translated)
+  "confirmation-modal.delete-subscription.cancel": "Cancelar",
+
+  // "confirmation-modal.delete-subscription.confirm": "Delete", (Auto-Translated)
+  "confirmation-modal.delete-subscription.confirm": "Excluir",
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Erro ao carregar bitstream",
@@ -2104,6 +2402,27 @@
   // "error.validation.groupExists": "This group already exists",
   "error.validation.groupExists": "Este Grupo já existe",
 
+  // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead", (Auto-Translated)
+  "error.validation.metadata.name.invalid-pattern": "Este campo não pode conter pontos, vírgulas ou espaços. Ao invés, por favor, use os campos de Elemento e Qualificador",
+
+  // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters", (Auto-Translated)
+  "error.validation.metadata.name.max-length": "Este campo pode não conter mais de 32 caracteres",
+
+  // "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters", (Auto-Translated)
+  "error.validation.metadata.namespace.max-length": "Este campo pode não conter mais de 256 caracteres",
+
+  // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead", (Auto-Translated)
+  "error.validation.metadata.element.invalid-pattern": "Este campo não pode conter pontos, vírgulas ou espaços. Por favor, use o campo Qualificador em vez disso",
+
+  // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters", (Auto-Translated)
+  "error.validation.metadata.element.max-length": "Este campo pode não conter mais de 64 caracteres",
+
+  // "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces", (Auto-Translated)
+  "error.validation.metadata.qualifier.invalid-pattern": "Este campo não pode conter pontos, vírgulas ou espaços",
+
+  // "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters", (Auto-Translated)
+  "error.validation.metadata.qualifier.max-length": "Este campo pode não conter mais de 64 caracteres",
+
   // "feed.description": "Syndication feed",
   "feed.description": "Feed de distribuição",
 
@@ -2125,11 +2444,11 @@
   // "footer.link.privacy-policy": "Privacy policy",
   "footer.link.privacy-policy": "Política de Privacidade",
 
-  // "footer.link.end-user-agreement":"End User Agreement",
-  "footer.link.end-user-agreement":"Termos de Uso",
+  // "footer.link.end-user-agreement": "End User Agreement",
+  "footer.link.end-user-agreement": "Termos de Uso",
 
-  // "footer.link.feedback":"Send Feedback",
-  "footer.link.feedback":"Enviar uma Sugestão",
+  // "footer.link.feedback": "Send Feedback",
+  "footer.link.feedback": "Enviar uma Sugestão",
 
   // "forgot-email.form.header": "Forgot Password",
   "forgot-email.form.header": "Esqueci a Senha",
@@ -2143,8 +2462,8 @@
   // "forgot-email.form.email.error.required": "Please fill in an email address",
   "forgot-email.form.email.error.required": "Por favor preencha o endereço de email",
 
-  // "forgot-email.form.email.error.pattern": "Please fill in a valid email address",
-  "forgot-email.form.email.error.pattern": "Por favor preencha com um e-mail válido",
+  // "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address", (Auto-Translated)
+  "forgot-email.form.email.error.not-email-form": "Por favor preencha com um endereço de email válido",
 
   // "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
   "forgot-email.form.email.hint": "Um e-mail será enviado para este endereço com mais instruções.",
@@ -2266,8 +2585,23 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Nenhum valor informado",
 
-  // "form.other-information": {},
-  "form.other-information": {},
+  // "form.other-information.email": "Email", (Auto-Translated)
+  "form.other-information.email": "E-mail",
+
+  // "form.other-information.first-name": "First Name", (Auto-Translated)
+  "form.other-information.first-name": "Primeiro nome",
+
+  // "form.other-information.insolr": "In Solr Index", (Auto-Translated)
+  "form.other-information.insolr": "No índice Solr",
+
+  // "form.other-information.institution": "Institution", (Auto-Translated)
+  "form.other-information.institution": "Instituição",
+
+  // "form.other-information.last-name": "Last Name", (Auto-Translated)
+  "form.other-information.last-name": "Sobrenome",
+
+  // "form.other-information.orcid": "ORCID", (Auto-Translated)
+  "form.other-information.orcid": "ORCID",
 
   // "form.remove": "Remove",
   "form.remove": "Apagar",
@@ -2287,6 +2621,9 @@
   // "form.submit": "Save",
   "form.submit": "Salvar",
 
+  // "form.create": "Create", (Auto-Translated)
+  "form.create": "Criar",
+
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Solte o item na nova posição",
 
@@ -2296,8 +2633,8 @@
   // "grant-deny-request-copy.email.back": "Back",
   "grant-deny-request-copy.email.back": "Voltar",
 
-  // "grant-deny-request-copy.email.message": "Message",
-  "grant-deny-request-copy.email.message": "Mensagem",
+  // "grant-deny-request-copy.email.message": "Optional additional message",
+  "grant-deny-request-copy.email.message": "Mensagem adicional opcional",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
   "grant-deny-request-copy.email.message.empty": "Por favor coloque uma mensagem",
@@ -2348,8 +2685,8 @@
   // "grant-request-copy.header": "Grant document copy request",
   "grant-request-copy.header": "Conceder solicitação de cópia do documento",
 
-  // "grant-request-copy.intro": "This message will be sent to the applicant of the request. The requested document(s) will be attached.",
-  "grant-request-copy.intro": "Esta mensagem será enviada ao requerente do pedido. O(s) documento(s) solicitado(s) será(ão) anexado(s).",
+  // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro": "Uma mensagem será enviada ao requerente do pedido. O(s) documento(s) solicitado(s) será(ão) anexado(s).",
 
   // "grant-request-copy.success": "Successfully granted item request",
   "grant-request-copy.success": "Solicitação de item concedida com sucesso",
@@ -2357,14 +2694,14 @@
   // "health.breadcrumbs": "Health",
   "health.breadcrumbs": "Saúde",
 
-  // "health-page.heading" : "Health",
-  "health-page.heading" : "Saúde",
+  // "health-page.heading": "Health",
+  "health-page.heading": "Saúde",
 
-  // "health-page.info-tab" : "Info",
-  "health-page.info-tab" : "Informação",
+  // "health-page.info-tab": "Info",
+  "health-page.info-tab": "Informação",
 
-  // "health-page.status-tab" : "Status",
-  "health-page.status-tab" : "Status",
+  // "health-page.status-tab": "Status",
+  "health-page.status-tab": "Status",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "O serviço de verificação de integridade está temporariamente indisponível",
@@ -2456,6 +2793,9 @@
   // "info.end-user-agreement.title": "End User Agreement",
   "info.end-user-agreement.title": "Contrato de Usuário Final",
 
+  // "info.end-user-agreement.hosting-country": "the United States", (Auto-Translated)
+  "info.end-user-agreement.hosting-country": "os Estados Unidos",
+
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Política de privacidade",
 
@@ -2489,20 +2829,20 @@
   // "info.feedback.email-label": "Your Email",
   "info.feedback.email-label": "Seu Email",
 
-  // "info.feedback.create.success" : "Feedback Sent Successfully!",
-  "info.feedback.create.success" : "Sugestão Enviada com Sucesso!",
+  // "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Sugestão Enviada com Sucesso!",
 
-  // "info.feedback.error.email.required" : "A valid email address is required",
-  "info.feedback.error.email.required" : "Um endereço de email válido é requerido",
+  // "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "Um endereço de email válido é requerido",
 
-  // "info.feedback.error.message.required" : "A comment is required",
-  "info.feedback.error.message.required" : "Um comentário é requerido",
+  // "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "Um comentário é requerido",
 
-  // "info.feedback.page-label" : "Page",
-  "info.feedback.page-label" : "Página",
+  // "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "Página",
 
-  // "info.feedback.page_help" : "Tha page related to your feedback",
-  "info.feedback.page_help" : "A página relacionada a sua sugestão",
+  // "info.feedback.page_help": "Tha page related to your feedback",
+  "info.feedback.page_help": "A página relacionada a sua sugestão",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Este item é privado",
@@ -2516,7 +2856,7 @@
   // "item.edit.authorizations.title": "Edit item's Policies",
   "item.edit.authorizations.title": "Editar Política de item",
 
-  // "item.badge.private": "Private",
+  // "item.badge.private": "Non-discoverable",
   "item.badge.private": "Privado",
 
   // "item.badge.withdrawn": "Withdrawn",
@@ -2531,7 +2871,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Criar pacote",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Este item não possui um pacote para poder receber o bitstream.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -2672,12 +3012,74 @@
   // "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
   "item.edit.tabs.disabled.tooltip": "Você não está autorizado a acessar esta guia",
 
-
   // "item.edit.tabs.mapper.head": "Collection Mapper",
   "item.edit.tabs.mapper.head": "Mapeamento de Coleção",
 
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
   "item.edit.tabs.item-mapper.title": "Editar Item - Mapeamento de Coleção",
+
+  // "item.edit.identifiers.doi.status.UNKNOWN": "Unknown", (Auto-Translated)
+  "item.edit.identifiers.doi.status.UNKNOWN": "Desconhecido",
+
+  // "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Queued for registration", (Auto-Translated)
+  "item.edit.identifiers.doi.status.TO_BE_REGISTERED": "Fila para registro",
+
+  // "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Queued for reservation", (Auto-Translated)
+  "item.edit.identifiers.doi.status.TO_BE_RESERVED": "Fila para reserva",
+
+  // "item.edit.identifiers.doi.status.IS_REGISTERED": "Registered", (Auto-Translated)
+  "item.edit.identifiers.doi.status.IS_REGISTERED": "Registrado",
+
+  // "item.edit.identifiers.doi.status.IS_RESERVED": "Reserved", (Auto-Translated)
+  "item.edit.identifiers.doi.status.IS_RESERVED": "Reservado",
+
+  // "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reserved (update queued)", (Auto-Translated)
+  "item.edit.identifiers.doi.status.UPDATE_RESERVED": "Reservado (atualiza a fila)",
+
+  // "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registered (update queued)", (Auto-Translated)
+  "item.edit.identifiers.doi.status.UPDATE_REGISTERED": "Registrado (atualiza a fila)",
+
+  // "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Queued for update and registration", (Auto-Translated)
+  "item.edit.identifiers.doi.status.UPDATE_BEFORE_REGISTRATION": "Fila para atualização e registro",
+
+  // "item.edit.identifiers.doi.status.TO_BE_DELETED": "Queued for deletion", (Auto-Translated)
+  "item.edit.identifiers.doi.status.TO_BE_DELETED": "Fila para exclusão",
+
+  // "item.edit.identifiers.doi.status.DELETED": "Deleted", (Auto-Translated)
+  "item.edit.identifiers.doi.status.DELETED": "Excluído",
+
+  // "item.edit.identifiers.doi.status.PENDING": "Pending (not registered)", (Auto-Translated)
+  "item.edit.identifiers.doi.status.PENDING": "Pendente (não registrado)",
+
+  // "item.edit.identifiers.doi.status.MINTED": "Minted (not registered)", (Auto-Translated)
+  "item.edit.identifiers.doi.status.MINTED": "Cunhado (não registrado)",
+
+  // "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI", (Auto-Translated)
+  "item.edit.tabs.status.buttons.register-doi.label": "Registre um DOI novo ou pendente",
+
+  // "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...", (Auto-Translated)
+  "item.edit.tabs.status.buttons.register-doi.button": "Registre DOI ...",
+
+  // "item.edit.register-doi.header": "Register a new or pending DOI", (Auto-Translated)
+  "item.edit.register-doi.header": "Registre um DOI novo ou pendente",
+
+  // "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out", (Auto-Translated)
+  "item.edit.register-doi.description": "Revise todos os identificadores pendentes e metadados do item abaixo e clique em Confirmar para prosseguir com o registro do DOI ou cancelar para desistir",
+
+  // "item.edit.register-doi.confirm": "Confirm", (Auto-Translated)
+  "item.edit.register-doi.confirm": "Confirmar",
+
+  // "item.edit.register-doi.cancel": "Cancel", (Auto-Translated)
+  "item.edit.register-doi.cancel": "Cancelar",
+
+  // "item.edit.register-doi.success": "DOI queued for registration successfully.", (Auto-Translated)
+  "item.edit.register-doi.success": "DOI enfileirado para registro com sucesso.",
+
+  // "item.edit.register-doi.error": "Error registering DOI", (Auto-Translated)
+  "item.edit.register-doi.error": "Erro ao registrar DOI",
+
+  // "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online", (Auto-Translated)
+  "item.edit.register-doi.to-update": "O seguinte DOI já foi cunhado e será enfileirado para registro online",
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   "item.edit.item-mapper.buttons.add": "Mapear item na(s) coleção(ões) seleciona(s)",
@@ -2739,6 +3141,12 @@
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Descartar",
 
+  // "item.edit.metadata.edit.buttons.confirm": "Confirm", (Auto-Translated)
+  "item.edit.metadata.edit.buttons.confirm": "Confirmar",
+
+  // "item.edit.metadata.edit.buttons.drag": "Drag to reorder", (Auto-Translated)
+  "item.edit.metadata.edit.buttons.drag": "Arraste para reordenar",
+
   // "item.edit.metadata.edit.buttons.edit": "Edit",
   "item.edit.metadata.edit.buttons.edit": "Editar",
 
@@ -2750,6 +3158,9 @@
 
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
   "item.edit.metadata.edit.buttons.unedit": "Parar edição",
+
+  // "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the "Relationships" tab", (Auto-Translated)
+  "item.edit.metadata.edit.buttons.virtual": "Este é um valor de metadados virtuais, ou seja, um valor herdado de uma entidade relacionada. Não pode ser modificado diretamente. Adicione ou remova o relacionamento correspondente na guia \"Relacionamentos\"",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   "item.edit.metadata.empty": "O item atualmente não contém metadados. Clique em Adicionar para começar a adicionar um valor de metadados.",
@@ -2765,6 +3176,9 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Valor",
+
+  // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field", (Auto-Translated)
+  "item.edit.metadata.metadatafield.error": "Ocorreu um erro ao validar o campo de metadados",
 
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
   "item.edit.metadata.metadatafield.invalid": "Por favor escolha um campo de metadados válido",
@@ -2798,6 +3212,9 @@
 
   // "item.edit.metadata.reinstate-button": "Undo",
   "item.edit.metadata.reinstate-button": "Desfazer",
+
+  // "item.edit.metadata.reset-order-button": "Undo reorder", (Auto-Translated)
+  "item.edit.metadata.reset-order-button": "Desfazer reordenar",
 
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Salvar",
@@ -2853,37 +3270,37 @@
   // "item.edit.private.cancel": "Cancel",
   "item.edit.private.cancel": "Cancelar",
 
-  // "item.edit.private.confirm": "Make it Private",
+  // "item.edit.private.confirm": "Make it non-discoverable",
   "item.edit.private.confirm": "Tornar Privado",
 
-  // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
+  // "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
   "item.edit.private.description": "Tem certeza de que este item deve ser tornado privado no arquivo?",
 
-  // "item.edit.private.error": "An error occurred while making the item private",
+  // "item.edit.private.error": "An error occurred while making the item non-discoverable",
   "item.edit.private.error": "Ocorreu um erro ao tornar o item privado",
 
-  // "item.edit.private.header": "Make item private: {{ id }}",
+  // "item.edit.private.header": "Make item non-discoverable: {{ id }}",
   "item.edit.private.header": "Tornar o item privado: {{ id }}",
 
-  // "item.edit.private.success": "The item is now private",
+  // "item.edit.private.success": "The item is now non-discoverable",
   "item.edit.private.success": "O item agora é privado",
 
   // "item.edit.public.cancel": "Cancel",
   "item.edit.public.cancel": "Cancelar",
 
-  // "item.edit.public.confirm": "Make it public",
+  // "item.edit.public.confirm": "Make it discoverable",
   "item.edit.public.confirm": "Tornar público",
 
-  // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
+  // "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
   "item.edit.public.description": "Você tem certeza que deseja tornar este item público no arquivo?",
 
-  // "item.edit.public.error": "An error occurred while making the item public",
+  // "item.edit.public.error": "An error occurred while making the item discoverable",
   "item.edit.public.error": "Ocorreu um erro ao tornar o item público",
 
-  // "item.edit.public.header": "Make item public: {{ id }}",
+  // "item.edit.public.header": "Make item discoverable: {{ id }}",
   "item.edit.public.header": "Tornar o item público: {{ id }}",
 
-  // "item.edit.public.success": "The item is now public",
+  // "item.edit.public.success": "The item is now discoverable",
   "item.edit.public.success": "O item agora é público",
 
   // "item.edit.reinstate.cancel": "Cancel",
@@ -2963,6 +3380,15 @@
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Editar Item - Curadoria",
+
+  // "item.edit.curate.title": "Curate Item: {{item}}", (Auto-Translated)
+  "item.edit.curate.title": "Fazer curadoria do Item: {{item}}",
+
+  // "item.edit.tabs.access-control.head": "Access Control", (Auto-Translated)
+  "item.edit.tabs.access-control.head": "Controle de acesso",
+
+  // "item.edit.tabs.access-control.title": "Item Edit - Access Control", (Auto-Translated)
+  "item.edit.tabs.access-control.title": "Edição de item - Controle de acesso",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadados",
@@ -3117,6 +3543,30 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Fechar",
 
+  // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order", (Auto-Translated)
+  "workflow-item.search.result.delete-supervision.modal.header": "Excluir ordem de supervisão",
+
+  // "workflow-item.search.result.delete-supervision.modal.info": "Are you sure you want to delete Supervision Order", (Auto-Translated)
+  "workflow-item.search.result.delete-supervision.modal.info": "Tem certeza que deseja excluir o pedido de supervisão",
+
+  // "workflow-item.search.result.delete-supervision.modal.cancel": "Cancel", (Auto-Translated)
+  "workflow-item.search.result.delete-supervision.modal.cancel": "Cancelar",
+
+  // "workflow-item.search.result.delete-supervision.modal.confirm": "Delete", (Auto-Translated)
+  "workflow-item.search.result.delete-supervision.modal.confirm": "Excluir",
+
+  // "workflow-item.search.result.notification.deleted.success": "Successfully deleted supervision order \"{{name}}\"", (Auto-Translated)
+  "workflow-item.search.result.notification.deleted.success": "Ordem de supervisão excluída com sucesso \"{{name}}\"",
+
+  // "workflow-item.search.result.notification.deleted.failure": "Failed to delete supervision order \"{{name}}\"", (Auto-Translated)
+  "workflow-item.search.result.notification.deleted.failure": "Falha ao excluir a ordem de supervisão \"{{name}}\"",
+
+  // "workflow-item.search.result.list.element.supervised-by": "Supervised by:", (Auto-Translated)
+  "workflow-item.search.result.list.element.supervised-by": "Supervisionado por:",
+
+  // "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group", (Auto-Translated)
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remover o grupo de supervisão",
+
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Resumo",
 
@@ -3207,11 +3657,11 @@
   // "item.page.bitstreams.collapse": "Collapse",
   "item.page.bitstreams.collapse": "Fechar",
 
-  // "item.page.filesection.original.bundle" : "Original bundle",
-  "item.page.filesection.original.bundle" : "Pacote Original",
+  // "item.page.filesection.original.bundle": "Original bundle",
+  "item.page.filesection.original.bundle": "Pacote Original",
 
-  // "item.page.filesection.license.bundle" : "License bundle",
-  "item.page.filesection.license.bundle" : "Licença do Pacote",
+  // "item.page.filesection.license.bundle": "License bundle",
+  "item.page.filesection.license.bundle": "Licença do Pacote",
 
   // "item.page.return": "Back",
   "item.page.return": "Voltar",
@@ -3255,26 +3705,29 @@
   // "item.preview.dc.type": "Type:",
   "item.preview.dc.type": "Tipo:",
 
-  // "item.preview.oaire.citation.issue" : "Issue",
-  "item.preview.oaire.citation.issue" : "Questão",
+  // "item.preview.oaire.citation.issue": "Issue",
+  "item.preview.oaire.citation.issue": "Questão",
 
-  // "item.preview.oaire.citation.volume" : "Volume",
-  "item.preview.oaire.citation.volume" : "Volume",
+  // "item.preview.oaire.citation.volume": "Volume",
+  "item.preview.oaire.citation.volume": "Volume",
 
-  // "item.preview.dc.relation.issn" : "ISSN",
-  "item.preview.dc.relation.issn" : "ISSN",
+  // "item.preview.dc.relation.issn": "ISSN",
+  "item.preview.dc.relation.issn": "ISSN",
 
-  // "item.preview.dc.identifier.isbn" : "ISBN",
-  "item.preview.dc.identifier.isbn" : "ISBN",
+  // "item.preview.dc.identifier.isbn": "ISBN",
+  "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
   "item.preview.dc.identifier": "Identificador:",
 
-  // "item.preview.dc.relation.ispartof" : "Journal or Serie",
-  "item.preview.dc.relation.ispartof" : "Revista ou Série",
+  // "item.preview.dc.relation.ispartof": "Journal or Series",
+  "item.preview.dc.relation.ispartof": "Revista ou Séries",
 
-  // "item.preview.dc.identifier.doi" : "DOI",
-  "item.preview.dc.identifier.doi" : "DOI",
+  // "item.preview.dc.identifier.doi": "DOI",
+  "item.preview.dc.identifier.doi": "DOI",
+
+  // "item.preview.dc.publisher": "Publisher:", (Auto-Translated)
+  "item.preview.dc.publisher": "Editora:",
 
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Sobrenome:",
@@ -3414,14 +3867,14 @@
   // "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
   "item.version.create.modal.submitted.text": "A nova versão está sendo criada. Isso pode levar algum tempo se o item tiver muitos relacionamentos.",
 
-  // "item.version.create.notification.success" : "New version has been created with version number {{version}}",
-  "item.version.create.notification.success" : "Uma nova versão foi criada com o número de versão {{version}}",
+  // "item.version.create.notification.success": "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "Uma nova versão foi criada com o número de versão {{version}}",
 
-  // "item.version.create.notification.failure" : "New version has not been created",
-  "item.version.create.notification.failure" : "A nova versão não foi criada",
+  // "item.version.create.notification.failure": "New version has not been created",
+  "item.version.create.notification.failure": "A nova versão não foi criada",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.version.create.notification.inProgress" : "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.create.notification.inProgress": "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
 
   // "item.version.delete.modal.header": "Delete version",
   "item.version.delete.modal.header": "Apagar versão",
@@ -3441,17 +3894,98 @@
   // "item.version.delete.modal.button.cancel.tooltip": "Do not delete this version",
   "item.version.delete.modal.button.cancel.tooltip": "Não apague esta versão",
 
-  // "item.version.delete.notification.success" : "Version number {{version}} has been deleted",
-  "item.version.delete.notification.success" : "Versão número {{version}} foi apagada",
+  // "item.version.delete.notification.success": "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success": "Versão número {{version}} foi apagada",
 
-  // "item.version.delete.notification.failure" : "Version number {{version}} has not been deleted",
-  "item.version.delete.notification.failure" : "Versão número {{version}} não foi apagada",
+  // "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure": "Versão número {{version}} não foi apagada",
 
-  // "item.version.edit.notification.success" : "The summary of version number {{version}} has been changed",
-  "item.version.edit.notification.success" : "O resumo da versão número {{version}} foi alterado",
+  // "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success": "O resumo da versão número {{version}} foi alterado",
 
-  // "item.version.edit.notification.failure" : "The summary of version number {{version}} has not been changed",
-  "item.version.edit.notification.failure" : "O resumo da versão número {{version}} não foi alterado",
+  // "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
+  "item.version.edit.notification.failure": "O resumo da versão número {{version}} não foi alterado",
+
+  // "itemtemplate.edit.metadata.add-button": "Add", (Auto-Translated)
+  "itemtemplate.edit.metadata.add-button": "Adicionar",
+
+  // "itemtemplate.edit.metadata.discard-button": "Discard", (Auto-Translated)
+  "itemtemplate.edit.metadata.discard-button": "Descartar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm", (Auto-Translated)
+  "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirmar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder", (Auto-Translated)
+  "itemtemplate.edit.metadata.edit.buttons.drag": "Arraste para reordenar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.edit": "Edit", (Auto-Translated)
+  "itemtemplate.edit.metadata.edit.buttons.edit": "Editar",
+
+  // "itemtemplate.edit.metadata.edit.buttons.remove": "Remove", (Auto-Translated)
+  "itemtemplate.edit.metadata.edit.buttons.remove": "Remover",
+
+  // "itemtemplate.edit.metadata.edit.buttons.undo": "Undo changes", (Auto-Translated)
+  "itemtemplate.edit.metadata.edit.buttons.undo": "Desfazer mudanças",
+
+  // "itemtemplate.edit.metadata.edit.buttons.unedit": "Stop editing", (Auto-Translated)
+  "itemtemplate.edit.metadata.edit.buttons.unedit": "Parar de editar",
+
+  // "itemtemplate.edit.metadata.empty": "The item template currently doesn't contain any metadata. Click Add to start adding a metadata value.", (Auto-Translated)
+  "itemtemplate.edit.metadata.empty": "O modelo de item atualmente não contém metadados. Clique em Adicionar para começar a adicionar um valor de metadados.",
+
+  // "itemtemplate.edit.metadata.headers.edit": "Edit", (Auto-Translated)
+  "itemtemplate.edit.metadata.headers.edit": "Editar",
+
+  // "itemtemplate.edit.metadata.headers.field": "Field", (Auto-Translated)
+  "itemtemplate.edit.metadata.headers.field": "Campo",
+
+  // "itemtemplate.edit.metadata.headers.language": "Lang", (Auto-Translated)
+  "itemtemplate.edit.metadata.headers.language": "Idioma",
+
+  // "itemtemplate.edit.metadata.headers.value": "Value", (Auto-Translated)
+  "itemtemplate.edit.metadata.headers.value": "Valor",
+
+  // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field", (Auto-Translated)
+  "itemtemplate.edit.metadata.metadatafield.error": "Ocorreu um erro validando o campo de metadados",
+
+  // "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field", (Auto-Translated)
+  "itemtemplate.edit.metadata.metadatafield.invalid": "Escolha um campo de metadados válido",
+
+  // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.discarded.content": "Suas mudanças foram descartadas. Para restabelecer suas alterações, clique no botão 'Desfazer'",
+
+  // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.discarded.title": "Mudanças descartadas",
+
+  // "itemtemplate.edit.metadata.notifications.error.title": "An error occurred", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.error.title": "Um erro ocorreu",
+
+  // "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Suas mudanças não foram salvas. Certifique-se de que todos os campos sejam válidos antes de salvar.",
+
+  // "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.invalid.title": "Metadados inválidos",
+
+  // "itemtemplate.edit.metadata.notifications.outdated.content": "The item template you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.outdated.content": "O modelo de item em que você está trabalhando atualmente foi alterado por outro usuário. Suas alterações atuais serão descartadas para evitar conflitos",
+
+  // "itemtemplate.edit.metadata.notifications.outdated.title": "Changes outdated", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.outdated.title": "Mudanças desatualizadas",
+
+  // "itemtemplate.edit.metadata.notifications.saved.content": "Your changes to this item template's metadata were saved.", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.saved.content": "Suas alterações nos metadados do modelo deste item foram salvas.",
+
+  // "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved", (Auto-Translated)
+  "itemtemplate.edit.metadata.notifications.saved.title": "Metadados salvos",
+
+  // "itemtemplate.edit.metadata.reinstate-button": "Undo", (Auto-Translated)
+  "itemtemplate.edit.metadata.reinstate-button": "Desfazer",
+
+  // "itemtemplate.edit.metadata.reset-order-button": "Undo reorder", (Auto-Translated)
+  "itemtemplate.edit.metadata.reset-order-button": "Desfazer reordenar",
+
+  // "itemtemplate.edit.metadata.save-button": "Save", (Auto-Translated)
+  "itemtemplate.edit.metadata.save-button": "Salvar",
 
   // "journal.listelement.badge": "Journal",
   "journal.listelement.badge": "Revista",
@@ -3538,8 +4072,7 @@
   "iiifsearchable.page.doi": "Link Permanente: ",
 
   // "iiifsearchable.page.issue": "Issue: ",
-  // TODO New key - Add a translation
-  "iiifsearchable.page.issue": "Issue: ",
+  "iiifsearchable.page.issue": "Edição: ",
 
   // "iiifsearchable.page.description": "Description: ",
   "iiifsearchable.page.description": "Descrição: ",
@@ -3557,8 +4090,7 @@
   "iiif.page.doi": "Link Permanente: ",
 
   // "iiif.page.issue": "Issue: ",
-  // TODO New key - Add a translation
-  "iiif.page.issue": "Issue: ",
+  "iiif.page.issue": "Edição: ",
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "Descrição: ",
@@ -3629,9 +4161,6 @@
   // "login.form.new-user": "New user? Click here to register.",
   "login.form.new-user": "Novo usuário? Clique aqui para cadastrar.",
 
-  // "login.form.or-divider": "or",
-  "login.form.or-divider": "ou",
-
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Entrar com o OIDC",
 
@@ -3677,6 +4206,9 @@
   // "menu.section.access_control_authorizations": "Authorizations",
   "menu.section.access_control_authorizations": "Autorizações",
 
+  // "menu.section.access_control_bulk": "Bulk Access Management", (Auto-Translated)
+  "menu.section.access_control_bulk": "Gerenciamento de acesso em massa",
+
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "Grupos",
 
@@ -3709,6 +4241,12 @@
 
   // "menu.section.browse_global_by_subject": "By Subject",
   "menu.section.browse_global_by_subject": "Por Assunto",
+
+  // "menu.section.browse_global_by_srsc": "By Subject Category", (Auto-Translated)
+  "menu.section.browse_global_by_srsc": "Por categoria de assunto",
+
+  // "menu.section.browse_global_by_nsi": "By Norwegian Science Index", (Auto-Translated)
+  "menu.section.browse_global_by_nsi": "Pelo Índice de Ciências Norueguesas",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Por Título",
@@ -3748,6 +4286,9 @@
 
   // "menu.section.export_metadata": "Metadata",
   "menu.section.export_metadata": "Metadados",
+
+  // "menu.section.export_batch": "Batch Export (ZIP)",
+  "menu.section.export_batch": "Exportação em Lote (ZIP)",
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Seção do menu Controle de Acesso",
@@ -3802,9 +4343,6 @@
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
   "menu.section.import_batch": "Importação em Lote (ZIP)",
-  
-  // "menu.section.export_batch": "Batch Export (ZIP)",
-  "menu.section.export_batch": "Exportação em Lote (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
   "menu.section.import_metadata": "Metadados",
@@ -3889,8 +4427,10 @@
 
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "Exportar resultados de pesquisa como CSV",
+
   // "metadata-export-search.submit.success": "The export was started successfully",
   "metadata-export-search.submit.success": "A exportação foi iniciada com sucesso",
+
   // "metadata-export-search.submit.error": "Starting the export has failed",
   "metadata-export-search.submit.error": "Falha ao iniciar a exportação",
 
@@ -3899,9 +4439,6 @@
 
   // "mydspace.description": "",
   "mydspace.description": "",
-
-  // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here": "aqui",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   "mydspace.messages.controller-help": "Selecione esta opção para enviar uma mensagem para o submetedor do item.",
@@ -3981,26 +4518,29 @@
   // "mydspace.search-form.placeholder": "Search in mydspace...",
   "mydspace.search-form.placeholder": "Procurar no meudspace...",
 
-  // "mydspace.show.workflow": "All tasks",
-  "mydspace.show.workflow": "Todas as tarefas",
+  // "mydspace.show.workflow": "Workflow tasks",
+  "mydspace.show.workflow": "Tarefas de fluxo de trabalho",
 
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Minhas Submissões",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arquivado",
+  // "mydspace.show.supervisedWorkspace": "Supervised items", (Auto-Translated)
+  "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validação",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arquivado",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Esperando pelo controlador",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validação",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Fluxo de trabalho",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Esperando pelo controlador",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Espaço de trabalho",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Fluxo de trabalho",
+
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Espaço de trabalho",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MeuDSpace",
@@ -4029,14 +4569,20 @@
   // "nav.community-browse.header": "By Community",
   "nav.community-browse.header": "Por Comunidade",
 
+  // "nav.context-help-toggle": "Toggle context help", (Auto-Translated)
+  "nav.context-help-toggle": "Alternar a ajuda do contexto",
+
   // "nav.language": "Language switch",
   "nav.language": "Selecionar um idioma",
 
   // "nav.login": "Log In",
   "nav.login": "Entrar",
 
-  // "nav.logout": "User profile menu and Log Out",
-  "nav.logout": "Menu do Usuário e Sair",
+  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out", (Auto-Translated)
+  "nav.user-profile-menu-and-logout": "Menu do perfil de usuário e Sair",
+
+  // "nav.logout": "Log Out",
+  "nav.logout": "Sair",
 
   // "nav.main.description": "Main navigation bar",
   "nav.main.description": "Barra de navegação principal",
@@ -4050,24 +4596,32 @@
   // "nav.search": "Search",
   "nav.search": "Buscar",
 
+  // "nav.search.button": "Submit search", (Auto-Translated)
+  "nav.search.button": "Enviar pesquisa",
+
   // "nav.statistics.header": "Statistics",
   "nav.statistics.header": "Estatísticas",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
   "nav.stop-impersonating": "Deixar de assumir o papel do EPerson",
 
-  // "nav.toggle" : "Toggle navigation",
-  "nav.toggle" : "Alternar navegação",
+  // "nav.subscriptions": "Subscriptions", (Auto-Translated)
+  "nav.subscriptions": "Assinaturas",
 
-  // "nav.user.description" : "User profile bar",
-  "nav.user.description" : "Barra de perfil do usuário",
+  // "nav.toggle": "Toggle navigation",
+  "nav.toggle": "Alternar navegação",
+
+  // "nav.user.description": "User profile bar",
+  "nav.user.description": "Barra de perfil do usuário",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Item",
 
-
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Unidade Organizacional",
+
+  // "orgunit.listelement.no-title": "Untitled", (Auto-Translated)
+  "orgunit.listelement.no-title": "Sem título",
 
   // "orgunit.page.city": "City",
   "orgunit.page.city": "Cidade",
@@ -4201,6 +4755,9 @@
   // "process.new.notification.error.content": "An error occurred while creating this process",
   "process.new.notification.error.content": "Um erro ocorreu enquanto criava o processo",
 
+  // "process.new.notification.error.max-upload.content": "The file exceeds the maximum upload size", (Auto-Translated)
+  "process.new.notification.error.max-upload.content": "O arquivo excede o tamanho máximo de upload",
+
   // "process.new.header": "Create a new process",
   "process.new.header": "Criar novo processo",
 
@@ -4210,17 +4767,17 @@
   // "process.new.breadcrumbs": "Create a new process",
   "process.new.breadcrumbs": "Criar novo processo",
 
-  // "process.detail.arguments" : "Arguments",
-  "process.detail.arguments" : "Argumentos",
+  // "process.detail.arguments": "Arguments",
+  "process.detail.arguments": "Argumentos",
 
-  // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
-  "process.detail.arguments.empty" : "Este processo não contêm nenhum argumento",
+  // "process.detail.arguments.empty": "This process doesn't contain any arguments",
+  "process.detail.arguments.empty": "Este processo não contêm nenhum argumento",
 
-  // "process.detail.back" : "Back",
-  "process.detail.back" : "Voltar",
+  // "process.detail.back": "Back",
+  "process.detail.back": "Voltar",
 
-  // "process.detail.output" : "Process Output",
-  "process.detail.output" : "Saída do Processo",
+  // "process.detail.output": "Process Output",
+  "process.detail.output": "Saída do Processo",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Recuperar a saída do processo",
@@ -4231,29 +4788,29 @@
   // "process.detail.logs.none": "This process has no output",
   "process.detail.logs.none": "Este processo não tem saída",
 
-  // "process.detail.output-files" : "Output Files",
-  "process.detail.output-files" : "Arquivos de saída",
+  // "process.detail.output-files": "Output Files",
+  "process.detail.output-files": "Arquivos de saída",
 
-  // "process.detail.output-files.empty" : "This process doesn't contain any output files",
-  "process.detail.output-files.empty" : "Este processo não contém nenhum arquivo de saída",
+  // "process.detail.output-files.empty": "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "Este processo não contém nenhum arquivo de saída",
 
-  // "process.detail.script" : "Script",
-  "process.detail.script" : "Script",
+  // "process.detail.script": "Script",
+  "process.detail.script": "Script",
 
-  // "process.detail.title" : "Process: {{ id }} - {{ name }}",
-  "process.detail.title" : "Processo: {{ id }} - {{ name }}",
+  // "process.detail.title": "Process: {{ id }} - {{ name }}",
+  "process.detail.title": "Processo: {{ id }} - {{ name }}",
 
-  // "process.detail.start-time" : "Start time",
-  "process.detail.start-time" : "Hora de Início",
+  // "process.detail.start-time": "Start time",
+  "process.detail.start-time": "Hora de Início",
 
-  // "process.detail.end-time" : "Finish time",
-  "process.detail.end-time" : "Hora de Fim",
+  // "process.detail.end-time": "Finish time",
+  "process.detail.end-time": "Hora de Fim",
 
-  // "process.detail.status" : "Status",
-  "process.detail.status" : "Status",
+  // "process.detail.status": "Status",
+  "process.detail.status": "Status",
 
-  // "process.detail.create" : "Create similar process",
-  "process.detail.create" : "Criar processo similar",
+  // "process.detail.create": "Create similar process",
+  "process.detail.create": "Criar processo similar",
 
   // "process.detail.actions": "Actions",
   "process.detail.actions": "Ações",
@@ -4279,23 +4836,23 @@
   // "process.detail.delete.error": "Something went wrong when deleting the process",
   "process.detail.delete.error": "Algo deu errado ao excluir o processo",
 
-  // "process.overview.table.finish" : "Finish time (UTC)",
-  "process.overview.table.finish" : "Hora de Fim (UTC)",
+  // "process.overview.table.finish": "Finish time (UTC)",
+  "process.overview.table.finish": "Hora de Fim (UTC)",
 
-  // "process.overview.table.id" : "Process ID",
-  "process.overview.table.id" : "ID do Processo",
+  // "process.overview.table.id": "Process ID",
+  "process.overview.table.id": "ID do Processo",
 
-  // "process.overview.table.name" : "Name",
-  "process.overview.table.name" : "Nome",
+  // "process.overview.table.name": "Name",
+  "process.overview.table.name": "Nome",
 
-  // "process.overview.table.start" : "Start time (UTC)",
-  "process.overview.table.start" : "Hora de Início (UTC)",
+  // "process.overview.table.start": "Start time (UTC)",
+  "process.overview.table.start": "Hora de Início (UTC)",
 
-  // "process.overview.table.status" : "Status",
-  "process.overview.table.status" : "Status",
+  // "process.overview.table.status": "Status",
+  "process.overview.table.status": "Status",
 
-  // "process.overview.table.user" : "User",
-  "process.overview.table.user" : "Usuário",
+  // "process.overview.table.user": "User",
+  "process.overview.table.user": "Usuário",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Visão geral dos processos",
@@ -4399,6 +4956,9 @@
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
   "profile.security.form.label.passwordrepeat": "Redigite para confirmar",
 
+  // "profile.security.form.label.current-password": "Current password", (Auto-Translated)
+  "profile.security.form.label.current-password": "Senha atual",
+
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
   "profile.security.form.notifications.success.content": "Suas alterações na senha foram salvas.",
 
@@ -4407,6 +4967,9 @@
 
   // "profile.security.form.notifications.error.title": "Error changing passwords",
   "profile.security.form.notifications.error.title": "Erro trocando a senha",
+
+  // "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.", (Auto-Translated)
+  "profile.security.form.notifications.error.change-failed": "Ocorreu um erro ao tentar alterar a senha. Verifique se a senha atual está correta.",
 
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
   "profile.security.form.notifications.error.not-same": "As senhas fornecidas não são as mesmas.",
@@ -4573,8 +5136,11 @@
   // "register-page.registration.email.error.required": "Please fill in an email address",
   "register-page.registration.email.error.required": "Por favor preencha o endereço de email",
 
-  // "register-page.registration.email.error.pattern": "Please fill in a valid email address",
-  "register-page.registration.email.error.pattern": "Por favor preencha com um endereço válido de email",
+  // "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.", (Auto-Translated)
+  "register-page.registration.email.error.not-email-form": "Por favor preencha com um endereço de email válido.",
+
+  // "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}", (Auto-Translated)
+  "register-page.registration.email.error.not-valid-domain": "Use email com domínios permitidos: {{ domains }}",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
   "register-page.registration.email.hint": "Este endereço será verificado e usado como seu nome de login.",
@@ -4593,6 +5159,30 @@
 
   // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
   "register-page.registration.error.content": "Um erro ocorreu enquanto registrava o seguinte endereço de email: {{ email }}",
+
+  // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha", (Auto-Translated)
+  "register-page.registration.error.recaptcha": "Erro ao tentar autenticar com o reCAPTCHA",
+
+  // "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.", (Auto-Translated)
+  "register-page.registration.google-recaptcha.must-accept-cookies": "Para se registrar, você deve aceitar os cookies de <b> Registro e Recuperação de Senha </b> (Google reCAPTCHA).",
+
+  // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}", (Auto-Translated)
+  "register-page.registration.error.maildomain": "Este endereço de e-mail não está na lista de domínios que podem se registrar. Os domínios permitidos são {{ domains }}",
+
+  // "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings", (Auto-Translated)
+  "register-page.registration.google-recaptcha.open-cookie-settings": "Abra as configurações de cookies",
+
+  // "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha", (Auto-Translated)
+  "register-page.registration.google-recaptcha.notification.title": "Google reCAPTCHA",
+
+  // "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification", (Auto-Translated)
+  "register-page.registration.google-recaptcha.notification.message.error": "Ocorreu um erro durante a verificação de reCAPTCHA",
+
+  // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.", (Auto-Translated)
+  "register-page.registration.google-recaptcha.notification.message.expired": "Verificação expirada. Por favor, verifique novamente.",
+
+  // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains", (Auto-Translated)
+  "register-page.registration.info.maildomain": "Contas podem ser registradas para endereços de correio dos domínios",
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
   "relationships.add.error.relationship-type.content": "Nenhuma correspondência adequada foi encontrada para o tipo de relacionamento {{ type }} entre os dois itens",
@@ -4660,11 +5250,11 @@
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo do Repositório",
 
-  // "repository.title.prefix": "DSpace Angular :: ",
-  "repository.title.prefix": "DSpace Angular :: ",
+  // "repository.title": "DSpace Repository", (Auto-Translated)
+  "repository.title": "Repositório DSpace",
 
-  // "repository.title.prefixDSpace": "DSpace Angular ::",
-  "repository.title.prefixDSpace": "DSpace Angular ::",
+  // "repository.title.prefix": "DSpace Repository :: ",
+  "repository.title.prefix": "Repositório DSpace :: ",
 
   // "resource-policies.add.button": "Add",
   "resource-policies.add.button": "Adicionar",
@@ -4894,6 +5484,9 @@
   // "search.filters.applied.f.birthDate.min": "Start birth date",
   "search.filters.applied.f.birthDate.min": "Início data de nascimento",
 
+  // "search.filters.applied.f.supervisedBy": "Supervised by", (Auto-Translated)
+  "search.filters.applied.f.supervisedBy": "Supervisionado por",
+
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Retirado",
 
@@ -4978,7 +5571,7 @@
   // "search.filters.filter.dateSubmitted.label": "Search date submitted",
   "search.filters.filter.dateSubmitted.label": "Procurar data de submissão",
 
-  // "search.filters.filter.discoverable.head": "Private",
+  // "search.filters.filter.discoverable.head": "Non-discoverable",
   "search.filters.filter.discoverable.head": "Privado",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
@@ -5104,6 +5697,18 @@
   // "search.filters.filter.submitter.label": "Search submitter",
   "search.filters.filter.submitter.label": "Procurar submetedor",
 
+  // "search.filters.filter.show-tree": "Browse {{ name }} tree", (Auto-Translated)
+  "search.filters.filter.show-tree": "Navegar na árvore {{ name }}",
+
+  // "search.filters.filter.supervisedBy.head": "Supervised By", (Auto-Translated)
+  "search.filters.filter.supervisedBy.head": "Supervisionado por",
+
+  // "search.filters.filter.supervisedBy.placeholder": "Supervised By", (Auto-Translated)
+  "search.filters.filter.supervisedBy.placeholder": "Supervisionado por",
+
+  // "search.filters.filter.supervisedBy.label": "Search Supervised By", (Auto-Translated)
+  "search.filters.filter.supervisedBy.label": "Pesquisa supervisionada por",
+
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Número de Revista",
 
@@ -5124,6 +5729,21 @@
 
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Sim",
+
+  // "search.filters.namedresourcetype.Archived": "Archived", (Auto-Translated)
+  "search.filters.namedresourcetype.Archived": "Arquivado",
+
+  // "search.filters.namedresourcetype.Validation": "Validation", (Auto-Translated)
+  "search.filters.namedresourcetype.Validation": "Validação",
+
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller", (Auto-Translated)
+  "search.filters.namedresourcetype.Waiting for Controller": "Esperando por controlador",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow", (Auto-Translated)
+  "search.filters.namedresourcetype.Workflow": "Fluxo de trabalho",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace", (Auto-Translated)
+  "search.filters.namedresourcetype.Workspace": "Área de trabalho",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Sim",
@@ -5272,6 +5892,9 @@
   // "statistics.table.header.views": "Views",
   "statistics.table.header.views": "Visualizações",
 
+  // "statistics.table.no-name": "(object name could not be loaded)", (Auto-Translated)
+  "statistics.table.no-name": "(o nome do objeto não pôde ser carregado)",
+
   // "submission.edit.breadcrumbs": "Edit Submission",
   "submission.edit.breadcrumbs": "Editar Submissão",
 
@@ -5281,8 +5904,8 @@
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "Cancelar",
 
-  // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
-  "submission.general.cannot_submit": "Você mão tem privilégios para fazer uma nova submissão.",
+  // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
+  "submission.general.cannot_submit": "Você não tem privilégios para fazer uma nova submissão.",
 
   // "submission.general.deposit": "Deposit",
   "submission.general.deposit": "Depositar",
@@ -5324,8 +5947,7 @@
   "submission.import-external.title.Journal": "Importar uma revista de uma fonte externa",
 
   // "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
-  // TODO New key - Add a translation
-  "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+  "submission.import-external.title.JournalIssue": "Importar uma edição de revista de uma fonte externa",
 
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
   "submission.import-external.title.JournalVolume": "Importar um volume de revista de uma fonte externa",
@@ -5374,6 +5996,9 @@
 
   // "submission.import-external.source.crossref": "CrossRef",
   "submission.import-external.source.crossref": "CrossRef",
+
+  // "submission.import-external.source.datacite": "DataCite", (Auto-Translated)
+  "submission.import-external.source.datacite": "DataCite",
 
   // "submission.import-external.source.scielo": "SciELO",
   "submission.import-external.source.scielo": "SciELO",
@@ -5466,8 +6091,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Importar revista remota",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Importar uma edição de jornal remota",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Importar volume de revista remoto",
@@ -5572,16 +6196,13 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Revista Externa importada e adicionada com sucesso à seleção",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Importar uma edição de jornal remota",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Successfully added local journal issue to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Successfully added local journal issue to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Edição de jornal local adicionada com sucesso à seleção",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Successfully imported and added external journal issue to the selection",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Successfully imported and added external journal issue to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Edição de jornal externo importada e adicionada com sucesso à seleção",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Import Remote Journal Volume",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Importar Volume de Revista Remoto",
@@ -5627,6 +6248,7 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalOfPublication": "Revistas Locais ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Local Projects ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Projetos Locais ({{ count }})",
 
@@ -5650,11 +6272,13 @@
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalIssueOfPublication": "Números de Revista Local ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Números de Revista Local ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Volumes de Revista Local ({{ count }})",
+
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Volumes de Revista Local ({{ count }})",
 
@@ -5694,6 +6318,9 @@
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Financiador do Projeto",
 
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author", (Auto-Translated)
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publicação do Autor",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Financiamento da API OpenAIRE",
 
@@ -5714,11 +6341,13 @@
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Números de Revista",
+
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Números de Revista",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Volumes de Revista",
+
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Volumes de Revista",
 
@@ -5730,6 +6359,7 @@
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Agências de Financiamento",
+
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   "submission.sections.describe.relationship-lookup.title.Project": "Projetos",
 
@@ -5757,6 +6387,9 @@
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Unidade organizacional principal",
 
+  // "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication", (Auto-Translated)
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publicação",
+
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Alternar menu suspenso",
 
@@ -5774,6 +6407,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Volume de Revista selecionados",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Projetos Selecionados",
 
@@ -5797,6 +6431,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Problema selecionado",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Volume de Revista selecionado",
 
@@ -5805,6 +6440,7 @@
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Financiamento selecionado",
+
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
   "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Problema selecionado",
 
@@ -5850,7 +6486,7 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Resultados da pesquisa",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Você gostaria de salvar \"{{ value }}\" como uma variante de nome para esta pessoa para que você e outros possam reutilizá-lo para futuras submissões? Se você não fizer isso, ainda poderá usá-lo para esta submissão.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -5925,6 +6561,24 @@
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Há seções incompletas.",
 
+  // "submission.sections.identifiers.info": "The following identifiers will be created for your item:", (Auto-Translated)
+  "submission.sections.identifiers.info": "Os seguintes identificadores serão criados para o seu item:",
+
+  // "submission.sections.identifiers.no_handle": "No handles have been minted for this item.", (Auto-Translated)
+  "submission.sections.identifiers.no_handle": "Nenhuma alça foi cunhada para este item.",
+
+  // "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.", (Auto-Translated)
+  "submission.sections.identifiers.no_doi": "Nenhum DOIs foi cunhado para este item.",
+
+  // "submission.sections.identifiers.handle_label": "Handle: ", (Auto-Translated)
+  "submission.sections.identifiers.handle_label": "Lidar:",
+
+  // "submission.sections.identifiers.doi_label": "DOI: ", (Auto-Translated)
+  "submission.sections.identifiers.doi_label": "DOI:",
+
+  // "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ", (Auto-Translated)
+  "submission.sections.identifiers.otherIdentifiers_label": "Outros identificadores:",
+
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   "submission.sections.submit.progressbar.accessCondition": "Condições de acesso ao Item",
 
@@ -5945,6 +6599,9 @@
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Duplicados em potencial",
+
+  // "submission.sections.submit.progressbar.identifiers": "Identifiers", (Auto-Translated)
+  "submission.sections.submit.progressbar.identifiers": "Identificadores",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Depositar licença",
@@ -6091,8 +6748,7 @@
   "submission.sections.accesses.form.discoverable-description": "Quando marcado, este item poderá ser descoberto na pesquisa/navegação. Quando desmarcado, o item estará disponível apenas por meio de um link direto e nunca aparecerá na pesquisa/navegação.",
 
   // "submission.sections.accesses.form.discoverable-label": "Discoverable",
-  // TODO New key - Add a translation
-  "submission.sections.accesses.form.discoverable-label": "Discoverable",
+  "submission.sections.accesses.form.discoverable-label": "Público",
 
   // "submission.sections.accesses.form.access-condition-label": "Access condition type",
   "submission.sections.accesses.form.access-condition-label": "Tipo de condição de acesso",
@@ -6132,16 +6788,15 @@
 
   // "submission.sections.accesses.form.until-placeholder": "Until",
   "submission.sections.accesses.form.until-placeholder": "Até",
-  
-  // "submission.sections.license.granted-label": "Confirmo a licença acima",
-  "submission.sections.license.granted-label": "I confirm the license above",
+
+  // "submission.sections.license.granted-label": "I confirm the license above",
+  "submission.sections.license.granted-label": "Confirmo a licença acima",
 
   // "submission.sections.license.required": "You must accept the license",
   "submission.sections.license.required": "Você deve aceitar a licença",
 
-  // "submission.sections.license.notgranted":  "You must accept the license",
-  "submission.sections.license.notgranted":  "Você deve aceitar a licença",
-
+  // "submission.sections.license.notgranted": "You must accept the license",
+  "submission.sections.license.notgranted": "Você deve aceitar a licença",
 
   // "submission.sections.sherpa.publication.information": "Publication information",
   "submission.sections.sherpa.publication.information": "Informações de publicação",
@@ -6230,8 +6885,8 @@
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Apagar",
 
-  // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Se você gostaria de descartar este item, selecione \"Apagar\".  Você será questionado para confirmar.",
+  // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": "Selecione esta opção para descartar este item. Em seguida, será solicitada confirmção.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Editar",
@@ -6245,6 +6900,18 @@
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workflow.generic.view-help": "Selecione esta opção para ver o metadados do item.",
 
+  // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer", (Auto-Translated)
+  "submission.workflow.generic.submit_select_reviewer": "Selecione Revisor",
+
+  // "submission.workflow.generic.submit_select_reviewer-help": "", (Auto-Translated)
+  "submission.workflow.generic.submit_select_reviewer-help": "",
+
+  // "submission.workflow.generic.submit_score": "Rate", (Auto-Translated)
+  "submission.workflow.generic.submit_score": "Avaliar",
+
+  // "submission.workflow.generic.submit_score-help": "", (Auto-Translated)
+  "submission.workflow.generic.submit_score-help": "",
+
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Aprovar",
 
@@ -6256,6 +6923,12 @@
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
   "submission.workflow.tasks.claimed.edit_help": "Selecione esta opção para modificar os metadados do item.",
+
+  // "submission.workflow.tasks.claimed.decline": "Decline", (Auto-Translated)
+  "submission.workflow.tasks.claimed.decline": "Recusar",
+
+  // "submission.workflow.tasks.claimed.decline_help": "", (Auto-Translated)
+  "submission.workflow.tasks.claimed.decline_help": "",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
   "submission.workflow.tasks.claimed.reject.reason.info": "Por favor informe o motivo pela rejeição da submissão na caixa abaixo, indicando se o submetedor pode corrigir um problema e reenviar.",
@@ -6311,6 +6984,114 @@
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workspace.generic.view-help": "Selecione esta opção para visualizar os metadados do item.",
 
+  // "submitter.empty": "N/A", (Auto-Translated)
+  "submitter.empty": "N/D",
+
+  // "subscriptions.title": "Subscriptions", (Auto-Translated)
+  "subscriptions.title": "Assinaturas",
+
+  // "subscriptions.item": "Subscriptions for items", (Auto-Translated)
+  "subscriptions.item": "Assinaturas para itens",
+
+  // "subscriptions.collection": "Subscriptions for collections", (Auto-Translated)
+  "subscriptions.collection": "Assinaturas para coleções",
+
+  // "subscriptions.community": "Subscriptions for communities", (Auto-Translated)
+  "subscriptions.community": "Assinaturas para comunidades",
+
+  // "subscriptions.subscription_type": "Subscription type", (Auto-Translated)
+  "subscriptions.subscription_type": "Tipo de assinatura",
+
+  // "subscriptions.frequency": "Subscription frequency", (Auto-Translated)
+  "subscriptions.frequency": "Frequência de assinatura",
+
+  // "subscriptions.frequency.D": "Daily", (Auto-Translated)
+  "subscriptions.frequency.D": "Diáriamente",
+
+  // "subscriptions.frequency.M": "Monthly", (Auto-Translated)
+  "subscriptions.frequency.M": "Mensalmente",
+
+  // "subscriptions.frequency.W": "Weekly", (Auto-Translated)
+  "subscriptions.frequency.W": "Semanalmente",
+
+  // "subscriptions.tooltip": "Subscribe", (Auto-Translated)
+  "subscriptions.tooltip": "Se inscrever",
+
+  // "subscriptions.modal.title": "Subscriptions", (Auto-Translated)
+  "subscriptions.modal.title": "Assinaturas",
+
+  // "subscriptions.modal.type-frequency": "Type and frequency", (Auto-Translated)
+  "subscriptions.modal.type-frequency": "Tipo e frequência",
+
+  // "subscriptions.modal.close": "Close", (Auto-Translated)
+  "subscriptions.modal.close": "Fechar",
+
+  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the "Subscriptions" page under your user profile", (Auto-Translated)
+  "subscriptions.modal.delete-info": "Para remover esta assinatura, visite a página \"Assinaturas\" no seu perfil de usuário",
+
+  // "subscriptions.modal.new-subscription-form.type.content": "Content", (Auto-Translated)
+  "subscriptions.modal.new-subscription-form.type.content": "Conteúdo",
+
+  // "subscriptions.modal.new-subscription-form.frequency.D": "Daily", (Auto-Translated)
+  "subscriptions.modal.new-subscription-form.frequency.D": "Diáriamente",
+
+  // "subscriptions.modal.new-subscription-form.frequency.W": "Weekly", (Auto-Translated)
+  "subscriptions.modal.new-subscription-form.frequency.W": "Semanalmente",
+
+  // "subscriptions.modal.new-subscription-form.frequency.M": "Monthly", (Auto-Translated)
+  "subscriptions.modal.new-subscription-form.frequency.M": "Mensalmente",
+
+  // "subscriptions.modal.new-subscription-form.submit": "Submit", (Auto-Translated)
+  "subscriptions.modal.new-subscription-form.submit": "Enviar",
+
+  // "subscriptions.modal.new-subscription-form.processing": "Processing...", (Auto-Translated)
+  "subscriptions.modal.new-subscription-form.processing": "Em processamento...",
+
+  // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.", (Auto-Translated)
+  "subscriptions.modal.create.success": "Inscrito em {{type}} com sucesso.",
+
+  // "subscriptions.modal.delete.success": "Subscription deleted successfully", (Auto-Translated)
+  "subscriptions.modal.delete.success": "Assinatura excluída com sucesso",
+
+  // "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully", (Auto-Translated)
+  "subscriptions.modal.update.success": "Assinatura para {{type}} atualizado com sucesso",
+
+  // "subscriptions.modal.create.error": "An error occurs during the subscription creation", (Auto-Translated)
+  "subscriptions.modal.create.error": "Um erro ocorre durante a criação de assinatura",
+
+  // "subscriptions.modal.delete.error": "An error occurs during the subscription delete", (Auto-Translated)
+  "subscriptions.modal.delete.error": "Um erro ocorre durante a exclusão de assinatura",
+
+  // "subscriptions.modal.update.error": "An error occurs during the subscription update", (Auto-Translated)
+  "subscriptions.modal.update.error": "Um erro ocorre durante a atualização da assinatura",
+
+  // "subscriptions.table.dso": "Subject", (Auto-Translated)
+  "subscriptions.table.dso": "Assunto",
+
+  // "subscriptions.table.subscription_type": "Subscription Type", (Auto-Translated)
+  "subscriptions.table.subscription_type": "Tipo de assinatura",
+
+  // "subscriptions.table.subscription_frequency": "Subscription Frequency", (Auto-Translated)
+  "subscriptions.table.subscription_frequency": "Frequência de assinatura",
+
+  // "subscriptions.table.action": "Action", (Auto-Translated)
+  "subscriptions.table.action": "Ação",
+
+  // "subscriptions.table.edit": "Edit", (Auto-Translated)
+  "subscriptions.table.edit": "Editar",
+
+  // "subscriptions.table.delete": "Delete", (Auto-Translated)
+  "subscriptions.table.delete": "Excluir",
+
+  // "subscriptions.table.not-available": "Not available", (Auto-Translated)
+  "subscriptions.table.not-available": "Não disponível",
+
+  // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it", (Auto-Translated)
+  "subscriptions.table.not-available-message": "O item inscrito foi excluído, ou você não tem permissão para vê-lo",
+
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.", (Auto-Translated)
+  "subscriptions.table.empty.message": "Você não tem nenhuma assinatura no momento. Para se inscrever em atualizações por e-mail para uma comunidade ou coleção, use o botão de assinatura na página do objeto.",
+
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Imagem de Miniatura",
 
@@ -6359,6 +7140,9 @@
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
   "vocabulary-treeview.tree.description.srsc": "Categorias de Assuntos de Pesquisa",
 
+  // "vocabulary-treeview.info": "Select a subject to add as search filter", (Auto-Translated)
+  "vocabulary-treeview.info": "Selecione um assunto para adicionar como filtro de pesquisa",
+
   // "uploader.browse": "browse",
   "uploader.browse": "Navegar",
 
@@ -6371,8 +7155,8 @@
   // "uploader.or": ", or ",
   "uploader.or": ", ou ",
 
-  // "uploader.processing": "Processing",
-  "uploader.processing": "Processando",
+  // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
+  "uploader.processing": "Processando arquivo(s) enviado(s)... (agora é seguro fechar esta página)",
 
   // "uploader.queue-length": "Queue length",
   "uploader.queue-length": "Tamanho da fila",
@@ -6386,6 +7170,9 @@
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-relationship.modal-head": "Selecione os itens para os quais você deseja salvar os metadados virtuais como metadados reais",
 
+  // "supervisedWorkspace.search.results.head": "Supervised Items", (Auto-Translated)
+  "supervisedWorkspace.search.results.head": "Itens supervisionados",
+
   // "workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Suas submissões",
 
@@ -6394,6 +7181,9 @@
 
   // "workflow.search.results.head": "Workflow tasks",
   "workflow.search.results.head": "Tarefas do Workflow",
+
+  // "supervision.search.results.head": "Workflow and Workspace tasks", (Auto-Translated)
+  "supervision.search.results.head": "Tarefas de fluxo de trabalho e espaço de trabalho",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   "workflow-item.edit.breadcrumbs": "Editar item do workflow",
@@ -6458,6 +7248,81 @@
   // "workspace-item.view.title": "Workspace View",
   "workspace-item.view.title": "Visualização da Área de Trabalho (Workspace)",
 
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete", (Auto-Translated)
+  "workspace-item.delete.breadcrumbs": "Excluir espaço de trabalho",
+
+  // "workspace-item.delete.header": "Delete workspace item", (Auto-Translated)
+  "workspace-item.delete.header": "Excluir item do espaço de trabalho",
+
+  // "workspace-item.delete.button.confirm": "Delete", (Auto-Translated)
+  "workspace-item.delete.button.confirm": "Excluir",
+
+  // "workspace-item.delete.button.cancel": "Cancel", (Auto-Translated)
+  "workspace-item.delete.button.cancel": "Cancelar",
+
+  // "workspace-item.delete.notification.success.title": "Deleted", (Auto-Translated)
+  "workspace-item.delete.notification.success.title": "Excluído",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted", (Auto-Translated)
+  "workspace-item.delete.title": "Este item do espaço de trabalho foi excluído com sucesso",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong", (Auto-Translated)
+  "workspace-item.delete.notification.error.title": "Algo deu errado",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted", (Auto-Translated)
+  "workspace-item.delete.notification.error.content": "O item do espaço de trabalho não pôde ser excluído",
+
+  // "workflow-item.advanced.title": "Advanced workflow", (Auto-Translated)
+  "workflow-item.advanced.title": "Fluxo de trabalho avançado",
+
+  // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer", (Auto-Translated)
+  "workflow-item.selectrevieweraction.notification.success.title": "Revisor selecionado",
+
+  // "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected", (Auto-Translated)
+  "workflow-item.selectrevieweraction.notification.success.content": "O revisor deste item de fluxo de trabalho foi selecionado com sucesso",
+
+  // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong", (Auto-Translated)
+  "workflow-item.selectrevieweraction.notification.error.title": "Algo deu errado",
+
+  // "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item", (Auto-Translated)
+  "workflow-item.selectrevieweraction.notification.error.content": "Não foi possível selecionar o revisor para este item de fluxo de trabalho",
+
+  // "workflow-item.selectrevieweraction.title": "Select Reviewer", (Auto-Translated)
+  "workflow-item.selectrevieweraction.title": "Selecione Revisor",
+
+  // "workflow-item.selectrevieweraction.header": "Select Reviewer", (Auto-Translated)
+  "workflow-item.selectrevieweraction.header": "Selecione Revisor",
+
+  // "workflow-item.selectrevieweraction.button.cancel": "Cancel", (Auto-Translated)
+  "workflow-item.selectrevieweraction.button.cancel": "Cancelar",
+
+  // "workflow-item.selectrevieweraction.button.confirm": "Confirm", (Auto-Translated)
+  "workflow-item.selectrevieweraction.button.confirm": "Confirmar",
+
+  // "workflow-item.scorereviewaction.notification.success.title": "Rating review", (Auto-Translated)
+  "workflow-item.scorereviewaction.notification.success.title": "Revisão de classificação",
+
+  // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted", (Auto-Translated)
+  "workflow-item.scorereviewaction.notification.success.content": "A classificação para este item de fluxo de trabalho do item foi enviada com sucesso",
+
+  // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong", (Auto-Translated)
+  "workflow-item.scorereviewaction.notification.error.title": "Algo deu errado",
+
+  // "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item", (Auto-Translated)
+  "workflow-item.scorereviewaction.notification.error.content": "Não foi possível avaliar este item",
+
+  // "workflow-item.scorereviewaction.title": "Rate this item", (Auto-Translated)
+  "workflow-item.scorereviewaction.title": "Avaliar este item",
+
+  // "workflow-item.scorereviewaction.header": "Rate this item", (Auto-Translated)
+  "workflow-item.scorereviewaction.header": "Avaliar este item",
+
+  // "workflow-item.scorereviewaction.button.cancel": "Cancel", (Auto-Translated)
+  "workflow-item.scorereviewaction.button.cancel": "Cancelar",
+
+  // "workflow-item.scorereviewaction.button.confirm": "Confirm", (Auto-Translated)
+  "workflow-item.scorereviewaction.button.confirm": "Confirmar",
+
   // "idle-modal.header": "Session will expire soon",
   "idle-modal.header": "Sessão vai expirar em breve",
 
@@ -6470,8 +7335,8 @@
   // "idle-modal.extend-session": "Extend session",
   "idle-modal.extend-session": "Estender sessão",
 
-  // "researcher.profile.action.processing" : "Processing...",
-  "researcher.profile.action.processing" : "Processando...",
+  // "researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "Processando...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "Perfil do pesquisador associado",
@@ -6503,11 +7368,11 @@
   // "researcher.profile.view": "View",
   "researcher.profile.view": "Ver",
 
-  // "researcher.profile.private.visibility" : "PRIVATE",
-  "researcher.profile.private.visibility" : "PRIVADO",
+  // "researcher.profile.private.visibility": "PRIVATE",
+  "researcher.profile.private.visibility": "PRIVADO",
 
-  // "researcher.profile.public.visibility" : "PUBLIC",
-  "researcher.profile.public.visibility" : "PÚBLICO",
+  // "researcher.profile.public.visibility": "PUBLIC",
+  "researcher.profile.public.visibility": "PÚBLICO",
 
   // "researcher.profile.status": "Status:",
   "researcher.profile.status": "Status:",
@@ -6515,17 +7380,17 @@
   // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
   "researcherprofile.claim.not-authorized": "Você não está autorizado a reivindicar este item. Para mais detalhes, entre em contato com o(s) administrador(es)",
 
-  // "researcherprofile.error.claim.body" : "An error occurred while claiming the profile, please try again later",
-  "researcherprofile.error.claim.body" : "Ocorreu um erro ao reivindicar o perfil, tente novamente mais tarde",
+  // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "Ocorreu um erro ao reivindicar o perfil, tente novamente mais tarde",
 
-  // "researcherprofile.error.claim.title" : "Error",
-  "researcherprofile.error.claim.title" : "Erro",
+  // "researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "Erro",
 
-  // "researcherprofile.success.claim.body" : "Profile claimed with success",
-  "researcherprofile.success.claim.body" : "Perfil reivindicado com sucesso",
+  // "researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Perfil reivindicado com sucesso",
 
-  // "researcherprofile.success.claim.title" : "Success",
-  "researcherprofile.success.claim.title" : "Successo",
+  // "researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "Successo",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "Criar um ORCID ID",
@@ -6533,8 +7398,8 @@
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
   "person.page.orcid.granted-authorizations": "Autorizações concedidas",
 
-  // "person.page.orcid.grant-authorizations" : "Grant authorizations",
-  "person.page.orcid.grant-authorizations" : "Conceder autorizações",
+  // "person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Conceder autorizações",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   "person.page.orcid.link": "Conectar ao ORCID ID",
@@ -6581,44 +7446,44 @@
   // "person.page.orcid.save.preference.changes": "Update settings",
   "person.page.orcid.save.preference.changes": "Atualizar configurações",
 
-  // "person.page.orcid.sync-profile.affiliation" : "Affiliation",
-  "person.page.orcid.sync-profile.affiliation" : "Afiliação",
+  // "person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Afiliação",
 
-  // "person.page.orcid.sync-profile.biographical" : "Biographical data",
-  "person.page.orcid.sync-profile.biographical" : "Dados biográficos",
+  // "person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Dados biográficos",
 
-  // "person.page.orcid.sync-profile.education" : "Education",
-  "person.page.orcid.sync-profile.education" : "Educação",
+  // "person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Educação",
 
-  // "person.page.orcid.sync-profile.identifiers" : "Identifiers",
-  "person.page.orcid.sync-profile.identifiers" : "Identificadores",
+  // "person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Identificadores",
 
-  // "person.page.orcid.sync-fundings.all" : "All fundings",
-  "person.page.orcid.sync-fundings.all" : "Todos financiamentos",
+  // "person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "Todos financiamentos",
 
-  // "person.page.orcid.sync-fundings.mine" : "My fundings",
-  "person.page.orcid.sync-fundings.mine" : "Meus financiamentos",
+  // "person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "Meus financiamentos",
 
-  // "person.page.orcid.sync-fundings.my_selected" : "Selected fundings",
-  "person.page.orcid.sync-fundings.my_selected" : "Financiamentos selecionados",
+  // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Financiamentos selecionados",
 
-  // "person.page.orcid.sync-fundings.disabled" : "Disabled",
-  "person.page.orcid.sync-fundings.disabled" : "Desabilitado",
+  // "person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Desabilitado",
 
-  // "person.page.orcid.sync-publications.all" : "All publications",
-  "person.page.orcid.sync-publications.all" : "Todas publicações",
+  // "person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "Todas publicações",
 
-  // "person.page.orcid.sync-publications.mine" : "My publications",
-  "person.page.orcid.sync-publications.mine" : "Minhas publicações",
+  // "person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "Minhas publicações",
 
-  // "person.page.orcid.sync-publications.my_selected" : "Selected publications",
-  "person.page.orcid.sync-publications.my_selected" : "Publicações selecionadas",
+  // "person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Publicações selecionadas",
 
-  // "person.page.orcid.sync-publications.disabled" : "Disabled",
-  "person.page.orcid.sync-publications.disabled" : "Desabilitado",
+  // "person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Desabilitado",
 
-  // "person.page.orcid.sync-queue.discard" : "Discard the change and do not synchronize with the ORCID registry",
-  "person.page.orcid.sync-queue.discard" : "Descarte a alteração e não sincronize com o registro ORCID",
+  // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Descarte a alteração e não sincronize com o registro ORCID",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "Falha ao descartar o registro da fila ORCID",
@@ -6629,14 +7494,14 @@
   // "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
   "person.page.orcid.sync-queue.empty-message": "O registro da fila ORCID está vazio",
 
-  // "person.page.orcid.sync-queue.table.header.type" : "Type",
-  "person.page.orcid.sync-queue.table.header.type" : "Tipo",
+  // "person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Tipo",
 
-  // "person.page.orcid.sync-queue.table.header.description" : "Description",
-  "person.page.orcid.sync-queue.table.header.description" : "Descrição",
+  // "person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Descrição",
 
-  // "person.page.orcid.sync-queue.table.header.action" : "Action",
-  "person.page.orcid.sync-queue.table.header.action" : "Ação",
+  // "person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Ação",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Afiliação",
@@ -6701,8 +7566,8 @@
   // "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "URL do pesquisador",
 
-  // "person.page.orcid.sync-queue.send" : "Synchronize with ORCID registry",
-  "person.page.orcid.sync-queue.send" : "Sincronize com o registro ORCID",
+  // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Sincronize com o registro ORCID",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "A submissão ao ORCID falhou por falta de autorizações.",
@@ -6755,8 +7620,8 @@
   // "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "O nome da organização é obrigatório",
 
-  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "The publication date must be one year after 1900",
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid" : "A data de publicação deve ser um ano após 1900",
+  // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "A data de publicação deve ser um ano após 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "O endereço da organização a ser enviado exige uma endereço",
@@ -6833,10 +7698,156 @@
   // "person.orcid.registry.queue": "ORCID Registry Queue",
   "person.orcid.registry.queue": "ORCID Registro na Fila",
 
-  // "person.orcid.registry.auth": "ORCID Autorizações",
-  "person.orcid.registry.auth": "ORCID Autorizações",
-  
+  // "person.orcid.registry.auth": "ORCID Authorizations",
+  "person.orcid.registry.auth": "Autorizações ORCID",
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Submissões Recentes",
 
+  // "listable-notification-object.default-message": "This object couldn't be retrieved", (Auto-Translated)
+  "listable-notification-object.default-message": "Este objeto não pôde ser recuperado",
+
+  // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner", (Auto-Translated)
+  "system-wide-alert-banner.retrieval.error": "Algo deu errado recuperar o banner de alerta em todo o sistema",
+
+  // "system-wide-alert-banner.countdown.prefix": "In", (Auto-Translated)
+  "system-wide-alert-banner.countdown.prefix": "Em",
+
+  // "system-wide-alert-banner.countdown.days": "{{days}} day(s),", (Auto-Translated)
+  "system-wide-alert-banner.countdown.days": "{{days}} dia (s),",
+
+  // "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and", (Auto-Translated)
+  "system-wide-alert-banner.countdown.hours": "{{hours}} hora (s) e",
+
+  // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):", (Auto-Translated)
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minuto (s):",
+
+  // "menu.section.system-wide-alert": "System-wide Alert", (Auto-Translated)
+  "menu.section.system-wide-alert": "Alerta em todo o sistema",
+
+  // "system-wide-alert.form.header": "System-wide Alert", (Auto-Translated)
+  "system-wide-alert.form.header": "Alerta em todo o sistema",
+
+  // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert", (Auto-Translated)
+  "system-wide-alert-form.retrieval.error": "Algo deu errado recuperando o alerta em todo o sistema",
+
+  // "system-wide-alert.form.cancel": "Cancel", (Auto-Translated)
+  "system-wide-alert.form.cancel": "Cancelar",
+
+  // "system-wide-alert.form.save": "Save", (Auto-Translated)
+  "system-wide-alert.form.save": "Salvar",
+
+  // "system-wide-alert.form.label.active": "ACTIVE", (Auto-Translated)
+  "system-wide-alert.form.label.active": "ATIVO",
+
+  // "system-wide-alert.form.label.inactive": "INACTIVE", (Auto-Translated)
+  "system-wide-alert.form.label.inactive": "INATIVO",
+
+  // "system-wide-alert.form.error.message": "The system wide alert must have a message", (Auto-Translated)
+  "system-wide-alert.form.error.message": "O alerta amplo do sistema deve ter uma mensagem",
+
+  // "system-wide-alert.form.label.message": "Alert message", (Auto-Translated)
+  "system-wide-alert.form.label.message": "Mensagem de alerta",
+
+  // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer", (Auto-Translated)
+  "system-wide-alert.form.label.countdownTo.enable": "Ativar um cronômetro de contagem regressiva",
+
+  // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.", (Auto-Translated)
+  "system-wide-alert.form.label.countdownTo.hint": "Dica: defina um cronômetro de contagem regressiva. Quando ativado, uma data pode ser definida no futuro e o banner de alerta em todo o sistema executará uma contagem regressiva para a data definida. Quando esse timer terminar, ele desaparecerá do alerta. O servidor NÃO será interrompido automaticamente.",
+
+  // "system-wide-alert.form.label.preview": "System-wide alert preview", (Auto-Translated)
+  "system-wide-alert.form.label.preview": "Visualização de alerta em todo o sistema",
+
+  // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated", (Auto-Translated)
+  "system-wide-alert.form.update.success": "O alerta em todo o sistema foi atualizado com sucesso",
+
+  // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert", (Auto-Translated)
+  "system-wide-alert.form.update.error": "Algo deu errado ao atualizar o alerta em todo o sistema",
+
+  // "system-wide-alert.form.create.success": "The system-wide alert was successfully created", (Auto-Translated)
+  "system-wide-alert.form.create.success": "O alerta em todo o sistema foi criado com sucesso",
+
+  // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert", (Auto-Translated)
+  "system-wide-alert.form.create.error": "Algo deu errado ao criar o alerta em todo o sistema",
+
+  // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts", (Auto-Translated)
+  "admin.system-wide-alert.breadcrumbs": "Alertas em todo o sistema",
+
+  // "admin.system-wide-alert.title": "System-wide Alerts", (Auto-Translated)
+  "admin.system-wide-alert.title": "Alertas em todo o sistema",
+
+  // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.", (Auto-Translated)
+  "item-access-control-title": "Este formulário permite que você execute alterações nas condições de acesso dos metadados do item ou seus bitstreams.",
+
+  // "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).", (Auto-Translated)
+  "collection-access-control-title": "Este formulário permite executar alterações nas condições de acesso de todos os itens de propriedade desta coleção. As alterações podem ser realizadas em todos os metadados do item ou em todo o conteúdo (BitStreams).",
+
+  // "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).", (Auto-Translated)
+  "community-access-control-title": "Este formulário permite executar alterações nas condições de acesso de todos os itens pertencentes a qualquer coleção nesta comunidade. As alterações podem ser realizadas em todos os metadados do item ou em todo o conteúdo (BitStreams).",
+
+  // "access-control-item-header-toggle": "Item's Metadata", (Auto-Translated)
+  "access-control-item-header-toggle": "Metadados do item",
+
+  // "access-control-bitstream-header-toggle": "Bitstreams", (Auto-Translated)
+  "access-control-bitstream-header-toggle": "BitStreams",
+
+  // "access-control-mode": "Mode", (Auto-Translated)
+  "access-control-mode": "Modo",
+
+  // "access-control-access-conditions": "Access conditions", (Auto-Translated)
+  "access-control-access-conditions": "Condições de acesso",
+
+  // "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.", (Auto-Translated)
+  "access-control-no-access-conditions-warning-message": "Atualmente, nenhuma condição de acesso é especificada abaixo. Se executado, isso substituirá as condições de acesso atuais pelas condições de acesso padrão herdadas da coleção proprietária.",
+
+  // "access-control-replace-all": "Replace access conditions", (Auto-Translated)
+  "access-control-replace-all": "Substitua as condições de acesso",
+
+  // "access-control-add-to-existing": "Add to existing ones", (Auto-Translated)
+  "access-control-add-to-existing": "Adicione aos existentes",
+
+  // "access-control-limit-to-specific": "Limit the changes to specific bitstreams", (Auto-Translated)
+  "access-control-limit-to-specific": "Limitar as alterações em transmissões específicas",
+
+  // "access-control-process-all-bitstreams": "Update all the bitstreams in the item", (Auto-Translated)
+  "access-control-process-all-bitstreams": "Atualize todos os streams de bits no item",
+
+  // "access-control-bitstreams-selected": "bitstreams selected", (Auto-Translated)
+  "access-control-bitstreams-selected": "BitStreams selecionados",
+
+  // "access-control-cancel": "Cancel", (Auto-Translated)
+  "access-control-cancel": "Cancelar",
+
+  // "access-control-execute": "Execute", (Auto-Translated)
+  "access-control-execute": "Executar",
+
+  // "access-control-add-more": "Add more", (Auto-Translated)
+  "access-control-add-more": "Adicione mais",
+
+  // "access-control-select-bitstreams-modal.title": "Select bitstreams", (Auto-Translated)
+  "access-control-select-bitstreams-modal.title": "Selecione BitStreams",
+
+  // "access-control-select-bitstreams-modal.no-items": "No items to show.", (Auto-Translated)
+  "access-control-select-bitstreams-modal.no-items": "Sem itens para mostrar.",
+
+  // "access-control-select-bitstreams-modal.close": "Close", (Auto-Translated)
+  "access-control-select-bitstreams-modal.close": "Fechar",
+
+  // "access-control-option-label": "Access condition type", (Auto-Translated)
+  "access-control-option-label": "Tipo de condição de acesso",
+
+  // "access-control-option-note": "Choose an access condition to apply to selected objects.", (Auto-Translated)
+  "access-control-option-note": "Escolha uma condição de acesso para aplicar em objetos selecionados.",
+
+  // "access-control-option-start-date": "Grant access from", (Auto-Translated)
+  "access-control-option-start-date": "Conceder acesso de",
+
+  // "access-control-option-start-date-note": "Select the date from which the related access condition is applied", (Auto-Translated)
+  "access-control-option-start-date-note": "Selecione a data a partir da qual a condição de acesso relacionada é aplicada",
+
+  // "access-control-option-end-date": "Grant access until", (Auto-Translated)
+  "access-control-option-end-date": "Conceder acesso até",
+
+  // "access-control-option-end-date-note": "Select the date until which the related access condition is applied", (Auto-Translated)
+  "access-control-option-end-date-note": "Selecione a data até a qual a condição de acesso relacionada é aplicada",
 }

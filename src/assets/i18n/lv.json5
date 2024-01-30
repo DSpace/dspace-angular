@@ -169,7 +169,7 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nosaukums",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.id" : "ID",
+  "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Return",
   "admin.registries.bitstream-formats.table.return": "Atgriezties",
@@ -252,7 +252,7 @@
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Lauks",
   // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.id" : "ID",
+  "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Jomas Piezīme",
@@ -1680,7 +1680,7 @@
 
   // "curation-task.task.checklinks.label":  "Check Links in Metadata",
   // TODO New key - Add a translation
-  "curation-task.task.checklinks.label":  "Check Links in Metadata",
+  "curation-task.task.checklinks.label": "Check Links in Metadata",
 
   // "curation-task.task.noop.label": "NOOP",
   // TODO New key - Add a translation
@@ -1903,7 +1903,7 @@
 
   // "footer.link.end-user-agreement":"End User Agreement",
   // TODO New key - Add a translation
-  "footer.link.end-user-agreement":"End User Agreement",
+  "footer.link.end-user-agreement": "End User Agreement",
 
 
 
@@ -2069,9 +2069,6 @@
   // "form.no-value": "No value entered",
   "form.no-value": "Vērtība netika ievadīta",
 
-  // "form.other-information": {},
-  "form.other-information": {},
-
   // "form.remove": "Remove",
   "form.remove": "Dzēst",
 
@@ -2196,7 +2193,7 @@
   // "item.bitstreams.upload.bundle.new": "Create bundle",
   "item.bitstreams.upload.bundle.new": "Izveidot kopienu",
 
-  // "item.bitstreams.upload.bundles.empty": "This item doesn\'t contain any bundles to upload a bitstream to.",
+  // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
   "item.bitstreams.upload.bundles.empty": "Materiālā nav neviena kopiena ko augšupielādēt bitu straumē.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -2768,10 +2765,6 @@
   // TODO New key - Add a translation
   "item.page.description": "Description",
 
-  // "item.page.edit": "Edit this item",
-  // TODO New key - Add a translation
-  "item.page.edit": "Edit this item",
-
   // "item.page.journal-issn": "Journal ISSN",
   // TODO New key - Add a translation
   "item.page.journal-issn": "Journal ISSN",
@@ -2885,11 +2878,11 @@
 
   // "item.page.filesection.original.bundle" : "Original bundle",
   // TODO New key - Add a translation
-  "item.page.filesection.original.bundle" : "Original bundle",
+  "item.page.filesection.original.bundle": "Original bundle",
 
   // "item.page.filesection.license.bundle" : "License bundle",
   // TODO New key - Add a translation
-  "item.page.filesection.license.bundle" : "License bundle",
+  "item.page.filesection.license.bundle": "License bundle",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
   // TODO New key - Add a translation
@@ -3499,20 +3492,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Jūsu Iesniegumi",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Arhivēts",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Arhivēts",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validācija",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validācija",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Gaida kontrolieri",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Gaida kontrolieri",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Darba plūsma",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Darba plūsma",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Darbavieta",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Darbavieta",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mans DSpace",
@@ -3739,19 +3732,19 @@
 
   // "process.detail.arguments" : "Arguments",
   // TODO New key - Add a translation
-  "process.detail.arguments" : "Arguments",
+  "process.detail.arguments": "Arguments",
 
   // "process.detail.arguments.empty" : "This process doesn't contain any arguments",
   // TODO New key - Add a translation
-  "process.detail.arguments.empty" : "This process doesn't contain any arguments",
+  "process.detail.arguments.empty": "This process doesn't contain any arguments",
 
   // "process.detail.back" : "Back",
   // TODO New key - Add a translation
-  "process.detail.back" : "Back",
+  "process.detail.back": "Back",
 
   // "process.detail.output" : "Process Output",
   // TODO New key - Add a translation
-  "process.detail.output" : "Process Output",
+  "process.detail.output": "Process Output",
 
   // "process.detail.logs.button": "Retrieve process output",
   // TODO New key - Add a translation
@@ -3767,61 +3760,61 @@
 
   // "process.detail.output-files" : "Output Files",
   // TODO New key - Add a translation
-  "process.detail.output-files" : "Output Files",
+  "process.detail.output-files": "Output Files",
 
   // "process.detail.output-files.empty" : "This process doesn't contain any output files",
   // TODO New key - Add a translation
-  "process.detail.output-files.empty" : "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "This process doesn't contain any output files",
 
   // "process.detail.script" : "Script",
   // TODO New key - Add a translation
-  "process.detail.script" : "Script",
+  "process.detail.script": "Script",
 
   // "process.detail.title" : "Process: {{ id }} - {{ name }}",
   // TODO New key - Add a translation
-  "process.detail.title" : "Process: {{ id }} - {{ name }}",
+  "process.detail.title": "Process: {{ id }} - {{ name }}",
 
   // "process.detail.start-time" : "Start time",
   // TODO New key - Add a translation
-  "process.detail.start-time" : "Start time",
+  "process.detail.start-time": "Start time",
 
   // "process.detail.end-time" : "Finish time",
   // TODO New key - Add a translation
-  "process.detail.end-time" : "Finish time",
+  "process.detail.end-time": "Finish time",
 
   // "process.detail.status" : "Status",
   // TODO New key - Add a translation
-  "process.detail.status" : "Status",
+  "process.detail.status": "Status",
 
   // "process.detail.create" : "Create similar process",
   // TODO New key - Add a translation
-  "process.detail.create" : "Create similar process",
+  "process.detail.create": "Create similar process",
 
 
 
   // "process.overview.table.finish" : "Finish time",
   // TODO New key - Add a translation
-  "process.overview.table.finish" : "Finish time",
+  "process.overview.table.finish": "Finish time",
 
   // "process.overview.table.id" : "Process ID",
   // TODO New key - Add a translation
-  "process.overview.table.id" : "Process ID",
+  "process.overview.table.id": "Process ID",
 
   // "process.overview.table.name" : "Name",
   // TODO New key - Add a translation
-  "process.overview.table.name" : "Name",
+  "process.overview.table.name": "Name",
 
   // "process.overview.table.start" : "Start time",
   // TODO New key - Add a translation
-  "process.overview.table.start" : "Start time",
+  "process.overview.table.start": "Start time",
 
   // "process.overview.table.status" : "Status",
   // TODO New key - Add a translation
-  "process.overview.table.status" : "Status",
+  "process.overview.table.status": "Status",
 
   // "process.overview.table.user" : "User",
   // TODO New key - Add a translation
-  "process.overview.table.user" : "User",
+  "process.overview.table.user": "User",
 
   // "process.overview.title": "Processes Overview",
   // TODO New key - Add a translation
@@ -5221,7 +5214,7 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
 
-  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Vai vēlaties saglabāt \"{{ value }}\" kā vārda variantu šai personai, lai jūs un citi varētu to izmantot turpmākai iesniegšanai? Ja nē, jūs joprojām varat to izmantot šai iesniegšanai.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -5624,7 +5617,7 @@
 
   // "workflow-item.send-back.button.confirm": "Send back"
   // TODO New key - Add a translation
-  "workflow-item.send-back.button.confirm": "Send back"
+  "workflow-item.send-back.button.confirm": "Send back",
 
 
 }

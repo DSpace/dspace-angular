@@ -45,7 +45,9 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
 import { ValidateGroupExists } from './validators/group-exists.validator';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { environment } from '../../../../environments/environment';
+import { getGroupEditRoute, getGroupsRoute } from '../../access-control-routing-paths';
 
 @Component({
   selector: 'ds-group-form',
@@ -431,7 +433,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             this.groupDataService.delete(group.id).pipe(getFirstCompletedRemoteData())
               .subscribe((rd: RemoteData<NoContent>) => {
                 if (rd.hasSucceeded) {
-                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: group.name }));
+                  this.notificationsService.success(this.translateService.get(this.messagePrefix + '.notification.deleted.success', { name: this.dsoNameService.getName(group) }));
                   this.onCancel();
                 } else {
                   this.notificationsService.error(

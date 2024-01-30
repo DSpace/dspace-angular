@@ -194,7 +194,7 @@ export class FormComponent implements OnDestroy, OnInit {
                 const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
 
                 // Check if field has nested input fields
-                if (field instanceof FormGroup && isNotEmpty(field?.controls)) {
+                if (field instanceof UntypedFormGroup && isNotEmpty(field?.controls)) {
                   // For input field which consist of more input fields e.g. DynamicComplexModel
                   // add error for every input field
                   Object.keys(field.controls).forEach((nestedInputName, nestedInputIndex) => {

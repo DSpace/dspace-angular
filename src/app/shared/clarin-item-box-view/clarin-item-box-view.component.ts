@@ -7,7 +7,7 @@ import {
   getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload
 } from '../../core/shared/operators';
 import { Collection } from '../../core/shared/collection.model';
-import { isNull } from '../empty.util';
+import { isEmpty, isNull } from '../empty.util';
 import { followLink } from '../utils/follow-link-config.model';
 import { Community } from '../../core/shared/community.model';
 import { BehaviorSubject } from 'rxjs';
@@ -185,6 +185,9 @@ export class ClarinItemBoxViewComponent implements OnInit {
       case LicenseType.academic:
         this.licenseType = 'Academic Use';
         break;
+      default:
+        this.licenseType = this.licenseLabel;
+        break;
     }
 
     // load license label icons
@@ -211,6 +214,10 @@ export class ClarinItemBoxViewComponent implements OnInit {
 
   secureImageData(imageByteArray) {
     return secureImageData(this.sanitizer, imageByteArray);
+  }
+
+  hasItemType() {
+    return !isEmpty(this.itemType);
   }
 }
 

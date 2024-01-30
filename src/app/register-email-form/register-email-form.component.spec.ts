@@ -67,7 +67,7 @@ describe('RegisterEmailFormComponent', () => {
         {provide: Router, useValue: router},
         {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
         {provide: ConfigurationDataService, useValue: configurationDataService},
-        {provide: FormBuilder, useValue: new FormBuilder()},
+        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: CookieService, useValue: new CookieServiceMock()},
         {provide: GoogleRecaptchaService, useValue: googleRecaptchaService},

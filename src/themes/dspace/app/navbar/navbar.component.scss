@@ -1,4 +1,13 @@
 nav.navbar {
+  align-items: baseline;
+
+  .navbar-inner-container {
+    border-top: 1px var(--ds-header-navbar-border-top-color) solid;
+  }
+}
+
+.navbar-nav {
+  background-color: var(--ds-navbar-bg);
   border-top: 1px var(--ds-header-navbar-border-top-color) solid;
   border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid;
   align-items: baseline;
@@ -28,7 +37,7 @@ nav.navbar {
     z-index: var(--ds-nav-z-index);
     &.open {
       height: 100vh; //doesn't matter because wrapper is sticky
-      border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
+      //border-bottom: 5px var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
     }
   }
 }

@@ -7,12 +7,12 @@
       <ds-themed-loading *ngIf="(i + 1) === objects.length && (itemsRD || i > 0) && !(itemsRD?.hasSucceeded && itemsRD?.payload && itemsRD?.payload?.page?.length > 0)" message="{{'loading.default' | translate}}"></ds-themed-loading>
       <div class="d-inline-block w-100 mt-2" *ngIf="(i + 1) === objects.length && itemsRD?.payload?.page?.length > 0">
         <div *ngIf="itemsRD?.payload?.totalPages > objects.length" class="float-left" id="view-more">
-          <a [routerLink]="[]" (click)="increase()">{{'item.page.related-items.view-more' |
-            translate:{ amount: (itemsRD?.payload?.totalElements - (incrementBy * objects.length) < incrementBy) ? itemsRD?.payload?.totalElements - (incrementBy * objects.length) : incrementBy } }}</a>
+          <button class="btn btn-link btn-link-inline" (click)="increase()">{{'item.page.related-items.view-more' |
+            translate:{ amount: (itemsRD?.payload?.totalElements - (incrementBy * objects.length) < incrementBy) ? itemsRD?.payload?.totalElements - (incrementBy * objects.length) : incrementBy } }}</button>
         </div>
         <div *ngIf="objects.length > 1" class="float-right" id="view-less">
-          <a [routerLink]="[]" (click)="decrease()">{{'item.page.related-items.view-less' |
-            translate:{ amount: itemsRD?.payload?.page?.length } }}</a>
+          <button class="btn btn-link btn-link-inline" (click)="decrease()">{{'item.page.related-items.view-less' |
+            translate:{ amount: itemsRD?.payload?.page?.length } }}</button>
         </div>
       </div>
     </ng-container>

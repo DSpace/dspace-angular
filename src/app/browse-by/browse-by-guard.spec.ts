@@ -1,8 +1,7 @@
 import { first } from 'rxjs/operators';
 import { BrowseByGuard } from './browse-by-guard';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-decorator';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
 import { DSONameServiceMock } from '../shared/mocks/dso-name.service.mock';

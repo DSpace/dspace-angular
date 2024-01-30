@@ -13,11 +13,15 @@
 version: '3.7'
 networks:
   dspacenet:
+    ipam:
+      config:
+        # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
+        # If you customize this value, be sure to customize the 'proxies.trusted.ipranges' env variable below.
+        - subnet: 172.23.0.0/16
 services:
   # DSpace (backend) webapp container
   dspace:
-    restart: unless-stopped
-    container_name: dspace${INSTANCE}
+    container_name: dspace
     environment:
       JAVA_OPTS: ${JAVA_OPTS:--Xmx4g}
       TZ: ${TIMEZONE:-Europe/Bratislava}

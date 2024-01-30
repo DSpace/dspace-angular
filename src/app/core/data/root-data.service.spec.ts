@@ -21,10 +21,10 @@ describe('RootDataService', () => {
     halService = jasmine.createSpyObj('halService', {
       getRootHref: rootEndpoint,
     });
-    restService = jasmine.createSpyObj('halService', {
-      get: jasmine.createSpy('get'),
-    });
-    service = new RootDataService(null, null, null, halService, restService);
+    requestService = jasmine.createSpyObj('requestService', [
+      'setStaleByHref',
+    ]);
+    service = new RootDataService(requestService, null, null, halService);
 
     findByHrefSpy = spyOn(service as any, 'findByHref');
     findByHrefSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));

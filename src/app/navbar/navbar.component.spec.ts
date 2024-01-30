@@ -27,6 +27,9 @@ import { authReducer } from '../core/auth/auth.reducer';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { EPersonMock } from '../shared/testing/eperson.mock';
+import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;

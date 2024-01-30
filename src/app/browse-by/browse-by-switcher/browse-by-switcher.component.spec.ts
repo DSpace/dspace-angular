@@ -3,9 +3,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BROWSE_BY_COMPONENT_FACTORY, BrowseByDataType } from './browse-by-decorator';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
+import { NonHierarchicalBrowseDefinition } from '../../core/shared/non-hierarchical-browse-definition';
 
 describe('BrowseBySwitcherComponent', () => {
   let comp: BrowseBySwitcherComponent;

@@ -51,9 +51,13 @@ describe('ObjectCollectionComponent', () => {
     expect(fixture.debugElement.query(By.css('ds-themed-object-list'))).not.toBeNull();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
   });
-  it('should set fallback placeholder font size during test', () => {
-    objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
-    expect(fixture.debugElement.query(By.css('thumb-font-3'))).toBeDefined();
 
+  it('should set fallback placeholder font size during test', async () => {
+    objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
+    fixture.detectChanges();
+
+    const comp = fixture.debugElement.query(By.css('ds-themed-object-list'));
+    expect(comp).not.toBeNull();
+    expect(comp.nativeElement.classList).not.toContain('hide-placeholder-text');
   });
 });

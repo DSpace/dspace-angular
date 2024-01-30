@@ -25,6 +25,7 @@ import { getMockRequestService } from '../../../shared/mocks/request.service.moc
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -209,7 +210,6 @@ describe('ItemBitstreamsComponent', () => {
       comp.dropBitstream(bundle, {
         fromIndex: 0,
         toIndex: 50,
-        // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
         finish: () => {
           done();
         }

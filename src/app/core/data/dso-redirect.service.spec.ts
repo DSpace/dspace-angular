@@ -10,6 +10,9 @@ import { RequestService } from './request.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../shared/item.model';
 import { EMBED_SEPARATOR } from './base/base-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { environment } from '../../../environments/environment.test';
+import { AppConfig } from '../../../config/app-config.interface';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -49,12 +52,18 @@ describe('DsoRedirectService', () => {
         a: remoteData
       })
     });
+
+    redirectService = jasmine.createSpyObj('redirectService', {
+      redirect: {}
+    });
+
     service = new DsoRedirectService(
+      environment as AppConfig,
       requestService,
       rdbService,
       objectCache,
       halService,
-      router,
+      redirectService
     );
   });
 
@@ -127,7 +136,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['/collections/' + remoteData.payload.uuid]);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/collections/${remoteData.payload.uuid}`, 301);
     });
 
     it('should navigate to communities route', () => {
@@ -136,7 +145,7 @@ describe('DsoRedirectService', () => {
       redir.subscribe();
       scheduler.schedule(() => redir);
       scheduler.flush();
-      expect(router.navigate).toHaveBeenCalledWith(['/communities/' + remoteData.payload.uuid]);
+      expect(redirectService.redirect).toHaveBeenCalledWith(`${environment.ui.nameSpace}/communities/${remoteData.payload.uuid}`, 301);
     });
   });
 

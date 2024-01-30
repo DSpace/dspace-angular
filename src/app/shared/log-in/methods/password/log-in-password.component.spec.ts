@@ -15,6 +15,8 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
 import {of, of as observableOf} from 'rxjs';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { ActivatedRoute , Router} from '@angular/router';
@@ -82,7 +84,8 @@ describe('LogInPasswordComponent', () => {
       ],
       providers: [
         { provide: AuthService, useValue: authService },
-        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password) },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password, 0) },
         { provide: 'isStandalonePage', useValue: true },
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ConfigurationDataService, useValue: configurationDataService },

@@ -1,0 +1,18 @@
+<div *ngVar="item?.allMetadataValues('local.sponsor') as sponsorMvs">
+  <div *ngFor="let sponsor of sponsorMvs; let lastItem = last">
+    <div *ngVar="sponsor?.split(SPONSOR_VALUE_SEPARATOR) as sponsorMetadataValueParts">
+      <div class="sponsor-padding">
+        <span id="organization-value">{{ getValueOrError(sponsorMetadataValueParts?.[2], ORGANIZATION_ERROR) }}</span>
+      </div>
+      <div class="sponsor-padding">
+        <span>{{ 'item.page.acknowledgement.project-code' | translate }}</span>
+        <span id="project-code-value" class="pl-1">{{ getValueOrError(sponsorMetadataValueParts?.[1], PROJECT_CODE_ERROR) }}</span>
+      </div>
+      <div class="sponsor-padding">
+        <span>{{ 'item.page.acknowledgement.project-name' | translate }}</span>
+        <span id="project-name-value" class="pl-1">{{ getValueOrError(sponsorMetadataValueParts?.[3], PROJECT_NAME_ERROR) }}</span>
+      </div>
+      <div *ngIf="!lastItem" class="pb-3"></div>
+    </div>
+  </div>
+</div>

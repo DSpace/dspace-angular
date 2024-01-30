@@ -1,5 +1,5 @@
 nav.navbar {
-    border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid;
+    background-color: var(--ds-navbar-bg);
     align-items: baseline;
 }
 
@@ -15,6 +15,7 @@ nav.navbar {
         &.open {
           height: auto;
           min-height: 100vh; //doesn't matter because wrapper is sticky
+          border-bottom: 1px var(--ds-header-navbar-border-bottom-color) solid; // open navbar covers header-navbar-wrapper border
         }
     }
 }

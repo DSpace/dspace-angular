@@ -42,6 +42,16 @@
   color: #c09853 !important;
 }
 
+header {
+  li > .navbar-section,
+  li > .expandable-navbar-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
 .ng-toggle-on {
   color: #fff !important;
   background-color: #28a745 !important;

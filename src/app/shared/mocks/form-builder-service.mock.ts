@@ -1,5 +1,5 @@
 import { FormBuilderService } from '../form/builder/form-builder.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import {DsDynamicInputModel} from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export function getMockFormBuilderService(): FormBuilderService {

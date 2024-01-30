@@ -1,18 +1,15 @@
 import { Injectable, Inject, Injector } from '@angular/core';
 import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
-import { BehaviorSubject, EMPTY, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, of as observableOf, from, concatMap } from 'rxjs';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction, ThemeActionTypes } from './theme.actions';
-import { expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
+import { defaultIfEmpty, expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
 import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload
-} from '../../core/shared/operators';
-import { HeadTagConfig, Theme, ThemeConfig, themeFactory } from '../../../config/theme.model';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { Theme, themeFactory } from './theme.model';
+import { ThemeConfig, HeadTagConfig } from '../../../config/theme.config';
 import { NO_OP_ACTION_TYPE, NoOpAction } from '../ngrx/no-op.action';
 import { followLink } from '../utils/follow-link-config.model';
 import { LinkService } from '../../core/cache/builders/link.service';
@@ -219,7 +216,7 @@ export class ThemeService {
     // create new head tags (not yet added to DOM)
     const headTagFragment = this.document.createDocumentFragment();
     this.createHeadTags(themeName)
-        .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
+      .forEach(newHeadTag => headTagFragment.appendChild(newHeadTag));
 
     // add new head tags to DOM
     head.appendChild(headTagFragment);
@@ -240,14 +237,7 @@ export class ThemeService {
       if (hasValue(parentThemeName)) {
         // inherit the head tags of the parent theme
         return this.createHeadTags(parentThemeName);
-      }
-      const defaultThemeConfig = getDefaultThemeConfig();
-      const defaultThemeName = defaultThemeConfig.name;
-      if (
-        hasNoValue(defaultThemeName) ||
-        themeName === defaultThemeName ||
-        themeName === BASE_THEME_NAME
-      ) {
+      } else {
         // last resort, use fallback favicon.ico
         return [
           this.createHeadTag({
@@ -260,9 +250,6 @@ export class ThemeService {
           })
         ];
       }
-
-      // inherit the head tags of the default theme
-      return this.createHeadTags(defaultThemeConfig.name);
     }
 
     return headTagConfigs.map(this.createHeadTag.bind(this));
@@ -278,7 +265,7 @@ export class ThemeService {
 
     if (hasValue(headTagConfig.attributes)) {
       Object.entries(headTagConfig.attributes)
-            .forEach(([key, value]) => tag.setAttribute(key, value));
+        .forEach(([key, value]) => tag.setAttribute(key, value));
     }
 
     // 'class' attribute should always be 'theme-head-tag' for removal

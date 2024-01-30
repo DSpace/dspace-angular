@@ -21,7 +21,7 @@
     "skipDefaultLibCheck": true,
     "pretty": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2015",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types",
       "src/typings.d.ts"

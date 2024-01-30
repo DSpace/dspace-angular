@@ -37,6 +37,9 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { Registration } from '../../../core/shared/registration.model';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { getEPersonsRoute } from '../../access-control-routing-paths';
 
 @Component({
   selector: 'ds-eperson-form',

@@ -25,6 +25,7 @@ import {
   getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 /**
  * An interface to represent a collection entry

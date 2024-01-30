@@ -26,6 +26,7 @@ import {
     CommunityFormModule,
     ComcolModule,
     ResourcePoliciesModule,
+    AccessControlFormModule,
   ],
   declarations: [
     EditCommunityPageComponent,

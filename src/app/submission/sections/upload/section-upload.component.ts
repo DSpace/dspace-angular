@@ -139,6 +139,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
               protected sectionService: SectionsService,
               private submissionService: SubmissionService,
               private uploadsConfigService: SubmissionUploadsConfigDataService,
+              public dsoNameService: DSONameService,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
     super(undefined, injectedSectionData, injectedSubmissionId);

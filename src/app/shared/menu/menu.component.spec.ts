@@ -5,9 +5,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA, Component } from '@angular/core';
 import { MenuService } from './menu.service';
 import { MenuComponent } from './menu.component';
-import { MenuServiceStub } from '../testing/menu-service.stub';
-import { of as observableOf } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
@@ -16,6 +15,33 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemeService } from '../theme-support/theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
+import { MenuItemType } from './menu-item-type.model';
+import { LinkMenuItemModel } from './menu-item/models/link.model';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { StoreModule, Store } from '@ngrx/store';
+import { authReducer } from '../../core/auth/auth.reducer';
+import { storeModuleConfig, AppState } from '../../app.reducer';
+import { rendersSectionForMenu } from './menu-section.decorator';
+
+const mockMenuID = 'mock-menuID' as MenuID;
+
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
+  template: '',
+})
+@rendersSectionForMenu(mockMenuID, true)
+class TestExpandableMenuComponent {
+}
+
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
+  template: '',
+})
+@rendersSectionForMenu(mockMenuID, false)
+class TestMenuComponent {
+}
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;
@@ -90,7 +116,8 @@ describe('MenuComponent', () => {
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: MenuService, useClass: MenuServiceStub },
+        MenuService,
+        provideMockStore({ initialState }),
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: routeStub },
         TestExpandableMenuComponent,

@@ -63,7 +63,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
-                     protected entityTypeService: EntityTypeDataService) {
+                     protected entityTypeService: EntityTypeDataService,
+                     protected chd: ChangeDetectorRef) {
     super(formService, translate, notificationsService, authService, requestService, objectCache);
   }
 

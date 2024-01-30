@@ -16,6 +16,7 @@ import { COMMUNITY } from './community.resource-type';
 import { Community } from './community.model';
 import { ChildHALResource } from './child-hal-resource.model';
 import { HandleObject } from './handle-object.model';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

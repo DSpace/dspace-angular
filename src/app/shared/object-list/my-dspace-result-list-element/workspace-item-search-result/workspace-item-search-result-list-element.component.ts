@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { Context } from '../../../../core/shared/context.model';
 
 /**
  * This component renders workspaceitem object for the search result in the list view.
@@ -39,9 +40,9 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
   derivedSearchResult$: Observable<ItemSearchResult>;
 
   /**
-   * Display thumbnails if required by configuration
+   * Represents the badge context
    */
-  showThumbnails: boolean;
+  public badgeContext = Context.MyDSpaceWorkspace;
 
   /**
    * Display thumbnails if required by configuration
@@ -51,7 +52,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
   constructor(
     protected truncatableService: TruncatableService,
     protected linkService: LinkService,
-    protected dsoNameService: DSONameService,
+    public dsoNameService: DSONameService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);

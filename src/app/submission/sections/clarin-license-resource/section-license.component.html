@@ -69,8 +69,8 @@
                   (click)="selectLicense(license.id)"
                   [value]="license.id"
                   id="license_option">
-                <span [class]="'label label-' + license.licenseLabel">{{license.licenseLabel}}</span>
-                <b>{{license.name}}</b>
+                <span [class]="'label label-default label-' + license.licenseLabel">{{license.licenseLabel}}</span>
+                <b class="pl-1">{{license.name}}</b>
               </li>
             </ul>
           </div>

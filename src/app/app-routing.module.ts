@@ -236,20 +236,9 @@ import { STATIC_PAGE_PATH } from './static-page/static-page-routing-paths';
               .then((m) => m.HealthPageModule)
           },
           {
-            path: HEALTH_PAGE_PATH,
-            loadChildren: () => import('./health-page/health-page.module')
-              .then((m) => m.HealthPageModule)
-          },
-          {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
             canActivate: [GroupAdministratorGuard, EndUserAgreementCurrentUserGuard],
-          },
-          {
-            path: 'subscriptions',
-            loadChildren: () => import('./subscriptions-page/subscriptions-page-routing.module')
-              .then((m) => m.SubscriptionsPageRoutingModule),
-            canActivate: [AuthenticatedGuard]
           },
           {
             path: 'subscriptions',
@@ -287,7 +276,7 @@ import { STATIC_PAGE_PATH } from './static-page/static-page-routing-paths';
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-}),
+})
   ],
   exports: [RouterModule],
 })

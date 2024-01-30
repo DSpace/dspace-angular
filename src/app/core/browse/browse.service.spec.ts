@@ -12,6 +12,9 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../../shared/testing/utils.test';
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RequestEntry } from '../data/request-entry.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
+import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
@@ -155,7 +158,7 @@ describe('BrowseService', () => {
 
     describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
       it('should call hrefOnlyDataService.findListByHref with the expected href', () => {
-        const expected = browseDefinitions[1]._links.entries.href;
+        const expected = (browseDefinitions[1] as ValueListBrowseDefinition)._links.entries.href;
 
         scheduler.schedule(() => service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();

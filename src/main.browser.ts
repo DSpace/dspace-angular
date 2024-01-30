@@ -3,7 +3,6 @@ import 'reflect-metadata';
 import 'core-js/es/reflect';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { load as loadWebFont } from 'webfontloader';
 
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
@@ -14,14 +13,6 @@ import { enableProdMode } from '@angular/core';
 
 const bootstrap = () => platformBrowserDynamic()
   .bootstrapModule(BrowserAppModule, {});
-
-/**
- * We use this to determine have been serven SSR HTML or not.
- *
- * At this point, {@link environment} may not be in sync with the configuration.
- * Therefore, we cannot depend on it to determine how to bootstrap the app.
- */
-const hasTransferState = document.querySelector('script#dspace-angular-state') !== null;
 
 /**
  * We use this to determine have been serven SSR HTML or not.

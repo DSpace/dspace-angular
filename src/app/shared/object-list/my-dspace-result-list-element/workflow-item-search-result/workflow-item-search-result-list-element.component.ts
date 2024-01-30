@@ -17,6 +17,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
+import { Context } from '../../../../core/shared/context.model';
 
 /**
  * This component renders workflowitem object for the search result in the list view.
@@ -39,9 +40,9 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
   derivedSearchResult$: Observable<ItemSearchResult>;
 
   /**
-   * Display thumbnails if required by configuration
+   * Represents the badge context
    */
-  showThumbnails: boolean;
+  public badgeContext = Context.MyDSpaceWorkflow;
 
   /**
    * Display thumbnails if required by configuration
@@ -51,7 +52,7 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
   constructor(
     protected truncatableService: TruncatableService,
     protected linkService: LinkService,
-    protected dsoNameService: DSONameService,
+    public dsoNameService: DSONameService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);

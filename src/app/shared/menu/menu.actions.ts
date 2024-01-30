@@ -232,4 +232,5 @@ export type MenuAction =
   | DeactivateMenuSectionAction
   | ToggleActiveMenuSectionAction
   | CollapseMenuPreviewAction
-  | ExpandMenuPreviewAction;
+  | ExpandMenuPreviewAction
+  | ReinitMenuAction;

@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 
@@ -63,9 +64,11 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
     this.config.id = this.pageId;
     if (hasValue(this.pageSize)) {
       this.config.pageSize = this.pageSize;
+    } else {
+      this.config.pageSize = this.route.snapshot.queryParams[this.pageId + '.rpp'] ?? this.config.pageSize;
     }
-    this.config.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.config.currentPage = this.route.snapshot.queryParams[this.pageId + '.page'] ?? 1;
+    this.sortConfig = new SortOptions('dc.title', SortDirection[this.route.snapshot.queryParams[this.pageId + '.sd']] ?? SortDirection.ASC);
     this.initPage();
   }
 

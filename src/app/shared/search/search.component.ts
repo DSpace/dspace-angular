@@ -35,6 +35,9 @@ import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../..//core/submission/models/workspaceitem.model';
+import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
+import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
+import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 
 @Component({
   selector: 'ds-search',
@@ -157,6 +160,11 @@ export class SearchComponent implements OnInit {
    * Whether or not to track search statistics by sending updates to the rest api
    */
   @Input() trackStatistics = false;
+
+  /**
+   * The default value for the search query when none is already defined in the {@link SearchConfigurationService}
+   */
+  @Input() query: string;
 
   /**
    * The current configuration used during the search
@@ -388,7 +396,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * Unsubscribe from the subscription
+   * Unsubscribe from the subscriptions
    */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
@@ -405,7 +413,7 @@ export class SearchComponent implements OnInit {
   /**
    * Retrieve search filters by the given search options
    * @param searchOptions
-   * @protected
+   * @private
    */
   protected retrieveFilters(searchOptions: PaginatedSearchOptions) {
     this.filtersRD$.next(null);

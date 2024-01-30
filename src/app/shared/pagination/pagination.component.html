@@ -39,12 +39,12 @@
     <div *ngIf="!showPaginator" class="d-flex justify-content-between">
         <button id="nav-prev" type="button" class="btn btn-outline-primary float-left"
                 (click)="goPrev()"
-                [disabled]="objects?.payload?.currentPage <= 1">
+                [disabled]="(objects?.payload?.currentPage <= 1) && (paginationOptions?.currentPage <= 1)">
           <i class="fas fa-angle-left"></i> {{'pagination.previous.button' |translate}}
         </button>
       <button id="nav-next" type="button" class="btn btn-outline-primary float-right"
               (click)="goNext()"
-              [disabled]="objects?.payload?.currentPage >= objects?.payload?.totalPages">
+              [disabled]="(objects?.payload?.currentPage >= objects?.payload?.totalPages) || (paginationOptions?.currentPage >= objects?.payload?.totalPages)">
           <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? ('pagination.next.button.disabled.tooltip' |translate) : null">
             <i class="fas fa-angle-right"></i> {{'pagination.next.button' |translate}}
           </span>

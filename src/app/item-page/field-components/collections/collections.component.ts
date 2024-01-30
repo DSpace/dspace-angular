@@ -14,6 +14,7 @@ import {
   getPaginatedListPayload,
 } from '../../../core/shared/operators';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 /**
  * This component renders the parent collections section of the item

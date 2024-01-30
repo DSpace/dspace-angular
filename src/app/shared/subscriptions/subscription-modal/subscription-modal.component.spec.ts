@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -120,13 +120,13 @@ describe('SubscriptionModalComponent', () => {
     });
 
     it('should edit an existing subscription', () => {
-      component.subscriptionForm = new FormGroup({});
+      component.subscriptionForm = new UntypedFormGroup({});
       for (let t of testTypes) {
-        const formGroup = new FormGroup({
-          subscriptionId: new FormControl(testSubscriptionId),
-          frequencies: new FormGroup({
-            f: new FormControl(false),
-            g: new FormControl(true),
+        const formGroup = new UntypedFormGroup({
+          subscriptionId: new UntypedFormControl(testSubscriptionId),
+          frequencies: new UntypedFormGroup({
+            f: new UntypedFormControl(false),
+            g: new UntypedFormControl(true),
           })
         });
         component.subscriptionForm.addControl(t, formGroup);
@@ -143,13 +143,13 @@ describe('SubscriptionModalComponent', () => {
     });
 
     it('should create a new subscription', () => {
-      component.subscriptionForm = new FormGroup({});
+      component.subscriptionForm = new UntypedFormGroup({});
       for (let t of testTypes) {
-        const formGroup = new FormGroup({
-          subscriptionId: new FormControl(undefined),
-          frequencies: new FormGroup({
-            f: new FormControl(false),
-            g: new FormControl(true),
+        const formGroup = new UntypedFormGroup({
+          subscriptionId: new UntypedFormControl(undefined),
+          frequencies: new UntypedFormGroup({
+            f: new UntypedFormControl(false),
+            g: new UntypedFormControl(true),
           })
         });
         component.subscriptionForm.addControl(t, formGroup);

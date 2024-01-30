@@ -332,6 +332,28 @@ export abstract class FieldParser {
   }
 
   /**
+   * Checks if a field is read-only with the given scope.
+   * The field is readonly when submissionScope is WORKSPACE and the main visibility is READONLY
+   * or when submissionScope is WORKFLOW and the other visibility is READONLY
+   * @param visibility
+   * @param submissionScope
+   */
+  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
+    return isNotEmpty(submissionScope)
+      && isNotEmpty(fieldScope)
+      && isNotEmpty(visibility)
+      && ((
+          submissionScope === SubmissionScopeType.WorkspaceItem
+          && visibility.main === VisibilityType.READONLY
+          )
+        ||
+          (visibility.other === VisibilityType.READONLY
+          && submissionScope === SubmissionScopeType.WorkflowItem
+          )
+      );
+  }
+
+  /**
    * Get the type bind values from the REST data for a specific field
    * The return value is any[] in the method signature but in reality it's
    * returning the 'relation' that'll be used for a dynamic matcher when filtering

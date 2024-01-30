@@ -15,6 +15,8 @@ export enum Context {
   Workflow = 'workflow',
   Workspace = 'workspace',
   SupervisedItems = 'supervisedWorkspace',
+
+  /** Administrative menu context */
   AdminMenu = 'adminMenu',
 
   EntitySearchModalWithNameVariants = 'EntitySearchModalWithNameVariants',

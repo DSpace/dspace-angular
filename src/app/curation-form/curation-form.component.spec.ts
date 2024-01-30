@@ -16,6 +16,7 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
+import { of as observableOf } from 'rxjs';
 
 describe('CurationFormComponent', () => {
   let comp: CurationFormComponent;
@@ -54,7 +55,7 @@ describe('CurationFormComponent', () => {
     });
 
     handleService = {
-      normalizeHandle: (a) => a
+      normalizeHandle: (a: string) => observableOf(a),
     } as any;
 
     notificationsService = new NotificationsServiceStub();
@@ -151,12 +152,13 @@ describe('CurationFormComponent', () => {
     ], []);
   });
 
-  it(`should show an error notification and return when an invalid dsoHandle is provided`, () => {
+  it(`should show an error notification and return when an invalid dsoHandle is provided`, fakeAsync(() => {
     comp.dsoHandle = 'test-handle';
-    spyOn(handleService, 'normalizeHandle').and.returnValue(null);
+    spyOn(handleService, 'normalizeHandle').and.returnValue(observableOf(null));
     comp.submit();
+    flush();
 
     expect(notificationsService.error).toHaveBeenCalled();
     expect(scriptDataService.invoke).not.toHaveBeenCalled();
-  });
+  }));
 });

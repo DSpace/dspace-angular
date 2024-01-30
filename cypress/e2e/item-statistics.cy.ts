@@ -4,9 +4,9 @@ import { testA11y } from 'cypress/support/utils';
 describe('Item Statistics Page', () => {
     const ITEMSTATISTICSPAGE = '/statistics/items/'.concat(TEST_ENTITY_PUBLICATION);
 
-    // TODO add statistics to the navbar and change this test
+    // NOTE add statistics to the navbar and change this test
     // it('should load if you click on "Statistics" from an Item/Entity page', () => {
-    //     cy.visit('/entities/publication/' + TEST_ENTITY_PUBLICATION);
+    //     cy.visit('/entities/publication/'.concat(TEST_ENTITY_PUBLICATION));
     //     cy.get('ds-navbar ds-link-menu-item a[title="Statistics"]').click();
     //     cy.location('pathname').should('eq', ITEMSTATISTICSPAGE);
     // });

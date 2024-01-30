@@ -30,11 +30,11 @@ beforeEach(() => {
 // For better stability between tests, we visit "about:blank" (i.e. blank page) after each test.
 // This ensures any remaining/outstanding XHR requests are killed, so they don't affect the next test.
 // Borrowed from: https://glebbahmutov.com/blog/visit-blank-page-between-tests/
-afterEach(() => {
+/*afterEach(() => {
     cy.window().then((win) => {
       win.location.href = 'about:blank';
     });
-});
+});*/
 
 
 // Global constants used in tests
@@ -71,3 +71,10 @@ export const TEST_WITHDRAWN_AUTHORS = Cypress.env('CLARIN_TEST_WITHDRAWN_AUTHORS
 
 export const TEST_COLLECTION_NAME = 'Col';
 export const TEST_COMMUNITY_NAME = 'Com';
+
+
+// USEFUL REGEX for testing
+
+// Match any string that contains at least one non-space character
+// Can be used with "contains()" to determine if an element has a non-empty text value
+export const REGEX_MATCH_NON_EMPTY_TEXT = /^(?!\s*$).+/;

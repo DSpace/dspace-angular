@@ -5,14 +5,13 @@ import {
   Component,
   EventEmitter,
   HostListener,
-  Input,
-  OnInit,
+  Input, OnInit,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
 
-import { firstValueFrom, Observable, of as observableOf } from 'rxjs';
-import { FileUploader, FileUploaderOptions} from 'ng2-file-upload';
+import { of as observableOf } from 'rxjs';
+import { FileUploader } from 'ng2-file-upload';
 import uniqueId from 'lodash/uniqueId';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -20,16 +19,19 @@ import { UploaderOptions } from './uploader-options.model';
 import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
 import { UploaderProperties } from './uploader-properties.model';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.interceptor';
+import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.constants';
 import { CookieService } from '../../../core/services/cookie.service';
 import { DragService } from '../../../core/drag.service';
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { map } from 'rxjs/operators';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { TranslateService } from '@ngx-translate/core';
 import { FileLikeObject } from 'ng2-file-upload/file-upload/file-like-object.class';
+import {firstValueFrom} from 'rxjs/internal/firstValueFrom';
+import {Observable} from 'rxjs/internal/Observable';
+import {FileUploaderOptions} from 'ng2-file-upload/file-upload/file-uploader.class';
 
 export const MAX_UPLOAD_FILE_SIZE_CFG_PROPERTY = 'spring.servlet.multipart.max-file-size';
 @Component({

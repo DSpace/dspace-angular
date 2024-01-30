@@ -9,6 +9,9 @@ import { Item } from '../app/core/shared/item.model';
 import { ITEM } from '../app/core/shared/item.resource-type';
 import { getItemModuleRoute } from '../app/item-page/item-page-routing-paths';
 import { HandleService } from '../app/shared/handle.service';
+import { TestBed } from '@angular/core/testing';
+import { ConfigurationDataService } from '../app/core/data/configuration-data.service';
+import { ConfigurationDataServiceStub } from '../app/shared/testing/configuration-data.service.stub';
 
 describe('Theme Models', () => {
   let theme: Theme;
@@ -83,11 +86,21 @@ describe('Theme Models', () => {
   });
 
   describe('HandleTheme', () => {
-    let handleService;
+    let handleService: HandleService;
+
+    let configurationService: ConfigurationDataServiceStub;
+
     beforeEach(() => {
-      handleService = new HandleService();
+      configurationService = new ConfigurationDataServiceStub();
+
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: ConfigurationDataService, useValue: configurationService },
+        ],
       });
-    it('should return true when the DSO\'s handle matches the theme\'s handle', () => {
+      handleService = TestBed.inject(HandleService);
+    });
+    it('should return true when the DSO\'s handle matches the theme\'s handle', (done: DoneFn) => {
       theme = new HandleTheme({
         name: 'matching-handle',
         handle: '1234/5678',
@@ -97,9 +110,12 @@ describe('Theme Models', () => {
         uuid: 'item-uuid',
         handle: '1234/5678',
       }, handleService);
-      expect(theme.matches('', matchingDso)).toEqual(true);
+      theme.matches('', matchingDso).subscribe((matches: boolean) => {
+        expect(matches).toBeTrue();
+        done();
+      });
     });
-    it('should return false when the DSO\'s handle contains the theme\'s handle as a subpart', () => {
+    it('should return false when the DSO\'s handle contains the theme\'s handle as a subpart', (done: DoneFn) => {
       theme = new HandleTheme({
         name: 'matching-handle',
         handle: '1234/5678',
@@ -109,7 +125,10 @@ describe('Theme Models', () => {
         uuid: 'item-uuid',
         handle: '1234/567891011',
       });
-      expect(theme.matches('', dso)).toEqual(false);
+      theme.matches('', dso).subscribe((matches: boolean) => {
+        expect(matches).toBeFalse();
+        done();
+      });
     });
 
     it('should return false when the handles don\'t match', (done: DoneFn) => {

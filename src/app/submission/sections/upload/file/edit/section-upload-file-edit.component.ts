@@ -246,8 +246,8 @@ export class SubmissionSectionUploadFileEditComponent
     this.availableAccessConditionOptions.filter((element) => element.name === control.value)
       .forEach((element) => accessCondition = element );
     if (isNotEmpty(accessCondition)) {
-      const startDateControl: FormControl = control.parent.get('startDate') as FormControl;
-      const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
+      const startDateControl: UntypedFormControl = control.parent.get('startDate') as UntypedFormControl;
+      const endDateControl: UntypedFormControl = control.parent.get('endDate') as UntypedFormControl;
 
       // Clear previous state
       startDateControl?.markAsUntouched();
