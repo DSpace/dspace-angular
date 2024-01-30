@@ -91,6 +91,14 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
   }
 
   /**
+   * The thumbail description of this Collection
+   * Corresponds to the metadata field dc.description.thumbnail
+   */
+  get descriptionThumbnail(): string {
+    return this.firstMetadataValue('dc.description.thumbnail');
+  }
+
+  /**
    * The short description: HTML
    * Corresponds to the metadata field dc.description.abstract
    */

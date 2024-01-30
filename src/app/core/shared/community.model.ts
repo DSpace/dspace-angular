@@ -80,6 +80,14 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
   }
 
   /**
+   * The thumbail description of this Community
+   * Corresponds to the metadata field dc.description.thumbnail
+   */
+  get descriptionThumbnail(): string {
+    return this.firstMetadataValue('dc.description.thumbnail');
+  }
+
+  /**
    * The short description: HTML
    * Corresponds to the metadata field dc.description.abstract
    */
