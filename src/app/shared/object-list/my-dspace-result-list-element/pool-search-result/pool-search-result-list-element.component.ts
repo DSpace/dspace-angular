@@ -24,6 +24,7 @@ import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -77,6 +78,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
+    protected itemDataService: ItemDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -88,7 +90,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   ngOnInit() {
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
-      followLink('item', {}, followLink('bundles'), followLink('duplicates')),
+      followLink('item', {}, followLink('bundles')),
       followLink('submitter')
     ), followLink('action'));
 
@@ -107,7 +109,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       tap((itemRD: RemoteData<Item>) => {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
-          this.duplicates$ = itemRD.payload.duplicates.pipe(
+          this.duplicates$ = this.itemDataService.findDuplicates(itemRD.payload.uuid).pipe(
             getFirstCompletedRemoteData(),
             map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
               if (remoteData.hasSucceeded) {
