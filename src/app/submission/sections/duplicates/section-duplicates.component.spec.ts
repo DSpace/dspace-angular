@@ -39,6 +39,7 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { Duplicate} from '../../../shared/object-list/duplicate-data/duplicate.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
+import { DUPLICATE } from '../../../shared/object-list/duplicate-data/duplicate.resource-type';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -72,7 +73,12 @@ const duplicates: Duplicate[] = [{
         'place': 0
       })]
     },
-    type: 'DUPLICATE'
+    type: DUPLICATE,
+    _links: {
+      self: {
+        href: 'http://localhost:8080/server/api/core/items/search/findDuplicates?uuid=testid'
+      }
+    }
   }];
 
 const sectionObject = {
