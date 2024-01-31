@@ -3,7 +3,6 @@ import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { AdvancedAttachmentElementType } from '../config/advanced-attachment-rendering.config';
-import { ThirdPartyMetric } from "../app/shared/cookies/browser-klaro.service";
 
 export const environment: BuildConfig = {
   production: false,

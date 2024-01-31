@@ -111,18 +111,18 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    if(environment.metricsConsents) {
+    if (environment.metricsConsents) {
       environment.metricsConsents.forEach((metric) => {
-        if(metric.enabled) {
+        if (metric.enabled) {
           this.klaroConfig.services.push(
             {
               name: metric.key,
               purposes: ['thirdPartiesJs'],
               required: false,
             }
-          )
+          );
         }
-      })
+      });
     }
 
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(

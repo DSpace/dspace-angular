@@ -31,7 +31,7 @@ import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
-import { CookieConsents, ThirdPartyMetric } from "../app/shared/cookies/browser-klaro.service";
+import { ThirdPartyMetric } from '../app/shared/cookies/browser-klaro.service';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
