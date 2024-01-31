@@ -50,7 +50,7 @@ jobs:
           echo DSPACE_UI_IMAGE=\${DOCKER_OWNER}/dspace-angular:\$DSPACE_VER >> .env.dev-5
           echo DSPACE_REST_IMAGE=\${DOCKER_OWNER}/dspace:\$DSPACE_VER >> .env.dev-5
           echo DSPACE_REST_PORT=8\$INSTANCE >> .env.dev-5
-          echo REST_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT}/server >> .env.dev-5
+          echo REST_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT}/server/ >> .env.dev-5
           echo UI_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT} >> .env.dev-5
 
           echo S3_STORAGE=0 >> .env.dev-5
