@@ -122,6 +122,9 @@ services:
     tty: true
     working_dir: /var/solr/data
     volumes:
+    # Mount our "solr_configs" volume available under the Solr's configsets folder (in a 'dspace' subfolder)
+    # This copies the Solr configs from main 'dspace' container into 'dspacesolr' via that volume
+    - solr_configs:/opt/solr/server/solr/configsets/dspace
     # Keep Solr data directory between reboots
     - solr_data:/var/solr/data
     - solr_logs:/var/solr/logs
