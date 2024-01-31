@@ -2463,6 +2463,10 @@
 
   "form.entry.source": "Source",
 
+  "form.entry.source.local": "- Local",
+
+  "form.entry.source.orcid": "- Orcid",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
