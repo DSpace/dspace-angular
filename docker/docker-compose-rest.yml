@@ -21,7 +21,8 @@ networks:
 services:
   # DSpace (backend) webapp container
   dspace:
-    container_name: dspace
+    restart: unless-stopped
+    container_name: dspace${INSTANCE}
     environment:
       JAVA_OPTS: ${JAVA_OPTS:--Xmx4g}
       TZ: ${TIMEZONE:-Europe/Bratislava}
