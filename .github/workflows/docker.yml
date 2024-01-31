@@ -16,7 +16,7 @@ permissions:
 jobs:
   docker:
     # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
-    if: github.repository == 'dspace/dspace-angular'
+    if: github.repository == 'dataquest-dev/dspace-angular'
     runs-on: ubuntu-latest
     env:
       # Define tags to use for Docker images based on Git tags/branches (for docker/metadata-action)
@@ -61,7 +61,7 @@ jobs:
         id: meta_build
         uses: docker/metadata-action@v4
         with:
-          images: dspace/dspace-angular
+          images: dataquest/dspace-angular
           tags: ${{ env.IMAGE_TAGS }}
           flavor: ${{ env.TAGS_FLAVOR }}
 
@@ -81,11 +81,11 @@ jobs:
           labels: ${{ steps.meta_build.outputs.labels }}
 
   #############################################################
-  # Build/Push the 'dspace/dspace-angular' image ('-dist' tag)
+  # Build/Push the 'dataquest/dspace-angular' image ('-dist' tag)
   #############################################################
   dspace-angular-dist:
-    # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
-    if: github.repository == 'dspace/dspace-angular'
+    # Ensure this job never runs on forked repos. It's only executed for 'dataquest/dspace-angular'
+    if: github.repository == 'dataquest/dspace-angular'
     runs-on: ubuntu-latest
 
     steps:
@@ -116,7 +116,7 @@ jobs:
         id: meta_build_dist
         uses: docker/metadata-action@v4
         with:
-          images: dspace/dspace-angular
+          images: dataquest/dspace-angular
           tags: ${{ env.IMAGE_TAGS }}
           # As this is a "dist" image, its tags are all suffixed with "-dist". Otherwise, it uses the same
           # tagging logic as the primary 'dspace/dspace-angular' image above.
