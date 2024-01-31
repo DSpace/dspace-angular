@@ -778,7 +778,11 @@
 
   "browse.comcol.by.subject": "By Subject",
 
-  "browse.comcol.by.srsc": "By Subject Category",
+ // "browse.comcol.by.srsc": "By Subject Category",
+
+// TAMU Customization
+  "browse.comcol.by.srsc": "By Department",
+// END TAMU Customization
 
   "browse.comcol.by.nsi": "By Norwegian Science Index",
 
@@ -802,7 +806,11 @@
 
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
-  "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+ // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
+
+ //TAMU Customization
+  "browse.metadata.srsc.breadcrumbs": "Browse by Department",
+  //END TAMU Customization
 
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
@@ -2832,7 +2840,12 @@
 
   "menu.section.browse_global_by_subject": "By Subject",
 
-  "menu.section.browse_global_by_srsc": "By Subject Category",
+ // "menu.section.browse_global_by_srsc": "By Subject Category",
+
+//TAMU Customization
+  "menu.section.browse_global_by_srsc": "By Department",
+  
+//TAMU Customization
 
   "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
 
