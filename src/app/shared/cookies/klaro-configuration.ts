@@ -136,6 +136,21 @@ export const klaroConfiguration: any = {
       ]
     },
     {
+      name: 'plumX',
+      purposes: ['thirdPartiesJs'],
+      required: false,
+    },
+    {
+      name: 'altmetric',
+      purposes: ['thirdPartiesJs'],
+      required: false,
+    },
+    {
+      name: 'dimensions',
+      purposes: ['thirdPartiesJs'],
+      required: false,
+    },
+    {
       name: GOOGLE_ANALYTICS_KLARO_KEY,
       purposes: ['statistical'],
       required: false,

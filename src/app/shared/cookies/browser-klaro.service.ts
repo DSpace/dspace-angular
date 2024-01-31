@@ -12,10 +12,11 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
-import { Operation } from 'fast-json-patch';
+import { deepClone, Operation } from 'fast-json-patch';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import isEqual from 'lodash/isEqual';
 
 export interface CookieConsents {
   acknowledgement: boolean;
@@ -69,6 +70,8 @@ export class BrowserKlaroService extends KlaroService {
   private readonly REGISTRATION_VERIFICATION_ENABLED_KEY = 'registration.verification.enabled';
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
+
+  private lastCookiesConsents: CookieConsents;
 
   /**
    * Initial Klaro configuration
@@ -346,9 +349,12 @@ export class BrowserKlaroService extends KlaroService {
     this.lazyKlaro.then(({getManager}) => {
       const manager = getManager(this.klaroConfig);
       const consentsSubject$ = this.consentsUpdates$;
+      let lastCookiesConsents = this.lastCookiesConsents;
       manager.watch({
         update(_, eventName, consents) {
-          if (eventName === 'consents') {
+
+          if (eventName === 'consents' && !isEqual(consents, lastCookiesConsents)) {
+            lastCookiesConsents = deepClone(consents);
             consentsSubject$.next(consents);
           }
         }
