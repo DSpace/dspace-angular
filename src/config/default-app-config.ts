@@ -34,6 +34,7 @@ import {
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
+import { CookieConsents, ThirdPartyMetric } from "../app/shared/cookies/browser-klaro.service";
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -735,4 +736,20 @@ export class DefaultAppConfig implements AppConfig {
     additionalMetadataFields: [],
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
   };
+
+  //Configuration for third-party metrics in Klaro
+  metricsConsents: ThirdPartyMetric[] = [
+    {
+      key: 'plumX',
+      enabled: true
+    },
+    {
+      key: 'altmetric',
+      enabled: true
+    },
+    {
+      key: 'dimensions',
+      enabled: true
+    },
+  ];
 }

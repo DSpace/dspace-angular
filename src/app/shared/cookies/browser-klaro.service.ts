@@ -19,9 +19,12 @@ import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.servi
 import isEqual from 'lodash/isEqual';
 
 export interface CookieConsents {
-  acknowledgement: boolean;
-  authentication: boolean;
-  preferences: boolean;
+  [key: string]: boolean;
+}
+
+export interface ThirdPartyMetric {
+  key: string;
+  enabled: boolean
 }
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -106,6 +109,20 @@ export class BrowserKlaroService extends KlaroService {
     if (!environment.info.enablePrivacyStatement) {
       delete this.klaroConfig.privacyPolicy;
       this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
+    }
+
+    if(environment.metricsConsents) {
+      environment.metricsConsents.forEach((metric) => {
+        if(metric.enabled) {
+          this.klaroConfig.services.push(
+            {
+              name: metric.key,
+              purposes: ['thirdPartiesJs'],
+              required: false,
+            }
+          )
+        }
+      })
     }
 
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
