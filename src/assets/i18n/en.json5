@@ -1757,7 +1757,7 @@
 
   "cookies.consent.ok": "That's ok",
 
-  "cookies.consent.save": "Save",
+  "cookies.consent.save": "Close",
 
   "cookies.consent.content-notice.title": "Cookie Consent",
 
@@ -1819,7 +1819,7 @@
 
   "cookies.consent.app.description.dimensions": "Dimensions analyses references from publications and calculates a set of article-level indicators. (https://www.dimensions.ai)",
 
-  "cookies.consent.purpose.thirdPartiesJs": "Third parties JavaScript",
+  "cookies.consent.purpose.thirdPartyJs": "Third-party JavaScript",
 
   "curation-task.task.citationpage.label": "Generate Citation Page",
 

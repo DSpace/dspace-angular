@@ -21,11 +21,6 @@ import isEqual from 'lodash/isEqual';
 export interface CookieConsents {
   [key: string]: boolean;
 }
-
-export interface ThirdPartyMetric {
-  key: string;
-  enabled: boolean
-}
 /**
  * Metadata field to store a user's cookie consent preferences in
  */
@@ -111,13 +106,13 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    if (environment.metricsConsents) {
+    if (hasValue(environment.metricsConsents)) {
       environment.metricsConsents.forEach((metric) => {
         if (metric.enabled) {
           this.klaroConfig.services.push(
             {
               name: metric.key,
-              purposes: ['thirdPartiesJs'],
+              purposes: ['thirdPartyJs'],
               required: false,
             }
           );

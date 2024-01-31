@@ -31,7 +31,7 @@
     </ng-container>
   </div>
 </div>
-<div class="row d-flex align-items-center justify-content-center m-2 alert-light"  *ngIf="!canLoadScript">
+<div class="row d-flex align-items-center justify-content-center m-2 alert-light"  *ngIf="!canLoadScript && !isListElement">
   <div>
     {{ "third-party-metrics-cookies.message" | translate: {metricType: metric.metricType | titlecase} }}
     <div role="button" class="btn-link" (click)="requestSettingsConsent.emit(true)">{{"third-party-metrics-cookies.consent-settings" | translate}}</div>

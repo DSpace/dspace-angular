@@ -34,7 +34,7 @@ import {
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
-import { ThirdPartyMetric } from '../app/shared/cookies/browser-klaro.service';
+import { ThirdPartyMetric } from "./third-party-metric-config";
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
