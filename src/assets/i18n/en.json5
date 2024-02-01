@@ -788,7 +788,7 @@
 
   "browse.comcol.by.title": "By Title",
 
-  "browse.comcol.head": "Browse",
+  "browse.comcol.head": "Browse by",
 
   "browse.empty": "No items to show.",
 
@@ -2800,7 +2800,7 @@
 
   "login.breadcrumbs": "Login",
 
-  "logout.form.header": "Log out from DSpace",
+  "logout.form.header": "Log out from OAKTrust",
 
   "logout.form.submit": "Log out",
 
@@ -2973,7 +2973,7 @@
 
   "metadata-export-search.submit.error": "Starting the export has failed",
 
-  "mydspace.breadcrumbs": "MyDSpace",
+  "mydspace.breadcrumbs": "My OAKTrust",
 
   "mydspace.description": "",
 
