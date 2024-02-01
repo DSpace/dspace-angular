@@ -10,6 +10,7 @@ import { ListableObjectComponentLoaderComponent } from '../../object-collection/
 import { NgClass, NgFor, AsyncPipe } from '@angular/common';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'ds-dso-input-suggestions',
@@ -25,7 +26,7 @@ import { ClickOutsideDirective } from '../../utils/click-outside.directive';
         }
     ],
     standalone: true,
-    imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, ListableObjectComponentLoaderComponent, AsyncPipe]
+    imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, ListableObjectComponentLoaderComponent, AsyncPipe, TranslateModule]
 })
 
 /**

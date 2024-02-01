@@ -8,6 +8,7 @@ import { InputSuggestion } from '../input-suggestions.model';
 import { NgClass, NgFor, AsyncPipe } from '@angular/common';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'ds-validation-suggestions',
@@ -23,7 +24,7 @@ import { ClickOutsideDirective } from '../../utils/click-outside.directive';
         }
     ],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe]
+    imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule]
 })
 
 /**

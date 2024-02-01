@@ -16,6 +16,7 @@ import {
   ProfilePageSecurityFormComponent
 } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({
   selector: 'ds-forgot-password-form',
@@ -23,6 +24,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
   templateUrl: './forgot-password-form.component.html',
   imports: [
     TranslateModule,
+    BrowserOnlyPipe,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
     NgIf

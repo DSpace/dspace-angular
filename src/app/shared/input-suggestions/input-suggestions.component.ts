@@ -16,12 +16,13 @@ import { ControlValueAccessor, FormsModule } from '@angular/forms';
 import { NgClass, NgFor, AsyncPipe } from '@angular/common';
 import { DebounceDirective } from '../utils/debounce.directive';
 import { ClickOutsideDirective } from '../utils/click-outside.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'ds-input-suggestions',
     templateUrl: './input-suggestions.component.html',
     standalone: true,
-    imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe]
+    imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule]
 })
 
 /**

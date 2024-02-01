@@ -4,6 +4,7 @@ import { InputSuggestionsComponent } from '../../../../../../shared/input-sugges
 import { NgClass, NgFor, AsyncPipe } from '@angular/common';
 import { DebounceDirective } from '../../../../../../shared/utils/debounce.directive';
 import { ClickOutsideDirective } from '../../../../../../shared/utils/click-outside.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'ds-org-unit-input-suggestions',
@@ -19,7 +20,7 @@ import { ClickOutsideDirective } from '../../../../../../shared/utils/click-outs
         }
     ],
     standalone: true,
-    imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe]
+    imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule]
 })
 
 /**
