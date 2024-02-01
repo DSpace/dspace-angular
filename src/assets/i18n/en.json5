@@ -7308,4 +7308,6 @@
   "third-party-metrics-cookies.message": "{{ metricType }} badge is blocked by your ",
 
   "third-party-metrics-cookies.consent-settings": "consent settings",
+
+  "third-party-metrics-blocked": "Some of the metrics are blocked by your",
 }

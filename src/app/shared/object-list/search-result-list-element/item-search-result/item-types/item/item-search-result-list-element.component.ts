@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import {
   listableObjectComponent
 } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -9,6 +9,14 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { Context } from '../../../../../../core/shared/context.model';
 import { environment } from '../../../../../../../environments/environment';
+import { BrowserKlaroService } from '../../../../../cookies/browser-klaro.service';
+import { KlaroService } from '../../../../../cookies/klaro.service';
+import { combineLatest, Observable } from 'rxjs';
+import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../../config/app-config.interface';
+import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
+import { map } from 'rxjs/operators';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -21,7 +29,7 @@ import { environment } from '../../../../../../../environments/environment';
 /**
  * The component for displaying a list element for an item search result of the type Publication
  */
-export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
+export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit, AfterViewInit {
 
   /**
    * Whether to show the metrics badges
@@ -35,10 +43,57 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
 
   authorMetadata = environment.searchResult.authorMetadata;
 
+  hasLoadedThirdPartyMetrics$: Observable<boolean>;
+
+  private thirdPartyMetrics = environment.metricsConsents.map(metrics => metrics.key);
+
+  private browserKlaroService: BrowserKlaroService;
+
+  constructor(
+    protected truncatableService: TruncatableService,
+    public dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig?: AppConfig,
+    @Optional() private klaroService?: KlaroService,
+  ) {
+    super(truncatableService, dsoNameService);
+    this.browserKlaroService = (this.klaroService as BrowserKlaroService);
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.itemPageRoute = getItemPageRoute(this.dso);
   }
 
+  /**
+   * Check if item has Third-party metrics blocked by consents
+   */
+  ngAfterViewInit() {
+    if (this.showMetrics && this.browserKlaroService) {
+      this.browserKlaroService.watchConsentUpdates();
+
+      this.hasLoadedThirdPartyMetrics$ = combineLatest([
+        this.browserKlaroService.consentsUpdates$,
+        this.dso.metrics?.pipe(
+          getFirstSucceededRemoteListPayload(),
+          map(metrics => {
+            return metrics.filter(metric => this.thirdPartyMetrics.includes(metric.metricType));
+          })
+        )
+      ]).pipe(
+        map(([consents, metrics]) => {
+          return metrics.reduce((previous, current) => {
+            return consents[current.metricType] && previous;
+          }, true);
+        })
+      );
+    }
+  }
+
+  /**
+   * Prompt user for consents settings
+   */
+  showSettings() {
+    this.browserKlaroService.showSettings();
+  }
 }

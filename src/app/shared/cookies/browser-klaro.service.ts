@@ -362,6 +362,8 @@ export class BrowserKlaroService extends KlaroService {
       const manager = getManager(this.klaroConfig);
       const consentsSubject$ = this.consentsUpdates$;
       let lastCookiesConsents = this.lastCookiesConsents;
+
+      consentsSubject$.next(manager.consents);
       manager.watch({
         update(_, eventName, consents) {
 

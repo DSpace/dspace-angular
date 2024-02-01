@@ -17,6 +17,7 @@ import { hasValue } from '../../empty.util';
 import { BrowserKlaroService, CookieConsents } from '../../cookies/browser-klaro.service';
 import { KlaroService } from '../../cookies/klaro.service';
 import {  startWith } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -48,7 +49,7 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
   settingsSubscription: Subscription;
 
-  private thirdPartyMetrics = ['plumX', 'altmetric', 'dimensions'];
+  private thirdPartyMetrics = environment.metricsConsents.map(metrics => metrics.key);
 
   private browserKlaroService: BrowserKlaroService;
 
