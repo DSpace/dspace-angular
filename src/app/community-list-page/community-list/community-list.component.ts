@@ -25,6 +25,7 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 @Component({
   selector: 'ds-community-list',
   templateUrl: './community-list.component.html',
+  styleUrls: ['./community-list.component.scss'],
   standalone: true,
   imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule]
 })

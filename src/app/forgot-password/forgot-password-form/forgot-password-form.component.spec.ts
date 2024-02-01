@@ -22,6 +22,7 @@ import {
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -55,8 +56,12 @@ describe('ForgotPasswordFormComponent', () => {
 
     TestBed.configureTestingModule({
     imports: [
-      CommonModule, RouterTestingModule.withRoutes([]),
-      TranslateModule.forRoot(), ReactiveFormsModule, ForgotPasswordFormComponent,
+      CommonModule,
+      RouterTestingModule.withRoutes([]),
+      TranslateModule.forRoot(),
+      ReactiveFormsModule,
+      BrowserOnlyPipe,
+      ForgotPasswordFormComponent,
       NoopAnimationsModule
     ],
     providers: [
@@ -79,7 +84,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   describe('init', () => {
     it('should initialise mail address', () => {
-      const elem = fixture.debugElement.queryAll(By.css('span#email'))[0].nativeElement;
+      const elem = fixture.debugElement.queryAll(By.css('span[data-test="email"]'))[0].nativeElement;
       expect(elem.innerHTML).toContain('test@email.org');
     });
   });
