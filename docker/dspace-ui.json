@@ -6,7 +6,8 @@
       "script": "dist/server/main.js",
       "instances": "7",
       "exec_mode": "cluster",
-      "node_args": "--max_old_space_size=4096"
+      "node_args": "--max_old_space_size=4096",
+      "env": {"NODE_ENV": "production"}
     }
   ]
 }
