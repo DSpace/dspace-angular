@@ -25,7 +25,7 @@ services:
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
 
       solr__P__server: http://dspacesolr:898${INSTANCE}/solr
-  
+
       # S3
       assetstore__P__index__P__primary: ${S3_STORAGE:-0}
       assetstore__P__s3__P__enabled: ${S3_ENABLED:-false}
@@ -34,7 +34,7 @@ services:
       assetstore__P__s3__P__subfolder: ${S3_SUBFOLDER:-}
       assetstore__P__s3__P__awsAccessKey: ${S3_ACCESS:-}
       assetstore__P__s3__P__awsSecretKey: ${S3_SECRET:-}
-      assetstore__P__s3__P__awsRegionName: ${S3_REGION_NAME:-}   
+      assetstore__P__s3__P__awsRegionName: ${S3_REGION_NAME:-}
 
       assetstore__P__s3__P__pathStyleAccessEnabled: ${S3_PATH_STYLE_ACCESS:-false}
       assetstore__P__s3__P__endpoint: ${S3_ENDPOINT:-}
@@ -52,3 +52,9 @@ volumes:
 
 networks:
   dspacenet:
+    ipam:
+      config:
+        # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
+        # If you customize this value, be sure to customize the 'proxies.trusted.ipranges' env variable below.
+        - subnet: 172.23.0.0/16
+
