@@ -40,7 +40,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/build-scripts/run/
           pwd
-          
+
           touch .env.dev-5 || true
           echo INSTANCE=5 >> .env.dev-5
           echo DSPACE_HOST=dev-5.pc >> .env.dev-5
@@ -50,7 +50,7 @@ jobs:
           echo DSPACE_UI_IMAGE=\${DOCKER_OWNER}/dspace-angular:\$DSPACE_VER >> .env.dev-5
           echo DSPACE_REST_IMAGE=\${DOCKER_OWNER}/dspace:\$DSPACE_VER >> .env.dev-5
           echo DSPACE_REST_PORT=8\$INSTANCE >> .env.dev-5
-          echo REST_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT}/server/ >> .env.dev-5
+          echo REST_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT}/server >> .env.dev-5
           echo UI_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT} >> .env.dev-5
 
           echo S3_STORAGE=0 >> .env.dev-5
@@ -61,6 +61,8 @@ jobs:
           echo S3_ACCESS=${{ secrets.AMAZON_ACCESS }} >> .env.dev-5
           echo S3_SECRET=${{ secrets.AMAZON_SECRET }} >> .env.dev-5
           echo S3_REGION_NAME=eu-central-1 >> .env.dev-5
+
+          echo NODE_ENV=production >> .env.dev-5
 
           export ENVFILE=$(pwd)/.env.dev-5
           ./start.sh dspace-5
@@ -86,8 +88,8 @@ jobs:
           ./start.sh dspace-$INSTANCE
           /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
 
-    
-          
+
+
   import-8:
     runs-on: dspace-dep-1
     if: github.event.inputs.IMPORT == 'true'

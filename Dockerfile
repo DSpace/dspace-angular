@@ -28,5 +28,5 @@ ENV NODE_ENV development
 RUN apk add tzdata
 RUN yarn build:prod
 RUN npm install pm2 -g
-CMD /bin/sh -c "pm2-runtime start dspace-ui.json > /dev/null 2> /dev/null"
+CMD /bin/sh -c "pm2-runtime start docker/dspace-ui.json > /dev/null 2> /dev/null"
 
