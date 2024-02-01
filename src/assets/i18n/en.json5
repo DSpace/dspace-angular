@@ -1772,6 +1772,10 @@
 
   "form.create": "Create",
 
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  "form.number-picker.increment": "Increment {{field}}",
+
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
   "grant-deny-request-copy.deny": "Don't send copy",
@@ -3084,9 +3088,7 @@
 
   "mydspace.import": "Import",
 
-  "notification.suggestion": "We found <b>{{count}} publications</b><br> in the {{source}} that seems to be related to your profile.<br> Please <a href='/suggestions/{{suggestionId}}'>review the suggestions</a>",
-
-  "notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
+  "notification.suggestion": "We found <b>{{count}} publications</b><br> in the {{source}} that seems to be related to your profile.<br> Please <a href='{{ url }}'>review the suggestions</a>",
 
   "nav.browse.header": "All of DSpace",
 
@@ -3564,9 +3566,9 @@
 
   "suggestion.loading": "Loading ...",
 
-  "suggestion.title": "Publication Claims",
+  "suggestion.title": "Publication Claim",
 
-  "suggestion.title.breadcrumbs": "Publication Claims",
+  "suggestion.title.breadcrumbs": "Publication Claim",
 
   "suggestion.targets.description": "Below you can see all the suggestions ",
 
@@ -3592,7 +3594,7 @@
 
   "suggestion.approveAndImport": "Approve & import",
 
-  "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
+  "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='{{ url }}'>View.</a>",
 
   "suggestion.approveAndImport.bulk": "Approve & import Selected",
 
@@ -3614,7 +3616,7 @@
 
   "suggestion.hideEvidence": "Hide evidence",
 
-  "suggestion.suggestionFor": "Suggestion for",
+  "suggestion.suggestionFor": "Suggestions for",
 
   "suggestion.source.openaire": "OpenAIRE Graph",
 

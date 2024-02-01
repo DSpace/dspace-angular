@@ -30,6 +30,7 @@ import {
 import {
   SuggestionsDataService
 } from '../core/suggestion-notifications/suggestions-data.service';
+import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 
 /**
  * useful for multiple approvals and ignores operation
@@ -256,7 +257,8 @@ export class SuggestionsService {
       source: this.translateService.instant(this.translateSuggestionSource(suggestionTarget.source)),
       type:  this.translateService.instant(this.translateSuggestionType(suggestionTarget.source)),
       suggestionId: suggestionTarget.id,
-      displayName: suggestionTarget.display
+      displayName: suggestionTarget.display,
+      url: getSuggestionPageRoute(suggestionTarget.id)
     };
   }
 

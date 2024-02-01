@@ -11,7 +11,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { dataService } from '../cache/builders/build-decorators';
 import { RequestService } from '../data/request.service';
-import { UpdateDataServiceImpl } from '../data/update-data-service';
+import { UpdateDataServiceImpl } from '../data/update-data.service';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { RemoteData } from '../data/remote-data';

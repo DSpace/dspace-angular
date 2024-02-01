@@ -14,7 +14,7 @@ import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { RequestEntry } from './request-entry.model';
 import { testPatchDataImplementation } from './base/patch-data.spec';
-import { UpdateDataServiceImpl } from './update-data-service';
+import { UpdateDataServiceImpl } from './update-data.service';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testCreateDataImplementation } from './base/create-data.spec';

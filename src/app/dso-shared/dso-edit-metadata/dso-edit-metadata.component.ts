@@ -21,7 +21,7 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
-import { UpdateDataService } from '../../core/data/update-data-service';
+import { UpdateDataService } from '../../core/data/update-data.service';
 
 @Component({
   selector: 'ds-dso-edit-metadata',

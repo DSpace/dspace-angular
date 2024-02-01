@@ -16,8 +16,6 @@ import { Observable } from 'rxjs';
 })
 export class SuggestionsNotificationComponent implements OnInit {
 
-  labelPrefix = 'mydspace.';
-
   /**
    * The user suggestion targets.
    */

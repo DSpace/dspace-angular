@@ -22,6 +22,9 @@ import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import {FindListOptions} from '../core/data/find-list-options.model';
 import {redirectOn4xx} from '../core/shared/authorized.operators';
+import {
+  getWorkflowItemEditRoute
+} from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -190,7 +193,7 @@ export class SuggestionsPageComponent implements OnInit {
   approveAndImport(event: SuggestionApproveAndImport) {
     this.suggestionService.approveAndImport(this.workspaceItemService, event.suggestion, event.collectionId)
       .subscribe((workspaceitem: WorkspaceItem) => {
-        const content = this.translateService.instant('suggestion.approveAndImport.success', { workspaceItemId: workspaceitem.id });
+        const content = this.translateService.instant('suggestion.approveAndImport.success', { url: getWorkflowItemEditRoute(workspaceitem.id) });
         this.notificationService.success('', content, {timeOut:0}, true);
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.updatePage();
