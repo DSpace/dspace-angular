@@ -1,5 +1,5 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { Component, Inject, OnInit, OnDestroy, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -23,8 +23,8 @@ import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { Context } from '../../core/shared/context.model';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -40,7 +40,17 @@ export const BBM_PAGINATION_ID = 'bbm';
  * 'dc.contributor.*'
  */
 @rendersBrowseBy(BrowseByDataType.Metadata)
-export class BrowseByMetadataPageComponent extends AbstractBrowseByTypeComponent implements OnInit, OnDestroy {
+export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
+
+  /**
+   * The optional context
+   */
+  @Input() context: Context;
+
+  /**
+   * The {@link BrowseByDataType} of this Component
+   */
+  @Input() browseByType: BrowseByDataType;
 
   /**
    * The list of browse-entries to display
@@ -76,6 +86,11 @@ export class BrowseByMetadataPageComponent extends AbstractBrowseByTypeComponent
    * The sorting config observable
    */
   currentSort$: Observable<SortOptions>;
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   /**
    * The default browse id to resort to when none is provided
@@ -129,7 +144,6 @@ export class BrowseByMetadataPageComponent extends AbstractBrowseByTypeComponent
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
   ) {
-    super();
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
         id: BBM_PAGINATION_ID,
@@ -273,7 +287,7 @@ export class BrowseByMetadataPageComponent extends AbstractBrowseByTypeComponent
   }
 
   ngOnDestroy(): void {
-    super.ngOnDestroy();
+    this.subs.filter((sub: Subscription) => hasValue(sub)).forEach((sub: Subscription) => sub.unsubscribe());
     this.paginationService.clearPagination(this.paginationConfig.id);
   }
 

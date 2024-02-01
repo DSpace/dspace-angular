@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { getComponentByBrowseByType } from './browse-by-decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
-import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { BrowseByDataType } from './browse-by-data-type';
 import { Context } from '../../core/shared/context.model';
 
@@ -10,7 +9,7 @@ import { Context } from '../../core/shared/context.model';
   selector: 'ds-browse-by-switcher',
   templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html'
 })
-export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<AbstractBrowseByTypeComponent> {
+export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {
 
   @Input() context: Context;
 
@@ -26,7 +25,7 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
     'browseByType',
   ];
 
-  public getComponent(): GenericConstructor<AbstractBrowseByTypeComponent> {
+  public getComponent(): GenericConstructor<Component> {
     return getComponentByBrowseByType(this.browseByType, this.context, this.themeService.getThemeName());
   }
 

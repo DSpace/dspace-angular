@@ -9,7 +9,6 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { Component } from '@angular/core';
-import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { By } from '@angular/platform-browser';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
@@ -20,7 +19,7 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
   selector: '',
   template: '<span id="BrowseByTestComponent"></span>',
 })
-class BrowseByTestComponent extends AbstractBrowseByTypeComponent {
+class BrowseByTestComponent {
 }
 
 class TestBrowseByPageBrowseDefinition extends BrowseDefinition {
