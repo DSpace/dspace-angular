@@ -31,7 +31,7 @@ import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
-import { ThirdPartyMetric } from "./third-party-metric-config";
+import { ThirdPartyMetric } from './third-party-metric-config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
