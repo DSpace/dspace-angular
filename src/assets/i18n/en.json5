@@ -2467,6 +2467,14 @@
 
   "form.entry.source.orcid": "- Orcid",
 
+  "form.entry.source.ror": "- ROR",
+
+  "form.entry.source.openaire": "- OpenAIRE",
+
+  "form.entry.source.zdb": "- ZDB",
+
+  "form.entry.source.sherpa": "- Sherpa",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
