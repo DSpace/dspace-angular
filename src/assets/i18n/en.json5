@@ -128,6 +128,8 @@
 
   "admin.registries.bitstream-formats.table.name": "Name",
 
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
   "admin.registries.bitstream-formats.table.id": "ID",
 
   "admin.registries.bitstream-formats.table.return": "Back",
@@ -142,7 +144,9 @@
 
   "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
 
-  "admin.registries.bitstream-formats.select": "Select bitstream format",
+  "admin.registries.bitstream-formats.select": "Select",
+
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
@@ -160,7 +164,13 @@
 
   "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
 
+  "admin.registries.metadata.schemas.select": "Select",
+
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   "admin.registries.metadata.schemas.table.delete": "Delete selected",
+
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   "admin.registries.metadata.schemas.table.id": "ID",
 
@@ -174,6 +184,10 @@
 
   "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
 
+  "admin.registries.schema.fields.select": "Select",
+
+  "admin.registries.schema.fields.deselect": "Deselect",
+
   "admin.registries.schema.fields.head": "Schema metadata fields",
 
   "admin.registries.schema.fields.no-items": "No metadata fields to show.",
@@ -181,6 +195,8 @@
   "admin.registries.schema.fields.table.delete": "Delete selected",
 
   "admin.registries.schema.fields.table.field": "Field",
+
+  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
 
   "admin.registries.schema.fields.table.id": "ID",
 
@@ -892,6 +908,8 @@
 
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
+  "collection.browse.logo": "Browse for a collection logo",
+
   "collection.create.head": "Create a Collection",
 
   "collection.create.notifications.success": "Successfully created the Collection",
@@ -1088,6 +1106,8 @@
 
   "collection.listelement.badge": "Collection",
 
+  "collection.logo": "Collection logo",
+
   "collection.page.browse.recent.head": "Recent Submissions",
 
   "collection.page.browse.recent.empty": "No items to show",
@@ -1103,6 +1123,8 @@
   "collection.select.confirm": "Confirm selected",
 
   "collection.select.empty": "No collections to show",
+
+  "collection.select.table.selected": "Selected collections",
 
   "collection.select.table.select": "Select collection",
 
@@ -1167,6 +1189,12 @@
   "communityList.title": "List of Communities",
 
   "communityList.showMore": "Show More",
+
+  "communityList.expand": "Expand {{ name }}",
+
+  "communityList.collapse": "Collapse {{ name }}",
+
+  "community.browse.logo": "Browse for a community logo",
 
   "community.create.head": "Create a Community",
 
@@ -1243,6 +1271,8 @@
   "community.edit.tabs.authorizations.title": "Community Edit - Authorizations",
 
   "community.listelement.badge": "Community",
+
+  "community.logo": "Community logo",
 
   "comcol-role.edit.no-group": "None",
 
@@ -1690,7 +1720,7 @@
 
   "forgot-password.form.label.passwordrepeat": "Retype to confirm",
 
-  "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
 
   "forgot-password.form.error.matching-passwords": "The passwords do not match.",
 
@@ -2142,6 +2172,8 @@
 
   "item.edit.metadata.headers.value": "Value",
 
+  "item.edit.metadata.metadatafield": "Edit field",
+
   "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
 
   "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
@@ -2534,6 +2566,8 @@
 
   "item.select.empty": "No items to show",
 
+  "item.select.table.selected": "Selected items",
+
   "item.select.table.select": "Select item",
 
   "item.select.table.deselect": "Deselect item",
@@ -2663,6 +2697,8 @@
   "itemtemplate.edit.metadata.headers.language": "Lang",
 
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
 
@@ -3453,8 +3489,6 @@
   "profile.groups.head": "Authorization groups you belong to",
 
   "profile.special.groups.head": "Authorization special groups you belong to",
-
-  "profile.head": "Update Profile",
 
   "profile.metadata.form.error.firstname.required": "First Name is required",
 
@@ -4565,6 +4599,8 @@
   "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
 
   "submission.sections.general.no-collection": "No collection found",
+
+  "submission.sections.general.no-entity": "No entity types found",
 
   "submission.sections.general.no-sections": "No options available",
 

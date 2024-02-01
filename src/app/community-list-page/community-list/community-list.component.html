@@ -4,9 +4,9 @@
   <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding
                  class="example-tree-node show-more-node">
     <div class="btn-group">
-      <button type="button" class="btn btn-default" cdkTreeNodeToggle>
-        <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
-      </button>
+      <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
+        <span class="fa fa-chevron-right"></span>
+      </span>
       <div class="align-middle pt-2">
         <button *ngIf="!(dataSource.loading$ | async)" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
@@ -24,15 +24,18 @@
   <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
                  class="example-tree-node expandable-node">
     <div class="btn-group">
-      <button type="button" class="btn btn-default" cdkTreeNodeToggle
-              [title]="'toggle ' + dsoNameService.getName(node.payload)"
-              [attr.aria-label]="'toggle ' + dsoNameService.getName(node.payload)"
+      <button *ngIf="hasChild(null, node) | async" type="button" class="btn btn-default" cdkTreeNodeToggle
+              [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
               (click)="toggleExpanded(node)"
-              [ngClass]="(hasChild(null, node)| async) ? 'visible' : 'invisible'"
-              [attr.data-test]="(hasChild(null, node)| async) ? 'expand-button' : ''">
+              data-test="expand-button">
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
+        <span class="sr-only">{{ (node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) } }}</span>
       </button>
+      <!--Don't render the button when non-expandable otherwise it's still accessible, instead render this placeholder-->
+      <span *ngIf="!(hasChild(null, node) | async)" aria-hidden="true" class="btn btn-default invisible">
+        <span class="fa fa-chevron-right"></span>
+      </span>
       <div class="d-flex flex-row">
         <span class="align-middle pt-2 lead">
           <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
@@ -44,10 +47,9 @@
     <ds-truncatable [id]="node.id">
       <div class="text-muted" cdkTreeNodePadding>
         <div class="d-flex" *ngIf="node.payload.shortDescription">
-          <button type="button" class="btn btn-default invisible">
-            <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
-                  aria-hidden="true"></span>
-          </button>
+          <span aria-hidden="true" class="btn btn-default invisible">
+            <span class="fa fa-chevron-right"></span>
+          </span>
           <ds-truncatable-part [id]="node.id" [minLines]="3">
             <span>{{node.payload.shortDescription}}</span>
           </ds-truncatable-part>
@@ -56,10 +58,9 @@
     </ds-truncatable>
     <div class="d-flex" *ngIf="node===loadingNode && dataSource.loading$ | async"
          cdkTreeNodePadding>
-      <button type="button" class="btn btn-default invisible">
-        <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
-              aria-hidden="true"></span>
-      </button>
+      <span aria-hidden="true" class="btn btn-default invisible">
+        <span class="fa fa-chevron-right"></span>
+      </span>
       <ds-themed-loading class="ds-themed-loading"></ds-themed-loading>
     </div>
   </cdk-tree-node>
@@ -67,9 +68,9 @@
   <cdk-tree-node *cdkTreeNodeDef="let node; when: !(hasChild && isShowMore)" cdkTreeNodePadding
                  class="example-tree-node childless-node">
     <div class="btn-group">
-      <button type="button" class="btn btn-default" cdkTreeNodeToggle>
-        <span class="fa fa-chevron-right invisible" aria-hidden="true"></span>
-      </button>
+      <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
+        <span class="fa fa-chevron-right"></span>
+      </span>
       <h6 class="align-middle pt-2">
         <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
       </h6>
@@ -77,10 +78,9 @@
     <ds-truncatable [id]="node.id">
       <div class="text-muted" cdkTreeNodePadding>
         <div class="d-flex" *ngIf="node.payload.shortDescription">
-          <button type="button" class="btn btn-default invisible">
-            <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
-                  aria-hidden="true"></span>
-          </button>
+          <span aria-hidden="true" class="btn btn-default invisible">
+            <span class="fa fa-chevron-right"></span>
+          </span>
           <ds-truncatable-part [id]="node.id" [minLines]="3">
             <span>{{node.payload.shortDescription}}</span>
           </ds-truncatable-part>
