@@ -7,6 +7,6 @@
 
   .ds-menu-item {
     display: inline-block;
-    padding: 0.25rem 0;
+    padding: var(--ds-user-menu-item-vertical-padding) var(--ds-user-menu-item-horizontal-padding);
   }
 }

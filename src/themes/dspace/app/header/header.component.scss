@@ -5,7 +5,7 @@
   }
 
   img#header-logo {
-    height: 40px;
+    height: var(--ds-header-logo-height);
   }
 
   button#navbar-toggler {

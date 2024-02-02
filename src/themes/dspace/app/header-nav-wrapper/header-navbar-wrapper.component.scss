@@ -1,7 +1,7 @@
 :host {
   --ds-header-navbar-border-bottom-style: solid var(--ds-header-navbar-border-bottom-height) var(--ds-header-navbar-border-bottom-color);
-  --ds-mobile-navbar-border-top-style: solid var(--ds-mobile-navbar-border-top-height) var(--ds-mobile-navbar-border-top-color);
-  --ds-collapsible-navbar-height: calc(100vh - var(--ds-header-height));
+  --ds-expandable-navbar-border-top-style: solid var(--ds-expandable-navbar-border-top-height) var(--ds-expandable-navbar-border-top-color);
+  --ds-expandable-navbar-height: calc(100vh - var(--ds-header-height));
 
   div#header-navbar-wrapper {
     // The header-navbar-wrapper should not have a z-index, otherwise it would cover the media viewer despite its higher z-index
@@ -17,7 +17,7 @@
 
       nav#collapsible-mobile-navbar {
         // Following parameters are changed by slideMobileNav animation
-        min-height: var(--ds-collapsible-navbar-height);
+        min-height: var(--ds-expandable-navbar-height);
         height: auto;
         border-bottom: var(--ds-header-navbar-border-bottom-style);
       }
@@ -42,7 +42,8 @@
         height: 100%;
       }
       .ds-menu-item {
-        padding: 0.5rem;
+        // define here the style for top-level navbar menu items
+        padding: var(--ds-navbar-item-vertical-padding) var(--ds-navbar-item-horizontal-padding);
       }
       .ds-menu-item, .ds-menu-toggler-wrapper {
         color: var(--ds-navbar-link-color) !important;
@@ -54,6 +55,8 @@
       // desktop submenu
       .dropdown-menu {
         .ds-menu-item {
+          // define here the style for second-level navbar menu items
+          padding: var(--ds-navbar-dropdown-item-vertical-padding) var(--ds-navbar-dropdown-item-horizontal-padding);
         }
       }
 
@@ -61,14 +64,14 @@
 
     nav#collapsible-mobile-navbar {
 
-      border-top: var(--ds-mobile-navbar-border-top-style);
-      padding-top: var(--ds-mobile-navbar-padding-top);
+      border-top: var(--ds-expandable-navbar-border-top-style);
+      padding-top: var(--ds-expandable-navbar-padding-top);
 
       ::ng-deep {
 
         // mobile menu
         .ds-menu-item {
-          padding: 0.25rem 0;
+          padding: var(--ds-expandable-navbar-dropdown-item-vertical-padding) var(--ds-expandable-navbar-dropdown-item-horizontal-padding);
         }
 
         .ds-menu-item, .ds-menu-toggler-wrapper {
