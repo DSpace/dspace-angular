@@ -25,7 +25,7 @@
       <div id="mobile-navbar-toggler" class="d-block d-lg-none ml-3" *ngIf="(isMobile$ | async)">
         <button id="navbar-toggler" class="btn" type="button" (click)="toggleNavbar()"
                 [attr.aria-label]="'nav.toggle' | translate" aria-controls="collapsible-mobile-navbar" [attr.aria-expanded]="!(isNavBarCollapsed$ | async)">
-          <span class="fas fa-bars fa-fw fa-xl" aria-hidden="true"></span>
+          <span class="fas fa-bars fa-fw fa-xl toggler-icon" aria-hidden="true"></span>
         </button>
       </div>
 

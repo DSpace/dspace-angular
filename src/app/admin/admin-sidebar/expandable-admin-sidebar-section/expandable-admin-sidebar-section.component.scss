@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     ::ng-deep .ds-menu-item {
-      margin-left: 12px;
+      margin-left: var(--ds-admin-sidebar-section-indent);
     }
   }
 

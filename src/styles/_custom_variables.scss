@@ -22,15 +22,27 @@
   --ds-header-bg: #{$ds-header-bg};
   --ds-header-icon-color: #{$ds-header-icon-color};
   --ds-header-icon-color-hover: #{$ds-header-icon-color-hover};
+
   --ds-navbar-bg: #{$ds-navbar-bg};
+  --ds-navbar-item-vertical-padding: 0;
+  --ds-navbar-item-horizontal-padding: 0.25rem;
   --ds-navbar-dropdown-bg: #{$ds-navbar-dropdown-bg};
-  --ds-header-navbar-border-top-color: #{$ds-header-navbar-border-bottom-color};
-  --ds-header-navbar-border-bottom-color: #{$ds-header-navbar-border-bottom-color};
+  --ds-navbar-dropdown-item-vertical-padding: 0.5rem;
+  --ds-navbar-dropdown-item-horizontal-padding: 1rem;
   --ds-navbar-link-color: #{$ds-navbar-link-color};
   --ds-navbar-link-color-hover: #{$ds-navbar-link-color-hover};
+
+  --ds-header-navbar-border-top-color: #{$ds-header-navbar-border-bottom-color};
+  --ds-header-navbar-border-bottom-color: #{$ds-header-navbar-border-bottom-color};
+
   --ds-expandable-navbar-bg: #{$ds-expandable-navbar-bg};
   --ds-expandable-navbar-link-color: #{$ds-navbar-link-color};
   --ds-expandable-navbar-link-color-hover: #{$ds-navbar-link-color-hover};
+  --ds-expandable-navbar-dropdown-item-vertical-padding: 0.25rem;
+  --ds-expandable-navbar-dropdown-item-horizontal-padding: 0;
+
+  --ds-user-menu-item-vertical-padding: 0.25rem;
+  --ds-user-menu-item-horizontal-padding: 0;
 
   @include media-breakpoint-up(md) {
     --ds-header-logo-height: 50px;
@@ -42,12 +54,15 @@
   --ds-admin-sidebar-bg: #{$ds-admin-sidebar-bg};
   --ds-admin-sidebar-active-bg: #{$ds-admin-sidebar-active-bg};
   --ds-admin-sidebar-header-bg: #{darken($ds-admin-sidebar-bg, 7%)};
+  --ds-admin-sidebar-logo-height: 20px;
   --ds-admin-sidebar-fixed-element-width: #{$ds-admin-sidebar-fixed-element-width};
   --ds-admin-sidebar-fixed-element-z-index: 10;
   --ds-admin-sidebar-collapsible-element-width: #{$ds-admin-sidebar-collapsible-element-width};
   --ds-admin-sidebar-total-width: #{$ds-admin-sidebar-total-width};
   --ds-admin-sidebar-link-color: #{$navbar-dark-color};
   --ds-admin-sidebar-link-hover-color: #{$navbar-dark-hover-color};
+  --ds-admin-sidebar-item-padding: 1rem;
+  --ds-admin-sidebar-section-indent: .75rem;
 
   --ds-dark-scrollbar-bg: #{$ds-admin-sidebar-active-bg};
   --ds-dark-scrollbar-alt-bg: #{lighten($ds-admin-sidebar-active-bg, 2%)};
