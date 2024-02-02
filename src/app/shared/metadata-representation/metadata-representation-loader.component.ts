@@ -19,13 +19,20 @@ import { AbstractComponentLoaderComponent } from '../abstract-component-loader/a
  */
 export class MetadataRepresentationLoaderComponent extends AbstractComponentLoaderComponent<MetadataRepresentationListElementComponent> {
 
+  @Input() context: Context;
+
   /**
    * The item or metadata to determine the component for
    */
   @Input() mdRepresentation: MetadataRepresentation;
 
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'context',
+    'mdRepresentation',
+  ];
+
   protected inputNames: (keyof this & string)[] = [
-    ...this.inputNames,
+    'context',
     'mdRepresentation',
   ];
 

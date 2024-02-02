@@ -4,6 +4,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
 import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { BrowseByDataType } from './browse-by-data-type';
+import { Context } from '../../core/shared/context.model';
 
 @Component({
   selector: 'ds-browse-by-switcher',
@@ -11,15 +12,17 @@ import { BrowseByDataType } from './browse-by-data-type';
 })
 export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<AbstractBrowseByTypeComponent> {
 
+  @Input() context: Context;
+
   @Input() browseByType: BrowseByDataType;
 
   protected inputNamesDependentForComponent: (keyof this & string)[] = [
-    ...this.inputNamesDependentForComponent,
+    'context',
     'browseByType',
   ];
 
   protected inputNames: (keyof this & string)[] = [
-    ...this.inputNames,
+    'context',
     'browseByType',
   ];
 
