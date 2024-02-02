@@ -9,7 +9,7 @@
   <ul class="list-unstyled mb-0">
     <li class="list-item d-flex align-items-center">
       <div *ngIf="entry.source" class="mr-2">
-        <img onerror="handleImgError(this)" [src]="'assets/images/source-' + entry.source + '.png'" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+        <img onerror="handleImgError(this)" [src]="'assets/images/' + entry.source + '.logo.icon.svg'" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
       </div>
       <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
       <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
@@ -26,7 +26,7 @@
   <ul class="list-unstyled mb-0">
     <li class="list-item d-flex align-items-center">
       <div *ngIf="entry.source" class="mr-2">
-        <img onerror="handleImgError(this)" [src]="'assets/images/source-' + entry.source + '.png'" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+        <img onerror="handleImgError(this)" [src]="'assets/images/' + entry.source + '.logo.icon.svg'" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
       </div>
       <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
       <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
@@ -91,7 +91,6 @@
          [disabled]="model.readOnly"
          [type]="model.inputType"
          [value]="currentValue?.display"
-         [disabled]="model.readOnly"
          (focus)="onFocus($event)"
          (change)="onChange($event)"
          (click)="openTree($event)"

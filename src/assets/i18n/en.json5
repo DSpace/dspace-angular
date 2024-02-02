@@ -2461,19 +2461,17 @@
 
   "form.other-information.ror_orgunit_acronym": "ROR acronym",
 
-  "form.entry.source": "Source",
+  "form.entry.source.local": "",
 
-  "form.entry.source.local": "- Local",
+  "form.entry.source.orcid": "",
 
-  "form.entry.source.orcid": "- Orcid",
+  "form.entry.source.ror": "",
 
-  "form.entry.source.ror": "- ROR",
+  "form.entry.source.openaire": "",
 
-  "form.entry.source.openaire": "- OpenAIRE",
+  "form.entry.source.zdb": "",
 
-  "form.entry.source.zdb": "- ZDB",
-
-  "form.entry.source.sherpa": "- Sherpa",
+  "form.entry.source.sherpa": "",
 
   "form.remove": "Remove",
 
