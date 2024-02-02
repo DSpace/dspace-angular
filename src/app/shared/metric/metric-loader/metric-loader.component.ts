@@ -49,7 +49,7 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
   settingsSubscription: Subscription;
 
-  private thirdPartyMetrics = environment.metricsConsents.map(metrics => metrics.key);
+  private thirdPartyMetrics = environment.metricsConsents.filter(metric => metric.enabled).map(metric => metric.key);
 
   private browserKlaroService: BrowserKlaroService;
 
