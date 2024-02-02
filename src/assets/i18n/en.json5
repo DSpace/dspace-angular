@@ -32,7 +32,9 @@
 
   "error-page.description.404": "page not found",
 
-  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+  // TAMU Customization
+  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with OAKTrust. If the error persists, contact the administrator",
+  // END TAMU Customization
 
   "access-status.embargo.listelement.badge": "Embargo",
 
@@ -144,7 +146,9 @@
 
   "admin.registries.metadata.breadcrumbs": "Metadata registry",
 
-  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
+  // TAMU Customization
+  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, OAKTrust requires the qualified Dublin Core schema.",
+  // END TAMU Customization
 
   "admin.registries.metadata.form.create": "Create metadata schema",
 
@@ -778,11 +782,9 @@
 
   "browse.comcol.by.subject": "By Subject",
 
- // "browse.comcol.by.srsc": "By Subject Category",
-
-// TAMU Customization
+  // TAMU Customization
   "browse.comcol.by.srsc": "By Department",
-// END TAMU Customization
+  // END TAMU Customization
 
   "browse.comcol.by.nsi": "By Norwegian Science Index",
 
@@ -806,9 +808,7 @@
 
   "browse.metadata.subject.breadcrumbs": "Browse by Subject",
 
- // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
-
- //TAMU Customization
+  //TAMU Customization
   "browse.metadata.srsc.breadcrumbs": "Browse by Department",
   //END TAMU Customization
 
@@ -1621,14 +1621,10 @@
   "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
 
   "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
-  
-  // "feed.description": "Syndication feed",
 
   // TAMU Customization
-
   "feed.description": "RSS feed",
-
-// END TAMU Customization
+  // END TAMU Customization
 
   "file-section.error.header": "Error obtaining files for this item",
 
@@ -2840,12 +2836,9 @@
 
   "menu.section.browse_global_by_subject": "By Subject",
 
- // "menu.section.browse_global_by_srsc": "By Subject Category",
-
-//TAMU Customization
+  //TAMU Customization
   "menu.section.browse_global_by_srsc": "By Department",
-  
-//TAMU Customization
+  //TAMU Customization
 
   "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
 
@@ -3027,7 +3020,7 @@
 
   "mydspace.results.no-uri": "No Uri",
 
-  "mydspace.search-form.placeholder": "Search in mydspace...",
+  "mydspace.search-form.placeholder": "Search in my OAKTrust...",
 
   "mydspace.show.workflow": "Workflow tasks",
 
@@ -3044,8 +3037,10 @@
   "mydspace.status.mydspaceWorkflow": "Workflow",
 
   "mydspace.status.mydspaceWorkspace": "Workspace",
-
-  "mydspace.title": "MyDSpace",
+  
+   // TAMU Customization
+  "mydspace.title": "My OAKTrust",
+   // END TAMU Customization
 
   "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
 
@@ -3056,8 +3051,6 @@
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
   "mydspace.view-btn": "View",
-
-  // "nav.browse.header": "All of DSpace",
 
   // TAMU Customization
   "nav.browse.header": "All of OAKTrust",
@@ -3077,7 +3070,9 @@
 
   "nav.main.description": "Main navigation bar",
 
-  "nav.mydspace": "MyDSpace",
+  // TAMU Customization
+  "nav.mydspace": "My OAKTrust",
+  // END TAMU Customization
 
   "nav.profile": "Profile",
 
@@ -3437,7 +3432,9 @@
 
   "register-page.registration.header": "New user registration",
 
-  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  // TAMU Customization
+  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to OAKTrust.",
+  // END TAMU Customization
 
   "register-page.registration.email": "Email Address *",
 
@@ -3999,9 +3996,13 @@
 
   "submission.import-external.title.none": "Import metadata from an external source",
 
-  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
+  // TAMU Customization
+  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to OAKTrust.",
+  // END TAMU Customization
 
-  "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
+  // TAMU Customization
+  "submission.import-external.back-to-my-dspace": "Back to My OAKTrust",
+  // END TAMU Customization
 
   "submission.import-external.search.placeholder": "Search the external source",
 
