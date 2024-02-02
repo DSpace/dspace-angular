@@ -124,4 +124,12 @@
 
   --ds-comcol-logo-max-width: 500px;
   --ds-comcol-logo-max-height: 500px;
+
+  --ds-primary-bg: #{$ds-primary-bg};
+  --ds-secondary-bg: #{$ds-secondary-bg};
+  --ds-success-bg: #{$ds-success-bg};
+  --ds-info-bg: #{$ds-info-bg};
+  --ds-warning-bg: #{$ds-warning-bg};
+  --ds-danger-bg: #{$ds-danger-bg};
+
 }
