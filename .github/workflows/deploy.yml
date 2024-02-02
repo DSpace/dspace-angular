@@ -53,14 +53,15 @@ jobs:
           echo REST_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT}/server >> .env.dev-5
           echo UI_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT} >> .env.dev-5
 
-          echo S3_STORAGE=0 >> .env.dev-5
-          echo S3_ENABLED=false >> .env.dev-5
+          echo S3_STORAGE=1 >> .env.dev-5
+          echo S3_ENABLED=true >> .env.dev-5
           echo S3_RELATIVE_PATH=true >> .env.dev-5
-          echo S3_BUCKET=dev-5-dspace >> .env.dev-5
-          echo S3_SUBFOLDER=seven-five >> .env.dev-5
+          echo S3_BUCKET=testbucket >> .env.dev-5
+          echo S3_SUBFOLDER=eighty-five >> .env.dev-5
           echo S3_ACCESS=${{ secrets.AMAZON_ACCESS }} >> .env.dev-5
           echo S3_SECRET=${{ secrets.AMAZON_SECRET }} >> .env.dev-5
           echo S3_REGION_NAME=eu-central-1 >> .env.dev-5
+          echo S3_ENDPOINT=https://s3.cl4.du.cesnet.cz >> env.dev-5
 
           echo NODE_ENV=production >> .env.dev-5
 
