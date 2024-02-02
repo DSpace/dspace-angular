@@ -33,40 +33,15 @@ jobs:
     if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '5'
     runs-on: dspace-dep-1
     timeout-minutes: 5
+    env:
+      INSTANCE: '5'
+      ENVFILE: /opt/dspace-envs/.env.dspace.dev-5
     steps:
       - uses: actions/checkout@v4
 
       - name: deploy to dev-5
         run: |
-          cd $GITHUB_WORKSPACE/build-scripts/run/
-          pwd
-
-          touch .env.dev-5 || true
-          echo INSTANCE=5 >> .env.dev-5
-          echo DSPACE_HOST=dev-5.pc >> .env.dev-5
-          echo DSPACE_VER=dspace-7_x >> .env.dev-5
-          echo DSPACE_SSL=false >> .env.dev-5
-          echo DOCKER_OWNER=dataquest >> .env.dev-5
-          echo DSPACE_UI_IMAGE=\${DOCKER_OWNER}/dspace-angular:\$DSPACE_VER >> .env.dev-5
-          echo DSPACE_REST_IMAGE=\${DOCKER_OWNER}/dspace:\$DSPACE_VER >> .env.dev-5
-          echo DSPACE_REST_PORT=8\$INSTANCE >> .env.dev-5
-          echo REST_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT}/server >> .env.dev-5
-          echo UI_URL=http://\${DSPACE_HOST}:\${DSPACE_REST_PORT} >> .env.dev-5
-
-          echo S3_STORAGE=1 >> .env.dev-5
-          echo S3_ENABLED=true >> .env.dev-5
-          echo S3_RELATIVE_PATH=true >> .env.dev-5
-          echo S3_BUCKET=testbucket >> .env.dev-5
-          echo S3_SUBFOLDER=eighty-five >> .env.dev-5
-          echo S3_ACCESS=${{ secrets.AMAZON_ACCESS }} >> .env.dev-5
-          echo S3_SECRET=${{ secrets.AMAZON_SECRET }} >> .env.dev-5
-          echo S3_REGION_NAME=eu-central-1 >> .env.dev-5
-          echo S3_ENDPOINT=https://s3.cl4.du.cesnet.cz >> env.dev-5
-
-          echo NODE_ENV=production >> .env.dev-5
-
-          export ENVFILE=$(pwd)/.env.dev-5
-          ./start.sh dspace-5
+          ./start.sh dspace-$INSTANCE
 
   deploy-8:
     if: github.event.inputs.INSTANCE == '*' || github.event.inputs.INSTANCE == '8'
