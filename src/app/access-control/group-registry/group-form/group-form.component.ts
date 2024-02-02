@@ -230,12 +230,14 @@ export class GroupFormComponent implements OnInit, OnDestroy {
             this.groupBeingEdited = activeGroup;
 
             if (linkedObject?.name) {
-              this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
-              this.formGroup.patchValue({
-                groupName: activeGroup.name,
-                groupCommunity: linkedObject?.name ?? '',
-                groupDescription: activeGroup.firstMetadataValue('dc.description'),
-              });
+              if (!this.formGroup.controls.groupCommunity) {
+                this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, this.groupCommunity);
+                this.formGroup.patchValue({
+                  groupName: activeGroup.name,
+                  groupCommunity: linkedObject?.name ?? '',
+                  groupDescription: activeGroup.firstMetadataValue('dc.description'),
+                });
+              }
             } else {
               this.formModel = [
                 this.groupName,
@@ -418,7 +420,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   delete() {
     this.groupDataService.getActiveGroup().pipe(take(1)).subscribe((group: Group) => {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = group;
+      modalRef.componentInstance.name = this.dsoNameService.getName(group);
       modalRef.componentInstance.headerLabel = this.messagePrefix + '.delete-group.modal.header';
       modalRef.componentInstance.infoLabel = this.messagePrefix + '.delete-group.modal.info';
       modalRef.componentInstance.cancelLabel = this.messagePrefix + '.delete-group.modal.cancel';
