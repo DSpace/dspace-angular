@@ -36,8 +36,6 @@ import { getCollectionPageRoute } from '../../collection-page/collection-page-ro
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
-let searchServiceObject: SearchService;
-let searchConfigurationServiceObject: SearchConfigurationService;
 const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   dispatch: {},
@@ -93,7 +91,6 @@ const mockDso2 = Object.assign(new Item(), {
     }
   }
 });
-const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
 const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
   page: [mockDso, mockDso2]
 });
@@ -106,23 +103,13 @@ const searchServiceStub = jasmine.createSpyObj('SearchService', {
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
   trackSearch: {},
 }) as SearchService;
-const configurationParam = 'default';
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-const fixedFilter = 'fixed filter';
 
 const defaultSearchOptions = new PaginatedSearchOptions({ pagination });
 
 const paginatedSearchOptions$ = new BehaviorSubject(defaultSearchOptions);
 
-const paginatedSearchOptions = new PaginatedSearchOptions({
-  configuration: configurationParam,
-  query: queryParam,
-  scope: scopeParam,
-  fixedFilter: fixedFilter,
-  pagination,
-  sort
-});
 const activatedRouteStub = {
   snapshot: {
     queryParamMap: new Map([
@@ -155,14 +142,11 @@ const filtersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig, mock
 const filtersConfigRD$ = observableOf(filtersConfigRD);
 
 const routeServiceStub = {
-  getRouteParameterValue: () => {
-    return observableOf('');
-  },
   getQueryParameterValue: () => {
-    return observableOf('');
+    return observableOf(null);
   },
   getQueryParamsWithPrefix: () => {
-    return observableOf('');
+    return observableOf(null);
   },
   setParameter: () => {
     return;
@@ -252,16 +236,10 @@ describe('SearchComponent', () => {
     comp.paginationId = paginationId;
 
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
-
-    searchServiceObject = TestBed.inject(SearchService);
-    searchConfigurationServiceObject = TestBed.inject(SEARCH_CONFIG_SERVICE);
-
   });
 
   afterEach(() => {
     comp = null;
-    searchServiceObject = null;
-    searchConfigurationServiceObject = null;
   });
 
   it('should init search parameters properly and call retrieveSearchResults', fakeAsync(() => {
