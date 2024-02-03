@@ -18,7 +18,7 @@
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
         </button>
     </div>
-    <h4>{{ 'collection.edit.tabs.source.head' | translate }}</h4>
+    <h2>{{ 'collection.edit.tabs.source.head' | translate }}</h2>
     <div *ngIf="contentSource" class="form-check mb-4">
         <input type="checkbox" class="form-check-input" id="externalSourceCheck"
                [checked]="(contentSource?.harvestType !== harvestTypeNone)" (change)="changeExternalSource()">
@@ -26,7 +26,7 @@
                for="externalSourceCheck">{{ 'collection.edit.tabs.source.external' | translate }}</label>
     </div>
     <ds-themed-loading *ngIf="!contentSource" [message]="'loading.content-source' | translate"></ds-themed-loading>
-    <h4 *ngIf="contentSource && (contentSource?.harvestType !== harvestTypeNone)">{{ 'collection.edit.tabs.source.form.head' | translate }}</h4>
+    <h3 *ngIf="contentSource && (contentSource?.harvestType !== harvestTypeNone)">{{ 'collection.edit.tabs.source.form.head' | translate }}</h3>
 </div>
 <div class="row">
     <ds-form *ngIf="formGroup && contentSource && (contentSource?.harvestType !== harvestTypeNone)"

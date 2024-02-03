@@ -3764,20 +3764,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Uw Submissions",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Opgeslagen",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Opgeslagen",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validatie",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validatie",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Wachten op controlleur",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Wachten op controlleur",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Workflow",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Workflow",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Workspace",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",

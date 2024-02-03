@@ -1,4 +1,3 @@
-import { Options } from 'cypress-axe';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Community List Page', () => {
@@ -13,13 +12,6 @@ describe('Community List Page', () => {
         cy.get('[data-test="expand-button"]').click({ multiple: true });
 
         // Analyze <ds-community-list-page> for accessibility issues
-        // Disable heading-order checks until it is fixed
-        testA11y('ds-community-list-page',
-            {
-                rules: {
-                    'heading-order': { enabled: false }
-                }
-            } as Options
-        );
+        testA11y('ds-community-list-page');
     });
 });

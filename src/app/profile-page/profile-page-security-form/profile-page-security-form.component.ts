@@ -39,12 +39,14 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     new DynamicInputModel({
       id: 'password',
       name: 'password',
-      inputType: 'password'
+      inputType: 'password',
+      autoComplete: 'new-password',
     }),
     new DynamicInputModel({
       id: 'passwordrepeat',
       name: 'passwordrepeat',
-      inputType: 'password'
+      inputType: 'password',
+      autoComplete: 'new-password',
     })
   ];
 
@@ -79,7 +81,8 @@ export class ProfilePageSecurityFormComponent implements OnInit {
         id: 'current-password',
         name: 'current-password',
         inputType: 'password',
-        required: true
+        required: true,
+        autoComplete: 'current-password',
       }));
     }
     if (this.passwordCanBeEmpty) {

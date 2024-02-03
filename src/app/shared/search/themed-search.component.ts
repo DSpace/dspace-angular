@@ -18,6 +18,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
+
   protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
     'configurationList',
     'context',
