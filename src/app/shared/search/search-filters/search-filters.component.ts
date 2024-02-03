@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, distinctUntilChanged } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -12,8 +12,7 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { SearchConfig } from '../../../core/shared/search/search-filters/search-config.model';
+
 @Component({
   selector: 'ds-search-filters',
   styleUrls: ['./search-filters.component.scss'],
@@ -29,7 +28,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * An observable containing configuration about which filters are shown and how they are shown
    */
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  @Input() searchOptions: PaginatedSearchOptions;
+
   /**
    * List of all filters that are currently active with their value set to null.
    * Used to reset all filters at once
@@ -60,7 +59,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * Link to the search page
    */
   searchLink: string;
-  searchConfig: SearchConfig;
+
   subs = [];
   filterLabel = 'search';
 
@@ -87,10 +86,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       return filters;
     }));
     this.searchLink = this.getSearchLink();
-    this.searchConfigService.getConfigurationSearchConfig(this.currentConfiguration).pipe(distinctUntilChanged()).subscribe(searchConfig => {
-      this.searchConfig = searchConfig;
-    });
-
   }
 
   /**

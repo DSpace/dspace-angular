@@ -59,9 +59,9 @@ describe('SearchFiltersComponent', () => {
       (comp as any).getSearchLink();
     });
 
-    // it('should call getSearchLink on the searchService', () => {
-    //   expect(searchService.getSearchLink).toHaveBeenCalled();
-    // });
+    it('should call getSearchLink on the searchService', () => {
+      expect(searchService.getSearchLink).toHaveBeenCalled();
+    });
   });
 
 });
