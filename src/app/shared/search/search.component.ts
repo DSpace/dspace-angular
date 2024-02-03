@@ -315,9 +315,8 @@ export class SearchComponent implements OnDestroy, OnInit {
     // Determinate PaginatedSearchOptions and listen to any update on it
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
-    const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
-      switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration)),
+    const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
+      switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );
