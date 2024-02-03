@@ -5426,12 +5426,6 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
-  "search.advanced.filters.head": "Advanced Search",
-
-  "filter.search.operator.placeholder": "Operator",
-
-  "filter.search.text.placeholder": "Search text",
-
   "access-control-item-header-toggle": "Item's Metadata",
 
   "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
@@ -5443,16 +5437,6 @@
   "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
 
   "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
-
-  "search.filters.operator.notequals.text": "Not Equals",
-
-  "search.filters.operator.notcontains.text": "Not Contains",
-
-  "search.filters.operator.contains.text": "Contains",
-
-  "search.filters.filter.title.text": "Title",
-
-  "search.filters.filter.author.text": "Author",
 
   "access-control-bitstreams-selected": "bitstreams selected",
 
@@ -5466,12 +5450,6 @@
 
   "access-control-remove": "Remove access condition",
 
-  "community.search.head": "Search Within",
-
-  "collection.page.browse.search.head": "Search Within",
-
-  "search.filters.applied.f.title": "Title",
-
   "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
 
   "access-control-option-end-date": "Grant access until",
@@ -5481,4 +5459,26 @@
   "vocabulary-treeview.search.form.add": "Add",
 
   "search.filters.filter.entityType.text": "Item Type",
+
+  "search.filters.operator.equals.text": "Equals",
+
+  "search.filters.operator.notequals.text": "Not Equals",
+
+  "search.filters.operator.notcontains.text": "Not Contains",
+
+  "search.filters.operator.contains.text": "Contains",
+
+  "search.filters.filter.title.text": "Title",
+
+  "search.filters.applied.f.title": "Title",
+
+  "search.filters.filter.author.text": "Author",
+
+  "search.advanced.filters.head": "Advanced Search",
+
+  "filter.search.operator.placeholder": "Operator",
+
+  "filter.search.text.placeholder": "Search text",
+
+  "advancesearch.form.submit": "Add",
 }
