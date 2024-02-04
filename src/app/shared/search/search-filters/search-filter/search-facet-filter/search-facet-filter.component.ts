@@ -2,14 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  Subject,
-  Subscription
-} from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -20,12 +13,7 @@ import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SearchFilterService
-} from '../../../../../core/shared/search/search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
@@ -35,6 +23,7 @@ import { currentPath } from '../../../../utils/route.utils';
 import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 import { FacetValues } from '../../../models/facet-values.model';
+import { AppliedFilter } from '../../../models/applied-filter.model';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -48,7 +37,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits an array of pages with values found for this facet
    */
-  filterValues$: Subject<RemoteData<PaginatedList<FacetValue>[]>>;
+  filterValues$: Subject<RemoteData<FacetValues[]>>;
 
   /**
    * Emits the current last shown page of this facet's values
@@ -78,7 +67,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the active values for this filter
    */
-  selectedValues$: Observable<FacetValue[]>;
+  selectedValues$: Observable<AppliedFilter[]>;
 
   protected collapseNextUpdate = true;
 
@@ -260,7 +249,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
             queryParams:
               {
                 [this.filterConfig.paramName]: [
-                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
+                  ...selectedValues.map((appliedFilter: AppliedFilter) => appliedFilter.value),
                   data
                 ]
               },
@@ -280,12 +269,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     return getFacetValueForType(facet, this.filterConfig);
   }
 
-  protected retrieveFilterValues(useCachedVersionIfAvailable = true): Observable<RemoteData<PaginatedList<FacetValue>[]>> {
-    const facetValues$ = observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
-      map(([options, page]) => {
-        return { options, page };
-      }),
-      switchMap(({ options, page }) => {
+  protected retrieveFilterValues(useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues[]>> {
+    const facetValues$: Observable<{ values: Observable<RemoteData<FacetValues>>, page: number}> = observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
+      switchMap(([options, page]: [SearchOptions, number]) => {
         return this.searchService.getFacetValuesFor(this.filterConfig, page, options, null, useCachedVersionIfAvailable)
           .pipe(
             getFirstSucceededRemoteData(),
@@ -301,9 +287,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       })
     );
 
-    let filterValues = [];
+    let filterValues: Observable<RemoteData<FacetValues>>[] = [];
     return facetValues$.pipe(
-      mergeMap((facetOutcome) => {
+      mergeMap((facetOutcome: { values: Observable<RemoteData<FacetValues>>, page: number}) => {
         const newValues$ = facetOutcome.values;
 
         if (this.collapseNextUpdate) {
@@ -319,22 +305,16 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
         return this.rdbs.aggregate(filterValues);
       }),
-      tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
+      tap((rd: RemoteData<FacetValues[]>) => {
+        const appliedFilters: AppliedFilter[] = [].concat(...rd.payload.map((facetValues: FacetValues) => facetValues.appliedFilters))
+          .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
         this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
-          map((selectedValues) => {
+          map((selectedValues: string[]) => {
             return selectedValues.map((value: string) => {
-              const fValue = [].concat(...rd.payload.map((page) => page.page))
-                               .find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
-              if (hasValue(fValue)) {
-                return fValue;
-              }
-              const filterValue = stripOperatorFromFilterValue(value);
-              return Object.assign(new FacetValue(), { label: filterValue, value: filterValue });
-            });
-          })
+              return appliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
+            }).filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
+          }),
         );
-      }),
-      tap((rd: RemoteData<PaginatedList<FacetValue>[]>) => {
         this.animationState = 'ready';
         this.filterValues$.next(rd);
       })
