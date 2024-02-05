@@ -3690,7 +3690,11 @@
 
   "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Untrusted",
 
+  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
+
   "notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+
+  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
 
   "search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
 
