@@ -3618,6 +3618,8 @@
 
   "suggestion.suggestionFor": "Suggestions for",
 
+  "suggestion.suggestionFor.breadcrumb": "Suggestions for {{ name }}",
+
   "suggestion.source.openaire": "OpenAIRE Graph",
 
   "suggestion.from.source": "from the ",

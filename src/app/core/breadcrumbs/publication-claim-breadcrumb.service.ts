@@ -38,7 +38,8 @@ export class PublicationClaimBreadcrumbService implements BreadcrumbsProviderSer
       map(([item, isAdmin]) => {
         const itemName = this.dsoNameService.getName(item.payload);
         return isAdmin ? [new Breadcrumb(this.tranlsateService.instant(this.ADMIN_PUBLICATION_CLAIMS_BREADCRUMB_KEY), this.ADMIN_PUBLICATION_CLAIMS_PATH),
-          new Breadcrumb(itemName, undefined)] : [new Breadcrumb(itemName, undefined)];
+          new Breadcrumb(this.tranlsateService.instant('suggestion.suggestionFor.breadcrumb', {name: itemName}), undefined)] :
+          [new Breadcrumb(this.tranlsateService.instant('suggestion.suggestionFor.breadcrumb', {name: itemName}), undefined)];
       })
     );
   }
