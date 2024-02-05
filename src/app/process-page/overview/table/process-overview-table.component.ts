@@ -9,8 +9,8 @@ import { ProcessOverviewService } from '../process-overview.service';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { map, switchMap, toArray } from 'rxjs/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { map, switchMap, toArray, take } from 'rxjs/operators';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -70,6 +70,11 @@ export class ProcessOverviewTableComponent implements OnInit {
    * The current pagination options for the overview section
    */
   paginationOptions$: Observable<PaginationComponentOptions>;
+
+  /**
+   * Whether the table is collapsed
+   */
+  isCollapsed = false;
 
   constructor(protected processOverviewService: ProcessOverviewService,
               protected processBulkDeleteService: ProcessBulkDeleteService,
@@ -151,6 +156,15 @@ export class ProcessOverviewTableComponent implements OnInit {
         }),
 
       );
+
+    // Collapse this section when the number of processes is zero the first time processes are retrieved
+    this.processesRD$.pipe(getFirstCompletedRemoteData()).subscribe(
+      (processesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
+        if (!(processesRD.payload.totalElements > 0)) {
+          this.isCollapsed = true;
+        }
+      }
+    );
 
   }
 
