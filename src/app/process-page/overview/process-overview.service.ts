@@ -9,6 +9,18 @@ import { RequestParam } from '../../core/cache/models/request-param.model';
 import { ProcessStatus } from '../processes/process-status.model';
 import { DatePipe } from '@angular/common';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+
+/**
+ * The sortable fields for processes
+ * See [the endpoint documentation]{@link https://github.com/DSpace/RestContract/blob/main/processes-endpoint.md#search-processes-by-property}
+ * for details.
+ */
+export enum ProcessSortField {
+  creationTime = 'creationTime',
+  startTime = 'startTime',
+  endTime = 'endTime',
+}
 
 /**
  * Service to manage the processes displayed in the
@@ -58,13 +70,16 @@ export class ProcessOverviewService {
   /**
    * Map the provided paginationOptions to FindListOptions
    * @param paginationOptions the PaginationComponentOptions to map
+   * @param sortField the field on which the processes are sorted
    */
-  getFindListOptions(paginationOptions: PaginationComponentOptions): FindListOptions {
+  getFindListOptions(paginationOptions: PaginationComponentOptions, sortField: ProcessSortField): FindListOptions {
+    let sortOptions = new SortOptions(sortField, SortDirection.DESC);
     return Object.assign(
       new FindListOptions(),
       {
         currentPage: paginationOptions.currentPage,
         elementsPerPage: paginationOptions.pageSize,
+        sort: sortOptions,
       }
     );
   }

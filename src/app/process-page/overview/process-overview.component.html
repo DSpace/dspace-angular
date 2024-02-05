@@ -15,10 +15,12 @@
                 [getInfoValueMethod]="processOverviewService.timeCreated"/>
         <ds-process-overview-table
                 [processStatus]="ProcessStatus.COMPLETED"
+                [sortField]="ProcessSortField.endTime"
                 [useAutoRefreshingSearchBy]="true"
                 [getInfoValueMethod]="processOverviewService.timeCompleted"/>
         <ds-process-overview-table
                 [processStatus]="ProcessStatus.FAILED"
+                [sortField]="ProcessSortField.endTime"
                 [useAutoRefreshingSearchBy]="true"
                 [getInfoValueMethod]="processOverviewService.timeCompleted"/>
     </div>

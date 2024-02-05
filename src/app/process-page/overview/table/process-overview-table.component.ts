@@ -5,7 +5,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Process } from '../../processes/process.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { ProcessOverviewService } from '../process-overview.service';
+import { ProcessOverviewService, ProcessSortField } from '../process-overview.service';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -39,6 +39,13 @@ export class ProcessOverviewTableComponent implements OnInit {
    * The status of the processes this sections should show
    */
   @Input() processStatus: ProcessStatus;
+
+  /**
+   * The field on which the processes in this table are sorted
+   * {@link ProcessSortField.creationTime} by default as every single process has a creation time,
+   * but not every process has a start or end time
+   */
+  @Input() sortField: ProcessSortField = ProcessSortField.creationTime;
 
   /**
    * Whether to use auto refresh for the processes shown in this table.
@@ -118,7 +125,7 @@ export class ProcessOverviewTableComponent implements OnInit {
       .pipe(
         // Map the paginationOptions to findListOptions
         map((paginationOptions: PaginationComponentOptions) =>
-          this.processOverviewService.getFindListOptions(paginationOptions)),
+          this.processOverviewService.getFindListOptions(paginationOptions, this.sortField)),
         // Use the findListOptions to retrieve the relevant processes every interval
         switchMap((findListOptions: FindListOptions) =>
           this.processOverviewService.getProcessesByProcessStatus(

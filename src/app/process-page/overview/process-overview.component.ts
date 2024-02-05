@@ -13,7 +13,7 @@ import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../shared/empty.util';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ProcessOverviewService } from './process-overview.service';
+import { ProcessOverviewService, ProcessSortField } from './process-overview.service';
 import { ProcessStatus } from '../processes/process-status.model';
 
 @Component({
@@ -25,7 +25,9 @@ import { ProcessStatus } from '../processes/process-status.model';
  */
 export class ProcessOverviewComponent implements OnInit, OnDestroy {
 
+  // Enums are redeclared here so they can be used in the template
   protected readonly ProcessStatus = ProcessStatus;
+  protected readonly ProcessSortField = ProcessSortField;
 
   /**
    * List of all processes
