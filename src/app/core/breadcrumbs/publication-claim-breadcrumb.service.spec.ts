@@ -28,7 +28,7 @@ describe('PublicationClaimBreadcrumbService', () => {
   const ADMIN_PUBLICATION_CLAIMS_BREADCRUMB_KEY = 'admin.notifications.publicationclaim.page.title';
 
   function init() {
-    exampleKey = '6bee076d-4f2a-4555-a475-04a267769b2a';
+    exampleKey = 'suggestion.suggestionFor.breadcrumb';
   }
 
   beforeEach(waitForAsync(() => {
