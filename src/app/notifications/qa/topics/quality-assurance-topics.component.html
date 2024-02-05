@@ -38,12 +38,12 @@
               <tbody>
                 <tr *ngFor="let topicElement of (topics$ | async); let i = index">
                   <td>{{topicElement.name}}</td>
-                  <td>{{formatDate(topicElement.lastEvent)}}</td>
+                  <td>{{topicElement.lastEvent | date: 'dd/MM/yyyy hh:mm' }}</td>
                   <td>
                     <div class="btn-group edit-field">
                       <button
                               class="btn btn-outline-primary btn-sm"
-                              title="{{'quality-assurance.button.detail' | translate }}"
+                              title="{{'quality-assurance.topics-list.button.detail' | translate : { param: topicElement.name } }}"
                               [routerLink]="[topicElement.id]">
                         <span class="badge badge-info">{{topicElement.totalEvents}}</span>
                         <i class="fas fa-info fa-fw"></i>
@@ -56,6 +56,14 @@
           </div>
         </ng-container>
       </ds-pagination>
+    </div>
+  </div>
+  <div class="row text-right">
+    <div class="col-md-12">
+      <a class="btn btn-outline-secondary" [routerLink]="['/notifications/quality-assurance']">
+        <i class="fas fa-angle-double-left"></i>
+        {{'quality-assurance.events.back-to-sources' | translate}}
+      </a>
     </div>
   </div>
 </div>

@@ -23,6 +23,9 @@ export const REQUEST_REINSTATE = 'REQUEST/REINSTATE';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service for managing the withdrawn/reinstate modal for a DSO.
+ */
 export class DsoWithdrawnReinstateModalService {
 
   constructor(

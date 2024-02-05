@@ -26,7 +26,7 @@ import { QualityAssuranceSourceService } from './qa/source/quality-assurance-sou
 import {
   QualityAssuranceSourceDataService
 } from '../core/notifications/qa/source/quality-assurance-source-data.service';
-import { GetEPersonDataPipe } from './qa/events/get-ePerson-data.pipe';
+import { EPersonDataComponent } from './qa/events/ePerson-data/ePerson-data.component';
 
 const MODULES = [
   CommonModule,
@@ -41,7 +41,8 @@ const MODULES = [
 const COMPONENTS = [
   QualityAssuranceTopicsComponent,
   QualityAssuranceEventsComponent,
-  QualityAssuranceSourceComponent
+  QualityAssuranceSourceComponent,
+  EPersonDataComponent,
 ];
 
 const DIRECTIVES = [ ];
@@ -60,7 +61,6 @@ const PROVIDERS = [
 ];
 
 const PIPES = [
-  GetEPersonDataPipe
 ];
 
 @NgModule({

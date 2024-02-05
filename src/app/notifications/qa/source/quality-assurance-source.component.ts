@@ -8,7 +8,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { NotificationsStateService } from '../../notifications-state.service';
 import { AdminQualityAssuranceSourcePageParams } from '../../../admin/admin-notifications/admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
 import { hasValue } from '../../../shared/empty.util';
-import { format } from 'date-fns';
+
 /**
  * Component to display the Quality Assurance source list.
  */
@@ -63,20 +63,6 @@ export class QualityAssuranceSourceComponent implements OnInit {
   ngOnInit(): void {
     this.sources$ = this.notificationsStateService.getQualityAssuranceSource();
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceSourceTotals();
-  }
-
-  /**
-   * Formats the given date string into the format 'yyyy-MM-dd HH:mm:ss'.
-   * If the date is falsy, an empty string is returned.
-   *
-   * @param date - The date string to be formatted.
-   * @returns The formatted date string.
-   */
-  formatDate(date: string): string {
-    if (!date) {
-      return '';
-    }
-    return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
   }
 
   /**

@@ -34,7 +34,6 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import {environment} from '../../../../environments/environment';
-import { getEntityPageRoute } from 'src/app/item-page/item-page-routing-paths';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -80,6 +79,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @type {string}
    */
   public topic: string;
+  /**
+   * The sourceId of the Quality Assurance events.
+   * @type {string}
+   */
+  sourceId: string;
   /**
    * The rejected/ignore reason.
    * @type {string}
@@ -144,9 +148,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     this.isEventPageLoading.next(true);
 
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
+    // this.sourceId = this.activatedRoute.snapshot.params.sourceId;
     this.activatedRoute.paramMap.pipe(
     tap((params) => {
       this.sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlMapForProjectSearch[params.get('sourceId')];
+      this.sourceId = params.get('sourceId');
     }),
     map((params) => params.get('topicId')),
       take(1),
@@ -458,9 +464,5 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
 
   delete(qaEvent: QualityAssuranceEventData): Observable<RemoteData<NoContent>> {
     return this.qualityAssuranceEventRestService.deleteQAEvent(qaEvent);
-  }
-
-  getEntityPageRoute(itemId: string): string {
-   return getEntityPageRoute('person', itemId);
   }
 }

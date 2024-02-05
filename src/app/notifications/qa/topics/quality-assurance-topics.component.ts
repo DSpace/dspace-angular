@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
@@ -20,7 +20,6 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core
 import { Item } from '../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { format } from 'date-fns';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -30,7 +29,7 @@ import { format } from 'date-fns';
   templateUrl: './quality-assurance-topics.component.html',
   styleUrls: ['./quality-assurance-topics.component.scss'],
 })
-export class QualityAssuranceTopicsComponent implements OnInit {
+export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
@@ -138,7 +137,7 @@ export class QualityAssuranceTopicsComponent implements OnInit {
    * Dispatch the Quality Assurance topics retrival.
    */
   public getQualityAssuranceTopics(source: string, target?: string): void {
-    this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
+    this.subs.push(this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
       distinctUntilChanged(),
     ).subscribe((options: PaginationComponentOptions) => {
       this.notificationsStateService.dispatchRetrieveQualityAssuranceTopics(
@@ -147,7 +146,7 @@ export class QualityAssuranceTopicsComponent implements OnInit {
         source,
         target
       );
-    });
+    }));
   }
 
   /**
@@ -200,20 +199,6 @@ export class QualityAssuranceTopicsComponent implements OnInit {
    */
   getQualityAssuranceRoute(): string {
     return getNotificatioQualityAssuranceRoute();
-  }
-
-  /**
-   * Formats the given date string into the format 'yyyy-MM-dd HH:mm:ss'.
-   * If the date is falsy, an empty string is returned.
-   *
-   * @param date - The date string to format.
-   * @returns The formatted date string.
-   */
-  formatDate(date: string): string {
-    if (!date) {
-      return '';
-    }
-    return format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
   }
 
   /**

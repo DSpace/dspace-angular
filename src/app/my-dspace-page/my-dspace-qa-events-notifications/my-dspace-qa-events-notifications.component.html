@@ -4,12 +4,14 @@
       class="alert alert-info d-flex flex-row"
       *ngIf="source.totalEvents > 0"
     >
+    <div class="col-2">
       <img
         class="source-logo"
         src="assets/images/qa-{{ source.id }}-logo.png"
         onerror="this.src='assets/images/dspace-logo.svg'"
         alt="{{ source.id }} logo"
       />
+    </div>
       <div class="w-100 d-flex justify-content-between">
         <div class="pl-4 align-self-center">
           {{ "mydspace.qa-event-notification.check.notification-info" | translate : { num: source.totalEvents } }}
