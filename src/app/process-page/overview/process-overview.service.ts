@@ -10,6 +10,7 @@ import { ProcessStatus } from '../processes/process-status.model';
 import { DatePipe } from '@angular/common';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * The sortable fields for processes
@@ -60,7 +61,7 @@ export class ProcessOverviewService {
       elementsPerPage: 5,
     }, findListOptions);
 
-    if (autoRefreshingIntervalInMs !== null && autoRefreshingIntervalInMs > 0) {
+    if (hasValue(autoRefreshingIntervalInMs) && autoRefreshingIntervalInMs > 0) {
       return this.processDataService.autoRefreshingSearchBy('byProperty', options, autoRefreshingIntervalInMs);
     } else {
       return this.processDataService.searchBy('byProperty', options);
