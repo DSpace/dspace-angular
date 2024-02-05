@@ -45,6 +45,12 @@ export class Process implements CacheableObject {
   userId: string;
 
   /**
+   * The creation time for this process
+   */
+  @autoserialize
+  creationTime: string;
+
+  /**
    * The start time for this process
    */
   @autoserialize
