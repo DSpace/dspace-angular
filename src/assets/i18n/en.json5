@@ -3220,7 +3220,7 @@
 
   "process.overview.table.completed.info": "Finish time (UTC)",
 
-  "process.overview.table.completed.title": "Completed processes",
+  "process.overview.table.completed.title": "Succeeded processes",
 
   "process.overview.table.empty": "No matching processes found.",
 
