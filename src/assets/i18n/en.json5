@@ -3556,15 +3556,15 @@
 
   "search.filters.applied.f.notifyRelation": "Notify Relation",
 
-  "search.filters.filter.queue_last_start_time.head" : "Last processing time ",
+  "search.filters.filter.queue_last_start_time.head": "Last processing time ",
 
-  "search.filters.filter.queue_last_start_time.min.label" : "Min range",
+  "search.filters.filter.queue_last_start_time.min.label": "Min range",
 
-  "search.filters.filter.queue_last_start_time.max.label" : "Max range",
+  "search.filters.filter.queue_last_start_time.max.label": "Max range",
 
-  "search.filters.applied.f.queue_last_start_time.min" : "Min range",
+  "search.filters.applied.f.queue_last_start_time.min": "Min range",
 
-  "search.filters.applied.f.queue_last_start_time.max" : "Max range",
+  "search.filters.applied.f.queue_last_start_time.max": "Max range",
 
   "admin.notify.dashboard.outbound": "Outbound messages",
 
@@ -3597,6 +3597,8 @@
   "search.filters.filter.activity_stream_type.label": "Search activity stream type",
 
   "search.filters.applied.f.queue_status": "Queue Status",
+
+  "search.filters.queue_status.0,authority": "Untrusted Ip",
 
   "search.filters.queue_status.1,authority": "Queued",
 
