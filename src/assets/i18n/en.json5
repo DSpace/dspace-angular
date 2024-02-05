@@ -3238,7 +3238,7 @@
 
   "process.overview.table.running.title": "Running processes",
 
-  "process.overview.table.scheduled.info": "Start time (UTC)",
+  "process.overview.table.scheduled.info": "Creation time (UTC)",
 
   "process.overview.table.scheduled.title": "Scheduled processes",
 

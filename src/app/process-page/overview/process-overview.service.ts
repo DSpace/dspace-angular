@@ -30,6 +30,7 @@ export class ProcessOverviewService {
   datePipe = new DatePipe('en-US');
 
 
+  timeCreated = (process: Process) => this.datePipe.transform(process.creationTime, this.dateFormat, 'UTC');
   timeCompleted = (process: Process) => this.datePipe.transform(process.endTime, this.dateFormat, 'UTC');
   timeStarted = (process: Process) => this.datePipe.transform(process.startTime, this.dateFormat, 'UTC');
 
