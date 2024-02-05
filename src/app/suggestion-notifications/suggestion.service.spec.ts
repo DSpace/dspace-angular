@@ -121,7 +121,7 @@ describe('SuggestionsService test', () => {
 
     it('should retrieve current user suggestions', () => {
       service.retrieveCurrentUserSuggestions('1234');
-      expect(researcherProfileService.findById).toHaveBeenCalledWith('1234');
+      expect(researcherProfileService.findById).toHaveBeenCalledWith('1234', true);
     });
 
     it('should approve and import suggestion', () => {
