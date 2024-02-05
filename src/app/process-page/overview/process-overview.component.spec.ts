@@ -3,86 +3,27 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, TemplateRef } from '@angular/core';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { Process } from '../processes/process.model';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { By } from '@angular/platform-browser';
-import { ProcessStatus } from '../processes/process-status.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { DatePipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProcessOverviewService } from './process-overview.service';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
   let fixture: ComponentFixture<ProcessOverviewComponent>;
 
   let processService: ProcessDataService;
-  let ePersonService: EPersonDataService;
-  let paginationService;
-
-  let processes: Process[];
-  let ePerson: EPerson;
 
   let processBulkDeleteService;
   let modalService;
 
-  const pipe = new DatePipe('en-US');
-
   function init() {
-    processes = [
-      Object.assign(new Process(), {
-        processId: 1,
-        scriptName: 'script-name',
-        startTime: '2020-03-19 00:30:00',
-        endTime: '2020-03-19 23:30:00',
-        processStatus: ProcessStatus.COMPLETED
-      }),
-      Object.assign(new Process(), {
-        processId: 2,
-        scriptName: 'script-name',
-        startTime: '2020-03-20 00:30:00',
-        endTime: '2020-03-20 23:30:00',
-        processStatus: ProcessStatus.FAILED
-      }),
-      Object.assign(new Process(), {
-        processId: 3,
-        scriptName: 'another-script-name',
-        startTime: '2020-03-21 00:30:00',
-        endTime: '2020-03-21 23:30:00',
-        processStatus: ProcessStatus.RUNNING
-      })
-    ];
-    ePerson = Object.assign(new EPerson(), {
-      metadata: {
-        'eperson.firstname': [
-          {
-            value: 'John',
-            language: null
-          }
-        ],
-        'eperson.lastname': [
-          {
-            value: 'Doe',
-            language: null
-          }
-        ]
-      }
+    processService = jasmine.createSpyObj('processOverviewService', {
+      timeStarted: '2024-02-05 16:43:32',
     });
-    processService = jasmine.createSpyObj('processService', {
-      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(processes))
-    });
-    ePersonService = jasmine.createSpyObj('ePersonService', {
-      findById: createSuccessfulRemoteDataObject$(ePerson)
-    });
-
-    paginationService = new PaginationServiceStub();
 
     processBulkDeleteService = jasmine.createSpyObj('processBulkDeleteService', {
       clearAllProcesses: {},
@@ -96,11 +37,7 @@ describe('ProcessOverviewComponent', () => {
     });
 
     (processBulkDeleteService.isToBeDeleted as jasmine.Spy).and.callFake((id) => {
-      if (id === 2) {
-        return true;
-      } else {
-        return false;
-      }
+      return id === 2;
     });
 
     modalService = jasmine.createSpyObj('modalService', {
@@ -114,9 +51,7 @@ describe('ProcessOverviewComponent', () => {
       declarations: [ProcessOverviewComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
-        { provide: ProcessDataService, useValue: processService },
-        { provide: EPersonDataService, useValue: ePersonService },
-        { provide: PaginationService, useValue: paginationService },
+        { provide: ProcessOverviewService, useValue: processService },
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
       ],
@@ -165,7 +100,7 @@ describe('ProcessOverviewComponent', () => {
 
   describe('openDeleteModal', () => {
     it('should open the modal', () => {
-      component.openDeleteModal({});
+      component.openDeleteModal({} as TemplateRef<any>);
       expect(modalService.open).toHaveBeenCalledWith({});
     });
   });
@@ -173,13 +108,11 @@ describe('ProcessOverviewComponent', () => {
   describe('deleteSelected', () => {
     it('should call the deleteSelectedProcesses method on the processBulkDeleteService and close the modal when processing is done', () => {
       spyOn(component, 'closeModal');
-      spyOn(component, 'setProcesses');
 
       component.deleteSelected();
 
       expect(processBulkDeleteService.deleteSelectedProcesses).toHaveBeenCalled();
       expect(component.closeModal).toHaveBeenCalled();
-      expect(component.setProcesses).toHaveBeenCalled();
     });
   });
 });
