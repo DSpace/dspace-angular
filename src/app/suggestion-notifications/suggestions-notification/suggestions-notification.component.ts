@@ -29,6 +29,7 @@ export class SuggestionsNotificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
     this.suggestionsRD$ = this.suggestionTargetsStateService.getCurrentUserSuggestionTargets();
   }
 

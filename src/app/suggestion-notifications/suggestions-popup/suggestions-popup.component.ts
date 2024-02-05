@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { combineLatest, Subject } from 'rxjs';
@@ -36,7 +36,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
   public initializePopup() {
     const notifier = new Subject();
     this.subscription = combineLatest([
-      this.suggestionTargetsStateService.getCurrentUserSuggestionTargets(),
+      this.suggestionTargetsStateService.getCurrentUserSuggestionTargets().pipe(take(2)),
       this.suggestionTargetsStateService.hasUserVisitedSuggestions()
     ]).pipe(takeUntil(notifier)).subscribe(([suggestions, visited]) => {
       this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();

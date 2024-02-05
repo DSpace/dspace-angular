@@ -154,7 +154,7 @@ export class SuggestionsService {
    *   The EPerson id for which to retrieve suggestion targets
    */
   public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
-    return this.researcherProfileService.findById(userUuid).pipe(
+    return this.researcherProfileService.findById(userUuid, true).pipe(
       getFirstSucceededRemoteDataPayload(),
       mergeMap((profile: ResearcherProfile) => {
         if (isNotEmpty(profile)) {
