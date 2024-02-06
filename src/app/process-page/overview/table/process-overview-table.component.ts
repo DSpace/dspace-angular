@@ -9,7 +9,11 @@ import { ProcessOverviewService, ProcessSortField } from '../process-overview.se
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getAllCompletedRemoteData
+} from '../../../core/shared/operators';
 import { map, switchMap, toArray, take } from 'rxjs/operators';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
@@ -153,6 +157,7 @@ export class ProcessOverviewTableComponent implements OnInit {
         ),
         // Redirect the user when he is logged out
         redirectOn4xx(this.router, this.auth),
+        getAllCompletedRemoteData(),
         // Map RemoteData<PaginatedList<Process>> to RemoteData<PaginatedList<ProcessOverviewTableEntry>>
         switchMap((processesRD: RemoteData<PaginatedList<Process>>) => {
           // Create observable emitting all processes one by one
