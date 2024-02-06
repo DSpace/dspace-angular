@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ProcessStatus } from '../../processes/process-status.model';
 import { Observable, mergeMap, from as observableFrom } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -17,6 +17,7 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
  * An interface to store a process and extra information related to the process
@@ -90,10 +91,16 @@ export class ProcessOverviewTableComponent implements OnInit {
               protected paginationService: PaginationService,
               protected router: Router,
               protected auth: AuthService,
+              @Inject(PLATFORM_ID) protected platformId: object,
               ) {
   }
 
   ngOnInit() {
+    // Only auto refresh on browsers
+    if (!isPlatformBrowser(this.platformId)) {
+      this.useAutoRefreshingSearchBy = false;
+    }
+
     // Creates an ID from the first 2 characters of the process status.
     // Should two process status values ever start with the same substring,
     // increase the number of characters until the ids are distinct.
