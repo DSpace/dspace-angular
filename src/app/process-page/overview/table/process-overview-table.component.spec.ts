@@ -143,10 +143,10 @@ describe('ProcessOverviewTableComponent', () => {
       expect(rowElements.length).toEqual(3);
     });
 
-    it('should display the process\' status in the first column', () => {
+    it('should display the process\' ID in the first column', () => {
       rowElements.forEach((rowElement, index) => {
         const el = rowElement.query(By.css('td:nth-child(1)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].processStatus);
+        expect(el.textContent).toContain(processes[index].processId);
       });
     });
 
