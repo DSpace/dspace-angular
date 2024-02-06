@@ -108,6 +108,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     return hasValue(bundle) && !isEmpty(bundle.page);
   }
 
+  hasNoDownload(bitstream: Bitstream) {
+    return bitstream?.allMetadataValues('bitstream.viewer.provider').includes('nodownload');
+  }
+
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.originalOptions.id);
     this.paginationService.clearPagination(this.licenseOptions.id);
