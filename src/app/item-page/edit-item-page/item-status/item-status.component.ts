@@ -3,7 +3,7 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import { concatMap, distinctUntilChanged, first, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
+import {concatMap, distinctUntilChanged, first, map, mergeMap, switchMap, tap, toArray} from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
@@ -17,6 +17,7 @@ import { ConfigurationProperty } from '../../../core/shared/configuration-proper
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import {getDSORoute} from "../../../app-routing-paths";
 
 @Component({
   selector: 'ds-item-status',
@@ -107,7 +108,19 @@ export class ItemStatusComponent implements OnInit {
       // Observable for configuration determining whether the Register DOI feature is enabled
       let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
         getFirstCompletedRemoteData(),
-        map((enabledRD: RemoteData<ConfigurationProperty>) => enabledRD.hasSucceeded && enabledRD.payload.values.length > 0)
+        map((response: RemoteData<ConfigurationProperty>) => {
+          // Return true if a successful response with a 'true' value was retrieved, otherwise return false
+          if (response.hasSucceeded) {
+            const payload = response.payload;
+            if (payload.values.length > 0 && hasValue(payload.values[0])) {
+              return payload.values[0] === 'true';
+            } else {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        })
       );
 
       /**
