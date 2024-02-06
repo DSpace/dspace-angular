@@ -3,7 +3,7 @@ import { PROCESS_OUTPUT_TYPE } from '../../core/shared/process-output.resource-t
 import { ProcessStatus } from './process-status.model';
 import { ProcessParameter } from './process-parameter.model';
 import { HALLink } from '../../core/shared/hal-link.model';
-import { autoserialize, deserialize } from 'cerialize';
+import { autoserialize, deserialize, autoserializeAs } from 'cerialize';
 import { PROCESS } from './process.resource-type';
 import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { ResourceType } from '../../core/shared/resource-type';
@@ -35,7 +35,7 @@ export class Process implements CacheableObject {
   /**
    * The identifier for this process
    */
-  @autoserialize
+  @autoserializeAs(String)
   processId: string;
 
   /**
