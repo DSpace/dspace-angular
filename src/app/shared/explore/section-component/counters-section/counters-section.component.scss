@@ -1,0 +1,13 @@
+.counters-section {
+    min-width: 120px;
+    max-width: 140px;
+    color: var(--bs-gray-800);
+
+    &:hover {
+        color: #{darken($gray-800, 20%)};
+    }
+}
+
+.counters-label {
+    line-height: 1.25;
+}
