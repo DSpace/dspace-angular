@@ -3,7 +3,7 @@ import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
-import {concatMap, distinctUntilChanged, first, map, mergeMap, switchMap, tap, toArray} from 'rxjs/operators';
+import {concatMap, distinctUntilChanged, first, map, mergeMap, switchMap, toArray} from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
@@ -17,7 +17,6 @@ import { ConfigurationProperty } from '../../../core/shared/configuration-proper
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import {getDSORoute} from "../../../app-routing-paths";
 
 @Component({
   selector: 'ds-item-status',
