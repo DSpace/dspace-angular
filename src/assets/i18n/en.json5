@@ -3038,9 +3038,9 @@
 
   "mydspace.status.mydspaceWorkspace": "Workspace",
   
-   // TAMU Customization
+  // TAMU Customization
   "mydspace.title": "My OAKTrust",
-   // END TAMU Customization
+  // END TAMU Customization
 
   "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
 
@@ -3747,6 +3747,10 @@
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.itemtype.head": "Type",
+
+  //TAMU Customization
+  "search.filters.filter.type.head": "Type",
+  // END TAMU Customization
 
   "search.filters.filter.itemtype.placeholder": "Type",
 
