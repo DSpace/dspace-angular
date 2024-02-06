@@ -18,6 +18,9 @@ import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
+import { RouteService } from '../../../core/services/route.service';
+
+const NEW_PROCESS_PARAM = 'new_process_id';
 
 /**
  * An interface to store a process and extra information related to the process
@@ -84,11 +87,17 @@ export class ProcessOverviewTableComponent implements OnInit {
    */
   isCollapsed = false;
 
+  /**
+   * The id of the process to highlight
+   */
+  newProcessId: string;
+
   constructor(protected processOverviewService: ProcessOverviewService,
               protected processBulkDeleteService: ProcessBulkDeleteService,
               protected ePersonDataService: EPersonDataService,
               protected dsoNameService: DSONameService,
               protected paginationService: PaginationService,
+              protected routeService: RouteService,
               protected router: Router,
               protected auth: AuthService,
               @Inject(PLATFORM_ID) protected platformId: object,
@@ -100,6 +109,10 @@ export class ProcessOverviewTableComponent implements OnInit {
     if (!isPlatformBrowser(this.platformId)) {
       this.useAutoRefreshingSearchBy = false;
     }
+
+    this.routeService.getQueryParameterValue(NEW_PROCESS_PARAM).pipe(take(1)).subscribe((id) => {
+      this.newProcessId = id;
+    });
 
     // Creates an ID from the first 2 characters of the process status.
     // Should two process status values ever start with the same substring,
@@ -191,6 +204,20 @@ export class ProcessOverviewTableComponent implements OnInit {
       getFirstSucceededRemoteDataPayload(),
       map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
     );
+  }
+
+  /**
+   * Get the css class for a row depending on the state of the process
+   * @param process
+   */
+  getRowClass(process: Process): string {
+    if (this.processBulkDeleteService.isToBeDeleted(process.processId)) {
+      return 'table-danger';
+    } else if (this.newProcessId === process.processId) {
+      return 'table-info';
+    } else {
+      return '';
+    }
   }
 
 }

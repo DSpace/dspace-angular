@@ -37,7 +37,7 @@
 
             <tbody>
             <tr *ngFor="let tableEntry of processesRD?.payload?.page"
-                [class.table-danger]="processBulkDeleteService.isToBeDeleted(tableEntry.process.processId)">
+                [class]="getRowClass(tableEntry.process)">
               <td><a [routerLink]="['/processes/', tableEntry.process.processId]">{{tableEntry.process.processId}}</a></td>
               <td><a [routerLink]="['/processes/', tableEntry.process.processId]">{{tableEntry.process.scriptName}}</a></td>
               <td>{{tableEntry.user}}</td>
