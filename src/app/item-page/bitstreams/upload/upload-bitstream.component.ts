@@ -168,6 +168,13 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Filter the IIIF_MANIFEST bundle out of standard suggestions list if
+   * the item is not IIIF enabled
+   *
+   * @param item {Item}
+   * @returns filtered list of standard bundle suggestions
+   */
   filteredStandardBundles(item: Item) {
     if (!isIiifEnabled(item)) {
       return environment.bundle.standardBundles.filter((defaultBundle: string) => {
