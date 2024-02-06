@@ -58,7 +58,7 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * The value to display for this element
@@ -70,13 +70,19 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
    */
   @Output() contentChange = new EventEmitter<ListableObject>();
 
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'object',
+    'viewMode',
+    'context',
+  ];
+
   /**
    * The list of input and output names for the dynamic component
    */
   protected inputNames: (keyof this & string)[] = [
-    ...this.inputNames,
     'object',
     'index',
+    'context',
     'linkType',
     'listID',
     'showLabel',
@@ -86,7 +92,6 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
   ];
 
   protected outputNames: (keyof this & string)[] = [
-    ...this.outputNames,
     'contentChange',
   ];
 

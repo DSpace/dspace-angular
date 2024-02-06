@@ -47,7 +47,6 @@ export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderCo
    * The list of input and output names for the dynamic component
    */
   protected inputNames: (keyof this & string)[] = [
-    ...this.inputNames,
     'item',
     'object',
     'option',
@@ -55,7 +54,6 @@ export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderCo
   ];
 
   protected outputNames: (keyof this & string)[] = [
-    ...this.outputNames,
     'processCompleted',
   ];
 

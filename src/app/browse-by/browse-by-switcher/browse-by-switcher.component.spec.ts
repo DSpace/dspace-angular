@@ -8,7 +8,6 @@ import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-d
 import { NonHierarchicalBrowseDefinition } from '../../core/shared/non-hierarchical-browse-definition';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { BrowseByDataType } from './browse-by-data-type';
 
 @rendersBrowseBy('BrowseBySwitcherComponent' as BrowseByDataType)
@@ -17,7 +16,7 @@ import { BrowseByDataType } from './browse-by-data-type';
   selector: '',
   template: '<span id="BrowseByTestComponent"></span>',
 })
-class BrowseByTestComponent extends AbstractBrowseByTypeComponent {
+class BrowseByTestComponent {
 }
 
 describe('BrowseBySwitcherComponent', () => {

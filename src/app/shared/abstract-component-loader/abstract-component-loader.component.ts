@@ -1,21 +1,26 @@
-import { Component, ComponentRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { Context } from '../../core/shared/context.model';
+import { Component, ComponentRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { Subscription } from 'rxjs';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 
+/**
+ * To create a new loader component you will need to:
+ * <ul>
+ *   <li>Create a new LoaderComponent component extending this component</li>
+ *   <li>Point the templateUrl to this component's templateUrl</li>
+ *   <li>Add all the @Input()/@Output() names that the dynamically generated components should inherit from the loader to the inputNames/outputNames lists</li>
+ *   <li>Create a decorator file containing the new decorator function, a map containing all the collected {@link Component}s and a function to retrieve the {@link Component}</li>
+ *   <li>Call the function to retrieve the correct {@link Component} in getComponent()</li>
+ *   <li>Add all the @Input()s you had to used in getComponent() in the inputNamesDependentForComponent array</li>
+ * </ul>
+ */
 @Component({
   selector: 'ds-abstract-component-loader',
   templateUrl: './abstract-component-loader.component.html',
 })
 export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnChanges, OnDestroy {
-
-  /**
-   * The optional context
-   */
-  @Input() context: Context;
 
   /**
    * Directive to determine where the dynamic child component is located
@@ -33,20 +38,21 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   protected subs: Subscription[] = [];
 
   /**
-   * The @{@link Input}() that are used to find the matching component using {@link getComponent}. When the value of
-   * one of these @{@link Input}() change this loader needs to retrieve the best matching component again using the
+   * The @Input() that are used to find the matching component using {@link getComponent}. When the value of
+   * one of these @Input() change this loader needs to retrieve the best matching component again using the
    * {@link getComponent} method.
    */
-  protected inputNamesDependentForComponent: (keyof this & string)[] = [
-    'context',
-  ];
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [];
 
-  protected inputNames: (keyof this & string)[] = [
-    'context',
-  ];
+  /**
+   * The list of the @Input() names that should be passed down to the dynamically created components.
+   */
+  protected inputNames: (keyof this & string)[] = [];
 
-  protected outputNames: (keyof this & string)[] = [
-  ];
+  /**
+   * The list of the @Output() names that should be passed down to the dynamically created components.
+   */
+  protected outputNames: (keyof this & string)[] = [];
 
   constructor(
     protected themeService: ThemeService,

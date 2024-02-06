@@ -1,6 +1,6 @@
+import { Component } from '@angular/core';
 import { hasNoValue } from '../../shared/empty.util';
 import { DEFAULT_THEME, resolveTheme } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { BrowseByDataType } from './browse-by-data-type';
@@ -8,7 +8,7 @@ import { BrowseByDataType } from './browse-by-data-type';
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 export const DEFAULT_BROWSE_BY_CONTEXT = Context.Any;
 
-const map: Map<BrowseByDataType, Map<Context, Map<string, GenericConstructor<AbstractBrowseByTypeComponent>>>> = new Map();
+const map: Map<BrowseByDataType, Map<Context, Map<string, GenericConstructor<Component>>>> = new Map();
 
 /**
  * Decorator used for rendering Browse-By pages by type
@@ -41,12 +41,12 @@ export function rendersBrowseBy(browseByType: BrowseByDataType, context = DEFAUL
  * @param context The context to match
  * @param theme the theme to match
  */
-export function getComponentByBrowseByType(browseByType: BrowseByDataType, context: Context, theme: string): GenericConstructor<AbstractBrowseByTypeComponent> {
-  let contextMap: Map<Context, Map<string, GenericConstructor<AbstractBrowseByTypeComponent>>> = map.get(browseByType);
+export function getComponentByBrowseByType(browseByType: BrowseByDataType, context: Context, theme: string): GenericConstructor<Component> {
+  let contextMap: Map<Context, Map<string, GenericConstructor<Component>>> = map.get(browseByType);
   if (hasNoValue(contextMap)) {
     contextMap = map.get(DEFAULT_BROWSE_BY_TYPE);
   }
-  let themeMap: Map<string, GenericConstructor<AbstractBrowseByTypeComponent>> = contextMap.get(context);
+  let themeMap: Map<string, GenericConstructor<Component>> = contextMap.get(context);
   if (hasNoValue(themeMap)) {
     themeMap = contextMap.get(DEFAULT_BROWSE_BY_CONTEXT);
   }

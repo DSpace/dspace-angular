@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { map } from 'rxjs/operators';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
-import { AbstractBrowseByTypeComponent } from '../abstract-browse-by-type.component';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { Context } from '../../core/shared/context.model';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
@@ -19,7 +19,17 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
 @rendersBrowseBy(BrowseByDataType.Hierarchy)
-export class BrowseByTaxonomyPageComponent extends AbstractBrowseByTypeComponent implements OnInit, OnDestroy {
+export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
+
+  /**
+   * The optional context
+   */
+  @Input() context: Context;
+
+  /**
+   * The {@link BrowseByDataType} of this Component
+   */
+  @Input() browseByType: BrowseByDataType;
 
   /**
    * The {@link VocabularyOptions} object
@@ -56,10 +66,14 @@ export class BrowseByTaxonomyPageComponent extends AbstractBrowseByTypeComponent
    */
   browseDefinition$: Observable<BrowseDefinition>;
 
+  /**
+   * Subscriptions to track
+   */
+  subs: Subscription[] = [];
+
   public constructor(
     protected route: ActivatedRoute,
   ) {
-    super();
   }
 
   ngOnInit(): void {
@@ -108,4 +122,7 @@ export class BrowseByTaxonomyPageComponent extends AbstractBrowseByTypeComponent
     };
   }
 
+  ngOnDestroy(): void {
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
+  }
 }
