@@ -731,9 +731,6 @@
   // "admin.workflow.title": "Administer Workflow",
   "admin.workflow.title": "Workflows verwalten",
 
-  // "admin.workflow.item.workflow": "Workflow",
-  "admin.workflow.item.workflow": "Workflows",
-
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Löschen",
 
