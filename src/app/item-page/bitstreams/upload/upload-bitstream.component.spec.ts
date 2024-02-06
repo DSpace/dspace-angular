@@ -73,6 +73,14 @@ describe('UploadBitstreamComponent', () => {
           language: null,
           value: itemName
         }
+      ],
+      // Include IIIF enable metadata for mock item to avoid having to change all
+      // test assertions, which compare bundles that appear to standard bundles
+      'dspace.iiif.enabled': [
+        {
+          value: true,
+          language: null
+        }
       ]
     },
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
@@ -268,20 +276,63 @@ describe('UploadBitstreamComponent', () => {
     });
   });
 
+  describe('when the item has IIIF enabled', () => {
+    beforeEach(waitForAsync(() => {
+      createUploadBitstreamTestingModule({ bundle: bundle.id });
+      jasmine.getEnv().allowRespy(true);
+      mockItemDataService.getBundles.and.returnValue(
+        createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+      );
+      loadFixtureAndComp();
+    }));
+
+    it('should show IIIF_MANIFEST in bundle list', () => {
+      const expectedSuggestions = [...standardBundleSuggestions];
+      expect(comp.bundles.length).toEqual(expectedSuggestions.length);
+
+      // Component bundles should be equivalent to expected suggestions
+      const bundlesEqualExpected = expectedSuggestions.reduce(
+        (result: boolean, value: string) => result && comp.bundles.some((b) => b.name === value),
+        true
+      );
+      expect(bundlesEqualExpected).toBeTrue();
+      expect(comp.bundles.some((b) => b.name === 'IIIF_MANIFEST')).toBeTrue();
+    });
+  });
+
+  describe('when the item has IIIF disabled', () => {
+    beforeEach(waitForAsync(() => {
+      const iiifDisabledItem = Object.assign(mockItem, {
+        metadata: {
+          'dc.title': [{ language: null, value: itemName }],
+          'dspace.iiif.enabled': [{ language: null, value: false }]
+        }
+      });
+      createUploadBitstreamTestingModule({ bundle: bundle.id }, iiifDisabledItem);
+      jasmine.getEnv().allowRespy(true);
+      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
+      loadFixtureAndComp();
+    }));
+
+    it('should not show IIIF_MANIFEST in the bundle list', () => {
+      expect(comp.bundles.some((b) => b.name === 'IIIF_MANIFEST')).toBeFalse();
+    });
+  });
+
   /**
    * Setup an UploadBitstreamComponent testing module with custom queryParams for the route
    * @param queryParams
    */
-  function createUploadBitstreamTestingModule(queryParams) {
+  function createUploadBitstreamTestingModule(queryParams, item = mockItem) {
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
+        dso: createSuccessfulRemoteDataObject(item)
       }),
       queryParams: observableOf(queryParams),
       snapshot: {
         queryParams: queryParams,
         params: {
-          id: mockItem.id
+          id: item.id
         }
       }
     };
