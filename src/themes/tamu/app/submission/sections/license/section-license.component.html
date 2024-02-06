@@ -16,7 +16,7 @@
 </div>
 
 <div #uploaderWrapper class="mb-1" [hidden]="(selected | async) !== 'proxy'" class="tamu-control-license">
-    <label class="font-weight-bolder">{{"submission.sections.proxy-license.permission-upload-label" | translate}}</label>
+    <label class="font-weight-bolder">{{"submission.sections.proxy-license.upload-label" | translate}}</label>
     <ds-uploader *ngIf="uploadFilesOptions.url"
                 [dropMsg]="dropMsg"
                 [dropOverDocumentMsg]="dropOverDocumentMsg"
@@ -50,7 +50,7 @@
             </div>
         </div>
     </ng-container>
-    <small class="form-text text-muted">{{"submission.sections.proxy-license.permission-upload-instructions" | translate}}</small>
+    <small class="form-text text-muted">{{"submission.sections.proxy-license.upload-instructions" | translate}}</small>
 </div>
 
 <div #formWrapper>
