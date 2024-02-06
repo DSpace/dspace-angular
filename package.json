@@ -18,7 +18,7 @@
     "build:prod": "yarn run build:ssr",
     "build:ssr": "ng build --configuration production && ng run dspace-angular:server:production",
     "test": "ng test --source-map=true --watch=false --configuration test",
-    "test:watch": "nodemon --exec \"ng test --source-map=true --code-coverage --watch=true --configuration test\"",
+    "test:watch": "nodemon --exec \"ng test --source-map=true --watch=true --configuration test\"",
     "test:headless": "ng test --source-map=true --watch=false --configuration test --browsers=ChromeHeadless --code-coverage",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix=true",
