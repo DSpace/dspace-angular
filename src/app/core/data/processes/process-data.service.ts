@@ -68,10 +68,11 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   /**
    * Get a process' output files
    * @param processId The ID of the process
+   * @param useCacheVersionIfAvailable If value needs to be red from cache or not
    */
-  getFiles(processId: string): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  getFiles(processId: string, useCacheVersionIfAvailable = true): Observable<RemoteData<PaginatedList<Bitstream>>> {
     const href$ = this.getFilesEndpoint(processId);
-    return this.bitstreamDataService.findListByHref(href$);
+    return this.bitstreamDataService.findListByHref(href$, {}, useCacheVersionIfAvailable);
   }
 
   /**
