@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
@@ -13,14 +13,14 @@ import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService, CHANGE_APPLIED_FILTERS } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
-import { getFacetValueForType, stripOperatorFromFilterValue } from '../../../search.utils';
+import { getFacetValueForType, stripOperatorFromFilterValue, addOperatorToFilterValue } from '../../../search.utils';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 import { FacetValues } from '../../../models/facet-values.model';
 import { AppliedFilter } from '../../../models/applied-filter.model';
@@ -93,7 +93,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>) {
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
+  ) {
   }
 
   /**
@@ -124,13 +126,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.animationState = 'loading';
     this.collapseNextUpdate = true;
     this.filter = '';
-  }
-
-  /**
-   * Checks if a value for this filter is currently active
-   */
-  isChecked(value: FacetValue): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, value.value);
   }
 
   /**
@@ -243,13 +238,13 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   protected applyFilterValue(data) {
     if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
-      this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
+      this.selectedValues$.pipe(take(1)).subscribe((selectedValues: AppliedFilter[]) => {
         if (isNotEmpty(data)) {
-          this.router.navigate(this.getSearchLinkParts(), {
+          void this.router.navigate(this.getSearchLinkParts(), {
             queryParams:
               {
                 [this.filterConfig.paramName]: [
-                  ...selectedValues.map((appliedFilter: AppliedFilter) => appliedFilter.value),
+                  ...selectedValues.map((appliedFilter: AppliedFilter) => addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator)),
                   data
                 ]
               },
@@ -306,13 +301,15 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         return this.rdbs.aggregate(filterValues);
       }),
       tap((rd: RemoteData<FacetValues[]>) => {
-        const appliedFilters: AppliedFilter[] = [].concat(...rd.payload.map((facetValues: FacetValues) => facetValues.appliedFilters))
+        const allAppliedFilters: AppliedFilter[] = [].concat(...rd.payload.map((facetValues: FacetValues) => facetValues.appliedFilters))
           .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
         this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
           map((selectedValues: string[]) => {
-            return selectedValues.map((value: string) => {
-              return appliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
+            const appliedFilters: AppliedFilter[] = selectedValues.map((value: string) => {
+              return allAppliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
             }).filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
+            this.changeAppliedFilters.emit(appliedFilters);
+            return appliedFilters;
           }),
         );
         this.animationState = 'ready';

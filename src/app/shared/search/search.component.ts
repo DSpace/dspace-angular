@@ -34,6 +34,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
+import { AppliedFilter } from './models/applied-filter.model';
 
 @Component({
   selector: 'ds-search',
@@ -236,6 +237,11 @@ export class SearchComponent implements OnInit {
    * Emits event when the user select result entry
    */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * The {@link AppliedFilter}s by filter name
+   */
+  appliedFilters: Map<string, AppliedFilter[]> = new Map();
 
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,

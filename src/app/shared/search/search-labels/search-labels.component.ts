@@ -1,10 +1,5 @@
-import { Component, Inject, Input } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { map } from 'rxjs/operators';
-import { stripOperatorFromFilterValue } from '../search.utils';
+import { Component, Input } from '@angular/core';
+import { AppliedFilter } from '../models/applied-filter.model';
 
 @Component({
   selector: 'ds-search-labels',
@@ -16,10 +11,6 @@ import { stripOperatorFromFilterValue } from '../search.utils';
  * Component that represents the labels containing the currently active filters
  */
 export class SearchLabelsComponent {
-  /**
-   * Emits the currently active filters
-   */
-  appliedFilters: Observable<Params>;
 
   /**
    * True when the search component should show results on the current page
@@ -27,20 +18,8 @@ export class SearchLabelsComponent {
   @Input() inPlaceSearch;
 
   /**
-   * Initialize the instance variable
+   * The {@link AppliedFilter}s by filter name
    */
-  constructor(
-    protected router: Router,
-    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
-    this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters().pipe(
-      map((params) => {
-        const labels = {};
-        Object.keys(params)
-          .forEach((key) => {
-            labels[key] = [...params[key].map((value) => stripOperatorFromFilterValue(value))];
-          });
-        return labels;
-      })
-    );
-  }
+  @Input() appliedFilters: Map<string, AppliedFilter[]>;
+
 }

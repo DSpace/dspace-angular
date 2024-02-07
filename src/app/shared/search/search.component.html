@@ -59,6 +59,7 @@
                        [viewModeList]="viewModeList"
                        [showViewModes]="showViewModes"
                        (changeConfiguration)="changeContext($event.context)"
+                       (changeAppliedFilters)="appliedFilters = $event"
                        (changeViewMode)="changeViewMode()"></ds-search-sidebar>
     <ds-search-sidebar id="search-sidebar-sm" *ngIf="(isXsOrSm$ | async)"
                        [configurationList]="configurationList"
@@ -74,6 +75,7 @@
                        [showViewModes]="showViewModes"
                        (toggleSidebar)="closeSidebar()"
                        (changeConfiguration)="changeContext($event.context)"
+                       (changeAppliedFilters)="appliedFilters =  $event"
                        (changeViewMode)="changeViewMode()">
     </ds-search-sidebar>
 </ng-template>
@@ -89,7 +91,8 @@
     </ds-search-form>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">
-            <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
+            <ds-search-labels *ngIf="searchEnabled" [appliedFilters]="appliedFilters" [inPlaceSearch]="inPlaceSearch">
+            </ds-search-labels>
         </div>
     </div>
 </ng-template>

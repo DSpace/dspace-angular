@@ -1,13 +1,14 @@
 import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, EventEmitter } from '@angular/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
+  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
@@ -20,6 +21,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
+import { AppliedFilter } from '../../../models/applied-filter.model';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL
@@ -88,8 +90,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, changeAppliedFilters);
 
   }
 

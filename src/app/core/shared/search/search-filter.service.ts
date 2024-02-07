@@ -1,6 +1,6 @@
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Injectable, InjectionToken } from '@angular/core';
+import { Injectable, InjectionToken, EventEmitter } from '@angular/core';
 import {
   SearchFiltersState,
   SearchFilterState
@@ -21,12 +21,14 @@ import { SortDirection, SortOptions } from '../../cache/models/sort-options.mode
 import { RouteService } from '../../services/route.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Params } from '@angular/router';
+import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
 export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
 export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('refreshFilters');
+export const CHANGE_APPLIED_FILTERS: InjectionToken<EventEmitter<AppliedFilter[]>> = new InjectionToken('changeAppliedFilters');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
