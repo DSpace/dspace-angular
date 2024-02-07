@@ -106,8 +106,8 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    if (hasValue(environment.metricsConsents)) {
-      environment.metricsConsents.forEach((metric) => {
+    if (hasValue(environment.info.metricsConsents)) {
+      environment.info.metricsConsents.forEach((metric) => {
         if (metric.enabled) {
           this.klaroConfig.services.push(
             {
@@ -357,7 +357,7 @@ export class BrowserKlaroService extends KlaroService {
     return 'klaro-' + identifier;
   }
 
-  watchConsentUpdates() {
+  watchConsentUpdates(): void {
     this.lazyKlaro.then(({getManager}) => {
       const manager = getManager(this.klaroConfig);
       const consentsSubject$ = this.consentsUpdates$;

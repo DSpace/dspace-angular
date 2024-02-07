@@ -34,7 +34,6 @@ import {
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
-import { ThirdPartyMetric } from './third-party-metric-config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -481,7 +480,22 @@ export class DefaultAppConfig implements AppConfig {
   // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
   info: InfoConfig = {
     enableEndUserAgreement: true,
-    enablePrivacyStatement: true
+    enablePrivacyStatement: true,
+    //Configuration for third-party metrics in Klaro
+    metricsConsents: [
+      {
+        key: 'plumX',
+        enabled: true
+      },
+      {
+        key: 'altmetric',
+        enabled: true
+      },
+      {
+        key: 'dimensions',
+        enabled: true
+      },
+    ]
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
@@ -736,20 +750,4 @@ export class DefaultAppConfig implements AppConfig {
     additionalMetadataFields: [],
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
   };
-
-  //Configuration for third-party metrics in Klaro
-  metricsConsents: ThirdPartyMetric[] = [
-    {
-      key: 'plumX',
-      enabled: true
-    },
-    {
-      key: 'altmetric',
-      enabled: true
-    },
-    {
-      key: 'dimensions',
-      enabled: true
-    },
-  ];
 }
