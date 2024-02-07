@@ -19,6 +19,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
+import { RouteService } from '../../../core/services/route.service';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 
 
 describe('ProcessOverviewTableComponent', () => {
@@ -31,6 +33,7 @@ describe('ProcessOverviewTableComponent', () => {
   let processBulkDeleteService: ProcessBulkDeleteService;
   let modalService: NgbModal;
   let authService; // : AuthService; Not typed as the mock does not fully implement AuthService
+  let routeService: RouteService;
 
   let processes: Process[];
   let ePerson: EPerson;
@@ -104,6 +107,7 @@ describe('ProcessOverviewTableComponent', () => {
     });
 
     authService = new AuthServiceMock();
+    routeService = routeServiceStub;
   }
 
   beforeEach(waitForAsync(() => {
@@ -119,6 +123,7 @@ describe('ProcessOverviewTableComponent', () => {
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
         { provide: AuthService, useValue: authService },
+        { provide: RouteService, useValue: routeService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -143,10 +148,10 @@ describe('ProcessOverviewTableComponent', () => {
       expect(rowElements.length).toEqual(3);
     });
 
-    it('should display the process\' status in the first column', () => {
+    it('should display the process\' ID in the first column', () => {
       rowElements.forEach((rowElement, index) => {
         const el = rowElement.query(By.css('td:nth-child(1)')).nativeElement;
-        expect(el.textContent).toContain(processes[index].processStatus);
+        expect(el.textContent).toContain(processes[index].processId);
       });
     });
 

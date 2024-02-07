@@ -1,22 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ProcessStatus } from '../../processes/process-status.model';
 import { Observable, mergeMap, from as observableFrom } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Process } from '../../processes/process.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { ProcessOverviewService } from '../process-overview.service';
+import { ProcessOverviewService, ProcessSortField } from '../process-overview.service';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { map, switchMap, toArray } from 'rxjs/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getAllCompletedRemoteData
+} from '../../../core/shared/operators';
+import { map, switchMap, toArray, take } from 'rxjs/operators';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { isPlatformBrowser } from '@angular/common';
+import { RouteService } from '../../../core/services/route.service';
+
+const NEW_PROCESS_PARAM = 'new_process_id';
 
 /**
  * An interface to store a process and extra information related to the process
@@ -39,6 +47,13 @@ export class ProcessOverviewTableComponent implements OnInit {
    * The status of the processes this sections should show
    */
   @Input() processStatus: ProcessStatus;
+
+  /**
+   * The field on which the processes in this table are sorted
+   * {@link ProcessSortField.creationTime} by default as every single process has a creation time,
+   * but not every process has a start or end time
+   */
+  @Input() sortField: ProcessSortField = ProcessSortField.creationTime;
 
   /**
    * Whether to use auto refresh for the processes shown in this table.
@@ -71,17 +86,38 @@ export class ProcessOverviewTableComponent implements OnInit {
    */
   paginationOptions$: Observable<PaginationComponentOptions>;
 
+  /**
+   * Whether the table is collapsed
+   */
+  isCollapsed = false;
+
+  /**
+   * The id of the process to highlight
+   */
+  newProcessId: string;
+
   constructor(protected processOverviewService: ProcessOverviewService,
               protected processBulkDeleteService: ProcessBulkDeleteService,
               protected ePersonDataService: EPersonDataService,
               protected dsoNameService: DSONameService,
               protected paginationService: PaginationService,
+              protected routeService: RouteService,
               protected router: Router,
               protected auth: AuthService,
+              @Inject(PLATFORM_ID) protected platformId: object,
               ) {
   }
 
   ngOnInit() {
+    // Only auto refresh on browsers
+    if (!isPlatformBrowser(this.platformId)) {
+      this.useAutoRefreshingSearchBy = false;
+    }
+
+    this.routeService.getQueryParameterValue(NEW_PROCESS_PARAM).pipe(take(1)).subscribe((id) => {
+      this.newProcessId = id;
+    });
+
     // Creates an ID from the first 2 characters of the process status.
     // Should two process status values ever start with the same substring,
     // increase the number of characters until the ids are distinct.
@@ -113,7 +149,7 @@ export class ProcessOverviewTableComponent implements OnInit {
       .pipe(
         // Map the paginationOptions to findListOptions
         map((paginationOptions: PaginationComponentOptions) =>
-          this.processOverviewService.getFindListOptions(paginationOptions)),
+          this.processOverviewService.getFindListOptions(paginationOptions, this.sortField)),
         // Use the findListOptions to retrieve the relevant processes every interval
         switchMap((findListOptions: FindListOptions) =>
           this.processOverviewService.getProcessesByProcessStatus(
@@ -121,6 +157,7 @@ export class ProcessOverviewTableComponent implements OnInit {
         ),
         // Redirect the user when he is logged out
         redirectOn4xx(this.router, this.auth),
+        getAllCompletedRemoteData(),
         // Map RemoteData<PaginatedList<Process>> to RemoteData<PaginatedList<ProcessOverviewTableEntry>>
         switchMap((processesRD: RemoteData<PaginatedList<Process>>) => {
           // Create observable emitting all processes one by one
@@ -152,6 +189,15 @@ export class ProcessOverviewTableComponent implements OnInit {
 
       );
 
+    // Collapse this section when the number of processes is zero the first time processes are retrieved
+    this.processesRD$.pipe(getFirstCompletedRemoteData()).subscribe(
+      (processesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
+        if (!(processesRD.payload.totalElements > 0)) {
+          this.isCollapsed = true;
+        }
+      }
+    );
+
   }
 
   /**
@@ -163,6 +209,20 @@ export class ProcessOverviewTableComponent implements OnInit {
       getFirstSucceededRemoteDataPayload(),
       map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
     );
+  }
+
+  /**
+   * Get the css class for a row depending on the state of the process
+   * @param process
+   */
+  getRowClass(process: Process): string {
+    if (this.processBulkDeleteService.isToBeDeleted(process.processId)) {
+      return 'table-danger';
+    } else if (this.newProcessId === process.processId) {
+      return 'table-info';
+    } else {
+      return '';
+    }
   }
 
 }

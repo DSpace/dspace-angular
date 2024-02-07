@@ -9,6 +9,19 @@ import { RequestParam } from '../../core/cache/models/request-param.model';
 import { ProcessStatus } from '../processes/process-status.model';
 import { DatePipe } from '@angular/common';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+import { hasValue } from '../../shared/empty.util';
+
+/**
+ * The sortable fields for processes
+ * See [the endpoint documentation]{@link https://github.com/DSpace/RestContract/blob/main/processes-endpoint.md#search-processes-by-property}
+ * for details.
+ */
+export enum ProcessSortField {
+  creationTime = 'creationTime',
+  startTime = 'startTime',
+  endTime = 'endTime',
+}
 
 /**
  * Service to manage the processes displayed in the
@@ -30,6 +43,7 @@ export class ProcessOverviewService {
   datePipe = new DatePipe('en-US');
 
 
+  timeCreated = (process: Process) => this.datePipe.transform(process.creationTime, this.dateFormat, 'UTC');
   timeCompleted = (process: Process) => this.datePipe.transform(process.endTime, this.dateFormat, 'UTC');
   timeStarted = (process: Process) => this.datePipe.transform(process.startTime, this.dateFormat, 'UTC');
 
@@ -47,7 +61,7 @@ export class ProcessOverviewService {
       elementsPerPage: 5,
     }, findListOptions);
 
-    if (autoRefreshingIntervalInMs !== null && autoRefreshingIntervalInMs > 0) {
+    if (hasValue(autoRefreshingIntervalInMs) && autoRefreshingIntervalInMs > 0) {
       return this.processDataService.autoRefreshingSearchBy('byProperty', options, autoRefreshingIntervalInMs);
     } else {
       return this.processDataService.searchBy('byProperty', options);
@@ -57,13 +71,16 @@ export class ProcessOverviewService {
   /**
    * Map the provided paginationOptions to FindListOptions
    * @param paginationOptions the PaginationComponentOptions to map
+   * @param sortField the field on which the processes are sorted
    */
-  getFindListOptions(paginationOptions: PaginationComponentOptions): FindListOptions {
+  getFindListOptions(paginationOptions: PaginationComponentOptions, sortField: ProcessSortField): FindListOptions {
+    let sortOptions = new SortOptions(sortField, SortDirection.DESC);
     return Object.assign(
       new FindListOptions(),
       {
         currentPage: paginationOptions.currentPage,
         elementsPerPage: paginationOptions.pageSize,
+        sort: sortOptions,
       }
     );
   }

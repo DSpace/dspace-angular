@@ -3408,7 +3408,7 @@
 
   "process.overview.table.completed.info": "Finish time (UTC)",
 
-  "process.overview.table.completed.title": "Completed processes",
+  "process.overview.table.completed.title": "Succeeded processes",
 
   "process.overview.table.empty": "No matching processes found.",
 
@@ -3426,7 +3426,7 @@
 
   "process.overview.table.running.title": "Running processes",
 
-  "process.overview.table.scheduled.info": "Start time (UTC)",
+  "process.overview.table.scheduled.info": "Creation time (UTC)",
 
   "process.overview.table.scheduled.title": "Scheduled processes",
 

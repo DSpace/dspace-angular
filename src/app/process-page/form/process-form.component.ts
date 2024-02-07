@@ -7,8 +7,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../../core/data/request.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
@@ -57,7 +56,6 @@ export class ProcessFormComponent implements OnInit {
     private scriptService: ScriptDataService,
     private notificationsService: NotificationsService,
     private translationService: TranslateService,
-    private requestService: RequestService,
     private router: Router) {
   }
 
@@ -91,7 +89,7 @@ export class ProcessFormComponent implements OnInit {
           const title = this.translationService.get('process.new.notification.success.title');
           const content = this.translationService.get('process.new.notification.success.content');
           this.notificationsService.success(title, content);
-          this.sendBack();
+          this.sendBack(rd.payload);
         } else {
           const title = this.translationService.get('process.new.notification.error.title');
           const content = this.translationService.get('process.new.notification.error.content');
@@ -143,11 +141,17 @@ export class ProcessFormComponent implements OnInit {
     return this.missingParameters.length > 0;
   }
 
-  private sendBack() {
-    this.requestService.removeByHrefSubstring('/processes');
-    /* should subscribe on the previous method to know the action is finished and then navigate,
-    will fix this when the removeByHrefSubstring changes are merged */
-    this.router.navigateByUrl(getProcessListRoute());
+  /**
+   * Redirect the user to the processes overview page with the new process' ID,
+   * so it can be highlighted in the overview table.
+   * @param newProcess The newly created process
+   * @private
+   */
+  private sendBack(newProcess: Process) {
+    const extras: NavigationExtras = {
+      queryParams: { new_process_id: newProcess.processId },
+    };
+    void this.router.navigate([getProcessListRoute()], extras);
   }
 }
 
