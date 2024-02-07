@@ -146,7 +146,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
 
     this.filesRD$ = this.processRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((process: Process) => this.processService.getFiles(process.processId))
+      switchMap((process: Process) => this.processService.getFiles(process.processId, false)),
     );
   }
 
