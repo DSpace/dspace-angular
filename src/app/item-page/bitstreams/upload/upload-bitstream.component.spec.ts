@@ -86,7 +86,6 @@ describe('UploadBitstreamComponent', () => {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
   });
   const standardBundleSuggestions = environment.bundle.standardBundles;
-  let routeStub;
   const routerStub = new RouterStub();
   const restEndpoint = 'fake-rest-endpoint';
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
@@ -300,17 +299,18 @@ describe('UploadBitstreamComponent', () => {
     });
   });
 
-  describe('when the item has IIIF disabled', () => {
+  describe('', () => {
     beforeEach(waitForAsync(() => {
-      const iiifDisabledItem = Object.assign(mockItem, {
+      const iiifDisabledItem = Object.assign(new Item(), mockItem, {
         metadata: {
-          'dc.title': [{ language: null, value: itemName }],
-          'dspace.iiif.enabled': [{ language: null, value: false }]
+          'dspace.iiif.enabled': [{ value: false, language: null }]
         }
       });
       createUploadBitstreamTestingModule({ bundle: bundle.id }, iiifDisabledItem);
       jasmine.getEnv().allowRespy(true);
-      mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
+      mockItemDataService.getBundles.and.returnValue(
+        createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+      );
       loadFixtureAndComp();
     }));
 
@@ -324,7 +324,7 @@ describe('UploadBitstreamComponent', () => {
    * @param queryParams
    */
   function createUploadBitstreamTestingModule(queryParams, item = mockItem) {
-    routeStub = {
+    let routeStub = {
       data: observableOf({
         dso: createSuccessfulRemoteDataObject(item)
       }),
