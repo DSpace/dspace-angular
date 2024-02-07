@@ -14,10 +14,8 @@ import { Metric } from '../../../core/shared/metric.model';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
 import { hasValue } from '../../empty.util';
-import { BrowserKlaroService, CookieConsents } from '../../cookies/browser-klaro.service';
-import { KlaroService } from '../../cookies/klaro.service';
-import {  startWith } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
+import { CookieConsents, KlaroService } from '../../cookies/klaro.service';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -49,9 +47,7 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
   settingsSubscription: Subscription;
 
-  private thirdPartyMetrics = environment.metricsConsents.filter(metric => metric.enabled).map(metric => metric.key);
-
-  private browserKlaroService: BrowserKlaroService;
+  private thirdPartyMetrics = ['plumX', 'altmetric', 'dimensions'];
 
   private hasLoadedScript: boolean;
 
@@ -60,13 +56,12 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
     private metricLoaderService: MetricLoaderService,
     private klaroService: KlaroService,
   ) {
-    this.browserKlaroService = (this.klaroService as BrowserKlaroService);
-    this.browserKlaroService.watchConsentUpdates();
-    this.consentUpdates$ = this.browserKlaroService.consentsUpdates$;
+    this.klaroService.watchConsentUpdates();
+    this.consentUpdates$ = this.klaroService.consentsUpdates$;
   }
 
   ngOnInit() {
-    this.cookiesSubscription = this.browserKlaroService.getSavedPreferences().subscribe((consents) => {
+    this.cookiesSubscription = this.klaroService.getSavedPreferences().subscribe((consents) => {
       this.loadComponent(this.metric, this.getCanLoadScript(consents));
     });
   }
@@ -77,10 +72,6 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
     }
     this.hasLoadedScript = !!canLoadScript;
     this.metricLoaderService.loadMetricTypeComponent(metric.metricType, canLoadScript).then((component) => {
-      if (hasValue(this.cookiesSubscription) && canLoadScript) {
-        this.container.clear();
-        this.cookiesSubscription.unsubscribe();
-      }
       this.instantiateComponent(component, metric, canLoadScript, forceRendering);
     });
   }
@@ -97,6 +88,8 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
   instantiateComponent(component: any, metric: Metric, canLoadScript: boolean, forceRendering?: boolean) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(component);
     this.componentType = component;
+    this.container.clear();
+
     const ref = this.container.createComponent(factory);
     const componentInstance = ref.instance as BaseMetricComponent;
     componentInstance.metric = metric;
@@ -134,6 +127,10 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
    * @private
    */
   private reloadComponentOnConsentsChange(componentInstance: BaseMetricComponent, canLoadScript: boolean): void {
+    if (hasValue(this.settingsSubscription)) {
+      return;
+    }
+
     this.settingsSubscription = combineLatest([
       this.consentUpdates$,
       componentInstance.requestSettingsConsent.pipe(startWith(undefined))
@@ -141,7 +138,7 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
       canLoadScript = this.getCanLoadScript(consents);
 
       if (request && !canLoadScript) {
-        this.browserKlaroService.showSettings();
+        this.klaroService.showSettings();
       }
 
       if (canLoadScript && !this.hasLoadedScript) {

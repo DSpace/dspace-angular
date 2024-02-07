@@ -8,8 +8,7 @@ import { MetricLoaderService } from './metric-loader.service';
 import { metric1Mock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { MetricStyleConfigPipe } from '../pipes/metric-style-config/metric-style-config.pipe';
 import SpyObj = jasmine.SpyObj;
-import { KlaroService } from '../../cookies/klaro.service';
-import { CookieConsents } from '../../cookies/browser-klaro.service';
+import { CookieConsents, KlaroService } from '../../cookies/klaro.service';
 import { BaseMetricComponent } from './base-metric.component';
 
 

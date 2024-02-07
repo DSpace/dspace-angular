@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
 import { map, switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { KlaroService } from './klaro.service';
+import { CookieConsents, KlaroService } from './klaro.service';
 import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -18,9 +18,6 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 import isEqual from 'lodash/isEqual';
 
-export interface CookieConsents {
-  [key: string]: boolean;
-}
 /**
  * Metadata field to store a user's cookie consent preferences in
  */
@@ -106,8 +103,8 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
-    if (hasValue(environment.metricsConsents)) {
-      environment.metricsConsents.forEach((metric) => {
+    if (hasValue(environment.info.metricsConsents)) {
+      environment.info.metricsConsents.forEach((metric) => {
         if (metric.enabled) {
           this.klaroConfig.services.push(
             {
@@ -357,7 +354,7 @@ export class BrowserKlaroService extends KlaroService {
     return 'klaro-' + identifier;
   }
 
-  watchConsentUpdates() {
+  watchConsentUpdates(): void {
     this.lazyKlaro.then(({getManager}) => {
       const manager = getManager(this.klaroConfig);
       const consentsSubject$ = this.consentsUpdates$;

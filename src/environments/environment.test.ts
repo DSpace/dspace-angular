@@ -323,6 +323,21 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    //Configuration for third-party metrics in Klaro
+    metricsConsents: [
+      {
+        key: 'plumX',
+        enabled: true
+      },
+      {
+        key: 'altmetric',
+        enabled: true
+      },
+      {
+        key: 'dimensions',
+        enabled: true
+      },
+    ]
   },
   markdown: {
     enabled: false,
@@ -553,20 +568,4 @@ export const environment: BuildConfig = {
     ],
     authorMetadata: ['dc.contributor.author', 'dc.contributor.editor', 'dc.contributor.contributor', 'dc.creator'],
   },
-
-  //Configuration for third-party metrics in Klaro
-  metricsConsents: [
-    {
-      key: 'plumX',
-      enabled: true
-    },
-    {
-      key: 'altmetric',
-      enabled: true
-    },
-    {
-      key: 'dimensions',
-      enabled: true
-    },
-  ],
 };
