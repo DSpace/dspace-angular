@@ -3321,7 +3321,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Жаңа нұсқасын жасау",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған жіберу бар",
 
   // "item.page.claim.button": "Claim",
@@ -3481,7 +3481,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Нұсқаны өшіру",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған бағынымдар бар",
 
 
@@ -3528,7 +3528,7 @@
   // "item.version.create.notification.failure" : "New version has not been created",
   "item.version.create.notification.failure": "Жаңа нұсқа жасалмады",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Жаңа нұсқаны жасау мүмкін емес, өйткені нұсқа тарихында аяқталмаған жіберу бар",
 
 
