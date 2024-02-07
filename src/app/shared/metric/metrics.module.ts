@@ -44,7 +44,6 @@ const COMPONENTS = [
   MetricLoaderComponent,
   MetricDefaultComponent
 ];
-
 @NgModule({
   declarations: [
     ...PIPES,

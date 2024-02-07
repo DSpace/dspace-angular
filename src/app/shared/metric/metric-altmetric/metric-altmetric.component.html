@@ -1,10 +1,14 @@
 <div class="row d-flex align-items-center"
-     *ngIf="!failed && !(isHidden$ | async) && (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)">
+     *ngIf="(!failed &&
+      canLoadScript &&
+      !(isHidden$ | async) &&
+      (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true))"
+>
   <div class="col-5 text-left">
     <div #metricChild>
       <div
         class="altmetric-embed"
-        [attr.data-hide-no-mentions]="remark | dsListMetricProps : 'data-hide-no-mentions' : isListElement"
+        [attr.data-hide-no-mentions]="visibleWithoutData ? false : (remark | dsListMetricProps : 'data-hide-no-mentions' : isListElement)"
         [attr.data-hide-less-than]="remark | dsListMetricProps : 'data-hide-less-than' : isListElement"
         [attr.data-badge-details]="remark | dsListMetricProps : 'data-badge-details' : isListElement"
         [attr.data-badge-type]="remark | dsListMetricProps : 'badgeType' : isListElement"
@@ -19,5 +23,11 @@
     <div class="font-weight-bold text-capitalize">
       {{ metric.metricType | translate }}
     </div>
+  </div>
+</div>
+<div class="row d-flex align-items-center justify-content-center m-2"  *ngIf="!canLoadScript && !isListElement">
+  <div>
+    {{ "third-party-metrics-cookies.message" | translate: {metricType: metric.metricType | titlecase} }}
+    <div role="button" class="btn-link" (click)="requestSettingsConsent.emit(true)">{{"third-party-metrics-cookies.consent-settings" | translate}}</div>
   </div>
 </div>

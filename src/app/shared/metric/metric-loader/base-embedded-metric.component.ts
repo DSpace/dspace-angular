@@ -46,7 +46,7 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
    * When the html content has been initialized, initialize the script.
    */
   ngAfterViewInit() {
-    if (this.metric) {
+    if (this.metric && this.canLoadScript) {
       this.initScript();
     }
   }
