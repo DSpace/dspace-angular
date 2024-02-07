@@ -73,10 +73,6 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
     }
     this.hasLoadedScript = !!canLoadScript;
     this.metricLoaderService.loadMetricTypeComponent(metric.metricType, canLoadScript).then((component) => {
-      if (hasValue(this.cookiesSubscription) && canLoadScript) {
-        this.container.clear();
-        this.cookiesSubscription.unsubscribe();
-      }
       this.instantiateComponent(component, metric, canLoadScript, forceRendering);
     });
   }
