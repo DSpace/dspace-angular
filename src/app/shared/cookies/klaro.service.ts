@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CookieConsents } from './browser-klaro.service';
-
+export interface CookieConsents {
+  [key: string]: boolean;
+}
 /**
  * Abstract class representing a service for handling Klaro consent preferences and UI
  */

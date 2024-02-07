@@ -14,8 +14,7 @@ import { Metric } from '../../../core/shared/metric.model';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
 import { hasValue } from '../../empty.util';
-import { CookieConsents } from '../../cookies/browser-klaro.service';
-import { KlaroService } from '../../cookies/klaro.service';
+import { CookieConsents, KlaroService } from '../../cookies/klaro.service';
 import { startWith } from 'rxjs/operators';
 
 @Component({
