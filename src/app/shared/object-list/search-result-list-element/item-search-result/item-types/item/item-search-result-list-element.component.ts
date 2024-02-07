@@ -9,7 +9,6 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { Context } from '../../../../../../core/shared/context.model';
 import { environment } from '../../../../../../../environments/environment';
-import { BrowserKlaroService } from '../../../../../cookies/browser-klaro.service';
 import { KlaroService } from '../../../../../cookies/klaro.service';
 import { combineLatest, Observable } from 'rxjs';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
@@ -45,9 +44,8 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
 
   hasLoadedThirdPartyMetrics$: Observable<boolean>;
 
-  private thirdPartyMetrics = environment.metricsConsents.filter(metric => metric.enabled).map(metric => metric.key);
+  private thirdPartyMetrics = environment.info.metricsConsents.filter(metric => metric.enabled).map(metric => metric.key);
 
-  private browserKlaroService: BrowserKlaroService;
 
   constructor(
     protected truncatableService: TruncatableService,
@@ -56,7 +54,6 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
     @Optional() private klaroService?: KlaroService,
   ) {
     super(truncatableService, dsoNameService);
-    this.browserKlaroService = (this.klaroService as BrowserKlaroService);
   }
 
   ngOnInit(): void {
@@ -69,11 +66,11 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
    * Check if item has Third-party metrics blocked by consents
    */
   ngAfterViewInit() {
-    if (this.showMetrics && this.browserKlaroService) {
-      this.browserKlaroService.watchConsentUpdates();
+    if (this.showMetrics && this.klaroService) {
+      this.klaroService.watchConsentUpdates();
 
       this.hasLoadedThirdPartyMetrics$ = combineLatest([
-        this.browserKlaroService.consentsUpdates$,
+        this.klaroService.consentsUpdates$,
         this.dso.metrics?.pipe(
           getFirstSucceededRemoteListPayload(),
           map(metrics => {
@@ -94,6 +91,6 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
    * Prompt user for consents settings
    */
   showSettings() {
-    this.browserKlaroService.showSettings();
+    this.klaroService.showSettings();
   }
 }
