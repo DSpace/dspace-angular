@@ -152,7 +152,7 @@ describe('ThumbnailComponent', () => {
       }));
 
       it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -172,7 +172,7 @@ describe('ThumbnailComponent', () => {
       }));
 
       it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -239,7 +239,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -254,7 +254,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show bitstream content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -269,7 +269,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show thumbnail content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -284,7 +284,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show thumbnail content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -299,7 +299,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should show thumbnail content image src', () => {
-/*        expect(component.default).toBe('assets/images/person-placeholder.svg');
+/*        expect(component.default).toBe('assets/images/file-placeholder.svg');
         const image = fixture.debugElement.query(By.css('img[src="http://localhost:8080/server/api/core/bitstreams/thumbnail-6df9-40ef-9009-b3c90a4e6d5b/content"]'));
         expect(image).toBeTruthy();*/
         expect(component.thumbnail$.value).toEqual(mockThumbnailWithType);
