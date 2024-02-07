@@ -11,8 +11,8 @@
         [checked]="isPrimary" 
         (change)="togglePrimaryBitstream($event)">
         <label class="custom-control-label" for="primaryBitstream{{fileIndex}}">
-          <span class="sr-only" aria-hidden="true" *ngIf="!isPrimary">Make {{fileName}} the primary bitstream</span>
-          <span class="sr-only" aria-hidden="true" *ngIf="isPrimary">Remove {{fileName}} as the primary bitstream</span>
+          <span class="sr-only" aria-hidden="true" *ngIf="!isPrimary">{{'submission.sections.upload.primary.make' | translate:{ fileName: fileName } }}</span>
+          <span class="sr-only" aria-hidden="true" *ngIf="isPrimary">{{'submission.sections.upload.primary.remove' | translate:{ fileName: fileName } }}</span>
         </label>
       </div>
     </div>

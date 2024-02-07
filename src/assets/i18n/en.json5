@@ -4434,6 +4434,10 @@
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
 
+  "submission.sections.upload.primary.make": "Make {{fileName}} the primary bitstream",
+
+  "submission.sections.upload.primary.remove": "Remove {{fileName}} as the primary bitstream",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
