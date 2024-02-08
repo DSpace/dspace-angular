@@ -42,6 +42,7 @@ describe('MetricAltmetricComponent', () => {
     component = fixture.componentInstance;
     component.metric = metricMock;
     component.success = true;
+    component.canLoadScript = true;
     component.maxRetry = 0;
     fixture.detectChanges();
   });
@@ -50,7 +51,7 @@ describe('MetricAltmetricComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should render badge div', () => {
-    const div = fixture.debugElement.queryAll(By.css('div'))[2];
+    const div = fixture.debugElement.queryAll(By.css('div'))[3];
     expect(div.nativeElement.className).toEqual('altmetric-embed');
     expect(div.nativeElement.dataset.badgePopover).toEqual('bottom');
     expect(div.nativeElement.dataset.doi).toEqual('10.1056/Test');
