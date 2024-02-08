@@ -152,7 +152,7 @@ describe('ThumbnailComponent', () => {
       }));
 
       it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -172,7 +172,7 @@ describe('ThumbnailComponent', () => {
       }));
 
       it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -239,7 +239,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -254,7 +254,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show bitstream content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -269,7 +269,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show thumbnail content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
@@ -284,7 +284,7 @@ describe('ThumbnailComponent', () => {
       });
 
       it('should not show thumbnail content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/person-placeholder.svg');
+        expect(component.default).toBe('assets/images/file-placeholder.svg');
       });
 
     });
