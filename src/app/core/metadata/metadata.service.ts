@@ -408,7 +408,7 @@ export class MetadataService {
    * Add <meta name="citation_pdf_url" ... >  to the <head>
    */
   private setCitationPdfUrlTag(): void {
-    this.setSocialImageTag('ORIGINAL', 'citation_pdf_url');
+    this.setPrimaryBitstreamInBundleTag('ORIGINAL', 'citation_pdf_url');
   }
 
   /**
@@ -432,7 +432,7 @@ export class MetadataService {
    * Add <meta name="og:image" ... >  to the <head>
    */
   private setOpenGraphImageTag(): void {
-    this.setSocialImageTag('THUMBNAIL', 'og:image');
+    this.setPrimaryBitstreamInBundleTag('THUMBNAIL', 'og:image');
   }
 
 
@@ -457,10 +457,10 @@ export class MetadataService {
    * Add <meta name="twitter:image" ... >  to the <head>
    */
   private setTwitterImageTag(): void {
-    this.setSocialImageTag('THUMBNAIL', 'twitter:image');
+    this.setPrimaryBitstreamInBundleTag('THUMBNAIL', 'twitter:image');
   }
 
-  private setSocialImageTag(bundleName: string, tag: string): void {
+  private setPrimaryBitstreamInBundleTag(bundleName: string, tag: string): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
 
