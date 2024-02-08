@@ -190,7 +190,7 @@ export class ProcessOverviewTableComponent implements OnInit {
       );
 
     // Collapse this section when the number of processes is zero the first time processes are retrieved
-    this.processesRD$.pipe(getFirstCompletedRemoteData()).subscribe(
+    this.processesRD$.pipe(take(1)).subscribe(
       (processesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
         if (!(processesRD.payload.totalElements > 0)) {
           this.isCollapsed = true;
