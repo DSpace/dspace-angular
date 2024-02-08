@@ -28,6 +28,7 @@ import { FacetConfigResponseParsingService } from '../../data/facet-config-respo
 import { ViewMode } from '../view-mode.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -525,6 +526,23 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
+  getParamsWithoutAppliedFilter(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.route.queryParams.pipe(
+      map((params: Params) => {
+        const newParams: Params = Object.assign({}, params);
+        const queryParamValues: string | string[] = newParams[`f.${filterName}`];
+        const excludeValue = hasValue(operator) ? addOperatorToFilterValue(value, operator) : value;
+
+        if (queryParamValues === excludeValue) {
+          delete newParams[`f.${filterName}`];
+        } else if (queryParamValues?.includes(excludeValue)) {
+          newParams[`f.${filterName}`] = (queryParamValues as string[])
+            .filter((paramValue: string) => paramValue !== excludeValue);
+        }
+        return newParams;
+      }),
+    );
+  }
 
   /**
    * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object

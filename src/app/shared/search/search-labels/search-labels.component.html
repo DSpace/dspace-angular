@@ -1,5 +1,5 @@
 <div class="labels">
   <ng-container *ngFor="let appliedFilters of (appliedFilters | keyvalue)">
-    <ng-container *ngFor="let appliedFilter of appliedFilters.value">{{appliedFilter.label}}</ng-container>
+    <ds-search-label *ngFor="let appliedFilter of appliedFilters.value" [inPlaceSearch]="inPlaceSearch" [appliedFilter]="appliedFilter"></ds-search-label>
   </ng-container>
 </div>
