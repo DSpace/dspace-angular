@@ -2476,6 +2476,8 @@
 
   "journalissue.page.titleprefix": "Journal Issue: ",
 
+  "journalissue.search.results.head": "Journal Issue Search Results",
+
 
 
   "journalvolume.listelement.badge": "Journal Volume",
@@ -2489,6 +2491,8 @@
   "journalvolume.page.titleprefix": "Journal Volume: ",
 
   "journalvolume.page.volume": "Volume",
+
+  "journalvolume.search.results.head": "Journal Volume Search Results",
 
 
   "iiifsearchable.listelement.badge": "Document Media",
@@ -3284,9 +3288,13 @@
 
   "relationships.isIssueOf": "Journal Issues",
 
+  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+
   "relationships.isJournalIssueOf": "Journal Issue",
 
   "relationships.isJournalOf": "Journals",
+
+  "relationships.isJournalVolumeOf": "Journal Volume",
 
   "relationships.isOrgUnitOf": "Organizational Units",
 
@@ -3303,6 +3311,8 @@
   "relationships.isSingleVolumeOf": "Journal Volume",
 
   "relationships.isVolumeOf": "Journal Volumes",
+
+  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
 
   "relationships.isContributorOf": "Contributors",
 
@@ -4010,6 +4020,16 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "Funding OpenAIRE ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
@@ -4036,6 +4056,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.title.Journal": "Journal",
 
   "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
