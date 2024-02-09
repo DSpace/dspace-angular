@@ -5,8 +5,8 @@
            [id]="entry.id"
            [ngModel]="entry.checked"
            (ngModelChange)="this.toggleCheckbox.emit($event);">
-    <label class="custom-control-label" [for]="entry.id"
-           [attr.aria-label]="(entry.checked ? 'resource-policies.table.headers.deselect' : 'resource-policies.table.headers.select') | translate">
+    <label class="custom-control-label" [for]="entry.id">
+      <span class="sr-only">{{(entry.checked ? 'resource-policies.table.headers.deselect' : 'resource-policies.table.headers.select') | translate}}</span>
     </label>
   </div>
 </td>
@@ -30,12 +30,12 @@
     <button class="btn btn-outline-primary btn-sm"
             [title]="'resource-policies.table.headers.edit.policy' | translate"
             (click)="redirectToResourcePolicyEditPage()">
-      <i class="fas fa-edit fa-fw"></i>
+      <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     </button>
     <button *ngIf="(groupName$ | async) !== undefined" class="btn btn-outline-primary btn-sm"
             [title]="'resource-policies.table.headers.edit.group' | translate"
             (click)="redirectToGroupEditPage()">
-      <i class="fas fa-users fa-fw"></i>
+      <i class="fas fa-users fa-fw" aria-hidden="true"></i>
     </button>
   </div>
 </td>

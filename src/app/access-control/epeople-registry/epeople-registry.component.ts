@@ -201,7 +201,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   deleteEPerson(ePerson: EPerson) {
     if (hasValue(ePerson.id)) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = ePerson;
+      modalRef.componentInstance.name = this.dsoNameService.getName(ePerson);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-eperson.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';
