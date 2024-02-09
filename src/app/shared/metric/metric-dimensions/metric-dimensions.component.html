@@ -1,10 +1,14 @@
 <div class="row d-flex align-items-center"
-     *ngIf="!(isHidden$ | async) && !failed && (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)">
+     *ngIf="!(isHidden$ | async) &&
+      canLoadScript &&
+      !failed &&
+      (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)"
+>
   <div class="col-5 text-left">
     <div
       #metricChild
       class="__dimensions_badge_embed__"
-      [attr.data-hide-zero-citations]="remark | dsListMetricProps: 'data-hide-zero-citations':isListElement"
+      [attr.data-hide-zero-citations]="visibleWithoutData ? false : (remark | dsListMetricProps: 'data-hide-zero-citations':isListElement)"
       [attr.data-pmid]="
       (remark | dsListMetricProps: 'data-doi':isListElement)
           ? null
@@ -19,5 +23,11 @@
     <div class="font-weight-bold text-capitalize">
       {{ metric.metricType | translate }}
     </div>
+  </div>
+</div>
+<div class="row d-flex align-items-center justify-content-center m-2"  *ngIf="!canLoadScript && !isListElement">
+  <div>
+    {{ "third-party-metrics-cookies.message" | translate: {metricType: metric.metricType | titlecase} }}
+    <div role="button" class="btn-link" (click)="requestSettingsConsent.emit(true)">{{"third-party-metrics-cookies.consent-settings" | translate}}</div>
   </div>
 </div>

@@ -11,6 +11,7 @@ import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.serv
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
+import { TranslateModule } from '@ngx-translate/core';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -188,13 +189,13 @@ const enviromentNoThumbs = {
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [ItemSearchResultListElementComponent, TruncatePipe, VarDirective],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
-
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
@@ -371,6 +372,7 @@ describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot()],
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         {provide: TruncatableService, useValue: {}},

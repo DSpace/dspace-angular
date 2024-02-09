@@ -1757,7 +1757,7 @@
 
   "cookies.consent.ok": "That's ok",
 
-  "cookies.consent.save": "Save",
+  "cookies.consent.save": "Close",
 
   "cookies.consent.content-notice.title": "Cookie Consent",
 
@@ -1807,9 +1807,21 @@
 
   "cookies.consent.purpose.sharing": "Sharing",
 
+  "cookies.consent.app.title.plumX": "PlumX",
+
+  "cookies.consent.app.description.plumX": "PlumX Metrics provide insights into the ways people interact with individual pieces of research output (articles, conference proceedings, book chapters, and many more) in the online environment. (https://plumanalytics.com/)",
+
+  "cookies.consent.app.title.altmetric": "Altmetric",
+
+  "cookies.consent.app.description.altmetric": "Altmetric’s interface tracks online engagement to reveal how and where your research is being visualized. (https://www.altmetric.com)",
+
+  "cookies.consent.app.title.dimensions": "Dimensions",
+
+  "cookies.consent.app.description.dimensions": "Dimensions analyses references from publications and calculates a set of article-level indicators. (https://www.dimensions.ai)",
+
+  "cookies.consent.purpose.thirdPartyJs": "Third-party JavaScript",
 
   "curation-task.task.citationpage.label": "Generate Citation Page",
-
 
   "cris-layout.toggle.open": "Open section",
 
@@ -7292,4 +7304,10 @@
   "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
 
   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+
+  "third-party-metrics-cookies.message": "{{ metricType }} badge is blocked by your ",
+
+  "third-party-metrics-cookies.consent-settings": "consent settings",
+
+  "third-party-metrics-blocked": "Some of the metrics are blocked by your",
 }
