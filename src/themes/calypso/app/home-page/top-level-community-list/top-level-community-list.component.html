@@ -1,0 +1,33 @@
+<ng-container *ngIf="communitiesRD$ | async as communitiesRD">
+  <ng-container *ngIf="communitiesRD?.hasSucceeded">
+    <h2>{{ 'home.top-level-communities.head' | translate }}</h2>
+    <p class="lead">{{ 'home.top-level-communities.help' | translate }}</p>
+
+    <!-- Boucle sur chaque communauté -->
+    <ng-container *ngFor="let community of communitiesRD?.payload?.page; let i = index">
+      <div class="col-md-12">
+        <h5>{{ community._name }}</h5>
+        <p>{{ 'ID: ' + community.id }}</p>
+        <p>{{ 'Type: ' + community.type }}</p>
+      </div>
+      <!-- Récupérer les collections à partir du lien -->
+      <div class="row" *ngIf="collections && collections.length > 0">
+        <div  *ngFor="let collection of collections" class="col-md-4">
+          <figure class="card card--1" [ngStyle]="{ 'background-image': 'url(' + collection.vedette + ')' }">
+            <div *ngIf="loadingImages" class="loading-overlay">
+              Chargement...
+            </div>
+            <figcaption *ngIf="!loadingImages">
+            <span class="info">
+              <h3>{{ collection.title }}</h3>
+              <a href="/collections/{{ collection.id }}"><span>Voir plus</span></a>
+            </span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ds-error *ngIf="communitiesRD?.hasFailed" message="{{ 'error.top-level-communities' | translate }}"></ds-error>
+  <ds-themed-loading *ngIf="communitiesRD?.isLoading" message="{{ 'loading.top-level-communities' | translate }}"></ds-themed-loading>
+</ng-container>

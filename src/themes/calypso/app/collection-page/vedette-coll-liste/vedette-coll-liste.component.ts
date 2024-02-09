@@ -29,10 +29,17 @@ export class VedetteCollListeComponent implements OnInit {
     // Récupérer l'ID de la collection à partir des paramètres de l'URL
     this.route.params.subscribe(params => {
       this.collectionId = params['id'];
-      // Utiliser l'ID de la collection pour récupérer les images
-      this.images$ = this.vedetteService.getImagesColl(this.collectionId).pipe(
-        map(images => this.vedetteService.shuffleArray(images)) // Mélanger le tableau d'images
-      );
+
+      // Vérifier si this.collectionId est défini avant de faire la requête
+      if (this.collectionId) {
+        // Utiliser l'ID de la collection pour récupérer les images
+        this.images$ = this.vedetteService.getImagesColl(this.collectionId).pipe(
+          map(images => images)
+        );
+      } else {
+        console.error('ID de collection non défini');
+        // Gérer le cas où l'ID de la collection n'est pas défini, par exemple, rediriger ou afficher un message d'erreur.
+      }
     });
   }
 }

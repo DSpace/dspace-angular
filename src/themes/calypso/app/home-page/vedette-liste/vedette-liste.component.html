@@ -1,4 +1,4 @@
-<ng-container *ngIf="images$ | async as images; else loading">
+<ng-container *ngIf="images$ | async as images">
   <ngb-carousel>
     <ng-template ngbSlide *ngFor="let image of images">
       <img [src]="image.imageUrl" class="d-block w-100 vedette-home" alt="{{ image.title }}">
@@ -9,4 +9,3 @@
     </ng-template>
   </ngb-carousel>
 </ng-container>
-<ng-template #loading>...</ng-template>

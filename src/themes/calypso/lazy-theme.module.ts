@@ -74,6 +74,7 @@ import {FormModule} from "../../app/shared/form/form.module";
 import {RequestCopyModule} from "../../app/request-copy/request-copy.module";
 import {DsoPageModule} from "../../app/shared/dso-page/dso-page.module";
 
+
 const DECLARATIONS = [
   HomePageComponent,
   VedetteListeComponent,
