@@ -1,7 +1,7 @@
 <div>
     <div class="filters py-2">
         <ds-search-facet-selected-option *ngFor="let value of (selectedValues$ | async)" [selectedValue]="value" [filterConfig]="filterConfig" [selectedValues$]="selectedValues$" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-selected-option>
-        <ng-container *ngFor="let page of (filterValues$ | async)?.payload">
+        <ng-container *ngFor="let page of (filterValues$ | async)">
           <div [@facetLoad]="animationState">
             <ds-search-facet-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value" [selectedValues$]="selectedValues$" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-option>
           </div>
