@@ -62,6 +62,9 @@ describe('SearchHierarchyFilterComponent', () => {
         value: value3,
       },
     ],
+    pageInfo: {
+      currentPage: 1,
+    },
   } as Partial<FacetValues> as FacetValues;
 
   const searchFilterServiceStub = {

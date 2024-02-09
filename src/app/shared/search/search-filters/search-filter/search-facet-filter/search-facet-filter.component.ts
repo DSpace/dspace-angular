@@ -265,38 +265,27 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   protected retrieveFilterValues(useCachedVersionIfAvailable = true): Observable<RemoteData<FacetValues[]>> {
-    const facetValues$: Observable<{ values: Observable<RemoteData<FacetValues>>, page: number}> = observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
-      switchMap(([options, page]: [SearchOptions, number]) => {
-        return this.searchService.getFacetValuesFor(this.filterConfig, page, options, null, useCachedVersionIfAvailable)
-          .pipe(
-            getFirstSucceededRemoteData(),
-            tap((rd: RemoteData<FacetValues>) => {
-              this.isLastPage$.next(hasNoValue(rd?.payload?.next));
-            }),
-            map((rd: RemoteData<FacetValues>) => ({
-                values: observableOf(rd),
-                page: page
-              })
-            )
-          );
-      })
+    const facetValues$: Observable<RemoteData<FacetValues>> = observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
+      switchMap(([options, page]: [SearchOptions, number]) => this.searchService.getFacetValuesFor(this.filterConfig, page, options, null, useCachedVersionIfAvailable)),
+      getFirstSucceededRemoteData(),
+      tap((rd: RemoteData<FacetValues>) => {
+        this.isLastPage$.next(hasNoValue(rd?.payload?.next));
+      }),
     );
 
     let filterValues: Observable<RemoteData<FacetValues>>[] = [];
     return facetValues$.pipe(
-      mergeMap((facetOutcome: { values: Observable<RemoteData<FacetValues>>, page: number}) => {
-        const newValues$ = facetOutcome.values;
-
+      mergeMap((newValues: RemoteData<FacetValues>) => {
         if (this.collapseNextUpdate) {
           this.showFirstPageOnly();
-          facetOutcome.page = 1;
+          filterValues = [];
           this.collapseNextUpdate = false;
         }
-        if (facetOutcome.page === 1) {
+        if (newValues.payload.pageInfo.currentPage === 1) {
           filterValues = [];
         }
 
-        filterValues = [...filterValues, newValues$];
+        filterValues = [...filterValues, observableOf(newValues)];
 
         return this.rdbs.aggregate(filterValues);
       }),
