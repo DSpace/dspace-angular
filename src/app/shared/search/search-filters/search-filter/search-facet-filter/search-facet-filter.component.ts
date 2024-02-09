@@ -36,7 +36,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits an array of pages with values found for this facet
    */
-  filterValues$: BehaviorSubject<FacetValues[]> = new BehaviorSubject([]);
+  facetValues$: BehaviorSubject<FacetValues[]> = new BehaviorSubject([]);
 
   /**
    * Emits the current last shown page of this facet's values
@@ -66,7 +66,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the active values for this filter
    */
-  selectedValues$: Observable<AppliedFilter[]>;
+  selectedAppliedFilters$: Observable<AppliedFilter[]>;
 
   protected collapseNextUpdate = true;
 
@@ -236,7 +236,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   protected applyFilterValue(data) {
     if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
-      this.selectedValues$.pipe(take(1)).subscribe((selectedValues: AppliedFilter[]) => {
+      this.selectedAppliedFilters$.pipe(take(1)).subscribe((selectedValues: AppliedFilter[]) => {
         if (isNotEmpty(data)) {
           void this.router.navigate(this.getSearchLinkParts(), {
             queryParams:
@@ -271,7 +271,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         }),
       )),
       map((newFacetValues: FacetValues) => {
-        let filterValues: FacetValues[] = this.filterValues$.value;
+        let filterValues: FacetValues[] = this.facetValues$.value;
 
         if (this.collapseNextUpdate) {
           this.showFirstPageOnly();
@@ -286,10 +286,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
         return filterValues;
       }),
-      tap((rd: FacetValues[]) => {
-        const allAppliedFilters: AppliedFilter[] = [].concat(...rd.map((facetValues: FacetValues) => facetValues.appliedFilters))
+      tap((allFacetValues: FacetValues[]) => {
+        const allAppliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
           .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
-        this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
+        this.selectedAppliedFilters$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
           map((selectedValues: string[]) => {
             const appliedFilters: AppliedFilter[] = selectedValues.map((value: string) => {
               return allAppliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
@@ -299,7 +299,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           }),
         );
         this.animationState = 'ready';
-        this.filterValues$.next(rd);
+        this.facetValues$.next(allFacetValues);
       })
     );
   }

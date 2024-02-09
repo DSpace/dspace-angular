@@ -173,7 +173,7 @@ describe('SearchFacetFilterComponent', () => {
     const testValue = 'test';
 
     beforeEach(() => {
-      comp.selectedValues$ = observableOf(selectedValues.map((value) =>
+      comp.selectedAppliedFilters$ = observableOf(selectedValues.map((value) =>
         Object.assign(new AppliedFilter(), {
           filter: filterName1,
           operator: 'equals',
