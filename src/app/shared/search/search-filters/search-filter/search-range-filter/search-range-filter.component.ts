@@ -1,4 +1,4 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, of as observableOf , Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, EventEmitter } from '@angular/core';
@@ -22,6 +22,7 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
 import { AppliedFilter } from '../../../models/applied-filter.model';
+import { FacetValues } from '../../../models/facet-values.model';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL
@@ -113,6 +114,15 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
         return [minimum, maximum];
       })
     ).subscribe((minmax) => this.range = minmax);
+  }
+
+  setAppliedFilter(allFacetValues: FacetValues[]): void {
+    const appliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
+      .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
+      .filter((appliedFilter: AppliedFilter) => appliedFilter.filter === this.filterConfig.name);
+
+    this.selectedAppliedFilters$ = observableOf(appliedFilters);
+    this.changeAppliedFilters.emit(appliedFilters);
   }
 
   /**

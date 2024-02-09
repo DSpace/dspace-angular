@@ -287,20 +287,25 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         return filterValues;
       }),
       tap((allFacetValues: FacetValues[]) => {
-        const allAppliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
-          .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
-        this.selectedAppliedFilters$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
-          map((selectedValues: string[]) => {
-            const appliedFilters: AppliedFilter[] = selectedValues.map((value: string) => {
-              return allAppliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
-            }).filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
-            this.changeAppliedFilters.emit(appliedFilters);
-            return appliedFilters;
-          }),
-        );
+        this.setAppliedFilter(allFacetValues);
         this.animationState = 'ready';
         this.facetValues$.next(allFacetValues);
       })
+    );
+  }
+
+  setAppliedFilter(allFacetValues: FacetValues[]): void {
+    const allAppliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
+      .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
+
+    this.selectedAppliedFilters$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
+      map((selectedValues: string[]) => {
+        const appliedFilters: AppliedFilter[] = selectedValues.map((value: string) => {
+          return allAppliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
+        }).filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
+        this.changeAppliedFilters.emit(appliedFilters);
+        return appliedFilters;
+      }),
     );
   }
 
