@@ -4,21 +4,13 @@ import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { map, merge, mergeMap, scan } from 'rxjs/operators';
 import findIndex from 'lodash/findIndex';
 
-import {
-  LOAD_MORE_NODE,
-  LOAD_MORE_ROOT_NODE,
-  TreeviewFlatNode,
-  TreeviewNode
-} from './vocabulary-treeview-node.model';
+import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { isEmpty, isNotEmpty } from '../../empty.util';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
-} from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
@@ -249,7 +241,7 @@ export class VocabularyTreeviewService {
     const hasChildren = entry.hasOtherInformation() && (entry.otherInformation as any)!.hasChildren === 'true';
     const pageInfo: PageInfo = this.pageInfo;
     const isInInitValueHierarchy = this.initValueHierarchy.includes(entryId);
-    const isSelected: boolean = selectedItems.some(() => selectedItems.includes(entry.id));
+    const isSelected: boolean = selectedItems.some(() => selectedItems.includes(entryId));
     const result = new TreeviewNode(
       entry,
       hasChildren,
