@@ -33,6 +33,8 @@ jobs:
       #CHROME_VERSION: "90.0.4430.212-1"
       # Bump Node heap size (OOM in CI after upgrading to Angular 15)
       NODE_OPTIONS: '--max-old-space-size=4096'
+      # Project name to use when running docker-compose prior to e2e tests
+      COMPOSE_PROJECT_NAME: 'ci'
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:

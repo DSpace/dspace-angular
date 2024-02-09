@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
 import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { isEmpty } from '../../empty.util';
 
 @Component({
@@ -31,7 +32,9 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
 
   startValue: number;
 
-  constructor(private fb: UntypedFormBuilder, private cd: ChangeDetectorRef) {
+  constructor(private fb: UntypedFormBuilder,
+              private cd: ChangeDetectorRef,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {

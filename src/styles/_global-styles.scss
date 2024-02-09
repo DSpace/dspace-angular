@@ -220,50 +220,50 @@ ds-dynamic-form-control-container.d-none {
 }
 
 .badge-validation {
-  background-color: #{map-get($theme-colors, warning)};
+    background-color: #{map-get($theme-colors, warning)};
 }
 
 .badge-waiting-controller {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .badge-workspace {
-  background-color: #{map-get($theme-colors, primary)};
+    background-color: #{map-get($theme-colors, primary)};
 }
 
 .badge-archived {
-  background-color: #{map-get($theme-colors, success)};
+    background-color: darken($green, 25);
 }
 
 .badge-workflow {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .badge-item-type {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
-ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
-  // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
-  padding: 0;
-  display: inline;
+ul.dso-edit-menu-dropdown>li .nav-item.nav-link {
+    // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
+    padding: 0;
+    display: inline;
 }
 
 .table th,
 .table td {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 /* Flexbox gap */
@@ -291,29 +291,158 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 
 
 .pt-0\.5 {
-  padding-top: 0.125rem !important;
+    padding-top: 0.125rem !important;
 }
 
 .pr-0\.5 {
-  padding-right: 0.125rem !important;
+    padding-right: 0.125rem !important;
 }
 
 .pb-0\.5 {
-  padding-bottom: 0.125rem !important;
+    padding-bottom: 0.125rem !important;
 }
 
 .pl-0\.5 {
-  padding-left: 0.125rem !important;
+    padding-left: 0.125rem !important;
 }
 
 .px-0\.5 {
-  padding-left: 0.125rem !important;
-  padding-right: 0.125rem !important;
+    padding-left: 0.125rem !important;
+    padding-right: 0.125rem !important;
 }
 
 .py-0\.5 {
-  padding-top: 0.125rem !important;
-  padding-bottom: 0.125rem !important;
+    padding-top: 0.125rem !important;
+    padding-bottom: 0.125rem !important;
+}
+
+.btn {
+    &:focus {
+        outline-offset: 2px !important;
+        outline-style: solid !important;
+        outline-width: 2px !important;
+        box-shadow: none !important;
+    }
+    &:disabled {
+        opacity: 0.7;
+    }
+    &.btn-success {
+        background-color: darken($success, 20%);
+        border-color: darken($success, 20%);
+        &:hover {
+            background-color: darken($success, 30%);
+            border-color: darken($success, 30%);
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-outline-success {
+        border-color: darken($success, 20%);
+        color: darken($success, 20%);
+
+        &:hover {
+            background-color: darken($success, 30%);
+            color: $white;
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-warning {
+        background-color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+        }
+        &:disabled {
+            background-color: transparent;
+        }
+        &:focus {
+            outline-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-outline-warning {
+        border-color: darken($warning, 20%);
+        color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+            color: $white;
+        }
+        &:disabled {
+            background-color: transparent;
+
+            &:hover {
+                color: darken($warning, 20%);
+            }
+        }
+        :focus {
+            outline-color: darken($warning, 22%);
+        }
+        &:not(:disabled):hover {
+            background-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-secondary {
+        &:focus {
+            outline-color: darken($secondary, 20%);
+        }
+    }
+
+    &.btn-danger:focus, &.btn-outline-danger:focus {
+        outline-color: darken($danger, 20%);
+    }
+
+    &.btn-primary:focus, &.btn-outline-primary:focus {
+        outline-color: darken($primary, 5%);
+    }
+}
+
+dynamic-ng-bootstrap-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+    outline: 2px solid $gray-700 !important;
+    box-shadow: none !important;
+    outline-offset: 2px !important;
+}
+
+dynamic-ng-bootstrap-checkbox .custom-control-label::before {
+    border-color: $gray-700;
+}
+
+.text-warning {
+    color: darken($warning, 10%) !important;
+}
+
+.text-success {
+    color: darken($success, 11%) !important;
+}
+
+ngb-accordion {
+    a.close {
+        opacity: 0.75;
+    }
+    a.close:not(:disabled):not(.disabled):hover {
+        opacity: 0.9;
+    }
+}
+
+.form-control, .page-link {
+    &:disabled::placeholder {
+        color: lighten($gray-700, 10%);
+    }
+    &:focus {
+        box-shadow: none;
+        outline: 2px solid lighten($gray-700, 10%);
+        outline-offset: 2px !important;
+    }
+}
+
+.alert-success {
+    color: darken($success, 22%);
+}
+
+.alert-danger {
+    color: darken($danger, 22%);
 }
 
 // Margin utility classes based on DSpace content spacing
