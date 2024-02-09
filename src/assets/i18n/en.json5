@@ -3196,7 +3196,9 @@
 
   "item.page.metric.details": "Details",
 
-  "item.page.metric.label.altmetrics": "Altmetrics©",
+  "item.page.metric.label.altmetric": "Altmetrics©",
+
+  "item.page.metric.label.dimensions": "Dimensions",
 
   "item.page.metric.label.check": "Check",
 
