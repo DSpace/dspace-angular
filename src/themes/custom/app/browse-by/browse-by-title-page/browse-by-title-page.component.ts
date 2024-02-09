@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { BrowseByTitlePageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-title-page/browse-by-title-page.component';
+import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
+import { Context } from '../../../../../app/core/shared/context.model';
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -8,10 +11,6 @@ import { BrowseByTitlePageComponent as BaseComponent } from '../../../../../app/
   // templateUrl: './browse-by-title-page.component.html'
   templateUrl: '../../../../../app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component.html'
 })
-
-/**
- * Component for determining what Browse-By component to use depending on the metadata (browse ID) provided
- */
-
+@rendersBrowseBy(BrowseByDataType.Title, Context.Any, 'custom')
 export class BrowseByTitlePageComponent extends BaseComponent {
 }
