@@ -2,23 +2,23 @@
   <div class="button-row top d-flex my-2 space-children-mr ml-gap">
     <button class="mr-auto btn btn-success" id="dso-add-btn" [disabled]="form.newValue || (saving$ | async)"
             [title]="dsoType + '.edit.metadata.add-button' | translate"
-            (click)="add()"><i class="fas fa-plus"></i>
+            (click)="add()"><i class="fas fa-plus" aria-hidden="true"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.add-button' | translate }}</span>
     </button>
     <button class="btn btn-warning ml-1" id="dso-reinstate-btn" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
             [title]="dsoType + '.edit.metadata.reinstate-button' | translate"
-            (click)="reinstate()"><i class="fas fa-undo-alt"></i>
+            (click)="reinstate()"><i class="fas fa-undo-alt" aria-hidden="true"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.reinstate-button' | translate }}</span>
     </button>
     <button class="btn btn-primary ml-1" id="dso-save-btn" [disabled]="!hasChanges || (saving$ | async)"
             [title]="dsoType + '.edit.metadata.save-button' | translate"
-            (click)="submit()"><i class="fas fa-save"></i>
+            (click)="submit()"><i class="fas fa-save" aria-hidden="true"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.save-button' | translate }}</span>
     </button>
     <button class="btn btn-danger ml-1" id="dso-discard-btn" *ngIf="!isReinstatable"
             [title]="dsoType + '.edit.metadata.discard-button' | translate"
             [disabled]="!hasChanges || (saving$ | async)"
-            (click)="discard()"><i class="fas fa-times"></i>
+            (click)="discard()"><i class="fas fa-times" aria-hidden="true"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ dsoType + '.edit.metadata.discard-button' | translate }}</span>
     </button>
   </div>
@@ -74,16 +74,19 @@
     <div class="mt-2 float-right space-children-mr ml-gap">
       <button class="btn btn-warning" *ngIf="isReinstatable" [disabled]="(saving$ | async)"
               [title]="dsoType + '.edit.metadata.reinstate-button' | translate"
-              (click)="reinstate()"><i class="fas fa-undo-alt"></i> {{ dsoType + '.edit.metadata.reinstate-button' | translate }}
+              (click)="reinstate()">
+        <i class="fas fa-undo-alt" aria-hidden="true"></i> {{ dsoType + '.edit.metadata.reinstate-button' | translate }}
       </button>
       <button class="btn btn-primary" [disabled]="!hasChanges || (saving$ | async)"
               [title]="dsoType + '.edit.metadata.save-button' | translate"
-              (click)="submit()"><i class="fas fa-save"></i> {{ dsoType + '.edit.metadata.save-button' | translate }}
+              (click)="submit()">
+        <i class="fas fa-save" aria-hidden="true"></i> {{ dsoType + '.edit.metadata.save-button' | translate }}
       </button>
       <button class="btn btn-danger" *ngIf="!isReinstatable"
               [title]="dsoType + '.edit.metadata.discard-button' | translate"
               [disabled]="!hasChanges || (saving$ | async)"
-              (click)="discard()"><i class="fas fa-times"></i> {{ dsoType + '.edit.metadata.discard-button' | translate }}
+              (click)="discard()">
+        <i class="fas fa-times" aria-hidden="true"></i> {{ dsoType + '.edit.metadata.discard-button' | translate }}
       </button>
     </div>
   </div>

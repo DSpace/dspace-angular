@@ -46,7 +46,6 @@ import { RootModule } from '../../app/root.module';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { HomePageComponent } from './app/home-page/home-page.component';
 import { RootComponent } from './app/root/root.component';
-import { BrowseBySwitcherComponent } from './app/browse-by/browse-by-switcher/browse-by-switcher.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
@@ -156,12 +155,14 @@ import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
 import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
+import {UserMenuComponent} from './app/shared/auth-nav-menu/user-menu/user-menu.component';
+import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
+import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
   HomePageComponent,
   RootComponent,
-  BrowseBySwitcherComponent,
   CommunityListPageComponent,
   SearchPageComponent,
   ConfigurationSearchPageComponent,
@@ -239,6 +240,9 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   ItemStatusComponent,
   EditBitstreamPageComponent,
+  UserMenuComponent,
+  BrowseByComponent,
+  RegisterEmailFormComponent,
 ];
 
 @NgModule({

@@ -530,8 +530,35 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator
    */
   createSiteAdministratorMenuSections() {
-    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
+    ])
+    .subscribe(([authorized, canSeeQA]) => {
       const menuList = [
+        /* Notifications */
+        {
+          id: 'notifications',
+          active: false,
+          visible: authorized && canSeeQA,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_quality-assurance',
+          parentID: 'notifications',
+          active: false,
+          visible: authorized,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.quality-assurance',
+            link: '/admin/notifications/quality-assurance'
+          } as LinkMenuItemModel,
+        },
         /*  Admin Search */
         {
           id: 'admin_search',

@@ -8,7 +8,7 @@ import { of as observableOf } from 'rxjs';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';
-import { ListableObjectDirective } from '../../../../object-collection/shared/listable-object/listable-object.directive';
+import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
 import { TranslateModule } from '@ngx-translate/core';
@@ -84,7 +84,7 @@ describe('ItemListElementComponent', () => {
       declarations: [
         ItemListElementComponent,
         ListableObjectComponentLoaderComponent,
-        ListableObjectDirective,
+        DynamicComponentLoaderDirective,
       ],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
