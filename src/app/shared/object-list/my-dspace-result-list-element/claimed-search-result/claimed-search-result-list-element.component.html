@@ -6,9 +6,12 @@
                                [workflowItem]="workflowitem$.value"></ds-themed-item-list-preview>
   <!-- Display duplicate alert, if feature enabled and duplicates detected -->
   <ng-container *ngVar="(duplicates$|async)?.length as duplicateCount">
-    <div [ngClass]="'col-md-12'" *ngIf="duplicateCount > 0">
-      <div class="d-flex">
-        {{ duplicateCount }} {{ 'submission.workflow.tasks.duplicates' | translate }}
+    <div [ngClass]="'row'" *ngIf="duplicateCount > 0">
+      <div [ngClass]="'col-2'"></div>
+      <div [ngClass]="'col-10'">
+        <div class="d-flex">
+          {{ duplicateCount }} {{ 'submission.workflow.tasks.duplicates' | translate }}
+        </div>
       </div>
     </div>
   </ng-container>
