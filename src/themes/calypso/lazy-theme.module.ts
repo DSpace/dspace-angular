@@ -8,7 +8,6 @@ import {
 import {
   BitstreamFormatsModule
 } from '../../app/admin/admin-registries/bitstream-formats/bitstream-formats.module';
-import { BrowseByModule } from '../../app/browse-by/browse-by.module';
 import {
   CollectionFormModule
 } from '../../app/collection-page/collection-form/collection-form.module';
@@ -73,6 +72,7 @@ import {NgxGalleryModule} from "@kolkov/ngx-gallery";
 import {FormModule} from "../../app/shared/form/form.module";
 import {RequestCopyModule} from "../../app/request-copy/request-copy.module";
 import {DsoPageModule} from "../../app/shared/dso-page/dso-page.module";
+import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 
 
 const DECLARATIONS = [
@@ -82,7 +82,8 @@ const DECLARATIONS = [
   CollectionPageComponent,
   EditItemTemplatePageComponent,
   VedetteCollListeComponent,
-  DsoEditMetadataComponent
+  DsoEditMetadataComponent,
+  BrowseByComponent,
 ];
 
 @NgModule({
@@ -93,7 +94,6 @@ const DECLARATIONS = [
     AppModule,
     RootModule,
     BitstreamFormatsModule,
-    BrowseByModule,
     CollectionFormModule,
     CollectionPageModule,
     CommonModule,
