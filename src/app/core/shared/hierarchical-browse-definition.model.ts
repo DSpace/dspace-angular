@@ -5,6 +5,7 @@ import { HIERARCHICAL_BROWSE_DEFINITION } from './hierarchical-browse-definition
 import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { BrowseDefinition } from './browse-definition.model';
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 
 /**
  * BrowseDefinition model for browses of type 'hierarchicalBrowse'
@@ -39,7 +40,7 @@ export class HierarchicalBrowseDefinition extends BrowseDefinition {
     vocabulary: HALLink;
   };
 
-  getRenderType(): string {
-    return 'hierarchy';
+  getRenderType(): BrowseByDataType {
+    return BrowseByDataType.Hierarchy;
   }
 }
