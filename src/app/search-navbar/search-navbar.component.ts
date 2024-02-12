@@ -67,7 +67,7 @@ export class SearchNavbarComponent {
 
     this.router.navigate(linkToNavigateTo, {
       queryParams: queryParams,
-      queryParamsHandling: ''
+      queryParamsHandling: 'merge'
     });
   }
 }
