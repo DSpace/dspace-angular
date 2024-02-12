@@ -23,6 +23,11 @@ import { ConfidenceType } from 'src/app/core/shared/confidence-type';
 import { DynamicOneboxModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { Observable } from 'rxjs';
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { RegistryService } from 'src/app/core/registry/registry.service';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { createPaginatedList } from 'src/app/shared/testing/utils.test';
+import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
+import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -38,6 +43,8 @@ describe('DsoEditMetadataValueComponent', () => {
   let dsoNameService: DSONameService;
   let vocabularyServiceStub: any;
   let itemService: ItemDataService;
+  let registryService: RegistryService;
+  let notificationsService: NotificationsService;
 
   let editMetadataValue: DsoEditMetadataValue;
   let metadataValue: MetadataValue;
@@ -107,7 +114,24 @@ describe('DsoEditMetadataValueComponent', () => {
     }
   };
 
+  let metadataSchema: MetadataSchema;
+  let metadataFields: MetadataField[];
+
   function initServices(): void {
+    metadataSchema = Object.assign(new MetadataSchema(), {
+      id: 0,
+      prefix: 'metadata',
+      namespace: 'http://example.com/',
+    });
+    metadataFields = [
+      Object.assign(new MetadataField(), {
+        id: 0,
+        element: 'regular',
+        qualifier: null,
+        schema: createSuccessfulRemoteDataObject$(metadataSchema),
+      }),
+    ];
+
     relationshipService = jasmine.createSpyObj('relationshipService', {
       resolveMetadataRepresentation: of(new ItemMetadataRepresentation(metadataValue)),
     });
@@ -118,6 +142,10 @@ describe('DsoEditMetadataValueComponent', () => {
       findByHref: createSuccessfulRemoteDataObject$(item)
     });
     vocabularyServiceStub = new VocabularyServiceStub();
+    registryService = jasmine.createSpyObj('registryService', {
+      queryMetadataFields: createSuccessfulRemoteDataObject$(createPaginatedList(metadataFields)),
+    });
+    notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
   }
 
   beforeEach(waitForAsync(() => {
@@ -143,7 +171,9 @@ describe('DsoEditMetadataValueComponent', () => {
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: DSONameService, useValue: dsoNameService },
         { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: ItemDataService, useValue: itemService }
+        { provide: ItemDataService, useValue: itemService },
+        { provide: RegistryService, useValue: registryService },
+        { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

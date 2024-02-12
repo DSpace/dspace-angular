@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { Observable } from 'rxjs/internal/Observable';
 import {
@@ -8,7 +8,7 @@ import {
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EMPTY } from 'rxjs/internal/observable/empty';
@@ -17,7 +17,7 @@ import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabul
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload, metadataFieldsToString } from '../../../core/shared/operators';
 import { DsDynamicOneboxModelConfig, DynamicOneboxModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DynamicScrollableDropdownModel, DynamicScrollableDropdownModelConfig } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -27,6 +27,9 @@ import { Collection } from '../../../core/shared/collection.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { of as observableOf } from 'rxjs';
+import { RegistryService } from 'src/app/core/registry/registry.service';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -36,7 +39,7 @@ import { of as observableOf } from 'rxjs';
 /**
  * Component displaying a single editable row for a metadata value
  */
-export class DsoEditMetadataValueComponent implements OnInit {
+export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   /**
    * The parent {@link DSpaceObject} to display a metadata form for
    * Also used to determine metadata-representations in case of virtual metadata
@@ -155,7 +158,11 @@ export class DsoEditMetadataValueComponent implements OnInit {
   constructor(protected relationshipService: RelationshipDataService,
               protected dsoNameService: DSONameService,
               protected vocabularyService: VocabularyService,
-              protected itemService: ItemDataService) {
+              protected itemService: ItemDataService,
+              protected cdr: ChangeDetectorRef,
+              protected registryService: RegistryService,
+              protected notificationsService: NotificationsService,
+              protected translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -273,6 +280,56 @@ export class DsoEditMetadataValueComponent implements OnInit {
             return new DynamicScrollableDropdownModel(model);
           }
       }));
+  }
+
+  /**
+   * Change callback for the component. Check if the mdField has changed to retrieve whether it is metadata
+   * that uses a controlled vocabulary and update the related properties
+   *
+   * @param {SimpleChanges} changes
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (isNotEmpty(changes.mdField) && !changes.mdField.firstChange) {
+      if (isNotEmpty(changes.mdField.currentValue) ) {
+        if (isNotEmpty(changes.mdField.previousValue) &&
+          changes.mdField.previousValue !== changes.mdField.currentValue) {
+          // Clear authority value in case it has been assigned with the previous metadataField used
+          this.mdValue.newValue.authority = null;
+          this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
+        }
+
+        // Only ask if the current mdField have a period character to reduce request
+        if (changes.mdField.currentValue.includes('.')) {
+          this.validateMetadataField().subscribe((isValid: boolean) => {
+            if (isValid) {
+              this.initAuthorityProperties();
+              this.cdr.detectChanges();
+            }
+          });
+        }
+      }
+    }
+  }
+
+  /**
+   * Validate the metadata field to check if it exists on the server and return an observable boolean for success/error
+   */
+  validateMetadataField(): Observable<boolean> {
+    return this.registryService.queryMetadataFields(this.mdField, null, true, false, followLink('schema')).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd) => {
+        if (rd.hasSucceeded) {
+          return observableOf(rd).pipe(
+            metadataFieldsToString(),
+            take(1),
+            map((fields: string[]) => fields.indexOf(this.mdField) > -1)
+          );
+        } else {
+          this.notificationsService.error(this.translate.instant(`${this.dsoType}.edit.metadata.metadatafield.error`), rd.errorMessage);
+          return [false];
+        }
+      }),
+    );
   }
 
   /**
