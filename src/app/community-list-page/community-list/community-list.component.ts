@@ -19,6 +19,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-community-list',
   templateUrl: './community-list.component.html',
+  styleUrls: ['./community-list.component.scss'],
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 
