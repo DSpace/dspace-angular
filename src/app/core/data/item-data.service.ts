@@ -46,8 +46,8 @@ import { RestRequestMethod } from './rest-request-method';
 import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { dataService } from './base/data-service.decorator';
-import {SearchData} from './base/search-data';
-import {FollowLinkConfig} from '../../shared/utils/follow-link-config.model';
+import { SearchData, SearchDataImpl } from './base/search-data';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -420,6 +420,7 @@ export class ItemDataService extends BaseItemDataService {
     protected bundleService: BundleDataService,
   ) {
     super('items', requestService, rdbService, objectCache, halService, notificationsService, comparator, browseService, bundleService);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Item>[]): Observable<RemoteData<PaginatedList<Item>>> {
