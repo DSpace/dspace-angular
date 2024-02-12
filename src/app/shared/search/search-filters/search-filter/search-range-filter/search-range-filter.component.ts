@@ -69,7 +69,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * The current range of the filter
    */
-  range;
+  range: [number | undefined, number | undefined];
 
   /**
    * Subscription to unsubscribe from
@@ -107,13 +107,13 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     this.max = moment(this.filterConfig.maxValue, dateFormats).year() || this.max;
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
-    this.sub = observableCombineLatest(iniMin, iniMax).pipe(
-      map(([min, max]) => {
-        const minimum = hasValue(min) ? min : this.min;
-        const maximum = hasValue(max) ? max : this.max;
+    this.sub = observableCombineLatest([iniMin, iniMax]).pipe(
+      map(([min, max]: [string, string]) => {
+        const minimum = hasValue(min) ? Number(min) : this.min;
+        const maximum = hasValue(max) ? Number(max) : this.max;
         return [minimum, maximum];
       })
-    ).subscribe((minmax) => this.range = minmax);
+    ).subscribe((minmax: [number, number]) => this.range = minmax);
   }
 
   setAppliedFilter(allFacetValues: FacetValues[]): void {
@@ -139,7 +139,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
-    this.router.navigate(this.getSearchLinkParts(), {
+    void this.router.navigate(this.getSearchLinkParts(), {
       queryParams:
         {
           [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,

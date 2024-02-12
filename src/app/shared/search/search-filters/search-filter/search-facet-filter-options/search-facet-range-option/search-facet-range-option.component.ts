@@ -104,12 +104,12 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    */
   private updateChangeParams(): void {
     const parts = this.filterValue.value.split(rangeDelimiter);
-    const min = parts.length > 1 ? parts[0].trim() : this.filterValue.value;
-    const max = parts.length > 1 ? parts[1].trim() : this.filterValue.value;
+    const min = parts.length > 1 ? Number(parts[0].trim()) : this.filterValue.value;
+    const max = parts.length > 1 ? Number(parts[1].trim()) : this.filterValue.value;
     const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
     this.changeQueryParams = {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
-      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [max],
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: max === this.absoluteMax ? null : [max],
       [page]: 1
     };
   }
