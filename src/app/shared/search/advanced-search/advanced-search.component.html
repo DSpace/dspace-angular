@@ -37,14 +37,12 @@
                         <option value="notcontains">{{'search.filters.operator.notcontains.text'| translate}}</option>
                     </select>
                 </div>
+                <div class="col-lg-12 mt-1">
+                    <input type="text" aria-label="textsearch" class="form-control" id="textsearch" name="textsearch"
+                        formControlName="textsearch" #text [placeholder]="('filter.search.text.placeholder' | translate)" required>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8 mt-1">
-                        <input type="text" aria-label="textsearch" class="form-control" id="textsearch" name="textsearch"
-                            formControlName="textsearch" #text [placeholder]="('filter.search.text.placeholder' | translate)" required>
-                    </div>
-                <div class="col-lg-4 mt-1">
-                    <button class="form-control   btn btn-primary" type="submit"
+                <div class="col-lg-12 mt-1">
+                    <button class="form-control btn w-50 float-right btn-primary" type="submit"
                         [disabled]="advSearchForm.invalid">{{'advancesearch.form.submit'| translate}}</button>
                 </div>
             </div>

@@ -5474,6 +5474,8 @@
 
   "search.filters.filter.author.text": "Author",
 
+  "search.filters.filter.subject.text": "Subject",
+
   "search.advanced.filters.head": "Advanced Search",
 
   "filter.search.operator.placeholder": "Operator",
