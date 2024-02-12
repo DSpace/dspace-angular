@@ -13,7 +13,13 @@
 #
 # Therefore, it should be kept in sync with that file
 version: "3.7"
-
+networks:
+  # Default to using network named 'dspacenet' from docker-compose-rest.yml.
+  # Its full name will be prepended with the project name (e.g. "-p d7" means it will be named "d7_dspacenet")
+  # If COMPOSITE_PROJECT_NAME is missing, default value will be "docker" (name of folder this file is in)
+  default:
+    name: ${COMPOSE_PROJECT_NAME:-docker}_dspacenet
+    external: true
 services:
   dspace-cli:
     image: "${DOCKER_OWNER:-dspace}/dspace-cli:${DSPACE_VER:-latest}"
@@ -30,16 +36,12 @@ services:
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
       solr__P__server: http://dspacesolr:8983/solr
     volumes:
-    - "assetstore:/dspace/assetstore"
+    # Keep DSpace assetstore directory between reboots
+    - assetstore:/dspace/assetstore
     entrypoint: /dspace/bin/dspace
     command: help
-    networks:
-      - dspacenet
     tty: true
     stdin_open: true
 
 volumes:
   assetstore:
-
-networks:
-  dspacenet:
