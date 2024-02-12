@@ -2473,6 +2473,18 @@
 
   "form.other-information.ror_orgunit_acronym": "ROR acronym",
 
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
