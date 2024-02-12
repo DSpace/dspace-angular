@@ -1,5 +1,3 @@
-import { Options } from 'cypress-axe';
-import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('My DSpace page', () => {
@@ -7,7 +5,7 @@ describe('My DSpace page', () => {
         cy.visit('/mydspace');
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
-        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
         cy.get('ds-my-dspace-page').should('be.visible');
 
@@ -26,7 +24,7 @@ describe('My DSpace page', () => {
         cy.visit('/mydspace');
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
-        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
         cy.get('ds-my-dspace-page').should('be.visible');
 
@@ -35,16 +33,8 @@ describe('My DSpace page', () => {
 
         cy.get('ds-object-detail').should('be.visible');
 
-        // Analyze <ds-search-page> for accessibility issues
-        testA11y('ds-my-dspace-page',
-            {
-                rules: {
-                    // Search filters fail these two "moderate" impact rules
-                    'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
-                }
-            } as Options
-        );
+        // Analyze <ds-my-dspace-page> for accessibility issues
+        testA11y('ds-my-dspace-page');
     });
 
     // NOTE: Deleting existing submissions is exercised by submission.spec.ts
@@ -52,7 +42,7 @@ describe('My DSpace page', () => {
         cy.visit('/mydspace');
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
-        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
         // Open the New Submission dropdown
         cy.get('button[data-test="submission-dropdown"]').click();
@@ -63,10 +53,10 @@ describe('My DSpace page', () => {
         cy.get('ds-create-item-parent-selector').should('be.visible');
 
         // Type in a known Collection name in the search box
-        cy.get('ds-authorized-collection-selector input[type="search"]').type(TEST_SUBMIT_COLLECTION_NAME);
+        cy.get('ds-authorized-collection-selector input[type="search"]').type(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
 
         // Click on the button matching that known Collection name
-        cy.get('ds-authorized-collection-selector button[title="'.concat(TEST_SUBMIT_COLLECTION_NAME).concat('"]')).click();
+        cy.get('ds-authorized-collection-selector button[title="'.concat(Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME')).concat('"]')).click();
 
         // New URL should include /workspaceitems, as we've started a new submission
         cy.url().should('include', '/workspaceitems');
@@ -75,7 +65,7 @@ describe('My DSpace page', () => {
         cy.get('ds-submission-edit').should('be.visible');
 
         // A Collection menu button should exist & its value should be the selected collection
-        cy.get('#collectionControlsMenuButton span').should('have.text', TEST_SUBMIT_COLLECTION_NAME);
+        cy.get('#collectionControlsMenuButton span').should('have.text', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
 
         // Now that we've created a submission, we'll test that we can go back and Edit it.
         // Get our Submission URL, to parse out the ID of this new submission
@@ -124,7 +114,7 @@ describe('My DSpace page', () => {
         cy.visit('/mydspace');
 
         // This page is restricted, so we will be shown the login form. Fill it out & submit.
-        cy.loginViaForm(TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD);
+        cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
         // Open the New Import dropdown
         cy.get('button[data-test="import-dropdown"]').click();
@@ -136,6 +126,9 @@ describe('My DSpace page', () => {
 
         // The external import searchbox should be visible
         cy.get('ds-submission-import-external-searchbar').should('be.visible');
+
+        // Test for accessibility issues
+        testA11y('ds-submission-import-external');
     });
 
 });

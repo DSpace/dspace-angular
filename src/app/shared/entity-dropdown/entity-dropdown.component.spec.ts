@@ -123,7 +123,7 @@ describe('EntityDropdownComponent', () => {
     scheduler.flush();
 
     spyOn(component, 'onSelect');
-    const entityItem = fixture.debugElement.query(By.css('.entity-item:nth-child(2)'));
+    const entityItem = fixture.debugElement.query(By.css('.entity-item:nth-child(2) button'));
     entityItem.triggerEventHandler('click', null);
 
     scheduler.schedule(() => fixture.detectChanges());

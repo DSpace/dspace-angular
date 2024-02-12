@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions,
@@ -19,6 +19,8 @@ import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -30,7 +32,8 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
  * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
-export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
+@rendersBrowseBy(BrowseByDataType.Date)
+export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent implements OnInit {
 
   /**
    * The default metadata keys to use for determining the lower limit of the StartsWith dropdown options

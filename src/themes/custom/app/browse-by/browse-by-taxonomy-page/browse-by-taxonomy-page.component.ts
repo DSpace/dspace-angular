@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { BrowseByTaxonomyPageComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component';
+import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
+import { Context } from '../../../../../app/core/shared/context.model';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
@@ -8,8 +11,6 @@ import { BrowseByTaxonomyPageComponent as BaseComponent } from '../../../../../a
   // styleUrls: ['./browse-by-taxonomy-page.component.scss'],
   styleUrls: ['../../../../../app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component.scss'],
 })
-/**
- * Component for browsing items by metadata in a hierarchical controlled vocabulary
- */
+@rendersBrowseBy(BrowseByDataType.Hierarchy, Context.Any, 'custom')
 export class BrowseByTaxonomyPageComponent extends BaseComponent {
 }
