@@ -53,10 +53,8 @@ export class ServerCheckGuard implements CanActivateChild {
    */
   listenForRouteChanges(): void {
     // we'll always be too late for the first NavigationStart event with the router subscribe below,
-    // so this statement is for the very first route operation. A `find` without using the cache,
-    // rather than an invalidateRootCache, because invalidating as the app is bootstrapping can
-    // break other features
-    this.rootDataService.findRoot(false);
+    // so this statement is for the very first route operation.
+    this.rootDataService.invalidateRootCache();
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationStart),
