@@ -15,7 +15,7 @@ export class SearchLabelsComponent {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The {@link AppliedFilter}s by filter name

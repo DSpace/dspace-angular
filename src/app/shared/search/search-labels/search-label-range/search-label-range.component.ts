@@ -4,32 +4,33 @@ import { Params, Router } from '@angular/router';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 /**
  * Component that represents the label containing the currently active filters
  */
 @Component({
-  selector: 'ds-search-label',
-  templateUrl: './search-label.component.html',
+  selector: 'ds-search-label-range',
+  templateUrl: './search-label-range.component.html',
 })
-@renderSearchLabelFor('equals')
-@renderSearchLabelFor('notequals')
-@renderSearchLabelFor('authority')
-@renderSearchLabelFor('notauthority')
-@renderSearchLabelFor('contains')
-@renderSearchLabelFor('notcontains')
-@renderSearchLabelFor('query')
-export class SearchLabelComponent implements OnInit {
-  @Input() inPlaceSearch: boolean;
-  @Input() appliedFilter: AppliedFilter;
-  searchLink: string;
-  removeParameters: Observable<Params>;
+@renderSearchLabelFor('range')
+export class SearchLabelRangeComponent implements OnInit {
 
-  /**
-   * Initialize the instance variable
-   */
+  @Input() inPlaceSearch: boolean;
+
+  @Input() appliedFilter: AppliedFilter;
+
+  searchLink: string;
+
+  removeParametersMin: Observable<Params>;
+
+  removeParametersMax: Observable<Params>;
+
+  min: string;
+
+  max: string;
+
   constructor(
     protected searchConfigurationService: SearchConfigurationService,
     protected searchService: SearchService,
@@ -39,7 +40,10 @@ export class SearchLabelComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchLink = this.getSearchLink();
-    this.removeParameters = this.searchConfigurationService.getParamsWithoutAppliedFilter(this.appliedFilter.filter, this.appliedFilter.value, this.appliedFilter.operator);
+    this.min = this.appliedFilter.value.substring(1, this.appliedFilter.value.indexOf('TO') - 1);
+    this.max = this.appliedFilter.value.substring(this.appliedFilter.value.indexOf('TO') + 3, this.appliedFilter.value.length - 1);
+    this.removeParametersMin = this.searchConfigurationService.getParamsWithoutAppliedFilter(`${this.appliedFilter.filter}.min`, this.min);
+    this.removeParametersMax = this.searchConfigurationService.getParamsWithoutAppliedFilter(`${this.appliedFilter.filter}.max`, this.max);
   }
 
   /**

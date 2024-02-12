@@ -5,6 +5,8 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { SearchLabelLoaderComponent } from './search-labels/search-label-loader/search-label-loader.component';
+import { SearchLabelLoaderDirective } from './search-labels/search-label-loader/search-label-loader-directive.directive';
 import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
 import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchRangeFilterComponent } from './search-filters/search-filter/search-range-filter/search-range-filter.component';
@@ -31,33 +33,7 @@ import { SearchComponent } from './search.component';
 import { ThemedSearchComponent } from './themed-search.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSettingsComponent } from './search-settings/themed-search-settings.component';
-
-const COMPONENTS = [
-  SearchComponent,
-  ThemedSearchComponent,
-  SearchResultsComponent,
-  SearchSidebarComponent,
-  SearchSettingsComponent,
-  SearchFiltersComponent,
-  SearchFilterComponent,
-  SearchFacetFilterComponent,
-  SearchLabelsComponent,
-  SearchLabelComponent,
-  SearchFacetFilterWrapperComponent,
-  SearchRangeFilterComponent,
-  SearchTextFilterComponent,
-  SearchHierarchyFilterComponent,
-  SearchBooleanFilterComponent,
-  SearchFacetOptionComponent,
-  SearchFacetSelectedOptionComponent,
-  SearchFacetRangeOptionComponent,
-  SearchAuthorityFilterComponent,
-  SearchSwitchConfigurationComponent,
-  ConfigurationSearchPageComponent,
-  ThemedConfigurationSearchPageComponent,
-  ThemedSearchResultsComponent,
-  ThemedSearchSettingsComponent,
-];
+import { SearchLabelRangeComponent } from './search-labels/search-label-range/search-label-range.component';
 
 const ENTRY_COMPONENTS = [
   SearchFacetFilterComponent,
@@ -69,6 +45,27 @@ const ENTRY_COMPONENTS = [
   SearchFacetSelectedOptionComponent,
   SearchFacetRangeOptionComponent,
   SearchAuthorityFilterComponent,
+  SearchLabelComponent,
+  SearchLabelRangeComponent,
+];
+
+const COMPONENTS = [
+  ...ENTRY_COMPONENTS,
+  SearchComponent,
+  ThemedSearchComponent,
+  SearchResultsComponent,
+  SearchSidebarComponent,
+  SearchSettingsComponent,
+  SearchFiltersComponent,
+  SearchFilterComponent,
+  SearchLabelsComponent,
+  SearchLabelLoaderComponent,
+  SearchFacetFilterWrapperComponent,
+  SearchSwitchConfigurationComponent,
+  ConfigurationSearchPageComponent,
+  ThemedConfigurationSearchPageComponent,
+  ThemedSearchResultsComponent,
+  ThemedSearchSettingsComponent,
 ];
 
 /**
@@ -83,7 +80,8 @@ export const MODELS = [
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    SearchLabelLoaderDirective,
   ],
   imports: [
     CommonModule,
@@ -94,7 +92,8 @@ export const MODELS = [
     SharedModule.withEntryComponents()
   ],
   exports: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    SearchLabelLoaderDirective,
   ]
 })
 export class SearchModule {

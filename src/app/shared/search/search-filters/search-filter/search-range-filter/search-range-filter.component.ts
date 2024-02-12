@@ -119,7 +119,11 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   setAppliedFilter(allFacetValues: FacetValues[]): void {
     const appliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
       .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
-      .filter((appliedFilter: AppliedFilter) => appliedFilter.filter === this.filterConfig.name);
+      .filter((appliedFilter: AppliedFilter) => appliedFilter.filter === this.filterConfig.name)
+      // TODO this should ideally be fixed in the backend
+      .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
+        operator: 'range',
+      }));
 
     this.selectedAppliedFilters$ = observableOf(appliedFilters);
     this.changeAppliedFilters.emit(appliedFilters);
