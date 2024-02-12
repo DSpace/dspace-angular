@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
@@ -13,7 +13,7 @@ import { BitstreamDataService } from '../core/data/bitstream-data.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LegacyBitstreamUrlResolver implements Resolve<RemoteData<Bitstream>> {
+export class LegacyBitstreamUrlResolver  {
   constructor(protected bitstreamDataService: BitstreamDataService) {
   }
 

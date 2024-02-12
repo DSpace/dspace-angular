@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
 import { hasNoValue, hasValue } from '../shared/empty.util';
@@ -17,7 +17,7 @@ import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 /**
  * A guard taking care of the correct route.data being set for the Browse-By components
  */
-export class BrowseByGuard implements CanActivate {
+export class BrowseByGuard  {
 
   constructor(protected dsoService: DSpaceObjectDataService,
               protected translate: TranslateService,

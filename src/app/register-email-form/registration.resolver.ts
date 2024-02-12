@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { Registration } from '../core/shared/registration.model';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 /**
  * Resolver to resolve a Registration object based on the provided token
  */
-export class RegistrationResolver implements Resolve<RemoteData<Registration>> {
+export class RegistrationResolver  {
 
   constructor(private epersonRegistrationService: EpersonRegistrationService) {
   }

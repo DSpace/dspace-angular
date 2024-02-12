@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SiteDataService } from '../core/data/site-data.service';
 import { Site } from '../core/shared/site.model';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { take } from 'rxjs/operators';
  * The class that resolve the Site object for a route
  */
 @Injectable()
-export class HomePageResolver implements Resolve<Site> {
+export class HomePageResolver  {
   constructor(private siteService: SiteDataService) {
   }
 

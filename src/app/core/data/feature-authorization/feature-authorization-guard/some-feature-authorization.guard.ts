@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
@@ -11,7 +11,7 @@ import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared/authori
  * doesn't have authorized rights on any of the specified features and/or object.
  * Override the desired getters in the parent class for checking specific authorization on a list of features and/or object.
  */
-export abstract class SomeFeatureAuthorizationGuard implements CanActivate {
+export abstract class SomeFeatureAuthorizationGuard  {
   constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService) {

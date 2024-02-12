@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
@@ -54,7 +54,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class MenuResolver implements Resolve<boolean> {
+export class MenuResolver  {
   constructor(
     protected menuService: MenuService,
     protected browseService: BrowseService,

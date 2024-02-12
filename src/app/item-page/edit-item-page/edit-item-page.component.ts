@@ -1,6 +1,6 @@
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Route, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Route, Router, RouterLink, RouterOutlet, CanActivateFn } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
@@ -63,8 +63,14 @@ export class EditItemPageComponent implements OnInit {
       .map((child: Route) => {
         let enabled = observableOf(true);
         if (isNotEmpty(child.canActivate)) {
-          enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<CanActivate>) => {
-              const guard: CanActivate = this.injector.get<CanActivate>(guardConstructor);
+          enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<{
+    canActivate: CanActivateFn;
+}>) => {
+              const guard: {
+    canActivate: CanActivateFn;
+} = this.injector.get<{
+    canActivate: CanActivateFn;
+}>(guardConstructor);
               return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
             })
           ).pipe(

@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { MenuService } from '../menu/menu.service';
@@ -31,7 +31,7 @@ import { Collection } from '../../core/shared/collection.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection[] }> {
+export class DSOEditMenuResolver  {
 
   constructor(
     protected dSpaceObjectDataService: DSpaceObjectDataService,

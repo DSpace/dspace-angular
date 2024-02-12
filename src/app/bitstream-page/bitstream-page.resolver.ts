@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { Observable } from 'rxjs';
 import { Bitstream } from '../core/shared/bitstream.model';
@@ -20,7 +20,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  * This class represents a resolver that requests a specific bitstream before the route is activated
  */
 @Injectable()
-export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
+export class BitstreamPageResolver  {
   constructor(private bitstreamService: BitstreamDataService) {
   }
 

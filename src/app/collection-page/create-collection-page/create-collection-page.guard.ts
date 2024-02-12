@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 
 import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -14,7 +14,7 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
  * @class CreateCollectionPageGuard
  */
 @Injectable()
-export class CreateCollectionPageGuard implements CanActivate {
+export class CreateCollectionPageGuard  {
   public constructor(private router: Router, private communityService: CommunityDataService) {
   }
 

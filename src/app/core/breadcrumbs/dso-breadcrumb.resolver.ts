@@ -1,6 +1,6 @@
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { map } from 'rxjs/operators';
@@ -17,7 +17,7 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
 @Injectable({
   providedIn: 'root',
 })
-export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
+export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject>  {
   protected constructor(
     protected breadcrumbService: DSOBreadcrumbsService,
     protected dataService: IdentifiableDataService<T>,

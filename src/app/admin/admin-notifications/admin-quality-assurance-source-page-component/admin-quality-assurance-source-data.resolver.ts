@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -10,7 +10,7 @@ import {environment} from '../../../../environments/environment';
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
 @Injectable()
-export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSourceObject[]>> {
+export class SourceDataResolver  {
   private  pageSize = environment.qualityAssuranceConfig.pageSize;
   /**
    * Initialize the effect class variables.

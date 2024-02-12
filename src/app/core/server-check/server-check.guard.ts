@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivateChild,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-  NavigationStart
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree, NavigationStart } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { take, map, filter } from 'rxjs/operators';
@@ -21,7 +14,7 @@ import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
  * A guard that checks if root api endpoint is reachable.
  * If not redirect to 500 error page
  */
-export class ServerCheckGuard implements CanActivateChild {
+export class ServerCheckGuard  {
   constructor(private router: Router, private rootDataService: RootDataService) {
   }
 

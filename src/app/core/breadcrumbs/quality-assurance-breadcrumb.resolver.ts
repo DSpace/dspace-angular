@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {QualityAssuranceBreadcrumbService} from './quality-assurance-breadcrumb.service';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import {BreadcrumbConfig} from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QualityAssuranceBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>>  {
+export class QualityAssuranceBreadcrumbResolver   {
   constructor(protected breadcrumbService: QualityAssuranceBreadcrumbService) {}
 
   /**

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 /**
  * Interface for the route parameters.
@@ -14,7 +14,7 @@ export interface AdminQualityAssuranceEventsPageParams {
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
 @Injectable()
-export class AdminQualityAssuranceEventsPageResolver implements Resolve<AdminQualityAssuranceEventsPageParams> {
+export class AdminQualityAssuranceEventsPageResolver  {
 
   /**
    * Method for resolving the parameters in the current route.

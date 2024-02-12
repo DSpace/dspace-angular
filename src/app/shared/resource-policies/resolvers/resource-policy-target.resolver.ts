@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
@@ -15,7 +15,7 @@ import { getDataServiceFor } from '../../../core/data/base/data-service.decorato
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable()
-export class ResourcePolicyTargetResolver implements Resolve<RemoteData<DSpaceObject>> {
+export class ResourcePolicyTargetResolver  {
   /**
    * The data service used to make request.
    */

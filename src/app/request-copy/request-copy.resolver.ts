@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { ItemRequest } from '../core/shared/item-request.model';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  * Resolves an {@link ItemRequest} from the token found in the route's parameters
  */
 @Injectable()
-export class RequestCopyResolver implements Resolve<RemoteData<ItemRequest>> {
+export class RequestCopyResolver  {
 
   constructor(
     private itemRequestDataService: ItemRequestDataService,

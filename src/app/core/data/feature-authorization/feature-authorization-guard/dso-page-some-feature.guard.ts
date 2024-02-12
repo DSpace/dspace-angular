@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, ResolveFn } from '@angular/router';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { Observable } from 'rxjs';
@@ -14,7 +14,9 @@ import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guar
  * This guard utilizes a resolver to retrieve the relevant object to check authorizations for
  */
 export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends SomeFeatureAuthorizationGuard {
-  constructor(protected resolver: Resolve<RemoteData<T>>,
+  constructor(protected resolver: {
+    resolve: ResolveFn<RemoteData<T>>;
+},
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService) {

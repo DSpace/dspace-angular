@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
@@ -12,7 +12,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
  * This class represents a resolver that requests a specific collection's item template before the route is activated
  */
 @Injectable()
-export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
+export class ItemTemplatePageResolver  {
   constructor(
     public dsoNameService: DSONameService,
     private itemTemplateService: ItemTemplateDataService,

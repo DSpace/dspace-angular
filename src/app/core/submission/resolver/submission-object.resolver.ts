@@ -1,6 +1,6 @@
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { switchMap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { IdentifiableDataService } from '../../data/base/identifiable-data.servi
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable()
-export class SubmissionObjectResolver<T> implements Resolve<RemoteData<T>> {
+export class SubmissionObjectResolver<T>  {
     constructor(
       protected dataService: IdentifiableDataService<any>,
       protected store: Store<any>,

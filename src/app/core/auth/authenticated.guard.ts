@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { map, find, switchMap } from 'rxjs/operators';
@@ -20,7 +14,7 @@ import { CoreState } from '../core-state.model';
  * @class AuthenticatedGuard
  */
 @Injectable({ providedIn: 'root' })
-export class AuthenticatedGuard implements CanActivate {
+export class AuthenticatedGuard  {
 
   /**
    * @constructor

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { Observable } from 'rxjs';
 import { Process } from './processes/process.model';
@@ -11,7 +11,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  * This class represents a resolver that requests a specific process before the route is activated
  */
 @Injectable()
-export class ProcessPageResolver implements Resolve<RemoteData<Process>> {
+export class ProcessPageResolver  {
   constructor(private processService: ProcessDataService) {
   }
 

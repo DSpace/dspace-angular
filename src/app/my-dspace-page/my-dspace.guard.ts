@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, NavigationExtras, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, NavigationExtras, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { MyDSpaceConfigurationService } from './my-dspace-configuration.service'
  * @class MyDSpaceGuard
  */
 @Injectable({ providedIn: 'root' })
-export class MyDSpaceGuard implements CanActivate {
+export class MyDSpaceGuard  {
 
   /**
    * @constructor

@@ -1,6 +1,6 @@
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
 import { hasNoValue } from '../../shared/empty.util';
 import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
@@ -11,7 +11,7 @@ import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
 @Injectable({
   providedIn: 'root'
 })
-export class I18nBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>> {
+export class I18nBreadcrumbResolver  {
   constructor(protected breadcrumbService: I18nBreadcrumbsService) {
   }
 

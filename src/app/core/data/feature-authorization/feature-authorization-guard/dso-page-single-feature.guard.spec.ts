@@ -1,5 +1,5 @@
 import { AuthorizationDataService } from '../authorization-data.service';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, ResolveFn } from '@angular/router';
 import { RemoteData } from '../../remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
@@ -12,7 +12,9 @@ import { AuthService } from '../../../auth/auth.service';
  * Test implementation of abstract class DsoPageSingleFeatureGuard
  */
 class DsoPageSingleFeatureGuardImpl extends DsoPageSingleFeatureGuard<any> {
-  constructor(protected resolver: Resolve<RemoteData<any>>,
+  constructor(protected resolver: {
+    resolve: ResolveFn<RemoteData<any>>;
+},
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService,
@@ -30,7 +32,9 @@ describe('DsoPageSingleFeatureGuard', () => {
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
-  let resolver: Resolve<RemoteData<any>>;
+  let resolver: {
+    resolve: ResolveFn<RemoteData<any>>;
+};
   let object: DSpaceObject;
   let route;
   let parentRoute;

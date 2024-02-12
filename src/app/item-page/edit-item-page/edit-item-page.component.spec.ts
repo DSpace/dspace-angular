@@ -3,14 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/cor
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterModule,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { EditItemPageComponent } from './edit-item-page.component';
 import { Observable, of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
@@ -21,13 +14,13 @@ describe('ItemPageComponent', () => {
   let comp: EditItemPageComponent;
   let fixture: ComponentFixture<EditItemPageComponent>;
 
-  class AcceptAllGuard implements CanActivate {
+  class AcceptAllGuard  {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return observableOf(true);
     }
   }
 
-  class AcceptNoneGuard implements CanActivate {
+  class AcceptNoneGuard  {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return observableOf(false);
     }

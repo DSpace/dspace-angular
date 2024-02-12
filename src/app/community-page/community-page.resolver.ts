@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
@@ -24,7 +24,7 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
  * This class represents a resolver that requests a specific community before the route is activated
  */
 @Injectable()
-export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
+export class CommunityPageResolver  {
   constructor(
     private communityService: CommunityDataService,
     private store: Store<any>

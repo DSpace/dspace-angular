@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -19,7 +19,7 @@ export const EPERSON_EDIT_FOLLOW_LINKS: FollowLinkConfig<EPerson>[] = [
 @Injectable({
   providedIn: 'root',
 })
-export class EPersonResolver implements Resolve<RemoteData<EPerson>> {
+export class EPersonResolver  {
 
   constructor(
     protected ePersonService: EPersonDataService,
