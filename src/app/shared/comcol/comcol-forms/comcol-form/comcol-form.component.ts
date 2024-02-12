@@ -23,6 +23,8 @@ import { Operation } from 'fast-json-patch';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { followLink } from '../../../utils/follow-link-config.model';
+
 /**
  * A form for creating and editing Communities or Collections
  */
@@ -298,6 +300,13 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   private refreshCache() {
     this.requestService.removeByHrefSubstring(this.dso._links.self.href);
     this.objectCache.remove(this.dso._links.self.href);
+    this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<T>) => {
+      if (rd.hasSucceeded) {
+        this.dso = rd.payload;
+      }
+    });
   }
 
   /**
