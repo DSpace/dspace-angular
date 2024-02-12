@@ -58,10 +58,31 @@ import { RootModule } from '../../app/root.module';
 import { BrowseByPageModule } from '../../app/browse-by/browse-by-page.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
-import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
+import {ItemVersionsModule} from "../../app/item-page/versions/item-versions.module";
+import {ItemSharedModule} from "../../app/item-page/item-shared.module";
+import { HomePageComponent } from './app/home-page/home-page.component';
+import {VedetteListeComponent} from "./app/home-page/vedette-liste/vedette-liste.component";
+import {HomeNewsComponent} from "./app/home-page/home-news/home-news.component";
+import {CollectionPageComponent} from "./app/collection-page/collection-page.component";
+import {VedetteCollListeComponent} from "./app/collection-page/vedette-coll-liste/vedette-coll-liste.component";
+import {EditItemTemplatePageComponent} from "./app/collection-page/edit-item-template-page/edit-item-template-page.component";
+import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
+import {SystemWideAlertModule} from "../../app/system-wide-alert/system-wide-alert.module";
+import {NgxGalleryModule} from "@kolkov/ngx-gallery";
+import {FormModule} from "../../app/shared/form/form.module";
+import {RequestCopyModule} from "../../app/request-copy/request-copy.module";
+import {DsoPageModule} from "../../app/shared/dso-page/dso-page.module";
+
 
 const DECLARATIONS = [
+  HomePageComponent,
+  VedetteListeComponent,
+  HomeNewsComponent,
+  CollectionPageComponent,
+  EditItemTemplatePageComponent,
+  VedetteCollListeComponent,
+  DsoEditMetadataComponent
 ];
 
 @NgModule({
@@ -73,8 +94,6 @@ const DECLARATIONS = [
     RootModule,
     BitstreamFormatsModule,
     BrowseByModule,
-    BrowseByPageModule,
-    ResultsBackButtonModule,
     CollectionFormModule,
     CollectionPageModule,
     CommonModule,
@@ -94,6 +113,7 @@ const DECLARATIONS = [
     InfoModule,
     JournalEntitiesModule,
     MenuModule,
+    DsoPageModule,
     MyDspaceSearchModule,
     NavbarModule,
     NgbModule,
@@ -105,6 +125,7 @@ const DECLARATIONS = [
     SearchPageModule,
     SharedModule,
     SharedBrowseByModule,
+    ResultsBackButtonModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,
@@ -117,16 +138,24 @@ const DECLARATIONS = [
     FormsModule,
     ResourcePoliciesModule,
     ComcolModule,
+    DsoSharedModule,
+    SystemWideAlertModule,
+    NgxGalleryModule,
+    FormModule,
+    RequestCopyModule,
+    BrowseByPageModule
   ],
   declarations: DECLARATIONS,
+  exports: [
+  ]
 })
 
-/**
- * This module serves as an index for all the components in this theme.
- * It should import all other modules, so the compiler knows where to find any components referenced
- * from a component in this theme
- * It is purposefully not exported, it should never be imported anywhere else, its only purpose is
- * to give lazily loaded components a context in which they can be compiled successfully
- */
+  /**
+   * This module serves as an index for all the components in this theme.
+   * It should import all other modules, so the compiler knows where to find any components referenced
+   * from a component in this theme
+   * It is purposefully not exported, it should never be imported anywhere else, its only purpose is
+   * to give lazily loaded components a context in which they can be compiled successfully
+   */
 class LazyThemeModule {
 }

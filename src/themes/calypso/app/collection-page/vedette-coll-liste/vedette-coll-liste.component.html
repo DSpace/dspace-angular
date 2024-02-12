@@ -1,0 +1,13 @@
+<ng-container *ngIf="images$ | async as images">
+  <div *ngIf="images[0]"  class="container">
+     <h3>Notre vedette de la collection</h3>
+  <div class="vedette-col">
+    <div class="vedetteCollImage">
+      <img [src]="images[0].imageUrl" alt="{{ images[0].title }}">
+    </div>
+    <div class="info">
+      <h3 class="vedette-title outer"><span class="inner"> {{ images[0].title }} </span></h3>
+    </div>
+  </div>
+  </div>
+</ng-container>

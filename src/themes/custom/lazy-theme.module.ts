@@ -46,7 +46,6 @@ import { RootModule } from '../../app/root.module';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { HomePageComponent } from './app/home-page/home-page.component';
 import { RootComponent } from './app/root/root.component';
-import { BrowseBySwitcherComponent } from './app/browse-by/browse-by-switcher/browse-by-switcher.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
@@ -164,7 +163,6 @@ const DECLARATIONS = [
   FileSectionComponent,
   HomePageComponent,
   RootComponent,
-  BrowseBySwitcherComponent,
   CommunityListPageComponent,
   SearchPageComponent,
   ConfigurationSearchPageComponent,

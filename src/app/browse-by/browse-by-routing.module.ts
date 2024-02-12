@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowseByGuard } from './browse-by-guard';
 import { BrowseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
 import { BrowseByI18nBreadcrumbResolver } from './browse-by-i18n-breadcrumb.resolver';
-import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-browse-by-switcher.component';
+import { BrowseByPageComponent } from './browse-by-page/browse-by-page.component';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         children: [
           {
             path: ':id',
-            component: ThemedBrowseBySwitcherComponent,
+            component: BrowseByPageComponent,
             canActivate: [BrowseByGuard],
             resolve: { breadcrumb: BrowseByI18nBreadcrumbResolver },
             data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' }

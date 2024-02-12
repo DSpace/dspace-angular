@@ -1,0 +1,145 @@
+figure.card {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background-image: var(--image-src);
+  background-position: 50% 50%;
+  background-size: 125%;
+  transition: background 400ms ease;
+  box-shadow: 0 6.7px 5.3px rgba(0, 0, 0, 0.05),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.05), 0 10px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  border: 1px solid #fff;
+  border-radius: 0;
+&:hover {
+figcaption {
+  transform: translateY(0px);
+}
+}
+
+&--1 {
+&:hover {
+  background-position: 50% 100%;
+}
+figcaption {
+  bottom: 0;
+  transform: translateY(80px);
+}
+}
+
+&--1{
+figcaption {
+  width: 100%;
+  height: 80px;
+  padding: 15px 20px;
+}
+}
+
+figcaption {
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: absolute;
+background: rgba(40, 40, 40, 0.75);
+transition: transform 400ms ease;
+.info {
+  color: rgb(226, 226, 226);
+  font-family: "Montserrat";
+  h3 {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  span {
+    margin-top: 5px;
+    color: #fa913c;
+    font-size: 0.85rem;
+  }
+}
+.links {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  a {
+    text-decoration: none;
+    position: relative;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 1.2rem;
+    opacity: 0.65;
+    border-radius: 50%;
+    overflow: hidden;
+    &:hover {
+      opacity: 1;
+    }
+    &:focus {
+      outline: none;
+      &::after {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      opacity: 0;
+      background: rgba(255, 255, 255, 0.05);
+      transform: scale(0.5);
+      z-index: -1;
+      transition: all 150ms ease;
+    }
+  }
+}
+}
+}
+
+@media only screen and (max-width: 900px) {
+body {
+align-items: start;
+}
+.container {
+grid-template-rows: repeat(4, 1fr);
+grid-template-columns: 1fr;
+grid-gap: 40px;
+padding: 80px 0;
+}
+}
+
+.support {
+position: fixed;
+right: 10px;
+bottom: 10px;
+padding: 10px;
+display: flex;
+a {
+margin: 0 10px;
+color: rgba(98, 97, 97, 0.85);
+font-size: 1.8rem;
+backface-visibility: hidden;
+transition: all 150ms ease;
+&:hover {
+  transform: scale(1.1);
+}
+}
+}
+.loading-overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgb(242, 243, 243);
+display: flex;
+align-items: center;
+justify-content: center;
+}
