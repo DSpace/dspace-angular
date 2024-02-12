@@ -20,15 +20,22 @@
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
       <span class="badge badge-light border" >
         <i dsAuthorityConfidenceState
-           class="far fa-circle fa-fw p-0"
+           class="fas fa-fw p-0"
            aria-hidden="true"
            [authorityValue]="mdValue.newValue"
+           [iconMode]="true"
         ></i>
         {{ dsoType + '.edit.metadata.authority.label' | translate }} {{ mdValue.newValue.authority }}
       </span>
     </div>
     <div class="mt-2" *ngIf=" mdValue.editing && (isAuthorityControlled() | async) && (isSuggesterVocabulary() | async)">
       <div class="btn-group w-75">
+        <i dsAuthorityConfidenceState
+          class="fas fa-fw p-0 mr-1 mt-auto mb-auto"
+          aria-hidden="true"
+          [authorityValue]="mdValue.newValue.confidence"
+          [iconMode]="true"
+      ></i>
         <input class="form-control form-outline" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority.key') | translate"
               (change)="onChangeAuthorityKey()" />

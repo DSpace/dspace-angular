@@ -2448,6 +2448,24 @@
 
   "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
 
+  "confidence.indicator.help-text.accepted": "This authority value has been confirmed as accurate by an interactive user",
+
+  "confidence.indicator.help-text.uncertain": "Value is singular and valid but has not been seen and accepted by a human so it is still uncertain",
+
+  "confidence.indicator.help-text.ambiguous": "There are multiple matching authority values of equal validity",
+
+  "confidence.indicator.help-text.notfound": "There are no matching answers in the authority",
+
+  "confidence.indicator.help-text.failed": "The authority encountered an internal failure",
+
+  "confidence.indicator.help-text.rejected": "The authority recommends this submission be rejected",
+
+  "confidence.indicator.help-text.novalue": "No reasonable confidence value was returned from the authority",
+
+  "confidence.indicator.help-text.unset": "Confidence was never recorded for this value",
+
+  "confidence.indicator.help-text.unknown": "Unknown confidence value",
+
   "item.page.abstract": "Abstract",
 
   "item.page.author": "Authors",
