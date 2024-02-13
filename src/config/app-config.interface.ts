@@ -1,5 +1,5 @@
 import { InjectionToken, Type } from '@angular/core';
-import { makeStateKey } from '@angular/platform-browser';
+import { makeStateKey } from '@angular/core';
 import { Config } from './config.interface';
 import { ServerConfig } from './server-config.interface';
 import { CacheConfig } from './cache-config.interface';

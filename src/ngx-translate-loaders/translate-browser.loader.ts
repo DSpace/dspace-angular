@@ -1,6 +1,6 @@
 import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
-import { TransferState } from '@angular/platform-browser';
+import { TransferState } from '@angular/core';
 import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
 import { hasValue } from '../app/shared/empty.util';
 import { map } from 'rxjs/operators';

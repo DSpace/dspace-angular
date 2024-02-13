@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_ID, NgModule } from '@angular/core';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
+import { makeStateKey, TransferState } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 

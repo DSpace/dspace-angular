@@ -1,7 +1,7 @@
 import { TranslateLoader } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { readFileSync } from 'fs';
-import { TransferState } from '@angular/platform-browser';
+import { TransferState } from '@angular/core';
 import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
 
 /**

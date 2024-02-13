@@ -8,7 +8,7 @@
 import { InitService } from '../../app/init.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
-import { TransferState } from '@angular/platform-browser';
+import { TransferState } from '@angular/core';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
 import { DefaultAppConfig } from '../../config/default-app-config';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';

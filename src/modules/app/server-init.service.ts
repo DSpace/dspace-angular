@@ -8,7 +8,7 @@
 import { InitService } from '../../app/init.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app/app.reducer';
-import { TransferState } from '@angular/platform-browser';
+import { TransferState } from '@angular/core';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';

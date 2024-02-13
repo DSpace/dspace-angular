@@ -1,6 +1,6 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_ID, NgModule } from '@angular/core';
-import { TransferState } from '@angular/platform-browser';
+import { TransferState } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 

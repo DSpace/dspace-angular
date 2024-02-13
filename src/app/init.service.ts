@@ -9,7 +9,7 @@ import { select, Store } from '@ngrx/store';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { APP_INITIALIZER, Inject, Provider, Type } from '@angular/core';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
+import { makeStateKey, TransferState } from '@angular/core';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
