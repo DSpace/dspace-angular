@@ -4,7 +4,7 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { hasValue } from '../../../shared/empty.util';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
-import { ImageField } from '../../simple/field-components/specific-field/img/item-page-img-field.component';
+import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.

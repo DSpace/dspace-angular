@@ -25,7 +25,7 @@
 
 <!-- Render value as a link with icon -->
 <ng-template #linkImg let-img="img" let-value="value">
-  <a class="link-anchor" [href]="value" class="dont-break-out ds-simple-metadata-link" target="_blank">
+  <a [href]="value" class="link-anchor dont-break-out ds-simple-metadata-link" target="_blank">
     <img class="link-logo"
       [alt]="img.alt | translate"
       [style.height]="'var(' + img.heightVar + ', --ds-item-page-img-field-default-inline-height)'"
