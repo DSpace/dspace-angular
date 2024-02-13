@@ -34,6 +34,7 @@ describe('BrowseResponseParsingService', () => {
     const mockValueList = {
         id: 'author',
         browseType: 'valueList',
+        _links: {},
         type: 'browse',
       };
 

@@ -63,6 +63,10 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent imp
       observableCombineLatest([this.route.params, this.route.queryParams, this.route.data,
         this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, data, currentPage, currentSort]) => {
+          // get direction from definition
+          if (data.browseDefinition && data.browseDefinition.defaultSortOrder) {
+            currentSort.direction = data.browseDefinition.defaultSortOrder;
+          }
           return [Object.assign({}, routeParams, queryParams, data), currentPage, currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {

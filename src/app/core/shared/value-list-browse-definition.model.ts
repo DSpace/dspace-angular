@@ -29,6 +29,7 @@ export class ValueListBrowseDefinition extends NonHierarchicalBrowseDefinition {
   _links: {
     self: HALLink;
     entries: HALLink;
+    items_fieldValueOnly: boolean;
   };
 
   getRenderType(): BrowseByDataType {
