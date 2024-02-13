@@ -217,7 +217,7 @@ export class SuggestionsDataService {
       new RequestParam('source', source)
     ];
 
-    return this.suggestionsDataService.searchBy(this.searchFindByTargetAndSourceMethod, options, true, true, ...linksToFollow);
+    return this.suggestionsDataService.searchBy(this.searchFindByTargetAndSourceMethod, options, false, true, ...linksToFollow);
   }
 
   /**

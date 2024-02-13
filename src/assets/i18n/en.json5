@@ -3120,7 +3120,7 @@
 
   "mydspace.import": "Import",
 
-  "notification.suggestion": "We found <b>{{count}} publications</b><br> in the {{source}} that seems to be related to your profile.<br> Please <a href='{{ url }}'>review the suggestions</a>",
+  "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br> Please <a href='{{ url }}'>review the suggestions</a>",
 
   "nav.browse.header": "All of DSpace",
 

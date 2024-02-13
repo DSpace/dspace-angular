@@ -155,7 +155,7 @@ describe('SuggestionDataService test', () => {
         searchParams: [new RequestParam('target', testUserId), new RequestParam('source', testSource)]
       };
       service.getSuggestionsByTargetAndSource(testUserId, testSource);
-      expect(suggestionsDataService.searchBy).toHaveBeenCalledWith('findByTargetAndSource', options, true, true);
+      expect(suggestionsDataService.searchBy).toHaveBeenCalledWith('findByTargetAndSource', options, false, true);
     });
 
     it('should call suggestionsDataService.delete', () => {
