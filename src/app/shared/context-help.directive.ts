@@ -1,13 +1,4 @@
-import {
-  ComponentFactoryResolver,
-  ComponentRef,
-  Directive,
-  Input,
-  OnChanges,
-  TemplateRef,
-  ViewContainerRef,
-  OnDestroy
-} from '@angular/core';
+import { ComponentRef, Directive, Input, OnChanges, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { PlacementDir } from './context-help-wrapper/placement-dir.model';
@@ -44,7 +35,6 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private contextHelpService: ContextHelpService
   ) {}
 
@@ -54,9 +44,7 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
     this.contextHelpService.add({id: this.dsContextHelp.id, isTooltipVisible: false});
 
     if (this.wrapper === undefined) {
-      const factory
-        = this.componentFactoryResolver.resolveComponentFactory(ContextHelpWrapperComponent);
-      this.wrapper = this.viewContainerRef.createComponent(factory);
+      this.wrapper = this.viewContainerRef.createComponent(ContextHelpWrapperComponent);
     }
     this.wrapper.instance.templateRef = this.templateRef;
     this.wrapper.instance.content = this.dsContextHelp.content;

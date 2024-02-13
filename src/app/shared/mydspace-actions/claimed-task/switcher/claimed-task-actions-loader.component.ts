@@ -1,6 +1,5 @@
 import {
   Component,
-  ComponentFactoryResolver,
   EventEmitter,
   Input,
   OnChanges,
@@ -75,9 +74,6 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
     'processCompleted',
   ];
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-  }
-
   /**
    * Fetch, create and initialize the relevant component
    */
@@ -107,12 +103,11 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
   private instantiateComponent(changes?: SimpleChanges): void {
     const comp = this.getComponentByWorkflowTaskOption(this.option) as Type<unknown>;
     if (hasValue(comp)) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
 
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
 
-      this.compRef = viewContainerRef.createComponent(componentFactory);
+      this.compRef = viewContainerRef.createComponent(comp);
 
       if (hasValue(changes)) {
         this.ngOnChanges(changes);

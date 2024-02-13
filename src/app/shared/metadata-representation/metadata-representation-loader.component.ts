@@ -1,4 +1,14 @@
-import { Component, ComponentFactoryResolver, Inject, Input, OnInit, ViewChild, OnChanges, SimpleChanges, ComponentRef, ViewContainerRef, ComponentFactory } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  Inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {
   MetadataRepresentation,
   MetadataRepresentationType
@@ -6,9 +16,11 @@ import {
 import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
+import {
+  MetadataRepresentationListElementComponent
+} from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { MetadataRepresentationDirective } from './metadata-representation.directive';
-import { hasValue, isNotEmpty, hasNoValue } from '../empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 
 @Component({
@@ -57,7 +69,6 @@ export class MetadataRepresentationLoaderComponent implements OnInit, OnChanges 
   ];
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private themeService: ThemeService,
     @Inject(METADATA_REPRESENTATION_COMPONENT_FACTORY) private getMetadataRepresentationComponent: (entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>,
   ) {
@@ -90,12 +101,10 @@ export class MetadataRepresentationLoaderComponent implements OnInit, OnChanges 
   }
 
   private instantiateComponent(changes?: SimpleChanges): void {
-    const componentFactory: ComponentFactory<MetadataRepresentationListElementComponent> = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
-
     const viewContainerRef: ViewContainerRef = this.mdRepDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    this.compRef = viewContainerRef.createComponent(componentFactory);
+    this.compRef = viewContainerRef.createComponent(this.getComponent());
 
     if (hasValue(changes)) {
       this.ngOnChanges(changes);

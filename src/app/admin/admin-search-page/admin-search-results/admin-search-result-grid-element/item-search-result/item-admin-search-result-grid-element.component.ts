@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
@@ -38,7 +38,6 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService,
     private themeService: ThemeService,
-    private componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(dsoNameService, truncatableService, bitstreamDataService);
   }
@@ -48,19 +47,21 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    */
   ngOnInit(): void {
     super.ngOnInit();
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
-
     const viewContainerRef = this.listableObjectDirective.viewContainerRef;
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(
-      componentFactory,
-      0,
-      undefined,
-      [
-        [this.badges.nativeElement],
-        [this.buttons.nativeElement]
-      ]);
+      this.getComponent(),
+      {
+        index: 0,
+        injector: undefined,
+        projectableNodes: [
+          [this.badges.nativeElement],
+          [this.buttons.nativeElement]
+        ]
+      }
+    );
+
     (componentRef.instance as any).object = this.object;
     (componentRef.instance as any).index = this.index;
     (componentRef.instance as any).linkType = this.linkType;

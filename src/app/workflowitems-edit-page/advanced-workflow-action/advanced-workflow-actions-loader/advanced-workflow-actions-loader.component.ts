@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { hasValue } from '../../../shared/empty.util';
 import {
   getAdvancedComponentByWorkflowTaskOption
@@ -31,7 +31,6 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
   @ViewChild(AdvancedWorkflowActionsDirective, { static: true }) claimedTaskActionsDirective: AdvancedWorkflowActionsDirective;
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private router: Router,
   ) {
   }
@@ -42,10 +41,9 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
   ngOnInit(): void {
     const comp = this.getComponentByWorkflowTaskOption(this.type);
     if (hasValue(comp)) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
-      viewContainerRef.createComponent(componentFactory);
+      viewContainerRef.createComponent(comp);
     } else {
       void this.router.navigate([PAGE_NOT_FOUND_PATH]);
     }

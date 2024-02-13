@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
@@ -60,7 +60,6 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
 
   constructor(
     public dsoNameService: DSONameService,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     private themeService: ThemeService,
@@ -78,19 +77,20 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$.pipe(take(1)).subscribe((item: Item) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
 
         const viewContainerRef = this.listableObjectDirective.viewContainerRef;
         viewContainerRef.clear();
 
         const componentRef = viewContainerRef.createComponent(
-          componentFactory,
-          0,
-          undefined,
-          [
-            [this.badges.nativeElement],
-            [this.buttons.nativeElement]
-          ]);
+          this.getComponent(item),
+          {
+            index: 0,
+            injector: undefined,
+            projectableNodes: [
+              [this.badges.nativeElement],
+              [this.buttons.nativeElement]
+            ]
+          });
         (componentRef.instance as any).object = item;
         (componentRef.instance as any).index = this.index;
         (componentRef.instance as any).linkType = this.linkType;
