@@ -13,10 +13,10 @@
             [attr.data-test]="'submission-dropdown' | dsBrowserOnly"
             title="{{'mydspace.new-submission' | translate}}">
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
-      <span class="caret"></span>
+      <span class="caret" aria-hidden="true"></span>
     </button>
     <div ngbDropdownMenu
-         class="dropdown-menu"
+         class="dropdown-menu p-0"
          id="entityControlsDropdownMenu"
          aria-labelledby="dropdownSubmission">
       <ds-entity-dropdown [isSubmission]="true" (selectionChange)="openDialog($event)"></ds-entity-dropdown>

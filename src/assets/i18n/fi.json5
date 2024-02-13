@@ -4479,7 +4479,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Validointi",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Odottaa tarkastajaa",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -5746,7 +5746,7 @@
   "search.view-switch.show-detail": "Näytä lisätiedot",
 
   // "search.view-switch.show-grid": "Show as grid",
-  "search.view-switch.show-grid": "Näydä ruudukkona",
+  "search.view-switch.show-grid": "Näytä ruudukkona",
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Näytä luettelona",
