@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
+import { APP_ID, NgModule } from '@angular/core';
+import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
@@ -53,9 +53,6 @@ export function getRequest(transferState: TransferState): any {
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({
-      appId: 'dspace-angular'
-    }),
     HttpClientModule,
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
@@ -64,7 +61,6 @@ export function getRequest(transferState: TransferState): any {
     BrowserAnimationsModule,
     StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
     EffectsModule.forFeature(coreEffects),
-    BrowserTransferStateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -76,6 +72,7 @@ export function getRequest(transferState: TransferState): any {
   ],
   providers: [
     ...BrowserInitService.providers(),
+    {provide: APP_ID, useValue: 'dspace-angular'},
     {
       provide: REQUEST,
       useFactory: getRequest,

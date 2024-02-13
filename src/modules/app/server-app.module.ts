@@ -1,16 +1,12 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule, TransferState } from '@angular/platform-browser';
+import { APP_ID, NgModule } from '@angular/core';
+import { TransferState } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import {
-  Angulartics2,
-  Angulartics2GoogleAnalytics,
-  Angulartics2GoogleGlobalSiteTag
-} from 'angulartics2';
+import { Angulartics2, Angulartics2GoogleAnalytics, Angulartics2GoogleGlobalSiteTag } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 
@@ -51,9 +47,6 @@ export function createTranslateLoader(transferState: TransferState) {
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({
-      appId: 'dspace-angular'
-    }),
     NoopAnimationsModule,
     ServerTransferStateModule,
     StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
@@ -70,6 +63,7 @@ export function createTranslateLoader(transferState: TransferState) {
   ],
   providers: [
     ...ServerInitService.providers(),
+    {provide: APP_ID, useValue: 'dspace-angular'},
     {
       provide: Angulartics2,
       useClass: Angulartics2Mock

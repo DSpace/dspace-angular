@@ -1,7 +1,6 @@
 import { APP_BASE_HREF, CommonModule, DOCUMENT } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { APP_ID, NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
@@ -124,13 +123,13 @@ const PROVIDERS = [
     AppComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'dspace-angular'}),
     ...IMPORTS,
     NgxMaskModule.forRoot(),
     ThemedRootComponent
   ],
   providers: [
     ...PROVIDERS,
+    {provide: APP_ID, useValue: 'dspace-angular'},
     provideCore(),
   ],
   bootstrap: [AppComponent]
