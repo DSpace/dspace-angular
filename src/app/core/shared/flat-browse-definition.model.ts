@@ -5,6 +5,7 @@ import { FLAT_BROWSE_DEFINITION } from './flat-browse-definition.resource-type';
 import { ResourceType } from './resource-type';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
 import { HALLink } from './hal-link.model';
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 
 /**
  * BrowseDefinition model for browses of type 'flatBrowse'
@@ -30,7 +31,7 @@ export class FlatBrowseDefinition extends NonHierarchicalBrowseDefinition {
     items: HALLink;
   };
 
-  getRenderType(): string {
+  getRenderType(): BrowseByDataType {
     return this.dataType;
   }
 }

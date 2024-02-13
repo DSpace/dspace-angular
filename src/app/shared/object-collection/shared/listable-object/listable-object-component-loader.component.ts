@@ -1,40 +1,25 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ComponentRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
-
-import { Subscription, combineLatest, of as observableOf, Observable } from 'rxjs';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { take } from 'rxjs/operators';
-
 import { ListableObject } from '../listable-object.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { Context } from '../../../../core/shared/context.model';
+import { Context } from 'src/app/core/shared/context.model';
 import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ListableObjectDirective } from './listable-object.directive';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue, isNotEmpty, hasNoValue } from '../../../empty.util';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { ThemeService } from '../../../theme-support/theme.service';
+import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
   styleUrls: ['./listable-object-component-loader.component.scss'],
-  templateUrl: './listable-object-component-loader.component.html'
+  templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
  */
-export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges, OnDestroy {
+export class ListableObjectComponentLoaderComponent extends AbstractComponentLoaderComponent<Component> {
+
   /**
    * The item or metadata to determine the component for
    */
@@ -73,7 +58,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * The value to display for this element
@@ -81,107 +66,52 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Input() value: string;
 
   /**
-   * Directive hook used to place the dynamic child component
-   */
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
-
-  /**
    * Emit when the listable object has been reloaded.
    */
   @Output() contentChange = new EventEmitter<ListableObject>();
 
-  /**
-   * Array to track all subscriptions and unsubscribe them onDestroy
-   * @type {Array}
-   */
-  protected subs: Subscription[] = [];
-
-  /**
-   * The reference to the dynamic component
-   */
-  protected compRef: ComponentRef<Component>;
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'object',
+    'viewMode',
+    'context',
+  ];
 
   /**
    * The list of input and output names for the dynamic component
    */
-  protected inAndOutputNames: string[] = [
+  protected inputNames: (keyof this & string)[] = [
     'object',
     'index',
+    'context',
     'linkType',
     'listID',
     'showLabel',
     'showThumbnails',
-    'context',
     'viewMode',
     'value',
-    'hideBadges',
+  ];
+
+  protected outputNames: (keyof this & string)[] = [
     'contentChange',
   ];
 
-  constructor(private cdr: ChangeDetectorRef, private themeService: ThemeService) {
+  constructor(
+    protected themeService: ThemeService,
+    protected cdr: ChangeDetectorRef,
+  ) {
+    super(themeService);
   }
 
-  /**
-   * Setup the dynamic child component
-   */
-  ngOnInit(): void {
-    this.instantiateComponent(this.object);
-  }
-
-  /**
-   * Whenever the inputs change, update the inputs of the dynamic component
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    if (hasNoValue(this.compRef)) {
-      // sometimes the component has not been initialized yet, so it first needs to be initialized
-      // before being called again
-      this.instantiateComponent(this.object, changes);
-    } else {
-      // if an input or output has changed
-      if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
-        this.connectInputsAndOutputs();
-        if (this.compRef?.instance && 'ngOnChanges' in this.compRef.instance) {
-          (this.compRef.instance as any).ngOnChanges(changes);
-        }
-      }
-    }
-  }
-
-  ngOnDestroy() {
-    this.subs
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
-  }
-
-  private instantiateComponent(object: ListableObject, changes?: SimpleChanges): void {
-
-    const component = this.getComponent(object.getRenderTypes(), this.viewMode, this.context);
-
-    const viewContainerRef = this.listableObjectDirective.viewContainerRef;
-    viewContainerRef.clear();
-
-    this.compRef = viewContainerRef.createComponent(
-      component, {
-        index: 0,
-        injector: undefined
-      }
-    );
-
-    if (hasValue(changes)) {
-      this.ngOnChanges(changes);
-    } else {
-      this.connectInputsAndOutputs();
-    }
-
+  public instantiateComponent(): void {
+    super.instantiateComponent();
     if ((this.compRef.instance as any).reloadedObject) {
-      combineLatest([
-        observableOf(changes),
-        (this.compRef.instance as any).reloadedObject.pipe(take(1)) as Observable<DSpaceObject>,
-      ]).subscribe(([simpleChanges, reloadedObject]: [SimpleChanges, DSpaceObject]) => {
+      (this.compRef.instance as any).reloadedObject.pipe(
+        take(1),
+      ).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
-          this.compRef.destroy();
+          this.destroyComponentInstance();
           this.object = reloadedObject;
-          this.instantiateComponent(reloadedObject, simpleChanges);
+          this.instantiateComponent();
           this.cdr.detectChanges();
           this.contentChange.emit(reloadedObject);
         }
@@ -189,26 +119,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     }
   }
 
-  /**
-   * Fetch the component depending on the item's entity type, view mode and context
-   * @returns {GenericConstructor<Component>}
-   */
-  getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],
-               viewMode: ViewMode,
-               context: Context): GenericConstructor<Component> {
-    return getListableObjectComponent(renderTypes, viewMode, context, this.themeService.getThemeName());
-  }
-
-  /**
-   * Connect the in and outputs of this component to the dynamic component,
-   * to ensure they're in sync
-   */
-  protected connectInputsAndOutputs(): void {
-    if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
-        this.compRef.instance[name] = this[name];
-      });
-    }
+  public getComponent(): GenericConstructor<Component> {
+    return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context, this.themeService.getThemeName());
   }
 
 }
