@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
 import { hasValue } from '../../shared/empty.util';
+import { switchMap } from 'rxjs/operators';
 
 /**
  * The sortable fields for processes
@@ -62,10 +63,19 @@ export class ProcessOverviewService {
     }, findListOptions);
 
     if (hasValue(autoRefreshingIntervalInMs) && autoRefreshingIntervalInMs > 0) {
-      return this.processDataService.autoRefreshingSearchBy('byProperty', options, autoRefreshingIntervalInMs);
+      this.processDataService.stopAutoRefreshing(processStatus);
+      return this.processDataService.autoRefreshingSearchBy(processStatus, 'byProperty', options, autoRefreshingIntervalInMs);
     } else {
       return this.processDataService.searchBy('byProperty', options);
     }
+  }
+
+  /**
+   * Stop auto-refreshing the process with the given status
+   * @param processStatus the processStatus of the request to stop automatically refreshing
+   */
+  stopAutoRefreshing(processStatus: ProcessStatus) {
+    this.processDataService.stopAutoRefreshing(processStatus);
   }
 
   /**

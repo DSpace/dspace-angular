@@ -1,20 +1,21 @@
-import { Component, Input, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Input, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { ProcessStatus } from '../../processes/process-status.model';
-import { Observable, mergeMap, from as observableFrom } from 'rxjs';
+import { Observable, mergeMap, from as observableFrom, BehaviorSubject, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Process } from '../../processes/process.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import {
+  PaginationComponentOptions
+} from '../../../shared/pagination/pagination-component-options.model';
 import { ProcessOverviewService, ProcessSortField } from '../process-overview.service';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import {
   getFirstSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
   getAllCompletedRemoteData
 } from '../../../core/shared/operators';
-import { map, switchMap, toArray, take } from 'rxjs/operators';
+import { map, switchMap, toArray, take, filter } from 'rxjs/operators';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -23,6 +24,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 import { RouteService } from '../../../core/services/route.service';
+import { hasValue } from '../../../shared/empty.util';
 
 const NEW_PROCESS_PARAM = 'new_process_id';
 
@@ -41,7 +43,7 @@ export interface ProcessOverviewTableEntry {
   styleUrls: ['./process-overview-table.component.scss'],
   templateUrl: './process-overview-table.component.html'
 })
-export class ProcessOverviewTableComponent implements OnInit {
+export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 
   /**
    * The status of the processes this sections should show
@@ -74,7 +76,7 @@ export class ProcessOverviewTableComponent implements OnInit {
   /**
    * List of processes and their info to be shown in this table
    */
-  processesRD$: Observable<RemoteData<PaginatedList<ProcessOverviewTableEntry>>>;
+  processesRD$: BehaviorSubject<RemoteData<PaginatedList<ProcessOverviewTableEntry>>>;
 
   /**
    * The pagination ID for this overview section
@@ -95,6 +97,11 @@ export class ProcessOverviewTableComponent implements OnInit {
    * The id of the process to highlight
    */
   newProcessId: string;
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   constructor(protected processOverviewService: ProcessOverviewService,
               protected processBulkDeleteService: ProcessBulkDeleteService,
@@ -131,6 +138,8 @@ export class ProcessOverviewTableComponent implements OnInit {
     // Get the current pagination from the route
     this.paginationOptions$ = this.paginationService.getCurrentPagination(this.paginationId, defaultPaginationOptions);
 
+    this.processesRD$ = new BehaviorSubject(undefined);
+
     // Once we have the pagination, retrieve the processes matching the process type and the pagination
     //
     // Reasoning why this monstrosity is the way it is:
@@ -145,7 +154,7 @@ export class ProcessOverviewTableComponent implements OnInit {
     // between the update of the paginatedList and the entryArray. This results in the processOverviewPage showing
     // no processes for a split second every time the processes are updated which in turn causes the different
     // sections of the page to jump around. By combining these and causing the page to update only once this is avoided.
-    this.processesRD$ = this.paginationOptions$
+    this.subs.push(this.paginationOptions$
       .pipe(
         // Map the paginationOptions to findListOptions
         map((paginationOptions: PaginationComponentOptions) =>
@@ -187,16 +196,18 @@ export class ProcessOverviewTableComponent implements OnInit {
           );
         }),
 
-      );
+      ).subscribe(this.processesRD$));
 
     // Collapse this section when the number of processes is zero the first time processes are retrieved
-    this.processesRD$.pipe(take(1)).subscribe(
+    this.subs.push(this.processesRD$.pipe(
+      filter((processListRd: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => hasValue(processListRd))
+    ).subscribe(
       (processesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
         if (!(processesRD.payload.totalElements > 0)) {
           this.isCollapsed = true;
         }
       }
-    );
+    ));
 
   }
 
@@ -225,4 +236,11 @@ export class ProcessOverviewTableComponent implements OnInit {
     }
   }
 
-}
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
+    this.processOverviewService.stopAutoRefreshing(this.processStatus);
+  }
+
+  }
