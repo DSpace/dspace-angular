@@ -23,9 +23,6 @@ import {
 import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
-import {
-  AdvancedWorkflowActionsDirective
-} from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-workflow-actions.directive';
 import { AccessControlModule } from '../access-control/access-control.module';
 import {
   ReviewersListComponent
@@ -54,7 +51,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdvancedWorkflowActionRatingComponent,
     AdvancedWorkflowActionSelectReviewerComponent,
     AdvancedWorkflowActionPageComponent,
-    AdvancedWorkflowActionsDirective,
     ReviewersListComponent,
   ]
 })
