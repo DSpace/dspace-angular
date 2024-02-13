@@ -17,7 +17,7 @@
           </ds-comcol-page-content>
           <!-- News -->
           <ds-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
-            [title]="'community.page.news'">
+                                  [title]="'community.page.news'">
           </ds-comcol-page-content>
         </header>
         <ds-dso-edit-menu></ds-dso-edit-menu>
@@ -28,10 +28,9 @@
         <ds-themed-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
         </ds-themed-comcol-page-browse-by>
 
-        <ds-themed-community-page-sub-community-list [community]="communityPayload"></ds-themed-community-page-sub-community-list>
-        <ds-themed-community-page-sub-collection-list [community]="communityPayload"></ds-themed-community-page-sub-collection-list>
+        <router-outlet></router-outlet>
       </section>
-      <footer  *ngIf="communityPayload.copyrightText"  class="border-top my-5 pt-4">
+      <footer *ngIf="communityPayload.copyrightText" class="border-top my-5 pt-4">
         <!-- Copyright -->
         <ds-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
         </ds-comcol-page-content>

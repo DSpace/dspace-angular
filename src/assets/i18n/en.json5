@@ -824,6 +824,8 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.srsc": "Subject Category",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -890,13 +892,11 @@
 
   "browse.startsWith.input": "Filter",
 
-  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
-
   "browse.taxonomy.button": "Browse",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
 
-  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title.page": "Browsing by {{ field }} {{ value }}",
 
   "search.browse.item-back": "Back to Results",
 
