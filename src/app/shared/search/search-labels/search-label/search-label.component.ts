@@ -6,6 +6,8 @@ import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
+import { map } from 'rxjs/operators';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -25,27 +27,41 @@ export class SearchLabelComponent implements OnInit {
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;
   searchLink: string;
-  removeParameters: Observable<Params>;
+  removeParameters$: Observable<Params>;
 
   /**
    * Initialize the instance variable
    */
   constructor(
+    protected paginationService: PaginationService,
+    protected router: Router,
     protected searchConfigurationService: SearchConfigurationService,
     protected searchService: SearchService,
-    protected router: Router,
   ) {
   }
 
   ngOnInit(): void {
     this.searchLink = this.getSearchLink();
-    this.removeParameters = this.searchConfigurationService.getParamsWithoutAppliedFilter(this.appliedFilter.filter, this.appliedFilter.value, this.appliedFilter.operator);
+    this.removeParameters$ = this.updateRemoveParams();
+  }
+
+  /**
+   * Calculates the parameters that should change if this {@link appliedFilter} would be removed from the active filters
+   */
+  updateRemoveParams(): Observable<Params> {
+    const page: string = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
+    return this.searchConfigurationService.unselectAppliedFilterParams(this.appliedFilter.filter, this.appliedFilter.value, this.appliedFilter.operator).pipe(
+      map((params: Params) => ({
+        ...params,
+        [page]: 1,
+      })),
+    );
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  private getSearchLink(): string {
+  getSearchLink(): string {
     if (this.inPlaceSearch) {
       return currentPath(this.router);
     }

@@ -1,6 +1,6 @@
 <a class="badge badge-primary mr-1 mb-1 text-capitalize"
    [routerLink]="searchLink"
-   [queryParams]="(removeParameters | async)">
+   [queryParams]="(removeParameters$ | async)">
     {{('search.filters.applied.f.' + appliedFilter.filter) | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + appliedFilter.label | translate: {default: appliedFilter.label} }}
     <span> ×</span>
 </a>

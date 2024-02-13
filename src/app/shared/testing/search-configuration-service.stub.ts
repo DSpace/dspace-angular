@@ -32,7 +32,11 @@ export class SearchConfigurationServiceStub {
     return observableOf([{value: 'test', label: 'test'}]);
   }
 
-  getParamsWithoutAppliedFilter(_filterName: string, _value: string, _operator?: string): Observable<Params> {
+  unselectAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
+    return observableOf({});
+  }
+
+  selectNewAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
     return observableOf({});
   }
 

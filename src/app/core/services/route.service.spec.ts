@@ -9,6 +9,8 @@ import { RouteService } from './route.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { AddUrlToHistoryAction } from '../history/history.actions';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
+import { take } from 'rxjs/operators';
 
 describe('RouteService', () => {
   let scheduler: TestScheduler;
@@ -29,6 +31,7 @@ describe('RouteService', () => {
     select: jasmine.createSpy('select')
   });
 
+  let route: ActivatedRouteStub;
   const router = new RouterMock();
   router.setParams(convertToParamMap(paramObject));
 
@@ -36,16 +39,11 @@ describe('RouteService', () => {
   paramObject[paramName2] = [paramValue2a, paramValue2b];
 
   beforeEach(waitForAsync(() => {
+    route = new ActivatedRouteStub(paramObject);
+
     return TestBed.configureTestingModule({
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            queryParams: observableOf(paramObject),
-            params: observableOf(paramObject),
-            queryParamMap: observableOf(convertToParamMap(paramObject))
-          },
-        },
+        { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         { provide: Store, useValue: store },
       ]
@@ -178,6 +176,41 @@ describe('RouteService', () => {
 
       service.getPreviousUrl().subscribe((history) => {
         expect(history).toEqual('url');
+      });
+    });
+  });
+
+  describe('getParamsWithoutAppliedFilter', () => {
+    beforeEach(() => {
+      route.testParams = {
+        'query': '',
+        'spc.page': '1',
+        'f.author': '1282121b-5394-4689-ab93-78d537764052,authority',
+        'f.has_content_in_original_bundle': 'true,equals',
+      };
+    });
+
+    it('should remove the parameter completely if only one value is defined', (done: DoneFn) => {
+      service.getParamsExceptValue('f.author', '1282121b-5394-4689-ab93-78d537764052,authority').pipe(take(1)).subscribe((params: Params) => {
+        expect(params).toEqual({
+          'query': '',
+          'spc.page': '1',
+          'f.has_content_in_original_bundle': 'true,equals',
+        });
+        done();
+      });
+    });
+
+    it('should return all params except the applied filter even when multiple filters of the same type are selected', (done: DoneFn) => {
+      route.testParams['f.author'] = ['1282121b-5394-4689-ab93-78d537764052,authority', '71b91a28-c280-4352-a199-bd7fc3312501,authority'];
+      service.getParamsExceptValue('f.author', '1282121b-5394-4689-ab93-78d537764052,authority').pipe(take(1)).subscribe((params: Params) => {
+        expect(params).toEqual({
+          'query': '',
+          'spc.page': '1',
+          'f.author': ['71b91a28-c280-4352-a199-bd7fc3312501,authority'],
+          'f.has_content_in_original_bundle': 'true,equals',
+        });
+        done();
       });
     });
   });

@@ -13,8 +13,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { RequestEntry } from '../../data/request-entry.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
-import { Params } from '@angular/router';
-import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
 
 describe('SearchConfigurationService', () => {
@@ -41,7 +39,8 @@ describe('SearchConfigurationService', () => {
   const routeService = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
     getQueryParamsWithPrefix: observableOf(prefixFilter),
-    getRouteParameterValue: observableOf('')
+    getRouteParameterValue: observableOf(''),
+    getParamsExceptValue: observableOf({}),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -283,7 +282,7 @@ describe('SearchConfigurationService', () => {
     });
   });
 
-  describe('getParamsWithoutAppliedFilter', () => {
+  describe('unselectAppliedFilterParams', () => {
     let appliedFilter: AppliedFilter;
 
     beforeEach(() => {
@@ -293,51 +292,18 @@ describe('SearchConfigurationService', () => {
         value: '1282121b-5394-4689-ab93-78d537764052',
         label: 'Odinson, Thor',
       });
-      activatedRoute.testParams = {
-        'query': '',
-        'spc.page': '1',
-        'f.author': addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator),
-        'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
-        'f.dateIssued.max': '2000',
-      };
     });
 
-    it('should return all params except the applied filter', (done: DoneFn) => {
-      service.getParamsWithoutAppliedFilter(appliedFilter.filter, appliedFilter.value, appliedFilter.operator).pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual({
-          'query': '',
-          'spc.page': '1',
-          'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
-          'f.dateIssued.max': '2000',
-        });
-        done();
-      });
+    it('should return all params except the applied filter', () => {
+      service.unselectAppliedFilterParams(appliedFilter.filter, appliedFilter.value, appliedFilter.operator);
+
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.author', '1282121b-5394-4689-ab93-78d537764052,authority');
     });
 
-    it('should return all params except the applied filter even when multiple filters of the same type are selected', (done: DoneFn) => {
-      activatedRoute.testParams['f.author'] = [addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator), addOperatorToFilterValue('71b91a28-c280-4352-a199-bd7fc3312501', 'authority')];
-      service.getParamsWithoutAppliedFilter(appliedFilter.filter, appliedFilter.value, appliedFilter.operator).pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual({
-          'query': '',
-          'spc.page': '1',
-          'f.author': [addOperatorToFilterValue('71b91a28-c280-4352-a199-bd7fc3312501', 'authority')],
-          'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
-          'f.dateIssued.max': '2000',
-        });
-        done();
-      });
-    });
+    it('should be able to remove AppliedFilter without operator', () => {
+      service.unselectAppliedFilterParams('dateIssued.max', '2000');
 
-    it('should be able to remove AppliedFilter without operator', (done: DoneFn) => {
-      service.getParamsWithoutAppliedFilter('dateIssued.max', '2000').pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual({
-          'query': '',
-          'spc.page': '1',
-          'f.author': addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator),
-          'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
-        });
-        done();
-      });
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
     });
   });
 });

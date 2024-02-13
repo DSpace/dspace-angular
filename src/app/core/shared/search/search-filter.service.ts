@@ -63,7 +63,7 @@ export class SearchFilterService {
    * Fetch the current active scope from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentScope() {
+  getCurrentScope(): Observable<string> {
     return this.routeService.getQueryParameterValue('scope');
   }
 
@@ -71,7 +71,7 @@ export class SearchFilterService {
    * Fetch the current query from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentQuery() {
+  getCurrentQuery(): Observable<string> {
     return this.routeService.getQueryParameterValue('query');
   }
 
@@ -113,7 +113,7 @@ export class SearchFilterService {
    * Fetch the current active filters from the query parameters
    * @returns {Observable<Params>}
    */
-  getCurrentFilters() {
+  getCurrentFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
@@ -121,7 +121,7 @@ export class SearchFilterService {
    * Fetch the current view from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentView() {
+  getCurrentView(): Observable<string> {
     return this.routeService.getQueryParameterValue('view');
   }
 

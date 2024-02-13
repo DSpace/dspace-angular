@@ -10,17 +10,24 @@ import { addOperatorToFilterValue } from '../../search.utils';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { take } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 
-describe('SearchLabelComponent', () => {
+describe('SearchLabelRangeComponent', () => {
   let comp: SearchLabelRangeComponent;
   let fixture: ComponentFixture<SearchLabelRangeComponent>;
 
   let route: ActivatedRouteStub;
   let searchConfigurationService: SearchConfigurationServiceStub;
+  let paginationService: PaginationServiceStub;
 
   const searchLink = '/search';
   let appliedFilter: AppliedFilter;
   let initialRouteParams: Params;
+  let pagination: PaginationComponentOptions;
 
   function init(): void {
     appliedFilter = Object.assign(new AppliedFilter(), {
@@ -31,16 +38,22 @@ describe('SearchLabelComponent', () => {
     });
     initialRouteParams = {
       'query': '',
-      'spc.page': '1',
+      'page-id.page': '5',
       'f.author': addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator),
       'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
     };
+    pagination = Object.assign(new PaginationComponentOptions(), {
+      id: 'page-id',
+      currentPage: 1,
+      pageSize: 20,
+    });
   }
 
   beforeEach(waitForAsync(async () => {
     init();
     route = new ActivatedRouteStub(initialRouteParams);
     searchConfigurationService = new SearchConfigurationServiceStub();
+    paginationService = new PaginationServiceStub(pagination);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -51,6 +64,7 @@ describe('SearchLabelComponent', () => {
         SearchLabelRangeComponent,
       ],
       providers: [
+        { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: ActivatedRoute, useValue: route },
@@ -65,7 +79,16 @@ describe('SearchLabelComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(comp).toBeTruthy();
+  describe('updateRemoveParams', () => {
+    it('should always reset the page to 1', (done: DoneFn) => {
+      spyOn(searchConfigurationService, 'unselectAppliedFilterParams').and.returnValue(observableOf(initialRouteParams));
+
+      comp.updateRemoveParams('f.dateIssued.max', '2000').pipe(take(1)).subscribe((params: Params) => {
+        expect(params).toEqual(Object.assign({}, initialRouteParams, {
+          'page-id.page': 1,
+        }));
+        done();
+      });
+    });
   });
 });

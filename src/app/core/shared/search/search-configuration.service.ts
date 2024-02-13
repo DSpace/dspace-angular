@@ -526,22 +526,26 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
-  getParamsWithoutAppliedFilter(filterName: string, value: string, operator?: string): Observable<Params> {
-    return this.route.queryParams.pipe(
-      map((params: Params) => {
-        const newParams: Params = Object.assign({}, params);
-        const queryParamValues: string | string[] = newParams[`f.${filterName}`];
-        const excludeValue = hasValue(operator) ? addOperatorToFilterValue(value, operator) : value;
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  unselectAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
+  }
 
-        if (queryParamValues === excludeValue) {
-          delete newParams[`f.${filterName}`];
-        } else if (queryParamValues?.includes(excludeValue)) {
-          newParams[`f.${filterName}`] = (queryParamValues as string[])
-            .filter((paramValue: string) => paramValue !== excludeValue);
-        }
-        return newParams;
-      }),
-    );
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  selectNewAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
   }
 
   /**

@@ -1,7 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -41,7 +41,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * Emits true when this option should be visible and false when it should be invisible
@@ -51,7 +51,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   /**
    * UI parameters when this filter is changed
    */
-  changeQueryParams;
+  changeQueryParams: Params;
 
   /**
    * Subscription to unsubscribe from on destroy
@@ -109,7 +109,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
     const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
     this.changeQueryParams = {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
-      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: max === this.absoluteMax ? null : [max],
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: max === new Date().getUTCFullYear() ? null : [max],
       [page]: 1
     };
   }
