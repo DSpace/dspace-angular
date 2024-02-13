@@ -4,27 +4,17 @@
       <span>{{type.value + '.edit.logo.label' | translate}}</span>
     </div>
     <ng-container *ngVar="(dso?.logo | async)?.payload as logo">
-      <div class="col-12 d-inline-block alert" [ngClass]="{'alert-danger': markLogoForDeletion}" id="logo-section" *ngIf="logo">
+      <div class="col-12 d-inline-block alert" id="logo-section" *ngIf="logo">
         <div class="row">
           <div class="col-8 d-inline-block">
             <ds-comcol-page-logo [alternateText]="type.value + '.logo.alt'" [logo]="logo"></ds-comcol-page-logo>
           </div>
           <div class="col-4 d-inline-block">
-            <div *ngIf="logo" class="btn-group btn-group-sm float-right" role="group">
-              <button (click)="confirmLogoDelete(removeLogo)" *ngIf="!markLogoForDeletion" class="btn btn-danger"
+            <div *ngIf="logo" class="float-right">
+              <button (click)="confirmLogoDelete(removeLogo)" class="btn btn-danger"
                       title="{{type.value + '.edit.logo.delete.title' | translate}}" type="button">
                 <i aria-hidden="true" class="fas fa-trash"></i>
                 {{ 'community.edit.logo.delete.title' | translate}}
-              </button>
-              <button *ngIf="!markLogoForDeletion" class="btn btn-info" type="button">
-                <span>
-                  <label (keyup.enter)="$event.stopImmediatePropagation(); fileInput.click()" for="inputFileUploader">
-                    <span role="button">
-                      <i aria-hidden="true" class="fas fa-upload"></i>
-                      {{ 'collection.edit.logo.replace.title' | translate}}
-                    </span>
-                  </label>
-                </span>
               </button>
             </div>
           </div>
@@ -65,5 +55,4 @@
     <button (click)="c('cancel')" class="btn btn-warning" type="button">{{'form.cancel' | translate}}</button>
   </div>
 </ng-template>
-<input #fileInput (change)="handleLogoReplace($event)" [uploader]="uploader" class="d-none" id="inputFileUploader" ng2FileSelect
-       type="file"/>
+
