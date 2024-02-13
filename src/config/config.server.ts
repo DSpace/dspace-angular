@@ -1,5 +1,5 @@
 import { red, blue, green, bold } from 'colors';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
 
@@ -9,6 +9,7 @@ import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
 import { mergeConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
+import { LanguageHashesConfig } from './languageHashes-config.interface';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
@@ -230,6 +231,29 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
 
   // apply build defined production
   appConfig.production = env === 'production';
+
+  const useDynamicLanguageHashes = isNotEmpty(ENV('DYNAMIC_LANGUAGE_HASHES', true)) ? ENV('DYNAMIC_LANGUAGE_HASHES', true) : false;
+  if (appConfig.production && useDynamicLanguageHashes) {
+    const i18nAssetsDir = 'dist/server/assets/i18n/';
+    const i18nFiles = readdirSync(i18nAssetsDir);
+    //sort all the i18nFiles by mtime descending
+    i18nFiles.sort(function(a, b) {
+      return statSync(i18nAssetsDir + b).mtime.getTime() - statSync(i18nAssetsDir + a).mtime.getTime();
+    });
+
+    i18nFiles.forEach(file => {
+      const match = file.match(/^(.+)\.(.+)\.json$/);
+      // only add language hash to config if no config exists for current language (ensuring the latest language file
+      // is used)
+      if (match && appConfig.languageHashes.filter(((languageHashConfig) => languageHashConfig.lang === match[1])).length === 0) {
+        const languageConfig: LanguageHashesConfig = {
+          lang: match[1],
+          md5: match[2]
+        };
+        appConfig.languageHashes.push(languageConfig);
+      }
+    });
+  }
 
   // build base URLs
   buildBaseUrl(appConfig.ui);
