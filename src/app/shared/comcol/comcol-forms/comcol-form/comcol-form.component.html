@@ -4,8 +4,7 @@
       <span>{{type.value + '.edit.logo.label' | translate}}</span>
     </div>
     <ng-container *ngVar="(dso?.logo | async)?.payload as logo">
-      <div *ngIf="logo" [ngClass]="{'alert-danger': markLogoForDeletion}" class="col-12 d-inline-block alert"
-           id="logo-section">
+      <div class="col-12 d-inline-block alert" [ngClass]="{'alert-danger': markLogoForDeletion}" id="logo-section" *ngIf="logo">
         <div class="row">
           <div class="col-8 d-inline-block">
             <ds-comcol-page-logo [alternateText]="type.value + '.logo.alt'" [logo]="logo"></ds-comcol-page-logo>
@@ -44,8 +43,11 @@
     </ng-container>
   </div>
 </div>
-<ds-form (submitForm)="onSubmit()" *ngIf="formModel" [displayCancel]="false" [formId]="'comcol-form-id'"
-         [formModel]="formModel">
+<ds-form *ngIf="formModel"
+         [formId]="'comcol-form-id'"
+         [formModel]="formModel"
+         [displayCancel]="false"
+         (submitForm)="onSubmit()">
   <button (click)="back.emit()" before class="btn btn-outline-secondary" type="button">
     <i class="fas fa-arrow-left" aria-hidden="true"></i> {{ type.value + '.edit.return' | translate }}
   </button>

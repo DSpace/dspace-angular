@@ -75,7 +75,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * @type {UploaderOptions}
    */
   uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    autoUpload: false
+    autoUpload: true
   });
 
   /**
@@ -155,9 +155,9 @@ export class ComColFormComponent<T extends Collection | Community> implements On
             this.uploadFilesOptions.url = href;
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             // If the object already contains a logo, send out a PUT request instead of POST for setting a new logo
-            if (hasValue(logoRD.payload)) {
-              this.uploadFilesOptions.method = RestRequestMethod.PUT;
-            }
+            // if (hasValue(logoRD.payload)) {
+            //   this.uploadFilesOptions.method = RestRequestMethod.PUT;
+            // }
             this.initializedUploaderOptions.next(true);
           })
         );
@@ -317,7 +317,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       this.refreshCache();
     }
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
-    this.finish.emit();
+    // this.finish.emit();
   }
 
   /**
