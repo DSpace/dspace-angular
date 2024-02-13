@@ -30,6 +30,7 @@ import { RelatedItemsComponent } from './simple/related-items/related-items-comp
 import {
   ThemedMetadataRepresentationListComponent
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
+import { ItemPageImgFieldComponent } from './simple/field-components/specific-field/img/item-page-img-field.component';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,
@@ -46,6 +47,7 @@ const COMPONENTS = [
   MetadataRepresentationListComponent,
   ThemedMetadataRepresentationListComponent,
   RelatedItemsComponent,
+  ItemPageImgFieldComponent,
 ];
 
 @NgModule({

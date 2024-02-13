@@ -4,6 +4,7 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { hasValue } from '../../../shared/empty.util';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
+import { ImageField } from '../../simple/field-components/specific-field/img/item-page-img-field.component';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -55,7 +56,10 @@ export class MetadataValuesComponent implements OnChanges {
 
   @Input() browseDefinition?: BrowseDefinition;
 
-  @Input() img?: string;
+  /**
+   * Optional {@code ImageField} reference that represents an image to be displayed inline.
+   */
+  @Input() img?: ImageField;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;

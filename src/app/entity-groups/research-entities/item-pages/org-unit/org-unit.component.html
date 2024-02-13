@@ -32,14 +32,18 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-7">
-    <ds-generic-item-page-field
+    <ds-item-page-img-field
       [fields]="['organization.identifier.ror']"
-      [img]="'./assets/images/ror-icon.svg'"
+      [img]="{
+        URI: './assets/images/ror-icon.svg',
+        alt: 'item.page.image.alt.ROR',
+        heightVar: '--ds-item-page-img-field-ror-inline-height'
+      }"
       [item]="object"
       [label]="'orgunit.page.ror'"
       [urlRegex]="'(.*)ror.org'"
     >
-    </ds-generic-item-page-field>
+    </ds-item-page-img-field>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isPublicationOfOrgUnit'"
