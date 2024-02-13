@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -129,16 +129,17 @@ describe('SuggestionPageComponent', () => {
     component.updatePage();
   });
 
-  it('should flag suggestion for deletion', () => {
+  it('should flag suggestion for deletion', fakeAsync(() => {
     spyOn(component, 'updatePage').and.stub();
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
     component.ignoreSuggestion('1');
+    tick(101);
     expect(mockSuggestionsService.ignoreSuggestion).toHaveBeenCalledWith('1');
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
-  });
+  }));
 
   it('should flag all suggestion for deletion', () => {
     spyOn(component, 'updatePage').and.stub();
