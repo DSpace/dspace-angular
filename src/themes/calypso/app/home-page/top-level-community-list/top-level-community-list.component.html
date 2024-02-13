@@ -11,21 +11,27 @@
         <p>{{ 'Type: ' + community.type }}</p>
       </div>
       <!-- Récupérer les collections à partir du lien -->
-      <div class="row" *ngIf="collections && collections.length > 0">
-        <div  *ngFor="let collection of collections" class="col-md-4">
-          <figure class="card card--1" [ngStyle]="{ 'background-image': 'url(' + collection.vedette + ')' }">
-            <div *ngIf="loadingImages" class="loading-overlay">
-              Chargement...
-            </div>
-            <figcaption *ngIf="!loadingImages">
-            <span class="info">
-              <h3>{{ collection.title }}</h3>
-              <a href="/collections/{{ collection.id }}"><span>Voir plus</span></a>
-            </span>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
+      <ng-container *ngIf="collections$ | async as collections">
+        <ng-container *ngIf="collections.length > 0">
+          <div class="row">
+            <!-- Boucle sur chaque collection -->
+            <ng-container *ngFor="let collection of collections">
+                <!-- Ajoutez une condition *ngIf pour vérifier la présence de collection?.vedette -->
+                <div *ngIf="collection?.vedette" class="col-md-4">
+                  <figure class="card card--1" [ngStyle]="{ 'background-image': 'url(' + collection.vedette + ')' }">
+                      <figcaption >
+                      <span class="info">
+                        <h3>{{ collection.title }}</h3>
+                        <a [routerLink]="['/collections/', collection.id]"><span>Voir plus</span></a>
+                      </span>
+                      </figcaption>
+                  </figure>
+                </div>
+                <!-- Fin de la condition *ngIf -->
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
     </ng-container>
   </ng-container>
   <ds-error *ngIf="communitiesRD?.hasFailed" message="{{ 'error.top-level-communities' | translate }}"></ds-error>
