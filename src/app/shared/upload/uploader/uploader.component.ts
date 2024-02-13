@@ -137,9 +137,6 @@ export class UploaderComponent {
   ngAfterViewInit() {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
-      if (this.uploader.queue.length > 0) {
-        this.uploader.uploadAll();
-      }
     });
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return;};
