@@ -83,8 +83,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   @Output() submitForm: EventEmitter<{
     dso: T,
-    uploader: FileUploader,
-    deleteLogo: boolean,
     operations: Operation[],
   }> = new EventEmitter();
 
@@ -103,11 +101,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * Used to start rendering the uploader component
    */
   initializedUploaderOptions = new BehaviorSubject(false);
-
-  /**
-   * Is the logo marked to be deleted?
-   */
-  markLogoForDeletion = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -174,27 +167,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * Checks which new fields were added and sends the updated version of the DSO to the parent component
    */
   onSubmit() {
-    if (this.markLogoForDeletion && hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
-      this.dsoService.deleteLogo(this.dso).pipe(
-        getFirstCompletedRemoteData()
-      ).subscribe((response: RemoteData<NoContent>) => {
-        if (response.hasSucceeded) {
-          this.notificationsService.success(
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
-          );
-        } else {
-          this.notificationsService.error(
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
-            response.errorMessage
-          );
-        }
-        this.dso.logo = undefined;
-        this.uploadFilesOptions.method = RestRequestMethod.POST;
-        this.finish.emit();
-      });
-    }
-
     const formMetadata = {}  as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
@@ -232,8 +204,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
 
     this.submitForm.emit({
       dso: updatedDSO,
-      uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
-      deleteLogo: this.markLogoForDeletion,
       operations: operations,
     });
   }
@@ -254,44 +224,46 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       }
     );
   }
-
   /**
-   * Mark the logo to be deleted
-   * Send out a delete request to remove the logo from the community/collection and display notifications
+   * Helper method that provides a modal
    */
-  deleteLogo() {
-    this.markLogoForDeletion = true;
-  }
-
-  /**
-   * Undo marking the logo to be deleted
-   */
-  undoDeleteLogo() {
-    this.markLogoForDeletion = false;
-  }
-
   openModal(content: any) {
     this.modalService.open(content);
   }
-
+  /**
+   * Helper method that confirms the deletion of the logo and handles possible errors
+   */
   confirmLogoDelete(removeLogo: any) {
-    this.modalService.open(removeLogo).result.then( (result) => {
-      if (result === 'delete') {
-        this.deleteLogo();
-        this.onSubmit();
-      } else if (result === 'cancel') {
-        return;
-      }
-    });
-  }
+    //this.refreshCache()
+    this.modalService.open(removeLogo).result.then((result) => {
+        if (result === 'delete') {
+          if (hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
+            this.dsoService.deleteLogo(this.dso).pipe(
+              getFirstCompletedRemoteData()
+            ).subscribe((response: RemoteData<NoContent>) => {
+              if (response.hasSucceeded) {
+                this.notificationsService.success(
+                  this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
+                  this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
+                );
+              } else {
+                this.notificationsService.error(
+                  this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
+                  response.errorMessage
+                );
+              }
+              this.dso.logo = undefined;
+              this.uploadFilesOptions.method = RestRequestMethod.POST;
+              this.finish.emit();
+            });
 
-  handleLogoReplace(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files && fileInput.files.length > 0) {
-      this.markLogoForDeletion = true;
-      this.onSubmit();
-      this.uploader.uploadAll();
-    }
+          } else if (result === 'cancel') {
+            return;
+          }
+        }
+
+      }
+    );
   }
 
   /**
