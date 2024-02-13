@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, NoPreloading } from '@angular/router';
+import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
@@ -40,6 +40,7 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 
 @NgModule({
   imports: [
@@ -94,7 +95,10 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [
+              ForgotPasswordCheckGuard,
+              EndUserAgreementCurrentUserGuard
+            ]
           },
           {
             path: COMMUNITY_MODULE_PATH,

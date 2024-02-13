@@ -3828,7 +3828,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "En cours de validation",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "En attente d'assignation",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",

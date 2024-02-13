@@ -351,7 +351,28 @@ function addOperationToList(body: JsonPatchOperationObject[], actionType, target
       newBody.push(makeOperationEntry({ op: JsonPatchOperationType.move, from: fromPath, path: targetPath }));
       break;
   }
-  return newBody;
+  return dedupeOperationEntries(newBody);
+}
+
+/**
+ * Dedupe operation entries by op and path. This prevents processing unnecessary patches in a single PATCH request.
+ *
+ * @param body JSON patch operation object entries
+ * @returns deduped JSON patch operation object entries
+ */
+function dedupeOperationEntries(body: JsonPatchOperationObject[]): JsonPatchOperationObject[] {
+  const ops = new Map<string, any>();
+  for (let i = body.length - 1; i >= 0; i--) {
+    const patch = body[i].operation;
+    const key = `${patch.op}-${patch.path}`;
+    if (!ops.has(key)) {
+      ops.set(key, patch);
+    } else {
+      body.splice(i, 1);
+    }
+  }
+
+  return body;
 }
 
 function makeOperationEntry(operation) {

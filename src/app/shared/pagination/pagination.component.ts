@@ -167,7 +167,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Number of items per page.
    */
-  public pageSize$;
+  public pageSize$: Observable<number>;
 
   /**
    * Declare SortDirection enumeration to use it in the template
@@ -188,7 +188,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Name of the field that's used to sort by
    */
-  public sortField$;
+  public sortField$: Observable<string>;
   public defaultSortField = 'name';
 
   /**
