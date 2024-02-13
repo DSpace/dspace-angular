@@ -170,14 +170,12 @@ import { AccessStatusBadgeComponent } from './object-collection/shared/badges/ac
 import {
   MetadataRepresentationLoaderComponent
 } from './metadata-representation/metadata-representation-loader.component';
-import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
 import {
   ListableObjectComponentLoaderComponent
 } from './object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
   ItemSearchResultListElementComponent
 } from './object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import {
   ItemMetadataRepresentationListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
@@ -199,7 +197,6 @@ import { FileValueAccessorDirective } from './utils/file-value-accessor.directiv
 import {
   ModifyItemOverviewComponent
 } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { ImpersonateNavbarComponent } from './impersonate-navbar/impersonate-navbar.component';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { FileDownloadLinkComponent } from './file-download-link/file-download-link.component';
@@ -286,6 +283,7 @@ import { SplitPipe } from './utils/split.pipe';
 import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import { IpV4Validator } from './utils/ipV4.validator';
+import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
 
 const MODULES = [
   CommonModule,
@@ -487,16 +485,14 @@ const DIRECTIVES = [
   InListValidator,
   AutoFocusDirective,
   RoleDirective,
-  MetadataRepresentationDirective,
-  ListableObjectDirective,
-  ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,
   ContextHelpDirective,
-  IpV4Validator
+  IpV4Validator,
+  DynamicComponentLoaderDirective
 ];
 
 @NgModule({
