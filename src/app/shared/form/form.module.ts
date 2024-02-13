@@ -61,7 +61,6 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { ChipsComponent } from './chips/chips.component';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { AuthorityConfidenceStateDirective } from './directives/authority-confidence-state.directive';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from './builder/form-builder.service';
@@ -124,7 +123,6 @@ const DIRECTIVES = [
         DynamicFormsNGBootstrapUIModule,
         SearchModule,
         TranslateModule,
-        SortablejsModule,
         NgxMaskModule.forRoot(),
         NgbDatepickerModule,
         NgbTimepickerModule,

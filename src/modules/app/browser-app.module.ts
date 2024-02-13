@@ -7,8 +7,6 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 
-import { IdlePreloadModule } from 'angular-idle-preload';
-
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';
@@ -55,7 +53,6 @@ export function getRequest(transferState: TransferState): any {
   imports: [
     HttpClientModule,
     // forRoot ensures the providers are only created once
-    IdlePreloadModule.forRoot(),
     StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,

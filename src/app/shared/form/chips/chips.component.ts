@@ -7,10 +7,8 @@ import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 import { DragService } from '../../../core/drag.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Options } from 'sortablejs';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 
 @Component({
@@ -21,7 +19,6 @@ import { AuthorityConfidenceStateDirective } from '../directives/authority-confi
     NgbTooltipModule,
     NgClass,
     NgForOf,
-    SortablejsModule,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
     NgIf,
@@ -41,7 +38,6 @@ export class ChipsComponent implements OnChanges {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
 
   isDragging: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  options: Options;
   dragged = -1;
   tipText: string[];
 
@@ -50,13 +46,6 @@ export class ChipsComponent implements OnChanges {
     private dragService: DragService,
     private translate: TranslateService) {
 
-    this.options = {
-      animation: 300,
-      chosenClass: 'm-0',
-      dragClass: 'm-0',
-      filter: '.chips-sort-ignore',
-      ghostClass: 'm-0'
-    };
   }
 
   ngOnChanges(changes: SimpleChanges) {

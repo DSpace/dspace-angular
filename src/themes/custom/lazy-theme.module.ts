@@ -6,7 +6,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { IdlePreloadModule } from 'angular-idle-preload';
 import { MenuModule } from '../../app/shared/menu/menu.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -271,7 +270,6 @@ const DECLARATIONS = [
     ItemVersionsModule,
     FormsModule,
     HttpClientModule,
-    IdlePreloadModule,
     InfoModule,
     MenuModule,
     DsoPageModule,

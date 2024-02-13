@@ -8923,12 +8923,12 @@ ng-mocks@^14.10.0:
   resolved "https://registry.yarnpkg.com/ng-mocks/-/ng-mocks-14.10.0.tgz#36064650c52f6e01be5c810228a0c9585109bb27"
   integrity sha512-gUnrSH4ejlkSpd9wgEe7PNKEyADJCriemSIbyebS0SQjyotSZfp/8jBuMl7Euvk0sPanV2IGhOv6W9e6hNRe/A==
 
-ng2-file-upload@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/ng2-file-upload/-/ng2-file-upload-1.4.0.tgz"
-  integrity sha512-3J/KPU/tyh/ad6TFeUbrxX+SihUj0iOEt2Zsg4EX7mB3GFiQscXOfcUOxCkBtPWWWaqt3azrYbVGzsYa3/7NzQ==
+ng2-file-upload@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-5.0.0.tgz#8d52062bca192e4fb2774c230c4fb051ae176403"
+  integrity sha512-M2JaX0unB/30GmQUScfXko2vseaPlU1R5jnhL5cfvOLNw8BBSVJAdOSmcavJzicgTZWCYz7y7Fvpr939bd4eCA==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.3.0"
 
 ng2-nouislider@^2.0.0:
   version "2.0.0"
@@ -8957,13 +8957,6 @@ ngx-pagination@6.0.3:
   integrity sha512-lONjTQ7hFPh1SyhwDrRd5ZwM4NMGQ7bNR6vLrs6mrU0Z8Q1zCcWbf/pvyp4DOlGyd9uyZxRy2wUsSZLeIPjbAw==
   dependencies:
     tslib "^2.3.0"
-
-ngx-sortablejs@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.npmjs.org/ngx-sortablejs/-/ngx-sortablejs-11.1.0.tgz"
-  integrity sha512-eM4dHwWSmXDcvF5gUmyMMQ0qqcqBXWCSZ9IRpqx4UkBKfo4N7pk/QuYh5io2fXVHWVFDaxW1yhn2FNpqxV6Jqw==
-  dependencies:
-    tslib "^2.0.0"
 
 ngx-ui-switch@^14.1.0:
   version "14.1.0"
