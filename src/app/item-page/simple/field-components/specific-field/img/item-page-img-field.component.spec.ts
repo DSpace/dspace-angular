@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImageField, ItemPageImgFieldComponent } from './item-page-img-field.component';
+import { ItemPageImgFieldComponent } from './item-page-img-field.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
@@ -12,6 +12,7 @@ import { MetadataValuesComponent } from '../../../../field-components/metadata-v
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { By } from '@angular/platform-browser';
+import { ImageField } from '../item-page-field.component';
 
 let component: ItemPageImgFieldComponent;
 let fixture: ComponentFixture<ItemPageImgFieldComponent>;
