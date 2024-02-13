@@ -74,7 +74,6 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         queryParams: {
           tab: event.nextId
         },
-        queryParamsHandling: 'merge'
       });
     });
   });
