@@ -40,6 +40,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    */
   public validStatusesForReprocess = [
     'QUEUE_STATUS_UNTRUSTED',
+    'QUEUE_STATUS_UNTRUSTED_IP',
     'QUEUE_STATUS_FAILED',
     'QUEUE_STATUS_UNMAPPED_ACTION'
   ];
