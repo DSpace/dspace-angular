@@ -42,6 +42,7 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 
 @NgModule({
   imports: [
@@ -96,7 +97,7 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard]
           },
           {
             path: COMMUNITY_MODULE_PATH,
