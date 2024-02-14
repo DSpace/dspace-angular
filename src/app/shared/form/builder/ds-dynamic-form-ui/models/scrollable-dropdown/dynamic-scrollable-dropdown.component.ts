@@ -11,7 +11,7 @@ import {
 import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
@@ -79,6 +79,10 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       tap(() => this.loading = false)
     ).subscribe((list: PaginatedList<VocabularyEntry>) => {
       this.optionsList = list.page;
+        if (this.model.value) {
+          this.setCurrentValue(this.model.value, true);
+        }
+
       this.updatePageInfo(
         list.pageInfo.elementsPerPage,
         list.pageInfo.currentPage,
@@ -88,6 +92,11 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       this.selectedIndex = 0;
       this.cdr.detectChanges();
     });
+
+    this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
+      .subscribe((value) => {
+        this.setCurrentValue(value);
+      });
   }
 
   /**
