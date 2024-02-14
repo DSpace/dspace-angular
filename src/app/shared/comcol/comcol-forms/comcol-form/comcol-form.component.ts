@@ -3,7 +3,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
-import { BehaviorSubject, combineLatest as observableCombineLatest, concatMap, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
@@ -24,7 +24,6 @@ import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { map } from 'rxjs/operators';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -235,11 +234,11 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * Helper method that confirms the deletion of the logo and handles possible errors
    */
   confirmLogoDelete(removeLogo: any) {
+    //this.refreshCache()
     this.modalService.open(removeLogo).result.then((result) => {
         if (result === 'delete') {
           if (hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
-            this.refreshCache().pipe(
-              concatMap(() => this.dsoService.deleteLogo(this.dso)),
+            this.dsoService.deleteLogo(this.dso).pipe(
               getFirstCompletedRemoteData()
             ).subscribe((response: RemoteData<NoContent>) => {
               if (response.hasSucceeded) {
@@ -273,16 +272,13 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   private refreshCache() {
     this.requestService.removeByHrefSubstring(this.dso._links.self.href);
     this.objectCache.remove(this.dso._links.self.href);
-    return this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
-      getFirstCompletedRemoteData(),
-      map((rd: RemoteData<T>) => {
-        if (rd.hasSucceeded) {
-          this.dso = rd.payload;
-          return true;
-        }
-        return false;
-      })
-    );
+    this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((rd: RemoteData<T>) => {
+      if (rd.hasSucceeded) {
+        this.dso = rd.payload;
+      }
+    });
   }
 
   /**
@@ -290,7 +286,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   public onCompleteItem() {
     if (hasValue(this.dso.id)) {
-      this.subs.push(this.refreshCache().subscribe());
+      this.refreshCache();
     }
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
     // this.finish.emit();
