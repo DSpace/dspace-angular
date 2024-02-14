@@ -242,6 +242,9 @@ export class RouteService {
           delete newParams[name];
         } else if (Array.isArray(queryParamValues) && queryParamValues.includes(value)) {
           newParams[name] = (queryParamValues as string[]).filter((paramValue: string) => paramValue !== value);
+          if (newParams[name].length === 0) {
+            delete newParams[name];
+          }
         }
         return newParams;
       }),

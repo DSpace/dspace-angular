@@ -201,6 +201,18 @@ describe('RouteService', () => {
       });
     });
 
+    it('should remove the parameter completely if only one value is defined in an array', (done: DoneFn) => {
+      route.testParams['f.author'] = ['1282121b-5394-4689-ab93-78d537764052,authority'];
+      service.getParamsExceptValue('f.author', '1282121b-5394-4689-ab93-78d537764052,authority').pipe(take(1)).subscribe((params: Params) => {
+        expect(params).toEqual({
+          'query': '',
+          'spc.page': '1',
+          'f.has_content_in_original_bundle': 'true,equals',
+        });
+        done();
+      });
+    });
+
     it('should return all params except the applied filter even when multiple filters of the same type are selected', (done: DoneFn) => {
       route.testParams['f.author'] = ['1282121b-5394-4689-ab93-78d537764052,authority', '71b91a28-c280-4352-a199-bd7fc3312501,authority'];
       service.getParamsExceptValue('f.author', '1282121b-5394-4689-ab93-78d537764052,authority').pipe(take(1)).subscribe((params: Params) => {
