@@ -15,6 +15,10 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
 
   @Input() browseByType: BrowseByDataType;
 
+  @Input() displayTitle: boolean;
+
+  @Input() scope: string;
+
   protected inputNamesDependentForComponent: (keyof this & string)[] = [
     'context',
     'browseByType',
@@ -23,6 +27,8 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
   protected inputNames: (keyof this & string)[] = [
     'context',
     'browseByType',
+    'displayTitle',
+    'scope',
   ];
 
   public getComponent(): GenericConstructor<Component> {
