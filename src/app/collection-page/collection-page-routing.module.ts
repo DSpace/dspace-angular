@@ -22,6 +22,10 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
+import { CollectionRecentlyAddedComponent } from './sections/recently-added/collection-recently-added.component';
 
 @NgModule({
   imports: [
@@ -65,7 +69,23 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
           {
             path: '',
             component: ThemedCollectionPageComponent,
-            pathMatch: 'full',
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: CollectionRecentlyAddedComponent,
+              },
+              {
+                path: 'browse/:id',
+                pathMatch: 'full',
+                component: ComcolBrowseByComponent,
+                canActivate: [BrowseByGuard],
+                resolve: {
+                  breadcrumb: BrowseByI18nBreadcrumbResolver,
+                },
+                data: { breadcrumbKey: 'browse.metadata' },
+              },
+            ],
           }
         ],
         data: {
