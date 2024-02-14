@@ -9,12 +9,12 @@ const MARKDOWN_IT = new InjectionToken<LazyMarkdownIt>(
   { providedIn: 'root', factory: markdownItLoader }
 );
 
-const mathjaxLoader = async () => (await import('markdown-it-mathjax3')).default;
-type Mathjax = ReturnType<typeof mathjaxLoader>;
-const MATHJAX = new InjectionToken<Mathjax>(
-  'Lazily loaded mathjax',
-  { providedIn: 'root', factory: mathjaxLoader }
-);
+// const mathjaxLoader = async () => (await import('markdown-it-mathjax3')).default;
+// type Mathjax = ReturnType<typeof mathjaxLoader>;
+// const MATHJAX = new InjectionToken<Mathjax>(
+//   'Lazily loaded mathjax',
+//   { providedIn: 'root', factory: mathjaxLoader }
+// );
 
 const sanitizeHtmlLoader = async () => (await import('sanitize-html') as any).default;
 type SanitizeHtml = ReturnType<typeof sanitizeHtmlLoader>;
@@ -45,7 +45,7 @@ export class MarkdownPipe implements PipeTransform {
   constructor(
     protected sanitizer: DomSanitizer,
     @Inject(MARKDOWN_IT) private markdownIt: LazyMarkdownIt,
-    @Inject(MATHJAX) private mathjax: Mathjax,
+    // @Inject(MATHJAX) private mathjax: Mathjax,
     @Inject(SANITIZE_HTML) private sanitizeHtml: SanitizeHtml,
   ) {
   }
@@ -62,7 +62,7 @@ export class MarkdownPipe implements PipeTransform {
 
     let html: string;
     if (environment.markdown.mathjax) {
-      md.use(await this.mathjax);
+      // md.use(await this.mathjax);
       const sanitizeHtml = await this.sanitizeHtml;
       html = sanitizeHtml(md.render(value), {
         // sanitize-html doesn't let through SVG by default, so we extend its allowlists to cover MathJax SVG
