@@ -34,7 +34,8 @@
 
     nav#desktop-navbar ::ng-deep {
 
-      // desktop menu
+      /* Desktop menu */
+
       .ds-menu-item-wrapper, .ds-menu-item, .ds-menu-toggler-wrapper {
         // fill navbar height (required by dropdown menus) and center content
         display: flex;
@@ -52,7 +53,8 @@
         }
       }
 
-      // desktop submenu
+      /* desktop submenu */
+
       .dropdown-menu {
         .ds-menu-item {
           // define here the style for second-level navbar menu items
@@ -69,7 +71,8 @@
 
       ::ng-deep {
 
-        // mobile menu
+        /* mobile menu */
+
         .ds-menu-item {
           padding: var(--ds-expandable-navbar-dropdown-item-vertical-padding) var(--ds-expandable-navbar-dropdown-item-horizontal-padding);
         }
@@ -82,11 +85,12 @@
           }
         }
 
-        // mobile submenu
-        .dropdown-menu {
-          .ds-menu-item {
-          }
-        }
+        /* mobile submenu */
+
+        //.dropdown-menu {
+        //  .ds-menu-item {
+        //  }
+        //}
 
       }
     }
