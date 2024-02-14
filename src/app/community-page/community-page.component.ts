@@ -1,16 +1,10 @@
 import { mergeMap, filter, map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Observable } from 'rxjs';
-import { CommunityDataService } from '../core/data/community-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
-
 import { Community } from '../core/shared/community.model';
-
-import { MetadataService } from '../core/metadata/metadata.service';
-
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
 import { getAllSucceededRemoteDataPayload} from '../core/shared/operators';
@@ -53,8 +47,6 @@ export class CommunityPageComponent implements OnInit {
   communityPageRoute$: Observable<string>;
 
   constructor(
-    private communityDataService: CommunityDataService,
-    private metadata: MetadataService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,

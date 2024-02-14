@@ -3873,7 +3873,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Dearbhadh",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "A' feitheamh riaghladair",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
