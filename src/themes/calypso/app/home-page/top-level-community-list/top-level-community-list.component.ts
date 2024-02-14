@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { TopLevelCommunityListComponent as BaseComponent } from '../../../../../app/home-page/top-level-community-list/top-level-community-list.component';
-import { Subject } from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import { CommunityDataService } from '../../../../../app/core/data/community-data.service';
 import { CollectionDataService } from '../../../../../app/core/data/collection-data.service';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
@@ -8,7 +8,7 @@ import { PaginatedList } from '../../../../../app/core/data/paginated-list.model
 import { RemoteData } from '../../../../../app/core/data/remote-data';
 import { PaginationService } from '../../../../../app/core/pagination/pagination.service';
 import { VedetteService } from '../../../service/vedette.service';
-import { takeUntil } from 'rxjs/operators';
+import {map, takeUntil} from 'rxjs/operators';
 import { Vedette } from '../../../models/Vedette';
 
 @Component({
@@ -20,9 +20,9 @@ import { Vedette } from '../../../models/Vedette';
 })
 
 export class TopLevelCommunityListComponent extends BaseComponent implements OnDestroy {
-  collections: any[] = [];
+  //collections: any[] = [];
+  collections$: Observable<any[]> = of([]);
   private unsubscribe$: Subject<void> = new Subject<void>();
-  loadingImages: boolean = true;
 
   constructor(
     private cdsCalypso: CommunityDataService,
@@ -78,15 +78,15 @@ export class TopLevelCommunityListComponent extends BaseComponent implements OnD
                         if (images.length !== 0) {
                           collections.vedette = images[0].imageUrl;
                         }
-                        this.loadingImages = false; // Indique que l'image est chargée
                       },
                       (erreur) => {
                         console.error('Une erreur s\'est produite lors de la récupération des images vedette', erreur);
-                        this.loadingImages = false; // Indique que l'image n'a pas pu être chargée
                       }
                     );
-                  // Ajoutez la collection à la liste des collections
-                  this.collections.push(collections);
+                    // Mettez à jour la variable collections$ avec les nouvelles collections
+                    this.collections$ = this.collections$.pipe(
+                      map(collectionsArray => [...collectionsArray, collections])
+                    );
                 }
               });
             });
@@ -95,7 +95,6 @@ export class TopLevelCommunityListComponent extends BaseComponent implements OnD
       }
     } catch (error) {
       console.error('Une erreur s\'est produite :', error);
-      this.loadingImages = false;
     }
   }
 
