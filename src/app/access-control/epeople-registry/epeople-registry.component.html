@@ -41,14 +41,14 @@
         </div>
       </form>
 
-      <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
-      <ds-pagination
-        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
-        [paginationOptions]="config"
-        [pageInfoState]="pageInfoState$"
-        [collectionSize]="(pageInfoState$ | async)?.totalElements"
-        [hideGear]="true"
-        [hidePagerWhenSinglePage]="true">
+        <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
+        <ds-pagination
+          *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
+          [paginationOptions]="paginationConfig"
+          [pageInfoState]="pageInfoState$"
+          [collectionSize]="(pageInfoState$ | async)?.totalElements"
+          [hideGear]="true"
+          [hidePagerWhenSinglePage]="true">
 
         <div class="table-responsive">
           <table id="epeople" class="table table-striped table-hover table-bordered">

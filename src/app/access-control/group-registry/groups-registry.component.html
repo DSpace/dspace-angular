@@ -36,7 +36,7 @@
       <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
       <ds-pagination
         *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(loading$ | async)"
-        [paginationOptions]="config"
+        [paginationOptions]="paginationConfig"
         [pageInfoState]="pageInfoState$"
         [collectionSize]="(pageInfoState$ | async)?.totalElements"
         [hideGear]="true"

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -38,6 +38,7 @@ import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -54,11 +55,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   /**
    * Pagination config used to display the list of groups
    */
-  config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'gl',
-    pageSize: 5,
-    currentPage: 1
-  });
+  paginationConfig: PaginationComponentOptions;
 
   /**
    * A BehaviorSubject with the list of GroupDtoModel objects made from the Groups in the repository or
@@ -107,11 +104,16 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private paginationService: PaginationService,
               public requestService: RequestService,
               public dsoNameService: DSONameService,
-  ) {
+              @Inject(APP_CONFIG) protected appConfig: AppConfig) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,
     }));
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+      id: 'elp',
+      pageSize: this.appConfig.accesscontrol.groups.pageSize,
+      currentPage: 1
+    });
   }
 
   ngOnInit() {
@@ -127,13 +129,13 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       this.searchSub.unsubscribe();
       this.subs = this.subs.filter((sub: Subscription) => sub !== this.searchSub);
     }
-    this.searchSub = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
+    this.searchSub = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
       tap(() => this.loading$.next(true)),
       switchMap((paginationOptions) => {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
           this.currentSearchQuery = query;
-          this.paginationService.updateRouteWithUrl(this.config.id, [], {page: 1});
+          this.paginationService.updateRouteWithUrl(this.paginationConfig.id, [], {page: 1});
         }
         return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,
@@ -267,7 +269,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.cleanupSubscribes();
-    this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.paginationConfig.id);
   }
 
 
@@ -276,7 +278,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
       this.paginationSub.unsubscribe();
     }
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-    this.paginationService.clearPagination(this.config.id);
+    this.paginationService.clearPagination(this.paginationConfig.id);
   }
 
 }

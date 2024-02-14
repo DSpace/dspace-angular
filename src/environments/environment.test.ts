@@ -262,6 +262,20 @@ export const environment: BuildConfig = {
       undoTimeout: 10000 // 10 seconds
     }
   },
+  accesscontrol: {
+    epeople: {
+      // Number of entries in the epeople list in the access controll page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
+    },
+    groups: {
+      // Number of entries in the group list in the access controll page.
+      // Rounded to the nearest size in the list of selectable sizes on the
+      // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
+      pageSize: 5
+    }
+  },
   themes: [
     {
       name: 'full-item-page-theme',
