@@ -135,9 +135,9 @@ describe('SuggestionPageComponent', () => {
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
     component.ignoreSuggestion('1');
-    tick(101);
     expect(mockSuggestionsService.ignoreSuggestion).toHaveBeenCalledWith('1');
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
+    tick(201);
     expect(component.updatePage).toHaveBeenCalled();
   }));
 

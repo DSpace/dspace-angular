@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { delay, distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
@@ -155,11 +155,10 @@ export class SuggestionsPageComponent implements OnInit {
    * @suggestionId
    */
   ignoreSuggestion(suggestionId) {
-    this.suggestionService.ignoreSuggestion(suggestionId).pipe(
-      delay(100)
-    ).subscribe(() => {
+    this.suggestionService.ignoreSuggestion(suggestionId).subscribe(() => {
       this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-      this.updatePage();
+      //We add a little delay in the page refresh so that we ensure the deletion has been propagated
+      setTimeout(() => this.updatePage(), 200);
     });
   }
 
