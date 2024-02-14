@@ -142,7 +142,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
         return isNaN(dateObj.getUTCFullYear()) ? limit : dateObj.getUTCFullYear();
       } else {
-        return new Date().getUTCFullYear();
+        return new Date(limit).getUTCFullYear();
       }
     }
   }
