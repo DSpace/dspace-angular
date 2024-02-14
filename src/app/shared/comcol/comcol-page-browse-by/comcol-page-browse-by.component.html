@@ -2,17 +2,28 @@
 <nav *ngIf="(allOptions$ | async) as allOptions" class="comcol-browse mb-4" aria-label="Browse Community or Collection">
   <div class="d-none d-sm-block">
 
-    <div class="list-group list-group-horizontal">
-      <a *ngFor="let option of allOptions" class="list-group-item" [routerLink]="option.routerLink"
-        [queryParams]="option.params" routerLinkActive="active">{{ option.label | translate }}</a>
+    <div class="list-group list-group-horizontal" role="tablist">
+      <a *ngFor="let option of allOptions"
+         [attr.aria-current]="(currentOption$ | async)?.id === option.id"
+         class="list-group-item"
+         role="tab"
+         [routerLink]="option.routerLink"
+         [queryParams]="option.params"
+         [class.active]="(currentOption$ | async)?.id === option.id">
+        {{ option.label | translate }}
+      </a>
     </div>
   </div>
 
   <div class="d-block d-sm-none">
-    <select name="browse-type" class="form-control" aria-label="Browse Community or Collection"
-      (ngModelChange)="onSelectChange($event)" [ngModel]="currentOptionId$ | async">
-      <option *ngFor="let option of allOptions" [ngValue]="option.id"
-        [attr.selected]="(currentOptionId$ | async) === option.id ? 'selected' : null">{{ option.label | translate }}
+    <select name="browse-type"
+            class="form-control"
+            aria-label="Browse Community or Collection"
+            (change)="onSelectChange($event)">
+      <option *ngFor="let option of allOptions"
+              [value]="option.id"
+              [attr.selected]="(currentOption$ | async)?.id === option.id ? 'selected' : null">
+        {{ option.label | translate }}
       </option>
     </select>
   </div>
