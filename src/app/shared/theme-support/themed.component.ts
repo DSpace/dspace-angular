@@ -1,21 +1,28 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ElementRef,
+  HostBinding,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
-  ComponentRef,
-  SimpleChanges,
-  OnDestroy,
-  ComponentFactoryResolver,
-  ChangeDetectorRef,
-  OnChanges,
-  HostBinding,
-  ElementRef,
 } from '@angular/core';
 import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
-import { combineLatest, from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from as fromPromise,
+  Observable,
+  of as observableOf,
+  Subscription
+} from 'rxjs';
 import { ThemeService } from './theme.service';
-import { catchError, switchMap, map, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { BASE_THEME_NAME } from './theme.constants';
 
@@ -24,7 +31,7 @@ import { BASE_THEME_NAME } from './theme.constants';
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
 })
-export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
+export abstract class ThemedComponent<T extends object> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
   protected compRef: ComponentRef<T>;
