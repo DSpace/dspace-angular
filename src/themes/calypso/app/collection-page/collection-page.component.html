@@ -13,12 +13,13 @@
             <!-- Collection logo -->
             <ds-comcol-page-logo *ngIf="logoRD$"
                                  [logo]="(logoRD$ | async)?.payload"
-                                 [alternateText]="'Collection Logo'">
+                                 [alternateText]="'collection.logo' | translate">
             </ds-comcol-page-logo>
+
             <!-- Handle -->
             <ds-themed-comcol-page-handle
               [content]="collection.handle"
-              [title]="'collection.page.handle'" >
+              [title]="'collection.page.handle'">
             </ds-themed-comcol-page-handle>
             <!-- Introductory text -->
             <ds-comcol-page-content
@@ -34,35 +35,23 @@
           </header>
           <ds-dso-edit-menu></ds-dso-edit-menu>
         </div>
+
         <!-- Image vedette de la collection -->
         <ds-vedette-coll-liste></ds-vedette-coll-liste>
+        <!-- Fin image vedette -->
+
         <section class="comcol-page-browse-section">
           <!-- Browse-By Links -->
           <ds-themed-comcol-page-browse-by
             [id]="collection.id"
             [contentType]="collection.type">
           </ds-themed-comcol-page-browse-by>
+
           <!-- Bouton permettant de basculer entre les modes d'affichage en liste et en mosaïque. -->
           <ds-view-mode-switch></ds-view-mode-switch>
+          <!-- Fin Bouton -->
 
-          <ng-container *ngVar="(itemRD$ | async) as itemRD">
-            <div class="mt-4" *ngIf="itemRD?.hasSucceeded" @fadeIn>
-              <h3 class="sr-only">{{'collection.page.browse.recent.head' | translate}}</h3>
-              <ds-viewable-collection
-                [config]="paginationConfig"
-                [sortConfig]="sortConfig"
-                [objects]="itemRD"
-                [hideGear]="true">
-              </ds-viewable-collection>
-            </div>
-            <ds-error *ngIf="itemRD?.hasFailed"
-                      message="{{'error.recent-submissions' | translate}}"></ds-error>
-            <ds-themed-loading *ngIf="!itemRD || itemRD.isLoading"
-                               message="{{'loading.recent-submissions' | translate}}"></ds-themed-loading>
-            <div *ngIf="!itemRD?.isLoading && itemRD?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
-              {{'collection.page.browse.recent.empty' | translate}}
-            </div>
-          </ng-container>
+          <router-outlet></router-outlet>
         </section>
         <footer *ngIf="collection.copyrightText" class="border-top my-5 pt-4">
           <!-- Copyright -->
