@@ -37,9 +37,10 @@ import { Router } from '@angular/router';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { hasFailed } from 'src/app/core/data/request-entry-state.model';
-import {FindListOptions} from '../../core/data/find-list-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
+import { ClarinUserMetadataDataService } from '../../core/data/clarin/clarin-user-metadata.service';
 
 /**
  * The component shows the user's filled in user metadata and the user can fill in other required user metadata.
@@ -119,7 +120,8 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     protected halService: HALEndpointService,
     protected rdbService: RemoteDataBuildService,
     private hardRedirectService: HardRedirectService,
-    private requestService: RequestService) { }
+    private requestService: RequestService,
+    private clarinUserMetadataDataService: ClarinUserMetadataDataService) { }
 
    ngOnInit(): void {
     // Load CurrentItem by bitstreamID to show itemHandle
@@ -282,7 +284,7 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
             this.clarinLicense$.next(clarinLicense?.payload);
             // Load required info from ClarinLicense
             // @ts-ignore
-            this.requiredInfo$.next(clarinLicense?.payload?.requiredInfo);
+             this.requiredInfo$.next(clarinLicense?.payload?.requiredInfo);
           });
       });
   }
@@ -314,16 +316,22 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
         }
         this.userRegistration$.next(userRegistration);
 
-        // Load userMetadata from userRegistration
-        userRegistration.userMetadata
+        // Load user metadata for the current user only from the last transaction
+        const params = [
+          new RequestParam('userRegUUID', userRegistration.id),
+          new RequestParam('bitstreamUUID', this.getBitstreamUUID())];
+        const paramOptions = Object.assign(new FindListOptions(), {
+          searchParams: [...params]
+        });
+        this.clarinUserMetadataDataService.searchBy('byUserRegistrationAndBitstream', paramOptions, false)
           .pipe(
             getFirstCompletedRemoteData())
-          .subscribe(userMetadata$ => {
-            if (hasFailed(userMetadata$.state)) {
+          .subscribe(userMetadata => {
+            if (hasFailed(userMetadata.state)) {
               this.error$.value.push('Cannot load userMetadata');
               return;
             }
-            this.userMetadata$.next(userMetadata$.payload);
+            this.userMetadata$.next(userMetadata.payload);
           });
       });
   }

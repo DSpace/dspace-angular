@@ -31,6 +31,9 @@ export class ClarinUserRegistration extends ListableObject implements HALResourc
   type: ResourceType;
 
   @autoserialize
+  id: number;
+
+  @autoserialize
   ePersonID: string;
 
   @autoserialize

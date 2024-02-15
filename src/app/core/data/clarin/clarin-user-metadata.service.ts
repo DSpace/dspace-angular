@@ -12,6 +12,12 @@ import { ClarinUserMetadata } from '../../shared/clarin/clarin-user-metadata.mod
 import { dataService } from '../base/data-service.decorator';
 import { CoreState } from '../../core-state.model';
 import { BaseDataService } from '../base/base-data.service';
+import { FindListOptions } from '../find-list-options.model';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../remote-data';
+import { PaginatedList } from '../paginated-list.model';
+import { SearchData, SearchDataImpl } from '../base/search-data';
 
 export const linkName = 'clarinusermetadatas';
 export const AUTOCOMPLETE = new ResourceType(linkName);
@@ -23,6 +29,7 @@ export const AUTOCOMPLETE = new ResourceType(linkName);
 @dataService(ClarinUserMetadata.type)
 export class ClarinUserMetadataDataService extends BaseDataService<ClarinUserMetadata> {
   protected linkPath = linkName;
+  private searchData: SearchData<ClarinUserMetadata>;
 
   constructor(
     protected requestService: RequestService,
@@ -35,5 +42,10 @@ export class ClarinUserMetadataDataService extends BaseDataService<ClarinUserMet
     protected notificationsService: NotificationsService
   ) {
     super(linkName, requestService, rdbService, objectCache, halService, undefined);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+  }
+
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<ClarinUserMetadata>[]): Observable<RemoteData<PaginatedList<ClarinUserMetadata>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 }
