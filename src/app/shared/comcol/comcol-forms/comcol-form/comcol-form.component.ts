@@ -242,6 +242,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
               getFirstCompletedRemoteData()
             ).subscribe((response: RemoteData<NoContent>) => {
               if (response.hasSucceeded) {
+                this.refreshCache();
                 this.notificationsService.success(
                   this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
                   this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
@@ -254,7 +255,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
               }
               this.dso.logo = undefined;
               this.uploadFilesOptions.method = RestRequestMethod.POST;
-              this.finish.emit();
+              // this.finish.emit();
             });
 
           } else if (result === 'cancel') {
@@ -270,7 +271,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * Refresh the object's cache to ensure the latest version
    */
   private refreshCache() {
-    this.requestService.removeByHrefSubstring(this.dso._links.self.href);
+    this.requestService.setStaleByHrefSubstring(this.dso.id);
     this.objectCache.remove(this.dso._links.self.href);
     this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
       getFirstCompletedRemoteData()
