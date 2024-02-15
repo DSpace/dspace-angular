@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, EventEmitter } from '@angular/core';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
@@ -10,15 +10,13 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER
+  SearchFilterService, REFRESH_FILTER, CHANGE_APPLIED_FILTERS
 } from '../../../../../core/shared/search/search-filter.service';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { getFacetValueForType } from '../../../search.utils';
 import { filter, map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -26,6 +24,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { AppliedFilter } from '../../../models/applied-filter.model';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -49,9 +48,10 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, changeAppliedFilters);
   }
 
   vocabularyExists$: Observable<boolean>;
@@ -92,20 +92,14 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       closed: true
     };
     modalRef.result.then((detail: VocabularyEntryDetail) => {
-      this.selectedValues$
-        .pipe(take(1))
-        .subscribe((selectedValues) => {
-          this.router.navigate(
-            [this.searchService.getSearchLink()],
-            {
-              queryParams: {
-                [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
-                  .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
-              },
-              queryParamsHandling: 'merge',
-            },
-          );
-        });
+      this.subs.push(this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, detail.value, 'equals').pipe(take(1)).subscribe((params: Params) => {
+        void this.router.navigate(
+          [this.searchService.getSearchLink()],
+          {
+            queryParams: params,
+          },
+        );
+      }));
     }).catch();
   }
 

@@ -5,7 +5,10 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { SearchLabelLoaderComponent } from './search-labels/search-label-loader/search-label-loader.component';
+import { SearchLabelLoaderDirective } from './search-labels/search-label-loader/search-label-loader-directive.directive';
 import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
+import { SearchLabelRangeComponent } from './search-labels/search-label-range/search-label-range.component';
 import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchRangeFilterComponent } from './search-filters/search-filter/search-range-filter/search-range-filter.component';
 import { SearchTextFilterComponent } from './search-filters/search-filter/search-text-filter/search-text-filter.component';
@@ -35,35 +38,6 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 
-const COMPONENTS = [
-  SearchComponent,
-  ThemedSearchComponent,
-  SearchResultsComponent,
-  SearchSidebarComponent,
-  SearchSettingsComponent,
-  SearchFiltersComponent,
-  SearchFilterComponent,
-  SearchFacetFilterComponent,
-  SearchLabelsComponent,
-  SearchLabelComponent,
-  SearchFacetFilterWrapperComponent,
-  SearchRangeFilterComponent,
-  SearchTextFilterComponent,
-  SearchHierarchyFilterComponent,
-  SearchBooleanFilterComponent,
-  SearchFacetOptionComponent,
-  SearchFacetSelectedOptionComponent,
-  SearchFacetRangeOptionComponent,
-  SearchAuthorityFilterComponent,
-  SearchSwitchConfigurationComponent,
-  ConfigurationSearchPageComponent,
-  ThemedConfigurationSearchPageComponent,
-  ThemedSearchResultsComponent,
-  ThemedSearchSettingsComponent,
-  ThemedSearchFiltersComponent,
-  ThemedSearchSidebarComponent,
-];
-
 const ENTRY_COMPONENTS = [
   SearchFacetFilterComponent,
   SearchRangeFilterComponent,
@@ -74,6 +48,29 @@ const ENTRY_COMPONENTS = [
   SearchFacetSelectedOptionComponent,
   SearchFacetRangeOptionComponent,
   SearchAuthorityFilterComponent,
+  SearchLabelComponent,
+  SearchLabelRangeComponent,
+];
+
+const COMPONENTS = [
+  ...ENTRY_COMPONENTS,
+  SearchComponent,
+  ThemedSearchComponent,
+  SearchResultsComponent,
+  SearchSidebarComponent,
+  SearchSettingsComponent,
+  SearchFiltersComponent,
+  SearchFilterComponent,
+  SearchLabelsComponent,
+  SearchLabelLoaderComponent,
+  SearchFacetFilterWrapperComponent,
+  SearchSwitchConfigurationComponent,
+  ConfigurationSearchPageComponent,
+  ThemedConfigurationSearchPageComponent,
+  ThemedSearchResultsComponent,
+  ThemedSearchSettingsComponent,
+  ThemedSearchFiltersComponent,
+  ThemedSearchSidebarComponent,
 ];
 
 /**
@@ -88,7 +85,8 @@ export const MODELS = [
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    SearchLabelLoaderDirective,
   ],
   imports: [
     CommonModule,
@@ -100,7 +98,8 @@ export const MODELS = [
     NouisliderModule,
   ],
   exports: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    SearchLabelLoaderDirective,
   ]
 })
 export class SearchModule {
