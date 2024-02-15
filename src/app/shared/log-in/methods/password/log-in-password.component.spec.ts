@@ -23,6 +23,8 @@ import { ActivatedRoute , Router} from '@angular/router';
 import { RouterMock } from '../../../mocks/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { CookieService } from '../../../../core/services/cookie.service';
+import { CookieServiceMock } from '../../../mocks/cookie.service.mock';
 
 describe('LogInPasswordComponent', () => {
   const uiUrl = 'localhost:4000';
@@ -99,6 +101,7 @@ describe('LogInPasswordComponent', () => {
             }
           } },
         { provide: Router, useValue: new RouterMock() },
+        { provide: CookieService, useClass: CookieServiceMock },
         provideMockStore({ initialState }),
       ],
       schemas: [

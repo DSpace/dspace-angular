@@ -118,6 +118,8 @@ Cypress.Commands.add('login', login);
  * @param password password to login as
  */
 function loginViaForm(email: string, password: string): void {
+    cy.wait(500);
+    cy.get('.discojuice_close').should('exist').click();
     // Enter email
     cy.get('ds-log-in [data-test="email"]').type(email);
     // Enter password
@@ -226,12 +228,6 @@ export const loginProcess = {
 };
 
 export const createItemProcess = {
-  typeCollectionName() {
-    cy.get('.modal-body input[type = "search"]').type(TEST_COLLECTION_NAME);
-  },
-  selectCollection() {
-    cy.get('.modal-body .scrollable-menu button[title = "' + TEST_COLLECTION_NAME + '"]').eq(0).click();
-  },
   checkLocalHasCMDIVisibility() {
     cy.get('#traditionalpageone form div[role = "group"] label[for = "local_hasCMDI"]').should('be.visible');
   },

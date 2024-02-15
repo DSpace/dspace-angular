@@ -23,6 +23,8 @@ import { RouterMock } from '../../mocks/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from '../../../core/services/cookie.service';
+import { CookieServiceMock } from '../../mocks/cookie.service.mock';
 
 describe('LogInContainerComponent', () => {
 
@@ -82,6 +84,7 @@ describe('LogInContainerComponent', () => {
             }
           } },
         { provide: Router, useValue: new RouterMock() },
+        { provide: CookieService, useClass: CookieServiceMock },
         LogInContainerComponent
       ],
       schemas: [
