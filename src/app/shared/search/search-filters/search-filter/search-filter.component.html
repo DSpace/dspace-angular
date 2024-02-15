@@ -21,7 +21,8 @@
     <ds-search-facet-filter-wrapper
       [filterConfig]="filter"
       [inPlaceSearch]="inPlaceSearch"
-      [refreshFilters]="refreshFilters" >
+      [refreshFilters]="refreshFilters"
+      (changeAppliedFilters)="changeAppliedFilters.emit($event)">
     </ds-search-facet-filter-wrapper>
   </div>
 </div>

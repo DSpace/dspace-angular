@@ -13,6 +13,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { RequestEntry } from '../../data/request-entry.model';
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
+import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;
@@ -38,13 +39,14 @@ describe('SearchConfigurationService', () => {
   const routeService = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
     getQueryParamsWithPrefix: observableOf(prefixFilter),
-    getRouteParameterValue: observableOf('')
+    getRouteParameterValue: observableOf(''),
+    getParamsExceptValue: observableOf({}),
   });
 
   const paginationService = new PaginationServiceStub();
 
 
-  const activatedRoute: any = new ActivatedRouteStub();
+  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
   const linkService: any = {};
   const requestService: any = getMockRequestService();
   const halService: any = {
@@ -70,7 +72,7 @@ describe('SearchConfigurationService', () => {
     }
   };
   beforeEach(() => {
-    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute, linkService, halService, requestService, rdb);
+    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb);
   });
 
   describe('when the scope is called', () => {
@@ -277,6 +279,31 @@ describe('SearchConfigurationService', () => {
 
     it('should call send containing a request with the correct request url', () => {
       expect((service as any).requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({ href: requestUrl }), true);
+    });
+  });
+
+  describe('unselectAppliedFilterParams', () => {
+    let appliedFilter: AppliedFilter;
+
+    beforeEach(() => {
+      appliedFilter = Object.assign(new AppliedFilter(), {
+        filter: 'author',
+        operator: 'authority',
+        value: '1282121b-5394-4689-ab93-78d537764052',
+        label: 'Odinson, Thor',
+      });
+    });
+
+    it('should return all params except the applied filter', () => {
+      service.unselectAppliedFilterParams(appliedFilter.filter, appliedFilter.value, appliedFilter.operator);
+
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.author', '1282121b-5394-4689-ab93-78d537764052,authority');
+    });
+
+    it('should be able to remove AppliedFilter without operator', () => {
+      service.unselectAppliedFilterParams('dateIssued.max', '2000');
+
+      expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
     });
   });
 });
