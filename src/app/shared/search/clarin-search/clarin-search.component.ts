@@ -100,6 +100,9 @@ export class ClarinSearchComponent extends SearchComponent implements OnInit {
           sort: sortOption || searchOptions.sort,
           filters: searchOptions.filters
         });
+      if (combinedOptions.query === '') {
+        combinedOptions.query = this.query;
+      }
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
       // if so retrieve new related results otherwise skip it
@@ -116,5 +119,7 @@ export class ClarinSearchComponent extends SearchComponent implements OnInit {
         this.retrieveFilters(searchOptions);
       }
     }));
+
+    this.subscribeToRoutingEvents();
   }
 }

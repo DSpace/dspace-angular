@@ -466,7 +466,7 @@ export class SearchComponent implements OnInit {
    * This method should only be called once and is essentially what SearchTrackingComponent used to do (now removed)
    * @private
    */
-  private subscribeToRoutingEvents() {
+  protected subscribeToRoutingEvents() {
     this.subs.push(
       this.router.events.pipe(
         filter((event) => event instanceof NavigationStart),
