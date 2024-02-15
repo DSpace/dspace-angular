@@ -10,6 +10,7 @@ export function getRegistriesModuleRoute() {
 
 export function getNotificationsModuleRoute() {
   return new URLCombiner(getAdminModuleRoute(), NOTIFICATIONS_MODULE_PATH).toString();
+}
 
 export const REPORTS_MODULE_PATH = 'reports';
 
