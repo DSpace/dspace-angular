@@ -28,6 +28,8 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { RouterStub } from '../testing/router.stub';
+import { CookieService } from '../../core/services/cookie.service';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
 
 describe('LogInComponent', () => {
 
@@ -99,6 +101,7 @@ describe('LogInComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         provideMockStore({ initialState }),
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: CookieService, useClass: CookieServiceMock },
         LogInComponent
       ],
       schemas: [

@@ -25,7 +25,9 @@ import { ActivatedRoute , Router} from '@angular/router';
 import { getBaseUrl } from '../../../clarin-shared-util';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { CookieService } from '../../../../core/services/cookie.service';
 
+export const SHOW_DISCOJUICE_POPUP_CACHE_NAME = 'SHOW_DISCOJUICE_POPUP';
 /**
  * /users/sign-in
  * @class LogInPasswordComponent
@@ -101,6 +103,7 @@ export class LogInPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     protected router: Router,
     protected configurationService: ConfigurationDataService,
+    protected storage: CookieService,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -110,6 +113,7 @@ export class LogInPasswordComponent implements OnInit {
    * @method ngOnInit
    */
   public async ngOnInit() {
+    this.initializeDiscoJuiceCache();
     this.redirectUrl = '';
     // set formGroup
     this.form = this.formBuilder.group({
@@ -171,10 +175,18 @@ export class LogInPasswordComponent implements OnInit {
     }
   }
 
+
+  /**
+   * Toggle Discojuice login. Show it every time except the case when the user click
+   * on the `local` button in the discojuice box.
+   * @private
+   */
   private toggleDiscojuiceLogin() {
-    if (isEmpty(this.route.snapshot.queryParams?.redirectUrl)) {
+    // Popup cache is set to false in the `aai.js` when the user clicks on `local` button
+    if (this.storage.get(SHOW_DISCOJUICE_POPUP_CACHE_NAME) === true) {
       this.popUpDiscoJuiceLogin();
     }
+    this.storage.set(SHOW_DISCOJUICE_POPUP_CACHE_NAME, true);
   }
 
   /**
@@ -242,5 +254,16 @@ export class LogInPasswordComponent implements OnInit {
     setTimeout(() => {
       document?.getElementById('clarin-signon-discojuice')?.click();
     }, 250);
+  }
+
+  /**
+   * Set SHOW_DISCOJUICE_POPUP_CACHE_NAME to true because the discojuice login must be popped up on init
+   * if it is loaded for the first time.
+   * @private
+   */
+  private initializeDiscoJuiceCache() {
+    if (isEmpty(this.storage.get(SHOW_DISCOJUICE_POPUP_CACHE_NAME))) {
+      this.storage.set(SHOW_DISCOJUICE_POPUP_CACHE_NAME, true);
+    }
   }
 }
