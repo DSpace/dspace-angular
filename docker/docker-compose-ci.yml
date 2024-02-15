@@ -24,8 +24,8 @@ services:
       # __D__ => "-" (e.g. google__D__metadata => google-metadata)
       # dspace.dir, dspace.server.url and dspace.ui.url
       dspace__P__dir: /dspace
-      dspace__P__server__P__url: http://127.0.0.1:8080/server
-      dspace__P__ui__P__url: http://127.0.0.1:4000
+      dspace__P__server__P__url: ${REST_URL:-http://127.0.0.1:8080/server}
+      dspace__P__ui__P__url: ${UI_URL:-http://127.0.0.1:4000}
       # db.url: Ensure we are using the 'dspacedb' image for our database
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
