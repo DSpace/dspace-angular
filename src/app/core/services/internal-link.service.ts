@@ -39,6 +39,7 @@ export class InternalLinkService {
    * @returns The relative path for the given internal link.
    */
   public getRelativePath(link: string): string {
+    // Obtaining the base URL, disregarding query parameters
     const baseUrl = link.split('?')[0];
     const currentDomain = new URL(this.currentURL).hostname;
 
