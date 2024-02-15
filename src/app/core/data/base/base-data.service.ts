@@ -29,11 +29,11 @@ export const EMBED_SEPARATOR = '%2F';
 /**
  * Common functionality for data services.
  * Specific functionality that not all services would need
- * is implemented in "DataService feature" classes (e.g. {@link CreateData}
+ * is implemented in "UpdateDataServiceImpl feature" classes (e.g. {@link CreateData}
  *
- * All DataService (or DataService feature) classes must
+ * All UpdateDataServiceImpl (or UpdateDataServiceImpl feature) classes must
  *   - extend this class (or {@link IdentifiableDataService})
- *   - implement any DataService features it requires in order to forward calls to it
+ *   - implement any UpdateDataServiceImpl features it requires in order to forward calls to it
  *
  * ```
  * export class SomeDataService extends BaseDataService<Something> implements CreateData<Something>, SearchData<Something> {
@@ -385,7 +385,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
 
   /**
    * Return the links to traverse from the root of the api to the
-   * endpoint this DataService represents
+   * endpoint this UpdateDataServiceImpl represents
    *
    * e.g. if the api root links to 'foo', and the endpoint at 'foo'
    * links to 'bar' the linkPath for the BarDataService would be

@@ -38,6 +38,7 @@ import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
@@ -204,6 +205,11 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
             path: PROCESS_MODULE_PATH,
             loadChildren: () => import('./process-page/process-page.module')
               .then((m) => m.ProcessPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
+          { path: SUGGESTION_MODULE_PATH,
+            loadChildren: () => import('./suggestions-page/suggestions-page.module')
+              .then((m) => m.SuggestionsPageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
