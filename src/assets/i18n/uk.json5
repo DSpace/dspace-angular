@@ -897,7 +897,7 @@
   "admin.reports.items.title": "Title",
 
 
-   // "admin.reports.commons.filters": "Filters",
+  // "admin.reports.commons.filters": "Filters",
   // TODO New key - Add a translation
   "admin.reports.commons.filters": "Filters",
 
@@ -1078,9 +1078,9 @@
   // TODO New key - Add a translation
   "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
 
-  // "admin.reports.commons.filters.permission.has_restricted_original.tooltip":  "Item has at least one original bitstream that is not accessible to Anonymous user",
+  // "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
   // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_original.tooltip":  "Item has at least one original bitstream that is not accessible to Anonymous user",
+  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
 
   // "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
   // TODO New key - Add a translation

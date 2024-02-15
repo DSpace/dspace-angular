@@ -1095,47 +1095,47 @@
   //"admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
-  
+
   //"admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
-  
+
   //"admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
-  
+
   //"admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
-  
+
   //"admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
-  
+
   //"admin.reports.commons.filters.permission": "Permission Filters",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.permission": "Permission Filters",
-  
+
   //"admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
-  
-  //"admin.reports.commons.filters.permission.has_restricted_original.tooltip":  "Item has at least one original bitstream that is not accessible to Anonymous user",
+
+  //"admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
   // TODO New key - Add a translation
-  "admin.reports.commons.filters.permission.has_restricted_original.tooltip":  "Item has at least one original bitstream that is not accessible to Anonymous user",
-  
+  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
+
   //"admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
-  
+
   //"admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
-  
+
   //"admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
-  
+
   //"admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
   // TODO New key - Add a translation
   "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
@@ -4565,9 +4565,9 @@
 
   // "menu.section.access_control_people": "People",
   "menu.section.access_control_people": "Pessoas",
-  
-  
-  
+
+
+
   // "menu.section.reports": "Reports",
   "menu.section.reports": "Relatórios",
 
@@ -4754,8 +4754,8 @@
 
   // "menu.section.statistics_task": "Statistics Task",
   "menu.section.statistics_task": "Tarefas de Estatísticas",
-  
-  
+
+
   //"menu.section.toggle.reports": "Toggle Reports section",
   // TODO New key - Add a translation
   "menu.section.toggle.reports": "Toggle Reports section",

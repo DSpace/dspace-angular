@@ -1002,7 +1002,7 @@
   //"admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
   "admin.reports.commons.filters.permission.has_restricted_original": "L'élément a un Bitstream original à accès restreint",
   //"admin.reports.commons.filters.permission.has_restricted_original.tooltip":  "Item has at least one original bitstream that is not accessible to Anonymous user",
-  "admin.reports.commons.filters.permission.has_restricted_original.tooltip":  "L'élément a au moins un Bitstream original non accessible aux utilisateurs anonymes",
+  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "L'élément a au moins un Bitstream original non accessible aux utilisateurs anonymes",
   //"admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
   "admin.reports.commons.filters.permission.has_restricted_thumbnail": "L'élément a une vignette à accès restreint",
   //"admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
