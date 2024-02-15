@@ -3890,6 +3890,18 @@
 
   "sorting.lastModified.DESC": "Last modified Descending",
 
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
+
   "statistics.title": "Statistics",
 
   "statistics.header": "Statistics for {{ scope }}",
