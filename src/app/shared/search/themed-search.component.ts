@@ -42,6 +42,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'trackStatistics',
     'query',
     'scope',
+    'hideScopeInUrl',
     'resultFound',
     'deselectObject',
     'selectObject',
@@ -92,6 +93,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() query: string;
 
   @Input() scope: string;
+
+  @Input() hideScopeInUrl: boolean;
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 

@@ -172,6 +172,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() scope: string;
 
   /**
+   * Hides the scope in the url, this can be useful when you hardcode the scope in another way
+   */
+  @Input() hideScopeInUrl: boolean;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
