@@ -41,14 +41,16 @@
           <td><b>{{'clarin.license.agreement.item.handle' | translate}}</b></td>
           <td><input type="text" disabled class="rounded-sm max-width border-gray" [value]="(item$ | async)?.handle"></td>
         </tr>
-        <tr *ngFor="let requiredInfo of requiredInfo$ | async">
-          <td><b>{{requiredInfo.value}}</b></td>
-          <td class="input-group">
-            <input #requiredInfoRef class="rounded-sm max-width border-gray"
-                   [value]="getMetadataValueByKey(requiredInfo.name)"
-                   (blur)="setMetadataValue(requiredInfo.name, requiredInfoRef.value)"/>
-          </td>
-        </tr>
+        <ng-container *ngIf="(currentUser$ | async) == null || (userMetadata$ | async)">
+          <tr *ngFor="let requiredInfo of requiredInfo$ | async">
+            <td><b>{{requiredInfo.value}}</b></td>
+            <td class="input-group">
+              <input #requiredInfoRef class="rounded-sm max-width border-gray"
+                     [value]="getMetadataValueByKey(requiredInfo.name)"
+                     (blur)="setMetadataValue(requiredInfo.name, requiredInfoRef.value)"/>
+            </td>
+          </tr>
+        </ng-container>
         <tr>
           <td><b>{{'clarin.license.agreement.bitstream.name' | translate}}</b></td>
           <td><input type="text" disabled class="rounded-sm max-width border-gray" [value]="(bitstream$ | async)?.name"></td>
