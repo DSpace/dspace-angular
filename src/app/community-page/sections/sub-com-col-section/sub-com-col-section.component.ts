@@ -20,7 +20,7 @@ export class SubComColSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.community$ = this.route.data.pipe(
+    this.community$ = this.route.parent.data.pipe(
       map((data: Data) => (data.dso as RemoteData<Community>).payload),
     );
   }
