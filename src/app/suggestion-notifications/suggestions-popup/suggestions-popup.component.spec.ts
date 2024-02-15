@@ -3,8 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SuggestionsPopupComponent } from './suggestions-popup.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { mockSuggestionTargetsObjectOne } from '../../shared/mocks/publication-claim-targets.mock';
@@ -13,7 +11,6 @@ import { SuggestionsService } from '../suggestions.service';
 describe('SuggestionsPopupComponent', () => {
   let component: SuggestionsPopupComponent;
   let fixture: ComponentFixture<SuggestionsPopupComponent>;
-  let notificationsService: NotificationsService;
 
   const suggestionStateService = jasmine.createSpyObj('SuggestionTargetsStateService', {
     hasUserVisitedSuggestions: jasmine.createSpy('hasUserVisitedSuggestions'),
@@ -35,7 +32,6 @@ describe('SuggestionsPopupComponent', () => {
       providers: [
         { provide: SuggestionTargetsStateService, useValue: suggestionStateService },
         { provide: SuggestionsService, useValue: suggestionService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
 
@@ -69,12 +65,10 @@ describe('SuggestionsPopupComponent', () => {
 
       fixture = TestBed.createComponent(SuggestionsPopupComponent);
       component = fixture.componentInstance;
-      notificationsService = (component as any).notificationsService;
       fixture.detectChanges();
     });
 
     it('should show a notification when new publication suggestions are available', () => {
-      expect(notificationsService.success).toHaveBeenCalled();
       expect(suggestionStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
       expect(suggestionStateService.dispatchMarkUserSuggestionsAsVisitedAction).toHaveBeenCalled();
     });

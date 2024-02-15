@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import { take, takeUntil } from 'rxjs/operators';
 import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { combineLatest, Subject } from 'rxjs';
+import { combineLatest, Observable, of, Subject } from 'rxjs';
+import { trigger } from '@angular/animations';
+
+
+import { fromTopEnter } from '../../shared/animations/fromTop';
 
 /**
  * Show suggestions on a popover window, used on the homepage
@@ -14,7 +16,12 @@ import { combineLatest, Subject } from 'rxjs';
 @Component({
   selector: 'ds-suggestions-popup',
   templateUrl: './suggestions-popup.component.html',
-  styleUrls: ['./suggestions-popup.component.scss']
+  styleUrls: ['./suggestions-popup.component.scss'],
+  animations: [
+    trigger('enterLeave', [
+      fromTopEnter
+    ])
+  ],
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
@@ -22,10 +29,11 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
   subscription;
 
+  suggestionsRD$: Observable<SuggestionTarget[]>;
+
+
   constructor(
-    private translateService: TranslateService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
-    private notificationsService: NotificationsService,
     private suggestionsService: SuggestionsService
   ) { }
 
@@ -42,7 +50,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
       this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
       if (isNotEmpty(suggestions)) {
         if (!visited) {
-          suggestions.forEach((suggestionTarget: SuggestionTarget) => this.showNotificationForNewSuggestions(suggestionTarget));
+          this.suggestionsRD$ = of(suggestions);
           this.suggestionTargetsStateService.dispatchMarkUserSuggestionsAsVisitedAction();
           notifier.next(null);
           notifier.complete();
@@ -51,21 +59,24 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Show a notification to user for a new suggestions detected
-   * @param suggestionTarget
-   * @private
-   */
-  private showNotificationForNewSuggestions(suggestionTarget: SuggestionTarget): void {
-    const content = this.translateService.instant(this.labelPrefix + 'suggestion',
-      this.suggestionsService.getNotificationSuggestionInterpolation(suggestionTarget));
-    this.notificationsService.success('', content, {timeOut:0}, true);
-  }
-
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
 
+  /**
+   * Interpolated params to build the notification suggestions notification.
+   * @param suggestionTarget
+   */
+  public getNotificationSuggestionInterpolation(suggestionTarget: SuggestionTarget): any {
+    return this.suggestionsService.getNotificationSuggestionInterpolation(suggestionTarget);
+  }
+
+  /**
+   * Hide popup from view
+   */
+  public removePopup() {
+    this.suggestionsRD$ = null;
+  }
 }

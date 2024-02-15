@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
-import { TranslateService } from '@ngx-translate/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import { Observable } from 'rxjs';
 
@@ -22,9 +20,7 @@ export class SuggestionsNotificationComponent implements OnInit {
   suggestionsRD$: Observable<SuggestionTarget[]>;
 
   constructor(
-    private translateService: TranslateService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
-    private notificationsService: NotificationsService,
     private suggestionsService: SuggestionsService
   ) { }
 
