@@ -56,7 +56,7 @@ export class NotifyRequestsStatusComponent implements OnInit {
    */
   private groupDataByStatus(notifyRequestsStatus: NotifyRequestsStatus) {
     const statusMap: Map<RequestStatusEnum, NotifyStatuses[]> = new Map();
-    notifyRequestsStatus.notifyStatus.forEach(
+    notifyRequestsStatus.notifyStatus?.forEach(
       (notifyStatus: NotifyStatuses) => {
         const status = notifyStatus.status;
 
