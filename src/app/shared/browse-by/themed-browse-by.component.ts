@@ -21,7 +21,7 @@ export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> 
 
   @Input() title: string;
 
-  @Input() parentname: string;
+  @Input() displayTitle: boolean;
 
   @Input() objects$: Observable<RemoteData<PaginatedList<ListableObject>>>;
 
@@ -31,7 +31,7 @@ export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> 
 
   @Input() type: StartsWithType;
 
-  @Input() startsWithOptions: number[];
+  @Input() startsWithOptions: (string | number)[];
 
   @Input() showPaginator: boolean;
 
@@ -47,7 +47,7 @@ export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> 
 
   protected inAndOutputNames: (keyof BrowseByComponent & keyof this)[] = [
     'title',
-    'parentname',
+    'displayTitle',
     'objects$',
     'paginationConfig',
     'sortConfig',

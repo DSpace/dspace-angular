@@ -47,7 +47,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
   public processing$ = new BehaviorSubject<boolean>(false);
 
   /**
-   * Instance of DataService related to mydspace object
+   * Instance of UpdateDataServiceImpl related to mydspace object
    */
   protected objectDataService: TService;
 

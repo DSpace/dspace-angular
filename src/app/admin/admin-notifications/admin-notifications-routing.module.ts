@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
+import {  PUBLICATION_CLAIMS_PATH } from './admin-notifications-routing-paths';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+import { AdminNotificationsPublicationClaimPageResolver } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page-resolver.service';
 import { QUALITY_ASSURANCE_EDIT_PATH } from './admin-notifications-routing-paths';
 import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
 import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
@@ -20,6 +23,21 @@ import {
 @NgModule({
   imports: [
     RouterModule.forChild([
+      {
+        canActivate: [ AuthenticatedGuard ],
+        path: `${PUBLICATION_CLAIMS_PATH}`,
+        component: AdminNotificationsPublicationClaimPageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+          suggestionTargetParams: AdminNotificationsPublicationClaimPageResolver
+        },
+        data: {
+          title: 'admin.notifications.publicationclaim.page.title',
+          breadcrumbKey: 'admin.notifications.publicationclaim',
+          showBreadcrumbsFluid: false
+        }
+      },
       {
         canActivate: [ AuthenticatedGuard ],
         path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId`,
@@ -71,7 +89,9 @@ import {
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
+    AdminNotificationsPublicationClaimPageResolver,
     SourceDataResolver,
+    AdminQualityAssuranceSourcePageResolver,
     AdminQualityAssuranceTopicsPageResolver,
     AdminQualityAssuranceEventsPageResolver,
     AdminQualityAssuranceSourcePageResolver,

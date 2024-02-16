@@ -185,6 +185,8 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { SuggestionTarget } from './suggestion-notifications/models/suggestion-target.model';
+import { SuggestionSource } from './suggestion-notifications/models/suggestion-source.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -386,7 +388,9 @@ export const models =
     IdentifierData,
     Subscription,
     ItemRequest,
-    BulkAccessConditionOptions
+    BulkAccessConditionOptions,
+    SuggestionTarget,
+    SuggestionSource
   ];
 
 @NgModule({
