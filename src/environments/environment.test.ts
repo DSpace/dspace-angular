@@ -320,6 +320,9 @@ export const environment: BuildConfig = {
       enabled: true
     }
   ],
+
+  suggestion: []
+  ],
   search: {
     advancedFilters: {
       enabled: false,

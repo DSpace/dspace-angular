@@ -14,6 +14,7 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import {SuggestionConfig} from './suggestion-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -296,6 +297,17 @@ export class DefaultAppConfig implements AppConfig {
       undoTimeout: 10000 // 10 seconds
     }
   };
+
+  suggestion: SuggestionConfig[] = [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+    // This is used as a default fallback in case there aren't collections where to import the suggestion
+    // If not mapped the user will be allowed to import the suggestions only in the provided options, shown clicking the button "Approve and import"
+    // If not mapped and no options available for import the user won't be able to import the suggestions.
+  ];
 
   // Theme Config
   themes: ThemeConfig[] = [

@@ -282,6 +282,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
+import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
 
 const MODULES = [
   CommonModule,
@@ -377,7 +378,7 @@ const COMPONENTS = [
   ThemedStatusBadgeComponent,
   BadgesComponent,
   ThemedBadgesComponent,
-
+  StartsWithLoaderComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
