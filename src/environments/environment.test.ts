@@ -321,8 +321,8 @@ export const environment: BuildConfig = {
     }
   ],
 
-  suggestion: []
-  ],
+  suggestion: [],
+
   search: {
     advancedFilters: {
       enabled: false,
