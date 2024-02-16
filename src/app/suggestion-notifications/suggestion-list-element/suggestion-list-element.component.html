@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <!-- Bulk Selection Panel -->
+    <div class="col-1 text-center align-self-center">
+      <div class="">
+        <input type="checkbox" class="form-check-input"
+               [checked]="isSelected" (change)="changeSelected($event)"
+               [attr.aria-label]="object.display"/>
+      </div>
+    </div>
+    <!-- Total Score Panel -->
+    <div class="col-2 text-center align-self-center">
+      <div class="">
+        <div><strong> {{'suggestion.totalScore' | translate}}</strong> </div>
+        <span class="suggestion-score">{{ object.score }}</span>
+      </div>
+    </div>
+    <!-- Suggestion Panel -->
+    <div class="col">
+        <!-- Object Preview -->
+        <ds-item-search-result-list-element
+          [showLabel]="false"
+          [showThumbnails]="false"
+          [object]="listableObject"
+          [linkType]="0"
+        ></ds-item-search-result-list-element>
+        <!-- Actions -->
+      <ds-suggestion-actions class="parent mt-2" [hasEvidence]="hasEvidences()"
+                             [seeEvidence]="seeEvidence"
+                             [object]="object"
+                             [isCollectionFixed]="isCollectionFixed"
+                             (approveAndImport)="onApproveAndImport($event)"
+                             (seeEvidences)="onSeeEvidences($event)"
+                             (ignoreSuggestionClicked)="onIgnoreSuggestion($event)"
+      ></ds-suggestion-actions>
+    </div>
+  </div>
+  <!-- Evidences Panel -->
+  <div *ngIf="seeEvidence" class="mt-2 row">
+    <div class="col offset-3">
+      <ds-suggestion-evidences [evidences]="object.evidences"></ds-suggestion-evidences>
+    </div>
+  </div>
+</div>
+<hr>

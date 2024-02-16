@@ -13,6 +13,8 @@ import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
 import { SearchModule } from '../shared/search/search.module';
+import { NotificationsModule } from '../notifications/notifications.module';
+
 const DECLARATIONS = [
   HomePageComponent,
   ThemedHomePageComponent,
@@ -31,7 +33,8 @@ const DECLARATIONS = [
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     HomePageRoutingModule,
-    StatisticsModule.forRoot()
+    StatisticsModule.forRoot(),
+    NotificationsModule
   ],
   declarations: [
     ...DECLARATIONS,
