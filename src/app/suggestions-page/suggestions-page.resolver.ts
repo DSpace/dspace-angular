@@ -6,10 +6,10 @@ import { find } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
 import { hasValue } from '../shared/empty.util';
-import { SuggestionTarget } from '../core/notifications/reciter-suggestions/models/suggestion-target.model';
+import { SuggestionTarget } from '../core/suggestion-notifications/models/suggestion-target.model';
 import {
   SuggestionTargetDataService
-} from '../core/notifications/reciter-suggestions/target/suggestion-target-data.service';
+} from '../core/suggestion-notifications/target/suggestion-target-data.service';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated

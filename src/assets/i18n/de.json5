@@ -2190,6 +2190,44 @@
   // "info.privacy.title": "Privacy Statement",
   "info.privacy.title": "Datenschutzerklärung",
 
+  // "info.feedback.breadcrumbs": "Feedback",
+  "info.feedback.breadcrumbs": "Feedback",
+
+  // "info.feedback.head": "Feedback",
+  "info.feedback.head": "Feedback",
+
+  // "info.feedback.title": "Feedback",
+  "info.feedback.title": "Feedback",
+
+  // "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+  "info.feedback.info": "Wir freuen uns auf Ihr Feedback. Sofern Sie eine Rückmeldung wünschen, werden wir uns in Kürze bei Ihnen melden.",
+
+  // "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+  "info.feedback.email_help": "Sollten wir Rückfragen zu Ihrem Feedback haben, dann kontaktieren wir Sie unter dieser E-Mailadresse.",
+
+  // "info.feedback.send": "Send Feedback",
+  "info.feedback.send": "Feedback senden",
+
+  // "info.feedback.comments": "Comments",
+  "info.feedback.comments": "Ihr Kommentar",
+
+  // "info.feedback.email-label": "Your Email",
+  "info.feedback.email-label": "Ihre E-Mailadresse",
+
+  // "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Vielen Dank für Ihr Feedback! Ihr Feedback wurde erfolgreich versendet.",
+
+  // "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "Bitte geben Sie eine gültige E-Mailadresse ein!",
+
+  // "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "Bitte geben Sie einen Kommentar ein!",
+
+  // "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "URL der Seite",
+
+  // "info.feedback.page_help": "The page related to your feedback",
+  "info.feedback.page_help": "Dies ist die URL der Seite, auf die sich Ihr Feedback bezieht.",
 
 
   // "item.alerts.private": "This item is private",
