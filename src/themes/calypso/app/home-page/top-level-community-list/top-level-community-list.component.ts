@@ -20,7 +20,6 @@ import { Vedette } from '../../../models/Vedette';
 })
 
 export class TopLevelCommunityListComponent extends BaseComponent implements OnDestroy {
-  //collections: any[] = [];
   collections$: Observable<any[]> = of([]);
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -65,8 +64,13 @@ export class TopLevelCommunityListComponent extends BaseComponent implements OnD
                   takeUntil(this.unsubscribe$)
                 ).subscribe((individualCollectionData) => {
                   if (individualCollectionData && individualCollectionData.payload && individualCollectionData.payload._links) {
+                    let description = null;
+                    if(individualCollectionData.payload.metadata['dc.description']){
+                      description = individualCollectionData.payload.metadata['dc.description'][0].value;
+                    }
                     const collections = {
                       title: individualCollectionData.payload.metadata['dc.title'][0].value,
+                      description: description,
                       id: individualCollectionData.payload.id,
                       vedette: null
                     };

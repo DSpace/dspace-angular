@@ -13,25 +13,28 @@
       <!-- Récupérer les collections à partir du lien -->
       <ng-container *ngIf="collections$ | async as collections">
         <ng-container *ngIf="collections.length > 0">
-          <div class="row">
+          <div class="row align-items-center">
             <!-- Boucle sur chaque collection -->
             <ng-container *ngFor="let collection of collections">
-                <!-- Ajoutez une condition *ngIf pour vérifier la présence de collection?.vedette -->
-                <div *ngIf="collection?.vedette" class="col-md-4">
-                  <figure class="card card--1" [ngStyle]="{ 'background-image': 'url(' + collection.vedette + ')' }">
-                      <figcaption >
-                      <span class="info">
-                        <h3>{{ collection.title }}</h3>
-                        <a [routerLink]="['/collections/', collection.id]"><span>Voir plus</span></a>
-                      </span>
-                      </figcaption>
-                  </figure>
+              <!-- Ajoutez une condition *ngIf pour vérifier la présence de collection?.vedette -->
+              <div *ngIf="collection?.vedette" class="col-md-4">
+                <div class="card-calypso" [ngStyle]="{ 'background-image': 'url(' + collection.vedette + ')' }">
+                  <div class="specifies">
+                    <a  [routerLink]="['/collections/', collection.id]"><h2>{{collection.title}}</h2></a>
+                    <label *ngIf="collection.description">Description</label>
+                    <ul>
+                      <li>{{collection.description}}</li>
+                    </ul>
+                     <a class="calypso-card-lien"  [routerLink]="['/collections/', collection.id]"> Voir plus</a>
+                  </div>
                 </div>
-                <!-- Fin de la condition *ngIf -->
+              </div>
+              <!-- Fin de la condition *ngIf -->
             </ng-container>
           </div>
         </ng-container>
       </ng-container>
+      <!-- Fin récupérer les collections à partir du lien -->
     </ng-container>
   </ng-container>
   <ds-error *ngIf="communitiesRD?.hasFailed" message="{{ 'error.top-level-communities' | translate }}"></ds-error>

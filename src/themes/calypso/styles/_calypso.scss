@@ -1,0 +1,129 @@
+/* calypso card style */
+.card-calypso {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), 0 2px 1px rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background-size: cover;
+
+.specifies {
+  position: absolute;
+  width: 100%;
+  bottom: -60px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  box-sizing: border-box;
+  transition: 0.6s;
+
+h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+  color: #142026;
+
+&:hover {
+   color: #052f4b;
+ }
+}
+
+.left-text {
+  position: absolute;
+  top: 12px;
+  right: 25px;
+  font-weight: bold;
+  color: #000;
+  font-size: 18px;
+}
+
+label {
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+li {
+  list-style: none;
+  margin: 5px 5px 0;
+  font-size: 15px;
+  font-style: normal;
+  color: #ccc;
+}
+}
+
+a {
+  text-decoration: none;
+}
+}
+
+&:hover {
+.specifies {
+  bottom: 0;
+  background: rgb(255, 255, 255);
+}
+}
+}
+
+.calypso-card-lien {
+  display: block;
+  padding: 5px;
+  color: #d94607;
+  margin: 10px 0 0;
+  width: 100%;
+  font-size: 13px;
+  border-radius: 0;
+
+&:hover {
+   color: #da3401;
+ }
+}
+/* fin calypso card style */
+/* Personnalisation d'une carte standard de DSpace */
+.card-columns .card  {
+  position: relative;
+  height: 420px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), 0 2px 1px rgba(0, 0, 0, 0.05)!important;
+  border-radius: 0;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background-size: cover;
+  border: none!important;
+
+  .card-body {
+    padding: 1rem!important;
+
+    h4 {
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      color: #142026;
+
+      &:hover {
+        color: #052f4b;
+      }
+    }
+    p {
+      color: #727375!important;
+      font-size: 13px;
+    }
+
+    a {
+      position: absolute;
+      top: 90%;
+      right: 5px;
+      color: #ffffff;
+      font-size: 14px;
+      border-radius: 0;
+    }
+  }
+}
+/* Fin personnalisation d'une carte standard de DSpace */

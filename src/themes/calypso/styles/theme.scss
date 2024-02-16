@@ -1,5 +1,5 @@
 // This file combines the other scss files in to one. You usually shouldn't edit this file directly
-
+@import './_calypso.scss';
 @import './_theme_sass_variable_overrides.scss';
 @import '../../../styles/_variables.scss';
 @import '../../../styles/_mixins.scss';
@@ -10,3 +10,4 @@
 @import '../../../styles/bootstrap_variables_mapping.scss';
 @import '../../../styles/_truncatable-part.component.scss';
 @import './_global-styles.scss';
+
