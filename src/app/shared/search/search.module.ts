@@ -6,7 +6,6 @@ import { SearchFilterComponent } from './search-filters/search-filter/search-fil
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SearchLabelLoaderComponent } from './search-labels/search-label-loader/search-label-loader.component';
-import { SearchLabelLoaderDirective } from './search-labels/search-label-loader/search-label-loader-directive.directive';
 import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
 import { SearchLabelRangeComponent } from './search-labels/search-label-range/search-label-range.component';
 import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
@@ -86,7 +85,6 @@ export const MODELS = [
 @NgModule({
   declarations: [
     ...COMPONENTS,
-    SearchLabelLoaderDirective,
   ],
   imports: [
     CommonModule,
@@ -99,7 +97,6 @@ export const MODELS = [
   ],
   exports: [
     ...COMPONENTS,
-    SearchLabelLoaderDirective,
   ]
 })
 export class SearchModule {
