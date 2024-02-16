@@ -6,7 +6,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import {  NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './notifications-pages-routing-paths';
 import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page/notifications-suggestion-targets-page.component';
-import { NotificationsSuggestionTargetsPageResolver } from './notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
+import { AdminNotificationsPublicationClaimPageResolver } from './notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
 import { QUALITY_ASSURANCE_EDIT_PATH } from './notifications-pages-routing-paths';
 import { QualityAssuranceTopicsPageComponent } from './quality-assurance-topics-page/quality-assurance-topics-page.component';
 import { QualityAssuranceEventsPageComponent } from './quality-assurance-events-page/quality-assurance-events-page.component';
@@ -30,7 +30,7 @@ import {
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          reciterSuggestionTargetParams: NotificationsSuggestionTargetsPageResolver
+          reciterSuggestionTargetParams: AdminNotificationsPublicationClaimPageResolver
         },
         data: {
           title: 'admin.notifications.recitersuggestion.page.title',
@@ -104,7 +104,7 @@ import {
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
-    NotificationsSuggestionTargetsPageResolver,
+    AdminNotificationsPublicationClaimPageResolver,
     SourceDataResolver,
     QualityAssuranceSourcePageResolver,
     QualityAssuranceTopicsPageResolver,

@@ -26,15 +26,15 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedModule.withEntryComponents(),
-        JournalEntitiesModule.withEntryComponents(),
-        ResearchEntitiesModule.withEntryComponents(),
-        HomePageRoutingModule,
-        StatisticsModule.forRoot(),
-        NotificationsModule
-    ],
+  imports: [
+    CommonModule,
+    SharedModule.withEntryComponents(),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents(),
+    HomePageRoutingModule,
+    StatisticsModule.forRoot(),
+    NotificationsModule
+  ],
   declarations: [
     ...DECLARATIONS,
   ],

@@ -96,7 +96,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   private pageConfigSub: Subscription;
 
   /**
-   * Initialize instance variables and inject the properly DataService
+   * Initialize instance variables and inject the properly UpdateDataServiceImpl
    *
    * @param {DSONameService} dsoNameService
    * @param {Injector} parentInjector

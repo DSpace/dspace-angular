@@ -26,29 +26,24 @@ import { QualityAssuranceSourceService } from './qa/source/quality-assurance-sou
 import {
   QualityAssuranceSourceDataService
 } from '../core/notifications/qa/source/quality-assurance-source-data.service';
-import { SuggestionTargetsComponent } from './reciter-suggestions/suggestion-targets/suggestion-targets.component';
-import { SuggestionActionsComponent } from './reciter-suggestions/suggestion-actions/suggestion-actions.component';
-import {
-  SuggestionListElementComponent
-} from './reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
+
+import { SuggestionsPopupComponent } from './suggestions-popup/suggestions-popup.component';
+import { SuggestionSourceDataService } from '../core/notifications/source/suggestion-source-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
+import { PublicationClaimComponent } from '../notifications/suggestion-targets/publication-claim/publication-claim.component';
+
+import { SuggestionsNotificationComponent } from './suggestions-notification/suggestions-notification.component';
+import { SuggestionsService } from './suggestions.service';
+import { SuggestionTargetsStateService } from './suggestion-targets/suggestion-targets.state.service';
+import { SuggestionActionsComponent } from './suggestion-actions/suggestion-actions.component';
+import { SuggestionListElementComponent } from './suggestion-list-element/suggestion-list-element.component';
 import {
   SuggestionEvidencesComponent
-} from './reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
-import { SuggestionsPopupComponent } from './reciter-suggestions/suggestions-popup/suggestions-popup.component';
-import {
-  SuggestionsNotificationComponent
-} from './reciter-suggestions/suggestions-notification/suggestions-notification.component';
-import { SuggestionsService } from './reciter-suggestions/suggestions.service';
-import { SuggestionsDataService } from '../core/notifications/reciter-suggestions/suggestions-data.service';
-import {
-  SuggestionSourceDataService
-} from '../core/notifications/reciter-suggestions/source/suggestion-source-data.service';
-import {
-  SuggestionTargetDataService
-} from '../core/notifications/reciter-suggestions/target/suggestion-target-data.service';
-import {
-  SuggestionTargetsStateService
-} from './reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+} from './suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+
+
+
 
 const MODULES = [
   CommonModule,
@@ -64,7 +59,7 @@ const COMPONENTS = [
   QualityAssuranceTopicsComponent,
   QualityAssuranceEventsComponent,
   QualityAssuranceSourceComponent,
-  SuggestionTargetsComponent,
+  PublicationClaimComponent,
   SuggestionActionsComponent,
   SuggestionListElementComponent,
   SuggestionEvidencesComponent,
