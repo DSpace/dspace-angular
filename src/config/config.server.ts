@@ -243,8 +243,8 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
 
     i18nFiles.forEach(file => {
       const match = file.match(/^(.+)\.(.+)\.json$/);
-      // only add language hash to config if no config exists for current language (ensuring the latest language file
-      // is used)
+      // only add language hash to config, if no config exists for current language (ensuring the latest language file
+      // is used - meaning the one sideloaded into the i18n folder)
       if (match && appConfig.languageHashes.filter(((languageHashConfig) => languageHashConfig.lang === match[1])).length === 0) {
         const languageConfig: LanguageHashesConfig = {
           lang: match[1],
