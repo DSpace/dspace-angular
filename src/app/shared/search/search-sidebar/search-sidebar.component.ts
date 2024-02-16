@@ -29,7 +29,7 @@ export class SearchSidebarComponent {
   /**
    * The configuration to use for the search options
    */
-  @Input() configuration;
+  @Input() configuration: string;
 
   /**
    * The list of available configuration options
@@ -54,7 +54,7 @@ export class SearchSidebarComponent {
   /**
    * The total amount of results
    */
-  @Input() resultCount;
+  @Input() resultCount: number;
 
   /**
    * The list of available view mode options
@@ -69,7 +69,7 @@ export class SearchSidebarComponent {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The configuration for the current paginated search results
