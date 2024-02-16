@@ -315,7 +315,7 @@ describe('EPersonDataService', () => {
       service.deleteEPerson(EPersonMock).subscribe();
     });
 
-    it('should call DataService.delete with the EPerson\'s UUID', () => {
+    it('should call UpdateDataServiceImpl.delete with the EPerson\'s UUID', () => {
       expect(service.delete).toHaveBeenCalledWith(EPersonMock.id);
     });
   });

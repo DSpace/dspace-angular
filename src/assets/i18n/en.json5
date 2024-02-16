@@ -1999,11 +1999,11 @@
 
   "form.create": "Create",
 
-  "form.repeatable.sort.tip": "Drop the item in the new position",
-
   "form.number-picker.decrement": "Decrement {{field}}",
 
   "form.number-picker.increment": "Increment {{field}}",
+
+  "form.repeatable.sort.tip": "Drop the item in the new position",
 
   "grant-deny-request-copy.deny": "Don't send copy",
 
@@ -3215,7 +3215,7 @@
 
   "menu.section.quality-assurance": "Quality Assurance",
 
-  "menu.section.notifications_reciter": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Publication Claim",
 
   "menu.section.pin": "Pin sidebar",
 
@@ -3348,6 +3348,14 @@
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
   "mydspace.view-btn": "View",
+
+  "mydspace.import": "Import",
+
+  "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>",
+
+  "notification.suggestion.review": "review the suggestions",
+
+  "notification.suggestion.please": "Please",
 
   "nav.browse.header": "All of DSpace",
 
@@ -3822,6 +3830,72 @@
   "media-viewer.previous": "Previous",
 
   "media-viewer.playlist": "Playlist",
+
+  "suggestion.loading": "Loading ...",
+
+  "suggestion.title": "Publication Claim",
+
+  "suggestion.title.breadcrumbs": "Publication Claim",
+
+  "suggestion.targets.description": "Below you can see all the suggestions ",
+
+  "suggestion.targets": "Current Suggestions",
+
+  "suggestion.table.name": "Researcher Name",
+
+  "suggestion.table.actions": "Actions",
+
+  "suggestion.button.review": "Review {{ total }} suggestion(s)",
+
+  "suggestion.button.review.title": "Review {{ total }} suggestion(s) for ",
+
+  "suggestion.noTargets": "No target found.",
+
+  "suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+
+  "suggestion.evidence.type": "Type",
+
+  "suggestion.evidence.score": "Score",
+
+  "suggestion.evidence.notes": "Notes",
+
+  "suggestion.approveAndImport": "Approve & import",
+
+  "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='{{ url }}'>View.</a>",
+
+  "suggestion.approveAndImport.bulk": "Approve & import Selected",
+
+  "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+
+  "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+
+  "suggestion.ignoreSuggestion": "Ignore Suggestion",
+
+  "suggestion.ignoreSuggestion.success": "The suggestion has been discarded",
+
+  "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
+
+  "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
+
+  "suggestion.ignoreSuggestion.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+
+  "suggestion.seeEvidence": "See evidence",
+
+  "suggestion.hideEvidence": "Hide evidence",
+
+  "suggestion.suggestionFor": "Suggestions for",
+
+  "suggestion.suggestionFor.breadcrumb": "Suggestions for {{ name }}",
+
+  "suggestion.source.openaire": "OpenAIRE Graph",
+
+  "suggestion.from.source": "from the ",
+
+  "suggestion.count.missing": "You have no publication claims left",
+
+  "suggestion.totalScore": "Total Score",
+
+  "suggestion.type.openaire": "OpenAIRE",
 
   "register-email.title": "New user registration",
 
@@ -4380,6 +4454,18 @@
   "sorting.lastModified.ASC": "Last modified Ascending",
 
   "sorting.lastModified.DESC": "Last modified Descending",
+
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
 
   "statistics.title": "Statistics",
 
@@ -5761,4 +5847,7 @@
 
   "vocabulary-treeview.search.form.add": "Add",
 
+  "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
+
+  "admin.notifications.publicationclaim.page.title": "Publication Claim",
 }
