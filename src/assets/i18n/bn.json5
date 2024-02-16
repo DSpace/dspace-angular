@@ -3886,7 +3886,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "বৈধতা",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "নিয়ামক জন্য অপেক্ষা করছে",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",

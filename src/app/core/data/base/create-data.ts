@@ -37,7 +37,7 @@ export interface CreateData<T extends CacheableObject> {
 }
 
 /**
- * A DataService feature to create objects.
+ * A UpdateDataServiceImpl feature to create objects.
  *
  * Concrete data services can use this feature by implementing {@link CreateData}
  * and delegating its method to an inner instance of this class.

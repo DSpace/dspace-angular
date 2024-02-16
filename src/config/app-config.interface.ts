@@ -14,6 +14,7 @@ import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
+import { SuggestionConfig } from './suggestion-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -23,7 +24,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LanguageHashesConfig } from './languageHashes-config.interface';
-import {QualityAssuranceConfig} from './quality-assurance.config';
+import { QualityAssuranceConfig } from './quality-assurance.config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -45,6 +46,7 @@ interface AppConfig extends Config {
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  suggestion: SuggestionConfig[];
   bundle: BundleConfig;
   actuators: ActuatorsConfig
   info: InfoConfig;

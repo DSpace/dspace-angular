@@ -1,38 +1,38 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BROWSE_BY_COMPONENT_FACTORY } from './browse-by-decorator';
+import { Component, Input } from '@angular/core';
+import { getComponentByBrowseByType } from './browse-by-decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { ThemeService } from '../../shared/theme-support/theme.service';
+import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
+import { BrowseByDataType } from './browse-by-data-type';
+import { Context } from '../../core/shared/context.model';
 
 @Component({
   selector: 'ds-browse-by-switcher',
-  templateUrl: './browse-by-switcher.component.html'
+  templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html'
 })
-/**
- * Component for determining what Browse-By component to use depending on the metadata (browse ID) provided
- */
-export class BrowseBySwitcherComponent implements OnInit {
+export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {
 
-  /**
-   * Resolved browse-by component
-   */
-  browseByComponent: Observable<any>;
+  @Input() context: Context;
 
-  public constructor(protected route: ActivatedRoute,
-                     protected themeService: ThemeService,
-                     @Inject(BROWSE_BY_COMPONENT_FACTORY) private getComponentByBrowseByType: (browseByType, theme) => GenericConstructor<any>) {
-  }
+  @Input() browseByType: BrowseByDataType;
 
-  /**
-   * Fetch the correct browse-by component by using the relevant config from the route data
-   */
-  ngOnInit(): void {
-    this.browseByComponent = this.route.data.pipe(
-      map((data: { browseDefinition: BrowseDefinition }) => this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName()))
-    );
+  @Input() displayTitle: boolean;
+
+  @Input() scope: string;
+
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
+    'context',
+    'browseByType',
+  ];
+
+  protected inputNames: (keyof this & string)[] = [
+    'context',
+    'browseByType',
+    'displayTitle',
+    'scope',
+  ];
+
+  public getComponent(): GenericConstructor<Component> {
+    return getComponentByBrowseByType(this.browseByType, this.context, this.themeService.getThemeName());
   }
 
 }
