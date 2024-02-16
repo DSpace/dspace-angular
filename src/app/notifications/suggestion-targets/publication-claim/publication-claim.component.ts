@@ -4,17 +4,14 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, take } from 'rxjs/operators';
 
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-targets/suggestion-targets.component.ts
-import { SuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/suggestion-target.model';
-========
-import { SuggestionTarget } from '../../../core/suggestion-notifications/models/suggestion-target.model';
->>>>>>>> main:src/app/notifications/suggestion-targets/publication-claim/publication-claim.component.ts
+
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
-import { SuggestionsService } from '../../suggestions.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
+import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
+import { SuggestionsService } from '../../suggestions.service';
 
 /**
  * Component to display the Suggestion Target list.

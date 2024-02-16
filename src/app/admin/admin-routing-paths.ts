@@ -18,3 +18,8 @@ export function getLdnServicesModuleRoute() {
 export function getNotificatioQualityAssuranceRoute() {
   return new URLCombiner(`/${NOTIFICATIONS_MODULE_PATH}`, getQualityAssuranceEditRoute()).toString();
 }
+
+
+export function getNotificationsModuleRoute() {
+  return new URLCombiner(getAdminModuleRoute(), NOTIFICATIONS_MODULE_PATH).toString();
+}

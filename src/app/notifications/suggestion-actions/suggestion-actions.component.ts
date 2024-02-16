@@ -1,15 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-actions/suggestion-actions.component.ts
-import { Suggestion } from '../../../core/notifications/reciter-suggestions/models/suggestion.model';
-========
-import { Suggestion } from '../../core/suggestion-notifications/models/suggestion.model';
->>>>>>>> main:src/app/notifications/suggestion-actions/suggestion-actions.component.ts
-import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-list-element.component';
+
 import { Collection } from '../../core/shared/collection.model';
 import { take } from 'rxjs/operators';
 import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { Suggestion } from '../../core/notifications/models/suggestion.model';
+import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-list-element.component';
 
 /**
  * Show and trigger the actions to submit for a suggestion

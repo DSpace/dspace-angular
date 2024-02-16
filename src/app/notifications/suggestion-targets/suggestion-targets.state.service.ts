@@ -4,31 +4,23 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  getCurrentUserSuggestionTargetsSelector,
-  getCurrentUserSuggestionTargetsVisitedSelector,
-  getSuggestionTargetCurrentPageSelector,
-  getSuggestionTargetTotalsSelector,
-  isSuggestionTargetLoadedSelector,
-  isReciterSuggestionTargetProcessingSelector,
-  suggestionTargetObjectSelector
-} from '../selectors';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-targets/suggestion-targets.state.service.ts
-import { SuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/suggestion-target.model';
-========
-import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
->>>>>>>> main:src/app/notifications/suggestion-targets/suggestion-targets.state.service.ts
+
 import {
   ClearSuggestionTargetsAction,
   MarkUserSuggestionsAsVisitedAction,
   RefreshUserSuggestionsAction,
   RetrieveTargetsBySourceAction
 } from './suggestion-targets.actions';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-targets/suggestion-targets.state.service.ts
-import { SuggestionNotificationsState } from '../../notifications.reducer';
-========
 import { SuggestionNotificationsState } from '../../notifications/notifications.reducer';
->>>>>>>> main:src/app/notifications/suggestion-targets/suggestion-targets.state.service.ts
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import {
+  getCurrentUserSuggestionTargetsSelector, getCurrentUserSuggestionTargetsVisitedSelector,
+  getSuggestionTargetCurrentPageSelector,
+  getSuggestionTargetTotalsSelector,
+  isReciterSuggestionTargetProcessingSelector,
+  isSuggestionTargetLoadedSelector,
+  suggestionTargetObjectSelector
+} from '../../suggestion-notifications/selectors';
 
 /**
  * The service handling the Suggestion targets State.

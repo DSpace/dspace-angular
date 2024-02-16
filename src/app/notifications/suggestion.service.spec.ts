@@ -1,13 +1,6 @@
 import { SuggestionsService } from './suggestions.service';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-import {
-  SuggestionsDataService
-} from '../core/suggestion-notifications/suggestions-data.service';
 
-
-import {
-  SuggestionTargetDataService
-} from '../core/suggestion-notifications/target/suggestion-target-data.service';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -18,11 +11,11 @@ import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { ResourceType } from '../core/shared/resource-type';
+import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 
 
-import {
-  SuggestionTarget
-} from '../core/suggestion-notifications/models/suggestion-target.model';
 
 describe('SuggestionsService test', () => {
   let scheduler: TestScheduler;

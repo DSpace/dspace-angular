@@ -324,6 +324,4 @@ export const environment: BuildConfig = {
       enabled: true
     }
   ],
-
-  suggestion: []
 };

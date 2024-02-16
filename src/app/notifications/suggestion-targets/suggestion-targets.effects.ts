@@ -15,13 +15,9 @@ import {
 } from './suggestion-targets.actions';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SuggestionsService } from '../suggestions.service';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-targets/suggestion-targets.effects.ts
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/suggestion-target.model';
-========
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
->>>>>>>> main:src/app/notifications/suggestion-targets/suggestion-targets.effects.ts
+
 
 /**
  * Provides effect methods for the Suggestion Targets actions.
@@ -80,12 +76,8 @@ export class SuggestionTargetsEffects {
           }),
           catchError((errors) => of(errors))
         );
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-targets/suggestion-targets.effects.ts
-    })), { dispatch: false });
-========
     }))
   );
->>>>>>>> main:src/app/notifications/suggestion-targets/suggestion-targets.effects.ts
 
   /**
    * Initialize the effect class variables.

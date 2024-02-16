@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
 import { take, takeUntil } from 'rxjs/operators';
-import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { trigger } from '@angular/animations';
 
 
 import { fromTopEnter } from '../../shared/animations/fromTop';
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
 
 /**
  * Show suggestions on a popover window, used on the homepage

@@ -1,68 +1,27 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { of, forkJoin, Observable } from 'rxjs';
 import { catchError, map, mergeMap, take } from 'rxjs/operators';
-
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestions.service.ts
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SuggestionTarget } from '../../core/notifications/reciter-suggestions/models/suggestion-target.model';
-import { AuthService } from '../../core/auth/auth.service';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-========
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { RemoteData } from '../core/data/remote-data';
+import { FindListOptions } from '../core/data/find-list-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
-import { SuggestionTarget } from '../core/suggestion-notifications/models/suggestion-target.model';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
->>>>>>>> main:src/app/notifications/suggestions.service.ts
-import {
-  getAllSucceededRemoteDataPayload,
-  getFinishedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestions.service.ts
-} from '../../core/shared/operators';
-import { Suggestion } from '../../core/notifications/reciter-suggestions/models/suggestion.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { environment } from '../../../environments/environment';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import {FindListOptions} from '../../core/data/find-list-options.model';
-import {SuggestionConfig} from '../../../config/layout-config.interfaces';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import {
-  SuggestionSourceDataService
-} from '../../core/notifications/reciter-suggestions/source/suggestion-source-data.service';
-import {
-  SuggestionTargetDataService
-} from '../../core/notifications/reciter-suggestions/target/suggestion-target-data.service';
-import {
-  SuggestionsDataService
-} from '../../core/notifications/reciter-suggestions/suggestions-data.service';
-========
-} from '../core/shared/operators';
-import { Suggestion } from '../core/suggestion-notifications/models/suggestion.model';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NoContent } from '../core/shared/NoContent.model';
-import { environment } from '../../environments/environment';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import {FindListOptions} from '../core/data/find-list-options.model';
-import {SuggestionConfig} from '../../config/suggestion-config.interfaces';
+import { RemoteData } from '../core/data/remote-data';
+import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
+import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-import {
-  SuggestionTargetDataService
-} from '../core/suggestion-notifications/target/suggestion-target-data.service';
-import {
-  SuggestionsDataService
-} from '../core/suggestion-notifications/suggestions-data.service';
+import { NoContent } from '../core/shared/NoContent.model';
+import { getFirstSucceededRemoteListPayload, getFirstSucceededRemoteDataPayload, getAllSucceededRemoteDataPayload, getFinishedRemoteData } from '../core/shared/operators';
 import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
->>>>>>>> main:src/app/notifications/suggestions.service.ts
+import { environment } from '../../environments/environment';
+import { SuggestionConfig } from '../../config/suggestion-config.interfaces';
+import { Suggestion } from '../core/notifications/models/suggestion.model';
+import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
+
 
 /**
  * useful for multiple approvals and ignores operation

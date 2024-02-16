@@ -1,11 +1,7 @@
 import { Component, Input } from '@angular/core';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component.ts
-import { fadeIn } from '../../../../shared/animations/fade';
-import { SuggestionEvidences } from '../../../../core/notifications/reciter-suggestions/models/suggestion.model';
-========
 import { fadeIn } from '../../../shared/animations/fade';
-import { SuggestionEvidences } from '../../../core/suggestion-notifications/models/suggestion.model';
->>>>>>>> main:src/app/notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component.ts
+import { SuggestionEvidences } from '../../../core/notifications/models/suggestion.model';
+
 
 /**
  * Show suggestion evidences such as score (authorScore, dateScore)

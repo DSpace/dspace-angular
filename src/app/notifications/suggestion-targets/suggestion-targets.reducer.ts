@@ -1,9 +1,6 @@
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
 import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-targets/suggestion-targets.reducer.ts
-import { SuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/suggestion-target.model';
-========
-import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
->>>>>>>> main:src/app/notifications/suggestion-targets/suggestion-targets.reducer.ts
+
 
 /**
  * The interface representing the OpenAIRE suggestion targets state.

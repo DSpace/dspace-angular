@@ -5,6 +5,7 @@ import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { hasValue } from '../../../shared/empty.util';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
 import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
+import { environment } from '../../../../environments/environment';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -95,5 +96,15 @@ export class MetadataValuesComponent implements OnChanges {
       return {value: value};
     }
     return queryParams;
+  }
+
+
+  /**
+   * Checks if the given link value is an internal link.
+   * @param linkValue - The link value to check.
+   * @returns True if the link value starts with the base URL defined in the environment configuration, false otherwise.
+   */
+  hasInternalLink(linkValue: string): boolean {
+    return linkValue.startsWith(environment.ui.baseUrl);
   }
 }

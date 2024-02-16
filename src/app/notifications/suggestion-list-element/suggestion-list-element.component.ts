@@ -1,18 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component.ts
-import { fadeIn } from '../../../shared/animations/fade';
-import { Suggestion } from '../../../core/notifications/reciter-suggestions/models/suggestion.model';
-import { Item } from '../../../core/shared/item.model';
-import { isNotEmpty } from '../../../shared/empty.util';
-========
+import { Suggestion } from 'src/app/core/notifications/models/suggestion.model';
 import { fadeIn } from '../../shared/animations/fade';
-import { Suggestion } from '../../core/suggestion-notifications/models/suggestion.model';
 import { Item } from '../../core/shared/item.model';
 import { isNotEmpty } from '../../shared/empty.util';
->>>>>>>> main:src/app/notifications/suggestion-list-element/suggestion-list-element.component.ts
+
+
 
 /**
  * A simple interface to unite a specific suggestion and the id of the chosen collection

@@ -1,12 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/suggestion-targets/suggestion-targets.actions.ts
-import { type } from '../../../shared/ngrx/type';
-import { SuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/suggestion-target.model';
-========
 import { type } from '../../shared/ngrx/type';
-import { SuggestionTarget } from '../../core/suggestion-notifications/models/suggestion-target.model';
->>>>>>>> main:src/app/notifications/suggestion-targets/suggestion-targets.actions.ts
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+
 
 /**
  * For each action type in an action group, make a simple

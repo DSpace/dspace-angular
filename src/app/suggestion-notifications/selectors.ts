@@ -1,13 +1,9 @@
 import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
-<<<<<<<< HEAD:src/app/notifications/reciter-suggestions/selectors.ts
-import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../notifications.reducer';
-import { SuggestionTarget } from '../../core/notifications/reciter-suggestions/models/suggestion-target.model';
-========
 import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../notifications/notifications.reducer';
-import { SuggestionTarget } from '../core/suggestion-notifications/models/suggestion-target.model';
->>>>>>>> main:src/app/suggestion-notifications/selectors.ts
-import { SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
+
 import {subStateSelector} from '../submission/selectors';
+import { SuggestionTargetState } from '../notifications/suggestion-targets/suggestion-targets.reducer';
+import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 
 /**
  * Returns the Reciter Suggestion Target state.
