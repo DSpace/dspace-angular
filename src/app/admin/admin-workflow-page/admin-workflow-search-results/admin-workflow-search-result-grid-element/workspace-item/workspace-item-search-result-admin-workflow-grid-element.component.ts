@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, OnDestroy, ComponentRef } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
@@ -16,9 +16,7 @@ import {
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import {
-  ListableObjectDirective
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
@@ -37,6 +35,7 @@ import { SupervisionOrder } from '../../../../../core/supervision-order/models/s
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
@@ -47,7 +46,7 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page
  */
-export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkspaceItemSearchResult, WorkspaceItem> implements OnInit {
+export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkspaceItemSearchResult, WorkspaceItem> implements OnDestroy, OnInit {
 
   /**
    * The item linked to the workspace item
@@ -67,7 +66,7 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
   /**
    * Directive used to render the dynamic component in
    */
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
+  @ViewChild(DynamicComponentLoaderDirective, { static: true }) dynamicComponentLoaderDirective: DynamicComponentLoaderDirective;
 
   /**
    * The html child that contains the badges html
@@ -79,9 +78,13 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
    */
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
 
+  /**
+   * The reference to the dynamic component
+   */
+  protected compRef: ComponentRef<Component>;
+
   constructor(
     public dsoNameService: DSONameService,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     private themeService: ThemeService,
@@ -100,24 +103,24 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$.pipe(take(1)).subscribe((item: Item) => {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
+        const component: GenericConstructor<Component> = this.getComponent(item);
 
-        const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+        const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
         viewContainerRef.clear();
 
-        const componentRef = viewContainerRef.createComponent(
-          componentFactory,
-          0,
-          undefined,
-          [
+        this.compRef = viewContainerRef.createComponent(
+          component, {
+          index: 0,
+          projectableNodes: [
             [this.badges.nativeElement],
             [this.buttons.nativeElement]
-          ]);
-        (componentRef.instance as any).object = item;
-        (componentRef.instance as any).index = this.index;
-        (componentRef.instance as any).linkType = this.linkType;
-        (componentRef.instance as any).listID = this.listID;
-        componentRef.changeDetectorRef.detectChanges();
+          ],
+        });
+        this.compRef.setInput('object', item);
+        this.compRef.setInput('index', this.index);
+        this.compRef.setInput('linkType', this.linkType);
+        this.compRef.setInput('listID', this.listID);
+        this.compRef.changeDetectorRef.detectChanges();
       }
     );
 
@@ -128,6 +131,13 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
     ).subscribe((supervisionOrderList: SupervisionOrder[]) => {
       this.supervisionOrder$.next(supervisionOrderList);
     });
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
   }
 
   /**

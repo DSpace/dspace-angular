@@ -6,7 +6,7 @@ import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { slide } from '../../../animations/slide';
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty, hasValue } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
@@ -38,6 +38,11 @@ export class SearchFilterComponent implements OnInit {
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * The current scope
+   */
+  @Input() scope: string;
 
   /**
    * Emits the {@link AppliedFilter}s of this search filter
@@ -177,6 +182,9 @@ export class SearchFilterComponent implements OnInit {
         } else {
           return this.searchConfigService.searchOptions.pipe(
             switchMap((options) => {
+                if (hasValue(this.scope)) {
+                  options.scope = this.scope;
+                }
                 return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                   filter((RD) => !RD.isLoading),
                   map((valuesRD) => {

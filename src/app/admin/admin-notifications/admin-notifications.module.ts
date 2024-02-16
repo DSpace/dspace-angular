@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
 import { AdminNotificationsRoutingModule } from './admin-notifications-routing.module';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
 import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
 import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
 import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
-import {NotificationsModule} from '../../notifications/notifications.module';
+import { NotificationsModule } from '../../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {NotificationsModule} from '../../notifications/notifications.module';
     NotificationsModule
   ],
   declarations: [
+    AdminNotificationsPublicationClaimPageComponent,
     AdminQualityAssuranceTopicsPageComponent,
     AdminQualityAssuranceEventsPageComponent,
     AdminQualityAssuranceSourcePageComponent

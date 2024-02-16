@@ -15,6 +15,7 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import {
   CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
+  SCOPE,
   IN_PLACE_SEARCH,
   SearchFilterService,
   REFRESH_FILTER
@@ -76,7 +77,8 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)},
+        { provide: SCOPE, useValue: undefined },
         { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

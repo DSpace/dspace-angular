@@ -13,7 +13,7 @@ import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService, CHANGE_APPLIED_FILTERS } from '../../../../../core/shared/search/search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SCOPE, SearchFilterService, CHANGE_APPLIED_FILTERS } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
@@ -78,7 +78,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits all current search options available in the search URL
    */
-  searchOptions$: BehaviorSubject<SearchOptions>;
+  searchOptions$: Observable<SearchOptions>;
 
   /**
    * The current URL
@@ -93,6 +93,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
               @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
   ) {
   }
@@ -103,8 +104,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentUrl = this.router.url;
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
-
-    this.searchOptions$ = this.searchConfigService.searchOptions;
+    this.searchOptions$ = this.searchConfigService.searchOptions.pipe(
+      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign({}, options, {
+        scope: this.scope,
+      })),
+    );
     this.subs.push(
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
       this.refreshFilters.asObservable().pipe(
