@@ -1,5 +1,5 @@
 <div class="facet-filter d-block mb-3 p-3" *ngIf="active$ | async"
- [id]="regionId" [attr.aria-labelledby]="toggleId"  [ngClass]="{ 'focus': focusBox }" role="region">
+     [id]="regionId" [attr.aria-labelledby]="toggleId" [ngClass]="{ 'focus': focusBox }" role="region">
   <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false"
           class="filter-name d-flex" [attr.aria-controls]="regionId" [id]="toggleId"
           [attr.aria-expanded]="!(collapsed$ | async)"
@@ -9,7 +9,6 @@
     <span class="h4 d-inline-block text-left mt-auto mb-auto">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}
     </span>
-    
     <i class="filter-toggle flex-grow-1 fas p-auto"
        aria-hidden="true"
        [ngClass]="(collapsed$ | async) ? 'fa-plus' : 'fa-minus'"
