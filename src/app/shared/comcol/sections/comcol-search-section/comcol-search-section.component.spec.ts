@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ComcolSearchSectionComponent } from './comcol-search-section.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
 
 describe('ComcolSearchSectionComponent', () => {
   let component: ComcolSearchSectionComponent;
@@ -17,6 +19,7 @@ describe('ComcolSearchSectionComponent', () => {
         ComcolSearchSectionComponent,
       ],
       providers: [
+        { provide: APP_CONFIG, useValue: environment },
         { provide: ActivatedRoute, useValue: route },
       ],
     }).compileComponents();
