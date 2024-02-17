@@ -113,7 +113,7 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with query', async () => {
-          const extras: NavigationExtras = { queryParams: { query: 'test' }, queryParamsHandling: '' };
+          const extras: NavigationExtras = { queryParams: { query: 'test' }, queryParamsHandling: 'merge' };
           expect(component.onSubmit).toHaveBeenCalledWith({ query: 'test' });
 
           expect(router.navigate).toHaveBeenCalledWith(['search'], extras);

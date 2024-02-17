@@ -1,11 +1,11 @@
 <ds-themed-home-news></ds-themed-home-news>
-<div class="container-fluid">
+<div [ngClass]="appConfig.homePage.showDiscoverFilters ? 'container-fluid' : 'container'">
   <div class="row m-5">
-    <div class="col-sm-3">
+    <div class="col-sm-3" *ngIf="appConfig.homePage.showDiscoverFilters">
       <ds-configuration-search-page [sideBarWidth]="12" [showViewModes]="false" [searchEnabled]="false"
         [inPlaceSearch]="false" [showScopeSelector]="false"></ds-configuration-search-page>
     </div>
-    <div class="col-sm-9">
+    <div [ngClass]="appConfig.homePage.showDiscoverFilters ? 'col-sm-9' : 'col-sm-12'">
       <ng-container *ngIf="(site$ | async) as site">
         <ds-view-tracker [object]="site"></ds-view-tracker>
       </ng-container>

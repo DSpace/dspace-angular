@@ -272,6 +272,8 @@ homePage:
     # No. of communities to list per page on the home page
     # This will always round to the nearest number from the list of page sizes. e.g. if you set it to 7 it'll use 10
     pageSize: 5
+  # Enable or disable the Discover filters on the homepage
+  showDiscoverFilters: true
 
 # Item Config
 item:

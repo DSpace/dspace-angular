@@ -242,7 +242,8 @@ export const environment: BuildConfig = {
     },
     topLevelCommunityList: {
       pageSize: 5
-    }
+    },
+    showDiscoverFilters: true
   },
   item: {
     edit: {
