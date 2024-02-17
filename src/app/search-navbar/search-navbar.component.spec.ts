@@ -88,7 +88,7 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with empty query', () => {
-          const extras: NavigationExtras = { queryParams: { query: '' }, queryParamsHandling: '' };
+          const extras: NavigationExtras = { queryParams: { query: '' }, queryParamsHandling: 'merge' };
           expect(component.onSubmit).toHaveBeenCalledWith({ query: '' });
           expect(router.navigate).toHaveBeenCalledWith(['search'], extras);
         });
