@@ -34,4 +34,6 @@ export enum FeatureID {
   CanEditItem = 'canEditItem',
   CanRegisterDOI = 'canRegisterDOI',
   CanSubscribe = 'canSubscribeDso',
+  EPersonForgotPassword = 'epersonForgotPassword',
+  CanSeeQA = 'canSeeQA',
 }

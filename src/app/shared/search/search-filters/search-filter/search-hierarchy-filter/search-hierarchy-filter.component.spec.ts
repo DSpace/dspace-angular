@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
+  SCOPE,
   IN_PLACE_SEARCH,
   SearchFilterService,
   REFRESH_FILTER
@@ -75,7 +76,8 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)}
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)},
+        { provide: SCOPE, useValue: undefined },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

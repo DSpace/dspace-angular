@@ -14,6 +14,7 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import {SuggestionConfig} from './suggestion-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -22,6 +23,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import {QualityAssuranceConfig} from './quality-assurance.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -296,6 +298,17 @@ export class DefaultAppConfig implements AppConfig {
     }
   };
 
+  suggestion: SuggestionConfig[] = [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+    // This is used as a default fallback in case there aren't collections where to import the suggestion
+    // If not mapped the user will be allowed to import the suggestions only in the provided options, shown clicking the button "Approve and import"
+    // If not mapped and no options available for import the user won't be able to import the suggestions.
+  ];
+
   // Theme Config
   themes: ThemeConfig[] = [
     // Add additional themes here. In the case where multiple themes match a route, the first one
@@ -433,5 +446,12 @@ export class DefaultAppConfig implements AppConfig {
   comcolSelectionSort: DiscoverySortConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
+  };
+
+  qualityAssuranceConfig: QualityAssuranceConfig = {
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId='
+    },
+    pageSize: 5,
   };
 }

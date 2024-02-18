@@ -4989,7 +4989,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Érvényesítés",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Várakozás a kontrollerre",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",

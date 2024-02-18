@@ -17,10 +17,10 @@
                       [title]="'resource-policies.delete.btn.title' | translate"
                       (click)="deleteSelectedResourcePolicies()">
                 <span *ngIf="(isProcessingDelete() | async)">
-                  <i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}
+                  <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
                 </span>
                 <span *ngIf="!(isProcessingDelete() | async)">
-                  <i class='fas fa-trash-alt fa-fw'></i>
+                  <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
                   {{'resource-policies.delete.btn' | translate}}
                 </span>
               </button>
@@ -28,7 +28,7 @@
                       [disabled]="(isProcessingDelete() | async)"
                       [title]="'resource-policies.add.for.' + resourceType | translate"
                       (click)="redirectToResourcePolicyCreatePage()">
-                <i class='fas fa-plus'></i>
+                <i class='fas fa-plus' aria-hidden="true"></i>
                 {{'resource-policies.add.button' | translate}}
               </button>
             </div>
@@ -42,8 +42,8 @@
                    class="custom-control-input"
                    [id]="'selectAll_' + resourceUUID"
                    (change)="selectAllCheckbox($event)">
-            <label class="custom-control-label" [for]="'selectAll_' + resourceUUID"
-                   [attr.aria-label]="(selectAllBtn.checked ? 'resource-policies.table.headers.deselect-all' : 'resource-policies.table.headers.select-all') | translate">
+            <label class="custom-control-label" [for]="'selectAll_' + resourceUUID">
+              <span class="sr-only">{{(selectAllBtn.checked ? 'resource-policies.table.headers.deselect-all' : 'resource-policies.table.headers.select-all') | translate}}</span>
             </label>
           </div>
         </th>
