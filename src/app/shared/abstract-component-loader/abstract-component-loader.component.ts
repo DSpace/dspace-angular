@@ -85,6 +85,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
     this.subs
       .filter((subscription: Subscription) => hasValue(subscription))
       .forEach((subscription: Subscription) => subscription.unsubscribe());
+    this.destroyComponentInstance();
   }
 
   /**

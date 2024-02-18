@@ -23,7 +23,8 @@
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">
                 <ds-view-mode-switch [viewModeList]="viewModeList" [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
-                <button (click)="openSidebar()" aria-controls="#search-body"
+                <button [attr.aria-label]="'search.sidebar.open' | translate" (click)="openSidebar()"
+                        aria-controls="search-sidebar-content"
                         class="btn btn-outline-primary float-right open-sidebar"><i
                         class="fas fa-sliders"></i> {{"search.sidebar.open"
                         | translate}}

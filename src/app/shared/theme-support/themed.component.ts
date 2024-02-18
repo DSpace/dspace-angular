@@ -1,12 +1,11 @@
 import {
+  AfterViewInit,
   Component,
   ViewChild,
   ViewContainerRef,
   ComponentRef,
   SimpleChanges,
-  OnInit,
   OnDestroy,
-  ComponentFactoryResolver,
   ChangeDetectorRef,
   OnChanges,
   HostBinding,
@@ -24,7 +23,7 @@ import { BASE_THEME_NAME } from './theme.constants';
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
 })
-export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges {
+export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
   protected compRef: ComponentRef<T>;
@@ -47,7 +46,6 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   @HostBinding('attr.data-used-theme') usedTheme: string;
 
   constructor(
-    protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
     protected themeService: ThemeService,
   ) {
@@ -74,8 +72,7 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
   }
 
-  ngOnInit(): void {
-    this.destroyComponentInstance();
+  ngAfterViewInit(): void {
     this.initComponentInstance();
   }
 
@@ -96,8 +93,6 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
 
     if (hasNoValue(this.lazyLoadObs)) {
-      this.destroyComponentInstance();
-
       this.lazyLoadObs = combineLatest([
         observableOf(changes),
         this.resolveThemedComponent(this.themeService.getThemeName()).pipe(
@@ -120,8 +115,10 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
     }
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
-      const factory = this.resolver.resolveComponentFactory(constructor);
-      this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.childNodes]);
+      this.destroyComponentInstance();
+      this.compRef = this.vcr.createComponent(constructor, {
+        projectableNodes: [this.themedElementContent.nativeElement.childNodes],
+      });
       if (hasValue(simpleChanges)) {
         this.ngOnChanges(simpleChanges);
       } else {

@@ -1,5 +1,5 @@
 import { Component, Inject, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import {
   getFirstCompletedRemoteData,
 } from '../../core/shared/operators';
-import { UpdateDataService } from '../../core/data/update-data.service';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,6 +21,7 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
+import { UpdateDataService } from '../../core/data/update-data.service';
 
 @Component({
   selector: 'ds-dso-edit-metadata',

@@ -119,7 +119,14 @@ export class SearchFormComponent implements OnChanges {
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-    const queryParams = Object.assign({}, data);
+    const goToFirstPage = { 'spc.page': 1 };
+
+    const queryParams = Object.assign(
+      {
+        ...goToFirstPage
+      },
+      data
+    );
     if (hasValue(data.scope) && this.hideScopeInUrl) {
       delete queryParams.scope;
     }

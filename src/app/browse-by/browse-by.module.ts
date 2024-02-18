@@ -8,6 +8,7 @@ import { BrowseByTaxonomyComponent } from './browse-by-taxonomy/browse-by-taxono
 import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { FormModule } from '../shared/form/form.module';
+import { SharedModule } from '../shared/shared.module';
 
 const DECLARATIONS = [
   BrowseBySwitcherComponent,
@@ -27,6 +28,7 @@ const ENTRY_COMPONENTS = [
     CommonModule,
     DsoPageModule,
     FormModule,
+    SharedModule,
   ],
   declarations: [
     ...DECLARATIONS,

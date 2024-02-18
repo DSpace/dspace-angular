@@ -1,9 +1,9 @@
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable, shareReplay } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
 
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
@@ -15,6 +15,9 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
+import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 /**
  * /users/sign-in
@@ -61,26 +64,34 @@ export class LogInPasswordComponent implements OnInit {
 
   /**
    * The authentication form.
-   * @type {FormGroup}
+   * @type {UntypedFormGroup}
    */
   public form: UntypedFormGroup;
 
   /**
-   * @constructor
-   * @param {AuthMethod} injectedAuthMethodModel
-   * @param {boolean} isStandalonePage
-   * @param {AuthService} authService
-   * @param {HardRedirectService} hardRedirectService
-   * @param {FormBuilder} formBuilder
-   * @param {Store<State>} store
+   * Whether the current user (or anonymous) is authorized to register an account
    */
+  public canRegister$: Observable<boolean>;
+
+  /**
+   * Whether or not the current user (or anonymous) is authorized to register an account
+   */
+  canForgot$: Observable<boolean>;
+
+  /**
+   * Shows the divider only if contains at least one link to show
+   */
+  canShowDivider$: Observable<boolean>;
+
+
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     @Inject('isStandalonePage') public isStandalonePage: boolean,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
     private formBuilder: UntypedFormBuilder,
-    private store: Store<CoreState>
+    protected store: Store<CoreState>,
+    protected authorizationService: AuthorizationDataService,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -115,6 +126,22 @@ export class LogInPasswordComponent implements OnInit {
       })
     );
 
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(shareReplay(1));
+    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
+    this.canShowDivider$ =
+        combineLatest([this.canRegister$, this.canForgot$])
+            .pipe(
+                map(([canRegister, canForgot]) => canRegister || canForgot),
+                filter(Boolean)
+            );
+  }
+
+  getRegisterRoute() {
+    return getRegisterRoute();
+  }
+
+  getForgotRoute() {
+    return getForgotPasswordRoute();
   }
 
   /**

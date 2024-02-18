@@ -96,11 +96,11 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         firstItemRD$,
         lastItemRD$,
       ]).subscribe(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
-        let lowerLimit = this.getLimit(firstItemRD, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        let upperLimit = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
-        const options = [];
-        const oneYearBreak = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
+        let lowerLimit: number = this.getLimit(firstItemRD, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
+        let upperLimit: number = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
+        const options: number[] = [];
+        const oneYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
         if (lowerLimit <= fiveYearBreak) {
           lowerLimit -= 10;
         } else if (lowerLimit <= oneYearBreak) {
@@ -108,7 +108,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         } else {
           lowerLimit -= 1;
         }
-        let i = upperLimit;
+        let i: number = upperLimit;
         while (i > lowerLimit) {
           options.push(i);
           if (i <= fiveYearBreak) {

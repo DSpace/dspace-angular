@@ -4,7 +4,6 @@ import { ComcolBrowseByComponent } from './comcol-browse-by.component';
 import { rendersBrowseBy } from '../../../../browse-by/browse-by-switcher/browse-by-decorator';
 import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
 import { Component } from '@angular/core';
-import { AbstractBrowseByTypeComponent } from '../../../../browse-by/abstract-browse-by-type.component';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { ThemeService } from '../../../theme-support/theme.service';
@@ -20,7 +19,7 @@ import { By } from '@angular/platform-browser';
   selector: '',
   template: '<span id="ComcolBrowseByComponent"></span>',
 })
-class BrowseByTestComponent extends AbstractBrowseByTypeComponent {
+class BrowseByTestComponent {
 }
 
 class TestBrowseByPageBrowseDefinition extends BrowseDefinition {
