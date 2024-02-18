@@ -1084,6 +1084,8 @@
 
   "collection.page.news": "News",
 
+  "collection.search.results.head": "Search Results",
+
   "collection.select.confirm": "Confirm selected",
 
   "collection.select.empty": "No collections to show",
@@ -1299,6 +1301,8 @@
   "community.page.news": "News",
 
   "community.all-lists.head": "Subcommunities and Collections",
+
+  "community.search.results.head": "Search Results",
 
   "community.sub-collection-list.head": "Collections in this Community",
 
