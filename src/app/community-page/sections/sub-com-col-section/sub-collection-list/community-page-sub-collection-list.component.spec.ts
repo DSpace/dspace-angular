@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -183,7 +183,7 @@ describe('CommunityPageSubCollectionListComponent', () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
-    const collList = fixture.debugElement.queryAll(By.css('li'));
+    const collList: DebugElement[] = fixture.debugElement.queryAll(By.css('ul[data-test="objects"] li'));
     expect(collList.length).toEqual(5);
     expect(collList[0].nativeElement.textContent).toContain('Collection 1');
     expect(collList[1].nativeElement.textContent).toContain('Collection 2');
