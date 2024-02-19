@@ -22,6 +22,11 @@ import { hasValue } from '../../../../shared/empty.util';
   styleUrls: ['./notify-requests-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+/**
+ * Component to show an alert box for each update in th Notify feature (e.g. COAR updates)
+ */
+
 export class NotifyRequestsStatusComponent implements OnInit {
   /**
    * The UUID of the item.

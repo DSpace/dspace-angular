@@ -130,7 +130,8 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   createService() {
     this.formModel.markAllAsTouched();
-    const hasInboundPattern = this.checkPatterns(this.formModel.get('notifyServiceInboundPatterns') as FormArray);
+    const notifyServiceInboundPatterns = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+    const hasInboundPattern = notifyServiceInboundPatterns?.length > 0 ? this.checkPatterns(notifyServiceInboundPatterns) : false;
 
     if (this.formModel.invalid) {
       this.closeModal();

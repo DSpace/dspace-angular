@@ -4,6 +4,9 @@ import { ConfigurationDataService } from '../../data/configuration-data.service'
 import { map, Observable } from 'rxjs';
 import { ConfigurationProperty } from '../../shared/configuration-property.model';
 
+/**
+ * Service to check COAR availability and LDN services information for the COAR Notify functionalities
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -23,8 +26,7 @@ export class NotifyInfoService {
             getFirstSucceededRemoteData(),
             map(response => {
                 const booleanArrayValue = response.payload.values;
-                const coarConfigEnabled = booleanArrayValue.length > 0 ? booleanArrayValue[0] === 'true' : false;
-                return coarConfigEnabled;
+                return booleanArrayValue.length > 0 ? booleanArrayValue[0] === 'true' : false;
             })
         );
     }

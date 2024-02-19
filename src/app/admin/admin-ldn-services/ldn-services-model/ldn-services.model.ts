@@ -7,6 +7,10 @@ import {typedObject} from '../../../core/cache/builders/build-decorators';
 import {NotifyServicePattern} from './ldn-service-patterns.model';
 
 
+/**
+ * LDN Services bounded to each selected pattern, relation set in service creation
+ */
+
 export interface LdnServiceByPattern {
   allowsMultipleRequests: boolean;
   services: LdnService[];

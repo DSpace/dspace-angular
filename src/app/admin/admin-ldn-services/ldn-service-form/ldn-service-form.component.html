@@ -1,7 +1,7 @@
 <div class="container">
   <form (ngSubmit)="onSubmit()" [formGroup]="formModel">
     <div class="d-flex">
-      <h2 class="flex-grow-1">{{ isNewService ? ('ldn-create-service.title' | translate) : ('ldn-edit-registered-service.title' | translate) }}</h2>
+      <h1 class="flex-grow-1">{{ isNewService ? ('ldn-create-service.title' | translate) : ('ldn-edit-registered-service.title' | translate) }}</h1>
     </div>
     <!-- In the toggle section -->
     <div class="toggle-switch-container" *ngIf="!isNewService">
@@ -139,7 +139,7 @@
               <div #inboundPatternDropdown="ngbDropdown" class="w-80" display="dynamic"
                    id="additionalInboundPattern{{i}}"
                    ngbDropdown placement="top-start">
-                <div class="position-relative right-addon" role="combobox">
+                <div class="position-relative right-addon" role="combobox"  aria-expanded="false" aria-controls="inboundPatternDropdownButton">
                   <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                      ngbDropdownToggle></i>
                   <input
@@ -151,6 +151,7 @@
                     id="inboundPatternDropdownButton"
                     ngbDropdownAnchor
                     type="text"
+                    [attr.aria-label]="'ldn-service-input-inbound-pattern-dropdown' | translate"
                   />
                   <div aria-labelledby="inboundPatternDropdownButton"
                        class="dropdown-menu dropdown-menu-top w-100 "
@@ -175,7 +176,7 @@
                 *ngIf="formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern">
                 <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
                      placement="top-start">
-                  <div class="position-relative right-addon" role="combobox">
+                  <div class="position-relative right-addon" aria-expanded="false" aria-controls="inboundItemfilterDropdown" role="combobox">
                     <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                        ngbDropdownToggle></i>
                     <input
@@ -187,6 +188,7 @@
                       id="inboundItemfilterDropdown"
                       ngbDropdownAnchor
                       type="text"
+                      [attr.aria-label]="'ldn-service-input-inbound-item-filter-dropdown' | translate"
                     />
                     <div aria-labelledby="inboundItemfilterDropdownButton"
                          class="dropdown-menu scrollable-dropdown-menu w-100 "
@@ -226,6 +228,7 @@
             <div class="col-sm-2">
               <div class="btn-group">
                 <button (click)="markForInboundPatternDeletion(i)" class="btn btn-outline-dark trash-button"
+                        [title]="'ldn-service-button-mark-inbound-deletion' | translate"
                         type="button">
                   <i class="fas fa-trash"></i>
                 </button>
@@ -233,6 +236,7 @@
 
                 <button (click)="unmarkForInboundPatternDeletion(i)"
                         *ngIf="markedForDeletionInboundPattern.includes(i)"
+                        [title]="'ldn-service-button-unmark-inbound-deletion' | translate"
                         class="btn btn-warning "
                         type="button">
                   <i class="fas fa-undo"></i>

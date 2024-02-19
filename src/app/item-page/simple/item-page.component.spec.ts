@@ -225,7 +225,7 @@ describe('ItemPageComponent', () => {
       expect(objectLoader.nativeElement).toBeDefined();
     });
 
-    it('should add the signposti`ng links`', () => {
+    it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
       expect(linkHeadService.addTag).toHaveBeenCalledTimes(4);
     });
