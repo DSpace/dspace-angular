@@ -200,7 +200,8 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 
     // Collapse this section when the number of processes is zero the first time processes are retrieved
     this.subs.push(this.processesRD$.pipe(
-      filter((processListRd: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => hasValue(processListRd))
+      filter((processListRd: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => hasValue(processListRd)),
+      take(1),
     ).subscribe(
       (processesRD: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
         if (!(processesRD.payload.totalElements > 0)) {
