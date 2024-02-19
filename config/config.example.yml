@@ -75,7 +75,7 @@ cache:
     anonymousCache:
       # Maximum number of pages to cache. Default is zero (0) which means anonymous user cache is disabled.
       # As all pages are cached in server memory, increasing this value will increase memory needs.
-      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory. 
+      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory.
       max: 0
       # Amount of time after which cached pages are considered stale (in ms). After becoming stale, the cached
       # copy is automatically refreshed on the next request.
@@ -382,7 +382,13 @@ vocabularies:
     vocabulary: 'srsc'
     enabled: true
 
-# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query. 
+# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query.
 comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'
+
+# Example of fallback collection for suggestions import
+# suggestion:
+  # - collectionId: 8f7df5ca-f9c2-47a4-81ec-8a6393d6e5af
+    # source: "openaire"
+
