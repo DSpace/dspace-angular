@@ -196,7 +196,9 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
           );
         }),
 
-      ).subscribe(this.processesRD$));
+      ).subscribe((next: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
+        this.processesRD$.next(next);
+      }));
 
     // Collapse this section when the number of processes is zero the first time processes are retrieved
     this.subs.push(this.processesRD$.pipe(

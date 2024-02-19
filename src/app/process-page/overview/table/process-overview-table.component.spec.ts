@@ -15,18 +15,20 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { RouteService } from '../../../core/services/route.service';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { ProcessOverviewService } from '../process-overview.service';
+import { take } from 'rxjs/operators';
 
 
 describe('ProcessOverviewTableComponent', () => {
   let component: ProcessOverviewTableComponent;
   let fixture: ComponentFixture<ProcessOverviewTableComponent>;
 
+  let processOverviewService: ProcessOverviewService;
   let processService: ProcessDataService;
   let ePersonService: EPersonDataService;
   let paginationService; // : PaginationService; Not typed as the stub does not fully implement PaginationService
@@ -78,8 +80,16 @@ describe('ProcessOverviewTableComponent', () => {
         ]
       }
     });
+    processOverviewService = jasmine.createSpyObj('processOverviewService', {
+      getFindListOptions: {
+        currentPage: 1,
+        elementsPerPage: 5,
+        sort: 'creationTime'
+      },
+      getProcessesByProcessStatus: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1))
+    });
     processService = jasmine.createSpyObj('processService', {
-      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(processes))
+      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1))
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       findById: createSuccessfulRemoteDataObject$(ePerson)
@@ -117,6 +127,7 @@ describe('ProcessOverviewTableComponent', () => {
       declarations: [ProcessOverviewTableComponent, VarDirective, NgbCollapse],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
+        { provide: ProcessOverviewService, useValue: processOverviewService },
         { provide: ProcessDataService, useValue: processService },
         { provide: EPersonDataService, useValue: ePersonService },
         { provide: PaginationService, useValue: paginationService },
@@ -125,7 +136,6 @@ describe('ProcessOverviewTableComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: RouteService, useValue: routeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
