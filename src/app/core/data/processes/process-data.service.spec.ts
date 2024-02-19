@@ -9,7 +9,7 @@
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';
 import { ProcessDataService, TIMER_FACTORY } from './process-data.service';
 import { testDeleteDataImplementation } from '../base/delete-data.spec';
-import { waitForAsync, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { waitForAsync, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RequestService } from '../request.service';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
@@ -27,6 +27,7 @@ import { testSearchDataImplementation } from '../base/search-data.spec';
 import { PaginatedList } from '../paginated-list.model';
 import { FindListOptions } from '../find-list-options.model';
 import { of } from 'rxjs';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 
 describe('ProcessDataService', () => {
   let testScheduler;
@@ -43,7 +44,7 @@ describe('ProcessDataService', () => {
     testSearchDataImplementation(initService);
   });
 
-  let requestService;
+  let requestService = getMockRequestService();
   let processDataService;
   let remoteDataBuildService;
 
@@ -136,7 +137,7 @@ describe('ProcessDataService', () => {
         imports: [],
         providers: [
           ProcessDataService,
-          { provide: RequestService, useValue: null },
+          { provide: RequestService, useValue: requestService },
           { provide: RemoteDataBuildService, useValue: null },
           { provide: ObjectCacheService, useValue: null },
           { provide: ReducerManager, useValue: null },
@@ -152,41 +153,41 @@ describe('ProcessDataService', () => {
     }));
 
     it('should refresh after the specified interval', fakeAsync(() => {
-        const runningProcess = Object.assign(new Process(), {
-          _links: {
-            self: {
-              href: 'https://rest.api/processes/123'
-            }
+      const runningProcess = Object.assign(new Process(), {
+        _links: {
+          self: {
+            href: 'https://rest.api/processes/123'
           }
-        });
-        runningProcess.processStatus = ProcessStatus.RUNNING;
+        }
+      });
+      runningProcess.processStatus = ProcessStatus.RUNNING;
 
-        const runningProcessPagination: PaginatedList<Process> = Object.assign(new PaginatedList(), {
-          page: [runningProcess],
-          _links: {
-            self: {
-              href: 'https://rest.api/processesList/456'
-            }
+      const runningProcessPagination: PaginatedList<Process> = Object.assign(new PaginatedList(), {
+        page: [runningProcess],
+        _links: {
+          self: {
+            href: 'https://rest.api/processesList/456'
           }
-        });
+        }
+      });
 
-        const runningProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcessPagination);
+      const runningProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcessPagination);
 
-        spyOn(processDataService, 'invalidateByHref');
-        spyOn(processDataService, 'searchBy').and.returnValue(
-          of(runningProcessRD)
-        );
+      spyOn(processDataService, 'searchBy').and.returnValue(
+        of(runningProcessRD)
+      );
 
-        let sub = processDataService.autoRefreshingSearchBy('byProperty', new FindListOptions(), 200).subscribe();
-        tick(0);
-        expect(processDataService.searchBy).toHaveBeenCalledTimes(1);
-        tick(450);
-        expect(processDataService.searchBy).toHaveBeenCalledTimes(3);
-        sub.unsubscribe();
+      expect(processDataService.searchBy).toHaveBeenCalledTimes(0);
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledTimes(0);
 
-        flush();
+      let sub = processDataService.autoRefreshingSearchBy('id', 'byProperty', new FindListOptions(), 200).subscribe();
+      expect(processDataService.searchBy).toHaveBeenCalledTimes(1);
 
-        expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(3);
+      tick(250);
+
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledTimes(1);
+
+      sub.unsubscribe();
     }));
   });
 });
