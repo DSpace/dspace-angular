@@ -5,7 +5,7 @@ import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 
 import {
-  ChangeSubmissionCollectionAction,
+  ChangeSubmissionCollectionAction, CleanDuplicateDetectionAction,
   CompleteInitSubmissionFormAction,
   DeleteSectionErrorsAction,
   DeleteUploadedFileAction,
@@ -227,6 +227,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.REMOVE_SECTION_ERRORS: {
       return removeSectionErrors(state, action as RemoveSectionErrorsAction);
+    }
+
+    case SubmissionObjectActionTypes.CLEAN_DUPLICATE_DETECTION: {
+      return cleanDuplicateDetectionSection(state, action as CleanDuplicateDetectionAction);
     }
 
     default: {
@@ -855,4 +859,21 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
     }
   }
   return state;
+}
+
+function cleanDuplicateDetectionSection(state: SubmissionObjectState, action: CleanDuplicateDetectionAction): SubmissionObjectState {
+  if (isNotEmpty(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ 'duplicates' ]: Object.assign({}, state[ action.payload.submissionId ].sections.duplicates, {
+            enabled: false,
+            data: { potentialDuplicates: [] }
+          })
+        })
+      })
+    });
+  } else {
+    return state;
+  }
 }

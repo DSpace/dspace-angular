@@ -131,6 +131,10 @@ submission:
     # NOTE: after how many time (milliseconds) submission is saved automatically
     # eg. timer: 5 * (1000 * 60); // 5 minutes
     timer: 0
+  # Always show the duplicate detection section if enabled, even if there are no potential duplicates detected
+  # (a message will be displayed to indicate no matches were found)
+  duplicateDetection:
+    alwaysShowSection: false
   icons:
     metadata:
       # NOTE: example of configuration

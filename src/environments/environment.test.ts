@@ -121,6 +121,9 @@ export const environment: BuildConfig = {
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
     },
+    duplicateDetection: {
+      alwaysShowSection: false
+    },
     typeBind: {
       field: 'dc.type'
     },

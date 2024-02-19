@@ -43,7 +43,8 @@ import {
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
-  UpdateSectionDataSuccessAction
+  UpdateSectionDataSuccessAction,
+  CleanDuplicateDetectionAction
 } from './submission-objects.actions';
 import {SubmissionObjectEntry} from './submission-objects.reducer';
 import {Item} from '../../core/shared/item.model';
@@ -58,6 +59,7 @@ import {SubmissionSectionError} from './submission-section-error.model';
 import {
   WorkspaceitemSectionDuplicatesObject
 } from '../../core/submission/models/workspaceitem-section-duplicates.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -74,10 +76,11 @@ export class SubmissionObjectEffects {
         const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
         const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
-        // A section is enabled if it is mandatory (except duplicate detection) or contains data in its section payload
+        // A section is enabled if it is mandatory or contains data in its section payload
+        // except for detect duplicate steps which will be hidden with no data unless overridden in config, even if mandatory
         const enabled = (sectionDefinition.mandatory && (sectionDefinition.sectionType !== SectionsType.Duplicates))
           || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
-            && (sectionDefinition.sectionType === SectionsType.Duplicates && isNotEmpty((action.payload.sections[sectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates))
+            && (sectionDefinition.sectionType === SectionsType.Duplicates && (alwaysDisplayDuplicates() || isNotEmpty((action.payload.sections[sectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates)))
           );
         let sectionData;
         if (sectionDefinition.sectionType !== SectionsType.SubmissionForm) {
@@ -442,10 +445,13 @@ export class SubmissionObjectEffects {
           mappedActions.push(new UpdateSectionDataAction(submissionId, sherpaPoliciesSectionId, null, [], []));
         }
 
-        // When Duplicate Detection step is enabled, add it only if there are duplicates
-        const duplicatesSectionId = findKey(currentState.sections, (section) => section.sectionType === SectionsType.Duplicates);
-        if (isNotUndefined(duplicatesSectionId) && isNotEmpty(currentState.sections[duplicatesSectionId]?.data) && isEmpty(sections[duplicatesSectionId])) {
-          mappedActions.push(new UpdateSectionDataAction(submissionId, duplicatesSectionId, null, [], []));
+        // When Duplicate Detection step is enabled, add it only if there are duplicates in the response section data
+        // or if configuration overrides this behaviour
+        if (!alwaysDisplayDuplicates()) {
+          const duplicatesSectionId = findKey(currentState.sections, (section) => section.sectionType === SectionsType.Duplicates);
+          if (isNotUndefined(duplicatesSectionId) && isEmpty((sections[duplicatesSectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates)) {
+            mappedActions.push(new CleanDuplicateDetectionAction(submissionId));
+          }
         }
       });
     }
@@ -492,4 +498,8 @@ function filterErrors(sectionForm: FormState, sectionErrors: SubmissionSectionEr
     });
   });
   return filteredErrors;
+}
+
+function alwaysDisplayDuplicates(): boolean {
+  return (environment.submission.duplicateDetection.alwaysShowSection);
 }
