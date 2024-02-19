@@ -282,12 +282,15 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       // Ensure all followLinks from the cached object are automatically invalidated when invalidating the cached object
       tap((remoteDataObject: RemoteData<T>) => {
         if (hasValue(remoteDataObject?.payload?._links)) {
-          for (const followLink of Object.values(remoteDataObject.payload._links)) {
-            // followLink can be either an individual HALLink or a HALLink[]
-            const followLinksList: HALLink[] = [].concat(followLink);
-            for (const individualFollowLink of followLinksList) {
-              if (hasValue(individualFollowLink?.href)) {
-                this.addDependency(response$, individualFollowLink.href);
+          for (const followLinkName of Object.keys(remoteDataObject.payload._links)) {
+            // only add the followLinks if they are embedded
+            if (hasValue(remoteDataObject.payload[followLinkName]) && followLinkName !== 'self') {
+              // followLink can be either an individual HALLink or a HALLink[]
+              const followLinksList: HALLink[] = [].concat(remoteDataObject.payload._links[followLinkName]);
+              for (const individualFollowLink of followLinksList) {
+                if (hasValue(individualFollowLink?.href)) {
+                  this.addDependency(response$, individualFollowLink.href);
+                }
               }
             }
           }
@@ -334,12 +337,15 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
         if (hasValue(remoteDataObject?.payload?.page)) {
           for (const object of remoteDataObject.payload.page) {
             if (hasValue(object?._links)) {
-              for (const followLink of Object.values(object._links)) {
-                // followLink can be either an individual HALLink or a HALLink[]
-                const followLinksList: HALLink[] = [].concat(followLink);
-                for (const individualFollowLink of followLinksList) {
-                  if (hasValue(individualFollowLink?.href)) {
-                    this.addDependency(response$, individualFollowLink.href);
+              for (const followLinkName of Object.keys(object._links)) {
+                // only add the followLinks if they are embedded
+                if (hasValue(object[followLinkName]) && followLinkName !== 'self') {
+                  // followLink can be either an individual HALLink or a HALLink[]
+                  const followLinksList: HALLink[] = [].concat(object._links[followLinkName]);
+                  for (const individualFollowLink of followLinksList) {
+                    if (hasValue(individualFollowLink?.href)) {
+                      this.addDependency(response$, individualFollowLink.href);
+                    }
                   }
                 }
               }

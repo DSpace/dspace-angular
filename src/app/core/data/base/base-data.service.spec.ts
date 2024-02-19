@@ -78,6 +78,8 @@ describe('BaseDataService', () => {
     const msToLive = 15 * 60 * 1000;
     const payload = {
       foo: 'bar',
+      followLink1: {},
+      followLink2: {},
       _links: {
         self: Object.assign(new HALLink(), {
           href: 'self-test-link',
@@ -413,7 +415,7 @@ describe('BaseDataService', () => {
 
         expectObservable(service.findByHref(selfLink, false, false, ...linksToFollow)).toBe(expected, values);
         flush();
-        expect(objectCache.addDependency).toHaveBeenCalledTimes(4);
+        expect(objectCache.addDependency).toHaveBeenCalledTimes(3);
       });
     });
   });
@@ -621,7 +623,7 @@ describe('BaseDataService', () => {
 
           expectObservable(service.findListByHref(selfLink, findListOptions, false, false, ...linksToFollow)).toBe(expected, values);
           flush();
-          expect(objectCache.addDependency).toHaveBeenCalledTimes(4);
+          expect(objectCache.addDependency).toHaveBeenCalledTimes(3);
         });
       });
     });
