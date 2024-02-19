@@ -94,6 +94,12 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   @Output() back: EventEmitter<any> = new EventEmitter();
 
   /**
+   * Event emitted on finish
+   */
+  @Output() finish: EventEmitter<any> = new EventEmitter();
+
+
+  /**
    * Observable keeping track whether the uploader has finished initializing
    * Used to start rendering the uploader component
    */
@@ -199,6 +205,8 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       dso: updatedDSO,
       operations: operations,
     });
+
+    this.finish.emit();
   }
 
   /**
