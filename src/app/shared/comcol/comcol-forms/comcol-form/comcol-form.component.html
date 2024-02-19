@@ -11,11 +11,7 @@
           </div>
           <div class="col-4 d-inline-block">
             <div *ngIf="logo" class="float-right">
-              <button (click)="confirmLogoDelete(removeLogo)" class="btn btn-danger"
-                      title="{{type.value + '.edit.logo.delete.title' | translate}}" type="button">
-                <i aria-hidden="true" class="fas fa-trash"></i>
-                {{ 'community.edit.logo.delete.title' | translate}}
-              </button>
+                <button (click)="confirmLogoDeleteWithModal()" data-test="open-delete-modal-button" class="btn btn-danger" type="button">{{'community.edit.logo.delete.title' | translate}}</button>
             </div>
           </div>
         </div>
@@ -41,17 +37,4 @@
     <i class="fas fa-arrow-left"></i> {{ type.value + '.edit.return' | translate }}
   </button>
 </ds-form>
-<ng-template #removeLogo let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title text-info">{{'collection.edit.logo.delete.title' | translate}}</h4>
-  </div>
-  <div class="modal-body">
-    <p>{{'admin.edit-user-agreement.confirm.info' | translate}}</p>
-  </div>
-  <div class="modal-footer">
-    <button (click)="c('delete')" class="btn btn-danger"
-            type="button">{{'collection.edit.logo.delete.title' | translate}}</button>
-    <button (click)="c('cancel')" class="btn btn-warning" type="button">{{'form.cancel' | translate}}</button>
-  </div>
-</ng-template>
 
