@@ -12,7 +12,6 @@ import {
 import { Collection } from '../../core/shared/collection.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
@@ -60,12 +59,10 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
-                     protected dsoService: CollectionDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
-                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService,
                      protected modalService: NgbModal) {
     super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
