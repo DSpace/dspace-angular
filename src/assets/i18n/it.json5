@@ -7927,8 +7927,8 @@
   // "search.form.search_dspace": "All repository",
   "search.form.search_dspace": "Tutto il portale",
 
-  // "search.form.scope.all": "All of DSpace",
-  "search.form.scope.all": "Tutto DSpace",
+  // "search.form.scope.all": "All items",
+  "search.form.scope.all": "Tutti gli item",
 
 
 
