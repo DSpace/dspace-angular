@@ -11,7 +11,6 @@ import { DatePipe } from '@angular/common';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
 import { hasValue } from '../../shared/empty.util';
-import { switchMap } from 'rxjs/operators';
 
 /**
  * The sortable fields for processes

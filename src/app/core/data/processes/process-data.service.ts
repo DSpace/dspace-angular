@@ -151,11 +151,11 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
       filter(() =>
         !this.activelyBeingPolled.has(id)
       )
-    ).subscribe((procesListRd: RemoteData<PaginatedList<Process>>) => {
+    ).subscribe((processListRd: RemoteData<PaginatedList<Process>>) => {
       this.clearCurrentTimeout(id);
       const nextTimeout = this.timer(() => {
         this.activelyBeingPolled.delete(id);
-        this.requestService.setStaleByHrefSubstring(procesListRd.payload._links.self.href)
+        this.requestService.setStaleByHrefSubstring(processListRd.payload._links.self.href);
       }, pollingIntervalInMs);
 
       this.activelyBeingPolled.set(id, nextTimeout);
