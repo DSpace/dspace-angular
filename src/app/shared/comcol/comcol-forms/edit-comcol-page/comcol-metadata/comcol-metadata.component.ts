@@ -90,13 +90,4 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
       this.router.navigate([this.frontendURL + dsoRD.payload.id]);
     });
   }
-
-  returnToEdit() {
-    this.dsoRD$.pipe(
-      getFirstSucceededRemoteData(),
-      take(1)
-    ).subscribe((dsoRD: RemoteData<TDomain>) => {
-      this.router.navigate([this.frontendURL + dsoRD.payload.id + '/edit/metadata']);
-    });
-  }
 }
