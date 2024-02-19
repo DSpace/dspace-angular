@@ -776,6 +776,9 @@
   //"admin.reports.items.limit": "Limit/",
   "admin.reports.items.limit": "Limite",
 
+  //"admin.reports.items.limit": "Offset/",
+  "admin.reports.items.offset": "À partir de",
+
   //"admin.reports.items.wholeRepo": "Whole Repository",
   "admin.reports.items.wholeRepo": "Tout le dépôt",
 

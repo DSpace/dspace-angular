@@ -14,12 +14,12 @@
                             <div class="container">
                                 <div class="row">
                                     <span class="col-3"></span>
-                                    <button class="btn btn-light mt-1 col-6" (click)="submit()">{{ "admin.reports.button.show-collections" | translate }}</button>
+                                    <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{ "admin.reports.button.show-collections" | translate }}</button>
                                 </div>
                                 <ds-filters [filtersForm]="filtersFormGroup()"></ds-filters>
                                 <div class="row">
                                     <span class="col-3"></span>
-                                    <button class="btn btn-light mt-1 col-6" (click)="submit()">{{ "admin.reports.button.show-collections" | translate }}</button>
+                                    <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{ "admin.reports.button.show-collections" | translate }}</button>
                                 </div>
                             </div>
                         </ng-template>
@@ -29,7 +29,7 @@
                           {{ "admin.reports.collections.collections-report" | translate }}
                         </ng-template>
                         <ng-template ngbPanelContent>
-                            <table id="table" class="stats">
+                            <table id="table" class="table table-striped">
                                 <thead>
                                     <tr class="header">
                                         <th rowspan="2">{{ "admin.reports.collections.community" | translate }}</th>

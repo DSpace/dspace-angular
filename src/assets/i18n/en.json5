@@ -581,6 +581,8 @@
 
   "admin.reports.items.limit": "Limit/",
 
+  "admin.reports.items.offset": "Offset",
+
   "admin.reports.items.wholeRepo": "Whole Repository",
 
   "admin.reports.items.anyField": "Any field",
