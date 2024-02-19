@@ -3,13 +3,12 @@ import { UntypedFormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
-import { RestRequestMethod } from '../../../../core/data/rest-request-method';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
@@ -22,8 +21,11 @@ import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { Operation } from 'fast-json-patch';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import { map, take, tap } from 'rxjs/operators';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -92,12 +94,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   @Output() back: EventEmitter<any> = new EventEmitter();
 
   /**
-   * Fires an event when the logo has finished uploading (with or without errors) or was removed
-   */
-  @Output() finish: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * Observable keeping track whether or not the uploader has finished initializing
+   * Observable keeping track whether the uploader has finished initializing
    * Used to start rendering the uploader component
    */
   initializedUploaderOptions = new BehaviorSubject(false);
@@ -121,7 +118,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
                      protected authService: AuthService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
-                     protected modalService: NgbModal) {
+                     protected modalService: NgbModal){
   }
 
   ngOnInit(): void {
@@ -147,10 +144,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
           ]).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
             this.uploadFilesOptions.url = href;
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-            // If the object already contains a logo, send out a PUT request instead of POST for setting a new logo
-            // if (hasValue(logoRD.payload)) {
-            //   this.uploadFilesOptions.method = RestRequestMethod.PUT;
-            // }
             this.initializedUploaderOptions.next(true);
           })
         );
@@ -224,73 +217,129 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       }
     );
   }
-  /**
-   * Helper method that provides a modal
-   */
-  openModal(content: any) {
-    this.modalService.open(content);
-  }
-  /**
-   * Helper method that confirms the deletion of the logo and handles possible errors
-   */
-  confirmLogoDelete(removeLogo: any) {
-    //this.refreshCache()
-    this.modalService.open(removeLogo).result.then((result) => {
-        if (result === 'delete') {
-          if (hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
-            this.dsoService.deleteLogo(this.dso).pipe(
-              getFirstCompletedRemoteData()
-            ).subscribe((response: RemoteData<NoContent>) => {
-              if (response.hasSucceeded) {
-                this.refreshCache();
-                this.notificationsService.success(
-                  this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
-                  this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
-                );
-              } else {
-                this.notificationsService.error(
-                  this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
-                  response.errorMessage
-                );
-              }
-              this.dso.logo = undefined;
-              this.uploadFilesOptions.method = RestRequestMethod.POST;
-              // this.finish.emit();
-            });
 
-          } else if (result === 'cancel') {
-            return;
-          }
-        }
-
-      }
-    );
+  /**
+   * Helper method that confirms the deletion of the logo opening a confirmation modal
+   */
+  confirmLogoDeleteWithModal(): void {
+    const modalRef = this.createConfirmationModal();
+    this.subscribeToConfirmationResponse(modalRef);
   }
 
   /**
-   * Refresh the object's cache to ensure the latest version
+   * Creates and opens the confirmation modal
+   * @returns Reference to the opened modal
    */
-  private refreshCache() {
-    this.requestService.setStaleByHrefSubstring(this.dso.id);
-    this.objectCache.remove(this.dso._links.self.href);
-    this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
-      getFirstCompletedRemoteData()
-    ).subscribe((rd: RemoteData<T>) => {
-      if (rd.hasSucceeded) {
-        this.dso = rd.payload;
+  createConfirmationModal(): NgbModalRef {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.headerLabel = 'community-collection.edit.logo.delete.title';
+    modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-community-collection-logo.info';
+    modalRef.componentInstance.cancelLabel = 'form.cancel';
+    modalRef.componentInstance.confirmLabel = 'community-collection.edit.logo.delete.title';
+    modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+    return modalRef;
+  }
+
+  /**
+   * Subscribes to the confirmation modal's response and calls the logo deletion handler if confirmed
+   * @param modalRef References to the opened confirmation modal
+   */
+  subscribeToConfirmationResponse(modalRef: NgbModalRef): void {
+    modalRef.componentInstance.response.pipe(
+      take(1)
+    ).subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.handleLogoDeletion();
       }
     });
   }
 
   /**
+   * Method that confirms the deletion of the logo, handling both possible outcomes
+   */
+  handleLogoDeletion(): void {
+    if (hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
+      this.dsoService.deleteLogo(this.dso).pipe(
+        getFirstCompletedRemoteData()
+      ).subscribe((response: RemoteData<NoContent>) => {
+        const successMessageKey = `${this.type.value}.edit.logo.notifications.delete.success`;
+        const errorMessageKey = `${this.type.value}.edit.logo.notifications.delete.error`;
+
+        if (response.hasSucceeded) {
+          this.handleSuccessfulDeletion(successMessageKey);
+        } else {
+          this.handleFailedDeletion(errorMessageKey, response.errorMessage);
+        }
+
+      });
+    }
+  }
+
+
+  /**
+   * Handles successful logo deletion
+   * @param successMessageKey Translation key for success message
+   */
+  private handleSuccessfulDeletion(successMessageKey: string): void {
+    this.refreshDsoCache();
+    this.notificationsService.success(
+      this.translate.get(`${successMessageKey}.title`),
+      this.translate.get(`${successMessageKey}.content`)
+    );
+  }
+
+  /**
+   * Handles failed logo deletion
+   * @param errorMessageKey Translation key for error message
+   * @param errorMessage Error message from the response
+   */
+  private handleFailedDeletion(errorMessageKey: string, errorMessage: string): void {
+    this.notificationsService.error(
+      this.translate.get(`${errorMessageKey}.title`),
+      errorMessage
+    );
+  }
+
+  /**
+   * Refresh the object's cache to obtain the latest version
+   */
+  private refreshDsoCache() {
+    this.clearDsoCache();
+    return this.fetchUpdatedDso();
+  }
+
+  /**
+   * Clears the cache related to the current dso
+   */
+  private clearDsoCache() {
+    this.requestService.setStaleByHrefSubstring(this.dso.id);
+    this.objectCache.remove(this.dso._links.self.href);
+  }
+
+  /**
+   * Fetches the latest data for the dso
+   */
+private fetchUpdatedDso(): Observable<DSpaceObject | null> {
+    return this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
+      tap((rd: RemoteData<T>) => {
+        if (rd.hasSucceeded) {
+          this.dso = rd.payload;
+        }
+      }),
+      map((rd: RemoteData<T>) => rd.hasSucceeded ? rd.payload : null)
+    );
+  }
+
+
+
+/**
    * The request was successful, display a success notification
    */
   public onCompleteItem() {
     if (hasValue(this.dso.id)) {
-      this.refreshCache();
+      this.refreshDsoCache();
     }
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
-    // this.finish.emit();
   }
 
   /**
@@ -298,7 +347,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   public onUploadError() {
     this.notificationsService.error(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.error'));
-    this.finish.emit();
   }
 
   /**
