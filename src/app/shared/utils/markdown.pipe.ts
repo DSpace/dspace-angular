@@ -49,8 +49,8 @@ export class MarkdownPipe implements PipeTransform {
   ) {
   }
 
-  async transform(value: string): Promise<SafeHtml> {
-    if (!environment.markdown.enabled) {
+  async transform(value: string, forcePreview = false): Promise<SafeHtml> {
+    if (!environment.markdown.enabled && !forcePreview) {
       return value;
     }
     const MarkdownIt = await this.markdownIt;

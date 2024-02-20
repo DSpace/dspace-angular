@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MarkdownViewerComponent } from './markdown-viewer.component';
+import { MarkdownPipe } from '../utils/markdown.pipe';
+import { By } from '@angular/platform-browser';
 
 describe('DsMarkdownViewerComponent', () => {
   let component: MarkdownViewerComponent;
@@ -8,7 +10,7 @@ describe('DsMarkdownViewerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MarkdownViewerComponent ]
+      declarations: [ MarkdownViewerComponent, MarkdownPipe ]
     })
     .compileComponents();
   });
@@ -20,6 +22,7 @@ describe('DsMarkdownViewerComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const span = fixture.debugElement.query(By.css('span'));
+    expect(span).toBeTruthy();
   });
 });
