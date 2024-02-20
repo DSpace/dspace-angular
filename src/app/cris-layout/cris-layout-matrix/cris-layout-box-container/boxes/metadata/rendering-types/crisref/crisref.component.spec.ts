@@ -95,6 +95,7 @@ describe('CrisrefComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
         { provide: ItemDataService, useValue: itemService },
       ],
       declarations: [CrisrefComponent, MetadataLinkViewComponent]
