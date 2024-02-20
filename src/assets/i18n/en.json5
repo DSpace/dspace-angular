@@ -2210,6 +2210,11 @@
 
   "item.edit.bitstreams.checksum.sync-store": "Sync store",
 
+  "item.edit.bitstreams.checksum.popover.warning.header": "Warning:",
+
+  "item.edit.bitstreams.checksum.popover.warning.body": "The file must be downloaded for the checksum to be computed.:",
+
+  "item.edit.bitstreams.checksum.popover.info.body": "Download the file and compute the checksum.:",
 
 
   "item.edit.delete.cancel": "Cancel",
