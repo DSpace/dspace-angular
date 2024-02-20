@@ -60,8 +60,7 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
           switchMap(() => this.bundleService.getBitstreams(
             this.bundle.id,
             paginatedOptions,
-            followLink('format'),
-            followLink('checksum')
+            followLink('format')
           ))
         );
       })

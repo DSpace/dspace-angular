@@ -16,6 +16,7 @@ import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-moc
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterLinkDirectiveStub } from '../../../../shared/testing/router-link-directive.stub';
 import { BitstreamChecksum } from '../../../../core/shared/bitstream-checksum.model';
+import { BitstreamChecksumDataService } from '../../../../core/bitstream-checksum-data.service';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -44,7 +45,8 @@ const checksum = Object.assign(new BitstreamChecksum(), {
   databaseChecksum: {
     checkSumAlgorithm: 'MD5',
     value: '789'
-  }
+  },
+  href: 'checksum-link'
 });
 
 const bitstream = Object.assign(new Bitstream(), {
@@ -67,8 +69,11 @@ const date = new Date();
 const url = 'thisUrl';
 
 let objectUpdatesService: ObjectUpdatesService;
-
+let bitstreamChecksumDataService: BitstreamChecksumDataService;
 describe('ItemEditBitstreamComponent', () => {
+
+  bitstreamChecksumDataService = jasmine.createSpyObj('bitstreamChecksumDataService',
+    { findByHref: observableOf(checksum) });
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
@@ -104,7 +109,8 @@ describe('ItemEditBitstreamComponent', () => {
         RouterLinkDirectiveStub
       ],
       providers: [
-        { provide: ObjectUpdatesService, useValue: objectUpdatesService }
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: BitstreamChecksumDataService, useValue: bitstreamChecksumDataService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -165,6 +171,21 @@ describe('ItemEditBitstreamComponent', () => {
     it('should contain the bitstream download page route', () => {
       expect(comp.bitstreamDownloadUrl).not.toEqual(bitstream._links.content.href);
       expect(comp.bitstreamDownloadUrl).toEqual(getBitstreamDownloadRoute(bitstream));
+    });
+  });
+
+  describe('when the bitstream checksum is null', () => {
+    it('should not throw any error', () => {
+      expect(comp.checksumsAreEqual(null)).toBeFalse();
+    });
+
+    it('checksum should be undefined on Init', () => {
+      expect(comp.checkSum$).toBeUndefined();
+    });
+
+    it('checksum should be loaded after click on download and compute checksum button', () => {
+      comp.computeChecksum();
+      expect(bitstreamChecksumDataService.findByHref).toHaveBeenCalled();
     });
   });
 });
