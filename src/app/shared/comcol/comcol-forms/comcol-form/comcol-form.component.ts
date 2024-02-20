@@ -48,6 +48,11 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   @Input() dso: T;
 
   /**
+   * Boolean that represents if the comcol is being created or already exists
+   */
+  @Input() isCreation!: boolean;
+
+  /**
    * Type of DSpaceObject that the form represents
    */
   type: ResourceType;
@@ -77,7 +82,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * @type {UploaderOptions}
    */
   uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    autoUpload: true
+    autoUpload: false
   });
 
   /**
@@ -86,6 +91,8 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   @Output() submitForm: EventEmitter<{
     dso: T,
     operations: Operation[],
+    uploader?: FileUploader,
+    deleteLogo?: boolean,
   }> = new EventEmitter();
 
   /**
@@ -128,6 +135,8 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   }
 
   ngOnInit(): void {
+    this.uploadFilesOptions.autoUpload = !this.isCreation;
+
     if (hasValue(this.formModel)) {
       this.formModel.forEach(
         (fieldModel: DynamicInputModel) => {
@@ -201,12 +210,20 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       }
     });
 
-    this.submitForm.emit({
-      dso: updatedDSO,
-      operations: operations,
-    });
-
-    this.finish.emit();
+    if (!this.isCreation) {
+      this.submitForm.emit({
+        dso: updatedDSO,
+        operations: operations,
+      });
+      this.finish.emit();
+    } else {
+      this.submitForm.emit({
+        dso: updatedDSO,
+        deleteLogo: false,
+        uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
+        operations: operations,
+      });
+    }
   }
 
   /**
@@ -327,7 +344,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * Fetches the latest data for the dso
    */
-private fetchUpdatedDso(): Observable<DSpaceObject | null> {
+  private fetchUpdatedDso(): Observable<DSpaceObject | null> {
     return this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
       tap((rd: RemoteData<T>) => {
         if (rd.hasSucceeded) {
@@ -340,12 +357,15 @@ private fetchUpdatedDso(): Observable<DSpaceObject | null> {
 
 
 
-/**
+  /**
    * The request was successful, display a success notification
    */
   public onCompleteItem() {
     if (hasValue(this.dso.id)) {
       this.refreshDsoCache();
+    }
+    if (this.isCreation) {
+      this.finish.emit();
     }
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
   }
