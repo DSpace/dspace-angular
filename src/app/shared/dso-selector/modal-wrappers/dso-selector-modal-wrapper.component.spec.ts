@@ -5,13 +5,14 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { Item } from '../../../core/shared/item.model';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from './dso-selector-modal-wrapper.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { By } from '@angular/platform-browser';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { hasValue } from '../../empty.util';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;
@@ -83,6 +84,20 @@ describe('DSOSelectorModalWrapperComponent', () => {
     });
   });
 
+  describe('selectObject with emit only', () => {
+    beforeEach(() => {
+      spyOn(component, 'navigate');
+      spyOn(component, 'close');
+      spyOn(component.select, 'emit');
+      component.emitOnly = true;
+      component.selectObject(item);
+    });
+    it('should call the close and navigate method on the component with the given DSO', () => {
+      expect(component.close).toHaveBeenCalled();
+      expect(component.select.emit).toHaveBeenCalledWith(item);
+    });
+  });
+
   describe('close', () => {
     beforeEach(() => {
       component.close();
@@ -111,6 +126,19 @@ describe('DSOSelectorModalWrapperComponent', () => {
     });
     it('should call the close method on the component', () => {
       expect(component.close).toHaveBeenCalled();
+    });
+  });
+
+  describe('should find route data', () => {
+    beforeEach(() => {
+      spyOn(component, 'findRouteData');
+      component.ngOnInit();
+    });
+    it('should call the findRouteData method on the component', () => {
+      expect(component.findRouteData).toHaveBeenCalled();
+    });
+    it('should return undefined', () => {
+      expect(component.findRouteData((route) => hasValue(route.data), {} as unknown as ActivatedRouteSnapshot)).toEqual(undefined);
     });
   });
 });

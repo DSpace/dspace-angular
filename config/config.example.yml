@@ -388,3 +388,9 @@ vocabularies:
 comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'
+
+# Example of fallback collection for suggestions import
+# suggestion:
+  # - collectionId: 8f7df5ca-f9c2-47a4-81ec-8a6393d6e5af
+    # source: "openaire"
+

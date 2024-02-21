@@ -8,10 +8,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { hasValue } from '../../../../shared/empty.util';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import {
   MembersListComponent,
@@ -24,8 +21,8 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  */
 enum SubKey {
   ActiveGroup,
-  MembersDTO,
-  SearchResultsDTO,
+  Members,
+  SearchResults,
 }
 
 /**
@@ -50,7 +47,7 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
   @Output()
   selectedReviewersUpdated: EventEmitter<EPerson[]> = new EventEmitter();
 
-  selectedReviewers: EpersonDtoModel[] = [];
+  selectedReviewers: EPerson[] = [];
 
   constructor(
     protected groupService: GroupDataService,
@@ -100,54 +97,40 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
   retrieveMembers(page: number): void {
     this.config.currentPage = page;
     if (this.groupId === null) {
-      this.unsubFrom(SubKey.MembersDTO);
-      const paginatedListOfDTOs: PaginatedList<EpersonDtoModel> = new PaginatedList();
-      paginatedListOfDTOs.page = this.selectedReviewers;
-      this.ePeopleMembersOfGroupDtos.next(paginatedListOfDTOs);
+      this.unsubFrom(SubKey.Members);
+      const paginatedListOfEPersons: PaginatedList<EPerson> = new PaginatedList();
+      paginatedListOfEPersons.page = this.selectedReviewers;
+      this.ePeopleMembersOfGroup.next(paginatedListOfEPersons);
     } else {
       super.retrieveMembers(page);
     }
   }
 
   /**
-   * Checks whether the given {@link possibleMember} is part of the {@link selectedReviewers}.
+   * Removes the {@link eperson} from the {@link selectedReviewers}
    *
-   * @param possibleMember The {@link EPerson} that needs to be checked
+   * @param eperson The {@link EPerson} to remove
    */
-  isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
-    return observableOf(hasValue(this.selectedReviewers.find((reviewer: EpersonDtoModel) => reviewer.eperson.id === possibleMember.id)));
-  }
-
-  /**
-   * Removes the {@link ePerson} from the {@link selectedReviewers}
-   *
-   * @param ePerson The {@link EpersonDtoModel} containg the {@link EPerson} to remove
-   */
-  deleteMemberFromGroup(ePerson: EpersonDtoModel) {
-    ePerson.memberOfGroup = false;
-    const index = this.selectedReviewers.indexOf(ePerson);
+  deleteMemberFromGroup(eperson: EPerson) {
+    const index = this.selectedReviewers.indexOf(eperson);
     if (index !== -1) {
       this.selectedReviewers.splice(index, 1);
     }
-    this.selectedReviewersUpdated.emit(this.selectedReviewers.map((ePersonDtoModel: EpersonDtoModel) => ePersonDtoModel.eperson));
+    this.selectedReviewersUpdated.emit(this.selectedReviewers);
   }
 
   /**
-   * Adds the {@link ePerson} to the {@link selectedReviewers} (or replaces it when {@link multipleReviewers} is
+   * Adds the {@link eperson} to the {@link selectedReviewers} (or replaces it when {@link multipleReviewers} is
    * `false`). Afterwards it will emit the list.
    *
-   * @param ePerson The {@link EPerson} to add to the list
+   * @param eperson The {@link EPerson} to add to the list
    */
-  addMemberToGroup(ePerson: EpersonDtoModel) {
-    ePerson.memberOfGroup = true;
+  addMemberToGroup(eperson: EPerson) {
     if (!this.multipleReviewers) {
-      for (const selectedReviewer of this.selectedReviewers) {
-        selectedReviewer.memberOfGroup = false;
-      }
       this.selectedReviewers = [];
     }
-    this.selectedReviewers.push(ePerson);
-    this.selectedReviewersUpdated.emit(this.selectedReviewers.map((epersonDtoModel: EpersonDtoModel) => epersonDtoModel.eperson));
+    this.selectedReviewers.push(eperson);
+    this.selectedReviewersUpdated.emit(this.selectedReviewers);
   }
 
 }

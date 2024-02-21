@@ -5,13 +5,13 @@
     (keydown.space)="$event.preventDefault()"
     (mouseenter)="activateSection($event)"
     (mouseleave)="deactivateSection($event)">
-    <a href="javascript:void(0);" class="nav-link dropdown-toggle" routerLinkActive="active"
+    <button class="btn btn-link nav-link dropdown-toggle" routerLinkActive="active" type="button"
        [class.disabled]="section.model?.disabled"
-       id="browseDropdown" (click)="toggleSection($event)"
+       (click)="toggleSection($event)"
        data-toggle="dropdown">
         <ng-container
                 *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
-    </a>
+    </button>
     <ul @slide *ngIf="(active | async)" (click)="deactivateSection($event)"
         class="m-0 shadow-none border-top-0 dropdown-menu show">
         <li *ngFor="let subSection of (subSections$ | async)">
