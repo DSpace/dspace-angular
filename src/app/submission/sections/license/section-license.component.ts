@@ -213,6 +213,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     } else {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     }
+    this.submissionService.dispatchSaveSection(this.submissionId, this.sectionData.id);
   }
 
   /**

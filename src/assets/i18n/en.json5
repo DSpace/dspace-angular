@@ -726,7 +726,7 @@
 
   "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
-  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.form.primaryBitstream.label": "Primary File",
 
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
 
@@ -2495,6 +2495,8 @@
   "item.page.bitstreams.view-more": "Show more",
 
   "item.page.bitstreams.collapse": "Collapse",
+
+  "item.page.bitstreams.primary": "Primary",
 
   "item.page.filesection.original.bundle": "Original bundle",
 
@@ -4817,6 +4819,10 @@
   "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+
+  "submission.sections.upload.primary.make": "Make {{fileName}} the primary bitstream",
+
+  "submission.sections.upload.primary.remove": "Remove {{fileName}} as the primary bitstream",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
