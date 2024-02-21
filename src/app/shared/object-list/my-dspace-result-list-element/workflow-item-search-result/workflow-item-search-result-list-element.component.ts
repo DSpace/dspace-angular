@@ -11,7 +11,9 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../search-result-list-element/search-result-list-element.component';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
@@ -64,7 +66,6 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
   ngOnInit() {
     super.ngOnInit();
     this.deriveSearchResult();
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   private deriveSearchResult() {
