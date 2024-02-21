@@ -73,6 +73,17 @@ import {FormModule} from "../../app/shared/form/form.module";
 import {RequestCopyModule} from "../../app/request-copy/request-copy.module";
 import {DsoPageModule} from "../../app/shared/dso-page/dso-page.module";
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
+import {ItemPageComponent} from "./app/item-page/simple/item-page.component";
+import {FullItemPageComponent} from "./app/item-page/full/full-item-page.component";
+import {ItemStatusComponent} from "./app/item-page/edit-item-page/item-status/item-status.component";
+import {FileSectionComponent} from "./app/item-page/simple/field-components/file-section/file-section.component";
+import {FullFileSectionComponent} from "./app/item-page/full/field-components/file-section/full-file-section.component";
+import {ItemPageTitleFieldComponent} from "./app/item-page/simple/field-components/specific-field/title/item-page-title-field.component";
+import {MediaViewerImageComponent} from "./app/item-page/media-viewer/media-viewer-image/media-viewer-image.component";
+import {MediaViewerVideoComponent} from "./app/item-page/media-viewer/media-viewer-video/media-viewer-video.component";
+import {ItemAlertsComponent} from "./app/item-page/alerts/item-alerts.component";
+import {MetadataRepresentationListComponent} from "./app/item-page/simple/metadata-representation-list/metadata-representation-list.component";
+import {MediaViewerComponent} from "./app/item-page/media-viewer/media-viewer.component";
 
 
 const DECLARATIONS = [
@@ -84,6 +95,17 @@ const DECLARATIONS = [
   VedetteCollListeComponent,
   DsoEditMetadataComponent,
   BrowseByComponent,
+  ItemPageComponent,
+  FullItemPageComponent,
+  ItemStatusComponent,
+  FileSectionComponent,
+  FullFileSectionComponent,
+  ItemPageTitleFieldComponent,
+  MediaViewerComponent,
+  MediaViewerImageComponent,
+  MediaViewerVideoComponent,
+  ItemAlertsComponent,
+  MetadataRepresentationListComponent
 ];
 
 @NgModule({

@@ -1,0 +1,73 @@
+<ds-themed-results-back-button *ngIf="showBackButton | async" [back]="back"></ds-themed-results-back-button>
+<div class="d-flex flex-row mt-2">
+  <ds-themed-item-page-title-field [item]="object" class="mr-auto">
+  </ds-themed-item-page-title-field>
+  <div class="align-content-end">
+    <ds-dso-edit-menu></ds-dso-edit-menu>
+  </div>
+</div>
+<!-- Afficher le contenu dans des onglets -->
+  <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs" >
+    <li ngbNavItem="1" active >
+      <a ngbNavLink (click)="displaySection('calypso-mirador')">Onglet 1</a>
+      <ng-template ngbNavContent *ngIf="iiifEnabled">
+        <!-- Cette section reste vide parce qu,elle sera visualement rempli avec mirador -->
+      </ng-template>
+    </li>
+    <li ngbNavItem="2">
+      <a ngbNavLink (click)="hideSection('calypso-mirador')">Onglet 2</a>
+      <ng-template ngbNavContent>
+        <!-- Afficher les métadonnées dans un tableau -->
+        <div class="table-responsive" *ngIf="metadata$ | async as metadata">
+          <table class="table table-striped">
+            <tbody>
+            <ng-container *ngFor="let mdEntry of metadata | keyvalue">
+              <tr *ngFor="let mdValue of mdEntry.value">
+                <td>{{ mdEntry.key }}</td>
+                <td>{{ mdValue.value }}</td>
+                <td>{{ mdValue.language }}</td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- fin importation -->
+      </ng-template>
+    </li>
+    <li ngbNavItem="3">
+      <a ngbNavLink (click)="hideSection('calypso-mirador')">Onglet 3</a>
+      <ng-template ngbNavContent>
+        <div>
+          <!-- Ajoutez le contenu spécifique à l'onglet 3 ici -->
+          <table class="table  table-striped">
+            <tbody>
+              <tr>
+                <th>Colone 1</th>
+                <th>Colone 2</th>
+                <th>Colone 3</th>
+              </tr>
+              <tr>
+                <td>Donnees 1</td>
+                <td>Donnees 2</td>
+                <td>Donnees 3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+ <!-- Section specifique au onglet choisi -->
+ <div [ngbNavOutlet]="nav" class="mt-2"></div>
+<!-- Section pour mirador -->
+  <div class="row" *ngIf="iiifEnabled">
+    <div class="col-12" id="calypso-mirador">
+      <ds-mirador-viewer id="iiif-viewer"
+                         [object]="object"
+                         [searchable]="iiifSearchEnabled"
+                         [query]="iiifQuery$ | async">
+      </ds-mirador-viewer>
+    </div>
+  </div>
+
