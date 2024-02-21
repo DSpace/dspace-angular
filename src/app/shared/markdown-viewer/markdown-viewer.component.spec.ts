@@ -18,6 +18,7 @@ describe('DsMarkdownViewerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MarkdownViewerComponent);
     component = fixture.componentInstance;
+    component.value = 'Test markdown';
     fixture.detectChanges();
   });
 
