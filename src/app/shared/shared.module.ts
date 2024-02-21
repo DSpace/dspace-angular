@@ -285,6 +285,7 @@ import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.comp
 import { QualityAssuranceEventDataService } from '../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceSourceDataService } from '../core/notifications/qa/source/quality-assurance-source-data.service';
 import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
+import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
 
 const MODULES = [
   CommonModule,
@@ -381,7 +382,7 @@ const COMPONENTS = [
   ThemedStatusBadgeComponent,
   BadgesComponent,
   ThemedBadgesComponent,
-
+  StartsWithLoaderComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,

@@ -726,7 +726,7 @@
 
   "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
-  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.form.primaryBitstream.label": "Primary File",
 
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
 
@@ -824,6 +824,8 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.srsc": "Subject Category",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -890,13 +892,11 @@
 
   "browse.startsWith.input": "Filter",
 
-  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
-
   "browse.taxonomy.button": "Browse",
 
-  "browse.title": "Browsing {{ collection }} by {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
 
-  "browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
+  "browse.title.page": "Browsing by {{ field }} {{ value }}",
 
   "search.browse.item-back": "Back to Results",
 
@@ -1798,11 +1798,11 @@
 
   "form.create": "Create",
 
-  "form.repeatable.sort.tip": "Drop the item in the new position",
-
   "form.number-picker.decrement": "Decrement {{field}}",
 
   "form.number-picker.increment": "Increment {{field}}",
+
+  "form.repeatable.sort.tip": "Drop the item in the new position",
 
   "grant-deny-request-copy.deny": "Don't send copy",
 
@@ -2508,6 +2508,8 @@
 
   "item.page.bitstreams.collapse": "Collapse",
 
+  "item.page.bitstreams.primary": "Primary",
+
   "item.page.filesection.original.bundle": "Original bundle",
 
   "item.page.filesection.license.bundle": "License bundle",
@@ -2525,6 +2527,8 @@
   "item.page.claim.button": "Claim",
 
   "item.page.claim.tooltip": "Claim this item as profile",
+
+  "item.page.image.alt.ROR": "ROR logo",
 
   "item.preview.dc.identifier.uri": "Identifier:",
 
@@ -2577,6 +2581,20 @@
   "item.preview.dc.coverage.spatial": "Jurisdiction:",
 
   "item.preview.oaire.fundingStream": "Funding Stream:",
+
+  "item.preview.oairecerif.identifier.url": "URL",
+
+  "item.preview.organization.address.addressCountry": "Country",
+
+  "item.preview.organization.foundingDate": "Founding Date",
+
+  "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+
+  "item.preview.organization.identifier.isni": "ISNI",
+
+  "item.preview.organization.identifier.ror": "ROR ID",
+
+  "item.preview.organization.legalName": "Legal Name",
 
   "item.select.confirm": "Confirm selected",
 
@@ -3048,7 +3066,7 @@
 
   "menu.section.quality-assurance": "Quality Assurance",
 
-  "menu.section.notifications_reciter": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Publication Claim",
 
   "menu.section.pin": "Pin sidebar",
 
@@ -3179,6 +3197,14 @@
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
   "mydspace.view-btn": "View",
+
+  "mydspace.import": "Import",
+
+  "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>",
+
+  "notification.suggestion.review": "review the suggestions",
+
+  "notification.suggestion.please": "Please",
 
   "nav.browse.header": "All of DSpace",
 
@@ -3375,6 +3401,8 @@
   "orgunit.page.id": "ID",
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
+
+  "orgunit.page.ror": "ROR Identifier",
 
   "pagination.options.description": "Pagination options",
 
@@ -3661,6 +3689,72 @@
   "media-viewer.previous": "Previous",
 
   "media-viewer.playlist": "Playlist",
+
+  "suggestion.loading": "Loading ...",
+
+  "suggestion.title": "Publication Claim",
+
+  "suggestion.title.breadcrumbs": "Publication Claim",
+
+  "suggestion.targets.description": "Below you can see all the suggestions ",
+
+  "suggestion.targets": "Current Suggestions",
+
+  "suggestion.table.name": "Researcher Name",
+
+  "suggestion.table.actions": "Actions",
+
+  "suggestion.button.review": "Review {{ total }} suggestion(s)",
+
+  "suggestion.button.review.title": "Review {{ total }} suggestion(s) for ",
+
+  "suggestion.noTargets": "No target found.",
+
+  "suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+
+  "suggestion.evidence.type": "Type",
+
+  "suggestion.evidence.score": "Score",
+
+  "suggestion.evidence.notes": "Notes",
+
+  "suggestion.approveAndImport": "Approve & import",
+
+  "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='{{ url }}'>View.</a>",
+
+  "suggestion.approveAndImport.bulk": "Approve & import Selected",
+
+  "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+
+  "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+
+  "suggestion.ignoreSuggestion": "Ignore Suggestion",
+
+  "suggestion.ignoreSuggestion.success": "The suggestion has been discarded",
+
+  "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
+
+  "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
+
+  "suggestion.ignoreSuggestion.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+
+  "suggestion.seeEvidence": "See evidence",
+
+  "suggestion.hideEvidence": "Hide evidence",
+
+  "suggestion.suggestionFor": "Suggestions for",
+
+  "suggestion.suggestionFor.breadcrumb": "Suggestions for {{ name }}",
+
+  "suggestion.source.openaire": "OpenAIRE Graph",
+
+  "suggestion.from.source": "from the ",
+
+  "suggestion.count.missing": "You have no publication claims left",
+
+  "suggestion.totalScore": "Total Score",
+
+  "suggestion.type.openaire": "OpenAIRE",
 
   "register-email.title": "New user registration",
 
@@ -4220,6 +4314,18 @@
 
   "sorting.lastModified.DESC": "Last modified Descending",
 
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
+
   "statistics.title": "Statistics",
 
   "statistics.header": "Statistics for {{ scope }}",
@@ -4344,6 +4450,8 @@
 
   "submission.import-external.source.lcname": "Library of Congress Names",
 
+  "submission.import-external.source.ror": "Research Organization Registry (ROR)",
+
   "submission.import-external.preview.title": "Item Preview",
 
   "submission.import-external.preview.title.Publication": "Publication Preview",
@@ -4436,6 +4544,8 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Import from ROR",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
@@ -4457,6 +4567,12 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Import Remote Organization",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Successfully added local organization to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Successfully imported and added external organization to the selection",
 
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
 
@@ -4514,6 +4630,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.ror": "ROR ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
@@ -4537,6 +4655,8 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
@@ -4585,6 +4705,8 @@
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
 
   "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
+
+  "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
@@ -4647,6 +4769,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
@@ -4763,6 +4887,10 @@
   "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+
+  "submission.sections.upload.primary.make": "Make {{fileName}} the primary bitstream",
+
+  "submission.sections.upload.primary.remove": "Remove {{fileName}} as the primary bitstream",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
@@ -5119,6 +5247,8 @@
   "workflow.search.results.head": "Workflow tasks",
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
+
+  "orgunit.search.results.head": "Organizational Unit Search Results",
 
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
@@ -5580,4 +5710,7 @@
 
   "vocabulary-treeview.search.form.add": "Add",
 
+  "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
+
+  "admin.notifications.publicationclaim.page.title": "Publication Claim",
 }

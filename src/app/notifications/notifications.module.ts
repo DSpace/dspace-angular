@@ -27,6 +27,30 @@ import {
   QualityAssuranceSourceDataService
 } from '../core/notifications/qa/source/quality-assurance-source-data.service';
 import { EPersonDataComponent } from './qa/events/ePerson-data/ePerson-data.component';
+import { PublicationClaimComponent } from '../suggestion-notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { SuggestionActionsComponent } from '../suggestion-notifications/suggestion-actions/suggestion-actions.component';
+import {
+  SuggestionListElementComponent
+} from '../suggestion-notifications/suggestion-list-element/suggestion-list-element.component';
+import {
+  SuggestionEvidencesComponent
+} from '../suggestion-notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionsPopupComponent } from '../suggestion-notifications/suggestions-popup/suggestions-popup.component';
+import {
+  SuggestionsNotificationComponent
+} from '../suggestion-notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsService } from '../suggestion-notifications/suggestions.service';
+import { SuggestionsDataService } from '../core/suggestion-notifications/suggestions-data.service';
+import {
+  SuggestionSourceDataService
+} from '../core/suggestion-notifications/source/suggestion-source-data.service';
+import {
+  SuggestionTargetDataService
+} from '../core/suggestion-notifications/target/suggestion-target-data.service';
+import {
+  SuggestionTargetsStateService
+} from '../suggestion-notifications/suggestion-targets/suggestion-targets.state.service';
+
 
 const MODULES = [
   CommonModule,
@@ -43,6 +67,12 @@ const COMPONENTS = [
   QualityAssuranceEventsComponent,
   QualityAssuranceSourceComponent,
   EPersonDataComponent,
+  PublicationClaimComponent,
+  SuggestionActionsComponent,
+  SuggestionListElementComponent,
+  SuggestionEvidencesComponent,
+  SuggestionsPopupComponent,
+  SuggestionsNotificationComponent
 ];
 
 const DIRECTIVES = [ ];
@@ -58,9 +88,11 @@ const PROVIDERS = [
   QualityAssuranceTopicDataService,
   QualityAssuranceSourceDataService,
   QualityAssuranceEventDataService,
-];
-
-const PIPES = [
+  SuggestionsService,
+  SuggestionSourceDataService,
+  SuggestionTargetDataService,
+  SuggestionTargetsStateService,
+  SuggestionsDataService
 ];
 
 @NgModule({
@@ -71,7 +103,6 @@ const PIPES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...PIPES
   ],
   providers: [
     ...PROVIDERS
@@ -82,7 +113,6 @@ const PIPES = [
   exports: [
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...PIPES
   ]
 })
 
