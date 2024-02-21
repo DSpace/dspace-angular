@@ -41,6 +41,11 @@ export class OrcidSyncSettingsComponent implements OnInit {
   currentSyncPublications: string;
 
   /**
+   * The current synchronization mode for product
+   */
+  currentSyncProduct: string;
+
+  /**
    * The current synchronization mode for funding
    */
   currentSyncFunding: string;
@@ -54,6 +59,11 @@ export class OrcidSyncSettingsComponent implements OnInit {
    * The synchronization options for publications
    */
   syncPublicationOptions: { value: string, label: string }[];
+
+  /**
+   * The synchronization options for products
+   */
+  syncProductOptions: { value: string, label: string }[];
 
   /**
    * The synchronization options for funding
@@ -98,6 +108,14 @@ export class OrcidSyncSettingsComponent implements OnInit {
         };
       });
 
+    this.syncProductOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-products.' + value.toLowerCase(),
+          value: value,
+        };
+      });
+
     this.syncFundingOptions = ['DISABLED', 'ALL']
       .map((value) => {
         return {
@@ -119,6 +137,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
 
     this.currentSyncMode = this.getCurrentPreference('dspace.orcid.sync-mode', ['BATCH', 'MANUAL'], 'MANUAL');
     this.currentSyncPublications = this.getCurrentPreference('dspace.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED');
+    this.currentSyncProduct = this.getCurrentPreference('dspace.orcid.sync-products', ['DISABLED', 'ALL'], 'DISABLED');
     this.currentSyncFunding = this.getCurrentPreference('dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
   }
 
@@ -131,6 +150,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
+    this.fillOperationsFor(operations, '/orcid/products', form.value.syncProducts);
     this.fillOperationsFor(operations, '/orcid/fundings', form.value.syncFundings);
 
     const syncProfileValue = this.syncProfileOptions
