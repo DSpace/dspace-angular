@@ -14,7 +14,7 @@ import {
   AdminQualityAssuranceTopicsPageParams
 } from '../../../admin/admin-notifications/admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
@@ -87,6 +87,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
     private activatedRoute: ActivatedRoute,
     private itemService: ItemDataService,
     private notificationsStateService: NotificationsStateService,
+    private router: Router,
   ) {
     this.sourceId = this.activatedRoute.snapshot.params.sourceId;
     this.targetId = this.activatedRoute.snapshot.params.targetId;
@@ -96,7 +97,15 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
    * Component initialization.
    */
   ngOnInit(): void {
-    this.topics$ = this.notificationsStateService.getQualityAssuranceTopics();
+    this.topics$ = this.notificationsStateService.getQualityAssuranceTopics().pipe(
+      tap((topics: QualityAssuranceTopicObject[]) => {
+        const forward = this.activatedRoute.snapshot.queryParams?.forward === 'true';
+        if (topics.length === 1 && forward) {
+          // If there is only one topic, navigate to the first topic automatically
+          this.router.navigate([this.getQualityAssuranceRoute(), this.sourceId, topics[0].id]);
+        }
+      })
+    );
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceTopicsTotals();
   }
 

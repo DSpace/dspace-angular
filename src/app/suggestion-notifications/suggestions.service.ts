@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { of, forkJoin, Observable } from 'rxjs';
-import { catchError, map, mergeMap, take } from 'rxjs/operators';
+import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { RemoteData } from '../core/data/remote-data';
@@ -12,8 +12,9 @@ import { ResearcherProfile } from '../core/profile/model/researcher-profile.mode
 import {
   getAllSucceededRemoteDataPayload,
   getFinishedRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
+  getFirstSucceededRemoteListPayload,
 } from '../core/shared/operators';
 import { Suggestion } from '../core/suggestion-notifications/models/suggestion.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
@@ -155,10 +156,10 @@ export class SuggestionsService {
    */
   public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
     return this.researcherProfileService.findById(userUuid, true).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      mergeMap((profile: ResearcherProfile) => {
-        if (isNotEmpty(profile)) {
-          return this.researcherProfileService.findRelatedItemId(profile).pipe(
+      getFirstCompletedRemoteData(),
+      mergeMap((profile: RemoteData<ResearcherProfile> ) => {
+        if (isNotEmpty(profile) && profile.hasSucceeded && isNotEmpty(profile.payload)) {
+          return this.researcherProfileService.findRelatedItemId(profile.payload).pipe(
             mergeMap((itemId: string) => {
               return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
                 getFirstSucceededRemoteListPayload()
@@ -169,7 +170,7 @@ export class SuggestionsService {
           return of([]);
         }
       }),
-      take(1)
+      catchError(() => of([]))
     );
   }
 

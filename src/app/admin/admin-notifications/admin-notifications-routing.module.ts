@@ -57,6 +57,21 @@ import {
         }
       },
       {
+        canActivate: [ AuthenticatedGuard ],
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
+        component: AdminQualityAssuranceTopicsPageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+          openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver
+        },
+        data: {
+          title: 'admin.quality-assurance.page.title',
+          breadcrumbKey: 'admin.quality-assurance',
+          showBreadcrumbsFluid: false
+        }
+      },
+      {
         canActivate: [ SiteAdministratorGuard ],
         path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
         component: AdminQualityAssuranceSourcePageComponent,

@@ -44,7 +44,7 @@
                       <button
                               class="btn btn-outline-primary btn-sm"
                               title="{{'quality-assurance.topics-list.button.detail' | translate : { param: topicElement.name } }}"
-                              [routerLink]="[topicElement.id]">
+                              [routerLink]="[getQualityAssuranceRoute(), sourceId, topicElement.id]">
                         <span class="badge badge-info">{{topicElement.totalEvents}}</span>
                         <i class="fas fa-info fa-fw"></i>
                       </button>
@@ -56,14 +56,6 @@
           </div>
         </ng-container>
       </ds-pagination>
-    </div>
-  </div>
-  <div class="row text-right">
-    <div class="col-md-12">
-      <a class="btn btn-outline-secondary" [routerLink]="['/notifications/quality-assurance']">
-        <i class="fas fa-angle-double-left"></i>
-        {{'quality-assurance.events.back-to-sources' | translate}}
-      </a>
     </div>
   </div>
 </div>

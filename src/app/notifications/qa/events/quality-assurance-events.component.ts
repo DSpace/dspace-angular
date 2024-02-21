@@ -33,7 +33,7 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import {environment} from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -119,6 +119,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   protected subs: Subscription[] = [];
 
+  /**
+   * Observable that emits a boolean value indicating whether the user is an admin.
+   */
   isAdmin$: Observable<boolean>;
 
   /**
@@ -146,15 +149,13 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.isEventPageLoading.next(true);
-
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
-    // this.sourceId = this.activatedRoute.snapshot.params.sourceId;
     this.activatedRoute.paramMap.pipe(
-    tap((params) => {
-      this.sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlMapForProjectSearch[params.get('sourceId')];
-      this.sourceId = params.get('sourceId');
-    }),
-    map((params) => params.get('topicId')),
+      tap((params) => {
+        this.sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlMapForProjectSearch[params.get('sourceId')];
+        this.sourceId = params.get('sourceId');
+      }),
+      map((params) => params.get('topicId')),
       take(1),
       switchMap((id: string) => {
         const regEx = /!/g;
@@ -180,11 +181,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public hasDetailColumn(): boolean {
     return (this.showTopic.indexOf('/PROJECT') !== -1 ||
-            this.showTopic.indexOf('/PID') !== -1 ||
-            this.showTopic.indexOf('/SUBJECT') !== -1 ||
-            this.showTopic.indexOf('/WITHDRAWN') !== -1 ||
-            this.showTopic.indexOf('/REINSTATE') !== -1 ||
-            this.showTopic.indexOf('/ABSTRACT') !== -1
+      this.showTopic.indexOf('/PID') !== -1 ||
+      this.showTopic.indexOf('/SUBJECT') !== -1 ||
+      this.showTopic.indexOf('/WITHDRAWN') !== -1 ||
+      this.showTopic.indexOf('/REINSTATE') !== -1 ||
+      this.showTopic.indexOf('/ABSTRACT') !== -1
     );
   }
 
@@ -270,9 +271,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     eventData.isRunning = true;
     let operation;
     if (action === 'UNDO') {
-        operation = this.delete(eventData);
+      operation = this.delete(eventData);
     } else {
-        operation = this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason);
+      operation = this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason);
     }
     this.subs.push(
       operation.pipe(
@@ -462,6 +463,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Deletes a quality assurance event.
+   * @param qaEvent The quality assurance event to delete.
+   * @returns An Observable of RemoteData containing NoContent.
+   */
   delete(qaEvent: QualityAssuranceEventData): Observable<RemoteData<NoContent>> {
     return this.qualityAssuranceEventRestService.deleteQAEvent(qaEvent);
   }

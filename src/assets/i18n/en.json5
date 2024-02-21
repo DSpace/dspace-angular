@@ -2708,13 +2708,15 @@
 
   "correction-type.manage-relation.action.notification.withdrawn": "Withdraw request sent.",
 
-  "qa-event-notification.check.notification-withdrawn": "You have requested to withdraw this item.",
+  "qa-event-notification.check.notification-withdrawn.user": "There are {{num}} items pending review(s) to check.",
 
-  "qa-event-notification.check.notification-reinstate": "You have requested to reinstate this item.",
+  "qa-event-notification.check.notification-withdrawn.admin": "There are {{num}} {{source}} feedback(s) pending.",
 
-  "qa-event-notification-undo-withdrawn.check.button": "Undo request withdrawal",
+  "qa-event-notification.check.notification-reinstate": "There are {{num}} pending reinstatement(s) pending for this item.",
 
-  "qa-event-notification-undo-reinstate.check.button": "Undo request reinstatment",
+  "qa-event-notification-undo-withdrawn.check.button": "Check",
+
+  "qa-event-notification-undo-reinstate.check.button": "Check",
 
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 
@@ -3245,6 +3247,8 @@
   "quality-assurance.title": "Quality Assurance",
 
   "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+
+  "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
 
   "quality-assurance.source.description": "Below you can see all the notification's sources.",
 

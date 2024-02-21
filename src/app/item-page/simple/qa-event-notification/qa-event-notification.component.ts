@@ -6,10 +6,12 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -32,11 +34,16 @@ export class QaEventNotificationComponent implements OnChanges {
    */
   sources$: Observable<QualityAssuranceSourceObject[]>;
   /**
-   * The type of alert to display for the notification.
+   * An observable that emits a boolean representing whether the current user is an admin.
    */
+  isAdmin$: Observable<boolean>;
+
   constructor(
     private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService,
-  ) { }
+    private authService: AuthorizationDataService,
+  ) {
+    this.isAdmin$ = this.authService.isAuthorized(FeatureID.AdministratorOf);
+  }
 
   /**
     * Detect changes to the item input and update the sources$ observable.
@@ -63,7 +70,8 @@ export class QaEventNotificationComponent implements OnChanges {
             return data.payload.page;
           }
           return [];
-        })
+        }),
+        catchError(() => [])
       );
   }
 
