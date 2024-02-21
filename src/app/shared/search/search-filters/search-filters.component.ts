@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -8,10 +8,10 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
+import { AppliedFilter } from '../models/applied-filter.model';
 
 @Component({
   selector: 'ds-search-filters',
@@ -56,6 +56,13 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
+   * Emits the {@link AppliedFilter}s by search filter name
+   */
+  @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
+
+  appliedFilters: Map<string, AppliedFilter[]> = new Map();
+
+  /**
    * Link to the search page
    */
   searchLink: string;
@@ -71,7 +78,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   constructor(
     private searchService: SearchService,
-    private filterService: SearchFilterService,
     private router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
   }
@@ -99,6 +105,17 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   trackUpdate(index, config: SearchFilterConfig) {
     return config ? config.name : undefined;
+  }
+
+  /**
+   * Updates the map of {@link AppliedFilter}s and emits it to it's parent component
+   *
+   * @param filterName
+   * @param appliedFilters
+   */
+  updateAppliedFilters(filterName: string, appliedFilters: AppliedFilter[]): void {
+    this.appliedFilters.set(filterName, appliedFilters);
+    this.changeAppliedFilters.emit(this.appliedFilters);
   }
 
   ngOnDestroy() {

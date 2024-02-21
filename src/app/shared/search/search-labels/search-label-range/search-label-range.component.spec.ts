@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Params, ActivatedRoute } from '@angular/router';
-import { SearchLabelComponent } from './search-label.component';
+import { SearchLabelRangeComponent } from './search-label-range.component';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
@@ -12,13 +12,13 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 
-describe('SearchLabelComponent', () => {
-  let comp: SearchLabelComponent;
-  let fixture: ComponentFixture<SearchLabelComponent>;
+describe('SearchLabelRangeComponent', () => {
+  let comp: SearchLabelRangeComponent;
+  let fixture: ComponentFixture<SearchLabelRangeComponent>;
 
   let route: ActivatedRouteStub;
   let searchConfigurationService: SearchConfigurationServiceStub;
@@ -38,7 +38,7 @@ describe('SearchLabelComponent', () => {
     });
     initialRouteParams = {
       'query': '',
-      'spc.page': '1',
+      'page-id.page': '5',
       'f.author': addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator),
       'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
     };
@@ -61,7 +61,7 @@ describe('SearchLabelComponent', () => {
         TranslateModule.forRoot(),
       ],
       declarations: [
-        SearchLabelComponent,
+        SearchLabelRangeComponent,
       ],
       providers: [
         { provide: PaginationService, useValue: paginationService },
@@ -73,7 +73,7 @@ describe('SearchLabelComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchLabelComponent);
+    fixture = TestBed.createComponent(SearchLabelRangeComponent);
     comp = fixture.componentInstance;
     comp.appliedFilter = appliedFilter;
     fixture.detectChanges();
@@ -83,7 +83,7 @@ describe('SearchLabelComponent', () => {
     it('should always reset the page to 1', (done: DoneFn) => {
       spyOn(searchConfigurationService, 'unselectAppliedFilterParams').and.returnValue(observableOf(initialRouteParams));
 
-      comp.updateRemoveParams().pipe(take(1)).subscribe((params: Params) => {
+      comp.updateRemoveParams('f.dateIssued.max', '2000').pipe(take(1)).subscribe((params: Params) => {
         expect(params).toEqual(Object.assign({}, initialRouteParams, {
           'page-id.page': 1,
         }));

@@ -7,6 +7,7 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { AppliedFilter } from '../models/applied-filter.model';
 
 /**
  * This component renders a simple item page.
@@ -28,7 +29,7 @@ export class SearchSidebarComponent {
   /**
    * The configuration to use for the search options
    */
-  @Input() configuration;
+  @Input() configuration: string;
 
   /**
    * The list of available configuration options
@@ -53,7 +54,7 @@ export class SearchSidebarComponent {
   /**
    * The total amount of results
    */
-  @Input() resultCount;
+  @Input() resultCount: number;
 
   /**
    * The list of available view mode options
@@ -68,7 +69,7 @@ export class SearchSidebarComponent {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The configuration for the current paginated search results
@@ -94,6 +95,11 @@ export class SearchSidebarComponent {
    * Emits event when the user select a new configuration
    */
   @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter<SearchConfigurationOption>();
+
+  /**
+   * Emits the {@link AppliedFilter}s by search filter name
+   */
+  @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
 
   /**
    * Emits event when the user select a new view mode

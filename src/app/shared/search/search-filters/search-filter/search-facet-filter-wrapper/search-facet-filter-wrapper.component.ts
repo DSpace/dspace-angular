@@ -1,4 +1,4 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { renderFilterType } from '../search-filter-type-decorator';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
@@ -6,11 +6,12 @@ import {
   FILTER_CONFIG,
   SCOPE,
   IN_PLACE_SEARCH,
-  REFRESH_FILTER
+  REFRESH_FILTER, CHANGE_APPLIED_FILTERS
 } from '../../../../../core/shared/search/search-filter.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { BehaviorSubject } from 'rxjs';
+import { AppliedFilter } from '../../../models/applied-filter.model';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
@@ -42,6 +43,11 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   @Input() scope: string;
 
   /**
+   * Emits the {@link AppliedFilter}s of this search filter
+   */
+  @Output() changeAppliedFilters: EventEmitter<AppliedFilter[]> = new EventEmitter();
+
+  /**
    * The constructor of the search facet filter that should be rendered, based on the filter config's type
    */
   searchFilter: GenericConstructor<SearchFacetFilterComponent>;
@@ -64,6 +70,7 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
         { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
         { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
         { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
+        { provide: CHANGE_APPLIED_FILTERS, useFactory: () => this.changeAppliedFilters },
       ],
       parent: this.injector
     });

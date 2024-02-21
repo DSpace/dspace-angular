@@ -28,6 +28,7 @@ import { FacetConfigResponseParsingService } from '../../data/facet-config-respo
 import { ViewMode } from '../view-mode.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -525,6 +526,27 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  unselectAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
+  }
+
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  selectNewAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
+  }
 
   /**
    * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object

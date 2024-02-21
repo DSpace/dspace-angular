@@ -13,6 +13,7 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { CommonModule } from '@angular/common';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
+  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   SCOPE,
   IN_PLACE_SEARCH,
@@ -25,7 +26,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { FacetValue} from '../../../models/facet-value.model';
+import { AppliedFilter } from '../../../models/applied-filter.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 
 describe('SearchHierarchyFilterComponent', () => {
@@ -78,6 +79,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)},
         { provide: SCOPE, useValue: undefined },
+        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -126,8 +128,8 @@ describe('SearchHierarchyFilterComponent', () => {
 
       beforeEach(async () => {
         showVocabularyTreeLink.nativeElement.click();
-        fixture.componentInstance.selectedValues$ = observableOf(
-          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
+        fixture.componentInstance.selectedAppliedFilters$ = observableOf(
+          alreadySelectedValues.map(value => Object.assign(new AppliedFilter(), { value }))
         );
         VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
           value: newSelectedValue,

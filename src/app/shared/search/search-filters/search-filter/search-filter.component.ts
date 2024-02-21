@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -11,6 +11,7 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
+import { AppliedFilter } from '../../models/applied-filter.model';
 
 @Component({
   selector: 'ds-search-filter',
@@ -42,6 +43,11 @@ export class SearchFilterComponent implements OnInit {
    * The current scope
    */
   @Input() scope: string;
+
+  /**
+   * Emits the {@link AppliedFilter}s of this search filter
+   */
+  @Output() changeAppliedFilters: EventEmitter<AppliedFilter[]> = new EventEmitter();
 
   /**
    * True when the filter is 100% collapsed in the UI

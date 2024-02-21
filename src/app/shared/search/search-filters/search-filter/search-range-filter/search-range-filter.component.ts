@@ -1,7 +1,7 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, of as observableOf , Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../models/filter-type.model';
@@ -9,6 +9,7 @@ import { renderFacetFor } from '../search-filter-type-decorator';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
+  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   SCOPE,
   IN_PLACE_SEARCH,
@@ -21,6 +22,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
+import { AppliedFilter } from '../../../models/applied-filter.model';
+import { FacetValues } from '../../../models/facet-values.model';
 import { yearFromString } from 'src/app/shared/date.util';
 
 /**
@@ -79,7 +82,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   /**
    * The current range of the filter
    */
-  range;
+  range: [number | undefined, number | undefined];
 
   /**
    * Subscription to unsubscribe from
@@ -103,8 +106,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(PLATFORM_ID) private platformId: any,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
               @Inject(SCOPE) public scope: string,
+              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope, changeAppliedFilters);
 
   }
 
@@ -120,13 +124,13 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     this.maxLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.max.placeholder');
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
-    this.sub = observableCombineLatest(iniMin, iniMax).pipe(
-      map(([min, max]) => {
-        const minimum = hasValue(min) ? min : this.min;
-        const maximum = hasValue(max) ? max : this.max;
+    this.sub = observableCombineLatest([iniMin, iniMax]).pipe(
+      map(([min, max]: [string, string]) => {
+        const minimum = hasValue(min) ? Number(min) : this.min;
+        const maximum = hasValue(max) ? Number(max) : this.max;
         return [minimum, maximum];
       })
-    ).subscribe((minmax) => this.range = minmax);
+    ).subscribe((minmax: [number, number]) => this.range = minmax);
 
     // Default/base config for nouislider
     this.config = {
@@ -136,6 +140,19 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
         { 'aria-label': this.maxLabel },
       ],
     };
+  }
+
+  setAppliedFilter(allFacetValues: FacetValues[]): void {
+    const appliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
+      .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
+      .filter((appliedFilter: AppliedFilter) => appliedFilter.filter === this.filterConfig.name)
+      // TODO this should ideally be fixed in the backend
+      .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
+        operator: 'range',
+      }));
+
+    this.selectedAppliedFilters$ = observableOf(appliedFilters);
+    this.changeAppliedFilters.emit(appliedFilters);
   }
 
   /**
@@ -148,7 +165,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
-    this.router.navigate(this.getSearchLinkParts(), {
+    void this.router.navigate(this.getSearchLinkParts(), {
       queryParams:
         {
           [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,

@@ -1,5 +1,7 @@
 import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { SearchFilterConfig } from '../search/models/search-filter-config.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 export class SearchServiceStub {
 
@@ -20,7 +22,7 @@ export class SearchServiceStub {
     this.testViewMode = viewMode;
   }
 
-  getFacetValuesFor() {
+  getFacetValuesFor(_filterConfig: SearchFilterConfig, _valuePage: number, _searchOptions?: PaginatedSearchOptions, _filterQuery?: string, _useCachedVersionIfAvailable = true) {
     return null;
   }
 
