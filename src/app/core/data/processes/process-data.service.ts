@@ -5,8 +5,8 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
-import { Observable, timer as rxjsTimer, concatMap } from 'rxjs';
-import { switchMap, filter, distinctUntilChanged, find, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { switchMap, filter, distinctUntilChanged, find } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { RemoteData } from '../remote-data';
@@ -19,7 +19,7 @@ import { dataService } from '../base/data-service.decorator';
 import { DeleteData, DeleteDataImpl } from '../base/delete-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NoContent } from '../../shared/NoContent.model';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../shared/operators';
+import { getAllCompletedRemoteData } from '../../shared/operators';
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 import { hasValue } from '../../../shared/empty.util';
 import { SearchData, SearchDataImpl } from '../base/search-data';
@@ -41,6 +41,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   private deleteData: DeleteData<Process>;
   private searchData: SearchData<Process>;
   protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
+  protected subs: Map<string, Subscription> = new Map();
 
   constructor(
     protected requestService: RequestService,
@@ -129,6 +130,9 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   }
 
   /**
+   * @param id                          The id for this auto-refreshing search. Used to stop
+   *                                    auto-refreshing afterwards, and ensure we're not
+   *                                    auto-refreshing the same thing multiple times.
    * @param searchMethod                The search method for the Process
    * @param options                     The FindListOptions object
    * @param pollingIntervalInMs         The interval by which the search will be repeated
@@ -137,22 +141,41 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    * @return {Observable<RemoteData<PaginatedList<Process>>>}
    *    Return an observable that emits a paginated list of processes every interval
    */
-  autoRefreshingSearchBy(searchMethod: string, options?: FindListOptions, pollingIntervalInMs: number = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
-    // Create observable that emits every pollingInterval
-    return rxjsTimer(0, pollingIntervalInMs).pipe(
-        concatMap(() => {
-          // Every time the timer emits, request the current state of the processes
-          return this.searchBy(searchMethod, options, false, false, ...linksToFollow).pipe(
-              getFirstCompletedRemoteData(),
-              tap((processListRD: RemoteData<PaginatedList<Process>>) => {
-                // Once the response has been received, invalidate the response right before the next request
-                setTimeout(() => {
-                  this.invalidateByHref(processListRD.payload._links.self.href);
-                }, Math.max(pollingIntervalInMs - 100, 0));
-              }),
-          );
-        })
+  autoRefreshingSearchBy(id: string, searchMethod: string, options?: FindListOptions, pollingIntervalInMs: number = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
+
+    const result$ = this.searchBy(searchMethod, options, true, true, ...linksToFollow).pipe(
+      getAllCompletedRemoteData()
     );
+
+    const sub = result$.pipe(
+      filter(() =>
+        !this.activelyBeingPolled.has(id)
+      )
+    ).subscribe((processListRd: RemoteData<PaginatedList<Process>>) => {
+      this.clearCurrentTimeout(id);
+      const nextTimeout = this.timer(() => {
+        this.activelyBeingPolled.delete(id);
+        this.requestService.setStaleByHrefSubstring(processListRd.payload._links.self.href);
+      }, pollingIntervalInMs);
+
+      this.activelyBeingPolled.set(id, nextTimeout);
+    });
+
+    this.subs.set(id, sub);
+
+    return result$;
+  }
+
+  /**
+   * Stop auto-refreshing the request with the given id
+   * @param id the id of the request to stop automatically refreshing
+   */
+  stopAutoRefreshing(id: string) {
+    this.clearCurrentTimeout(id);
+    if (hasValue(this.subs.get(id))) {
+      this.subs.get(id).unsubscribe();
+      this.subs.delete(id);
+    }
   }
 
   /**
@@ -181,14 +204,15 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   }
 
   /**
-   * Clear the timeout for the given process, if that timeout exists
+   * Clear the timeout for the given id, if that timeout exists
    * @protected
    */
-  protected clearCurrentTimeout(processId: string): void {
-    const timeout = this.activelyBeingPolled.get(processId);
+  protected clearCurrentTimeout(id: string): void {
+    const timeout = this.activelyBeingPolled.get(id);
     if (hasValue(timeout)) {
       clearTimeout(timeout);
     }
+    this.activelyBeingPolled.delete(id);
   }
 
   /**
@@ -229,15 +253,15 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
       this.activelyBeingPolled.set(processId, nextTimeout);
     });
 
+    this.subs.set(processId, sub);
+
     // When the process completes create a one off subscription (the `find` completes the
     // observable) that unsubscribes the previous one, removes the processId from the list of
     // processes being polled and clears any running timeouts
     process$.pipe(
       find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload))
     ).subscribe(() => {
-      this.clearCurrentTimeout(processId);
-      this.activelyBeingPolled.delete(processId);
-      sub.unsubscribe();
+      this.stopAutoRefreshing(processId);
     });
 
     return process$.pipe(

@@ -62,10 +62,19 @@ export class ProcessOverviewService {
     }, findListOptions);
 
     if (hasValue(autoRefreshingIntervalInMs) && autoRefreshingIntervalInMs > 0) {
-      return this.processDataService.autoRefreshingSearchBy('byProperty', options, autoRefreshingIntervalInMs);
+      this.processDataService.stopAutoRefreshing(processStatus);
+      return this.processDataService.autoRefreshingSearchBy(processStatus, 'byProperty', options, autoRefreshingIntervalInMs);
     } else {
       return this.processDataService.searchBy('byProperty', options);
     }
+  }
+
+  /**
+   * Stop auto-refreshing the process with the given status
+   * @param processStatus the processStatus of the request to stop automatically refreshing
+   */
+  stopAutoRefreshing(processStatus: ProcessStatus) {
+    this.processDataService.stopAutoRefreshing(processStatus);
   }
 
   /**
