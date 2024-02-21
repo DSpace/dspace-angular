@@ -5,7 +5,9 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import {
+  SearchResultListElementComponent
+} from '../../search-result-list-element/search-result-list-element.component';
 
 /**
  * This component renders item object for the search result in the list view for submission.
@@ -32,6 +34,5 @@ export class ItemSearchResultListElementSubmissionComponent extends SearchResult
 
   ngOnInit() {
     super.ngOnInit();
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 }
