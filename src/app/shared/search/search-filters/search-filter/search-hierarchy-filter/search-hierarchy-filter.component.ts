@@ -9,6 +9,7 @@ import {
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
+  SCOPE,
   IN_PLACE_SEARCH,
   SearchFilterService, REFRESH_FILTER
 } from '../../../../../core/shared/search/search-filter.service';
@@ -49,9 +50,10 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
   }
 
   vocabularyExists$: Observable<boolean>;
