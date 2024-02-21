@@ -140,7 +140,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }],
       'person.identifier.orcid': [{
         'value': 'orcid-id',
@@ -241,7 +241,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
         }, {
           path: '/orcid/patents',
           op: 'replace',
-          value: 'ALL'
+          value: 'ALL',
         }, {
           path: '/orcid/publications',
           op: 'replace',
@@ -249,7 +249,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
         }, {
           path: '/orcid/products',
           op: 'replace',
-          value: 'ALL'
+          value: 'ALL',
         }, {
           path: '/orcid/fundings',
           op: 'replace',
