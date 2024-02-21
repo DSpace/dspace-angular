@@ -47,6 +47,7 @@ import {
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
+import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -78,7 +79,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const fileIndex = '0';
   const fileId = '123456-test-upload';
   const fileData: any = mockUploadFiles[0];
-  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
+  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId);
 
   let noAccessConditionsMock = Object.assign({}, mockFileFormData);
   delete noAccessConditionsMock.accessConditions;
@@ -186,11 +187,15 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       comp.ngOnInit();
 
+      const models = [DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel];
+
       expect(comp.formModel).toBeDefined();
-      expect(comp.formModel.length).toBe(2);
-      expect(comp.formModel[0] instanceof DynamicFormGroupModel).toBeTruthy();
-      expect(comp.formModel[1] instanceof DynamicFormArrayModel).toBeTruthy();
-      expect((comp.formModel[1] as DynamicFormArrayModel).groups.length).toBe(2);
+      expect(comp.formModel.length).toBe(models.length);
+      models.forEach((model, i) => {
+        expect(comp.formModel[i] instanceof model).toBeTruthy();
+      });
+
+      expect((comp.formModel[2] as DynamicFormArrayModel).groups.length).toBe(2);
       const startDateModel = formbuilderService.findById('startDate', comp.formModel);
       expect(startDateModel.max).toEqual(maxStartDate);
       const endDateModel = formbuilderService.findById('endDate', comp.formModel);
@@ -254,6 +259,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny.formRef = {formGroup: null};
       compAsAny.fileData = fileData;
       compAsAny.pathCombiner = pathCombiner;
+      compAsAny.isPrimary = null;
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(of(true));
       formService.getFormData.and.returnValue(of(mockFileFormData));
@@ -262,6 +268,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         Object.assign(mockSubmissionObject, {
           sections: {
             upload: {
+              primary: true,
               files: mockUploadFiles
             }
           }
@@ -277,23 +284,28 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.saveBitstreamData();
       tick();
 
-      let path = 'metadata/dc.title';
+      let path = 'primary';
+      expect(uploadService.updatePrimaryBitstreamOperation).toHaveBeenCalledWith(pathCombiner.getPath(path),  compAsAny.isPrimary,  mockFileFormData.primary[0], compAsAny.fileId);
+
+      const pathFragment = ['files', fileIndex];
+
+      path = 'metadata/dc.title';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
+        pathCombiner.getPath([...pathFragment, path]),
         mockFileFormData.metadata['dc.title'],
         true
       );
 
       path = 'metadata/dc.description';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
+        pathCombiner.getPath([...pathFragment, path]),
         mockFileFormData.metadata['dc.description'],
         true
       );
 
       path = 'accessConditions';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath(path),
+        pathCombiner.getPath([...pathFragment, path]),
         accessConditionsToSave,
         true
       );

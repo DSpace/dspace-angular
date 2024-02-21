@@ -285,8 +285,17 @@ item:
     # settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: 5
 
+# Community Page Config
+community:
+  # Search tab config
+  searchSection:
+    showSidebar: true
+
 # Collection Page Config
 collection:
+  # Search tab config
+  searchSection:
+    showSidebar: true
   edit:
     undoTimeout: 10000 # 10 seconds
 
@@ -391,4 +400,3 @@ comcolSelectionSort:
 # suggestion:
   # - collectionId: 8f7df5ca-f9c2-47a4-81ec-8a6393d6e5af
     # source: "openaire"
-

@@ -85,6 +85,7 @@
     <ds-themed-search-form *ngIf="searchEnabled" id="search-form"
                     [query]="(searchOptions$ | async)?.query"
                     [scope]="(searchOptions$ | async)?.scope"
+                    [hideScopeInUrl]="hideScopeInUrl"
                     [currentUrl]="searchLink"
                     [showScopeSelector]="showScopeSelector"
                     [inPlaceSearch]="inPlaceSearch"

@@ -23,6 +23,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import { CommunityPageConfig } from './community-page-config.interface';
 import {QualityAssuranceConfig} from './quality-assurance.config';
 
 export class DefaultAppConfig implements AppConfig {
@@ -291,8 +292,18 @@ export class DefaultAppConfig implements AppConfig {
     }
   };
 
+  // Community Page Config
+  community: CommunityPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
+  };
+
   // Collection Page Config
   collection: CollectionPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
