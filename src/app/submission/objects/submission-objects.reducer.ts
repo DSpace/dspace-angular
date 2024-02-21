@@ -1,4 +1,4 @@
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNull, isUndefined } from '../../shared/empty.util';
 import differenceWith from 'lodash/differenceWith';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
@@ -14,6 +14,7 @@ import {
   DepositSubmissionSuccessAction,
   DisableSectionAction,
   EditFileDataAction,
+  EditFilePrimaryBitstreamAction,
   EnableSectionAction,
   InertSectionErrorsAction,
   InitSectionAction,
@@ -201,6 +202,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
     // Files actions
     case SubmissionObjectActionTypes.NEW_FILE: {
       return newFile(state, action as NewUploadedFileAction);
+    }
+
+    case SubmissionObjectActionTypes.EDIT_FILE_PRIMARY_BITSTREAM_DATA: {
+      return editPrimaryBitstream(state, action as EditFilePrimaryBitstreamAction);
     }
 
     case SubmissionObjectActionTypes.EDIT_FILE_DATA: {
@@ -733,6 +738,46 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
       })
     })
   });
+}
+
+/**
+ * Edit primary bitstream.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an EditFilePrimaryBitstreamAction action
+ * @return SubmissionObjectState
+ *    the new state, with the edited file.
+ */
+function editPrimaryBitstream(state: SubmissionObjectState, action: EditFilePrimaryBitstreamAction): SubmissionObjectState {
+  const filesData = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data as WorkspaceitemSectionUploadObject;
+  const { submissionId, sectionId, fileId } = action.payload;
+
+  const fileIndex = findKey(filesData.files, { uuid: fileId });
+  if (isNull(fileIndex)) {
+    return state;
+  }
+
+  const submission = state[submissionId];
+  return {
+    ...state,
+    [submissionId]: {
+      ...submission,
+      sections: {
+        ...submission.sections,
+        [sectionId]: {
+          ...submission.sections[sectionId],
+          data: {
+            ...submission.sections[sectionId].data as WorkspaceitemSectionUploadObject,
+            primary: fileId
+          }
+        }
+      },
+      isLoading: submission.isLoading,
+      savePending: submission.savePending,
+    }
+  };
 }
 
 /**
