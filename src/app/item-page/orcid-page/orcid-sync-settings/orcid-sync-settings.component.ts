@@ -58,9 +58,19 @@ export class OrcidSyncSettingsComponent implements OnInit {
   currentSyncMode: string;
 
   /**
+   * The current synchronization mode for patents
+   */
+  currentSyncPatent: string;
+
+  /**
    * The current synchronization mode for publications
    */
   currentSyncPublications: string;
+
+  /**
+   * The current synchronization mode for product
+   */
+  currentSyncProduct: string;
 
   /**
    * The current synchronization mode for funding
@@ -73,9 +83,19 @@ export class OrcidSyncSettingsComponent implements OnInit {
   syncModes: { value: string, label: string }[];
 
   /**
+   * The synchronization options for patents
+   */
+  syncPatentOptions: { value: string, label: string }[];
+
+  /**
    * The synchronization options for publications
    */
   syncPublicationOptions: { value: string, label: string }[];
+
+  /**
+   * The synchronization options for products
+   */
+  syncProductOptions: { value: string, label: string }[];
 
   /**
    * The synchronization options for funding
@@ -120,6 +140,22 @@ export class OrcidSyncSettingsComponent implements OnInit {
         };
       });
 
+    this.syncProductOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-products.' + value.toLowerCase(),
+          value: value,
+        };
+      });
+
+    this.syncPatentOptions = ['DISABLED', 'ALL']
+      .map((value) => {
+        return {
+          label: this.messagePrefix + '.sync-patents.' + value.toLowerCase(),
+          value: value,
+        };
+      });
+
     this.syncFundingOptions = ['DISABLED', 'ALL']
       .map((value) => {
         return {
@@ -140,7 +176,9 @@ export class OrcidSyncSettingsComponent implements OnInit {
       });
 
     this.currentSyncMode = this.getCurrentPreference('dspace.orcid.sync-mode', ['BATCH', 'MANUAL'], 'MANUAL');
+    this.currentSyncPatent = this.getCurrentPreference('dspace.orcid.sync-patents', ['DISABLED', 'ALL'], 'DISABLED');
     this.currentSyncPublications = this.getCurrentPreference('dspace.orcid.sync-publications', ['DISABLED', 'ALL'], 'DISABLED');
+    this.currentSyncProduct = this.getCurrentPreference('dspace.orcid.sync-products', ['DISABLED', 'ALL'], 'DISABLED');
     this.currentSyncFunding = this.getCurrentPreference('dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED');
   }
 
@@ -152,7 +190,9 @@ export class OrcidSyncSettingsComponent implements OnInit {
   onSubmit(form: UntypedFormGroup): void {
     const operations: Operation[] = [];
     this.fillOperationsFor(operations, '/orcid/mode', form.value.syncMode);
+    this.fillOperationsFor(operations, '/orcid/patents', form.value.syncPatents);
     this.fillOperationsFor(operations, '/orcid/publications', form.value.syncPublications);
+    this.fillOperationsFor(operations, '/orcid/products', form.value.syncProducts);
     this.fillOperationsFor(operations, '/orcid/fundings', form.value.syncFundings);
 
     const syncProfileValue = this.syncProfileOptions
@@ -178,7 +218,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
         }
       }),
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
-      if (remoteData.isSuccess) {
+      if (remoteData.hasSucceeded) {
         this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
         this.settingsUpdated.emit();
       } else {
