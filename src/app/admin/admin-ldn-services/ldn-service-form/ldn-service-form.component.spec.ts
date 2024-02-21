@@ -234,10 +234,8 @@ describe('LdnServiceFormEditComponent', () => {
 
   it('should reset form and leave', () => {
     spyOn(component as any, 'sendBack');
-    spyOn(component as any, 'closeModal');
 
     component.resetFormAndLeave();
-    expect((component as any).closeModal).toHaveBeenCalled();
     expect((component as any).sendBack).toHaveBeenCalled();
   });
 });

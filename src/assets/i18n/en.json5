@@ -4296,6 +4296,8 @@
 
   "submission.general.discard.submit": "Discard",
 
+  "submission.general.back.submit": "Back",
+
   "submission.general.info.saved": "Saved",
 
   "submission.general.info.pending-changes": "Unsaved changes",
@@ -5831,8 +5833,6 @@
 
   "menu.section.services_new": "LDN Service",
 
-  "mydspace.import": "Import",
-
   "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
   "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
 
@@ -5873,64 +5873,6 @@
   "service.overview.table.actions": "Actions",
 
   "service.overview.table.description": "Description",
-
-  "reciter.suggestion.loading": "Loading ...",
-
-  "reciter.suggestion.title": "Suggestions",
-
-  "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
-
-  "reciter.suggestion.targets": "Current Suggestions",
-
-  "reciter.suggestion.table.name": "Researcher Name",
-
-  "reciter.suggestion.table.actions": "Actions",
-
-  "reciter.suggestion.button.review": "Review {{ total }} suggestion(s)",
-
-  "reciter.suggestion.noTargets": "No target found.",
-
-  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
-
-  "reciter.suggestion.evidence.type": "Type",
-
-  "reciter.suggestion.evidence.score": "Score",
-
-  "reciter.suggestion.evidence.notes": "Notes",
-
-  "reciter.suggestion.approveAndImport": "Approve & import",
-
-  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
-
-  "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
-
-  "reciter.suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
-
-  "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
-
-  "reciter.suggestion.notMine": "Not mine",
-
-  "reciter.suggestion.notMine.success": "The suggestion has been discarded",
-
-  "reciter.suggestion.notMine.bulk": "Not mine Selected",
-
-  "reciter.suggestion.notMine.bulk.success": "{{ count }} suggestions have been discarded ",
-
-  "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
-
-  "reciter.suggestion.seeEvidence": "See evidence",
-
-  "reciter.suggestion.hideEvidence": "Hide evidence",
-
-  "reciter.suggestion.suggestionFor": "Suggestion for",
-
-  "reciter.suggestion.source.oaire": "OpenAIRE Graph",
-
-  "reciter.suggestion.from.source": "from the ",
-
-  "reciter.suggestion.totalScore": "Total Score",
-
-  "reciter.suggestion.type.oaire": "OpenAIRE",
 
   "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
 

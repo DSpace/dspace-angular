@@ -411,7 +411,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   resetFormAndLeave() {
     this.sendBack();
-    this.closeModal();
   }
 
   /**
