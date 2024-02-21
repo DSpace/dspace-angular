@@ -4284,9 +4284,9 @@
   // TODO New key - Add a translation
   "mydspace.status.mydspaceValidation": "Validation",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   // TODO New key - Add a translation
-  "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
   // TODO New key - Add a translation

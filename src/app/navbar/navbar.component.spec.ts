@@ -16,7 +16,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowseService } from '../core/browse/browse.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 import { Item } from '../core/shared/item.model';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { ThemeService } from '../shared/theme-support/theme.service';
