@@ -177,6 +177,9 @@ import {
   ItemSearchResultListElementComponent
 } from './object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import {
+  ThemedItemSearchResultListElementComponent
+} from './object-list/search-result-list-element/item-search-result/item-types/item/themed-item-search-result-list-element.component';
+import {
   ItemMetadataRepresentationListElementComponent
 } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component';
@@ -422,6 +425,7 @@ const ENTRY_COMPONENTS = [
   ItemGridElementComponent,
   BitstreamListItemComponent,
   ItemSearchResultListElementComponent,
+  ThemedItemSearchResultListElementComponent,
   ItemSearchResultGridElementComponent,
   BrowseEntryListElementComponent,
   SearchResultDetailElementComponent,
