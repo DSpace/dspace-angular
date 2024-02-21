@@ -27,6 +27,8 @@ import { SearchConfigurationServiceStub } from '../../../../testing/search-confi
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { FacetValue} from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
 
 describe('SearchHierarchyFilterComponent', () => {
 
@@ -34,7 +36,7 @@ describe('SearchHierarchyFilterComponent', () => {
   let showVocabularyTreeLink: DebugElement;
 
   const testSearchLink = 'test-search';
-  const testSearchFilter = 'test-search-filter';
+  const testSearchFilter = 'subject';
   const VocabularyTreeViewComponent = {
     select: new EventEmitter<VocabularyEntryDetail>(),
   };
@@ -73,6 +75,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: Router, useValue: router },
         { provide: NgbModal, useValue: ngbModal },
         { provide: VocabularyService, useValue: vocabularyService },
+        { provide: APP_CONFIG, useValue: environment },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
@@ -86,7 +89,7 @@ describe('SearchHierarchyFilterComponent', () => {
   function init() {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
     fixture.detectChanges();
-    showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
+    showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }
 
   describe('if the vocabulary doesn\'t exist', () => {
