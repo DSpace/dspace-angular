@@ -54,6 +54,20 @@ describe('Markdown Pipe', () => {
     );
   });
 
+  it('should render undefined value', async () => {
+    await testTransform(
+      undefined,
+      undefined
+    );
+  });
+
+  it('should render null value', async () => {
+    await testTransform(
+      null,
+      null
+    );
+  });
+
   async function testTransform(input: string, output: string) {
     expect(
       await markdownPipe.transform(input)

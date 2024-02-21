@@ -1,6 +1,8 @@
 import { Inject, InjectionToken, Pipe, PipeTransform, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 import { environment } from '../../../environments/environment';
+import { isEmpty } from '../empty.util';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;
 type LazyMarkdownIt = ReturnType<typeof markdownItLoader>;
@@ -50,7 +52,7 @@ export class MarkdownPipe implements PipeTransform {
   }
 
   async transform(value: string, forcePreview = false): Promise<SafeHtml> {
-    if (!environment.markdown.enabled && !forcePreview) {
+    if (isEmpty(value) || (!environment.markdown.enabled && !forcePreview)) {
       return value;
     }
     const MarkdownIt = await this.markdownIt;
