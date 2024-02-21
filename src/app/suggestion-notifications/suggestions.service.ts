@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { of, forkJoin, Observable } from 'rxjs';
-import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, take } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { RemoteData } from '../core/data/remote-data';
