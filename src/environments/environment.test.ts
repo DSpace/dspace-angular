@@ -257,7 +257,15 @@ export const environment: BuildConfig = {
       pageSize: 5
     }
   },
+  community: {
+    searchSection: {
+      showSidebar: true,
+    },
+  },
   collection: {
+    searchSection: {
+      showSidebar: true,
+    },
     edit: {
       undoTimeout: 10000 // 10 seconds
     }

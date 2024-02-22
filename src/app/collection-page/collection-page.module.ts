@@ -19,7 +19,6 @@ import { ComcolModule } from '../shared/comcol/comcol.module';
 import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { BrowseByPageModule } from '../browse-by/browse-by-page.module';
-import { CollectionRecentlyAddedComponent } from './sections/recently-added/collection-recently-added.component';
 
 const DECLARATIONS = [
   CollectionPageComponent,
@@ -29,7 +28,6 @@ const DECLARATIONS = [
   EditItemTemplatePageComponent,
   ThemedEditItemTemplatePageComponent,
   CollectionItemMapperComponent,
-  CollectionRecentlyAddedComponent,
 ];
 
 @NgModule({

@@ -1,27 +1,36 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import { of, forkJoin, Observable } from 'rxjs';
 import { catchError, map, mergeMap, take } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
-import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
-import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
-import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-import { NoContent } from '../core/shared/NoContent.model';
-import { getFirstSucceededRemoteListPayload, getFirstSucceededRemoteDataPayload, getAllSucceededRemoteDataPayload, getFinishedRemoteData } from '../core/shared/operators';
-import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
-import { environment } from '../../environments/environment';
-import { SuggestionConfig } from '../../config/suggestion-config.interfaces';
-import { Suggestion } from '../core/notifications/models/suggestion.model';
-import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { RemoteData } from '../core/data/remote-data';
+import { PaginatedList } from '../core/data/paginated-list.model';
+import { SuggestionTarget } from '../core/suggestion-notifications/models/suggestion-target.model';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFinishedRemoteData, getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload
+} from '../core/shared/operators';
+import { Suggestion } from '../core/suggestion-notifications/models/suggestion.model';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { TranslateService } from '@ngx-translate/core';
+import { NoContent } from '../core/shared/NoContent.model';
+import { environment } from '../../environments/environment';
+import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
+import {FindListOptions} from '../core/data/find-list-options.model';
+import {SuggestionConfig} from '../../config/suggestion-config.interfaces';
+import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
+import {
+  SuggestionTargetDataService
+} from '../core/suggestion-notifications/target/suggestion-target-data.service';
+import {
+  SuggestionsDataService
+} from '../core/suggestion-notifications/suggestions-data.service';
+import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 
 /**
  * useful for multiple approvals and ignores operation
@@ -146,10 +155,10 @@ export class SuggestionsService {
    */
   public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
     return this.researcherProfileService.findById(userUuid, true).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      mergeMap((profile: ResearcherProfile) => {
-        if (isNotEmpty(profile)) {
-          return this.researcherProfileService.findRelatedItemId(profile).pipe(
+      getFirstCompletedRemoteData(),
+      mergeMap((profile: RemoteData<ResearcherProfile> ) => {
+        if (isNotEmpty(profile) && profile.hasSucceeded && isNotEmpty(profile.payload)) {
+          return this.researcherProfileService.findRelatedItemId(profile.payload).pipe(
             mergeMap((itemId: string) => {
               return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
                 getFirstSucceededRemoteListPayload()
@@ -160,7 +169,7 @@ export class SuggestionsService {
           return of([]);
         }
       }),
-      take(1)
+      catchError(() => of([]))
     );
   }
 
