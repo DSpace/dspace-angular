@@ -19,7 +19,6 @@ import { cold } from 'jasmine-marbles';
 import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
-import { ConfigurationDataService } from './core/data/configuration-data.service';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
@@ -38,7 +37,6 @@ describe('MenuResolver', () => {
   let browseService;
   let authorizationService;
   let scriptService;
-  let configurationDataService;
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
@@ -54,9 +52,6 @@ describe('MenuResolver', () => {
     scriptService = jasmine.createSpyObj('scriptService', {
       scriptWithNameExistsAndCanExecute: observableOf(true)
     });
-    configurationDataService = jasmine.createSpyObj('configurationDataService', {
-      scriptWithNameExistsAndCanExecute: observableOf(true)
-    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
@@ -66,7 +61,6 @@ describe('MenuResolver', () => {
         { provide: BrowseService, useValue: browseService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
-        { provide: ConfigurationDataService, useValue: configurationDataService },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
