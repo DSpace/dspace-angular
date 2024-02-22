@@ -168,10 +168,12 @@ describe('OrcidSyncSettingsComponent test suite', () => {
   it('should create cards properly', () => {
     const modes = fixture.debugElement.query(By.css('[data-test="sync-mode"]'));
     const publication = fixture.debugElement.query(By.css('[data-test="sync-mode-publication"]'));
+    const product = fixture.debugElement.query(By.css('[data-test="sync-mode-product"]'));
     const funding = fixture.debugElement.query(By.css('[data-test="sync-mode-funding"]'));
     const preferences = fixture.debugElement.query(By.css('[data-test="profile-preferences"]'));
     expect(modes).toBeTruthy();
     expect(publication).toBeTruthy();
+    expect(product).toBeTruthy();
     expect(funding).toBeTruthy();
     expect(preferences).toBeTruthy();
   });
@@ -179,6 +181,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
   it('should init sync modes properly', () => {
     expect(comp.currentSyncMode).toBe('MANUAL');
     expect(comp.currentSyncPublications).toBe('ALL');
+    expect(comp.currentSyncProduct).toBe('DISABLED');
     expect(comp.currentSyncFunding).toBe('DISABLED');
   });
 
@@ -189,6 +192,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
       formGroup = new UntypedFormGroup({
         syncMode: new UntypedFormControl('MANUAL'),
         syncFundings: new UntypedFormControl('ALL'),
+        syncProducts: new UntypedFormControl('ALL'),
         syncPublications: new UntypedFormControl('ALL'),
         syncProfile_BIOGRAPHICAL: new UntypedFormControl(true),
         syncProfile_IDENTIFIERS: new UntypedFormControl(true),
@@ -206,6 +210,10 @@ describe('OrcidSyncSettingsComponent test suite', () => {
           value: 'MANUAL'
         }, {
           path: '/orcid/publications',
+          op: 'replace',
+          value: 'ALL'
+        }, {
+          path: '/orcid/products',
           op: 'replace',
           value: 'ALL'
         }, {
