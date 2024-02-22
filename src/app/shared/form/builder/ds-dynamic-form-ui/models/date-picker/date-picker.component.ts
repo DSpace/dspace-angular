@@ -94,7 +94,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
     this.translationService.get('form.date-picker.placeholder.year').subscribe(value => this.yearPlaceholder = value);
     this.translationService.get('form.date-picker.placeholder.month').subscribe(value => this.monthPlaceholder = value);
-    this.translationService.get('form.date-picker.placeholder.day').subscribe(value => this.dayPlaceholder = value);    
+    this.translationService.get('form.date-picker.placeholder.day').subscribe(value => this.dayPlaceholder = value);
   }
 
   onBlur(event) {
