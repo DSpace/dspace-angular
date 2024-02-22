@@ -50,6 +50,10 @@ jobs:
     timeout-minutes: 120
     env:
       INSTANCE: '8'
+      # 2024/02: this .env replaces ENTRYPOINT to angular
+      # !!!!WARNING!!!!
+      # disable TSL checks = allowing to cooperate with https backend with invalid
+      # certificate
       ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
     steps:
       - uses: actions/checkout@v4
