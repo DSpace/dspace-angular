@@ -48,6 +48,8 @@ import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { ConfigurationProperty } from './core/shared/configuration-property.model';
 
 /**
  * Creates all of the app's menus
@@ -62,6 +64,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
+    protected configurationDataService: ConfigurationDataService
   ) {
   }
 
@@ -746,6 +749,9 @@ export class MenuResolver implements Resolve<boolean> {
    */
   createReportMenuSections() {
     observableCombineLatest([
+      this.configurationDataService.findByPropertyName("contentreport.enable").pipe(
+        map((res: RemoteData<ConfigurationProperty>) => res.hasSucceeded && res.payload && res.payload.values[0] === "true")
+      ),
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
     ]).subscribe(([isSiteAdmin]) => {
       const menuList = [
