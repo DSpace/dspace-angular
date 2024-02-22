@@ -1108,9 +1108,7 @@
 
   "collection.logo": "Collection logo",
 
-  "collection.page.browse.recent.head": "Recent Submissions",
-
-  "collection.page.browse.recent.empty": "No items to show",
+  "collection.page.browse.search.head": "Search",
 
   "collection.page.edit": "Edit this collection",
 
@@ -1119,6 +1117,8 @@
   "collection.page.license": "License",
 
   "collection.page.news": "News",
+
+  "collection.search.results.head": "Search Results",
 
   "collection.select.confirm": "Confirm selected",
 
@@ -1195,6 +1195,8 @@
   "communityList.collapse": "Collapse {{ name }}",
 
   "community.browse.logo": "Browse for a community logo",
+
+  "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
 
   "community.create.head": "Create a Community",
 
@@ -1347,6 +1349,8 @@
   "community.page.news": "News",
 
   "community.all-lists.head": "Subcommunities and Collections",
+
+  "community.search.results.head": "Search Results",
 
   "community.sub-collection-list.head": "Collections in this Community",
 
@@ -3472,6 +3476,8 @@
 
   "process.detail.delete.error": "Something went wrong when deleting the process",
 
+  "process.detail.refreshing": "Auto-refreshing…",
+
   "process.overview.table.finish": "Finish time (UTC)",
 
   "process.overview.table.id": "Process ID",
@@ -4351,6 +4357,8 @@
   "submission.import-external.source.crossref": "CrossRef",
 
   "submission.import-external.source.datacite": "DataCite",
+
+  "submission.import-external.source.doi": "DOI",
 
   "submission.import-external.source.scielo": "SciELO",
 

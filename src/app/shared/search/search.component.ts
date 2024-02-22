@@ -31,13 +31,13 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-search',
@@ -172,6 +172,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() scope: string;
 
   /**
+   * Hides the scope in the url, this can be useful when you hardcode the scope in another way
+   */
+  @Input() hideScopeInUrl: boolean;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -278,7 +283,9 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
-              protected router: Router) {
+              protected router: Router,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -445,8 +452,10 @@ export class SearchComponent implements OnDestroy, OnInit {
     let followLinks = [
       followLink<Item>('thumbnail', { isOptional: true }),
       followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
-      followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses }),
     ];
+    if (this.appConfig.item.showAccessStatuses) {
+      followLinks.push(followLink<Item>('accessStatus', { isOptional: true }));
+    }
     if (this.configuration === 'supervision') {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
@@ -476,18 +485,20 @@ export class SearchComponent implements OnDestroy, OnInit {
    * This method should only be called once and is essentially what SearchTrackingComponent used to do (now removed)
    * @private
    */
-  private subscribeToRoutingEvents() {
-    this.subs.push(
-      this.router.events.pipe(
-        filter((event) => event instanceof NavigationStart),
-        map((event: NavigationStart) => this.getDsoUUIDFromUrl(event.url)),
-        hasValueOperator(),
-      ).subscribe((uuid) => {
-        if (this.resultsRD$.value.hasSucceeded) {
-          this.service.trackSearch(this.searchOptions$.value, this.resultsRD$.value.payload as SearchObjects<DSpaceObject>, uuid);
-        }
-      }),
-    );
+  private subscribeToRoutingEvents(): void {
+    if (this.trackStatistics) {
+      this.subs.push(
+        this.router.events.pipe(
+          filter((event) => event instanceof NavigationStart),
+          map((event: NavigationStart) => this.getDsoUUIDFromUrl(event.url)),
+          hasValueOperator(),
+        ).subscribe((uuid) => {
+          if (this.resultsRD$.value.hasSucceeded) {
+            this.service.trackSearch(this.searchOptions$.value, this.resultsRD$.value.payload as SearchObjects<DSpaceObject>, uuid);
+          }
+        }),
+      );
+    }
   }
 
   /**

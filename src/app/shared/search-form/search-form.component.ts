@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty, hasValue } from '../empty.util';
 import { SearchService } from '../../core/shared/search/search.service';
 import { currentPath } from '../utils/route.utils';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -38,6 +38,11 @@ export class SearchFormComponent implements OnChanges {
    */
   @Input()
   scope = '';
+
+  /**
+   * Hides the scope in the url, this can be useful when you hardcode the scope in another way
+   */
+  @Input() hideScopeInUrl = false;
 
   selectedScope: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 
@@ -122,6 +127,9 @@ export class SearchFormComponent implements OnChanges {
       },
       data
     );
+    if (hasValue(data.scope) && this.hideScopeInUrl) {
+      delete queryParams.scope;
+    }
 
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,

@@ -1,19 +1,19 @@
 import { map } from 'rxjs/operators';
-import { convertToParamMap, Params } from '@angular/router';
-
+import { ActivatedRoute, convertToParamMap, Data, Params } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 export class ActivatedRouteStub {
 
-  private _testParams?: any;
-  private _testData?: any;
+  private _testParams?: Params;
+  private _testData?: Data;
   // ActivatedRoute.params is Observable
-  private subject?: BehaviorSubject<any> = new BehaviorSubject(this.testParams);
-  private dataSubject?: BehaviorSubject<any> = new BehaviorSubject(this.testData);
+  private subject?: BehaviorSubject<Params> = new BehaviorSubject(this.testParams);
+  private dataSubject?: BehaviorSubject<Data> = new BehaviorSubject(this.testData);
 
   params = this.subject.asObservable();
   queryParams = this.subject.asObservable();
   paramMap = this.subject.asObservable().pipe(map((params: Params) => convertToParamMap(params)));
+  parent: ActivatedRoute | ActivatedRouteStub;
   queryParamMap = this.subject.asObservable().pipe(map((params: Params) => convertToParamMap(params)));
   data = this.dataSubject.asObservable();
 
@@ -35,17 +35,17 @@ export class ActivatedRouteStub {
     return this._testParams;
   }
 
-  set testParams(params: {}) {
+  set testParams(params: Params) {
     this._testParams = params;
     this.subject.next(params);
   }
 
   // Test data
   get testData() {
-    return this._testParams;
+    return this._testData;
   }
 
-  set testData(data: {}) {
+  set testData(data: Data) {
     this._testData = data;
     this.dataSubject.next(data);
   }
