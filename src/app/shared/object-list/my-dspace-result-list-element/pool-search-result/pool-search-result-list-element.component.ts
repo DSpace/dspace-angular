@@ -20,7 +20,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
-import { isNotEmpty, hasValue } from '../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
 
 /**
@@ -103,8 +103,6 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
         }
       })
     ).subscribe();
-
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 
   ngOnDestroy() {

@@ -11,6 +11,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { HALResource } from '../../../core/shared/hal-resource.model';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG } from '../../../../config/app-config.interface';
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -27,6 +28,12 @@ export function createSidebarSearchListElementTests(
 
     let linkService;
 
+    const environment = {
+      browseBy: {
+        showThumbnails: true
+      }
+    };
+
     beforeEach(waitForAsync(() => {
       linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
@@ -39,6 +46,7 @@ export function createSidebarSearchListElementTests(
         providers: [
           { provide: TruncatableService, useValue: {} },
           { provide: LinkService, useValue: linkService },
+          { provide: APP_CONFIG, useValue: environment },
           DSONameService,
           ...extraProviders
         ],

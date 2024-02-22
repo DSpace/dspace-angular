@@ -697,12 +697,12 @@ export class DefaultAppConfig implements AppConfig {
     {
       type: 'view',
       icon: 'fa fa-eye',
-      class: 'alert-success',
+      class: 'alert alert-success',
     },
     {
       type: 'download',
       icon: 'fa fa-cloud-download-alt',
-      class: 'alert-danger',
+      class: 'alert alert-danger',
     },
   ];
 

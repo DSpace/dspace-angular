@@ -2,10 +2,11 @@
   <ds-themed-item-list-preview [item]="item$.value"
                                [object]="object"
                                [showSubmitter]="showSubmitter"
+                               [showThumbnails]="showThumbnails"
                                [badgeContext]="badgeContext"
                                [workflowItem]="workflowitem$.value"></ds-themed-item-list-preview>
   <div class="row">
-    <div [ngClass]="showThumbnails ? 'offset-3 offset-xl-2 pl-3' : ''">
+    <div [ngClass]="showThumbnails ? 'offset-3 offset-xl-2 pl-3' : 'ml-3'">
       <ds-pool-task-actions id="actions"
                             [item]="item$.value"
                             [object]="dso"
