@@ -285,8 +285,17 @@ item:
     # settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: 5
 
+# Community Page Config
+community:
+  # Search tab config
+  searchSection:
+    showSidebar: true
+
 # Collection Page Config
 collection:
+  # Search tab config
+  searchSection:
+    showSidebar: true
   edit:
     undoTimeout: 10000 # 10 seconds
 

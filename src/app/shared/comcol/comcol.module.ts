@@ -18,6 +18,8 @@ import { FormModule } from '../form/form.module';
 import { UploadModule } from '../upload/upload.module';
 import { ComcolBrowseByComponent } from './sections/comcol-browse-by/comcol-browse-by.component';
 import { BrowseByModule } from '../../browse-by/browse-by.module';
+import { SearchModule } from '../search/search.module';
+import { ComcolSearchSectionComponent } from './sections/comcol-search-section/comcol-search-section.component';
 
 const COMPONENTS = [
   ComcolPageContentComponent,
@@ -33,6 +35,7 @@ const COMPONENTS = [
   ComcolRoleComponent,
   ThemedComcolPageHandleComponent,
   ComcolBrowseByComponent,
+  ComcolSearchSectionComponent,
 ];
 
 @NgModule({
@@ -45,6 +48,7 @@ const COMPONENTS = [
     SharedModule,
     UploadModule,
     BrowseByModule,
+    SearchModule,
   ],
   exports: [
     ...COMPONENTS,
