@@ -1871,8 +1871,6 @@
 
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
 
-  "curation-task.task.registerdoi.label": "Mint DOI",
-
   "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
 
   "curation-task.task.translate.label": "Microsoft Translator",
@@ -3196,7 +3194,9 @@
 
   "item.page.metric.details": "Details",
 
-  "item.page.metric.label.altmetrics": "Altmetrics©",
+  "item.page.metric.label.altmetric": "Altmetrics©",
+
+  "item.page.metric.label.dimensions": "Dimensions",
 
   "item.page.metric.label.check": "Check",
 
@@ -6271,10 +6271,6 @@
   "submission.sections.submit.progressbar.upload": "Upload files",
 
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-
-  "submission.sections.submit.progressbar.correction": "Corrections",
-
-
 
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
