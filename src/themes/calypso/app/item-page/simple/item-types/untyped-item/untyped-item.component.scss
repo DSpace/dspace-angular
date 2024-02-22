@@ -1,6 +1,30 @@
+.nav-tabs {
+  font-size: 16px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  color: #eeecec;
+  background: #334652;
+  box-shadow: 0 0.2px 3px #0000007a;
 
-/*Cacher certaines partie non utilisé*/
-.mt-2 {
-  margin-top: 20px;
+  li {
+    a {
+      display: block;
+      padding: 1em 2em;
+      outline: none;
+      text-decoration: none;
+      opacity: 0.9;
+      border-radius: 0;
+      color: white;
+    }
+  }
+
+  .nav-link.active {
+    animation: md-tab-ripple 0.2s linear forwards;
+    background-color: white;
+    border-bottom: solid 1px #dc4a1e;
+    color: #334652;
+  }
 }
-

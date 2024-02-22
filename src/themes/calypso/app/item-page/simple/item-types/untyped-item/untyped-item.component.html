@@ -8,39 +8,41 @@
 </div>
 <!-- Afficher le contenu dans des onglets -->
   <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs" >
-    <li ngbNavItem="1" active >
-      <a ngbNavLink (click)="displaySection('calypso-mirador')">Onglet 1</a>
-      <ng-template ngbNavContent *ngIf="iiifEnabled">
-        <!-- Cette section reste vide parce qu,elle sera visualement rempli avec mirador -->
+    <li [ngbNavItem]="1"  >
+      <a ngbNavLink (click)="displaySection('calypso-mirador')">Fichiers</a>
+      <ng-template ngbNavContent>
+        <!-- Cette section reste vide parce qu'elle affichera mirador -->
       </ng-template>
     </li>
-    <li ngbNavItem="2">
-      <a ngbNavLink (click)="hideSection('calypso-mirador')">Onglet 2</a>
+    <li [ngbNavItem]="2" >
+      <a ngbNavLink (click)="hideSection('calypso-mirador')">Notice complète</a>
       <ng-template ngbNavContent>
         <!-- Afficher les métadonnées dans un tableau -->
-        <div class="table-responsive" *ngIf="metadata$ | async as metadata">
-          <table class="table table-striped">
+        <div class="table-responsive mt-2">
+          <table class="table  table-striped">
             <tbody>
-            <ng-container *ngFor="let mdEntry of metadata | keyvalue">
-              <tr *ngFor="let mdValue of mdEntry.value">
-                <td>{{ mdEntry.key }}</td>
-                <td>{{ mdValue.value }}</td>
-                <td>{{ mdValue.language }}</td>
+            <ng-container >
+              <tr *ngFor="let meta of metadata">
+                <td>{{meta.label}}</td>
+                <td>{{meta.value}}</td>
               </tr>
             </ng-container>
             </tbody>
           </table>
         </div>
-
+        <div *ngIf="itemRD?.payload as item">
+          <ds-themed-item-page-full-file-section [item]="item"></ds-themed-item-page-full-file-section>
+          <ds-item-page-collections [item]="item"></ds-item-page-collections>
+        </div>
         <!-- fin importation -->
       </ng-template>
     </li>
-    <li ngbNavItem="3">
-      <a ngbNavLink (click)="hideSection('calypso-mirador')">Onglet 3</a>
+    <li [ngbNavItem]="3" >
+      <a ngbNavLink (click)="hideSection('calypso-mirador')">Autres</a>
       <ng-template ngbNavContent>
-        <div>
+        <div class="table-responsive mt-2">
           <!-- Ajoutez le contenu spécifique à l'onglet 3 ici -->
-          <table class="table  table-striped">
+          <table class="table  table-striped mt-3">
             <tbody>
               <tr>
                 <th>Colone 1</th>

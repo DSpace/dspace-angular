@@ -9,10 +9,10 @@ import { fadeInOut } from '../../../../../app/shared/animations/fade';
  */
 @Component({
   selector: 'ds-item-page',
-  styleUrls: ['./item-page.component.scss'],
-  //styleUrls: ['../../../../../app/item-page/simple/item-page.component.scss'],
-  templateUrl: './item-page.component.html',
-  //templateUrl: '../../../../../app/item-page/simple/item-page.component.html',
+  //styleUrls: ['./item-page.component.scss'],
+  styleUrls: ['../../../../../app/item-page/simple/item-page.component.scss'],
+  //templateUrl: './item-page.component.html',
+  templateUrl: '../../../../../app/item-page/simple/item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
