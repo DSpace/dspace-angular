@@ -568,4 +568,8 @@ export const environment: BuildConfig = {
     ],
     authorMetadata: ['dc.contributor.author', 'dc.contributor.editor', 'dc.contributor.contributor', 'dc.creator'],
   },
+
+  mirador: {
+    enableDownloadPlugin: true,
+  },
 };
