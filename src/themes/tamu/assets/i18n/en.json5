@@ -7,6 +7,10 @@
 
   "menu.section.browse_global": "Browse OAKTrust",
 
+  "menu.section.browse_global_by_srsc": "By Department",
+
+  "menu.section.browse_global_by_type": "By Type",
+
   "search.form.scope.all": "All of OAKTrust",
 
   "dso-selector.set-scope.community.button": "Search all of OAKTrust",
@@ -43,4 +47,33 @@
 
   "submission.sections.proxy-license.remove-successful": "Proxy license remove successful",
 
+  "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to OAKTrust.",
+
+  "submission.import-external.back-to-my-dspace": "Back to My OAKTrust",
+
+  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with OAKTrust. If the error persists, contact the administrator",
+
+  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, OAKTrust requires the qualified Dublin Core schema.",
+
+  "browse.comcol.by.srsc": "By Department",
+
+  "browse.comcol.by.type": "By Type",
+
+  "browse.metadata.type": " Type",
+
+  "browse.metadata.srsc.breadcrumbs": "Browse by Department",
+
+  "browse.metadata.type.breadcrumbs": "Browse by Type",
+
+  "feed.description": "RSS feed",
+
+  "mydspace.title": "My OAKTrust",
+
+  "mydspace.breadcrumbs": "My OAKTrust",
+
+  "nav.browse.header": "All of OAKTrust",
+
+  "nav.mydspace": "My OAKTrust",
+
+  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to OAKTrust.",
 }
