@@ -1,17 +1,13 @@
 import { first } from 'rxjs/operators';
 import { BrowseByGuard } from './browse-by-guard';
-import { of as observableOf } from 'rxjs';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { BrowseByDataType } from './browse-by-switcher/browse-by-decorator';
+import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
-import { DSONameServiceMock } from '../shared/mocks/dso-name.service.mock';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { RouterStub } from '../shared/testing/router.stub';
 
 describe('BrowseByGuard', () => {
   describe('canActivate', () => {
     let guard: BrowseByGuard;
-    let dsoService: any;
     let translateService: any;
     let browseDefinitionService: any;
     let router: any;
@@ -25,10 +21,6 @@ describe('BrowseByGuard', () => {
     const browseDefinition = Object.assign(new ValueListBrowseDefinition(), { type: BrowseByDataType.Metadata, metadataKeys: ['dc.contributor'] });
 
     beforeEach(() => {
-      dsoService = {
-        findById: (dsoId: string) => observableOf({ payload: { name: name }, hasSucceeded: true })
-      };
-
       translateService = {
         instant: () => field
       };
@@ -39,7 +31,7 @@ describe('BrowseByGuard', () => {
 
       router = new RouterStub() as any;
 
-      guard = new BrowseByGuard(dsoService, translateService, browseDefinitionService, new DSONameServiceMock() as DSONameService, router);
+      guard = new BrowseByGuard(translateService, browseDefinitionService, router);
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {
@@ -48,6 +40,7 @@ describe('BrowseByGuard', () => {
           title: field,
           browseDefinition,
         },
+        parent: null,
         params: {
           id,
         },
@@ -64,7 +57,7 @@ describe('BrowseByGuard', () => {
               title,
               id,
               browseDefinition,
-              collection: name,
+              scope,
               field,
               value: '"' + value + '"'
             };
@@ -97,7 +90,7 @@ describe('BrowseByGuard', () => {
               title,
               id,
               browseDefinition,
-              collection: name,
+              scope,
               field,
               value: ''
             };
@@ -108,12 +101,48 @@ describe('BrowseByGuard', () => {
         );
     });
 
+    it('should return true, and sets up the data correctly using the community/collection page id, with a scope and without value', () => {
+      const scopedNoValueRoute = {
+        data: {
+          title: field,
+          browseDefinition,
+        },
+        parent: {
+          params: {
+            id: scope,
+          },
+        },
+        params: {
+          id,
+        },
+        queryParams: {
+        },
+      };
+
+      guard.canActivate(scopedNoValueRoute as any, undefined).pipe(
+        first(),
+      ).subscribe((canActivate) => {
+        const result = {
+          title,
+          id,
+          browseDefinition,
+          scope,
+          field,
+          value: '',
+        };
+        expect(scopedNoValueRoute.data).toEqual(result);
+        expect(router.navigate).not.toHaveBeenCalled();
+        expect(canActivate).toEqual(true);
+      });
+    });
+
     it('should return true, and sets up the data correctly, without a scope and with a value', () => {
       const route = {
         data: {
           title: field,
           browseDefinition,
         },
+        parent: null,
         params: {
           id,
         },
@@ -129,7 +158,7 @@ describe('BrowseByGuard', () => {
               title,
               id,
               browseDefinition,
-              collection: '',
+              scope: undefined,
               field,
               value: '"' + value + '"'
             };
@@ -147,6 +176,7 @@ describe('BrowseByGuard', () => {
         data: {
           title: field,
         },
+        parent: null,
         params: {
           id,
         },

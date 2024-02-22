@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { VarDirective } from '../../../utils/var.directive';
 import { of as observableOf } from 'rxjs';
 import { ListableObject } from '../listable-object.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SelectableListItemControlComponent', () => {
   let comp: SelectableListItemControlComponent;
@@ -45,7 +46,10 @@ describe('SelectableListItemControlComponent', () => {
     init();
     TestBed.configureTestingModule({
       declarations: [SelectableListItemControlComponent, VarDirective],
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        TranslateModule.forRoot(),
+      ],
       providers: [
         {
           provide: SelectableListService,

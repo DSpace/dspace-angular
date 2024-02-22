@@ -12,8 +12,9 @@ import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
-import { ThemeConfig } from './theme.model';
+import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import {SuggestionConfig} from './suggestion-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -22,6 +23,8 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import { CommunityPageConfig } from './community-page-config.interface';
+import {QualityAssuranceConfig} from './quality-assurance.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -229,6 +232,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
+    { code: 'sr-lat', label: 'Srpski (lat)', active: true},
     { code: 'fi', label: 'Suomi', active: true },
     { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
@@ -237,6 +241,7 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'bn', label: 'বাংলা', active: true },
     { code: 'hi', label: 'हिंदी', active: true},
     { code: 'el', label: 'Ελληνικά', active: true },
+    { code: 'sr-cyr', label: 'Српски', active: true},
     { code: 'uk', label: 'Yкраї́нська', active: true}
   ];
 
@@ -287,12 +292,33 @@ export class DefaultAppConfig implements AppConfig {
     }
   };
 
+  // Community Page Config
+  community: CommunityPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
+  };
+
   // Collection Page Config
   collection: CollectionPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
   };
+
+  suggestion: SuggestionConfig[] = [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+    // This is used as a default fallback in case there aren't collections where to import the suggestion
+    // If not mapped the user will be allowed to import the suggestions only in the provided options, shown clicking the button "Approve and import"
+    // If not mapped and no options available for import the user won't be able to import the suggestions.
+  ];
 
   // Theme Config
   themes: ThemeConfig[] = [
@@ -431,5 +457,12 @@ export class DefaultAppConfig implements AppConfig {
   comcolSelectionSort: DiscoverySortConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
+  };
+
+  qualityAssuranceConfig: QualityAssuranceConfig = {
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId='
+    },
+    pageSize: 5,
   };
 }

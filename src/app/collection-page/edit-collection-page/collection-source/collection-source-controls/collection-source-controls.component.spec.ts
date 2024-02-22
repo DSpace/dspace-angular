@@ -88,7 +88,7 @@ describe('CollectionSourceControlsComponent', () => {
       invoke: createSuccessfulRemoteDataObject$(process),
     });
     processDataService = jasmine.createSpyObj('processDataService', {
-      findById: createSuccessfulRemoteDataObject$(process),
+      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process),
     });
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
       findByHref: createSuccessfulRemoteDataObject$(bitstream),
@@ -137,7 +137,7 @@ describe('CollectionSourceControlsComponent', () => {
         {name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId)},
       ], []);
 
-      expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
+      expect(processDataService.autoRefreshUntilCompletion).toHaveBeenCalledWith(process.processId);
       expect(bitstreamService.findByHref).toHaveBeenCalledWith(process._links.output.href);
       expect(notificationsService.info).toHaveBeenCalledWith(jasmine.anything() as any, 'Script text');
     });
@@ -151,7 +151,7 @@ describe('CollectionSourceControlsComponent', () => {
         {name: '-r', value: null},
         {name: '-c', value: collection.uuid},
       ], []);
-      expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
+      expect(processDataService.autoRefreshUntilCompletion).toHaveBeenCalledWith(process.processId);
       expect(notificationsService.success).toHaveBeenCalled();
     });
   });
@@ -164,7 +164,7 @@ describe('CollectionSourceControlsComponent', () => {
         {name: '-o', value: null},
         {name: '-c', value: collection.uuid},
       ], []);
-      expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
+      expect(processDataService.autoRefreshUntilCompletion).toHaveBeenCalledWith(process.processId);
       expect(notificationsService.success).toHaveBeenCalled();
     });
   });

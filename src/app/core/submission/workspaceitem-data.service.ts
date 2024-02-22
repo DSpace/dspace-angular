@@ -1,46 +1,58 @@
 import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
+import { Store } from '@ngrx/store';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { WorkspaceItem } from './models/workspaceitem.model';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import {HttpOptions} from '../dspace-rest/dspace-rest.service';
+import {find, map} from 'rxjs/operators';
+import {PostRequest} from '../data/request.models';
+import {hasValue} from '../../shared/empty.util';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { NoContent } from '../shared/NoContent.model';
+import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { PaginatedList } from '../data/paginated-list.model';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { NoContent } from '../shared/NoContent.model';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
 @Injectable()
 @dataService(WorkspaceItem.type)
-export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements SearchData<WorkspaceItem>, DeleteData<WorkspaceItem> {
+export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
+  protected linkPath = 'workspaceitems';
   protected searchByItemLinkPath = 'item';
-
-  private searchData: SearchDataImpl<WorkspaceItem>;
-  private deleteData: DeleteDataImpl<WorkspaceItem>;
+  private deleteData: DeleteData<WorkspaceItem>;
+  private searchData: SearchData<WorkspaceItem>;
 
   constructor(
+    protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
+    protected halService: HALEndpointService,
+    protected http: HttpClient,
+    protected notificationsService: NotificationsService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService,
-  ) {
+    protected store: Store<CoreState>) {
     super('workspaceitems', requestService, rdbService, objectCache, halService);
-
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
-
+  public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.delete(objectId, copyVirtualMetadata);
+  }
   /**
    * Return the WorkspaceItem object found through the UUID of an item
    *
@@ -55,21 +67,46 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
   public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
-    const href$ = this.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
+    const href$ = this.getIDHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
-   * Create the HREF for a specific object's search method with given options object
-   *
-   * @param searchMethod The search method for the object
-   * @param options The [[FindListOptions]] object
-   * @return {Observable<string>}
-   *    Return an observable that emits created HREF
-   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
+   * Import an external source entry into a collection
+   * @param externalSourceEntryHref
+   * @param collectionId
    */
-  public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow): Observable<string> {
-    return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
+  public importExternalSourceEntry(externalSourceEntryHref: string, collectionId: string): Observable<RemoteData<WorkspaceItem>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}?owningCollection=${collectionId}`));
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, externalSourceEntryHref, options);
+        this.requestService.send(request);
+      })
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
+  /**
+   * Delete an existing object on the server
+   * @param   href The self link of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
+   */
+  deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 
   /**
@@ -86,33 +123,7 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<PaginatedList<WorkspaceItem>>> {
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<PaginatedList<WorkspaceItem>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
-
-  /**
-   * Delete an existing object on the server
-   * @param   objectId The id of the object to be removed
-   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
-   *                            metadata should be saved as real metadata
-   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
-   *          errorMessage, timeCompleted, etc
-   */
-  public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
-    return this.deleteData.delete(objectId, copyVirtualMetadata);
-  }
-
-  /**
-   * Delete an existing object on the server
-   * @param   href The self link of the object to be removed
-   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
-   *                            metadata should be saved as real metadata
-   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
-   *          errorMessage, timeCompleted, etc
-   *          Only emits once all request related to the DSO has been invalidated.
-   */
-  public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
-    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
-  }
-
 }

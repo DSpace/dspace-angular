@@ -257,7 +257,15 @@ export const environment: BuildConfig = {
       pageSize: 5
     }
   },
+  community: {
+    searchSection: {
+      showSidebar: true,
+    },
+  },
   collection: {
+    searchSection: {
+      showSidebar: true,
+    },
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
@@ -306,6 +314,12 @@ export const environment: BuildConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
   },
+  qualityAssuranceConfig: {
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId='
+    },
+    pageSize: 5,
+  },
 
   vocabularies: [
     {
@@ -313,5 +327,7 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
-  ]
+  ],
+
+  suggestion: []
 };

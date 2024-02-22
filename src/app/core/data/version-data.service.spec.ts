@@ -128,7 +128,7 @@ describe('VersionDataService test', () => {
     });
 
     describe('getHistoryFromVersion', () => {
-      it('should proxy the call to DataService.findByHref', () => {
+      it('should proxy the call to UpdateDataServiceImpl.findByHref', () => {
         scheduler.schedule(() => service.getHistoryFromVersion(mockVersion, true, true));
         scheduler.flush();
 
