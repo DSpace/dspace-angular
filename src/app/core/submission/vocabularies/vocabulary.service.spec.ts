@@ -25,6 +25,7 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestEntry } from '../../data/request-entry.model';
 import { VocabularyDataService } from './vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
+import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -205,6 +206,7 @@ describe('VocabularyService', () => {
 
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
+    objectCache = new ObjectCacheServiceStub() as ObjectCacheService;
 
     return new VocabularyService(
       requestService,

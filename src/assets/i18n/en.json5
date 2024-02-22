@@ -3689,6 +3689,8 @@
 
   "process.detail.delete.error": "Something went wrong when deleting the process",
 
+  "process.detail.refreshing": "Auto-refreshing…",
+
   "process.overview.table.finish": "Finish time (UTC)",
 
   "process.overview.table.id": "Process ID",
