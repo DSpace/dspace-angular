@@ -17,6 +17,13 @@ export class ThemedSubmissionSectionUploadFileComponent
    */
   @Input() availableAccessConditionOptions: any[];
 
+   /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+   @Input() isPrimary: boolean | null;
+
   /**
    * The submission id
    * @type {string}
@@ -69,6 +76,7 @@ export class ThemedSubmissionSectionUploadFileComponent
 
   protected inAndOutputNames: (keyof SubmissionSectionUploadFileComponent & keyof this)[] = [
     'availableAccessConditionOptions',
+    'isPrimary',
     'collectionId',
     'collectionPolicyType',
     'configMetadataForm',
