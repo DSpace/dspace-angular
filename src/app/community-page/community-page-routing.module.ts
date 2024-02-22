@@ -19,6 +19,8 @@ import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-co
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -56,7 +58,16 @@ import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse
               {
                 path: '',
                 pathMatch: 'full',
+                component: ComcolSearchSectionComponent,
+              },
+              {
+                path: 'subcoms-cols',
+                pathMatch: 'full',
                 component: SubComColSectionComponent,
+                resolve: {
+                  breadcrumb: I18nBreadcrumbResolver,
+                },
+                data: { breadcrumbKey: 'community.subcoms-cols' },
               },
               {
                 path: 'browse/:id',
