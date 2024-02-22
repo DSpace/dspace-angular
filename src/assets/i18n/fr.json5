@@ -6177,8 +6177,6 @@
   // "idle-modal.extend-session": "Extend session",
   "idle-modal.extend-session": "Prolonger la session",
 
-
-
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
   "system-wide-alert-banner.retrieval.error": "Une erreur s'est produite lors de la récupération de la bannière du message d'avertissement",
 
@@ -6250,6 +6248,63 @@
 
   //"admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Messages d'avertissement",
+
+//"item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+"item-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès des métadonnées de l'Item et de ses Bitstreams.",
+
+//"collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+"collection-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de cette collection. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
+
+//"community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+"community-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de toutes les collections de cette communauté. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
+
+//"access-control-item-header-toggle": “Item's Metadata”,
+"access-control-item-header-toggle": “Métadonnées de l'Item”,
+
+//"access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+"access-control-item-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
+
+//"access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+"access-control-item-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
+
+//"access-control-bitstream-header-toggle": "Bitstreams",
+"access-control-bitstream-header-toggle": "Bitstreams",
+
+//"access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+"access-control-bitstream-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les Bitstreams",
+
+//"access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+"access-control-bitstream-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les Bitstreams",
+
+//"access-control-mode": "Mode",
+"access-control-mode": "Mode",
+
+//"access-control-access-conditions": "Access conditions",
+"access-control-access-conditions": "Conditions d'accès",
+
+//"access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+//"access-control-no-access-conditions-warning-message": "Aucune condition d'accès n'est spécifiée ci-dessous pour l'instant. Si exécuté, ceci remplacera les conditions d'accès actuelles par les conditions d'accès par défaut héritées de celles de la collection.",
+
+//"access-control-replace-all": "Replace access conditions",
+"access-control-replace-all": "Remplacer les conditions d'accès",
+
+//"access-control-add-to-existing":"Add to existing ones", 
+"access-control-add-to-existing":"Ajouter aux conditions d'accès existantes", 
+
+//"access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+"access-control-limit-to-specific": "Limiter les modifications à des Bitstreams spécifiques",
+
+//"access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+"access-control-process-all-bitstreams": "Mise à jour de tous les Bitstreams de l'item",
+
+//"access-control-bitstreams-selected": "bitstreams selected",
+"access-control-bitstreams-selected": "Bitstreams sélectionnés",
+
+//"access-control-bitstreams-select": "Select bitstreams",
+"access-control-bitstreams-select": "Sélectionner les Bitstreams",
+
+//"access-control-cancel": "Cancel",
+"access-control-cancel": "Annuler",
 
 
 }
