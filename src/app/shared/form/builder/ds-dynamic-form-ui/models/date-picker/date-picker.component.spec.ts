@@ -63,7 +63,7 @@ describe('DsDatePickerComponent test suite', () => {
         DsDatePickerComponent,
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
-        { provide: TranslateService, useValue: getMockTranslateService() },        
+        { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Renderer2, useValue: renderer2 },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
