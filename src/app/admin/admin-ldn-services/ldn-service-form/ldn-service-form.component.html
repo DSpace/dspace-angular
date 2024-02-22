@@ -252,8 +252,8 @@
           class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
 
     <div class="submission-form-footer my-1 position-sticky d-flex justify-content-between" role="group">
-      <button (click)="openResetFormModal(resetFormModal)" class="btn btn-danger" type="button">
-        <span><i class="fas fa-trash"></i>&nbsp;{{ 'submission.general.discard.submit' | translate }}</span>
+      <button (click)="resetFormAndLeave()" class="btn btn-primary" type="button">
+        <span>&nbsp;{{ 'submission.general.back.submit' | translate }}</span>
       </button>
       <button class="btn btn-primary" type="submit">
         <span><i class="fas fa-save"></i>&nbsp;{{ 'ldn-new-service.form.label.submit' | translate }}</span>
@@ -299,28 +299,4 @@
       </div>
 </ng-template>
 
-<ng-template #resetFormModal>
-    <div class="modal-header">
-      <h4 class="text-danger">{{'service.overview.reset-form.modal' | translate }}</h4>
-      <button (click)="closeModal()" aria-label="Close"
-              class="close" type="button">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
-
-    <div class="modal-body">
-      <span>
-        {{ 'service.overview.reset-form.body' | translate }}
-      </span>
-    </div>
-    <div class="modal-footer">
-      <button (click)="closeModal()"
-        class="btn btn-primary"
-        id="reset-confirm">{{ 'service.overview.reset-form.reset-return' | translate }}
-      </button>
-      <button (click)="resetFormAndLeave()" class="mr-2 btn btn-danger"
-              id="reset-delete">{{ 'service.overview.reset-form.reset-confirm' | translate }}
-      </button>
-      </div>
-</ng-template>
 
