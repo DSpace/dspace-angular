@@ -5506,4 +5506,12 @@
   // "workflow-item.send-back.button.confirm": "Send back"
   "workflow-item.send-back.button.confirm": "Zurücksenden",
 
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Jahr",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Monat",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Tag",
 }
