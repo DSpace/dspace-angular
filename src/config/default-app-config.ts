@@ -24,8 +24,6 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { CommunityPageConfig } from './community-page-config.interface';
-import {QualityAssuranceConfig} from './quality-assurance.config';
-
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
 export class DefaultAppConfig implements AppConfig {
