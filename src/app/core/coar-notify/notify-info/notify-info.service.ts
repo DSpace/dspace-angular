@@ -22,7 +22,7 @@ export class NotifyInfoService {
     ) {}
 
     isCoarConfigEnabled(): Observable<boolean> {
-        return this.configService.findByPropertyName('coar-notify.enabled').pipe(
+        return this.configService.findByPropertyName('ldn.enabled').pipe(
             getFirstSucceededRemoteData(),
             map(response => {
                 const booleanArrayValue = response.payload.values;
