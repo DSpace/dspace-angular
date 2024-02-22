@@ -4,6 +4,7 @@ import {
   DynamicFormControlLayout,
   DynamicFormGroupModelConfig,
   DynamicSelectModelConfig,
+  DynamicSwitchModelConfig,
   MATCH_ENABLED,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
@@ -56,6 +57,19 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayo
     label: 'col-form-label name-label'
   }
 };
+export const BITSTREAM_FORM_PRIMARY_LAYOUT: DynamicFormControlLayout = {
+  element: {
+    host: 'col-12',
+    container: 'text-right'
+  },
+};
+
+export const BITSTREAM_FORM_PRIMARY: DynamicSwitchModelConfig = {
+  id: 'primary',
+  name: 'primary',
+  label: 'bitstream.edit.form.primaryBitstream.label'
+};
+
 
 export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'startDate',
