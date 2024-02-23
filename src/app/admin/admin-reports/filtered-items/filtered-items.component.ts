@@ -293,22 +293,22 @@ export class FilteredItemsComponent {
   getFilteredItems(): Observable<RawRestResponse> {
     let params = this.toQueryString();
     if (params.length > 0) {
-       params = "?" + params;
+       params = `?${params}`;
     }
     let scheme = environment.rest.ssl ? 'https' : 'http';
     let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
     return this.restService.request(RestRequestMethod.GET, `${urlRestApp}/api/contentreport/filtereditems${params}`);
   }
 
-  private toQueryString() : string {
+  private toQueryString(): string {
     let params = `page=${this.currentPage}&size=${this.pageSize()}`;
 
-    let colls = this.queryForm.value['collections'];
+    let colls = this.queryForm.value.collections;
     for (const coll in colls) {
       params += `&collections=${colls[coll]}`;
     }
 
-    let preds = this.queryForm.value['queryPredicates'];
+    let preds = this.queryForm.value.queryPredicates;
     for (const pred in preds) {
       const field = preds[pred].field;
       const op = preds[pred].operator;
@@ -319,12 +319,12 @@ export class FilteredItemsComponent {
       }
     }
 
-    let filters = FiltersComponent.toQueryString(this.queryForm.value['filters']);
+    let filters = FiltersComponent.toQueryString(this.queryForm.value.filters);
     if (filters.length > 0) {
       params += `&${filters}`;
     }
 
-    let addFlds = this.queryForm.value['additionalFields'];
+    let addFlds = this.queryForm.value.additionalFields;
     for (const fld in addFlds) {
       params += `&additionalFields=${addFlds[fld]}`;
     }

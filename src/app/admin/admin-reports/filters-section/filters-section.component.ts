@@ -99,6 +99,22 @@ export class FiltersComponent {
     return undefined;
   }
 
+  static toQueryString(filters: Object): string {
+    let params = '';
+    let first = true;
+    for (const key in filters) {
+      if (filters[key]) {
+        if (first) {
+          first = false;
+        } else {
+          params += '&';
+        }
+        params += `filters=${key}`;
+      }
+    }
+    return params;
+  }
+
   allFilters(): FilterGroup[] {
     return FiltersComponent.FILTERS;
   }
@@ -124,22 +140,6 @@ export class FiltersComponent {
 
   deselectAll(): void {
     this.setAllFilters(false);
-  }
-
-  static toQueryString(filters: Object): string {
-    let params = '';
-    let first = true;
-    for (const key in filters) {
-      if (filters[key]) {
-        if (first) {
-          first = false;
-        } else {
-          params += '&';
-        }
-        params += `filters=${key}`;
-      }
-    }
-    return params;
   }
 
 }

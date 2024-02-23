@@ -52,15 +52,15 @@ export class FilteredCollectionsComponent {
   getFilteredCollections(): Observable<RawRestResponse> {
     let params = this.toQueryString();
     if (params.length > 0) {
-       params = "?" + params;
+       params = `?${params}`;
     }
     let scheme = environment.rest.ssl ? 'https' : 'http';
     let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
     return this.restService.request(RestRequestMethod.GET, `${urlRestApp}/api/contentreport/filteredcollections${params}`);
   }
 
-  private toQueryString() : string {
-    let params = FiltersComponent.toQueryString(this.queryForm.value['filters']);
+  private toQueryString(): string {
+    let params = FiltersComponent.toQueryString(this.queryForm.value.filters);
     return params;
   }
 
