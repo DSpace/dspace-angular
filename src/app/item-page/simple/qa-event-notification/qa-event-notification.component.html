@@ -1,7 +1,7 @@
 <ng-container *ngIf="(sources$ | async) as sources">
   <ng-container *ngFor="let source of sources">
     <div class="alert alert-info d-flex flex-row" *ngIf="source.totalEvents > 0">
-      <div class="col-2">
+      <div class="source-logo-container">
         <img class="source-logo"
              src="assets/images/qa-{{(source.id | dsSplit: ':')[0]}}-logo.png"
              alt="{{source.id}} logo"
