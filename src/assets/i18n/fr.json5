@@ -338,7 +338,7 @@
 
 
   //"admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
-  "admin.access-control.bulk-access-settings.header": "Étape 2 : Opération à éxecuter",
+  "admin.access-control.bulk-access-settings.header": "Étape 2 : Opération à exécuter",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Supprimer un(e) EPerson",
@@ -815,7 +815,7 @@
   "admin.metadata-import.page.help": "Vous pouvez glisser-déposer ou rechercher ici des fichiers CSV qui contiennent des opérations en lot sur les métadonnées",
 
 //"admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
-"admin.batch-import.page.help": "Sélectionner la collection dans laquelle importer les données. Ensuite, ajouter le fichier le fichier zip Simple Archive Format (SAF) contenant tous les Items à importer.",
+"admin.batch-import.page.help": "Sélectionner la collection dans laquelle importer les données. Ensuite, ajouter le fichier zip Simple Archive Format (SAF) contenant tous les Items à importer.",
 
 //"admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source", 
 "admin.batch-import.page.toggle.help": "Il est possible d'effectuer l'importation en téléversant un fichier ou en utilisant un URL. Utiliser le bouton à bascule ci-dessus afin de sélectionner la source.", 
@@ -6356,7 +6356,7 @@
 "access-control-limit-to-specific": "Limiter les modifications à des Bitstreams spécifiques",
 
 //"access-control-process-all-bitstreams": "Update all the bitstreams in the item",
-"access-control-process-all-bitstreams": "Mise à jour de tous les Bitstreams de l'item",
+"access-control-process-all-bitstreams": "Mise à jour de tous les Bitstreams de l'Item",
 
 //"access-control-bitstreams-selected": "bitstreams selected",
 "access-control-bitstreams-selected": "Bitstreams sélectionnés",
