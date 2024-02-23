@@ -12,6 +12,10 @@ on:
         required: false
         default: true
         type: boolean
+      ERASE_DB:
+        required: false
+        default: false
+        type: boolean
 
   workflow_dispatch:
     inputs:
@@ -27,6 +31,10 @@ on:
         required: true
         default: true
         type: boolean
+      ERASE_DB:
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   deploy-5:
@@ -38,6 +46,12 @@ jobs:
       ENVFILE: /opt/dspace-envs/.env.dspace.dev-5
     steps:
       - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/erase-db
+        if: inputs.ERASE_DB
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          NAME: dspace-${{ env.INSTANCE }}
 
       - name: deploy to dev-5
         working-directory: build-scripts/run/
@@ -59,6 +73,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/erase-db
+        if: inputs.ERASE_DB
         with:
           INSTANCE: ${{ env.INSTANCE }}
           NAME: dspace-${{ env.INSTANCE }}
