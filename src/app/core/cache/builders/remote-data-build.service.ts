@@ -273,12 +273,13 @@ export class RemoteDataBuildService {
           return isStale(r2.state) ? r1 : r2;
         }
       }),
-      distinctUntilKeyChanged('lastUpdated')
     );
 
     const payload$ = this.buildPayload<T>(requestEntry$, href$, ...linksToFollow);
 
-    return this.toRemoteDataObservable<T>(requestEntry$, payload$);
+    return this.toRemoteDataObservable<T>(requestEntry$, payload$).pipe(
+      distinctUntilKeyChanged('lastUpdated'),
+    );
   }
 
   /**

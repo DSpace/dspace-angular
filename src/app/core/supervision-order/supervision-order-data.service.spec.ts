@@ -17,13 +17,14 @@ import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from '../data/request-entry.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { GroupDataService } from '../eperson/group-data.service';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 
 describe('SupervisionOrderService', () => {
   let scheduler: TestScheduler;
   let service: SupervisionOrderDataService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
   let groupService: GroupDataService;
@@ -127,14 +128,14 @@ describe('SupervisionOrderService', () => {
         a: 'https://rest.api/rest/api/group/groups/' + groupUUID
       }),
     });
-    objectCache = {} as ObjectCacheService;
+    objectCache = new ObjectCacheServiceStub();
     const notificationsService = {} as NotificationsService;
     const comparator = {} as any;
 
     service = new SupervisionOrderDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
       notificationsService,
       comparator,
