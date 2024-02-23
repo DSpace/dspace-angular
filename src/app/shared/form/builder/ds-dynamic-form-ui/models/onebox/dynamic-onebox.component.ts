@@ -273,7 +273,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     let result: string;
     if (init) {
       this.changeLoadingInitialValueStatus(true);
-      this.getInitValueFromModel()
+      this.getInitValueFromModel(true)
         .subscribe((formValue: FormFieldMetadataValueObject) => {
           this.changeLoadingInitialValueStatus(false);
           this.currentValue = formValue;
