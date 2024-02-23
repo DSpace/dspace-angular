@@ -66,7 +66,7 @@ describe('FiltersComponent', () => {
 
   describe('toggle', () => {
     beforeEach(() => {
-      spyOn(component, 'postFilteredCollections').and.returnValue(observableOf(expected));
+      spyOn(component, 'getFilteredCollections').and.returnValue(observableOf(expected));
       spyOn(component.results, 'deserialize');
       spyOn(component.accordionComponent, 'expand').and.callThrough();
       component.submit();
