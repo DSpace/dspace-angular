@@ -16,10 +16,14 @@ import { ProcessDetailFieldComponent } from './detail/process-detail-field/proce
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { ProcessFormComponent } from './form/process-form.component';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProcessOverviewTableComponent } from './overview/table/process-overview-table.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   imports: [
     SharedModule,
+    NgbCollapseModule,
   ],
   declarations: [
     NewProcessComponent,
@@ -33,13 +37,15 @@ import { ProcessFormComponent } from './form/process-form.component';
     BooleanValueInputComponent,
     DateValueInputComponent,
     ProcessOverviewComponent,
+    ProcessOverviewTableComponent,
     ProcessDetailComponent,
     ProcessDetailFieldComponent,
     ProcessFormComponent
   ],
   providers: [
     ProcessBreadcrumbResolver,
-    ProcessBreadcrumbsService
+    ProcessBreadcrumbsService,
+    DatePipe,
   ]
 })
 

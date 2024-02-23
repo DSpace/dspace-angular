@@ -3478,11 +3478,29 @@
 
   "process.detail.refreshing": "Auto-refreshing…",
 
+  "process.overview.table.completed.info": "Finish time (UTC)",
+
+  "process.overview.table.completed.title": "Succeeded processes",
+
+  "process.overview.table.empty": "No matching processes found.",
+
+  "process.overview.table.failed.info": "Finish time (UTC)",
+
+  "process.overview.table.failed.title": "Failed processes",
+
   "process.overview.table.finish": "Finish time (UTC)",
 
   "process.overview.table.id": "Process ID",
 
   "process.overview.table.name": "Name",
+
+  "process.overview.table.running.info": "Start time (UTC)",
+
+  "process.overview.table.running.title": "Running processes",
+
+  "process.overview.table.scheduled.info": "Creation time (UTC)",
+
+  "process.overview.table.scheduled.title": "Scheduled processes",
 
   "process.overview.table.start": "Start time (UTC)",
 
