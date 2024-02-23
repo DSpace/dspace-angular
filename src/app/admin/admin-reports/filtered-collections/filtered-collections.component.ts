@@ -40,7 +40,7 @@ export class FilteredCollectionsComponent {
 
   submit() {
     this
-      .postFilteredCollections()
+      .getFilteredCollections()
       .subscribe(
         response => {
           this.results.deserialize(response.payload);
@@ -49,10 +49,42 @@ export class FilteredCollectionsComponent {
       );
   }
 
-  postFilteredCollections(): Observable<RawRestResponse> {
+  getFilteredCollections(): Observable<RawRestResponse> {
+    let params = this.toQueryString();
+    if (params.length > 0) {
+       params = "?" + params;
+    }
+    let scheme = environment.rest.ssl ? 'https' : 'http';
+    let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
+    return this.restService.request(RestRequestMethod.GET, `${urlRestApp}/api/contentreport/filteredcollections${params}`);
+  }
+
+  private toQueryString() : string {
+    let params = FiltersComponent.toQueryString(this.queryForm.value['filters']);
+    return params;
+  }
+
+  /*
+  downloadCsv() {
+    this
+      .postDownloadCsv()
+      .subscribe(
+        response => {
+          // TODO: Ne fonctionne pas, le restService de DSpace attend un document JSON.
+          const csv: any = response.payload;
+          const blob = new Blob([csv], { type: 'text/csv' });
+          const url = window.URL.createObjectURL(blob);
+          window.open(url);
+        }
+      );
+  }
+
+  postDownloadCsv(): Observable<RawRestResponse> {
     let form = this.queryForm.value;
     let scheme = environment.rest.ssl ? 'https' : 'http';
     let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
-    return this.restService.request(RestRequestMethod.POST, `${urlRestApp}/api/contentreport/filteredcollections`, form);
+    return this.restService.request(RestRequestMethod.POST, `${urlRestApp}/api/contentreport/filteredcollections/csv`, form);
   }
+*/
+
 }

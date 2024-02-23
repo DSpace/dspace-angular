@@ -280,7 +280,7 @@ export class FilteredItemsComponent {
 
   resubmit() {
     this.results$ = this
-      .postFilteredItems()
+      .getFilteredItems()
       .pipe(
         map(response => {
           let offset = this.currentPage * this.pageSize();
@@ -290,12 +290,46 @@ export class FilteredItemsComponent {
       );
   }
 
-  postFilteredItems(): Observable<RawRestResponse> {
-    let form = this.queryForm.value;
+  getFilteredItems(): Observable<RawRestResponse> {
+    let params = this.toQueryString();
+    if (params.length > 0) {
+       params = "?" + params;
+    }
     let scheme = environment.rest.ssl ? 'https' : 'http';
     let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
-    let urlRequest = `${urlRestApp}/api/contentreport/filtereditems?page=${this.currentPage}&size=${this.pageSize()}`;
-    return this.restService.request(RestRequestMethod.POST, urlRequest, form);
+    return this.restService.request(RestRequestMethod.GET, `${urlRestApp}/api/contentreport/filtereditems${params}`);
+  }
+
+  private toQueryString() : string {
+    let params = `page=${this.currentPage}&size=${this.pageSize()}`;
+
+    let colls = this.queryForm.value['collections'];
+    for (const coll in colls) {
+      params += `&collections=${colls[coll]}`;
+    }
+
+    let preds = this.queryForm.value['queryPredicates'];
+    for (const pred in preds) {
+      const field = preds[pred].field;
+      const op = preds[pred].operator;
+      const value = preds[pred].value;
+      params += `&queryPredicates=${field}:${op}`;
+      if (value) {
+        params += `:${value}`;
+      }
+    }
+
+    let filters = FiltersComponent.toQueryString(this.queryForm.value['filters']);
+    if (filters.length > 0) {
+      params += `&${filters}`;
+    }
+
+    let addFlds = this.queryForm.value['additionalFields'];
+    for (const fld in addFlds) {
+      params += `&additionalFields=${addFlds[fld]}`;
+    }
+
+    return params;
   }
 
 }
