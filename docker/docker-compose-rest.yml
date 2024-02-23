@@ -17,7 +17,7 @@ networks:
       config:
         # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
         # If you customize this value, be sure to customize the 'proxies.trusted.ipranges' env variable below.
-        - subnet: 172.23.0.0/16
+        - subnet: 172.2${INSTANCE}.0.0/16
 services:
   # DSpace (backend) webapp container
   dspace:
