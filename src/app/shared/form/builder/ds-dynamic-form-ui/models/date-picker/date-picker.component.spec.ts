@@ -14,8 +14,7 @@ import {
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
 import { By } from '@angular/platform-browser';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { getMockTranslateService } from '../../../../../mocks/translate.service.mock';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const DATE_TEST_GROUP = new UntypedFormGroup({
   date: new UntypedFormControl()
