@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, interval, Observable, shareReplay, Subscription } from 'rxjs';
-import { finalize, map, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { finalize, map, switchMap, take, tap, find, startWith, filter } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -14,7 +14,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload, getAllSucceededRemoteDataPayload
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/alert-type';
@@ -26,8 +26,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { isPlatformBrowser } from '@angular/common';
+import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
 
 @Component({
   selector: 'ds-process-detail',
@@ -36,7 +36,7 @@ import { isPlatformBrowser } from '@angular/common';
 /**
  * A component displaying detailed information about a DSpace Process
  */
-export class ProcessDetailComponent implements OnInit, OnDestroy {
+export class ProcessDetailComponent implements OnInit {
 
   /**
    * The AlertType enumeration
@@ -78,14 +78,14 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss ZZZZ';
 
-  refreshCounter$ = new BehaviorSubject(0);
+  isRefreshing$: Observable<boolean>;
+
+  isDeleting: boolean;
 
   /**
    * Reference to NgbModal
    */
   protected modalRef: NgbModalRef;
-
-  private refreshTimerSub?: Subscription;
 
   constructor(
     @Inject(PLATFORM_ID) protected platformId: object,
@@ -108,70 +108,27 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.processRD$ = this.route.data.pipe(
-      map((data) => {
+      switchMap((data) => {
         if (isPlatformBrowser(this.platformId)) {
-          if (!this.isProcessFinished(data.process.payload)) {
-            this.startRefreshTimer();
-          }
-        }
-
-        return data.process as RemoteData<Process>;
-      }),
-      redirectOn4xx(this.router, this.authService),
-      shareReplay(1)
-    );
-
-    this.filesRD$ = this.processRD$.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((process: Process) => this.processService.getFiles(process.processId))
-    );
-  }
-
-  refresh() {
-    this.processRD$ = this.processService.findById(
-      this.route.snapshot.params.id,
-      false,
-      true,
-      followLink('script')
-    ).pipe(
-      getFirstSucceededRemoteData(),
-      redirectOn4xx(this.router, this.authService),
-      tap((processRemoteData: RemoteData<Process>) => {
-        if (!this.isProcessFinished(processRemoteData.payload)) {
-          this.startRefreshTimer();
-        }
-      }),
-      shareReplay(1)
-    );
-
-    this.filesRD$ = this.processRD$.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      switchMap((process: Process) => this.processService.getFiles(process.processId))
-    );
-  }
-
-  startRefreshTimer() {
-    this.refreshCounter$.next(0);
-
-    this.refreshTimerSub = interval(1000).subscribe(
-      value => {
-        if (value > 5) {
-          setTimeout(() => {
-            this.refresh();
-            this.stopRefreshTimer();
-            this.refreshCounter$.next(0);
-          }, 1);
+          return this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000, ...PROCESS_PAGE_FOLLOW_LINKS);
         } else {
-          this.refreshCounter$.next(5 - value);
+          return [data.process as RemoteData<Process>];
         }
-      });
-  }
+      }),
+      filter(() => !this.isDeleting),
+      redirectOn4xx(this.router, this.authService),
+    );
 
-  stopRefreshTimer() {
-    if (hasValue(this.refreshTimerSub)) {
-      this.refreshTimerSub.unsubscribe();
-      this.refreshTimerSub = undefined;
-    }
+    this.isRefreshing$ = this.processRD$.pipe(
+      find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload)),
+      map(() => false),
+      startWith(true)
+    );
+
+    this.filesRD$ = this.processRD$.pipe(
+      getAllSucceededRemoteDataPayload(),
+      switchMap((process: Process) => process.files),
+    );
   }
 
   /**
@@ -249,15 +206,17 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    * @param process
    */
   deleteProcess(process: Process) {
+    this.isDeleting = true;
     this.processService.delete(process.processId).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('process.detail.delete.success'));
         this.closeModal();
-        this.router.navigateByUrl(getProcessListRoute());
+        void this.router.navigateByUrl(getProcessListRoute());
       } else {
         this.notificationsService.error(this.translateService.get('process.detail.delete.error'));
+        this.isDeleting = false;
       }
     });
   }
@@ -275,9 +234,5 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    */
   closeModal() {
     this.modalRef.close();
-  }
-
-  ngOnDestroy(): void {
-    this.stopRefreshTimer();
   }
 }

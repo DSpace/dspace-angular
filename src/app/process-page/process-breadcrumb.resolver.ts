@@ -6,8 +6,9 @@ import { Process } from './processes/process.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
+import { RemoteData } from '../core/data/remote-data';
 
 /**
  * This class represents a resolver that requests a specific process before the route is activated
@@ -28,12 +29,11 @@ export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Proce
     const id = route.params.id;
 
     return this.processService.findById(route.params.id, true, false, followLink('script')).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((object: Process) => {
+      getFirstCompletedRemoteData(),
+      map((object: RemoteData<Process>) => {
         const fullPath = state.url;
         const url = fullPath.substr(0, fullPath.indexOf(id)) + id;
-        return { provider: this.breadcrumbService, key: object, url: url };
+        return { provider: this.breadcrumbService, key: object.payload, url: url };
       })
     );
   }

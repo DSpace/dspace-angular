@@ -7,13 +7,120 @@
  */
 
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';
-import { ProcessDataService } from './process-data.service';
+import { ProcessDataService, TIMER_FACTORY } from './process-data.service';
 import { testDeleteDataImplementation } from '../base/delete-data.spec';
+import { waitForAsync, TestBed } from '@angular/core/testing';
+import { RequestService } from '../request.service';
+import { RemoteData } from '../remote-data';
+import { RequestEntryState } from '../request-entry-state.model';
+import { Process } from '../../../process-page/processes/process.model';
+import { ProcessStatus } from '../../../process-page/processes/process-status.model';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { ReducerManager } from '@ngrx/store';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
+import { BitstreamFormatDataService } from '../bitstream-format-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TestScheduler } from 'rxjs/testing';
 
 describe('ProcessDataService', () => {
+  let testScheduler;
+
+  const mockTimer = (fn: () => {}, interval: number) => {
+    fn();
+    return 555;
+  };
+
   describe('composition', () => {
-    const initService = () => new ProcessDataService(null, null, null, null, null, null);
+    const initService = () => new ProcessDataService(null, null, null, null, null, null, null, null);
     testFindAllDataImplementation(initService);
     testDeleteDataImplementation(initService);
+  });
+
+  let requestService;
+  let processDataService;
+  let remoteDataBuildService;
+
+  describe('autoRefreshUntilCompletion', () => {
+    beforeEach(waitForAsync(() => {
+      testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
+      TestBed.configureTestingModule({
+        imports: [],
+        providers: [
+          ProcessDataService,
+          { provide: RequestService, useValue: null },
+          { provide: RemoteDataBuildService, useValue: null },
+          { provide: ObjectCacheService, useValue: null },
+          { provide: ReducerManager, useValue: null },
+          { provide: HALEndpointService, useValue: null },
+          { provide: DSOChangeAnalyzer, useValue: null },
+          { provide: BitstreamFormatDataService, useValue: null },
+          { provide: NotificationsService, useValue: null },
+          { provide: TIMER_FACTORY, useValue: mockTimer },
+        ]
+      });
+
+      processDataService = TestBed.inject(ProcessDataService);
+      spyOn(processDataService, 'invalidateByHref');
+    }));
+
+    it('should not do any polling when the process is already completed', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        let completedProcess = new Process();
+        completedProcess.processStatus = ProcessStatus.COMPLETED;
+
+        const completedProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess);
+
+        spyOn(processDataService, 'findById').and.returnValue(
+          cold('c', {
+            'c': completedProcessRD
+          })
+        );
+
+        let process$ = processDataService.autoRefreshUntilCompletion('instantly');
+        expectObservable(process$).toBe('c', {
+          c: completedProcessRD
+        });
+      });
+
+      expect(processDataService.findById).toHaveBeenCalledTimes(1);
+      expect(processDataService.invalidateByHref).not.toHaveBeenCalled();
+    });
+
+    it('should poll until a process completes', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        const runningProcess = Object.assign(new Process(), {
+          _links: {
+            self: {
+              href: 'https://rest.api/processes/123'
+            }
+          }
+        });
+        runningProcess.processStatus = ProcessStatus.RUNNING;
+        const completedProcess = new Process();
+        completedProcess.processStatus = ProcessStatus.COMPLETED;
+        const runningProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcess);
+        const completedProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, completedProcess);
+
+        spyOn(processDataService, 'findById').and.returnValue(
+          cold('r 150ms c', {
+            'r': runningProcessRD,
+            'c': completedProcessRD
+          })
+        );
+
+        let process$ = processDataService.autoRefreshUntilCompletion('foo', 100);
+        expectObservable(process$).toBe('r 150ms c', {
+          'r': runningProcessRD,
+          'c': completedProcessRD
+        });
+      });
+
+      expect(processDataService.findById).toHaveBeenCalledTimes(1);
+      expect(processDataService.invalidateByHref).toHaveBeenCalledTimes(1);
+    });
   });
 });
