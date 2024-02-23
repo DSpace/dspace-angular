@@ -91,8 +91,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   @Output() submitForm: EventEmitter<{
     dso: T,
     operations: Operation[],
-    uploader?: FileUploader,
-    deleteLogo?: boolean,
+    uploader?: FileUploader
   }> = new EventEmitter();
 
   /**
@@ -210,17 +209,15 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       }
     });
 
-    if (!this.isCreation) {
+    if (this.isCreation) {
       this.submitForm.emit({
         dso: updatedDSO,
+        uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
         operations: operations,
       });
-      this.finish.emit();
     } else {
       this.submitForm.emit({
         dso: updatedDSO,
-        deleteLogo: false,
-        uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
         operations: operations,
       });
     }
@@ -262,6 +259,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     modalRef.componentInstance.cancelLabel = 'form.cancel';
     modalRef.componentInstance.confirmLabel = 'community-collection.edit.logo.delete.title';
     modalRef.componentInstance.confirmIcon = 'fas fa-trash';
+    modalRef.componentInstance.brandColor = 'danger';
     return modalRef;
   }
 
