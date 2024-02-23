@@ -304,15 +304,15 @@ export class FilteredItemsComponent {
     let params = `page=${this.currentPage}&size=${this.pageSize()}`;
 
     let colls = this.queryForm.value.collections;
-    for (const coll in colls) {
-      params += `&collections=${colls[coll]}`;
+    for (let i = 0; i < colls.length; i++) {
+      params += `&collections=${colls[i]}`;
     }
 
     let preds = this.queryForm.value.queryPredicates;
-    for (const pred in preds) {
-      const field = preds[pred].field;
-      const op = preds[pred].operator;
-      const value = preds[pred].value;
+    for (let i = 0; i < preds.length; i++) {
+      const field = preds[i].field;
+      const op = preds[i].operator;
+      const value = preds[i].value;
       params += `&queryPredicates=${field}:${op}`;
       if (value) {
         params += `:${value}`;
@@ -325,8 +325,8 @@ export class FilteredItemsComponent {
     }
 
     let addFlds = this.queryForm.value.additionalFields;
-    for (const fld in addFlds) {
-      params += `&additionalFields=${addFlds[fld]}`;
+    for (let i = 0; i < addFlds.length; i++) {
+      params += `&additionalFields=${addFlds[i]}`;
     }
 
     return params;
