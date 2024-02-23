@@ -5630,6 +5630,8 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
+  "discover.filters.head": "Discover",
+
   "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
 
   "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
@@ -5698,3 +5700,4 @@
 
   "admin.notifications.publicationclaim.page.title": "Publication Claim",
 }
+

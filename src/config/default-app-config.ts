@@ -306,7 +306,8 @@ export class DefaultAppConfig implements AppConfig {
     },
     topLevelCommunityList: {
       pageSize: 5
-    }
+    },
+    showDiscoverFilters: false
   };
 
   // Item Config
