@@ -5677,10 +5677,8 @@
   "search.advanced.filters.head": "Advanced Search",
 
   "filter.search.operator.placeholder": "Operator",
-  
+
   "filter.search.text.placeholder": "Search text",
 
   "advancesearch.form.submit": "Add",
-
-
 }
