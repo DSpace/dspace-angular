@@ -18,6 +18,7 @@
         </div>
         <button
           [routerLink]="[getQualityAssuranceRoute(), source.id]"
+          [queryParams]="{ forward: true }"
           class="btn btn-primary align-self-center"
         >
           {{ "mydspace.qa-event-notification-info.check.button" | translate }}

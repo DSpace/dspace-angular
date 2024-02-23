@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../core/shared/operators';
 import { Observable, of } from 'rxjs';
-import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from './../../core/notifications/qa/models/quality-assurance-source.model';
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
 
 @Component({
@@ -16,6 +16,7 @@ export class MyDspaceQaEventsNotificationsComponent implements OnInit {
    * An Observable that emits an array of QualityAssuranceSourceObject.
    */
   sources$: Observable<QualityAssuranceSourceObject[]> = of([]);
+
   constructor(private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService) { }
 
   ngOnInit(): void {

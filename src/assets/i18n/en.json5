@@ -2702,7 +2702,7 @@
 
   "qa-withdrown.modal.form.summary.placeholder": "Enter the reason for the withdrawal",
 
-  "qa-reinstate.modal.form.summary.placeholder": "Enter the reason for the reinstate",
+  "qa-reinstate.modal.form.summary.placeholder": "Enter the reason for the reinstatement",
 
   "item.version.create.modal.submitted.header": "Creating new version...",
 
@@ -2711,16 +2711,6 @@
   "correction-type.manage-relation.action.notification.reinstate": "Reinstate request sent.",
 
   "correction-type.manage-relation.action.notification.withdrawn": "Withdraw request sent.",
-
-  "qa-event-notification.check.notification-withdrawn.user": "There are {{num}} items pending review(s) to check.",
-
-  "qa-event-notification.check.notification-withdrawn.admin": "There are {{num}} {{source}} feedback(s) pending.",
-
-  "qa-event-notification.check.notification-reinstate": "There are {{num}} pending reinstatement(s) pending for this item.",
-
-  "qa-event-notification-undo-withdrawn.check.button": "Check",
-
-  "qa-event-notification-undo-reinstate.check.button": "Check",
 
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 

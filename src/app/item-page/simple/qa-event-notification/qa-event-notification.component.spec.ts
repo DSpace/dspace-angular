@@ -13,7 +13,6 @@ import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data
 import { provideMockStore } from '@ngrx/store/testing';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
@@ -22,7 +21,6 @@ describe('QaEventNotificationComponent', () => {
   let component: QaEventNotificationComponent;
   let fixture: ComponentFixture<QaEventNotificationComponent>;
   let qualityAssuranceSourceDataServiceStub: any;
-  let authorizationService: AuthorizationDataService;
 
   const obj = Object.assign(new QualityAssuranceSourceObject(), {
     id: 'sourceName:target',
@@ -34,9 +32,6 @@ describe('QaEventNotificationComponent', () => {
   const objPL = createSuccessfulRemoteDataObject$(createPaginatedList([obj]));
   const item = Object.assign({ uuid: '1234' });
   beforeEach(async () => {
-    authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: of(true)
-    });
 
     qualityAssuranceSourceDataServiceStub = {
       getSourcesByTarget: () => objPL
@@ -49,7 +44,6 @@ describe('QaEventNotificationComponent', () => {
         { provide: RequestService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
-        { provide: AuthorizationDataService, useValue: authorizationService },
         ObjectCacheService,
         RemoteDataBuildService,
         provideMockStore({})

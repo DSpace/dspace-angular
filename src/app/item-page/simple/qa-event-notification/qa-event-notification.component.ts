@@ -9,9 +9,7 @@ import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/mod
 import { catchError, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -33,17 +31,10 @@ export class QaEventNotificationComponent implements OnChanges {
    * An observable that emits an array of QualityAssuranceSourceObject.
    */
   sources$: Observable<QualityAssuranceSourceObject[]>;
-  /**
-   * An observable that emits a boolean representing whether the current user is an admin.
-   */
-  isAdmin$: Observable<boolean>;
 
   constructor(
     private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService,
-    private authService: AuthorizationDataService,
-  ) {
-    this.isAdmin$ = this.authService.isAuthorized(FeatureID.AdministratorOf);
-  }
+  ) {}
 
   /**
     * Detect changes to the item input and update the sources$ observable.

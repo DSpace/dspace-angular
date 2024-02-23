@@ -109,7 +109,7 @@ describe('ItemAlertsComponent', () => {
     });
   });
 
-  it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', fakeAsync(() => {
+  it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', fakeAsync((done) => {
     const isAdmin = false;
     const correction = [{ topic: 'REQUEST_REINSTATE' }];
     authorizationService.isAuthorized.and.returnValue(of(isAdmin));
@@ -119,6 +119,7 @@ describe('ItemAlertsComponent', () => {
     tick();
     result$.subscribe((result) => {
       expect(result).toBeTrue();
+      done();
     });
   }));
 });
