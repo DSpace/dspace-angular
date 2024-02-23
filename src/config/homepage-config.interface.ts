@@ -22,5 +22,5 @@ export interface HomeConfig extends Config {
   /*
   * Enable or disable the Discover filters on the homepage
   */
-  showDiscoverFilters: false;
+  showDiscoverFilters: boolean;
 }
