@@ -11,7 +11,7 @@ import {
 import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
@@ -68,10 +68,14 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    */
   ngOnInit() {
     this.updatePageInfo(this.model.maxOptions, 1);
-    this.loadOptions();
+    this.loadOptions(true);
+    this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
+    .subscribe((value) => {
+      this.setCurrentValue(value);
+    });
   }
 
-  loadOptions() {
+  loadOptions(fromInit: boolean) {
     this.loading = true;
     this.vocabularyService.getVocabularyEntriesByValue(this.inputText, false, this.model.vocabularyOptions, this.pageInfo).pipe(
       getFirstSucceededRemoteDataPayload(),
@@ -79,6 +83,10 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       tap(() => this.loading = false)
     ).subscribe((list: PaginatedList<VocabularyEntry>) => {
       this.optionsList = list.page;
+        if (fromInit && this.model.value) {
+          this.setCurrentValue(this.model.value, true);
+        }
+
       this.updatePageInfo(
         list.pageInfo.elementsPerPage,
         list.pageInfo.currentPage,
@@ -104,7 +112,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       this.group.markAsUntouched();
       this.inputText = null;
       this.updatePageInfo(this.model.maxOptions, 1);
-      this.loadOptions();
+      this.loadOptions(false);
       sdRef.open();
     }
   }
@@ -161,7 +169,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     this.inputText += keyName;
     // When a new key is added, we need to reset the page info
     this.updatePageInfo(this.model.maxOptions, 1);
-    this.loadOptions();
+    this.loadOptions(false);
   }
 
   removeKeyFromInput() {
@@ -170,7 +178,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       if (this.inputText === '') {
         this.inputText = null;
       }
-      this.loadOptions();
+      this.loadOptions(false);
     }
   }
 
