@@ -43,7 +43,7 @@
 
             // Encode the redirect URL
             targetUrl += window.encodeURIComponent(redirectUrl);
-            window.location = opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target=' + targetUrl + '&entityID=' + window.encodeURIComponent(e.entityID);
+            window.location = opts.host + opts.port + '/Shibboleth.sso/Login?SAMLDS=1&target=' + targetUrl + '&entityID=' + window.encodeURIComponent(e.entityID);
           };
       //console.log(opts);
       if(!opts.target){
@@ -56,7 +56,7 @@
           opts.ourEntityID,
           opts.responseUrl,
           [ ],
-          opts.host + '/Shibboleth.sso/Login?SAMLDS=1&target=' + targetUrl + '&entityID=');
+          opts.host + opts.port + '/Shibboleth.sso/Login?SAMLDS=1&target=' + targetUrl + '&entityID=');
         djc.discoPath = window.location.origin + (namespace === '' ? namespace : '/' + namespace) + "/assets/";
         djc.metadata = [opts.metadataFeed];
         djc.subtitle = "Login via Your home institution (e.g. university)";
