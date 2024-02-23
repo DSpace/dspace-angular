@@ -5586,6 +5586,12 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
+  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+
+  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
+  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+
   "access-control-item-header-toggle": "Item's Metadata",
 
   "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
@@ -5597,6 +5603,20 @@
   "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
 
   "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+
+  "access-control-mode": "Mode",
+
+  "access-control-access-conditions": "Access conditions",
+
+  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+
+  "access-control-replace-all": "Replace access conditions",
+
+  "access-control-add-to-existing": "Add to existing ones",
+
+  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+
+  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
 
   "access-control-bitstreams-selected": "bitstreams selected",
 
@@ -5610,6 +5630,18 @@
 
   "access-control-remove": "Remove access condition",
 
+  "access-control-select-bitstreams-modal.title": "Select bitstreams",
+
+  "access-control-select-bitstreams-modal.no-items": "No items to show.",
+
+  "access-control-select-bitstreams-modal.close": "Close",
+
+  "access-control-option-label": "Access condition type",
+
+  "access-control-option-note": "Choose an access condition to apply to selected objects.",
+
+  "access-control-option-start-date": "Grant access from",
+
   "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
 
   "access-control-option-end-date": "Grant access until",
@@ -5617,6 +5649,12 @@
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
 
   "vocabulary-treeview.search.form.add": "Add",
+
+  "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
+
+  "admin.notifications.publicationclaim.page.title": "Publication Claim",
+
+  "filter.search.operator.placeholder": "Operator",
 
   "search.filters.filter.entityType.text": "Item Type",
 
@@ -5639,13 +5677,10 @@
   "search.advanced.filters.head": "Advanced Search",
 
   "filter.search.operator.placeholder": "Operator",
-
-  "vocabulary-treeview.search.form.add": "Add",
-
-  "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
-
-  "admin.notifications.publicationclaim.page.title": "Publication Claim",
+  
   "filter.search.text.placeholder": "Search text",
 
   "advancesearch.form.submit": "Add",
+
+
 }
