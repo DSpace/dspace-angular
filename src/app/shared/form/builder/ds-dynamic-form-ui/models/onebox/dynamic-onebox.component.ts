@@ -195,8 +195,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       // prevent on blur propagation if typeahed suggestions are showed
       event.preventDefault();
       event.stopImmediatePropagation();
-      // set focus on input again, this is to avoid to lose changes when no suggestion is selected
-      (event.target as HTMLInputElement).focus();
+      // update the value with the searched text if the user hasn't selected any suggestion
+      if (!this.model.vocabularyOptions.closed && isNotEmpty(this.inputValue)) {
+        if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
+          this.dispatchUpdate(this.inputValue);
+        }
+        this.inputValue = null;
+      }
     }
   }
 
