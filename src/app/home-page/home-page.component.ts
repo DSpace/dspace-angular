@@ -12,6 +12,10 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Site } from '../core/shared/site.model';
+import { isPlatformServer } from '@angular/common';
+import { ServerResponseService } from '../core/services/server-response.service';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -37,6 +41,10 @@ import { Site } from '../core/shared/site.model';
 import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
 import { ConfigurationSearchPageComponent } from '../search-page/configuration-search-page.component';
 import { isNotEmpty } from '../shared/empty.util';
+import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
+import { HostWindowService } from '../shared/host-window.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
+
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
@@ -53,7 +61,9 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
 export class HomePageComponent implements OnInit, OnDestroy {
 
   site$: Observable<Site>;
+  isXsOrSm$: Observable<boolean>;
   recentSubmissionspageSize: number;
+  showDiscoverFilters: boolean;
   /**
    * An array of LinkDefinition objects representing inbox links for the home page.
    */
@@ -61,13 +71,17 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    private route: ActivatedRoute,
-    private responseService: ServerResponseService,
-    private notifyInfoService: NotifyInfoService,
+    protected route: ActivatedRoute,
+    protected responseService: ServerResponseService,
+    protected notifyInfoService: NotifyInfoService,
     protected linkHeadService: LinkHeadService,
     @Inject(PLATFORM_ID) private platformId: string,
+    protected sidebarService: SidebarService,
+    protected windowService: HostWindowService,
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    this.recentSubmissionspageSize = environment.homePage.recentSubmissions.pageSize;
+    this.recentSubmissionspageSize = this.appConfig.homePage.recentSubmissions.pageSize;
+    this.showDiscoverFilters = this.appConfig.homePage.showDiscoverFilters;
     // Get COAR REST API URLs from REST configuration
     // only if COAR configuration is enabled
     this.notifyInfoService.isCoarConfigEnabled().pipe(
@@ -86,6 +100,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.site$ = this.route.data.pipe(
       map((data) => data.site as Site),
     );

@@ -1,19 +1,28 @@
 <ds-themed-home-news></ds-themed-home-news>
-<div [ngClass]="appConfig.homePage.showDiscoverFilters ? 'container-fluid' : 'container'">
-  <div class="row m-5">
-    <div class="col-sm-3" *ngIf="appConfig.homePage.showDiscoverFilters">
-      <ds-configuration-search-page [sideBarWidth]="12" [showViewModes]="false" [searchEnabled]="false"
-        [inPlaceSearch]="false" [showScopeSelector]="false"></ds-configuration-search-page>
-    </div>
-    <div [ngClass]="appConfig.homePage.showDiscoverFilters ? 'col-sm-9' : 'col-sm-12'">
+<div [ngClass]="showDiscoverFilters ? 'container-fluid' : 'container'">
+  <ds-page-with-sidebar [sidebarContent]="sidebar" [sideBarWidth]="3" [class]="showDiscoverFilters ? 'row mx-3' : ''">
+    <div [class.col-sm-12]="showDiscoverFilters">
+      <button *ngIf="(isXsOrSm$ | async) && sidebarService.isCollapsed" (click)="sidebarService.expand()"
+              class="btn btn-outline-primary d-block ml-auto mb-3">
+        <i class="fas fa-sliders"></i> {{ 'search.sidebar.open' | translate }}
+      </button>
       <ng-container *ngIf="(site$ | async) as site">
         <ds-view-tracker [object]="site"></ds-view-tracker>
       </ng-container>
       <ds-themed-search-form [inPlaceSearch]="false"
-        [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-themed-search-form>
+                             [searchPlaceholder]="'home.search-form.placeholder' | translate">
+      </ds-themed-search-form>
       <ds-themed-top-level-community-list></ds-themed-top-level-community-list>
       <ds-recent-item-list *ngIf="recentSubmissionspageSize>0"></ds-recent-item-list>
     </div>
-    </div>
+  </ds-page-with-sidebar>
 </div>
 <ds-suggestions-popup></ds-suggestions-popup>
+
+<ng-template #sidebar>
+  <div *ngIf="showDiscoverFilters">
+    <ds-themed-configuration-search-page [sideBarWidth]="12" [showViewModes]="false" [searchEnabled]="false"
+                                         [inPlaceSearch]="false" [showScopeSelector]="false">
+    </ds-themed-configuration-search-page>
+  </div>
+</ng-template>
