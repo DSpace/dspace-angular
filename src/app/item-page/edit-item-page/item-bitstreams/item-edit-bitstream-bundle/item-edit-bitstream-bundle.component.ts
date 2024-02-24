@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
@@ -15,7 +15,7 @@ import { getItemPageRoute } from '../../../item-page-routing-paths';
  * Creates an embedded view of the contents. This is to ensure the table structure won't break.
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream-bundle element)
  */
-export class ItemEditBitstreamBundleComponent implements OnInit {
+export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
 
   /**
    * The view on the bundle information and bitstreams
@@ -63,4 +63,9 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.viewContainerRef.createEmbeddedView(this.bundleView);
     this.itemPageRoute = getItemPageRoute(this.item);
   }
+
+  ngOnDestroy(): void {
+    this.viewContainerRef.clear();
+  }
+
 }

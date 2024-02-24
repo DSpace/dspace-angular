@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { cloneDeep } from 'lodash';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -21,7 +21,7 @@ import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
  * Creates an embedded view of the contents
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream element)
  */
-export class ItemEditBitstreamComponent implements OnChanges, OnInit {
+export class ItemEditBitstreamComponent implements OnChanges, OnDestroy, OnInit {
 
   /**
    * The view on the bitstream
@@ -70,6 +70,10 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.viewContainerRef.createEmbeddedView(this.bitstreamView);
+  }
+
+  ngOnDestroy(): void {
+    this.viewContainerRef.clear();
   }
 
   /**
