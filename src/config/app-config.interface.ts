@@ -8,6 +8,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
 import { LangConfig } from './lang-config.interface';
 import { ItemConfig } from './item-config.interface';
+import { CommunityPageConfig } from './community-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { ThemeConfig } from './theme.config';
 import { AuthConfig } from './auth-config.interfaces';
@@ -41,6 +42,7 @@ interface AppConfig extends Config {
   communityList: CommunityListConfig;
   homePage: HomeConfig;
   item: ItemConfig;
+  community: CommunityPageConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;

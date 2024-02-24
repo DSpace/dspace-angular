@@ -27,7 +27,6 @@ import { ProcessDataService } from '../../core/data/processes/process-data.servi
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -35,7 +34,10 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import {ProcessStatus} from '../processes/process-status.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RouterTestingModule } from '@angular/router/testing';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -45,44 +47,18 @@ describe('ProcessDetailComponent', () => {
   let nameService: DSONameService;
   let bitstreamDataService: BitstreamDataService;
   let httpClient: HttpClient;
-  let route: ActivatedRoute;
+  let route: ActivatedRouteStub;
+  let router: RouterStub;
+  let modalService;
+  let notificationsService: NotificationsServiceStub;
 
   let process: Process;
   let fileName: string;
   let files: Bitstream[];
 
-  let processOutput;
-
-  let modalService;
-  let notificationsService;
-
-  let router;
+  let processOutput: string;
 
   function init() {
-    processOutput = 'Process Started';
-    process = Object.assign(new Process(), {
-      processId: 1,
-      scriptName: 'script-name',
-      processStatus: 'COMPLETED',
-      parameters: [
-        {
-          name: '-f',
-          value: 'file.xml'
-        },
-        {
-          name: '-i',
-          value: 'identifier'
-        }
-      ],
-      _links: {
-        self: {
-          href: 'https://rest.api/processes/1'
-        },
-        output: {
-          href: 'https://rest.api/processes/1/output'
-        }
-      }
-    });
     fileName = 'fake-file-name';
     files = [
       Object.assign(new Bitstream(), {
@@ -100,6 +76,33 @@ describe('ProcessDetailComponent', () => {
         }
       })
     ];
+    processOutput = 'Process Started';
+    process = Object.assign(new Process(), {
+      processId: 1,
+      scriptName: 'script-name',
+      processStatus: 'COMPLETED',
+      parameters: [
+        {
+          name: '-f',
+          value: 'file.xml'
+        },
+        {
+          name: '-i',
+          value: 'identifier'
+        }
+      ],
+      files: createSuccessfulRemoteDataObject$(Object.assign(new PaginatedList(), {
+        page: files,
+      })),
+      _links: {
+        self: {
+          href: 'https://rest.api/processes/1'
+        },
+        output: {
+          href: 'https://rest.api/processes/1/output'
+        }
+      },
+    });
     const logBitstream = Object.assign(new Bitstream(), {
       id: 'output.log',
       _links: {
@@ -110,6 +113,7 @@ describe('ProcessDetailComponent', () => {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
       delete: createSuccessfulRemoteDataObject$(null),
       findById: createSuccessfulRemoteDataObject$(process),
+      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process)
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
       findByHref: createSuccessfulRemoteDataObject$(logBitstream)
@@ -127,28 +131,22 @@ describe('ProcessDetailComponent', () => {
 
     notificationsService = new NotificationsServiceStub();
 
-    router = jasmine.createSpyObj('router', {
-      navigateByUrl:{}
-    });
+    router = new RouterStub();
 
-    route = jasmine.createSpyObj('route', {
-      data: observableOf({ process: createSuccessfulRemoteDataObject(process) }),
-      snapshot: {
-        params: { id: process.processId }
-      }
+    route = new ActivatedRouteStub({
+      id: process.processId,
+    }, {
+      process: createSuccessfulRemoteDataObject$(process),
     });
   }
 
   beforeEach(waitForAsync(() => {
     init();
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), RouterTestingModule],
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }), snapshot: { params: { id: 1 } } },
-        },
+        { provide: ActivatedRoute, useValue: route },
         { provide: ProcessDataService, useValue: processService },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: DSONameService, useValue: nameService },
@@ -253,6 +251,8 @@ describe('ProcessDetailComponent', () => {
   describe('deleteProcess', () => {
     it('should delete the process and navigate back to the overview page on success', () => {
       spyOn(component, 'closeModal');
+      spyOn(router, 'navigateByUrl').and.callThrough();
+
       component.deleteProcess(process);
 
       expect(processService.delete).toHaveBeenCalledWith(process.processId);
@@ -263,6 +263,7 @@ describe('ProcessDetailComponent', () => {
     it('should delete the process and not navigate on error', () => {
       (processService.delete as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
       spyOn(component, 'closeModal');
+      spyOn(router, 'navigateByUrl').and.callThrough();
 
       component.deleteProcess(process);
 
@@ -271,99 +272,5 @@ describe('ProcessDetailComponent', () => {
       expect(component.closeModal).not.toHaveBeenCalled();
       expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
-  });
-
-  describe('refresh counter', () => {
-    const queryRefreshCounter = () => fixture.debugElement.query(By.css('.refresh-counter'));
-
-    describe('if process is completed', () => {
-      beforeEach(() => {
-        process.processStatus = ProcessStatus.COMPLETED;
-        route.data = observableOf({process: createSuccessfulRemoteDataObject(process)});
-      });
-
-      it('should not show',  () => {
-        spyOn(component, 'startRefreshTimer');
-
-        const refreshCounter = queryRefreshCounter();
-        expect(refreshCounter).toBeNull();
-
-        expect(component.startRefreshTimer).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('if process is not finished', () => {
-      beforeEach(() => {
-        process.processStatus = ProcessStatus.RUNNING;
-        route.data = observableOf({process: createSuccessfulRemoteDataObject(process)});
-        fixture.detectChanges();
-        component.stopRefreshTimer();
-      });
-
-      it('should call startRefreshTimer',  () => {
-        spyOn(component, 'startRefreshTimer');
-
-        component.ngOnInit();
-        fixture.detectChanges(); // subscribe to process observable with async pipe
-
-        expect(component.startRefreshTimer).toHaveBeenCalled();
-      });
-
-      it('should call refresh method every 5 seconds, until process is completed', fakeAsync(() => {
-        spyOn(component, 'refresh').and.callThrough();
-        spyOn(component, 'stopRefreshTimer').and.callThrough();
-
-        // start off with a running process in order for the refresh counter starts counting up
-        process.processStatus = ProcessStatus.RUNNING;
-        // set findbyId to return a completed process
-        (processService.findById as jasmine.Spy).and.returnValue(observableOf(createSuccessfulRemoteDataObject(process)));
-
-        component.ngOnInit();
-        fixture.detectChanges(); // subscribe to process observable with async pipe
-
-        expect(component.refresh).not.toHaveBeenCalled();
-
-        expect(component.refreshCounter$.value).toBe(0);
-
-        tick(1001); // 1 second + 1 ms by the setTimeout
-        expect(component.refreshCounter$.value).toBe(5); // 5 - 0
-
-        tick(2001); // 2 seconds + 1 ms by the setTimeout
-        expect(component.refreshCounter$.value).toBe(3); // 5 - 2
-
-        tick(2001); // 2 seconds + 1 ms by the setTimeout
-        expect(component.refreshCounter$.value).toBe(1); // 3 - 2
-
-        tick(1001); // 1 second + 1 ms by the setTimeout
-        expect(component.refreshCounter$.value).toBe(0); // 1 - 1
-
-        // set the process to completed right before the counter checks the process
-        process.processStatus = ProcessStatus.COMPLETED;
-        (processService.findById as jasmine.Spy).and.returnValue(observableOf(createSuccessfulRemoteDataObject(process)));
-
-        tick(1000); // 1 second
-
-        expect(component.refresh).toHaveBeenCalledTimes(1);
-        expect(component.stopRefreshTimer).toHaveBeenCalled();
-
-        expect(component.refreshCounter$.value).toBe(0);
-
-        tick(1001); // 1 second + 1 ms by the setTimeout
-        // startRefreshTimer not called again
-        expect(component.refreshCounter$.value).toBe(0);
-
-        discardPeriodicTasks(); // discard any periodic tasks that have not yet executed
-      }));
-
-      it('should show if refreshCounter is different from 0', () => {
-        component.refreshCounter$.next(1);
-        fixture.detectChanges();
-
-        const refreshCounter = queryRefreshCounter();
-        expect(refreshCounter).not.toBeNull();
-      });
-
-    });
-
   });
 });

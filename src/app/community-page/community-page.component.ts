@@ -7,7 +7,7 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
-import { getAllSucceededRemoteDataPayload} from '../core/shared/operators';
+import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';

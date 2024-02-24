@@ -22,11 +22,13 @@ import { FacetValue } from '../../../models/facet-value.model';
 import { getFacetValueForType } from '../../../search.utils';
 import { filter, map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription, combineLatest } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { hasValue } from '../../../../empty.util';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -49,6 +51,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               protected router: Router,
               protected modalService: NgbModal,
               protected vocabularyService: VocabularyService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
@@ -74,17 +77,20 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
     super.onSubmit(addOperatorToFilterValue(data, 'query'));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
-    this.vocabularyExists$ = this.vocabularyService.searchTopEntries(
-      this.getVocabularyEntry(), new PageInfo(), true, false,
-    ).pipe(
-      filter(rd => rd.hasCompleted),
-      take(1),
-      map(rd => {
-        return rd.hasSucceeded;
-      }),
-    );
+    const vocabularyName: string = this.getVocabularyEntry();
+    if (hasValue(vocabularyName)) {
+      this.vocabularyExists$ = this.vocabularyService.searchTopEntries(
+        vocabularyName, new PageInfo(), true, false,
+      ).pipe(
+        filter(rd => rd.hasCompleted),
+        take(1),
+        map(rd => {
+          return rd.hasSucceeded;
+        }),
+      );
+    }
   }
 
   /**
@@ -100,21 +106,20 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true
     };
-    this.subscriptions.push(modalRef.componentInstance.select.subscribe((detail: VocabularyEntryDetail) => {
-      this.selectedValues$
-        .pipe(take(1))
-        .subscribe((selectedValues) => {
-          void this.router.navigate(
-            [this.searchService.getSearchLink()],
-            {
-              queryParams: {
-                [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
-                  .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
-              },
-              queryParamsHandling: 'merge',
-            },
-          );
-        });
+    this.subscriptions.push(combineLatest([
+      (modalRef.componentInstance as VocabularyTreeviewModalComponent).select,
+      this.selectedValues$.pipe(take(1)),
+    ]).subscribe(([detail, selectedValues]: [VocabularyEntryDetail, FacetValue[]]) => {
+      void this.router.navigate(
+        [this.searchService.getSearchLink()],
+        {
+          queryParams: {
+            [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
+              .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
+          },
+          queryParamsHandling: 'merge',
+        },
+      );
     }));
   }
 
@@ -122,8 +127,8 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
    * Returns the matching vocabulary entry for the given search filter.
    * These are configurable in the config file.
    */
-  getVocabularyEntry() {
-    const foundVocabularyConfig = environment.vocabularies.filter((v) => v.filter === this.filterConfig.name);
+  getVocabularyEntry(): string {
+    const foundVocabularyConfig: FilterVocabularyConfig[] = this.appConfig.vocabularies.filter((v: FilterVocabularyConfig) => v.filter === this.filterConfig.name);
     if (foundVocabularyConfig.length > 0 && foundVocabularyConfig[0].enabled === true) {
       return foundVocabularyConfig[0].vocabulary;
     }
