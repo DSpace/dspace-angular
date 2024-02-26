@@ -25,6 +25,7 @@ import { Context } from '../../../../core/shared/context.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { DuplicateDataService } from '../../../../core/data/duplicate-search.service';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -79,6 +80,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
     protected itemDataService: ItemDataService,
+    protected duplicateDataService: DuplicateDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -109,7 +111,8 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       tap((itemRD: RemoteData<Item>) => {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
-          this.duplicates$ = this.itemDataService.findDuplicates(itemRD.payload.uuid).pipe(
+          // Find duplicates for this item
+          this.duplicates$ = this.duplicateDataService.findDuplicates(itemRD.payload.uuid).pipe(
             getFirstCompletedRemoteData(),
             map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
               if (remoteData.hasSucceeded) {
@@ -120,7 +123,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
             })
           );
         }
-      })
+      }),
     ).subscribe();
 
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;

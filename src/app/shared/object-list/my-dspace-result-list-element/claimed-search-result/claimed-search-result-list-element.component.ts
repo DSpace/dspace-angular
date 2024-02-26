@@ -24,6 +24,7 @@ import { Context } from '../../../../core/shared/context.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { DuplicateDataService } from '../../../../core/data/duplicate-search.service';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -69,6 +70,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
     protected itemDataService: ItemDataService,
+    protected duplicateDataService: DuplicateDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -99,7 +101,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
       tap((itemRD: RemoteData<Item>) => {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
-          this.duplicates$ = this.itemDataService.findDuplicates(itemRD.payload.uuid).pipe(
+          this.duplicates$ = this.duplicateDataService.findDuplicates(itemRD.payload.uuid).pipe(
             getFirstCompletedRemoteData(),
             map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
               if (remoteData.hasSucceeded) {

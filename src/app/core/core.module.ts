@@ -198,6 +198,7 @@ import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status
 import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { DuplicateDataService } from './data/duplicate-search.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -234,6 +235,7 @@ const PROVIDERS = [
   HALEndpointService,
   HostWindowService,
   ItemDataService,
+  DuplicateDataService,
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
