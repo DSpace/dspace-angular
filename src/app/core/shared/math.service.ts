@@ -7,14 +7,7 @@ import {
 
 interface MathJaxConfig {
   source: string;
-  integrity: string;
   id: string;
-}
-
-declare global {
-  interface Window {
-    MathJax: any;
-  }
 }
 
 @Injectable({
@@ -38,12 +31,10 @@ export class MathService {
 
   private mathJax: MathJaxConfig = {
     source: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',
-    integrity: 'sha256-CnzfCXjFj1REmPHgWvm/OQv8gFaxwbLKUi41yCU7N2s=',
     id: 'MathJaxScript',
   };
   private mathJaxFallback: MathJaxConfig = {
     source: 'assets/mathjax/mml-chtml.js',
-    integrity: 'sha256-CnzfCXjFj1REmPHgWvm/OQv8gFaxwbLKUi41yCU7N2s=',
     id: 'MathJaxBackupScript',
   };
 
@@ -62,6 +53,7 @@ export class MathService {
 
   private async registerMathJaxAsync(config: MathJaxConfig): Promise<any> {
     return new Promise<void>((resolve, reject) => {
+
       const optionsScript: HTMLScriptElement = document.createElement('script');
       optionsScript.type = 'text/javascript';
       optionsScript.text = `MathJax = ${JSON.stringify(this.mathJaxOptions)};`;
@@ -83,11 +75,7 @@ export class MathService {
     return this.signal;
   }
 
-  render(element: HTMLElement, value: string) {
-    // Take initial typesetting which MathJax performs into account
-    // window.MathJax.startup.promise.then(() => {
-    element.innerHTML = value;
-    window.MathJax.typesetPromise([element]);
-    // });
+  render(element: HTMLElement) {
+    (window as any).MathJax.typesetPromise([element]);
   }
 }
