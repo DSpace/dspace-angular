@@ -24,6 +24,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 /**
  * The default pagination controls component.
@@ -196,6 +197,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
+ 
+  /**
+   * Unique element 'id' property value, in case this class is used multiply
+   * in one page.
+   */
+  public elementId: String;
 
   /**
    * If showPaginator is set to true, emit when the previous button is clicked
@@ -206,6 +213,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * If showPaginator is set to true, emit when the next button is clicked
    */
   @Output() next = new EventEmitter<boolean>();
+
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
@@ -268,7 +276,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   constructor(private cdRef: ChangeDetectorRef,
               private paginationService: PaginationService,
-              public hostWindowService: HostWindowService) {
+              public hostWindowService: HostWindowService,
+              private uuidService: UUIDService) {
+    this.elementId = uuidService.generate();
   }
 
   /**

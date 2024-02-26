@@ -34,6 +34,7 @@ import { storeModuleConfig } from '../../app.reducer';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { BehaviorSubject } from 'rxjs';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -157,7 +158,9 @@ describe('Pagination component', () => {
         NgbModule,
         RouterTestingModule.withRoutes([
           { path: 'home', component: TestComponent }
-        ])],
+        ]),
+        UUIDService,
+        ],
       declarations: [
         PaginationComponent,
         TestComponent,
@@ -169,7 +172,8 @@ describe('Pagination component', () => {
         { provide: HostWindowService, useValue: hostWindowServiceStub },
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
-        PaginationComponent
+        PaginationComponent,
+        UUIDService,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
