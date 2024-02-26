@@ -29,9 +29,9 @@
          [attr.data-test]="'user-menu' | dsBrowserOnly"
          ngbDropdownToggle>
         <i class="fas fa-user-circle fa-lg fa-fw"></i></a>
-      <ul id="logoutDropdownMenu" class="p-3" ngbDropdownMenu role="presentation">
-        <ds-themed-user-menu></ds-themed-user-menu>
-      </ul>
+      <div id="logoutDropdownMenu" ngbDropdownMenu>
+        <ds-themed-user-menu [inExpandableNavbar]="false"></ds-themed-user-menu>
+      </div>
     </div>
   </div>
 </div>

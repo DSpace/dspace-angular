@@ -69,30 +69,6 @@
       border-top: var(--ds-expandable-navbar-border-top-style);
       padding-top: var(--ds-expandable-navbar-padding-top);
 
-      ::ng-deep {
-
-        /* mobile menu */
-
-        .ds-menu-item {
-          padding: var(--ds-expandable-navbar-dropdown-item-vertical-padding) var(--ds-expandable-navbar-dropdown-item-horizontal-padding);
-        }
-
-        .ds-menu-item, .ds-menu-toggler-wrapper {
-          color: var(--ds-expandable-navbar-link-color) !important;
-
-          &:hover, &:focus {
-            color: var(--ds-expandable-navbar-link-color-hover) !important;
-          }
-        }
-
-        /* mobile submenu */
-
-        //.dropdown-menu {
-        //  .ds-menu-item {
-        //  }
-        //}
-
-      }
     }
   }
 }
