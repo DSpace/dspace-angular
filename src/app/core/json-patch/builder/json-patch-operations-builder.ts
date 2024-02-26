@@ -157,7 +157,7 @@ export class JsonPatchOperationsBuilder {
         operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value));
       }
     } else if (value instanceof VocabularyEntry) {
-      operationValue = this.prepareAuthorityValue(value);
+      operationValue = new FormFieldMetadataValueObject(value.value, null, value.securityLevel, value.authority);
     } else if (value instanceof FormFieldLanguageValueObject) {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language, securityLevel);
     } else if (value.hasOwnProperty('authority')) {
@@ -180,16 +180,6 @@ export class JsonPatchOperationsBuilder {
             operationValue[key] = value[key];
           }
         });
-    }
-    return operationValue;
-  }
-
-  protected prepareAuthorityValue(value: any): FormFieldMetadataValueObject {
-    let operationValue: FormFieldMetadataValueObject;
-    if (isNotEmpty(value.authority)) {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.securityLevel, value.authority);
-    } else {
-      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.securityLevel,);
     }
     return operationValue;
   }
