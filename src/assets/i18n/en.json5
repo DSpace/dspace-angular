@@ -2152,6 +2152,8 @@
 
   "item.edit.metadata.edit.value": "Edit value",
 
+  "item.edit.metadata.edit.authority.key": "Edit authority key",
+
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -2205,6 +2207,12 @@
   "item.edit.metadata.reset-order-button": "Undo reorder",
 
   "item.edit.metadata.save-button": "Save",
+
+  "item.edit.metadata.authority.label": "Authority: ",
+
+  "item.edit.metadata.edit.buttons.open-authority-edition": "Unlock the authority key value for manual editing",
+
+  "item.edit.metadata.edit.buttons.close-authority-edition": "Lock the authority key value for manual editing",
 
   "item.edit.modify.overview.field": "Field",
 
@@ -2439,6 +2447,24 @@
   "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
 
   "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
+
+  "confidence.indicator.help-text.accepted": "This authority value has been confirmed as accurate by an interactive user",
+
+  "confidence.indicator.help-text.uncertain": "Value is singular and valid but has not been seen and accepted by a human so it is still uncertain",
+
+  "confidence.indicator.help-text.ambiguous": "There are multiple matching authority values of equal validity",
+
+  "confidence.indicator.help-text.notfound": "There are no matching answers in the authority",
+
+  "confidence.indicator.help-text.failed": "The authority encountered an internal failure",
+
+  "confidence.indicator.help-text.rejected": "The authority recommends this submission be rejected",
+
+  "confidence.indicator.help-text.novalue": "No reasonable confidence value was returned from the authority",
+
+  "confidence.indicator.help-text.unset": "Confidence was never recorded for this value",
+
+  "confidence.indicator.help-text.unknown": "Unknown confidence value",
 
   "item.page.abstract": "Abstract",
 
@@ -3478,11 +3504,29 @@
 
   "process.detail.refreshing": "Auto-refreshing…",
 
+  "process.overview.table.completed.info": "Finish time (UTC)",
+
+  "process.overview.table.completed.title": "Succeeded processes",
+
+  "process.overview.table.empty": "No matching processes found.",
+
+  "process.overview.table.failed.info": "Finish time (UTC)",
+
+  "process.overview.table.failed.title": "Failed processes",
+
   "process.overview.table.finish": "Finish time (UTC)",
 
   "process.overview.table.id": "Process ID",
 
   "process.overview.table.name": "Name",
+
+  "process.overview.table.running.info": "Start time (UTC)",
+
+  "process.overview.table.running.title": "Running processes",
+
+  "process.overview.table.scheduled.info": "Creation time (UTC)",
+
+  "process.overview.table.scheduled.title": "Scheduled processes",
 
   "process.overview.table.start": "Start time (UTC)",
 
@@ -5586,6 +5630,8 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
+  "discover.filters.head": "Discover",
+
   "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
 
   "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
@@ -5654,3 +5700,4 @@
 
   "admin.notifications.publicationclaim.page.title": "Publication Claim",
 }
+

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
@@ -29,7 +29,7 @@ import { ContentSourceSetSerializer } from '../../../../core/shared/content-sour
   styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
 })
-export class CollectionSourceControlsComponent implements OnDestroy {
+export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
 
   /**
    * Should the controls be enabled.
@@ -48,6 +48,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
 
   contentSource$: Observable<ContentSource>;
   private subs: Subscription[] = [];
+  private autoRefreshIDs: string[] = [];
 
   testConfigRunning$ = new BehaviorSubject(false);
   importRunning$ = new BehaviorSubject(false);
@@ -94,7 +95,10 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       }),
       // filter out responses that aren't successful since the pinging of the process only needs to happen when the invocation was successful.
       filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-      switchMap((rd) => this.processDataService.autoRefreshUntilCompletion(rd.payload.processId)),
+      switchMap((rd) => {
+        this.autoRefreshIDs.push(rd.payload.processId);
+        return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
+      }),
       map((rd) => rd.payload)
     ).subscribe((process: Process) => {
       if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
@@ -135,7 +139,10 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
         }),
         filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-        switchMap((rd) => this.processDataService.autoRefreshUntilCompletion(rd.payload.processId)),
+        switchMap((rd) => {
+          this.autoRefreshIDs.push(rd.payload.processId);
+          return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
+        }),
         map((rd) => rd.payload)
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
@@ -170,7 +177,10 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
         }),
         filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-        switchMap((rd) => this.processDataService.autoRefreshUntilCompletion(rd.payload.processId)),
+        switchMap((rd) => {
+          this.autoRefreshIDs.push(rd.payload.processId);
+          return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
+        }),
         map((rd) => rd.payload)
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
@@ -190,6 +200,10 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       if (hasValue(sub)) {
         sub.unsubscribe();
       }
+    });
+
+    this.autoRefreshIDs.forEach((id) => {
+      this.processDataService.stopAutoRefreshing(id);
     });
   }
 }
