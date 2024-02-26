@@ -59,7 +59,9 @@
                     <span *ngIf="!eventElement?.target">{{eventElement.title}}</span>
                     <div *ngIf="eventElement?.event?.message?.serviceId">
                       <span class="small pr-1">{{'quality-assurance.event.table.event.message.serviceUrl' | translate}}</span>
-                      <span class="badge badge-info">{{eventElement.event.message.serviceId}}</span>
+                      <span [title]="eventElement.event.message.serviceId">
+                        <a [href]="eventElement.event.message.serviceId" target="_blank">{{eventElement.event.message.serviceId}}</a>
+                      </span>
                     </div>
                     <div *ngIf="eventElement?.event?.message?.href" class="d-flex align-items-center">
                       <span class="small pr-1">{{'quality-assurance.event.table.event.message.link' | translate}}</span>

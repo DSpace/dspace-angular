@@ -8,6 +8,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { LDN_PATH, NOTIFICATIONS_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
+import { NotifyInfoGuard } from '../core/coar-notify/notify-info/notify-info.guard';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
             loadChildren: () => import('./admin-ldn-services/admin-ldn-services.module')
                 .then((m) => m.AdminLdnServicesModule),
           }
-        ]
+        ],
+        canActivate: [NotifyInfoGuard]
       },
       {
         path: 'system-wide-alert',

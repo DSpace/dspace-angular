@@ -5930,4 +5930,35 @@
 
   "ldn-service-overview-close-modal": "Close modal",
 
+  "a-common-or_statement.label": "OR statement",
+
+  "always_true_filter.label": "Always true",
+
+  "automatic_processing_collection_filter_16.label": "Automatic processing",
+
+  "dc-identifier-uri-contains-doi_condition.label": "URI contains DOI",
+
+  "doi-filter.label": "DOI filter",
+
+  "driver-document-type_condition.label": "Document type equals driver",
+
+  "has-at-least-one-bitstream_condition.label": "Has at least one Bitstream",
+
+  "has-bitstream_filter.label": "Has Bitstream",
+
+  "has-one-bitstream_condition.label": "Has one Bitstream",
+
+  "is-archived_condition.label": "Is archived",
+
+  "is-withdrawn_condition.label": "Is withdrawn",
+
+  "item-is-public_condition.label": "Item is public",
+
+  "journals_ingest_suggestion_collection_filter_18.label": "Journals ingest",
+
+  "title-starts-with-pattern_condition.label": "Title starts with pattern",
+
+  "type-equals-dataset_condition.label": "Type equals Dataset",
+
+  "type-equals-journal-article_condition.label": "Type equals Journal Article",
 }

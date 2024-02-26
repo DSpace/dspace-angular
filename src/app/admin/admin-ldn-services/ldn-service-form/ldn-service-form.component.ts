@@ -59,7 +59,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   });
   public markedForDeletionInboundPattern: number[] = [];
   public selectedInboundPatterns: string[];
-  public selectedInboundItemfilters: string[];
 
   protected serviceId: string;
 
@@ -147,9 +146,11 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
 
     this.formModel.value.notifyServiceInboundPatterns = this.formModel.value.notifyServiceInboundPatterns.map((pattern: {
       pattern: string;
-      patternLabel: string
+      patternLabel: string,
+      constraintFormatted: string;
     }) => {
       const {patternLabel, ...rest} = pattern;
+      delete rest.constraintFormatted;
       return rest;
     });
 
@@ -304,6 +305,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   selectInboundItemFilter(filterValue: string, index: number): void {
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
     filterArray.controls[index].patchValue({constraint: filterValue});
+    filterArray.controls[index].patchValue({constraintFormatted: this.translateService.instant(filterValue + '.label')});
   }
 
   /**
@@ -484,6 +486,8 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       const patternGroup = patternsArray.at(i) as FormGroup;
 
       const patternValue = patternGroup.value;
+      delete patternValue.constraintFormatted;
+
       if (patternGroup.touched && patternGroup.valid) {
         delete patternValue?.patternLabel;
         if (patternValue.isNew) {
@@ -522,6 +526,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       pattern: '',
       patternLabel: this.translateService.instant(this.selectPatternDefaultLabeli18Key),
       constraint: '',
+      constraintFormatted: '',
       automatic: false,
       isNew: true
     };
@@ -542,6 +547,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       pattern: '',
       patternLabel: '',
       constraint: '',
+      constraintFormatted: '',
       automatic: '',
     });
   }

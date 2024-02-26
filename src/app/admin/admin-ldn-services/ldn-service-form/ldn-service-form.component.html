@@ -180,12 +180,20 @@
                     <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
                        ngbDropdownToggle></i>
                     <input
-                      (click)="inboundItemfilterDropdown.open();"
                       [readonly]="true"
-                      [value]="selectedInboundItemfilters"
-                      class="form-control w-100 scrollable-dropdown-input"
+                      class="form-control d-none w-100 scrollable-dropdown-input"
                       formControlName="constraint"
                       id="inboundItemfilterDropdown"
+                      ngbDropdownAnchor
+                      type="text"
+                      [attr.aria-label]="'ldn-service-input-inbound-item-filter-dropdown' | translate"
+                    />
+                    <input
+                      (click)="inboundItemfilterDropdown.open();"
+                      [readonly]="true"
+                      class="form-control w-100 scrollable-dropdown-input"
+                      formControlName="constraintFormatted"
+                      id="inboundItemfilterDropdownPrettified"
                       ngbDropdownAnchor
                       type="text"
                       [attr.aria-label]="'ldn-service-input-inbound-item-filter-dropdown' | translate"
@@ -203,7 +211,7 @@
                                 class="dropdown-item collection-item text-truncate w-100"
                                 ngbDropdownItem
                                 type="button">
-                          <div>{{ constraint.id }}</div>
+                          <div>{{ constraint.id + '.label' | translate }}</div>
                         </button>
                       </div>
                     </div>

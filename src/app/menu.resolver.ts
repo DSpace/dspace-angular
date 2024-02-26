@@ -171,8 +171,9 @@ export class MenuResolver implements Resolve<boolean> {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
       this.authorizationService.isAuthorized(FeatureID.CanEditItem),
-      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem, canSeeQa]) => {
+      this.authorizationService.isAuthorized(FeatureID.CanSeeQA),
+      this.authorizationService.isAuthorized(FeatureID.CoarNotifyEnabled),
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem, canSeeQa, isCoarNotifyEnabled]) => {
       const newSubMenuList = [
         {
           id: 'new_community',
@@ -228,7 +229,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'ldn_services_new',
           parentID: 'new',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.services_new',
@@ -367,7 +368,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'ldn_services',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.services',
