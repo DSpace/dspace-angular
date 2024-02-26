@@ -46,6 +46,7 @@ import { HostWindowService } from '../host-window.service';
 import { RSSComponent } from '../rss-feed/rss.component';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
+import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -170,6 +171,9 @@ describe('Pagination component', () => {
         RouterTestingModule.withRoutes([
           { path: 'home', component: TestComponent },
         ]),
+        UUIDService,
+        ],
+      declarations: [
         PaginationComponent,
         TestComponent,
         EnumKeysPipe,
@@ -181,6 +185,7 @@ describe('Pagination component', () => {
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
         PaginationComponent,
+        UUIDService,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideComponent(PaginationComponent, {
