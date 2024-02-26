@@ -183,6 +183,7 @@
                               ngbTooltip="{{'quality-assurance.event.action.undo' | translate}}"
                               container="body"
                               [disabled]="eventElement.isRunning"
+                              [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
                               (click)="openModal('UNDO', eventElement, undoModal)">
                         <i class="fas fa-trash-alt"></i>
                       </button>
