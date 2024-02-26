@@ -63,7 +63,9 @@ export class MarkdownPipe implements PipeTransform {
 
     let html: string;
     if (environment.markdown.mathjax) {
+      // TODO: instead of using md.use with mathjax, use ng-katex rendering from its service
       md.use(await this.mathjax);
+      // TODO: keep this as is
       const sanitizeHtml = await this.sanitizeHtml;
       html = sanitizeHtml(md.render(value), {
         // sanitize-html doesn't let through SVG by default, so we extend its allowlists to cover MathJax SVG
