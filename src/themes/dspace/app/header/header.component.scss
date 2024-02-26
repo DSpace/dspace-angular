@@ -1,7 +1,16 @@
 :host {
   #main-site-header {
-    height: var(--ds-header-height);
+    min-height: var(--ds-header-height);
+
+    @include media-breakpoint-up(md) {
+      height: var(--ds-header-height);
+    }
+
     background-color: var(--ds-header-bg);
+
+    &-container {
+      min-height: var(--ds-header-height);
+    }
   }
 
   img#header-logo {
