@@ -2,60 +2,46 @@
     <div class="d-flex">
         <h1 class="flex-grow-1">{{'process.overview.title' | translate}}</h1>
     </div>
-    <div class="d-flex justify-content-end">
+    <ng-container *ngTemplateOutlet="buttons"></ng-container>
+
+    <div class="sections">
+        <ds-process-overview-table
+                [processStatus]="ProcessStatus.RUNNING"
+                [useAutoRefreshingSearchBy]="true"
+                [getInfoValueMethod]="processOverviewService.timeStarted"/>
+        <ds-process-overview-table
+                [processStatus]="ProcessStatus.SCHEDULED"
+                [useAutoRefreshingSearchBy]="true"
+                [getInfoValueMethod]="processOverviewService.timeCreated"/>
+        <ds-process-overview-table
+                [processStatus]="ProcessStatus.COMPLETED"
+                [sortField]="ProcessSortField.endTime"
+                [useAutoRefreshingSearchBy]="true"
+                [getInfoValueMethod]="processOverviewService.timeCompleted"/>
+        <ds-process-overview-table
+                [processStatus]="ProcessStatus.FAILED"
+                [sortField]="ProcessSortField.endTime"
+                [useAutoRefreshingSearchBy]="true"
+                [getInfoValueMethod]="processOverviewService.timeCompleted"/>
+    </div>
+
+    <ng-container *ngTemplateOutlet="buttons"></ng-container>
+</div>
+
+<ng-template #buttons>
+    <div class="d-flex justify-content-end mb-2">
         <button *ngIf="processBulkDeleteService.hasSelected()" class="btn btn-primary mr-2"
                 (click)="processBulkDeleteService.clearAllProcesses()"><i
-                class="fas fa-undo pr-2"></i>{{'process.overview.delete.clear' | translate }}
+            class="fas fa-undo pr-2"></i>{{'process.overview.delete.clear' | translate }}
         </button>
         <button *ngIf="processBulkDeleteService.hasSelected()" class="btn btn-danger mr-2"
                 (click)="openDeleteModal(deleteModal)"><i
-                class="fas fa-trash pr-2"></i>{{'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}
+            class="fas fa-trash pr-2"></i>{{'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}
         </button>
         <button class="btn btn-success" routerLink="/processes/new"><i
-                class="fas fa-plus pr-2"></i>{{'process.overview.new' | translate}}</button>
-
+            class="fas fa-plus pr-2"></i>{{'process.overview.new' | translate}}</button>
     </div>
-    <ds-pagination *ngIf="(processesRD$ | async)?.payload?.totalElements > 0"
-                   [paginationOptions]="pageConfig"
-                   [pageInfoState]="(processesRD$ | async)?.payload"
-                   [collectionSize]="(processesRD$ | async)?.payload?.totalElements"
-                   [hideGear]="true"
-                   [hidePagerWhenSinglePage]="true">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">{{'process.overview.table.id' | translate}}</th>
-                    <th scope="col">{{'process.overview.table.name' | translate}}</th>
-                    <th scope="col">{{'process.overview.table.user' | translate}}</th>
-                    <th scope="col">{{'process.overview.table.start' | translate}}</th>
-                    <th scope="col">{{'process.overview.table.finish' | translate}}</th>
-                    <th scope="col">{{'process.overview.table.status' | translate}}</th>
-                    <th scope="col">{{'process.overview.table.actions' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let process of (processesRD$ | async)?.payload?.page"
-                    [class.table-danger]="processBulkDeleteService.isToBeDeleted(process.processId)">
-                    <td><a [routerLink]="['/processes/', process.processId]">{{process.processId}}</a></td>
-                    <td><a [routerLink]="['/processes/', process.processId]">{{process.scriptName}}</a></td>
-                    <td *ngVar="(getEpersonName(process.userId) | async) as ePersonName">{{ePersonName}}</td>
-                    <td>{{process.startTime | date:dateFormat:'UTC'}}</td>
-                    <td>{{process.endTime | date:dateFormat:'UTC'}}</td>
-                    <td>{{process.processStatus}}</td>
-                    <td>
-                        <button [attr.aria-label]="'process.overview.delete-process' | translate"
-                                (click)="processBulkDeleteService.toggleDelete(process.processId)"
-                                class="btn btn-outline-danger">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </ds-pagination>
-</div>
+</ng-template>
 
 <ng-template #deleteModal>
 
@@ -90,4 +76,3 @@
 
 
 </ng-template>
-

@@ -136,7 +136,7 @@ submission:
       # NOTE: example of configuration
       #   # NOTE: metadata name
       # - name: dc.author
-      #   # NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
+      #   # NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
       #   style: fas fa-user
       - name: dc.author
         style: fas fa-user
@@ -147,18 +147,40 @@ submission:
       confidence:
         # NOTE: example of configuration
         #   # NOTE: confidence value
-        # - name: dc.author
-        #   # NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
-        #   style: fa-user
+        # - value: 600
+        #   # NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
+        #   style: text-success
+        #   icon: fa-circle-check
+        #   # NOTE: the class configured in property style is used by default, the icon property could be used in component
+        #           configured to use a 'icon mode' display (mainly in edit-item page)
         - value: 600
           style: text-success
+          icon: fa-circle-check
         - value: 500
           style: text-info
+          icon: fa-gear
         - value: 400
           style: text-warning
+          icon: fa-circle-question
+        - value: 300
+          style: text-muted
+          icon: fa-thumbs-down
+        - value: 200
+          style: text-muted
+          icon: fa-circle-exclamation
+        - value: 100
+          style: text-muted
+          icon: fa-circle-stop
+        - value: 0
+          style: text-muted
+          icon: fa-ban
+        - value: -1
+          style: text-muted
+          icon: fa-circle-xmark
         # default configuration
         - value: default
           style: text-muted
+          icon: fa-circle-xmark
 
 #  Default Language in which the UI will be rendered if the user's browser language is not an active language
 defaultLanguage: en
@@ -272,6 +294,8 @@ homePage:
     # No. of communities to list per page on the home page
     # This will always round to the nearest number from the list of page sizes. e.g. if you set it to 7 it'll use 10
     pageSize: 5
+  # Enable or disable the Discover filters on the homepage
+  showDiscoverFilters: false
 
 # Item Config
 item:

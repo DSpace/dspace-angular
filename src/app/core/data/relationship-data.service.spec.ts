@@ -23,6 +23,7 @@ import { FindListOptions } from './find-list-options.model';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;
@@ -114,14 +115,7 @@ describe('RelationshipDataService', () => {
     'href': buildList$,
     'https://rest.api/core/publication/relationships': relationships$
   });
-  const objectCache = Object.assign({
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    remove: () => {
-    },
-    hasBySelfLinkObservable: () => observableOf(false),
-    hasByHref$: () => observableOf(false)
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  }) as ObjectCacheService;
+  const objectCache = new ObjectCacheServiceStub();
 
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
@@ -133,7 +127,7 @@ describe('RelationshipDataService', () => {
       requestService,
       rdbService,
       halService,
-      objectCache,
+      objectCache as ObjectCacheService,
       itemService,
       null,
       jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),

@@ -20,7 +20,8 @@ describe('SearchFiltersComponent', () => {
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {
-    }
+    },
+    getConfigurationSearchConfig: () => { },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
 
