@@ -1,4 +1,4 @@
-<li [ngClass]="{'expanded': (isExpanded$ | async)}" role="presentation"
+<div [ngClass]="{'expanded': (isExpanded$ | async)}"
     [@bgColor]="{
      value: ((isExpanded$ | async) ? 'endBackground' : 'startBackground'),
      params: {endColor: (sidebarActiveBg$ | async)}
@@ -33,14 +33,14 @@
     <div class="sidebar-fixed-element-wrapper"></div>
     <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper">
-        <ul class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section.id)" [attr.aria-label]="('menu.section.' + section.id) | translate">
-          <li class="sidebar-item" role="presentation" *ngFor="let subSection of (subSections$ | async)">
+        <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section.id)" [attr.aria-label]="('menu.section.' + section.id) | translate">
+          <div class="sidebar-item" *ngFor="let subSection of (subSections$ | async)">
             {{ (sectionMap$ | async).get(subSection.id).component | json}}
             <ng-container
               *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</li>
+</div>
