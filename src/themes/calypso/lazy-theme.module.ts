@@ -74,9 +74,6 @@ import {RequestCopyModule} from "../../app/request-copy/request-copy.module";
 import {DsoPageModule} from "../../app/shared/dso-page/dso-page.module";
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import {ItemPageComponent} from "./app/item-page/simple/item-page.component";
-import {FileSectionComponent} from "./app/item-page/simple/field-components/file-section/file-section.component";
-import {ItemPageTitleFieldComponent} from "./app/item-page/simple/field-components/specific-field/title/item-page-title-field.component";
-import {MetadataRepresentationListComponent} from "./app/item-page/simple/metadata-representation-list/metadata-representation-list.component";
 
 
 
@@ -89,10 +86,7 @@ const DECLARATIONS = [
   VedetteCollListeComponent,
   DsoEditMetadataComponent,
   BrowseByComponent,
-  ItemPageComponent,
-  FileSectionComponent,
-  ItemPageTitleFieldComponent,
-  MetadataRepresentationListComponent
+  ItemPageComponent
 ];
 
 @NgModule({

@@ -10,13 +10,13 @@
 <!-- Afficher le contenu dans des onglets -->
   <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs" >
     <li [ngbNavItem]="1"  >
-      <a ngbNavLink (click)="displaySection('calypso-mirador')">Fichiers</a>
+      <a ngbNavLink (click)="displaySection('calypso-mirador')">{{'calypso.onglet-fichier' | translate}}</a>
       <ng-template ngbNavContent>
         <!-- Cette section reste vide parce qu'elle affichera mirador -->
       </ng-template>
     </li>
     <li [ngbNavItem]="2" >
-      <a ngbNavLink (click)="hideSection('calypso-mirador')">Notice complète</a>
+      <a ngbNavLink (click)="hideSection('calypso-mirador')">{{'calypso.onglet-notice' | translate}}</a>
       <ng-template ngbNavContent>
         <!-- Afficher les métadonnées dans un tableau -->
         <div class="table-responsive mt-2">
@@ -39,7 +39,7 @@
       </ng-template>
     </li>
     <li [ngbNavItem]="3" >
-      <a ngbNavLink (click)="hideSection('calypso-mirador')">Autres</a>
+      <a ngbNavLink (click)="hideSection('calypso-mirador')">{{'calypso.onglet-autre' | translate}}</a>
       <ng-template ngbNavContent>
         <div class="table-responsive mt-2">
           <!-- Ajoutez le contenu spécifique à l'onglet 3 ici -->

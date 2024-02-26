@@ -1,5 +1,8 @@
 {
   // "repository.title.prefix": "DSpace Angular :: ",
   "repository.title.prefix": "Calypso :: ",
+  "calypso.onglet-fichier": "Fichiers",
+  "calypso.onglet-notice": "Notice complète",
+  "calypso.onglet-autre": "Autres"
 
 }

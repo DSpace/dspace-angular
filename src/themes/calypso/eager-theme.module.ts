@@ -9,7 +9,6 @@ import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-b
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import {TopLevelCommunityListComponent} from "./app/home-page/top-level-community-list/top-level-community-list.component";
-import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
 
 
@@ -19,7 +18,6 @@ import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-
  */
 const ENTRY_COMPONENTS = [
   TopLevelCommunityListComponent,
-  PublicationComponent,
   UntypedItemComponent
 ];
 
