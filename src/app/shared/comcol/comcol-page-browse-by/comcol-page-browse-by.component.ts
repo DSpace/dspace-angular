@@ -55,16 +55,21 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
           if (this.contentType === 'collection') {
             comColRoute = getCollectionPageRoute(this.id);
             allOptions.push({
-              id: 'recent_submissions',
-              label: 'collection.page.browse.recent.head',
+              id: 'search',
+              label: 'collection.page.browse.search.head',
               routerLink: comColRoute,
             });
           } else if (this.contentType === 'community') {
             comColRoute = getCommunityPageRoute(this.id);
             allOptions.push({
+              id: 'search',
+              label: 'collection.page.browse.search.head',
+              routerLink: comColRoute,
+            });
+            allOptions.push({
               id: 'comcols',
               label: 'community.all-lists.head',
-              routerLink: comColRoute,
+              routerLink: `${comColRoute}/subcoms-cols`,
             });
           }
 

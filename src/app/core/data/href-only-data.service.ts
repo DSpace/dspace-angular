@@ -17,8 +17,8 @@ import { HALDataService } from './base/hal-data-service.interface';
 import { dataService } from './base/data-service.decorator';
 
 /**
- * A DataService with only findByHref methods. Its purpose is to be used for resources that don't
- * need to be retrieved by ID, or have any way to update them, but require a DataService in order
+ * A UpdateDataServiceImpl with only findByHref methods. Its purpose is to be used for resources that don't
+ * need to be retrieved by ID, or have any way to update them, but require a UpdateDataServiceImpl in order
  * for their links to be resolved by the LinkService.
  *
  * an @dataService annotation can be added for any number of these resource types

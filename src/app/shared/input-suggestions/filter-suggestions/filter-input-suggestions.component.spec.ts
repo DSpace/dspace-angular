@@ -54,4 +54,31 @@ describe('FilterInputSuggestionsComponent', () => {
       expect(comp.onClickSuggestion).toHaveBeenCalledWith(suggestions[clickedIndex]);
     });
   });
+
+  describe('component methods', () => {
+    const testData = {
+      value: 'test-field'
+    } as unknown as any;
+
+    beforeEach(() => {
+      spyOn(comp.submitSuggestion, 'emit');
+      spyOn(comp.clickSuggestion, 'emit');
+      spyOn(comp, 'close');
+    });
+
+    it('should properly submit', () => {
+      comp.onSubmit(testData);
+      expect(comp.submitSuggestion.emit).toHaveBeenCalledWith(testData);
+      expect(comp.value).toBe(testData);
+    });
+
+    it('should update value on suggestion clicked', () => {
+      comp.onClickSuggestion(testData);
+      expect(comp.clickSuggestion.emit).toHaveBeenCalledWith(testData);
+      expect(comp.value).toBe(testData.value);
+      expect(comp.blockReopen).toBeTruthy();
+      expect(comp.close).toHaveBeenCalled();
+    });
+  });
+
 });

@@ -34,7 +34,6 @@ import { ThemedSearchSettingsComponent } from './search-settings/themed-search-s
 import { NouisliderModule } from 'ng2-nouislider';
 import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
-
 const COMPONENTS = [
   SearchComponent,
   ThemedSearchComponent,

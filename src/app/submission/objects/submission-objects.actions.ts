@@ -59,6 +59,7 @@ export const SubmissionObjectActionTypes = {
   // Upload file types
   NEW_FILE: type('dspace/submission/NEW_FILE'),
   EDIT_FILE_DATA: type('dspace/submission/EDIT_FILE_DATA'),
+  EDIT_FILE_PRIMARY_BITSTREAM_DATA: type('dspace/submission/EDIT_FILE_PRIMARY_BITSTREAM_DATA'),
   DELETE_FILE: type('dspace/submission/DELETE_FILE'),
 
   // Errors
@@ -760,6 +761,29 @@ export class NewUploadedFileAction implements Action {
   }
 }
 
+export class EditFilePrimaryBitstreamAction implements Action {
+  type = SubmissionObjectActionTypes.EDIT_FILE_PRIMARY_BITSTREAM_DATA;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+    fileId: string | null;
+  };
+
+  /**
+   * Edit a file data
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
+   * @param fileId
+   *    the file's ID
+   */
+  constructor(submissionId: string, sectionId: string, fileId: string | null) {
+    this.payload = { submissionId, sectionId, fileId: fileId };
+  }
+}
+
 export class EditFileDataAction implements Action {
   type = SubmissionObjectActionTypes.EDIT_FILE_DATA;
   payload: {
@@ -833,6 +857,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | SectionStatusChangeAction
   | NewUploadedFileAction
   | EditFileDataAction
+  | EditFilePrimaryBitstreamAction
   | DeleteUploadedFileAction
   | InertSectionErrorsAction
   | DeleteSectionErrorsAction

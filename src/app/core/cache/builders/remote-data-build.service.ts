@@ -161,6 +161,7 @@ export class RemoteDataBuildService {
       } else {
         // in case the elements of the paginated list were already filled in, because they're UnCacheableObjects
         paginatedList.page = paginatedList.page
+          .filter((obj: any) => obj != null)
           .map((obj: any) => this.plainObjectToInstance<T>(obj))
           .map((obj: any) =>
             this.linkService.resolveLinks(obj, ...pageLink.linksToFollow)
@@ -272,12 +273,13 @@ export class RemoteDataBuildService {
           return isStale(r2.state) ? r1 : r2;
         }
       }),
-      distinctUntilKeyChanged('lastUpdated')
     );
 
     const payload$ = this.buildPayload<T>(requestEntry$, href$, ...linksToFollow);
 
-    return this.toRemoteDataObservable<T>(requestEntry$, payload$);
+    return this.toRemoteDataObservable<T>(requestEntry$, payload$).pipe(
+      distinctUntilKeyChanged('lastUpdated'),
+    );
   }
 
   /**

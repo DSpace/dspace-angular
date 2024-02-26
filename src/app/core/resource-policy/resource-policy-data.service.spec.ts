@@ -20,13 +20,14 @@ import { FindListOptions } from '../data/find-list-options.model';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;
   let service: ResourcePolicyDataService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
   let ePersonService: EPersonDataService;
@@ -139,14 +140,14 @@ describe('ResourcePolicyService', () => {
         a: 'https://rest.api/rest/api/eperson/groups/' + groupUUID
       }),
     });
-    objectCache = {} as ObjectCacheService;
+    objectCache = new ObjectCacheServiceStub();
     const notificationsService = {} as NotificationsService;
     const comparator = {} as any;
 
     service = new ResourcePolicyDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
       notificationsService,
       comparator,

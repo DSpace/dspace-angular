@@ -25,6 +25,7 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestEntry } from '../../data/request-entry.model';
 import { VocabularyDataService } from './vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
+import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -205,6 +206,7 @@ describe('VocabularyService', () => {
 
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
+    objectCache = new ObjectCacheServiceStub() as ObjectCacheService;
 
     return new VocabularyService(
       requestService,
@@ -253,7 +255,9 @@ describe('VocabularyService', () => {
         spyOn((service as any).vocabularyDataService, 'findById').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
+        spyOn((service as any).vocabularyDataService, 'getVocabularyByMetadataAndCollection').and.callThrough();
         spyOn((service as any).vocabularyDataService.findAllData, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
+        spyOn((service as any).vocabularyDataService.searchData, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
       });
 
       afterEach(() => {
@@ -306,6 +310,23 @@ describe('VocabularyService', () => {
           const result = service.findAllVocabularies();
           const expected = cold('a|', {
             a: paginatedListRD
+          });
+          expect(result).toBeObservable(expected);
+        });
+      });
+
+      describe('getVocabularyByMetadataAndCollection', () => {
+        it('should proxy the call to vocabularyDataService.getVocabularyByMetadataAndCollection', () => {
+          scheduler.schedule(() => service.getVocabularyByMetadataAndCollection(metadata, collectionUUID));
+          scheduler.flush();
+
+          expect((service as any).vocabularyDataService.getVocabularyByMetadataAndCollection).toHaveBeenCalledWith(metadata, collectionUUID, true, true);
+        });
+
+        it('should return a RemoteData<Vocabulary> for the object with the given metadata and collection', () => {
+          const result = service.getVocabularyByMetadataAndCollection(metadata, collectionUUID);
+          const expected = cold('a|', {
+            a: vocabularyRD
           });
           expect(result).toBeObservable(expected);
         });
