@@ -1,6 +1,6 @@
 <ds-themed-loading *ngIf="(loading$ | async)"></ds-themed-loading>
 <ul *ngIf="!(loading$ | async)" class="user-menu" role="menu"
-    [ngClass]="{ 'pb-2 mb-2 border-bottom' : inExpandableNavbar }"
+    [ngClass]="inExpandableNavbar ? 'user-menu-mobile pb-2 mb-2 border-bottom' : 'user-menu-dropdown'"
     [attr.aria-label]="'nav.user-profile-menu-and-logout' |translate" id="user-menu-dropdown">
   <li class="ds-menu-item-wrapper username-email-wrapper" role="presentation">
     {{dsoNameService.getName(user$ | async)}}<br>

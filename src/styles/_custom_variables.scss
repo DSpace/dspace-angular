@@ -36,13 +36,14 @@
   --ds-header-navbar-border-bottom-color: #{$ds-header-navbar-border-bottom-color};
 
   --ds-expandable-navbar-bg: #{$ds-expandable-navbar-bg};
-  --ds-expandable-navbar-link-color: #{$ds-navbar-link-color};
-  --ds-expandable-navbar-link-color-hover: #{$ds-navbar-link-color-hover};
-  --ds-expandable-navbar-dropdown-item-vertical-padding: 0.25rem;
-  --ds-expandable-navbar-dropdown-item-horizontal-padding: 0;
+  --ds-expandable-navbar-link-color: #{$body-color};
+  --ds-expandable-navbar-link-color-hover: #{$body-color};
+  --ds-expandable-navbar-link-background-hover: #{$ds-navbar-link-color-hover};
 
   --ds-user-menu-item-vertical-padding: 0.25rem;
-  --ds-user-menu-item-horizontal-padding: 0;
+  --ds-user-menu-dropdown-padding: 1rem;
+  --ds-user-menu-dropdown-link-color: #{$dark};
+  --ds-user-menu-dropdown-link-background-hover: #{$gray-200};
 
   @include media-breakpoint-up(md) {
     --ds-header-logo-height: 50px;
