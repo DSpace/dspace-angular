@@ -432,4 +432,4 @@ search:
   advancedFilters:
     enabled: false
     # List of filters to enable in "Advanced Search" dropdown
-    filters: [ 'title', 'author', 'subject', 'entityType' ]
+    filter: [ 'title', 'author', 'subject', 'entityType' ]
