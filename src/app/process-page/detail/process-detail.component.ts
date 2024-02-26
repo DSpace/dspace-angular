@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, map, switchMap, take, tap, find, startWith, filter } from 'rxjs/operators';
@@ -36,7 +36,7 @@ import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
 /**
  * A component displaying detailed information about a DSpace Process
  */
-export class ProcessDetailComponent implements OnInit {
+export class ProcessDetailComponent implements OnInit, OnDestroy {
 
   /**
    * The AlertType enumeration
@@ -82,6 +82,8 @@ export class ProcessDetailComponent implements OnInit {
 
   isDeleting: boolean;
 
+  protected autoRefreshingID: string;
+
   /**
    * Reference to NgbModal
    */
@@ -110,7 +112,8 @@ export class ProcessDetailComponent implements OnInit {
     this.processRD$ = this.route.data.pipe(
       switchMap((data) => {
         if (isPlatformBrowser(this.platformId)) {
-          return this.processService.autoRefreshUntilCompletion(this.route.snapshot.params.id, 5000, ...PROCESS_PAGE_FOLLOW_LINKS);
+          this.autoRefreshingID = this.route.snapshot.params.id;
+          return this.processService.autoRefreshUntilCompletion(this.autoRefreshingID, 5000, ...PROCESS_PAGE_FOLLOW_LINKS);
         } else {
           return [data.process as RemoteData<Process>];
         }
@@ -129,6 +132,15 @@ export class ProcessDetailComponent implements OnInit {
       getAllSucceededRemoteDataPayload(),
       switchMap((process: Process) => process.files),
     );
+  }
+
+  /**
+   * Make sure the autoRefreshUntilCompletion is cleaned up properly
+   */
+  ngOnDestroy() {
+    if (hasValue(this.autoRefreshingID)) {
+      this.processService.stopAutoRefreshing(this.autoRefreshingID);
+    }
   }
 
   /**

@@ -5,7 +5,7 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { PROCESS } from '../../../process-page/processes/process.resource-type';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { switchMap, filter, distinctUntilChanged, find } from 'rxjs/operators';
 import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
@@ -22,6 +22,7 @@ import { NoContent } from '../../shared/NoContent.model';
 import { getAllCompletedRemoteData } from '../../shared/operators';
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 import { hasValue } from '../../../shared/empty.util';
+import { SearchData, SearchDataImpl } from '../base/search-data';
 
 /**
  * Create an InjectionToken for the default JS setTimeout function, purely so we can mock it during
@@ -34,11 +35,13 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
 
 @Injectable()
 @dataService(PROCESS)
-export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process> {
+export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process>, SearchData<Process> {
 
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
+  private searchData: SearchData<Process>;
   protected activelyBeingPolled: Map<string, NodeJS.Timeout> = new Map();
+  protected subs: Map<string, Subscription> = new Map();
 
   constructor(
     protected requestService: RequestService,
@@ -54,6 +57,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
 
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -110,6 +114,71 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   }
 
   /**
+   * @param searchMethod                The search method for the Process
+   * @param options                     The FindListOptions object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true.
+   * @param reRequestOnStale            Whether the request should automatically be re-
+   *                                    requested after the response becomes stale.
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should automatically be resolved.
+   * @return {Observable<RemoteData<PaginatedList<Process>>>}
+   *    Return an observable that emits a paginated list of processes
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * @param id                          The id for this auto-refreshing search. Used to stop
+   *                                    auto-refreshing afterwards, and ensure we're not
+   *                                    auto-refreshing the same thing multiple times.
+   * @param searchMethod                The search method for the Process
+   * @param options                     The FindListOptions object
+   * @param pollingIntervalInMs         The interval by which the search will be repeated
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should automatically be resolved.
+   * @return {Observable<RemoteData<PaginatedList<Process>>>}
+   *    Return an observable that emits a paginated list of processes every interval
+   */
+  autoRefreshingSearchBy(id: string, searchMethod: string, options?: FindListOptions, pollingIntervalInMs: number = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
+
+    const result$ = this.searchBy(searchMethod, options, true, true, ...linksToFollow).pipe(
+      getAllCompletedRemoteData()
+    );
+
+    const sub = result$.pipe(
+      filter(() =>
+        !this.activelyBeingPolled.has(id)
+      )
+    ).subscribe((processListRd: RemoteData<PaginatedList<Process>>) => {
+      this.clearCurrentTimeout(id);
+      const nextTimeout = this.timer(() => {
+        this.activelyBeingPolled.delete(id);
+        this.requestService.setStaleByHrefSubstring(processListRd.payload._links.self.href);
+      }, pollingIntervalInMs);
+
+      this.activelyBeingPolled.set(id, nextTimeout);
+    });
+
+    this.subs.set(id, sub);
+
+    return result$;
+  }
+
+  /**
+   * Stop auto-refreshing the request with the given id
+   * @param id the id of the request to stop automatically refreshing
+   */
+  stopAutoRefreshing(id: string) {
+    this.clearCurrentTimeout(id);
+    if (hasValue(this.subs.get(id))) {
+      this.subs.get(id).unsubscribe();
+      this.subs.delete(id);
+    }
+  }
+
+  /**
    * Delete an existing object on the server
    * @param   objectId The id of the object to be removed
    * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
@@ -135,14 +204,15 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   }
 
   /**
-   * Clear the timeout for the given process, if that timeout exists
+   * Clear the timeout for the given id, if that timeout exists
    * @protected
    */
-  protected clearCurrentTimeout(processId: string): void {
-    const timeout = this.activelyBeingPolled.get(processId);
+  protected clearCurrentTimeout(id: string): void {
+    const timeout = this.activelyBeingPolled.get(id);
     if (hasValue(timeout)) {
       clearTimeout(timeout);
     }
+    this.activelyBeingPolled.delete(id);
   }
 
   /**
@@ -185,15 +255,15 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
       }
     });
 
+    this.subs.set(processId, sub);
+
     // When the process completes create a one off subscription (the `find` completes the
     // observable) that unsubscribes the previous one, removes the processId from the list of
     // processes being polled and clears any running timeouts
     process$.pipe(
       find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload))
     ).subscribe(() => {
-      this.clearCurrentTimeout(processId);
-      this.activelyBeingPolled.delete(processId);
-      sub.unsubscribe();
+      this.stopAutoRefreshing(processId);
     });
 
     return process$.pipe(
