@@ -1,5 +1,5 @@
 <header id="main-site-header">
-  <div class="container h-100 d-flex flex-row flex-nowrap justify-content-between gapx-3">
+  <div class="container h-100 d-flex flex-row flex-wrap align-items-center justify-content-between gapx-3 gapy-2" id="main-site-header-container">
     <!-- Logo and navbar wrapper -->
     <div id="header-left"
          [attr.role]="(isMobile$ | async) ? 'navigation' : 'presentation'"
@@ -13,7 +13,7 @@
       </nav>
     </div>
     <!-- Search bar and other menus -->
-    <div id="header-right" class="h-100 d-flex flex-row flex-nowrap justify-content-end align-items-center gapx-1">
+    <div id="header-right" class="h-100 d-flex flex-row flex-nowrap justify-content-end align-items-center gapx-1 ml-auto">
       <ds-themed-search-navbar></ds-themed-search-navbar>
       <div role="menubar" class="h-100 d-flex flex-row flex-nowrap align-items-center gapx-1">
         <ds-themed-lang-switch></ds-themed-lang-switch>
