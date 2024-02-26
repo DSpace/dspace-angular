@@ -9,6 +9,7 @@ import {
   DomSanitizer,
   SafeHtml,
 } from '@angular/platform-browser';
+import { MathService } from 'src/app/core/shared/math.service';
 
 import { environment } from '../../../environments/environment';
 import { isEmpty } from '../empty.util';
@@ -58,6 +59,7 @@ export class MarkdownPipe implements PipeTransform {
     @Inject(MARKDOWN_IT) private markdownIt: LazyMarkdownIt,
     // @Inject(MATHJAX) private mathjax: Mathjax,
     @Inject(SANITIZE_HTML) private sanitizeHtml: SanitizeHtml,
+    private mathService: MathService,
   ) {
   }
 
@@ -73,9 +75,6 @@ export class MarkdownPipe implements PipeTransform {
 
     let html: string;
     if (environment.markdown.mathjax) {
-      // TODO: instead of using md.use with mathjax, use ng-katex rendering from its service
-      md.use(await this.mathjax);
-      // TODO: keep this as is
       const sanitizeHtml = await this.sanitizeHtml;
       html = sanitizeHtml(md.render(value), {
         // sanitize-html doesn't let through SVG by default, so we extend its allowlists to cover MathJax SVG
