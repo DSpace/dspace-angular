@@ -3,22 +3,28 @@ import { TestBed } from '@angular/core/testing';
 import { NotifyInfoService } from './notify-info.service';
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { of } from 'rxjs';
+import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';
 
 describe('NotifyInfoService', () => {
   let service: NotifyInfoService;
   let configurationDataService: any;
-
-  beforeEach(() => {
-    configurationDataService = {
-      findByPropertyName: jasmine.createSpy('findByPropertyName').and.returnValue(of({})),
-    };
+  let authorizationDataService: any;
+    beforeEach(() => {
+      authorizationDataService = {
+        isAuthorized: jasmine.createSpy('isAuthorized').and.returnValue(of(true)),
+      };
+      configurationDataService = {
+        findByPropertyName: jasmine.createSpy('findByPropertyName').and.returnValue(of({})),
+      };
     TestBed.configureTestingModule({
       providers: [
         NotifyInfoService,
         { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService }
       ]
     });
     service = TestBed.inject(NotifyInfoService);
+    authorizationDataService = TestBed.inject(AuthorizationDataService);
     configurationDataService = TestBed.inject(ConfigurationDataService);
   });
 
