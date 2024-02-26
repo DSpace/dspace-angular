@@ -3,3 +3,5 @@ rest:
   host: sandbox.dspace.org
   port: 443
   nameSpace: /server
+item:
+  showAltmetricBadge: true

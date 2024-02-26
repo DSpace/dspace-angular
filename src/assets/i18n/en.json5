@@ -2542,6 +2542,8 @@
 
   "item.page.claim.tooltip": "Claim this item as profile",
 
+  "item.page.metrics": "Metrics",
+
   "item.page.image.alt.ROR": "ROR logo",
 
   "item.preview.dc.identifier.uri": "Identifier:",
