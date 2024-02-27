@@ -157,11 +157,20 @@ export class SearchFilterComponent implements OnInit {
   }
 
   get regionId(): string {
-    return `search-filter-region-${this.sequenceId}`;
+    if (this.inPlaceSearch) {
+      return `search-filter-region-${this.sequenceId}`;
+    } else {
+      return `search-filter-region-home-${this.sequenceId}`;
+    }
+
   }
 
   get toggleId(): string {
-    return `search-filter-toggle-${this.sequenceId}`;
+    if (this.inPlaceSearch) {
+      return `search-filter-toggle-${this.sequenceId}`;
+    } else {
+      return `search-filter-toggle-home-${this.sequenceId}`;
+    }
   }
 
   /**
