@@ -14,6 +14,9 @@ import { AdminQualityAssuranceTopicsPageResolver } from './admin-quality-assuran
 import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.resolver';
 import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
 import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
+import {
+  SiteAdministratorGuard
+} from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import { QualityAssuranceBreadcrumbService } from '../../core/breadcrumbs/quality-assurance-breadcrumb.service';
 import {
@@ -55,6 +58,21 @@ import {
       },
       {
         canActivate: [ AuthenticatedGuard ],
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
+        component: AdminQualityAssuranceTopicsPageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+          openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver
+        },
+        data: {
+          title: 'admin.quality-assurance.page.title',
+          breadcrumbKey: 'admin.quality-assurance',
+          showBreadcrumbsFluid: false
+        }
+      },
+      {
+        canActivate: [ SiteAdministratorGuard ],
         path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
         component: AdminQualityAssuranceSourcePageComponent,
         pathMatch: 'full',

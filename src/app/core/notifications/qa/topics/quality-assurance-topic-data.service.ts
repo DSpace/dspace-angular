@@ -15,6 +15,7 @@ import { FindListOptions } from '../../../data/find-list-options.model';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
 import { dataService } from '../../../data/base/data-service.decorator';
 import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
+import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 
 /**
@@ -25,6 +26,10 @@ import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 
   private findAllData: FindAllData<QualityAssuranceTopicObject>;
+  private searchData: SearchData<QualityAssuranceTopicObject>;
+
+  private searchByTargetMethod = 'byTarget';
+  private searchBySourceMethod = 'bySource';
 
   /**
    * Initialize service variables
@@ -43,23 +48,31 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
   ) {
     super('qualityassurancetopics', requestService, rdbService, objectCache, halService);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
-   * Return the list of Quality Assurance topics.
-   *
-   * @param options                     Find list options object.
-   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
-   *                                    no valid cached version. Defaults to true
-   * @param reRequestOnStale            Whether or not the request should automatically be re-
-   *                                    requested after the response becomes stale
-   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved.
-   *
-   * @return Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>>
-   *    The list of Quality Assurance topics.
+   * Search for Quality Assurance topics.
+   * @param options The search options.
+   * @param useCachedVersionIfAvailable Whether to use cached version if available.
+   * @param reRequestOnStale Whether to re-request on stale.
+   * @param linksToFollow The links to follow.
+   * @returns An observable of remote data containing a paginated list of Quality Assurance topics.
    */
-  public getTopics(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
-    return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  public searchTopicsByTarget(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
+    return this.searchData.searchBy(this.searchByTargetMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Searches for quality assurance topics by source.
+   * @param options The search options.
+   * @param useCachedVersionIfAvailable Whether to use a cached version if available.
+   * @param reRequestOnStale Whether to re-request the data if it's stale.
+   * @param linksToFollow The links to follow.
+   * @returns An observable of the remote data containing the paginated list of quality assurance topics.
+   */
+  public searchTopicsBySource(options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<QualityAssuranceTopicObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>> {
+    return this.searchData.searchBy(this.searchBySourceMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

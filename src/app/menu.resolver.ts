@@ -171,7 +171,8 @@ export class MenuResolver implements Resolve<boolean> {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
       this.authorizationService.isAuthorized(FeatureID.CanEditItem),
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem]) => {
+      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem, canSeeQa]) => {
       const newSubMenuList = [
         {
           id: 'new_community',
@@ -362,6 +363,40 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'heartbeat',
           index: 11
         },
+         /* Notifications */
+         {
+          id: 'notifications',
+          active: false,
+          visible: canSeeQa || isSiteAdmin,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_quality-assurance',
+          parentID: 'notifications',
+          active: false,
+          visible: canSeeQa,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.quality-assurance',
+            link: '/notifications/quality-assurance'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'notifications_publication-claim',
+          parentID: 'notifications',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_publication-claim',
+            link: '/notifications/' + PUBLICATION_CLAIMS_PATH
+          } as LinkMenuItemModel,
+        },
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true
@@ -531,46 +566,9 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator
    */
   createSiteAdministratorMenuSections() {
-    combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
-    ])
-    .subscribe(([authorized, canSeeQA]) => {
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+    .subscribe((authorized) => {
       const menuList = [
-        /* Notifications */
-        {
-          id: 'notifications',
-          active: false,
-          visible: authorized && canSeeQA,
-          model: {
-            type: MenuItemType.TEXT,
-            text: 'menu.section.notifications'
-          } as TextMenuItemModel,
-          icon: 'bell',
-          index: 4
-        },
-        {
-          id: 'notifications_quality-assurance',
-          parentID: 'notifications',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.quality-assurance',
-            link: '/admin/notifications/quality-assurance'
-          } as LinkMenuItemModel,
-        },
-        {
-          id: 'notifications_publication-claim',
-          parentID: 'notifications',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.notifications_publication-claim',
-            link: '/admin/notifications/' + PUBLICATION_CLAIMS_PATH
-          } as LinkMenuItemModel,
-        },
         /*  Admin Search */
         {
           id: 'admin_search',
