@@ -110,27 +110,25 @@ export class JsonPatchOperationsBuilder {
           operationValue = [];
           value.forEach((entry) => {
             if ((typeof entry === 'object')) {
-              if (securityLevel != null) {
+              if (isNotEmpty(securityLevel)) {
                 operationValue.push(this.prepareObjectValue(entry, securityLevel));
               } else {
                 operationValue.push(this.prepareObjectValue(entry));
               }
-
             } else {
               operationValue.push(new FormFieldMetadataValueObject(entry, null, securityLevel));
             }
           });
         } else if (typeof value === 'object') {
-          if (securityLevel != null) {
+          if (isNotEmpty(securityLevel)) {
             operationValue = this.prepareObjectValue(value, securityLevel);
           } else {
             operationValue = this.prepareObjectValue(value);
           }
-
         } else {
           // add the possibility to add security level when value is string
           // in this case security level is set on metadata value
-          if (securityLevel != null) {
+          if (isNotEmpty(securityLevel)) {
             operationValue = new FormFieldMetadataValueObject(value, null, securityLevel);
           } else  {
             operationValue = new FormFieldMetadataValueObject(value, null);
@@ -143,16 +141,16 @@ export class JsonPatchOperationsBuilder {
   }
 
   protected prepareObjectValue(value: any, securityLevel = null) {
-     let operationValue = Object.create({});
+    let operationValue = Object.create({});
     if (isEmpty(value) || value instanceof FormFieldMetadataValueObject) {
-      if (securityLevel != null) {
-      operationValue = {...value, securityLevel: securityLevel};
-      } else  {
+      if (isNotEmpty(securityLevel)) {
+        operationValue = { ...value, securityLevel: securityLevel };
+      } else {
         operationValue = value;
       }
     } else if (value instanceof Date) {
       if (securityLevel != null) {
-      operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value), null, securityLevel);
+        operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value), null, securityLevel);
       } else {
         operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value));
       }
@@ -170,11 +168,10 @@ export class JsonPatchOperationsBuilder {
       Object.keys(value)
         .forEach((key) => {
           if (typeof value[key] === 'object') {
-            if (securityLevel != null) {
-            operationValue[key] = this.prepareObjectValue(value[key], securityLevel);
+            if (isNotEmpty(securityLevel)) {
+              operationValue[key] = this.prepareObjectValue(value[key], securityLevel);
             } else {
- operationValue[key] = this.prepareObjectValue(value[key]);
-
+              operationValue[key] = this.prepareObjectValue(value[key]);
             }
           } else {
             operationValue[key] = value[key];
