@@ -8,7 +8,7 @@ import { MathJaxConfig, MathService } from './math.service';
 })
 export class ClientMathService extends MathService {
 
-  protected signal: Subject<boolean>;
+  protected isReady$: Subject<boolean>;
 
   protected mathJaxOptions = {
     tex: {
@@ -34,14 +34,13 @@ export class ClientMathService extends MathService {
   constructor() {
     super();
 
-    this.signal = new ReplaySubject<boolean>();
+    this.isReady$ = new ReplaySubject<boolean>();
 
     void this.registerMathJaxAsync(this.mathJax)
-      .then(() => this.signal.next(true))
+      .then(() => this.isReady$.next(true))
       .catch(_ => {
         void this.registerMathJaxAsync(this.mathJaxFallback)
-          .then(() => this.signal.next(true))
-          .catch((error) => console.log(error));
+          .then(() => this.isReady$.next(true));
       });
   }
 
@@ -69,7 +68,7 @@ export class ClientMathService extends MathService {
   }
 
   ready(): Observable<boolean> {
-    return this.signal;
+    return this.isReady$;
   }
 
   render(element: HTMLElement) {
