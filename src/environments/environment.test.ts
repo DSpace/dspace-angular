@@ -275,10 +275,6 @@ export const environment: BuildConfig = {
       undoTimeout: 10000 // 10 seconds
     }
   },
-
-
-  suggestion: [],
-
   themes: [
     {
       name: 'full-item-page-theme',
@@ -337,4 +333,14 @@ export const environment: BuildConfig = {
       enabled: true
     }
   ],
+
+  suggestion: [],
+
+  search: {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType']
+    }
+  }
+
 };

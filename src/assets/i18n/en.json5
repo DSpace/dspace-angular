@@ -5698,6 +5698,24 @@
 
   "admin.notifications.publicationclaim.page.title": "Publication Claim",
 
+  "filter.search.operator.placeholder": "Operator",
+
+  "search.filters.filter.entityType.text": "Item Type",
+
+  "search.filters.operator.equals.text": "Equals",
+
+  "search.filters.operator.notequals.text": "Not Equals",
+
+  "search.filters.operator.notcontains.text": "Not Contains",
+
+  "search.filters.operator.contains.text": "Contains",
+
+  "search.filters.filter.title.text": "Title",
+
+  "search.filters.applied.f.title": "Title",
+
+  "search.filters.filter.author.text": "Author",
+
   "coar-notify-support.title": "COAR Notify Protocol",
 
   "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\\\"https://notify.coar-repositories.org/\\\">COAR Notify website</a>.",
@@ -6011,3 +6029,13 @@
   "type-equals-journal-article_condition.label": "Type equals Journal Article",
 }
 
+  "search.filters.filter.subject.text": "Subject",
+
+  "search.advanced.filters.head": "Advanced Search",
+
+  "filter.search.operator.placeholder": "Operator",
+
+  "filter.search.text.placeholder": "Search text",
+
+  "advancesearch.form.submit": "Add",
+}

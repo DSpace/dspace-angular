@@ -5,4 +5,6 @@
         <ds-search-filter [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
     </div>
 </div>
+<ds-advanced-search *ngIf="appConfig.search.advancedFilters.enabled"
+    [inPlaceSearch]="inPlaceSearch"></ds-advanced-search>
 <a class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button"><i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}</a>
