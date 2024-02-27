@@ -2428,13 +2428,13 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
-  "item.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
 
-  "item.qa-event-notification-info.check.button": "Check",
+  "item.qa-event-notification-info.check.button": "View",
 
-  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
 
-  "mydspace.qa-event-notification-info.check.button": "Check",
+  "mydspace.qa-event-notification-info.check.button": "View",
 
   "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
 
