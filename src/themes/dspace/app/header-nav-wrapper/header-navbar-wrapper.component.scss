@@ -32,42 +32,49 @@
       text-decoration: none;
     }
 
-    nav#desktop-navbar ::ng-deep {
+    nav#desktop-navbar { // in header component
+      #main-site-navigation {
+        /* Desktop menu */
 
-      /* Desktop menu */
-
-      .ds-menu-item-wrapper, .ds-menu-item, .ds-menu-toggler-wrapper {
-        // fill navbar height (required by dropdown menus) and center content
-        display: flex;
-        align-items: center;
-        height: 100%;
-      }
-      .ds-menu-item {
-        // define here the style for top-level navbar menu items
-        padding: var(--ds-navbar-item-vertical-padding) var(--ds-navbar-item-horizontal-padding);
-      }
-      .ds-menu-item, .ds-menu-toggler-wrapper {
-        color: var(--ds-navbar-link-color) !important;
-        &:hover, &:focus {
-          color: var(--ds-navbar-link-color-hover) !important;
+        .ds-menu-item-wrapper, .ds-menu-item, .ds-menu-toggler-wrapper {
+          // fill navbar height (required by dropdown menus) and center content
+          display: flex;
+          align-items: center;
+          height: 100%;
         }
-      }
-
-      /* desktop submenu */
-
-      .dropdown-menu {
         .ds-menu-item {
-          // define here the style for second-level navbar menu items
-          padding: var(--ds-navbar-dropdown-item-vertical-padding) var(--ds-navbar-dropdown-item-horizontal-padding);
+          // define here the style for top-level navbar menu items
+          padding: var(--ds-navbar-item-vertical-padding) var(--ds-navbar-item-horizontal-padding);
         }
-      }
+        .ds-menu-item, .ds-menu-toggler-wrapper {
+          color: var(--ds-navbar-link-color) !important;
+          &:hover, &:focus {
+            color: var(--ds-navbar-link-color-hover) !important;
+          }
+        }
 
+        /* desktop submenu */
+
+        .dropdown-menu {
+          .ds-menu-item {
+            // define here the style for second-level navbar menu items
+            padding: var(--ds-navbar-dropdown-item-vertical-padding) var(--ds-navbar-dropdown-item-horizontal-padding);
+          }
+        }
+
+      }
     }
 
-    nav#collapsible-mobile-navbar {
+    nav#collapsible-mobile-navbar { // in header-navbar-wrapper component
 
       border-top: var(--ds-expandable-navbar-border-top-style);
       padding-top: var(--ds-expandable-navbar-padding-top);
+
+      #main-site-navigation {
+        .ds-menu-item {
+          padding: var(--ds-expandable-navbar-item-vertical-padding) 0;
+        }
+      }
 
     }
   }
