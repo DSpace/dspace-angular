@@ -843,6 +843,8 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.language": "Language",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -1933,6 +1935,8 @@
 
   "home-page.hyperlink.language.message": "Language (ISO)",
 
+  "home-page.hyperlink.view-more.message": "... View More",
+
   "home-page.whats-new.message": "What's New",
 
   "home-page.new-items.message": "Most Viewed Items - Last Month",
@@ -2782,7 +2786,16 @@
 
   "item.view.box.files.message": ["This item contains", "files"],
 
+  "item.view.box.one.file.message": "This item contains 1 file",
+
   "item.view.box.no-files.message": "This item contains no files.",
+
+  "item.view.box.description.message": "Description:",
+
+
+  "item.view.box.author.preview.and": "and",
+
+  "item.view.box.author.preview.show-everyone": "show everyone",
 
 
   "item.file.description.not.supported.video": "Your browser does not support the video tag.",
@@ -5805,7 +5818,7 @@
 
   "navbar.repository": "Repository",
 
-  "navbar.community-list": "Catalogue",
+  "navbar.community-list": "Catalog",
 
   "navbar.education": "Education",
 
