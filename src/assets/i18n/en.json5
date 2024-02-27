@@ -726,7 +726,7 @@
 
   "bitstream.edit.form.newFormat.hint": "The application you used to create the file, and the version number (for example, \"<i>ACMESoft SuperApp version 1.5</i>\").",
 
-  "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.form.primaryBitstream.label": "Primary File",
 
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
 
@@ -1108,9 +1108,7 @@
 
   "collection.logo": "Collection logo",
 
-  "collection.page.browse.recent.head": "Recent Submissions",
-
-  "collection.page.browse.recent.empty": "No items to show",
+  "collection.page.browse.search.head": "Search",
 
   "collection.page.edit": "Edit this collection",
 
@@ -1119,6 +1117,8 @@
   "collection.page.license": "License",
 
   "collection.page.news": "News",
+
+  "collection.search.results.head": "Search Results",
 
   "collection.select.confirm": "Confirm selected",
 
@@ -1195,6 +1195,8 @@
   "communityList.collapse": "Collapse {{ name }}",
 
   "community.browse.logo": "Browse for a community logo",
+
+  "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
 
   "community.create.head": "Create a Community",
 
@@ -1347,6 +1349,8 @@
   "community.page.news": "News",
 
   "community.all-lists.head": "Subcommunities and Collections",
+
+  "community.search.results.head": "Search Results",
 
   "community.sub-collection-list.head": "Collections in this Community",
 
@@ -2148,6 +2152,8 @@
 
   "item.edit.metadata.edit.value": "Edit value",
 
+  "item.edit.metadata.edit.authority.key": "Edit authority key",
+
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -2201,6 +2207,12 @@
   "item.edit.metadata.reset-order-button": "Undo reorder",
 
   "item.edit.metadata.save-button": "Save",
+
+  "item.edit.metadata.authority.label": "Authority: ",
+
+  "item.edit.metadata.edit.buttons.open-authority-edition": "Unlock the authority key value for manual editing",
+
+  "item.edit.metadata.edit.buttons.close-authority-edition": "Lock the authority key value for manual editing",
 
   "item.edit.modify.overview.field": "Field",
 
@@ -2436,6 +2448,24 @@
 
   "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
 
+  "confidence.indicator.help-text.accepted": "This authority value has been confirmed as accurate by an interactive user",
+
+  "confidence.indicator.help-text.uncertain": "Value is singular and valid but has not been seen and accepted by a human so it is still uncertain",
+
+  "confidence.indicator.help-text.ambiguous": "There are multiple matching authority values of equal validity",
+
+  "confidence.indicator.help-text.notfound": "There are no matching answers in the authority",
+
+  "confidence.indicator.help-text.failed": "The authority encountered an internal failure",
+
+  "confidence.indicator.help-text.rejected": "The authority recommends this submission be rejected",
+
+  "confidence.indicator.help-text.novalue": "No reasonable confidence value was returned from the authority",
+
+  "confidence.indicator.help-text.unset": "Confidence was never recorded for this value",
+
+  "confidence.indicator.help-text.unknown": "Unknown confidence value",
+
   "item.page.abstract": "Abstract",
 
   "item.page.author": "Authors",
@@ -2495,6 +2525,8 @@
   "item.page.bitstreams.view-more": "Show more",
 
   "item.page.bitstreams.collapse": "Collapse",
+
+  "item.page.bitstreams.primary": "Primary",
 
   "item.page.filesection.original.bundle": "Original bundle",
 
@@ -3470,11 +3502,31 @@
 
   "process.detail.delete.error": "Something went wrong when deleting the process",
 
+  "process.detail.refreshing": "Auto-refreshing…",
+
+  "process.overview.table.completed.info": "Finish time (UTC)",
+
+  "process.overview.table.completed.title": "Succeeded processes",
+
+  "process.overview.table.empty": "No matching processes found.",
+
+  "process.overview.table.failed.info": "Finish time (UTC)",
+
+  "process.overview.table.failed.title": "Failed processes",
+
   "process.overview.table.finish": "Finish time (UTC)",
 
   "process.overview.table.id": "Process ID",
 
   "process.overview.table.name": "Name",
+
+  "process.overview.table.running.info": "Start time (UTC)",
+
+  "process.overview.table.running.title": "Running processes",
+
+  "process.overview.table.scheduled.info": "Creation time (UTC)",
+
+  "process.overview.table.scheduled.title": "Scheduled processes",
 
   "process.overview.table.start": "Start time (UTC)",
 
@@ -4350,6 +4402,8 @@
 
   "submission.import-external.source.datacite": "DataCite",
 
+  "submission.import-external.source.doi": "DOI",
+
   "submission.import-external.source.scielo": "SciELO",
 
   "submission.import-external.source.scopus": "Scopus",
@@ -4817,6 +4871,10 @@
   "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
 
   "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
+
+  "submission.sections.upload.primary.make": "Make {{fileName}} the primary bitstream",
+
+  "submission.sections.upload.primary.remove": "Remove {{fileName}} as the primary bitstream",
 
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
 
@@ -5572,6 +5630,8 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
+  "discover.filters.head": "Discover",
+
   "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
 
   "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
@@ -5639,4 +5699,32 @@
   "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
 
   "admin.notifications.publicationclaim.page.title": "Publication Claim",
+
+  "filter.search.operator.placeholder": "Operator",
+
+  "search.filters.filter.entityType.text": "Item Type",
+
+  "search.filters.operator.equals.text": "Equals",
+
+  "search.filters.operator.notequals.text": "Not Equals",
+
+  "search.filters.operator.notcontains.text": "Not Contains",
+
+  "search.filters.operator.contains.text": "Contains",
+
+  "search.filters.filter.title.text": "Title",
+
+  "search.filters.applied.f.title": "Title",
+
+  "search.filters.filter.author.text": "Author",
+
+  "search.filters.filter.subject.text": "Subject",
+
+  "search.advanced.filters.head": "Advanced Search",
+
+  "filter.search.operator.placeholder": "Operator",
+
+  "filter.search.text.placeholder": "Search text",
+
+  "advancesearch.form.submit": "Add",
 }

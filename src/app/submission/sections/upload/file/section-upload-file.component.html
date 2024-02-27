@@ -1,6 +1,22 @@
 <ng-container *ngIf="fileData">
   <div class="row">
-    <div class="col-md-12">
+    <!-- Default switch -->
+    <div class="col-md-2 d-flex justify-content-center align-items-center" >
+      <div class="custom-control custom-switch">
+        <input 
+        type="checkbox" 
+        class="custom-control-input" 
+        id="primaryBitstream{{fileIndex}}" 
+        [disabled]="processingSaveStatus$ | async"
+        [checked]="isPrimary" 
+        (change)="togglePrimaryBitstream($event)">
+        <label class="custom-control-label" for="primaryBitstream{{fileIndex}}">
+          <span class="sr-only" *ngIf="!isPrimary">{{'submission.sections.upload.primary.make' | translate:{ fileName: fileName } }}</span>
+          <span class="sr-only" *ngIf="isPrimary">{{'submission.sections.upload.primary.remove' | translate:{ fileName: fileName } }}</span>
+        </label>
+      </div>
+    </div>
+    <div class="col-md-10">
       <div class="float-left w-75">
         <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
       </div>

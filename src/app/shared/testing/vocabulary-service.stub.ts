@@ -42,4 +42,8 @@ export class VocabularyServiceStub {
   findVocabularyById(id: string): Observable<RemoteData<Vocabulary>> {
     return;
   }
+
+  getVocabularyByMetadataAndCollection(metadataField: string, collectionUUID: string): Observable<RemoteData<Vocabulary>> {
+    return createSuccessfulRemoteDataObject$(null);
+  }
 }

@@ -11,6 +11,7 @@ describe('SubComColSectionComponent', () => {
 
   beforeEach(async () => {
     activatedRoute = new ActivatedRouteStub();
+    activatedRoute.parent = new ActivatedRouteStub();
 
     await TestBed.configureTestingModule({
       declarations: [

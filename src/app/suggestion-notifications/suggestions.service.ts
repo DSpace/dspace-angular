@@ -11,7 +11,7 @@ import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
 import {
   getAllSucceededRemoteDataPayload,
-  getFinishedRemoteData,
+  getFinishedRemoteData, getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload
 } from '../core/shared/operators';
@@ -155,10 +155,10 @@ export class SuggestionsService {
    */
   public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
     return this.researcherProfileService.findById(userUuid, true).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      mergeMap((profile: ResearcherProfile) => {
-        if (isNotEmpty(profile)) {
-          return this.researcherProfileService.findRelatedItemId(profile).pipe(
+      getFirstCompletedRemoteData(),
+      mergeMap((profile: RemoteData<ResearcherProfile> ) => {
+        if (isNotEmpty(profile) && profile.hasSucceeded && isNotEmpty(profile.payload)) {
+          return this.researcherProfileService.findRelatedItemId(profile.payload).pipe(
             mergeMap((itemId: string) => {
               return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
                 getFirstSucceededRemoteListPayload()
@@ -169,7 +169,7 @@ export class SuggestionsService {
           return of([]);
         }
       }),
-      take(1)
+      catchError(() => of([]))
     );
   }
 

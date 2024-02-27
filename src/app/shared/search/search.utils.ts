@@ -49,7 +49,7 @@ export function stripOperatorFromFilterValue(value: string) {
  * @param operator
  */
 export function addOperatorToFilterValue(value: string, operator: string) {
-  if (!value.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+  if (!value.match(new RegExp(`^.+,(equals|query|authority|contains|notcontains|notequals)$`))) {
     return `${value},${operator}`;
   }
   return value;
