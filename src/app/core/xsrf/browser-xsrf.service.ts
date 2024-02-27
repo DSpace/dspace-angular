@@ -20,7 +20,7 @@ export class BrowserXSRFService extends XSRFService {
       });
 
       // return immediately, the rest of the app doesn't need to wait for this to finish
-      resolve();
+      resolve(undefined);
     });
   }
 }

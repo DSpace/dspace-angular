@@ -8,7 +8,7 @@ export class ServerXSRFService extends XSRFService {
     return () => new Promise((resolve) => {
       // return immediately, and keep tokenInitialized$ false. The server side can make only GET
       // requests, since it can never get a valid XSRF cookie
-      resolve();
+      resolve(undefined);
     });
   }
 }
