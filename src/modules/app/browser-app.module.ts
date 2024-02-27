@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
@@ -33,6 +33,8 @@ import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-requ
 import { BrowserInitService } from './browser-init.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
+import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -72,6 +74,16 @@ export function getRequest(transferState: TransferState): any {
       provide: REQUEST,
       useFactory: getRequest,
       deps: [TransferState]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient),
+      deps: [ XSRFService, HttpClient ],
+      multi: true,
+    },
+    {
+      provide: XSRFService,
+      useClass: BrowserXSRFService
     },
     {
       provide: AuthService,
