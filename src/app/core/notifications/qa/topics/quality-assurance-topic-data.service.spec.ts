@@ -19,6 +19,7 @@ import {
   qualityAssuranceTopicObjectMorePid
 } from '../../../../shared/mocks/notifications.mock';
 import { RequestEntry } from '../../../data/request-entry.model';
+import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 
 describe('QualityAssuranceTopicDataService', () => {
   let scheduler: TestScheduler;
@@ -26,7 +27,7 @@ describe('QualityAssuranceTopicDataService', () => {
   let responseCacheEntry: RequestEntry;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: HALEndpointService;
   let notificationsService: NotificationsService;
   let http: HttpClient;
@@ -63,7 +64,7 @@ describe('QualityAssuranceTopicDataService', () => {
       }),
     });
 
-    objectCache = {} as ObjectCacheService;
+    objectCache = new ObjectCacheServiceStub();
     halService = jasmine.createSpyObj('halService', {
       getEndpoint: cold('a|', { a: endpointURL })
     });
@@ -75,7 +76,7 @@ describe('QualityAssuranceTopicDataService', () => {
     service = new QualityAssuranceTopicDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
       notificationsService
     );

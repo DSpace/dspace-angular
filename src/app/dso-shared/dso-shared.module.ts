@@ -7,10 +7,12 @@ import { DsoEditMetadataValueComponent } from './dso-edit-metadata/dso-edit-meta
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-headers/dso-edit-metadata-headers.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-edit-metadata.component';
+import { FormModule } from '../shared/form/form.module';
 
 @NgModule({
   imports: [
     SharedModule,
+    FormModule
   ],
   declarations: [
     DsoEditMetadataComponent,

@@ -147,19 +147,23 @@ export const environment: BuildConfig = {
         confidence: [
           {
             value: 600,
-            style: 'text-success'
+            style: 'text-success',
+            icon: 'fa-circle-check'
           },
           {
             value: 500,
-            style: 'text-info'
+            style: 'text-info',
+            icon: 'fa-gear'
           },
           {
             value: 400,
-            style: 'text-warning'
+            style: 'text-warning',
+            icon: 'fa-circle-question'
           },
           {
             value: 'default',
-            style: 'text-muted'
+            style: 'text-muted',
+            icon: 'fa-circle-xmark'
           },
         ]
       }
@@ -242,7 +246,8 @@ export const environment: BuildConfig = {
     },
     topLevelCommunityList: {
       pageSize: 5
-    }
+    },
+    showDiscoverFilters: false
   },
   item: {
     edit: {
@@ -329,5 +334,13 @@ export const environment: BuildConfig = {
     }
   ],
 
-  suggestion: []
+  suggestion: [],
+
+  search: {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType']
+    }
+  }
+
 };

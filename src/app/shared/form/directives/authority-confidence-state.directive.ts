@@ -28,6 +28,8 @@ import { isNotEmpty, isNull } from '../../empty.util';
 import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
 import { environment } from '../../../../environments/environment';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
@@ -40,12 +42,18 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   /**
    * The metadata value
    */
-  @Input() authorityValue: VocabularyEntry | FormFieldMetadataValueObject | string;
+  @Input() authorityValue: VocabularyEntry | FormFieldMetadataValueObject | MetadataValue | string;
 
   /**
    * A boolean representing if to show html icon if authority value is empty
    */
   @Input() visibleWhenAuthorityEmpty = true;
+
+  /**
+   * A boolean to configure the display of icons instead of default style configuration
+   * When true, the class configured in {@link ConfidenceIconConfig.icon} will be used, by default {@link ConfidenceIconConfig.style} is used
+   */
+  @Input() iconMode = false;
 
   /**
    * The css class applied before directive changes
@@ -79,7 +87,8 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    */
   constructor(
     private elem: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private translate: TranslateService
   ) {
   }
 
@@ -93,12 +102,19 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
       this.previousClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.previousValue));
     }
     this.newClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
+    let confidenceName = this.getNameByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
 
     if (isNull(this.previousClass)) {
       this.renderer.addClass(this.elem.nativeElement, this.newClass);
+      if (this.iconMode) {
+        this.renderer.setAttribute(this.elem.nativeElement, 'title', this.translate.instant(`confidence.indicator.help-text.${confidenceName}`));
+      }
     } else if (this.previousClass !== this.newClass) {
       this.renderer.removeClass(this.elem.nativeElement, this.previousClass);
       this.renderer.addClass(this.elem.nativeElement, this.newClass);
+      if (this.iconMode) {
+        this.renderer.setAttribute(this.elem.nativeElement, 'title', this.translate.instant(`confidence.indicator.help-text.${confidenceName}`));
+      }
     }
   }
 
@@ -131,6 +147,14 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
       confidence = value.confidence;
     }
 
+    if (isNotEmpty(value) && value instanceof MetadataValue) {
+      confidence = value.confidence;
+    }
+
+    if (isNotEmpty(value) && Object.values(ConfidenceType).includes(value)) {
+      confidence = value;
+    }
+
     return confidence;
   }
 
@@ -149,9 +173,29 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
     const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
 
     const defaultconfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as  any});
-    const defaultClass: string = (defaultconfidenceIndex !== -1) ? confidenceIcons[defaultconfidenceIndex].style : '';
 
-    return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].style : defaultClass;
+    if (this.iconMode) {
+      const defaultClass: string = (defaultconfidenceIndex !== -1) ? confidenceIcons[defaultconfidenceIndex].icon : '';
+      return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].icon : defaultClass;
+    } else {
+      const defaultClass: string = (defaultconfidenceIndex !== -1) ? confidenceIcons[defaultconfidenceIndex].style : '';
+      return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].style : defaultClass;
+    }
+  }
+
+  /**
+   * Return the confidence value name
+   *
+   * @param confidence
+   * @returns
+   */
+  private getNameByConfidence(confidence: any): string {
+    let confidenceText = ConfidenceType[confidence];
+    if (isNotEmpty(confidenceText)) {
+      return confidenceText.replace('CF_', '').toLowerCase();
+    } else {
+      return 'unknown';
+    }
   }
 
 }

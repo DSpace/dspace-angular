@@ -10,8 +10,9 @@
   <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </div>
 
-<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)" [id]="'search-page'" [sidebarContent]="sidebarContent">
-  <ng-template *ngTemplateOutlet="searchContent"></ng-template>
+<ds-page-with-sidebar *ngIf="showSidebar && (initialized$ | async)" [id]="'search-page'" [sideBarWidth]="sideBarWidth"
+    [sidebarContent]="sidebarContent">
+    <ng-template *ngTemplateOutlet="searchContent"></ng-template>
 </ds-page-with-sidebar>
 
 <ng-template #searchContent>
@@ -22,15 +23,15 @@
         </div>
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">
-                <ds-view-mode-switch [viewModeList]="viewModeList" [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
-                <button [attr.aria-label]="'search.sidebar.open' | translate" (click)="openSidebar()"
-                        aria-controls="search-sidebar-content"
+                <ds-view-mode-switch *ngIf="inPlaceSearch" [viewModeList]="viewModeList"
+                    [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
+                <button (click)="openSidebar()" aria-controls="#search-body"
                         class="btn btn-outline-primary float-right open-sidebar"><i
                         class="fas fa-sliders"></i> {{"search.sidebar.open"
                         | translate}}
                 </button>
             </div>
-            <ds-themed-search-results [searchResults]="resultsRD$ | async"
+            <ds-themed-search-results *ngIf="inPlaceSearch" [searchResults]="resultsRD$ | async"
                                       [searchConfig]="searchOptions$ | async"
                                       [configuration]="(currentConfiguration$ | async)"
                                       [disableHeader]="!searchEnabled"
