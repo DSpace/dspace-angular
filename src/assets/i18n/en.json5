@@ -6027,13 +6027,10 @@
   "type-equals-dataset_condition.label": "Type equals Dataset",
 
   "type-equals-journal-article_condition.label": "Type equals Journal Article",
-}
 
   "search.filters.filter.subject.text": "Subject",
 
   "search.advanced.filters.head": "Advanced Search",
-
-  "filter.search.operator.placeholder": "Operator",
 
   "filter.search.text.placeholder": "Search text",
 
