@@ -8,14 +8,19 @@ import { isEmpty } from '../../../../shared/empty.util';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { NgForOf, NgIf } from '@angular/common';
 
 /**
  * This component represents a badge that describe an access condition
  */
 @Component({
-    selector: 'ds-submission-section-upload-access-conditions',
-    templateUrl: './submission-section-upload-access-conditions.component.html',
-    standalone: true
+  selector: 'ds-submission-section-upload-access-conditions',
+  templateUrl: './submission-section-upload-access-conditions.component.html',
+  imports: [
+    NgForOf,
+    NgIf
+  ],
+  standalone: true
 })
 export class SubmissionSectionUploadAccessConditionsComponent implements OnInit {
 
