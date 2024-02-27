@@ -15,7 +15,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
@@ -30,6 +30,7 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { DuplicateDataService } from '../../../../core/data/duplicate-search.service';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
@@ -39,7 +40,9 @@ mockResultObject.hitHighlights = {};
 
 const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
 const itemDataServiceStub = {
-  findDuplicates: () => createSuccessfulRemoteDataObject$({}),
+  findListByHref: () => observableOf(emptyList),
+};
+const duplicateDataServiceStub = {
   findListByHref: () => observableOf(emptyList),
 };
 
@@ -93,6 +96,7 @@ describe('ClaimedSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock },
         { provide: ItemDataService, useValue: itemDataServiceStub },
+        { provide: DuplicateDataService, useValue: duplicateDataServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedSearchResultListElementComponent, {

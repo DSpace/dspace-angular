@@ -15,7 +15,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
@@ -29,6 +29,7 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { DuplicateDataService } from '../../../../core/data/duplicate-search.service';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -38,7 +39,9 @@ mockResultObject.hitHighlights = {};
 
 const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
 const itemDataServiceStub = {
-  findDuplicates: () => createSuccessfulRemoteDataObject$({}),
+  findListByHref: () => observableOf(emptyList),
+};
+const duplicateDataServiceStub = {
   findListByHref: () => observableOf(emptyList),
 };
 
@@ -100,6 +103,7 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock },
         { provide: ItemDataService, useValue: itemDataServiceStub },
+        { provide: DuplicateDataService, useValue: duplicateDataServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultListElementComponent, {
