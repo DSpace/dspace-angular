@@ -163,10 +163,18 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
         this.subs.push(
           this.filterServices(ldnPattern.pattern)
             .subscribe((services: LdnService[]) => {
+
+              if (!this.ldnServiceByPattern[ldnPattern.pattern]) {
+                this.ldnServiceByPattern[ldnPattern.pattern] = {
+                  services: [],
+                  allowsMultipleRequests: ldnPattern.multipleRequest
+                };
+              }
+
               this.ldnServiceByPattern[ldnPattern.pattern].services = services.filter((service) => {
                 const selection = (this.sectionData.data[ldnPattern.pattern] as LdnService[]).find((s: LdnService) => s.id === service.id);
                 this.addService(ldnPattern, selection);
-                return this.sectionData.data[ldnPattern.pattern].includes(service);
+                return this.sectionData.data[ldnPattern.pattern].includes(service.uuid);
               });
             })
         );
