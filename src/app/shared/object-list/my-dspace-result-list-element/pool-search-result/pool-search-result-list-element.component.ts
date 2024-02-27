@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import {BehaviorSubject, combineLatest, EMPTY, Observable } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -25,7 +25,9 @@ import { Context } from '../../../../core/shared/context.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { DuplicateDataService } from '../../../../core/data/duplicate-search.service';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -62,7 +64,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   /**
    * The potential duplicates of this workflow item
    */
-  public duplicates$: Observable<Duplicate[]> = new Observable<Duplicate[]>();
+  public duplicates$: Observable<Duplicate[]>;
 
   /**
    * The index of this list element
@@ -74,13 +76,16 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
    */
   showThumbnails: boolean;
 
+  enableDetectDuplicates$: Observable<any>;
+
   constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
     protected itemDataService: ItemDataService,
-    protected duplicateDataService: DuplicateDataService,
+    protected configService: ConfigurationDataService,
+    protected duplicateDataService: SubmissionDuplicateDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -95,6 +100,14 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       followLink('item', {}, followLink('bundles')),
       followLink('submitter')
     ), followLink('action'));
+
+    // Get configuration for duplicate detection feature
+    this.enableDetectDuplicates$ = this.configService.findByPropertyName('duplicate.enable').pipe(
+      getFirstCompletedRemoteData(),
+      map((rd: RemoteData<ConfigurationProperty>) => {
+        return (rd.hasSucceeded && rd.payload && rd.payload.values[0] === 'true');
+      })
+    );
 
     (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       getFirstCompletedRemoteData(),
@@ -111,8 +124,32 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       tap((itemRD: RemoteData<Item>) => {
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
-          // Find duplicates for this item
-          this.duplicates$ = this.duplicateDataService.findDuplicates(itemRD.payload.uuid).pipe(
+        }
+      }),
+    ).subscribe();
+    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    // Initialise duplicates, if enabled
+    this.duplicates$ = this.initializeDuplicateDetectionIfEnabled();
+  }
+
+  /**
+   * Initialize and set the duplicates observable based on whether the configuration in REST is enabled
+   * and the results returned
+   */
+  initializeDuplicateDetectionIfEnabled() {
+    return combineLatest([
+      this.configService.findByPropertyName('duplicate.enable').pipe(
+        getFirstCompletedRemoteData(),
+        map((remoteData: RemoteData<ConfigurationProperty>) => {
+          return (remoteData.isSuccess && remoteData.payload && remoteData.payload.values[0] === 'true');
+        })
+      ),
+      this.item$.pipe(),
+      ]
+    ).pipe(
+      map(([enabled, rd]) => {
+        if (enabled) {
+          this.duplicates$ = this.duplicateDataService.findDuplicates(rd.uuid).pipe(
             getFirstCompletedRemoteData(),
             map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
               if (remoteData.hasSucceeded) {
@@ -122,12 +159,11 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
               }
             })
           );
+        } else {
+          return [] as Duplicate[];
         }
       }),
-    ).subscribe();
-
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
-
+    );
   }
 
   ngOnDestroy() {

@@ -76,7 +76,7 @@ const duplicates: Duplicate[] = [{
     type: DUPLICATE,
     _links: {
       self: {
-        href: 'http://localhost:8080/server/api/core/items/search/findDuplicates?uuid=testid'
+        href: 'http://localhost:8080/server/api/core/submission/duplicates/search?uuid=testid'
       }
     }
   }];

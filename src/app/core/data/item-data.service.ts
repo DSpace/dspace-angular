@@ -46,9 +46,6 @@ import { RestRequestMethod } from './rest-request-method';
 import { CreateData, CreateDataImpl } from './base/create-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { dataService } from './base/data-service.decorator';
-import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
-import { SearchDataImpl } from './base/search-data';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -59,7 +56,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   private createData: CreateData<Item>;
   private patchData: PatchData<Item>;
   private deleteData: DeleteData<Item>;
-  private searchData: SearchDataImpl<Duplicate>;
 
   protected constructor(
     protected linkPath,
@@ -78,7 +74,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     this.createData = new CreateDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive);
     this.patchData = new PatchDataImpl<Item>(this.linkPath, requestService, rdbService, objectCache, halService, comparator, this.responseMsToLive, this.constructIdEndpoint);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
-    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
   /**
@@ -245,20 +240,6 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((url: string) => this.halService.getEndpoint('identifiers', `${url}/${itemId}`))
     );
-  }
-
-  public findDuplicates(uuid: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Duplicate>[]): Observable<RemoteData<PaginatedList<Duplicate>>> {
-    const searchParams = [new RequestParam('uuid', uuid)];
-    let findListOptions = new FindListOptions();
-    if (options) {
-      findListOptions = Object.assign(new FindListOptions(), options);
-    }
-    if (findListOptions.searchParams) {
-      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
-    } else {
-      findListOptions.searchParams = searchParams;
-    }
-    return this.searchData.searchBy('findDuplicates', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

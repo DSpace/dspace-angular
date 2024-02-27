@@ -3,28 +3,34 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { ResponseParsingService } from './parsing.service';
-import { RemoteData } from './remote-data';
-import { GetRequest } from './request.models';
-import { RequestService } from './request.service';
+import { ResponseParsingService } from '../data/parsing.service';
+import { RemoteData } from '../data/remote-data';
+import { GetRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { SearchResponseParsingService } from './search-response-parsing.service';
+import { SearchResponseParsingService } from '../data/search-response-parsing.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RestRequest } from './rest-request.model';
-import { BaseDataService } from './base/base-data.service';
-import { FindListOptions } from './find-list-options.model';
+import { RestRequest } from '../data/rest-request.model';
+import { BaseDataService } from '../data/base/base-data.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
-import { PaginatedList } from './paginated-list.model';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 
 
 /**
- * Service that performs all general actions that have to do with the search page
+ * Service that handles search requests for potential duplicate items.
+ * This uses the /api/submission/duplicates endpoint to look for other archived or in-progress items (if user
+ * has READ permission) that match the item (for the given uuid).
+ * Matching is configured in the backend in dspace/config/modulesduplicate-detection.cfg
+ * The returned results are small preview 'stubs' of items, and displayed in either a submission section
+ * or the workflow pooled/claimed task page.
+ *
  */
 @Injectable()
-export class DuplicateDataService extends BaseDataService<Duplicate> {
+export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> {
 
   /**
    * The ResponseParsingService constructor name

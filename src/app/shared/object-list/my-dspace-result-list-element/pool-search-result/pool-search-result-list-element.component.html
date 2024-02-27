@@ -4,6 +4,7 @@
                                [showSubmitter]="showSubmitter"
                                [badgeContext]="badgeContext"
                                [workflowItem]="workflowitem$.value"></ds-themed-item-list-preview>
+
   <!-- Display duplicate alert, if feature enabled and duplicates detected -->
   <ng-container *ngVar="(duplicates$|async)?.length as duplicateCount">
     <div [ngClass]="'row'" *ngIf="duplicateCount > 0">

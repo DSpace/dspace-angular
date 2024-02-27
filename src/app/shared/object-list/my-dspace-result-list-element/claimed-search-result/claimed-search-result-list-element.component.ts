@@ -5,7 +5,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
+import {BehaviorSubject, combineLatest, EMPTY, Observable} from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { followLink } from '../../../utils/follow-link-config.model';
@@ -24,7 +24,9 @@ import { Context } from '../../../../core/shared/context.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { DuplicateDataService } from '../../../../core/data/duplicate-search.service';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -57,7 +59,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   /**
    * The potential duplicates of this item
    */
-  public duplicates$: Observable<Duplicate[]> = new Observable<Duplicate[]>();
+  public duplicates$: Observable<Duplicate[]>;
 
   /**
    * Display thumbnails if required by configuration
@@ -70,7 +72,8 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
     protected itemDataService: ItemDataService,
-    protected duplicateDataService: DuplicateDataService,
+    protected configService: ConfigurationDataService,
+    protected duplicateDataService: SubmissionDuplicateDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -114,8 +117,43 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
         }
       })
     ).subscribe();
-
+    // Initialise duplicates, if enabled
+    this.duplicates$ = this.initializeDuplicateDetectionIfEnabled();
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+  }
+
+  /**
+   * Initialize and set the duplicates observable based on whether the configuration in REST is enabled
+   * and the results returned
+   */
+  initializeDuplicateDetectionIfEnabled() {
+    return combineLatest([
+        this.configService.findByPropertyName('duplicate.enable').pipe(
+          getFirstCompletedRemoteData(),
+          map((remoteData: RemoteData<ConfigurationProperty>) => {
+            return (remoteData.isSuccess && remoteData.payload && remoteData.payload.values[0] === 'true');
+          })
+        ),
+        this.item$.pipe(),
+      ]
+    ).pipe(
+      map(([enabled, rd]) => {
+        if (enabled) {
+          this.duplicates$ = this.duplicateDataService.findDuplicates(rd.uuid).pipe(
+            getFirstCompletedRemoteData(),
+            map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
+              if (remoteData.hasSucceeded) {
+                if (remoteData.payload.page) {
+                  return remoteData.payload.page;
+                }
+              }
+            })
+          );
+        } else {
+          return [] as Duplicate[];
+        }
+      }),
+    );
   }
 
   ngOnDestroy() {

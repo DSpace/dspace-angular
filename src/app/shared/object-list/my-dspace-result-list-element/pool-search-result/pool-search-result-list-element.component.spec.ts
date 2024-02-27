@@ -29,7 +29,9 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { Context } from '../../../../core/shared/context.model';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { DuplicateDataService } from '../../../../core/data/duplicate-search.service';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -41,6 +43,14 @@ const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
 const itemDataServiceStub = {
   findListByHref: () => observableOf(emptyList),
 };
+const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+  findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+    name: 'duplicate.enable',
+    values: [
+      'true'
+    ]
+  }))
+});
 const duplicateDataServiceStub = {
   findListByHref: () => observableOf(emptyList),
   findDuplicates: () => createSuccessfulRemoteDataObject$({}),
@@ -104,7 +114,8 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock },
         { provide: ItemDataService, useValue: itemDataServiceStub },
-        { provide: DuplicateDataService, useValue: duplicateDataServiceStub }
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SubmissionDuplicateDataService, useValue: duplicateDataServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultListElementComponent, {
