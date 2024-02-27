@@ -28,6 +28,7 @@ import { LicenseType } from '../../item-page/clarin-license-info/clarin-license-
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 
 /**
  * Show item on the Home/Search page in the customized box with Item's information.
@@ -38,6 +39,9 @@ import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
   styleUrls: ['./clarin-item-box-view.component.scss']
 })
 export class ClarinItemBoxViewComponent implements OnInit {
+
+  ITEM_TYPE_IMAGES_PATH = '/assets/images/item-types/';
+  ITEM_TYPE_DEFAULT_IMAGE_NAME = 'application-x-zerosize.png';
 
   /**
    * Show information of this item.
@@ -132,7 +136,12 @@ export class ClarinItemBoxViewComponent implements OnInit {
     if (isNull(this.item)) {
       return;
     }
-    this.bundleService.findByItemAndName(this.item, 'ORIGINAL', true, true, followLink('bitstreams'))
+    const configAllElements: FindListOptions = Object.assign(new FindListOptions(), {
+        elementsPerPage: 9999
+      });
+
+    this.bundleService.findByItemAndName(this.item, 'ORIGINAL', true, true,
+      followLink('bitstreams', { findListOptions: configAllElements }))
       .pipe(getFirstSucceededRemoteDataPayload())
       .subscribe((bundle: Bundle) => {
         bundle.bitstreams
@@ -218,6 +227,15 @@ export class ClarinItemBoxViewComponent implements OnInit {
 
   hasItemType() {
     return !isEmpty(this.itemType);
+  }
+
+  hasMoreFiles() {
+    return this.itemCountOfFiles.value > 1;
+  }
+
+  handleImageError(event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = this.ITEM_TYPE_IMAGES_PATH + this.ITEM_TYPE_DEFAULT_IMAGE_NAME;
   }
 }
 

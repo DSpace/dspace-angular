@@ -120,6 +120,7 @@
     background-color: #eee;
     border: 1px solid #ccc;
     border-right: 0px;
+    max-width: fit-content;
   }
 
   .btn-repository {
@@ -152,11 +153,6 @@
     margin-top: -10px;
   }
 
-
-
-
-
-
   @media (max-width: 991.98px) {
     .carousel-ldata-info {
       left: 42%;
@@ -188,4 +184,5 @@
       width: 100%;
     }
   }
+
 }

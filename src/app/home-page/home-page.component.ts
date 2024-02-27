@@ -58,6 +58,11 @@ export class HomePageComponent implements OnInit {
 
   baseUrl = '';
 
+  /**
+   * Link to the search page
+   */
+  searchLink: string;
+
   constructor(
     private route: ActivatedRoute, config: NgbCarouselConfig,
     protected searchService: SearchService,
@@ -90,6 +95,8 @@ export class HomePageComponent implements OnInit {
     // Load the most viewed Items and the new Items
     this.loadTopItems();
     this.loadNewItems();
+
+    this.searchLink = this.searchService.getSearchLink();
   }
 
   /**
@@ -252,6 +259,10 @@ export class HomePageComponent implements OnInit {
 
   redirectToSearch(searchValue) {
     this.router.navigateByUrl('/search?query=' + searchValue);
+  }
+
+  redirectToBrowseByField(field) {
+    this.router.navigateByUrl('/browse/' + field);
   }
 }
 
