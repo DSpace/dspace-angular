@@ -5843,6 +5843,8 @@
 
   "admin.system-wide-alert.title": "System-wide Alerts",
 
+  "discover.filters.head": "Discover",
+
   "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
 
   "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
@@ -5910,4 +5912,32 @@
   "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
 
   "admin.notifications.publicationclaim.page.title": "Publication Claim",
+
+  "filter.search.operator.placeholder": "Operator",
+
+  "search.filters.filter.entityType.text": "Item Type",
+
+  "search.filters.operator.equals.text": "Equals",
+
+  "search.filters.operator.notequals.text": "Not Equals",
+
+  "search.filters.operator.notcontains.text": "Not Contains",
+
+  "search.filters.operator.contains.text": "Contains",
+
+  "search.filters.filter.title.text": "Title",
+
+  "search.filters.applied.f.title": "Title",
+
+  "search.filters.filter.author.text": "Author",
+
+  "search.filters.filter.subject.text": "Subject",
+
+  "search.advanced.filters.head": "Advanced Search",
+
+  "filter.search.operator.placeholder": "Operator",
+
+  "filter.search.text.placeholder": "Search text",
+
+  "advancesearch.form.submit": "Add",
 }

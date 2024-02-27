@@ -25,7 +25,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
-
+import { SearchConfig } from './search-page-config.interface';
 interface AppConfig extends Config {
   ui: UIServerConfig;
   rest: ServerConfig;
@@ -54,6 +54,7 @@ interface AppConfig extends Config {
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
   qualityAssuranceConfig: QualityAssuranceConfig;
+  search: SearchConfig;
 }
 
 /**

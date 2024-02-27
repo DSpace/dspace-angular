@@ -246,7 +246,8 @@ export const environment: BuildConfig = {
     },
     topLevelCommunityList: {
       pageSize: 5
-    }
+    },
+    showDiscoverFilters: false
   },
   item: {
     edit: {
@@ -333,5 +334,13 @@ export const environment: BuildConfig = {
     }
   ],
 
-  suggestion: []
+  suggestion: [],
+
+  search: {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType']
+    }
+  }
+
 };
