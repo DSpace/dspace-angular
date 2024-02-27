@@ -6902,6 +6902,8 @@
 
   "person.page.orcid.product-preferences": "Product preferences",
 
+  "person.page.orcid.patent-preferences": "Patent preferences",
+
   "person.page.orcid.publications-preferences": "Publication preferences",
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
@@ -6923,6 +6925,14 @@
   "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
 
   "person.page.orcid.sync-fundings.disabled": "Disabled",
+
+  "person.page.orcid.sync-patents.all": "All patents",
+
+  "person.page.orcid.sync-patents.mine": "My patents",
+
+  "person.page.orcid.sync-patents.my_selected": "Selected patents",
+
+  "person.page.orcid.sync-patents.disabled": "Disabled",
 
   "person.page.orcid.sync-publications.all": "All publications",
 
@@ -6975,6 +6985,8 @@
   "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
 
   "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.patent": "Patent",
 
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
 
@@ -7059,6 +7071,8 @@
   "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
 
   "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+
+  "person.page.orcid.synchronization-mode-patent-message": "Select whether to send your linked Patent entities to your ORCID record's list of works.",
 
   "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
 
