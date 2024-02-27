@@ -46,19 +46,21 @@ export class MarkdownDirective implements OnInit, OnDestroy {
 
   async render(value: string, forcePreview = false): Promise<SafeHtml> {
     if (isEmpty(value) || (!environment.markdown.enabled && !forcePreview)) {
-      return value;
-    }
-    const MarkdownIt = await this.markdownIt;
-    const md = new MarkdownIt({
-      html: true,
-      linkify: true,
-    });
+      this.el.innerHTML = value;
+      return;
+    } else {
+      const MarkdownIt = await this.markdownIt;
+      const md = new MarkdownIt({
+        html: true,
+        linkify: true,
+      });
 
-    const html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
-    this.el.innerHTML = html;
+      const html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
+      this.el.innerHTML = html;
 
-    if (environment.markdown.mathjax) {
-      this.renderMathjax();
+      if (environment.markdown.mathjax) {
+        this.renderMathjax();
+      }
     }
   }
 
