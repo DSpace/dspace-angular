@@ -5,14 +5,14 @@ import { PaginatedList } from '../core/data/paginated-list.model';
 import { SearchResult } from '../shared/search/models/search-result.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
-import { SearchService } from '../core/shared/search/search.service';
+import { SearchManager } from '../core/browse/search-manager';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LuckySearchService {
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchManager) {
   }
 
   /**
