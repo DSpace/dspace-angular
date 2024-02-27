@@ -90,7 +90,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
-                     protected modalService: NgbModal) {
+                     protected modalService: NgbModal,
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
     super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
