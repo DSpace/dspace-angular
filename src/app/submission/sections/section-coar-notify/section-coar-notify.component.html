@@ -2,8 +2,7 @@
   <ng-container *ngIf="patterns?.length > 0 ">
     <div *ngFor="let ldnPattern of patterns; let i = index" class="col">
       <div *ngIf="(filterServices(ldnPattern.pattern ) | async)?.length > 0">
-        <label class="row col-form-label"
-        >
+        <label class="row col-form-label">
           {{'submission.section.section-coar-notify.control.' + ldnPattern.pattern + '.label' | translate }}
         </label
         >
@@ -16,13 +15,14 @@
           >
             <div class="row">
               <div ngbDropdown #myDropdown="ngbDropdown" [class.mt-2]="serviceIndex > 0" class="flex-grow-1">
-                <div class="position-relative right-addon" role="combobox">
+                <div class="position-relative right-addon"
+                     [attr.aria-label]="ldnPattern.pattern + '.dropdown'">
                   <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
                      aria-hidden="true"></i>
                   <input
+                    [attr.aria-label]="ldnPattern.pattern+'.dropdownanchor'"
                     type="text"
                     [readonly]="true"
-                    ngbDropdownAnchor
                     [ngClass]="{'border-danger': (getShownSectionErrors$(ldnPattern.pattern, serviceIndex) | async)?.length > 0}"
                     class="form-control w-100 scrollable-dropdown-input"
                     [value]="ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]?.name"
@@ -141,7 +141,7 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngIf="patterns?.length === 0">
+    <ng-container *ngIf="!hasSectionData">
     <p>
       {{ 'submission.section.section-coar-notify.info.no-pattern' | translate }}
     </p>

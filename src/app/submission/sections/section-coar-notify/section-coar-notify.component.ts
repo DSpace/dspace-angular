@@ -34,6 +34,7 @@ import { LdnPattern } from './submission-coar-notify.config';
 @renderSectionFor(SectionsType.CoarNotify)
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
+  hasSectionData = false;
   /**
    * Contains an array of string patterns.
    */
@@ -238,8 +239,12 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       filter((rd) => rd.hasSucceeded),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
-      map((res: LdnService[]) => res.filter((service) =>
-        this.hasInboundPattern(service, pattern)))
+      map((res: LdnService[]) => res.filter((service) => {
+          if (!this.hasSectionData){
+            this.hasSectionData = this.hasInboundPattern(service, pattern);
+          }
+          return this.hasInboundPattern(service, pattern);
+        }))
     );
   }
 

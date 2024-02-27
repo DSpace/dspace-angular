@@ -5972,7 +5972,7 @@
 
   "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
 
-  "submission.section.section-coar-notify.info.no-pattern": "No patterns found in the submission.",
+  "submission.section.section-coar-notify.info.no-pattern": "No configurable patterns found.",
 
   "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
 
