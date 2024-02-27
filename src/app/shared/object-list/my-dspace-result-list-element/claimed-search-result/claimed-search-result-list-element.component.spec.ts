@@ -15,7 +15,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
@@ -41,9 +41,11 @@ mockResultObject.hitHighlights = {};
 const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
 const itemDataServiceStub = {
   findListByHref: () => observableOf(emptyList),
+
 };
 const duplicateDataServiceStub = {
   findListByHref: () => observableOf(emptyList),
+  findDuplicates: () => createSuccessfulRemoteDataObject$({}),
 };
 
 const item = Object.assign(new Item(), {
