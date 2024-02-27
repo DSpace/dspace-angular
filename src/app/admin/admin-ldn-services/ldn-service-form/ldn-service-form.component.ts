@@ -201,7 +201,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       (data: RemoteData<LdnService>) => {
         if (data.hasSucceeded) {
           this.ldnService = data.payload;
-
           this.formModel.patchValue({
             id: this.ldnService.id,
             name: this.ldnService.name,
@@ -212,9 +211,19 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
             type: this.ldnService.type,
             enabled: this.ldnService.enabled,
             lowerIp: this.ldnService.lowerIp,
-            upperIp: this.ldnService.upperIp,
+            upperIp: this.ldnService.upperIp
           });
           this.filterPatternObjectsAndAssignLabel('notifyServiceInboundPatterns');
+          let notifyServiceInboundPatternsFormArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+          notifyServiceInboundPatternsFormArray.controls.forEach(
+            control => {
+              const controlFormGroup = control as FormGroup;
+              const controlConstraint = controlFormGroup.get('constraint').value;
+              controlFormGroup.patchValue({
+                constraintFormatted: controlConstraint ? this.translateService.instant((controlConstraint as string) + '.label') : ''
+              });
+            }
+          );
         }
       },
     );
@@ -304,8 +313,8 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   selectInboundItemFilter(filterValue: string, index: number): void {
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
-    filterArray.controls[index].patchValue({constraint: filterValue});
-    filterArray.controls[index].patchValue({constraintFormatted: this.translateService.instant(filterValue + '.label')});
+    filterArray.controls[index].patchValue({constraint: filterValue, constraintFormatted: this.translateService.instant(filterValue + '.label')});
+    filterArray.markAllAsTouched();
   }
 
   /**
@@ -355,14 +364,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    * @param content - The content to be displayed in the modal
    */
   openConfirmModal(content) {
-    this.modalRef = this.modalService.open(content);
-  }
-
-  /**
-   * Opens a reset form modal with the specified content
-   * @param content - The content to be displayed in the modal
-   */
-  openResetFormModal(content) {
     this.modalRef = this.modalService.open(content);
   }
 
@@ -487,7 +488,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
 
       const patternValue = patternGroup.value;
       delete patternValue.constraintFormatted;
-
       if (patternGroup.touched && patternGroup.valid) {
         delete patternValue?.patternLabel;
         if (patternValue.isNew) {
