@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
 import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
 import { Process } from './processes/process.model';
+import { hasValue } from '../shared/empty.util';
 
 /**
  * Service to calculate process breadcrumbs for a single part of the route
@@ -16,6 +17,10 @@ export class ProcessBreadcrumbsService implements BreadcrumbsProviderService<Pro
    * @param url The url to use as a link for this breadcrumb
    */
   getBreadcrumbs(key: Process, url: string): Observable<Breadcrumb[]> {
-    return observableOf([new Breadcrumb(key.processId + ' - ' + key.scriptName, url)]);
+    if (hasValue(key)) {
+      return observableOf([new Breadcrumb(key.processId + ' - ' + key.scriptName, url)]);
+    } else {
+      return observableOf([]);
+    }
   }
 }
