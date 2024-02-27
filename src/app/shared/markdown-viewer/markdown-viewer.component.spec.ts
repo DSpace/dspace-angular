@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MarkdownViewerComponent } from './markdown-viewer.component';
-import { MarkdownPipe } from '../utils/markdown.pipe';
 import { By } from '@angular/platform-browser';
+import { MarkdownDirective } from '../utils/markdown.directive';
+import { MathService } from '../../core/shared/math.service';
 
 describe('DsMarkdownViewerComponent', () => {
   let component: MarkdownViewerComponent;
@@ -10,7 +11,11 @@ describe('DsMarkdownViewerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MarkdownViewerComponent, MarkdownPipe ]
+      declarations: [ MarkdownViewerComponent, MarkdownDirective ],
+      providers: [{
+        provide: MathService,
+        useValue: {}
+      } ]
     })
     .compileComponents();
   });
