@@ -9,6 +9,9 @@ import { environment } from 'src/environments/environment';
 import { FiltersComponent } from '../filters-section/filters-section.component';
 import { FilteredCollections } from './filtered-collections.model';
 
+/**
+ * Component representing the Filtered Collections content report
+ */
 @Component({
   selector: 'ds-report-filtered-collections',
   templateUrl: './filtered-collections.component.html',
@@ -63,28 +66,5 @@ export class FilteredCollectionsComponent {
     let params = FiltersComponent.toQueryString(this.queryForm.value.filters);
     return params;
   }
-
-  /*
-  downloadCsv() {
-    this
-      .postDownloadCsv()
-      .subscribe(
-        response => {
-          // TODO: Ne fonctionne pas, le restService de DSpace attend un document JSON.
-          const csv: any = response.payload;
-          const blob = new Blob([csv], { type: 'text/csv' });
-          const url = window.URL.createObjectURL(blob);
-          window.open(url);
-        }
-      );
-  }
-
-  postDownloadCsv(): Observable<RawRestResponse> {
-    let form = this.queryForm.value;
-    let scheme = environment.rest.ssl ? 'https' : 'http';
-    let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
-    return this.restService.request(RestRequestMethod.POST, `${urlRestApp}/api/contentreport/filteredcollections/csv`, form);
-  }
-*/
 
 }

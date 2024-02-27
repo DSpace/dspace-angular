@@ -3,6 +3,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FilterGroup } from './filter-group.model';
 import { Filter } from './filter.model';
 
+/**
+ * Component representing the Query Filters section used in both
+ * Filtered Collections and Filtered Items content reports
+ */
 @Component({
   selector: 'ds-filters',
   templateUrl: './filters-section.component.html',

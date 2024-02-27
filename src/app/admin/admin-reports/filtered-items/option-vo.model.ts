@@ -1,5 +1,9 @@
 import { Observable } from 'rxjs';
 
+/**
+ * Component representing an option in each selectable list of values
+ * used in the Filtered Items report query interface
+ */
 export class OptionVO {
 
   id: string;

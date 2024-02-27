@@ -2,7 +2,7 @@
     <div class="metadata-registry row">
         <div class="col-12">
 
-            <h2 id="header" class="border-bottom pb-2">{{'admin.reports.items.head' | translate}}</h2>
+            <h1 id="header" class="border-bottom pb-2">{{'admin.reports.items.head' | translate}}</h1>
 
             <div id="querydiv" [formGroup]="queryForm">
                 <ngb-accordion [closeOthers]="true" activeIds="collectionSelector" #acc="ngbAccordion">
@@ -143,8 +143,8 @@
                                     <tr *ngFor="let item of results$ | async">
                                         <td class="num">{{ item.index }}</td>
                                         <td>{{ item.uuid }}</td>
-                                        <td><a *ngIf="item.owningCollection" href="/handle/{{ item.owningCollection.handle }}" target="_blank">{{ item.owningCollection.name }}</a></td>
-                                        <td><a *ngIf="item.handle" href="/handle/{{ item.handle }}" target="_blank">{{ item.handle }}</a></td>
+                                        <td><a *ngIf="item.owningCollection" href="/handle/{{ item.owningCollection.handle }}" rel="noopener noreferrer" target="_blank">{{ item.owningCollection.name }}</a></td>
+                                        <td><a *ngIf="item.handle" href="/handle/{{ item.handle }}" rel="noopener noreferrer" target="_blank">{{ item.handle }}</a></td>
                                         <td>{{ item.name }}</td>
                                         <td class="num" *ngFor="let field of queryForm.value['additionalFields']">
                                             <span *ngFor="let mdvalue of item.metadata[field]">

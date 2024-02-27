@@ -2,7 +2,7 @@
     <div class="metadata-registry row">
         <div class="col-12">
 
-            <h2 id="header" class="border-bottom pb-2">{{ "admin.reports.collections.head" | translate }}</h2>
+            <h1 id="header" class="border-bottom pb-2">{{ "admin.reports.collections.head" | translate }}</h1>
 
             <div id="metadatadiv">
                 <ngb-accordion [closeOthers]="true" activeIds="filters" #acc="ngbAccordion">
@@ -46,8 +46,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let coll of results.collections">
-                                        <td><a href="{{ coll.communityHandle }}" target="_blank">{{ coll.communityLabel }}</a></td>
-                                        <td><a href="{{ coll.handle }}" target="_blank">{{ coll.label }}</a></td>
+                                        <td><a href="/handle/{{ coll.communityHandle }}" rel="noopener noreferrer" target="_blank">{{ coll.communityLabel }}</a></td>
+                                        <td><a href="/handle/{{ coll.handle }}" rel="noopener noreferrer" target="_blank">{{ coll.label }}</a></td>
                                         <td class="num">{{ coll.nbTotalItems }}</td>
                                         <td class="num">{{ coll.allFiltersValue }}</td>
                                         <td class="num" *ngFor="let filter of results.summary.values | keyvalue">{{ coll.values[filter.key] || 0 }}</td>

@@ -24,6 +24,9 @@ import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';
 
+/**
+ * Component representing the Filtered Items content report.
+ */
 @Component({
   selector: 'ds-report-filtered-items',
   templateUrl: './filtered-items.component.html',
@@ -301,7 +304,7 @@ export class FilteredItemsComponent {
   }
 
   private toQueryString(): string {
-    let params = `page=${this.currentPage}&size=${this.pageSize()}`;
+    let params = `pageNumber=${this.currentPage}&pageLimit=${this.pageSize()}`;
 
     let colls = this.queryForm.value.collections;
     for (let i = 0; i < colls.length; i++) {
