@@ -248,7 +248,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   onSelect(item: VocabularyEntryDetail) {
     if (!this.getSelectedEntryIds().includes(this.getEntryId(item))) {
       this.selectedItems.push(item);
-      this.select.emit(item);
+      this.select.emit(new FormFieldMetadataValueObject(item.value, null, item.securityLevel, item.authority, item.display));
     } else {
       this.selectedItems = this.selectedItems.filter((detail: VocabularyTreeItemType) => this.getEntryId(detail) !== this.getEntryId(item));
       this.deselect.emit(item);

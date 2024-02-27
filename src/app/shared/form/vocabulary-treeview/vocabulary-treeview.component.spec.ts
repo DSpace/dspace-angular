@@ -29,6 +29,13 @@ describe('VocabularyTreeviewComponent test suite', () => {
   item.id = 'node1';
   const item2 = new VocabularyEntryDetail();
   item2.id = 'node2';
+  const entryWithAuthority = new VocabularyEntryDetail();
+  entryWithAuthority.authority = 'entryWithAuthority';
+  entryWithAuthority.id = 'entryWithAuthority';
+  entryWithAuthority.value = 'test';
+  const entryWithoutAuthority = new VocabularyEntryDetail();
+  entryWithoutAuthority.id = 'entryWithoutAuthority';
+  entryWithoutAuthority.value = 'test2';
   const emptyNodeMap = new Map<string, TreeviewFlatNode>();
   const storedNodeMap = new Map<string, TreeviewFlatNode>().set('test', new TreeviewFlatNode(item2));
   const nodeMap = new Map<string, TreeviewFlatNode>().set('test', new TreeviewFlatNode(item));
@@ -169,11 +176,31 @@ describe('VocabularyTreeviewComponent test suite', () => {
       expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(node.item, [], true);
     });
 
-    it('should emit select event', () => {
-      spyOn(comp, 'onSelect');
-      comp.onSelect(item);
+    it('should emit proper FormFieldMetadataValueObject when VocabularyEntryDetail has authority', () => {
+      spyOn(compAsAny, 'getSelectedEntryIds').and.returnValue([]);
+      spyOn(comp.select, 'emit');
+      comp.onSelect(entryWithAuthority);
 
-      expect(comp.onSelect).toHaveBeenCalledWith(item);
+      const expected = new FormFieldMetadataValueObject(entryWithAuthority.value, null, null, entryWithAuthority.authority);
+      expect(comp.select.emit).toHaveBeenCalledWith(expected);
+    });
+
+    it('should emit proper FormFieldMetadataValueObject when VocabularyEntryDetail has no authority', () => {
+      spyOn(compAsAny, 'getSelectedEntryIds').and.returnValue([]);
+      spyOn(comp.select, 'emit');
+      comp.onSelect(entryWithoutAuthority);
+
+      const expected = new FormFieldMetadataValueObject(entryWithoutAuthority.value);
+      expect(comp.select.emit).toHaveBeenCalledWith(expected);
+    });
+
+    it('should emit deselect when entry is already present', () => {
+      spyOn(compAsAny, 'getSelectedEntryIds').and.returnValue([entryWithAuthority.id]);
+      spyOn(comp.select, 'emit');
+      spyOn(comp.deselect, 'emit');
+      comp.onSelect(entryWithAuthority);
+
+      expect(comp.deselect.emit).toHaveBeenCalled();
     });
 
     it('should call searchByQuery function and set storedNodeMap properly', () => {

@@ -92,6 +92,33 @@ describe('VocabularyService', () => {
     type: 'vocabularyEntry'
   };
 
+  const entryDetailRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/${hierarchicalVocabulary.id}:testValue`;
+  const entryDetailParentRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/${hierarchicalVocabulary.id}:testValue/parent`;
+  const entryDetailChildrenRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/${hierarchicalVocabulary.id}:testValue/children`;
+
+  const vocabularyEntryDetail: any = {
+    authority: 'authorityId',
+    display: 'test',
+    value: 'test',
+    otherInformation: {
+      id: 'authorityId',
+      hasChildren: 'true',
+      note: 'Familjeforskning'
+    },
+    type: 'vocabularyEntryDetail',
+    _links: {
+      self: {
+        href: entryDetailRequestURL
+      },
+      parent: {
+        href: entryDetailParentRequestURL
+      },
+      children: {
+        href: entryDetailChildrenRequestURL
+      }
+    }
+  };
+
   const vocabularyEntryParentDetail: any = {
     authority: 'authorityId2',
     display: 'testParent',
@@ -164,9 +191,7 @@ describe('VocabularyService', () => {
   const endpointURL = `https://rest.api/rest/api/submission/vocabularies`;
   const requestURL = `https://rest.api/rest/api/submission/vocabularies/${vocabulary.id}`;
   const entryDetailEndpointURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails`;
-  const entryDetailRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/${hierarchicalVocabulary.id}:testValue`;
-  const entryDetailParentRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/${hierarchicalVocabulary.id}:testValue/parent`;
-  const entryDetailChildrenRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/${hierarchicalVocabulary.id}:testValue/children`;
+
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
   const vocabularyId = 'types';
   const metadata = 'dc.type';
@@ -193,6 +218,7 @@ describe('VocabularyService', () => {
   const vocabularyRD = createSuccessfulRemoteDataObject(vocabulary);
   const vocabularyRD$ = createSuccessfulRemoteDataObject$(vocabulary);
   const vocabularyEntriesRD = createSuccessfulRemoteDataObject$(paginatedListEntries);
+  const vocabularyEntryDetailRD$ = createSuccessfulRemoteDataObject$(vocabularyEntryDetail);
   const vocabularyEntryDetailParentRD = createSuccessfulRemoteDataObject(vocabularyEntryParentDetail);
   const vocabularyEntryChildrenRD = createSuccessfulRemoteDataObject(childrenPaginatedList);
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
@@ -485,6 +511,10 @@ describe('VocabularyService', () => {
     });
 
     describe('getEntryDetailParent', () => {
+      beforeEach(() => {
+        (service as any).vocabularyEntryDetailDataService.findById.and.returnValue(vocabularyEntryDetailRD$);
+      });
+
       it('should proxy the call to vocabularyDataService.getEntryDetailParent', () => {
         scheduler.schedule(() => service.getEntryDetailParent('testValue', hierarchicalVocabulary.id).subscribe());
         scheduler.flush();
@@ -502,6 +532,10 @@ describe('VocabularyService', () => {
     });
 
     describe('getEntryDetailChildren', () => {
+      beforeEach(() => {
+        (service as any).vocabularyEntryDetailDataService.findById.and.returnValue(vocabularyEntryDetailRD$);
+      });
+
       it('should proxy the call to vocabularyDataService.getEntryDetailChildren', () => {
         const options: VocabularyFindOptions = new VocabularyFindOptions(
           null,
