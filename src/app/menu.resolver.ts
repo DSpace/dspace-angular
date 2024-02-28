@@ -48,6 +48,8 @@ import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { ConfigurationProperty } from './core/shared/configuration-property.model';
 
 /**
  * Creates all of the app's menus
@@ -62,6 +64,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
+    protected configurationDataService: ConfigurationDataService
   ) {
   }
 
@@ -156,6 +159,7 @@ export class MenuResolver implements Resolve<boolean> {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
+    this.createReportMenuSections();
 
     return this.waitForMenu$(MenuID.ADMIN);
   }
@@ -734,6 +738,62 @@ export class MenuResolver implements Resolve<boolean> {
 
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true,
+      })));
+    });
+  }
+
+  /**
+   * Create menu sections dependent on whether or not the current user is a site administrator
+   */
+  createReportMenuSections() {
+    observableCombineLatest([
+      this.configurationDataService.findByPropertyName('contentreport.enable').pipe(
+        map((res: RemoteData<ConfigurationProperty>) => res.hasSucceeded && res.payload && res.payload.values[0] === 'true')
+      ),
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+    ]).subscribe(([isSiteAdmin]) => {
+      const menuList = [
+        {
+          id: 'reports',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.reports'
+          } as TextMenuItemModel,
+          icon: 'file-alt',
+          index: 5
+        },
+        /* Collections Report */
+        {
+          id: 'reports_collections',
+          parentID: 'reports',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.reports.collections',
+            link: '/admin/reports/collections'
+          } as LinkMenuItemModel,
+          icon: 'user-check'
+        },
+        /* Queries Report */
+        {
+          id: 'reports_queries',
+          parentID: 'reports',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.reports.queries',
+            link: '/admin/reports/queries'
+          } as LinkMenuItemModel,
+          icon: 'user-check'
+        },
+      ];
+
+      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
       })));
     });
   }
