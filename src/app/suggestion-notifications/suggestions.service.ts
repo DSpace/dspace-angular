@@ -11,9 +11,10 @@ import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
 import {
   getAllSucceededRemoteDataPayload,
-  getFinishedRemoteData, getFirstCompletedRemoteData,
+  getFinishedRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
+  getFirstSucceededRemoteListPayload,
 } from '../core/shared/operators';
 import { Suggestion } from '../core/suggestion-notifications/models/suggestion.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';

@@ -29,7 +29,7 @@ describe('qualityAssuranceTopicsReducer test suite', () => {
     const expectedState = qualityAssuranceTopicInitialState;
     expectedState.processing = true;
 
-    const action = new RetrieveAllTopicsAction(elementPerPage, currentPage);
+    const action = new RetrieveAllTopicsAction(elementPerPage, currentPage, 'ENRICH!MORE!ABSTRACT');
     const newState = qualityAssuranceTopicsReducer(qualityAssuranceTopicInitialState, action);
 
     expect(newState).toEqual(expectedState);

@@ -4,9 +4,6 @@ import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
@@ -41,6 +38,7 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 
 @NgModule({
@@ -159,7 +157,13 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
+              .then((m) => m.AdminNotificationsModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',
@@ -247,7 +251,7 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
               .then((m) => m.SubscriptionsPageRoutingModule),
             canActivate: [AuthenticatedGuard]
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent }
         ]
       }
     ], {

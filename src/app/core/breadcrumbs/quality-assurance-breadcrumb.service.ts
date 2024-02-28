@@ -33,7 +33,7 @@ export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderSer
    */
   getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {
     const sourceId = key.split(':')[0];
-    const topicId = key.split(':')[1];
+    const topicId = key.split(':')[2];
 
     if (topicId) {
       return this.qualityAssuranceService.getTopic(topicId).pipe(
@@ -41,7 +41,7 @@ export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderSer
         map((topic) => {
             return [new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),
               new Breadcrumb(sourceId, `${url}${sourceId}`),
-              new Breadcrumb(topicId, undefined)];
+              new Breadcrumb(topicId.replace(/[!:]/g, '/'), undefined)];
         })
       );
     } else {

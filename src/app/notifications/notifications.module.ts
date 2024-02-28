@@ -26,6 +26,7 @@ import { QualityAssuranceSourceService } from './qa/source/quality-assurance-sou
 import {
   QualityAssuranceSourceDataService
 } from '../core/notifications/qa/source/quality-assurance-source-data.service';
+import { EPersonDataComponent } from './qa/events/ePerson-data/ePerson-data.component';
 import { PublicationClaimComponent } from '../suggestion-notifications/suggestion-targets/publication-claim/publication-claim.component';
 import { SuggestionActionsComponent } from '../suggestion-notifications/suggestion-actions/suggestion-actions.component';
 import {
@@ -65,6 +66,7 @@ const COMPONENTS = [
   QualityAssuranceTopicsComponent,
   QualityAssuranceEventsComponent,
   QualityAssuranceSourceComponent,
+  EPersonDataComponent,
   PublicationClaimComponent,
   SuggestionActionsComponent,
   SuggestionListElementComponent,
@@ -100,7 +102,7 @@ const PROVIDERS = [
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
   ],
   providers: [
     ...PROVIDERS
@@ -110,7 +112,7 @@ const PROVIDERS = [
   ],
   exports: [
     ...COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
   ]
 })
 
