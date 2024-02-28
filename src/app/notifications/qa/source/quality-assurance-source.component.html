@@ -34,12 +34,12 @@
                 <tbody>
                   <tr *ngFor="let sourceElement of (sources$ | async); let i = index">
                     <td>{{sourceElement.id}}</td>
-                    <td>{{sourceElement.lastEvent}}</td>
+                    <td>{{sourceElement.lastEvent | date: 'dd/MM/yyyy hh:mm' }}</td>
                     <td>
                       <div class="btn-group edit-field">
                         <button
                                 class="btn btn-outline-primary btn-sm"
-                                title="{{'quality-assurance.button.detail' | translate }}"
+                                title="{{'quality-assurance.source-list.button.detail' | translate : { param: sourceElement.id } }}"
                                 [routerLink]="[sourceElement.id]">
                           <span class="badge badge-info">{{sourceElement.totalEvents}}</span>
                           <i class="fas fa-info fa-fw"></i>
