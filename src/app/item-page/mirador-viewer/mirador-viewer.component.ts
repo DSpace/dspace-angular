@@ -87,6 +87,9 @@ export class MiradorViewerComponent implements OnInit {
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
+    if (environment.mirador.enableDownloadPlugin) {
+      viewerPath += '&enableDownloadPlugin=true';
+    }
 
     // TODO: Should the query term be trusted here?
     return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);

@@ -34,6 +34,7 @@ import {
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
+import { MiradorConfig } from './mirador-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -754,4 +755,7 @@ export class DefaultAppConfig implements AppConfig {
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
   };
 
+  mirador: MiradorConfig = {
+    enableDownloadPlugin: true,
+  };
 }

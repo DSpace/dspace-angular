@@ -1,9 +1,9 @@
-import { SearchService } from '../../../../core/shared/search/search.service';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CountersSectionComponent } from './counters-section.component';
 import { NativeWindowService } from '../../../../core/services/window.service';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
+import { SearchManager } from '../../../../core/browse/search-manager';
 
 xdescribe('CountersSectionComponent', () => {
   let component: CountersSectionComponent;
@@ -13,7 +13,7 @@ xdescribe('CountersSectionComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CountersSectionComponent ],
       providers: [
-        { provide: SearchService, useValue: {} },
+        { provide: SearchManager, useValue: {} },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
       ]
     })
