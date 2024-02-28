@@ -282,7 +282,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SplitPipe } from './utils/split.pipe';
 import { ThemedUserMenuComponent } from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
-import { IpV4Validator } from './utils/ipV4.validator';
+import { QualityAssuranceEventDataService } from '../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceSourceDataService } from '../core/notifications/qa/source/quality-assurance-source-data.service';
 import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
 import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
 
@@ -325,7 +326,7 @@ const PIPES = [
   BrowserOnlyPipe,
   MarkdownPipe,
   ShortNumberPipe,
-  SplitPipe,
+  SplitPipe
 ];
 
 const COMPONENTS = [
@@ -475,7 +476,9 @@ const ENTRY_COMPONENTS = [
 const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
-  AbstractTrackableComponent
+  AbstractTrackableComponent,
+  QualityAssuranceEventDataService,
+  QualityAssuranceSourceDataService
 ];
 
 const DIRECTIVES = [
@@ -492,8 +495,7 @@ const DIRECTIVES = [
   MetadataFieldValidator,
   HoverClassDirective,
   ContextHelpDirective,
-  IpV4Validator,
-  DynamicComponentLoaderDirective
+  DynamicComponentLoaderDirective,
 ];
 
 @NgModule({

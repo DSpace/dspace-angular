@@ -26,13 +26,14 @@ import {
   ProjectEntryImportModalComponent,
   QualityAssuranceEventData
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import {environment} from '../../../../environments/environment';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { environment } from '../../../../environments/environment';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -79,6 +80,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public topic: string;
   /**
+   * The sourceId of the Quality Assurance events.
+   * @type {string}
+   */
+  sourceId: string;
+  /**
    * The rejected/ignore reason.
    * @type {string}
    */
@@ -88,6 +94,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @type {Observable<boolean>}
    */
   public isEventPageLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   /**
    * The modal reference.
    * @type {any}
@@ -113,24 +120,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   protected subs: Subscription[] = [];
 
   /**
-   * The target item id, retrieved from the topic-id composition.
+   * Observable that emits a boolean value indicating whether the user is an admin.
    */
-  public targetId: string;
-
-  /**
-   * The URL of the item page/target.
-   */
-  public itemPageUrl: string;
-
-  /**
-   * Plain topic name (without the source id)
-   */
-  public selectedTopicName: string;
-
-  /**
-   * The source id, retrieved from the topic-id composition.
-   */
-  public sourceId: string;
+  isAdmin$: Observable<boolean>;
 
   /**
    * Initialize the component variables.
@@ -148,7 +140,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     private qualityAssuranceEventRestService: QualityAssuranceEventDataService,
     private paginationService: PaginationService,
     private translateService: TranslateService,
-    private itemService: ItemDataService,
+    private authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -157,27 +149,31 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.isEventPageLoading.next(true);
-
+    this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
     this.activatedRoute.paramMap.pipe(
-    tap((params) => {
-      this.sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlMapForProjectSearch[params.get('sourceId')];
-    }),
-    map((params) => params.get('topicId')),
+      tap((params) => {
+        this.sourceUrlForProjectSearch = environment.qualityAssuranceConfig.sourceUrlMapForProjectSearch[params.get('sourceId')];
+        this.sourceId = params.get('sourceId');
+      }),
+      map((params) => params.get('topicId')),
       take(1),
       switchMap((id: string) => {
         const regEx = /!/g;
         this.showTopic = id.replace(regEx, '/');
         this.topic = id;
-        const splitList = this.showTopic?.split(':');
-        this.targetId = splitList.length > 2 ? splitList.pop() : null;
-        this.sourceId = splitList[0];
-        this.selectedTopicName = splitList[1];
         return this.getQualityAssuranceEvents();
       })
-    ).subscribe((events: QualityAssuranceEventData[]) => {
-      this.eventsUpdated$.next(events);
-      this.isEventPageLoading.next(false);
-    });
+    ).subscribe(
+      {
+        next: (events: QualityAssuranceEventData[]) => {
+          this.eventsUpdated$.next(events);
+          this.isEventPageLoading.next(false);
+        },
+        error: (error) => {
+          this.isEventPageLoading.next(false);
+        }
+      }
+    );
   }
 
   /**
@@ -187,6 +183,8 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     return (this.showTopic.indexOf('/PROJECT') !== -1 ||
       this.showTopic.indexOf('/PID') !== -1 ||
       this.showTopic.indexOf('/SUBJECT') !== -1 ||
+      this.showTopic.indexOf('/WITHDRAWN') !== -1 ||
+      this.showTopic.indexOf('/REINSTATE') !== -1 ||
       this.showTopic.indexOf('/ABSTRACT') !== -1
     );
   }
@@ -271,8 +269,14 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public executeAction(action: string, eventData: QualityAssuranceEventData): void {
     eventData.isRunning = true;
+    let operation;
+    if (action === 'UNDO') {
+      operation = this.delete(eventData);
+    } else {
+      operation = this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason);
+    }
     this.subs.push(
-      this.qualityAssuranceEventRestService.patchEvent(action, eventData.event, eventData.reason).pipe(
+      operation.pipe(
         getFirstCompletedRemoteData(),
         switchMap((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.hasSucceeded) {
@@ -389,7 +393,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       switchMap((rd: RemoteData<PaginatedList<QualityAssuranceEventObject>>) => {
         if (rd.hasSucceeded) {
           this.totalElements$.next(rd.payload.totalElements);
-          if (rd.payload.totalElements > 0) {
+          if (rd.payload?.page?.length > 0) {
             return this.fetchEvents(rd.payload.page);
           } else {
             return of([]);
@@ -460,29 +464,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   }
 
   /**
-  * Returns the page route for the given item.
-  * @param item The item to get the page route for.
-  * @returns The page route for the given item.
-  */
-  public getItemPageRoute(item: Item): string {
-    return getItemPageRoute(item);
-  }
-
-  /**
-   * Returns an Observable that emits the title of the target item.
-   * The target item is retrieved by its ID using the itemService.
-   * The title is extracted from the first metadata value of the item.
-   * The item page URL is also set in the component.
-   * @returns An Observable that emits the title of the target item.
+   * Deletes a quality assurance event.
+   * @param qaEvent The quality assurance event to delete.
+   * @returns An Observable of RemoteData containing NoContent.
    */
-  public getTargetItemTitle(): Observable<string> {
-    return this.itemService.findById(this.targetId).pipe(
-      take(1),
-      getFirstCompletedRemoteData(),
-      getRemoteDataPayload(),
-      tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
-      map((item: Item) => item.firstMetadataValue('dc.title'))
-    );
+  delete(qaEvent: QualityAssuranceEventData): Observable<RemoteData<NoContent>> {
+    return this.qualityAssuranceEventRestService.deleteQAEvent(qaEvent);
   }
-
 }

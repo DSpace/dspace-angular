@@ -48,7 +48,7 @@ describe('QualityAssuranceTopicsService', () => {
     serviceAsAny = service;
   });
 
-  describe('getTopicsBySource', () => {
+  describe('getTopics', () => {
     it('should proxy the call to qualityAssuranceTopicRestService.searchTopicsBySource', () => {
       const sortOptions = new SortOptions('name', SortDirection.ASC);
       const findListOptions: FindListOptions = {
@@ -57,7 +57,7 @@ describe('QualityAssuranceTopicsService', () => {
         sort: sortOptions,
         searchParams: [new RequestParam('source', 'openaire')]
       };
-      const result = service.getTopics(elementsPerPage, currentPage, 'openaire');
+      service.getTopics(elementsPerPage, currentPage, 'openaire');
       expect((service as any).qualityAssuranceTopicRestService.searchTopicsBySource).toHaveBeenCalledWith(findListOptions);
     });
 
@@ -67,21 +67,6 @@ describe('QualityAssuranceTopicsService', () => {
       });
       const result = service.getTopics(elementsPerPage, currentPage, 'openaire');
       expect(result).toBeObservable(expected);
-    });
-
-    it('should include targetId in searchParams if set', () => {
-      const sortOptions = new SortOptions('name', SortDirection.ASC);
-      const findListOptions: FindListOptions = {
-        elementsPerPage: elementsPerPage,
-        currentPage: currentPage,
-        sort: sortOptions,
-        searchParams: [
-          new RequestParam('source', 'openaire'),
-          new RequestParam('target', '0000-0000-0000-0000-0000')
-        ]
-      };
-      const result = service.getTopics(elementsPerPage, currentPage,'openaire', '0000-0000-0000-0000-0000');
-      expect((service as any).qualityAssuranceTopicRestService.searchTopicsByTarget).toHaveBeenCalledWith(findListOptions);
     });
   });
 });

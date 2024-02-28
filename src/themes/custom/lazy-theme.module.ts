@@ -304,7 +304,7 @@ const DECLARATIONS = [
     NgxGalleryModule,
     FormModule,
     RequestCopyModule,
-    NotificationsModule
+    NotificationsModule,
   ],
   declarations: DECLARATIONS,
 })

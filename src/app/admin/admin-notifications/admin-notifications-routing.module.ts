@@ -6,34 +6,22 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import {  PUBLICATION_CLAIMS_PATH } from './admin-notifications-routing-paths';
 import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+import { AdminNotificationsPublicationClaimPageResolver } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page-resolver.service';
 import { QUALITY_ASSURANCE_EDIT_PATH } from './admin-notifications-routing-paths';
+import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
+import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
+import { AdminQualityAssuranceTopicsPageResolver } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page-resolver.service';
+import { AdminQualityAssuranceEventsPageResolver } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.resolver';
+import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
+import { AdminQualityAssuranceSourcePageResolver } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
+import {
+  SiteAdministratorGuard
+} from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import { QualityAssuranceBreadcrumbService } from '../../core/breadcrumbs/quality-assurance-breadcrumb.service';
 import {
-  AdminNotificationsPublicationClaimPageResolver
-} from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
-import {
-  QualityAssuranceTopicsPageComponent
-} from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page.component';
-import {
-  QualityAssuranceTopicsPageResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
-import {
   SourceDataResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-data.resolver';
-import {
-  QualityAssuranceEventsPageResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.resolver';
-import {
-  QualityAssuranceEventsPageComponent
-} from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';
-import {
-  QualityAssuranceSourcePageResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
-import {
-  QualityAssuranceSourcePageComponent
-} from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page.component';
-
+} from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-data.resolver';
 
 @NgModule({
   imports: [
@@ -56,11 +44,11 @@ import {
       {
         canActivate: [ AuthenticatedGuard ],
         path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId`,
-        component: QualityAssuranceTopicsPageComponent,
+        component: AdminQualityAssuranceTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: QualityAssuranceBreadcrumbResolver,
-          openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver
+          openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver
         },
         data: {
           title: 'admin.quality-assurance.page.title',
@@ -70,12 +58,27 @@ import {
       },
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
-        component: QualityAssuranceSourcePageComponent,
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
+        component: AdminQualityAssuranceTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireQualityAssuranceSourceParams: QualityAssuranceSourcePageResolver,
+          openaireQualityAssuranceTopicsParams: AdminQualityAssuranceTopicsPageResolver
+        },
+        data: {
+          title: 'admin.quality-assurance.page.title',
+          breadcrumbKey: 'admin.quality-assurance',
+          showBreadcrumbsFluid: false
+        }
+      },
+      {
+        canActivate: [ SiteAdministratorGuard ],
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
+        component: AdminQualityAssuranceSourcePageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+          openaireQualityAssuranceSourceParams: AdminQualityAssuranceSourcePageResolver,
           sourceData: SourceDataResolver
         },
         data: {
@@ -87,11 +90,11 @@ import {
       {
         canActivate: [ AuthenticatedGuard ],
         path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/:topicId`,
-        component: QualityAssuranceEventsPageComponent,
+        component: AdminQualityAssuranceEventsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: QualityAssuranceBreadcrumbResolver,
-          openaireQualityAssuranceEventsParams: QualityAssuranceEventsPageResolver
+          openaireQualityAssuranceEventsParams: AdminQualityAssuranceEventsPageResolver
         },
         data: {
           title: 'admin.notifications.event.page.title',
@@ -106,10 +109,10 @@ import {
     I18nBreadcrumbsService,
     AdminNotificationsPublicationClaimPageResolver,
     SourceDataResolver,
-    QualityAssuranceSourcePageResolver,
-    QualityAssuranceTopicsPageResolver,
-    QualityAssuranceEventsPageResolver,
-    QualityAssuranceSourcePageResolver,
+    AdminQualityAssuranceSourcePageResolver,
+    AdminQualityAssuranceTopicsPageResolver,
+    AdminQualityAssuranceEventsPageResolver,
+    AdminQualityAssuranceSourcePageResolver,
     QualityAssuranceBreadcrumbResolver,
     QualityAssuranceBreadcrumbService
   ]

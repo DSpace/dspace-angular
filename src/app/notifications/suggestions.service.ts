@@ -10,9 +10,10 @@ import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
 import {
   getAllSucceededRemoteDataPayload,
-  getFinishedRemoteData, getFirstCompletedRemoteData,
+  getFinishedRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
+  getFirstSucceededRemoteListPayload,
 } from '../core/shared/operators';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { TranslateService } from '@ngx-translate/core';
