@@ -449,7 +449,7 @@ export class SubmissionObjectEffects {
         // or if configuration overrides this behaviour
         if (!alwaysDisplayDuplicates()) {
           const duplicatesSectionId = findKey(currentState.sections, (section) => section.sectionType === SectionsType.Duplicates);
-          if (isNotUndefined(duplicatesSectionId) && isEmpty((sections[duplicatesSectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates)) {
+          if (isNotUndefined(duplicatesSectionId) && sections.hasOwnProperty(duplicatesSectionId) && isEmpty((sections[duplicatesSectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates)) {
             mappedActions.push(new CleanDuplicateDetectionAction(submissionId));
           }
         }

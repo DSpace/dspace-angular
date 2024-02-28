@@ -862,7 +862,7 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
 }
 
 function cleanDuplicateDetectionSection(state: SubmissionObjectState, action: CleanDuplicateDetectionAction): SubmissionObjectState {
-  if (isNotEmpty(state[ action.payload.submissionId ])) {
+  if (isNotEmpty(state[ action.payload.submissionId ]) && state[action.payload.submissionId].sections.hasOwnProperty('duplicates')) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {

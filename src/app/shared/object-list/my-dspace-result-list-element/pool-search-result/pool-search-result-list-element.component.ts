@@ -76,8 +76,6 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
    */
   showThumbnails: boolean;
 
-  enableDetectDuplicates$: Observable<any>;
-
   constructor(
     protected linkService: LinkService,
     protected truncatableService: TruncatableService,
@@ -100,14 +98,6 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
       followLink('item', {}, followLink('bundles')),
       followLink('submitter')
     ), followLink('action'));
-
-    // Get configuration for duplicate detection feature
-    this.enableDetectDuplicates$ = this.configService.findByPropertyName('duplicate.enable').pipe(
-      getFirstCompletedRemoteData(),
-      map((rd: RemoteData<ConfigurationProperty>) => {
-        return (rd.hasSucceeded && rd.payload && rd.payload.values[0] === 'true');
-      })
-    );
 
     (this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       getFirstCompletedRemoteData(),
