@@ -313,7 +313,10 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   selectInboundItemFilter(filterValue: string, index: number): void {
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
-    filterArray.controls[index].patchValue({constraint: filterValue, constraintFormatted: this.translateService.instant(filterValue + '.label')});
+    filterArray.controls[index].patchValue({
+      constraint: filterValue,
+      constraintFormatted: this.translateService.instant((filterValue !== '' ? filterValue : 'ldn.no-filter') + '.label')
+    });
     filterArray.markAllAsTouched();
   }
 

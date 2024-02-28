@@ -141,9 +141,9 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       this.operationsBuilder.flushOperation(this.pathCombiner.getPath([pattern, '-']));
     }
 
-    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored)) {
+    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored) || (!hasValue(selectedService) && hasPrevValueStored)) {
       // add the path when there is no previous value stored
-      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), [selectedService.id], false, true);
+      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), hasValue(selectedService) ? [selectedService.id] : [], false, true);
     }
     // set the previous value to the new value
     this.previousServices[pattern].services[index] = this.ldnServiceByPattern[pattern].services[index];
