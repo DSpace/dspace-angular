@@ -5,6 +5,8 @@ import { getQualityAssuranceEditRoute } from './admin-notifications/admin-notifi
 export const REGISTRIES_MODULE_PATH = 'registries';
 export const NOTIFICATIONS_MODULE_PATH = 'notifications';
 export const LDN_PATH = 'ldn';
+export const REPORTS_MODULE_PATH = 'reports';
+
 
 
 export function getRegistriesModuleRoute() {
@@ -21,4 +23,8 @@ export function getNotificationsModuleRoute() {
 
 export function getNotificatioQualityAssuranceRoute() {
   return new URLCombiner(`/${NOTIFICATIONS_MODULE_PATH}`, getQualityAssuranceEditRoute()).toString();
+}
+
+export function getReportsModuleRoute() {
+  return new URLCombiner(getAdminModuleRoute(), REPORTS_MODULE_PATH).toString();
 }

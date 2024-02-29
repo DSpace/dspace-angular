@@ -6,7 +6,11 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import { LDN_PATH, NOTIFICATIONS_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
+import {
+  LDN_PATH,
+  NOTIFICATIONS_MODULE_PATH,
+  REGISTRIES_MODULE_PATH, REPORTS_MODULE_PATH,
+} from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import {
   SiteAdministratorGuard
@@ -78,6 +82,11 @@ import {
               .then((m) => m.AdminLdnServicesModule),
           }
         ],
+      },
+      {
+        path: REPORTS_MODULE_PATH,
+        loadChildren: () => import('./admin-reports/admin-reports.module')
+          .then((m) => m.AdminReportsModule),
       },
     ])
   ],
