@@ -21,7 +21,8 @@ describe('Config Util', () => {
         'dc.identifier.scopus',
         'dc.identifier.isi',
         'dcterms.dateSubmitted',
-        'dc.identifier.applicationnumber'
+        'dc.identifier.applicationnumber',
+        'dc.type'
       ]);
 
       expect(appConfig.themes.length).toEqual(1);

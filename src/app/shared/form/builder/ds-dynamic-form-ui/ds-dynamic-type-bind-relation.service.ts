@@ -11,14 +11,16 @@ import {
   DynamicFormControlMatcher,
   DynamicFormControlModel,
   DynamicFormControlRelation,
-  DynamicFormRelationService, MATCH_VISIBLE,
+  DynamicFormRelationService,
+  MATCH_VISIBLE,
   OR_OPERATOR
 } from '@ng-dynamic-forms/core';
 
-import {hasNoValue, hasValue} from '../../../empty.util';
+import { hasNoValue, hasValue } from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
+import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 /**
  * Service to manage type binding for submission input fields
@@ -38,11 +40,11 @@ export class DsDynamicTypeBindRelationService {
    * @param bindModelValue
    * @private
    */
-  public getTypeBindValue(bindModelValue: string | FormFieldMetadataValueObject): string {
+  public getTypeBindValue(bindModelValue: string | FormFieldMetadataValueObject | VocabularyEntry): string {
     let value;
     if (hasNoValue(bindModelValue) || typeof bindModelValue === 'string') {
       value = bindModelValue;
-    } else if (bindModelValue instanceof FormFieldMetadataValueObject
+    } else if ((bindModelValue instanceof FormFieldMetadataValueObject || bindModelValue instanceof VocabularyEntry)
       && bindModelValue.hasAuthority()) {
       value = bindModelValue.authority;
     } else {
