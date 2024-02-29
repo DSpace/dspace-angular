@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { find, take } from 'rxjs/operators';
+import { find, switchMap, take } from 'rxjs/operators';
 import { ReplaceOperation } from 'fast-json-patch';
 
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
@@ -25,6 +25,11 @@ import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
 import { hasValue } from '../../../../shared/empty.util';
 import { DeleteByIDRequest, PostRequest } from '../../../data/request.models';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
+import {
+  QualityAssuranceEventData
+} from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
@@ -81,6 +86,16 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
         fieldValue: topic
       }
     ];
+    return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
+  }
+
+  /**
+   * Service for retrieving Quality Assurance events by topic and target.
+   * @param options (Optional) The search options to use when retrieving the events.
+   * @param linksToFollow (Optional) The links to follow when retrieving the events.
+   * @returns An observable of the remote data containing the paginated list of Quality Assurance events.
+   */
+  public searchEventsByTopic(options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceEventObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceEventObject>>> {
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }
 
@@ -200,4 +215,38 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
 
     return this.rdbService.buildFromRequestUUID<QualityAssuranceEventObject>(requestId);
   }
+
+  /**
+   * Perform a post on an endpoint related to correction type
+   * @param data the data to post
+   * @returns the RestResponse as an Observable
+   */
+  postData(target: string, correctionType: string, related: string, reason: string): Observable<RemoteData<QualityAssuranceEventObject>> {
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.getBrowseEndpoint();
+
+    return href$.pipe(
+      switchMap((href: string) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json');
+        options.headers = headers;
+        let params = new HttpParams();
+        params = params.append('target', target)
+                       .append('correctionType', correctionType);
+        options.params = params;
+        const request = new PostRequest(requestId, href, {'reason': reason} , options);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.send(request);
+        return this.rdbService.buildFromRequestUUID<QualityAssuranceEventObject>(requestId);
+      })
+    );
+  }
+
+  public deleteQAEvent(qaEvent: QualityAssuranceEventData): Observable<RemoteData<NoContent>> {
+      return this.deleteData.delete(qaEvent.id);
+  }
+
 }

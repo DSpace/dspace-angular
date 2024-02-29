@@ -5,7 +5,6 @@ import {QualityAssuranceBreadcrumbService} from './quality-assurance-breadcrumb.
 
 describe('QualityAssuranceBreadcrumbService', () => {
   let service: QualityAssuranceBreadcrumbService;
-  let dataService: any;
   let translateService: any = {
     instant: (str) => str,
   };
@@ -26,7 +25,7 @@ describe('QualityAssuranceBreadcrumbService', () => {
   }));
 
   beforeEach(() => {
-    service = new QualityAssuranceBreadcrumbService(dataService,translateService);
+    service = new QualityAssuranceBreadcrumbService(translateService);
   });
 
   describe('getBreadcrumbs', () => {

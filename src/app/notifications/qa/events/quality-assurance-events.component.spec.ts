@@ -42,6 +42,8 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { ItemDataService } from 'src/app/core/data/item-data.service';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 
 describe('QualityAssuranceEventsComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceEventsComponent>;
@@ -118,6 +120,8 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ItemDataService, useValue: {} },
+        { provide: AuthorizationDataService, useValue: {} },
         QualityAssuranceEventsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

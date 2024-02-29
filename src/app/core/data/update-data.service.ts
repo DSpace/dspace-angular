@@ -201,9 +201,7 @@ export class UpdateDataServiceImpl<T extends CacheableObject> extends Identifiab
   create(object: T, ...params: RequestParam[]): Observable<RemoteData<T>> {
     return this.createData.create(object, ...params);
   }
-
   /**
-   <<<<<<< HEAD
    * Perform a post on an endpoint related item with ID. Ex.: endpoint/<itemId>/related?item=<relatedItemId>
    * @param itemId The item id
    * @param relatedItemId The related item Id
