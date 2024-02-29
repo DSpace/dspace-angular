@@ -40,7 +40,7 @@ jobs:
   deploy-5:
     if: inputs.INSTANCE == '*' || inputs.INSTANCE == '5'
     runs-on: dspace-dep-1
-    timeout-minutes: 5
+    timeout-minutes: 10
     env:
       INSTANCE: '5'
       ENVFILE: /opt/dspace-envs/.env.dspace.dev-5
