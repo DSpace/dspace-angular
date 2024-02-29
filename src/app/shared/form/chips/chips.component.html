@@ -1,20 +1,17 @@
 <div [className]="'float-left w-100 ' + wrapperClass">
-  <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row">
+  <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
       <ng-template #tipContent>
         <p class="text-left p-0 m-0" *ngFor="let tip of tipText">
           {{tip}}
         </p>
       </ng-template>
-
-      <div role="listitem" class="nav-item mr-2 mb-1"
-          #t="ngbTooltip"
-          triggers="manual"
-          [ngbTooltip]="tipContent"
-          (dragstart)="t.close();onDragStart(i)"
-          (dragend)="onDragEnd(i)"
-          (mouseover)="showTooltip(t, i)"
-          (mouseout)="t.close()">
+      <div role="listitem" class="nav-item mr-2 mb-1" cdkDrag (cdkDragStarted)="onDrag($event)"
+           #t="ngbTooltip"
+           triggers="manual"
+           [ngbTooltip]="tipContent"
+           (mouseover)="showTooltip(t, i)"
+           (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
            href="javascript:void(0);"
            [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"
@@ -33,13 +30,19 @@
                  [authorityValue]="c.item[icon.metadata] || c.item"
                  [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
                  aria-hidden="true"
-                 (dragstart)="t.close();"
                  (mouseover)="showTooltip(t, i, icon.metadata)"
                  (mouseout)="t.close()"></i>
             </ng-container>
             <p class="chip-label text-truncate d-table-cell">{{c.display}}</p><i class="fas fa-times ml-2" (click)="removeChips($event, i)" [title]="'chips.remove' | translate"></i>
           </span>
         </a>
+
+        <div class="example-custom-placeholder" *cdkDragPlaceholder>
+          <div class="example-drag-preview nav-item mr-2 mb-1" *ngIf="(isDragging | async)">
+              {{ c.display }}
+          </div>
+        </div>
+
       </div>
     </ng-container>
     <div [class.chips-sort-ignore]="(isDragging | async)" class="flex-grow-1">
