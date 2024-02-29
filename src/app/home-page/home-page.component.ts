@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, of as observableOf } from 'rxjs';
 import { Site } from '../core/shared/site.model';
 import { isPlatformServer } from '@angular/common';
 import { ServerResponseService } from '../core/services/server-response.service';
@@ -28,6 +28,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
    */
   inboxLinks: LinkDefinition[] = [];
 
+  subs: Subscription[] = [];
+
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected route: ActivatedRoute,
@@ -40,19 +42,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
   ) {
     this.recentSubmissionspageSize = this.appConfig.homePage.recentSubmissions.pageSize;
     this.showDiscoverFilters = this.appConfig.homePage.showDiscoverFilters;
-    // Get COAR REST API URLs from REST configuration
-    // only if COAR configuration is enabled
-    this.notifyInfoService.isCoarConfigEnabled().pipe(
-      switchMap((coarLdnEnabled: boolean) => {
-        if (coarLdnEnabled) {
-          return this.notifyInfoService.getCoarLdnLocalInboxUrls();
-        }
-      })
-    ).subscribe((coarRestApiUrls: string[]) => {
-      if (coarRestApiUrls.length > 0) {
-        this.initPageLinks(coarRestApiUrls);
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -60,6 +49,17 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.site$ = this.route.data.pipe(
       map((data) => data.site as Site),
     );
+    // Get COAR REST API URLs from REST configuration
+    // only if COAR configuration is enabled
+    this.subs.push(this.notifyInfoService.isCoarConfigEnabled().pipe(
+      switchMap((coarLdnEnabled: boolean) => {
+        return coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : observableOf([]);
+      }),
+    ).subscribe((coarRestApiUrls: string[]) => {
+      if (coarRestApiUrls.length > 0) {
+        this.initPageLinks(coarRestApiUrls);
+      }
+    }));
   }
 
   /**
@@ -91,6 +91,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
    * It removes the inbox links from the head of the html.
    */
   ngOnDestroy(): void {
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
     this.inboxLinks.forEach((link: LinkDefinition) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
