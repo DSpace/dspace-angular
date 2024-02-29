@@ -71,7 +71,7 @@ export class FilteredItemsComponent {
       collections: this.formBuilder.control([''], []),
       presetQuery: this.formBuilder.control('new', []),
       queryPredicates: this.formBuilder.array(formQueryPredicates),
-      pageLimit: this.formBuilder.control('100', []),
+      pageLimit: this.formBuilder.control('10', []),
       filters: FiltersComponent.formGroup(this.formBuilder),
       additionalFields: this.formBuilder.control([], [])
     });
@@ -200,9 +200,7 @@ export class FilteredItemsComponent {
       OptionVO.item('10', '10'),
       OptionVO.item('25', '25'),
       OptionVO.item('50', '50'),
-      OptionVO.item('100', '100'),
-      OptionVO.item('250', '250'),
-      OptionVO.item('1000', '1000')
+      OptionVO.item('100', '100')
     ];
   }
 
