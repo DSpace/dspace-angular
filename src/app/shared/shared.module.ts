@@ -287,6 +287,20 @@ import { QualityAssuranceSourceDataService } from '../core/notifications/qa/sour
 import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
 import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
 import { IpV4Validator } from './utils/ipV4.validator';
+import { ObjectTableComponent } from "./object-table/object-table.component";
+import {
+  AbstractTabulatableElementComponent
+} from "./object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component";
+import {
+  TabulatableObjectsLoaderComponent
+} from "./object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component";
+import {
+  TabulatableResultListElementsComponent
+} from "./object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component";
+import {
+  TabulatableObjectsDirective
+} from "./object-collection/shared/tabulatable-objects/tabulatable-objects.directive";
+import { NotificationBoxComponent } from "./notification-box/notification-box.component";
 
 const MODULES = [
   CommonModule,
@@ -350,7 +364,9 @@ const COMPONENTS = [
   ThemedObjectListComponent,
   ObjectDetailComponent,
   ObjectGridComponent,
+  ObjectTableComponent,
   AbstractListableElementComponent,
+  AbstractTabulatableElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,
   RSSComponent,
@@ -416,6 +432,7 @@ const ENTRY_COMPONENTS = [
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
+  TabulatableResultListElementsComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
   CollectionGridElementComponent,
@@ -471,7 +488,9 @@ const ENTRY_COMPONENTS = [
   AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  NotificationBoxComponent,
+  TabulatableObjectsLoaderComponent,
 ];
 
 const PROVIDERS = [
@@ -498,6 +517,7 @@ const DIRECTIVES = [
   ContextHelpDirective,
   DynamicComponentLoaderDirective,
   IpV4Validator,
+  TabulatableObjectsDirective
 ];
 
 @NgModule({
