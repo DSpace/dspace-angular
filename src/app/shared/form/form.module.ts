@@ -61,6 +61,7 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { ChipsComponent } from './chips/chips.component';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { AuthorityConfidenceStateDirective } from './directives/authority-confidence-state.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from './builder/form-builder.service';
@@ -126,6 +127,7 @@ const DIRECTIVES = [
         NgxMaskModule.forRoot(),
         NgbDatepickerModule,
         NgbTimepickerModule,
+        DragDropModule,
         CdkTreeModule,
         ...COMPONENTS,
         ...DIRECTIVES
