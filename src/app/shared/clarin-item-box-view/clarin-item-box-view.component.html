@@ -7,24 +7,27 @@
       </div>
       <div class="pl-3">
         <div class="row pt-3 justify-content-between">
-          <div class="">
+          <div class="col-10 pl-0">
             <div><a [routerLink]="itemUri" class="item-name">{{ itemName }}</a></div>
             <div class="pt-1"><strong>{{'item.view.box.author.message' | translate}}</strong></div>
           </div>
-          <div>
-            <img class="artifact-icon" src="assets/images/corpus.png">
+          <div class="col-2">
+            <img class="artifact-icon"
+                 [src]="ITEM_TYPE_IMAGES_PATH + itemType + '.png'"
+                 (error)="handleImageError($event)">
           </div>
         </div>
         <div class="row">
           <ds-clarin-item-author-preview [item]="item"></ds-clarin-item-author-preview>
         </div>
         <div class="row d-block pt-1">
-          <div><strong>Description:</strong></div>
+          <div><strong>{{'item.view.box.description.message' | translate}}</strong></div>
           <div class="clarin-item-description pr-3">{{itemDescription}}</div>
         </div>
         <div class="row d-flex pt-1">
           <div class="label label-info label-icon"><i class="fas fa-paperclip fa-sm"></i></div>
-          <div *ngIf="(itemCountOfFiles | async) !== -1" class="label label-info"> {{'item.view.box.files.message.0' | translate}} {{ (itemCountOfFiles | async) }} {{'item.view.box.files.message.1' | translate}} ({{(itemFilesSizeBytes | async) | dsFileSize }}). </div>
+          <div *ngIf="hasMoreFiles()" class="label label-info"> {{'item.view.box.files.message.0' | translate}} {{ (itemCountOfFiles | async) }} {{'item.view.box.files.message.1' | translate}} ({{(itemFilesSizeBytes | async) | dsFileSize }}). </div>
+          <div *ngIf="(itemCountOfFiles | async) === 1" class="label label-info"> {{'item.view.box.one.file.message' | translate}} ({{(itemFilesSizeBytes | async) | dsFileSize }}). </div>
           <div *ngIf="(itemCountOfFiles | async) === -1" class="label label-info"> {{'item.view.box.no-files.message' | translate}}</div>
         </div>
       </div>
@@ -38,9 +41,7 @@
             <img [ngClass]="{'clarin-license-icon-mr':licenseLabelIcons.value.length > 1}" [src]="secureImageData(icon)" alt="" width="16px">
           </div>
         </div>
-
       </div>
     </div>
   </div>
-
 </div>
