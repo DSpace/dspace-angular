@@ -26,29 +26,21 @@ import { QualityAssuranceSourceService } from './qa/source/quality-assurance-sou
 import {
   QualityAssuranceSourceDataService
 } from '../core/notifications/qa/source/quality-assurance-source-data.service';
-import { PublicationClaimComponent } from '../suggestion-notifications/suggestion-targets/publication-claim/publication-claim.component';
-import { SuggestionActionsComponent } from '../suggestion-notifications/suggestion-actions/suggestion-actions.component';
-import {
-  SuggestionListElementComponent
-} from '../suggestion-notifications/suggestion-list-element/suggestion-list-element.component';
+import { EPersonDataComponent } from './qa/events/ePerson-data/ePerson-data.component';
+import { SuggestionActionsComponent } from './suggestion-actions/suggestion-actions.component';
+import { PublicationClaimComponent } from './suggestion-targets/publication-claim/publication-claim.component';
+import { SuggestionListElementComponent } from './suggestion-list-element/suggestion-list-element.component';
 import {
   SuggestionEvidencesComponent
-} from '../suggestion-notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
-import { SuggestionsPopupComponent } from '../suggestion-notifications/suggestions-popup/suggestions-popup.component';
-import {
-  SuggestionsNotificationComponent
-} from '../suggestion-notifications/suggestions-notification/suggestions-notification.component';
-import { SuggestionsService } from '../suggestion-notifications/suggestions.service';
-import { SuggestionsDataService } from '../core/suggestion-notifications/suggestions-data.service';
-import {
-  SuggestionSourceDataService
-} from '../core/suggestion-notifications/source/suggestion-source-data.service';
-import {
-  SuggestionTargetDataService
-} from '../core/suggestion-notifications/target/suggestion-target-data.service';
-import {
-  SuggestionTargetsStateService
-} from '../suggestion-notifications/suggestion-targets/suggestion-targets.state.service';
+} from './suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionsPopupComponent } from './suggestions-popup/suggestions-popup.component';
+import { SuggestionsNotificationComponent } from './suggestions-notification/suggestions-notification.component';
+import { SuggestionsService } from './suggestions.service';
+import { SuggestionSourceDataService } from '../core/notifications/source/suggestion-source-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { SuggestionTargetsStateService } from './suggestion-targets/suggestion-targets.state.service';
+import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
+
 
 
 const MODULES = [
@@ -65,6 +57,7 @@ const COMPONENTS = [
   QualityAssuranceTopicsComponent,
   QualityAssuranceEventsComponent,
   QualityAssuranceSourceComponent,
+  EPersonDataComponent,
   PublicationClaimComponent,
   SuggestionActionsComponent,
   SuggestionListElementComponent,
@@ -100,7 +93,7 @@ const PROVIDERS = [
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
   ],
   providers: [
     ...PROVIDERS
@@ -110,7 +103,7 @@ const PROVIDERS = [
   ],
   exports: [
     ...COMPONENTS,
-    ...DIRECTIVES
+    ...DIRECTIVES,
   ]
 })
 

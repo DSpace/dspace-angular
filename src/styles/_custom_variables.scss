@@ -96,6 +96,7 @@
   --ds-footer-padding: 0;
   --ds-footer-padding-bottom: 0;
   --ds-footer-logo-height: 50px;
+  --ds-footer-n-coar-height: 20px;
 
   --ds-home-news-link-color: #{$ds-home-news-link-color};
   --ds-home-news-link-hover-color: #{darken($ds-home-news-link-color, 15%)};
@@ -136,6 +137,8 @@
 
 
   --ds-item-page-img-field-default-inline-height: 24px;
+
+  --ds-qa-logo-width: 100px;
 
   --ds-process-overview-table-nb-processes-badge-size: 0.5em;
   --ds-process-overview-table-id-column-width: 120px;

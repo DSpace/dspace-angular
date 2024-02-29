@@ -118,8 +118,8 @@ export class NotificationsStateService {
    * @param currentPage
    *    The number of the current page.
    */
-  public dispatchRetrieveQualityAssuranceTopics(elementsPerPage: number, currentPage: number): void {
-    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage));
+  public dispatchRetrieveQualityAssuranceTopics(elementsPerPage: number, currentPage: number, sourceId: string, targteId?: string): void {
+    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage, sourceId, targteId));
   }
 
   // Quality Assurance source

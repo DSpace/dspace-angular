@@ -334,5 +334,13 @@ export const environment: BuildConfig = {
     }
   ],
 
-  suggestion: []
+  suggestion: [],
+
+  search: {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType']
+    }
+  }
+
 };
