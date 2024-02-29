@@ -5,8 +5,8 @@ import isObject from 'lodash/isObject';
 
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import { DragService } from '../../../core/drag.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { CdkDragDrop, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
@@ -43,9 +43,7 @@ export class ChipsComponent implements OnChanges {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private dragService: DragService,
     private translate: TranslateService) {
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -77,19 +75,14 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  onDragStart(index) {
+  onDrag(event: CdkDragStart<ChipsItem[]>) {
     this.isDragging.next(true);
-    this.dragService.overrideDragOverPage();
-    this.dragged = index;
   }
-
-  onDragEnd(event) {
-    this.dragService.allowDragOverPage();
-    this.dragged = -1;
+  onDrop(event: CdkDragDrop<ChipsItem[]>) {
+    moveItemInArray(this.chips.chipsItems.getValue(), event.previousIndex, event.currentIndex);
     this.chips.updateOrder();
     this.isDragging.next(false);
   }
-
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     const chipsItem = this.chips.getChipByIndex(index);
@@ -122,5 +115,4 @@ export class ChipsComponent implements OnChanges {
 
     }
   }
-
 }
