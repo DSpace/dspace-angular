@@ -19,6 +19,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 
 /**
  * This component renders a full item page.
@@ -55,9 +56,10 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
+    protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, platformId);
+    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

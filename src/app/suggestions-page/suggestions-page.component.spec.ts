@@ -7,14 +7,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SuggestionsPageComponent } from './suggestions-page.component';
-import {
-  SuggestionApproveAndImport,
-  SuggestionListElementComponent
-} from '../suggestion-notifications/suggestion-list-element/suggestion-list-element.component';
-import { SuggestionsService } from '../suggestion-notifications/suggestions.service';
+
 import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/suggestion.mock';
 import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/publication-claim.mock';
-import { SuggestionEvidencesComponent } from '../suggestion-notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,13 +19,21 @@ import { AuthService } from '../core/auth/auth.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
-import { SuggestionTargetsStateService } from '../suggestion-notifications/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { PaginationService } from '../core/pagination/pagination.service';
+import {
+  SuggestionEvidencesComponent
+} from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import {
+  SuggestionApproveAndImport,
+  SuggestionListElementComponent
+} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionsService } from '../notifications/suggestions.service';
+import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;

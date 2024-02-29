@@ -26,7 +26,7 @@ import {
   ProjectEntryImportModalComponent,
   QualityAssuranceEventData
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -34,6 +34,8 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { environment } from '../../../../environments/environment';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { ItemDataService } from '../../../core/data/item-data.service';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -120,6 +122,22 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   protected subs: Subscription[] = [];
 
   /**
+   * The target item id, retrieved from the topic-id composition.
+   */
+  public targetId: string;
+
+  /**
+   * The URL of the item page/target.
+   */
+  public itemPageUrl: string;
+
+  /**
+   * Plain topic name (without the source id)
+   */
+  public selectedTopicName: string;
+
+
+  /**
    * Observable that emits a boolean value indicating whether the user is an admin.
    */
   isAdmin$: Observable<boolean>;
@@ -132,6 +150,8 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    * @param {QualityAssuranceEventDataService} qualityAssuranceEventRestService
    * @param {PaginationService} paginationService
    * @param {TranslateService} translateService
+   * @param authorizationService
+   * @param itemService
    */
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -141,6 +161,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     private paginationService: PaginationService,
     private translateService: TranslateService,
     private authorizationService: AuthorizationDataService,
+    private itemService: ItemDataService,
   ) {
   }
 
@@ -161,6 +182,10 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         const regEx = /!/g;
         this.showTopic = id.replace(regEx, '/');
         this.topic = id;
+        const splitList = this.showTopic?.split(':');
+        this.targetId = splitList.length > 2 ? splitList.pop() : null;
+        this.selectedTopicName = splitList[1];
+        this.sourceId = splitList[0];
         return this.getQualityAssuranceEvents();
       })
     ).subscribe(
@@ -470,5 +495,22 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   delete(qaEvent: QualityAssuranceEventData): Observable<RemoteData<NoContent>> {
     return this.qualityAssuranceEventRestService.deleteQAEvent(qaEvent);
+  }
+
+  /**
+   * Returns an Observable that emits the title of the target item.
+   * The target item is retrieved by its ID using the itemService.
+   * The title is extracted from the first metadata value of the item.
+   * The item page URL is also set in the component.
+   * @returns An Observable that emits the title of the target item.
+   */
+  public getTargetItemTitle(): Observable<string> {
+    return this.itemService.findById(this.targetId).pipe(
+      take(1),
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
+      map((item: Item) => item.firstMetadataValue('dc.title'))
+    );
   }
 }

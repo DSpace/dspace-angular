@@ -286,6 +286,7 @@ import { QualityAssuranceEventDataService } from '../core/notifications/qa/event
 import { QualityAssuranceSourceDataService } from '../core/notifications/qa/source/quality-assurance-source-data.service';
 import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
 import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
+import { IpV4Validator } from './utils/ipV4.validator';
 
 const MODULES = [
   CommonModule,
@@ -496,6 +497,7 @@ const DIRECTIVES = [
   HoverClassDirective,
   ContextHelpDirective,
   DynamicComponentLoaderDirective,
+  IpV4Validator,
 ];
 
 @NgModule({

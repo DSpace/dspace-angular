@@ -175,8 +175,9 @@ export class MenuResolver implements Resolve<boolean> {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
       this.authorizationService.isAuthorized(FeatureID.CanEditItem),
-      this.authorizationService.isAuthorized(FeatureID.CanSeeQA)
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem, canSeeQa]) => {
+      this.authorizationService.isAuthorized(FeatureID.CanSeeQA),
+      this.authorizationService.isAuthorized(FeatureID.CoarNotifyEnabled),
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem, canSeeQa, isCoarNotifyEnabled]) => {
       const newSubMenuList = [
         {
           id: 'new_community',
@@ -227,6 +228,18 @@ export class MenuResolver implements Resolve<boolean> {
             text: 'menu.section.new_process',
             link: '/processes/new'
           } as LinkMenuItemModel,
+        },/*  ldn_services */
+        {
+          id: 'ldn_services_new',
+          parentID: 'new',
+          active: false,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services_new',
+            link: '/admin/ldn/services/new'
+          } as LinkMenuItemModel,
+          icon: '',
         },
       ];
       const editSubMenuList = [
@@ -355,6 +368,19 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'terminal',
           index: 10
         },
+        /* LDN Services */
+        {
+          id: 'ldn_services',
+          active: false,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services',
+            link: '/admin/ldn/services'
+          } as LinkMenuItemModel,
+          icon: 'inbox',
+          index: 14
+        },
         {
           id: 'health',
           active: false,
@@ -367,8 +393,8 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'heartbeat',
           index: 11
         },
-         /* Notifications */
-         {
+        /* Notifications */
+        {
           id: 'notifications',
           active: false,
           visible: canSeeQa || isSiteAdmin,
@@ -398,9 +424,10 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.notifications_publication-claim',
-            link: '/notifications/' + PUBLICATION_CLAIMS_PATH
+            link: '/admin/notifications/' + PUBLICATION_CLAIMS_PATH
           } as LinkMenuItemModel,
         },
+        /*  Admin Search */
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true
@@ -573,7 +600,6 @@ export class MenuResolver implements Resolve<boolean> {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
     .subscribe((authorized) => {
       const menuList = [
-        /*  Admin Search */
         {
           id: 'admin_search',
           active: false,

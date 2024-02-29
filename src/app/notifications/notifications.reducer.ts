@@ -1,7 +1,7 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import { qualityAssuranceSourceReducer, QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
 import { qualityAssuranceTopicsReducer, QualityAssuranceTopicState, } from './qa/topics/quality-assurance-topics.reducer';
-import { SuggestionTargetsReducer, SuggestionTargetState } from '../suggestion-notifications/suggestion-targets/suggestion-targets.reducer';
+import { SuggestionTargetsReducer, SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
 
 /**
  * The OpenAIRE State
