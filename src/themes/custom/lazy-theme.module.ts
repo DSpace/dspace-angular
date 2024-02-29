@@ -160,7 +160,6 @@ import {UserMenuComponent} from './app/shared/auth-nav-menu/user-menu/user-menu.
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
 
-
 const DECLARATIONS = [
   FileSectionComponent,
   HomePageComponent,
@@ -305,7 +304,7 @@ const DECLARATIONS = [
     NgxGalleryModule,
     FormModule,
     RequestCopyModule,
-    NotificationsModule
+    NotificationsModule,
   ],
   declarations: DECLARATIONS,
 })

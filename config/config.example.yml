@@ -424,3 +424,12 @@ comcolSelectionSort:
 # suggestion:
   # - collectionId: 8f7df5ca-f9c2-47a4-81ec-8a6393d6e5af
     # source: "openaire"
+
+
+# Search settings
+search: 
+  # Settings to enable/disable or configure advanced search filters.
+  advancedFilters:
+    enabled: false
+    # List of filters to enable in "Advanced Search" dropdown
+    filter: [ 'title', 'author', 'subject', 'entityType' ]

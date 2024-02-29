@@ -6,7 +6,13 @@
           {{'notifications.events.title'| translate}}
         </div>
       </h2>
-      <ds-alert [type]="'alert-info'" [content]="'quality-assurance.events.description'"></ds-alert>
+      <ds-alert *ngIf="!targetId"  [type]="'alert-info'">
+        <span [innerHTML]="'quality-assurance.events.description' | translate : {topic: selectedTopicName, source: sourceId}"></span>
+      </ds-alert>
+      <ds-alert *ngIf="targetId" [type]="'alert-info'">
+        <span [innerHTML]="'quality-assurance.events.description-with-topic-and-target' | translate : {topic: selectedTopicName, source: sourceId}"></span>
+        <a [routerLink]="itemPageUrl" target="_blank">{{(getTargetItemTitle() | async)}}</a>
+      </ds-alert>
     </div>
   </div>
   <div class="row">
@@ -33,12 +39,17 @@
               <tr>
                 <th scope="col" class="trust-col">{{'quality-assurance.event.table.trust' | translate}}</th>
                 <th scope="col" class="title-col">{{'quality-assurance.event.table.publication' | translate}}</th>
-                <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') == -1" scope="col" class="content-col">
-                  {{'quality-assurance.event.table.details' | translate}}
-                </th>
                 <th *ngIf="hasDetailColumn() && showTopic.indexOf('/PROJECT') !== -1" scope="col" class="content-col">
                   {{'quality-assurance.event.table.project-details' | translate}}
                 </th>
+                <ng-container *ngIf="hasDetailColumn() && (showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1)">
+                  <th scope="col" class="content-col">
+                    {{'quality-assurance.event.table.reasons' | translate}}
+                  </th>
+                  <th scope="col" class="content-col">
+                    {{'quality-assurance.event.table.person-who-requested' | translate}}
+                  </th>
+                </ng-container>
                 <th scope="col" class="button-col">{{'quality-assurance.event.table.actions' | translate}}</th>
               </tr>
               </thead>
@@ -51,6 +62,18 @@
                          rel="noopener noreferrer"
                          [routerLink]="['/items', eventElement?.target?.id]">{{eventElement.title}}</a>
                     <span *ngIf="!eventElement?.target">{{eventElement.title}}</span>
+                    <div *ngIf="eventElement?.event?.message?.serviceId">
+                      <span class="small pr-1">{{'quality-assurance.event.table.event.message.serviceUrl' | translate}}</span>
+                      <span [title]="eventElement.event.message.serviceId">
+                        <a [href]="eventElement.event.message.serviceId" target="_blank">{{eventElement.event.message.serviceId}}</a>
+                      </span>
+                    </div>
+                    <div *ngIf="eventElement?.event?.message?.href" class="d-flex align-items-center">
+                      <span class="small pr-1">{{'quality-assurance.event.table.event.message.link' | translate}}</span>
+                      <span [title]="eventElement.event.message.href" class="text-truncate d-inline-block w-75">
+                        <a [href]="eventElement.event.message.href" target="_blank">{{eventElement.event.message.href}}</a>
+                      </span>
+                    </div>
                   </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
                     <p><span class="small">{{'quality-assurance.event.table.pidtype' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
@@ -62,7 +85,8 @@
                     </p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/SUBJECT') !== -1">
-                    <p><span class="small">{{'quality-assurance.event.table.subjectValue' | translate}}</span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
+                    <p><span class="small">{{'quality-assurance.event.table.subjectValue' | translate}}
+                       </span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/ABSTRACT') !== -1">
                     <p class="abstract-container" [class.show]="showMore">
@@ -75,6 +99,23 @@
                       {{ (showMore ? 'quality-assurance.event.table.less': 'quality-assurance.event.table.more') | translate }}
                     </button>
                   </td>
+                  <ng-container *ngIf="showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1">
+                    <td>
+                      <p>
+                        <span *ngIf="eventElement.event.message">
+                          <span>{{eventElement.event.message.reason}}</span><br>
+                        </span>
+                      </p>
+                    </td>
+                    <td>
+                      <p>
+                        <span *ngIf="eventElement.event.originalId">
+                          <ds-eperson-data [ePersonId]="eventElement.event.originalId" [properties]="['email']"></ds-eperson-data>
+                        </span>
+                      </p>
+                    </td>
+                  </ng-container>
+
                   <td *ngIf="showTopic.indexOf('/PROJECT') !== -1">
                     <p>
                       {{'quality-assurance.event.table.suggestedProject' | translate}}
@@ -115,7 +156,7 @@
                     </div>
                   </td>
                   <td>
-                    <div class="btn-group button-width">
+                    <div *ngIf="(isAdmin$ | async)" class="btn-group button-width">
                       <button *ngIf="showTopic.indexOf('/PROJECT') !== -1"
                               class="btn btn-outline-success btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
@@ -155,6 +196,16 @@
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </div>
+                    <div *ngIf="!(isAdmin$ | async)" class="btn-group button-width">
+                      <button class="btn btn-outline-danger btn-sm button-width"
+                              ngbTooltip="{{'quality-assurance.event.action.undo' | translate}}"
+                              container="body"
+                              [disabled]="eventElement.isRunning"
+                              [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
+                              (click)="openModal('UNDO', eventElement, undoModal)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -162,14 +213,6 @@
           </div>
         </ng-container>
       </ds-pagination>
-    </div>
-  </div>
-  <div class="row text-right">
-    <div class="col-md-12">
-      <a class="btn btn-outline-secondary" [routerLink]="['/admin/notifications/quality-assurance']">
-        <i class="fas fa-angle-double-left"></i>
-        {{'quality-assurance.events.back' | translate}}
-      </a>
     </div>
   </div>
 </div>
@@ -218,6 +261,23 @@
     <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
       <i class="fas fa-trash-alt"></i>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.reject' | translate}}</span>
+    </button>
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+      <i class="fas fa-close"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #undoModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="undoModal">{{'quality-assurance.event.sure' | translate}}</h4>
+  </div>
+  <div class="modal-body">
+    <p>{{'quality-assurance.event.undo.description' | translate}}</p>
+    <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
+      <i class="fas fa-trash-alt"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.undo' | translate}}</span>
     </button>
     <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
       <i class="fas fa-close"></i>

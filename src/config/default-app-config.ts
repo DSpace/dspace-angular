@@ -24,8 +24,8 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { CommunityPageConfig } from './community-page-config.interface';
-import {QualityAssuranceConfig} from './quality-assurance.config';
-
+import { QualityAssuranceConfig } from './quality-assurance.config';
+import { SearchConfig } from './search-page-config.interface';
 export class DefaultAppConfig implements AppConfig {
   production = false;
 
@@ -497,5 +497,13 @@ export class DefaultAppConfig implements AppConfig {
       openaire: 'https://explore.openaire.eu/search/project?projectId='
     },
     pageSize: 5,
+  };
+
+
+  search: SearchConfig = {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType']
+    }
   };
 }

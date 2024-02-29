@@ -1482,7 +1482,8 @@ export const qualityAssuranceEventObjectMissingPid: QualityAssuranceEventObject 
     funder: null,
     fundingProgram: null,
     jurisdiction: null,
-    title: null
+    title: null,
+    reason: 'Missing PID'
   },
   _links: {
     self: {
@@ -1519,7 +1520,8 @@ export const qualityAssuranceEventObjectMissingPid2: QualityAssuranceEventObject
     funder: null,
     fundingProgram: null,
     jurisdiction: null,
-    title: null
+    title: null,
+    reason: 'Missing PID'
   },
   _links: {
     self: {
@@ -1556,7 +1558,8 @@ export const qualityAssuranceEventObjectMissingPid3: QualityAssuranceEventObject
     funder: null,
     fundingProgram: null,
     jurisdiction: null,
-    title: null
+    title: null,
+    reason: 'Missing PID'
   },
   _links: {
     self: {
@@ -1593,7 +1596,8 @@ export const qualityAssuranceEventObjectMissingPid4: QualityAssuranceEventObject
     funder: null,
     fundingProgram: null,
     jurisdiction: null,
-    title: null
+    title: null,
+    reason: 'Missing DOI'
   },
   _links: {
     self: {
@@ -1630,7 +1634,8 @@ export const qualityAssuranceEventObjectMissingPid5: QualityAssuranceEventObject
     funder: null,
     fundingProgram: null,
     jurisdiction: null,
-    title: null
+    title: null,
+    reason: 'Missing PID'
   },
   _links: {
     self: {
@@ -1667,7 +1672,8 @@ export const qualityAssuranceEventObjectMissingPid6: QualityAssuranceEventObject
     funder: null,
     fundingProgram: null,
     jurisdiction: null,
-    title: null
+    title: null,
+    reason: 'Missing PID'
   },
   _links: {
     self: {
@@ -1704,7 +1710,8 @@ export const qualityAssuranceEventObjectMissingAbstract: QualityAssuranceEventOb
     funder: null,
     fundingProgram: null,
     jurisdiction: null,
-    title: null
+    title: null,
+    reason: 'Missing abstract'
   },
   _links: {
     self: {
@@ -1741,6 +1748,7 @@ export const qualityAssuranceEventObjectMissingProjectFound: QualityAssuranceEve
     funder: 'EC',
     fundingProgram: 'H2020',
     jurisdiction: 'EU',
+    reason: 'Project found',
     title: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage'
   },
   _links: {
@@ -1778,7 +1786,8 @@ export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssurance
     funder: 'EC',
     fundingProgram: 'H2021',
     jurisdiction: 'EU',
-    title: 'Tracking Unknown Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage'
+    title: 'Tracking Unknown Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage',
+    reason: 'Project not found'
   },
   _links: {
     self: {
@@ -1838,8 +1847,10 @@ export function getMockNotificationsStateService(): any {
  */
 export function getMockQualityAssuranceTopicRestService(): QualityAssuranceTopicDataService {
   return jasmine.createSpyObj('QualityAssuranceTopicDataService', {
-    getTopics: jasmine.createSpy('getTopics'),
     getTopic: jasmine.createSpy('getTopic'),
+    searchTopicsByTarget: jasmine.createSpy('searchTopicsByTarget'),
+    searchTopicsBySource: jasmine.createSpy('searchTopicsBySource'),
+    clearFindAllTopicsRequests: jasmine.createSpy('clearFindAllTopicsRequests'),
   });
 }
 
