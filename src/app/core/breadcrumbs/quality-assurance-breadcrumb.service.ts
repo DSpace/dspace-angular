@@ -34,8 +34,8 @@ export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderSer
 
     if (topicId) {
       return observableOf( [new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),
-              new Breadcrumb(sourceId, `${url}${sourceId}`),
-              new Breadcrumb(topicId, undefined)]);
+        new Breadcrumb(sourceId, `${url}${sourceId}`),
+        new Breadcrumb(topicId, undefined)]);
     } else {
       return observableOf([new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),
         new Breadcrumb(sourceId, `${url}${sourceId}`)]);

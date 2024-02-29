@@ -15,7 +15,7 @@ import { FindListOptions } from '../../../data/find-list-options.model';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
 import { dataService } from '../../../data/base/data-service.decorator';
 import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
-import { SearchData, SearchDataImpl } from '../../../../core/data/base/search-data';
+import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 
 /**

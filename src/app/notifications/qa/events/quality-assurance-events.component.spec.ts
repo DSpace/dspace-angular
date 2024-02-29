@@ -43,45 +43,13 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
-import { Item } from '../../../core/shared/item.model';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 
 describe('QualityAssuranceEventsComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceEventsComponent>;
   let comp: QualityAssuranceEventsComponent;
   let compAsAny: any;
   let scheduler: TestScheduler;
-
-  const item = Object.assign(new Item(), {
-    id: '1234-1234',
-    uuid: '1234-1234',
-    bundles: observableOf({}),
-    metadata: {
-      'dc.title': [
-        {
-          language: 'en_US',
-          value: 'This is just another title'
-        }
-      ],
-      'dc.type': [
-        {
-          language: null,
-          value: 'Article'
-        }
-      ],
-      'dc.contributor.author': [
-        {
-          language: 'en_US',
-          value: 'Smith, Donald'
-        }
-      ],
-      'dc.date.issued': [
-        {
-          language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
-  });
 
   const modalStub = {
       open: () => ( {result: new Promise((res, rej) => 'do')} ),
@@ -153,6 +121,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
         { provide: ItemDataService, useValue: {} },
+        { provide: AuthorizationDataService, useValue: {} },
         QualityAssuranceEventsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -315,12 +284,6 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         expect(eventData.projectId).toBeNull();
         expect(eventData.projectTitle).toBeNull();
         expect(eventData.handle).toBeNull();
-      });
-    });
-
-    describe('getItemPageRoute', () => {
-      it('should get item page route"', () => {
-        expect(comp.getItemPageRoute(item)).toEqual('/items/1234-1234');
       });
     });
 

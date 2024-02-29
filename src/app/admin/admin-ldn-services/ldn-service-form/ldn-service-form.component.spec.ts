@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import {NgbDropdownModule, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LdnServiceFormComponent} from './ldn-service-form.component';
@@ -37,7 +37,7 @@ describe('LdnServiceFormEditComponent', () => {
   const formMockValue = {
     'id': '',
     'name': 'name',
-    'description': '',
+    'description': 'description',
     'url': 'www.test.com',
     'ldnUrl': 'https://test.com',
     'lowerIp': '127.0.0.1',
@@ -118,17 +118,18 @@ describe('LdnServiceFormEditComponent', () => {
     expect(component.formModel instanceof FormGroup).toBeTruthy();
   });
 
-  it('should init properties correctly', () => {
+  it('should init properties correctly', fakeAsync(() => {
     spyOn(component, 'fetchServiceData');
     spyOn(component, 'setItemfilters');
     component.ngOnInit();
+    tick(100);
     expect((component as any).serviceId).toEqual(testId);
     expect(component.isNewService).toBeFalsy();
     expect(component.areControlsInitialized).toBeTruthy();
     expect(component.formModel.controls.notifyServiceInboundPatterns).toBeDefined();
     expect(component.fetchServiceData).toHaveBeenCalledWith(testId);
     expect(component.setItemfilters).toHaveBeenCalled();
-  });
+  }));
 
   it('should unsubscribe on destroy', () => {
     spyOn((component as any).routeSubscription, 'unsubscribe');
@@ -183,7 +184,7 @@ describe('LdnServiceFormEditComponent', () => {
     spyOn(component.formModel, 'markAllAsTouched');
     spyOn(component, 'closeModal');
     spyOn(component, 'checkPatterns').and.callFake(() => true);
-
+    component.formModel.addControl('notifyServiceInboundPatterns', (component as any).formBuilder.array([{pattern: 'patternValue'}]));
     component.formModel.patchValue(formMockValue);
     component.createService();
 
@@ -233,10 +234,8 @@ describe('LdnServiceFormEditComponent', () => {
 
   it('should reset form and leave', () => {
     spyOn(component as any, 'sendBack');
-    spyOn(component as any, 'closeModal');
 
     component.resetFormAndLeave();
-    expect((component as any).closeModal).toHaveBeenCalled();
     expect((component as any).sendBack).toHaveBeenCalled();
   });
 });

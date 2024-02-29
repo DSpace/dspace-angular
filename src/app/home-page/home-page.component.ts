@@ -10,6 +10,7 @@ import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.s
 import { LinkDefinition, LinkHeadService } from '../core/services/link-head.service';
 import { isNotEmpty } from '../shared/empty.util';
 
+import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 @Component({
   selector: 'ds-home-page',
   styleUrls: ['./home-page.component.scss'],
@@ -25,6 +26,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   inboxLinks: LinkDefinition[] = [];
 
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private route: ActivatedRoute,
     private responseService: ServerResponseService,
     private notifyInfoService: NotifyInfoService,

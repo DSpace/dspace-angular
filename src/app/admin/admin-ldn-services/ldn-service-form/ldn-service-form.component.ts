@@ -64,7 +64,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   });
   public markedForDeletionInboundPattern: number[] = [];
   public selectedInboundPatterns: string[];
-  public selectedInboundItemfilters: string[];
 
   protected serviceId: string;
 
@@ -135,7 +134,8 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   createService() {
     this.formModel.markAllAsTouched();
-    const hasInboundPattern = this.checkPatterns(this.formModel.get('notifyServiceInboundPatterns') as FormArray);
+    const notifyServiceInboundPatterns = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+    const hasInboundPattern = notifyServiceInboundPatterns?.length > 0 ? this.checkPatterns(notifyServiceInboundPatterns) : false;
 
     if (this.formModel.invalid) {
       this.closeModal();
@@ -151,9 +151,11 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
 
     this.formModel.value.notifyServiceInboundPatterns = this.formModel.value.notifyServiceInboundPatterns.map((pattern: {
       pattern: string;
-      patternLabel: string
+      patternLabel: string,
+      constraintFormatted: string;
     }) => {
       const {patternLabel, ...rest} = pattern;
+      delete rest.constraintFormatted;
       return rest;
     });
 
@@ -207,7 +209,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       (data: RemoteData<LdnService>) => {
         if (data.hasSucceeded) {
           this.ldnService = data.payload;
-
           this.formModel.patchValue({
             id: this.ldnService.id,
             name: this.ldnService.name,
@@ -218,9 +219,19 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
             type: this.ldnService.type,
             enabled: this.ldnService.enabled,
             lowerIp: this.ldnService.lowerIp,
-            upperIp: this.ldnService.upperIp,
+            upperIp: this.ldnService.upperIp
           });
           this.filterPatternObjectsAndAssignLabel('notifyServiceInboundPatterns');
+          let notifyServiceInboundPatternsFormArray = this.formModel.get('notifyServiceInboundPatterns') as FormArray;
+          notifyServiceInboundPatternsFormArray.controls.forEach(
+            control => {
+              const controlFormGroup = control as FormGroup;
+              const controlConstraint = controlFormGroup.get('constraint').value;
+              controlFormGroup.patchValue({
+                constraintFormatted: controlConstraint ? this.translateService.instant((controlConstraint as string) + '.label') : ''
+              });
+            }
+          );
         }
       },
     );
@@ -310,7 +321,11 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   selectInboundItemFilter(filterValue: string, index: number): void {
     const filterArray = (this.formModel.get('notifyServiceInboundPatterns') as FormArray);
-    filterArray.controls[index].patchValue({constraint: filterValue});
+    filterArray.controls[index].patchValue({
+      constraint: filterValue,
+      constraintFormatted: this.translateService.instant((filterValue !== '' ? filterValue : 'ldn.no-filter') + '.label')
+    });
+    filterArray.markAllAsTouched();
   }
 
   /**
@@ -364,14 +379,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Opens a reset form modal with the specified content
-   * @param content - The content to be displayed in the modal
-   */
-  openResetFormModal(content) {
-    this.modalRef = this.modalService.open(content);
-  }
-
-  /**
    * Patches the LDN service by retrieving and sending patch operations geenrated in generatePatchOperations()
    */
   patchService() {
@@ -421,7 +428,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
    */
   resetFormAndLeave() {
     this.sendBack();
-    this.closeModal();
   }
 
   /**
@@ -495,6 +501,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       const patternGroup = patternsArray.at(i) as FormGroup;
 
       const patternValue = patternGroup.value;
+      delete patternValue.constraintFormatted;
       if (patternGroup.touched && patternGroup.valid) {
         delete patternValue?.patternLabel;
         if (patternValue.isNew) {
@@ -533,6 +540,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       pattern: '',
       patternLabel: this.translateService.instant(this.selectPatternDefaultLabeli18Key),
       constraint: '',
+      constraintFormatted: '',
       automatic: false,
       isNew: true
     };
@@ -553,6 +561,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       pattern: '',
       patternLabel: '',
       constraint: '',
+      constraintFormatted: '',
       automatic: '',
     });
   }

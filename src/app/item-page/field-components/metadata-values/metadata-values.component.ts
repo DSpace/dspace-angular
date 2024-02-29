@@ -4,7 +4,8 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { hasValue } from '../../../shared/empty.util';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
-import { environment } from './../../../../environments/environment';
+import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
+import { environment } from '../../../../environments/environment';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -56,6 +57,11 @@ export class MetadataValuesComponent implements OnChanges {
 
   @Input() browseDefinition?: BrowseDefinition;
 
+  /**
+   * Optional {@code ImageField} reference that represents an image to be displayed inline.
+   */
+  @Input() img?: ImageField;
+
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
   }
@@ -91,6 +97,7 @@ export class MetadataValuesComponent implements OnChanges {
     }
     return queryParams;
   }
+
 
   /**
    * Checks if the given link value is an internal link.

@@ -24,16 +24,17 @@ import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALDataService } from './hal-data-service.interface';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
+import { HALLink } from '../../shared/hal-link.model';
 
 export const EMBED_SEPARATOR = '%2F';
 /**
  * Common functionality for data services.
  * Specific functionality that not all services would need
- * is implemented in "DataService feature" classes (e.g. {@link CreateData}
+ * is implemented in "UpdateDataServiceImpl feature" classes (e.g. {@link CreateData}
  *
- * All DataService (or DataService feature) classes must
+ * All UpdateDataServiceImpl (or UpdateDataServiceImpl feature) classes must
  *   - extend this class (or {@link IdentifiableDataService})
- *   - implement any DataService features it requires in order to forward calls to it
+ *   - implement any UpdateDataServiceImpl features it requires in order to forward calls to it
  *
  * ```
  * export class SomeDataService extends BaseDataService<Something> implements CreateData<Something>, SearchData<Something> {
@@ -268,14 +269,33 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
 
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
-    return this.rdbService.buildSingle<T>(requestHref$, ...linksToFollow).pipe(
+    const response$: Observable<RemoteData<T>> = this.rdbService.buildSingle<T>(requestHref$, ...linksToFollow).pipe(
       // This skip ensures that if a stale object is present in the cache when you do a
       // call it isn't immediately returned, but we wait until the remote data for the new request
       // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
       // cached completed object
-      skipWhile((rd: RemoteData<T>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
+      skipWhile((rd: RemoteData<T>) => rd.isStale || (!useCachedVersionIfAvailable && rd.hasCompleted)),
       this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
+    );
+    return response$.pipe(
+      // Ensure all followLinks from the cached object are automatically invalidated when invalidating the cached object
+      tap((remoteDataObject: RemoteData<T>) => {
+        if (hasValue(remoteDataObject?.payload?._links)) {
+          for (const followLinkName of Object.keys(remoteDataObject.payload._links)) {
+            // only add the followLinks if they are embedded
+            if (hasValue(remoteDataObject.payload[followLinkName]) && followLinkName !== 'self') {
+              // followLink can be either an individual HALLink or a HALLink[]
+              const followLinksList: HALLink[] = [].concat(remoteDataObject.payload._links[followLinkName]);
+              for (const individualFollowLink of followLinksList) {
+                if (hasValue(individualFollowLink?.href)) {
+                  this.addDependency(response$, individualFollowLink.href);
+                }
+              }
+            }
+          }
+        }
+      }),
     );
   }
 
@@ -302,14 +322,37 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
 
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
-    return this.rdbService.buildList<T>(requestHref$, ...linksToFollow).pipe(
+    const response$: Observable<RemoteData<PaginatedList<T>>> = this.rdbService.buildList<T>(requestHref$, ...linksToFollow).pipe(
       // This skip ensures that if a stale object is present in the cache when you do a
       // call it isn't immediately returned, but we wait until the remote data for the new request
       // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
       // cached completed object
-      skipWhile((rd: RemoteData<PaginatedList<T>>) => useCachedVersionIfAvailable ? rd.isStale : rd.hasCompleted),
+      skipWhile((rd: RemoteData<PaginatedList<T>>) => rd.isStale || (!useCachedVersionIfAvailable && rd.hasCompleted)),
       this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findListByHref(href$, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
+    );
+    return response$.pipe(
+      // Ensure all followLinks from the cached object are automatically invalidated when invalidating the cached object
+      tap((remoteDataObject: RemoteData<PaginatedList<T>>) => {
+        if (hasValue(remoteDataObject?.payload?.page)) {
+          for (const object of remoteDataObject.payload.page) {
+            if (hasValue(object?._links)) {
+              for (const followLinkName of Object.keys(object._links)) {
+                // only add the followLinks if they are embedded
+                if (hasValue(object[followLinkName]) && followLinkName !== 'self') {
+                  // followLink can be either an individual HALLink or a HALLink[]
+                  const followLinksList: HALLink[] = [].concat(object._links[followLinkName]);
+                  for (const individualFollowLink of followLinksList) {
+                    if (hasValue(individualFollowLink?.href)) {
+                      this.addDependency(response$, individualFollowLink.href);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }),
     );
   }
 
@@ -385,7 +428,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
 
   /**
    * Return the links to traverse from the root of the api to the
-   * endpoint this DataService represents
+   * endpoint this UpdateDataServiceImpl represents
    *
    * e.g. if the api root links to 'foo', and the endpoint at 'foo'
    * links to 'bar' the linkPath for the BarDataService would be

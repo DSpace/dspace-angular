@@ -185,20 +185,19 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
-import { SuggestionTarget } from './notifications/reciter-suggestions/models/suggestion-target.model';
-import { SuggestionSource } from './notifications/reciter-suggestions/models/suggestion-source.model';
+import { CorrectionTypeDataService } from './submission/correctiontype-data.service';
 import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { LdnItemfiltersService } from '../admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service';
-import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
 import {
   CoarNotifyConfigDataService
 } from '../submission/sections/section-coar-notify/coar-notify-config-data.service';
-import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
-import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { NotifyRequestsStatusDataService } from './data/notify-services-status-data.service';
-import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
-
+import { SuggestionTarget } from './notifications/models/suggestion-target.model';
+import { SuggestionSource } from './notifications/models/suggestion-source.model';
+import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
+import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
+import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -284,6 +283,7 @@ const PROVIDERS = [
   SearchService,
   SidebarService,
   SearchFilterService,
+  SearchFilterService,
   SearchConfigurationService,
   SelectableListService,
   RelationshipTypeDataService,
@@ -321,6 +321,7 @@ const PROVIDERS = [
   OrcidQueueDataService,
   OrcidHistoryDataService,
   SupervisionOrderDataService,
+  CorrectionTypeDataService,
   LdnServicesService,
   LdnItemfiltersService,
   CoarNotifyConfigDataService,
@@ -410,7 +411,6 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
-    AdminNotifyMessage
   ];
 
 @NgModule({

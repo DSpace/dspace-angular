@@ -1,9 +1,9 @@
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable, shareReplay } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
 
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
@@ -64,7 +64,7 @@ export class LogInPasswordComponent implements OnInit {
 
   /**
    * The authentication form.
-   * @type {FormGroup}
+   * @type {UntypedFormGroup}
    */
   public form: UntypedFormGroup;
 
@@ -72,6 +72,17 @@ export class LogInPasswordComponent implements OnInit {
    * Whether the current user (or anonymous) is authorized to register an account
    */
   public canRegister$: Observable<boolean>;
+
+  /**
+   * Whether or not the current user (or anonymous) is authorized to register an account
+   */
+  canForgot$: Observable<boolean>;
+
+  /**
+   * Shows the divider only if contains at least one link to show
+   */
+  canShowDivider$: Observable<boolean>;
+
 
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
@@ -115,7 +126,14 @@ export class LogInPasswordComponent implements OnInit {
       })
     );
 
-    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(shareReplay(1));
+    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
+    this.canShowDivider$ =
+        combineLatest([this.canRegister$, this.canForgot$])
+            .pipe(
+                map(([canRegister, canForgot]) => canRegister || canForgot),
+                filter(Boolean)
+            );
   }
 
   getRegisterRoute() {

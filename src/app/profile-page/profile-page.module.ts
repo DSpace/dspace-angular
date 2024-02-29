@@ -14,16 +14,15 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
 import { NotificationsModule } from '../notifications/notifications.module';
 
-
 @NgModule({
-    imports: [
-        ProfilePageRoutingModule,
-        CommonModule,
-        SharedModule,
-        FormModule,
-        UiSwitchModule,
-        NotificationsModule
-    ],
+  imports: [
+    ProfilePageRoutingModule,
+    CommonModule,
+    SharedModule,
+    FormModule,
+    UiSwitchModule,
+    NotificationsModule
+  ],
   exports: [
     ProfilePageComponent,
     ThemedProfilePageComponent,

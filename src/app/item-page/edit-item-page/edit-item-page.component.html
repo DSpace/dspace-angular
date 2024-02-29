@@ -10,6 +10,7 @@
                            class="nav-link"
                            [ngClass]="{'active' : page.page === currentPage}"
                            [routerLink]="['./' + page.page]"
+                           [attr.data-test]="page.page"
                            role="tab">
                             {{'item.edit.tabs.' + page.page + '.head' | translate}}
                         </a>

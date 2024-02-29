@@ -1,6 +1,6 @@
 <div class="container">
   <div class="d-flex">
-    <h2 class="flex-grow-1">{{ 'ldn-registered-services.title' | translate }}</h2>
+    <h1 class="flex-grow-1">{{ 'ldn-registered-services.title' | translate }}</h1>
   </div>
   <div class="d-flex justify-content-end">
     <button class="btn btn-success" routerLink="/admin/ldn/services/new"><i
@@ -44,10 +44,14 @@
           </td>
           <td>
             <div class="btn-group">
-              <button (click)="selectServiceToDelete(ldnService.id)" class="btn btn-outline-danger">
+              <button
+                (click)="selectServiceToDelete(ldnService.id)"
+                [attr.aria-label]="'ldn-service-overview-select-delete' | translate"
+                class="btn btn-outline-danger">
                 <i class="fas fa-trash"></i>
               </button>
               <button [routerLink]="['/admin/ldn/services/edit/', ldnService.id]"
+                      [attr.aria-label]="'ldn-service-overview-select-edit' | translate"
                       class="btn btn-outline-dark">
                 <i class="fas fa-edit"></i>
               </button>
@@ -69,6 +73,7 @@
         <h4>{{'service.overview.delete.header' | translate }}</h4>
       </div>
       <button (click)="closeModal()" aria-label="Close"
+              [attr.aria-label]="'ldn-service-overview-close-modal' | translate"
               class="close" type="button">
         <span aria-hidden="true">×</span>
       </button>
@@ -80,9 +85,11 @@
       </div>
       <div class="mt-4">
         <button (click)="closeModal()"
+                [attr.aria-label]="'ldn-service-overview-close-modal' | translate"
                 class="btn btn-primary mr-2">{{ 'service.detail.delete.cancel' | translate }}</button>
         <button (click)="deleteSelected(this.selectedServiceId.toString(), ldnServicesService)"
                 class="btn btn-danger"
+                [attr.aria-label]="'ldn-service-overview-select-delete' | translate"
                 id="delete-confirm">{{ 'service.overview.delete' | translate }}
         </button>
       </div>

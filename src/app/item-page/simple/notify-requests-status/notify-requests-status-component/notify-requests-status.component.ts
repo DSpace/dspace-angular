@@ -22,6 +22,11 @@ import { hasValue } from '../../../../shared/empty.util';
   styleUrls: ['./notify-requests-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+/**
+ * Component to show an alert box for each update in th Notify feature (e.g. COAR updates)
+ */
+
 export class NotifyRequestsStatusComponent implements OnInit {
   /**
    * The UUID of the item.
@@ -56,7 +61,7 @@ export class NotifyRequestsStatusComponent implements OnInit {
    */
   private groupDataByStatus(notifyRequestsStatus: NotifyRequestsStatus) {
     const statusMap: Map<RequestStatusEnum, NotifyStatuses[]> = new Map();
-    notifyRequestsStatus.notifyStatus.forEach(
+    notifyRequestsStatus.notifyStatus?.forEach(
       (notifyStatus: NotifyStatuses) => {
         const status = notifyStatus.status;
 

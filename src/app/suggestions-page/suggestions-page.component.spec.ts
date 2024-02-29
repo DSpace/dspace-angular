@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SuggestionsPageComponent } from './suggestions-page.component';
+
 import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/suggestion.mock';
-import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/reciter-suggestion.mock';
+import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/publication-claim.mock';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../shared/testing/router.stub';
-import { mockSuggestionTargetsObjectOne } from '../shared/mocks/reciter-suggestion-targets.mock';
+import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
 import { AuthService } from '../core/auth/auth.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
@@ -26,15 +27,13 @@ import { PaginationServiceStub } from '../shared/testing/pagination-service.stub
 import { PaginationService } from '../core/pagination/pagination.service';
 import {
   SuggestionEvidencesComponent
-} from '../notifications/reciter-suggestions/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+} from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import {
   SuggestionApproveAndImport,
   SuggestionListElementComponent
-} from '../notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
-import { SuggestionsService } from '../notifications/reciter-suggestions/suggestions.service';
-import {
-  SuggestionTargetsStateService
-} from '../notifications/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
+} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionsService } from '../notifications/suggestions.service';
+import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -133,24 +132,25 @@ describe('SuggestionPageComponent', () => {
     component.updatePage();
   });
 
-  it('should flag suggestion for deletion', () => {
+  it('should flag suggestion for deletion', fakeAsync(() => {
     spyOn(component, 'updatePage').and.stub();
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    component.notMine('1');
-    expect(mockSuggestionsService.notMine).toHaveBeenCalledWith('1');
+    component.ignoreSuggestion('1');
+    expect(mockSuggestionsService.ignoreSuggestion).toHaveBeenCalledWith('1');
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
+    tick(201);
     expect(component.updatePage).toHaveBeenCalled();
-  });
+  }));
 
   it('should flag all suggestion for deletion', () => {
     spyOn(component, 'updatePage').and.stub();
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    component.notMineAllSelected();
-    expect(mockSuggestionsService.notMineMultiple).toHaveBeenCalled();
+    component.ignoreSuggestionAllSelected();
+    expect(mockSuggestionsService.ignoreSuggestionMultiple).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
   });
@@ -201,17 +201,17 @@ describe('SuggestionPageComponent', () => {
   });
 
   it('should check if all collection is fixed', () => {
-    component.isCollectionFixed([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
-    expect(mockSuggestionsService.isCollectionFixed).toHaveBeenCalled();
+      component.isCollectionFixed([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
+      expect(mockSuggestionsService.isCollectionFixed).toHaveBeenCalled();
   });
 
   it('should translate suggestion source', () => {
-    component.translateSuggestionSource();
-    expect(mockSuggestionsService.translateSuggestionSource).toHaveBeenCalled();
+      component.translateSuggestionSource();
+      expect(mockSuggestionsService.translateSuggestionSource).toHaveBeenCalled();
   });
 
   it('should translate suggestion type', () => {
-    component.translateSuggestionType();
-    expect(mockSuggestionsService.translateSuggestionType).toHaveBeenCalled();
+      component.translateSuggestionType();
+      expect(mockSuggestionsService.translateSuggestionType).toHaveBeenCalled();
   });
 });

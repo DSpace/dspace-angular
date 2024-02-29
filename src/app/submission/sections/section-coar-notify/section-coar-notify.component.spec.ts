@@ -211,6 +211,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     const pattern2 = {pattern: 'endorsement', multipleRequest: false};
     const service1: LdnService = Object.assign(new LdnService(), {
       id: 1,
+      uuid: 1,
       name: 'service1',
       notifyServiceInboundPatterns: [
         Object.assign(new NotifyServicePattern(), {
@@ -220,6 +221,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
     const service2: LdnService = Object.assign(new LdnService(), {
       id: 2,
+      uuid: 2,
       name: 'service2',
       notifyServiceInboundPatterns: [
         Object.assign(new NotifyServicePattern(), {
@@ -229,6 +231,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
     const service3: LdnService = Object.assign(new LdnService(), {
       id: 3,
+      uuid: 3,
       name: 'service3',
       notifyServiceInboundPatterns: [
         Object.assign(new NotifyServicePattern(), {
@@ -271,8 +274,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     it('should add the service to the selected services by pattern if the section data has a value for the pattern', () => {
-      component.sectionData.data[pattern1.pattern] = [service1, service3];
-      component.sectionData.data[pattern2.pattern] = [service2, service3];
+      component.sectionData.data[pattern1.pattern] = [service1.uuid, service3.uuid];
+      component.sectionData.data[pattern2.pattern] = [service2.uuid, service3.uuid];
       component.initSelectedServicesByPattern();
 
       expect(component.ldnServiceByPattern[pattern1.pattern].services).toEqual([

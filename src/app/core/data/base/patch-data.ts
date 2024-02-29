@@ -54,7 +54,7 @@ export interface PatchData<T extends CacheableObject> {
 }
 
 /**
- * A DataService feature to patch and update objects.
+ * A UpdateDataServiceImpl feature to patch and update objects.
  *
  * Concrete data services can use this feature by implementing {@link PatchData}
  * and delegating its method to an inner instance of this class.

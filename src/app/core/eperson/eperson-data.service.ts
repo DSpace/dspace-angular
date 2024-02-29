@@ -34,7 +34,7 @@ import { PatchData, PatchDataImpl } from '../data/base/patch-data';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
-import { getEPersonEditRoute, getEPersonsRoute } from '../../access-control/access-control-routing-paths';
+import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -311,13 +311,6 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
       }
     });
     return getEPersonEditRoute(ePerson.id);
-  }
-
-  /**
-   * Get EPeople admin page
-   */
-  public getEPeoplePageRouterLink(): string {
-    return getEPersonsRoute();
   }
 
   /**

@@ -3,7 +3,12 @@ import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../shared/
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { map, Observable } from 'rxjs';
 import { ConfigurationProperty } from '../../shared/configuration-property.model';
+import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../data/feature-authorization/feature-id';
 
+/**
+ * Service to check COAR availability and LDN services information for the COAR Notify functionalities
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -16,17 +21,11 @@ export class NotifyInfoService {
 
     constructor(
         private configService: ConfigurationDataService,
+        protected authorizationService: AuthorizationDataService,
     ) {}
 
     isCoarConfigEnabled(): Observable<boolean> {
-        return this.configService.findByPropertyName('coar-notify.enabled').pipe(
-            getFirstSucceededRemoteData(),
-            map(response => {
-                const booleanArrayValue = response.payload.values;
-                const coarConfigEnabled = booleanArrayValue.length > 0 ? booleanArrayValue[0] === 'true' : false;
-                return coarConfigEnabled;
-            })
-        );
+        return this.authorizationService.isAuthorized(FeatureID.CoarNotifyEnabled);
     }
 
     /**

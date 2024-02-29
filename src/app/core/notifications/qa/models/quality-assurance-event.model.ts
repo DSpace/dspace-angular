@@ -28,6 +28,8 @@ export interface SourceQualityAssuranceEventMessageObject {
    */
   type: string;
 
+  reason: string;
+
   /**
    * The value suggested by Notifications
    */

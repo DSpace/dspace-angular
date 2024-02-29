@@ -4,6 +4,9 @@ import { NotificationsSuggestionTargetsPageComponent } from './notifications-sug
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  AdminNotificationsPublicationClaimPageComponent
+} from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
 
 describe('NotificationsSuggestionTargetsPageComponent', () => {
   let component: NotificationsSuggestionTargetsPageComponent;
@@ -19,7 +22,7 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
         NotificationsSuggestionTargetsPageComponent
       ],
       providers: [
-        NotificationsSuggestionTargetsPageComponent
+        AdminNotificationsPublicationClaimPageComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

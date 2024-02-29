@@ -1,7 +1,5 @@
 import { Component, Inject, Input } from '@angular/core';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -26,11 +24,10 @@ export class SearchSettingsComponent {
    */
   @Input() sortOptionsList: SortOptions[];
 
-  constructor(private service: SearchService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private paginationService: PaginationService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService) {
+  constructor(
+    protected paginationService: PaginationService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService,
+  ) {
   }
 
   /**

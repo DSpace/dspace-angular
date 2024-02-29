@@ -34,6 +34,7 @@ import { LdnPattern } from './submission-coar-notify.config';
 @renderSectionFor(SectionsType.CoarNotify)
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
+  hasSectionData = false;
   /**
    * Contains an array of string patterns.
    */
@@ -140,9 +141,9 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       this.operationsBuilder.flushOperation(this.pathCombiner.getPath([pattern, '-']));
     }
 
-    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored)) {
+    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored) || (!hasValue(selectedService) && hasPrevValueStored)) {
       // add the path when there is no previous value stored
-      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), [selectedService.id], false, true);
+      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), hasValue(selectedService) ? [selectedService.id] : [], false, true);
     }
     // set the previous value to the new value
     this.previousServices[pattern].services[index] = this.ldnServiceByPattern[pattern].services[index];
@@ -163,10 +164,18 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
         this.subs.push(
           this.filterServices(ldnPattern.pattern)
             .subscribe((services: LdnService[]) => {
+
+              if (!this.ldnServiceByPattern[ldnPattern.pattern]) {
+                this.ldnServiceByPattern[ldnPattern.pattern] = {
+                  services: [],
+                  allowsMultipleRequests: ldnPattern.multipleRequest
+                };
+              }
+
               this.ldnServiceByPattern[ldnPattern.pattern].services = services.filter((service) => {
                 const selection = (this.sectionData.data[ldnPattern.pattern] as LdnService[]).find((s: LdnService) => s.id === service.id);
                 this.addService(ldnPattern, selection);
-                return this.sectionData.data[ldnPattern.pattern].includes(service);
+                return this.sectionData.data[ldnPattern.pattern].includes(service.uuid);
               });
             })
         );
@@ -230,8 +239,12 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       filter((rd) => rd.hasSucceeded),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
-      map((res: LdnService[]) => res.filter((service) =>
-        this.hasInboundPattern(service, pattern)))
+      map((res: LdnService[]) => res.filter((service) => {
+          if (!this.hasSectionData){
+            this.hasSectionData = this.hasInboundPattern(service, pattern);
+          }
+          return this.hasInboundPattern(service, pattern);
+        }))
     );
   }
 

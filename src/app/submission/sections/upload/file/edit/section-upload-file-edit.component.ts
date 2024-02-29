@@ -28,6 +28,8 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
+  BITSTREAM_FORM_PRIMARY,
+  BITSTREAM_FORM_PRIMARY_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './section-upload-file-edit.model';
@@ -42,10 +44,8 @@ import { FormComponent } from '../../../../../shared/form/form.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, mergeMap, take } from 'rxjs/operators';
 import { dateToISOFormat } from '../../../../../shared/date.util';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import {
-  WorkspaceitemSectionUploadObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload.model';
+
+
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import {
   SubmissionJsonPatchOperationsService
@@ -57,6 +57,9 @@ import { SectionUploadService } from '../../section-upload.service';
 import { Subscription } from 'rxjs';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -73,6 +76,13 @@ export class SubmissionSectionUploadFileEditComponent
    * The FormComponent reference
    */
   @ViewChild('formRef') public formRef: FormComponent;
+
+  /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+  isPrimary: boolean;
 
   /**
    * The list of available access condition
@@ -191,6 +201,10 @@ export class SubmissionSectionUploadFileEditComponent
    *    The form model
    */
   public initModelData(formModel: DynamicFormControlModel[]) {
+
+    const primaryBitstreamModel: any = this.formBuilderService.findById('primary', formModel, this.fileIndex);
+    primaryBitstreamModel.value = this.isPrimary || false;
+
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key) && isNotEmpty(accessCondition[key]))
@@ -291,6 +305,9 @@ export class SubmissionSectionUploadFileEditComponent
       ])
     });
     const formModel: DynamicFormControlModel[] = [];
+
+    formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_PRIMARY, BITSTREAM_FORM_PRIMARY_LAYOUT));
+
     const metadataGroupModelConfig = Object.assign({}, BITSTREAM_METADATA_FORM_GROUP_CONFIG);
     metadataGroupModelConfig.group = this.formBuilderService.modelFromConfiguration(
       this.submissionId,
@@ -386,10 +403,14 @@ export class SubmissionSectionUploadFileEditComponent
     return formModel;
   }
 
+
   /**
    * Save bitstream metadata
    */
   saveBitstreamData() {
+
+    const pathFragment = ['files', this.fileIndex];
+
     // validate form
     this.formService.validateAllFormFields(this.formRef.formGroup);
     const saveBitstreamDataSubscription = this.formService.isValid(this.formId).pipe(
@@ -398,13 +419,15 @@ export class SubmissionSectionUploadFileEditComponent
       mergeMap(() => this.formService.getFormData(this.formId)),
       take(1),
       mergeMap((formData: any) => {
+        this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
         // collect bitstream metadata
         Object.keys((formData.metadata))
           .filter((key) => isNotEmpty(formData.metadata[key]))
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
             const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
+            this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, path]), formData.metadata[key], true);
           });
         Object.keys((this.fileData.metadata))
           .filter((key) => isNotEmpty(this.fileData.metadata[key]))
@@ -413,79 +436,85 @@ export class SubmissionSectionUploadFileEditComponent
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
             const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.remove(this.pathCombiner.getPath(path));
+            this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, path]));
           });
         const accessConditionsToSave = [];
-        formData.accessConditions
-          .map((accessConditions) => accessConditions.accessConditionGroup)
-          .filter((accessCondition) => isNotEmpty(accessCondition))
-          .forEach((accessCondition) => {
-            let accessConditionOpt;
+        if (formData.hasOwnProperty('accessConditions')) {
+          formData.accessConditions
+            .filter((accessConditions) => isNotNull(accessConditions))
+            .map((accessConditions) => accessConditions.accessConditionGroup)
+            .filter((accessCondition) => isNotEmpty(accessCondition))
+            .forEach((accessCondition) => {
+              let accessConditionOpt;
 
-            this.availableAccessConditionOptions
-              .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
-              .forEach((element) => accessConditionOpt = element);
+              this.availableAccessConditionOptions
+                .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
+                .forEach((element) => accessConditionOpt = element);
 
-            if (accessConditionOpt) {
-              const currentAccessCondition = Object.assign({}, accessCondition);
-              currentAccessCondition.name = this.retrieveValueFromField(accessCondition.name);
+              if (accessConditionOpt) {
+                const currentAccessCondition = Object.assign({}, accessCondition);
+                currentAccessCondition.name = this.retrieveValueFromField(accessCondition.name);
 
-              /* When start and end date fields are deactivated, their values may be still present in formData,
-              therefore it is necessary to delete them if they're not allowed by the current access condition option. */
-              if (!accessConditionOpt.hasStartDate) {
-                delete currentAccessCondition.startDate;
-              } else if (accessCondition.startDate) {
-                const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                // Clamp the start date to the maximum, if any, since the
-                // datepicker sometimes exceeds it.
-                let startDateDate = new Date(startDate);
-                if (accessConditionOpt.maxStartDate) {
+                /* When start and end date fields are deactivated, their values may be still present in formData,
+                therefore it is necessary to delete them if they're not allowed by the current access condition option. */
+                if (!accessConditionOpt.hasStartDate) {
+                  delete currentAccessCondition.startDate;
+                } else if (accessCondition.startDate) {
+                  const startDate = this.retrieveValueFromField(accessCondition.startDate);
+                  // Clamp the start date to the maximum, if any, since the
+                  // datepicker sometimes exceeds it.
+                  let startDateDate = new Date(startDate);
+                  if (accessConditionOpt.maxStartDate) {
                     const maxStartDateDate = new Date(accessConditionOpt.maxStartDate);
                     if (startDateDate > maxStartDateDate) {
-                        startDateDate = maxStartDateDate;
+                      startDateDate = maxStartDateDate;
                     }
+                  }
+                  currentAccessCondition.startDate = dateToISOFormat(startDateDate);
                 }
-                currentAccessCondition.startDate = dateToISOFormat(startDateDate);
-              }
-              if (!accessConditionOpt.hasEndDate) {
-                delete currentAccessCondition.endDate;
-              } else if (accessCondition.endDate) {
-                const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                // Clamp the end date to the maximum, if any, since the
-                // datepicker sometimes exceeds it.
-                let endDateDate = new Date(endDate);
-                if (accessConditionOpt.maxEndDate) {
+                if (!accessConditionOpt.hasEndDate) {
+                  delete currentAccessCondition.endDate;
+                } else if (accessCondition.endDate) {
+                  const endDate = this.retrieveValueFromField(accessCondition.endDate);
+                  // Clamp the end date to the maximum, if any, since the
+                  // datepicker sometimes exceeds it.
+                  let endDateDate = new Date(endDate);
+                  if (accessConditionOpt.maxEndDate) {
                     const maxEndDateDate = new Date(accessConditionOpt.maxEndDate);
                     if (endDateDate > maxEndDateDate) {
-                        endDateDate = maxEndDateDate;
+                      endDateDate = maxEndDateDate;
                     }
+                  }
+                  currentAccessCondition.endDate = dateToISOFormat(endDateDate);
                 }
-                currentAccessCondition.endDate = dateToISOFormat(endDateDate);
+                accessConditionsToSave.push(currentAccessCondition);
               }
-              accessConditionsToSave.push(currentAccessCondition);
-            }
-          });
-
-        if (isNotEmpty(accessConditionsToSave)) {
-          this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
+            });
         }
-
-        // dispatch a PATCH request to save metadata
-        return this.operationsService.jsonPatchByResourceID(
-          this.submissionService.getSubmissionObjectLinkName(),
-          this.submissionId,
-          this.pathCombiner.rootElement,
-          this.pathCombiner.subRootElement);
-      })
+        if (isNotEmpty(accessConditionsToSave)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'accessConditions']), accessConditionsToSave, true);
+        }
+       // dispatch a PATCH request to save metadata
+       return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        this.submissionId,
+        this.pathCombiner.rootElement,
+        this.pathCombiner.subRootElement);
+    })
     ).subscribe((result: SubmissionObject[]) => {
-      if (result[0].sections[this.sectionId]) {
-        const uploadSection = (result[0].sections[this.sectionId] as WorkspaceitemSectionUploadObject);
-        Object.keys(uploadSection.files)
-          .filter((key) => uploadSection.files[key].uuid === this.fileId)
-          .forEach((key) => this.uploadService.updateFileData(
-            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
-          );
+      const section = result[0].sections[this.sectionId];
+      if (!section) {
+        return;
       }
+      const uploadSection = (section as WorkspaceitemSectionUploadObject);
+
+      this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
+
+      Object.keys(uploadSection.files)
+        .filter((key) => uploadSection.files[key].uuid === this.fileId)
+        .forEach((key) => this.uploadService.updateFileData(
+          this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
+        );
       this.isSaving = false;
       this.activeModal.close();
     });
