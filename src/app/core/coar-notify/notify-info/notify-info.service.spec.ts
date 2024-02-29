@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-
 import { NotifyInfoService } from './notify-info.service';
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { of } from 'rxjs';
 import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('NotifyInfoService', () => {
   let service: NotifyInfoService;
@@ -32,21 +32,21 @@ describe('NotifyInfoService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should retrieve and map coar configuration', () => {
-    const mockResponse = { payload: { values: ['true'] } };
-    (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(of(mockResponse));
+  it('should retrieve and map coar configuration', (done: DoneFn) => {
+    (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$({ values: ['true'] }));
 
     service.isCoarConfigEnabled().subscribe((result) => {
       expect(result).toBe(true);
+      done();
     });
   });
 
-  it('should retrieve and map LDN local inbox URLs', () => {
-    const mockResponse = { values: ['inbox1', 'inbox2'] };
-    (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(of(mockResponse));
+  it('should retrieve and map LDN local inbox URLs', (done: DoneFn) => {
+    (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$({ values: ['inbox1', 'inbox2'] }));
 
     service.getCoarLdnLocalInboxUrls().subscribe((result) => {
       expect(result).toEqual(['inbox1', 'inbox2']);
+      done();
     });
   });
 

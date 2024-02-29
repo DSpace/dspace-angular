@@ -24,9 +24,6 @@ import { ResearcherProfileDataService } from '../../core/profile/researcher-prof
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DsoWithdrawnReinstateModalService, REQUEST_REINSTATE, REQUEST_WITHDRAWN } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { RequestParam } from '../../core/cache/models/request-param.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { Community } from '../../core/shared/community.model';
@@ -50,7 +47,6 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
-    private auth: AuthService,
     private correctionTypeDataService: CorrectionTypeDataService
   ) {
   }
@@ -133,9 +129,6 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
    */
   protected getItemMenu(dso): Observable<MenuSection[]> {
     if (dso instanceof Item) {
-      const findListTopicOptions: FindListOptions = {
-        searchParams: [new RequestParam('target', dso.uuid)]
-      };
       return combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, dso.self),
         this.dsoVersioningModalService.isNewVersionButtonDisabled(dso),
