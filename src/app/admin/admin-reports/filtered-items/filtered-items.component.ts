@@ -291,14 +291,6 @@ export class FilteredItemsComponent {
       );
   }
 
-  /*postFilteredItems(): Observable<RawRestResponse> {
-    let form = this.queryForm.value;
-    let scheme = environment.rest.ssl ? 'https' : 'http';
-    let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
-    let urlRequest = `${urlRestApp}/api/contentreport/filtereditems?page=${this.currentPage}&size=${this.pageSize()}`;
-    return this.restService.request(RestRequestMethod.POST, urlRequest, form);
-  }*/
-
   getFilteredItems(): Observable<RawRestResponse> {
     let params = this.toQueryString();
     if (params.length > 0) {
