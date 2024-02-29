@@ -562,9 +562,6 @@
 
   "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
 
-
-  "admin.reports.items.title": "Metadata Query Report",
-
   "admin.reports.items.breadcrumbs": "Metadata Query Report",
 
   "admin.reports.items.head": "Metadata Query Report",
@@ -2639,10 +2636,6 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
-  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
-
-  "item.qa-event-notification-info.check.button": "View",
-
   "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
 
   "mydspace.qa-event-notification-info.check.button": "View",
@@ -3478,8 +3471,6 @@
   "quality-assurance.title": "Quality Assurance",
 
   "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
-
-  "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
 
   "quality-assurance.source.description": "Below you can see all the notification's sources.",
 
@@ -6166,10 +6157,6 @@
 
   "item.qa-event-notification-info.check.button": "Check",
 
-  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
-
-  "mydspace.qa-event-notification-info.check.button": "Check",
-
   "item.page.endorsed-by": "Endorsement",
 
   "item.page.is-reviewed-by": "Review",
@@ -6643,5 +6630,5 @@
 
   "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
 
-  "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement"
+  "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
 }

@@ -287,20 +287,20 @@ import { QualityAssuranceSourceDataService } from '../core/notifications/qa/sour
 import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
 import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
 import { IpV4Validator } from './utils/ipV4.validator';
-import { ObjectTableComponent } from "./object-table/object-table.component";
+import { ObjectTableComponent } from './object-table/object-table.component';
 import {
   AbstractTabulatableElementComponent
-} from "./object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component";
+} from './object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component';
 import {
   TabulatableObjectsLoaderComponent
-} from "./object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component";
+} from './object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
 import {
   TabulatableResultListElementsComponent
-} from "./object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component";
+} from './object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import {
   TabulatableObjectsDirective
-} from "./object-collection/shared/tabulatable-objects/tabulatable-objects.directive";
-import { NotificationBoxComponent } from "./notification-box/notification-box.component";
+} from './object-collection/shared/tabulatable-objects/tabulatable-objects.directive';
+import { NotificationBoxComponent } from './notification-box/notification-box.component';
 
 const MODULES = [
   CommonModule,
