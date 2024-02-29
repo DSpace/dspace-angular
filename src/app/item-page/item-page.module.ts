@@ -61,6 +61,8 @@ import {
   ThemedFullFileSectionComponent
 } from './full/field-components/file-section/themed-full-file-section.component';
 import { QaEventNotificationComponent } from './simple/qa-event-notification/qa-event-notification.component';
+import { NotifyRequestsStatusComponent } from './simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { RequestStatusAlertBoxComponent } from './simple/notify-requests-status/request-status-alert-box/request-status-alert-box.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -104,7 +106,9 @@ const DECLARATIONS = [
   ItemAlertsComponent,
   ThemedItemAlertsComponent,
   BitstreamRequestACopyPageComponent,
-  QaEventNotificationComponent
+  QaEventNotificationComponent,
+  NotifyRequestsStatusComponent,
+  RequestStatusAlertBoxComponent
 ];
 
 @NgModule({

@@ -542,6 +542,209 @@
 
   "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
 
+  "admin.reports.collections.title": "Collection Filter Report",
+
+  "admin.reports.collections.breadcrumbs": "Collection Filter Report",
+
+  "admin.reports.collections.head": "Collection Filter Report",
+
+  "admin.reports.button.show-collections": "Show Collections",
+
+  "admin.reports.collections.collections-report": "Collection Report",
+
+  "admin.reports.collections.item-results": "Item Results",
+
+  "admin.reports.collections.community": "Community",
+
+  "admin.reports.collections.collection": "Collection",
+
+  "admin.reports.collections.nb_items": "Nb. Items",
+
+  "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
+
+
+  "admin.reports.items.title": "Metadata Query Report",
+
+  "admin.reports.items.breadcrumbs": "Metadata Query Report",
+
+  "admin.reports.items.head": "Metadata Query Report",
+
+  "admin.reports.items.run": "Run Item Query",
+
+  "admin.reports.items.section.collectionSelector": "Collection Selector",
+
+  "admin.reports.items.section.metadataFieldQueries": "Metadata Field Queries",
+
+  "admin.reports.items.predefinedQueries": "Predefined Queries",
+
+  "admin.reports.items.section.limitPaginateQueries": "Limit/Paginate Queries",
+
+  "admin.reports.items.limit": "Limit/",
+
+  "admin.reports.items.offset": "Offset",
+
+  "admin.reports.items.wholeRepo": "Whole Repository",
+
+  "admin.reports.items.anyField": "Any field",
+
+  "admin.reports.items.predicate.exists": "exists",
+
+  "admin.reports.items.predicate.doesNotExist": "does not exist",
+
+  "admin.reports.items.predicate.equals": "equals",
+
+  "admin.reports.items.predicate.doesNotEqual": "does not equal",
+
+  "admin.reports.items.predicate.like": "like",
+
+  "admin.reports.items.predicate.notLike": "not like",
+
+  "admin.reports.items.predicate.contains": "contains",
+
+  "admin.reports.items.predicate.doesNotContain": "does not contain",
+
+  "admin.reports.items.predicate.matches": "matches",
+
+  "admin.reports.items.predicate.doesNotMatch": "does not match",
+
+  "admin.reports.items.preset.new": "New Query",
+
+  "admin.reports.items.preset.hasNoTitle": "Has No Title",
+
+  "admin.reports.items.preset.hasNoIdentifierUri": "Has No dc.identifier.uri",
+
+  "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
+
+  "admin.reports.items.preset.hasCompoundAuthor": "Has compound dc.contributor.author",
+
+  "admin.reports.items.preset.hasCompoundCreator": "Has compound dc.creator",
+
+  "admin.reports.items.preset.hasUrlInDescription": "Has URL in dc.description",
+
+  "admin.reports.items.preset.hasFullTextInProvenance": "Has full text in dc.description.provenance",
+
+  "admin.reports.items.preset.hasNonFullTextInProvenance": "Has non-full text in dc.description.provenance",
+
+  "admin.reports.items.preset.hasEmptyMetadata": "Has empty metadata",
+
+  "admin.reports.items.preset.hasUnbreakingDataInDescription": "Has unbreaking metadata in description",
+
+  "admin.reports.items.preset.hasXmlEntityInMetadata": "Has XML entity in metadata",
+
+  "admin.reports.items.preset.hasNonAsciiCharInMetadata": "Has non-ascii character in metadata",
+
+  "admin.reports.items.number": "No.",
+
+  "admin.reports.items.id": "UUID",
+
+  "admin.reports.items.collection": "Collection",
+
+  "admin.reports.items.handle": "URI",
+
+  "admin.reports.items.title": "Title",
+
+
+  "admin.reports.commons.filters": "Filters",
+
+  "admin.reports.commons.additional-data": "Additional data to return",
+
+  "admin.reports.commons.previous-page": "Prev Page",
+
+  "admin.reports.commons.next-page": "Next Page",
+
+  "admin.reports.commons.page": "Page",
+
+  "admin.reports.commons.of": "of",
+
+  "admin.reports.commons.export": "Export for Metadata Update",
+
+  "admin.reports.commons.filters.deselect_all": "Deselect all filters",
+
+  "admin.reports.commons.filters.select_all": "Select all filters",
+
+  "admin.reports.commons.filters.matches_all": "Matches all specified filters",
+
+
+  "admin.reports.commons.filters.property": "Item Property Filters",
+
+  "admin.reports.commons.filters.property.is_item": "Is Item - always true",
+
+  "admin.reports.commons.filters.property.is_withdrawn": "Withdrawn Items",
+
+  "admin.reports.commons.filters.property.is_not_withdrawn": "Available Items - Not Withdrawn",
+
+  "admin.reports.commons.filters.property.is_discoverable": "Discoverable Items - Not Private",
+
+  "admin.reports.commons.filters.property.is_not_discoverable": "Not Discoverable - Private Item",
+
+  "admin.reports.commons.filters.bitstream": "Basic Bitstream Filters",
+
+  "admin.reports.commons.filters.bitstream.has_multiple_originals": "Item has Multiple Original Bitstreams",
+
+  "admin.reports.commons.filters.bitstream.has_no_originals": "Item has No Original Bitstreams",
+
+  "admin.reports.commons.filters.bitstream.has_one_original": "Item has One Original Bitstream",
+
+  "admin.reports.commons.filters.bitstream_mime": "Bitstream Filters by MIME Type",
+
+  "admin.reports.commons.filters.bitstream_mime.has_doc_original": "Item has a Doc Original Bitstream (PDF, Office, Text, HTML, XML, etc)",
+
+  "admin.reports.commons.filters.bitstream_mime.has_image_original": "Item has an Image Original Bitstream",
+
+  "admin.reports.commons.filters.bitstream_mime.has_unsupp_type": "Has Other Bitstream Types (not Doc or Image)",
+
+  "admin.reports.commons.filters.bitstream_mime.has_mixed_original": "Item has multiple types of Original Bitstreams (Doc, Image, Other)",
+
+  "admin.reports.commons.filters.bitstream_mime.has_pdf_original": "Item has a PDF Original Bitstream",
+
+  "admin.reports.commons.filters.bitstream_mime.has_jpg_original": "Item has JPG Original Bitstream",
+
+  "admin.reports.commons.filters.bitstream_mime.has_small_pdf": "Has unusually small PDF",
+
+  "admin.reports.commons.filters.bitstream_mime.has_large_pdf": "Has unusually large PDF",
+
+  "admin.reports.commons.filters.bitstream_mime.has_doc_without_text": "Has document bitstream without TEXT item",
+
+  "admin.reports.commons.filters.mime": "Supported MIME Type Filters",
+
+  "admin.reports.commons.filters.mime.has_only_supp_image_type": "Item Image Bitstreams are Supported",
+
+  "admin.reports.commons.filters.mime.has_unsupp_image_type": "Item has Image Bitstream that is Unsupported",
+
+  "admin.reports.commons.filters.mime.has_only_supp_doc_type": "Item Document Bitstreams are Supported",
+
+  "admin.reports.commons.filters.mime.has_unsupp_doc_type": "Item has Document Bitstream that is Unsupported",
+
+  "admin.reports.commons.filters.bundle": "Bitstream Bundle Filters",
+
+  "admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
+
+  "admin.reports.commons.filters.bundle.has_small_thumbnail": "Has unusually small thumbnail",
+
+  "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
+
+  "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
+
+  "admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
+
+  "admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
+
+  "admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
+
+  "admin.reports.commons.filters.permission": "Permission Filters",
+
+  "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
+
+  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
+
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
+
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
+
+  "admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
+
+  "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
+
   "admin.search.breadcrumbs": "Administrative Search",
 
   "admin.search.collection.edit": "Edit",
@@ -2966,6 +3169,8 @@
 
   "logout.title": "Logout",
 
+  "menu.header.nav.description": "Admin navigation bar",
+
   "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
@@ -2981,6 +3186,12 @@
   "menu.section.access_control_groups": "Groups",
 
   "menu.section.access_control_people": "People",
+
+  "menu.section.reports": "Reports",
+
+  "menu.section.reports.collections": "Filtered Collections",
+
+  "menu.section.reports.queries": "Metadata Query",
 
   "menu.section.admin_search": "Admin Search",
 
@@ -3033,6 +3244,8 @@
   "menu.section.export_batch": "Batch Export (ZIP)",
 
   "menu.section.icon.access_control": "Access Control menu section",
+
+  "menu.section.icon.reports": "Reports menu section",
 
   "menu.section.icon.admin_search": "Admin search menu section",
 
@@ -3109,6 +3322,8 @@
   "menu.section.statistics_task": "Statistics Task",
 
   "menu.section.toggle.access_control": "Toggle Access Control section",
+
+  "menu.section.toggle.reports": "Toggle Reports section",
 
   "menu.section.toggle.control_panel": "Toggle Control Panel section",
 
@@ -3220,7 +3435,7 @@
 
   "mydspace.view-btn": "View",
 
-  "mydspace.import": "Import",
+  "nav.expandable-navbar-section-suffix": "(submenu)",
 
   "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>",
 
@@ -3297,8 +3512,6 @@
   "quality-assurance.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
 
   "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
-
-  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic.",
 
   "quality-assurance.loading": "Loading ...",
 
@@ -4413,6 +4626,8 @@
   "submission.general.discard.confirm.title": "Discard submission",
 
   "submission.general.discard.submit": "Discard",
+
+  "submission.general.back.submit": "Back",
 
   "submission.general.info.saved": "Saved",
 
@@ -5780,13 +5995,325 @@
 
   "search.filters.filter.author.text": "Author",
 
+  "coar-notify-support.title": "COAR Notify Protocol",
+
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\\\"https://notify.coar-repositories.org/\\\">COAR Notify website</a>.",
+
+  "coar-notify-support.ldn-inbox.title": "LDN InBox",
+
+  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {ldnInboxUrl}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+
+  "coar-notify-support.message-moderation.title": "Message Moderation",
+
+  "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated",
+
+  "coar-notify-support.message-moderation.feedback-form": " Feedback form.",
+
+  "service.overview.delete.header": "Delete Service",
+
+  "ldn-registered-services.title": "Registered Services",
+  "ldn-registered-services.table.name": "Name",
+  "ldn-registered-services.table.description": "Description",
+  "ldn-registered-services.table.status": "Status",
+  "ldn-registered-services.table.action": "Action",
+  "ldn-registered-services.new": "NEW",
+  "ldn-registered-services.new.breadcrumbs": "Registered Services",
+
+  "ldn-service.overview.table.enabled": "Enabled",
+  "ldn-service.overview.table.disabled": "Disabled",
+  "ldn-service.overview.table.clickToEnable": "Click to enable",
+  "ldn-service.overview.table.clickToDisable": "Click to disable",
+
+  "ldn-edit-registered-service.title": "Edit Service",
+  "ldn-create-service.title": "Create service",
+  "service.overview.create.modal": "Create Service",
+  "service.overview.create.body": "Please confirm the creation of this service.",
+  "ldn-service-status": "Status",
+  "service.confirm.create": "Create",
+  "service.refuse.create": "Cancel",
+  "ldn-register-new-service.title": "Register a new service",
+  "ldn-new-service.form.label.submit": "Save",
+  "ldn-new-service.form.label.name": "Name",
+  "ldn-new-service.form.label.description": "Description",
+  "ldn-new-service.form.label.url": "Service URL",
+  "ldn-new-service.form.label.ip-range": "Service IP range",
+  "ldn-new-service.form.label.score": "Level of trust",
+  "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-new-service.form.placeholder.name": "Please provide service name",
+  "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
+  "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
+  "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
+  "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
+  "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
+  "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
+  "ldn-service.form.label.placeholder.default-select": "Select a pattern",
+
+  "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+  "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
+  "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+  "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
+  "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+  "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
+  "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
+  "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
+  "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
+
+  "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
+  "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
+  "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+  "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
+  "ldn-service.form.pattern.announce-ingest.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+  "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
+  "ldn-service.form.pattern.announce-relationship.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-review.label": "Announce Review",
+  "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
+  "ldn-service.form.pattern.announce-review.category": "Announcements",
+
+  "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
+  "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
+  "ldn-service.form.pattern.announce-service-result.category": "Announcements",
+
+  "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
+  "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-endorsement.category": "Requests",
+
+  "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
+  "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
+  "ldn-service.form.pattern.request-ingest.category": "Requests",
+
+  "ldn-service.form.pattern.request-review.label": "Request Review",
+  "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-review.category": "Requests",
+
+  "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
+  "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
+  "ldn-service.form.pattern.undo-offer.category": "Undo",
+
+  "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
+  "ldn-new-service.form.label.ItemFilter": "Item Filter",
+  "ldn-new-service.form.label.automatic": "Automatic",
+  "ldn-new-service.form.error.name": "Name is required",
+  "ldn-new-service.form.error.url": "URL is required",
+  "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
+  "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+  "ldn-new-service.form.error.ldnurl": "LDN URL is required",
+  "ldn-new-service.form.error.patterns": "At least a pattern is required",
+  "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
+
+  "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-new-service.form.label.addPattern": "+ Add more",
+  "ldn-new-service.form.label.removeItemFilter": "Remove",
+  "ldn-register-new-service.breadcrumbs": "New Service",
+  "service.overview.delete.body": "Are you sure you want to delete this service?",
+  "service.overview.edit.body": "Do you confirm the changes?",
+  "service.overview.edit.modal": "Edit Service",
+  "service.detail.update": "Confirm",
+  "service.detail.return": "Cancel",
+  "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
+  "service.overview.reset-form.modal": "Discard Changes",
+  "service.overview.reset-form.reset-confirm": "Discard",
+  "admin.registries.services-formats.modify.success.head": "Successful Edit",
+  "admin.registries.services-formats.modify.success.content": "The service has been edited",
+  "admin.registries.services-formats.modify.failure.head": "Failed Edit",
+  "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
+  "ldn-service-notification.created.success.title": "Successful Create",
+  "ldn-service-notification.created.success.body": "The service has been created",
+  "ldn-service-notification.created.failure.title": "Failed Create",
+  "ldn-service-notification.created.failure.body": "The service has not been created",
+  "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
+  "ldn-enable-service.notification.success.title": "Successful status updated",
+  "ldn-enable-service.notification.success.content": "The service status has been updated",
+  "ldn-service-delete.notification.success.title": "Successful Deletion",
+  "ldn-service-delete.notification.success.content": "The service has been deleted",
+  "ldn-service-delete.notification.error.title": "Failed Deletion",
+  "ldn-service-delete.notification.error.content": "The service has not been deleted",
+  "service.overview.reset-form.reset-return": "Cancel",
+  "service.overview.delete": "Delete service",
+  "ldn-edit-service.title": "Edit service",
+  "ldn-edit-service.form.label.name": "Name",
+  "ldn-edit-service.form.label.description": "Description",
+  "ldn-edit-service.form.label.url": "Service URL",
+  "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
+  "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
+  "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
+  "ldn-edit-service.form.label.automatic": "Automatic",
+  "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
+  "ldn-edit-service.form.label.submit": "Save",
+  "ldn-edit-service.breadcrumbs": "Edit Service",
+  "ldn-service.control-constaint-select-none": "Select none",
+
+  "ldn-register-new-service.notification.error.title": "Error",
+  "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
+  "ldn-register-new-service.notification.success.title": "Success",
+  "ldn-register-new-service.notification.success.content": "The process was successfully created",
+
+  "info.coar-notify-support.title": "Notify Support",
+
+  "info.coar-notify.breadcrumbs": "Notify Support",
+
+  "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
+
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "item.qa-event-notification-info.check.button": "Check",
+
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
+
+  "mydspace.qa-event-notification-info.check.button": "Check",
+
+  "item.page.endorsed-by": "Endorsement",
+
+  "item.page.is-reviewed-by": "Review",
+
+  "item.page.is-supplemented-by": "Dataset",
+
+  "item.page.endorsment": "Endorsment",
+
+  "item.page.review": "Review",
+
+  "item.page.dataset": "Dataset",
+  "menu.section.icon.ldn_services": "LDN Services overview",
+  "menu.section.services": "LDN Services",
+
+  "menu.section.services_new": "LDN Service",
+
+  "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
+  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
+
+  "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
+
+  "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
+
+  "quality-assurance.event.table.event.message.link": "Link:",
+
+  "service.detail.delete.cancel": "Cancel",
+
+  "service.detail.delete.button": "Delete service",
+
+  "service.detail.delete.header": "Delete service",
+
+  "service.detail.delete.body": "Are you sure you want to delete the current service?",
+
+  "service.detail.delete.confirm": "Delete service",
+
+  "service.detail.delete.success": "The service was successfully deleted.",
+
+  "service.detail.delete.error": "Something went wrong when deleting the service",
+
+  "service.overview.table.id": "Services ID",
+
+  "service.overview.table.name": "Name",
+
+  "service.overview.table.start": "Start time (UTC)",
+
+  "service.overview.table.status": "Status",
+
+  "service.overview.table.user": "User",
+
+  "service.overview.title": "Services Overview",
+
+  "service.overview.breadcrumbs": "Services Overview",
+
+  "service.overview.table.actions": "Actions",
+
+  "service.overview.table.description": "Description",
+
+  "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
+
+  "submission.section.section-coar-notify.control.request-review.label": "You can request a review to one of the following services",
+
+  "submission.section.section-coar-notify.control.request-endorsement.label": "You can request an Endorsement to one of the following overlay journals",
+
+  "submission.section.section-coar-notify.control.request-ingest.label": "You can request to ingest a copy of your submission to one of the following services",
+
+  "submission.section.section-coar-notify.dropdown.no-data": "No data available",
+
+  "submission.section.section-coar-notify.dropdown.select-none": "Select none",
+
+  "submission.section.section-coar-notify.small.notification": "Select a service for {{ pattern }} of this item",
+
+  "submission.section.section-coar-notify.selection.description": "Selected service's description:",
+
+  "submission.section.section-coar-notify.selection.no-description": "No further information is available",
+
+  "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
+
+  "submission.section.section-coar-notify.info.no-pattern": "No configurable patterns found.",
+
+  "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
+
+  "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+
+  "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+
+  "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+
+  "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
+
+  "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
+
+  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
+
+  "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
+
+  "ldn-service-overview-select-delete": "Select service for deletion",
+
+  "ldn-service-overview-select-edit": "Edit LDN service",
+
+  "ldn-service-overview-close-modal": "Close modal",
+
+  "a-common-or_statement.label": "Item type is Journal Article or Dataset",
+
+  "always_true_filter.label": "Always true",
+
+  "automatic_processing_collection_filter_16.label": "Automatic processing",
+
+  "dc-identifier-uri-contains-doi_condition.label": "URI contains DOI",
+
+  "doi-filter.label": "DOI filter",
+
+  "driver-document-type_condition.label": "Document type equals driver",
+
+  "has-at-least-one-bitstream_condition.label": "Has at least one Bitstream",
+
+  "has-bitstream_filter.label": "Has Bitstream",
+
+  "has-one-bitstream_condition.label": "Has one Bitstream",
+
+  "is-archived_condition.label": "Is archived",
+
+  "is-withdrawn_condition.label": "Is withdrawn",
+
+  "item-is-public_condition.label": "Item is public",
+
+  "journals_ingest_suggestion_collection_filter_18.label": "Journals ingest",
+
+  "title-starts-with-pattern_condition.label": "Title starts with pattern",
+
+  "type-equals-dataset_condition.label": "Type equals Dataset",
+
+  "type-equals-journal-article_condition.label": "Type equals Journal Article",
+
   "search.filters.filter.subject.text": "Subject",
 
   "search.advanced.filters.head": "Advanced Search",
 
-  "filter.search.operator.placeholder": "Operator",
-
   "filter.search.text.placeholder": "Search text",
 
   "advancesearch.form.submit": "Add",
+
+  "ldn.no-filter.label": "None",
 }

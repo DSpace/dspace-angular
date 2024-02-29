@@ -2,8 +2,9 @@
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 
-import { Suggestion } from '../../core/suggestion-notifications/models/suggestion.model';
-import { SUGGESTION } from '../../core/suggestion-notifications/models/suggestion-objects.resource-type';
+
+import { Suggestion } from '../../core/notifications/models/suggestion.model';
+import { SUGGESTION } from '../../core/notifications/models/suggestion-objects.resource-type';
 
 export const mockSuggestionPublicationOne: Suggestion =  {
   id: '24694773',

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NoPreloading, RouterModule } from '@angular/router';
+import { RouterModule, NoPreloading } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
@@ -94,10 +94,7 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [
-              ForgotPasswordCheckGuard,
-              EndUserAgreementCurrentUserGuard
-            ]
+            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard]
           },
           {
             path: COMMUNITY_MODULE_PATH,
@@ -163,6 +160,12 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
             path: NOTIFICATIONS_MODULE_PATH,
             loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
               .then((m) => m.AdminNotificationsModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
+              .then((m) => m.NotificationsPageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
