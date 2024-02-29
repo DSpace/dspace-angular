@@ -1,7 +1,23 @@
-.chip-selected {
-  background-color: var(--bs-secondary) !important;
+.example-custom-placeholder {
+  background: #ccc;
+  border: none;
+  min-height: 30px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.chip-label {
-  max-width: 10rem;
+.example-drag-preview {
+  /* Preview styling */
+  display: inline-block;
+  background-color: var(--bs-secondary);
+  color: #fff;
+  padding: 8px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.example-drag-preview.nav-item {
+  margin-right: 2px;
+  margin-bottom: 1px;
 }
