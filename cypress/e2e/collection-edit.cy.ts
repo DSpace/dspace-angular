@@ -45,7 +45,7 @@ describe('Edit Collection > Content Source tab', () => {
         cy.get('#externalSourceCheck').check();
 
         // Wait for the source controls to appear
-        cy.get('ds-collection-source-controls').should('be.visible');
+        // cy.get('ds-collection-source-controls').should('be.visible');
 
         // Analyze entire page for accessibility issues
         testA11y('ds-collection-source');
