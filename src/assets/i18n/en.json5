@@ -6161,13 +6161,7 @@
 
   "item.qa-event-notification-info.check.button": "Check",
 
-  "item.page.endorsed-by": "Endorsement",
-
-  "item.page.is-reviewed-by": "Review",
-
-  "item.page.is-supplemented-by": "Dataset",
-
-  "item.page.endorsment": "Endorsment",
+  "item.page.endorsement": "Endorsement",
 
   "item.page.review": "Review",
 
