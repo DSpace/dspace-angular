@@ -1,37 +1,24 @@
 <div [className]="'float-left w-100 ' + wrapperClass">
   <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
-      <div role="listitem" class="nav-item mr-2 mb-1" cdkDrag (cdkDragStarted)="onDrag($event)"
+    <div role="listitem" class="nav-item mr-2 mb-1"
            *ngFor="let c of chips.getChips(); let i = index"
            #t="ngbTooltip"
            triggers="manual"
            [ngbTooltip]="tipContent"
            (mouseover)="showTooltip(t, i)"
            (mouseout)="t.close()">
-<!--        <div class="example-custom-placeholder" *cdkDragPlaceholder>-->
-<!--          <span>-->
-<!--            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>-->
-<!--            <ng-container *ngIf="showIcons && c.hasVisibleIcons()">-->
-<!--              <i *ngFor="let icon of c.icons; let l = last"-->
-<!--                 class="{{icon.style}}"-->
-<!--                 dsAuthorityConfidenceState-->
-<!--                 [authorityValue]="c.item[icon.metadata] || c.item"-->
-<!--                 [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"-->
-<!--                 aria-hidden="true"></i>-->
-<!--            </ng-container>-->
-<!--            <p class="chip-label text-truncate d-table-cell">{{c.display}}</p>-->
-<!--          </span>-->
-<!--        </div>-->
         <ng-template #tipContent>
           <p class="text-left p-0 m-0" *ngFor="let tip of tipText">
             {{tip}}
           </p>
         </ng-template>
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
+           cdkDrag
+           (cdkDragStarted)="onDrag($event)"
            href="javascript:void(0);"
            [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"
            (click)="chipsSelected($event, i);">
           <span>
-            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>
             <ng-container *ngIf="showIcons && c.hasVisibleIcons()">
               <i *ngFor="let icon of c.icons; let l = last"
                  [ngbTooltip]="tipContent"
