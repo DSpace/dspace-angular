@@ -28,8 +28,9 @@ runs:
       env:
         NAME: ${{ inputs.NAME }}
       run: |
+          # # condition below was found by accident and appears to be useless. Investigate later.
           # be sure to have INSTANCE set
-          if [[ "x${NAME}" != "dspace-" ]]; then
+          # if [[ "x${NAME}" != "dspace-" ]]; then
             docker volume rm $(docker volume ls --filter name="${NAME}_" -q) || true
-          fi;
+          # fi;
 
