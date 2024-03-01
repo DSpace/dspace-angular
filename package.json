@@ -128,7 +128,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
-    "sanitize-html": "^2.10.0",
+    "sanitize-html": "^2.12.1",
     "sortablejs": "1.15.0",
     "uuid": "^8.3.2",
     "webfontloader": "1.6.28",
