@@ -3,7 +3,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FileUploader } from 'ng2-file-upload';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription, switchMap } from 'rxjs';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
@@ -24,8 +24,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { map, take, tap } from 'rxjs/operators';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { filter, take } from 'rxjs/operators';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -124,6 +123,8 @@ export class ComColFormComponent<T extends Collection | Community> implements On
 
   public uploader = new FileUploader(this.uploadFilesOptions);
 
+  protected readonly refreshDSO$ = new EventEmitter<void>();
+
   public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
@@ -168,6 +169,14 @@ export class ComColFormComponent<T extends Collection | Community> implements On
         this.initializedUploaderOptions.next(true);
       }
     }
+
+    this.subs.push(
+      this.refreshDSO$.pipe(
+        switchMap(() => this.refreshDsoCache()),
+        filter(rd => rd.hasSucceeded),
+      ).subscribe(({ payload }) => this.dso = payload)
+    );
+
   }
 
   /**
@@ -304,7 +313,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * @param successMessageKey Translation key for success message
    */
   private handleSuccessfulDeletion(successMessageKey: string): void {
-    this.refreshDsoCache();
+    this.refreshDSO$.next();
     this.notificationsService.success(
       this.translate.get(`${successMessageKey}.title`),
       this.translate.get(`${successMessageKey}.content`)
@@ -342,15 +351,10 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * Fetches the latest data for the dso
    */
-  private fetchUpdatedDso(): Observable<DSpaceObject | null> {
+  private fetchUpdatedDso(): Observable<RemoteData<T>> {
     return this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
-      tap((rd: RemoteData<T>) => {
-        if (rd.hasSucceeded) {
-          this.dso = rd.payload;
-        }
-      }),
-      map((rd: RemoteData<T>) => rd.hasSucceeded ? rd.payload : null)
-    );
+      getFirstCompletedRemoteData()
+    ) as Observable<RemoteData<T>>;
   }
 
 
@@ -360,7 +364,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   public onCompleteItem() {
     if (hasValue(this.dso.id)) {
-      this.refreshDsoCache();
+      this.refreshDSO$.next();
     }
     if (this.isCreation) {
       this.finish.emit();
@@ -379,6 +383,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * Unsubscribe from open subscriptions
    */
   ngOnDestroy(): void {
+    this.refreshDSO$.complete();
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

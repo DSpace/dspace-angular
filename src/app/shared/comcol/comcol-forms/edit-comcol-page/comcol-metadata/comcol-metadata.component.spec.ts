@@ -17,7 +17,7 @@ import {
 } from '../../../../remote-data.utils';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
-fdescribe('ComColMetadataComponent', () => {
+describe('ComColMetadataComponent', () => {
   let comp: ComcolMetadataComponent<any>;
   let fixture: ComponentFixture<ComcolMetadataComponent<any>>;
   let dsoDataService;
