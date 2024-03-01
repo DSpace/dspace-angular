@@ -1,6 +1,5 @@
-<div
-    class="scrollable-menu"
-    aria-labelledby="dropdownMenuButton"
+<ul class="scrollable-menu list-unstyled mb-0"
+    role="menu"
     (scroll)="onScroll($event)"
     infiniteScroll
     [infiniteScrollDistance]="5"
@@ -9,20 +8,23 @@
     [fromRoot]="true"
     [scrollWindow]="false"
     (scrolled)="onScrollDown()">
-    <button class="dropdown-item disabled" *ngIf="searchListEntity?.length == 0 && !(isLoadingList | async)">
+  <li *ngIf="searchListEntity?.length == 0 && !(isLoadingList | async)">
+    <button class="dropdown-item disabled" role="menuitem">
       {{'submission.sections.general.no-entity' | translate}}
     </button>
-    <button *ngFor="let listItem of searchListEntity"
-            class="dropdown-item entity-item"
+  </li>
+  <li *ngFor="let listItem of searchListEntity" class="entity-item text-primary">
+    <button class="dropdown-item"
+            role="menuitem"
             title="{{ listItem.label }}"
             (click)="onSelect(listItem)">
-      <ul class="list-unstyled mb-0">
-        <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.label.toLowerCase() + '.listelement.badge' | translate }}</li>
-      </ul>
+      <span class="text-truncate font-weight-bold">{{ listItem.label.toLowerCase() + '.listelement.badge' | translate }}</span>
     </button>
-    <button class="dropdown-item disabled" *ngIf="(isLoadingList | async)" >
+  </li>
+  <li *ngIf="(isLoadingList | async)">
+    <button class="dropdown-item disabled" role="menuitem">
       <ds-themed-loading message="{{'loading.default' | translate}}">
       </ds-themed-loading>
     </button>
-
-</div>
+  </li>
+</ul>

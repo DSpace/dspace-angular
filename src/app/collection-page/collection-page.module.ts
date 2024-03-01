@@ -18,6 +18,17 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
+import { BrowseByPageModule } from '../browse-by/browse-by-page.module';
+
+const DECLARATIONS = [
+  CollectionPageComponent,
+  ThemedCollectionPageComponent,
+  CreateCollectionPageComponent,
+  DeleteCollectionPageComponent,
+  EditItemTemplatePageComponent,
+  ThemedEditItemTemplatePageComponent,
+  CollectionItemMapperComponent,
+];
 
 @NgModule({
   imports: [
@@ -30,15 +41,10 @@ import { DsoPageModule } from '../shared/dso-page/dso-page.module';
     ComcolModule,
     DsoSharedModule,
     DsoPageModule,
+    BrowseByPageModule,
   ],
   declarations: [
-    CollectionPageComponent,
-    ThemedCollectionPageComponent,
-    CreateCollectionPageComponent,
-    DeleteCollectionPageComponent,
-    EditItemTemplatePageComponent,
-    ThemedEditItemTemplatePageComponent,
-    CollectionItemMapperComponent
+    ...DECLARATIONS,
   ],
   providers: [
     SearchService,

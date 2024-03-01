@@ -8,12 +8,14 @@ import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
 import { LangConfig } from './lang-config.interface';
 import { ItemConfig } from './item-config.interface';
+import { CommunityPageConfig } from './community-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { ThemeConfig } from './theme.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { UIServerConfig } from './ui-server-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
+import { SuggestionConfig } from './suggestion-config.interfaces';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { InfoConfig } from './info-config.interface';
@@ -22,8 +24,8 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
-import {QualityAssuranceConfig} from './quality-assurance.config';
-
+import { QualityAssuranceConfig } from './quality-assurance.config';
+import { SearchConfig } from './search-page-config.interface';
 interface AppConfig extends Config {
   ui: UIServerConfig;
   rest: ServerConfig;
@@ -40,9 +42,11 @@ interface AppConfig extends Config {
   communityList: CommunityListConfig;
   homePage: HomeConfig;
   item: ItemConfig;
+  community: CommunityPageConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  suggestion: SuggestionConfig[];
   bundle: BundleConfig;
   actuators: ActuatorsConfig
   info: InfoConfig;
@@ -50,6 +54,7 @@ interface AppConfig extends Config {
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
   qualityAssuranceConfig: QualityAssuranceConfig;
+  search: SearchConfig;
 }
 
 /**

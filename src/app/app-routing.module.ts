@@ -4,9 +4,6 @@ import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
@@ -38,8 +35,11 @@ import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 
 @NgModule({
   imports: [
@@ -94,7 +94,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard]
           },
           {
             path: COMMUNITY_MODULE_PATH,
@@ -154,7 +154,19 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
+              .then((m) => m.AdminNotificationsModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
+              .then((m) => m.NotificationsPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',
@@ -202,6 +214,11 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
               .then((m) => m.ProcessPageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
+          { path: SUGGESTION_MODULE_PATH,
+            loadChildren: () => import('./suggestions-page/suggestions-page.module')
+              .then((m) => m.SuggestionsPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
           {
             path: INFO_MODULE_PATH,
             loadChildren: () => import('./info/info.module').then((m) => m.InfoModule)
@@ -237,7 +254,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
               .then((m) => m.SubscriptionsPageRoutingModule),
             canActivate: [AuthenticatedGuard]
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent }
         ]
       }
     ], {

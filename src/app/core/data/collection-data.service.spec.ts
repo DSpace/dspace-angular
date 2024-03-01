@@ -24,6 +24,7 @@ import { testFindAllDataImplementation } from './base/find-all-data.spec';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 
 const url = 'fake-url';
 const collectionId = 'fake-collection-id';
@@ -35,7 +36,7 @@ describe('CollectionDataService', () => {
   let translate: TranslateService;
   let notificationsService: any;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: any;
 
   const mockCollection1: Collection = Object.assign(new Collection(), {
@@ -205,14 +206,12 @@ describe('CollectionDataService', () => {
       buildFromRequestUUID: buildResponse$,
       buildSingle: buildResponse$
     });
-    objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
-    });
+    objectCache = new ObjectCacheServiceStub();
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 
-    service = new CollectionDataService(requestService, rdbService, objectCache, halService, null, notificationsService, null, null, translate);
+    service = new CollectionDataService(requestService, rdbService, objectCache as ObjectCacheService, halService, null, notificationsService, null, null, translate);
   }
 
 });

@@ -1,9 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { hasValue } from '../empty.util';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { StartsWithType } from './starts-with-decorator';
 
 /**
  * An abstract component to render StartsWith options
@@ -13,6 +14,13 @@ import { PaginationService } from '../../core/pagination/pagination.service';
   template: ''
 })
 export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
+
+  @Input() paginationId: string;
+
+  @Input() startsWithOptions: (string | number)[];
+
+  @Input() type: StartsWithType;
+
   /**
    * The currently selected startsWith in string format
    */
@@ -28,11 +36,11 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
-  public constructor(@Inject('startsWithOptions') public startsWithOptions: any[],
-                     @Inject('paginationId') public paginationId: string,
-                     protected paginationService: PaginationService,
-                     protected route: ActivatedRoute,
-                     protected router: Router) {
+  public constructor(
+    protected paginationService: PaginationService,
+    protected route: ActivatedRoute,
+    protected router: Router,
+  ) {
   }
 
   ngOnInit(): void {
@@ -56,15 +64,6 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Set the startsWith by event
-   * @param event
-   */
-  setStartsWithEvent(event: Event) {
-    this.startsWith = (event.target as HTMLInputElement).value;
-    this.setStartsWithParam();
-  }
-
-  /**
    * Set the startsWith by string
    * @param startsWith
    */
@@ -82,7 +81,7 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
     if (resetPage) {
       this.paginationService.updateRoute(this.paginationId, {page: 1}, { startsWith: this.startsWith });
     } else {
-      this.router.navigate([], {
+      void this.router.navigate([], {
         queryParams: Object.assign({ startsWith: this.startsWith }),
         queryParamsHandling: 'merge'
       });

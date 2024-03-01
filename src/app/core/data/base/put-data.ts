@@ -31,7 +31,7 @@ export interface PutData<T extends CacheableObject> {
 }
 
 /**
- * A DataService feature to send PUT requests.
+ * A UpdateDataServiceImpl feature to send PUT requests.
  *
  * Concrete data services can use this feature by implementing {@link PutData}
  * and delegating its method to an inner instance of this class.
