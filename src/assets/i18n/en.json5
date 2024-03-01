@@ -3162,6 +3162,8 @@
 
   "logout.title": "Logout",
 
+  "menu.header.nav.description": "Admin navigation bar",
+
   "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
@@ -3425,6 +3427,8 @@
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
 
   "mydspace.view-btn": "View",
+
+  "nav.expandable-navbar-section-suffix": "(submenu)",
 
   "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>",
 
