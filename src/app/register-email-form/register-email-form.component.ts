@@ -66,11 +66,11 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
 
   subscriptions: Subscription[] = [];
 
-captchaVersion(): Observable<string> {
+  captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
   }
 
-captchaMode(): Observable<string> {
+  captchaMode(): Observable<string> {
     return this.googleRecaptchaService.captchaMode();
   }
 
