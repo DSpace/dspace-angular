@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
@@ -22,6 +22,10 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { CookieService } from 'src/app/core/services/cookie.service';
 import { CAPTCHA_NAME, GoogleRecaptchaService } from 'src/app/core/google-recaptcha/google-recaptcha.service';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
+import { KlaroService } from 'src/app/shared/cookies/klaro.service';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 
 @Component({
@@ -47,21 +51,22 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   bitstreamName: string;
   form: UntypedFormGroup;
   /**
-   * registration verification configuration
+   * request verification configuration
    */
-  registrationVerification = false;
+  requestCopyVerification = false;
   subscriptions: Subscription[] = [];
   /**
  * The message prefix
  */
   @Input()
-  MESSAGE_PREFIX: string;
+  MESSAGE_PREFIX = 'request-copy-page.registration';
   /**
  * Return true if the user completed the reCaptcha verification (checkbox mode)
  */
   checkboxCheckedSubject$ = new BehaviorSubject<boolean>(false);
   disableUntilChecked = true;
   captchaToken: string;
+  public AlertTypeEnum = AlertType;
   captchaVersion(): Observable<string> {
     this.cdRef.detectChanges();
     return this.googleRecaptchaService.captchaVersion();
@@ -86,7 +91,9 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     private bitstreamService: BitstreamDataService,
     public cookieService: CookieService,
     public googleRecaptchaService: GoogleRecaptchaService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private configService: ConfigurationDataService,
+    @Optional() public klaroService: KlaroService
   ) {
   }
 
@@ -138,7 +145,12 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       }
     }));
     this.initValues();
-
+    this.subscriptions.push(this.configService.findByPropertyName('requestcopy.verification.enabled').pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
+    ).subscribe((res: boolean) => {
+      this.requestCopyVerification = res;
+    }));
     this.subscriptions.push(this.disableUntilCheckedFcn().subscribe((res) => {
       this.disableUntilChecked = res;
       this.cdRef.detectChanges();
@@ -207,8 +219,8 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     itemRequest.requestEmail = this.email.value;
     itemRequest.requestName = this.name.value;
     itemRequest.requestMessage = this.message.value;
-
-    this.itemRequestDataService.requestACopy(itemRequest,this.captchaToken).pipe(
+    console.log(this.captchaToken);
+    this.itemRequestDataService.requestACopy(itemRequest, this.captchaToken).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
@@ -257,11 +269,11 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Register an email address
+   * Request Copy
    */
-  register(tokenV2?) {
+  requestCopy(tokenV2?) {
     if (!this.requestCopyForm.invalid) {
-      if (!this.registrationVerification) {
+      if (!this.requestCopyVerification) {
         this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
           switchMap(([captchaVersion, captchaMode]) => {
             if (captchaVersion === 'v3') {
@@ -278,9 +290,8 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
           take(1),
         ).subscribe((token) => {
           if (isNotEmpty(token)) {
-            // this.onSubmit();
             this.captchaToken = token;
-            this.registrationVerification = true;
+            this.requestCopyVerification = true;
 
           } else {
             this.showNotification('error');
@@ -289,8 +300,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         ));
       } else {
 
-        // this.onSubmit();
-        this.registrationVerification = true;
+        this.requestCopyVerification = true;
       }
     }
   }
@@ -320,7 +330,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     if (!!checked) {
       console.log(this.requestCopyForm.invalid);
       if (!this.requestCopyForm.invalid) {
-        this.registrationVerification = true;
+        this.requestCopyVerification = true;
         this.cdRef.detectChanges();
       }
     }
@@ -348,12 +358,5 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
 
   resetForm() {
     this.requestCopyForm.reset();
-  }
-
-  changeCatch() {
-    if (!this.requestCopyForm.invalid) {
-      this.registrationVerification = true;
-      this.cdRef.detectChanges();
-    }
   }
 }
