@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RemoteData } from '../data/remote-data';
@@ -18,6 +17,7 @@ import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.mod
 import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { SearchData, SearchDataImpl } from '../data/base/search-data';
 
 
 /**
@@ -30,7 +30,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
  *
  */
 @Injectable()
-export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> {
+export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> implements SearchData<Duplicate> {
 
   /**
    * The ResponseParsingService constructor name
@@ -41,6 +41,12 @@ export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> {
    * The RestRequest constructor name
    */
   private request: GenericConstructor<RestRequest> = GetRequest;
+
+  /**
+   * SearchData interface to implement
+   * @private
+   */
+  private searchData: SearchData<Duplicate>;
 
   /**
    * Subscription to unsubscribe from
@@ -54,8 +60,26 @@ export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> {
     protected halService: HALEndpointService,
   ) {
     super('duplicates', requestService, rdbService, objectCache, halService);
+    this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
+  /**
+   * Implement the searchBy method to return paginated lists of Duplicate resources
+   *
+   * @param searchMethod the search method name
+   * @param options find list options
+   * @param useCachedVersionIfAvailable whether to use cached version if available
+   * @param reRequestOnStale whether to rerequest results on stale
+   * @param linksToFollow links to follow in results
+   */
+  searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Duplicate>[]): Observable<RemoteData<PaginatedList<Duplicate>>> {
+    return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Helper method to get the duplicates endpoint
+   * @protected
+   */
   protected getEndpoint(): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
@@ -74,13 +98,16 @@ export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> {
     }
   }
 
-  private getSearchUrl(): Observable<string> {
-    const href$ = this.getEndpoint();
-    return href$.pipe(
-      map((href) => href + '/search')
-    );
-  }
-
+  /**
+   * Find duplicates for a given item UUID. Locates and returns results from the /api/submission/duplicates/search/findByItem
+   * SearchRestMethod, which is why this implements SearchData<Duplicate> and searchBy
+   *
+   * @param uuid the item UUID
+   * @param options any find list options e.g. paging
+   * @param useCachedVersionIfAvailable whether to use cached version if available
+   * @param reRequestOnStale whether to rerequest results on stale
+   * @param linksToFollow links to follow in results
+   */
   public findDuplicates(uuid: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Duplicate>[]): Observable<RemoteData<PaginatedList<Duplicate>>> {
     const searchParams = [new RequestParam('uuid', uuid)];
     let findListOptions = new FindListOptions();
@@ -93,7 +120,8 @@ export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> {
       findListOptions.searchParams = searchParams;
     }
 
-    return this.findListByHref(this.getSearchUrl(), findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    // Perform the actual search by search
+    return this.searchBy('findByItem', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
