@@ -245,12 +245,14 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
       )
     ).subscribe((processRD: RemoteData<Process>) => {
       this.clearCurrentTimeout(processId);
-      const nextTimeout = this.timer(() => {
-        this.activelyBeingPolled.delete(processId);
-        this.invalidateByHref(processRD.payload._links.self.href);
-      }, pollingIntervalInMs);
+      if (processRD.hasSucceeded) {
+        const nextTimeout = this.timer(() => {
+          this.activelyBeingPolled.delete(processId);
+          this.invalidateByHref(processRD.payload._links.self.href);
+        }, pollingIntervalInMs);
 
-      this.activelyBeingPolled.set(processId, nextTimeout);
+        this.activelyBeingPolled.set(processId, nextTimeout);
+      }
     });
 
     this.subs.set(processId, sub);

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, NgZone, OnInit, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, map, switchMap, take, tap, find, startWith } from 'rxjs/operators';
+import { finalize, map, switchMap, take, tap, find, startWith, filter } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -80,6 +80,8 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
 
   isRefreshing$: Observable<boolean>;
 
+  isDeleting: boolean;
+
   protected autoRefreshingID: string;
 
   /**
@@ -116,6 +118,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
           return [data.process as RemoteData<Process>];
         }
       }),
+      filter(() => !this.isDeleting),
       redirectOn4xx(this.router, this.authService),
     );
 
@@ -215,15 +218,17 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
    * @param process
    */
   deleteProcess(process: Process) {
+    this.isDeleting = true;
     this.processService.delete(process.processId).pipe(
       getFirstCompletedRemoteData()
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('process.detail.delete.success'));
         this.closeModal();
-        this.router.navigateByUrl(getProcessListRoute());
+        void this.router.navigateByUrl(getProcessListRoute());
       } else {
         this.notificationsService.error(this.translateService.get('process.detail.delete.error'));
+        this.isDeleting = false;
       }
     });
   }
