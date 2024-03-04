@@ -10,6 +10,11 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
   selector: 'ds-objects-collection-tabulatable',
   template: ``,
 })
+
+/**
+ * Abstract class that describe the properties for the rendering of search result's paginated lists of objects in a table.
+ * To be used as descriptor of the actual result component e.g. TabulatableResultListElementsComponent
+ */
 export class AbstractTabulatableElementComponent<T extends PaginatedList<ListableObject>> {
 
   /**

@@ -2636,6 +2636,10 @@
 
   "item.truncatable-part.show-less": "Collapse",
 
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+
+  "item.qa-event-notification-info.check.button": "View",
+
   "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
 
   "mydspace.qa-event-notification-info.check.button": "View",
@@ -6157,10 +6161,6 @@
 
   "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
 
-  "item.qa-event-notification.check.notification-info": "There are {{num}} pending review to check",
-
-  "item.qa-event-notification-info.check.button": "Check",
-
   "item.page.endorsement": "Endorsement",
 
   "item.page.review": "Review",
@@ -6366,11 +6366,11 @@
 
   "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Notifications currently queued for retry",
 
-  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Involved items",
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Items involved",
 
   "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items related to inbound notifications",
 
-  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Involved items",
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Items involved",
 
   "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items related to outbound notifications",
 

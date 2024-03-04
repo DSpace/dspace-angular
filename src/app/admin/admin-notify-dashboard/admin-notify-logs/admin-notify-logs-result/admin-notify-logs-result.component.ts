@@ -23,6 +23,11 @@ import { map } from 'rxjs/operators';
     }
   ]
 })
+
+/**
+ * Component for visualization of search page and related results for the logs of the Notify dashboard
+ */
+
 export class AdminNotifyLogsResultComponent implements OnInit {
 
   @Input()

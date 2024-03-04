@@ -14,6 +14,10 @@ import { ViewMode } from '../../core/shared/view-mode.model';
   templateUrl: './notification-box.component.html',
   styleUrls: ['./notification-box.component.scss']
 })
+/**
+ * Component to display the count of notifications for each type of LDN message and to access the related filtered search
+ * (each box works as a filter button setting a specific search configuration)
+ */
 export class NotificationBoxComponent {
   @Input() boxConfig: AdminNotifyMetricsBox;
   @Output() selectedBoxConfig: EventEmitter<string> = new EventEmitter();

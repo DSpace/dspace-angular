@@ -23,6 +23,10 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
     }
   ]
 })
+
+/**
+ * Component used for visual representation and search of LDN messages for Admins
+ */
 export class AdminNotifyDashboardComponent implements OnInit{
 
   public notifyMetricsRows$: Observable<AdminNotifyMetricsRow[]>;

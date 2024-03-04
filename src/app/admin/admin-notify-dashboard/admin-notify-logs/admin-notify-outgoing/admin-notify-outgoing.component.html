@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom pb-2">{{'admin-notify-dashboard.title'| translate}}</h2>
+      <h1 class="border-bottom pb-2">{{'admin-notify-dashboard.title'| translate}}</h1>
       <div>
         <div>
           <ul class="nav nav-tabs">
@@ -9,7 +9,7 @@
               <a class="nav-link" [routerLink]="'../'">{{'admin-notify-dashboard.metrics' | translate}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="'../inbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.inbound-logs' | translate}}</a>
+              <a class="nav-link" [routerLink]="'../inbound'" [queryParams]="{view: 'table', configuration: 'NOTIFY.incoming'}">{{'admin.notify.dashboard.inbound-logs' | translate}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active">{{'admin.notify.dashboard.outbound-logs' | translate}}</a>

@@ -19,6 +19,11 @@ import { fadeIn } from '../animations/fade';
   styleUrls: ['./object-table.component.scss'],
   animations: [fadeIn]
 })
+
+/**
+ * Component used to wrap and load paginated search results if the ViewMode is set to Table.
+ * Each ViewMode has a different type of wrapper that can be checked in ObjectCollectionComponent
+ */
 export class ObjectTableComponent {
   /**
    * The view mode of this component

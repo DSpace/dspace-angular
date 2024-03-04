@@ -12,6 +12,10 @@ import { fadeIn } from '../../../shared/animations/fade';
     fadeIn
   ]
 })
+/**
+ * Component for detailed view of LDN messages displayed in search result in AdminNotifyDashboardComponent
+ */
+
 export class AdminNotifyDetailModalComponent {
   @Input() notifyMessage: AdminNotifyMessage;
   @Input() notifyMessageKeys: string[];
