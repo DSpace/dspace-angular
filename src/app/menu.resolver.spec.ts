@@ -19,6 +19,8 @@ import { cold } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
@@ -38,6 +40,7 @@ describe('MenuResolver', () => {
   let authorizationService;
   let scriptService;
   let mockNgbModal;
+  let configurationDataService;
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
@@ -59,6 +62,9 @@ describe('MenuResolver', () => {
       )
     };
 
+    configurationDataService = new ConfigurationDataServiceStub();
+    spyOn(configurationDataService, 'findByPropertyName').and.returnValue(observableOf(true));
+
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
     providers: [
@@ -66,7 +72,9 @@ describe('MenuResolver', () => {
         { provide: BrowseService, useValue: browseService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
-        { provide: NgbModal, useValue: mockNgbModal }
+        {provide: ConfigurationDataService, useValue: configurationDataService },
+        {
+          provide: NgbModal, useValue: mockNgbModal }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 });

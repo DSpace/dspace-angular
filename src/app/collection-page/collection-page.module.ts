@@ -17,26 +17,35 @@ import { CollectionFormModule } from './collection-form/collection-form.module';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
+import { BrowseByPageModule } from '../browse-by/browse-by-page.module';
 
 @NgModule({
-    imports: [
+  imports: [
     CommonModule,
     StatisticsModule.forRoot(),
     EditItemPageModule,
     CollectionFormModule,
     ComcolModule,
     DsoPageModule,
+    BrowseByPageModule,
     CollectionPageComponent,
     ThemedCollectionPageComponent,
     CreateCollectionPageComponent,
     DeleteCollectionPageComponent,
     EditItemTemplatePageComponent,
     ThemedEditItemTemplatePageComponent,
-    CollectionItemMapperComponent
-],
-    providers: [
-        SearchService,
-    ]
+    CollectionItemMapperComponent,
+    CollectionPageComponent,
+    ThemedCollectionPageComponent,
+    CreateCollectionPageComponent,
+    DeleteCollectionPageComponent,
+    EditItemTemplatePageComponent,
+    ThemedEditItemTemplatePageComponent,
+    CollectionItemMapperComponent,
+  ],
+  providers: [
+    SearchService,
+  ]
 })
 export class CollectionPageModule {
 

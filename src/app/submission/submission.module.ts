@@ -8,7 +8,7 @@ import { SubmissionFormFooterComponent } from './form/footer/submission-form-foo
 import { SubmissionFormComponent } from './form/submission-form.component';
 import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
 import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers, SubmissionState } from './submission.reducers';
@@ -65,6 +65,11 @@ import {
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 import { SubmissionSectionIdentifiersComponent } from './sections/identifiers/section-identifiers.component';
+import { SubmissionSectionCoarNotifyComponent } from './sections/section-coar-notify/section-coar-notify.component';
+import {
+  CoarNotifyConfigDataService
+} from './sections/section-coar-notify/coar-notify-config-data.service';
+import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -74,6 +79,7 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionSherpaPoliciesComponent,
+  SubmissionSectionCoarNotifyComponent
 ];
 
 const DECLARATIONS = [
@@ -110,12 +116,14 @@ const DECLARATIONS = [
     imports: [
         CommonModule,
         StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+        EffectsModule.forFeature(),
         EffectsModule.forFeature(submissionEffects),
         FormModule,
         NgbModalModule,
         NgbCollapseModule,
         NgbAccordionModule,
         UploadModule,
+        NgOptimizedImage,
         ...DECLARATIONS
     ],
     exports: [
@@ -129,6 +137,8 @@ const DECLARATIONS = [
         SubmissionAccessesConfigDataService,
         SectionAccessesService,
         SectionFormOperationsService,
+    CoarNotifyConfigDataService,
+    LdnServicesService
     ]
 })
 

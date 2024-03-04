@@ -196,6 +196,7 @@ export class FormBuilderService extends DynamicFormService {
           return new FormFieldMetadataValueObject((controlValue as any).value, controlLanguage, authority, (controlValue as any).display, place, (controlValue as any).confidence);
         }
       }
+      return controlValue;
     };
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): void => {

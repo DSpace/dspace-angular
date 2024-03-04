@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
  */
 @Component({
     selector: 'ds-text-menu-item',
+  styleUrls: ['./menu-item.component.scss'],
     templateUrl: './text-menu-item.component.html',
     standalone: true,
     imports: [TranslateModule]

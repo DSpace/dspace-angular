@@ -15,13 +15,40 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
  */
 @Component({
     selector: 'ds-themed-search',
-    styleUrls: [],
     templateUrl: '../theme-support/themed.component.html',
     standalone: true
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'useCachedVersionIfAvailable', 'inPlaceSearch', 'linkType', 'paginationId', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCsvExport', 'showSidebar', 'showThumbnails', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'resultFound', 'deselectObject', 'selectObject', 'trackStatistics', 'query'];
+  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
+    'configurationList',
+    'context',
+    'configuration',
+    'fixedFilterQuery',
+    'useCachedVersionIfAvailable',
+    'inPlaceSearch',
+    'linkType',
+    'paginationId',
+    'searchEnabled',
+    'sideBarWidth',
+    'searchFormPlaceholder',
+    'selectable',
+    'selectionConfig',
+    'showCsvExport',
+    'showSidebar',
+    'showThumbnails',
+    'showViewModes',
+    'useUniquePageId',
+    'viewModeList',
+    'showScopeSelector',
+    'trackStatistics',
+    'query',
+    'scope',
+    'hideScopeInUrl',
+    'resultFound',
+    'deselectObject',
+    'selectObject',
+  ];
 
   @Input() configurationList: SearchConfigurationOption[];
 
@@ -53,7 +80,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() showSidebar: boolean;
 
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   @Input() showViewModes: boolean;
 
@@ -66,6 +93,10 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() trackStatistics: boolean;
 
   @Input() query: string;
+
+  @Input() scope: string;
+
+  @Input() hideScopeInUrl: boolean;
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 

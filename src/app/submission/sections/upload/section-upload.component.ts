@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription ,
+  combineLatest
+} from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
@@ -31,7 +33,10 @@ import {
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { POLICY_DEFAULT_NO_LIST, POLICY_DEFAULT_WITH_LIST } from './section-upload-constants';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+
+export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
+export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
 
 export interface AccessConditionGroupsMapEntry {
   accessCondition: string;
@@ -65,10 +70,10 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   public AlertTypeEnum = AlertType;
 
   /**
-   * The array containing the keys of file list array
+   * The uuid of primary bitstream file
    * @type {Array}
    */
-  public fileIndexes: string[] = [];
+  public primaryBitstreamUUID: string | null = null;
 
   /**
    * The file list
@@ -201,27 +206,18 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         this.changeDetectorRef.detectChanges();
       }),
 
-      // retrieve submission's bitstreams from state
-      observableCombineLatest(this.configMetadataForm$,
-        this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)).pipe(
-        filter(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
-          return isNotEmpty(configMetadataForm) && isNotUndefined(fileList);
+
+      // retrieve submission's bitstream data from state
+      combineLatest([this.configMetadataForm$,
+        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id)]).pipe(
+        filter(([configMetadataForm, { files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+          return isNotEmpty(configMetadataForm) && isNotEmpty(files);
         }),
         distinctUntilChanged())
-        .subscribe(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
-            this.fileList = [];
-            this.fileIndexes = [];
-            this.fileNames = [];
-            this.changeDetectorRef.detectChanges();
-            if (isNotUndefined(fileList) && fileList.length > 0) {
-              fileList.forEach((file) => {
-                this.fileList.push(file);
-                this.fileIndexes.push(file.uuid);
-                this.fileNames.push(this.getFileName(configMetadataForm, file));
-              });
-            }
-
-            this.changeDetectorRef.detectChanges();
+        .subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+            this.primaryBitstreamUUID = primary;
+            this.fileList = files;
+            this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
           }
         )
     );

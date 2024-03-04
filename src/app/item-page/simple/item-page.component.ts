@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM
 import { ActivatedRoute, Router } from '@angular/router';
 import { AsyncPipe, isPlatformServer, NgIf } from '@angular/common';
 
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -32,6 +32,7 @@ import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 
 /**
  * This component renders a simple item page.
@@ -93,6 +94,13 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   signpostingLinks: SignpostingLink[] = [];
 
+  /**
+   * An array of LinkDefinition objects representing inbox links for the item page.
+   */
+  inboxTags: LinkDefinition[] = [];
+
+  coarRestApiUrls: string[] = [];
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -102,6 +110,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
+    protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string
   ) {
     this.initPageLinks();
@@ -131,7 +140,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   private initPageLinks(): void {
     this.route.params.subscribe(params => {
-      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
+      combineLatest([this.signpostingDataService.getLinks(params.id).pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
+      .subscribe(([signpostingLinks, coarRestApiUrls]) => {
         let links = '';
         this.signpostingLinks = signpostingLinks;
 
@@ -149,6 +159,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
           this.linkHeadService.addTag(tag);
         });
 
+        if (coarRestApiUrls.length > 0) {
+          let inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
+          links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        }
+
         if (isPlatformServer(this.platformId)) {
           this.responseService.setHeader('Link', links);
         }
@@ -156,8 +171,48 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Sets the COAR LDN local inbox URL if COAR configuration is enabled.
+   * If the COAR LDN local inbox URL is retrieved successfully, initializes the page inbox links.
+   */
+  private getCoarLdnLocalInboxUrls(): Observable<string[]> {
+   return this.notifyInfoService.isCoarConfigEnabled().pipe(
+      switchMap((coarLdnEnabled: boolean) => {
+        if (coarLdnEnabled) {
+          return this.notifyInfoService.getCoarLdnLocalInboxUrls();
+        }
+      })
+    );
+  }
+
+  /**
+   * Initializes the page inbox links.
+   * @param coarRestApiUrls - An array of COAR REST API URLs.
+   */
+  private initPageInboxLinks(coarRestApiUrls: string[]): string {
+    const rel = this.notifyInfoService.getInboxRelationLink();
+    let links = '';
+
+    coarRestApiUrls.forEach((coarRestApiUrl: string) => {
+      // Add link to head
+      let tag: LinkDefinition = {
+        href: coarRestApiUrl,
+        rel: rel
+      };
+      this.inboxTags.push(tag);
+      this.linkHeadService.addTag(tag);
+
+      links = links + (isNotEmpty(links) ? ', ' : '') + `<${coarRestApiUrl}> ; rel="${rel}"`;
+    });
+
+    return links;
+  }
+
   ngOnDestroy(): void {
     this.signpostingLinks.forEach((link: SignpostingLink) => {
+      this.linkHeadService.removeTag(`href='${link.href}'`);
+    });
+    this.inboxTags.forEach((link: LinkDefinition) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
   }

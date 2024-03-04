@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent as BaseComponent } from '../../../../app/header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedNavbarComponent } from '../../../../app/navbar/themed-navbar.component';
@@ -10,6 +10,7 @@ import { ThemedSearchNavbarComponent } from '../../../../app/search-navbar/theme
 import { RouterLink } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemedLangSwitchComponent } from 'src/app/shared/lang-switch/themed-lang-switch.component';
+import { Observable } from 'rxjs';
 
 /**
  * Represents the header with the logo and simple navigation
@@ -21,5 +22,11 @@ import { ThemedLangSwitchComponent } from 'src/app/shared/lang-switch/themed-lan
     standalone: true,
     imports: [NgbDropdownModule, ThemedLangSwitchComponent, RouterLink, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, ThemedNavbarComponent, TranslateModule]
 })
-export class HeaderComponent extends BaseComponent {
+export class HeaderComponent extends BaseComponent implements OnInit {
+  public isNavBarCollapsed$: Observable<boolean>;
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.isNavBarCollapsed$ = this.menuService.isMenuCollapsed(this.menuID);
+  }
 }

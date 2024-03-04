@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
 import { ComcolPageHandleComponent } from './comcol-page-handle/comcol-page-handle.component';
-import { ThemedComcolPageHandleComponent} from './comcol-page-handle/themed-comcol-page-handle.component';
+import { ThemedComcolPageHandleComponent } from './comcol-page-handle/themed-comcol-page-handle.component';
 
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
@@ -15,6 +15,10 @@ import { ThemedComcolPageBrowseByComponent } from './comcol-page-browse-by/theme
 import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { FormModule } from '../form/form.module';
 import { UploadModule } from '../upload/upload.module';
+import { ComcolBrowseByComponent } from './sections/comcol-browse-by/comcol-browse-by.component';
+import { BrowseByModule } from '../../browse-by/browse-by.module';
+import { SearchModule } from '../search/search.module';
+import { ComcolSearchSectionComponent } from './sections/comcol-search-section/comcol-search-section.component';
 
 const COMPONENTS = [
   ComcolPageContentComponent,
@@ -28,19 +32,24 @@ const COMPONENTS = [
   ComcolPageBrowseByComponent,
   ThemedComcolPageBrowseByComponent,
   ComcolRoleComponent,
-  ThemedComcolPageHandleComponent
+  ThemedComcolPageHandleComponent,
+  ComcolBrowseByComponent,
+  ComcolSearchSectionComponent,
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormModule,
-        UploadModule,
-        ...COMPONENTS
-    ],
-    exports: [
-        ...COMPONENTS,
-        UploadModule,
-    ]
+  imports: [
+    CommonModule,
+    FormModule,
+    UploadModule,
+    BrowseByModule,
+    SearchModule,
+    ...COMPONENTS
+  ],
+  exports: [
+    ...COMPONENTS,
+    UploadModule,
+  ]
 })
-export class ComcolModule { }
+export class ComcolModule {
+}

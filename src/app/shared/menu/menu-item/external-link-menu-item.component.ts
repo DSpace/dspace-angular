@@ -8,10 +8,11 @@ import { NgClass } from '@angular/common';
  * Component that renders a menu section of type EXTERNAL
  */
 @Component({
-    selector: 'ds-external-link-menu-item',
-    templateUrl: './external-link-menu-item.component.html',
-    standalone: true,
-    imports: [NgClass, TranslateModule]
+  selector: 'ds-external-link-menu-item',
+  styleUrls: ['./menu-item.component.scss'],
+  templateUrl: './external-link-menu-item.component.html',
+  standalone: true,
+  imports: [NgClass, TranslateModule]
 })
 export class ExternalLinkMenuItemComponent implements OnInit {
   item: ExternalLinkMenuItemModel;

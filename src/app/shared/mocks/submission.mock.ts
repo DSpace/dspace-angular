@@ -1612,7 +1612,13 @@ export const mockUploadFiles = [
   }
 ];
 
+export const mockUploadFilesData = {
+  primary: null,
+  files: JSON.parse(JSON.stringify(mockUploadFiles))
+};
+
 export const mockFileFormData = {
+  primary: [true],
   metadata: {
     'dc.title': [
       {

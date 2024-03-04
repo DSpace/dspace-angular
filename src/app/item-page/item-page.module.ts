@@ -55,6 +55,9 @@ import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component
 import {
   ThemedFullFileSectionComponent
 } from './full/field-components/file-section/themed-full-file-section.component';
+import { QaEventNotificationComponent } from './simple/qa-event-notification/qa-event-notification.component';
+import { NotifyRequestsStatusComponent } from './simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { RequestStatusAlertBoxComponent } from './simple/notify-requests-status/request-status-alert-box/request-status-alert-box.component';
 
 
 const DECLARATIONS = [
@@ -91,6 +94,9 @@ const DECLARATIONS = [
   ItemAlertsComponent,
   ThemedItemAlertsComponent,
   BitstreamRequestACopyPageComponent,
+  QaEventNotificationComponent,
+  NotifyRequestsStatusComponent,
+  RequestStatusAlertBoxComponent
 ];
 
 @NgModule({

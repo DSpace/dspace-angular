@@ -1,4 +1,4 @@
-import { Component, HostListener, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
@@ -33,9 +33,14 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   menuID = MenuID.ADMIN;
 
   /**
-   * Observable that emits the width of the collapsible menu sections
+   * Observable that emits the width of the sidebar when expanded
    */
-  sidebarWidth: Observable<string>;
+  @Input() expandedSidebarWidth$: Observable<string>;
+
+  /**
+   * Observable that emits the width of the sidebar when collapsed
+   */
+  @Input() collapsedSidebarWidth$: Observable<string>;
 
   /**
    * Is true when the sidebar is open, is false when the sidebar is animating or closed
@@ -48,6 +53,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * @type {boolean}
    */
   sidebarClosed = !this.sidebarOpen; // Closed in UI, animation finished
+
+  /**
+   * Is true when the sidebar is opening or closing
+   * @type {boolean}
+   */
+  sidebarTransitioning = !this.sidebarOpen; // Animation in progress
 
   /**
    * Emits true when either the menu OR the menu's preview is expanded, else emits false
@@ -74,7 +85,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.sidebarWidth = this.variableService.getVariable('--ds-sidebar-items-width');
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
@@ -139,6 +149,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * @param event The animation event
    */
   startSlide(event: any): void {
+    this.sidebarTransitioning = true;
     if (event.toState === 'expanded') {
       this.sidebarClosed = false;
     } else if (event.toState === 'collapsed') {
@@ -151,6 +162,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * @param event The animation event
    */
   finishSlide(event: any): void {
+    this.sidebarTransitioning = false;
     if (event.fromState === 'expanded') {
       this.sidebarClosed = true;
     } else if (event.fromState === 'collapsed') {

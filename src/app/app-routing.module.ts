@@ -4,9 +4,6 @@ import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
@@ -38,6 +35,7 @@ import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -45,6 +43,8 @@ import { storeModuleConfig } from './app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers, SubmissionState } from './submission/submission.reducers';
 import { submissionEffects } from './submission/submission.effects';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 
 @NgModule({
   imports: [
@@ -99,7 +99,7 @@ import { submissionEffects } from './submission/submission.effects';
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard]
           },
           {
             path: COMMUNITY_MODULE_PATH,
@@ -159,7 +159,19 @@ import { submissionEffects } from './submission/submission.effects';
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin-routes')
               .then((m) => m.ROUTES),
-            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
+              .then((m) => m.AdminNotificationsModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
+              .then((m) => m.NotificationsPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',
@@ -222,6 +234,11 @@ import { submissionEffects } from './submission/submission.effects';
               .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
+          { path: SUGGESTION_MODULE_PATH,
+            loadChildren: () => import('./suggestions-page/suggestions-page.module')
+              .then((m) => m.SuggestionsPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
           {
             path: INFO_MODULE_PATH,
             loadChildren: () => import('./info/info-routes').then((m) => m.ROUTES)
@@ -257,7 +274,7 @@ import { submissionEffects } from './submission/submission.effects';
               .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard]
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent }
         ]
       }
     ], {

@@ -33,6 +33,7 @@ import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-no
 import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 
 /**
  * This component renders a full item page.
@@ -89,9 +90,10 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
+    protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, platformId);
+    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

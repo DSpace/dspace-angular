@@ -2,7 +2,7 @@ import {
   RelatedEntitiesSearchComponent
 } from './simple/related-entities/related-entities-search/related-entities-search.component';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { SearchModule } from '../shared/search/search.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
@@ -26,12 +26,17 @@ import { RelatedItemsComponent } from './simple/related-items/related-items-comp
 import {
   ThemedMetadataRepresentationListComponent
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
+import {
+  ItemWithdrawnReinstateModalComponent
+} from '../shared/correction-suggestion/withdrawn-reinstate-modal.component';
+import { ItemPageImgFieldComponent } from './simple/field-components/specific-field/img/item-page-img-field.component';
 
 import { dsDynamicFormControlMapFn } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,
   ItemVersionsSummaryModalComponent,
+  ItemWithdrawnReinstateModalComponent
 
 ];
 
@@ -44,24 +49,27 @@ const COMPONENTS = [
   MetadataRepresentationListComponent,
   ThemedMetadataRepresentationListComponent,
   RelatedItemsComponent,
+  ItemPageImgFieldComponent,
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SearchModule,
-        TranslateModule,
-        ...COMPONENTS
-    ],
-    exports: [
-        ...COMPONENTS
-    ],
-    providers: [
-        {
-            provide: DYNAMIC_FORM_CONTROL_MAP_FN,
-            useValue: dsDynamicFormControlMapFn
-        },
-        ...ENTRY_COMPONENTS,
-    ]
+  imports: [
+    CommonModule,
+    SearchModule,
+    TranslateModule,
+    NgOptimizedImage,
+    ...COMPONENTS
+  ],
+  exports: [
+    ...COMPONENTS
+  ],
+  providers: [
+    {
+      provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+      useValue: dsDynamicFormControlMapFn
+    },
+    ...ENTRY_COMPONENTS,
+  ]
 })
-export class ItemSharedModule { }
+export class ItemSharedModule {
+}

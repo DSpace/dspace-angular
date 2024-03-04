@@ -18,6 +18,7 @@ import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -78,7 +79,9 @@ describe('AuthNavMenuComponent', () => {
             }
           }),
           TranslateModule.forRoot(),
-          AuthNavMenuComponent
+          AuthNavMenuComponent,
+          NgbDropdownModule,
+          BrowserOnlyMockPipe
         ],
         providers: [
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
@@ -117,10 +120,10 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-        const navMenuItemSelector = 'li';
+        const navMenuItemSelector = '.nav-item';
         deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
       afterEach(() => {
@@ -155,10 +158,10 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-        const navMenuItemSelector = 'li';
+        const navMenuItemSelector = '.nav-item';
         deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
 
@@ -197,10 +200,10 @@ describe('AuthNavMenuComponent', () => {
 
           fixture.detectChanges();
 
-          const navMenuSelector = '.navbar-nav';
+          const navMenuSelector = '[data-test="auth-nav"]';
           deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-          const navMenuItemSelector = 'li';
+          const navMenuItemSelector = '.nav-item';
           deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
         }));
 
@@ -210,7 +213,7 @@ describe('AuthNavMenuComponent', () => {
         });
 
         it('should render login dropdown menu', () => {
-          const loginDropdownMenu = deNavMenuItem.query(By.css('div.loginDropdownMenu'));
+          const loginDropdownMenu = deNavMenuItem.query(By.css('div#loginDropdownMenu'));
           expect(loginDropdownMenu.nativeElement).toBeDefined();
         });
       });
@@ -236,10 +239,10 @@ describe('AuthNavMenuComponent', () => {
 
           fixture.detectChanges();
 
-          const navMenuSelector = '.navbar-nav';
+          const navMenuSelector = '[data-test="auth-nav"]';
           deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-          const navMenuItemSelector = 'li';
+          const navMenuItemSelector = '.nav-item';
           deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
         }));
 
@@ -308,11 +311,8 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
-
-        const navMenuItemSelector = 'li';
-        deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
 
       afterEach(() => {
@@ -321,7 +321,7 @@ describe('AuthNavMenuComponent', () => {
       });
 
       it('should render login link', () => {
-        const loginDropdownMenu = deNavMenuItem.query(By.css('.loginLink'));
+        const loginDropdownMenu = deNavMenu.query(By.css('.loginLink'));
         expect(loginDropdownMenu.nativeElement).toBeDefined();
       });
     });
@@ -344,11 +344,8 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
-
-        const navMenuItemSelector = 'li';
-        deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
 
       afterEach(() => {
@@ -357,7 +354,7 @@ describe('AuthNavMenuComponent', () => {
       });
 
       it('should render logout link', inject([Store], (store: Store<AppState>) => {
-        const logoutDropdownMenu = deNavMenuItem.query(By.css('a.logoutLink'));
+        const logoutDropdownMenu = deNavMenu.query(By.css('a.logoutLink'));
         expect(logoutDropdownMenu.nativeElement).toBeDefined();
       }));
     });

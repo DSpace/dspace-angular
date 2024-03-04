@@ -23,6 +23,10 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Community } from '../../core/shared/community.model';
 import { Collection } from '../../core/shared/collection.model';
 import flatten from 'lodash/flatten';
+import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthServiceMock } from '../mocks/auth.service.mock';
+import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
 
 describe('DSOEditMenuResolver', () => {
 
@@ -40,6 +44,8 @@ describe('DSOEditMenuResolver', () => {
   let notificationsService;
   let translate;
   let mockNgbModal;
+  let dsoWithdrawnReinstateModalService;
+  let correctionsDataService;
 
   const dsoRoute = (dso: DSpaceObject) => {
     return {
@@ -147,6 +153,14 @@ describe('DSOEditMenuResolver', () => {
       )
     };
 
+    dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', {
+      openCreateWithdrawnReinstateModal: {},
+    });
+
+    correctionsDataService = jasmine.createSpyObj('correctionsDataService', {
+      findByItem: observableOf([])
+    });
+
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
     providers: [
@@ -157,7 +171,11 @@ describe('DSOEditMenuResolver', () => {
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: NgbModal, useValue: mockNgbModal }
+        {provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService},
+        {provide: AuthService, useValue: new AuthServiceMock()},
+        {provide: CorrectionTypeDataService, useValue: correctionsDataService},
+        {
+          provide: NgbModal, useValue: mockNgbModal }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 });
@@ -350,7 +368,7 @@ describe('DSOEditMenuResolver', () => {
         route = dsoRoute(testItem);
       });
 
-      it('should return Item-specific entries', (done) => {
+      it('should return Item-specific entries', () => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const orcidEntry = menu.find(entry => entry.id === 'orcid-dso');
@@ -371,20 +389,18 @@ describe('DSOEditMenuResolver', () => {
           expect(claimEntry.active).toBeFalse();
           expect(claimEntry.visible).toBeFalse();
           expect(claimEntry.model.type).toEqual(MenuItemType.ONCLICK);
-          done();
         });
       });
 
-      it('should not return Community/Collection-specific entries', (done) => {
+      it('should not return Community/Collection-specific entries', () => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const subscribeEntry = menu.find(entry => entry.id === 'subscribe');
           expect(subscribeEntry).toBeFalsy();
-          done();
         });
       });
 
-      it('should return as third part the common list ', (done) => {
+      it('should return as third part the common list ', () => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const editEntry = menu.find(entry => entry.id === 'edit-dso');
@@ -395,7 +411,6 @@ describe('DSOEditMenuResolver', () => {
           expect((editEntry.model as LinkMenuItemModel).link).toEqual(
             '/items/test-item-uuid/edit/metadata'
           );
-          done();
         });
       });
     });

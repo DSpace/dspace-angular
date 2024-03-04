@@ -71,8 +71,7 @@ export class SearchNavbarComponent {
     this.searchForm.reset();
 
     this.router.navigate(linkToNavigateTo, {
-      queryParams: queryParams,
-      queryParamsHandling: 'merge'
+      queryParams: queryParams
     });
   }
 }

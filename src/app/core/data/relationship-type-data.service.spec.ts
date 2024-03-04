@@ -10,6 +10,7 @@ import { RequestService } from './request.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { hasValueOperator } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 
 describe('RelationshipTypeDataService', () => {
   let service: RelationshipTypeDataService;
@@ -28,7 +29,7 @@ describe('RelationshipTypeDataService', () => {
 
   let buildList;
   let rdbService;
-  let objectCache;
+  let objectCache: ObjectCacheServiceStub;
 
   function init() {
     restEndpointURL = 'https://rest.api/relationshiptypes';
@@ -60,21 +61,14 @@ describe('RelationshipTypeDataService', () => {
 
     buildList = createSuccessfulRemoteDataObject(createPaginatedList([relationshipType1, relationshipType2]));
     rdbService = getMockRemoteDataBuildService(undefined, observableOf(buildList));
-    objectCache = Object.assign({
-      /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-      remove: () => {
-      },
-      hasBySelfLinkObservable: () => observableOf(false)
-      /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    }) as ObjectCacheService;
-
+    objectCache = new ObjectCacheServiceStub();
   }
 
   function initTestService() {
     return new RelationshipTypeDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
     );
   }

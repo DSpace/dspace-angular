@@ -43,4 +43,7 @@ export class VocabularyServiceStub {
     return createSuccessfulRemoteDataObject$(Object.assign(new Vocabulary(), { id: 1, name: 'one', type: 'one' }));
   }
 
+  getVocabularyByMetadataAndCollection(metadataField: string, collectionUUID: string): Observable<RemoteData<Vocabulary>> {
+    return createSuccessfulRemoteDataObject$(null);
+  }
 }

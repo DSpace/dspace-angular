@@ -35,6 +35,7 @@ import {
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -71,6 +72,7 @@ describe('ItemPageComponent', () => {
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+  let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
   const mockMetadataService = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -81,6 +83,8 @@ describe('ItemPageComponent', () => {
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
+
+  const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
@@ -103,6 +107,12 @@ describe('ItemPageComponent', () => {
       removeTag: jasmine.createSpy('removeTag'),
     });
 
+    notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
+      getInboxRelationLink: 'http://www.w3.org/ns/ldp#inbox',
+      isCoarConfigEnabled: observableOf(true),
+      getCoarLdnLocalInboxUrls: observableOf(getCoarLdnLocalInboxUrls),
+    });
+
     TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot({
             loader: {
@@ -120,6 +130,7 @@ describe('ItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: NotifyInfoService, useValue: notifyInfoService},
         { provide: PLATFORM_ID, useValue: 'server' },
     ],
     schemas: [NO_ERRORS_SCHEMA]
@@ -182,7 +193,7 @@ describe('ItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(4);
     });
 
 
@@ -191,7 +202,7 @@ describe('ItemPageComponent', () => {
       expect(comp.signpostingLinks).toEqual([mocklink, mocklink2]);
 
       // Check if linkHeadService.addTag() was called with the correct arguments
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length + getCoarLdnLocalInboxUrls.length);
       let expected: LinkDefinition = mockSignpostingLinks[0] as LinkDefinition;
       expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
       expected = {
@@ -202,8 +213,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should set Link header on the server', () => {
-
-      expect(serverResponseService.setHeader).toHaveBeenCalledWith('Link', '<http://test.org> ; rel="rel1" ; type="type1" , <http://test2.org> ; rel="rel2" ');
+      expect(serverResponseService.setHeader).toHaveBeenCalledWith('Link', '<http://test.org> ; rel="rel1" ; type="type1" , <http://test2.org> ; rel="rel2" , <http://InboxUrls.org> ; rel="http://www.w3.org/ns/ldp#inbox", <http://InboxUrls2.org> ; rel="http://www.w3.org/ns/ldp#inbox"');
     });
 
   });
@@ -233,7 +243,7 @@ describe('ItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(4);
     });
   });
 
@@ -250,7 +260,7 @@ describe('ItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(4);
     });
   });
 

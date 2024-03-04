@@ -9,6 +9,25 @@ import { MetadataValuesComponent } from '../../../field-components/metadata-valu
 import { AsyncPipe } from '@angular/common';
 
 /**
+ * Interface that encapsulate Image configuration for this component.
+ */
+export interface ImageField {
+  /**
+   * URI that is used to retrieve the image.
+   */
+  URI: string;
+  /**
+   * i18n Key that represents the alt text to display
+   */
+  alt: string;
+  /**
+   * CSS variable that contains the height of the inline image.
+   */
+  heightVar: string;
+}
+
+
+/**
  * This component can be used to represent metadata on a simple item page.
  * It expects one input parameter of type Item to which the metadata belongs.
  * This class can be extended to print certain metadata.
@@ -57,6 +76,11 @@ export class ItemPageFieldComponent {
      * Whether any valid HTTP(S) URL should be rendered as a link
      */
     urlRegex?: string;
+
+    /**
+     * Image Configuration
+     */
+    img: ImageField;
 
     /**
      * Return browse definition that matches any field used in this component if it is configured as a browse

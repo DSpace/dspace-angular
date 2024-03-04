@@ -3,8 +3,8 @@
       <!--
       Choose a template. Priority: markdown, link, browse link.
       -->
-      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : (hasLink(mdValue) ? link : (hasBrowseDefinition() ? browselink : simple)));
-        context: {value: mdValue.value}">
+      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : (hasLink(mdValue) ? (img != null ? linkImg : link) : (hasBrowseDefinition() ? browselink : simple)));
+        context: {value: mdValue.value, img}">
       </ng-container>
       <span class="separator" *ngIf="!last" [innerHTML]="separator"></span>
     </ng-container>
@@ -21,6 +21,17 @@
     <a class="dont-break-out ds-simple-metadata-link" target="_blank" [href]="value">
       {{value}}
     </a>
+</ng-template>
+
+<!-- Render value as a link with icon -->
+<ng-template #linkImg let-img="img" let-value="value">
+  <a [href]="value" class="link-anchor dont-break-out ds-simple-metadata-link" target="_blank">
+    <img class="link-logo"
+      [alt]="img.alt | translate"
+      [style.height]="'var(' + img.heightVar + ', --ds-item-page-img-field-default-inline-height)'"
+      [src]="img.URI"/>
+    {{value}}
+  </a>
 </ng-template>
 
 <!-- Render simple value in a span  -->

@@ -43,7 +43,7 @@ export class AuthNavMenuComponent implements OnInit {
    */
   public loading: Observable<boolean>;
 
-  public isXsOrSm$: Observable<boolean>;
+  public isMobile$: Observable<boolean>;
 
   public showAuth = observableOf(false);
 
@@ -55,7 +55,7 @@ export class AuthNavMenuComponent implements OnInit {
               private windowService: HostWindowService,
               private authService: AuthService
   ) {
-    this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.isMobile$ = this.windowService.isMobile();
   }
 
   ngOnInit(): void {

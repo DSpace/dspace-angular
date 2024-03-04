@@ -19,6 +19,7 @@ import {
   qualityAssuranceTopicObjectMorePid
 } from '../../../../shared/mocks/notifications.mock';
 import { RequestEntry } from '../../../data/request-entry.model';
+import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 
 describe('QualityAssuranceTopicDataService', () => {
   let scheduler: TestScheduler;
@@ -26,7 +27,7 @@ describe('QualityAssuranceTopicDataService', () => {
   let responseCacheEntry: RequestEntry;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: HALEndpointService;
   let notificationsService: NotificationsService;
   let http: HttpClient;
@@ -63,7 +64,7 @@ describe('QualityAssuranceTopicDataService', () => {
       }),
     });
 
-    objectCache = {} as ObjectCacheService;
+    objectCache = new ObjectCacheServiceStub();
     halService = jasmine.createSpyObj('halService', {
       getEndpoint: cold('a|', { a: endpointURL })
     });
@@ -75,27 +76,34 @@ describe('QualityAssuranceTopicDataService', () => {
     service = new QualityAssuranceTopicDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
       notificationsService
     );
 
     spyOn((service as any).findAllData, 'findAll').and.callThrough();
     spyOn((service as any), 'findById').and.callThrough();
+    spyOn((service as any).searchData, 'searchBy').and.callThrough();
   });
 
-  describe('getTopics', () => {
-    it('should call findListByHref', (done) => {
-      service.getTopics().subscribe(
-        (res) => {
-          expect((service as any).findAllData.findAll).toHaveBeenCalledWith({}, true, true);
-        }
+  describe('searchTopicsByTarget', () => {
+    it('should call searchData.searchBy with the correct parameters', () => {
+      const options = { elementsPerPage: 10 };
+      const useCachedVersionIfAvailable = true;
+      const reRequestOnStale = true;
+
+      service.searchTopicsByTarget(options, useCachedVersionIfAvailable, reRequestOnStale);
+
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith(
+        'byTarget',
+        options,
+        useCachedVersionIfAvailable,
+        reRequestOnStale
       );
-      done();
     });
 
     it('should return a RemoteData<PaginatedList<QualityAssuranceTopicObject>> for the object with the given URL', () => {
-      const result = service.getTopics();
+      const result = service.searchTopicsByTarget();
       const expected = cold('(a)', {
         a: paginatedListRD
       });

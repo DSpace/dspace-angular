@@ -12,7 +12,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import {
   getFirstCompletedRemoteData,
 } from '../../core/shared/operators';
-import { UpdateDataService } from '../../core/data/update-data.service';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -29,6 +28,7 @@ import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edi
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { UpdateDataService } from '../../core/data/update-data.service';
 
 @Component({
     selector: 'ds-dso-edit-metadata',

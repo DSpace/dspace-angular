@@ -32,7 +32,6 @@ import { RootModule } from '../../app/root.module';
 import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
 import { HomePageComponent } from './app/home-page/home-page.component';
 import { RootComponent } from './app/root/root.component';
-import { BrowseBySwitcherComponent } from './app/browse-by/browse-by-switcher/browse-by-switcher.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
@@ -92,20 +91,20 @@ import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
 import {
   CommunityPageSubCommunityListComponent
-} from './app/community-page/sub-community-list/community-page-sub-community-list.component';
+} from './app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
 import {
   CommunityPageSubCollectionListComponent
-} from './app/community-page/sub-collection-list/community-page-sub-collection-list.component';
+} from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
 
 import {
-  BrowseByMetadataPageComponent
-} from './app/browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
-import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
-import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
+  BrowseByMetadataComponent
+} from './app/browse-by/browse-by-metadata/browse-by-metadata.component';
+import { BrowseByDateComponent } from './app/browse-by/browse-by-date/browse-by-date.component';
+import { BrowseByTitleComponent } from './app/browse-by/browse-by-title/browse-by-title.component';
 import {
-  BrowseByTaxonomyPageComponent
-} from './app/browse-by/browse-by-taxonomy-page/browse-by-taxonomy-page.component';
+  BrowseByTaxonomyComponent
+} from './app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
 import {
   ExternalSourceEntryImportModalComponent
 } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
@@ -165,6 +164,8 @@ import {
 import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
+import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
+import { NotificationsModule } from '../../app/notifications/notifications.module';
 import { UserMenuComponent } from './app/shared/auth-nav-menu/user-menu/user-menu.component';
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
@@ -173,7 +174,6 @@ const DECLARATIONS = [
   FileSectionComponent,
   HomePageComponent,
   RootComponent,
-  BrowseBySwitcherComponent,
   CommunityListPageComponent,
   SearchPageComponent,
   ConfigurationSearchPageComponent,
@@ -220,10 +220,10 @@ const DECLARATIONS = [
   SearchSettingsComponent,
   ComcolPageBrowseByComponent,
   ObjectListComponent,
-  BrowseByMetadataPageComponent,
-  BrowseByDatePageComponent,
-  BrowseByTitlePageComponent,
-  BrowseByTaxonomyPageComponent,
+  BrowseByMetadataComponent,
+  BrowseByDateComponent,
+  BrowseByTitleComponent,
+  BrowseByTaxonomyComponent,
   ExternalSourceEntryImportModalComponent,
   SearchFiltersComponent,
   SearchSidebarComponent,
@@ -296,6 +296,8 @@ const DECLARATIONS = [
     SystemWideAlertModule,
     NgxGalleryModule,
     FormModule,
+    RequestCopyModule,
+    NotificationsModule,
     ...DECLARATIONS
 ],
     exports: [

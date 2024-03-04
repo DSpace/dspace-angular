@@ -143,7 +143,7 @@ describe('AdminSidebarComponent', () => {
   describe('when the collapse link is clicked', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleMenu');
-      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle > button'));
+      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle-container > a'));
       sidebarToggler.triggerEventHandler('click', {
         preventDefault: () => {/**/
         }

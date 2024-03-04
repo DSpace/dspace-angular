@@ -1,5 +1,5 @@
-import { rendersBrowseBy } from './browse-by-decorator';
 import { BrowseByDataType } from './browse-by-data-type';
+import { rendersBrowseBy } from './browse-by-decorator';
 
 describe('BrowseByDecorator', () => {
   const titleDecorator = rendersBrowseBy(BrowseByDataType.Title);

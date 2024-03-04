@@ -6,7 +6,6 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { AdminQualityAssuranceSourcePageParams } from '../../../admin/admin-notifications/admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
 import { hasValue } from '../../../shared/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
@@ -14,6 +13,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance source list.
@@ -125,7 +125,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
    *
    * @param eventsRouteParams
    */
-  protected updatePaginationFromRouteParams(eventsRouteParams: AdminQualityAssuranceSourcePageParams) {
+  protected updatePaginationFromRouteParams(eventsRouteParams: QualityAssuranceSourcePageParams) {
     if (eventsRouteParams.currentPage) {
       this.paginationConfig.currentPage = eventsRouteParams.currentPage;
     }

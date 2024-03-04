@@ -111,17 +111,17 @@ const DECLARATIONS = [
 @NgModule({
     imports: [
     CommonModule,
-    RootModule,
-    NavbarModule,
-    SharedBrowseByModule,
-    ItemPageModule,
-    ItemSharedModule,
-    DsoPageModule,
+        RootModule,
+        NavbarModule,
+        SharedBrowseByModule,
+        ItemPageModule,
+        ItemSharedModule,
+        DsoPageModule,
     ...DECLARATIONS
 ],
     providers: [
         ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
-    ]
+  ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

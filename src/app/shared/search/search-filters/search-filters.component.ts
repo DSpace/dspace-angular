@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 
 @Component({
     selector: 'ds-search-filters',
@@ -32,7 +33,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * An observable containing configuration about which filters are shown and how they are shown
    */
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
-
+  @Input() searchOptions: PaginatedSearchOptions;
   /**
    * List of all filters that are currently active with their value set to null.
    * Used to reset all filters at once
@@ -65,6 +66,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   searchLink: string;
 
   subs = [];
+  filterLabel = 'search';
 
   /**
    * Initialize instance variables
@@ -74,6 +76,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * @param {SearchConfigurationService} searchConfigService
    */
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private searchService: SearchService,
     private filterService: SearchFilterService,
     private router: Router,
@@ -81,6 +84,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (!this.inPlaceSearch) {
+      this.filterLabel = 'discover';
+    }
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;

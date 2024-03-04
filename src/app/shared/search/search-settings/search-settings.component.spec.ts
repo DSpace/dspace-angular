@@ -1,4 +1,3 @@
-import { SearchService } from '../../../core/shared/search/search.service';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SearchSettingsComponent } from './search-settings.component';
 import { of as observableOf } from 'rxjs';
@@ -6,48 +5,37 @@ import { PaginationComponentOptions } from '../../pagination/pagination-componen
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { VarDirective } from '../../utils/var.directive';
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 describe('SearchSettingsComponent', () => {
 
   let comp: SearchSettingsComponent;
   let fixture: ComponentFixture<SearchSettingsComponent>;
-  let searchServiceObject: SearchService;
 
   let pagination: PaginationComponentOptions;
   let sort: SortOptions;
-  let mockResults;
-  let searchServiceStub;
 
   let queryParam;
   let scopeParam;
   let paginatedSearchOptions;
 
-  let paginationService;
+  let paginationService: PaginationServiceStub;
 
-  let activatedRouteStub;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
     pagination = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
     pagination.currentPage = 1;
     pagination.pageSize = 10;
     sort = new SortOptions('score', SortDirection.DESC);
-    mockResults = ['test', 'data'];
-    searchServiceStub = {
-      searchOptions: { pagination: pagination, sort: sort },
-      search: () => mockResults,
-    };
 
     queryParam = 'test query';
     scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -58,16 +46,9 @@ describe('SearchSettingsComponent', () => {
       sort,
     };
 
-    activatedRouteStub = {
-      queryParams: observableOf({
-        query: queryParam,
-        scope: scopeParam,
-      }),
-    };
-
     paginationService = new PaginationServiceStub(pagination, sort);
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SearchSettingsComponent, EnumKeysPipe, VarDirective],
     providers: [
         { provide: SearchService, useValue: searchServiceStub },
@@ -109,10 +90,7 @@ describe('SearchSettingsComponent', () => {
 
     // SearchPageComponent test instance
     fixture.detectChanges();
-    searchServiceObject = (comp as any).service;
     spyOn(comp, 'reloadOrder');
-    spyOn(searchServiceObject, 'search').and.callThrough();
-
   });
 
   it('it should show the order settings with the respective selectable options', () => {

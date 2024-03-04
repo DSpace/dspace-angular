@@ -88,6 +88,23 @@ export class VocabularyService {
   }
 
   /**
+     * Return the controlled vocabulary configured for the specified metadata and collection if any
+     * @param metadataField               metadata field to search
+     * @param collectionUUID              collection UUID where is configured the vocabulary
+     * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+     *                                    no valid cached version. Defaults to true
+     * @param reRequestOnStale            Whether or not the request should automatically be re-
+     *                                    requested after the response becomes stale
+     * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+     *                                    {@link HALLink}s should be automatically resolved
+     * @return {Observable<RemoteData<Vocabulary>>}
+     *    Return an observable that emits vocabulary object
+     */
+  getVocabularyByMetadataAndCollection(metadataField: string, collectionUUID: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
+    return this.vocabularyDataService.getVocabularyByMetadataAndCollection(metadataField, collectionUUID, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
    * Return the {@link VocabularyEntry} list for a given {@link Vocabulary}
    *
    * @param vocabularyOptions  The {@link VocabularyOptions} for the request to which the entries belong

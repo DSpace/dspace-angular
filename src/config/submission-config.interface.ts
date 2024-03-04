@@ -24,6 +24,7 @@ export interface MetadataIconConfig extends Config {
 export interface ConfidenceIconConfig extends Config {
   value: any;
   style: string;
+  icon: string;
 }
 
 export interface SubmissionConfig extends Config {
