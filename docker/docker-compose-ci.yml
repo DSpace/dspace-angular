@@ -69,7 +69,7 @@ services:
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
       LOADSQL: https://github.com/dataquest-dev/DSpace/releases/download/data/dspace-test-database-dump_29.1.2024.sql
       PGDATA: /pgdata
-    image: dspace/dspace-postgres-pgcrypto:loadsql
+    image: ${DSPACE_DB_IMAGE:-dspace/dspace-postgres-pgcrypto:loadsql}
     networks:
       dspacenet:
     stdin_open: true
@@ -79,8 +79,7 @@ services:
   # DSpace Solr container
   dspacesolr:
     container_name: dspacesolr
-    # Uses official Solr image at https://hub.docker.com/_/solr/
-    image: solr:8.11
+    image: ${DSPACE_SOLR_IMAGE:-dataquest/dspace-solr:dspace-7_x}
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
     depends_on:
     - dspace
