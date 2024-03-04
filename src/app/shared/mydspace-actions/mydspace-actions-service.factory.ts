@@ -13,7 +13,7 @@ import { CacheableObject } from '../../core/cache/cacheable-object.model';
 import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
 
 /**
- * Class to return DataService for given ResourceType
+ * Class to return UpdateDataServiceImpl for given ResourceType
  */
 export class MyDSpaceActionsServiceFactory<T extends CacheableObject, TService extends IdentifiableDataService<T>> {
   public getConstructor(type: ResourceType): TService {

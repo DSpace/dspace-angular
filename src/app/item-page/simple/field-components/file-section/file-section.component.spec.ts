@@ -25,7 +25,8 @@ describe('FileSectionComponent', () => {
   let fixture: ComponentFixture<FileSectionComponent>;
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    findPrimaryBitstreamByItemAndName: observableOf(null)
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),
@@ -80,6 +81,20 @@ describe('FileSectionComponent', () => {
     comp = fixture.componentInstance;
     fixture.detectChanges();
   }));
+
+  it('should set the id of primary bitstream', () => {
+    comp.primaryBitsreamId = undefined;
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(mockBitstream));
+    comp.ngOnInit();
+    expect(comp.primaryBitsreamId).toBe(mockBitstream.id);
+  });
+
+  it('should not set the id of primary bitstream', () => {
+    comp.primaryBitsreamId = undefined;
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(null));
+    comp.ngOnInit();
+    expect(comp.primaryBitsreamId).toBeUndefined();
+  });
 
   describe('when the bitstreams are loading', () => {
     beforeEach(() => {

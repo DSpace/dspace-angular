@@ -16,6 +16,10 @@ import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role
 import { SharedModule } from '../shared.module';
 import { FormModule } from '../form/form.module';
 import { UploadModule } from '../upload/upload.module';
+import { ComcolBrowseByComponent } from './sections/comcol-browse-by/comcol-browse-by.component';
+import { BrowseByModule } from '../../browse-by/browse-by.module';
+import { SearchModule } from '../search/search.module';
+import { ComcolSearchSectionComponent } from './sections/comcol-search-section/comcol-search-section.component';
 
 const COMPONENTS = [
   ComcolPageContentComponent,
@@ -29,7 +33,9 @@ const COMPONENTS = [
   ComcolPageBrowseByComponent,
   ThemedComcolPageBrowseByComponent,
   ComcolRoleComponent,
-  ThemedComcolPageHandleComponent
+  ThemedComcolPageHandleComponent,
+  ComcolBrowseByComponent,
+  ComcolSearchSectionComponent,
 ];
 
 @NgModule({
@@ -41,6 +47,8 @@ const COMPONENTS = [
     FormModule,
     SharedModule,
     UploadModule,
+    BrowseByModule,
+    SearchModule,
   ],
   exports: [
     ...COMPONENTS,

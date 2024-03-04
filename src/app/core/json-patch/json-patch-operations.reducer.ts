@@ -12,7 +12,7 @@ import {
   CommitPatchOperationsAction,
   StartTransactionPatchOperationsAction,
   RollbacktPatchOperationsAction,
-  DeletePendingJsonPatchOperationsAction
+  DeletePendingJsonPatchOperationsAction, FlushPatchOperationAction
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.model';
 
@@ -71,7 +71,7 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
     }
 
     case JsonPatchOperationsActionTypes.FLUSH_JSON_PATCH_OPERATIONS: {
-      return flushOperation(state, action as FlushPatchOperationsAction);
+      return flushOperations(state, action as FlushPatchOperationsAction);
     }
 
     case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_ADD_OPERATION: {
@@ -104,6 +104,10 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
 
     case JsonPatchOperationsActionTypes.DELETE_PENDING_JSON_PATCH_OPERATIONS: {
       return deletePendingOperations(state, action as DeletePendingJsonPatchOperationsAction);
+    }
+
+    case JsonPatchOperationsActionTypes.FLUSH_JSON_PATCH_OPERATION: {
+      return flushOperation(state, action as FlushPatchOperationAction);
     }
 
     default: {
@@ -198,6 +202,39 @@ function deletePendingOperations(state: JsonPatchOperationsState, action: Delete
 }
 
 /**
+ * Flush one operation from JsonPatchOperationsState.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an FlushPatchOperationsAction
+ * @return JsonPatchOperationsState
+ *    the new state.
+ */
+function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOperationAction): JsonPatchOperationsState {
+  const payload = action.payload;
+  if (state[payload.resourceType] && state[payload.resourceType].children) {
+    const body = state[payload.resourceType].children[payload.resourceId].body;
+    const operation = body.filter(operations => operations.operation.path === payload.path)[0];
+    const operationIndex = body.indexOf(operation);
+    const newBody = [...body];
+    newBody.splice(operationIndex, 1);
+
+    return Object.assign({}, state, {
+      [action.payload.resourceType]: Object.assign({}, {
+        children: {
+          [action.payload.resourceId]: {
+            body: newBody,
+          }
+        },
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
  * Add new JSON patch operation list.
  *
  * @param state
@@ -273,7 +310,7 @@ function hasValidBody(state: JsonPatchOperationsState, resourceType: any, resour
  * @return SubmissionObjectState
  *    the new state, with the section new validity status.
  */
-function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOperationsAction): JsonPatchOperationsState {
+function flushOperations(state: JsonPatchOperationsState, action: FlushPatchOperationsAction): JsonPatchOperationsState {
   if (hasValue(state[ action.payload.resourceType ])) {
     let newChildren;
     if (isNotUndefined(action.payload.resourceId)) {
@@ -351,7 +388,28 @@ function addOperationToList(body: JsonPatchOperationObject[], actionType, target
       newBody.push(makeOperationEntry({ op: JsonPatchOperationType.move, from: fromPath, path: targetPath }));
       break;
   }
-  return newBody;
+  return dedupeOperationEntries(newBody);
+}
+
+/**
+ * Dedupe operation entries by op and path. This prevents processing unnecessary patches in a single PATCH request.
+ *
+ * @param body JSON patch operation object entries
+ * @returns deduped JSON patch operation object entries
+ */
+function dedupeOperationEntries(body: JsonPatchOperationObject[]): JsonPatchOperationObject[] {
+  const ops = new Map<string, any>();
+  for (let i = body.length - 1; i >= 0; i--) {
+    const patch = body[i].operation;
+    const key = `${patch.op}-${patch.path}`;
+    if (!ops.has(key)) {
+      ops.set(key, patch);
+    } else {
+      body.splice(i, 1);
+    }
+  }
+
+  return body;
 }
 
 function makeOperationEntry(operation) {

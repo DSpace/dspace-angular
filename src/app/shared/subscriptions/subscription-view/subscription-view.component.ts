@@ -82,7 +82,7 @@ export class SubscriptionViewComponent {
   deleteSubscriptionPopup(subscription: Subscription) {
     if (hasValue(subscription.id)) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = this.dso;
+      modalRef.componentInstance.name = this.dsoNameService.getName(this.dso);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-subscription.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-subscription.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-subscription.cancel';

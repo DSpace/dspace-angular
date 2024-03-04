@@ -8,7 +8,9 @@ import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { Item } from '../../core/shared/item.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData, getRemoteDataPayload,
+} from '../../core/shared/operators';
 import { map, switchMap } from 'rxjs/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
@@ -21,6 +23,11 @@ import { getDSORoute } from '../../app-routing-paths';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DsoWithdrawnReinstateModalService, REQUEST_REINSTATE, REQUEST_WITHDRAWN } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { RequestParam } from '../../core/cache/models/request-param.model';
+import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { Community } from '../../core/shared/community.model';
 import { Collection } from '../../core/shared/collection.model';
@@ -42,6 +49,9 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected researcherProfileService: ResearcherProfileDataService,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
+    protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
+    private auth: AuthService,
+    private correctionTypeDataService: CorrectionTypeDataService
   ) {
   }
 
@@ -123,14 +133,20 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
    */
   protected getItemMenu(dso): Observable<MenuSection[]> {
     if (dso instanceof Item) {
+      const findListTopicOptions: FindListOptions = {
+        searchParams: [new RequestParam('target', dso.uuid)]
+      };
       return combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, dso.self),
         this.dsoVersioningModalService.isNewVersionButtonDisabled(dso),
         this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create'),
         this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, dso.self),
         this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
+        this.correctionTypeDataService.findByItem(dso.uuid, false).pipe(
+          getFirstCompletedRemoteData(),
+          getRemoteDataPayload())
       ]).pipe(
-        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem]) => {
+        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem, correction]) => {
           const isPerson = this.getDsoType(dso) === 'person';
           return [
             {
@@ -174,6 +190,34 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               icon: 'hand-paper',
               index: 3
             },
+            {
+              id: 'withdrawn-item',
+              active: false,
+              visible: dso.isArchived && correction?.page.some((c) => c.topic === REQUEST_WITHDRAWN),
+              model: {
+                type: MenuItemType.ONCLICK,
+                text:'item.page.withdrawn',
+                function: () => {
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-withdrawn', dso.isArchived);
+                }
+              } as OnClickMenuItemModel,
+              icon: 'eye-slash',
+              index: 4
+            },
+            {
+              id: 'reinstate-item',
+              active: false,
+              visible: dso.isWithdrawn && correction?.page.some((c) => c.topic === REQUEST_REINSTATE),
+              model: {
+                type: MenuItemType.ONCLICK,
+                text:'item.page.reinstate',
+                function: () => {
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-reinstate', dso.isArchived);
+                }
+              } as OnClickMenuItemModel,
+              icon: 'eye',
+              index: 5
+            }
           ];
         }),
       );
@@ -263,4 +307,5 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
       return menu;
     });
   }
+
 }
