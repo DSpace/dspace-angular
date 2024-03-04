@@ -9,12 +9,6 @@ import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-lo
 import { AsyncPipe, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  ThemedCommunityPageSubCommunityListComponent
-} from '../../../../app/community-page/sub-community-list/themed-community-page-sub-community-list.component';
-import {
-  ThemedCollectionPageSubCollectionListComponent
-} from '../../../../app/community-page/sub-collection-list/themed-community-page-sub-collection-list.component';
-import {
   ThemedComcolPageBrowseByComponent
 } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -27,6 +21,12 @@ import {
 } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
+import {
+  ThemedCommunityPageSubCommunityListComponent
+} from '../../../../app/community-page/sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
+import {
+  ThemedCollectionPageSubCollectionListComponent
+} from '../../../../app/community-page/sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 
 
 @Component({

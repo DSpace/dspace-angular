@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
@@ -24,12 +24,33 @@ import { Suggestion } from '../core/notifications/models/suggestion.model';
 import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 import { SuggestionBulkResult, SuggestionsService } from '../notifications/suggestions.service';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
-import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import {
+  SuggestionApproveAndImport,
+  SuggestionListElementComponent
+} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { VarDirective } from '../shared/utils/var.directive';
+import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 
 @Component({
   selector: 'ds-suggestion-page',
   templateUrl: './suggestions-page.component.html',
   styleUrls: ['./suggestions-page.component.scss'],
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    NgIf,
+    RouterLink,
+    TranslateModule,
+    SuggestionActionsComponent,
+    LoadingComponent,
+    PaginationComponent,
+    SuggestionListElementComponent,
+    NgForOf
+  ],
+  standalone: true
 })
 
 /**

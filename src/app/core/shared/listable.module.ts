@@ -267,9 +267,6 @@ import {
 } from '../../item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
 import { ClaimedTaskActionsComponent } from '../../shared/mydspace-actions/claimed-task/claimed-task-actions.component';
 import {
-  ListableObjectDirective
-} from '../../shared/object-collection/shared/listable-object/listable-object.directive';
-import {
   ItemAdminSearchResultActionsComponent
 } from '../../admin/admin-search-page/admin-search-results/item-admin-search-result-actions.component';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -423,7 +420,6 @@ const ENTRY_COMPONENTS = [
     ThemedMetadataRepresentationListComponent,
     ClaimedTaskActionsComponent,
     WorkflowitemActionsComponent,
-    ListableObjectDirective,
     ItemAdminSearchResultActionsComponent,
     MetadataFieldWrapperComponent,
     ThemedThumbnailComponent,

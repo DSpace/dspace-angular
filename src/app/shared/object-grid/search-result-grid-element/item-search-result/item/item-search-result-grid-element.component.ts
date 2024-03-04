@@ -15,10 +15,10 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
 @Component({
-    selector: 'ds-item-search-result-grid-element',
-    styleUrls: ['./item-search-result-grid-element.component.scss'],
-    templateUrl: './item-search-result-grid-element.component.html',
-    animations: [focusShadow],
+  selector: 'ds-item-search-result-grid-element',
+  styleUrls: ['./item-search-result-grid-element.component.scss'],
+  templateUrl: './item-search-result-grid-element.component.html',
+  animations: [focusShadow],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Publication

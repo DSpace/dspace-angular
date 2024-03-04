@@ -10,6 +10,7 @@ import { Context } from '../../../../../app/core/shared/context.model';
   styleUrls: ['../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component.scss'],
   // templateUrl: './browse-by-date.component.html',
   templateUrl: '../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component.html',
+  standalone: true
 })
 @rendersBrowseBy(BrowseByDataType.Date, Context.Any, 'custom')
 export class BrowseByDateComponent extends BaseComponent {

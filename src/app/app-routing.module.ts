@@ -43,7 +43,6 @@ import { storeModuleConfig } from './app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers, SubmissionState } from './submission/submission.reducers';
 import { submissionEffects } from './submission/submission.effects';
-import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 
 @NgModule({
@@ -161,18 +160,19 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
               .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
-          {
-            path: NOTIFICATIONS_MODULE_PATH,
-            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
-              .then((m) => m.AdminNotificationsModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
-          },
-          {
-            path: NOTIFICATIONS_MODULE_PATH,
-            loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
-              .then((m) => m.NotificationsPageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
-          },
+          // TODO: switch routing modules to routing files
+          // {
+          //   path: NOTIFICATIONS_MODULE_PATH,
+          //   loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
+          //     .then((m) => m.AdminNotificationsModule),
+          //   canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          // },
+          // {
+          //   path: NOTIFICATIONS_MODULE_PATH,
+          //   loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
+          //     .then((m) => m.NotificationsPageModule),
+          //   canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          // },
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page-routes')

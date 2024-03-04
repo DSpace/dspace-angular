@@ -15,7 +15,6 @@ import { ThemeService } from 'src/app/shared/theme-support/theme.service';
     styleUrls: ['./listable-object-component-loader.component.scss'],
     templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
     standalone: true,
-    imports: [ListableObjectDirective]
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)

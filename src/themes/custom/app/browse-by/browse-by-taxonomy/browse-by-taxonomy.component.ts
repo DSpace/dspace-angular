@@ -10,6 +10,7 @@ import { Context } from '../../../../../app/core/shared/context.model';
   templateUrl: '../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component.html',
   // styleUrls: ['./browse-by-taxonomy.component.scss'],
   styleUrls: ['../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component.scss'],
+  standalone: true
 })
 @rendersBrowseBy(BrowseByDataType.Hierarchy, Context.Any, 'custom')
 export class BrowseByTaxonomyComponent extends BaseComponent {

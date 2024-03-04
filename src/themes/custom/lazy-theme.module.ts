@@ -164,7 +164,6 @@ import {
 import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
-import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import { NotificationsModule } from '../../app/notifications/notifications.module';
 import { UserMenuComponent } from './app/shared/auth-nav-menu/user-menu/user-menu.component';
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
@@ -296,13 +295,9 @@ const DECLARATIONS = [
     SystemWideAlertModule,
     NgxGalleryModule,
     FormModule,
-    RequestCopyModule,
     NotificationsModule,
     ...DECLARATIONS
 ],
-    exports: [
-        CommunityPageSubCollectionListComponent
-    ]
 })
 
   /**

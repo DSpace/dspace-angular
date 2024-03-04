@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { fadeIn } from '../../../shared/animations/fade';
 import { SuggestionEvidences } from '../../../core/notifications/models/suggestion.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
+import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
 
 
 /**
@@ -8,9 +11,15 @@ import { SuggestionEvidences } from '../../../core/notifications/models/suggesti
  */
 @Component({
   selector: 'ds-suggestion-evidences',
-  styleUrls: [ './suggestion-evidences.component.scss' ],
+  styleUrls: ['./suggestion-evidences.component.scss'],
   templateUrl: './suggestion-evidences.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
+  imports: [
+    TranslateModule,
+    NgIf,
+    ObjectKeysPipe
+  ],
+  standalone: true
 })
 export class SuggestionEvidencesComponent {
 
