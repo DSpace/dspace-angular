@@ -9,7 +9,7 @@ import { SearchObjects } from '../../../search/models/search-objects.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { SectionComponent } from '../../../../core/layout/models/section.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchManager } from '../../../../core/browse/search-manager';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { InternalLinkService } from 'src/app/core/services/internal-link.service';
@@ -40,7 +40,7 @@ export class CountersSectionComponent implements OnInit {
 
   constructor(
               public internalLinkService: InternalLinkService,
-              private searchService: SearchService,
+              private searchService: SearchManager,
               private uuidService: UUIDService,
               @Inject(PLATFORM_ID) private platformId: Object,
   ) {
