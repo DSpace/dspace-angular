@@ -18,6 +18,8 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { DUPLICATE } from '../../shared/object-list/duplicate-data/duplicate.resource-type';
+import { dataService } from '../data/base/data-service.decorator';
 
 
 /**
@@ -30,6 +32,7 @@ import { SearchData, SearchDataImpl } from '../data/base/search-data';
  *
  */
 @Injectable()
+@dataService(DUPLICATE)
 export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> implements SearchData<Duplicate> {
 
   /**
@@ -120,8 +123,9 @@ export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> i
       findListOptions.searchParams = searchParams;
     }
 
-    // Perform the actual search by search
+    // Return actual search/findByItem results
     return this.searchBy('findByItem', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+
   }
 
   /**

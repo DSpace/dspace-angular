@@ -24,7 +24,6 @@ import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
-import { ItemDataService } from '../../../../core/data/item-data.service';
 import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
@@ -81,7 +80,6 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
-    protected itemDataService: ItemDataService,
     protected configService: ConfigurationDataService,
     protected duplicateDataService: SubmissionDuplicateDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig

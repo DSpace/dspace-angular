@@ -28,7 +28,6 @@ import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from '../../../../core/shared/context.model';
 import { createPaginatedList } from '../../../testing/utils.test';
-import { ItemDataService } from '../../../../core/data/item-data.service';
 import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
@@ -40,9 +39,7 @@ const mockResultObject: PoolTaskSearchResult = new PoolTaskSearchResult();
 mockResultObject.hitHighlights = {};
 
 const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
-const itemDataServiceStub = {
-  findListByHref: () => observableOf(emptyList),
-};
+
 const configurationDataService = jasmine.createSpyObj('configurationDataService', {
   findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
     name: 'duplicate.enable',
@@ -113,7 +110,6 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock },
-        { provide: ItemDataService, useValue: itemDataServiceStub },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SubmissionDuplicateDataService, useValue: duplicateDataServiceStub }
       ],
