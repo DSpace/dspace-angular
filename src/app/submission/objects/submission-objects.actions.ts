@@ -867,6 +867,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | InitSubmissionFormAction
   | ResetSubmissionFormAction
   | CancelSubmissionFormAction
+  | CleanDuplicateDetectionAction
   | CompleteInitSubmissionFormAction
   | ChangeSubmissionCollectionAction
   | SaveAndDepositSubmissionAction

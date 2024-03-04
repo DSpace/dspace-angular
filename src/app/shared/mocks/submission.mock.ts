@@ -1114,7 +1114,10 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         isLoading: false,
         isValid: false,
         removePending: false
-      } as any
+      } as any,
+      'duplicates': {
+        potentialDuplicates: []
+      } as any,
     },
     isLoading: false,
     savePending: false,
