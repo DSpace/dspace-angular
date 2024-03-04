@@ -29,6 +29,11 @@ import { DatePipe } from '@angular/common';
     }
   ]
 })
+/**
+ * Component for visualization in table format of the search results related to the AdminNotifyDashboardComponent
+ */
+
+
 export class AdminNotifySearchResultComponent extends TabulatableResultListElementsComponent<PaginatedList<AdminNotifySearchResult>, AdminNotifySearchResult> implements OnInit, OnDestroy{
   public messagesSubject$: BehaviorSubject<AdminNotifyMessage[]> = new BehaviorSubject([]);
   public reprocessStatus = 'QUEUE_STATUS_QUEUED_FOR_RETRY';

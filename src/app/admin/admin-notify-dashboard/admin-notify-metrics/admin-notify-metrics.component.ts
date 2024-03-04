@@ -7,6 +7,10 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
   selector: 'ds-admin-notify-metrics',
   templateUrl: './admin-notify-metrics.component.html',
 })
+/**
+ * Component used to display the number of notification for each configured box in the notifyMetrics section
+ */
+
 export class AdminNotifyMetricsComponent {
 
   @Input()

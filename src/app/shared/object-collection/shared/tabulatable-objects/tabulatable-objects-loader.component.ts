@@ -29,7 +29,9 @@ import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator'
   templateUrl: './tabulatable-objects-loader.component.html'
 })
 /**
- * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
+ * Component to load the matching component flagged by the tabulatableObjectsComponent decorator.
+ * Each component flagged by the decorator needs to have a ViewMode set as Table in order to be matched by the loader.
+ * e.g. @tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
  */
 export class TabulatableObjectsLoaderComponent implements OnInit, OnChanges, OnDestroy {
   /**

@@ -9,4 +9,7 @@ import { SearchResult } from '../../../search/models/search-result.model';
   selector: 'ds-search-result-table-element',
   template: ``
 })
+/**
+ * Component that describes the implementations and interfaces needed from any extension of this class to be used in search results for visualization in ViewMode.Table
+ */
 export class TabulatableResultListElementsComponent<T extends PaginatedList<K>, K extends SearchResult<any>> extends AbstractTabulatableElementComponent<T> {}
