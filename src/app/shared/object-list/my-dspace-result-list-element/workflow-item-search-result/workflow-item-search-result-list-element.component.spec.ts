@@ -74,14 +74,13 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule],
-    declarations: [WorkflowItemSearchResultListElementComponent],
+    imports: [NoopAnimationsModule, WorkflowItemSearchResultListElementComponent],
     providers: [
-      {provide: TruncatableService, useValue: mockTruncatableService},
-      {provide: ItemDataService, useValue: {}},
-      {provide: LinkService, useValue: linkService},
-      {provide: DSONameService, useClass: DSONameServiceMock},
-      {provide: APP_CONFIG, useValue: environmentUseThumbs}
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: ItemDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(WorkflowItemSearchResultListElementComponent, {

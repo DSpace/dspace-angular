@@ -72,8 +72,7 @@ const enviromentNoThumbs = {
 describe('ProjectSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe],
-    declarations: [ProjectSearchResultListElementComponent],
+    imports: [TruncatePipe, ProjectSearchResultListElementComponent],
     providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: TruncatableService, useValue: mockTruncatableService },
@@ -137,8 +136,7 @@ describe('ProjectSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe],
-    declarations: [ProjectSearchResultListElementComponent],
+    imports: [TruncatePipe, ProjectSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

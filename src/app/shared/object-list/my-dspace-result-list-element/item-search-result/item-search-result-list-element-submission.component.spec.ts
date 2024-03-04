@@ -57,8 +57,7 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
 describe('ItemMyDSpaceResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule],
-    declarations: [ItemSearchResultListElementSubmissionComponent],
+    imports: [NoopAnimationsModule, ItemSearchResultListElementSubmissionComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

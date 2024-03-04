@@ -35,25 +35,25 @@ describe('LdnServicesOverviewComponent', () => {
     paginationService = new PaginationServiceStub();
     ldnServicesService = jasmine.createSpyObj('LdnServicesService', ['findAll', 'delete', 'patch']);
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [LdnServicesOverviewComponent],
-      providers: [
+    imports: [TranslateModule.forRoot()],
+    declarations: [LdnServicesOverviewComponent],
+    providers: [
         {
-          provide: LdnServicesService,
-          useValue: ldnServicesService
+            provide: LdnServicesService,
+            useValue: ldnServicesService
         },
-        {provide: PaginationService, useValue: paginationService},
+        { provide: PaginationService, useValue: paginationService },
         {
-          provide: NgbModal, useValue: {
-            open: () => { /*comment*/
+            provide: NgbModal, useValue: {
+                open: () => {
+                }
             }
-          }
         },
-        {provide: ChangeDetectorRef, useValue: {}},
-        {provide: NotificationsService, useValue: NotificationsServiceStub},
-        {provide: TranslateService, useValue: translateServiceStub},
-      ]
-    }).compileComponents();
+        { provide: ChangeDetectorRef, useValue: {} },
+        { provide: NotificationsService, useValue: NotificationsServiceStub },
+        { provide: TranslateService, useValue: translateServiceStub },
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

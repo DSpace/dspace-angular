@@ -7,6 +7,9 @@ import { Context } from '../../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { SidebarSearchListElementComponent } from '../../sidebar-search-list-element.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
@@ -15,6 +18,8 @@ import { SidebarSearchListElementComponent } from '../../sidebar-search-list-ele
 @Component({
     selector: 'ds-publication-sidebar-search-list-element',
     templateUrl: '../../sidebar-search-list-element.component.html',
+    standalone: true,
+    imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule]
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "Publication" within the context of

@@ -88,44 +88,42 @@ describe('JournalComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
+            loader: {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
         }),
         RouterTestingModule,
-        GenericItemPageFieldComponent, TruncatePipe
-    ],
-      declarations: [
+        GenericItemPageFieldComponent, TruncatePipe,
         JournalComponent
-      ],
-    providers: [
-      {provide: ItemDataService, useValue: {}},
-      {provide: TruncatableService, useValue: mockTruncatableService},
-      {provide: RelationshipDataService, useValue: {}},
-      {provide: ObjectCacheService, useValue: {}},
-      {provide: UUIDService, useValue: {}},
-      {provide: Store, useValue: {}},
-      {provide: RemoteDataBuildService, useValue: {}},
-      {provide: CommunityDataService, useValue: {}},
-      {provide: HALEndpointService, useValue: {}},
-      {provide: HttpClient, useValue: {}},
-      {provide: DSOChangeAnalyzer, useValue: {}},
-      {provide: NotificationsService, useValue: {}},
-      {provide: DefaultChangeAnalyzer, useValue: {}},
-      {provide: VersionHistoryDataService, useValue: {}},
-      {provide: VersionDataService, useValue: {}},
-      {provide: BitstreamDataService, useValue: mockBitstreamDataService},
-      {provide: WorkspaceitemDataService, useValue: {}},
-      {provide: SearchService, useValue: {}},
-      {provide: RouteService, useValue: mockRouteService},
-      {provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub},
-      {provide: APP_CONFIG, useValue: {}},
     ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalComponent, {
+    providers: [
+        { provide: ItemDataService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: RelationshipDataService, useValue: {} },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: UUIDService, useValue: {} },
+        { provide: Store, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: HALEndpointService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionDataService, useValue: {} },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
+        { provide: RouteService, useValue: mockRouteService },
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: APP_CONFIG, useValue: {} },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
     })
       .overrideComponent(GenericItemPageFieldComponent, {

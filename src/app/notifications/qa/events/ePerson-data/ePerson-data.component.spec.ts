@@ -13,12 +13,12 @@ describe('EPersonDataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EPersonDataComponent ],
-      providers: [ {
-        provide: EPersonDataService,
-        useValue: ePersonDataService
-      } ]
-    })
+    declarations: [EPersonDataComponent],
+    providers: [{
+            provide: EPersonDataService,
+            useValue: ePersonDataService
+        }]
+})
     .compileComponents();
   }));
 

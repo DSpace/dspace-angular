@@ -68,17 +68,16 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('PoolSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, VarDirective],
-      declarations: [PoolSearchResultDetailElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, VarDirective, PoolSearchResultDetailElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
         { provide: LinkService, useValue: linkService },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PoolSearchResultDetailElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(PoolSearchResultDetailElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

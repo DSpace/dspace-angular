@@ -48,8 +48,8 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        CommunityAdminSearchResultGridElementComponent
     ],
-    declarations: [CommunityAdminSearchResultGridElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },

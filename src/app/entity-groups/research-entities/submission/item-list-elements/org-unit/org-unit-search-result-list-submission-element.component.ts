@@ -22,6 +22,9 @@ import { SelectableListService } from '../../../../../shared/object-list/selecta
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { FormsModule } from '@angular/forms';
+import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';
+import { NgIf } from '@angular/common';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -29,6 +32,8 @@ import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.inter
     selector: 'ds-person-search-result-list-submission-element',
     styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
     templateUrl: './org-unit-search-result-list-submission-element.component.html',
+    standalone: true,
+    imports: [NgIf, OrgUnitInputSuggestionsComponent, FormsModule]
 })
 
 /**

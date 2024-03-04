@@ -9,6 +9,10 @@ import { hasNoValue, hasValue } from '../../empty.util';
 import { followLink } from '../../utils/follow-link-config.model';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * Component representing a grid element for collection
@@ -16,7 +20,9 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
     selector: 'ds-collection-grid-element',
     styleUrls: ['./collection-grid-element.component.scss'],
-    templateUrl: './collection-grid-element.component.html'
+    templateUrl: './collection-grid-element.component.html',
+    standalone: true,
+    imports: [NgIf, RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule]
 })
 @listableObjectComponent(Collection, ViewMode.GridElement)
 export class CollectionGridElementComponent extends AbstractListableElementComponent<

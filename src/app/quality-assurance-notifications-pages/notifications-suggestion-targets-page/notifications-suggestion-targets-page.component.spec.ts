@@ -14,18 +14,16 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         TranslateModule.forRoot()
-      ],
-      declarations: [
-        NotificationsSuggestionTargetsPageComponent
-      ],
-      providers: [
+    ],
+    declarations: [NotificationsSuggestionTargetsPageComponent],
+    providers: [
         AdminNotificationsPublicationClaimPageComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   }));
 

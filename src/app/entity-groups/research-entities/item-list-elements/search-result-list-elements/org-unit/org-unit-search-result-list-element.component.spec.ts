@@ -81,8 +81,7 @@ describe('OrgUnitSearchResultListElementComponent', () => {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }), TruncatePipe],
-    declarations: [OrgUnitSearchResultListElementComponent],
+        }), TruncatePipe, OrgUnitSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
@@ -153,14 +152,13 @@ describe('OrgUnitSearchResultListElementComponent', () => {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }), TruncatePipe],
-    declarations: [OrgUnitSearchResultListElementComponent],
+        }), TruncatePipe, OrgUnitSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub()}
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(OrgUnitSearchResultListElementComponent, {

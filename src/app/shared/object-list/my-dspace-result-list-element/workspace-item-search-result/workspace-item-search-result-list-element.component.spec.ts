@@ -75,8 +75,7 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule],
-    declarations: [WorkspaceItemSearchResultListElementComponent],
+    imports: [NoopAnimationsModule, WorkspaceItemSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ItemDataService, useValue: {} },

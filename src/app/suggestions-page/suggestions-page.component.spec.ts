@@ -60,19 +60,17 @@ describe('SuggestionPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SuggestionEvidencesComponent,
         SuggestionListElementComponent,
         SuggestionsPageComponent,
         ObjectKeysPipe,
         VarDirective
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: AuthService, useValue: authService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: WorkspaceitemDataService, useValue: workspaceitemServiceMock },
@@ -83,9 +81,9 @@ describe('SuggestionPageComponent', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
         SuggestionsPageComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents().then();
   }));
 

@@ -19,12 +19,15 @@ import {
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { hasValue } from '../../../../../shared/empty.util';
+import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-result-actions.component';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
     selector: 'ds-item-admin-search-result-grid-element',
     styleUrls: ['./item-admin-search-result-grid-element.component.scss'],
     templateUrl: './item-admin-search-result-grid-element.component.html',
+    standalone: true,
+    imports: [ItemAdminSearchResultActionsComponent]
 })
 /**
  * The component for displaying a list element for an item search result on the admin search page

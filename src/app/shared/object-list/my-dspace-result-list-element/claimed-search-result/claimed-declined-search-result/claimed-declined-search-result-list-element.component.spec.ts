@@ -71,9 +71,9 @@ describe('ClaimedDeclinedSearchResultListElementComponent', () => {
     imports: [
         TranslateModule.forRoot(),
         NoopAnimationsModule,
-        VarDirective
+        VarDirective,
+        ClaimedDeclinedSearchResultListElementComponent
     ],
-    declarations: [ClaimedDeclinedSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ThemeService, useValue: getMockThemeService() },

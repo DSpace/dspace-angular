@@ -76,9 +76,9 @@ describe('PublicationComponent', () => {
             }
         }),
         RouterTestingModule,
-        GenericItemPageFieldComponent, TruncatePipe
+        GenericItemPageFieldComponent, TruncatePipe,
+        PublicationComponent
     ],
-    declarations: [PublicationComponent],
     providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: mockTruncatableService },

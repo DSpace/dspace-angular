@@ -67,9 +67,9 @@ describe('CollectionSearchResultGridElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
-        TruncatePipe
+        TruncatePipe,
+        CollectionSearchResultGridElementComponent
     ],
-    declarations: [CollectionSearchResultGridElementComponent],
     providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: TruncatableService, useValue: truncatableServiceStub },

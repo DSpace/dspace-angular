@@ -7,12 +7,15 @@ import {
   AbstractListableElementComponent
 } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { Item } from '../../../../core/shared/item.model';
+import { PersonSearchResultListElementComponent } from '../search-result-list-elements/person/person-search-result-list-element.component';
 
 @listableObjectComponent('Person', ViewMode.ListElement)
 @Component({
     selector: 'ds-person-list-element',
     styleUrls: ['./person-list-element.component.scss'],
     templateUrl: './person-list-element.component.html',
+    standalone: true,
+    imports: [PersonSearchResultListElementComponent]
 })
 /**
  * The component for displaying a list element for an item of the type Person

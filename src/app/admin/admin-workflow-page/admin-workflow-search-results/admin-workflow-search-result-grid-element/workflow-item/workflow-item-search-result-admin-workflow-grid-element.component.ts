@@ -28,12 +28,17 @@ import {
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { hasValue } from '../../../../../shared/empty.util';
+import { TranslateModule } from '@ngx-translate/core';
+import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
+import { NgIf } from '@angular/common';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
     selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
     styleUrls: ['./workflow-item-search-result-admin-workflow-grid-element.component.scss'],
     templateUrl: './workflow-item-search-result-admin-workflow-grid-element.component.html',
+    standalone: true,
+    imports: [NgIf, WorkflowItemAdminWorkflowActionsComponent, TranslateModule]
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

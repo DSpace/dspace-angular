@@ -14,13 +14,11 @@ describe('SubComColSectionComponent', () => {
     activatedRoute.parent = new ActivatedRouteStub();
 
     await TestBed.configureTestingModule({
-      declarations: [
-        SubComColSectionComponent,
-      ],
-      providers: [
+    declarations: [SubComColSectionComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
-      ],
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(SubComColSectionComponent);
     component = fixture.componentInstance;

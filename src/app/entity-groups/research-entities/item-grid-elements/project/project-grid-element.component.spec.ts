@@ -46,8 +46,7 @@ describe('ProjectGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, TruncatePipe, TranslateModule.forRoot()],
-    declarations: [ProjectGridElementComponent],
+    imports: [NoopAnimationsModule, TruncatePipe, TranslateModule.forRoot(), ProjectGridElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: mockTruncatableService },

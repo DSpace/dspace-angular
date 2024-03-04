@@ -42,8 +42,8 @@ describe('CommunityGridElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
+        CommunityGridElementComponent
     ],
-    declarations: [CommunityGridElementComponent],
     providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: LinkService, useValue: linkService },

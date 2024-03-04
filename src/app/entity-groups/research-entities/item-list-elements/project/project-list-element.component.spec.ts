@@ -38,9 +38,8 @@ describe('ProjectListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TruncatePipe, TranslateModule.forRoot()],
-      declarations: [ProjectListElementComponent],
-      providers: [
+    imports: [TruncatePipe, TranslateModule.forRoot(), ProjectListElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: APP_CONFIG, useValue: environment },
@@ -48,9 +47,9 @@ describe('ProjectListElementComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ProjectListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ProjectListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

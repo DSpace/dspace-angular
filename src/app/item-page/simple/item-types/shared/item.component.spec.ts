@@ -124,56 +124,56 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       });
 
       await TestBed.configureTestingModule({
-        imports: [
-          TranslateModule.forRoot({
+    imports: [
+        TranslateModule.forRoot({
             loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock,
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
             },
-          }),
-          RouterTestingModule,
-          GenericItemPageFieldComponent,
-          TruncatePipe,
-          AsyncPipe,
-        ],
-        declarations: [component],
-        providers: [
-          {
+        }),
+        RouterTestingModule,
+        GenericItemPageFieldComponent,
+        TruncatePipe,
+        AsyncPipe,
+        component
+    ],
+    providers: [
+        {
             provide: APP_CONFIG,
             useValue: {
-              browseBy: { showThumbnails: true },
-              markdown: { enabled: true },
+                browseBy: { showThumbnails: true },
+                markdown: { enabled: true },
             },
-          },
-          provideMockStore(),
-          { provide: ItemDataService, useValue: {} },
-          { provide: TruncatableService, useValue: mockTruncatableService },
-          { provide: RelationshipDataService, useValue: relationshipService },
-          { provide: ObjectCacheService, useValue: {} },
-          { provide: UUIDService, useValue: {} },
-          { provide: RemoteDataBuildService, useValue: {} },
-          { provide: CommunityDataService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
-          { provide: HttpClient, useValue: {} },
-          { provide: DSOChangeAnalyzer, useValue: {} },
-          { provide: VersionHistoryDataService, useValue: {} },
-          { provide: VersionDataService, useValue: {} },
-          { provide: NotificationsService, useValue: {} },
-          { provide: DefaultChangeAnalyzer, useValue: {} },
-          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-          { provide: WorkspaceitemDataService, useValue: {} },
-          { provide: SearchService, useValue: {} },
-          { provide: RouteService, useValue: routeServiceStub },
-          { provide: AuthService, useValue: new AuthServiceStub() },
-          { provide: AuthorizationDataService, useValue: authorizationService },
-          { provide: ResearcherProfileDataService, useValue: {} },
-          {
+        },
+        provideMockStore(),
+        { provide: ItemDataService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: UUIDService, useValue: {} },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: HALEndpointService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
+        { provide: VersionHistoryDataService, useValue: {} },
+        { provide: VersionDataService, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: DefaultChangeAnalyzer, useValue: {} },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: WorkspaceitemDataService, useValue: {} },
+        { provide: SearchService, useValue: {} },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: AuthService, useValue: new AuthServiceStub() },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ResearcherProfileDataService, useValue: {} },
+        {
             provide: BrowseDefinitionDataService,
             useValue: BrowseDefinitionDataServiceStub,
-          },
-        ],
-        schemas: [NO_ERRORS_SCHEMA],
-      })
+        },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
         .overrideComponent(component, {
           remove: {
             imports: [

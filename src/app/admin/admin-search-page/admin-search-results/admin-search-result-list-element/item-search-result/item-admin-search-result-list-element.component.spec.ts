@@ -37,12 +37,13 @@ describe('ItemAdminSearchResultListElementComponent', () => {
     imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        ItemAdminSearchResultListElementComponent
     ],
-    declarations: [ItemAdminSearchResultListElementComponent],
     providers: [
-      { provide: TruncatableService, useValue: mockTruncatableService },
-      { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }],
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }
+    ],
     schemas: [NO_ERRORS_SCHEMA]
 })
       .overrideComponent(ItemAdminSearchResultListElementComponent, {

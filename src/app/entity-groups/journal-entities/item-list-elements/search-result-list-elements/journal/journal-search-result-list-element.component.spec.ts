@@ -76,8 +76,7 @@ const enviromentNoThumbs = {
 describe('JournalSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, TranslateModule.forRoot()],
-    declarations: [JournalSearchResultListElementComponent],
+    imports: [TruncatePipe, TranslateModule.forRoot(), JournalSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -141,8 +140,7 @@ describe('JournalSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, TranslateModule.forRoot()],
-    declarations: [JournalSearchResultListElementComponent],
+    imports: [TruncatePipe, TranslateModule.forRoot(), JournalSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

@@ -29,22 +29,20 @@ describe('StartsWithLoaderComponent', () => {
     themeService = getMockThemeService('dspace');
 
     void TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        StartsWithLoaderComponent,
-        StartsWithTextComponent,
-        DynamicComponentLoaderDirective,
-      ],
-      providers: [
+        StartsWithTextComponent
+    ],
+    declarations: [StartsWithLoaderComponent,
+        DynamicComponentLoaderDirective],
+    providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: new RouterStub() },
         { provide: ThemeService, useValue: themeService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(StartsWithLoaderComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(StartsWithLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [StartsWithTextComponent],

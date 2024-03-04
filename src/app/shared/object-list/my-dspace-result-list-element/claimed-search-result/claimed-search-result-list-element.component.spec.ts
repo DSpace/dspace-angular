@@ -85,11 +85,11 @@ describe('ClaimedSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-      TranslateModule.forRoot(),
-      NoopAnimationsModule,
-      VarDirective
+        TranslateModule.forRoot(),
+        NoopAnimationsModule,
+        VarDirective,
+        ClaimedSearchResultListElementComponent
     ],
-    declarations: [ClaimedSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ThemeService, useValue: getMockThemeService() },

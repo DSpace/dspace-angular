@@ -68,9 +68,9 @@ describe('ClaimedDeclinedTaskSearchResultListElementComponent', () => {
     imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-        VarDirective
+        VarDirective,
+        ClaimedDeclinedTaskSearchResultListElementComponent
     ],
-    declarations: [ClaimedDeclinedTaskSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ThemeService, useValue: getMockThemeService() },

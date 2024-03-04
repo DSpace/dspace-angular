@@ -76,33 +76,33 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        imports: [
-          WorkspaceItemSearchResultAdminWorkflowGridElementComponent,
-          ItemGridElementComponent,
-          DynamicComponentLoaderDirective,
-          NoopAnimationsModule,
-          TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([]),
-          ListableModule,
-          ListableObjectDirective
-        ],
-        declarations: [WorkspaceItemSearchResultAdminWorkflowGridElementComponent],
-        providers: [
-          { provide: LinkService, useValue: linkService },
-          { provide: ThemeService, useValue: themeService },
-          {
+    imports: [
+        WorkspaceItemSearchResultAdminWorkflowGridElementComponent,
+        ItemGridElementComponent,
+        DynamicComponentLoaderDirective,
+        NoopAnimationsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ListableModule,
+        ListableObjectDirective,
+        WorkspaceItemSearchResultAdminWorkflowGridElementComponent
+    ],
+    providers: [
+        { provide: LinkService, useValue: linkService },
+        { provide: ThemeService, useValue: themeService },
+        {
             provide: TruncatableService, useValue: {
-              isCollapsed: () => observableOf(true),
+                isCollapsed: () => observableOf(true),
             }
-          },
-          { provide: BitstreamDataService, useValue: {} },
-          { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
-          { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-          { provide: AuthService, useValue: new AuthServiceMock() },
-          { provide: AuthorizationDataService, useValue: {} },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      })
+        },
+        { provide: BitstreamDataService, useValue: {} },
+        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

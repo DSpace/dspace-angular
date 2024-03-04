@@ -54,14 +54,13 @@ describe('JournalGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, TruncatePipe],
-      declarations: [JournalGridElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, TruncatePipe, JournalGridElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalGridElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalGridElementComponent, {
       remove: {
         imports: [JournalSearchResultGridElementComponent]
       },

@@ -44,8 +44,7 @@ describe('PersonListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, TranslateModule.forRoot()],
-    declarations: [PersonListElementComponent],
+    imports: [TruncatePipe, TranslateModule.forRoot(), PersonListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: mockTruncatableService },

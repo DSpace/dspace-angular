@@ -80,10 +80,10 @@ describe('JournalIssueSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     imports: [
-      TranslateModule.forRoot(),
-      TruncatePipe
+        TranslateModule.forRoot(),
+        TruncatePipe,
+        JournalIssueSearchResultListElementComponent
     ],
-    declarations: [JournalIssueSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -172,8 +172,7 @@ describe('JournalIssueSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, TranslateModule.forRoot(),],
-    declarations: [JournalIssueSearchResultListElementComponent],
+    imports: [TruncatePipe, TranslateModule.forRoot(), JournalIssueSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

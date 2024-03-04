@@ -101,8 +101,7 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       }
     };
     TestBed.configureTestingModule({
-    imports: [TruncatePipe],
-    declarations: [OrgUnitSearchResultListSubmissionElementComponent],
+    imports: [TruncatePipe, OrgUnitSearchResultListSubmissionElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },

@@ -88,23 +88,23 @@ describe('LdnServiceFormEditComponent', () => {
     activatedRoute = new MockActivatedRoute(routeParams, routeUrlSegments);
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule],
-      declarations: [LdnServiceFormComponent],
-      providers: [
-        {provide: LdnServicesService, useValue: ldnServicesService},
-        {provide: LdnItemfiltersService, useValue: ldnItemfiltersService},
-        {provide: Router, useValue: new RouterStub()},
-        {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: ChangeDetectorRef, useValue: cdRefStub},
-        {provide: NgbModal, useValue: modalService},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-        {provide: TranslateService, useValue: translateServiceStub},
-        {provide: PaginationService, useValue: {}},
+    imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule],
+    declarations: [LdnServiceFormComponent],
+    providers: [
+        { provide: LdnServicesService, useValue: ldnServicesService },
+        { provide: LdnItemfiltersService, useValue: ldnItemfiltersService },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: ChangeDetectorRef, useValue: cdRefStub },
+        { provide: NgbModal, useValue: modalService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: TranslateService, useValue: translateServiceStub },
+        { provide: PaginationService, useValue: {} },
         FormBuilder,
         RouteService,
         provideMockStore({}),
-      ]
-    })
+    ]
+})
       .compileComponents();
 
     fixture = TestBed.createComponent(LdnServiceFormComponent);

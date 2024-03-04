@@ -83,15 +83,14 @@ const enviromentNoThumbs = {
 describe('JournalVolumeSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TruncatePipe],
-      declarations: [JournalVolumeSearchResultListElementComponent],
-      providers: [
-        {provide: TruncatableService, useValue: mockTruncatableService},
-        {provide: DSONameService, useClass: DSONameServiceMock},
-        {provide: APP_CONFIG, useValue: environmentUseThumbs},
-        {provide: ThemeService, useValue: getMockThemeService()},
-        {provide: ActivatedRoute, useValue: new ActivatedRouteStub()}
-      ],
+    imports: [TruncatePipe, JournalVolumeSearchResultListElementComponent],
+    providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+    ],
     schemas: [NO_ERRORS_SCHEMA]
 }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default }
@@ -172,17 +171,16 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TruncatePipe],
-      declarations: [JournalVolumeSearchResultListElementComponent],
-      providers: [
-        {provide: TruncatableService, useValue: mockTruncatableService},
-        {provide: DSONameService, useClass: DSONameServiceMock},
-        {provide: APP_CONFIG, useValue: enviromentNoThumbs},
-        {provide: ThemeService, useValue: getMockThemeService()},
+    imports: [TruncatePipe, JournalVolumeSearchResultListElementComponent],
+    providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalVolumeSearchResultListElementComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
       remove: {
         imports: [

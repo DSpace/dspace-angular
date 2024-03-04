@@ -9,9 +9,9 @@ describe('QualityAssuranceSourcePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QualityAssuranceSourcePageComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    declarations: [QualityAssuranceSourcePageComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   });
 

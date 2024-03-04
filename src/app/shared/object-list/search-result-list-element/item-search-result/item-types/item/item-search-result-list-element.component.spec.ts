@@ -196,12 +196,12 @@ const enviromentNoThumbs = {
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
-        TruncatePipe
-      ],
-      declarations: [ItemSearchResultListElementComponent],
-      providers: [
+        TruncatePipe,
+        ItemSearchResultListElementComponent
+    ],
+    providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
@@ -209,14 +209,14 @@ describe('ItemSearchResultListElementComponent', () => {
         { provide: AuthService, useValue: new AuthServiceStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         {
-          provide: AuthorizationDataService,
-          useValue: jasmine.createSpyObj('AuthorizationDataService', [
-            'invalidateAuthorizationsRequestCache'
-          ])
+            provide: AuthorizationDataService,
+            useValue: jasmine.createSpyObj('AuthorizationDataService', [
+                'invalidateAuthorizationsRequestCache'
+            ])
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
@@ -391,17 +391,16 @@ describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TruncatePipe, TranslateModule.forRoot()],
-      declarations: [ItemSearchResultListElementComponent],
-      providers: [
+    imports: [TruncatePipe, TranslateModule.forRoot(), ItemSearchResultListElementComponent],
+    providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSearchResultListElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

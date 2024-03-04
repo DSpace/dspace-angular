@@ -8,9 +8,9 @@ describe('QualityAssuranceTopicsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QualityAssuranceTopicsPageComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    imports: [QualityAssuranceTopicsPageComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
     .compileComponents();
   }));
 

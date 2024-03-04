@@ -55,8 +55,7 @@ describe('ItemGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, TruncatePipe],
-    declarations: [ItemGridElementComponent],
+    imports: [NoopAnimationsModule, TruncatePipe, ItemGridElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },

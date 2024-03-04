@@ -47,8 +47,8 @@ describe('CollectionGridElementComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
+        CollectionGridElementComponent
     ],
-    declarations: [CollectionGridElementComponent],
     providers: [
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: LinkService, useValue: linkService },

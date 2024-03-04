@@ -42,13 +42,13 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-      ],
-      declarations: [CollectionAdminSearchResultGridElementComponent],
-      providers: [
+        CollectionAdminSearchResultGridElementComponent
+    ],
+    providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
@@ -56,8 +56,8 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         { provide: FileService, useClass: FileServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-      ]
-    })
+    ]
+})
       .compileComponents();
   }));
 

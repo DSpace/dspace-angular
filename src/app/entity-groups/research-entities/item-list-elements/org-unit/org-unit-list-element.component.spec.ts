@@ -45,8 +45,7 @@ describe('OrgUnitListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, TranslateModule.forRoot()],
-    declarations: [OrgUnitListElementComponent],
+    imports: [TruncatePipe, TranslateModule.forRoot(), OrgUnitListElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: mockTruncatableService },

@@ -33,17 +33,18 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-      ],
-      declarations: [CommunityAdminSearchResultListElementComponent],
-      providers: [
-        {provide: TruncatableService, useValue: mockTruncatableService},
-        {provide: DSONameService, useClass: DSONameServiceMock},
-        {provide: APP_CONFIG, useValue: environment}],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+        CommunityAdminSearchResultListElementComponent
+    ],
+    providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

@@ -109,9 +109,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(async () => {
     init();
     await TestBed.configureTestingModule({
-      imports: [TruncatePipe],
-      declarations: [PersonSearchResultListSubmissionElementComponent],
-      providers: [
+    imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: TranslateService, useValue: translateServiceStub },
@@ -131,9 +130,9 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: AuthService, useValue: {} },
         { provide: REQUEST, useValue: {} },
         { provide: ThemeService, useValue: getMockThemeService() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 
@@ -209,9 +208,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TruncatePipe],
-      declarations: [PersonSearchResultListSubmissionElementComponent],
-      providers: [
+    imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
+    providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: TranslateService, useValue: translateServiceStub },
@@ -228,9 +226,9 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

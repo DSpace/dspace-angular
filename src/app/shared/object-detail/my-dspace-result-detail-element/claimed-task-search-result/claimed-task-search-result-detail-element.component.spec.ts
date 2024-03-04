@@ -75,15 +75,14 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('ClaimedTaskSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, VarDirective],
-      declarations: [ClaimedTaskSearchResultDetailElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, VarDirective, ClaimedTaskSearchResultDetailElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: LinkService, useValue: linkService },
         { provide: ObjectCacheService, useValue: objectCacheServiceMock }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));

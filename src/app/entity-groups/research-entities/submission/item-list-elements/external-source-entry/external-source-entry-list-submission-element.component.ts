@@ -10,6 +10,7 @@ import { Context } from '../../../../../core/shared/context.model';
 import { Component, OnInit } from '@angular/core';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { NgIf } from '@angular/common';
 
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -17,6 +18,8 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
     selector: 'ds-external-source-entry-list-submission-element',
     styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
     templateUrl: './external-source-entry-list-submission-element.component.html',
+    standalone: true,
+    imports: [NgIf]
 })
 /**
  * The component for displaying a list element of an external source entry

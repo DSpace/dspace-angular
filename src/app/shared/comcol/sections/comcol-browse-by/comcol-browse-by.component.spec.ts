@@ -40,17 +40,15 @@ describe('ComcolBrowseByComponent', () => {
     themeService = getMockThemeService();
 
     await TestBed.configureTestingModule({
-      declarations: [
-        ComcolBrowseByComponent,
-        BrowseBySwitcherComponent,
-        DynamicComponentLoaderDirective,
-      ],
-      providers: [
+    imports: [BrowseBySwitcherComponent],
+    declarations: [ComcolBrowseByComponent,
+        DynamicComponentLoaderDirective],
+    providers: [
         BrowseByTestComponent,
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ThemeService, useValue: themeService },
-      ],
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(ComcolBrowseByComponent);
     component = fixture.componentInstance;

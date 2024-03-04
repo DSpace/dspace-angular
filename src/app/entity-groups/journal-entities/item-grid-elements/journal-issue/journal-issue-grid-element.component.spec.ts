@@ -49,8 +49,7 @@ describe('JournalIssueGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, TruncatePipe],
-    declarations: [JournalIssueGridElementComponent],
+    imports: [NoopAnimationsModule, TruncatePipe, JournalIssueGridElementComponent],
     providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },

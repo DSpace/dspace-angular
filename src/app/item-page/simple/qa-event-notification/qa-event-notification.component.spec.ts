@@ -37,9 +37,9 @@ describe('QaEventNotificationComponent', () => {
       getSourcesByTarget: () => objPL
     };
     await TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot()],
-      declarations: [QaEventNotificationComponent, SplitPipe],
-      providers: [
+    imports: [CommonModule, TranslateModule.forRoot()],
+    declarations: [QaEventNotificationComponent, SplitPipe],
+    providers: [
         { provide: QualityAssuranceSourceDataService, useValue: qualityAssuranceSourceDataServiceStub },
         { provide: RequestService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
@@ -47,8 +47,8 @@ describe('QaEventNotificationComponent', () => {
         ObjectCacheService,
         RemoteDataBuildService,
         provideMockStore({})
-      ],
-    })
+    ]
+})
       .compileComponents();
     fixture = TestBed.createComponent(QaEventNotificationComponent);
     component = fixture.componentInstance;

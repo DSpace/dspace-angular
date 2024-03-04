@@ -63,20 +63,20 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SubmissionSectionCoarNotifyComponent],
-      providers: [
+    imports: [TranslateModule.forRoot()],
+    declarations: [SubmissionSectionCoarNotifyComponent],
+    providers: [
         { provide: LdnServicesService, useValue: ldnServicesService },
-        { provide: CoarNotifyConfigDataService, useValue: coarNotifyConfigDataService},
+        { provide: CoarNotifyConfigDataService, useValue: coarNotifyConfigDataService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
         { provide: SectionsService, useValue: sectionService },
         { provide: ChangeDetectorRef, useValue: cdRefStub },
         { provide: 'collectionIdProvider', useValue: 'collectionId' },
-        { provide: 'sectionDataProvider', useValue: { id: 'sectionId', data: {} }},
+        { provide: 'sectionDataProvider', useValue: { id: 'sectionId', data: {} } },
         { provide: 'submissionIdProvider', useValue: 'submissionId' },
         NgbDropdown,
-      ],
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(SubmissionSectionCoarNotifyComponent);
     component = fixture.componentInstance;

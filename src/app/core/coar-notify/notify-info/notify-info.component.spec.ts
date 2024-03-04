@@ -14,12 +14,12 @@ describe('NotifyInfoComponent', () => {
     notifyInfoServiceSpy = jasmine.createSpyObj('NotifyInfoService', ['getCoarLdnLocalInboxUrls']);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ NotifyInfoComponent ],
-      providers: [
+    imports: [TranslateModule.forRoot()],
+    declarations: [NotifyInfoComponent],
+    providers: [
         { provide: NotifyInfoService, useValue: notifyInfoServiceSpy }
-      ]
-    })
+    ]
+})
     .compileComponents();
   });
 

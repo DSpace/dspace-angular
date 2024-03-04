@@ -72,9 +72,9 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         ListableObjectDirective,
-        ListableModule
+        ListableModule,
+        WorkflowItemSearchResultAdminWorkflowGridElementComponent
     ],
-    declarations: [WorkflowItemSearchResultAdminWorkflowGridElementComponent],
     providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ThemeService, useValue: themeService },

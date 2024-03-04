@@ -219,9 +219,9 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-        TruncatePipe
+        TruncatePipe,
+        component
     ],
-    declarations: [component],
     providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: ObjectCacheService, useValue: {} },

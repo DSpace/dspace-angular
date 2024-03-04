@@ -40,8 +40,8 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
     imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        CollectionAdminSearchResultListElementComponent
     ],
-    declarations: [CollectionAdminSearchResultListElementComponent],
     providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },

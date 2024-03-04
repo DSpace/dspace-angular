@@ -11,14 +11,23 @@ import { getItemPageRoute } from '../../../../../item-page/item-page-routing-pat
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
+import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
 @Component({
-  selector: 'ds-item-search-result-grid-element',
-  styleUrls: ['./item-search-result-grid-element.component.scss'],
-  templateUrl: './item-search-result-grid-element.component.html',
-  animations: [focusShadow],
+    selector: 'ds-item-search-result-grid-element',
+    styleUrls: ['./item-search-result-grid-element.component.scss'],
+    templateUrl: './item-search-result-grid-element.component.html',
+    animations: [focusShadow],
+    standalone: true,
+    imports: [NgIf, RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule]
 })
 /**
  * The component for displaying a grid element for an item search result of the type Publication

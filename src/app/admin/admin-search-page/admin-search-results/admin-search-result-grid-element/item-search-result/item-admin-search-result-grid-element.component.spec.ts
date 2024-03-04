@@ -60,24 +60,24 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        imports: [
-          NoopAnimationsModule,
-          TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([]),
-          ListableModule
-        ],
-        declarations: [ItemAdminSearchResultGridElementComponent],
-        providers: [
-          { provide: TruncatableService, useValue: mockTruncatableService },
-          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-          { provide: ThemeService, useValue: mockThemeService },
-          { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
-          { provide: AuthService, useClass: AuthServiceStub },
-          { provide: FileService, useClass: FileServiceStub },
-          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      })
+    imports: [
+        NoopAnimationsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ListableModule,
+        ItemAdminSearchResultGridElementComponent
+    ],
+    providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: ThemeService, useValue: mockThemeService },
+        { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: FileService, useClass: FileServiceStub },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
   }));
 

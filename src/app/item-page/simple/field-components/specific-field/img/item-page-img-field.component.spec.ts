@@ -31,19 +31,19 @@ describe('ItemPageImgFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock
+            }
+        }), GenericItemPageFieldComponent, MetadataValuesComponent],
+    providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
-      ],
-      declarations: [ItemPageImgFieldComponent, GenericItemPageFieldComponent, MetadataValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+    ],
+    declarations: [ItemPageImgFieldComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .overrideComponent(GenericItemPageFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     })

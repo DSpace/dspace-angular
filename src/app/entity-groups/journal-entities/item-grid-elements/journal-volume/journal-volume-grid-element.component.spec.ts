@@ -58,9 +58,8 @@ describe('JournalVolumeGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, TruncatePipe, TranslateModule.forRoot()],
-      declarations: [JournalVolumeGridElementComponent],
-      providers: [
+    imports: [NoopAnimationsModule, TruncatePipe, TranslateModule.forRoot(), JournalVolumeGridElementComponent],
+    providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: BitstreamDataService, useValue: {} },
@@ -68,9 +67,9 @@ describe('JournalVolumeGridElementComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalVolumeGridElementComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+}).overrideComponent(JournalVolumeGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
