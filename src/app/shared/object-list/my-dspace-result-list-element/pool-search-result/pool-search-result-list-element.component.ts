@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
+import {BehaviorSubject, combineLatest, EMPTY, Observable } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -22,6 +22,11 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { isNotEmpty, hasValue } from '../../../empty.util';
 import { Context } from '../../../../core/shared/context.model';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { Duplicate } from '../../duplicate-data/duplicate.model';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -56,6 +61,11 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
 
   /**
+   * The potential duplicates of this workflow item
+   */
+  public duplicates$: Observable<Duplicate[]>;
+
+  /**
    * The index of this list element
    */
   public index: number;
@@ -70,6 +80,8 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
+    protected configService: ConfigurationDataService,
+    protected duplicateDataService: SubmissionDuplicateDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -101,10 +113,45 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
         if (isNotEmpty(itemRD) && itemRD.hasSucceeded) {
           this.item$.next(itemRD.payload);
         }
-      })
+      }),
     ).subscribe();
-
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    // Initialise duplicates, if enabled
+    this.duplicates$ = this.initializeDuplicateDetectionIfEnabled();
+  }
+
+  /**
+   * Initialize and set the duplicates observable based on whether the configuration in REST is enabled
+   * and the results returned
+   */
+  initializeDuplicateDetectionIfEnabled() {
+    return combineLatest([
+      this.configService.findByPropertyName('duplicate.enable').pipe(
+        getFirstCompletedRemoteData(),
+        map((remoteData: RemoteData<ConfigurationProperty>) => {
+          return (remoteData.isSuccess && remoteData.payload && remoteData.payload.values[0] === 'true');
+        })
+      ),
+      this.item$.pipe(),
+      ]
+    ).pipe(
+      map(([enabled, rd]) => {
+        if (enabled) {
+          this.duplicates$ = this.duplicateDataService.findDuplicates(rd.uuid).pipe(
+            getFirstCompletedRemoteData(),
+            map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
+              if (remoteData.hasSucceeded) {
+                if (remoteData.payload.page) {
+                  return remoteData.payload.page;
+                }
+              }
+            })
+          );
+        } else {
+          return [] as Duplicate[];
+        }
+      }),
+    );
   }
 
   ngOnDestroy() {

@@ -154,6 +154,9 @@ export class DefaultAppConfig implements AppConfig {
        */
       timer: 0
     },
+    duplicateDetection: {
+      alwaysShowSection: false
+    },
     typeBind: {
       field: 'dc.type'
     },

@@ -15,7 +15,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
@@ -28,12 +28,31 @@ import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from '../../../../core/shared/context.model';
+import { createPaginatedList } from '../../../testing/utils.test';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
 
 const mockResultObject: ClaimedTaskSearchResult = new ClaimedTaskSearchResult();
 mockResultObject.hitHighlights = {};
+
+const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
+
+const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+  findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+    name: 'duplicate.enable',
+    values: [
+      'true'
+    ]
+  }))
+});
+const duplicateDataServiceStub = {
+  findListByHref: () => observableOf(emptyList),
+  findDuplicates: () => createSuccessfulRemoteDataObject$({}),
+};
 
 const item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -83,7 +102,9 @@ describe('ClaimedSearchResultListElementComponent', () => {
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: ObjectCacheService, useValue: objectCacheServiceMock }
+        { provide: ObjectCacheService, useValue: objectCacheServiceMock },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SubmissionDuplicateDataService, useValue: duplicateDataServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedSearchResultListElementComponent, {

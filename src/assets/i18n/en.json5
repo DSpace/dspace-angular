@@ -2829,6 +2829,8 @@
 
   "item.preview.organization.legalName": "Legal Name",
 
+  "item.preview.dspace.entity.type": "Entity Type:",
+
   "item.select.confirm": "Confirm selected",
 
   "item.select.empty": "No items to show",
@@ -5111,7 +5113,7 @@
 
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
 
-  "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+  "submission.sections.submit.progressbar.duplicates": "Potential duplicates",
 
   "submission.sections.submit.progressbar.identifiers": "Identifiers",
 
@@ -5243,6 +5245,14 @@
 
   "submission.sections.accesses.form.until-placeholder": "Until",
 
+  "submission.sections.duplicates.none": "No duplicates were detected.",
+
+  "submission.sections.duplicates.detected": "Potential duplicates were detected. Please review the list below.",
+
+  "submission.sections.duplicates.in-workspace": "This item is in workspace",
+
+  "submission.sections.duplicates.in-workflow": "This item is in workflow",
+
   "submission.sections.license.granted-label": "I confirm the license above",
 
   "submission.sections.license.required": "You must accept the license",
@@ -5368,6 +5378,8 @@
   "submission.workflow.tasks.pool.hide-detail": "Hide detail",
 
   "submission.workflow.tasks.pool.show-detail": "Show detail",
+
+  "submission.workflow.tasks.duplicates": "potential duplicates were detected for this item. Claim and edit this item to see details.",
 
   "submission.workspace.generic.view": "View",
 
