@@ -13,7 +13,7 @@ import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { GetRequest } from '../../../core/data/request.models';
+import { PostRequest } from '../../../core/data/request.models';
 import { RestRequest } from '../../../core/data/rest-request.model';
 
 /**
@@ -73,28 +73,28 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
     const requestId = this.requestService.generateRequestId();
 
     return this.halService.getEndpoint(this.reprocessEndpoint).pipe(
-        map(endpoint => endpoint.replace('{id}', message.id)),
-        map((endpointURL: string) => new GetRequest(requestId, endpointURL)),
-        tap(request => this.requestService.send(request)),
-        switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<AdminNotifyMessage>(request.uuid)),
-        getFirstCompletedRemoteData(),
-        getAllSucceededRemoteDataPayload(),
-        mergeMap(reprocessedMessage => this.getDetailedMessages([reprocessedMessage])),
+      map(endpoint => endpoint.replace('{id}', message.id)),
+      map((endpointURL: string) => new PostRequest(requestId, endpointURL)),
+      tap(request => this.requestService.send(request)),
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<AdminNotifyMessage>(request.uuid)),
+      getFirstCompletedRemoteData(),
+      getAllSucceededRemoteDataPayload(),
+      mergeMap(reprocessedMessage => this.getDetailedMessages([reprocessedMessage])),
     ).pipe(
-        mergeMap((newMessages) =>  messageSubject.pipe(
-            map(messages => {
-                const detailedReprocessedMessage = newMessages[0];
-                const messageToUpdate = messages.find(currentMessage => currentMessage.id === message.id);
-                const indexOfMessageToUpdate = messages.indexOf(messageToUpdate);
-                detailedReprocessedMessage.target = message.target;
-                detailedReprocessedMessage.object = message.object;
-                detailedReprocessedMessage.origin = message.origin;
-                detailedReprocessedMessage.context = message.context;
-                messages[indexOfMessageToUpdate] = detailedReprocessedMessage;
+      mergeMap((newMessages) =>  messageSubject.pipe(
+        map(messages => {
+          const detailedReprocessedMessage = newMessages[0];
+          const messageToUpdate = messages.find(currentMessage => currentMessage.id === message.id);
+          const indexOfMessageToUpdate = messages.indexOf(messageToUpdate);
+          detailedReprocessedMessage.target = message.target;
+          detailedReprocessedMessage.object = message.object;
+          detailedReprocessedMessage.origin = message.origin;
+          detailedReprocessedMessage.context = message.context;
+          messages[indexOfMessageToUpdate] = detailedReprocessedMessage;
 
-                return messages;
-            })
-        )),
+          return messages;
+        })
+      )),
     );
   }
 }
