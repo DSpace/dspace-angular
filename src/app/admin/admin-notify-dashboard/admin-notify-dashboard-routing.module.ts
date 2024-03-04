@@ -11,12 +11,13 @@ import {
 import {
   AdminNotifyOutgoingComponent
 } from './admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component';
+import { NotifyInfoGuard } from '../../core/coar-notify/notify-info/notify-info.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
-        canActivate: [SiteAdministratorGuard],
+        canActivate: [SiteAdministratorGuard, NotifyInfoGuard],
         path: '',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
@@ -34,7 +35,7 @@ import {
           breadcrumb: I18nBreadcrumbResolver,
         },
         component: AdminNotifyIncomingComponent,
-        canActivate: [SiteAdministratorGuard],
+        canActivate: [SiteAdministratorGuard, NotifyInfoGuard],
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
@@ -46,7 +47,7 @@ import {
           breadcrumb: I18nBreadcrumbResolver,
         },
         component: AdminNotifyOutgoingComponent,
-        canActivate: [SiteAdministratorGuard],
+        canActivate: [SiteAdministratorGuard, NotifyInfoGuard],
         data: {
           title: 'admin.notify.dashboard.page.title',
           breadcrumbKey: 'admin.notify.dashboard',
