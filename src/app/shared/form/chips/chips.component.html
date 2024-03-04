@@ -19,6 +19,7 @@
            [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"
            (click)="chipsSelected($event, i);">
           <span>
+            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>
             <ng-container *ngIf="showIcons && c.hasVisibleIcons()">
               <i *ngFor="let icon of c.icons; let l = last"
                  [ngbTooltip]="tipContent"
