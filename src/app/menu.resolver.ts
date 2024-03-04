@@ -372,7 +372,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'coar_notify',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.coar_notify'
@@ -384,7 +384,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'notify_dashboard',
           active: false,
           parentID: 'coar_notify',
-          visible: isSiteAdmin,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.notify_dashboard',
