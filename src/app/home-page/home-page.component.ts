@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Site } from '../core/shared/site.model';
 import { environment } from '../../environments/environment';
 import { isPlatformServer } from '@angular/common';
@@ -40,6 +40,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
       switchMap((coarLdnEnabled: boolean) => {
         if (coarLdnEnabled) {
           return this.notifyInfoService.getCoarLdnLocalInboxUrls();
+        } else {
+          return of([]);
         }
       })
     ).subscribe((coarRestApiUrls: string[]) => {

@@ -1,0 +1,9 @@
+<div class="mb-5" *ngFor="let row of boxesConfig">
+  <div class="mb-2">{{ row.title | translate }}</div>
+  <div class="row justify-content-between">
+    <div class="col-sm" *ngFor="let box of row.boxes">
+      <ds-notification-box (selectedBoxConfig)="navigateToSelectedSearchConfig($event)" [boxConfig]="box"></ds-notification-box>
+    </div>
+  </div>
+</div>
+
