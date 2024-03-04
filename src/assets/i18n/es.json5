@@ -8348,6 +8348,15 @@
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
   "submission.sections.ccLicense.confirmation": "Otorgo la licencia de arriba",
 
+  // "submission.sections.ccLicense.option.answer.Yes": "Yes",
+  "submission.sections.ccLicense.option.answer.Yes": "Si",
+
+  // "submission.sections.ccLicense.option.answer.ShareAlike": "ShareAlike",
+  "submission.sections.ccLicense.option.answer.ShareAlike": "CompartirIgual",
+
+  // "submission.sections.ccLicense.option.answer.No": "No",
+  "submission.sections.ccLicense.option.answer.No": "No",
+
   // "submission.sections.general.add-more": "Add more",
   "submission.sections.general.add-more": "Añadir más",
 
