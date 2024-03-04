@@ -180,7 +180,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       expect(comp.fileData).toEqual(fileData);
     });
 
-    it('should call deleteFile on delete confirmation', () => {
+    it('should call deleteFile on delete confirmation', async () => {
       spyOn(compAsAny, 'deleteFile');
       comp.fileData = fileData;
 
@@ -196,9 +196,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(compAsAny.deleteFile).toHaveBeenCalled();
-      });
+      await fixture.whenStable();
+      expect(compAsAny.deleteFile).toHaveBeenCalled();
     });
 
     it('should delete primary if file we delete is primary', () => {

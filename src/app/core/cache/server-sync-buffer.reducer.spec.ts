@@ -52,12 +52,20 @@ describe('serverSyncBufferReducer', () => {
     const action = new AddToSSBAction(selfLink1, RestRequestMethod.POST);
     // testState has already been frozen above
     serverSyncBufferReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the EMPTY action without affecting the previous state', () => {
     const action = new EmptySSBAction();
     // testState has already been frozen above
     serverSyncBufferReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should empty the buffer if the EmptySSBAction is dispatched without a payload', () => {

@@ -37,8 +37,8 @@ describe('ItemPageFieldComponent', () => {
     }
   });
 
-  const buildTestEnvironment = async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    void TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -65,19 +65,16 @@ describe('ItemPageFieldComponent', () => {
     comp.fields = mockFields;
     comp.label = mockLabel;
     fixture.detectChanges();
-  };
-
-  it('should display display the correct metadata value', waitForAsync(async () => {
-    await buildTestEnvironment();
-    expect(fixture.nativeElement.innerHTML).toContain(mockValue);
   }));
 
-  describe('when markdown is disabled in the environment config', () => {
+  it('should display display the correct metadata value', () => {
+    expect(fixture.nativeElement.innerHTML).toContain(mockValue);
+  });
 
-    beforeEach(waitForAsync(async () => {
+  describe('when markdown is disabled in the environment config', () => {
+    beforeEach( () => {
       appConfig.markdown.enabled = false;
-      await buildTestEnvironment();
-    }));
+    });
 
     describe('and markdown is disabled in this component', () => {
 
@@ -105,11 +102,9 @@ describe('ItemPageFieldComponent', () => {
   });
 
   describe('when markdown is enabled in the environment config', () => {
-
-    beforeEach(waitForAsync(async () => {
+    beforeEach(() => {
       appConfig.markdown.enabled = true;
-      await buildTestEnvironment();
-    }));
+    });
 
     describe('and markdown is disabled in this component', () => {
 
@@ -139,12 +134,13 @@ describe('ItemPageFieldComponent', () => {
 
   describe('test rendering of configured browse links', () => {
     beforeEach(() => {
+      appConfig.markdown.enabled = false;
+      comp.enableMarkdown = true;
       fixture.detectChanges();
     });
-    waitForAsync(() => {
-      it('should have a browse link', () => {
-        expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockValue);
-      });
+
+    it('should have a browse link', async () => {
+      expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockValue);
     });
   });
 
@@ -153,10 +149,9 @@ describe('ItemPageFieldComponent', () => {
       comp.urlRegex = '^test';
       fixture.detectChanges();
     });
-    waitForAsync(() => {
-      it('should have a rendered (non-browse) link since the value matches ^test', () => {
-        expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link')).nativeElement.innerHTML).toContain(mockValue);
-      });
+
+    it('should have a rendered (non-browse) link since the value matches ^test', () => {
+      expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link')).nativeElement.innerHTML).toContain(mockValue);
     });
   });
 
@@ -165,14 +160,11 @@ describe('ItemPageFieldComponent', () => {
       comp.urlRegex = '^nope';
       fixture.detectChanges();
     });
-    beforeEach(waitForAsync(() => {
-      it('should NOT have a rendered (non-browse) link since the value matches ^test', () => {
-        expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link'))).toBeNull();
-      });
-    }));
+
+    it('should NOT have a rendered (non-browse) link since the value matches ^test', () => {
+      expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link'))).toBeNull();
+    });
   });
-
-
 });
 
 export function mockItemWithMetadataFieldsAndValue(fields: string[], value: string): Item {
