@@ -9,6 +9,7 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
   selector: 'ds-browse-by-page',
   templateUrl: './browse-by-page.component.html',
   styleUrls: ['./browse-by-page.component.scss'],
+  standalone: true
 })
 export class BrowseByPageComponent implements OnInit {
 

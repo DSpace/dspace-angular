@@ -7,7 +7,8 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',
   templateUrl: './item-withdrawn-reinstate-modal.component.html',
-  styleUrls: ['./item-withdrawn-reinstate-modal.component.scss']
+  styleUrls: ['./item-withdrawn-reinstate-modal.component.scss'],
+  standalone: true
 })
 /**
  * Represents a modal component for withdrawing or reinstating an item.

@@ -4,7 +4,8 @@ import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-item-page-img-field',
-  templateUrl: '../item-page-field.component.html'
+  templateUrl: '../item-page-field.component.html',
+  standalone: true
 })
 /**
  * Component that renders an inline image for a given field.
