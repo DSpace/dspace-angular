@@ -6,7 +6,7 @@ describe('Collection Statistics Page', () => {
 
     it('should load if you click on "Statistics" from a Collection page', () => {
         cy.visit('/collections/'.concat(Cypress.env('DSPACE_TEST_COLLECTION')));
-        cy.get('ds-navbar ds-link-menu-item a[title="Statistics"]').click();
+        cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics"]').click();
         cy.location('pathname').should('eq', COLLECTIONSTATISTICSPAGE);
     });
 

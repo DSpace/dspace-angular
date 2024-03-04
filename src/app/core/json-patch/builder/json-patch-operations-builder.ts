@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import {
+  FlushPatchOperationAction,
   NewPatchAddOperationAction,
   NewPatchMoveOperationAction,
   NewPatchRemoveOperationAction,
@@ -97,6 +98,20 @@ export class JsonPatchOperationsBuilder {
         path.rootElement,
         path.subRootElement,
         path.path));
+  }
+
+  /**
+   * Dispatches a new FlushPatchOperationAction
+   *
+   * @param path
+   *    a JsonPatchOperationPathObject representing path
+   */
+  flushOperation(path: JsonPatchOperationPathObject) {
+    this.store.dispatch(
+        new FlushPatchOperationAction(
+            path.rootElement,
+            path.subRootElement,
+            path.path));
   }
 
   protected prepareValue(value: any, plain: boolean, first: boolean) {

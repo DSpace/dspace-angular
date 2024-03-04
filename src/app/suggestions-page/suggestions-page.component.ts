@@ -9,14 +9,9 @@ import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.m
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import { SuggestionBulkResult, SuggestionsService } from '../suggestion-notifications/suggestions.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { Suggestion } from '../core/suggestion-notifications/models/suggestion.model';
-import { SuggestionTarget } from '../core/suggestion-notifications/models/suggestion-target.model';
 import { AuthService } from '../core/auth/auth.service';
-import { SuggestionApproveAndImport } from '../suggestion-notifications/suggestion-list-element/suggestion-list-element.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { SuggestionTargetsStateService } from '../suggestion-notifications/suggestion-targets/suggestion-targets.state.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
@@ -25,6 +20,11 @@ import {redirectOn4xx} from '../core/shared/authorized.operators';
 import {
   getWorkspaceItemEditRoute
 } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { Suggestion } from '../core/notifications/models/suggestion.model';
+import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
+import { SuggestionBulkResult, SuggestionsService } from '../notifications/suggestions.service';
+import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 
 @Component({
   selector: 'ds-suggestion-page',
