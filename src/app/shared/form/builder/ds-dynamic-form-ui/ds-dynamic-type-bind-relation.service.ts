@@ -91,7 +91,6 @@ export class DsDynamicTypeBindRelationService {
     // Default to OR for operator (OR is explicitly set in field-parser.ts anyway)
     const operator = relation.operator || OR_OPERATOR;
 
-
     return relation.when.reduce((hasAlreadyMatched: boolean, condition: DynamicFormControlCondition, index: number) => {
       // Get the DynamicFormControlModel (typeBindModel) from the form builder service, set in the form builder
       // in the form model at init time in formBuilderService.modelFromConfiguration (called by other form components
@@ -185,9 +184,8 @@ export class DsDynamicTypeBindRelationService {
         const initValue = (hasNoValue(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value :
           (Array.isArray(relatedModel.value) ? relatedModel.value : relatedModel.value.value);
 
-        const updateSubject = (relatedModel.type === 'CHECKBOX_GROUP' ? relatedModel.valueUpdates : relatedModel.valueChanges);
-        const valueChanges = updateSubject.pipe(
-          startWith(initValue)
+        const valueChanges = this.formBuilderService.getTypeBindModelUpdates().pipe(
+          startWith(initValue),
         );
 
         // Build up the subscriptions to watch for changes;

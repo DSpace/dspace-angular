@@ -39,7 +39,7 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
 
   beforeEach(inject([DsDynamicTypeBindRelationService, DynamicFormRelationService],
     (relationService: DsDynamicTypeBindRelationService,
-     formRelationService: DynamicFormRelationService,
+     formRelationService: DynamicFormRelationService
     ) => {
       service = relationService;
       dynamicFormRelationService = formRelationService;
