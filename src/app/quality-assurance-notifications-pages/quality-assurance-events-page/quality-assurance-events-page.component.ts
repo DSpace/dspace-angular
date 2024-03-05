@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { QualityAssuranceEventsComponent } from '../../../notifications/qa/events/quality-assurance-events.component';
+import { QualityAssuranceEventsComponent } from '../../notifications/qa/events/quality-assurance-events.component';
 
 /**
  * Component for the page that show the QA events related to a specific topic.

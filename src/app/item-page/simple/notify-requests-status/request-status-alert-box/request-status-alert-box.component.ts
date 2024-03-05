@@ -8,7 +8,7 @@ import { NotifyStatuses } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
-import { NgForOf } from '@angular/common';
+import { NgClass, NgForOf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -21,7 +21,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TruncatablePartComponent,
     TruncatableComponent,
     NgForOf,
-    TranslateModule
+    TranslateModule,
+    NgClass
   ]
 })
 /**

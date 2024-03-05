@@ -58,11 +58,11 @@ export const BBM_PAGINATION_ID = 'bbm';
     ThemedComcolPageHandleComponent,
     ComcolPageContentComponent,
     DsoEditMenuComponent,
-    ThemedBrowseByComponent,
     ThemedComcolPageBrowseByComponent,
     BrowseByComponent,
     TranslateModule,
-    ThemedLoadingComponent
+    ThemedLoadingComponent,
+    ThemedBrowseByComponent
   ],
   standalone: true
 })

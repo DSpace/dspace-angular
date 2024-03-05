@@ -4,22 +4,18 @@ import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import {
-  QualityAssuranceTopicObject
-} from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
