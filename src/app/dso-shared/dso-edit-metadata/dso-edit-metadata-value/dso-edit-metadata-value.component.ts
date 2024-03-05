@@ -39,13 +39,22 @@ import { FormsModule } from '@angular/forms';
 import { NgClass, NgIf, AsyncPipe } from '@angular/common';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  DsDynamicScrollableDropdownComponent
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import {
+  DsDynamicOneboxComponent
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
+import {
+  AuthorityConfidenceStateDirective
+} from '../../../shared/form/directives/authority-confidence-state.directive';
 
 @Component({
     selector: 'ds-dso-edit-metadata-value',
     styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
     templateUrl: './dso-edit-metadata-value.component.html',
     standalone: true,
-    imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule]
+  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective]
 })
 /**
  * Component displaying a single editable row for a metadata value

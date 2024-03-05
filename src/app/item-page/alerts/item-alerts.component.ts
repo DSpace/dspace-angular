@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { AlertType } from '../../shared/alert/alert-type';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -20,7 +20,8 @@ import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayl
     AlertComponent,
     NgIf,
     TranslateModule,
-    RouterLink
+    RouterLink,
+    AsyncPipe
   ],
   standalone: true
 })

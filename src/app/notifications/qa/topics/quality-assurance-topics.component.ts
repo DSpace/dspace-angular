@@ -14,7 +14,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
@@ -33,7 +33,7 @@ import {
     templateUrl: './quality-assurance-topics.component.html',
     styleUrls: ['./quality-assurance-topics.component.scss'],
     standalone: true,
-    imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule]
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe]
 })
 export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**

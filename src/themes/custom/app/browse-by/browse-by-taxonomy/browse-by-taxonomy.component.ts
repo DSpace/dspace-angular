@@ -23,6 +23,10 @@ import { BrowseByComponent } from '../../../../../app/shared/browse-by/browse-by
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { ThemedBrowseByComponent } from '../../../../../app/shared/browse-by/themed-browse-by.component';
+import { RouterModule } from '@angular/router';
+import {
+  VocabularyTreeviewComponent
+} from '../../../../../app/shared/form/vocabulary-treeview/vocabulary-treeview.component';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
@@ -37,10 +41,12 @@ import { ThemedBrowseByComponent } from '../../../../../app/shared/browse-by/the
     ComcolPageHeaderComponent,
     ComcolPageLogoComponent,
     NgIf,
+    RouterModule,
     ThemedComcolPageHandleComponent,
     ComcolPageContentComponent,
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
+    VocabularyTreeviewComponent,
     BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,

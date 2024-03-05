@@ -7,9 +7,9 @@ import {
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
-  SCOPE,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
+  SCOPE,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { Router } from '@angular/router';
@@ -22,7 +22,6 @@ import { filter, map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { environment } from '../../../../../../environments/environment';
 import {
   VocabularyTreeviewModalComponent
 } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
@@ -39,8 +38,6 @@ import {
 } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 import { AsyncPipe, LowerCasePipe, NgFor, NgIf } from '@angular/common';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { addOperatorToFilterValue } from '../../../search.utils';
-import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { hasValue } from '../../../../empty.util';
 import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';

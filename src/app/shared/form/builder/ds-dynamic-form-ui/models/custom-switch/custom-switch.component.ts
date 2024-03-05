@@ -6,6 +6,7 @@ import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dyna
 
 import { DynamicCustomSwitchModel } from './custom-switch.model';
 import { NgClass } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-custom-switch',
@@ -13,7 +14,8 @@ import { NgClass } from '@angular/common';
   templateUrl: './custom-switch.component.html',
   imports: [
     NgClass,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   standalone: true
 })

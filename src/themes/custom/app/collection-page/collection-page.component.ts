@@ -22,6 +22,7 @@ import {
   ThemedComcolPageBrowseByComponent
 } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ObjectCollectionComponent } from '../../../../app/shared/object-collection/object-collection.component';
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
@@ -40,6 +41,7 @@ import { ObjectCollectionComponent } from '../../../../app/shared/object-collect
     ComcolPageContentComponent,
     ErrorComponent,
     NgIf,
+    RouterOutlet,
     ThemedLoadingComponent,
     TranslateModule,
     ViewTrackerComponent,

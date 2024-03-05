@@ -27,6 +27,7 @@ import {
 import {
   ThemedCollectionPageSubCollectionListComponent
 } from '../../../../app/community-page/sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
@@ -53,7 +54,8 @@ import {
     ComcolPageHeaderComponent,
     AsyncPipe,
     ViewTrackerComponent,
-    VarDirective
+    VarDirective,
+    RouterModule
   ],
 })
 /**

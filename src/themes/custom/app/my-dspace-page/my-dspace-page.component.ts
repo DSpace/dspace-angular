@@ -13,6 +13,12 @@ import {
 } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { RoleDirective } from '../../../../app/shared/roles/role.directive';
+import {
+  MyDspaceQaEventsNotificationsComponent
+} from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
+import {
+  SuggestionsNotificationComponent
+} from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
 
 /**
  * This component represents the whole mydspace page
@@ -35,6 +41,8 @@ import { RoleDirective } from '../../../../app/shared/roles/role.directive';
   imports: [
     ThemedSearchComponent,
     MyDSpaceNewSubmissionComponent,
+    MyDspaceQaEventsNotificationsComponent,
+    SuggestionsNotificationComponent,
     AsyncPipe,
     RoleDirective,
     NgIf

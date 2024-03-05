@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 /**
  * An guard for redirecting users to the feedback page if user is authorized
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FeedbackGuard implements CanActivate {
 
   constructor(private authorizationService: AuthorizationDataService) {

@@ -5,13 +5,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ds-browse-by-page',
   templateUrl: './browse-by-page.component.html',
   styleUrls: ['./browse-by-page.component.scss'],
   imports: [
-    BrowseBySwitcherComponent
+    BrowseBySwitcherComponent,
+    AsyncPipe
   ],
   standalone: true
 })

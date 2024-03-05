@@ -1,6 +1,6 @@
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
@@ -59,7 +59,8 @@ import {
     AsyncPipe,
     ViewTrackerComponent,
     VarDirective,
-    RouterOutlet
+    RouterOutlet,
+    RouterModule
   ],
   standalone: true
 })

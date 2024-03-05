@@ -17,6 +17,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { AdvancedSearchComponent } from '../../../../../../app/shared/search/advanced-search/advanced-search.component';
 
 
 @Component({
@@ -32,7 +33,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-d
     }
   ],
   standalone: true,
-  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule]
+  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent]
 })
 
 export class SearchFiltersComponent extends BaseComponent {

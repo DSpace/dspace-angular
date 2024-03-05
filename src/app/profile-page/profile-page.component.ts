@@ -25,6 +25,9 @@ import {
   ProfilePageResearcherFormComponent
 } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { VarDirective } from '../shared/utils/var.directive';
+import {
+  SuggestionsNotificationComponent
+} from '../notifications/suggestions-notification/suggestions-notification.component';
 
 @Component({
   selector: 'ds-profile-page',
@@ -38,7 +41,8 @@ import { VarDirective } from '../shared/utils/var.directive';
     ProfilePageResearcherFormComponent,
     VarDirective,
     NgIf,
-    NgForOf
+    NgForOf,
+    SuggestionsNotificationComponent
   ],
   standalone: true
 })

@@ -9,7 +9,7 @@ import { RecentItemListComponent } from './recent-item-list/recent-item-list.com
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { NgIf, AsyncPipe, NgClass } from '@angular/common';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { isPlatformServer } from '@angular/common';
 import { ServerResponseService } from '../core/services/server-response.service';
@@ -18,12 +18,14 @@ import { LinkDefinition, LinkHeadService } from '../core/services/link-head.serv
 import { isNotEmpty } from '../shared/empty.util';
 
 import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
+import { ConfigurationSearchPageComponent } from '../search-page/configuration-search-page.component';
+import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
 @Component({
     selector: 'ds-home-page',
     styleUrls: ['./home-page.component.scss'],
     templateUrl: './home-page.component.html',
     standalone: true,
-    imports: [ThemedHomeNewsComponent, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule]
+  imports: [ThemedHomeNewsComponent, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, ConfigurationSearchPageComponent, SuggestionsPopupComponent]
 })
 export class HomePageComponent implements OnInit, OnDestroy {
 

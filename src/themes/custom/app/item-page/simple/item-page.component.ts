@@ -15,6 +15,12 @@ import { ErrorComponent } from '../../../../../app/shared/error/error.component'
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgIf } from '@angular/common';
+import {
+  NotifyRequestsStatusComponent
+} from '../../../../../app/item-page/simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import {
+  QaEventNotificationComponent
+} from '../../../../../app/item-page/simple/qa-event-notification/qa-event-notification.component';
 
 /**
  * This component renders a simple item page.
@@ -39,6 +45,8 @@ import { AsyncPipe, NgIf } from '@angular/common';
     ItemVersionsComponent,
     ErrorComponent,
     ThemedLoadingComponent,
+    NotifyRequestsStatusComponent,
+    QaEventNotificationComponent,
     TranslateModule,
     AsyncPipe,
     NgIf

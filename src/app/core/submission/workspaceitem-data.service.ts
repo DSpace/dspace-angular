@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -16,17 +15,15 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
-import {HttpOptions} from '../dspace-rest/dspace-rest.service';
-import {find, map} from 'rxjs/operators';
-import {PostRequest} from '../data/request.models';
-import {hasValue} from '../../shared/empty.util';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { find, map } from 'rxjs/operators';
+import { PostRequest } from '../data/request.models';
+import { hasValue } from '../../shared/empty.util';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { NoContent } from '../shared/NoContent.model';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { SearchData, SearchDataImpl } from '../data/base/search-data';
 import { PaginatedList } from '../data/paginated-list.model';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { NoContent } from '../shared/NoContent.model';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.

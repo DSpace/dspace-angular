@@ -12,6 +12,9 @@ import {
   ProfilePageResearcherFormComponent
 } from '../../../../app/profile-page/profile-page-researcher-form/profile-page-researcher-form.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
+import {
+  SuggestionsNotificationComponent
+} from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
 
 @Component({
   selector: 'ds-profile-page',
@@ -23,6 +26,7 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
   imports: [
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
+    SuggestionsNotificationComponent,
     AsyncPipe,
     TranslateModule,
     ProfilePageResearcherFormComponent,

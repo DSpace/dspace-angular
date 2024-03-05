@@ -15,6 +15,9 @@ import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { NgIf, AsyncPipe } from '@angular/common';
+import {
+  ItemPageImgFieldComponent
+} from '../../../../item-page/simple/field-components/specific-field/img/item-page-img-field.component';
 
 @listableObjectComponent('OrgUnit', ViewMode.StandalonePage)
 @Component({
@@ -22,7 +25,7 @@ import { NgIf, AsyncPipe } from '@angular/common';
     styleUrls: ['./org-unit.component.scss'],
     templateUrl: './org-unit.component.html',
     standalone: true,
-    imports: [NgIf, ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, TabbedRelatedEntitiesSearchComponent, AsyncPipe, TranslateModule]
+  imports: [NgIf, ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, TabbedRelatedEntitiesSearchComponent, AsyncPipe, TranslateModule, ItemPageImgFieldComponent]
 })
 /**
  * The component for displaying metadata and relations of an item of the type Organisation Unit

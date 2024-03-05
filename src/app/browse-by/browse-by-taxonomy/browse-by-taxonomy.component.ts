@@ -45,7 +45,9 @@ import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by
     BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
-    ThemedBrowseByComponent
+    ThemedBrowseByComponent,
+    VocabularyTreeviewComponent,
+    RouterLink
   ],
   standalone: true
 })

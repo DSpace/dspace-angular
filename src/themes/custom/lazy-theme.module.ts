@@ -18,7 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppModule } from '../../app/app.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { RouterModule } from '@angular/router';
-import { InfoModule } from '../../app/info/info.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
@@ -264,7 +263,6 @@ const DECLARATIONS = [
     FormsModule,
     HttpClientModule,
     IdlePreloadModule,
-    InfoModule,
     MenuModule,
     DsoPageModule,
     NavbarModule,

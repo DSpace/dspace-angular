@@ -11,26 +11,28 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import {
+  QualityAssuranceSourcePageParams
+} from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance source list.
  */
 @Component({
-    selector: 'ds-quality-assurance-source',
-    templateUrl: './quality-assurance-source.component.html',
-    styleUrls: ['./quality-assurance-source.component.scss'],
-    standalone: true,
-    imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule]
+  selector: 'ds-quality-assurance-source',
+  templateUrl: './quality-assurance-source.component.html',
+  styleUrls: ['./quality-assurance-source.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe]
 })
 export class QualityAssuranceSourceComponent implements OnInit {
 
- /**
-  * The pagination system configuration for HTML listing.
-  * @type {PaginationComponentOptions}
-  */
+  /**
+   * The pagination system configuration for HTML listing.
+   * @type {PaginationComponentOptions}
+   */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'btp',
     pageSize: 10,
@@ -63,7 +65,8 @@ export class QualityAssuranceSourceComponent implements OnInit {
   constructor(
     private paginationService: PaginationService,
     private notificationsStateService: NotificationsStateService,
-  ) { }
+  ) {
+  }
 
   /**
    * Component initialization.
