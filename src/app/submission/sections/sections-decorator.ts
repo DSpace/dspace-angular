@@ -6,6 +6,7 @@ import { SubmissionSectionSherpaPoliciesComponent } from './sherpa-policies/sect
 import { SubmissionSectionUploadComponent } from './upload/section-upload.component';
 import { SubmissionSectionFormComponent } from './form/section-form.component';
 import { SubmissionSectionIdentifiersComponent } from './identifiers/section-identifiers.component';
+import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify/section-coar-notify.component';
 
 const submissionSectionsMap = new Map();
 
@@ -16,6 +17,7 @@ submissionSectionsMap.set(SectionsType.SherpaPolicies, SubmissionSectionSherpaPo
 submissionSectionsMap.set(SectionsType.Upload, SubmissionSectionUploadComponent);
 submissionSectionsMap.set(SectionsType.SubmissionForm, SubmissionSectionFormComponent);
 submissionSectionsMap.set(SectionsType.Identifiers, SubmissionSectionIdentifiersComponent);
+submissionSectionsMap.set(SectionsType.CoarNotify, SubmissionSectionCoarNotifyComponent);
 
 /**
  * @deprecated

@@ -18,9 +18,12 @@ import {
 } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { filter, map, take, tap } from 'rxjs/operators';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { LdnPattern } from './submission-coar-notify.config';
+import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.
@@ -29,6 +32,16 @@ import { LdnPattern } from './submission-coar-notify.config';
   selector: 'ds-submission-section-coar-notify',
   templateUrl: './section-coar-notify.component.html',
   styleUrls: ['./section-coar-notify.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    TranslateModule,
+    NgbDropdownModule,
+    NgClass,
+    InfiniteScrollModule
+  ],
   providers: [NgbDropdown]
 })
 @renderSectionFor(SectionsType.CoarNotify)
