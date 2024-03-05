@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { SortOptions } from '../core/cache/models/sort-options.model';
@@ -16,7 +16,6 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
 import { ComcolPageContentComponent } from '../shared/comcol/comcol-page-content/comcol-page-content.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -58,7 +57,8 @@ import { ObjectCollectionComponent } from '../shared/object-collection/object-co
     ThemedComcolPageHandleComponent,
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
-    ObjectCollectionComponent
+    ObjectCollectionComponent,
+    RouterOutlet
   ],
   standalone: true
 })

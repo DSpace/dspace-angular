@@ -1,6 +1,6 @@
-import { mergeMap, filter, map } from 'rxjs/operators';
+import { filter, map, mergeMap } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
@@ -20,12 +20,6 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { AsyncPipe, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  ThemedCommunityPageSubCommunityListComponent
-} from './sub-community-list/themed-community-page-sub-community-list.component';
-import {
-  ThemedCollectionPageSubCollectionListComponent
-} from './sub-collection-list/themed-community-page-sub-collection-list.component';
-import {
   ThemedComcolPageBrowseByComponent
 } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
@@ -36,6 +30,12 @@ import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comco
 import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { VarDirective } from '../shared/utils/var.directive';
+import {
+  ThemedCollectionPageSubCollectionListComponent
+} from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
+import {
+  ThemedCommunityPageSubCommunityListComponent
+} from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
   selector: 'ds-community-page',
@@ -58,7 +58,8 @@ import { VarDirective } from '../shared/utils/var.directive';
     ComcolPageHeaderComponent,
     AsyncPipe,
     ViewTrackerComponent,
-    VarDirective
+    VarDirective,
+    RouterOutlet
   ],
   standalone: true
 })

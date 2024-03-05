@@ -13,12 +13,12 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { switchMap } from 'rxjs/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { hasValue } from '../../../../shared/empty.util';
-import { ErrorComponent } from '../../shared/error/error.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';
+import { ErrorComponent } from '../../../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',
@@ -32,7 +32,11 @@ import { TranslateModule } from '@ngx-translate/core';
     NgIf,
     ObjectCollectionComponent,
     AsyncPipe,
-    TranslateModule
+    TranslateModule,
+    ObjectCollectionComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    VarDirective
   ],
   standalone: true
 })

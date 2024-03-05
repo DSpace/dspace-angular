@@ -1,7 +1,7 @@
-import { Component, OnInit, OnChanges, OnDestroy, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { ActivatedRoute, RouterLink, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';

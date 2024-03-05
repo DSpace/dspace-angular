@@ -1,17 +1,29 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { slide } from '../../animations/slide';
-import { FormBuilder } from '@angular/forms';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
+import { LowerCasePipe, NgClass, NgForOf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { BrowserOnlyPipe } from '../../utils/browser-only.pipe';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
   animations: [slide],
+  imports: [
+    NgClass,
+    TranslateModule,
+    ReactiveFormsModule,
+    BrowserOnlyPipe,
+    LowerCasePipe,
+    NgForOf
+  ],
+  standalone: true
 })
   /**
    * This component represents the part of the search sidebar that contains advanced filters.

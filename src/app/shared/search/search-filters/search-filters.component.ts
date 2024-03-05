@@ -16,13 +16,14 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 
 @Component({
-    selector: 'ds-search-filters',
-    styleUrls: ['./search-filters.component.scss'],
-    templateUrl: './search-filters.component.html',
-    standalone: true,
-    imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule]
+  selector: 'ds-search-filters',
+  styleUrls: ['./search-filters.component.scss'],
+  templateUrl: './search-filters.component.html',
+  standalone: true,
+  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent]
 })
 
 /**

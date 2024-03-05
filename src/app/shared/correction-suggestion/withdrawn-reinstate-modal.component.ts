@@ -3,11 +3,21 @@ import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { LoadingComponent } from '../loading/loading.component';
+import { FormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',
   templateUrl: './item-withdrawn-reinstate-modal.component.html',
   styleUrls: ['./item-withdrawn-reinstate-modal.component.scss'],
+  imports: [
+    TranslateModule,
+    LoadingComponent,
+    FormsModule,
+    AsyncPipe
+  ],
   standalone: true
 })
 /**
