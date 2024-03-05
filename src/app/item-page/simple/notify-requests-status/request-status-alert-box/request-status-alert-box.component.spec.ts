@@ -25,8 +25,7 @@ describe('RequestStatusAlertBoxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot()],
-    declarations: [RequestStatusAlertBoxComponent]
+    imports: [TranslateModule.forRoot(), RequestStatusAlertBoxComponent]
 }).compileComponents();
   });
 

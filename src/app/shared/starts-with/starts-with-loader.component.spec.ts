@@ -31,10 +31,10 @@ describe('StartsWithLoaderComponent', () => {
     void TestBed.configureTestingModule({
     imports: [
         TranslateModule.forRoot(),
-        StartsWithTextComponent
+        StartsWithTextComponent,
+        StartsWithLoaderComponent
     ],
-    declarations: [StartsWithLoaderComponent,
-        DynamicComponentLoaderDirective],
+    declarations: [DynamicComponentLoaderDirective],
     providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: route },

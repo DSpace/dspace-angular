@@ -124,8 +124,8 @@ describe('ProcessOverviewTableComponent', () => {
     init();
 
     void TestBed.configureTestingModule({
-    declarations: [ProcessOverviewTableComponent, NgbCollapse],
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],
+    declarations: [NgbCollapse],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent],
     providers: [
         { provide: ProcessOverviewService, useValue: processOverviewService },
         { provide: ProcessDataService, useValue: processService },

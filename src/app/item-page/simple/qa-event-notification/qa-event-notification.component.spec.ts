@@ -37,8 +37,7 @@ describe('QaEventNotificationComponent', () => {
       getSourcesByTarget: () => objPL
     };
     await TestBed.configureTestingModule({
-    imports: [CommonModule, TranslateModule.forRoot()],
-    declarations: [QaEventNotificationComponent, SplitPipe],
+    imports: [CommonModule, TranslateModule.forRoot(), QaEventNotificationComponent, SplitPipe],
     providers: [
         { provide: QualityAssuranceSourceDataService, useValue: qualityAssuranceSourceDataServiceStub },
         { provide: RequestService, useValue: {} },

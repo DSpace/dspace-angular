@@ -33,8 +33,7 @@ describe('AdvancedSearchComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [AdvancedSearchComponent],
-    imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule, BrowserOnlyMockPipe],
+    imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule, BrowserOnlyMockPipe, AdvancedSearchComponent],
     providers: [
         FormBuilder,
         { provide: APP_CONFIG, useValue: environment },

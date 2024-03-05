@@ -15,7 +15,7 @@ describe('ComcolSearchSectionComponent', () => {
     route = new ActivatedRouteStub();
 
     await TestBed.configureTestingModule({
-    declarations: [ComcolSearchSectionComponent],
+    imports: [ComcolSearchSectionComponent],
     providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: ActivatedRoute, useValue: route },

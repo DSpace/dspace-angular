@@ -18,7 +18,7 @@ describe('MyDspaceQaEventsNotificationsComponent', () => {
       getSources: () => obj
     };
     await TestBed.configureTestingModule({
-    declarations: [MyDspaceQaEventsNotificationsComponent],
+    imports: [MyDspaceQaEventsNotificationsComponent],
     providers: [
         { provide: QualityAssuranceSourceDataService, useValue: qualityAssuranceSourceDataServiceStub }
     ]
