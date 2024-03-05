@@ -4,6 +4,9 @@ import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-
 import { SuggestionsService } from '../suggestions.service';
 import { Observable } from 'rxjs';
 import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Show suggestions notification, used on myDSpace and Profile pages
@@ -11,6 +14,14 @@ import { SuggestionTarget } from '../../core/notifications/models/suggestion-tar
 @Component({
   selector: 'ds-suggestions-notification',
   templateUrl: './suggestions-notification.component.html',
+  standalone: true,
+  imports: [
+    RouterLink,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf
+  ],
   styleUrls: ['./suggestions-notification.component.scss']
 })
 export class SuggestionsNotificationComponent implements OnInit {

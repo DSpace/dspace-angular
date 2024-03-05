@@ -9,6 +9,9 @@ import { trigger } from '@angular/animations';
 
 import { fromTopEnter } from '../../shared/animations/fromTop';
 import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 /**
  * Show suggestions on a popover window, used on the homepage
@@ -22,6 +25,14 @@ import { SuggestionTarget } from '../../core/notifications/models/suggestion-tar
       fromTopEnter
     ])
   ],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    RouterLink,
+    NgIf,
+    NgForOf
+  ],
+  standalone: true
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 

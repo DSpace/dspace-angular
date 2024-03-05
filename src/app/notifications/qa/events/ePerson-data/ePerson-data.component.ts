@@ -3,10 +3,16 @@ import { EPersonDataService } from '../../../../core/eperson/eperson-data.servic
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 import { Observable } from 'rxjs';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-eperson-data',
   templateUrl: './ePerson-data.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe
+  ],
   styleUrls: ['./ePerson-data.component.scss']
 })
 /**

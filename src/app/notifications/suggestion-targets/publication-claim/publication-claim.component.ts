@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, take } from 'rxjs/operators';
@@ -12,6 +12,10 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
 import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
 import { SuggestionsService } from '../../suggestions.service';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 /**
  * Component to display the Suggestion Target list.
@@ -20,6 +24,15 @@ import { SuggestionsService } from '../../suggestions.service';
   selector: 'ds-publication-claim',
   templateUrl: './publication-claim.component.html',
   styleUrls: ['./publication-claim.component.scss'],
+  imports: [
+    LoadingComponent,
+    AsyncPipe,
+    TranslateModule,
+    PaginationComponent,
+    NgIf,
+    RouterLink
+  ],
+  standalone: true
 })
 export class PublicationClaimComponent implements OnInit {
 

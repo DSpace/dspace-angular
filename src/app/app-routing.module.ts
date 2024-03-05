@@ -44,19 +44,20 @@ import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers, SubmissionState } from './submission/submission.reducers';
 import { submissionEffects } from './submission/submission.effects';
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
-      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
+      {path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent},
+      {path: ERROR_PAGE, component: ThemedPageErrorComponent},
       {
         path: '',
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
         resolve: [MenuResolver],
         children: [
-          { path: '', redirectTo: '/home', pathMatch: 'full' },
+          {path: '', redirectTo: '/home', pathMatch: 'full'},
           {
             path: 'reload/:rnd',
             component: ThemedPageNotFoundComponent,
@@ -67,7 +68,7 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
             path: 'home',
             loadChildren: () => import('./home-page/home-page-routes')
               .then((m) => m.ROUTES),
-            data: { showBreadcrumbs: false },
+            data: {showBreadcrumbs: false},
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
@@ -160,19 +161,18 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
               .then((m) => m.ROUTES),
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
-          // TODO: switch routing modules to routing files
-          // {
-          //   path: NOTIFICATIONS_MODULE_PATH,
-          //   loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
-          //     .then((m) => m.AdminNotificationsModule),
-          //   canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
-          // },
-          // {
-          //   path: NOTIFICATIONS_MODULE_PATH,
-          //   loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
-          //     .then((m) => m.NotificationsPageModule),
-          //   canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
-          // },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./admin/admin-notifications/admin-notifications-routes')
+              .then((m) => m.ROUTES),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages-routes')
+              .then((m) => m.ROUTES),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+          },
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page-routes')
@@ -189,9 +189,9 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
               .then((m) => m.ROUTES),
             providers: [
               importProvidersFrom(
-              StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-              EffectsModule.forFeature(submissionEffects),
-            )],
+                StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+                EffectsModule.forFeature(submissionEffects),
+              )],
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
@@ -234,7 +234,8 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
               .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
-          { path: SUGGESTION_MODULE_PATH,
+          {
+            path: SUGGESTION_MODULE_PATH,
             loadChildren: () => import('./suggestions-page/suggestions-page.module')
               .then((m) => m.SuggestionsPageModule),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
@@ -274,7 +275,7 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
               .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard]
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent }
+          {path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent}
         ]
       }
     ], {
@@ -285,7 +286,7 @@ import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-})
+    })
   ],
   exports: [RouterModule],
 })
