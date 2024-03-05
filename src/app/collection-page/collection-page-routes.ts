@@ -18,6 +18,12 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { Route } from '@angular/router';
+import {
+  ComcolSearchSectionComponent
+} from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 
 
 export const ROUTES: Route[] = [
@@ -78,7 +84,23 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCollectionPageComponent,
-        pathMatch: 'full',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+          },
+          {
+            path: 'browse/:id',
+            pathMatch: 'full',
+            component: ComcolBrowseByComponent,
+            canActivate: [BrowseByGuard],
+            resolve: {
+              breadcrumb: BrowseByI18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'browse.metadata' },
+          },
+        ],
       }
     ],
     data: {

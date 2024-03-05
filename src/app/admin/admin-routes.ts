@@ -5,7 +5,12 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
-import { NOTIFICATIONS_MODULE_PATH, REGISTRIES_MODULE_PATH } from './admin-routing-paths';
+import {
+  LDN_PATH,
+  NOTIFICATIONS_MODULE_PATH,
+  REGISTRIES_MODULE_PATH,
+  REPORTS_MODULE_PATH
+} from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 
 const providers = [
@@ -67,5 +72,21 @@ export const ROUTES: Route[] = [
     resolve: {breadcrumb: I18nBreadcrumbResolver},
     loadChildren: () => import('../system-wide-alert/system-wide-alert-routes').then((m) => m.ROUTES),
     data: {title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert'}
+  },
+  {
+    path: LDN_PATH,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'services' },
+      {
+        path: 'services',
+        loadChildren: () => import('./admin-ldn-services/admin-ldn-services-routes')
+          .then((m) => m.ROUTES),
+      }
+    ],
+  },
+  {
+    path: REPORTS_MODULE_PATH,
+    loadChildren: () => import('./admin-reports/admin-reports-routes')
+      .then((m) => m.ROUTES),
   },
 ];

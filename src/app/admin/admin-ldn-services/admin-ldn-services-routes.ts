@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LdnServicesOverviewComponent } from './ldn-services-directory/ldn-services-directory.component';
 import { NavigationBreadcrumbResolver } from '../../core/breadcrumbs/navigation-breadcrumb.resolver';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
@@ -28,20 +27,12 @@ const moduleRoutes: Routes = [
   },
 ];
 
-
-@NgModule({
-  imports: [
-    RouterModule.forChild(moduleRoutes.map(route => {
-      return {...route, data: {
-          ...route.data,
-          relatedRoutes: moduleRoutes.filter(relatedRoute => relatedRoute.path !== route.path)
-            .map((relatedRoute) => {
-              return {path: relatedRoute.path, data: relatedRoute.data};
-            })
-      }};
-    }))
-  ]
-})
-export class AdminLdnServicesRoutingModule {
-
-}
+export const ROUTES = moduleRoutes.map(route => {
+  return {...route, data: {
+      ...route.data,
+      relatedRoutes: moduleRoutes.filter(relatedRoute => relatedRoute.path !== route.path)
+        .map((relatedRoute) => {
+          return {path: relatedRoute.path, data: relatedRoute.data};
+        })
+    }};
+});

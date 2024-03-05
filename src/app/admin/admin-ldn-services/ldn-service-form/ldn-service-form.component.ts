@@ -6,15 +6,15 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {LDN_SERVICE} from '../ldn-services-model/ldn-service.resource-type';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LdnServicesService} from '../ldn-services-data/ldn-services-data.service';
 import {notifyPatterns} from '../ldn-services-patterns/ldn-service-coar-patterns';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {LdnService} from '../ldn-services-model/ldn-services.model';
 import {RemoteData} from 'src/app/core/data/remote-data';
 import {Operation} from 'fast-json-patch';
@@ -27,6 +27,7 @@ import {PaginationService} from '../../../core/pagination/pagination.service';
 import {FindListOptions} from '../../../core/data/find-list-options.model';
 import {NotifyServicePattern} from '../ldn-services-model/ldn-service-patterns.model';
 import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 
 /**
@@ -36,6 +37,7 @@ import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
   selector: 'ds-ldn-service-form',
   templateUrl: './ldn-service-form.component.html',
   styleUrls: ['./ldn-service-form.component.scss'],
+  standalone: true,
   animations: [
     trigger('toggleAnimation', [
       state('true', style({})),
@@ -43,6 +45,14 @@ import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
       transition('true <=> false', animate('300ms ease-in')),
     ]),
   ],
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    NgIf,
+    NgbDropdownModule,
+    NgForOf,
+    AsyncPipe
+  ]
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {
   formModel: FormGroup;

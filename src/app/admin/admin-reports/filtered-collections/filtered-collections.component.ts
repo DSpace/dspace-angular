@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
@@ -8,6 +8,8 @@ import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.mode
 import { environment } from 'src/environments/environment';
 import { FiltersComponent } from '../filters-section/filters-section.component';
 import { FilteredCollections } from './filtered-collections.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { KeyValuePipe, NgForOf } from '@angular/common';
 
 /**
  * Component representing the Filtered Collections content report
@@ -15,7 +17,15 @@ import { FilteredCollections } from './filtered-collections.model';
 @Component({
   selector: 'ds-report-filtered-collections',
   templateUrl: './filtered-collections.component.html',
-  styleUrls: ['./filtered-collections.component.scss']
+  styleUrls: ['./filtered-collections.component.scss'],
+  imports: [
+    TranslateModule,
+    NgbAccordionModule,
+    FiltersComponent,
+    KeyValuePipe,
+    NgForOf
+  ],
+  standalone: true
 })
 export class FilteredCollectionsComponent {
 

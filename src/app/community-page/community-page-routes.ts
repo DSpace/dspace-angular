@@ -14,6 +14,14 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import {
+  ComcolSearchSectionComponent
+} from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
+import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 
 export const ROUTES: Route[] = [
   {
@@ -61,7 +69,32 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCommunityPageComponent,
-        pathMatch: 'full',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+          },
+          {
+            path: 'subcoms-cols',
+            pathMatch: 'full',
+            component: SubComColSectionComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'community.subcoms-cols' },
+          },
+          {
+            path: 'browse/:id',
+            pathMatch: 'full',
+            component: ComcolBrowseByComponent,
+            canActivate: [BrowseByGuard],
+            resolve: {
+              breadcrumb: BrowseByI18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'browse.metadata' },
+          },
+        ],
       }
     ],
     data: {

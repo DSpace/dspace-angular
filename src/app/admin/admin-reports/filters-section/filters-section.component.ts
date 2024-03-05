@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FilterGroup } from './filter-group.model';
 import { Filter } from './filter.model';
+import { NgForOf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component representing the Query Filters section used in both
@@ -10,7 +12,13 @@ import { Filter } from './filter.model';
 @Component({
   selector: 'ds-filters',
   templateUrl: './filters-section.component.html',
-  styleUrls: ['./filters-section.component.scss']
+  styleUrls: ['./filters-section.component.scss'],
+  imports: [
+    NgForOf,
+    ReactiveFormsModule,
+    TranslateModule
+  ],
+  standalone: true
 })
 export class FiltersComponent {
 

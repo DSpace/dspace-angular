@@ -21,7 +21,12 @@ import {hasValue} from '../../../shared/empty.util';
 import {Operation} from 'fast-json-patch';
 import {getFirstCompletedRemoteData} from '../../../core/shared/operators';
 import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { RouterLink } from '@angular/router';
 
 
 /**
@@ -33,7 +38,18 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'ds-ldn-services-directory',
   templateUrl: './ldn-services-directory.component.html',
   styleUrls: ['./ldn-services-directory.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+    PaginationComponent,
+    TruncatableComponent,
+    TruncatablePartComponent,
+    NgClass,
+    RouterLink
+  ],
+  standalone: true
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 

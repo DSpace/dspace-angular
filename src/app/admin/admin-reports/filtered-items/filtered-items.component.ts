@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { map, Observable } from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
@@ -23,6 +23,7 @@ import { FilteredItems } from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';
+import { AsyncPipe, NgForOf } from '@angular/common';
 
 /**
  * Component representing the Filtered Items content report.
@@ -30,7 +31,16 @@ import { QueryPredicate } from './query-predicate.model';
 @Component({
   selector: 'ds-report-filtered-items',
   templateUrl: './filtered-items.component.html',
-  styleUrls: ['./filtered-items.component.scss']
+  styleUrls: ['./filtered-items.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    NgbAccordionModule,
+    TranslateModule,
+    AsyncPipe,
+    NgForOf,
+    FiltersComponent
+  ],
+  standalone: true
 })
 export class FilteredItemsComponent {
 
