@@ -1,7 +1,7 @@
 import { CollectionSearchResultListElementComponent } from './collection-search-result-list-element.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -98,7 +98,8 @@ describe('CollectionSearchResultListElementComponent', () => {
 
   describe('when environment is set to show thumbnail images', () => {
     it('should offset content', () => {
-      const offset = fixture.debugElement.query(By.css('offset-md-2'));
+      const offset: DebugElement = fixture.debugElement.query(By.css('.offset-md-2'));
+      expect(offset).not.toBeNull();
     });
   });
 

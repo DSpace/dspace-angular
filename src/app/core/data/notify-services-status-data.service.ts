@@ -21,7 +21,6 @@ export class NotifyRequestsStatusDataService extends IdentifiableDataService<Not
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected rdb: RemoteDataBuildService,
   ) {
     super('notifyrequests', requestService, rdbService, objectCache, halService);
   }
@@ -41,6 +40,6 @@ export class NotifyRequestsStatusDataService extends IdentifiableDataService<Not
       this.requestService.send(request, true);
     });
 
-    return this.rdb.buildFromHref(href$);
+    return this.rdbService.buildFromHref(href$);
   }
 }

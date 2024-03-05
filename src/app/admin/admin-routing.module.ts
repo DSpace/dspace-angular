@@ -8,7 +8,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import {
   LDN_PATH,
-  NOTIFICATIONS_MODULE_PATH,
+  NOTIFICATIONS_MODULE_PATH, NOTIFY_DASHBOARD_MODULE_PATH,
   REGISTRIES_MODULE_PATH, REPORTS_MODULE_PATH,
 } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
@@ -87,6 +87,11 @@ import {
         path: REPORTS_MODULE_PATH,
         loadChildren: () => import('./admin-reports/admin-reports.module')
           .then((m) => m.AdminReportsModule),
+      },
+      {
+        path: NOTIFY_DASHBOARD_MODULE_PATH,
+        loadChildren: () => import('./admin-notify-dashboard/admin-notify-dashboard.module')
+          .then((m) => m.AdminNotifyDashboardModule),
       },
     ])
   ],

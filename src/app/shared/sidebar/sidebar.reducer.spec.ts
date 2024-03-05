@@ -47,6 +47,7 @@ describe('sidebarReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set sidebarCollapsed to false in response to the EXPAND action', () => {
@@ -63,6 +64,10 @@ describe('sidebarReducer', () => {
 
     const action = new SidebarExpandAction();
     sidebarReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should flip the value of sidebarCollapsed in response to the TOGGLE action', () => {
@@ -82,6 +87,10 @@ describe('sidebarReducer', () => {
 
     const action = new SidebarToggleAction();
     sidebarReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
 });

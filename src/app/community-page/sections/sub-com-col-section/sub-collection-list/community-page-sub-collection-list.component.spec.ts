@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,7 +30,7 @@ import { ConfigurationProperty } from '../../../../core/shared/configuration-pro
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 
-describe('CommunityPageSubCollectionList Component', () => {
+describe('CommunityPageSubCollectionListComponent', () => {
   let comp: CommunityPageSubCollectionListComponent;
   let fixture: ComponentFixture<CommunityPageSubCollectionListComponent>;
   let collectionDataServiceStub: any;
@@ -177,19 +177,19 @@ describe('CommunityPageSubCollectionList Component', () => {
   });
 
 
-  it('should display a list of collections', () => {
-    waitForAsync(() => {
-      subCollList = collections;
-      fixture.detectChanges();
+  it('should display a list of collections', async () => {
+    subCollList = collections;
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
-      const collList = fixture.debugElement.queryAll(By.css('li'));
-      expect(collList.length).toEqual(5);
-      expect(collList[0].nativeElement.textContent).toContain('Collection 1');
-      expect(collList[1].nativeElement.textContent).toContain('Collection 2');
-      expect(collList[2].nativeElement.textContent).toContain('Collection 3');
-      expect(collList[3].nativeElement.textContent).toContain('Collection 4');
-      expect(collList[4].nativeElement.textContent).toContain('Collection 5');
-    });
+    const collList: DebugElement[] = fixture.debugElement.queryAll(By.css('ul[data-test="objects"] li'));
+    expect(collList.length).toEqual(5);
+    expect(collList[0].nativeElement.textContent).toContain('Collection 1');
+    expect(collList[1].nativeElement.textContent).toContain('Collection 2');
+    expect(collList[2].nativeElement.textContent).toContain('Collection 3');
+    expect(collList[3].nativeElement.textContent).toContain('Collection 4');
+    expect(collList[4].nativeElement.textContent).toContain('Collection 5');
   });
 
   it('should not display the header when list of collections is empty', () => {

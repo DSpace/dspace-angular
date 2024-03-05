@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
@@ -220,20 +220,21 @@ describe('ItemVersionsComponent', () => {
       authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
     }));
     it('should not disable the delete button', () => {
-      const deleteButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-delete`));
-      deleteButtons.forEach((btn) => {
+      const deleteButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-delete'));
+      expect(deleteButtons.length).not.toBe(0);
+      deleteButtons.forEach((btn: DebugElement) => {
         expect(btn.nativeElement.disabled).toBe(false);
       });
     });
-    it('should disable other buttons', () => {
-      const createButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
-      createButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
-      });
-      const editButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
-      editButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
-      });
+
+    it('should hide the create buttons', () => {
+      const createButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-create'));
+      expect(createButtons.length).toBe(0);
+    });
+
+    it('should hide the edit buttons', () => {
+      const editButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-edit'));
+      expect(editButtons.length).toBe(0);
     });
   });
 
