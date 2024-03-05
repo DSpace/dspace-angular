@@ -40,6 +40,7 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -49,7 +50,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
     templateUrl: './quality-assurance-events.component.html',
     styleUrls: ['./quality-assurance-events.component.scss'],
     standalone: true,
-    imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule]
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent]
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**

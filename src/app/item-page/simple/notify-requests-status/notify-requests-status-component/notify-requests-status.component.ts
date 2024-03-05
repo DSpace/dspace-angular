@@ -16,11 +16,21 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
+import { AsyncPipe, KeyValuePipe, NgForOf, NgIf } from '@angular/common';
 @Component({
   selector: 'ds-notify-requests-status',
   templateUrl: './notify-requests-status.component.html',
   styleUrls: ['./notify-requests-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    RequestStatusAlertBoxComponent,
+    AsyncPipe,
+    KeyValuePipe,
+    NgForOf,
+    NgIf
+  ]
 })
 
 /**

@@ -10,6 +10,7 @@ import { StartsWithAbstractComponent } from './starts-with-abstract.component';
 @Component({
   selector: 'ds-starts-with-loader',
   templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
 })
 export class StartsWithLoaderComponent extends AbstractComponentLoaderComponent<StartsWithAbstractComponent> {
 

@@ -6,7 +6,9 @@ import {
 import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
+import {
+  MetadataRepresentationListElementComponent
+} from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { ThemeService } from '../theme-support/theme.service';
 import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
 
@@ -14,7 +16,6 @@ import { AbstractComponentLoaderComponent } from '../abstract-component-loader/a
     selector: 'ds-metadata-representation-loader',
     templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
     standalone: true,
-    imports: [MetadataRepresentationDirective]
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context

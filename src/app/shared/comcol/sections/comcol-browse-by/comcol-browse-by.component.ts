@@ -4,11 +4,18 @@ import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/brows
 import { ActivatedRoute, Data } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ds-comcol-browse-by',
   templateUrl: './comcol-browse-by.component.html',
   styleUrls: ['./comcol-browse-by.component.scss'],
+  imports: [
+    BrowseBySwitcherComponent,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class ComcolBrowseByComponent implements OnInit {
 

@@ -4,12 +4,23 @@ import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayl
 import { Observable, of, tap } from 'rxjs';
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
 import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ds-my-dspace-qa-events-notifications',
   templateUrl: './my-dspace-qa-events-notifications.component.html',
   styleUrls: ['./my-dspace-qa-events-notifications.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AsyncPipe,
+    NgForOf,
+    TranslateModule,
+    RouterLink,
+    NgIf
+  ],
+  standalone: true
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 

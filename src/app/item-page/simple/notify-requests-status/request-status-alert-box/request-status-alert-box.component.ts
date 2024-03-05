@@ -6,12 +6,23 @@ import {
 } from '@angular/core';
 import { NotifyStatuses } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
+import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+import { NgForOf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-request-status-alert-box',
   templateUrl: './request-status-alert-box.component.html',
   styleUrls: ['./request-status-alert-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    TruncatablePartComponent,
+    TruncatableComponent,
+    NgForOf,
+    TranslateModule
+  ]
 })
 /**
  * Represents a component that displays the status of a request.

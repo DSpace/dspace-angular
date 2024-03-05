@@ -19,6 +19,7 @@ import { ObjectCollectionComponent } from '../object-collection/object-collectio
 import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
 import { NgClass, NgComponentOutlet, NgIf, AsyncPipe } from '@angular/common';
 import { VarDirective } from '../utils/var.directive';
+import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
 
 @Component({
     selector: 'ds-browse-by',
@@ -29,7 +30,7 @@ import { VarDirective } from '../utils/var.directive';
         fadeInOut
     ],
     standalone: true,
-    imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule]
+  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent]
 })
 /**
  * Component to display a browse-by page for any ListableObject

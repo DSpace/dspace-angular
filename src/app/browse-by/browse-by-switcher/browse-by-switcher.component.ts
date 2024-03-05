@@ -5,11 +5,12 @@ import { AbstractComponentLoaderComponent } from '../../shared/abstract-componen
 import { BrowseByDataType } from './browse-by-data-type';
 import { Context } from '../../core/shared/context.model';
 import { AsyncPipe, NgComponentOutlet } from '@angular/common';
+import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 
 @Component({
   selector: 'ds-browse-by-switcher',
   templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html',
-  imports: [AsyncPipe, NgComponentOutlet],
+  imports: [AsyncPipe, NgComponentOutlet, DynamicComponentLoaderDirective],
   standalone: true
 })
 export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {

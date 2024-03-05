@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * @returns An array of substrings.
  */
 @Pipe({
-  name: 'dsSplit'
+  name: 'dsSplit',
+  standalone: true
 })
 export class SplitPipe implements PipeTransform {
   transform(value: string, separator: string): string[] {

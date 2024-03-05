@@ -33,6 +33,10 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
+import {
+  NotifyRequestsStatusComponent
+} from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
 /**
  * This component renders a simple item page.
@@ -57,7 +61,9 @@ import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-i
     ThemedLoadingComponent,
     TranslateModule,
     AsyncPipe,
-    NgIf
+    NgIf,
+    NotifyRequestsStatusComponent,
+    QaEventNotificationComponent
   ]
 })
 export class ItemPageComponent implements OnInit, OnDestroy {

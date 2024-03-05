@@ -16,6 +16,12 @@ import { ThemedSearchComponent } from '../shared/search/themed-search.component'
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { RoleDirective } from '../shared/roles/role.directive';
+import {
+  SuggestionsNotificationComponent
+} from '../notifications/suggestions-notification/suggestions-notification.component';
+import {
+  MyDspaceQaEventsNotificationsComponent
+} from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 
@@ -38,7 +44,9 @@ export const MYDSPACE_ROUTE = '/mydspace';
     MyDSpaceNewSubmissionComponent,
     AsyncPipe,
     RoleDirective,
-    NgIf
+    NgIf,
+    SuggestionsNotificationComponent,
+    MyDspaceQaEventsNotificationsComponent
   ],
   standalone: true
 })

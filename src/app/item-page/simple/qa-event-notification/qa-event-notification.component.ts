@@ -10,13 +10,26 @@ import { catchError, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { SplitPipe } from '../../../shared/utils/split.pipe';
 
 @Component({
   selector: 'ds-qa-event-notification',
   templateUrl: './qa-event-notification.component.html',
   styleUrls: ['./qa-event-notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [QualityAssuranceSourceDataService]
+  providers: [QualityAssuranceSourceDataService],
+  imports: [
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+    SplitPipe
+  ],
+  standalone: true
 })
 /**
  * Component for displaying quality assurance event notifications for an item.
