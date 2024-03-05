@@ -27,8 +27,7 @@ describe('SuggestionsPopupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot()],
-    declarations: [SuggestionsPopupComponent],
+    imports: [TranslateModule.forRoot(), SuggestionsPopupComponent],
     providers: [
         { provide: SuggestionTargetsStateService, useValue: suggestionStateService },
         { provide: SuggestionsService, useValue: suggestionService },

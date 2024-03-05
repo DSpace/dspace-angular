@@ -13,7 +13,7 @@ describe('EPersonDataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [EPersonDataComponent],
+    imports: [EPersonDataComponent],
     providers: [{
             provide: EPersonDataService,
             useValue: ePersonDataService

@@ -35,8 +35,7 @@ describe('LdnServicesOverviewComponent', () => {
     paginationService = new PaginationServiceStub();
     ldnServicesService = jasmine.createSpyObj('LdnServicesService', ['findAll', 'delete', 'patch']);
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot()],
-    declarations: [LdnServicesOverviewComponent],
+    imports: [TranslateModule.forRoot(), LdnServicesOverviewComponent],
     providers: [
         {
             provide: LdnServicesService,

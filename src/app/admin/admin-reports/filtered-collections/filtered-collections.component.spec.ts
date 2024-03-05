@@ -28,7 +28,6 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [FilteredCollectionsComponent],
     imports: [
         NgbAccordionModule,
         TranslateModule.forRoot({
@@ -37,7 +36,8 @@ describe('FiltersComponent', () => {
                 useClass: TranslateLoaderMock
             }
         }),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        FilteredCollectionsComponent
     ],
     providers: [
         FormBuilder,

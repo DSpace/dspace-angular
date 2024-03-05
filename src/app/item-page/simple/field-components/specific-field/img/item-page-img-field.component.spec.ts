@@ -36,12 +36,11 @@ describe('ItemPageImgFieldComponent', () => {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        }), GenericItemPageFieldComponent, MetadataValuesComponent],
+        }), GenericItemPageFieldComponent, MetadataValuesComponent, ItemPageImgFieldComponent],
     providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
     ],
-    declarations: [ItemPageImgFieldComponent],
     schemas: [NO_ERRORS_SCHEMA]
 })
       .overrideComponent(GenericItemPageFieldComponent, {

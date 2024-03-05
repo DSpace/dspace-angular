@@ -15,9 +15,9 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         CommonModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        NotificationsSuggestionTargetsPageComponent
     ],
-    declarations: [NotificationsSuggestionTargetsPageComponent],
     providers: [
         NotificationsSuggestionTargetsPageComponent
     ],

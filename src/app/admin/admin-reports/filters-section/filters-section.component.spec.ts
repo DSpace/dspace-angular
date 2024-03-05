@@ -12,14 +12,14 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [FiltersComponent],
     imports: [
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
                 useClass: TranslateLoaderMock
             }
-        })
+        }),
+        FiltersComponent
     ],
     providers: [
         FormBuilder
