@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CollectionFormModule } from '../../app/collection-page/collection-form/collection-form.module';
-import { CommunityFormModule } from '../../app/community-page/community-form/community-form.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
 import { FormsModule } from '@angular/forms';
@@ -22,12 +20,10 @@ import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { RouterModule } from '@angular/router';
 import { InfoModule } from '../../app/info/info.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
-import { CollectionPageModule } from '../../app/collection-page/collection-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
 import { SearchModule } from '../../app/shared/search/search.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
-import { ComcolModule } from '../../app/shared/comcol/comcol.module';
 import { RootModule } from '../../app/root.module';
 import { BrowseByPageModule } from '../../app/browse-by/browse-by-page.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
@@ -42,10 +38,7 @@ const DECLARATIONS = [
     AppModule,
     RootModule,
     BrowseByPageModule,
-    CollectionFormModule,
-    CollectionPageModule,
     CommonModule,
-    CommunityFormModule,
     DragDropModule,
     ItemSharedModule,
     ItemPageModule,
@@ -73,7 +66,6 @@ const DECLARATIONS = [
     SearchModule,
     FormsModule,
     ResourcePoliciesModule,
-    ComcolModule
 ],
   declarations: DECLARATIONS,
 })

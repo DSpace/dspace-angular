@@ -9,7 +9,6 @@ import { of as observableOf } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComcolModule } from '../../../comcol.module';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
@@ -37,7 +36,6 @@ describe('ComcolRoleComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        ComcolModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule

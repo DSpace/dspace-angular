@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { Router, EventType, Scroll, ActivatedRoute, Params, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { EventType, Router, RouterLink, RouterLinkActive, Scroll } from '@angular/router';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';

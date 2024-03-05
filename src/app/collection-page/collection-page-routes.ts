@@ -24,6 +24,7 @@ import {
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
+import { SearchService } from '../core/shared/search/search.service';
 
 
 export const ROUTES: Route[] = [
@@ -39,6 +40,7 @@ export const ROUTES: Route[] = [
       LinkService,
       CreateCollectionPageGuard,
       CollectionPageAdministratorGuard,
+      SearchService
     ]
   },
   {
@@ -56,6 +58,7 @@ export const ROUTES: Route[] = [
       LinkService,
       CreateCollectionPageGuard,
       CollectionPageAdministratorGuard,
+      SearchService
     ],
     runGuardsAndResolvers: 'always',
     children: [

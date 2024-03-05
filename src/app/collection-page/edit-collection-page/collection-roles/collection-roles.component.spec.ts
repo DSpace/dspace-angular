@@ -11,7 +11,6 @@ import { RequestService } from '../../../core/data/request.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComcolModule } from '../../../shared/comcol/comcol.module';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -69,7 +68,6 @@ describe('CollectionRolesComponent', () => {
 
     TestBed.configureTestingModule({
     imports: [
-        ComcolModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,
