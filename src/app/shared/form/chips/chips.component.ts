@@ -6,7 +6,7 @@ import isObject from 'lodash/isObject';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { CdkDragDrop, CdkDragStart, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
@@ -22,7 +22,9 @@ import { AuthorityConfidenceStateDirective } from '../directives/authority-confi
     AsyncPipe,
     AuthorityConfidenceStateDirective,
     NgIf,
-    TranslateModule
+    TranslateModule,
+    CdkDrag,
+    CdkDropList
   ],
   standalone: true
 })
