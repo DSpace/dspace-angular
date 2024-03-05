@@ -24,9 +24,8 @@ import { Community } from '../../core/shared/community.model';
 import { Collection } from '../../core/shared/collection.model';
 import flatten from 'lodash/flatten';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthServiceMock } from '../mocks/auth.service.mock';
 import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
+import { createPaginatedList } from '../testing/utils.test';
 
 describe('DSOEditMenuResolver', () => {
 
@@ -152,7 +151,7 @@ describe('DSOEditMenuResolver', () => {
     });
 
     correctionsDataService = jasmine.createSpyObj('correctionsDataService', {
-      findByItem: observableOf([])
+      findByItem: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     });
 
     TestBed.configureTestingModule({
@@ -167,7 +166,6 @@ describe('DSOEditMenuResolver', () => {
         {provide: TranslateService, useValue: translate},
         {provide: NotificationsService, useValue: notificationsService},
         {provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService},
-        {provide: AuthService, useValue: new AuthServiceMock()},
         {provide: CorrectionTypeDataService, useValue: correctionsDataService},
         {
           provide: NgbModal, useValue: {
@@ -367,7 +365,7 @@ describe('DSOEditMenuResolver', () => {
         route = dsoRoute(testItem);
       });
 
-      it('should return Item-specific entries', () => {
+      it('should return Item-specific entries', (done: DoneFn) => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const orcidEntry = menu.find(entry => entry.id === 'orcid-dso');
@@ -388,18 +386,20 @@ describe('DSOEditMenuResolver', () => {
           expect(claimEntry.active).toBeFalse();
           expect(claimEntry.visible).toBeFalse();
           expect(claimEntry.model.type).toEqual(MenuItemType.ONCLICK);
+          done();
         });
       });
 
-      it('should not return Community/Collection-specific entries', () => {
+      it('should not return Community/Collection-specific entries', (done: DoneFn) => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const subscribeEntry = menu.find(entry => entry.id === 'subscribe');
           expect(subscribeEntry).toBeFalsy();
+          done();
         });
       });
 
-      it('should return as third part the common list ', () => {
+      it('should return as third part the common list ', (done: DoneFn) => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const editEntry = menu.find(entry => entry.id === 'edit-dso');
@@ -410,6 +410,7 @@ describe('DSOEditMenuResolver', () => {
           expect((editEntry.model as LinkMenuItemModel).link).toEqual(
             '/items/test-item-uuid/edit/metadata'
           );
+          done();
         });
       });
     });

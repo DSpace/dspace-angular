@@ -192,20 +192,6 @@ describe('ItemBitstreamsComponent', () => {
   });
 
   describe('when dropBitstream is called', () => {
-    const event = {
-      fromIndex: 0,
-      toIndex: 50,
-      // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
-      finish: () => {
-      }
-    };
-
-    beforeEach(() => {
-      comp.dropBitstream(bundle, event);
-    });
-  });
-
-  describe('when dropBitstream is called', () => {
     beforeEach((done) => {
       comp.dropBitstream(bundle, {
         fromIndex: 0,

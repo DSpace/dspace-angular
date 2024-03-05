@@ -66,7 +66,8 @@ import {
   MetadataInformationComponent
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
-import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
+import { SubmissionSectionIdentifiersComponent } from './sections/identifiers/section-identifiers.component';
+import { SubmissionSectionDuplicatesComponent } from './sections/duplicates/section-duplicates.component';
 import { SubmissionSectionCoarNotifyComponent } from './sections/section-coar-notify/section-coar-notify.component';
 import {
   CoarNotifyConfigDataService
@@ -81,7 +82,8 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionCcLicensesComponent,
   SubmissionSectionAccessesComponent,
   SubmissionSectionSherpaPoliciesComponent,
-  SubmissionSectionCoarNotifyComponent
+  SubmissionSectionCoarNotifyComponent,
+  SubmissionSectionDuplicatesComponent
 ];
 
 const DECLARATIONS = [
@@ -102,6 +104,7 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileEditComponent,
   SubmissionSectionUploadFileViewComponent,
   SubmissionSectionIdentifiersComponent,
+  SubmissionSectionDuplicatesComponent,
   SubmissionImportExternalComponent,
   ThemedSubmissionImportExternalComponent,
   SubmissionImportExternalSearchbarComponent,

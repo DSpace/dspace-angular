@@ -78,6 +78,7 @@ describe('LdnServicesService test', () => {
 
         rdbService = jasmine.createSpyObj('rdbService', {
             buildSingle: createSuccessfulRemoteDataObject$({}, 500),
+            buildFromRequestUUID: createSuccessfulRemoteDataObject$({}, 500),
             buildList: cold('a', { a: remoteDataMocks.Success })
         });
 
@@ -110,6 +111,20 @@ describe('LdnServicesService test', () => {
                 expect(service.searchBy).toHaveBeenCalledWith('byInboundPattern', findListOptions, undefined, undefined );
                 done();
             });
+        });
+
+        it('should invoke service', (done) => {
+          const constraints = [{void: true}];
+          const files = [new File([],'fileName')];
+          spyOn(service as any, 'getInvocationFormData');
+          spyOn(service, 'getBrowseEndpoint').and.returnValue(observableOf('testEndpoint'));
+          service.invoke('serviceName', 'serviceId', constraints, files).subscribe(result => {
+            expect((service as any).getInvocationFormData).toHaveBeenCalledWith(constraints, files);
+            expect(service.getBrowseEndpoint).toHaveBeenCalled();
+            expect(result).toBeInstanceOf(RemoteData);
+            done();
+          });
+
         });
     });
 

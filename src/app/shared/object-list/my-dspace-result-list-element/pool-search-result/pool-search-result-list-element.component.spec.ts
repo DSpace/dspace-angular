@@ -15,7 +15,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
@@ -27,6 +27,10 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { Context } from '../../../../core/shared/context.model';
+import { createPaginatedList } from '../../../testing/utils.test';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -34,7 +38,23 @@ let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
 const mockResultObject: PoolTaskSearchResult = new PoolTaskSearchResult();
 mockResultObject.hitHighlights = {};
 
+const emptyList = createSuccessfulRemoteDataObject(createPaginatedList([]));
+
+const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+  findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+    name: 'duplicate.enable',
+    values: [
+      'true'
+    ]
+  }))
+});
+const duplicateDataServiceStub = {
+  findListByHref: () => observableOf(emptyList),
+  findDuplicates: () => createSuccessfulRemoteDataObject$({}),
+};
+
 const item = Object.assign(new Item(), {
+  duplicates: observableOf([]),
   bundles: observableOf({}),
   metadata: {
     'dc.title': [
@@ -89,7 +109,9 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-        { provide: ObjectCacheService, useValue: objectCacheServiceMock }
+        { provide: ObjectCacheService, useValue: objectCacheServiceMock },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: SubmissionDuplicateDataService, useValue: duplicateDataServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultListElementComponent, {
