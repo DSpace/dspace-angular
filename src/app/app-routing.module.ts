@@ -236,8 +236,8 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
           },
           {
             path: SUGGESTION_MODULE_PATH,
-            loadChildren: () => import('./suggestions-page/suggestions-page.module')
-              .then((m) => m.SuggestionsPageModule),
+            loadChildren: () => import('./suggestions-page/suggestions-page-routes')
+              .then((m) => m.ROUTES),
             canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
           },
           {
