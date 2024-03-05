@@ -1,45 +1,34 @@
 import { Component } from '@angular/core';
 import { hasNoValue } from '../../shared/empty.util';
-import { DEFAULT_THEME, resolveTheme } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { BrowseByDataType } from './browse-by-data-type';
+import { BrowseByTitleComponent } from '../browse-by-title/browse-by-title.component';
+import { BrowseByMetadataComponent } from '../browse-by-metadata/browse-by-metadata.component';
+import { BrowseByDateComponent } from '../browse-by-date/browse-by-date.component';
+import { BrowseByTaxonomyComponent } from '../browse-by-taxonomy/browse-by-taxonomy.component';
 import {
   DEFAULT_THEME,
   resolveTheme
 } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ThemedBrowseByDatePageComponent } from '../browse-by-date-page/themed-browse-by-date-page.component';
-import {
-  ThemedBrowseByMetadataPageComponent
-} from '../browse-by-metadata-page/themed-browse-by-metadata-page.component';
-import {
-  ThemedBrowseByTaxonomyPageComponent
-} from '../browse-by-taxonomy-page/themed-browse-by-taxonomy-page.component';
-import { ThemedBrowseByTitlePageComponent } from '../browse-by-title-page/themed-browse-by-title-page.component';
-import { BrowseByDataType } from './browse-by-data-type';
-import { BrowseByDataType } from './browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 export const DEFAULT_BROWSE_BY_CONTEXT = Context.Any;
 
-export const BROWSE_BY_COMPONENT_FACTORY = new InjectionToken<(browseByType, theme) => GenericConstructor<any>>('getComponentByBrowseByType', {
-  providedIn: 'root',
-  factory: () => getComponentByBrowseByType
-});
-
 const map: Map<BrowseByDataType, Map<Context, Map<string, GenericConstructor<Component>>>> = new Map();
 
 type BrowseByComponentType =
-  typeof ThemedBrowseByTitlePageComponent |
-  typeof ThemedBrowseByMetadataPageComponent |
-  typeof ThemedBrowseByDatePageComponent |
-  typeof ThemedBrowseByTaxonomyPageComponent;
+  typeof BrowseByTitleComponent |
+  typeof BrowseByMetadataComponent |
+  typeof BrowseByDateComponent |
+  typeof BrowseByTaxonomyComponent;
 
 export const BROWSE_BY_DECORATOR_MAP =
-  new Map<BrowseByDataType, Map<string, BrowseByComponentType>>([
-    [BrowseByDataType.Date, new Map([[DEFAULT_THEME, ThemedBrowseByDatePageComponent]])],
-    [BrowseByDataType.Metadata, new Map([[DEFAULT_THEME, ThemedBrowseByMetadataPageComponent]])],
-    [BrowseByDataType.Hierarchy, new Map([[DEFAULT_THEME, ThemedBrowseByTaxonomyPageComponent]])],
-    [BrowseByDataType.Title, new Map([[DEFAULT_THEME, ThemedBrowseByTitlePageComponent]])]
+  new Map<BrowseByDataType, Map<Context, Map<string, BrowseByComponentType>>>([
+    [BrowseByDataType.Date, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByDateComponent]])]])],
+    [BrowseByDataType.Metadata, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByMetadataComponent]])]])],
+    [BrowseByDataType.Hierarchy, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByTaxonomyComponent]])]])],
+    [BrowseByDataType.Title, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByTitleComponent]])]])]
   ]);
 
 /**
@@ -74,12 +63,12 @@ export function rendersBrowseBy(browseByType: BrowseByDataType, context = DEFAUL
  * @param context The context to match
  * @param theme the theme to match
  */
-export function getComponentByBrowseByType(browseByType: BrowseByDataType, context: Context, theme: string): GenericConstructor<Component> {
-  let contextMap: Map<Context, Map<string, GenericConstructor<Component>>> = BROWSE_BY_DECORATOR_MAP.get(browseByType);
+export function getComponentByBrowseByType(browseByType: BrowseByDataType, context: Context, theme: string) {
+  let contextMap: Map<Context, Map<string, BrowseByComponentType>> = BROWSE_BY_DECORATOR_MAP.get(browseByType);
   if (hasNoValue(contextMap)) {
-    contextMap = map.get(DEFAULT_BROWSE_BY_TYPE);
+    contextMap = BROWSE_BY_DECORATOR_MAP.get(DEFAULT_BROWSE_BY_TYPE);
   }
-  let themeMap: Map<string, GenericConstructor<Component>> = contextMap.get(context);
+  let themeMap: Map<string, BrowseByComponentType> = contextMap.get(context);
   if (hasNoValue(themeMap)) {
     themeMap = contextMap.get(DEFAULT_BROWSE_BY_CONTEXT);
   }

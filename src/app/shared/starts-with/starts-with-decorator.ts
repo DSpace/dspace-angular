@@ -11,8 +11,8 @@ export enum StartsWithType {
 
 type StartsWithComponentType = typeof StartsWithDateComponent | typeof StartsWithTextComponent;
 export const STARTS_WITH_DECORATOR_MAP = new Map<StartsWithType, StartsWithComponentType>([
-  [StartsWithType.text,StartsWithTextComponent],
-  [StartsWithType.date,StartsWithDateComponent],
+  [StartsWithType.text, StartsWithTextComponent],
+  [StartsWithType.date, StartsWithDateComponent],
 ]);
 
 /**
