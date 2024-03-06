@@ -47,10 +47,6 @@
             [contentType]="collection.type">
           </ds-themed-comcol-page-browse-by>
 
-          <!-- Bouton permettant de basculer entre les modes d'affichage en liste et en mosaïque. -->
-          <ds-view-mode-switch></ds-view-mode-switch>
-          <!-- Fin Bouton -->
-
           <router-outlet></router-outlet>
         </section>
         <footer *ngIf="collection.copyrightText" class="border-top my-5 pt-4">
