@@ -111,7 +111,7 @@ export class FiltersComponent {
     return undefined;
   }
 
-  static toQueryString(filters: Object): string {
+  static toQueryString(filters: { [key: string]: any }): string {
     let params = '';
     let first = true;
     for (const key in filters) {

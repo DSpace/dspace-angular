@@ -152,8 +152,12 @@ export class LogInPasswordComponent implements OnInit {
       }),
     );
 
-    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(shareReplay(1));
-    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(
+      shareReplay({ refCount: false, bufferSize: 1 }),
+    );
+    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(
+      shareReplay({ refCount: false, bufferSize: 1 }),
+    );
     this.canShowDivider$ =
         combineLatest([this.canRegister$, this.canForgot$])
           .pipe(

@@ -1,6 +1,6 @@
 <ng-container *ngIf="data?.length > 0 && displayOptions">
   <div
-    [ngClass]="{'align-items-center': data.length == 1}"
+    [ngClass]="{'align-items-center': data.length === 1}"
     class="alert d-flex flex-row sections-gap {{
       displayOptions.alertType
     }}"

@@ -261,8 +261,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
     const servicesToUse = this.ldnService.notifyServiceInboundPatterns;
 
     servicesToUse.forEach((patternObj: NotifyServicePattern) => {
-      let patternFormGroup;
-      patternFormGroup = this.initializeInboundPatternFormGroup();
+      const patternFormGroup = this.initializeInboundPatternFormGroup();
       const newPatternObjWithLabel = Object.assign(new NotifyServicePattern(), {
         ...patternObj,
         patternLabel: this.translateService.instant('ldn-service.form.pattern.' + patternObj?.pattern + '.label'),

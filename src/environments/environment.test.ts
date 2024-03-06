@@ -123,7 +123,7 @@ export const environment: BuildConfig = {
       timer: 5,
     },
     duplicateDetection: {
-      alwaysShowSection: false
+      alwaysShowSection: false,
     },
     typeBind: {
       field: 'dc.type',
@@ -152,22 +152,24 @@ export const environment: BuildConfig = {
           {
             value: 600,
             style: 'text-success',
-            icon: 'fa-circle-check'
+            icon: 'fa-circle-check',
           },
           {
             value: 500,
             style: 'text-info',
-            icon: 'fa-gear'
+            icon: 'fa-gear',
           },
           {
             value: 400,
             style: 'text-warning',
-            icon: 'fa-circle-question'
+            icon: 'fa-circle-question',
           },
           {
             value: 'default',
             style: 'text-muted',
-            icon: 'fa-circle-xmark'
+            icon: 'fa-circle-xmark',
+          },
+        ],
       },
     },
   },
@@ -247,9 +249,9 @@ export const environment: BuildConfig = {
       sortField: 'dc.date.accessioned',
     },
     topLevelCommunityList: {
-      pageSize: 5
+      pageSize: 5,
     },
-    showDiscoverFilters: false
+    showDiscoverFilters: false,
   },
   item: {
     edit: {
@@ -332,8 +334,8 @@ export const environment: BuildConfig = {
     {
       filter: 'subject',
       vocabulary: 'srsc',
-      enabled: true
-    }
+      enabled: true,
+    },
   ],
 
   suggestion: [],
@@ -341,8 +343,8 @@ export const environment: BuildConfig = {
   search: {
     advancedFilters: {
       enabled: false,
-      filter: ['title', 'author', 'subject', 'entityType']
-    }
+      filter: ['title', 'author', 'subject', 'entityType'],
+    },
   },
 
   notifyMetrics: [
@@ -353,34 +355,34 @@ export const environment: BuildConfig = {
           color: '#B8DAFF',
           title: 'admin-notify-dashboard.NOTIFY.incoming.accepted',
           config: 'NOTIFY.incoming.accepted',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description',
         },
         {
           color: '#D4EDDA',
           title: 'admin-notify-dashboard.NOTIFY.incoming.processed',
           config: 'NOTIFY.incoming.processed',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description',
         },
         {
           color: '#FDBBC7',
           title: 'admin-notify-dashboard.NOTIFY.incoming.failure',
           config: 'NOTIFY.incoming.failure',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description',
         },
         {
           color: '#FDBBC7',
           title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted',
           config: 'NOTIFY.incoming.untrusted',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description',
         },
         {
           color: '#43515F',
           title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.incoming.involvedItems',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description',
         },
-      ]
+      ],
     },
     {
       title: 'admin-notify-dashboard.generated-ldn',
@@ -389,34 +391,34 @@ export const environment: BuildConfig = {
           color: '#D4EDDA',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered',
           config: 'NOTIFY.outgoing.delivered',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description',
         },
         {
           color: '#B8DAFF',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.queued',
           config: 'NOTIFY.outgoing.queued',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description',
         },
         {
           color: '#FDEEBB',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry',
           config: 'NOTIFY.outgoing.queued_for_retry',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description',
         },
         {
           color: '#FDBBC7',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.failure',
           config: 'NOTIFY.outgoing.failure',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description',
         },
         {
           color: '#43515F',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.outgoing.involvedItems',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description',
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 };

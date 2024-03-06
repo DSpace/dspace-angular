@@ -41,7 +41,7 @@ import {
 describe('ProcessDataService', () => {
   let testScheduler;
 
-  const mockTimer = (fn: () => {}, interval: number) => {
+  const mockTimer = (fn: () => any, interval: number) => {
     fn();
     return 555;
   };

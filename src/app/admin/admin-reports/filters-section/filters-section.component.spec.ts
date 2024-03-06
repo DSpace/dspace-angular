@@ -45,7 +45,7 @@ describe('FiltersComponent', () => {
     fixture.detectChanges();
   }));
 
-  const isOneSelected = (values: {}): boolean => {
+  const isOneSelected = (values: any): boolean => {
     let oneSelected = false;
     let allFilters = FiltersComponent.FILTERS;
     for (let i = 0; !oneSelected && i < allFilters.length; i++) {
@@ -58,7 +58,7 @@ describe('FiltersComponent', () => {
     return oneSelected;
   };
 
-  const isAllSelected = (values: {}): boolean => {
+  const isAllSelected = (values: any): boolean => {
     let allSelected = true;
     let allFilters = FiltersComponent.FILTERS;
     for (let i = 0; allSelected && i < allFilters.length; i++) {

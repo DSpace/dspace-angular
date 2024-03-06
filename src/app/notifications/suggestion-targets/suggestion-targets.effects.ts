@@ -21,6 +21,7 @@ import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,
   AddUserSuggestionsAction,
+  RefreshUserSuggestionsErrorAction,
   RetrieveAllTargetsErrorAction,
   RetrieveTargetsBySourceAction,
   SuggestionTargetActionTypes,
@@ -46,8 +47,8 @@ export class SuggestionTargetsEffects {
         map((targets: PaginatedList<SuggestionTarget>) =>
           new AddTargetAction(targets.page, targets.totalPages, targets.currentPage, targets.totalElements),
         ),
-        catchError((error: Error) => {
-          if (error) {
+        catchError((error: unknown) => {
+          if (error instanceof Error) {
             console.error(error.message);
           }
           return of(new RetrieveAllTargetsErrorAction());
@@ -78,10 +79,20 @@ export class SuggestionTargetsEffects {
             return this.suggestionsService.retrieveCurrentUserSuggestions(userId)
               .pipe(
                 map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
-                catchError((errors: unknown) => of(errors)),
+                catchError((error: unknown) => {
+                  if (error instanceof Error) {
+                    console.error(error.message);
+                  }
+                  return of(new RefreshUserSuggestionsErrorAction());
+                }),
               );
           }),
-          catchError((errors: unknown) => of(errors)),
+          catchError((error: unknown) => {
+            if (error instanceof Error) {
+              console.error(error.message);
+            }
+            return of(new RefreshUserSuggestionsErrorAction());
+          }),
         );
     })),
   );

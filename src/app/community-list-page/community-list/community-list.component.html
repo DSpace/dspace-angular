@@ -33,7 +33,7 @@
         <span class="sr-only">{{ (node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) } }}</span>
       </button>
       <!--Don't render the button when non-expandable otherwise it's still accessible, instead render this placeholder-->
-      <span *ngIf="!(hasChild(null, node) | async)" aria-hidden="true" class="btn btn-default invisible">
+      <span *ngIf="(hasChild(null, node) | async) === false" aria-hidden="true" class="btn btn-default invisible">
         <span class="fa fa-chevron-right"></span>
       </span>
       <div class="d-flex flex-row">
