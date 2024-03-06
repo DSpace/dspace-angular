@@ -73,12 +73,19 @@ describe('UploadBitstreamComponent', () => {
           language: null,
           value: itemName
         }
+      ],
+      // Include IIIF enable metadata for mock item to avoid having to change all
+      // test assertions, which compare bundles that appear to standard bundles
+      'dspace.iiif.enabled': [
+        {
+          value: true,
+          language: null
+        }
       ]
     },
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
   });
   const standardBundleSuggestions = environment.bundle.standardBundles;
-  let routeStub;
   const routerStub = new RouterStub();
   const restEndpoint = 'fake-rest-endpoint';
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
@@ -268,20 +275,64 @@ describe('UploadBitstreamComponent', () => {
     });
   });
 
+  describe('when the item has IIIF enabled', () => {
+    beforeEach(waitForAsync(() => {
+      createUploadBitstreamTestingModule({ bundle: bundle.id });
+      jasmine.getEnv().allowRespy(true);
+      mockItemDataService.getBundles.and.returnValue(
+        createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+      );
+      loadFixtureAndComp();
+    }));
+
+    it('should show IIIF_MANIFEST in bundle list', () => {
+      const expectedSuggestions = [...standardBundleSuggestions];
+      expect(comp.bundles.length).toEqual(expectedSuggestions.length);
+
+      // Component bundles should be equivalent to expected suggestions
+      const bundlesEqualExpected = expectedSuggestions.reduce(
+        (result: boolean, value: string) => result && comp.bundles.some((b) => b.name === value),
+        true
+      );
+      expect(bundlesEqualExpected).toBeTrue();
+      expect(comp.bundles.some((b) => b.name === 'IIIF_MANIFEST')).toBeTrue();
+    });
+  });
+
+  describe('', () => {
+    beforeEach(waitForAsync(() => {
+      const iiifDisabledItem = Object.assign(new Item(), mockItem, {
+        metadata: {
+          'dspace.iiif.enabled': [{ value: false, language: null }]
+        }
+      });
+      createUploadBitstreamTestingModule({ bundle: bundle.id }, iiifDisabledItem);
+      jasmine.getEnv().allowRespy(true);
+      mockItemDataService.getBundles.and.returnValue(
+        createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []))
+      );
+      loadFixtureAndComp();
+    }));
+
+    it('should not show IIIF_MANIFEST in the bundle list', () => {
+      expect(comp.bundles.some((b) => b.name === 'IIIF_MANIFEST')).toBeFalse();
+    });
+  });
+
   /**
    * Setup an UploadBitstreamComponent testing module with custom queryParams for the route
    * @param queryParams
    */
-  function createUploadBitstreamTestingModule(queryParams) {
-    routeStub = {
+  function createUploadBitstreamTestingModule(queryParams, item = mockItem) {
+    let routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
+        dso: createSuccessfulRemoteDataObject(item)
       }),
       queryParams: observableOf(queryParams),
       snapshot: {
         queryParams: queryParams,
         params: {
-          id: mockItem.id
+          id: item.id
         }
       }
     };

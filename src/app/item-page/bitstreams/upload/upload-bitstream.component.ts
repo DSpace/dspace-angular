@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subscription, of as observableOf } from 'rxjs';
+import { Observable, Subscription, combineLatest, of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { map, take, switchMap } from 'rxjs/operators';
@@ -10,7 +10,6 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
@@ -20,6 +19,7 @@ import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { getEntityEditRoute } from '../../item-page-routing-paths';
 import { environment } from '../../../../environments/environment';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { isIiifEnabled } from '../../simple/item-types/shared/item-iiif-utils';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -112,36 +112,51 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
     this.entityType = this.route.snapshot.params['entity-type'];
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
     const bundlesRD$ = this.itemService.getBundles(this.itemId).pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((remoteData: RemoteData<PaginatedList<Bundle>>) => {
-        if (remoteData.hasSucceeded) {
-          if (remoteData.payload.page) {
-            this.bundles = remoteData.payload.page;
-            for (const defaultBundle of environment.bundle.standardBundles) {
-              let check = true;
-              remoteData.payload.page.forEach((bundle: Bundle) => {
-                // noinspection JSDeprecatedSymbols
-                if (defaultBundle === bundle.name) {
-                  check = false;
+      getFirstCompletedRemoteData()
+    );
+
+    this.subs.push(combineLatest([this.itemRD$, bundlesRD$])
+      .pipe(
+        switchMap(([item, bundles]) => {
+          // If no item has resolved, then something is very wrong
+          // is there a fallback if this somehow happens?
+          if (item.hasSucceeded && bundles.hasSucceeded) {
+            if (bundles.payload.page) {
+              this.bundles = bundles.payload.page;
+              // For each default bundle, check to see if any exists in the item.bundles
+              // If not, add it to the bundles
+              for (const defaultBundle of this.filteredStandardBundles(item.payload)) {
+                let check = true;
+                bundles.payload.page.forEach((bundle: Bundle) => {
+                  // noinspection JSDeprecatedSymbols
+                  if (defaultBundle === bundle.name) {
+                    check = false;
+                  }
+                });
+                if (check) {
+                  this.bundles.push(Object.assign(new Bundle(), {
+                    _name: defaultBundle,
+                    type: 'bundle'
+                  }));
                 }
-              });
-              if (check) {
-                this.bundles.push(Object.assign(new Bundle(), {
-                  _name: defaultBundle,
-                  type: 'bundle'
-                }));
               }
+            } else {
+              // No bundles found on item, add default bundles
+              this.bundles = this.filteredStandardBundles(item.payload)
+                .map((defaultBundle: string) => Object.assign(new Bundle(), {
+                    _name: defaultBundle,
+                    type: 'bundle'
+                  })
+                );
             }
-          } else {
-            this.bundles = environment.bundle.standardBundles.map((defaultBundle: string) => Object.assign(new Bundle(), {
-                _name: defaultBundle,
-                type: 'bundle'
-              })
-            );
+            return observableOf(bundles.payload.page);
           }
-          return observableOf(remoteData.payload.page);
-        }
-      }));
+        })
+      )
+      .subscribe()
+    );
+
+
     this.selectedBundleId = this.route.snapshot.queryParams.bundle;
     if (isNotEmpty(this.selectedBundleId)) {
       this.subs.push(this.bundleService.findById(this.selectedBundleId).pipe(
@@ -151,7 +166,25 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
       }));
       this.setUploadUrl();
     }
-    this.subs.push(bundlesRD$.subscribe());
+  }
+
+  /**
+   * Filter the IIIF_MANIFEST bundle out of standard suggestions list if
+   * the item is not IIIF enabled
+   *
+   * @param item {Item}
+   * @returns filtered list of standard bundle suggestions
+   */
+  filteredStandardBundles(item: Item) {
+    if (!isIiifEnabled(item)) {
+      return environment.bundle.standardBundles.filter((defaultBundle: string) => {
+        // TODO: This should be a contstant from somewhere?
+        return defaultBundle !== 'IIIF_MANIFEST';
+      });
+    }
+
+    // Else, return standard bundles including IIIF_MANIFEST
+    return environment.bundle.standardBundles;
   }
 
   /**
