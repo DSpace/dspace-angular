@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthService } from '../../../core/auth/auth.service';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import {
@@ -25,6 +25,10 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { ItemRequest } from '../../../core/shared/item-request.model';
 import { Location } from '@angular/common';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { CookieService } from 'src/app/core/services/cookie.service';
+import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
+import { GoogleRecaptchaService } from 'src/app/core/google-recaptcha/google-recaptcha.service';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
 
 
 describe('BitstreamRequestACopyPageComponent', () => {
@@ -44,12 +48,29 @@ describe('BitstreamRequestACopyPageComponent', () => {
   let bitstream: Bitstream;
   let eperson;
 
+
+  const captchaVersion$ = of('v3');
+  const captchaMode$ = of('invisible');
+  const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['true'] });
+  const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['false'] });
+
+  const googleRecaptchaService = jasmine.createSpyObj('googleRecaptchaService', {
+    getRecaptchaToken: Promise.resolve('googleRecaptchaToken'),
+    executeRecaptcha: Promise.resolve('googleRecaptchaToken'),
+    getRecaptchaTokenResponse: Promise.resolve('googleRecaptchaToken'),
+    captchaVersion: captchaVersion$,
+    captchaMode: captchaMode$,
+  });
+  let configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: jasmine.createSpy('findByPropertyName')
+  });
+
   function init() {
     eperson = Object.assign(new EPerson(), {
       email: 'test@mail.org',
       metadata: {
-        'eperson.firstname': [{value: 'Test'}],
-        'eperson.lastname': [{value: 'User'}],
+        'eperson.firstname': [{ value: 'Test' }],
+        'eperson.lastname': [{ value: 'User' }],
       }
     });
     authService = jasmine.createSpyObj('authService', {
@@ -70,13 +91,13 @@ describe('BitstreamRequestACopyPageComponent', () => {
 
     notificationsService = new NotificationsServiceStub();
 
-    item = Object.assign(new Item(), {uuid: 'item-uuid'});
+    item = Object.assign(new Item(), { uuid: 'item-uuid' });
 
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
-        content: {href: 'bitstream-content-link'},
-        self: {href: 'bitstream-self-link'},
+        content: { href: 'bitstream-content-link' },
+        self: { href: 'bitstream-self-link' },
       }
     });
 
@@ -87,7 +108,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         )
       }),
       queryParams: observableOf({
-        bitstream : bitstream.uuid
+        bitstream: bitstream.uuid
       })
     };
 
@@ -96,6 +117,9 @@ describe('BitstreamRequestACopyPageComponent', () => {
     });
 
     router = new RouterStub();
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: jasmine.createSpy('findByPropertyName')
+    });
   }
 
   function initTestbed() {
@@ -103,15 +127,19 @@ describe('BitstreamRequestACopyPageComponent', () => {
       imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule],
       declarations: [BitstreamRequestACopyPageComponent],
       providers: [
-        {provide: Location, useValue: location},
-        {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: Router, useValue: router},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: AuthService, useValue: authService},
-        {provide: ItemRequestDataService, useValue: itemRequestDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: DSONameService, useValue: new DSONameServiceMock()},
-        {provide: BitstreamDataService, useValue: bitstreamDataService},
+        { provide: Location, useValue: location },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: Router, useValue: router },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: AuthService, useValue: authService },
+        { provide: ItemRequestDataService, useValue: itemRequestDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: BitstreamDataService, useValue: bitstreamDataService },
+        { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: GoogleRecaptchaService, useValue: googleRecaptchaService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+
       ]
     })
       .compileComponents();
@@ -120,11 +148,14 @@ describe('BitstreamRequestACopyPageComponent', () => {
   describe('init', () => {
     beforeEach(waitForAsync(() => {
       init();
+      (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
       initTestbed();
     }));
     beforeEach(() => {
       fixture = TestBed.createComponent(BitstreamRequestACopyPageComponent);
       component = fixture.componentInstance;
+      googleRecaptchaService.captchaVersion$ = captchaVersion$;
+      googleRecaptchaService.captchaMode$ = captchaMode$;
       fixture.detectChanges();
     });
     it('should init the comp', () => {
@@ -136,6 +167,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('when the user is not logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
         initTestbed();
       }));
       beforeEach(() => {
@@ -155,6 +187,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
       beforeEach(waitForAsync(() => {
         init();
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
         initTestbed();
       }));
       beforeEach(() => {
@@ -173,6 +206,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('when no bitstream was provided', () => {
       beforeEach(waitForAsync(() => {
         init();
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
         activatedRoute = {
           data: observableOf({
             dso: createSuccessfulRemoteDataObject(
@@ -204,6 +238,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
       beforeEach(waitForAsync(() => {
         init();
         (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
         initTestbed();
       }));
       beforeEach(() => {
@@ -222,6 +257,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('onSuccess', () => {
       beforeEach(waitForAsync(() => {
         init();
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
         initTestbed();
       }));
       beforeEach(() => {
@@ -234,7 +270,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         component.email.patchValue('user@name.org');
         component.allfiles.patchValue('false');
         component.message.patchValue('I would like to request a copy');
-
+        component.captchaToken = '';
         component.onSubmit();
         const itemRequest = Object.assign(new ItemRequest(),
           {
@@ -246,7 +282,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
             requestMessage: 'I would like to request a copy'
           });
 
-        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest);
+        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest, component.captchaToken);
         expect(notificationsService.success).toHaveBeenCalled();
         expect(location.back).toHaveBeenCalled();
       });
@@ -255,6 +291,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('onFail', () => {
       beforeEach(waitForAsync(() => {
         init();
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
         (itemRequestDataService.requestACopy as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
         initTestbed();
       }));
@@ -268,7 +305,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         component.email.patchValue('user@name.org');
         component.allfiles.patchValue('false');
         component.message.patchValue('I would like to request a copy');
-
+        component.captchaToken = '';
         component.onSubmit();
         const itemRequest = Object.assign(new ItemRequest(),
           {
@@ -280,7 +317,78 @@ describe('BitstreamRequestACopyPageComponent', () => {
             requestMessage: 'I would like to request a copy'
           });
 
-        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest);
+        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest, component.captchaToken);
+        expect(notificationsService.error).toHaveBeenCalled();
+        expect(location.back).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('register with google recaptcha', () => {
+    describe('onSuccess', () => {
+      beforeEach(waitForAsync(() => {
+        init();
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
+        initTestbed();
+      }));
+      beforeEach(() => {
+        fixture = TestBed.createComponent(BitstreamRequestACopyPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+      it('should send a registration to the service and on success display a message and return to home', () => {
+        component.name.patchValue('User Name');
+        component.email.patchValue('user@name.org');
+        component.allfiles.patchValue('false');
+        component.message.patchValue('I would like to request a copy');
+        component.captchaToken = 'googleRecaptchaToken';
+        component.onSubmit();
+        const itemRequest = Object.assign(new ItemRequest(),
+          {
+            itemId: item.uuid,
+            bitstreamId: bitstream.uuid,
+            allfiles: 'false',
+            requestEmail: 'user@name.org',
+            requestName: 'User Name',
+            requestMessage: 'I would like to request a copy'
+          });
+
+        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest, component.captchaToken);
+        expect(notificationsService.success).toHaveBeenCalled();
+        expect(location.back).toHaveBeenCalled();
+      });
+    });
+
+    describe('onFail', () => {
+      beforeEach(waitForAsync(() => {
+        init();
+        (configurationDataService.findByPropertyName as jasmine.Spy).and.returnValue(confResponse$);
+        (itemRequestDataService.requestACopy as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$());
+        initTestbed();
+      }));
+      beforeEach(() => {
+        fixture = TestBed.createComponent(BitstreamRequestACopyPageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+      it('should send a registration to the service and on error display a message', () => {
+        component.name.patchValue('User Name');
+        component.email.patchValue('user@name.org');
+        component.allfiles.patchValue('false');
+        component.message.patchValue('I would like to request a copy');
+        component.captchaToken = '';
+        component.onSubmit();
+        const itemRequest = Object.assign(new ItemRequest(),
+          {
+            itemId: item.uuid,
+            bitstreamId: bitstream.uuid,
+            allfiles: 'false',
+            requestEmail: 'user@name.org',
+            requestName: 'User Name',
+            requestMessage: 'I would like to request a copy'
+          });
+
+        expect(itemRequestDataService.requestACopy).toHaveBeenCalledWith(itemRequest, component.captchaToken);
         expect(notificationsService.error).toHaveBeenCalled();
         expect(location.back).not.toHaveBeenCalled();
       });

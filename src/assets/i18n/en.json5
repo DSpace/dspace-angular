@@ -6310,6 +6310,10 @@
 
   "ldn.no-filter.label": "None",
 
+  "request-copy-page.registration.google-recaptcha.must-accept-cookies": "In order to request copy you must accept the  <b>Request a copy of the file</b> (Google reCaptcha) cookies.",
+
+  "request-copy-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
+
   "admin.notify.dashboard": "Dashboard",
 
   "menu.section.notify_dashboard": "Dashboard",
@@ -6641,4 +6645,5 @@
   "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
 
   "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+
 }
