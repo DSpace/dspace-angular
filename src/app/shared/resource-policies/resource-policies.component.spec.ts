@@ -57,6 +57,7 @@ import {
   createPaginatedList,
   createTestComponent,
 } from '../testing/utils.test';
+import { HasValuePipe } from '../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
 import { ResourcePoliciesComponent } from './resource-policies.component';
 
@@ -230,6 +231,7 @@ describe('ResourcePoliciesComponent test suite', () => {
         ResourcePoliciesComponent,
         ResourcePolicyEntryComponent,
         TestComponent,
+        HasValuePipe,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },

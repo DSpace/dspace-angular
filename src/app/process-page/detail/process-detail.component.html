@@ -55,8 +55,8 @@
                            message="{{ 'process.detail.logs.loading' | translate }}"></ds-themed-loading>
         <pre class="font-weight-bold text-secondary bg-light p-3" tabindex="0"
              *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async) }}</pre>
-        <p id="no-output-logs-message" *ngIf="((retrievingOutputLogs$ | async) === false && showOutputLogs)
-      && (outputLogs$ | async) === null || (outputLogs$ | async)?.length === 0 || !process._links.output">
+        <p id="no-output-logs-message" *ngIf="((retrievingOutputLogs$ | async) !== true && showOutputLogs)
+      && (outputLogs$ | async | dsHasNoValue) || (outputLogs$ | async)?.length === 0 || !process._links.output">
             {{ 'process.detail.logs.none' | translate }}
         </p>
     </ds-process-detail-field>

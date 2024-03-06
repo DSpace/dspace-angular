@@ -37,6 +37,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { RouterStub } from '../../shared/testing/router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
@@ -147,7 +148,13 @@ describe('ProcessDetailComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     void TestBed.configureTestingModule({
-      declarations: [ProcessDetailComponent, ProcessDetailFieldComponent, VarDirective, FileSizePipe],
+      declarations: [
+        ProcessDetailComponent,
+        ProcessDetailFieldComponent,
+        VarDirective,
+        FileSizePipe,
+        HasNoValuePipe,
+      ],
       imports: [TranslateModule.forRoot(), RouterTestingModule],
       providers: [
         { provide: ActivatedRoute, useValue: route },

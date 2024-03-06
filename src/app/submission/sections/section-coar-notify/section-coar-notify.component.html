@@ -92,7 +92,7 @@
             </small>
             <ng-container *ngIf="(getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)?.length > 0">
               <small class="row text-danger" *ngFor="let error of (getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)">
-                {{ error.message  | translate}}
+                {{ error.message | translate}}
               </small>
             </ng-container>
             <div

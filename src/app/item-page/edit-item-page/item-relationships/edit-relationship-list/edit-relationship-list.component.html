@@ -6,7 +6,7 @@
     </button>
 </h2>
 <ng-container *ngVar="updates$ | async as updates">
-    <ng-container *ngIf="updates && (loading$ | async) === false">
+    <ng-container *ngIf="updates && (loading$ | async) !== true">
         <ng-container *ngVar="updates | dsObjectValues as updateValues">
           <ds-pagination
             [paginationOptions]="paginationConfig"

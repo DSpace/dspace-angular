@@ -176,6 +176,8 @@ import { EmphasizePipe } from './utils/emphasize.pipe';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { FileValueAccessorDirective } from './utils/file-value-accessor.directive';
+import { HasNoValuePipe } from './utils/has-no-value.pipe';
+import { HasValuePipe } from './utils/has-value.pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
 import { IpV4Validator } from './utils/ipV4.validator';
 import { MarkdownPipe } from './utils/markdown.pipe';
@@ -231,6 +233,8 @@ const PIPES = [
   MarkdownPipe,
   ShortNumberPipe,
   SplitPipe,
+  HasValuePipe,
+  HasNoValuePipe,
 ];
 
 const COMPONENTS = [

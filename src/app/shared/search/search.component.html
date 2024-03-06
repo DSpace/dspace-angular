@@ -17,7 +17,7 @@
 
 <ng-template #searchContent>
     <div class="row">
-        <div class="col-12" *ngIf="(isXsOrSm$ | async) === false">
+        <div class="col-12" *ngIf="(isXsOrSm$ | async) !== true">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
             <ng-content select="[additionalSearchOptions]"></ng-content>
         </div>
@@ -28,7 +28,7 @@
                 <button (click)="openSidebar()" aria-controls="#search-body"
                         class="btn btn-outline-primary float-right open-sidebar"><i
                         class="fas fa-sliders"></i> {{"search.sidebar.open"
-                        | translate}}
+                       | translate}}
                 </button>
             </div>
             <ds-themed-search-results *ngIf="inPlaceSearch"
@@ -50,7 +50,7 @@
 </ng-template>
 
 <ng-template #sidebarContent>
-    <ds-themed-search-sidebar id="search-sidebar" *ngIf="(isXsOrSm$ | async) === false"
+    <ds-themed-search-sidebar id="search-sidebar" *ngIf="(isXsOrSm$ | async) !== true"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"

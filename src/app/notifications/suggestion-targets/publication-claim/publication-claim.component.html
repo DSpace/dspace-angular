@@ -4,7 +4,7 @@
       <h1 id="header" class="border-bottom pb-2">{{'suggestion.title'| translate}}</h1>
 
       <ds-loading class="container" *ngIf="(isTargetsLoading() | async)" message="{{'suggestion.loading' | translate}}"></ds-loading>
-      <ds-pagination *ngIf="(isTargetsLoading() | async) === false"
+      <ds-pagination *ngIf="(isTargetsLoading() | async) !== true"
                      [paginationOptions]="paginationConfig"
                      [collectionSize]="(totalElements$ | async)"
                      [hideGear]="false"
@@ -12,7 +12,7 @@
                      (paginationChange)="getSuggestionTargets()">
 
         <ds-loading class="container" *ngIf="(isTargetsProcessing() | async)" message="'suggestion.loading' | translate"></ds-loading>
-        <ng-container *ngIf="(isTargetsProcessing() | async) === false">
+        <ng-container *ngIf="(isTargetsProcessing() | async) !== true">
           <div *ngIf="(targets$ | async)?.length === 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
             {{'suggestion.noTargets' | translate}}
           </div>

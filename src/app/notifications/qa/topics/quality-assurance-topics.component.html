@@ -14,7 +14,7 @@
       <h4 class="border-bottom pb-2">{{'quality-assurance.topics'| translate}}</h4>
 
       <ds-loading class="container" *ngIf="(isTopicsLoading() | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
-      <ds-pagination *ngIf="(isTopicsLoading() | async) === false"
+      <ds-pagination *ngIf="(isTopicsLoading() | async) !== true"
                      [paginationOptions]="paginationConfig"
                      [collectionSize]="(totalElements$ | async)"
                      [hideGear]="false"
@@ -22,7 +22,7 @@
                      (paginationChange)="getQualityAssuranceTopics(sourceId, targetId)">
 
         <ds-loading class="container" *ngIf="(isTopicsProcessing() | async)" message="'quality-assurance.loading' | translate"></ds-loading>
-        <ng-container *ngIf="(isTopicsProcessing() | async) === false">
+        <ng-container *ngIf="(isTopicsProcessing() | async) !== true">
           <div *ngIf="(topics$ | async)?.length === 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
             {{'quality-assurance.noTopics' | translate}}
           </div>

@@ -29,6 +29,7 @@ import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { GroupMock } from '../../testing/group-mock';
 import { RouterStub } from '../../testing/router.stub';
+import { HasValuePipe } from '../../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
 import createSpyObj = jasmine.createSpyObj;
 
@@ -128,6 +129,7 @@ describe('ResourcePolicyEntryComponent', () => {
       ],
       declarations: [
         ResourcePolicyEntryComponent,
+        HasValuePipe,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },

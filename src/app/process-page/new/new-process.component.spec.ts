@@ -19,6 +19,7 @@ import { RequestService } from '../../core/data/request.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { Script } from '../scripts/script.model';
@@ -65,7 +66,11 @@ describe('NewProcessComponent', () => {
             useClass: TranslateLoaderMock,
           },
         })],
-      declarations: [NewProcessComponent, VarDirective],
+      declarations: [
+        NewProcessComponent,
+        VarDirective,
+        HasValuePipe,
+      ],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },

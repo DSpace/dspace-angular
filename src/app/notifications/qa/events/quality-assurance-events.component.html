@@ -23,7 +23,7 @@
 
       <ds-loading class="container" *ngIf="(isEventPageLoading | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
 
-      <ds-pagination *ngIf="(isEventPageLoading | async) === false"
+      <ds-pagination *ngIf="(isEventPageLoading | async) !== true"
                       [paginationOptions]="paginationConfig"
                       [collectionSize]="(totalElements$ | async)"
                       [sortOptions]="paginationSortConfig"
@@ -196,7 +196,7 @@
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </div>
-                    <div *ngIf="(isAdmin$ | async) === false" class="btn-group button-width">
+                    <div *ngIf="(isAdmin$ | async) !== true" class="btn-group button-width">
                       <button class="btn btn-outline-danger btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.undo' | translate}}"
                               container="body"

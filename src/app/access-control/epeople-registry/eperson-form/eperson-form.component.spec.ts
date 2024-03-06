@@ -61,6 +61,7 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
@@ -231,7 +232,10 @@ describe('EPersonFormComponent', () => {
           },
         }),
       ],
-      declarations: [EPersonFormComponent],
+      declarations: [
+        EPersonFormComponent,
+        HasNoValuePipe,
+      ],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
