@@ -50,7 +50,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         ListableObjectComponentLoaderComponent,
-        ListableObjectDirective,
         ListableModule,
         ItemListElementComponent,
         DynamicComponentLoaderDirective

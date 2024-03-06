@@ -38,7 +38,7 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./workflow-item-search-result-admin-workflow-grid-element.component.scss'],
     templateUrl: './workflow-item-search-result-admin-workflow-grid-element.component.html',
     standalone: true,
-    imports: [NgIf, WorkflowItemAdminWorkflowActionsComponent, TranslateModule]
+  imports: [NgIf, WorkflowItemAdminWorkflowActionsComponent, TranslateModule, DynamicComponentLoaderDirective]
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

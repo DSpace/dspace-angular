@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   BrowseByMetadataComponent,
-  browseParamsToOptions, getBrowseSearchOptions
+  browseParamsToOptions,
+  getBrowseSearchOptions
 } from '../browse-by-metadata/browse-by-metadata.component';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
@@ -51,7 +50,6 @@ import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by
 /**
  * Component for browsing items by title (dc.title)
  */
-@rendersBrowseBy(BrowseByDataType.Title)
 export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {

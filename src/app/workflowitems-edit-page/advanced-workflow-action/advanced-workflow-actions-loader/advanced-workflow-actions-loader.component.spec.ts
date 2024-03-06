@@ -3,9 +3,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 import { Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, Directive, Injector, NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
-import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
-import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentFactoryResolver,
+  Directive,
+  Injector,
+  NO_ERRORS_SCHEMA,
+  ViewContainerRef
+} from '@angular/core';
+import {
+  DynamicComponentLoaderDirective
+} from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   rendersAdvancedWorkflowTaskOption
 } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
@@ -38,7 +47,6 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        AdvancedWorkflowActionsDirective,
         RouterTestingModule,
         DynamicComponentLoaderDirective,
         AdvancedWorkflowActionsLoaderComponent,

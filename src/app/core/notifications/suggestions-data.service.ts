@@ -65,7 +65,7 @@ export class SuggestionDataServiceImpl extends UpdateDataServiceImpl<Suggestion>
 /**
  * The service handling all Suggestion Target REST requests.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(SUGGESTION)
 export class SuggestionsDataService {
   protected searchFindBySourceMethod = 'findBySource';

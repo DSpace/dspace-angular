@@ -2,10 +2,10 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  Subscription,
-  of as observableOf
+  of as observableOf,
+  Subscription
 } from 'rxjs';
-import { Component, Inject, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -38,7 +38,6 @@ import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { Context } from '../../core/shared/context.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
@@ -72,7 +71,6 @@ export const BBM_PAGINATION_ID = 'bbm';
  * or multiple metadata fields.  An example would be 'author' for
  * 'dc.contributor.*'
  */
-@rendersBrowseBy(BrowseByDataType.Metadata)
 export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   /**

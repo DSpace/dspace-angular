@@ -21,9 +21,6 @@ import {
   DynamicComponentLoaderDirective
 } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
-ListableObjectDirective
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
-import {
   WorkflowItemSearchResult
 } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -64,14 +61,12 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
     TestBed.configureTestingModule(
       {
     imports: [
-        ListableObjectDirective,
         WorkflowItemSearchResultAdminWorkflowGridElementComponent,
         ItemGridElementComponent,
         DynamicComponentLoaderDirective,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        ListableObjectDirective,
         ListableModule,
         WorkflowItemSearchResultAdminWorkflowGridElementComponent
     ],

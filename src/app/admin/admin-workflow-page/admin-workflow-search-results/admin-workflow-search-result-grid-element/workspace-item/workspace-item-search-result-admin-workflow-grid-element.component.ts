@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild, OnDestroy, ComponentRef } from '@angular/core';
+import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
@@ -16,7 +16,9 @@ import {
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import {
+  DynamicComponentLoaderDirective
+} from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
@@ -38,7 +40,9 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { hasValue } from '../../../../../shared/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe } from '@angular/common';
-import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
+import {
+  WorkspaceItemAdminWorkflowActionsComponent
+} from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
@@ -46,7 +50,7 @@ import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/worksp
     styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
     templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
     standalone: true,
-    imports: [WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule]
+  imports: [WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule, DynamicComponentLoaderDirective]
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

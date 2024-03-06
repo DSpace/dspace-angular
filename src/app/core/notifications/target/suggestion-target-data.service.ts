@@ -22,7 +22,7 @@ import { SearchData, SearchDataImpl } from '../../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
 import { SUGGESTION_TARGET } from '../models/suggestion-target-object.resource-type';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(SUGGESTION_TARGET)
 export class SuggestionTargetDataService extends IdentifiableDataService<SuggestionTarget> {
 

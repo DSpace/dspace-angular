@@ -34,8 +34,6 @@ import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 
 @Component({
@@ -64,7 +62,6 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-type';
  * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
-@rendersBrowseBy(BrowseByDataType.Date)
 export class BrowseByDateComponent extends BrowseByMetadataComponent implements OnInit {
 
   /**

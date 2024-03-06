@@ -25,7 +25,7 @@ import {
 /**
  * The service handling the Suggestion targets State.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SuggestionTargetsStateService {
 
   /**

@@ -4,7 +4,6 @@ import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { map } from 'rxjs/operators';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
@@ -54,7 +53,6 @@ import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
-@rendersBrowseBy(BrowseByDataType.Hierarchy)
 export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
