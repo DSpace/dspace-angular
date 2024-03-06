@@ -1,7 +1,15 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';

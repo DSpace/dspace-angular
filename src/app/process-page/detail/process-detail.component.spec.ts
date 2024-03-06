@@ -1,8 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  discardPeriodicTasks,
+  fakeAsync,
+  flush,
+  flushMicrotasks,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -10,23 +23,25 @@ import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Process } from '../processes/process.model';
 import { ProcessDetailComponent } from './process-detail.component';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -56,14 +71,14 @@ describe('ProcessDetailComponent', () => {
           'dc.title': [
             {
               value: fileName,
-              language: null
-            }
-          ]
+              language: null,
+            },
+          ],
         },
         _links: {
-          content: { href: 'file-selflink' }
-        }
-      })
+          content: { href: 'file-selflink' },
+        },
+      }),
     ];
     processOutput = 'Process Started';
     process = Object.assign(new Process(), {
@@ -88,8 +103,8 @@ describe('ProcessDetailComponent', () => {
           href: 'https://rest.api/processes/1',
         },
         output: {
-          href: 'https://rest.api/processes/1/output'
-        }
+          href: 'https://rest.api/processes/1/output',
+        },
       },
     });
     const logBitstream = Object.assign(new Bitstream(), {
@@ -102,7 +117,7 @@ describe('ProcessDetailComponent', () => {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
       delete: createSuccessfulRemoteDataObject$(null),
       findById: createSuccessfulRemoteDataObject$(process),
-      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process)
+      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process),
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
       findByHref: createSuccessfulRemoteDataObject$(logBitstream),

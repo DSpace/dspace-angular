@@ -1,17 +1,29 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Community } from '../../../../core/shared/community.model';
 import { fadeIn } from '../../../../shared/animations/fade';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { hasValue } from '../../../../shared/empty.util';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',

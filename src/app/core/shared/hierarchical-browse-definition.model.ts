@@ -1,12 +1,17 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BrowseDefinition } from './browse-definition.model';
 import { HALLink } from './hal-link.model';
 import { HIERARCHICAL_BROWSE_DEFINITION } from './hierarchical-browse-definition.resource-type';
 import { ResourceType } from './resource-type';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 
 /**
  * BrowseDefinition model for browses of type 'hierarchicalBrowse'

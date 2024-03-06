@@ -3,7 +3,15 @@ import * as deepFreeze from 'deep-freeze';
 import { Operation } from 'fast-json-patch';
 
 import { Item } from '../shared/item.model';
-import { AddDependentsObjectCacheAction, AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction, RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction } from './object-cache.actions';
+import {
+  AddDependentsObjectCacheAction,
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
+  RemoveFromObjectCacheAction,
+  ResetObjectCacheTimestampsAction,
+} from './object-cache.actions';
 import { objectCacheReducer } from './object-cache.reducer';
 
 class NullAction extends RemoveFromObjectCacheAction {

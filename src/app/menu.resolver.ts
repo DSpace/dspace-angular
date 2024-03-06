@@ -1,20 +1,36 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, find, map, take } from 'rxjs/operators';
+import {
+  combineLatest,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  find,
+  map,
+  take,
+} from 'rxjs/operators';
 
+import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 import { BrowseService } from './core/browse/browse.service';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import { PaginatedList } from './core/data/paginated-list.model';
-import { METADATA_EXPORT_SCRIPT_NAME, METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from './core/data/processes/script-data.service';
-import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
-import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
-import { ConfigurationDataService } from './core/data/configuration-data.service';
-import { ConfigurationProperty } from './core/shared/configuration-property.model';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from './core/data/processes/script-data.service';
 import { RemoteData } from './core/data/remote-data';
 import { BrowseDefinition } from './core/shared/browse-definition.model';
+import { ConfigurationProperty } from './core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
 import { ThemedCreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import { ThemedCreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
@@ -22,6 +38,7 @@ import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/m
 import { ThemedEditCollectionSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { ThemedEditCommunitySelectorComponent } from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
+import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { hasValue } from './shared/empty.util';
 import { MenuService } from './shared/menu/menu.service';
@@ -45,7 +62,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
-    protected configurationDataService: ConfigurationDataService
+    protected configurationDataService: ConfigurationDataService,
   ) {
   }
 
@@ -218,7 +235,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.services_new',
-            link: '/admin/ldn/services/new'
+            link: '/admin/ldn/services/new',
           } as LinkMenuItemModel,
           icon: '',
         },
@@ -356,10 +373,10 @@ export class MenuResolver implements Resolve<boolean> {
           visible: isSiteAdmin && isCoarNotifyEnabled,
           model: {
             type: MenuItemType.TEXT,
-            text: 'menu.section.coar_notify'
+            text: 'menu.section.coar_notify',
           } as TextMenuItemModel,
           icon: 'inbox',
-          index: 13
+          index: 13,
         },
         {
           id: 'notify_dashboard',
@@ -369,7 +386,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.notify_dashboard',
-            link: '/admin/notify-dashboard'
+            link: '/admin/notify-dashboard',
           } as LinkMenuItemModel,
         },
         /* LDN Services */
@@ -381,7 +398,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.services',
-            link: '/admin/ldn/services'
+            link: '/admin/ldn/services',
           } as LinkMenuItemModel,
         },
         {
@@ -403,10 +420,10 @@ export class MenuResolver implements Resolve<boolean> {
           visible: canSeeQa || isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
-            text: 'menu.section.notifications'
+            text: 'menu.section.notifications',
           } as TextMenuItemModel,
           icon: 'bell',
-          index: 4
+          index: 4,
         },
         {
           id: 'notifications_quality-assurance',
@@ -416,7 +433,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.quality-assurance',
-            link: '/notifications/quality-assurance'
+            link: '/notifications/quality-assurance',
           } as LinkMenuItemModel,
         },
         {
@@ -427,7 +444,7 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.notifications_publication-claim',
-            link: '/admin/notifications/' + PUBLICATION_CLAIMS_PATH
+            link: '/admin/notifications/' + PUBLICATION_CLAIMS_PATH,
           } as LinkMenuItemModel,
         },
         /*  Admin Search */
@@ -601,7 +618,7 @@ export class MenuResolver implements Resolve<boolean> {
    */
   createSiteAdministratorMenuSections() {
     this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
-    .subscribe((authorized) => {
+      .subscribe((authorized) => {
         const menuList = [
           {
             id: 'admin_search',
@@ -777,9 +794,9 @@ export class MenuResolver implements Resolve<boolean> {
   createReportMenuSections() {
     observableCombineLatest([
       this.configurationDataService.findByPropertyName('contentreport.enable').pipe(
-        map((res: RemoteData<ConfigurationProperty>) => res.hasSucceeded && res.payload && res.payload.values[0] === 'true')
+        map((res: RemoteData<ConfigurationProperty>) => res.hasSucceeded && res.payload && res.payload.values[0] === 'true'),
       ),
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
     ]).subscribe(([isSiteAdmin]) => {
       const menuList = [
         {
@@ -788,10 +805,10 @@ export class MenuResolver implements Resolve<boolean> {
           visible: isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
-            text: 'menu.section.reports'
+            text: 'menu.section.reports',
           } as TextMenuItemModel,
           icon: 'file-alt',
-          index: 5
+          index: 5,
         },
         /* Collections Report */
         {
@@ -802,9 +819,9 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.reports.collections',
-            link: '/admin/reports/collections'
+            link: '/admin/reports/collections',
           } as LinkMenuItemModel,
-          icon: 'user-check'
+          icon: 'user-check',
         },
         /* Queries Report */
         {
@@ -815,14 +832,14 @@ export class MenuResolver implements Resolve<boolean> {
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.reports.queries',
-            link: '/admin/reports/queries'
+            link: '/admin/reports/queries',
           } as LinkMenuItemModel,
-          icon: 'user-check'
+          icon: 'user-check',
         },
       ];
 
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
-        shouldPersistOnRouteChange: true
+        shouldPersistOnRouteChange: true,
       })));
     });
   }

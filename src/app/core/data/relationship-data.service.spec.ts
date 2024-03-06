@@ -2,8 +2,13 @@ import { of as observableOf } from 'rxjs';
 
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -20,7 +25,6 @@ import { RelationshipDataService } from './relationship-data.service';
 import { DeleteRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;

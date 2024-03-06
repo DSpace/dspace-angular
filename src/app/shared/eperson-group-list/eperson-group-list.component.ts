@@ -1,6 +1,18 @@
-import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import uniqueId from 'lodash/uniqueId';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -17,7 +29,10 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { fadeInOut } from '../animations/fade';
-import { hasValue, isNotEmpty } from '../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 export interface SearchEvent {

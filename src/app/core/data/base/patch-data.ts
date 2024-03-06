@@ -7,20 +7,34 @@
  */
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { find, map, mergeMap } from 'rxjs/operators';
+import {
+  find,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../shared/operators';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../shared/operators';
 import { ChangeAnalyzer } from '../change-analyzer';
 import { RemoteData } from '../remote-data';
 import { PatchRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { RestRequestMethod } from '../rest-request-method';
-import { ConstructIdEndpoint, IdentifiableDataService } from './identifiable-data.service';
+import {
+  ConstructIdEndpoint,
+  IdentifiableDataService,
+} from './identifiable-data.service';
 
 /**
  * Interface for a data service that can patch and update objects.

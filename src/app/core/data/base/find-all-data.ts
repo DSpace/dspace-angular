@@ -7,7 +7,11 @@
  */
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import { isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';

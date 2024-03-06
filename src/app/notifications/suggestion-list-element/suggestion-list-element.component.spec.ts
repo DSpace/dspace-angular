@@ -1,12 +1,17 @@
-import { SuggestionListElementComponent } from './suggestion-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TestScheduler } from 'rxjs/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
+import { TestScheduler } from 'rxjs/testing';
+
 import { Item } from '../../core/shared/item.model';
+import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
+import { SuggestionListElementComponent } from './suggestion-list-element.component';
 
 describe('SuggestionListElementComponent', () => {
   let component: SuggestionListElementComponent;
@@ -17,13 +22,13 @@ describe('SuggestionListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [SuggestionListElementComponent],
       providers: [
-        NgbModal
+        NgbModal,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -42,7 +47,7 @@ describe('SuggestionListElementComponent', () => {
       scheduler.flush();
       const expectedIndexableObject = Object.assign(new Item(), {
         id: mockSuggestionPublicationOne.id,
-        metadata: mockSuggestionPublicationOne.metadata
+        metadata: mockSuggestionPublicationOne.metadata,
       });
       expect(component).toBeTruthy();
       expect(component.listableObject.hitHighlights).toEqual({});
@@ -60,7 +65,7 @@ describe('SuggestionListElementComponent', () => {
 
     it('should emit selection', () => {
       spyOn(component.selected, 'next');
-      component.changeSelected({target: { checked: true}});
+      component.changeSelected({ target: { checked: true } });
       expect(component.selected.next).toHaveBeenCalledWith(true);
     });
 
@@ -71,7 +76,7 @@ describe('SuggestionListElementComponent', () => {
     });
 
     it('should emit for approve and import', () => {
-      const event = {collectionId:'1234', suggestion: mockSuggestionPublicationOne};
+      const event = { collectionId:'1234', suggestion: mockSuggestionPublicationOne };
       spyOn(component.approveAndImport, 'emit');
       component.onApproveAndImport(event);
       expect(component.approveAndImport.emit).toHaveBeenCalledWith(event);

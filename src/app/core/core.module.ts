@@ -1,11 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import {
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  SkipSelf,
+} from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 
 import { environment } from '../../environments/environment';
+import { LdnItemfiltersService } from '../admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service';
+import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
+import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
 import { storeModuleConfig } from '../app.reducer';
+import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { MyDSpaceGuard } from '../my-dspace-page/my-dspace.guard';
 import { Process } from '../process-page/processes/process.model';
 import { Script } from '../process-page/scripts/script.model';
@@ -14,7 +29,11 @@ import { isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
-import { MOCK_RESPONSE_MAP, mockResponseMap, ResponseMapMock } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
+import {
+  MOCK_RESPONSE_MAP,
+  mockResponseMap,
+  ResponseMapMock,
+} from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
@@ -23,6 +42,8 @@ import { ObjectSelectService } from '../shared/object-select/object-select.servi
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { CoarNotifyConfigDataService } from '../submission/sections/section-coar-notify/coar-notify-config-data.service';
+import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
@@ -69,6 +90,7 @@ import { LookupRelationService } from './data/lookup-relation.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
+import { NotifyRequestsStatusDataService } from './data/notify-services-status-data.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { ProcessDataService } from './data/processes/process-data.service';
 import { ScriptDataService } from './data/processes/script-data.service';
@@ -94,6 +116,8 @@ import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-oper
 import { MetadataService } from './metadata/metadata.service';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
+import { SuggestionSource } from './notifications/models/suggestion-source.model';
+import { SuggestionTarget } from './notifications/models/suggestion-target.model';
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
@@ -111,7 +135,10 @@ import { ResourcePolicyDataService } from './resource-policy/resource-policy-dat
 import { RoleService } from './roles/role.service';
 import { LinkHeadService } from './services/link-head.service';
 import { ServerResponseService } from './services/server-response.service';
-import { NativeWindowFactory, NativeWindowService } from './services/window.service';
+import {
+  NativeWindowFactory,
+  NativeWindowService,
+} from './services/window.service';
 import { Authorization } from './shared/authorization.model';
 import { Bitstream } from './shared/bitstream.model';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -148,12 +175,14 @@ import { ValueListBrowseDefinition } from './shared/value-list-browse-definition
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { CorrectionTypeDataService } from './submission/correctiontype-data.service';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { WorkflowItem } from './submission/models/workflowitem.model';
 import { WorkspaceItem } from './submission/models/workspaceitem.model';
 import { SubmissionCcLicenseDataService } from './submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from './submission/submission-cc-license-url-data.service';
+import { SubmissionDuplicateDataService } from './submission/submission-duplicate-data.service';
 import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
 import { SubmissionResponseParsingService } from './submission/submission-response-parsing.service';
 import { SubmissionRestService } from './submission/submission-rest.service';
@@ -176,19 +205,6 @@ import { TaskObject } from './tasks/models/task-object.model';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
-import { CorrectionTypeDataService } from './submission/correctiontype-data.service';
-import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { LdnItemfiltersService } from '../admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service';
-import { CoarNotifyConfigDataService } from '../submission/sections/section-coar-notify/coar-notify-config-data.service';
-import { NotifyRequestsStatusDataService } from './data/notify-services-status-data.service';
-import { SuggestionTarget } from './notifications/models/suggestion-target.model';
-import { SuggestionSource } from './notifications/models/suggestion-source.model';
-import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
-import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
-import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
-import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
-import { SubmissionDuplicateDataService } from './submission/submission-duplicate-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -317,7 +333,7 @@ const PROVIDERS = [
   LdnServicesService,
   LdnItemfiltersService,
   CoarNotifyConfigDataService,
-  NotifyRequestsStatusDataService
+  NotifyRequestsStatusDataService,
 ];
 
 /**
@@ -403,7 +419,7 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
-    AdminNotifyMessage
+    AdminNotifyMessage,
   ];
 
 @NgModule({

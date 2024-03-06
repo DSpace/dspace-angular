@@ -1,14 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterReducerState } from '@ngrx/router-store';
-import { select, Store } from '@ngrx/store';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { AppState, routerStateSelector } from '../../app.reducer';
-import { AuthService, LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
-import { isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import {
+  AppState,
+  routerStateSelector,
+} from '../../app.reducer';
+import {
+  AuthService,
+  LOGIN_ROUTE,
+  LOGOUT_ROUTE,
+} from '../../core/auth/auth.service';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '../../core/auth/selectors';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { fadeInOut, fadeOut } from '../animations/fade';
+import {
+  fadeInOut,
+  fadeOut,
+} from '../animations/fade';
 import { isNotUndefined } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 

@@ -13,7 +13,7 @@ import { OnClickMenuItemModel } from './models/onclick.model';
 @Component({
   selector: 'ds-onclick-menu-item',
   styleUrls: ['./menu-item.component.scss', './onclick-menu-item.component.scss'],
-  templateUrl: './onclick-menu-item.component.html'
+  templateUrl: './onclick-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.ONCLICK)
 export class OnClickMenuItemComponent {

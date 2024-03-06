@@ -1,5 +1,26 @@
 import { NgModule } from '@angular/core';
-import { ACCESS_CONTROL_MODULE_PATH, ADMIN_MODULE_PATH, BITSTREAM_MODULE_PATH, ERROR_PAGE, FORBIDDEN_PATH, FORGOT_PASSWORD_PATH, HEALTH_PAGE_PATH, INFO_MODULE_PATH, INTERNAL_SERVER_ERROR, LEGACY_BITSTREAM_MODULE_PATH, PROFILE_MODULE_PATH, REGISTER_PATH, REQUEST_COPY_MODULE_PATH, WORKFLOW_ITEM_MODULE_PATH } from './app-routing-paths';
+import {
+  NoPreloading,
+  RouterModule,
+} from '@angular/router';
+
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import {
+  ACCESS_CONTROL_MODULE_PATH,
+  ADMIN_MODULE_PATH,
+  BITSTREAM_MODULE_PATH,
+  ERROR_PAGE,
+  FORBIDDEN_PATH,
+  FORGOT_PASSWORD_PATH,
+  HEALTH_PAGE_PATH,
+  INFO_MODULE_PATH,
+  INTERNAL_SERVER_ERROR,
+  LEGACY_BITSTREAM_MODULE_PATH,
+  PROFILE_MODULE_PATH,
+  REGISTER_PATH,
+  REQUEST_COPY_MODULE_PATH,
+  WORKFLOW_ITEM_MODULE_PATH,
+} from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
@@ -8,18 +29,16 @@ import { GroupAdministratorGuard } from './core/data/feature-authorization/featu
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { ReloadGuard } from './core/reload/reload.guard';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
-import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
-import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
+import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
-import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
-import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
+import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
-import { NoPreloading, RouterModule } from '@angular/router';
-import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
+import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -74,7 +93,7 @@ import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard],
           },
           {
             path: COMMUNITY_MODULE_PATH,
@@ -134,19 +153,19 @@ import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: NOTIFICATIONS_MODULE_PATH,
             loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
               .then((m) => m.AdminNotificationsModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: NOTIFICATIONS_MODULE_PATH,
             loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
               .then((m) => m.NotificationsPageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'login',
@@ -197,7 +216,7 @@ import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
           { path: SUGGESTION_MODULE_PATH,
             loadChildren: () => import('./suggestions-page/suggestions-page.module')
               .then((m) => m.SuggestionsPageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: INFO_MODULE_PATH,

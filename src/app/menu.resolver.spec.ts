@@ -1,5 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,17 +12,17 @@ import { of as observableOf } from 'rxjs';
 
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { BrowseService } from './core/browse/browse.service';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import { ScriptDataService } from './core/data/processes/script-data.service';
 import { MenuResolver } from './menu.resolver';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
-import { createPaginatedList } from './shared/testing/utils.test';
-import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
+import { MenuServiceStub } from './shared/testing/menu-service.stub';
+import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
 
 const BOOLEAN = { t: true, f: false };

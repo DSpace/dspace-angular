@@ -1,23 +1,50 @@
 import { Injectable } from '@angular/core';
-import { AsyncSubject, combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilKeyChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
+import {
+  AsyncSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilKeyChanged,
+  filter,
+  map,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
-import { hasSucceeded, isStale, RequestEntryState } from '../../data/request-entry-state.model';
+import {
+  hasSucceeded,
+  isStale,
+  RequestEntryState,
+} from '../../data/request-entry-state.model';
 import { ResponseState } from '../../data/response-state.model';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { getRequestFromRequestHref, getRequestFromRequestUUID } from '../../shared/request.operators';
+import {
+  getRequestFromRequestHref,
+  getRequestFromRequestUUID,
+} from '../../shared/request.operators';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
 import { getClassForType } from './build-decorators';

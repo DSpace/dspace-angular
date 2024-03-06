@@ -1,17 +1,28 @@
-import { StartsWithLoaderComponent } from './starts-with-loader.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { StartsWithTextComponent } from './text/starts-with-text.component';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
+import { getMockThemeService } from '../mocks/theme-service.mock';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { ThemeService } from '../theme-support/theme.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
 import { StartsWithType } from './starts-with-decorator';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { StartsWithLoaderComponent } from './starts-with-loader.component';
+import { StartsWithTextComponent } from './text/starts-with-text.component';
 
 describe('StartsWithLoaderComponent', () => {
   let comp: StartsWithLoaderComponent;
@@ -48,7 +59,7 @@ describe('StartsWithLoaderComponent', () => {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [StartsWithTextComponent],
-      }
+      },
     }).compileComponents();
   }));
 

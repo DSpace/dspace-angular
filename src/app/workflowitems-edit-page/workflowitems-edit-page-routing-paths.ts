@@ -1,4 +1,7 @@
-import { getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from '../app-routing-paths';
+import {
+  getWorkflowItemModuleRoute,
+  getWorkspaceItemModuleRoute,
+} from '../app-routing-paths';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 
 export function getWorkflowItemPageRoute(wfiId: string) {

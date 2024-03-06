@@ -1,4 +1,12 @@
-import { ComponentRef, Directive, Input, OnChanges, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  ComponentRef,
+  Directive,
+  Input,
+  OnChanges,
+  OnDestroy,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 
 import { ContextHelpService } from './context-help.service';

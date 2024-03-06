@@ -1,14 +1,27 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { Item } from '../../../../core/shared/item.model';
-import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { SharedModule } from '../../../../shared/shared.module';

@@ -1,4 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProcessDetailComponent } from './detail/process-detail.component';
@@ -15,11 +17,9 @@ import { ScriptHelpComponent } from './form/script-help/script-help.component';
 import { ScriptsSelectComponent } from './form/scripts-select/scripts-select.component';
 import { NewProcessComponent } from './new/new-process.component';
 import { ProcessOverviewComponent } from './overview/process-overview.component';
+import { ProcessOverviewTableComponent } from './overview/table/process-overview-table.component';
 import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProcessOverviewTableComponent } from './overview/table/process-overview-table.component';
-import { DatePipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -47,7 +47,7 @@ import { DatePipe } from '@angular/common';
     ProcessBreadcrumbResolver,
     ProcessBreadcrumbsService,
     DatePipe,
-  ]
+  ],
 })
 
 export class ProcessPageSharedModule {

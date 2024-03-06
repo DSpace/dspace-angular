@@ -1,21 +1,34 @@
-import { Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AppState, storeModuleConfig } from '../app.reducer';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../app.reducer';
+import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 import { authReducer } from '../core/auth/auth.reducer';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { BrowseService } from '../core/browse/browse.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
 import { Item } from '../core/shared/item.model';
@@ -23,7 +36,10 @@ import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-defi
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
 import { EPersonMock } from '../shared/testing/eperson.mock';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';

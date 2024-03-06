@@ -1,17 +1,34 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
+import { isPlatformServer } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { Site } from '../core/shared/site.model';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
 import { environment } from '../../environments/environment';
-import { isPlatformServer } from '@angular/common';
-import { ServerResponseService } from '../core/services/server-response.service';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
-import { LinkDefinition, LinkHeadService } from '../core/services/link-head.service';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '../core/services/link-head.service';
+import { ServerResponseService } from '../core/services/server-response.service';
+import { Site } from '../core/shared/site.model';
 import { isNotEmpty } from '../shared/empty.util';
-
-import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-home-page',
@@ -33,7 +50,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private responseService: ServerResponseService,
     private notifyInfoService: NotifyInfoService,
     protected linkHeadService: LinkHeadService,
-    @Inject(PLATFORM_ID) private platformId: string
+    @Inject(PLATFORM_ID) private platformId: string,
   ) {
     this.recentSubmissionspageSize = environment.homePage.recentSubmissions.pageSize;
     // Get COAR REST API URLs from REST configuration
@@ -45,7 +62,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
         } else {
           return of([]);
         }
-      })
+      }),
     ).subscribe((coarRestApiUrls: string[]) => {
       if (coarRestApiUrls.length > 0) {
         this.initPageLinks(coarRestApiUrls);
@@ -68,9 +85,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
     let links = '';
     coarRestApiUrls.forEach((coarRestApiUrl: string) => {
       // Add link to head
-      let tag: LinkDefinition = {
+      const tag: LinkDefinition = {
         href: coarRestApiUrl,
-        rel: rel
+        rel: rel,
       };
       this.inboxLinks.push(tag);
       this.linkHeadService.addTag(tag);

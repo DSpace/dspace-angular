@@ -1,10 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { ImageField, ItemPageFieldComponent } from '../item-page-field.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { Item } from '../../../../../core/shared/item.model';
+import {
+  ImageField,
+  ItemPageFieldComponent,
+} from '../item-page-field.component';
 
 @Component({
   selector: 'ds-item-page-img-field',
-  templateUrl: '../item-page-field.component.html'
+  templateUrl: '../item-page-field.component.html',
 })
 /**
  * Component that renders an inline image for a given field.

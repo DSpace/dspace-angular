@@ -1,5 +1,8 @@
 import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
-import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
+import {
+  SuggestionTargetActionTypes,
+  SuggestionTargetsActions,
+} from './suggestion-targets.actions';
 
 /**
  * The interface representing the OpenAIRE suggestion targets state.
@@ -26,7 +29,7 @@ const SuggestionTargetInitialState: SuggestionTargetState = {
   currentPage: 0,
   totalElements: 0,
   currentUserTargets: null,
-  currentUserTargetsVisited: false
+  currentUserTargetsVisited: false,
 };
 
 /**
@@ -44,7 +47,7 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
     case SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE: {
       return Object.assign({}, state, {
         targets: [],
-        processing: true
+        processing: true,
       });
     }
 
@@ -55,7 +58,7 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
         loaded: true,
         totalPages: action.payload.totalPages,
         currentPage: state.currentPage,
-        totalElements: action.payload.totalElements
+        totalElements: action.payload.totalElements,
       });
     }
 
@@ -72,13 +75,13 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
 
     case SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS: {
       return Object.assign({}, state, {
-        currentUserTargets: action.payload.suggestionTargets
+        currentUserTargets: action.payload.suggestionTargets,
       });
     }
 
     case SuggestionTargetActionTypes.MARK_USER_SUGGESTIONS_AS_VISITED: {
       return Object.assign({}, state, {
-        currentUserTargetsVisited: true
+        currentUserTargetsVisited: true,
       });
     }
 

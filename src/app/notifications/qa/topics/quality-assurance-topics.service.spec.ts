@@ -3,12 +3,19 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { getMockQualityAssuranceTopicRestService, qualityAssuranceTopicObjectMoreAbstract, qualityAssuranceTopicObjectMorePid } from '../../../shared/mocks/notifications.mock';
+import {
+  getMockQualityAssuranceTopicRestService,
+  qualityAssuranceTopicObjectMoreAbstract,
+  qualityAssuranceTopicObjectMorePid,
+} from '../../../shared/mocks/notifications.mock';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
@@ -50,7 +57,7 @@ describe('QualityAssuranceTopicsService', () => {
         elementsPerPage: elementsPerPage,
         currentPage: currentPage,
         sort: sortOptions,
-        searchParams: [new RequestParam('source', 'openaire')]
+        searchParams: [new RequestParam('source', 'openaire')],
       };
       service.getTopics(elementsPerPage, currentPage, 'openaire');
       expect((service as any).qualityAssuranceTopicRestService.searchTopicsBySource).toHaveBeenCalledWith(findListOptions);

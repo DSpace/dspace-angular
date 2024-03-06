@@ -1,11 +1,37 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicCheckboxModel, DynamicFormControlModel, DynamicFormLayout, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlModel,
+  DynamicFormLayout,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { debounceTime, finalize, map, switchMap, take } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  finalize,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -21,7 +47,11 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Group } from '../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Registration } from '../../../core/shared/registration.model';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';

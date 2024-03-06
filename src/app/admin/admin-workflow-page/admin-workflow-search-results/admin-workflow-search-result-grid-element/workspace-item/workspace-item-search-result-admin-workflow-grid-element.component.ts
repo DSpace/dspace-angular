@@ -1,30 +1,50 @@
-import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, mergeMap, take, tap } from 'rxjs/operators';
-
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import {
+  Component,
+  ComponentRef,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { Item } from '../../../../../core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../core/shared/operators';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { getListableObjectComponent, listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
-import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { hasValue } from '../../../../../shared/empty.util';
+import {
+  getListableObjectComponent,
+  listableObjectComponent,
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
+import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
@@ -93,20 +113,20 @@ export class WorkspaceItemSearchResultAdminWorkflowGridElementComponent extends 
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$.pipe(take(1)).subscribe((item: Item) => {
-        const component: GenericConstructor<Component> = this.getComponent(item);
+      const component: GenericConstructor<Component> = this.getComponent(item);
 
-        const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
+      const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
       viewContainerRef.clear();
 
-        this.compRef = viewContainerRef.createComponent(
-          component, {
+      this.compRef = viewContainerRef.createComponent(
+        component, {
           index: 0,
           projectableNodes: [
-          [this.badges.nativeElement],
-          [this.buttons.nativeElement],
-        ],
-      });
-        this.compRef.setInput('object', item);
+            [this.badges.nativeElement],
+            [this.buttons.nativeElement],
+          ],
+        });
+      this.compRef.setInput('object', item);
       this.compRef.setInput('index', this.index);
       this.compRef.setInput('linkType', this.linkType);
       this.compRef.setInput('listID', this.listID);

@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceService } from '../../notifications/qa/source/quality-assurance-source.service';
-import { environment } from '../../../environments/environment';
 
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.

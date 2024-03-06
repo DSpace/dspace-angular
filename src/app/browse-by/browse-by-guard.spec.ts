@@ -1,8 +1,12 @@
 import { first } from 'rxjs/operators';
-import { BrowseByGuard } from './browse-by-guard';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
 import { RouterStub } from '../shared/testing/router.stub';
+import { BrowseByGuard } from './browse-by-guard';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 
 describe('BrowseByGuard', () => {

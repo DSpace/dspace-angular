@@ -1,11 +1,16 @@
 // eslint-disable-next-line max-classes-per-file
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { HALLink } from '../../../core/shared/hal-link.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { NOTIFYREQUEST } from './notify-requests-status.resource-type';
-import { HALLink } from '../../../core/shared/hal-link.model';
 import { RequestStatusEnum } from './notify-status.enum';
 
 /**
@@ -21,25 +26,25 @@ export class NotifyRequestsStatus implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The notify statuses.
    */
   @autoserialize
-  notifyStatus: NotifyStatuses[];
+    notifyStatus: NotifyStatuses[];
 
   /**
    * The UUID of the item.
    */
   @autoserialize
-  itemuuid: string;
+    itemuuid: string;
 
   /**
    * The links associated with the notify requests status.
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     [k: string]: HALLink | HALLink[];
   };

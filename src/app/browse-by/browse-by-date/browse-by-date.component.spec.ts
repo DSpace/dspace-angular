@@ -1,11 +1,21 @@
-import { BrowseByDateComponent } from './browse-by-date.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
@@ -17,14 +27,14 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
-import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { cold } from 'jasmine-marbles';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
-import { RouterMock } from '../../shared/mocks/router.mock';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
+import { BrowseByDateComponent } from './browse-by-date.component';
 
 describe('BrowseByDateComponent', () => {
   let comp: BrowseByDateComponent;

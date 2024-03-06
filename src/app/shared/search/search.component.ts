@@ -1,10 +1,36 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import uniqueId from 'lodash/uniqueId';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -20,24 +46,28 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { pushInOut } from '../animations/push';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
-import { SearchResult } from './models/search-result.model';
-import { currentPath } from '../utils/route.utils';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 import { followLink } from '../utils/follow-link-config.model';
+import { currentPath } from '../utils/route.utils';
+import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
+import { SearchResult } from './models/search-result.model';
 import { SelectionConfig } from './search-results/search-results.component';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 @Component({
   selector: 'ds-search',
@@ -341,7 +371,7 @@ export class SearchComponent implements OnDestroy, OnInit {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
       }),
-      debounceTime(100)
+      debounceTime(100),
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,

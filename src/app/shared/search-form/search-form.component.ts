@@ -1,18 +1,27 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { SearchService } from '../../core/shared/search/search.service';
-import { currentPath } from '../utils/route.utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({

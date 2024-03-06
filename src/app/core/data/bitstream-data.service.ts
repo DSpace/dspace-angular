@@ -1,9 +1,28 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { combineLatest as observableCombineLatest, EMPTY, Observable } from 'rxjs';
-import { find, map, switchMap, take } from 'rxjs/operators';
+import {
+  Operation,
+  RemoveOperation,
+} from 'fast-json-patch';
+import {
+  combineLatest as observableCombineLatest,
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  find,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -15,26 +34,38 @@ import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { sendRequest } from '../shared/request.operators';
 import { dataService } from './base/data-service.decorator';
-import { DeleteData, DeleteDataImpl } from './base/delete-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { SearchData, SearchDataImpl } from './base/search-data';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
-import { buildPaginatedList, PaginatedList } from './paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { PatchRequest, PutRequest } from './request.models';
+import {
+  PatchRequest,
+  PutRequest,
+} from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { Operation, RemoveOperation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
@@ -227,9 +258,9 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
         }
         return rd.payload.primaryBitstream.pipe(
           getFirstCompletedRemoteData(),
-          map((rdb: RemoteData<Bitstream>) => rdb.hasSucceeded ? rdb.payload : null)
+          map((rdb: RemoteData<Bitstream>) => rdb.hasSucceeded ? rdb.payload : null),
         );
-      })
+      }),
     );
   }
 

@@ -1,26 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { LinkService } from '../core/cache/builders/link.service';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { CommunityPageResolver } from './community-page.resolver';
 import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
-import { COMMUNITY_CREATE_PATH, COMMUNITY_EDIT_PATH } from './community-page-routing-paths';
+import {
+  COMMUNITY_CREATE_PATH,
+  COMMUNITY_EDIT_PATH,
+} from './community-page-routing-paths';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
 import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
-import { ThemedCommunityPageComponent } from './themed-community-page.component';
-import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
-import { BrowseByGuard } from '../browse-by/browse-by-guard';
-import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
+import { ThemedCommunityPageComponent } from './themed-community-page.component';
 
 @NgModule({
   imports: [

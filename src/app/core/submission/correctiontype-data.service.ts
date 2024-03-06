@@ -1,20 +1,26 @@
 import { Injectable } from '@angular/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
 
-import { dataService } from '../data/base/data-service.decorator';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
-import { CorrectionType } from './models/correctiontype.model';
-import { map, Observable } from 'rxjs';
-import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list.model';
 import { FindListOptions } from '../data/find-list-options.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../shared/operators';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../shared/operators';
+import { CorrectionType } from './models/correctiontype.model';
 
 /**
  * A service that provides methods to make REST requests with correctiontypes endpoint.
@@ -83,7 +89,7 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
       getPaginatedListPayload(),
       map((list: CorrectionType[]) => {
         return list[0];
-      })
+      }),
     );
   }
 }

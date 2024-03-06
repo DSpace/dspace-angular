@@ -1,32 +1,64 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, from, Observable, of, Subscription } from 'rxjs';
-import { distinctUntilChanged, last, map, mergeMap, scan, switchMap, take, tap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  last,
+  map,
+  mergeMap,
+  scan,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject, SourceQualityAssuranceEventMessageObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
+import {
+  QualityAssuranceEventObject,
+  SourceQualityAssuranceEventMessageObject,
+} from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { ProjectEntryImportModalComponent, QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { ItemDataService } from '../../../core/data/item-data.service';
+import {
+  ProjectEntryImportModalComponent,
+  QualityAssuranceEventData,
+} from '../project-entry-import-modal/project-entry-import-modal.component';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -178,17 +210,17 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         this.selectedTopicName = splitList[1];
         this.sourceId = splitList[0];
         return this.getQualityAssuranceEvents();
-      })
+      }),
     ).subscribe(
       {
         next: (events: QualityAssuranceEventData[]) => {
           this.eventsUpdated$.next(events);
           this.isEventPageLoading.next(false);
         },
-        error: (error) => {
+        error: (error: unknown) => {
           this.isEventPageLoading.next(false);
-        }
-      }
+        },
+      },
     );
   }
 
@@ -501,7 +533,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
-      map((item: Item) => item.firstMetadataValue('dc.title'))
+      map((item: Item) => item.firstMetadataValue('dc.title')),
     );
   }
 }

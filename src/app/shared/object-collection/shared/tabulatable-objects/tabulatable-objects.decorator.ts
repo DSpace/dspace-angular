@@ -1,10 +1,19 @@
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { Context } from '../../../../core/shared/context.model';
-import { hasNoValue, hasValue } from '../../../empty.util';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ListableObject } from '../listable-object.model';
-import { DEFAULT_CONTEXT, DEFAULT_THEME, DEFAULT_VIEW_MODE, getMatch, MatchRelevancy } from '../listable-object/listable-object.decorator';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { Context } from '../../../../core/shared/context.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../empty.util';
+import { ListableObject } from '../listable-object.model';
+import {
+  DEFAULT_CONTEXT,
+  DEFAULT_THEME,
+  DEFAULT_VIEW_MODE,
+  getMatch,
+  MatchRelevancy,
+} from '../listable-object/listable-object.decorator';
 
 const map = new Map();
 

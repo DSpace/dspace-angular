@@ -1,15 +1,34 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Observable, Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { cold, hot } from 'jasmine-marbles';
+import { Action } from '@ngrx/store';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  Subject,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { NoOpAction } from '../../../shared/ngrx/no-op.action';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { DiscardObjectUpdatesAction, ObjectUpdatesAction, ReinstateObjectUpdatesAction, RemoveFieldUpdateAction, RemoveObjectUpdatesAction } from './object-updates.actions';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { Action } from '@ngrx/store';
+import {
+  DiscardObjectUpdatesAction,
+  ObjectUpdatesAction,
+  ReinstateObjectUpdatesAction,
+  RemoveFieldUpdateAction,
+  RemoveObjectUpdatesAction,
+} from './object-updates.actions';
 import { ObjectUpdatesEffects } from './object-updates.effects';
 
 describe('ObjectUpdatesEffects', () => {
@@ -97,7 +116,7 @@ describe('ObjectUpdatesEffects', () => {
           // keep track of the current state
           let emittedAction: Action | undefined;
           updatesEffects.removeAfterDiscardOrReinstateOnUndo$.pipe(
-            take(2)
+            take(2),
           ).subscribe((action: Action | NoOpAction) => {
             emittedAction = action;
           });

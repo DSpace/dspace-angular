@@ -1,13 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
-import { hasValue, isEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
@@ -48,7 +61,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
       name: 'passwordrepeat',
       inputType: 'password',
       autoComplete: 'new-password',
-    })
+    }),
   ];
 
   /**

@@ -1,9 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { FiltersComponent } from './filters-section.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+
+import { FiltersComponent } from './filters-section.component';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
@@ -17,14 +25,14 @@ describe('FiltersComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
-        FormBuilder
+        FormBuilder,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
   }));
 

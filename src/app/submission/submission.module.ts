@@ -1,9 +1,21 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import {
+  CommonModule,
+  NgOptimizedImage,
+} from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgbAccordionModule, NgbCollapseModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionModule,
+  NgbCollapseModule,
+  NgbModalModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
-import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 
+import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { storeModuleConfig } from '../app.reducer';
 import { SubmissionAccessesConfigDataService } from '../core/config/submission-accesses-config-data.service';
 import { SubmissionUploadsConfigDataService } from '../core/config/submission-uploads-config-data.service';
@@ -19,11 +31,6 @@ import { SubmissionFormCollectionComponent } from './form/collection/submission-
 import { SubmissionFormFooterComponent } from './form/footer/submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
 import { SubmissionFormComponent } from './form/submission-form.component';
-import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
-import { submissionReducers, SubmissionState } from './submission.reducers';
-import { submissionEffects } from './submission.effects';
-import { SubmissionSectionUploadComponent } from './sections/upload/section-upload.component';
-import { SectionUploadService } from './sections/upload/section-upload.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionImportExternalCollectionComponent } from './import-external/import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './import-external/import-external-preview/submission-import-external-preview.component';
@@ -33,10 +40,14 @@ import { ThemedSubmissionImportExternalComponent } from './import-external/theme
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
 import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
+import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
+import { SubmissionSectionDuplicatesComponent } from './sections/duplicates/section-duplicates.component';
 import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 import { SubmissionSectionIdentifiersComponent } from './sections/identifiers/section-identifiers.component';
 import { SubmissionSectionLicenseComponent } from './sections/license/section-license.component';
+import { CoarNotifyConfigDataService } from './sections/section-coar-notify/coar-notify-config-data.service';
+import { SubmissionSectionCoarNotifyComponent } from './sections/section-coar-notify/section-coar-notify.component';
 import { SectionsDirective } from './sections/sections.directive';
 import { SectionsService } from './sections/sections.service';
 import { ContentAccordionComponent } from './sections/sherpa-policies/content-accordion/content-accordion.component';
@@ -49,10 +60,13 @@ import { SubmissionSectionUploadFileEditComponent } from './sections/upload/file
 import { SubmissionSectionUploadFileComponent } from './sections/upload/file/section-upload-file.component';
 import { ThemedSubmissionSectionUploadFileComponent } from './sections/upload/file/themed-section-upload-file.component';
 import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file/view/section-upload-file-view.component';
-import { SubmissionSectionDuplicatesComponent } from './sections/duplicates/section-duplicates.component';
-import { SubmissionSectionCoarNotifyComponent } from './sections/section-coar-notify/section-coar-notify.component';
-import { CoarNotifyConfigDataService } from './sections/section-coar-notify/coar-notify-config-data.service';
-import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { SubmissionSectionUploadComponent } from './sections/upload/section-upload.component';
+import { SectionUploadService } from './sections/upload/section-upload.service';
+import { submissionEffects } from './submission.effects';
+import {
+  submissionReducers,
+  SubmissionState,
+} from './submission.reducers';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 
@@ -65,7 +79,7 @@ const ENTRY_COMPONENTS = [
   SubmissionSectionAccessesComponent,
   SubmissionSectionSherpaPoliciesComponent,
   SubmissionSectionCoarNotifyComponent,
-  SubmissionSectionDuplicatesComponent
+  SubmissionSectionDuplicatesComponent,
 ];
 
 const DECLARATIONS = [
@@ -100,22 +114,22 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CoreModule.forRoot(),
-        SharedModule,
-        StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-        EffectsModule.forFeature(),
-        EffectsModule.forFeature(submissionEffects),
-        JournalEntitiesModule.withEntryComponents(),
-        ResearchEntitiesModule.withEntryComponents(),
-        FormModule,
-        NgbModalModule,
-        NgbCollapseModule,
-        NgbAccordionModule,
-        UploadModule,
-        NgOptimizedImage,
-    ],
+  imports: [
+    CommonModule,
+    CoreModule.forRoot(),
+    SharedModule,
+    StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
+    EffectsModule.forFeature(),
+    EffectsModule.forFeature(submissionEffects),
+    JournalEntitiesModule.withEntryComponents(),
+    ResearchEntitiesModule.withEntryComponents(),
+    FormModule,
+    NgbModalModule,
+    NgbCollapseModule,
+    NgbAccordionModule,
+    UploadModule,
+    NgOptimizedImage,
+  ],
   declarations: DECLARATIONS,
   exports: [
     ...DECLARATIONS,
@@ -129,8 +143,8 @@ const DECLARATIONS = [
     SectionAccessesService,
     SectionFormOperationsService,
     CoarNotifyConfigDataService,
-    LdnServicesService
-  ]
+    LdnServicesService,
+  ],
 })
 
 /**

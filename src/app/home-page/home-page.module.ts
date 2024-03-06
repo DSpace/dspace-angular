@@ -3,18 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { SearchModule } from '../shared/search/search.module';
 import { SharedModule } from '../shared/shared.module';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { HomeNewsComponent } from './home-news/home-news.component';
-import { HomePageRoutingModule } from './home-page-routing.module';
-import { HomePageComponent } from './home-page.component';
-import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
+import { HomePageComponent } from './home-page.component';
+import { HomePageRoutingModule } from './home-page-routing.module';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
-import { SearchModule } from '../shared/search/search.module';
-import { NotificationsModule } from '../notifications/notifications.module';
+import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -35,7 +35,7 @@ const DECLARATIONS = [
     ResearchEntitiesModule.withEntryComponents(),
     HomePageRoutingModule,
     StatisticsModule.forRoot(),
-    NotificationsModule
+    NotificationsModule,
   ],
   declarations: [
     ...DECLARATIONS,

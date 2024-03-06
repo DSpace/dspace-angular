@@ -65,7 +65,7 @@ describe('FilterInputSuggestionsComponent', () => {
 
   describe('component methods', () => {
     const testData = {
-      value: 'test-field'
+      value: 'test-field',
     } as unknown as any;
 
     beforeEach(() => {

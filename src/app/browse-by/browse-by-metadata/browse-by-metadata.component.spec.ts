@@ -1,19 +1,32 @@
-import { BrowseByMetadataComponent, browseParamsToOptions, getBrowseSearchOptions } from './browse-by-metadata.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowseService } from '../../core/browse/browse.service';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
+import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
@@ -25,7 +38,11 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { cold } from 'jasmine-marbles';
+import {
+  BrowseByMetadataComponent,
+  browseParamsToOptions,
+  getBrowseSearchOptions,
+} from './browse-by-metadata.component';
 
 describe('BrowseByMetadataComponent', () => {
   let comp: BrowseByMetadataComponent;

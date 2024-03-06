@@ -1,8 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { NotificationsSuggestionTargetsPageComponent } from '../../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page.component';
 
 describe('NotificationsSuggestionTargetsPageComponent', () => {
@@ -13,17 +17,17 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
-        NotificationsSuggestionTargetsPageComponent
+        NotificationsSuggestionTargetsPageComponent,
       ],
       providers: [
-        NotificationsSuggestionTargetsPageComponent
+        NotificationsSuggestionTargetsPageComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

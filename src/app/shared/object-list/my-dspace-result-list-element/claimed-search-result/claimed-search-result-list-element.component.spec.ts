@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
@@ -9,20 +19,23 @@ import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../remote-data.utils';
+import { createPaginatedList } from '../../../testing/utils.test';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { createPaginatedList } from '../../../testing/utils.test';
-import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
 
 let component: ClaimedSearchResultListElementComponent;
@@ -37,9 +50,9 @@ const configurationDataService = jasmine.createSpyObj('configurationDataService'
   findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
     name: 'duplicate.enable',
     values: [
-      'true'
-    ]
-  }))
+      'true',
+    ],
+  })),
 });
 const duplicateDataServiceStub = {
   findListByHref: () => observableOf(emptyList),

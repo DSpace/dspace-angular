@@ -1,10 +1,19 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+
 import { hasValue } from '../../shared/empty.util';
-import { ProcessOverviewService, ProcessSortField } from './process-overview.service';
 import { ProcessStatus } from '../processes/process-status.model';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  ProcessOverviewService,
+  ProcessSortField,
+} from './process-overview.service';
 
 @Component({
   selector: 'ds-process-overview',

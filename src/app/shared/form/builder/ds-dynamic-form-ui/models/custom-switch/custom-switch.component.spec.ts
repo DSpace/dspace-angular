@@ -1,12 +1,23 @@
-import { DynamicFormsCoreModule, DynamicFormService } from '@ng-dynamic-forms/core';
-import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DynamicFormsCoreModule,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CustomSwitchComponent } from './custom-switch.component';
 import { DynamicCustomSwitchModel } from './custom-switch.model';
-import { TranslateModule } from '@ngx-translate/core';
 
 describe('CustomSwitchComponent', () => {
 

@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { LinkService } from '../core/cache/builders/link.service';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { CollectionPageResolver } from './collection-page.resolver';
 import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
-import { COLLECTION_CREATE_PATH, COLLECTION_EDIT_PATH, ITEMTEMPLATE_PATH } from './collection-page-routing-paths';
+import {
+  COLLECTION_CREATE_PATH,
+  COLLECTION_EDIT_PATH,
+  ITEMTEMPLATE_PATH,
+} from './collection-page-routing-paths';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
-import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
-import { BrowseByGuard } from '../browse-by/browse-by-guard';
-import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 
 @NgModule({
   imports: [
@@ -82,7 +86,7 @@ import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-s
                 data: { breadcrumbKey: 'browse.metadata' },
               },
             ],
-          }
+          },
         ],
         data: {
           menu: {

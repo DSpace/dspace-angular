@@ -3,7 +3,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -43,7 +46,7 @@ export class QualityAssuranceTopicsService {
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
       sort: sortOptions,
-      searchParams: [new RequestParam('source', source)]
+      searchParams: [new RequestParam('source', source)],
     };
 
     let request$: Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>>;

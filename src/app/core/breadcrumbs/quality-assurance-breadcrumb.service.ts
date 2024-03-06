@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
@@ -33,7 +36,7 @@ export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderSer
 
     if (topicId) {
       return observableOf( [new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),
-            new Breadcrumb(sourceId, `${url}${sourceId}`),
+        new Breadcrumb(sourceId, `${url}${sourceId}`),
         new Breadcrumb(topicId, undefined)]);
     } else {
       return observableOf([new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),

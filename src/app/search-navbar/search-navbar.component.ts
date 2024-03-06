@@ -1,4 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -67,7 +71,7 @@ export class SearchNavbarComponent {
     this.searchForm.reset();
 
     this.router.navigate(linkToNavigateTo, {
-      queryParams: queryParams
+      queryParams: queryParams,
     });
   }
 }

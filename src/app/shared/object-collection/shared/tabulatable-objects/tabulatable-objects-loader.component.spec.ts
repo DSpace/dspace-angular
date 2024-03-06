@@ -1,21 +1,22 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { TabulatableObjectsLoaderComponent } from './tabulatable-objects-loader.component';
-import { ThemeService } from '../../../theme-support/theme.service';
+import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
-import { ListableObject } from '../listable-object.model';
+
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { Context } from '../../../../core/shared/context.model';
-import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
-import { ChangeDetectionStrategy } from '@angular/core';
-
-
-import {
-  TabulatableResultListElementsComponent
-} from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
-import { TestType } from '../listable-object/listable-object-component-loader.component.spec';
-import { By } from '@angular/platform-browser';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { TabulatableResultListElementsComponent } from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { ListableObject } from '../listable-object.model';
+import { TestType } from '../listable-object/listable-object-component-loader.component.spec';
+import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
+import { TabulatableObjectsLoaderComponent } from './tabulatable-objects-loader.component';
 
 
 const testType = 'TestType';
@@ -42,12 +43,12 @@ describe('TabulatableObjectsLoaderComponent', () => {
       providers: [
         provideMockStore({}),
         { provide: ThemeService, useValue: themeService },
-      ]
+      ],
     }).overrideComponent(TabulatableObjectsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [TabulatableResultListElementsComponent]
-      }
+        entryComponents: [TabulatableResultListElementsComponent],
+      },
     }).compileComponents();
 
     fixture = TestBed.createComponent(TabulatableObjectsLoaderComponent);

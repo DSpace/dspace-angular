@@ -1,6 +1,28 @@
-import { hasValue, isNotEmpty, isNotUndefined, isNull } from '../../shared/empty.util';
-import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.model';
-import { CommitPatchOperationsAction, DeletePendingJsonPatchOperationsAction, FlushPatchOperationAction, FlushPatchOperationsAction, JsonPatchOperationsActionTypes, NewPatchAddOperationAction, NewPatchCopyOperationAction, NewPatchMoveOperationAction, NewPatchRemoveOperationAction, NewPatchReplaceOperationAction, PatchOperationsActions, RollbacktPatchOperationsAction, StartTransactionPatchOperationsAction } from './json-patch-operations.actions';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isNull,
+} from '../../shared/empty.util';
+import {
+  JsonPatchOperationModel,
+  JsonPatchOperationType,
+} from './json-patch.model';
+import {
+  CommitPatchOperationsAction,
+  DeletePendingJsonPatchOperationsAction,
+  FlushPatchOperationAction,
+  FlushPatchOperationsAction,
+  JsonPatchOperationsActionTypes,
+  NewPatchAddOperationAction,
+  NewPatchCopyOperationAction,
+  NewPatchMoveOperationAction,
+  NewPatchRemoveOperationAction,
+  NewPatchReplaceOperationAction,
+  PatchOperationsActions,
+  RollbacktPatchOperationsAction,
+  StartTransactionPatchOperationsAction,
+} from './json-patch-operations.actions';
 
 /**
  * An interface to represent JSON-PATCH Operation objects to execute
@@ -211,9 +233,9 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
         children: {
           [action.payload.resourceId]: {
             body: newBody,
-          }
+          },
         },
-      })
+      }),
     });
   } else {
     return state;

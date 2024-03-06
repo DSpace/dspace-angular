@@ -1,6 +1,13 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import {
+  Component,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
@@ -8,7 +15,10 @@ import { isAuthenticated } from '../core/auth/selectors';
 import { BrowseService } from '../core/browse/browse.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { slideMobileNav } from '../shared/animations/slide';
-import { HostWindowService, WidthCategory } from '../shared/host-window.service';
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../shared/host-window.service';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';

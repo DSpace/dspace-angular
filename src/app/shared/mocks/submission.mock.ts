@@ -1113,10 +1113,10 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'duplicates': {
-        potentialDuplicates: []
+        potentialDuplicates: [],
       } as any,
     },
     isLoading: false,
@@ -1617,7 +1617,7 @@ export const mockUploadFiles = [
 
 export const mockUploadFilesData = {
   primary: null,
-  files: JSON.parse(JSON.stringify(mockUploadFiles))
+  files: JSON.parse(JSON.stringify(mockUploadFiles)),
 };
 
 export const mockFileFormData = {

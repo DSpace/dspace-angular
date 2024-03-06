@@ -1,12 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
+import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -21,7 +39,10 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { HostWindowService } from '../host-window.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { DEFAULT_CONTEXT, listableObjectComponent } from '../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  DEFAULT_CONTEXT,
+  listableObjectComponent,
+} from '../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
@@ -36,16 +57,11 @@ import { createPaginatedList } from '../testing/utils.test';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
 
-import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
-import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, DEFAULT_CONTEXT, 'dspace')
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-browse-entry-list-element',
-  template: ''
+  template: '',
 })
 class MockThemedBrowseEntryListElementComponent {
 }
@@ -199,12 +215,12 @@ describe('BrowseByComponent', () => {
       });
 
       it('should use the themed component to render browse entries', () => {
-          const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
-          expect(componentLoaders.length).toEqual(browseEntries.length);
-          componentLoaders.forEach((componentLoader) => {
-            const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
-            expect(browseEntry.componentInstance).toBeInstanceOf(MockThemedBrowseEntryListElementComponent);
-          });
+        const componentLoaders = fixture.debugElement.queryAll(By.directive(ListableObjectComponentLoaderComponent));
+        expect(componentLoaders.length).toEqual(browseEntries.length);
+        componentLoaders.forEach((componentLoader) => {
+          const browseEntry = componentLoader.query(By.css('ds-browse-entry-list-element'));
+          expect(browseEntry.componentInstance).toBeInstanceOf(MockThemedBrowseEntryListElementComponent);
+        });
       });
     });
   });

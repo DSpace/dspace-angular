@@ -1,31 +1,41 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { PageInfo } from '../shared/page-info.model';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { WorkspaceitemDataService } from './workspaceitem-data.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
-import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
-import { RequestEntry } from '../data/request-entry.model';
-import { Item } from '../shared/item.model';
-import { WorkspaceItem } from './models/workspaceitem.model';
-import { SearchData } from '../data/base/search-data';
 import { DeleteData } from '../data/base/delete-data';
-import { RequestParam } from '../cache/models/request-param.model';
+import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
+import { SearchData } from '../data/base/search-data';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { WorkspaceItem } from './models/workspaceitem.model';
+import { WorkspaceitemDataService } from './workspaceitem-data.service';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;
@@ -93,7 +103,7 @@ describe('WorkspaceitemDataService test', () => {
       requestService,
       rdbService,
       objectCache,
-      store
+      store,
     );
   }
 
@@ -126,9 +136,9 @@ describe('WorkspaceitemDataService test', () => {
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
-          a: wsiRD
+          a: wsiRD,
         }),
-        buildFromRequestUUID: createSuccessfulRemoteDataObject$({})
+        buildFromRequestUUID: createSuccessfulRemoteDataObject$({}),
       });
 
       service = initTestService();

@@ -1,6 +1,14 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
+import {
+  combineLatest as combineLatestObservable,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { bgColor } from '../../../shared/animations/bgColor';
@@ -69,7 +77,7 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.isSidebarCollapsed$ = this.menuService.isMenuCollapsed(this.menuID);
     this.isSidebarPreviewCollapsed$ = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.isExpanded$ = combineLatestObservable([this.active, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
-      map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed)))
+      map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed))),
     );
   }
 

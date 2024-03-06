@@ -1,8 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { map, Observable } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import {
+  map,
+  Observable,
+} from 'rxjs';
+import {
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';

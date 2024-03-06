@@ -1,7 +1,19 @@
-import { Component, DebugElement, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+  OnInit,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
@@ -9,11 +21,14 @@ import { MockComponent } from 'ng-mocks';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from './dso-selector-modal-wrapper.component';
-import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { hasValue } from '../../empty.util';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from './dso-selector-modal-wrapper.component';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;

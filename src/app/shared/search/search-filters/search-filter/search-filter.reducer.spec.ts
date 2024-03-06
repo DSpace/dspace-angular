@@ -1,7 +1,15 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 
-import { SearchFilterCollapseAction, SearchFilterDecrementPageAction, SearchFilterExpandAction, SearchFilterIncrementPageAction, SearchFilterInitializeAction, SearchFilterResetPageAction, SearchFilterToggleAction } from './search-filter.actions';
+import {
+  SearchFilterCollapseAction,
+  SearchFilterDecrementPageAction,
+  SearchFilterExpandAction,
+  SearchFilterIncrementPageAction,
+  SearchFilterInitializeAction,
+  SearchFilterResetPageAction,
+  SearchFilterToggleAction,
+} from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 
 const filterName1 = 'author';

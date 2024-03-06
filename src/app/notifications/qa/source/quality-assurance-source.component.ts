@@ -1,13 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
+
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance source list.

@@ -5,7 +5,10 @@ import { SubmissionDefinitionsModel } from '../../core/config/models/config-subm
 import { Item } from '../../core/shared/item.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
-import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import {
+  WorkspaceitemSectionDataType,
+  WorkspaceitemSectionsObject,
+} from '../../core/submission/models/workspaceitem-sections.model';
 import { type } from '../../shared/ngrx/type';
 import { SectionsType } from '../sections/sections-type';
 import { SectionVisibility } from './section-visibility.model';

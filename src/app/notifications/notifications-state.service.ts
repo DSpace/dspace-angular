@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,7 +11,20 @@ import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/qua
 import { SuggestionNotificationsState } from './notifications.reducer';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
-import { getQualityAssuranceSourceCurrentPageSelector, getQualityAssuranceSourceTotalPagesSelector, getQualityAssuranceSourceTotalsSelector, getQualityAssuranceTopicsCurrentPageSelector, getQualityAssuranceTopicsTotalPagesSelector, getQualityAssuranceTopicsTotalsSelector, isQualityAssuranceSourceLoadedSelector, isQualityAssuranceSourceProcessingSelector, isQualityAssuranceTopicsLoadedSelector, isQualityAssuranceTopicsProcessingSelector, qualityAssuranceSourceObjectSelector, qualityAssuranceTopicsObjectSelector } from './selectors';
+import {
+  getQualityAssuranceSourceCurrentPageSelector,
+  getQualityAssuranceSourceTotalPagesSelector,
+  getQualityAssuranceSourceTotalsSelector,
+  getQualityAssuranceTopicsCurrentPageSelector,
+  getQualityAssuranceTopicsTotalPagesSelector,
+  getQualityAssuranceTopicsTotalsSelector,
+  isQualityAssuranceSourceLoadedSelector,
+  isQualityAssuranceSourceProcessingSelector,
+  isQualityAssuranceTopicsLoadedSelector,
+  isQualityAssuranceTopicsProcessingSelector,
+  qualityAssuranceSourceObjectSelector,
+  qualityAssuranceTopicsObjectSelector,
+} from './selectors';
 
 /**
  * The service handling the Notifications State.

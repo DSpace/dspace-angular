@@ -1,32 +1,39 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
-import { Community } from '../../../../core/shared/community.model';
-import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { SharedModule } from '../../../../shared/shared.module';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { HostWindowService } from '../../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { LinkHeadService } from '../../../../core/services/link-head.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { LinkHeadService } from '../../../../core/services/link-head.service';
+import { Community } from '../../../../core/shared/community.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { HostWindowService } from '../../../../shared/host-window.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { SharedModule } from '../../../../shared/shared.module';
+import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 
 describe('CommunityPageSubCommunityListComponent', () => {
   let comp: CommunityPageSubCommunityListComponent;

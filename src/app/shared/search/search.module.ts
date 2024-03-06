@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
+import {
+  MissingTranslationHandler,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { NouisliderModule } from 'ng2-nouislider';
 
 import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
 import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 import { SharedModule } from '../shared.module';
 import { MissingTranslationHelper } from '../translate/missing-translation.helper';
+import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { FacetConfigResponse } from './models/facet-config-response.model';
 import { FacetValues } from './models/facet-values.model';
 import { SearchObjects } from './models/search-objects.model';
@@ -31,7 +35,6 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { SearchSettingsComponent } from './search-settings/search-settings.component';
 import { ThemedSearchSettingsComponent } from './search-settings/themed-search-settings.component';
-import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration/search-switch-configuration.component';

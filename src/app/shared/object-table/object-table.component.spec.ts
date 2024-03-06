@@ -1,6 +1,11 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { ObjectTableComponent } from './object-table.component';
 
 describe('ObjectTableComponent', () => {
@@ -11,9 +16,9 @@ describe('ObjectTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ObjectTableComponent ]
+      declarations: [ ObjectTableComponent ],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ObjectTableComponent);
     component = fixture.componentInstance;

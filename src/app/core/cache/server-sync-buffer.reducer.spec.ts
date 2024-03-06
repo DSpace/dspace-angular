@@ -3,7 +3,10 @@ import * as deepFreeze from 'deep-freeze';
 
 import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromObjectCacheAction } from './object-cache.actions';
-import { AddToSSBAction, EmptySSBAction } from './server-sync-buffer.actions';
+import {
+  AddToSSBAction,
+  EmptySSBAction,
+} from './server-sync-buffer.actions';
 import { serverSyncBufferReducer } from './server-sync-buffer.reducer';
 
 class NullAction extends RemoveFromObjectCacheAction {

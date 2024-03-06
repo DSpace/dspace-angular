@@ -1,17 +1,26 @@
-import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
-import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { ListableObject } from '../listable-object.model';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 const testType = 'TestType';
 const testContext = Context.Search;

@@ -2,7 +2,23 @@
 import * as deepFreeze from 'deep-freeze';
 
 import { initialMenusState } from './initial-menus-state';
-import { ActivateMenuSectionAction, AddMenuSectionAction, CollapseMenuAction, CollapseMenuPreviewAction, DeactivateMenuSectionAction, ExpandMenuAction, ExpandMenuPreviewAction, HideMenuAction, HideMenuSectionAction, ReinitMenuAction, RemoveMenuSectionAction, ShowMenuAction, ShowMenuSectionAction, ToggleActiveMenuSectionAction, ToggleMenuAction } from './menu.actions';
+import {
+  ActivateMenuSectionAction,
+  AddMenuSectionAction,
+  CollapseMenuAction,
+  CollapseMenuPreviewAction,
+  DeactivateMenuSectionAction,
+  ExpandMenuAction,
+  ExpandMenuPreviewAction,
+  HideMenuAction,
+  HideMenuSectionAction,
+  ReinitMenuAction,
+  RemoveMenuSectionAction,
+  ShowMenuAction,
+  ShowMenuSectionAction,
+  ToggleActiveMenuSectionAction,
+  ToggleMenuAction,
+} from './menu.actions';
 import { menusReducer } from './menu.reducer';
 import { MenuID } from './menu-id.model';
 import { MenuSectionIndex } from './menu-section-Index.model';

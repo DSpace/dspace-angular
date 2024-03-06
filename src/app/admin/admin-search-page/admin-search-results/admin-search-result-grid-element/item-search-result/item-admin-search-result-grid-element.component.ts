@@ -1,4 +1,11 @@
-import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -6,13 +13,16 @@ import { Context } from '../../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { hasValue } from '../../../../../shared/empty.util';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { getListableObjectComponent, listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  getListableObjectComponent,
+  listableObjectComponent,
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { hasValue } from '../../../../../shared/empty.util';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({

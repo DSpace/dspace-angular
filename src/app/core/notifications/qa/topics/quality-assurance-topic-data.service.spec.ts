@@ -1,11 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { qualityAssuranceTopicObjectMoreAbstract, qualityAssuranceTopicObjectMorePid } from '../../../../shared/mocks/notifications.mock';
+import {
+  qualityAssuranceTopicObjectMoreAbstract,
+  qualityAssuranceTopicObjectMorePid,
+} from '../../../../shared/mocks/notifications.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { RestResponse } from '../../../cache/response.models';
@@ -15,7 +22,6 @@ import { RequestEntry } from '../../../data/request-entry.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { PageInfo } from '../../../shared/page-info.model';
 import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
-import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 
 describe('QualityAssuranceTopicDataService', () => {
   let scheduler: TestScheduler;
@@ -94,7 +100,7 @@ describe('QualityAssuranceTopicDataService', () => {
         'byTarget',
         options,
         useCachedVersionIfAvailable,
-        reRequestOnStale
+        reRequestOnStale,
       );
     });
 

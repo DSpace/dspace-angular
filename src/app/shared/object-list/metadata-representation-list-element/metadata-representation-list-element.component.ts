@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Context } from '../../../core/shared/context.model';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';

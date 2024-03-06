@@ -8,7 +8,11 @@ import { QualityAssuranceTopicDataService } from '../../core/notifications/qa/to
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ResourceType } from '../../core/shared/resource-type';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
 
 // REST Mock ---------------------------------------------------------------------
@@ -1470,7 +1474,7 @@ export const qualityAssuranceEventObjectMissingPid: QualityAssuranceEventObject 
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
@@ -1508,7 +1512,7 @@ export const qualityAssuranceEventObjectMissingPid2: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
@@ -1546,7 +1550,7 @@ export const qualityAssuranceEventObjectMissingPid3: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
@@ -1584,7 +1588,7 @@ export const qualityAssuranceEventObjectMissingPid4: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing DOI'
+    reason: 'Missing DOI',
   },
   _links: {
     self: {
@@ -1622,7 +1626,7 @@ export const qualityAssuranceEventObjectMissingPid5: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
@@ -1660,7 +1664,7 @@ export const qualityAssuranceEventObjectMissingPid6: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
@@ -1698,7 +1702,7 @@ export const qualityAssuranceEventObjectMissingAbstract: QualityAssuranceEventOb
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing abstract'
+    reason: 'Missing abstract',
   },
   _links: {
     self: {
@@ -1736,7 +1740,7 @@ export const qualityAssuranceEventObjectMissingProjectFound: QualityAssuranceEve
     fundingProgram: 'H2020',
     jurisdiction: 'EU',
     reason: 'Project found',
-    title: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage'
+    title: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage',
   },
   _links: {
     self: {
@@ -1774,7 +1778,7 @@ export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssurance
     fundingProgram: 'H2021',
     jurisdiction: 'EU',
     title: 'Tracking Unknown Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage',
-    reason: 'Project not found'
+    reason: 'Project not found',
   },
   _links: {
     self: {

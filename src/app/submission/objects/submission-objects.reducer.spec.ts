@@ -1,8 +1,50 @@
 import { Item } from '../../core/shared/item.model';
-import { mockSubmissionCollectionId, mockSubmissionDefinitionResponse, mockSubmissionId, mockSubmissionSelfUrl, mockSubmissionState } from '../../shared/mocks/submission.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionDefinitionResponse,
+  mockSubmissionId,
+  mockSubmissionSelfUrl,
+  mockSubmissionState,
+} from '../../shared/mocks/submission.mock';
 import { SectionsType } from '../sections/sections-type';
-import { CancelSubmissionFormAction, ChangeSubmissionCollectionAction, CleanDuplicateDetectionAction, CompleteInitSubmissionFormAction, DeleteSectionErrorsAction, DeleteUploadedFileAction, DepositSubmissionAction, DepositSubmissionErrorAction, DepositSubmissionSuccessAction, DisableSectionAction, DiscardSubmissionAction, DiscardSubmissionSuccessAction, EditFileDataAction, EnableSectionAction, InertSectionErrorsAction, InitSectionAction, InitSubmissionFormAction, NewUploadedFileAction, RemoveSectionErrorsAction, ResetSubmissionFormAction, SaveAndDepositSubmissionAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormErrorAction, SaveSubmissionFormAction, SaveSubmissionFormErrorAction, SaveSubmissionFormSuccessAction, SaveSubmissionSectionFormAction, SaveSubmissionSectionFormErrorAction, SaveSubmissionSectionFormSuccessAction, SectionStatusChangeAction, SubmissionObjectAction, UpdateSectionDataAction } from './submission-objects.actions';
-import { submissionObjectReducer, SubmissionObjectState } from './submission-objects.reducer';
+import {
+  CancelSubmissionFormAction,
+  ChangeSubmissionCollectionAction,
+  CleanDuplicateDetectionAction,
+  CompleteInitSubmissionFormAction,
+  DeleteSectionErrorsAction,
+  DeleteUploadedFileAction,
+  DepositSubmissionAction,
+  DepositSubmissionErrorAction,
+  DepositSubmissionSuccessAction,
+  DisableSectionAction,
+  DiscardSubmissionAction,
+  DiscardSubmissionSuccessAction,
+  EditFileDataAction,
+  EnableSectionAction,
+  InertSectionErrorsAction,
+  InitSectionAction,
+  InitSubmissionFormAction,
+  NewUploadedFileAction,
+  RemoveSectionErrorsAction,
+  ResetSubmissionFormAction,
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormAction,
+  SaveForLaterSubmissionFormErrorAction,
+  SaveSubmissionFormAction,
+  SaveSubmissionFormErrorAction,
+  SaveSubmissionFormSuccessAction,
+  SaveSubmissionSectionFormAction,
+  SaveSubmissionSectionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction,
+  SectionStatusChangeAction,
+  SubmissionObjectAction,
+  UpdateSectionDataAction,
+} from './submission-objects.actions';
+import {
+  submissionObjectReducer,
+  SubmissionObjectState,
+} from './submission-objects.reducer';
 
 describe('submissionReducer test suite', () => {
 

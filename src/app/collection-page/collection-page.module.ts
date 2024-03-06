@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { BrowseByPageModule } from '../browse-by/browse-by-page.module';
 import { SearchService } from '../core/shared/search/search.service';
 import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 import { EditItemPageModule } from '../item-page/edit-item-page/edit-item-page.module';
@@ -17,7 +18,6 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
-import { BrowseByPageModule } from '../browse-by/browse-by-page.module';
 
 const DECLARATIONS = [
   CollectionPageComponent,

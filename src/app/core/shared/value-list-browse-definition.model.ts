@@ -1,9 +1,12 @@
-import { deserialize, inheritSerialization } from 'cerialize';
+import {
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { HALLink } from './hal-link.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
 import { ResourceType } from './resource-type';
 import { VALUE_LIST_BROWSE_DEFINITION } from './value-list-browse-definition.resource-type';

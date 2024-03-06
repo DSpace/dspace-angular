@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
-import { hasValue } from '../shared/empty.util';
 import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { hasValue } from '../shared/empty.util';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated

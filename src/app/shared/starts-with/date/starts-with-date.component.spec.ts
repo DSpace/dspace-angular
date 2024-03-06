@@ -1,11 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { StartsWithDateComponent } from './starts-with-date.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -13,6 +19,7 @@ import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { StartsWithDateComponent } from './starts-with-date.component';
 
 describe('StartsWithDateComponent', () => {
   let comp: StartsWithDateComponent;

@@ -1,11 +1,19 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -22,7 +30,6 @@ import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';
 import { VocabularyService } from './vocabulary.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
-import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;
@@ -323,7 +330,7 @@ describe('VocabularyService', () => {
         it('should return a RemoteData<Vocabulary> for the object with the given metadata and collection', () => {
           const result = service.getVocabularyByMetadataAndCollection(metadata, collectionUUID);
           const expected = cold('a|', {
-            a: vocabularyRD
+            a: vocabularyRD,
           });
           expect(result).toBeObservable(expected);
         });

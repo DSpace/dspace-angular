@@ -1,10 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, of } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
@@ -14,7 +32,12 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
-import { mockSubmissionCollectionId, mockSubmissionId, mockUploadConfigResponse, mockUploadFiles } from '../../../../shared/mocks/submission.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockUploadConfigResponse,
+  mockUploadFiles,
+} from '../../../../shared/mocks/submission.mock';
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';

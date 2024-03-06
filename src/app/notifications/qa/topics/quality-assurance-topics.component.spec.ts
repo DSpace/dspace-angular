@@ -1,18 +1,30 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { ItemDataService } from 'src/app/core/data/item-data.service';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getMockNotificationsStateService, qualityAssuranceTopicObjectMoreAbstract, qualityAssuranceTopicObjectMorePid } from '../../../shared/mocks/notifications.mock';
+import {
+  getMockNotificationsStateService,
+  qualityAssuranceTopicObjectMoreAbstract,
+  qualityAssuranceTopicObjectMorePid,
+} from '../../../shared/mocks/notifications.mock';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
 
 describe('QualityAssuranceTopicsComponent test suite', () => {
@@ -43,7 +55,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
           params: {
             sourceId: 'openaire',
-            targetId: null
+            targetId: null,
           },
         } } },
         { provide: PaginationService, useValue: paginationService },

@@ -43,7 +43,7 @@ export class RetrieveAllTopicsAction implements Action {
       elementsPerPage,
       currentPage,
       source,
-      target
+      target,
     };
   }
 }

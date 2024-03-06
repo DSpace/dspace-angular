@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
+import { Item } from 'src/app/core/shared/item.model';
+
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/withdrawn-reinstate-modal.component';
+import { RemoteData } from '../../../core/data/remote-data';
 import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { take } from 'rxjs/operators';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from 'src/app/core/shared/item.model';
+import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/withdrawn-reinstate-modal.component';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 export const REQUEST_WITHDRAWN = 'REQUEST/WITHDRAWN';
 export const REQUEST_REINSTATE = 'REQUEST/REINSTATE';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Service for managing the withdrawn/reinstate modal for a DSO.
@@ -43,14 +44,14 @@ export class DsoWithdrawnReinstateModalService {
     const activeModal = this.modalService.open(ItemWithdrawnReinstateModalComponent);
     (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).setWithdraw(state);
     (activeModal.componentInstance as ItemWithdrawnReinstateModalComponent).createQAEvent
-       .pipe(
-          take(1)
-       ).subscribe(
-         (reasone) => {
-           this.sendQARequest(target, correctionType, reasone);
-           activeModal.close();
-         }
-       );
+      .pipe(
+        take(1),
+      ).subscribe(
+        (reasone) => {
+          this.sendQARequest(target, correctionType, reasone);
+          activeModal.close();
+        },
+      );
   }
 
   /**
@@ -63,15 +64,15 @@ export class DsoWithdrawnReinstateModalService {
    * and desplay a notification box.
    */
   sendQARequest(target: string, correctionType: 'request-reinstate' | 'request-withdrawn', reason: string): void {
-     this.qaEventDataService.postData(target, correctionType, '', reason)
-       .pipe (
-        getFirstCompletedRemoteData()
-     )
-       .subscribe((res: RemoteData<QualityAssuranceEventObject>) => {
-         if (res.hasSucceeded) {
-           const message = (correctionType === 'request-withdrawn')
-                            ? 'correction-type.manage-relation.action.notification.withdrawn'
-                            : 'correction-type.manage-relation.action.notification.reinstate';
+    this.qaEventDataService.postData(target, correctionType, '', reason)
+      .pipe (
+        getFirstCompletedRemoteData(),
+      )
+      .subscribe((res: RemoteData<QualityAssuranceEventObject>) => {
+        if (res.hasSucceeded) {
+          const message = (correctionType === 'request-withdrawn')
+            ? 'correction-type.manage-relation.action.notification.withdrawn'
+            : 'correction-type.manage-relation.action.notification.reinstate';
 
           this.notificationsService.success(this.translateService.get(message));
           this.authorizationService.invalidateAuthorizationsRequestCache();

@@ -1,10 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormArrayModel, DynamicFormControlEvent, DynamicFormGroupModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormArrayModel,
+  DynamicFormControlEvent,
+  DynamicFormGroupModel,
+  DynamicSelectModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -12,20 +34,28 @@ import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/b
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
+import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
 import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
-import { mockFileFormData, mockSubmissionCollectionId, mockSubmissionId, mockSubmissionObject, mockUploadConfigResponse, mockUploadConfigResponseMetadata, mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
+import {
+  mockFileFormData,
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockSubmissionObject,
+  mockUploadConfigResponse,
+  mockUploadConfigResponseMetadata,
+  mockUploadFiles,
+} from '../../../../../shared/mocks/submission.mock';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { SubmissionService } from '../../../../submission.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { SectionUploadService } from '../../section-upload.service';
-import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
@@ -248,10 +278,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
           sections: {
             upload: {
               primary: true,
-              files: mockUploadFiles
-            }
-          }
-        })
+              files: mockUploadFiles,
+            },
+          },
+        }),
       ];
       operationsService.jsonPatchByResourceID.and.returnValue(of(response));
 
@@ -294,7 +324,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     }));
 
     it('should update Bitstream data properly when access options are omitted', fakeAsync(() => {
-      compAsAny.formRef = {formGroup: null};
+      compAsAny.formRef = { formGroup: null };
       compAsAny.fileData = fileData;
       compAsAny.pathCombiner = pathCombiner;
       formService.validateAllFormFields.and.callFake(() => null);
@@ -304,10 +334,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         Object.assign(mockSubmissionObject, {
           sections: {
             upload: {
-              files: mockUploadFiles
-            }
-          }
-        })
+              files: mockUploadFiles,
+            },
+          },
+        }),
       ];
       operationsService.jsonPatchByResourceID.and.returnValue(of(response));
       comp.saveBitstreamData();

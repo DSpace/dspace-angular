@@ -25,9 +25,9 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
   FILTER_CONFIG,
-  SCOPE,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
+  SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';

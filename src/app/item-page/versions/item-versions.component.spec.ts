@@ -1,11 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { EMPTY, of as observableOf, of } from 'rxjs';
+import {
+  EMPTY,
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';

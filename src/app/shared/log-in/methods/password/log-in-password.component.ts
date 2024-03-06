@@ -1,16 +1,42 @@
-import { combineLatest, Observable, shareReplay } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest,
+  Observable,
+  shareReplay,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { select, Store } from '@ngrx/store';
-import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
-
-import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
+import {
+  getForgotPasswordRoute,
+  getRegisterRoute,
+} from '../../../../app-routing-paths';
+import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction,
+} from '../../../../core/auth/auth.actions';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { getAuthenticationError, getAuthenticationInfo } from '../../../../core/auth/selectors';
+import {
+  getAuthenticationError,
+  getAuthenticationInfo,
+} from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core-state.model';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
@@ -130,10 +156,10 @@ export class LogInPasswordComponent implements OnInit {
     this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
     this.canShowDivider$ =
         combineLatest([this.canRegister$, this.canForgot$])
-            .pipe(
-                map(([canRegister, canForgot]) => canRegister || canForgot),
-                filter(Boolean)
-            );
+          .pipe(
+            map(([canRegister, canForgot]) => canRegister || canForgot),
+            filter(Boolean),
+          );
   }
 
   getRegisterRoute() {

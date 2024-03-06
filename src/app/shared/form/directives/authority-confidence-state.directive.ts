@@ -6,17 +6,31 @@
  * http://www.dspace.org/license/
  */
 
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, Renderer2, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  Output,
+  Renderer2,
+  SimpleChanges,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
 import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
 import { environment } from '../../../../environments/environment';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { TranslateService } from '@ngx-translate/core';
-import { isNotEmpty, isNull } from '../../empty.util';
+import {
+  isNotEmpty,
+  isNull,
+} from '../../empty.util';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 /**
@@ -90,7 +104,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
       this.previousClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.previousValue));
     }
     this.newClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
-    let confidenceName = this.getNameByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
+    const confidenceName = this.getNameByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
 
     if (isNull(this.previousClass)) {
       this.renderer.addClass(this.elem.nativeElement, this.newClass);
@@ -178,7 +192,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    * @returns
    */
   private getNameByConfidence(confidence: any): string {
-    let confidenceText = ConfidenceType[confidence];
+    const confidenceText = ConfidenceType[confidence];
     if (isNotEmpty(confidenceText)) {
       return confidenceText.replace('CF_', '').toLowerCase();
     } else {

@@ -1,4 +1,7 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { MenuID } from '../menu/menu-id.model';
 import { MenuSection } from '../menu/menu-section.model';

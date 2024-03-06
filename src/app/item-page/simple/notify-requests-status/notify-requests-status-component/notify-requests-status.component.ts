@@ -1,10 +1,26 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
-import { NotifyRequestsStatus, NotifyStatuses } from '../notify-requests-status.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  filter,
+  map,
+  Observable,
+} from 'rxjs';
+
 import { NotifyRequestsStatusDataService } from '../../../../core/data/notify-services-status-data.service';
-import { RequestStatusEnum } from '../notify-status.enum';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import {
+  NotifyRequestsStatus,
+  NotifyStatuses,
+} from '../notify-requests-status.model';
+import { RequestStatusEnum } from '../notify-status.enum';
 
 @Component({
   selector: 'ds-notify-requests-status',
@@ -41,7 +57,7 @@ export class NotifyRequestsStatusComponent implements OnInit {
         filter((data: NotifyRequestsStatus) => hasValue(data)),
         map((data: NotifyRequestsStatus) => {
           return this.groupDataByStatus(data);
-        })
+        }),
       );
   }
 
@@ -60,7 +76,7 @@ export class NotifyRequestsStatusComponent implements OnInit {
         }
 
         statusMap.get(status)?.push(notifyStatus);
-      }
+      },
     );
 
     return statusMap;

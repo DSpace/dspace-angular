@@ -1,4 +1,7 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';

@@ -423,7 +423,7 @@ export class DsoEditMetadataForm {
                   value: value.newValue.value,
                   language: value.newValue.language,
                   authority: value.newValue.authority,
-                  confidence: value.newValue.confidence
+                  confidence: value.newValue.confidence,
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
@@ -433,7 +433,7 @@ export class DsoEditMetadataForm {
                 value: value.newValue.value,
                 language: value.newValue.language,
                 authority: value.newValue.authority,
-                confidence: value.newValue.confidence
+                confidence: value.newValue.confidence,
               }));
             } else {
               console.warn('Illegal metadata change state detected for', value);

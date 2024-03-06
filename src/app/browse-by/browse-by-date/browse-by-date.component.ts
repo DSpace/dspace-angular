@@ -1,22 +1,48 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { BrowseByMetadataComponent, browseParamsToOptions, getBrowseSearchOptions } from '../browse-by-metadata/browse-by-metadata.component';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import { isValidDate } from '../../shared/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
-import { map } from 'rxjs/operators';
+import {
+  BrowseByMetadataComponent,
+  browseParamsToOptions,
+  getBrowseSearchOptions,
+} from '../browse-by-metadata/browse-by-metadata.component';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-date',
@@ -61,7 +87,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, scope, data, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams, data), scope, currentPage, currentSort];
-        })
+        }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
@@ -89,7 +115,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
       firstItemRD$,
       lastItemRD$,
     ]).pipe(
-      map(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => firstItemRD.isLoading || lastItemRD.isLoading)
+      map(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => firstItemRD.isLoading || lastItemRD.isLoading),
     );
     this.subs.push(
       observableCombineLatest([
@@ -97,7 +123,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         lastItemRD$,
       ]).subscribe(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
         let lowerLimit: number = this.getLimit(firstItemRD, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        let upperLimit: number = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
+        const upperLimit: number = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
         const options: number[] = [];
         const oneYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
         const fiveYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;

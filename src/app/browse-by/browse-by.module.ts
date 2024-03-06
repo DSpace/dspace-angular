@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BrowseByTitleComponent } from './browse-by-title/browse-by-title.component';
-import { BrowseByMetadataComponent } from './browse-by-metadata/browse-by-metadata.component';
-import { BrowseByDateComponent } from './browse-by-date/browse-by-date.component';
-import { BrowseBySwitcherComponent } from './browse-by-switcher/browse-by-switcher.component';
-import { BrowseByTaxonomyComponent } from './browse-by-taxonomy/browse-by-taxonomy.component';
+
 import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { FormModule } from '../shared/form/form.module';
 import { SharedModule } from '../shared/shared.module';
+import { BrowseByDateComponent } from './browse-by-date/browse-by-date.component';
+import { BrowseByMetadataComponent } from './browse-by-metadata/browse-by-metadata.component';
+import { BrowseBySwitcherComponent } from './browse-by-switcher/browse-by-switcher.component';
+import { BrowseByTaxonomyComponent } from './browse-by-taxonomy/browse-by-taxonomy.component';
+import { BrowseByTitleComponent } from './browse-by-title/browse-by-title.component';
 
 const DECLARATIONS = [
   BrowseBySwitcherComponent,
@@ -32,12 +33,12 @@ const ENTRY_COMPONENTS = [
   ],
   declarations: [
     ...DECLARATIONS,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
   ],
   exports: [
     ...DECLARATIONS,
     ...ENTRY_COMPONENTS,
-  ]
+  ],
 })
 export class BrowseByModule {
   /**

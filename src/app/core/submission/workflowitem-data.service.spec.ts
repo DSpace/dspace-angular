@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 

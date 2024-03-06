@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { FormModule } from '../shared/form/form.module';
 import { SharedModule } from '../shared/shared.module';
 import { DsoEditMetadataComponent } from './dso-edit-metadata/dso-edit-metadata.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata/dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
@@ -8,12 +9,11 @@ import { DsoEditMetadataValueComponent } from './dso-edit-metadata/dso-edit-meta
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './dso-edit-metadata/metadata-field-selector/metadata-field-selector.component';
 import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-edit-metadata.component';
-import { FormModule } from '../shared/form/form.module';
 
 @NgModule({
   imports: [
     SharedModule,
-    FormModule
+    FormModule,
   ],
   declarations: [
     DsoEditMetadataComponent,

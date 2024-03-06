@@ -1,7 +1,10 @@
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { getTabulatableObjectsComponent, tabulatableObjectsComponent } from './tabulatable-objects.decorator';
-import { Context } from '../../../../core/shared/context.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { Context } from '../../../../core/shared/context.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  getTabulatableObjectsComponent,
+  tabulatableObjectsComponent,
+} from './tabulatable-objects.decorator';
 
 const type = 'TestType';
 

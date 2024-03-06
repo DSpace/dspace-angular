@@ -1,8 +1,23 @@
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,14 +25,19 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { CommunityListService, showMoreFlatNode, toFlatNode } from '../community-list-service';
+import {
+  CommunityListService,
+  showMoreFlatNode,
+  toFlatNode,
+} from '../community-list-service';
 import { FlatNode } from '../flat-node.model';
 import { CommunityListComponent } from './community-list.component';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { RouterLinkWithHref } from '@angular/router';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;

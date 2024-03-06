@@ -1,12 +1,12 @@
 import {
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   ViewChild,
-  ElementRef
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
@@ -80,9 +80,9 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     this.updatePageInfo(this.model.maxOptions, 1);
     this.loadOptions(true);
     this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
-    .subscribe((value) => {
-      this.setCurrentValue(value);
-    });
+      .subscribe((value) => {
+        this.setCurrentValue(value);
+      });
   }
 
   loadOptions(fromInit: boolean) {
@@ -90,18 +90,18 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     this.vocabularyService.getVocabularyEntriesByValue(this.inputText, false, this.model.vocabularyOptions, this.pageInfo).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() => observableOf(buildPaginatedList(new PageInfo(), []))),
-      tap(() => this.loading = false)
+      tap(() => this.loading = false),
     ).subscribe((list: PaginatedList<VocabularyEntry>) => {
       this.optionsList = list.page;
-        if (fromInit && this.model.value) {
-          this.setCurrentValue(this.model.value, true);
-        }
+      if (fromInit && this.model.value) {
+        this.setCurrentValue(this.model.value, true);
+      }
 
       this.updatePageInfo(
         list.pageInfo.elementsPerPage,
         list.pageInfo.currentPage,
         list.pageInfo.totalElements,
-          list.pageInfo.totalPages,
+        list.pageInfo.totalPages,
       );
       this.selectedIndex = 0;
       this.cdr.detectChanges();

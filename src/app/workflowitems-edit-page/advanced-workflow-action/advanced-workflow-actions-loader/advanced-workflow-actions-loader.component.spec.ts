@@ -1,14 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
+import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';

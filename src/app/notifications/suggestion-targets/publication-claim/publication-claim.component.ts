@@ -1,16 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
 
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
-
+import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
-import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
 import { SuggestionsService } from '../../suggestions.service';
+import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -33,7 +42,7 @@ export class PublicationClaimComponent implements OnInit {
    */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'stp',
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
 
   /**
@@ -61,7 +70,7 @@ export class PublicationClaimComponent implements OnInit {
     private paginationService: PaginationService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private suggestionService: SuggestionsService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -74,10 +83,10 @@ export class PublicationClaimComponent implements OnInit {
 
     this.subs.push(
       this.suggestionTargetsStateService.isSuggestionTargetsLoaded().pipe(
-        take(1)
+        take(1),
       ).subscribe(() => {
         this.getSuggestionTargets();
-      })
+      }),
     );
   }
 
@@ -127,12 +136,12 @@ export class PublicationClaimComponent implements OnInit {
   public getSuggestionTargets(): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
       distinctUntilChanged(),
-      take(1)
+      take(1),
     ).subscribe((options: PaginationComponentOptions) => {
       this.suggestionTargetsStateService.dispatchRetrieveSuggestionTargets(
         this.source,
         options.pageSize,
-        options.currentPage
+        options.currentPage,
       );
     });
   }

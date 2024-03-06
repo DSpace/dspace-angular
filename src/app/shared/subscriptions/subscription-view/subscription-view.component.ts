@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
 import { getCollectionModuleRoute } from '../../../collection-page/collection-page-routing-paths';

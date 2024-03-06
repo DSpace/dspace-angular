@@ -5,6 +5,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -13,7 +17,6 @@ import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchComponent } from '../shared/search/search.component';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
 
 /**
  * This component renders a search page using a configuration as input.

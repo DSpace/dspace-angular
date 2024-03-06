@@ -1,7 +1,19 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PageInfo } from '../../../../../core/shared/page-info.model';
@@ -59,7 +71,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
           // Integrate FormFieldMetadataValueObject with retrieved information
-          let formField = new FormFieldMetadataValueObject(
+          const formField = new FormFieldMetadataValueObject(
             initEntry.value,
             null,
             initEntry.authority,

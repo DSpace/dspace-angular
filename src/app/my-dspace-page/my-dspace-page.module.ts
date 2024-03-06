@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { NotificationsModule } from '../notifications/notifications.module';
 import { SearchModule } from '../shared/search/search.module';
 import { SharedModule } from '../shared/shared.module';
 import { UploadModule } from '../shared/upload/upload.module';
@@ -12,10 +13,9 @@ import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-ds
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
+import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 import { MyDspaceSearchModule } from './my-dspace-search.module';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
-import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
-import { NotificationsModule } from '../notifications/notifications.module';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -24,7 +24,7 @@ const DECLARATIONS = [
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
   MyDSpaceNewExternalDropdownComponent,
-  MyDspaceQaEventsNotificationsComponent
+  MyDspaceQaEventsNotificationsComponent,
 ];
 
 @NgModule({
@@ -35,7 +35,7 @@ const DECLARATIONS = [
     MyDspacePageRoutingModule,
     MyDspaceSearchModule.withEntryComponents(),
     UploadModule,
-    NotificationsModule
+    NotificationsModule,
   ],
   declarations: DECLARATIONS,
   providers: [

@@ -329,7 +329,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       comp.onSectionInit();
 
-       expect(comp.required$.getValue()).toBe(true);
+      expect(comp.required$.getValue()).toBe(true);
 
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
         c: false,

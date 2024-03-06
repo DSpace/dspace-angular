@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
+import { NotificationsModule } from '../notifications/notifications.module';
 import { FormModule } from '../shared/form/form.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
@@ -11,7 +12,6 @@ import { ProfilePageResearcherFormComponent } from './profile-page-researcher-fo
 import { ProfilePageRoutingModule } from './profile-page-routing.module';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
-import { NotificationsModule } from '../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
     SharedModule,
     FormModule,
     UiSwitchModule,
-    NotificationsModule
+    NotificationsModule,
   ],
   exports: [
     ProfilePageComponent,

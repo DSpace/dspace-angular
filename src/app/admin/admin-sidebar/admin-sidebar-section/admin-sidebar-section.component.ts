@@ -1,4 +1,9 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { isEmpty } from '../../../shared/empty.util';

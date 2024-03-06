@@ -5,7 +5,10 @@ import { Community } from './core/shared/community.model';
 import { DSpaceObject } from './core/shared/dspace-object.model';
 import { Item } from './core/shared/item.model';
 import { URLCombiner } from './core/url-combiner/url-combiner';
-import { getItemModuleRoute, getItemPageRoute } from './item-page/item-page-routing-paths';
+import {
+  getItemModuleRoute,
+  getItemPageRoute,
+} from './item-page/item-page-routing-paths';
 import { hasValue } from './shared/empty.util';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';

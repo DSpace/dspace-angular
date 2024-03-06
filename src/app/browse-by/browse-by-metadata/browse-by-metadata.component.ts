@@ -1,27 +1,52 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { Context } from '../../core/shared/context.model';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
+import { Context } from '../../core/shared/context.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -167,7 +192,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        })
+        }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.browseId = params.id || this.defaultBrowseId;
         this.authority = params.authority;
@@ -187,9 +212,9 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         if (isNotEmpty(this.value)) {
-            this.updatePageWithItems(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
+          this.updatePageWithItems(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
         } else {
-            this.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
+          this.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
         }
       }));
     this.updateStartsWithTextOptions();
@@ -307,7 +332,7 @@ export function getBrowseSearchOptions(defaultBrowseId: string,
  * @param fetchThumbnail   Optional parameter for requesting thumbnail images
  */
 export function browseParamsToOptions(params: any,
-                                      scope: string,
+  scope: string,
   paginationConfig: PaginationComponentOptions,
   sortConfig: SortOptions,
   metadata?: string,

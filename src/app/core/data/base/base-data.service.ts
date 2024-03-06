@@ -6,10 +6,27 @@
  * http://www.dspace.org/license/
  */
 
-import { AsyncSubject, from as observableFrom, Observable, of as observableOf } from 'rxjs';
-import { map, mergeMap, skipWhile, switchMap, take, tap, toArray } from 'rxjs/operators';
+import {
+  AsyncSubject,
+  from as observableFrom,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  skipWhile,
+  switchMap,
+  take,
+  tap,
+  toArray,
+} from 'rxjs/operators';
 
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
@@ -17,6 +34,7 @@ import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { HALLink } from '../../shared/hal-link.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { FindListOptions } from '../find-list-options.model';
@@ -25,7 +43,6 @@ import { RemoteData } from '../remote-data';
 import { GetRequest } from '../request.models';
 import { RequestService } from '../request.service';
 import { HALDataService } from './hal-data-service.interface';
-import { HALLink } from '../../shared/hal-link.model';
 
 export const EMBED_SEPARATOR = '%2F';
 /**

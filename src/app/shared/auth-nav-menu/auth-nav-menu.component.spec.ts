@@ -1,18 +1,32 @@
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Store, StoreModule } from '@ngrx/store';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
-import { authReducer, AuthState } from '../../core/auth/auth.reducer';
+import {
+  authReducer,
+  AuthState,
+} from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { HostWindowService } from '../host-window.service';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { EPersonMock } from '../testing/eperson.mock';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';

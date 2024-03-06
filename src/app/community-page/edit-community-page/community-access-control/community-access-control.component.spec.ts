@@ -1,11 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CommunityAccessControlComponent } from './community-access-control.component';
-import { Community } from '../../../core/shared/community.model';
-import { of, of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { Community } from '../../../core/shared/community.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { CommunityAccessControlComponent } from './community-access-control.component';
 
 describe('CommunityAccessControlComponent', () => {
   let component: CommunityAccessControlComponent;
@@ -14,26 +19,26 @@ describe('CommunityAccessControlComponent', () => {
     {
       type: 'community',
       metadata: {
-        'dc.title': [{ value: 'community' }]
+        'dc.title': [{ value: 'community' }],
       },
       uuid: 'communityUUID',
       parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
 
       _links: {
         parentCommunity: 'site',
-        self: '/' + 'communityUUID'
-      }
-    }
+        self: '/' + 'communityUUID',
+      },
+    },
   );
 
   const routeStub = {
     parent: {
       parent: {
         data: of({
-          dso: createSuccessfulRemoteDataObject(testCommunity)
-        })
-      }
-    }
+          dso: createSuccessfulRemoteDataObject(testCommunity),
+        }),
+      },
+    },
   };
 
 

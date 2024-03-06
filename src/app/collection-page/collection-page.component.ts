@@ -1,21 +1,40 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, mergeMap, take } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+
+import { AuthService } from '../core/auth/auth.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { SortOptions } from '../core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Collection } from '../core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
-import { fadeIn, fadeInOut } from '../shared/animations/fade';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../shared/animations/fade';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { AuthService } from '../core/auth/auth.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-collection-page',

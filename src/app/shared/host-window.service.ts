@@ -1,7 +1,18 @@
 import { Injectable } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import { hasValue } from './empty.util';
@@ -103,35 +114,35 @@ export class HostWindowService {
   is(exactWidthCat: WidthCategory): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat === exactWidthCat),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isIn(widthCatArray: [WidthCategory]): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCatArray.includes(widthCat)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isUpTo(maxWidthCat: WidthCategory): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat <= maxWidthCat),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isMobile(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat <= maxMobileWidth),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
   isDesktop(): Observable<boolean> {
     return this.widthCategory.pipe(
       map((widthCat: WidthCategory) => widthCat > maxMobileWidth),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

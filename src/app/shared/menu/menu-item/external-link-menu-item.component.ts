@@ -1,4 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 
 import { isNotEmpty } from '../../empty.util';
 import { rendersMenuItemForType } from '../menu-item.decorator';

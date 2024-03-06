@@ -1,20 +1,50 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable, Optional } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  REQUEST,
+  RESPONSE,
+} from '@nguniversal/express-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
-import { Observable, of as observableOf } from 'rxjs';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import { hasNoValue, hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
@@ -23,15 +53,41 @@ import { Group } from '../eperson/models/group.model';
 import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
-import { CheckAuthenticationTokenAction, RefreshTokenAction, ResetAuthenticationMessagesAction, SetAuthCookieStatus, SetRedirectUrlAction, SetUserAsIdleAction, UnsetUserAsIdleAction } from './auth.actions';
+import {
+  CheckAuthenticationTokenAction,
+  RefreshTokenAction,
+  ResetAuthenticationMessagesAction,
+  SetAuthCookieStatus,
+  SetRedirectUrlAction,
+  SetUserAsIdleAction,
+  UnsetUserAsIdleAction,
+} from './auth.actions';
 import { AuthRequestService } from './auth-request.service';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { getAuthenticatedUserId, getAuthenticationToken, getExternalAuthCookieStatus, getRedirectUrl, isAuthenticated, isAuthenticatedLoaded, isIdle, isTokenRefreshing } from './selectors';
+import {
+  AuthTokenInfo,
+  TOKENITEM,
+} from './models/auth-token-info.model';
+import {
+  getAuthenticatedUserId,
+  getAuthenticationToken,
+  getExternalAuthCookieStatus,
+  getRedirectUrl,
+  isAuthenticated,
+  isAuthenticatedLoaded,
+  isIdle,
+  isTokenRefreshing,
+} from './selectors';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';

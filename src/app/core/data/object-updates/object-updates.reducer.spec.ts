@@ -3,8 +3,23 @@ import * as deepFreeze from 'deep-freeze';
 
 import { Relationship } from '../../shared/item-relationships/relationship.model';
 import { FieldChangeType } from './field-change-type.model';
-import { AddFieldUpdateAction, DiscardObjectUpdatesAction, InitializeFieldsAction, ReinstateObjectUpdatesAction, RemoveAllObjectUpdatesAction, RemoveFieldUpdateAction, RemoveObjectUpdatesAction, SelectVirtualMetadataAction, SetEditableFieldUpdateAction, SetValidFieldUpdateAction } from './object-updates.actions';
-import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer, ObjectUpdatesState } from './object-updates.reducer';
+import {
+  AddFieldUpdateAction,
+  DiscardObjectUpdatesAction,
+  InitializeFieldsAction,
+  ReinstateObjectUpdatesAction,
+  RemoveAllObjectUpdatesAction,
+  RemoveFieldUpdateAction,
+  RemoveObjectUpdatesAction,
+  SelectVirtualMetadataAction,
+  SetEditableFieldUpdateAction,
+  SetValidFieldUpdateAction,
+} from './object-updates.actions';
+import {
+  OBJECT_UPDATES_TRASH_PATH,
+  objectUpdatesReducer,
+  ObjectUpdatesState,
+} from './object-updates.reducer';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;

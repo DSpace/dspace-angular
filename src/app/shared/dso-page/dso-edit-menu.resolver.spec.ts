@@ -1,11 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import flatten from 'lodash/flatten';
-import { combineLatest, map, of as observableOf } from 'rxjs';
+import {
+  combineLatest,
+  map,
+  of as observableOf,
+} from 'rxjs';
+import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
 
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -20,13 +31,15 @@ import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { NotificationsService } from '../notifications/notifications.service';
-import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
-import { createPaginatedList } from '../testing/utils.test';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { MenuServiceStub } from '../testing/menu-service.stub';
+import { createPaginatedList } from '../testing/utils.test';
 import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
+import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
 describe('DSOEditMenuResolver', () => {
 
@@ -159,15 +172,15 @@ describe('DSOEditMenuResolver', () => {
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
       providers: [
-        {provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService},
-        {provide: MenuService, useValue: menuService},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: DsoVersioningModalService, useValue: dsoVersioningModalService},
-        {provide: ResearcherProfileDataService, useValue: researcherProfileService},
-        {provide: TranslateService, useValue: translate},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService},
-        {provide: CorrectionTypeDataService, useValue: correctionsDataService},
+        { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
+        { provide: MenuService, useValue: menuService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: DsoVersioningModalService, useValue: dsoVersioningModalService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileService },
+        { provide: TranslateService, useValue: translate },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
+        { provide: CorrectionTypeDataService, useValue: correctionsDataService },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/

@@ -1,24 +1,42 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
@@ -132,7 +150,7 @@ describe('FullItemPageComponent', () => {
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: NotifyInfoService, useValue: notifyInfoService },
-        { provide: PLATFORM_ID, useValue: 'server' }
+        { provide: PLATFORM_ID, useValue: 'server' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(FullItemPageComponent, {

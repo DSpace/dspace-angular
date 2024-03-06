@@ -1,6 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { fadeIn } from '../../../shared/animations/fade';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { SuggestionEvidences } from '../../../core/notifications/models/suggestion.model';
+import { fadeIn } from '../../../shared/animations/fade';
 
 /**
  * Show suggestion evidences such as score (authorScore, dateScore)
@@ -9,7 +13,7 @@ import { SuggestionEvidences } from '../../../core/notifications/models/suggesti
   selector: 'ds-suggestion-evidences',
   styleUrls: [ './suggestion-evidences.component.scss' ],
   templateUrl: './suggestion-evidences.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class SuggestionEvidencesComponent {
 

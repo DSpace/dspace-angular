@@ -1,9 +1,14 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -15,7 +20,6 @@ import { RequestEntry } from '../data/request-entry.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PageInfo } from '../shared/page-info.model';
 import { ActionType } from './models/action-type.model';

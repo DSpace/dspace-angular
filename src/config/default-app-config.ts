@@ -1,3 +1,4 @@
+import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
@@ -8,6 +9,7 @@ import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
+import { CommunityPageConfig } from './community-page-config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
@@ -19,14 +21,12 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
+import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
+import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import { SuggestionConfig } from './suggestion-config.interfaces';
-import { CommunityPageConfig } from './community-page-config.interface';
-import { SearchConfig } from './search-page-config.interface';
-import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -157,7 +157,7 @@ export class DefaultAppConfig implements AppConfig {
       timer: 0,
     },
     duplicateDetection: {
-      alwaysShowSection: false
+      alwaysShowSection: false,
     },
     typeBind: {
       field: 'dc.type',
@@ -200,49 +200,49 @@ export class DefaultAppConfig implements AppConfig {
           {
             value: 600,
             style: 'text-success',
-            icon: 'fa-circle-check'
+            icon: 'fa-circle-check',
           },
           {
             value: 500,
             style: 'text-info',
-            icon: 'fa-gear'
+            icon: 'fa-gear',
           },
           {
             value: 400,
             style: 'text-warning',
-            icon: 'fa-circle-question'
+            icon: 'fa-circle-question',
           },
           {
             value: 300,
             style: 'text-muted',
-            icon: 'fa-circle-question'
+            icon: 'fa-circle-question',
           },
           {
             value: 200,
             style: 'text-muted',
-            icon: 'fa-circle-exclamation'
+            icon: 'fa-circle-exclamation',
           },
           {
             value: 100,
             style: 'text-muted',
-            icon: 'fa-circle-stop'
+            icon: 'fa-circle-stop',
           },
           {
             value: 0,
             style: 'text-muted',
-            icon: 'fa-ban'
+            icon: 'fa-ban',
           },
           {
             value: -1,
             style: 'text-muted',
-            icon: 'fa-circle-xmark'
+            icon: 'fa-circle-xmark',
           },
           // default configuration
           {
             value: 'default',
             style: 'text-muted',
-            icon: 'fa-circle-xmark'
-          }
+            icon: 'fa-circle-xmark',
+          },
 
         ],
       },
@@ -310,9 +310,9 @@ export class DefaultAppConfig implements AppConfig {
       sortField: 'dc.date.accessioned',
     },
     topLevelCommunityList: {
-      pageSize: 5
+      pageSize: 5,
     },
-    showDiscoverFilters: false
+    showDiscoverFilters: false,
   };
 
   // Item Config
@@ -508,8 +508,8 @@ export class DefaultAppConfig implements AppConfig {
   search: SearchConfig = {
     advancedFilters: {
       enabled: false,
-      filter: ['title', 'author', 'subject', 'entityType']
-    }
+      filter: ['title', 'author', 'subject', 'entityType'],
+    },
   };
 
   notifyMetrics: AdminNotifyMetricsRow[] = [
@@ -520,34 +520,34 @@ export class DefaultAppConfig implements AppConfig {
           color: '#B8DAFF',
           title: 'admin-notify-dashboard.NOTIFY.incoming.accepted',
           config: 'NOTIFY.incoming.accepted',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description',
         },
         {
           color: '#D4EDDA',
           title: 'admin-notify-dashboard.NOTIFY.incoming.processed',
           config: 'NOTIFY.incoming.processed',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description',
         },
         {
           color: '#FDBBC7',
           title: 'admin-notify-dashboard.NOTIFY.incoming.failure',
           config: 'NOTIFY.incoming.failure',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description',
         },
         {
           color: '#FDBBC7',
           title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted',
           config: 'NOTIFY.incoming.untrusted',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description',
         },
         {
           color: '#43515F',
           title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.incoming.involvedItems',
-          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description'
+          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description',
         },
-      ]
+      ],
     },
     {
       title: 'admin-notify-dashboard.generated-ldn',
@@ -556,34 +556,34 @@ export class DefaultAppConfig implements AppConfig {
           color: '#D4EDDA',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered',
           config: 'NOTIFY.outgoing.delivered',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description',
         },
         {
           color: '#B8DAFF',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.queued',
           config: 'NOTIFY.outgoing.queued',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description',
         },
         {
           color: '#FDEEBB',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry',
           config: 'NOTIFY.outgoing.queued_for_retry',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description',
         },
         {
           color: '#FDBBC7',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.failure',
           config: 'NOTIFY.outgoing.failure',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description',
         },
         {
           color: '#43515F',
           title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems',
           textColor: '#fff',
           config: 'NOTIFY.outgoing.involvedItems',
-          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description'
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description',
         },
-      ]
-    }
+      ],
+    },
   ];
 }

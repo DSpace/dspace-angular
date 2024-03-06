@@ -1,22 +1,40 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { hasValue } from '../../../../shared/empty.util';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
+import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 
 /**
  * Component that contains the controls to run, reset and test the harvest
@@ -96,7 +114,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
         this.autoRefreshIDs.push(rd.payload.processId);
         return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
       }),
-      map((rd) => rd.payload)
+      map((rd) => rd.payload),
     ).subscribe((process: Process) => {
       if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
         this.notificationsService.error(this.translateService.get('collection.source.controls.test.failed'));
@@ -140,7 +158,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
           this.autoRefreshIDs.push(rd.payload.processId);
           return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
         }),
-        map((rd) => rd.payload)
+        map((rd) => rd.payload),
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
           this.notificationsService.error(this.translateService.get('collection.source.controls.import.failed'));
@@ -178,7 +196,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
           this.autoRefreshIDs.push(rd.payload.processId);
           return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
         }),
-        map((rd) => rd.payload)
+        map((rd) => rd.payload),
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
           this.notificationsService.error(this.translateService.get('collection.source.controls.reset.failed'));

@@ -1,6 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormValueControlModel, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormValueControlModel,
+  DynamicInputModel,
+  DynamicSelectModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -8,8 +17,14 @@ import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 

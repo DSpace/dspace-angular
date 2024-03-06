@@ -1,8 +1,15 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
@@ -27,7 +34,7 @@ describe('FileSectionComponent', () => {
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-    findPrimaryBitstreamByItemAndName: observableOf(null)
+    findPrimaryBitstreamByItemAndName: observableOf(null),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),

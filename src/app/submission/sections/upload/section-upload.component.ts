@@ -1,6 +1,24 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, combineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
@@ -15,14 +33,18 @@ import { ResourcePolicyDataService } from '../../../core/resource-policy/resourc
 import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../../shared/empty.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionUploadService } from './section-upload.service';
@@ -198,11 +220,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         }),
         distinctUntilChanged())
         .subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-            this.primaryBitstreamUUID = primary;
-            this.fileList = files;
-            this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
-          }
-        )
+          this.primaryBitstreamUUID = primary;
+          this.fileList = files;
+          this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
+        },
+        ),
     );
   }
 

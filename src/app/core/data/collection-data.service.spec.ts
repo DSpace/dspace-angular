@@ -1,15 +1,27 @@
-import { fakeAsync, tick } from '@angular/core/testing';
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { hasNoValue } from '../../shared/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Collection } from '../shared/collection.model';
@@ -19,12 +31,14 @@ import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { CollectionDataService } from './collection-data.service';
 import { buildPaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { ContentSourceRequest, UpdateContentSourceRequest } from './request.models';
+import {
+  ContentSourceRequest,
+  UpdateContentSourceRequest,
+} from './request.models';
 import { RequestService } from './request.service';
 
 const url = 'fake-url';

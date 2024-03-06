@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { SubmissionFormsModel } from 'src/app/core/config/models/config-submission-forms.model';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 

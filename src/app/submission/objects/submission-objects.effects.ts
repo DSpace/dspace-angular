@@ -1,39 +1,84 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
 import union from 'lodash/union';
+import {
+  from as observableFrom,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
-import { from as observableFrom, Observable, of as observableOf } from 'rxjs';
-import { catchError, filter, map, mergeMap, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionDuplicatesObject } from '../../core/submission/models/workspaceitem-section-duplicates.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../shared/empty.util';
+import { FormState } from '../../shared/form/form.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SectionsType } from '../sections/sections-type';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { SectionsService } from '../sections/sections.service';
+import { SectionsType } from '../sections/sections-type';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
-import parseSectionErrors from '../utils/parseSectionErrors';
-import { CleanDuplicateDetectionAction, CompleteInitSubmissionFormAction, DepositSubmissionAction, DepositSubmissionErrorAction, DepositSubmissionSuccessAction, DiscardSubmissionErrorAction, DiscardSubmissionSuccessAction, InitSectionAction, InitSubmissionFormAction, ResetSubmissionFormAction, SaveAndDepositSubmissionAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormSuccessAction, SaveSubmissionFormAction, SaveSubmissionFormErrorAction, SaveSubmissionFormSuccessAction, SaveSubmissionSectionFormAction, SaveSubmissionSectionFormErrorAction, SaveSubmissionSectionFormSuccessAction, SubmissionObjectAction, SubmissionObjectActionTypes, UpdateSectionDataAction, UpdateSectionDataSuccessAction } from './submission-objects.actions';
-import { SubmissionObjectEntry } from './submission-objects.reducer';
-import { Item } from '../../core/shared/item.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { FormState } from '../../shared/form/form.reducer';
-import { SubmissionSectionObject } from './submission-section-object.model';
+import parseSectionErrors from '../utils/parseSectionErrors';
+import {
+  CleanDuplicateDetectionAction,
+  CompleteInitSubmissionFormAction,
+  DepositSubmissionAction,
+  DepositSubmissionErrorAction,
+  DepositSubmissionSuccessAction,
+  DiscardSubmissionErrorAction,
+  DiscardSubmissionSuccessAction,
+  InitSectionAction,
+  InitSubmissionFormAction,
+  ResetSubmissionFormAction,
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormAction,
+  SaveForLaterSubmissionFormSuccessAction,
+  SaveSubmissionFormAction,
+  SaveSubmissionFormErrorAction,
+  SaveSubmissionFormSuccessAction,
+  SaveSubmissionSectionFormAction,
+  SaveSubmissionSectionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction,
+  SubmissionObjectAction,
+  SubmissionObjectActionTypes,
+  UpdateSectionDataAction,
+  UpdateSectionDataSuccessAction,
+} from './submission-objects.actions';
+import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { SubmissionSectionError } from './submission-section-error.model';
-import { WorkspaceitemSectionDuplicatesObject } from '../../core/submission/models/workspaceitem-section-duplicates.model';
-import { environment } from '../../../environments/environment';
+import { SubmissionSectionObject } from './submission-section-object.model';
 
 @Injectable()
 export class SubmissionObjectEffects {

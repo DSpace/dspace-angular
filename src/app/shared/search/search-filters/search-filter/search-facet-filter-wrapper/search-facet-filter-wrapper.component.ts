@@ -1,8 +1,18 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SCOPE } from '../../../../../core/shared/search/search-filter.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SCOPE,
+} from '../../../../../core/shared/search/search-filter.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';

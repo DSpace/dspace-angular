@@ -1,14 +1,24 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 
 import { Context } from '../../core/shared/context.model';
-import { MetadataRepresentation, MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadataRepresentationLoaderComponent } from './metadata-representation-loader.component';
+import {
+  MetadataRepresentation,
+  MetadataRepresentationType,
+} from '../../core/shared/metadata-representation/metadata-representation.model';
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
-import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { ThemeService } from '../theme-support/theme.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
+import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
+import { MetadataRepresentationLoaderComponent } from './metadata-representation-loader.component';
 
 const testType = 'TestType';
 const testContext = Context.Search;

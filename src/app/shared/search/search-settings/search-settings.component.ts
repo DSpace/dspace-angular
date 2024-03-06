@@ -1,5 +1,13 @@
-import { Component, Inject, Input } from '@angular/core';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import {
+  Component,
+  Inject,
+  Input,
+} from '@angular/core';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';

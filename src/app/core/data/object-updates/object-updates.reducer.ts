@@ -1,4 +1,7 @@
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { Item } from '../../shared/item.model';
 import { Relationship } from '../../shared/item-relationships/relationship.model';
@@ -6,7 +9,19 @@ import { RelationshipType } from '../../shared/item-relationships/relationship-t
 import { FieldChangeType } from './field-change-type.model';
 import { FieldUpdates } from './field-updates.model';
 import { Identifiable } from './identifiable.model';
-import { AddFieldUpdateAction, DiscardObjectUpdatesAction, InitializeFieldsAction, ObjectUpdatesAction, ObjectUpdatesActionTypes, ReinstateObjectUpdatesAction, RemoveFieldUpdateAction, RemoveObjectUpdatesAction, SelectVirtualMetadataAction, SetEditableFieldUpdateAction, SetValidFieldUpdateAction } from './object-updates.actions';
+import {
+  AddFieldUpdateAction,
+  DiscardObjectUpdatesAction,
+  InitializeFieldsAction,
+  ObjectUpdatesAction,
+  ObjectUpdatesActionTypes,
+  ReinstateObjectUpdatesAction,
+  RemoveFieldUpdateAction,
+  RemoveObjectUpdatesAction,
+  SelectVirtualMetadataAction,
+  SetEditableFieldUpdateAction,
+  SetValidFieldUpdateAction,
+} from './object-updates.actions';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
 
 /**

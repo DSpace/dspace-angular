@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { NotifyInfoComponent } from '../core/coar-notify/notify-info/notify-info.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
 import { SharedModule } from '../shared/shared.module';
 import { EndUserAgreementComponent } from './end-user-agreement/end-user-agreement.component';
@@ -10,7 +11,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
 import { ThemedFeedbackFormComponent } from './feedback/feedback-form/themed-feedback-form.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
-import { NotifyInfoComponent } from '../core/coar-notify/notify-info/notify-info.component';
 import { InfoRoutingModule } from './info-routing.module';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyContentComponent } from './privacy/privacy-content/privacy-content.component';
@@ -27,7 +27,7 @@ const DECLARATIONS = [
   FeedbackFormComponent,
   ThemedFeedbackFormComponent,
   ThemedFeedbackComponent,
-  NotifyInfoComponent
+  NotifyInfoComponent,
 ];
 
 @NgModule({

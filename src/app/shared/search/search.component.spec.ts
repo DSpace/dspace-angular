@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
@@ -8,11 +17,20 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
@@ -21,18 +39,22 @@ import { Item } from '../../core/shared/item.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import { SearchConfig, SortConfig } from '../../core/shared/search/search-filters/search-config.model';
+import {
+  SearchConfig,
+  SortConfig,
+} from '../../core/shared/search/search-filters/search-config.model';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { HostWindowService } from '../host-window.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { FilterType } from './models/filter-type.model';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
-import { environment } from '../../../environments/environment.test';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
 
@@ -210,7 +232,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       },
       {
         provide: SEARCH_CONFIG_SERVICE,
-        useValue: searchConfigurationServiceStub
+        useValue: searchConfigurationServiceStub,
       },
       { provide: APP_CONFIG, useValue: environment },
     ],

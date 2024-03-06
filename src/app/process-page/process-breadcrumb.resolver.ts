@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
-import { RemoteData } from '../core/data/remote-data';
 import { Process } from './processes/process.model';
 
 /**
@@ -35,7 +39,7 @@ export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Proce
         const fullPath = state.url;
         const url = fullPath.substr(0, fullPath.indexOf(id)) + id;
         return { provider: this.breadcrumbService, key: object.payload, url: url };
-      })
+      }),
     );
   }
 }

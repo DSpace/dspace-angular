@@ -1,19 +1,39 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { Item } from '../../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { Item } from '../../../core/shared/item.model';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -99,7 +119,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
           // If there is only one topic, navigate to the first topic automatically
           this.router.navigate([this.getQualityAssuranceRoute(), this.sourceId, topics[0].id]);
         }
-      })
+      }),
     );
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceTopicsTotals();
   }
@@ -113,7 +133,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
         take(1),
       ).subscribe(() => {
         this.getQualityAssuranceTopics(this.sourceId, this.targetId);
-      })
+      }),
     );
   }
 
@@ -148,7 +168,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
         options.pageSize,
         options.currentPage,
         source,
-        target
+        target,
       );
     }));
   }
@@ -184,7 +204,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
-      map((item: Item) => item.firstMetadataValue('dc.title'))
+      map((item: Item) => item.firstMetadataValue('dc.title')),
     );
   }
 

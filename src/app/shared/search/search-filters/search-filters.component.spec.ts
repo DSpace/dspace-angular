@@ -10,13 +10,13 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
 import { SearchFiltersComponent } from './search-filters.component';
 
 describe('SearchFiltersComponent', () => {

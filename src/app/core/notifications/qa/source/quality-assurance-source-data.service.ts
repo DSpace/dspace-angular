@@ -6,8 +6,15 @@ import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.mo
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { dataService } from '../../../data/base/data-service.decorator';
-import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../../../data/base/find-all-data';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../../../data/base/search-data';
 import { FindListOptions } from '../../../data/find-list-options.model';
 import { PaginatedList } from '../../../data/paginated-list.model';
 import { RemoteData } from '../../../data/remote-data';
@@ -15,7 +22,6 @@ import { RequestService } from '../../../data/request.service';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { QualityAssuranceSourceObject } from '../models/quality-assurance-source.model';
 import { QUALITY_ASSURANCE_SOURCE_OBJECT } from '../models/quality-assurance-source-object.resource-type';
-import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 
 /**
  * The service handling all Quality Assurance source REST requests.

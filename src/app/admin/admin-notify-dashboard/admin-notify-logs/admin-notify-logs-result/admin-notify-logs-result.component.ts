@@ -1,11 +1,22 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { Context } from '../../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { map } from 'rxjs/operators';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-admin-notify-logs-result',
@@ -13,9 +24,9 @@ import { map } from 'rxjs/operators';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 /**
@@ -25,7 +36,7 @@ import { map } from 'rxjs/operators';
 export class AdminNotifyLogsResultComponent implements OnInit {
 
   @Input()
-  defaultConfiguration: string;
+    defaultConfiguration: string;
 
 
   public selectedSearchConfig$: Observable<string>;
@@ -42,7 +53,7 @@ export class AdminNotifyLogsResultComponent implements OnInit {
   ngOnInit() {
     this.selectedSearchConfig$ = this.searchConfigService.getCurrentConfiguration(this.defaultConfiguration);
     this.isInbound$ = this.selectedSearchConfig$.pipe(
-      map(config => config.startsWith('NOTIFY.incoming'))
+      map(config => config.startsWith('NOTIFY.incoming')),
     );
   }
 

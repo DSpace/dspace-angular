@@ -1,9 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Suggestion } from 'src/app/core/notifications/models/suggestion.model';
-import { fadeIn } from '../../shared/animations/fade';
+
 import { Item } from '../../core/shared/item.model';
+import { fadeIn } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
 
 /**
@@ -21,7 +27,7 @@ export interface SuggestionApproveAndImport {
   selector: 'ds-suggestion-list-item',
   styleUrls: ['./suggestion-list-element.component.scss'],
   templateUrl: './suggestion-list-element.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class SuggestionListElementComponent implements OnInit {
 
@@ -59,8 +65,8 @@ export class SuggestionListElementComponent implements OnInit {
 
   ngOnInit() {
     this.listableObject = {
-      indexableObject: Object.assign(new Item(), {id: this.object.id, metadata: this.object.metadata}),
-      hitHighlights: {}
+      indexableObject: Object.assign(new Item(), { id: this.object.id, metadata: this.object.metadata }),
+      hitHighlights: {},
     };
   }
 
