@@ -14,7 +14,7 @@ import {
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
 import { By } from '@angular/platform-browser';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 export const DATE_TEST_GROUP = new UntypedFormGroup({
   date: new UntypedFormControl()
@@ -51,7 +51,8 @@ describe('DsDatePickerComponent test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NgbModule
+        NgbModule,
+        TranslateModule.forRoot()
       ],
       declarations: [
         DsDatePickerComponent,
