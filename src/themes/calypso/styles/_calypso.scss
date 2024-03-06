@@ -130,3 +130,10 @@ a {
 .calypso-hide {
   display: none!important;
 }
+/* Ajustement mineur du style de l'en-tête dans le thème */
+#main-site-header {
+  border-bottom: 3px solid #124154 !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #ced4da;
+}
