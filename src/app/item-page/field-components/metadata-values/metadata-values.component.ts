@@ -65,12 +65,15 @@ export class MetadataValuesComponent implements OnChanges {
    */
   renderMarkdown;
 
+
   @Input() browseDefinition?: BrowseDefinition;
 
   /**
    * Optional {@code ImageField} reference that represents an image to be displayed inline.
    */
   @Input() img?: ImageField;
+
+  hasValue = hasValue;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;

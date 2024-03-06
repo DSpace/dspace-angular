@@ -38,6 +38,8 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,

@@ -415,7 +415,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private changeDetectorRef: ChangeDetectorRef,
-              private location: Location,
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
