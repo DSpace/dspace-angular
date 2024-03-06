@@ -1,8 +1,4 @@
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -19,6 +15,7 @@ import { RequestEntry } from '../data/request-entry.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PageInfo } from '../shared/page-info.model';
 import { ActionType } from './models/action-type.model';
@@ -30,7 +27,7 @@ describe('ResourcePolicyService', () => {
   let service: ResourcePolicyDataService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: HALEndpointService;
   let responseCacheEntry: RequestEntry;
   let ePersonService: EPersonDataService;
@@ -143,14 +140,14 @@ describe('ResourcePolicyService', () => {
         a: 'https://rest.api/rest/api/eperson/groups/' + groupUUID,
       }),
     });
-    objectCache = {} as ObjectCacheService;
+    objectCache = new ObjectCacheServiceStub();
     const notificationsService = {} as NotificationsService;
     const comparator = {} as any;
 
     service = new ResourcePolicyDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
       notificationsService,
       comparator,

@@ -1,8 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -20,14 +17,16 @@ import { testSearchDataImplementation } from './base/search-data.spec';
 import { BitstreamDataService } from './bitstream-data.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import {
-  PatchRequest,
-  PutRequest,
-} from './request.models';
+import { PatchRequest, PutRequest } from './request.models';
 import { RequestService } from './request.service';
-import objectContaining = jasmine.objectContaining;
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteData } from './remote-data';
+import { BundleDataService } from './bundle-data.service';
+import { ItemMock } from 'src/app/shared/mocks/item.mock';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
+import { Bundle } from '../shared/bundle.model';
+import { cold } from 'jasmine-marbles';
+import objectContaining = jasmine.objectContaining;
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;
@@ -36,6 +35,7 @@ describe('BitstreamDataService', () => {
   let halService: HALEndpointService;
   let bitstreamFormatService: BitstreamFormatDataService;
   let rdbService: RemoteDataBuildService;
+  let bundleDataService: BundleDataService;
   const bitstreamFormatHref = 'rest-api/bitstreamformats';
 
   const bitstream1 = Object.assign(new Bitstream(), {
@@ -69,6 +69,7 @@ describe('BitstreamDataService', () => {
     bitstreamFormatService = jasmine.createSpyObj('bistreamFormatService', {
       getBrowseEndpoint: observableOf(bitstreamFormatHref),
     });
+
     rdbService = getMockRemoteDataBuildService();
 
     TestBed.configureTestingModule({
@@ -83,6 +84,7 @@ describe('BitstreamDataService', () => {
       ],
     });
     service = TestBed.inject(BitstreamDataService);
+    bundleDataService = TestBed.inject(BundleDataService);
   });
 
   describe('composition', () => {
@@ -123,6 +125,32 @@ describe('BitstreamDataService', () => {
         ],
       } as PatchRequest));
       expect(service.invalidateByHref).toHaveBeenCalledWith('fake-bitstream1-self');
+    });
+
+    describe('findPrimaryBitstreamByItemAndName', () => {
+      it('should return primary bitstream', () => {
+        const exprected$ = cold('(a|)', { a: bitstream1} );
+        const bundle = Object.assign(new Bundle(), {
+          primaryBitstream: observableOf(createSuccessfulRemoteDataObject(bitstream1)),
+        });
+        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createSuccessfulRemoteDataObject(bundle)));
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+      });
+
+      it('should return null if primary bitstream has not be succeeded ', () => {
+        const exprected$ = cold('(a|)', { a: null} );
+        const bundle = Object.assign(new Bundle(), {
+          primaryBitstream: observableOf(createFailedRemoteDataObject()),
+        });
+        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createSuccessfulRemoteDataObject(bundle)));
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+      });
+
+      it('should return EMPTY if nothing where found', () => {
+        const exprected$ = cold('(|)', {} );
+        spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createFailedRemoteDataObject<Bundle>()));
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+      });
     });
 
     it('should be able to delete multiple bitstreams', () => {

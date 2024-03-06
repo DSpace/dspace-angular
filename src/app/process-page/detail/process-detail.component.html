@@ -5,8 +5,8 @@
           {{ 'process.detail.title' | translate:{ id: process?.processId, name: process?.scriptName } }}
         </h1>
       </div>
-      <div *ngIf="refreshCounter$ | async as seconds" class="col-2 refresh-counter">
-        Refreshing in {{ seconds }}s <i class="fas fa-sync-alt fa-spin"></i>
+      <div *ngIf="isRefreshing$ | async" class="col-2 refresh-counter">
+        {{ 'process.detail.refreshing' | translate }} <i class="fas fa-sync-alt fa-spin"></i>
       </div>
     </div>
 

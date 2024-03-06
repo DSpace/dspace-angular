@@ -1,21 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import flatten from 'lodash/flatten';
-import {
-  combineLatest,
-  map,
-  of as observableOf,
-} from 'rxjs';
+import { combineLatest, map, of as observableOf } from 'rxjs';
 
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -30,10 +20,10 @@ import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { NotificationsService } from '../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
+import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
+import { createPaginatedList } from '../testing/utils.test';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
@@ -53,6 +43,8 @@ describe('DSOEditMenuResolver', () => {
   let researcherProfileService;
   let notificationsService;
   let translate;
+  let dsoWithdrawnReinstateModalService;
+  let correctionsDataService;
 
   const dsoRoute = (dso: DSpaceObject) => {
     return {
@@ -155,17 +147,27 @@ describe('DSOEditMenuResolver', () => {
       error: {},
     });
 
+    dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', {
+      openCreateWithdrawnReinstateModal: {},
+    });
+
+    correctionsDataService = jasmine.createSpyObj('correctionsDataService', {
+      findByItem: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
       providers: [
-        { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
-        { provide: MenuService, useValue: menuService },
-        { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: DsoVersioningModalService, useValue: dsoVersioningModalService },
-        { provide: ResearcherProfileDataService, useValue: researcherProfileService },
-        { provide: TranslateService, useValue: translate },
-        { provide: NotificationsService, useValue: notificationsService },
+        {provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService},
+        {provide: MenuService, useValue: menuService},
+        {provide: AuthorizationDataService, useValue: authorizationService},
+        {provide: DsoVersioningModalService, useValue: dsoVersioningModalService},
+        {provide: ResearcherProfileDataService, useValue: researcherProfileService},
+        {provide: TranslateService, useValue: translate},
+        {provide: NotificationsService, useValue: notificationsService},
+        {provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService},
+        {provide: CorrectionTypeDataService, useValue: correctionsDataService},
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
@@ -364,7 +366,7 @@ describe('DSOEditMenuResolver', () => {
         route = dsoRoute(testItem);
       });
 
-      it('should return Item-specific entries', (done) => {
+      it('should return Item-specific entries', (done: DoneFn) => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const orcidEntry = menu.find(entry => entry.id === 'orcid-dso');
@@ -389,7 +391,7 @@ describe('DSOEditMenuResolver', () => {
         });
       });
 
-      it('should not return Community/Collection-specific entries', (done) => {
+      it('should not return Community/Collection-specific entries', (done: DoneFn) => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const subscribeEntry = menu.find(entry => entry.id === 'subscribe');
@@ -398,7 +400,7 @@ describe('DSOEditMenuResolver', () => {
         });
       });
 
-      it('should return as third part the common list ', (done) => {
+      it('should return as third part the common list ', (done: DoneFn) => {
         const result = resolver.getDsoMenus(testObject, route, state);
         combineLatest(result).pipe(map(flatten)).subscribe((menu) => {
           const editEntry = menu.find(entry => entry.id === 'edit-dso');

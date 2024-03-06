@@ -1,15 +1,6 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import {
-  DynamicFormControlModel,
-  DynamicFormValueControlModel,
-  DynamicInputModel,
-  DynamicSelectModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormValueControlModel, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -17,14 +8,8 @@ import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
@@ -55,6 +40,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       id: 'email',
       name: 'email',
       readOnly: true,
+      disabled: true,
     }),
     new DynamicInputModel({
       id: 'firstname',
@@ -66,6 +52,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       errorMessages: {
         required: 'This field is required',
       },
+      autoComplete: 'given-name',
     }),
     new DynamicInputModel({
       id: 'lastname',
@@ -77,10 +64,12 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       errorMessages: {
         required: 'This field is required',
       },
+      autoComplete: 'family-name',
     }),
     new DynamicInputModel({
       id: 'phone',
       name: 'eperson.phone',
+      autoComplete: 'tel',
     }),
     new DynamicSelectModel<string>({
       id: 'language',

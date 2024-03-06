@@ -1,22 +1,10 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {
-  NgbDropdownModule,
-  NgbNavModule,
-  NgbPaginationModule,
-  NgbTooltipModule,
-  NgbTypeaheadModule,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  MissingTranslationHandler,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { NgbDropdownModule, NgbNavModule, NgbPaginationModule, NgbTooltipModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -83,13 +71,11 @@ import { ThemedLogInComponent } from './log-in/themed-log-in.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { MenuModule } from './menu/menu.module';
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper/metadata-field-wrapper.component';
-import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
 import { MetadataRepresentationLoaderComponent } from './metadata-representation/metadata-representation-loader.component';
 import { MockAdminGuard } from './mocks/admin-guard.service.mock';
 import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
 import { AdvancedClaimedTaskActionRatingComponent } from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './mydspace-actions/claimed-task/select-reviewer/advanced-claimed-task-action-select-reviewer.component';
-import { ClaimedTaskActionsDirective } from './mydspace-actions/claimed-task/switcher/claimed-task-actions.directive';
 import { NgForTrackByIdDirective } from './ng-for-track-by-id.directive';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
 import { AccessStatusBadgeComponent } from './object-collection/shared/badges/access-status-badge/access-status-badge.component';
@@ -103,7 +89,6 @@ import { ThemedBadgesComponent } from './object-collection/shared/badges/themed-
 import { ThemedTypeBadgeComponent } from './object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { TypeBadgeComponent } from './object-collection/shared/badges/type-badge/type-badge.component';
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
-import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import { ListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/listable-object-component-loader.component';
 import { AbstractListableElementComponent } from './object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
@@ -177,10 +162,23 @@ import { ObjNgFor } from './utils/object-ngfor.pipe';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { FileValidator } from './utils/require-file.validator';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
+
 import { ShortNumberPipe } from './utils/short-number.pipe';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { VarDirective } from './utils/var.directive';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
+import { SplitPipe } from './utils/split.pipe';
+import { QualityAssuranceEventDataService } from '../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceSourceDataService } from '../core/notifications/qa/source/quality-assurance-source-data.service';
+import { DynamicComponentLoaderDirective } from './abstract-component-loader/dynamic-component-loader.directive';
+import { StartsWithLoaderComponent } from './starts-with/starts-with-loader.component';
+import { IpV4Validator } from './utils/ipV4.validator';
+import { ObjectTableComponent } from './object-table/object-table.component';
+import { AbstractTabulatableElementComponent } from './object-collection/shared/objects-collection-tabulatable/objects-collection-tabulatable.component';
+import { TabulatableObjectsLoaderComponent } from './object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
+import { TabulatableResultListElementsComponent } from './object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
+import { TabulatableObjectsDirective } from './object-collection/shared/tabulatable-objects/tabulatable-objects.directive';
+import { NotificationBoxComponent } from './notification-box/notification-box.component';
 
 const MODULES = [
   CommonModule,
@@ -221,6 +219,7 @@ const PIPES = [
   BrowserOnlyPipe,
   MarkdownPipe,
   ShortNumberPipe,
+  SplitPipe
 ];
 
 const COMPONENTS = [
@@ -243,7 +242,9 @@ const COMPONENTS = [
   ThemedObjectListComponent,
   ObjectDetailComponent,
   ObjectGridComponent,
+  ObjectTableComponent,
   AbstractListableElementComponent,
+  AbstractTabulatableElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,
   RSSComponent,
@@ -276,7 +277,7 @@ const COMPONENTS = [
   ThemedStatusBadgeComponent,
   BadgesComponent,
   ThemedBadgesComponent,
-
+  StartsWithLoaderComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
@@ -309,6 +310,7 @@ const ENTRY_COMPONENTS = [
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
+  TabulatableResultListElementsComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
   CollectionGridElementComponent,
@@ -365,12 +367,16 @@ const ENTRY_COMPONENTS = [
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
+  NotificationBoxComponent,
+  TabulatableObjectsLoaderComponent,
 ];
 
 const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
   AbstractTrackableComponent,
+  QualityAssuranceEventDataService,
+  QualityAssuranceSourceDataService
 ];
 
 const DIRECTIVES = [
@@ -381,15 +387,15 @@ const DIRECTIVES = [
   InListValidator,
   AutoFocusDirective,
   RoleDirective,
-  MetadataRepresentationDirective,
-  ListableObjectDirective,
-  ClaimedTaskActionsDirective,
   FileValueAccessorDirective,
   FileValidator,
   NgForTrackByIdDirective,
   MetadataFieldValidator,
   HoverClassDirective,
   ContextHelpDirective,
+  DynamicComponentLoaderDirective,
+  IpV4Validator,
+  TabulatableObjectsDirective
 ];
 
 @NgModule({

@@ -1,7 +1,4 @@
-import {
-  Component,
-  Input,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SubmissionFormsModel } from 'src/app/core/config/models/config-submission-forms.model';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
@@ -20,6 +17,13 @@ export class ThemedSubmissionSectionUploadFileComponent
    * @type {Array}
    */
   @Input() availableAccessConditionOptions: any[];
+
+   /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+   @Input() isPrimary: boolean | null;
 
   /**
    * The submission id
@@ -73,6 +77,7 @@ export class ThemedSubmissionSectionUploadFileComponent
 
   protected inAndOutputNames: (keyof SubmissionSectionUploadFileComponent & keyof this)[] = [
     'availableAccessConditionOptions',
+    'isPrimary',
     'collectionId',
     'collectionPolicyType',
     'configMetadataForm',

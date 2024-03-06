@@ -13,6 +13,7 @@ describe('Config Util', () => {
       expect(appConfig.ui.useProxies).toEqual(true);
 
       expect(appConfig.submission.autosave.metadata).toEqual([]);
+      expect(appConfig.submission.duplicateDetection.alwaysShowSection).toEqual(false);
 
       expect(appConfig.themes.length).toEqual(1);
       expect(appConfig.themes[0].name).toEqual('dspace');

@@ -1,7 +1,4 @@
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
@@ -9,7 +6,6 @@ import { QualityAssuranceBreadcrumbService } from './quality-assurance-breadcrum
 
 describe('QualityAssuranceBreadcrumbService', () => {
   let service: QualityAssuranceBreadcrumbService;
-  let dataService: any;
   let translateService: any = {
     instant: (str) => str,
   };
@@ -30,7 +26,7 @@ describe('QualityAssuranceBreadcrumbService', () => {
   }));
 
   beforeEach(() => {
-    service = new QualityAssuranceBreadcrumbService(dataService,translateService);
+    service = new QualityAssuranceBreadcrumbService(translateService);
   });
 
   describe('getBreadcrumbs', () => {

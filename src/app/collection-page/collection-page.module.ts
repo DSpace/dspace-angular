@@ -17,6 +17,17 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
+import { BrowseByPageModule } from '../browse-by/browse-by-page.module';
+
+const DECLARATIONS = [
+  CollectionPageComponent,
+  ThemedCollectionPageComponent,
+  CreateCollectionPageComponent,
+  DeleteCollectionPageComponent,
+  EditItemTemplatePageComponent,
+  ThemedEditItemTemplatePageComponent,
+  CollectionItemMapperComponent,
+];
 
 @NgModule({
   imports: [
@@ -29,15 +40,10 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
     ComcolModule,
     DsoSharedModule,
     DsoPageModule,
+    BrowseByPageModule,
   ],
   declarations: [
-    CollectionPageComponent,
-    ThemedCollectionPageComponent,
-    CreateCollectionPageComponent,
-    DeleteCollectionPageComponent,
-    EditItemTemplatePageComponent,
-    ThemedEditItemTemplatePageComponent,
-    CollectionItemMapperComponent,
+    ...DECLARATIONS,
   ],
   providers: [
     SearchService,

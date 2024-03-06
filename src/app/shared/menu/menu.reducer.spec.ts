@@ -2,23 +2,7 @@
 import * as deepFreeze from 'deep-freeze';
 
 import { initialMenusState } from './initial-menus-state';
-import {
-  ActivateMenuSectionAction,
-  AddMenuSectionAction,
-  CollapseMenuAction,
-  CollapseMenuPreviewAction,
-  DeactivateMenuSectionAction,
-  ExpandMenuAction,
-  ExpandMenuPreviewAction,
-  HideMenuAction,
-  HideMenuSectionAction,
-  ReinitMenuAction,
-  RemoveMenuSectionAction,
-  ShowMenuAction,
-  ShowMenuSectionAction,
-  ToggleActiveMenuSectionAction,
-  ToggleMenuAction,
-} from './menu.actions';
+import { ActivateMenuSectionAction, AddMenuSectionAction, CollapseMenuAction, CollapseMenuPreviewAction, DeactivateMenuSectionAction, ExpandMenuAction, ExpandMenuPreviewAction, HideMenuAction, HideMenuSectionAction, ReinitMenuAction, RemoveMenuSectionAction, ShowMenuAction, ShowMenuSectionAction, ToggleActiveMenuSectionAction, ToggleMenuAction } from './menu.actions';
 import { menusReducer } from './menu.reducer';
 import { MenuID } from './menu-id.model';
 import { MenuSectionIndex } from './menu-section-Index.model';
@@ -182,6 +166,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set collapsed to false for the correct menu in response to the EXPAND_MENU action', () => {
@@ -203,6 +188,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set collapsed to false for the correct menu in response to the TOGGLE_MENU action when collapsed is true', () => {
@@ -233,6 +219,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set previewCollapsed to true for the correct menu in response to the COLLAPSE_MENU_PREVIEW action', () => {
@@ -254,6 +241,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set previewCollapsed to false for the correct menu in response to the EXPAND_MENU_PREVIEW action', () => {
@@ -275,6 +263,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set visible to true for the correct menu in response to the SHOW_MENU action', () => {
@@ -296,6 +285,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set previewCollapsed to false for the correct menu in response to the HIDE_MENU action', () => {
@@ -317,6 +307,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should reset the menu state to the initial state when performing the REINIT_MENUS action without affecting the previous state', () => {
@@ -360,6 +351,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should remove a section for the correct menu in response to the REMOVE_SECTION action', () => {
@@ -396,6 +388,10 @@ describe('menusReducer', () => {
 
     const action = new ActivateMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set active to false for the correct menu section in response to the DEACTIVATE_SECTION action', () => {
@@ -414,6 +410,10 @@ describe('menusReducer', () => {
 
     const action = new DeactivateMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set active to false for the correct menu in response to the TOGGLE_ACTIVE_SECTION action when active is true', () => {
@@ -443,6 +443,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set visible to true for the correct menu section in response to the SHOW_SECTION action', () => {
@@ -461,6 +462,10 @@ describe('menusReducer', () => {
 
     const action = new ShowMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set visible to false for the correct menu section in response to the HIDE_SECTION action', () => {
@@ -479,5 +484,9 @@ describe('menusReducer', () => {
 
     const action = new HideMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 });

@@ -14,6 +14,8 @@ import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDspaceSearchModule } from './my-dspace-search.module';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
+import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -22,6 +24,7 @@ const DECLARATIONS = [
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
   MyDSpaceNewExternalDropdownComponent,
+  MyDspaceQaEventsNotificationsComponent
 ];
 
 @NgModule({
@@ -32,6 +35,7 @@ const DECLARATIONS = [
     MyDspacePageRoutingModule,
     MyDspaceSearchModule.withEntryComponents(),
     UploadModule,
+    NotificationsModule
   ],
   declarations: DECLARATIONS,
   providers: [

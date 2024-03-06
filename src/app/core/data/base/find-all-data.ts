@@ -7,11 +7,7 @@
  */
 
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
@@ -47,7 +43,7 @@ export interface FindAllData<T extends CacheableObject> {
 }
 
 /**
- * A DataService feature to list all objects.
+ * A UpdateDataServiceImpl feature to list all objects.
  *
  * Concrete data services can use this feature by implementing {@link FindAllData}
  * and delegating its method to an inner instance of this class.

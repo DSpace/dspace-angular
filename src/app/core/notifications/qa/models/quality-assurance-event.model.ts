@@ -1,15 +1,8 @@
 /* eslint-disable max-classes-per-file */
-import {
-  autoserialize,
-  autoserializeAs,
-  deserialize,
-} from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import {
-  link,
-  typedObject,
-} from '../../../cache/builders/build-decorators';
+import { link, typedObject } from '../../../cache/builders/build-decorators';
 import { CacheableObject } from '../../../cache/cacheable-object.model';
 import { RemoteData } from '../../../data/remote-data';
 import { HALLink } from '../../../shared/hal-link.model';
@@ -35,6 +28,8 @@ export interface SourceQualityAssuranceEventMessageObject {
    * The type of 'value'
    */
   type: string;
+
+  reason: string;
 
   /**
    * The value suggested by Notifications

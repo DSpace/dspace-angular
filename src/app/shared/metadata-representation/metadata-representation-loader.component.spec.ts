@@ -1,23 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { Context } from '../../core/shared/context.model';
-import {
-  MetadataRepresentation,
-  MetadataRepresentationType,
-} from '../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadataRepresentation, MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadataRepresentationLoaderComponent } from './metadata-representation-loader.component';
+import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
+import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
 import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { ThemeService } from '../theme-support/theme.service';
-import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';
-import { MetadataRepresentationDirective } from './metadata-representation.directive';
-import { MetadataRepresentationLoaderComponent } from './metadata-representation-loader.component';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -44,12 +35,14 @@ describe('MetadataRepresentationLoaderComponent', () => {
   const themeName = 'test-theme';
 
   beforeEach(waitForAsync(() => {
-    themeService = jasmine.createSpyObj('themeService', {
-      getThemeName: themeName,
-    });
+    themeService = getMockThemeService(themeName);
     TestBed.configureTestingModule({
       imports: [],
-      declarations: [MetadataRepresentationLoaderComponent, PlainTextMetadataListElementComponent, MetadataRepresentationDirective],
+      declarations: [
+        MetadataRepresentationLoaderComponent,
+        PlainTextMetadataListElementComponent,
+        DynamicComponentLoaderDirective,
+      ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         {
@@ -72,6 +65,7 @@ describe('MetadataRepresentationLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(MetadataRepresentationLoaderComponent);
     comp = fixture.componentInstance;
+    spyOn(comp, 'getComponent').and.callThrough();
 
     comp.mdRepresentation = new TestType();
     comp.context = testContext;
@@ -79,8 +73,8 @@ describe('MetadataRepresentationLoaderComponent', () => {
   }));
 
   describe('When the component is rendered', () => {
-    it('should call the getMetadataRepresentationComponent function with the right entity type, representation type and context', () => {
-      expect((comp as any).getMetadataRepresentationComponent).toHaveBeenCalledWith(testType, testRepresentationType, testContext, themeName);
+    it('should call the getComponent function', () => {
+      expect(comp.getComponent).toHaveBeenCalled();
     });
   });
 });

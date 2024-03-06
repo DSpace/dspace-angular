@@ -23,6 +23,10 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { SuggestionConfig } from './suggestion-config.interfaces';
+import { CommunityPageConfig } from './community-page-config.interface';
+import { SearchConfig } from './search-page-config.interface';
+import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -152,6 +156,9 @@ export class DefaultAppConfig implements AppConfig {
        */
       timer: 0,
     },
+    duplicateDetection: {
+      alwaysShowSection: false
+    },
     typeBind: {
       field: 'dc.type',
     },
@@ -162,7 +169,7 @@ export class DefaultAppConfig implements AppConfig {
          * {
          *    // NOTE: metadata name
          *    name: 'dc.author',
-         *    // NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
+         *    // NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
          *    style: 'fa-user'
          * }
          */
@@ -182,28 +189,60 @@ export class DefaultAppConfig implements AppConfig {
            * NOTE: example of configuration
            * {
            *    // NOTE: confidence value
-           *    value: 'dc.author',
-           *    // NOTE: fontawesome (v4.x) icon classes and bootstrap utility classes can be used
-           *    style: 'fa-user'
+           *    value: 100,
+           *    // NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
+           *    style: 'text-success',
+           *    icon: 'fa-circle-check'
+           *    // NOTE: the class configured in property style is used by default, the icon property could be used in component
+           *    //      configured to use a 'icon mode' display (mainly in edit-item page)
            * }
            */
           {
             value: 600,
             style: 'text-success',
+            icon: 'fa-circle-check'
           },
           {
             value: 500,
             style: 'text-info',
+            icon: 'fa-gear'
           },
           {
             value: 400,
             style: 'text-warning',
+            icon: 'fa-circle-question'
+          },
+          {
+            value: 300,
+            style: 'text-muted',
+            icon: 'fa-circle-question'
+          },
+          {
+            value: 200,
+            style: 'text-muted',
+            icon: 'fa-circle-exclamation'
+          },
+          {
+            value: 100,
+            style: 'text-muted',
+            icon: 'fa-circle-stop'
+          },
+          {
+            value: 0,
+            style: 'text-muted',
+            icon: 'fa-ban'
+          },
+          {
+            value: -1,
+            style: 'text-muted',
+            icon: 'fa-circle-xmark'
           },
           // default configuration
           {
             value: 'default',
             style: 'text-muted',
-          },
+            icon: 'fa-circle-xmark'
+          }
 
         ],
       },
@@ -271,8 +310,9 @@ export class DefaultAppConfig implements AppConfig {
       sortField: 'dc.date.accessioned',
     },
     topLevelCommunityList: {
-      pageSize: 5,
+      pageSize: 5
     },
+    showDiscoverFilters: false
   };
 
   // Item Config
@@ -290,12 +330,33 @@ export class DefaultAppConfig implements AppConfig {
     },
   };
 
+  // Community Page Config
+  community: CommunityPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
+  };
+
   // Collection Page Config
   collection: CollectionPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
     edit: {
       undoTimeout: 10000, // 10 seconds
     },
   };
+
+  suggestion: SuggestionConfig[] = [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+    // This is used as a default fallback in case there aren't collections where to import the suggestion
+    // If not mapped the user will be allowed to import the suggestions only in the provided options, shown clicking the button "Approve and import"
+    // If not mapped and no options available for import the user won't be able to import the suggestions.
+  ];
 
   // Theme Config
   themes: ThemeConfig[] = [
@@ -442,4 +503,87 @@ export class DefaultAppConfig implements AppConfig {
     },
     pageSize: 5,
   };
+
+
+  search: SearchConfig = {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType']
+    }
+  };
+
+  notifyMetrics: AdminNotifyMetricsRow[] = [
+    {
+      title: 'admin-notify-dashboard.received-ldn',
+      boxes: [
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.accepted',
+          config: 'NOTIFY.incoming.accepted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description'
+        },
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.processed',
+          config: 'NOTIFY.incoming.processed',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.failure',
+          config: 'NOTIFY.incoming.failure',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted',
+          config: 'NOTIFY.incoming.untrusted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description'
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems',
+          textColor: '#fff',
+          config: 'NOTIFY.incoming.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description'
+        },
+      ]
+    },
+    {
+      title: 'admin-notify-dashboard.generated-ldn',
+      boxes: [
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered',
+          config: 'NOTIFY.outgoing.delivered',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
+        },
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued',
+          config: 'NOTIFY.outgoing.queued',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description'
+        },
+        {
+          color: '#FDEEBB',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry',
+          config: 'NOTIFY.outgoing.queued_for_retry',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.failure',
+          config: 'NOTIFY.outgoing.failure',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description'
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems',
+          textColor: '#fff',
+          config: 'NOTIFY.outgoing.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description'
+        },
+      ]
+    }
+  ];
 }

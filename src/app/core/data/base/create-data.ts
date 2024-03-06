@@ -6,17 +6,9 @@
  * http://www.dspace.org/license/
  */
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  map,
-  take,
-  takeWhile,
-} from 'rxjs/operators';
+import { distinctUntilChanged, map, take, takeWhile } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '../../../shared/empty.util';
+import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
 import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getClassForType } from '../../cache/builders/build-decorators';
@@ -46,7 +38,7 @@ export interface CreateData<T extends CacheableObject> {
 }
 
 /**
- * A DataService feature to create objects.
+ * A UpdateDataServiceImpl feature to create objects.
  *
  * Concrete data services can use this feature by implementing {@link CreateData}
  * and delegating its method to an inner instance of this class.

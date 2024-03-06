@@ -1,9 +1,4 @@
-import {
-  Component,
-  Inject,
-  Injector,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { isEmpty } from '../../../shared/empty.util';
@@ -57,5 +52,13 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
     if (!this.isDisabled) {
       this.router.navigate(this.itemModel.link);
     }
+  }
+
+  adminMenuSectionId(sectionId: string) {
+    return `admin-menu-section-${sectionId}`;
+  }
+
+  adminMenuSectionTitleId(sectionId: string) {
+    return `admin-menu-section-${sectionId}-title`;
   }
 }

@@ -1,19 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PageInfo } from '../../../../../core/shared/page-info.model';
@@ -57,8 +45,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
 
   /**
    * Retrieves the init form value from model
+   * @param preserveConfidence if the original model confidence value should be used after retrieving the vocabulary's entry
    */
-  getInitValueFromModel(): Observable<FormFieldMetadataValueObject> {
+  getInitValueFromModel(preserveConfidence = false): Observable<FormFieldMetadataValueObject> {
     let initValue$: Observable<FormFieldMetadataValueObject>;
     if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject) && !this.model.value.hasAuthorityToGenerate()) {
       let initEntry$: Observable<VocabularyEntry>;
@@ -70,7 +59,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
           // Integrate FormFieldMetadataValueObject with retrieved information
-          return new FormFieldMetadataValueObject(
+          let formField = new FormFieldMetadataValueObject(
             initEntry.value,
             null,
             initEntry.authority,
@@ -79,6 +68,11 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
             null,
             initEntry.otherInformation || null,
           );
+          // Preserve the original confidence
+          if (preserveConfidence) {
+            formField.confidence = (this.model.value as any).confidence;
+          }
+          return formField;
         } else {
           return this.model.value as any;
         }

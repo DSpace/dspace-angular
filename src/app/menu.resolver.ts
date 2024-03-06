@@ -1,31 +1,18 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import {
-  filter,
-  find,
-  map,
-  take,
-} from 'rxjs/operators';
+import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { filter, find, map, take } from 'rxjs/operators';
 
 import { BrowseService } from './core/browse/browse.service';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import { PaginatedList } from './core/data/paginated-list.model';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from './core/data/processes/script-data.service';
+import { METADATA_EXPORT_SCRIPT_NAME, METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from './core/data/processes/script-data.service';
+import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { ConfigurationProperty } from './core/shared/configuration-property.model';
 import { RemoteData } from './core/data/remote-data';
 import { BrowseDefinition } from './core/shared/browse-definition.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
@@ -35,7 +22,6 @@ import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/m
 import { ThemedEditCollectionSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
 import { ThemedEditCommunitySelectorComponent } from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
 import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
-import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { hasValue } from './shared/empty.util';
 import { MenuService } from './shared/menu/menu.service';
@@ -59,6 +45,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
+    protected configurationDataService: ConfigurationDataService
   ) {
   }
 
@@ -153,6 +140,7 @@ export class MenuResolver implements Resolve<boolean> {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
+    this.createReportMenuSections();
 
     return this.waitForMenu$(MenuID.ADMIN);
   }
@@ -168,7 +156,9 @@ export class MenuResolver implements Resolve<boolean> {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
       this.authorizationService.isAuthorized(FeatureID.CanEditItem),
-    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem]) => {
+      this.authorizationService.isAuthorized(FeatureID.CanSeeQA),
+      this.authorizationService.isAuthorized(FeatureID.CoarNotifyEnabled),
+    ]).subscribe(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, canEditItem, canSeeQa, isCoarNotifyEnabled]) => {
       const newSubMenuList = [
         {
           id: 'new_community',
@@ -219,6 +209,18 @@ export class MenuResolver implements Resolve<boolean> {
             text: 'menu.section.new_process',
             link: '/processes/new',
           } as LinkMenuItemModel,
+        },/*  ldn_services */
+        {
+          id: 'ldn_services_new',
+          parentID: 'new',
+          active: false,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services_new',
+            link: '/admin/ldn/services/new'
+          } as LinkMenuItemModel,
+          icon: '',
         },
       ];
       const editSubMenuList = [
@@ -347,6 +349,41 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'terminal',
           index: 10,
         },
+        /* COAR Notify section */
+        {
+          id: 'coar_notify',
+          active: false,
+          visible: isSiteAdmin && isCoarNotifyEnabled,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.coar_notify'
+          } as TextMenuItemModel,
+          icon: 'inbox',
+          index: 13
+        },
+        {
+          id: 'notify_dashboard',
+          active: false,
+          parentID: 'coar_notify',
+          visible: isSiteAdmin && isCoarNotifyEnabled,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notify_dashboard',
+            link: '/admin/notify-dashboard'
+          } as LinkMenuItemModel,
+        },
+        /* LDN Services */
+        {
+          id: 'ldn_services',
+          active: false,
+          parentID: 'coar_notify',
+          visible: isSiteAdmin && isCoarNotifyEnabled,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services',
+            link: '/admin/ldn/services'
+          } as LinkMenuItemModel,
+        },
         {
           id: 'health',
           active: false,
@@ -359,6 +396,41 @@ export class MenuResolver implements Resolve<boolean> {
           icon: 'heartbeat',
           index: 11,
         },
+        /* Notifications */
+        {
+          id: 'notifications',
+          active: false,
+          visible: canSeeQa || isSiteAdmin,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.notifications'
+          } as TextMenuItemModel,
+          icon: 'bell',
+          index: 4
+        },
+        {
+          id: 'notifications_quality-assurance',
+          parentID: 'notifications',
+          active: false,
+          visible: canSeeQa,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.quality-assurance',
+            link: '/notifications/quality-assurance'
+          } as LinkMenuItemModel,
+        },
+        {
+          id: 'notifications_publication-claim',
+          parentID: 'notifications',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.notifications_publication-claim',
+            link: '/admin/notifications/' + PUBLICATION_CLAIMS_PATH
+          } as LinkMenuItemModel,
+        },
+        /*  Admin Search */
       ];
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true,
@@ -528,36 +600,9 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator
    */
   createSiteAdministratorMenuSections() {
-    combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.authorizationService.isAuthorized(FeatureID.CanSeeQA),
-    ])
-      .subscribe(([authorized, canSeeQA]) => {
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+    .subscribe((authorized) => {
         const menuList = [
-        /* Notifications */
-          {
-            id: 'notifications',
-            active: false,
-            visible: authorized && canSeeQA,
-            model: {
-              type: MenuItemType.TEXT,
-              text: 'menu.section.notifications',
-            } as TextMenuItemModel,
-            icon: 'bell',
-            index: 4,
-          },
-          {
-            id: 'notifications_quality-assurance',
-            parentID: 'notifications',
-            active: false,
-            visible: authorized,
-            model: {
-              type: MenuItemType.LINK,
-              text: 'menu.section.quality-assurance',
-              link: '/admin/notifications/quality-assurance',
-            } as LinkMenuItemModel,
-          },
-          /*  Admin Search */
           {
             id: 'admin_search',
             active: false,
@@ -722,6 +767,62 @@ export class MenuResolver implements Resolve<boolean> {
 
       menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
         shouldPersistOnRouteChange: true,
+      })));
+    });
+  }
+
+  /**
+   * Create menu sections dependent on whether or not the current user is a site administrator
+   */
+  createReportMenuSections() {
+    observableCombineLatest([
+      this.configurationDataService.findByPropertyName('contentreport.enable').pipe(
+        map((res: RemoteData<ConfigurationProperty>) => res.hasSucceeded && res.payload && res.payload.values[0] === 'true')
+      ),
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf)
+    ]).subscribe(([isSiteAdmin]) => {
+      const menuList = [
+        {
+          id: 'reports',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.TEXT,
+            text: 'menu.section.reports'
+          } as TextMenuItemModel,
+          icon: 'file-alt',
+          index: 5
+        },
+        /* Collections Report */
+        {
+          id: 'reports_collections',
+          parentID: 'reports',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.reports.collections',
+            link: '/admin/reports/collections'
+          } as LinkMenuItemModel,
+          icon: 'user-check'
+        },
+        /* Queries Report */
+        {
+          id: 'reports_queries',
+          parentID: 'reports',
+          active: false,
+          visible: isSiteAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.reports.queries',
+            link: '/admin/reports/queries'
+          } as LinkMenuItemModel,
+          icon: 'user-check'
+        },
+      ];
+
+      menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, Object.assign(menuSection, {
+        shouldPersistOnRouteChange: true
       })));
     });
   }

@@ -12,7 +12,6 @@ import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/
 import { AdvancedWorkflowActionRatingComponent } from './advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { AdvancedWorkflowActionSelectReviewerComponent } from './advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { ReviewersListComponent } from './advanced-workflow-action/advanced-workflow-action-select-reviewer/reviewers-list/reviewers-list.component';
-import { AdvancedWorkflowActionsDirective } from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-workflow-actions.directive';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-action/advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete/workflow-item-delete.component';
@@ -41,7 +40,6 @@ import { WorkflowItemsEditPageRoutingModule } from './workflowitems-edit-page-ro
     AdvancedWorkflowActionRatingComponent,
     AdvancedWorkflowActionSelectReviewerComponent,
     AdvancedWorkflowActionPageComponent,
-    AdvancedWorkflowActionsDirective,
     ReviewersListComponent,
   ],
 })

@@ -1,25 +1,12 @@
+import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  DebugElement,
-  EventEmitter,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  of as observableOf,
-} from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
@@ -27,12 +14,7 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SCOPE, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
@@ -40,7 +22,8 @@ import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
 
 describe('SearchHierarchyFilterComponent', () => {
 
@@ -48,7 +31,7 @@ describe('SearchHierarchyFilterComponent', () => {
   let showVocabularyTreeLink: DebugElement;
 
   const testSearchLink = 'test-search';
-  const testSearchFilter = 'test-search-filter';
+  const testSearchFilter = 'subject';
   const VocabularyTreeViewComponent = {
     select: new EventEmitter<VocabularyEntryDetail>(),
   };
@@ -71,7 +54,7 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [
         CommonModule,
         NgbModule,
@@ -87,10 +70,12 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: Router, useValue: router },
         { provide: NgbModal, useValue: ngbModal },
         { provide: VocabularyService, useValue: vocabularyService },
+        { provide: APP_CONFIG, useValue: environment },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)},
+        { provide: SCOPE, useValue: undefined },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -99,7 +84,7 @@ describe('SearchHierarchyFilterComponent', () => {
   function init() {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
     fixture.detectChanges();
-    showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
+    showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }
 
   describe('if the vocabulary doesn\'t exist', () => {
@@ -138,10 +123,10 @@ describe('SearchHierarchyFilterComponent', () => {
       const newSelectedValue = 'new-selected-value';
 
       beforeEach(async () => {
-        showVocabularyTreeLink.nativeElement.click();
         fixture.componentInstance.selectedValues$ = observableOf(
           alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value })),
         );
+        showVocabularyTreeLink.nativeElement.click();
         VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
           value: newSelectedValue,
         }));
@@ -153,8 +138,9 @@ describe('SearchHierarchyFilterComponent', () => {
 
       describe('when selecting a value from the vocabulary tree', () => {
 
-        it('should add a new search filter to the existing search filters', () => {
-          waitForAsync(() => expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+        it('should add a new search filter to the existing search filters', fakeAsync(() => {
+          tick();
+          expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
                 ...alreadySelectedValues,
@@ -162,8 +148,8 @@ describe('SearchHierarchyFilterComponent', () => {
               ].map((value => `${value},equals`)),
             },
             queryParamsHandling: 'merge',
-          }));
-        });
+          });
+        }));
       });
     });
   });

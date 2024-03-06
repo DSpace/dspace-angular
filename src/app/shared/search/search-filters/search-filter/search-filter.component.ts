@@ -1,30 +1,15 @@
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
-import {
-  BehaviorSubject,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  startWith,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
 
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
+import { slide } from '../../../animations/slide';
+import { hasValue, isNotEmpty } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { slide } from '../../../animations/slide';
-import { isNotEmpty } from '../../../empty.util';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search-filter',
@@ -51,6 +36,11 @@ export class SearchFilterComponent implements OnInit {
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * The current scope
+   */
+  @Input() scope: string;
 
   /**
    * True when the filter is 100% collapsed in the UI
@@ -166,11 +156,20 @@ export class SearchFilterComponent implements OnInit {
   }
 
   get regionId(): string {
-    return `search-filter-region-${this.sequenceId}`;
+    if (this.inPlaceSearch) {
+      return `search-filter-region-${this.sequenceId}`;
+    } else {
+      return `search-filter-region-home-${this.sequenceId}`;
+    }
+
   }
 
   get toggleId(): string {
-    return `search-filter-toggle-${this.sequenceId}`;
+    if (this.inPlaceSearch) {
+      return `search-filter-toggle-${this.sequenceId}`;
+    } else {
+      return `search-filter-toggle-home-${this.sequenceId}`;
+    }
   }
 
   /**
@@ -185,6 +184,9 @@ export class SearchFilterComponent implements OnInit {
         } else {
           return this.searchConfigService.searchOptions.pipe(
             switchMap((options) => {
+                if (hasValue(this.scope)) {
+                  options.scope = this.scope;
+                }
               return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                 filter((RD) => !RD.isLoading),
                 map((valuesRD) => {

@@ -1,43 +1,22 @@
-import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  Input,
-  OnDestroy,
-} from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  filter,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
-
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
-import {
-  getAllCompletedRemoteData,
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { hasValue } from '../../../../shared/empty.util';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 
 /**
  * Component that contains the controls to run, reset and test the harvest
@@ -47,7 +26,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
   styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
 })
-export class CollectionSourceControlsComponent implements OnDestroy {
+export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
 
   /**
    * Should the controls be enabled.
@@ -66,6 +45,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
 
   contentSource$: Observable<ContentSource>;
   private subs: Subscription[] = [];
+  private autoRefreshIDs: string[] = [];
 
   testConfigRunning$ = new BehaviorSubject(false);
   importRunning$ = new BehaviorSubject(false);
@@ -112,19 +92,12 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       }),
       // filter out responses that aren't successful since the pinging of the process only needs to happen when the invocation was successful.
       filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-      switchMap((rd) => this.processDataService.findById(rd.payload.processId, false)),
-      getAllCompletedRemoteData(),
-      filter((rd) => !rd.isStale && (rd.hasSucceeded || rd.hasFailed)),
-      map((rd) => rd.payload),
-      hasValueOperator(),
+      switchMap((rd) => {
+        this.autoRefreshIDs.push(rd.payload.processId);
+        return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
+      }),
+      map((rd) => rd.payload)
     ).subscribe((process: Process) => {
-      if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
-          process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
-        // Ping the current process state every 5s
-        setTimeout(() => {
-          this.requestService.setStaleByHrefSubstring(process._links.self.href);
-        }, 5000);
-      }
       if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
         this.notificationsService.error(this.translateService.get('collection.source.controls.test.failed'));
         this.testConfigRunning$.next(false);
@@ -140,8 +113,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
         });
         this.testConfigRunning$.next(false);
       }
-    },
-    ));
+    }));
   }
 
   /**
@@ -164,20 +136,12 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
         }),
         filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-        switchMap((rd) => this.processDataService.findById(rd.payload.processId, false)),
-        getAllCompletedRemoteData(),
-        filter((rd) => !rd.isStale && (rd.hasSucceeded || rd.hasFailed)),
-        map((rd) => rd.payload),
-        hasValueOperator(),
+        switchMap((rd) => {
+          this.autoRefreshIDs.push(rd.payload.processId);
+          return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
+        }),
+        map((rd) => rd.payload)
       ).subscribe((process) => {
-        if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
-            process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
-          // Ping the current process state every 5s
-          setTimeout(() => {
-            this.requestService.setStaleByHrefSubstring(process._links.self.href);
-            this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
-          }, 5000);
-        }
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
           this.notificationsService.error(this.translateService.get('collection.source.controls.import.failed'));
           this.importRunning$.next(false);
@@ -187,8 +151,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
           this.importRunning$.next(false);
         }
-      },
-      ));
+      }));
   }
 
   /**
@@ -211,20 +174,12 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           }
         }),
         filter((rd) => rd.hasSucceeded && hasValue(rd.payload)),
-        switchMap((rd) => this.processDataService.findById(rd.payload.processId, false)),
-        getAllCompletedRemoteData(),
-        filter((rd) => !rd.isStale && (rd.hasSucceeded || rd.hasFailed)),
-        map((rd) => rd.payload),
-        hasValueOperator(),
+        switchMap((rd) => {
+          this.autoRefreshIDs.push(rd.payload.processId);
+          return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
+        }),
+        map((rd) => rd.payload)
       ).subscribe((process) => {
-        if (process.processStatus.toString() !== ProcessStatus[ProcessStatus.COMPLETED].toString() &&
-            process.processStatus.toString() !== ProcessStatus[ProcessStatus.FAILED].toString()) {
-          // Ping the current process state every 5s
-          setTimeout(() => {
-            this.requestService.setStaleByHrefSubstring(process._links.self.href);
-            this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
-          }, 5000);
-        }
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
           this.notificationsService.error(this.translateService.get('collection.source.controls.reset.failed'));
           this.reImportRunning$.next(false);
@@ -234,8 +189,7 @@ export class CollectionSourceControlsComponent implements OnDestroy {
           this.requestService.setStaleByHrefSubstring(this.collection._links.self.href);
           this.reImportRunning$.next(false);
         }
-      },
-      ));
+      }));
   }
 
   ngOnDestroy(): void {
@@ -243,6 +197,10 @@ export class CollectionSourceControlsComponent implements OnDestroy {
       if (hasValue(sub)) {
         sub.unsubscribe();
       }
+    });
+
+    this.autoRefreshIDs.forEach((id) => {
+      this.processDataService.stopAutoRefreshing(id);
     });
   }
 }

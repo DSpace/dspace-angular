@@ -1,19 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
-import {
-  qualityAssuranceSourceObjectMissingPid,
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid,
-  qualityAssuranceTopicObjectMissingPid,
-  qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid,
-} from '../shared/mocks/notifications.mock';
+import { qualityAssuranceSourceObjectMissingPid, qualityAssuranceSourceObjectMoreAbstract, qualityAssuranceSourceObjectMorePid, qualityAssuranceTopicObjectMissingPid, qualityAssuranceTopicObjectMoreAbstract, qualityAssuranceTopicObjectMorePid } from '../shared/mocks/notifications.mock';
 import { suggestionNotificationsReducers } from './notifications.reducer';
 import { NotificationsStateService } from './notifications-state.service';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
@@ -275,8 +265,8 @@ describe('NotificationsStateService', () => {
         it('Should call store.dispatch', () => {
           const elementsPerPage = 3;
           const currentPage = 1;
-          const action = new RetrieveAllTopicsAction(elementsPerPage, currentPage);
-          service.dispatchRetrieveQualityAssuranceTopics(elementsPerPage, currentPage);
+          const action = new RetrieveAllTopicsAction(elementsPerPage, currentPage, 'source', 'target');
+          service.dispatchRetrieveQualityAssuranceTopics(elementsPerPage, currentPage, 'source', 'target');
           expect(serviceAsAny.store.dispatch).toHaveBeenCalledWith(action);
         });
       });

@@ -1,30 +1,31 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RequestService } from '../data/request.service';
+import { PageInfo } from '../shared/page-info.model';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { WorkspaceitemDataService } from './workspaceitem-data.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
 import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { PageInfo } from '../shared/page-info.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
-import { WorkspaceitemDataService } from './workspaceitem-data.service';
+import { SearchData } from '../data/base/search-data';
+import { DeleteData } from '../data/base/delete-data';
+import { RequestParam } from '../cache/models/request-param.model';
+import { PostRequest } from '../data/request.models';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;
@@ -72,15 +73,12 @@ describe('WorkspaceitemDataService test', () => {
   const wsiRD = createSuccessfulRemoteDataObject(wsi);
 
   const endpointURL = `https://rest.api/rest/api/submission/workspaceitems`;
-  const searchRequestURL = `https://rest.api/rest/api/submission/workspaceitems/search/item?uuid=1234-1234`;
-  const searchRequestURL$ = observableOf(searchRequestURL);
 
   const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
 
   objectCache = {} as ObjectCacheService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
-  const comparator = {} as any;
   const comparatorEntry = {} as any;
   const store = {} as Store<CoreState>;
   const pageInfo = new PageInfo();
@@ -88,18 +86,23 @@ describe('WorkspaceitemDataService test', () => {
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
     return new WorkspaceitemDataService(
+      comparatorEntry,
+      halService,
+      http,
+      notificationsService,
       requestService,
       rdbService,
       objectCache,
-      halService,
-      notificationsService,
+      store
     );
   }
 
   describe('composition', () => {
-    const initService = () => new WorkspaceitemDataService(null, null, null, null, null);
-    testSearchDataImplementation(initService);
-    testDeleteDataImplementation(initService);
+    const initSearchService = () => new WorkspaceitemDataService(null, null, null, null, null, null, null, null) as unknown as SearchData<any>;
+    const initDeleteService = () => new WorkspaceitemDataService(null, null, null, null, null, null, null, null) as unknown as DeleteData<any>;
+
+    testSearchDataImplementation(initSearchService);
+    testDeleteDataImplementation(initDeleteService);
   });
 
   describe('', () => {
@@ -108,7 +111,7 @@ describe('WorkspaceitemDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL }),
+        getEndpoint: observableOf(endpointURL),
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -123,14 +126,14 @@ describe('WorkspaceitemDataService test', () => {
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
-          a: wsiRD,
+          a: wsiRD
         }),
+        buildFromRequestUUID: createSuccessfulRemoteDataObject$({})
       });
 
       service = initTestService();
 
       spyOn((service as any), 'findByHref').and.callThrough();
-      spyOn((service as any), 'getSearchByHref').and.returnValue(searchRequestURL$);
     });
 
     afterEach(() => {
@@ -138,11 +141,11 @@ describe('WorkspaceitemDataService test', () => {
     });
 
     describe('findByItem', () => {
-      it('should proxy the call to DataService.findByHref', () => {
+      it('should proxy the call to UpdateDataServiceImpl.findByHref', () => {
         scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
         scheduler.flush();
-
-        expect((service as any).findByHref).toHaveBeenCalledWith(searchRequestURL$, true, true);
+        const searchUrl = service.getIDHref('item', [new RequestParam('uuid', encodeURIComponent('1234-1234'))]);
+        expect((service as any).findByHref).toHaveBeenCalledWith(searchUrl, true, true);
       });
 
       it('should return a RemoteData<WorkspaceItem> for the search', () => {
@@ -154,6 +157,19 @@ describe('WorkspaceitemDataService test', () => {
       });
 
     });
-  });
 
+    describe('importExternalSourceEntry', () => {
+      it('should send a POST request containing the provided item request', (done) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'text/uri-list');
+        options.headers = headers;
+
+        service.importExternalSourceEntry('externalHref', 'testId').subscribe(() => {
+          expect(requestService.send).toHaveBeenCalledWith(new PostRequest(requestUUID, `${endpointURL}?owningCollection=testId`, 'externalHref', options));
+          done();
+        });
+      });
+    });
+  });
 });

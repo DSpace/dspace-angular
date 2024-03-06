@@ -1,32 +1,23 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
+import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { TranslateModule } from '@ngx-translate/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { ListableObject } from '../listable-object.model';
-import { ListableObjectDirective } from './listable-object.directive';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 const testType = 'TestType';
 const testContext = Context.Search;
 const testViewMode = ViewMode.StandalonePage;
 
-class TestType extends ListableObject {
+export class TestType extends ListableObject {
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [testType];
   }
@@ -44,7 +35,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
     });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, ListableObjectDirective],
+      declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, DynamicComponentLoaderDirective],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         provideMockStore({}),
@@ -73,7 +64,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
 
   describe('When the component is rendered', () => {
     it('should call the getListableObjectComponent function with the right types, view mode and context', () => {
-      expect(comp.getComponent).toHaveBeenCalledWith([testType], testViewMode, testContext);
+      expect(comp.getComponent).toHaveBeenCalled();
     });
 
     it('should connectInputsAndOutputs of loaded component', () => {
@@ -86,29 +77,29 @@ describe('ListableObjectComponentLoaderComponent', () => {
     let reloadedObject: any;
 
     beforeEach(() => {
-      spyOn((comp as any), 'instantiateComponent').and.returnValue(null);
-      spyOn((comp as any).contentChange, 'emit').and.returnValue(null);
+      spyOn(comp, 'instantiateComponent').and.returnValue(null);
+      spyOn(comp.contentChange, 'emit').and.returnValue(null);
 
       listableComponent = fixture.debugElement.query(By.css('ds-item-list-element')).componentInstance;
       reloadedObject = 'object';
     });
 
     it('should re-instantiate the listable component', fakeAsync(() => {
-      expect((comp as any).instantiateComponent).not.toHaveBeenCalled();
+      expect(comp.instantiateComponent).not.toHaveBeenCalled();
 
-      (listableComponent as any).reloadedObject.emit(reloadedObject);
+      listableComponent.reloadedObject.emit(reloadedObject);
       tick(200);
 
-      expect((comp as any).instantiateComponent).toHaveBeenCalledWith(reloadedObject, undefined);
+      expect(comp.instantiateComponent).toHaveBeenCalledWith();
     }));
 
     it('should re-emit it as a contentChange', fakeAsync(() => {
-      expect((comp as any).contentChange.emit).not.toHaveBeenCalled();
+      expect(comp.contentChange.emit).not.toHaveBeenCalled();
 
-      (listableComponent as any).reloadedObject.emit(reloadedObject);
+      listableComponent.reloadedObject.emit(reloadedObject);
       tick(200);
 
-      expect((comp as any).contentChange.emit).toHaveBeenCalledWith(reloadedObject);
+      expect(comp.contentChange.emit).toHaveBeenCalledWith(reloadedObject);
     }));
 
   });

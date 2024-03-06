@@ -1,31 +1,11 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
-  DynamicDatePickerModel,
-  DynamicFormArrayModel,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicSelectModel,
-  MATCH_ENABLED,
-  OR_OPERATOR,
-} from '@ng-dynamic-forms/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DynamicDatePickerModel, DynamicFormArrayModel, DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel, DynamicSelectModel, MATCH_ENABLED, OR_OPERATOR } from '@ng-dynamic-forms/core';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { Subscription } from 'rxjs';
-import {
-  filter,
-  mergeMap,
-  take,
-} from 'rxjs/operators';
+import { filter, mergeMap, take } from 'rxjs/operators';
 
 import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
@@ -36,12 +16,7 @@ import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty, isNotNull } from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
@@ -49,20 +24,8 @@ import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { SectionUploadService } from '../../section-upload.service';
-import {
-  BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
-  BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,
-  BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
-  BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
-  BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT,
-  BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
-  BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
-  BITSTREAM_METADATA_FORM_GROUP_CONFIG,
-  BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
-} from './section-upload-file-edit.model';
+import { BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG, BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT, BITSTREAM_FORM_PRIMARY, BITSTREAM_FORM_PRIMARY_LAYOUT, BITSTREAM_METADATA_FORM_GROUP_CONFIG, BITSTREAM_METADATA_FORM_GROUP_LAYOUT } from './section-upload-file-edit.model';
+import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -79,6 +42,13 @@ implements OnInit, OnDestroy {
    * The FormComponent reference
    */
   @ViewChild('formRef') public formRef: FormComponent;
+
+  /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+  isPrimary: boolean;
 
   /**
    * The list of available access condition
@@ -197,6 +167,10 @@ implements OnInit, OnDestroy {
    *    The form model
    */
   public initModelData(formModel: DynamicFormControlModel[]) {
+
+    const primaryBitstreamModel: any = this.formBuilderService.findById('primary', formModel, this.fileIndex);
+    primaryBitstreamModel.value = this.isPrimary || false;
+
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key) && isNotEmpty(accessCondition[key]))
@@ -297,6 +271,9 @@ implements OnInit, OnDestroy {
       ]),
     });
     const formModel: DynamicFormControlModel[] = [];
+
+    formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_PRIMARY, BITSTREAM_FORM_PRIMARY_LAYOUT));
+
     const metadataGroupModelConfig = Object.assign({}, BITSTREAM_METADATA_FORM_GROUP_CONFIG);
     metadataGroupModelConfig.group = this.formBuilderService.modelFromConfiguration(
       this.submissionId,
@@ -392,10 +369,14 @@ implements OnInit, OnDestroy {
     return formModel;
   }
 
+
   /**
    * Save bitstream metadata
    */
   saveBitstreamData() {
+
+    const pathFragment = ['files', this.fileIndex];
+
     // validate form
     this.formService.validateAllFormFields(this.formRef.formGroup);
     const saveBitstreamDataSubscription = this.formService.isValid(this.formId).pipe(
@@ -404,13 +385,15 @@ implements OnInit, OnDestroy {
       mergeMap(() => this.formService.getFormData(this.formId)),
       take(1),
       mergeMap((formData: any) => {
+        this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
         // collect bitstream metadata
         Object.keys((formData.metadata))
           .filter((key) => isNotEmpty(formData.metadata[key]))
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
             const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
+            this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, path]), formData.metadata[key], true);
           });
         Object.keys((this.fileData.metadata))
           .filter((key) => isNotEmpty(this.fileData.metadata[key]))
@@ -419,22 +402,24 @@ implements OnInit, OnDestroy {
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
             const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.remove(this.pathCombiner.getPath(path));
+            this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, path]));
           });
         const accessConditionsToSave = [];
-        formData.accessConditions
-          .map((accessConditions) => accessConditions.accessConditionGroup)
-          .filter((accessCondition) => isNotEmpty(accessCondition))
-          .forEach((accessCondition) => {
-            let accessConditionOpt;
+        if (formData.hasOwnProperty('accessConditions')) {
+          formData.accessConditions
+            .filter((accessConditions) => isNotNull(accessConditions))
+            .map((accessConditions) => accessConditions.accessConditionGroup)
+            .filter((accessCondition) => isNotEmpty(accessCondition))
+            .forEach((accessCondition) => {
+              let accessConditionOpt;
 
-            this.availableAccessConditionOptions
-              .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
-              .forEach((element) => accessConditionOpt = element);
+              this.availableAccessConditionOptions
+                .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
+                .forEach((element) => accessConditionOpt = element);
 
-            if (accessConditionOpt) {
-              const currentAccessCondition = Object.assign({}, accessCondition);
-              currentAccessCondition.name = this.retrieveValueFromField(accessCondition.name);
+              if (accessConditionOpt) {
+                const currentAccessCondition = Object.assign({}, accessCondition);
+                currentAccessCondition.name = this.retrieveValueFromField(accessCondition.name);
 
               /* When start and end date fields are deactivated, their values may be still present in formData,
               therefore it is necessary to delete them if they're not allowed by the current access condition option. */
@@ -471,27 +456,31 @@ implements OnInit, OnDestroy {
               accessConditionsToSave.push(currentAccessCondition);
             }
           });
-
-        if (isNotEmpty(accessConditionsToSave)) {
-          this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
         }
-
-        // dispatch a PATCH request to save metadata
-        return this.operationsService.jsonPatchByResourceID(
-          this.submissionService.getSubmissionObjectLinkName(),
-          this.submissionId,
-          this.pathCombiner.rootElement,
-          this.pathCombiner.subRootElement);
+        if (isNotEmpty(accessConditionsToSave)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'accessConditions']), accessConditionsToSave, true);
+        }
+       // dispatch a PATCH request to save metadata
+       return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        this.submissionId,
+        this.pathCombiner.rootElement,
+        this.pathCombiner.subRootElement);
       }),
     ).subscribe((result: SubmissionObject[]) => {
-      if (result[0].sections[this.sectionId]) {
-        const uploadSection = (result[0].sections[this.sectionId] as WorkspaceitemSectionUploadObject);
-        Object.keys(uploadSection.files)
-          .filter((key) => uploadSection.files[key].uuid === this.fileId)
-          .forEach((key) => this.uploadService.updateFileData(
-            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
-          );
+      const section = result[0].sections[this.sectionId];
+      if (!section) {
+        return;
       }
+      const uploadSection = (section as WorkspaceitemSectionUploadObject);
+
+      this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
+
+      Object.keys(uploadSection.files)
+        .filter((key) => uploadSection.files[key].uuid === this.fileId)
+        .forEach((key) => this.uploadService.updateFileData(
+            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
+        );
       this.isSaving = false;
       this.activeModal.close();
     });

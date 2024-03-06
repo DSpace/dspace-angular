@@ -1,23 +1,13 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  take,
-} from 'rxjs/operators';
-
-import { AdminQualityAssuranceSourcePageParams } from '../../../admin/admin-notifications/admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, take } from 'rxjs/operators';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
+import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance source list.
@@ -127,7 +117,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
    *
    * @param eventsRouteParams
    */
-  protected updatePaginationFromRouteParams(eventsRouteParams: AdminQualityAssuranceSourcePageParams) {
+  protected updatePaginationFromRouteParams(eventsRouteParams: QualityAssuranceSourcePageParams) {
     if (eventsRouteParams.currentPage) {
       this.paginationConfig.currentPage = eventsRouteParams.currentPage;
     }

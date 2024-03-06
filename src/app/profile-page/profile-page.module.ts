@@ -11,7 +11,7 @@ import { ProfilePageResearcherFormComponent } from './profile-page-researcher-fo
 import { ProfilePageRoutingModule } from './profile-page-routing.module';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
-
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -20,6 +20,7 @@ import { ThemedProfilePageComponent } from './themed-profile-page.component';
     SharedModule,
     FormModule,
     UiSwitchModule,
+    NotificationsModule
   ],
   exports: [
     ProfilePageComponent,

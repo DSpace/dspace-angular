@@ -1,8 +1,4 @@
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { isNotEmpty } from '../../empty.util';
 import { rendersMenuItemForType } from '../menu-item.decorator';
@@ -14,6 +10,7 @@ import { ExternalLinkMenuItemModel } from './models/external-link.model';
  */
 @Component({
   selector: 'ds-external-link-menu-item',
+  styleUrls: ['./menu-item.component.scss'],
   templateUrl: './external-link-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.EXTERNAL)

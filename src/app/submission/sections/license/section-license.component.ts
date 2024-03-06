@@ -1,29 +1,8 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  ViewChild,
-} from '@angular/core';
-import {
-  DynamicCheckboxModel,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormLayout,
-} from '@ng-dynamic-forms/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
+import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlModel, DynamicFormLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  map,
-  mergeMap,
-  startWith,
-  take,
-} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, find, map, mergeMap, startWith, take } from 'rxjs/operators';
 
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -32,12 +11,7 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
@@ -49,10 +23,7 @@ import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
-import {
-  SECTION_LICENSE_FORM_LAYOUT,
-  SECTION_LICENSE_FORM_MODEL,
-} from './section-license.model';
+import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -236,6 +207,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     } else {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     }
+    this.submissionService.dispatchSaveSection(this.submissionId, this.sectionData.id);
   }
 
   /**

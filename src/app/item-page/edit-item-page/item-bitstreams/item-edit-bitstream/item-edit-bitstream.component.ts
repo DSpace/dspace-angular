@@ -1,12 +1,5 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { Observable } from 'rxjs';
 
@@ -15,12 +8,8 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 @Component({
@@ -33,7 +22,7 @@ import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/
  * Creates an embedded view of the contents
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream element)
  */
-export class ItemEditBitstreamComponent implements OnChanges, OnInit {
+export class ItemEditBitstreamComponent implements OnChanges, OnDestroy, OnInit {
 
   /**
    * The view on the bitstream
@@ -82,6 +71,10 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.viewContainerRef.createEmbeddedView(this.bitstreamView);
+  }
+
+  ngOnDestroy(): void {
+    this.viewContainerRef.clear();
   }
 
   /**

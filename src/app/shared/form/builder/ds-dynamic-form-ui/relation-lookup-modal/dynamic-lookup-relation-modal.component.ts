@@ -1,26 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  skip,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { map, skip, switchMap, take } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -32,24 +15,20 @@ import { Context } from '../../../../../core/shared/context.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
-import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../../empty.util';
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../search/models/search-result.model';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import {
-  AddRelationshipAction,
-  RemoveRelationshipAction,
-  UpdateRelationshipNameVariantAction,
-} from './relationship.actions';
+import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipNameVariantAction } from './relationship.actions';
+import { FindListOptions } from '../../../../../core/data/find-list-options.model';
+import { RequestParam } from '../../../../../core/cache/models/request-param.model';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -194,6 +173,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     if (this.currentItemIsLeftItem$) {
       this.currentItemIsLeftItem$.subscribe((isLeft) => {
         this.isLeft = isLeft;
+        this.label = this.relationshipType.leftwardType;
       });
     }
 
@@ -222,6 +202,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       ).pipe(
         getAllSucceededRemoteDataPayload(),
       );
+    } else {
+      const findListOptions = Object.assign({}, new FindListOptions(), {
+        elementsPerPage: 5,
+        currentPage: 1,
+        searchParams: [
+          new RequestParam('entityType', this.relationshipOptions.relationshipType)
+        ]
+      });
+      this.externalSourcesRD$ = this.externalSourceService.searchBy('findByEntityType', findListOptions,
+        true, true, followLink('entityTypes'))
+        .pipe(getFirstSucceededRemoteDataPayload(), map((r: PaginatedList<ExternalSource>) => {
+          return r.page;
+        }));
     }
 
     this.setTotals();

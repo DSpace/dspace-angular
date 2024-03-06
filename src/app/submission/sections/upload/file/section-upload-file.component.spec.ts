@@ -1,28 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf, of } from 'rxjs';
 
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
@@ -32,12 +14,7 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockUploadConfigResponse,
-  mockUploadFiles,
-} from '../../../../shared/mocks/submission.mock';
+import { mockSubmissionCollectionId, mockSubmissionId, mockUploadConfigResponse, mockUploadFiles } from '../../../../shared/mocks/submission.mock';
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
@@ -82,7 +59,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   const fileName = '123456-test-upload.jpg';
   const fileId = '123456-test-upload';
   const fileData: any = mockUploadFiles[0];
-  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
+  const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId);
 
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
     add: jasmine.createSpy('add'),
@@ -196,7 +173,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       expect(comp.fileData).toEqual(fileData);
     });
 
-    it('should call deleteFile on delete confirmation', () => {
+    it('should call deleteFile on delete confirmation', async () => {
       spyOn(compAsAny, 'deleteFile');
       comp.fileData = fileData;
 
@@ -212,9 +189,25 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(compAsAny.deleteFile).toHaveBeenCalled();
-      });
+      await fixture.whenStable();
+      expect(compAsAny.deleteFile).toHaveBeenCalled();
+    });
+
+    it('should delete primary if file we delete is primary', () => {
+      compAsAny.isPrimary = true;
+      compAsAny.pathCombiner = pathCombiner;
+      operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
+      compAsAny.deleteFile();
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath('primary'));
+      expect(uploadService.updateFilePrimaryBitstream).toHaveBeenCalledWith(submissionId, sectionId, null);
+    });
+
+    it('should NOT delete primary if file we delete is NOT primary', () => {
+      compAsAny.isPrimary = false;
+      compAsAny.pathCombiner = pathCombiner;
+      operationsService.jsonPatchByResourceID.and.returnValue(observableOf({}));
+      compAsAny.deleteFile();
+      expect(uploadService.updateFilePrimaryBitstream).not.toHaveBeenCalledTimes(1);
     });
 
     it('should delete file properly', () => {
@@ -225,7 +218,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       compAsAny.deleteFile();
 
       expect(uploadService.removeUploadedFile).toHaveBeenCalledWith(submissionId, sectionId, fileId);
-      expect(operationsBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath());
+      expect(operationsBuilder.remove).toHaveBeenCalledWith(pathCombiner.getPath(['files', fileIndex]));
+
       expect(operationsService.jsonPatchByResourceID).toHaveBeenCalledWith(
         'workspaceitems',
         submissionId,

@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { isUndefined } from '../../../shared/empty.util';
+import { submissionSectionDataFromIdSelector, submissionUploadedFileFromUuidSelector, submissionUploadedFilesFromIdSelector } from '../../selectors';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionState } from '../../submission.reducers';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,
+  EditFilePrimaryBitstreamAction,
   NewUploadedFileAction,
 } from '../../objects/submission-objects.actions';
-import {
-  submissionUploadedFileFromUuidSelector,
-  submissionUploadedFilesFromIdSelector,
-} from '../../selectors';
-import { SubmissionState } from '../../submission.reducers';
 
 /**
  * A service that provides methods to handle submission's bitstream state.
@@ -30,8 +27,53 @@ export class SectionUploadService {
    * Initialize service variables
    *
    * @param {Store<SubmissionState>} store
+   * @param {JsonPatchOperationsBuilder} operationsBuilder
    */
-  constructor(private store: Store<SubmissionState>) {}
+  constructor(private store: Store<SubmissionState>, private operationsBuilder: JsonPatchOperationsBuilder) {}
+
+ /**
+   * Define and add an operation based on a change
+   *
+   * @param path
+   *    The path to endpoint
+   * @param intitialPrimary
+   *    The initial primary indicator
+   * @param primary
+   *    the new primary indicator
+    * @param fileId
+   *    The file id
+   * @returns {void}
+   */
+  public updatePrimaryBitstreamOperation(path: JsonPatchOperationPathObject, intitialPrimary: boolean | null, primary: boolean | null, fileId: string): void {
+    if (intitialPrimary === null && primary) {
+      this.operationsBuilder.add(path, fileId, false, true);
+      return;
+    }
+
+    if (intitialPrimary !== primary) {
+      if (primary) {
+        this.operationsBuilder.replace(path, fileId, true);
+        return;
+      }
+      this.operationsBuilder.remove(path);
+    }
+  }
+
+  /**
+   * Return submission's bitstream data from state
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @returns {WorkspaceitemSectionUploadObject}
+   *    Returns submission's bitstream data
+   */
+  public getUploadedFilesData(submissionId: string, sectionId: string): Observable<WorkspaceitemSectionUploadObject> {
+    return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId)).pipe(
+      map((state) => state),
+      distinctUntilChanged());
+  }
 
   /**
    * Return submission's bitstream list from state
@@ -107,6 +149,22 @@ export class SectionUploadService {
   public addUploadedFile(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
       new NewUploadedFileAction(submissionId, sectionId, fileUUID, data),
+    );
+  }
+
+   /**
+   * Update primary bitstream into the state
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param fileUUID
+   *    The bitstream UUID
+   */
+   public updateFilePrimaryBitstream(submissionId: string, sectionId: string, fileUUID: string | null) {
+    this.store.dispatch(
+      new EditFilePrimaryBitstreamAction(submissionId, sectionId, fileUUID)
     );
   }
 

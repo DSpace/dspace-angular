@@ -1,33 +1,19 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { filter, map, mergeMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  filter,
-  map,
-  mergeMap,
-} from 'rxjs/operators';
-
-import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
-import { MetadataService } from '../core/metadata/metadata.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
-import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
+import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
+import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCommunityPageRoute } from './community-page-routing-paths';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-community-page',
@@ -61,8 +47,6 @@ export class CommunityPageComponent implements OnInit {
   communityPageRoute$: Observable<string>;
 
   constructor(
-    private communityDataService: CommunityDataService,
-    private metadata: MetadataService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,

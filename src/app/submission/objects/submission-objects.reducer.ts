@@ -1,50 +1,13 @@
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNull, isUndefined } from '../../shared/empty.util';
 import differenceWith from 'lodash/differenceWith';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 
-import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isUndefined,
-} from '../../shared/empty.util';
-import {
-  ChangeSubmissionCollectionAction,
-  CompleteInitSubmissionFormAction,
-  DeleteSectionErrorsAction,
-  DeleteUploadedFileAction,
-  DepositSubmissionAction,
-  DepositSubmissionErrorAction,
-  DepositSubmissionSuccessAction,
-  DisableSectionAction,
-  EditFileDataAction,
-  EnableSectionAction,
-  InertSectionErrorsAction,
-  InitSectionAction,
-  InitSubmissionFormAction,
-  NewUploadedFileAction,
-  RemoveSectionErrorsAction,
-  ResetSubmissionFormAction,
-  SaveAndDepositSubmissionAction,
-  SaveForLaterSubmissionFormAction,
-  SaveForLaterSubmissionFormErrorAction,
-  SaveForLaterSubmissionFormSuccessAction,
-  SaveSubmissionFormAction,
-  SaveSubmissionFormErrorAction,
-  SaveSubmissionFormSuccessAction,
-  SaveSubmissionSectionFormAction,
-  SaveSubmissionSectionFormErrorAction,
-  SaveSubmissionSectionFormSuccessAction,
-  SectionStatusChangeAction,
-  SetActiveSectionAction,
-  SetSectionFormId,
-  SubmissionObjectAction,
-  SubmissionObjectActionTypes,
-  UpdateSectionDataAction,
+  ChangeSubmissionCollectionAction, CleanDuplicateDetectionAction, CompleteInitSubmissionFormAction, DeleteSectionErrorsAction, DeleteUploadedFileAction, DepositSubmissionAction, DepositSubmissionErrorAction, DepositSubmissionSuccessAction, DisableSectionAction, EditFileDataAction, EditFilePrimaryBitstreamAction, EnableSectionAction, InertSectionErrorsAction, InitSectionAction, InitSubmissionFormAction, NewUploadedFileAction, RemoveSectionErrorsAction, ResetSubmissionFormAction, SaveAndDepositSubmissionAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormErrorAction, SaveForLaterSubmissionFormSuccessAction, SaveSubmissionFormAction, SaveSubmissionFormErrorAction, SaveSubmissionFormSuccessAction, SaveSubmissionSectionFormAction, SaveSubmissionSectionFormErrorAction, SaveSubmissionSectionFormSuccessAction, SectionStatusChangeAction, SetActiveSectionAction, SetSectionFormId, SubmissionObjectAction, SubmissionObjectActionTypes, UpdateSectionDataAction,
 } from './submission-objects.actions';
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SubmissionSectionObject } from './submission-section-object.model';
 
 /**
@@ -209,6 +172,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return newFile(state, action as NewUploadedFileAction);
     }
 
+    case SubmissionObjectActionTypes.EDIT_FILE_PRIMARY_BITSTREAM_DATA: {
+      return editPrimaryBitstream(state, action as EditFilePrimaryBitstreamAction);
+    }
+
     case SubmissionObjectActionTypes.EDIT_FILE_DATA: {
       return editFileData(state, action as EditFileDataAction);
     }
@@ -228,6 +195,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.REMOVE_SECTION_ERRORS: {
       return removeSectionErrors(state, action as RemoveSectionErrorsAction);
+    }
+
+    case SubmissionObjectActionTypes.CLEAN_DUPLICATE_DETECTION: {
+      return cleanDuplicateDetectionSection(state, action as CleanDuplicateDetectionAction);
     }
 
     default: {
@@ -742,6 +713,46 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
 }
 
 /**
+ * Edit primary bitstream.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an EditFilePrimaryBitstreamAction action
+ * @return SubmissionObjectState
+ *    the new state, with the edited file.
+ */
+function editPrimaryBitstream(state: SubmissionObjectState, action: EditFilePrimaryBitstreamAction): SubmissionObjectState {
+  const filesData = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data as WorkspaceitemSectionUploadObject;
+  const { submissionId, sectionId, fileId } = action.payload;
+
+  const fileIndex = findKey(filesData.files, { uuid: fileId });
+  if (isNull(fileIndex)) {
+    return state;
+  }
+
+  const submission = state[submissionId];
+  return {
+    ...state,
+    [submissionId]: {
+      ...submission,
+      sections: {
+        ...submission.sections,
+        [sectionId]: {
+          ...submission.sections[sectionId],
+          data: {
+            ...submission.sections[sectionId].data as WorkspaceitemSectionUploadObject,
+            primary: fileId
+          }
+        }
+      },
+      isLoading: submission.isLoading,
+      savePending: submission.savePending,
+    }
+  };
+}
+
+/**
  * Edit a file.
  *
  * @param state
@@ -816,4 +827,21 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
     }
   }
   return state;
+}
+
+function cleanDuplicateDetectionSection(state: SubmissionObjectState, action: CleanDuplicateDetectionAction): SubmissionObjectState {
+  if (isNotEmpty(state[ action.payload.submissionId ]) && state[action.payload.submissionId].sections.hasOwnProperty('duplicates')) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ 'duplicates' ]: Object.assign({}, state[ action.payload.submissionId ].sections.duplicates, {
+            enabled: false,
+            data: { potentialDuplicates: [] }
+          })
+        })
+      })
+    });
+  } else {
+    return state;
+  }
 }

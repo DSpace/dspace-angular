@@ -1,8 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,9 +16,11 @@ import { MenuResolver } from './menu.resolver';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
-import createSpy = jasmine.createSpy;
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
+import createSpy = jasmine.createSpy;
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
@@ -40,6 +39,7 @@ describe('MenuResolver', () => {
   let browseService;
   let authorizationService;
   let scriptService;
+  let configurationDataService;
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
@@ -56,6 +56,9 @@ describe('MenuResolver', () => {
       scriptWithNameExistsAndCanExecute: observableOf(true),
     });
 
+    configurationDataService = new ConfigurationDataServiceStub();
+    spyOn(configurationDataService, 'findByPropertyName').and.returnValue(observableOf(true));
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
@@ -64,6 +67,7 @@ describe('MenuResolver', () => {
         { provide: BrowseService, useValue: browseService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/

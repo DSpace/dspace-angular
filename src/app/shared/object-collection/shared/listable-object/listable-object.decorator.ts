@@ -5,11 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { ListableObject } from '../listable-object.model';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
@@ -39,7 +35,7 @@ export const DEFAULT_THEME = '*';
  * - { level: 1, relevancy: 1 } is less relevant than { level: 2, relevancy: 0 }
  * - { level: 1, relevancy: 1 } is more relevant than null
  */
-class MatchRelevancy {
+export class MatchRelevancy {
   constructor(public match: any,
               public level: number,
               public relevancy: number) {
@@ -138,7 +134,7 @@ export function getListableObjectComponent(types: (string | GenericConstructor<L
  * @param defaults        the default values to use for each level, in case no value is found for the key at that index
  * @returns matchAndLevel a {@link MatchRelevancy} object containing the match and its level of relevancy
  */
-function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRelevancy {
+export function getMatch(typeMap: Map<any, any>, keys: any[], defaults: any[]): MatchRelevancy {
   let currentMap = typeMap;
   let level = -1;
   let relevancy = 0;

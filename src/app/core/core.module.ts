@@ -1,17 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import {
-  ModuleWithProviders,
-  NgModule,
-  Optional,
-  SkipSelf,
-} from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  Action,
-  StoreConfig,
-  StoreModule,
-} from '@ngrx/store';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
@@ -23,11 +14,7 @@ import { isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
-import {
-  MOCK_RESPONSE_MAP,
-  mockResponseMap,
-  ResponseMapMock,
-} from '../shared/mocks/dspace-rest/mocks/response-map.mock';
+import { MOCK_RESPONSE_MAP, mockResponseMap, ResponseMapMock } from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
@@ -124,10 +111,7 @@ import { ResourcePolicyDataService } from './resource-policy/resource-policy-dat
 import { RoleService } from './roles/role.service';
 import { LinkHeadService } from './services/link-head.service';
 import { ServerResponseService } from './services/server-response.service';
-import {
-  NativeWindowFactory,
-  NativeWindowService,
-} from './services/window.service';
+import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { Authorization } from './shared/authorization.model';
 import { Bitstream } from './shared/bitstream.model';
 import { BitstreamFormat } from './shared/bitstream-format.model';
@@ -192,6 +176,19 @@ import { TaskObject } from './tasks/models/task-object.model';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { CorrectionTypeDataService } from './submission/correctiontype-data.service';
+import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { LdnItemfiltersService } from '../admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service';
+import { CoarNotifyConfigDataService } from '../submission/sections/section-coar-notify/coar-notify-config-data.service';
+import { NotifyRequestsStatusDataService } from './data/notify-services-status-data.service';
+import { SuggestionTarget } from './notifications/models/suggestion-target.model';
+import { SuggestionSource } from './notifications/models/suggestion-source.model';
+import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
+import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
+import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { AdminNotifyMessage } from '../admin/admin-notify-dashboard/models/admin-notify-message.model';
+import { SubmissionDuplicateDataService } from './submission/submission-duplicate-data.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -228,6 +225,7 @@ const PROVIDERS = [
   HALEndpointService,
   HostWindowService,
   ItemDataService,
+  SubmissionDuplicateDataService,
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
@@ -315,6 +313,11 @@ const PROVIDERS = [
   OrcidQueueDataService,
   OrcidHistoryDataService,
   SupervisionOrderDataService,
+  CorrectionTypeDataService,
+  LdnServicesService,
+  LdnItemfiltersService,
+  CoarNotifyConfigDataService,
+  NotifyRequestsStatusDataService
 ];
 
 /**
@@ -394,6 +397,13 @@ export const models =
     Subscription,
     ItemRequest,
     BulkAccessConditionOptions,
+    SuggestionTarget,
+    SuggestionSource,
+    LdnService,
+    Itemfilter,
+    SubmissionCoarNotifyConfig,
+    NotifyRequestsStatus,
+    AdminNotifyMessage
   ];
 
 @NgModule({

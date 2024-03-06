@@ -15,10 +15,10 @@
             [attr.data-test]="'import-dropdown' | dsBrowserOnly"
             title="{{'mydspace.new-submission-external' | translate}}">
       <i class="fa fa-file-import" aria-hidden="true"></i>
-      <span class="caret"></span>
+      <span class="caret" aria-hidden="true"></span>
     </button>
     <div ngbDropdownMenu
-         class="dropdown-menu"
+         class="dropdown-menu p-0"
          id="importControlsDropdownMenu"
          aria-labelledby="dropdownImport">
       <ds-entity-dropdown [isSubmission]="false" (selectionChange)="openPage($event)"></ds-entity-dropdown>

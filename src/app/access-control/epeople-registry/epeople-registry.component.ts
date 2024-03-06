@@ -1,31 +1,15 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -33,19 +17,13 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { NoContent } from '../../core/shared/NoContent.model';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../core/shared/operators';
+import { getAllSucceededRemoteData, getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import {
-  getEPersonEditRoute,
-  getEPersonsRoute,
-} from '../access-control-routing-paths';
+import { getEPersonEditRoute, getEPersonsRoute } from '../access-control-routing-paths';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -224,7 +202,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   deleteEPerson(ePerson: EPerson) {
     if (hasValue(ePerson.id)) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = ePerson;
+      modalRef.componentInstance.name = this.dsoNameService.getName(ePerson);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-eperson.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-eperson.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-eperson.cancel';

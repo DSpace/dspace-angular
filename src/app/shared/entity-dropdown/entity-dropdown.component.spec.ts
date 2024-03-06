@@ -1,14 +1,5 @@
-import {
-  ChangeDetectorRef,
-  NO_ERRORS_SCHEMA,
-  Pipe,
-  PipeTransform,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
@@ -133,7 +124,7 @@ describe('EntityDropdownComponent', () => {
     scheduler.flush();
 
     spyOn(component, 'onSelect');
-    const entityItem = fixture.debugElement.query(By.css('.entity-item:nth-child(2)'));
+    const entityItem = fixture.debugElement.query(By.css('.entity-item:nth-child(2) button'));
     entityItem.triggerEventHandler('click', null);
 
     scheduler.schedule(() => fixture.detectChanges());

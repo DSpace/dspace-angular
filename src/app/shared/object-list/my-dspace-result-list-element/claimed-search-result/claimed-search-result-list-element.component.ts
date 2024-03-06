@@ -1,23 +1,8 @@
-import {
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import {
-  BehaviorSubject,
-  EMPTY,
-  Observable,
-} from 'rxjs';
-import {
-  mergeMap,
-  tap,
-} from 'rxjs/operators';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, combineLatest, EMPTY, Observable } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
+import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -28,15 +13,17 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../empty.util';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { Duplicate } from '../../duplicate-data/duplicate.model';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 
 @Component({
   selector: 'ds-claimed-search-result-list-element',
@@ -67,6 +54,11 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
   public workflowitem$: BehaviorSubject<WorkflowItem> = new BehaviorSubject<WorkflowItem>(null);
 
   /**
+   * The potential duplicates of this item
+   */
+  public duplicates$: Observable<Duplicate[]>;
+
+  /**
    * Display thumbnails if required by configuration
    */
   showThumbnails: boolean;
@@ -76,6 +68,8 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
     protected truncatableService: TruncatableService,
     public dsoNameService: DSONameService,
     protected objectCache: ObjectCacheService,
+    protected configService: ConfigurationDataService,
+    protected duplicateDataService: SubmissionDuplicateDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
@@ -109,8 +103,43 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
         }
       }),
     ).subscribe();
-
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    // Initialise duplicates, if enabled
+    this.duplicates$ = this.initializeDuplicateDetectionIfEnabled();
+  }
+
+  /**
+   * Initialize and set the duplicates observable based on whether the configuration in REST is enabled
+   * and the results returned
+   */
+  initializeDuplicateDetectionIfEnabled() {
+    return combineLatest([
+        this.configService.findByPropertyName('duplicate.enable').pipe(
+          getFirstCompletedRemoteData(),
+          map((remoteData: RemoteData<ConfigurationProperty>) => {
+            return (remoteData.isSuccess && remoteData.payload && remoteData.payload.values[0] === 'true');
+          })
+        ),
+        this.item$.pipe(),
+      ]
+    ).pipe(
+      map(([enabled, rd]) => {
+        if (enabled) {
+          this.duplicates$ = this.duplicateDataService.findDuplicates(rd.uuid).pipe(
+            getFirstCompletedRemoteData(),
+            map((remoteData: RemoteData<PaginatedList<Duplicate>>) => {
+              if (remoteData.hasSucceeded) {
+                if (remoteData.payload.page) {
+                  return remoteData.payload.page;
+                }
+              }
+            })
+          );
+        } else {
+          return [] as Duplicate[];
+        }
+      }),
+    );
   }
 
   ngOnDestroy() {

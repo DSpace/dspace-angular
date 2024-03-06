@@ -1,12 +1,10 @@
-import {
-  deserialize,
-  inheritSerialization,
-} from 'cerialize';
+import { deserialize, inheritSerialization } from 'cerialize';
 
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { FLAT_BROWSE_DEFINITION } from './flat-browse-definition.resource-type';
 import { HALLink } from './hal-link.model';
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
 import { ResourceType } from './resource-type';
 
@@ -34,7 +32,7 @@ export class FlatBrowseDefinition extends NonHierarchicalBrowseDefinition {
     items: HALLink;
   };
 
-  getRenderType(): string {
+  getRenderType(): BrowseByDataType {
     return this.dataType;
   }
 }

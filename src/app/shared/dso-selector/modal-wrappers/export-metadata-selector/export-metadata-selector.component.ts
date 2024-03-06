@@ -1,31 +1,13 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
-import {
-  NgbActiveModal,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../../../core/data/processes/script-data.service';
+import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
@@ -39,10 +21,8 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import {
-  DSOSelectorModalWrapperComponent,
-  SelectorActionType,
-} from '../dso-selector-modal-wrapper.component';
+import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -61,6 +41,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
               protected notificationsService: NotificationsService, protected translationService: TranslateService,
               protected scriptDataService: ScriptDataService,
               protected authorizationDataService: AuthorizationDataService,
+              protected dsoNameService: DSONameService,
               private modalService: NgbModal) {
     super(activeModal, route);
   }
@@ -72,7 +53,7 @@ export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComp
   navigate(dso: DSpaceObject): Observable<boolean> {
     if (dso instanceof Collection || dso instanceof Community) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = dso;
+      modalRef.componentInstance.name = this.dsoNameService.getName(dso);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.export-metadata.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.export-metadata.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.export-metadata.cancel';

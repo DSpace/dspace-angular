@@ -1,26 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-  PLATFORM_ID,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  of as observableOf,
-} from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -29,13 +14,11 @@ import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
@@ -80,6 +63,7 @@ describe('FullItemPageComponent', () => {
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+  let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
   const mocklink = {
     href: 'http://test.org',
@@ -124,6 +108,12 @@ describe('FullItemPageComponent', () => {
       removeTag: jasmine.createSpy('removeTag'),
     });
 
+    notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
+      isCoarConfigEnabled: observableOf(true),
+      getCoarLdnLocalInboxUrls: observableOf(['http://test.org']),
+      getInboxRelationLink: observableOf('http://test.org'),
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -141,7 +131,8 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: NotifyInfoService, useValue: notifyInfoService },
+        { provide: PLATFORM_ID, useValue: 'server' }
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(FullItemPageComponent, {
@@ -197,7 +188,7 @@ describe('FullItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
   describe('when the item is withdrawn and the user is not an admin', () => {
@@ -226,7 +217,7 @@ describe('FullItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
 
@@ -243,7 +234,7 @@ describe('FullItemPageComponent', () => {
 
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
-      expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
 });

@@ -1,45 +1,11 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import {
-  NgbModal,
-  NgbModalRef,
-  NgbTypeahead,
-  NgbTypeaheadSelectItemEvent,
-} from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
-import {
-  Observable,
-  of as observableOf,
-  Subject,
-  Subscription,
-} from 'rxjs';
-import {
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  merge,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, take, tap } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
@@ -47,12 +13,7 @@ import { Vocabulary } from '../../../../../../core/submission/vocabularies/model
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
@@ -80,6 +41,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
   pageInfo: PageInfo = new PageInfo();
   searching = false;
+  loadingInitialValue = false;
   searchFailed = false;
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
   click$ = new Subject<string>();
@@ -177,6 +139,15 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   }
 
   /**
+   * Changes the loadingInitialValue status
+   * @param status
+   */
+  changeLoadingInitialValueStatus(status: boolean) {
+    this.loadingInitialValue = status;
+    this.cdr.detectChanges();
+  }
+
+  /**
    * Checks if configured vocabulary is Hierarchical or not
    */
   isHierarchicalVocabulary(): Observable<boolean> {
@@ -210,8 +181,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       // prevent on blur propagation if typeahed suggestions are showed
       event.preventDefault();
       event.stopImmediatePropagation();
-      // set focus on input again, this is to avoid to lose changes when no suggestion is selected
-      (event.target as HTMLInputElement).focus();
+      // update the value with the searched text if the user hasn't selected any suggestion
+      if (!this.model.vocabularyOptions.closed && isNotEmpty(this.inputValue)) {
+        if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
+          this.dispatchUpdate(this.inputValue);
+        }
+        this.inputValue = null;
+      }
     }
   }
 
@@ -282,8 +258,10 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   setCurrentValue(value: any, init = false): void {
     let result: string;
     if (init) {
-      this.getInitValueFromModel()
+      this.changeLoadingInitialValueStatus(true);
+      this.getInitValueFromModel(true)
         .subscribe((formValue: FormFieldMetadataValueObject) => {
+          this.changeLoadingInitialValueStatus(false);
           this.currentValue = formValue;
           this.cdr.detectChanges();
         });

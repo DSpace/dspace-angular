@@ -6,15 +6,9 @@
  * http://www.dspace.org/license/
  */
 import { Observable } from 'rxjs';
-import {
-  filter,
-  map,
-} from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
+import { hasNoValue, isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
@@ -58,7 +52,7 @@ export interface SearchData<T extends CacheableObject> {
 }
 
 /**
- * A DataService feature to search for objects.
+ * A UpdateDataServiceImpl feature to search for objects.
  *
  * Concrete data services can use this feature by implementing {@link SearchData}
  * and delegating its method to an inner instance of this class.

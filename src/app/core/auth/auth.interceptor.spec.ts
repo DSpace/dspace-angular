@@ -1,8 +1,5 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -22,9 +19,7 @@ describe(`AuthInterceptor`, () => {
 
   const authServiceStub = new AuthServiceStub();
   const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
     select: observableOf(true),
   });
 
@@ -46,6 +41,10 @@ describe(`AuthInterceptor`, () => {
 
     service = TestBed.inject(DspaceRestService);
     httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   describe('when has a valid token', () => {
@@ -97,14 +96,11 @@ describe(`AuthInterceptor`, () => {
     });
 
     it('should redirect to login', () => {
-
-      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user').subscribe((response) => {
-        expect(response).toBeTruthy();
-      });
-
       service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user');
 
       httpMock.expectNone('dspace-spring-rest/api/submission/workspaceitems');
+      // HttpTestingController.expectNone will throw an error when a requests is made
+      expect().nothing();
     });
   });
 

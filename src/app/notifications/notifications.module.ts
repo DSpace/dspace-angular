@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  Action,
-  StoreConfig,
-  StoreModule,
-} from '@ngrx/store';
+import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../app.reducer';
@@ -15,16 +11,26 @@ import { QualityAssuranceSourceDataService } from '../core/notifications/qa/sour
 import { QualityAssuranceTopicDataService } from '../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { SearchModule } from '../shared/search/search.module';
 import { SharedModule } from '../shared/shared.module';
-import {
-  suggestionNotificationsReducers,
-  SuggestionNotificationsState,
-} from './notifications.reducer';
+import { suggestionNotificationsReducers, SuggestionNotificationsState } from './notifications.reducer';
 import { notificationsEffects } from './notifications-effects';
 import { NotificationsStateService } from './notifications-state.service';
 import { QualityAssuranceEventsComponent } from './qa/events/quality-assurance-events.component';
 import { ProjectEntryImportModalComponent } from './qa/project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceSourceComponent } from './qa/source/quality-assurance-source.component';
 import { QualityAssuranceSourceService } from './qa/source/quality-assurance-source.service';
+import { EPersonDataComponent } from './qa/events/ePerson-data/ePerson-data.component';
+import { SuggestionActionsComponent } from './suggestion-actions/suggestion-actions.component';
+import { PublicationClaimComponent } from './suggestion-targets/publication-claim/publication-claim.component';
+import { SuggestionListElementComponent } from './suggestion-list-element/suggestion-list-element.component';
+import { SuggestionEvidencesComponent } from './suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionsPopupComponent } from './suggestions-popup/suggestions-popup.component';
+import { SuggestionsNotificationComponent } from './suggestions-notification/suggestions-notification.component';
+import { SuggestionsService } from './suggestions.service';
+import { SuggestionSourceDataService } from '../core/notifications/source/suggestion-source-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { SuggestionTargetsStateService } from './suggestion-targets/suggestion-targets.state.service';
+import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
+
 import { QualityAssuranceTopicsComponent } from './qa/topics/quality-assurance-topics.component';
 import { QualityAssuranceTopicsService } from './qa/topics/quality-assurance-topics.service';
 
@@ -42,6 +48,13 @@ const COMPONENTS = [
   QualityAssuranceTopicsComponent,
   QualityAssuranceEventsComponent,
   QualityAssuranceSourceComponent,
+  EPersonDataComponent,
+  PublicationClaimComponent,
+  SuggestionActionsComponent,
+  SuggestionListElementComponent,
+  SuggestionEvidencesComponent,
+  SuggestionsPopupComponent,
+  SuggestionsNotificationComponent
 ];
 
 const DIRECTIVES = [ ];
@@ -57,6 +70,11 @@ const PROVIDERS = [
   QualityAssuranceTopicDataService,
   QualityAssuranceSourceDataService,
   QualityAssuranceEventDataService,
+  SuggestionsService,
+  SuggestionSourceDataService,
+  SuggestionTargetDataService,
+  SuggestionTargetsStateService,
+  SuggestionsDataService
 ];
 
 @NgModule({
@@ -77,7 +95,7 @@ const PROVIDERS = [
   exports: [
     ...COMPONENTS,
     ...DIRECTIVES,
-  ],
+  ]
 })
 
 /**

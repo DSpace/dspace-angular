@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ThemedComponent } from '../theme-support/themed.component';
 import { SearchFormComponent } from './search-form.component';
@@ -24,6 +19,8 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   @Input() scope: string;
 
+  @Input() hideScopeInUrl: boolean;
+
   @Input() currentUrl: string;
 
   @Input() large: boolean;
@@ -37,7 +34,15 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
   @Output() submitSearch: EventEmitter<any> = new EventEmitter();
 
   protected inAndOutputNames: (keyof SearchFormComponent & keyof this)[] = [
-    'query', 'inPlaceSearch', 'scope', 'currentUrl', 'large', 'brandColor', 'searchPlaceholder', 'showScopeSelector',
+    'query',
+    'inPlaceSearch',
+    'scope',
+    'hideScopeInUrl',
+    'currentUrl',
+    'large',
+    'brandColor',
+    'searchPlaceholder',
+    'showScopeSelector',
     'submitSearch',
   ];
 

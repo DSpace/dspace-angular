@@ -1,8 +1,4 @@
-import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { isNotEmpty } from '../../empty.util';
@@ -15,6 +11,7 @@ import { LinkMenuItemModel } from './models/link.model';
  */
 @Component({
   selector: 'ds-link-menu-item',
+  styleUrls: ['./menu-item.component.scss'],
   templateUrl: './link-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.LINK)

@@ -2,11 +2,7 @@ import { of as observableOf } from 'rxjs';
 
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { followLink } from '../../shared/utils/follow-link-config.model';
@@ -24,6 +20,7 @@ import { RelationshipDataService } from './relationship-data.service';
 import { DeleteRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;
@@ -115,14 +112,7 @@ describe('RelationshipDataService', () => {
     'href': buildList$,
     'https://rest.api/core/publication/relationships': relationships$,
   });
-  const objectCache = Object.assign({
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    remove: () => {
-    },
-    hasBySelfLinkObservable: () => observableOf(false),
-    hasByHref$: () => observableOf(false),
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  }) as ObjectCacheService;
+  const objectCache = new ObjectCacheServiceStub();
 
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
@@ -134,7 +124,7 @@ describe('RelationshipDataService', () => {
       requestService,
       rdbService,
       halService,
-      objectCache,
+      objectCache as ObjectCacheService,
       itemService,
       null,
       jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),

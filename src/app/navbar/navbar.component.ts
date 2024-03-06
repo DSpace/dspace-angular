@@ -1,12 +1,6 @@
-import {
-  Component,
-  Injector,
-} from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
@@ -14,7 +8,7 @@ import { isAuthenticated } from '../core/auth/selectors';
 import { BrowseService } from '../core/browse/browse.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { slideMobileNav } from '../shared/animations/slide';
-import { HostWindowService } from '../shared/host-window.service';
+import { HostWindowService, WidthCategory } from '../shared/host-window.service';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
@@ -29,12 +23,13 @@ import { ThemeService } from '../shared/theme-support/theme.service';
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav],
 })
-export class NavbarComponent extends MenuComponent {
+export class NavbarComponent extends MenuComponent implements OnInit {
   /**
    * The menu ID of the Navbar is PUBLIC
    * @type {MenuID.PUBLIC}
    */
   menuID = MenuID.PUBLIC;
+  maxMobileWidth = WidthCategory.SM;
 
   /**
    * Whether user is authenticated.
@@ -42,7 +37,7 @@ export class NavbarComponent extends MenuComponent {
    */
   public isAuthenticated$: Observable<boolean>;
 
-  public isXsOrSm$: Observable<boolean>;
+  public isMobile$: Observable<boolean>;
 
   constructor(protected menuService: MenuService,
     protected injector: Injector,
@@ -58,7 +53,7 @@ export class NavbarComponent extends MenuComponent {
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.isMobile$ = this.windowService.isUpTo(this.maxMobileWidth);
     this.isAuthenticated$ = this.store.pipe(select(isAuthenticated));
   }
 }

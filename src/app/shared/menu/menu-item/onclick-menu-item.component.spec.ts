@@ -1,12 +1,5 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -53,7 +46,7 @@ describe('OnClickMenuItemComponent', () => {
   });
 
   it('should call the function on the item when clicked', () => {
-    debugElement.query(By.css('a.nav-link')).triggerEventHandler('click', new Event(('click')));
+    debugElement.query(By.css('a.ds-menu-item')).triggerEventHandler('click', new Event(('click')));
     expect(item.function).toHaveBeenCalled();
   });
 });

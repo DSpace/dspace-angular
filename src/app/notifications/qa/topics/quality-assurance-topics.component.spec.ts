@@ -1,31 +1,19 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import {
-  getMockNotificationsStateService,
-  qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
+import { getMockNotificationsStateService, qualityAssuranceTopicObjectMoreAbstract, qualityAssuranceTopicObjectMorePid } from '../../../shared/mocks/notifications.mock';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
+import { ItemDataService } from 'src/app/core/data/item-data.service';
 import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
-import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 describe('QualityAssuranceTopicsComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceTopicsComponent>;
@@ -53,14 +41,14 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
       providers: [
         { provide: NotificationsStateService, useValue: mockNotificationsStateService },
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
-          paramMap: {
-            get: () => 'openaire',
+          params: {
+            sourceId: 'openaire',
+            targetId: null
           },
         } } },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ItemDataService, useValue: {} },
         QualityAssuranceTopicsComponent,
-        // tslint:disable-next-line: no-empty
-        { provide: QualityAssuranceTopicsService, useValue: { setSourceId: (sourceId: string) => { } } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then(() => {

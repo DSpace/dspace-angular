@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 
 import { hasValue } from '../../empty.util';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
-import {
-  renderStartsWithFor,
-  StartsWithType,
-} from '../starts-with-decorator';
+import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
 
 /**
  * A switchable component rendering StartsWith options for the type "Text".
@@ -37,17 +34,6 @@ export class StartsWithTextComponent extends StartsWithAbstractComponent {
       this.startsWith = '0';
     }
     super.setStartsWithParam(resetPage);
-  }
-
-  /**
-   * Checks whether the provided option is equal to the current startsWith
-   * @param option
-   */
-  isSelectedOption(option: string): boolean {
-    if (this.startsWith === '0' && option === '0-9') {
-      return true;
-    }
-    return option === this.startsWith;
   }
 
 }

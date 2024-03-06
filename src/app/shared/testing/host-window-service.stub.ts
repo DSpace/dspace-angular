@@ -1,7 +1,5 @@
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
+import { WidthCategory } from '../host-window.service';
 
 // declare a stub service
 export class HostWindowServiceStub {
@@ -21,6 +19,14 @@ export class HostWindowServiceStub {
   }
 
   isXsOrSm(): Observable<boolean> {
+    return this.isXs();
+  }
+
+  isMobile(): Observable<boolean> {
+    return this.isXs();
+  }
+
+  isUpTo(maxWidthCat: WidthCategory): Observable<boolean> {
     return this.isXs();
   }
 }

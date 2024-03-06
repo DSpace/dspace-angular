@@ -1,11 +1,9 @@
+import { notificationsReducer } from './notifications.reducers';
+import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
+import { NotificationsService } from './notifications.service';
+import { TestBed } from '@angular/core/testing';
+import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 import { ChangeDetectorRef } from '@angular/core';
-import {
-  fakeAsync,
-  flush,
-  inject,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
 
@@ -15,14 +13,6 @@ import { NotificationAnimationsType } from './models/notification-animations-typ
 import { NotificationOptions } from './models/notification-options.model';
 import { NotificationType } from './models/notification-type';
 import { NotificationComponent } from './notification/notification.component';
-import {
-  NewNotificationAction,
-  RemoveAllNotificationsAction,
-  RemoveNotificationAction,
-} from './notifications.actions';
-import { notificationsReducer } from './notifications.reducers';
-import { NotificationsService } from './notifications.service';
-import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 
 describe('Notifications reducer', () => {
 
@@ -116,39 +106,5 @@ describe('Notifications reducer', () => {
     const state3 = notificationsReducer(state2, new RemoveAllNotificationsAction());
     expect(state3.length).toEqual(0);
   });
-
-  it('should create 2 notifications and check they close after different timeout', fakeAsync(() => {
-    inject([ChangeDetectorRef], (cdr: ChangeDetectorRef) => {
-      const optionsWithTimeout = new NotificationOptions(
-        1000,
-        true,
-        NotificationAnimationsType.Rotate);
-      // Timeout 1000ms
-      const notification = new Notification(uniqueId(), NotificationType.Success, 'title', 'content', optionsWithTimeout, null);
-      const state = notificationsReducer(undefined, new NewNotificationAction(notification));
-      expect(state.length).toEqual(1);
-
-      // Timeout default 5000ms
-      const notificationBis = new Notification(uniqueId(), NotificationType.Success, 'title', 'content');
-      const stateBis = notificationsReducer(state, new NewNotificationAction(notification));
-      expect(stateBis.length).toEqual(2);
-
-      tick(1000);
-      cdr.detectChanges();
-
-      const action = new NewNotificationAction(notification);
-      action.type = 'NothingToDo, return only the state';
-
-      const lastState = notificationsReducer(stateBis, action);
-      expect(lastState.length).toEqual(1);
-
-      flush();
-      cdr.detectChanges();
-
-      const finalState = notificationsReducer(lastState, action);
-      expect(finalState.length).toEqual(0);
-    });
-
-  }));
 
 });

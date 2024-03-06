@@ -2,7 +2,7 @@
     <div class="metadata-registry row">
         <div class="col-12">
 
-            <h2 id="header" class="border-bottom pb-2">{{'admin.registries.metadata.head' | translate}}</h2>
+            <h1 id="header" class="border-bottom pb-2">{{'admin.registries.metadata.head' | translate}}</h1>
 
             <p id="description" class="pb-2">{{'admin.registries.metadata.description' | translate}}</p>
 
@@ -19,7 +19,7 @@
                     <table id="metadata-schemas" class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <th scope="col"><span class="sr-only">{{'admin.registries.metadata.schemas.table.selected' | translate}}</span></th>
                             <th scope="col">{{'admin.registries.metadata.schemas.table.id' | translate}}</th>
                             <th scope="col">{{'admin.registries.metadata.schemas.table.namespace' | translate}}</th>
                             <th scope="col">{{'admin.registries.metadata.schemas.table.name' | translate}}</th>
@@ -34,6 +34,7 @@
                                            [checked]="isSelected(schema) | async"
                                            (change)="selectMetadataSchema(schema, $event)"
                                     >
+                                    <span class="sr-only">{{((isSelected(schema) | async) ? 'admin.registries.metadata.schemas.deselect' : 'admin.registries.metadata.schemas.select') | translate}}</span>
                                 </label>
                             </td>
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.id}}</a></td>

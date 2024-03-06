@@ -1,25 +1,13 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  filter,
-  map,
-  take,
-} from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
 import { RouteService } from '../../../../core/services/route.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
-import {
-  getDSpaceQuery,
-  isIiifEnabled,
-  isIiifSearchEnabled,
-} from './item-iiif-utils';
+import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
 
 @Component({
   selector: 'ds-item',
@@ -40,7 +28,7 @@ export class ItemComponent implements OnInit {
   /**
    * Used to show or hide the back to results button in the view.
    */
-  showBackButton: Observable<boolean>;
+  showBackButton$: Observable<boolean>;
 
   /**
    * Route to the item page
@@ -86,10 +74,9 @@ export class ItemComponent implements OnInit {
 
     this.itemPageRoute = getItemPageRoute(this.object);
     // hide/show the back button
-    this.showBackButton = this.routeService.getPreviousUrl().pipe(
-      filter(url => this.previousRoute.test(url)),
+    this.showBackButton$ = this.routeService.getPreviousUrl().pipe(
+      map((url: string) => this.previousRoute.test(url)),
       take(1),
-      map(() => true),
     );
     // check to see if iiif viewer is required.
     this.iiifEnabled = isIiifEnabled(this.object);

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,20 +8,7 @@ import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/qua
 import { SuggestionNotificationsState } from './notifications.reducer';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
-import {
-  getQualityAssuranceSourceCurrentPageSelector,
-  getQualityAssuranceSourceTotalPagesSelector,
-  getQualityAssuranceSourceTotalsSelector,
-  getQualityAssuranceTopicsCurrentPageSelector,
-  getQualityAssuranceTopicsTotalPagesSelector,
-  getQualityAssuranceTopicsTotalsSelector,
-  isQualityAssuranceSourceLoadedSelector,
-  isQualityAssuranceSourceProcessingSelector,
-  isQualityAssuranceTopicsLoadedSelector,
-  isQualityAssuranceTopicsProcessingSelector,
-  qualityAssuranceSourceObjectSelector,
-  qualityAssuranceTopicsObjectSelector,
-} from './selectors';
+import { getQualityAssuranceSourceCurrentPageSelector, getQualityAssuranceSourceTotalPagesSelector, getQualityAssuranceSourceTotalsSelector, getQualityAssuranceTopicsCurrentPageSelector, getQualityAssuranceTopicsTotalPagesSelector, getQualityAssuranceTopicsTotalsSelector, isQualityAssuranceSourceLoadedSelector, isQualityAssuranceSourceProcessingSelector, isQualityAssuranceTopicsLoadedSelector, isQualityAssuranceTopicsProcessingSelector, qualityAssuranceSourceObjectSelector, qualityAssuranceTopicsObjectSelector } from './selectors';
 
 /**
  * The service handling the Notifications State.
@@ -122,8 +106,8 @@ export class NotificationsStateService {
    * @param currentPage
    *    The number of the current page.
    */
-  public dispatchRetrieveQualityAssuranceTopics(elementsPerPage: number, currentPage: number): void {
-    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage));
+  public dispatchRetrieveQualityAssuranceTopics(elementsPerPage: number, currentPage: number, sourceId: string, targteId?: string): void {
+    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage, sourceId, targteId));
   }
 
   // Quality Assurance source

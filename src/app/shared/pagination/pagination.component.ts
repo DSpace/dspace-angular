@@ -1,28 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
-import {
-  Observable,
-  of as observableOf,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -177,7 +157,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Number of items per page.
    */
-  public pageSize$;
+  public pageSize$: Observable<number>;
 
   /**
    * Declare SortDirection enumeration to use it in the template
@@ -198,7 +178,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Name of the field that's used to sort by
    */
-  public sortField$;
+  public sortField$: Observable<string>;
   public defaultSortField = 'name';
 
   /**

@@ -1,10 +1,7 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HostWindowService } from '../shared/host-window.service';
+import { HostWindowService, WidthCategory } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 
@@ -22,8 +19,10 @@ export class HeaderComponent implements OnInit {
    * @type {Observable<string>}
    */
   public isAuthenticated: Observable<boolean>;
-  public isXsOrSm$: Observable<boolean>;
+  public isMobile$: Observable<boolean>;
+
   menuID = MenuID.PUBLIC;
+  maxMobileWidth = WidthCategory.SM;
 
   constructor(
     protected menuService: MenuService,
@@ -32,7 +31,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.isMobile$ = this.windowService.isUpTo(this.maxMobileWidth);
   }
 
   public toggleNavbar(): void {

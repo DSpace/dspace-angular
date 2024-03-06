@@ -1,16 +1,6 @@
-import {
-  qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
-import {
-  AddTopicsAction,
-  RetrieveAllTopicsAction,
-  RetrieveAllTopicsErrorAction,
-} from './quality-assurance-topics.actions';
-import {
-  qualityAssuranceTopicsReducer,
-  QualityAssuranceTopicState,
-} from './quality-assurance-topics.reducer';
+import { qualityAssuranceTopicObjectMoreAbstract, qualityAssuranceTopicObjectMorePid } from '../../../shared/mocks/notifications.mock';
+import { AddTopicsAction, RetrieveAllTopicsAction, RetrieveAllTopicsErrorAction } from './quality-assurance-topics.actions';
+import { qualityAssuranceTopicsReducer, QualityAssuranceTopicState } from './quality-assurance-topics.reducer';
 
 describe('qualityAssuranceTopicsReducer test suite', () => {
   let qualityAssuranceTopicInitialState: QualityAssuranceTopicState;
@@ -32,7 +22,7 @@ describe('qualityAssuranceTopicsReducer test suite', () => {
     const expectedState = qualityAssuranceTopicInitialState;
     expectedState.processing = true;
 
-    const action = new RetrieveAllTopicsAction(elementPerPage, currentPage);
+    const action = new RetrieveAllTopicsAction(elementPerPage, currentPage, 'ENRICH!MORE!ABSTRACT');
     const newState = qualityAssuranceTopicsReducer(qualityAssuranceTopicInitialState, action);
 
     expect(newState).toEqual(expectedState);

@@ -1,10 +1,4 @@
-import {
-  Component,
-  ComponentFactoryResolver,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -13,14 +7,12 @@ import { GenericConstructor } from '../../../../../core/shared/generic-construct
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import {
-  getListableObjectComponent,
-  listableObjectComponent,
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { getListableObjectComponent, listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @listableObjectComponent(ItemSearchResult, ViewMode.GridElement, Context.AdminSearch)
 @Component({
@@ -31,17 +23,18 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 /**
  * The component for displaying a list element for an item search result on the admin search page
  */
-export class ItemAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnInit {
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
+export class ItemAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnDestroy, OnInit {
+  @ViewChild(DynamicComponentLoaderDirective, { static: true }) dynamicComponentLoaderDirective: DynamicComponentLoaderDirective;
   @ViewChild('badges', { static: true }) badges: ElementRef;
   @ViewChild('buttons', { static: true }) buttons: ElementRef;
+
+  protected compRef: ComponentRef<Component>;
 
   constructor(
     public dsoNameService: DSONameService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService,
     private themeService: ThemeService,
-    private componentFactoryResolver: ComponentFactoryResolver,
   ) {
     super(dsoNameService, truncatableService, bitstreamDataService);
   }
@@ -51,23 +44,32 @@ export class ItemAdminSearchResultGridElementComponent extends SearchResultGridE
    */
   ngOnInit(): void {
     super.ngOnInit();
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    const component: GenericConstructor<Component> = this.getComponent();
 
-    const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+    const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent(
-      componentFactory,
-      0,
-      undefined,
-      [
-        [this.badges.nativeElement],
-        [this.buttons.nativeElement],
-      ]);
-    (componentRef.instance as any).object = this.object;
-    (componentRef.instance as any).index = this.index;
-    (componentRef.instance as any).linkType = this.linkType;
-    (componentRef.instance as any).listID = this.listID;
+    this.compRef = viewContainerRef.createComponent(
+      component, {
+        index: 0,
+        injector: undefined,
+        projectableNodes: [
+          [this.badges.nativeElement],
+          [this.buttons.nativeElement],
+        ],
+      },
+    );
+    this.compRef.setInput('object',this.object);
+    this.compRef.setInput('index', this.index);
+    this.compRef.setInput('linkType', this.linkType);
+    this.compRef.setInput('listID', this.listID);
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
   }
 
   /**

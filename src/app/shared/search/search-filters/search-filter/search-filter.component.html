@@ -19,6 +19,7 @@
        (@slide.start)="startSlide($event)" (@slide.done)="finishSlide($event)"
        class="search-filter-wrapper" [ngClass]="{ 'closed' : closed, 'notab': notab }">
     <ds-search-facet-filter-wrapper
+      [scope]="scope"
       [filterConfig]="filter"
       [inPlaceSearch]="inPlaceSearch"
       [refreshFilters]="refreshFilters" >

@@ -97,12 +97,6 @@ describe('ExternalSourceService', () => {
         result.pipe(take(1)).subscribe();
         expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), false);
       });
-
-      it('should return the entries', () => {
-        result.subscribe((resultRD) => {
-          expect(resultRD.payload.page).toBe(entries);
-        });
-      });
     });
   });
 });

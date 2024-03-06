@@ -482,30 +482,31 @@ describe('ItemComponent', () => {
       fixture.detectChanges();
     }));
 
-    it('should hide back button',() => {
+    it('should hide back button', () => {
       spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf('/item'));
-      comp.showBackButton.subscribe((val) => {
+      comp.ngOnInit();
+      comp.showBackButton$.subscribe((val) => {
         expect(val).toBeFalse();
       });
     });
     it('should show back button for search', () => {
       spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(searchUrl));
       comp.ngOnInit();
-      comp.showBackButton.subscribe((val) => {
+      comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
       });
     });
     it('should show back button for browse', () => {
       spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(browseUrl));
       comp.ngOnInit();
-      comp.showBackButton.subscribe((val) => {
+      comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
       });
     });
     it('should show back button for recent submissions', () => {
       spyOn(mockRouteService, 'getPreviousUrl').and.returnValue(observableOf(recentSubmissionsUrl));
       comp.ngOnInit();
-      comp.showBackButton.subscribe((val) => {
+      comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
       });
     });

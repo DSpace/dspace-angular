@@ -1,24 +1,13 @@
 // Load the implementations that should be tested
-import {
-  ChangeDetectorRef,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { createTestComponent } from '../../testing/utils.test';
 import { NumberPickerComponent } from './number-picker.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('NumberPickerComponent test suite', () => {
 
@@ -36,6 +25,7 @@ describe('NumberPickerComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
+        TranslateModule.forRoot()
       ],
       declarations: [
         NumberPickerComponent,
@@ -54,7 +44,6 @@ describe('NumberPickerComponent test suite', () => {
   beforeEach(() => {
     html = `
       <ds-number-picker
-        tabindex="1"
         [disabled]="disabled"
         [min]="min"
         [max]="max"

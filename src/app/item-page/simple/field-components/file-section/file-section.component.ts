@@ -1,15 +1,7 @@
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
+import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -47,6 +39,8 @@ export class FileSectionComponent implements OnInit {
 
   pageSize: number;
 
+  primaryBitsreamId: string;
+
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
@@ -58,7 +52,17 @@ export class FileSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getPrimaryBitstreamId();
     this.getNextPage();
+  }
+
+  private getPrimaryBitstreamId() {
+    this.bitstreamDataService.findPrimaryBitstreamByItemAndName(this.item, 'ORIGINAL', true, true).subscribe((primaryBitstream: Bitstream | null) => {
+      if (!primaryBitstream) {
+        return;
+      }
+      this.primaryBitsreamId = primaryBitstream?.id;
+    });
   }
 
   /**

@@ -1,57 +1,30 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-} from 'jasmine-marbles';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '../../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import {
-  getMockQualityAssuranceEventRestService,
-  ItemMockPid8,
-  ItemMockPid9,
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound,
-} from '../../../shared/mocks/notifications.mock';
+import { getMockQualityAssuranceEventRestService, ItemMockPid10, ItemMockPid8, ItemMockPid9, NotificationsMockDspaceObject, qualityAssuranceEventObjectMissingProjectFound, qualityAssuranceEventObjectMissingProjectNotFound } from '../../../shared/mocks/notifications.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
+import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { ItemDataService } from 'src/app/core/data/item-data.service';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
@@ -132,7 +105,9 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
-        QualityAssuranceEventsComponent,
+        { provide: ItemDataService, useValue: {} },
+        { provide: AuthorizationDataService, useValue: {} },
+        QualityAssuranceEventsComponent
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();

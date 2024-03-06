@@ -1,24 +1,13 @@
-import {
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { hasNoValue } from '../../shared/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -30,14 +19,12 @@ import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
+import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { CollectionDataService } from './collection-data.service';
 import { buildPaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import {
-  ContentSourceRequest,
-  UpdateContentSourceRequest,
-} from './request.models';
+import { ContentSourceRequest, UpdateContentSourceRequest } from './request.models';
 import { RequestService } from './request.service';
 
 const url = 'fake-url';
@@ -50,7 +37,7 @@ describe('CollectionDataService', () => {
   let translate: TranslateService;
   let notificationsService: any;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: any;
 
   const mockCollection1: Collection = Object.assign(new Collection(), {
@@ -220,14 +207,12 @@ describe('CollectionDataService', () => {
       buildFromRequestUUID: buildResponse$,
       buildSingle: buildResponse$,
     });
-    objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove'),
-    });
+    objectCache = new ObjectCacheServiceStub();
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 
-    service = new CollectionDataService(requestService, rdbService, objectCache, halService, null, notificationsService, null, null, translate);
+    service = new CollectionDataService(requestService, rdbService, objectCache as ObjectCacheService, halService, null, notificationsService, null, null, translate);
   }
 
 });

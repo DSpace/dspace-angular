@@ -1,27 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import {
-  dateToISOFormat,
-  dateToString,
-  isNgbDateStruct,
-} from '../../../shared/date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../shared/empty.util';
+import { dateToISOFormat, dateToString, isNgbDateStruct } from '../../../shared/date.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { CoreState } from '../../core-state.model';
 import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
-import {
-  NewPatchAddOperationAction,
-  NewPatchMoveOperationAction,
-  NewPatchRemoveOperationAction,
-  NewPatchReplaceOperationAction,
-} from '../json-patch-operations.actions';
+import { FlushPatchOperationAction, NewPatchAddOperationAction, NewPatchMoveOperationAction, NewPatchRemoveOperationAction, NewPatchReplaceOperationAction } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 
 /**
@@ -107,6 +93,20 @@ export class JsonPatchOperationsBuilder {
         path.rootElement,
         path.subRootElement,
         path.path));
+  }
+
+  /**
+   * Dispatches a new FlushPatchOperationAction
+   *
+   * @param path
+   *    a JsonPatchOperationPathObject representing path
+   */
+  flushOperation(path: JsonPatchOperationPathObject) {
+    this.store.dispatch(
+        new FlushPatchOperationAction(
+            path.rootElement,
+            path.subRootElement,
+            path.path));
   }
 
   protected prepareValue(value: any, plain: boolean, first: boolean) {

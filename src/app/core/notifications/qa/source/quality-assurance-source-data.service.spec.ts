@@ -1,15 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  cold,
-  getTestScheduler,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid,
-} from '../../../../shared/mocks/notifications.mock';
+import { qualityAssuranceSourceObjectMoreAbstract, qualityAssuranceSourceObjectMorePid } from '../../../../shared/mocks/notifications.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
@@ -21,6 +15,7 @@ import { RequestEntry } from '../../../data/request-entry.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { PageInfo } from '../../../shared/page-info.model';
 import { QualityAssuranceSourceDataService } from './quality-assurance-source-data.service';
+import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 
 describe('QualityAssuranceSourceDataService', () => {
   let scheduler: TestScheduler;
@@ -28,7 +23,7 @@ describe('QualityAssuranceSourceDataService', () => {
   let responseCacheEntry: RequestEntry;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: HALEndpointService;
   let notificationsService: NotificationsService;
   let http: HttpClient;
@@ -65,7 +60,7 @@ describe('QualityAssuranceSourceDataService', () => {
       }),
     });
 
-    objectCache = {} as ObjectCacheService;
+    objectCache = new ObjectCacheServiceStub();
     halService = jasmine.createSpyObj('halService', {
       getEndpoint: cold('a|', { a: endpointURL }),
     });
@@ -77,7 +72,7 @@ describe('QualityAssuranceSourceDataService', () => {
     service = new QualityAssuranceSourceDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
       notificationsService,
     );

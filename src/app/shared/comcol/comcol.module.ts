@@ -11,11 +11,15 @@ import { ComcolRoleComponent } from './comcol-forms/edit-comcol-page/comcol-role
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from './comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolBrowseByComponent } from './sections/comcol-browse-by/comcol-browse-by.component';
+import { BrowseByModule } from '../../browse-by/browse-by.module';
+import { SearchModule } from '../search/search.module';
+import { ComcolSearchSectionComponent } from './sections/comcol-search-section/comcol-search-section.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
 import { ComcolPageHandleComponent } from './comcol-page-handle/comcol-page-handle.component';
-import { ThemedComcolPageHandleComponent } from './comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
+import { ThemedComcolPageHandleComponent } from './comcol-page-handle/themed-comcol-page-handle.component';
 
 const COMPONENTS = [
   ComcolPageContentComponent,
@@ -30,6 +34,8 @@ const COMPONENTS = [
   ThemedComcolPageBrowseByComponent,
   ComcolRoleComponent,
   ThemedComcolPageHandleComponent,
+  ComcolBrowseByComponent,
+  ComcolSearchSectionComponent,
 ];
 
 @NgModule({
@@ -41,6 +47,8 @@ const COMPONENTS = [
     FormModule,
     SharedModule,
     UploadModule,
+    BrowseByModule,
+    SearchModule,
   ],
   exports: [
     ...COMPONENTS,

@@ -1,12 +1,6 @@
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
+import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Vocabulary } from '../../core/submission/vocabularies/models/vocabulary.model';
@@ -47,5 +41,9 @@ export class VocabularyServiceStub {
 
   findVocabularyById(id: string): Observable<RemoteData<Vocabulary>> {
     return;
+  }
+
+  getVocabularyByMetadataAndCollection(metadataField: string, collectionUUID: string): Observable<RemoteData<Vocabulary>> {
+    return createSuccessfulRemoteDataObject$(null);
   }
 }

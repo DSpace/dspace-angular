@@ -1,19 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-} from '@angular/forms';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,11 +14,8 @@ import { CoreState } from '../../core/core-state.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { Registration } from '../../core/shared/registration.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
@@ -65,7 +52,10 @@ describe('ForgotPasswordFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotPasswordFormComponent],
+      declarations: [
+        BrowserOnlyPipe,
+        ForgotPasswordFormComponent,
+      ],
       providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
@@ -86,7 +76,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   describe('init', () => {
     it('should initialise mail address', () => {
-      const elem = fixture.debugElement.queryAll(By.css('span#email'))[0].nativeElement;
+      const elem = fixture.debugElement.queryAll(By.css('span[data-test="email"]'))[0].nativeElement;
       expect(elem.innerHTML).toContain('test@email.org');
     });
   });

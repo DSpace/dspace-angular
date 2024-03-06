@@ -1,19 +1,16 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
+import { RouteService } from 'src/app/core/services/route.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RouteService } from 'src/app/core/services/route.service';
 
-import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../../core/shared/browse-entry.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata/browse-by-metadata.component';
 
 @Component({
   selector: 'ds-browse-entry-list-element',

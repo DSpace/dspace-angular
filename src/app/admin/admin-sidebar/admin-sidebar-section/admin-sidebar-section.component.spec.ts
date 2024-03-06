@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -52,7 +48,7 @@ describe('AdminSidebarSectionComponent', () => {
     });
 
     it('should set the right icon', () => {
-      const icon = fixture.debugElement.query(By.css('.shortcut-icon')).query(By.css('i.fas'));
+      const icon = fixture.debugElement.query(By.css('[data-test="sidebar-section-icon"]')).query(By.css('i.fas'));
       expect(icon.nativeElement.getAttribute('class')).toContain('fa-' + iconString);
     });
     it('should not contain the disabled class', () => {
@@ -92,7 +88,7 @@ describe('AdminSidebarSectionComponent', () => {
     });
 
     it('should set the right icon', () => {
-      const icon = fixture.debugElement.query(By.css('.shortcut-icon')).query(By.css('i.fas'));
+      const icon = fixture.debugElement.query(By.css('[data-test="sidebar-section-icon"]')).query(By.css('i.fas'));
       expect(icon.nativeElement.getAttribute('class')).toContain('fa-' + iconString);
     });
     it('should contain the disabled class', () => {

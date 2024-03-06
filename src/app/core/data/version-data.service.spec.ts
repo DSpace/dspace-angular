@@ -1,16 +1,9 @@
-import {
-  cold,
-  getTestScheduler,
-  hot,
-} from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -136,7 +129,7 @@ describe('VersionDataService test', () => {
     });
 
     describe('getHistoryFromVersion', () => {
-      it('should proxy the call to DataService.findByHref', () => {
+      it('should proxy the call to UpdateDataServiceImpl.findByHref', () => {
         scheduler.schedule(() => service.getHistoryFromVersion(mockVersion, true, true));
         scheduler.flush();
 

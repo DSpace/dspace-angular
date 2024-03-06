@@ -1,25 +1,10 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  NavigationExtras,
-  Router,
-} from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
@@ -103,7 +88,7 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with empty query', () => {
-          const extras: NavigationExtras = { queryParams: { query: '' }, queryParamsHandling: 'merge' };
+          const extras: NavigationExtras = { queryParams: { query: '' } };
           expect(component.onSubmit).toHaveBeenCalledWith({ query: '' });
           expect(router.navigate).toHaveBeenCalledWith(['search'], extras);
         });
@@ -128,7 +113,7 @@ describe('SearchNavbarComponent', () => {
           fixture.detectChanges();
         }));
         it('to search page with query', async () => {
-          const extras: NavigationExtras = { queryParams: { query: 'test' }, queryParamsHandling: 'merge' };
+          const extras: NavigationExtras = { queryParams: { query: 'test' } };
           expect(component.onSubmit).toHaveBeenCalledWith({ query: 'test' });
 
           expect(router.navigate).toHaveBeenCalledWith(['search'], extras);

@@ -28,4 +28,5 @@ const DECLARATIONS = [
     ...DECLARATIONS,
   ],
 })
-export class SharedBrowseByModule { }
+export class SharedBrowseByModule {
+}

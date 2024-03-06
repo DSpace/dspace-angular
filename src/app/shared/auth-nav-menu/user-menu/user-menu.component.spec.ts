@@ -1,30 +1,13 @@
-import {
-  DebugElement,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
-import {
-  authReducer,
-  AuthState,
-} from '../../../core/auth/auth.reducer';
+import { authReducer, AuthState } from '../../../core/auth/auth.reducer';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
@@ -156,7 +139,7 @@ describe('UserMenuComponent', () => {
 
       fixture.detectChanges();
 
-      deUserMenu = fixture.debugElement.query(By.css('div'));
+      deUserMenu = fixture.debugElement.query(By.css('ul#user-menu-dropdown'));
     }));
 
     afterEach(() => {
@@ -180,7 +163,7 @@ describe('UserMenuComponent', () => {
     it('should display user name and email', () => {
       const username = 'User Test';
       const email = 'test@test.com';
-      const span = deUserMenu.query(By.css('.dropdown-item-text'));
+      const span = deUserMenu.query(By.css('.username-email-wrapper'));
       expect(span).toBeDefined();
       expect(span.nativeElement.innerHTML).toContain(username);
       expect(span.nativeElement.innerHTML).toContain(email);

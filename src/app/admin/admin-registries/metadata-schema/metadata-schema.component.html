@@ -2,7 +2,7 @@
   <div class="metadata-schema row">
     <div class="col-12" *ngVar="(metadataSchema$ | async) as schema">
 
-      <h2 id="header" class="border-bottom pb-2">{{'admin.registries.schema.head' | translate}}: "{{schema?.prefix}}"</h2>
+      <h1 id="header" class="border-bottom pb-2">{{'admin.registries.schema.head' | translate}}: "{{schema?.prefix}}"</h1>
 
       <p id="description" class="pb-2">{{'admin.registries.schema.description' | translate:{ namespace: schema?.namespace } }}</p>
 
@@ -10,7 +10,7 @@
         [metadataSchema]="schema"
         (submitForm)="forceUpdateFields()"></ds-metadata-field-form>
 
-      <h3>{{'admin.registries.schema.fields.head' | translate}}</h3>
+      <h2>{{'admin.registries.schema.fields.head' | translate}}</h2>
 
       <ng-container *ngVar="(metadataFields$ | async)?.payload as fields">
         <ds-pagination
@@ -24,7 +24,7 @@
             <table id="metadata-fields" class="table table-striped table-hover">
               <thead>
               <tr>
-                <th></th>
+                <th><span class="sr-only">{{'admin.registries.schema.fields.table.selected' | translate}}</span></th>
                 <th scope="col">{{'admin.registries.schema.fields.table.id' | translate}}</th>
                 <th scope="col">{{'admin.registries.schema.fields.table.field' | translate}}</th>
                 <th scope="col">{{'admin.registries.schema.fields.table.scopenote' | translate}}</th>
@@ -33,12 +33,11 @@
               <tbody>
               <tr *ngFor="let field of fields?.page"
                   [ngClass]="{'table-primary' : isActive(field) | async}">
-                <td>
-                  <label class="mb-0">
-                    <input type="checkbox"
-                           [checked]="isSelected(field) | async"
-                           (change)="selectMetadataField(field, $event)">
-                  </label>
+                <td *ngVar="(isSelected(field) | async) as selected">
+                  <input type="checkbox"
+                         [attr.aria-label]="(selected ? 'admin.registries.schema.fields.deselect' : 'admin.registries.schema.fields.select') | translate"
+                         [checked]="selected"
+                         (change)="selectMetadataField(field, $event)">
                 </td>
                 <td class="selectable-row" (click)="editField(field)">{{field.id}}</td>
                 <td class="selectable-row" (click)="editField(field)">{{schema?.prefix}}.{{field.element}}{{field.qualifier ? '.' + field.qualifier : ''}}</td>

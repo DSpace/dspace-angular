@@ -1,13 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
-import {
-  NgbModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
 import { getCollectionModuleRoute } from '../../../collection-page/collection-page-routing-paths';
@@ -89,7 +81,7 @@ export class SubscriptionViewComponent {
   deleteSubscriptionPopup(subscription: Subscription) {
     if (hasValue(subscription.id)) {
       const modalRef = this.modalService.open(ConfirmationModalComponent);
-      modalRef.componentInstance.dso = this.dso;
+      modalRef.componentInstance.name = this.dsoNameService.getName(this.dso);
       modalRef.componentInstance.headerLabel = 'confirmation-modal.delete-subscription.header';
       modalRef.componentInstance.infoLabel = 'confirmation-modal.delete-subscription.info';
       modalRef.componentInstance.cancelLabel = 'confirmation-modal.delete-subscription.cancel';

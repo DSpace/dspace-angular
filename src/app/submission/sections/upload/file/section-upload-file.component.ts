@@ -1,35 +1,21 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
-import {
-  BehaviorSubject,
-  Subscription,
-} from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
+import { SubmissionService } from '../../../submission.service';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import {
-  hasValue,
-  isNotUndefined,
-} from '../../../../shared/empty.util';
+import { hasValue, isNotUndefined } from '../../../../shared/empty.util';
 import { FormService } from '../../../../shared/form/form.service';
-import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 
@@ -42,6 +28,12 @@ import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-
   templateUrl: './section-upload-file.component.html',
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
+  /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+  @Input() isPrimary: boolean | null;
 
   /**
    * The list of available access condition
@@ -105,6 +97,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   @ViewChild(SubmissionSectionUploadFileEditComponent) fileEditComp: SubmissionSectionUploadFileEditComponent;
 
+  /**
+   * A boolean representing if a submission save operation is pending
+   * @type {Observable<boolean>}
+   */
+  public processingSaveStatus$: Observable<boolean>;
 
   /**
    * The bitstream's metadata data
@@ -142,6 +139,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   protected pathCombiner: JsonPatchOperationPathCombiner;
 
+    /**
+   * The [JsonPatchOperationPathCombiner] object
+   * @type {JsonPatchOperationPathCombiner}
+   */
+    protected primaryBitstreamPathCombiner: JsonPatchOperationPathCombiner;
+
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
@@ -167,9 +170,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {SectionUploadService} uploadService
    */
   constructor(
-    private cdr: ChangeDetectorRef,
     private formService: FormService,
-    private halService: HALEndpointService,
     private modalService: NgbModal,
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
@@ -202,7 +203,8 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   ngOnInit() {
     this.formId = this.formService.getUniqueId(this.fileId);
-    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
+    this.processingSaveStatus$ = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
     this.loadFormMetadata();
   }
 
@@ -252,7 +254,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     activeModal.componentInstance.formMetadata = this.formMetadata;
     activeModal.componentInstance.pathCombiner = this.pathCombiner;
     activeModal.componentInstance.submissionId = this.submissionId;
+    activeModal.componentInstance.isPrimary = this.isPrimary;
+  }
 
+  togglePrimaryBitstream(event) {
+    this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, event.target.checked, this.fileId);
+    this.submissionService.dispatchSaveSection(this.submissionId, this.sectionId);
   }
 
   ngOnDestroy(): void {
@@ -278,13 +285,20 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * Delete bitstream from submission
    */
   protected deleteFile() {
-    this.operationsBuilder.remove(this.pathCombiner.getPath());
+    this.operationsBuilder.remove(this.pathCombiner.getPath(['files', this.fileIndex]));
+    if (this.isPrimary) {
+      this.operationsBuilder.remove(this.pathCombiner.getPath('primary'));
+    }
+
     this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
       this.submissionId,
       this.pathCombiner.rootElement,
       this.pathCombiner.subRootElement)
       .subscribe(() => {
+        if (this.isPrimary) {
+          this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, null);
+        }
         this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
         this.processingDelete$.next(false);
       }));

@@ -10,14 +10,17 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { CommunityPageResolver } from './community-page.resolver';
 import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
-import {
-  COMMUNITY_CREATE_PATH,
-  COMMUNITY_EDIT_PATH,
-} from './community-page-routing-paths';
+import { COMMUNITY_CREATE_PATH, COMMUNITY_EDIT_PATH } from './community-page-routing-paths';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
 import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
+import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
+import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -51,7 +54,32 @@ import { ThemedCommunityPageComponent } from './themed-community-page.component'
           {
             path: '',
             component: ThemedCommunityPageComponent,
-            pathMatch: 'full',
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: ComcolSearchSectionComponent,
+              },
+              {
+                path: 'subcoms-cols',
+                pathMatch: 'full',
+                component: SubComColSectionComponent,
+                resolve: {
+                  breadcrumb: I18nBreadcrumbResolver,
+                },
+                data: { breadcrumbKey: 'community.subcoms-cols' },
+              },
+              {
+                path: 'browse/:id',
+                pathMatch: 'full',
+                component: ComcolBrowseByComponent,
+                canActivate: [BrowseByGuard],
+                resolve: {
+                  breadcrumb: BrowseByI18nBreadcrumbResolver,
+                },
+                data: { breadcrumbKey: 'browse.metadata' },
+              },
+            ],
           },
         ],
         data: {

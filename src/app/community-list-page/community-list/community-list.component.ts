@@ -1,16 +1,9 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { isEmpty } from '../../shared/empty.util';
 import { CommunityListDatasource } from '../community-list-datasource';
@@ -27,6 +20,7 @@ import { FlatNode } from '../flat-node.model';
 @Component({
   selector: 'ds-community-list',
   templateUrl: './community-list.component.html',
+  styleUrls: ['./community-list.component.scss'],
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 

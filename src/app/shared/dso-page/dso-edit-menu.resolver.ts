@@ -1,20 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-import {
-  map,
-  switchMap,
-} from 'rxjs/operators';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { getDSORoute } from '../../app-routing-paths';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -24,13 +13,9 @@ import { ResearcherProfileDataService } from '../../core/profile/researcher-prof
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
 import { MenuService } from '../menu/menu.service';
 import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
@@ -40,6 +25,8 @@ import { MenuSection } from '../menu/menu-section.model';
 import { NotificationsService } from '../notifications/notifications.service';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
+import { DsoWithdrawnReinstateModalService, REQUEST_REINSTATE, REQUEST_WITHDRAWN } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 
 /**
  * Creates the menus for the dspace object pages
@@ -58,6 +45,8 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected researcherProfileService: ResearcherProfileDataService,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
+    protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
+    private correctionTypeDataService: CorrectionTypeDataService
   ) {
   }
 
@@ -145,8 +134,11 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
         this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create'),
         this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, dso.self),
         this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
+        this.correctionTypeDataService.findByItem(dso.uuid, false).pipe(
+          getFirstCompletedRemoteData(),
+          getRemoteDataPayload())
       ]).pipe(
-        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem]) => {
+        map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem, correction]) => {
           const isPerson = this.getDsoType(dso) === 'person';
           return [
             {
@@ -190,6 +182,34 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               icon: 'hand-paper',
               index: 3,
             },
+            {
+              id: 'withdrawn-item',
+              active: false,
+              visible: dso.isArchived && correction?.page.some((c) => c.topic === REQUEST_WITHDRAWN),
+              model: {
+                type: MenuItemType.ONCLICK,
+                text:'item.page.withdrawn',
+                function: () => {
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-withdrawn', dso.isArchived);
+                }
+              } as OnClickMenuItemModel,
+              icon: 'eye-slash',
+              index: 4
+            },
+            {
+              id: 'reinstate-item',
+              active: false,
+              visible: dso.isWithdrawn && correction?.page.some((c) => c.topic === REQUEST_REINSTATE),
+              model: {
+                type: MenuItemType.ONCLICK,
+                text:'item.page.reinstate',
+                function: () => {
+                  this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-reinstate', dso.isArchived);
+                }
+              } as OnClickMenuItemModel,
+              icon: 'eye',
+              index: 5
+            }
           ];
         }),
       );
@@ -279,4 +299,5 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
       return menu;
     });
   }
+
 }

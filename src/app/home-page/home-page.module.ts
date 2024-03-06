@@ -6,13 +6,15 @@ import { ResearchEntitiesModule } from '../entity-groups/research-entities/resea
 import { SharedModule } from '../shared/shared.module';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { HomeNewsComponent } from './home-news/home-news.component';
-import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
-import { HomePageComponent } from './home-page.component';
 import { HomePageRoutingModule } from './home-page-routing.module';
+import { HomePageComponent } from './home-page.component';
+import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
+import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
 import { ThemedHomePageComponent } from './themed-home-page.component';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
-import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
+import { SearchModule } from '../shared/search/search.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 const DECLARATIONS = [
   HomePageComponent,
@@ -28,10 +30,12 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     SharedModule.withEntryComponents(),
+    SearchModule,
     JournalEntitiesModule.withEntryComponents(),
     ResearchEntitiesModule.withEntryComponents(),
     HomePageRoutingModule,
     StatisticsModule.forRoot(),
+    NotificationsModule
   ],
   declarations: [
     ...DECLARATIONS,

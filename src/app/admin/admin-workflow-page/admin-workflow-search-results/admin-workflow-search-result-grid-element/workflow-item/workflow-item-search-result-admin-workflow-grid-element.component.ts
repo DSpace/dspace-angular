@@ -1,34 +1,24 @@
-import {
-  Component,
-  ComponentFactoryResolver,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Item } from '../../../../../core/shared/item.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { getListableObjectComponent, listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { Context } from '../../../../../core/shared/context.model';
+import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { Context } from '../../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import {
-  getListableObjectComponent,
-  listableObjectComponent,
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
-import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { hasValue } from '../../../../../shared/empty.util';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
@@ -40,11 +30,11 @@ import { followLink } from '../../../../../shared/utils/follow-link-config.model
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page
  */
-export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkflowItemSearchResult, WorkflowItem> {
+export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends SearchResultGridElementComponent<WorkflowItemSearchResult, WorkflowItem> implements OnDestroy, OnInit {
   /**
    * Directive used to render the dynamic component in
    */
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
+  @ViewChild(DynamicComponentLoaderDirective, { static: true }) dynamicComponentLoaderDirective: DynamicComponentLoaderDirective;
 
   /**
    * The html child that contains the badges html
@@ -61,9 +51,10 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
    */
   public item$: Observable<Item>;
 
+  protected compRef: ComponentRef<Component>;
+
   constructor(
     public dsoNameService: DSONameService,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     private themeService: ThemeService,
@@ -81,26 +72,34 @@ export class WorkflowItemSearchResultAdminWorkflowGridElementComponent extends S
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
     this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
     this.item$.pipe(take(1)).subscribe((item: Item) => {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent(item));
+      const component: GenericConstructor<Component> = this.getComponent(item);
 
-      const viewContainerRef = this.listableObjectDirective.viewContainerRef;
+      const viewContainerRef = this.dynamicComponentLoaderDirective.viewContainerRef;
       viewContainerRef.clear();
 
-      const componentRef = viewContainerRef.createComponent(
-        componentFactory,
-        0,
-        undefined,
-        [
+      this.compRef = viewContainerRef.createComponent(
+        component, {
+          index: 0,
+          injector: undefined,
+          projectableNodes: [
           [this.badges.nativeElement],
-          [this.buttons.nativeElement],
-        ]);
-      (componentRef.instance as any).object = item;
-      (componentRef.instance as any).index = this.index;
-      (componentRef.instance as any).linkType = this.linkType;
-      (componentRef.instance as any).listID = this.listID;
-      componentRef.changeDetectorRef.detectChanges();
-    },
-    );
+            [this.buttons.nativeElement],
+          ],
+        },
+      );
+      this.compRef.setInput('object', item);
+      this.compRef.setInput('index', this.index);
+      this.compRef.setInput('linkType', this.linkType);
+      this.compRef.setInput('listID', this.listID);
+      this.compRef.changeDetectorRef.detectChanges();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
   }
 
   /**

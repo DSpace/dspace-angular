@@ -36,6 +36,9 @@ import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.compon
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
 import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
+import { QaEventNotificationComponent } from './simple/qa-event-notification/qa-event-notification.component';
+import { NotifyRequestsStatusComponent } from './simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { RequestStatusAlertBoxComponent } from './simple/notify-requests-status/request-status-alert-box/request-status-alert-box.component';
 import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
 import { ItemPageAbstractFieldComponent } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
 import { ItemPageAuthorFieldComponent } from './simple/field-components/specific-field/author/item-page-author-field.component';
@@ -92,6 +95,9 @@ const DECLARATIONS = [
   ItemAlertsComponent,
   ThemedItemAlertsComponent,
   BitstreamRequestACopyPageComponent,
+  QaEventNotificationComponent,
+  NotifyRequestsStatusComponent,
+  RequestStatusAlertBoxComponent
 ];
 
 @NgModule({

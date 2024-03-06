@@ -3,15 +3,7 @@ import * as deepFreeze from 'deep-freeze';
 import { Operation } from 'fast-json-patch';
 
 import { Item } from '../shared/item.model';
-import {
-  AddDependentsObjectCacheAction,
-  AddPatchObjectCacheAction,
-  AddToObjectCacheAction,
-  ApplyPatchObjectCacheAction,
-  RemoveDependentsObjectCacheAction,
-  RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction,
-} from './object-cache.actions';
+import { AddDependentsObjectCacheAction, AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction, RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction } from './object-cache.actions';
 import { objectCacheReducer } from './object-cache.reducer';
 
 class NullAction extends RemoveFromObjectCacheAction {
@@ -126,6 +118,10 @@ describe('objectCacheReducer', () => {
     deepFreeze(state);
 
     objectCacheReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should remove the specified object from the cache in response to the REMOVE action', () => {
@@ -149,6 +145,10 @@ describe('objectCacheReducer', () => {
     const action = new RemoveFromObjectCacheAction(selfLink1);
     // testState has already been frozen above
     objectCacheReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set the timestamp of all objects in the cache in response to a RESET_TIMESTAMPS action', () => {
@@ -164,6 +164,10 @@ describe('objectCacheReducer', () => {
     const action = new ResetObjectCacheTimestampsAction(new Date().getTime());
     // testState has already been frozen above
     objectCacheReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the ADD_PATCH action without affecting the previous state', () => {
@@ -174,6 +178,10 @@ describe('objectCacheReducer', () => {
     }]);
     // testState has already been frozen above
     objectCacheReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should when the ADD_PATCH action dispatched', () => {
