@@ -1,8 +1,9 @@
 import { Component, Input, } from '@angular/core';
 import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { getStartsWithComponent, StartsWithType } from './starts-with-decorator';
+import { getStartsWithComponent } from './starts-with-decorator';
 import { StartsWithAbstractComponent } from './starts-with-abstract.component';
+import { StartsWithType } from './starts-with-type';
 
 /**
  * Component for loading a {@link StartsWithAbstractComponent} depending on the "type" input

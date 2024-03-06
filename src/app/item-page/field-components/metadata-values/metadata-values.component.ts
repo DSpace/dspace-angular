@@ -9,7 +9,7 @@ import { MarkdownPipe as MarkdownPipe_1 } from '../../../shared/utils/markdown.p
 import { RouterLink } from '@angular/router';
 import { NgFor, NgTemplateOutlet, NgIf, AsyncPipe } from '@angular/common';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
+import { ImageField } from '../../simple/field-components/specific-field/image-field';
 import { environment } from '../../../../environments/environment';
 
 /**

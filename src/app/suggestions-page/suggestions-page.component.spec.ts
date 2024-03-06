@@ -29,11 +29,11 @@ import {
   SuggestionEvidencesComponent
 } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import {
-  SuggestionApproveAndImport,
   SuggestionListElementComponent
 } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionsService } from '../notifications/suggestions.service';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;

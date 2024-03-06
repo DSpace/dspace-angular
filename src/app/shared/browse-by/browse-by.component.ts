@@ -6,7 +6,6 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { fadeIn, fadeInOut } from '../animations/fade';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { StartsWithType } from '../starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { RouteService } from '../../core/services/route.service';
@@ -20,6 +19,7 @@ import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-
 import { NgClass, NgComponentOutlet, NgIf, AsyncPipe } from '@angular/common';
 import { VarDirective } from '../utils/var.directive';
 import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
+import { StartsWithType } from '../starts-with/starts-with-type';
 
 @Component({
     selector: 'ds-browse-by',

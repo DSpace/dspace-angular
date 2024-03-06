@@ -1,9 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { renderStartsWithFor, StartsWithType } from '../starts-with-decorator';
+import { Component, OnInit } from '@angular/core';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 import { hasValue } from '../../empty.util';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgFor } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

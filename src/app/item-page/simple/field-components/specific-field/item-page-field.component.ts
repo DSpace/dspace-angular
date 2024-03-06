@@ -7,24 +7,7 @@ import { BrowseDefinitionDataService } from '../../../../core/browse/browse-defi
 import { getRemoteDataPayload } from '../../../../core/shared/operators';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { AsyncPipe } from '@angular/common';
-
-/**
- * Interface that encapsulate Image configuration for this component.
- */
-export interface ImageField {
-  /**
-   * URI that is used to retrieve the image.
-   */
-  URI: string;
-  /**
-   * i18n Key that represents the alt text to display
-   */
-  alt: string;
-  /**
-   * CSS variable that contains the height of the inline image.
-   */
-  heightVar: string;
-}
+import { ImageField } from './image-field';
 
 
 /**

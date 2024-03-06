@@ -1,8 +1,6 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { SectionModelComponent } from '../models/section.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionsService } from '../sections.service';
@@ -10,7 +8,11 @@ import { SectionDataObject } from '../models/section-data.model';
 
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 
-import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload
+} from '../../../core/shared/operators';
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import {
   LdnService,
@@ -44,7 +46,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   ],
   providers: [NgbDropdown]
 })
-@renderSectionFor(SectionsType.CoarNotify)
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
   hasSectionData = false;

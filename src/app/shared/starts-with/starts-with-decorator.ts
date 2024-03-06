@@ -1,13 +1,7 @@
 import { StartsWithDateComponent } from './date/starts-with-date.component';
+import { StartsWithType } from './starts-with-type';
 import { StartsWithTextComponent } from './text/starts-with-text.component';
 
-/**
- * An enum that defines the type of StartsWith options
- */
-export enum StartsWithType {
-  text = 'Text',
-  date = 'Date'
-}
 
 type StartsWithComponentType = typeof StartsWithDateComponent | typeof StartsWithTextComponent;
 export const STARTS_WITH_DECORATOR_MAP = new Map<StartsWithType, StartsWithComponentType>([

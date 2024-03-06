@@ -8,10 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RouterStub } from '../testing/router.stub';
 import { ThemeService } from '../theme-support/theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
-import { StartsWithType } from './starts-with-decorator';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { StartsWithType } from './starts-with-type';
 
 describe('StartsWithLoaderComponent', () => {
   let comp: StartsWithLoaderComponent;

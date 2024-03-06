@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ImageField, ItemPageFieldComponent } from '../item-page-field.component';
+import { ItemPageFieldComponent } from '../item-page-field.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { AsyncPipe } from '@angular/common';
+import { ImageField } from '../image-field';
 
 @Component({
   selector: 'ds-item-page-img-field',

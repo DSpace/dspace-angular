@@ -11,16 +11,8 @@ import {
 } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
 import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
+import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
 
-
-
-/**
- * A simple interface to unite a specific suggestion and the id of the chosen collection
- */
-export interface SuggestionApproveAndImport {
-  suggestion: Suggestion;
-  collectionId: string;
-}
 
 /**
  * Show all the suggestions by researcher

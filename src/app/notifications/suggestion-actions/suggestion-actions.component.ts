@@ -6,10 +6,10 @@ import { Collection } from '../../core/shared/collection.model';
 import { take } from 'rxjs/operators';
 import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { Suggestion } from '../../core/notifications/models/suggestion.model';
-import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-list-element.component';
 import { EntityDropdownComponent } from '../../shared/entity-dropdown/entity-dropdown.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
+import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-approve-and-import';
 
 /**
  * Show and trigger the actions to submit for a suggestion

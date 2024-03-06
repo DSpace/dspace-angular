@@ -7,7 +7,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { StartsWithType } from '../starts-with/starts-with-decorator';
+import { StartsWithType } from '../starts-with/starts-with-type';
 
 /**
  * Themed wrapper for {@link BrowseByComponent}

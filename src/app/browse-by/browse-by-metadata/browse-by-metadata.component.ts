@@ -18,7 +18,6 @@ import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
@@ -42,6 +41,7 @@ import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { Context } from '../../core/shared/context.model';
+import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

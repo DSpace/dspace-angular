@@ -12,7 +12,7 @@ import { MetadataValuesComponent } from '../../../../field-components/metadata-v
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { By } from '@angular/platform-browser';
-import { ImageField } from '../item-page-field.component';
+import { ImageField } from '../image-field';
 
 let component: ItemPageImgFieldComponent;
 let fixture: ComponentFixture<ItemPageImgFieldComponent>;

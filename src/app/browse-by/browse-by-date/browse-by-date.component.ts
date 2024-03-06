@@ -9,7 +9,6 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -37,6 +36,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 
 @Component({
   selector: 'ds-browse-by-date',
