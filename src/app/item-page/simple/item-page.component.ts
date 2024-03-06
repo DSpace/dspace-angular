@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformServer } from '@angular/common';
 
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -155,6 +155,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       switchMap((coarLdnEnabled: boolean) => {
         if (coarLdnEnabled) {
           return this.notifyInfoService.getCoarLdnLocalInboxUrls();
+        } else {
+          return of([]);
         }
       })
     );
