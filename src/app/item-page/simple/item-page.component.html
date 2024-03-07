@@ -11,29 +11,7 @@
       <ds-listable-object-component-loader *ngIf="!item.isWithdrawn || (isAdmin$|async)" [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
       <ds-item-versions class="mt-2" [item]="item" [displayActions]="false"></ds-item-versions>
       <div *ngIf="(hasFiles | async) === true">
-        <ds-clarin-license-info class="mt-3 d-block" [item]="item"></ds-clarin-license-info>
-        <h6><i class="fa fa-paperclip">&nbsp;</i>{{'item.page.files.head' | translate}}</h6>
-        <div class="pb-3">
-          <span class="pr-1">
-            <a class="btn btn-download" (click)="setCommandline()" style="text-decoration: none"
-               *ngIf="canShowCurlDownload">
-              <i class="fa fa-download fa-3x" style="display: block">&nbsp;</i>
-              {{'item.page.download.button.command.line' | translate}}
-            </a>
-          </span>
-          <div id="command-div" *ngIf="isCommandLineVisible">
-            <button class="repo-copy-btn pull-right" data-clipboard-target="#command-div"></button>
-            <pre style="background-color: #d9edf7; color: #3a87ad">{{ command }}</pre>
-          </div>
-          <span>
-            <a *ngIf="canDownloadAllFiles" class="btn btn-download" id="download-all-button" (click)="downloadFiles()"
-               style="visibility: visible">
-              <i style="display: block" class="fa fa-download fa-3x">&nbsp;</i>
-              {{'item.page.download.button.all.files.zip' | translate}} ({{ totalFileSizes }})
-            </a>
-          </span>
-        </div>
-        <ds-preview-section [item]="item"></ds-preview-section>
+        <ds-clarin-files-section [item]="item" [itemHandle]="itemHandle"></ds-clarin-files-section>
       </div>
     </div>
   </div>

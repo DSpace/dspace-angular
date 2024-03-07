@@ -295,7 +295,7 @@ describe('ItemPageComponent', () => {
       fixture.detectChanges();
 
       void fixture.whenStable().then(() => {
-        const objectLoader = fixture.debugElement.query(By.css('ds-clarin-license-info'));
+        const objectLoader = fixture.debugElement.query(By.css('ds-clarin-files-section'));
         expect(objectLoader.nativeElement).toBeDefined();
       });
     }));

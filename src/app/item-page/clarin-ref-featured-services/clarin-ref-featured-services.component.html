@@ -13,21 +13,29 @@
       </div>
 
       <div class="d-flex align-items-start clarin-ref-box-footer-services pt-1">
-        <div class="btn-group pr-2" *ngFor="let featuredService of (featuredServices | async)">
-          <button type="button"
-                  class="btn btn-danger clarin-ref-box-services-button"
-                  (click)="redirectToFeaturedService(featuredService.url)">
+        <div class="btn-group pr-2" ngbDropdown *ngFor="let featuredService of (featuredServices | async)">
+          <a class="btn btn-danger clarin-ref-box-services-button"
+             type="button"
+             target="_blank"
+             [href]="featuredService.url">
             {{featuredService.name}}
-          </button>
+          </a>
           <button type="button"
                   class="btn btn-danger dropdown-toggle dropdown-toggle-split clarin-ref-box-services-button"
+                  id="resultdropdown"
+                  ngbDropdownToggle
                   data-bs-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false">
           </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" *ngFor="let featuredServiceLink of featuredService.featuredServiceLinks"
-               [href]="featuredServiceLink.value">{{featuredServiceLink.key}}</a>
+          <div ngbDropdownMenu aria-labelledby="resultdropdown" class="lindat-dropdown-menu">
+            <a
+              class="dropdown-item"
+              target="_blank"
+              *ngFor="let featuredServiceLink of featuredService.featuredServiceLinks"
+              [href]="featuredServiceLink.value">
+              {{featuredServiceLink.key}}
+            </a>
           </div>
         </div>
       </div>

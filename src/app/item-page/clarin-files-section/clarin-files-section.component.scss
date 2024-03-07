@@ -1,0 +1,16 @@
+/**
+The styling file for the `clarin-files-section.component`
+ */
+
+.btn-download{
+  color: #fff !important;
+  background-color: #428bca;
+  border-color: #357ebd;
+  cursor: pointer;
+}
+
+.btn-download:hover {
+  color: #fff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}

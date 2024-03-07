@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ClarinLicenseDataService } from '../../core/data/clarin/clarin-license-data.service';
 import { ItemMock } from '../../shared/mocks/item.mock';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { LocaleService } from '../../core/locale/locale.service';
 
 const item = ItemMock;
 const license = 'Test License Name';
@@ -22,6 +23,7 @@ describe('ClarinLicenseInfoComponent', () => {
 
   let clarinLicenseDataService: ClarinLicenseDataService;
   let sanitizerStub: DomSanitizer;
+  let localeService: LocaleService;
 
   // initialize license metadata
   item.metadata['dc.rights.label'] = [Object.assign(new MetadataValue(), {
@@ -46,6 +48,9 @@ describe('ClarinLicenseInfoComponent', () => {
     sanitizerStub = jasmine.createSpyObj('sanitizer', {
       bypassSecurityTrustUrl: null
     });
+    localeService = jasmine.createSpyObj('LocaleService', {
+      getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+    });
 
     await TestBed.configureTestingModule({
       imports: [
@@ -59,6 +64,7 @@ describe('ClarinLicenseInfoComponent', () => {
       providers: [
         { provide: ClarinLicenseDataService, useValue: clarinLicenseDataService },
         { provide: DomSanitizer, useValue: sanitizerStub },
+        { provide: LocaleService, useValue: localeService }
       ],
     })
     .compileComponents();

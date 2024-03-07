@@ -1,14 +1,14 @@
 <div class="container alert alert-dismissible alert-info fade show w-100">
   <div class="text-center">
-    <div>
+    <div [ngClass]="isCsLocale() ? '': 'd-inline-flex'">
       <span class="pr-1">{{'item.page.license.message.0' | translate}}</span>
-      <span [ngClass]="'label ' + ' label-' + licenseLabel + ' rounded'">
-        {{licenseType}}
-      </span>
+      <span [ngClass]="'label ' + ' label-' + licenseLabel + ' rounded' + ' px-1'">{{licenseType}}</span>
+    </div>
+    <div class="d-inline-flex">
       <span class="pl-1">{{'item.page.license.message.1' | translate}}</span>
     </div>
-    <div>
-      <a [href]="licenseURI">{{license}}</a>
+    <div [ngClass]="isCsLocale() ? 'd-inline-flex': ''">
+      <a [href]="licenseURI" class="pl-1">{{license}}</a>
     </div>
     <div class="d-inline" *ngFor="let icon of (licenseLabelIcons | async)">
       <img class="mr-1" [src]="secureImageData(icon)" alt="" width="24px">

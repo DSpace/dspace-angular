@@ -1,8 +1,16 @@
+@import '../simple/item-page.component.scss';
 :host {
     div.simple-view-link {
-        text-align: center;
+        text-align: left;
         a {
             min-width: 25%;
         }
     }
+}
+
+@include media-breakpoint-down(md) {
+  .container {
+    width: 100%;
+    max-width: none;
+  }
 }

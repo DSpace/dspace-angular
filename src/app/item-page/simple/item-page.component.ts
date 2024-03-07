@@ -11,7 +11,6 @@ import { Item } from '../../core/shared/item.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import {
   getAllSucceededRemoteDataPayload,
-  getAllSucceededRemoteListPayload,
 } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
@@ -25,9 +24,8 @@ import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
 import { BehaviorSubject } from 'rxjs';
+import { RegistryService } from '../../core/registry/registry.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import {RegistryService} from '../../core/registry/registry.service';
-import {MetadataBitstream} from '../../core/metadata/metadata-bitstream.model';
 
 /**
  * This component renders a simple item page.
@@ -70,14 +68,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * handle of the specific item
    */
   fileName: string;
-  /**
-   * determine to show download all zip button or not
-   */
-  canDownloadAllFiles = false;
-  /**
-   * command for the download command feature
-   */
-  command: string;
 
   /**
    * Whether the current user is an admin or not
@@ -94,22 +84,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   withdrawnTombstone = false;
 
-  /**
-   * If download by command button is click, the command line will be shown
-   */
-  isCommandLineVisible = false;
-  /**
-   * list of files uploaded by users to this item
-   */
-  listOfFiles: MetadataBitstream[];
-  /**
-   * total size of list of files uploaded by users to this item
-   */
-  totalFileSizes: string;
-
   itemUrl: string;
-
-  canShowCurlDownload = false;
 
   /**
    * True if the item has files, false otherwise.
@@ -153,15 +128,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     this.isAdmin$ = this.authorizationService.isAuthorized(FeatureID.AdministratorOf);
 
     this.processItem();
-
-    this.registryService
-      .getMetadataBitstream(this.itemHandle, 'ORIGINAL,TEXT,THUMBNAIL')
-      .pipe(getAllSucceededRemoteListPayload())
-      .subscribe((data: MetadataBitstream[]) => {
-        this.listOfFiles = data;
-        this.generateCurlCommand();
-        this.sumFileSizes();
-      });
   }
 
   /**
@@ -204,34 +170,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     this.hasFiles.next(hasFilesMetadata !== 'no');
   }
 
-  sumFileSizes() {
-    const sizeUnits = {
-      B: 1,
-      KB: 1000,
-      MB: 1000 * 1000,
-      GB: 1000 * 1000 * 1000,
-      TB: 1000 * 1000 * 1000 * 1000,
-    };
-
-    let totalBytes = this.listOfFiles.reduce((total, file) => {
-      const [valueStr, unit] = file.fileSize.split(' ');
-      const value = parseFloat(valueStr);
-      const bytes = value * sizeUnits[unit.toUpperCase()];
-      return total + bytes;
-    }, 0);
-
-    let finalUnit = 'B';
-    for (const unit of ['KB', 'MB', 'GB', 'TB']) {
-      if (totalBytes < 1000) {
-        break;
-      }
-      totalBytes /= 1000;
-      finalUnit = unit;
-    }
-
-    this.totalFileSizes = totalBytes.toFixed(2) + ' ' + finalUnit;
-  }
-
   /**
    * Process the tombstone of the Item and check if it has files or not.
    */
@@ -272,36 +210,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         }
       }
     });
-  }
-
-  setCommandline() {
-    this.isCommandLineVisible = !this.isCommandLineVisible;
-  }
-
-  generateCurlCommand() {
-    const fileNames = this.listOfFiles.map((file: MetadataBitstream) => {
-      // Show `Download All Files` only if there are more files.
-      if (this.listOfFiles.length > 1) {
-        this.canDownloadAllFiles = true;
-      }
-
-      if (file.canPreview) {
-        this.canShowCurlDownload = true;
-      }
-
-      return file.name;
-    });
-
-    this.command = `curl --remote-name-all ` + this.halService.getRootHref() + `/core/bitstreams/handle/${
-      this.itemHandle
-    }/{${fileNames.join(',')}}`;
-  }
-
-  downloadFiles() {
-    this.itemRD$.pipe(
-      take(1),
-      getAllSucceededRemoteDataPayload())
-      .subscribe((item: Item) => void this.router.navigate([getItemPageRoute(item), 'download']));
   }
 
   ngOnDestroy(): void {

@@ -29,13 +29,15 @@
     </dl>
     <img
       *ngIf="fileInput.format !== 'video/mp4'"
-        src="assets/images/application-x-gzip.png"
+      [src]="MIME_TYPE_IMAGES_PATH + fileInput.format?.replace('/','-') + '.png'"
+      (error)="handleImageError($event)"
+      (click)="downloadFile()"
       alt="Preview"
-      class="preview-image"/>
+      class="preview-image cursor-pointer"/>
   </div>
   <div class="button-container">
     <span>
-      <a class="download-btn" (click)="downloadFiles()">
+      <a class="download-btn" (click)="downloadFile()">
         <i class="fa fa-chevron-circle-down">&nbsp;</i>
         {{'item.file.description.download.file' | translate}}
       </a>

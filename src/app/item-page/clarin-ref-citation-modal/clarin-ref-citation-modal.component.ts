@@ -26,6 +26,12 @@ export class ClarinRefCitationModalComponent implements AfterViewInit {
   itemName = '';
 
   /**
+   * The type of the citation - e.g. `bibtex` or `cmdi`
+   */
+  @Input()
+  citationType = '';
+
+  /**
    * The citation context - data retrieved from OAI-PMH
    */
   @Input()

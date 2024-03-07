@@ -76,3 +76,9 @@ export function loadItemAuthors(item, itemAuthors, baseUrl) {
   });
   itemAuthors.next(itemAuthorsLocal);
 }
+
+export function makeLinks(text: string): string {
+  // Use a regular expression to find URLs and convert them into clickable links
+  const regex = /(?:https?|ftp):\/\/[^\s)]+|www\.[^\s)]+/g;
+  return text?.replace(regex, (url) => `<a href="${url}" target="_blank">${url}</a>`);
+}
