@@ -10,81 +10,65 @@ on:
         options:
           - '2'
           - '5'
+          - '6'
           - '8'
       
 jobs:
+  checkout-codebase:
+    runs-on: dspace-dep-1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: dataquest-dev/dspace-python-api
+
+  import-2:
+    if: inputs.INSTANCE == '2'
+    runs-on: dspace-dep-1
+    needs: checkout-codebase
+    env:
+      DSPACE_REST_API: http://dev-5.pc:82/server/api/
+    steps:
+      - name: install requirements and run import
+        run: |
+          pip install -r requirements.txt
+          cd tools/create_bitstreams
+          python create_bitstreams.py
+
   import-5:
     if: inputs.INSTANCE == '5'
     runs-on: dspace-dep-1
+    needs: checkout-codebase
     env:
       DSPACE_REST_API: http://dev-5.pc:85/server/api/
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/actions/erase-db
-        if: inputs.ERASE_DB
-        with:
-          INSTANCE: ${{ env.INSTANCE }}
-          NAME: dspace-${{ env.INSTANCE }}
-
-      - name: deploy to dev-5
-        working-directory: build-scripts/run/
+      - name: install requirements and run import
         run: |
-          ./start.sh dspace-$INSTANCE
+          pip install -r requirements.txt
+          cd tools/create_bitstreams
+          python create_bitstreams.py
 
-  deploy-8:
-    if: inputs.INSTANCE == '*' || inputs.INSTANCE == '8'
+  import-6:
+    if: inputs.INSTANCE == '6'
     runs-on: dspace-dep-1
-    timeout-minutes: 120
+    needs: checkout-codebase
     env:
-      INSTANCE: '8'
-      # 2024/02: this .env replaces ENTRYPOINT to angular
-      # !!!!WARNING!!!!
-      # disable TSL checks = allowing to cooperate with https backend with invalid
-      # certificate
-      ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
+      DSPACE_REST_API: http://dev-5.pc:86/server/api/
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: ./.github/actions/erase-db
-        if: inputs.ERASE_DB
-        with:
-          INSTANCE: ${{ env.INSTANCE }}
-          NAME: dspace-${{ env.INSTANCE }}
-
-      - name: deploy dspace-import on dev-5
-        working-directory: build-scripts/run/
+      - name: install requirements and run import
         run: |
-          ./start.sh dspace-$INSTANCE
-          /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
-
+          pip install -r requirements.txt
+          cd tools/create_bitstreams
+          python create_bitstreams.py
 
   import-8:
+    if: inputs.INSTANCE == '8'
     runs-on: dspace-dep-1
-    if: inputs.IMPORT
-    needs: deploy-8
+    needs: checkout-codebase
     env:
-      INSTANCE: '8'
-      ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
+      DSPACE_REST_API: http://dev-5.pc:88/server/api/
     steps:
-      - uses: ./.github/actions/import-db
-        with:
-          INSTANCE: ${{ env.INSTANCE }}
-          DATADIR: /opt/dspace-data/clarin-dspace/
-
-      - name: dspace command
+      - name: install requirements and run import
         run: |
-          export DNAME=dspace$INSTANCE
-          docker logs -n 50 $DNAME
-
-          echo "dspace version:"
-          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace version"
-
-          echo "dspace cleanup:"
-          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace cleanup -v"
-
-          echo "dspace checker:"
-          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace checker -v -l"
-
-          echo "dspace healthcheck:"
-          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace healthcheck -v"
+          pip install -r requirements.txt
+          cd tools/create_bitstreams
+          python create_bitstreams.py          
