@@ -14,6 +14,7 @@ import {
 import {
   combineLatest,
   Observable,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -174,6 +175,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       switchMap((coarLdnEnabled: boolean) => {
         if (coarLdnEnabled) {
           return this.notifyInfoService.getCoarLdnLocalInboxUrls();
+        } else {
+          return of([]);
         }
       }),
     );
