@@ -46,19 +46,18 @@ import {
   UpdateSectionDataSuccessAction,
   CleanDuplicateDetectionAction
 } from './submission-objects.actions';
-import {SubmissionObjectEntry} from './submission-objects.reducer';
-import {Item} from '../../core/shared/item.model';
-import {RemoteData} from '../../core/data/remote-data';
-import {getFirstSucceededRemoteDataPayload} from '../../core/shared/operators';
-import {SubmissionObjectDataService} from '../../core/submission/submission-object-data.service';
-import {followLink} from '../../shared/utils/follow-link-config.model';
-import parseSectionErrorPaths, {SectionErrorPath} from '../utils/parseSectionErrorPaths';
-import {FormState} from '../../shared/form/form.reducer';
-import {SubmissionSectionObject} from './submission-section-object.model';
-import {SubmissionSectionError} from './submission-section-error.model';
-import {
-  WorkspaceitemSectionDuplicatesObject
-} from '../../core/submission/models/workspaceitem-section-duplicates.model';
+import { SubmissionObjectEntry } from './submission-objects.reducer';
+import { Item } from '../../core/shared/item.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
+import { FormState } from '../../shared/form/form.reducer';
+import { SubmissionSectionObject } from './submission-section-object.model';
+import { SubmissionSectionError } from './submission-section-error.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { WorkspaceitemSectionDuplicatesObject } from '../../core/submission/models/workspaceitem-section-duplicates.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -268,6 +267,7 @@ export class SubmissionObjectEffects {
   depositSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice'))),
+    tap((action: DepositSubmissionSuccessAction) => this.workspaceItemDataService.invalidateById(action.payload.submissionId)),
     tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
 
   /**
@@ -336,14 +336,17 @@ export class SubmissionObjectEffects {
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice')))), { dispatch: false });
 
-  constructor(private actions$: Actions,
+  constructor(
+    private actions$: Actions,
     private notificationsService: NotificationsService,
     private operationsService: SubmissionJsonPatchOperationsService,
     private sectionService: SectionsService,
     private store$: Store<any>,
     private submissionService: SubmissionService,
     private submissionObjectService: SubmissionObjectDataService,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private workspaceItemDataService: WorkspaceitemDataService,
+  ) {
   }
 
   /**
