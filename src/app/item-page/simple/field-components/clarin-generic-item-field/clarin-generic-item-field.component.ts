@@ -45,9 +45,17 @@ export class ClarinGenericItemFieldComponent implements OnInit {
   @Input() label: string;
 
   /**
+   * Replace character in the metadata value.
+   * This input value is array of two elements.
+   * The first element is the character to replace and the second element is the character to replace with.
+   */
+  @Input() replaceCharacter: string[];
+
+  /**
    * UI URL loaded from the server.
    */
   baseUrl = '';
+
 
   // tslint:disable-next-line:no-empty
   constructor(protected dsoNameService: DSONameService,
@@ -58,6 +66,11 @@ export class ClarinGenericItemFieldComponent implements OnInit {
     await this.assignBaseUrl();
     if (isEmpty(this.separator)) {
       this.separator = ',';
+    }
+
+    // Set default replace character
+    if (isEmpty(this.replaceCharacter)) {
+      this.replaceCharacter = [';', ' '];
     }
   }
 

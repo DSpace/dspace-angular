@@ -9,6 +9,7 @@ import { ClarinLicense } from '../../core/shared/clarin/clarin-license.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { secureImageData } from '../../shared/clarin-shared-util';
 import { BehaviorSubject } from 'rxjs';
+import { LocaleService } from '../../core/locale/locale.service';
 
 /**
  * This component show clarin license info in the item page and item full page.
@@ -21,7 +22,8 @@ import { BehaviorSubject } from 'rxjs';
 export class ClarinLicenseInfoComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer,
-              private clarinLicenseService: ClarinLicenseDataService) { }
+              private clarinLicenseService: ClarinLicenseDataService,
+              private localeService: LocaleService) { }
 
   /**
    * The item to display a version history for
@@ -94,6 +96,13 @@ export class ClarinLicenseInfoComponent implements OnInit {
 
   secureImageData(imageByteArray) {
     return secureImageData(this.sanitizer, imageByteArray);
+  }
+
+  /**
+   * Check if current english is Czech
+   */
+  isCsLocale() {
+    return this.localeService.getCurrentLanguageCode() === 'cs';
   }
 }
 

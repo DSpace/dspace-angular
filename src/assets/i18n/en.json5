@@ -2613,6 +2613,8 @@
 
   "item.page.project-url": "Project URL",
 
+  "item.page.demo.uri": "Demo URL",
+
   "item.page.referenced-by": "Referenced by",
 
   "item.page.type": "Type",
@@ -2635,7 +2637,7 @@
 
   "item.page.collections.load-more": "Load more",
 
-  "item.page.date": "Date",
+  "item.page.date": "Date issued",
 
   "item.page.edit": "Edit this item",
 
@@ -2655,9 +2657,9 @@
 
   "item.page.journal.search.title": "Articles in this journal",
 
-  "item.page.link.full": "Full item page",
+  "item.page.link.full": "Show full item record",
 
-  "item.page.link.simple": "Simple item page",
+  "item.page.link.simple": "Show simple item record",
 
   "item.page.orcid.title": "ORCID",
 
@@ -2708,6 +2710,10 @@
   "item.page.acknowledgement.project-name": "Project name:",
 
   "item.page.acknowledgement.project-code": "Project code:",
+
+  "item.page.date.cca.message": "The exact date is unknown",
+
+  "item.page.date.composed.message": "This item is composed of parts issued in",
 
   "item.preview.dc.identifier.uri": "Identifier:",
 

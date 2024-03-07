@@ -168,6 +168,7 @@ export class ClarinRefCitationComponent implements OnInit {
       ariaLabelledBy: 'modal-basic-title'
     });
     modal.componentInstance.itemName = this.itemNameText;
+    modal.componentInstance.citationType = citationType;
     // Fetch the citation text from the API
     let citationText = '';
     await this.getCitationText(citationType)

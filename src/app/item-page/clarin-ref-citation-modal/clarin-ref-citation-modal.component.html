@@ -5,13 +5,16 @@
       <span aria-hidden="true">×</span>
     </button>
   </div>
-  <div class="modal-body" >
+  <div class="modal-body pb-0" >
     <p>{{'item.refbox.modal.copy.instruction.0' | translate}}
       <kbd>{{'item.refbox.modal.copy.instruction.1' | translate}}</kbd>
       {{'item.refbox.modal.copy.instruction.2' | translate}}
     </p>
     <div class="textarea" ></div>
     <textarea #copyCitationModal readonly class="clarin-ref-box-citation-textarea">{{citationText}}</textarea>
+  </div>
+  <div class="d-flex justify-content-end">
+    <span class="pr-3">{{citationType | uppercase}}</span>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Save click')">

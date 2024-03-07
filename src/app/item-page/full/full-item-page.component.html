@@ -1,34 +1,40 @@
-<div class="container" *ngVar="(itemRD$ | async) as itemRD">
-  <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
+<div class="container clarin-shadow remove-padding clarin-home-page-borders clarin-cut-bottom-2 clarin-cut-top-1 pb-2" *ngVar="(itemRD$ | async) as itemRD">
+  <div *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
       <ds-themed-item-alerts [item]="item"></ds-themed-item-alerts>
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>
       <div *ngIf="!item.isWithdrawn || (isAdmin$|async)" class="full-item-info">
-        <div class="d-flex flex-row">
-          <ds-themed-item-page-title-field class="mr-auto" [item]="item"></ds-themed-item-page-title-field>
+        <div class="d-flex flex-row justify-content-end">
           <ds-dso-edit-menu></ds-dso-edit-menu>
         </div>
         <div class="simple-view-link my-3" *ngIf="!fromSubmissionObject">
-          <a class="btn btn-outline-primary" [routerLink]="[(itemPageRoute$ | async)]">
+          <a [routerLink]="[(itemPageRoute$ | async)]">
             {{"item.page.link.simple" | translate}}
           </a>
         </div>
+        <ds-clarin-ref-box [item]="item"></ds-clarin-ref-box>
         <table class="table table-responsive table-striped">
           <tbody>
           <ng-container *ngFor="let mdEntry of (metadata$ | async) | keyvalue">
             <tr *ngFor="let mdValue of mdEntry.value">
               <td>{{mdEntry.key}}</td>
-              <td>{{mdValue.value}}</td>
-              <td>{{mdValue.language}}</td>
+              <td>
+                <span *ngFor="let value of mdValue.value.split(SEPARATOR); let last=last;">
+                  <span [innerHTML]="makeLinks(value) | dsReplace: [';', ' ']" ></span>
+                  <span *ngIf="!last" [innerHTML]="' '"></span>
+                </span>
+              </td>
+              <td *ngIf="(isAdmin$|async)">{{mdValue.language}}</td>
             </tr>
           </ng-container>
           </tbody>
         </table>
-        <ds-themed-item-page-full-file-section [item]="item"></ds-themed-item-page-full-file-section>
         <ds-item-page-collections [item]="item"></ds-item-page-collections>
         <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
-        <ds-clarin-license-info class="mt-2" [item]="item"></ds-clarin-license-info>
+        <div *ngIf="(hasFiles | async) === true">
+          <ds-clarin-files-section [item]="item" [itemHandle]="itemHandle"></ds-clarin-files-section>
+        </div>
         <div class="button-row bottom" *ngIf="fromSubmissionObject">
           <div class="text-right">
             <button class="btn btn-outline-secondary mr-1" (click)="back()"><i class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>
@@ -36,6 +42,11 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="simple-view-link my-3" *ngIf="!fromSubmissionObject">
+    <a [routerLink]="[(itemPageRoute$ | async)]">
+      {{"item.page.link.simple" | translate}}
+    </a>
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
   <ds-themed-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-themed-loading>

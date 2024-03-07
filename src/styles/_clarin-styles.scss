@@ -26,6 +26,26 @@
   cursor: pointer;
 }
 
+.btn-danger, .btn-dark, .btn-success, .btn-warning, .btn-info, .btn-primary, .btn-outline-secondary, .btn-secondary {
+  background-color: var(--lt-clarin-purple) !important;
+  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25) !important;
+  color: white !important;
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem #d5d6e9 !important;
+  }
+
+  &:hover {
+    background-color: #545aa5 !important;
+    border-color: #545aa5 !important;
+    transition: filter 0.3s;
+  }
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem #d5d6e9 !important;
+}
+
 ds-home-page ds-themed-search-form {
   input.form-control {
     border-radius: 0;

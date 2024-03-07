@@ -174,12 +174,4 @@ export class ClarinRefFeaturedServicesComponent implements OnInit {
 
     return metadata[0]?.value;
   }
-
-  /**
-   * Hard redirect to the sharing URL
-   * @param url
-   */
-  redirectToFeaturedService(url) {
-    this.hardRedirectService.redirect(url);
-  }
 }

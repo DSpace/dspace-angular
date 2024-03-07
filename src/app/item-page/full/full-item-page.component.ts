@@ -21,7 +21,8 @@ import { SignpostingDataService } from '../../core/data/signposting-data.service
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { RegistryService } from 'src/app/core/registry/registry.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-
+import { makeLinks } from '../../shared/clarin-shared-util';
+import { SEPARATOR } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-complex.model';
 
 /**
  * This component renders a full item page.
@@ -36,6 +37,8 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
   animations: [fadeInOut]
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {
+  protected readonly makeLinks = makeLinks;
+  protected readonly SEPARATOR = SEPARATOR;
 
   itemRD$: BehaviorSubject<RemoteData<Item>>;
 

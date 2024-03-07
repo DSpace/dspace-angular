@@ -26,10 +26,18 @@
 
 .clarin-share-facebook {
   color: #395a93;
+
+  &:hover {
+    color: #2d4373;
+  }
 }
 
 .clarin-share-twitter {
   color: #00AEE8;
+
+  &:hover {
+    color: #0088cc;
+  }
 }
 
 .clarin-ref-box-footer-services {
@@ -60,4 +68,18 @@
   -ms-user-select: none !important;
   user-select: none !important;
   border: 1px solid #357ebd !important;
+
+  &:hover {
+    background-color: #3071a9 !important;
+    border-color: #285e8e !important;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.lindat-dropdown-menu {
+  max-height: 260px;
+  overflow-y: auto;
 }

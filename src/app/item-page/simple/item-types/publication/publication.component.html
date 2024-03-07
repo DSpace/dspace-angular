@@ -29,7 +29,7 @@
                                   [fields]="['dc.identifier.uri']"
                                   [label]="'item.page.uri'"
                                   [iconName]="'fa-share'"
-                                  [type]="'hyperlink'">
+                                  [type]="'identifier'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.source.uri']"
@@ -37,14 +37,22 @@
                                   [iconName]="'fa-link'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
+                                  [fields]="['local.demo.uri']"
+                                  [label]="'item.page.demo.uri'"
+                                  [iconName]="'fa-external-link'"
+                                  [type]="'hyperlink'">
+    </ds-clarin-generic-item-field>
+    <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.relation.isreferencedby']"
                                   [label]="'item.page.referenced-by'"
-                                  [iconName]="'fa-link'">
+                                  [iconName]="'fa-link'"
+                                  [type]="'hyperlink'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.date.issued', 'local.approximateDate.issued']"
                                   [label]="'item.page.date'"
-                                  [iconName]="'fa-calendar'">
+                                  [iconName]="'fa-calendar'"
+                                  [type]="'date'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.type', 'metashare.ResourceInfo#ContentInfo.mediaType']"
@@ -56,7 +64,8 @@
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['local.size.info']"
                                   [label]="'item.page.size-info'"
-                                  [iconName]="'fa-arrows'">
+                                  [iconName]="'fa-arrows'"
+                                  [replaceCharacter]="[';',' ']">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['local.language.name']"
@@ -67,7 +76,8 @@
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.description']"
                                   [label]="'item.page.description'"
-                                  [iconName]="'fa-file-alt'">
+                                  [iconName]="'fa-file-alt'"
+                                  [type]="'description'">
     </ds-clarin-generic-item-field>
     <ds-clarin-generic-item-field [item]="object"
                                   [fields]="['dc.publisher']"

@@ -13,7 +13,7 @@
       <span *ngIf="i == 0" ><a [href]="author.url" class="item-author">{{ author.name }}</a>; et al.</span>
     </div>
     <div class="item-author-wrapper">
-              <span (click)="toggleShowEveryAuthor()" class="clarin-font-size">
+              <span (click)="toggleShowEveryAuthor()" class="clarin-font-size cursor-pointer">
                 <i [hidden]="showEveryAuthor | async" class="fas fa-caret-right"></i>
                 <i [hidden]="!(showEveryAuthor | async)" class="fas fa-caret-down"></i>
                 {{'item.view.box.author.preview.show-everyone' | translate}}

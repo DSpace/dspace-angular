@@ -1,0 +1,8 @@
+<div *ngFor="let identifier of (identifiers | async)">
+  <div class="justify-content-between d-flex">
+    <a [href]="identifier">{{identifier}}</a>
+    <i class="far fa-copy pr-5 cursor-pointer"
+       (click)="copyToClipboard(identifier)"
+       [ngbTooltip]="'Copied!'" #copyButton="ngbTooltip"></i>
+  </div>
+</div>

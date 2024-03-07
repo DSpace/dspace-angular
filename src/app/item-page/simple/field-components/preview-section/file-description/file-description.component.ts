@@ -10,12 +10,15 @@ const allowedPreviewFormats = ['text/plain', 'text/html', 'application/zip'];
   styleUrls: ['./file-description.component.scss'],
 })
 export class FileDescriptionComponent {
+  MIME_TYPE_IMAGES_PATH = '/assets/images/mime/';
+  MIME_TYPE_DEFAULT_IMAGE_NAME = 'application-octet-stream.png';
+
   @Input()
   fileInput: MetadataBitstream;
 
   constructor(protected halService: HALEndpointService, private router: Router) { }
 
-  public downloadFiles() {
+  public downloadFile() {
     void this.router.navigateByUrl('bitstreams/' + this.fileInput.id + '/download');
   }
 
@@ -43,5 +46,10 @@ export class FileDescriptionComponent {
     }
 
     return allowedPreviewFormats.includes(this.fileInput.format);
+  }
+
+  handleImageError(event) {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = this.MIME_TYPE_IMAGES_PATH + this.MIME_TYPE_DEFAULT_IMAGE_NAME;
   }
 }

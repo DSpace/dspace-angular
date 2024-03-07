@@ -33,6 +33,7 @@ import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { cold } from 'jasmine-marbles';
+import { ReplacePipe } from '../../shared/utils/replace.pipe';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -144,7 +145,7 @@ describe('FullItemPageComponent', () => {
           useClass: TranslateLoaderMock
         }
       }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
-      declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
+      declarations: [FullItemPageComponent, TruncatePipe, VarDirective, ReplacePipe],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
