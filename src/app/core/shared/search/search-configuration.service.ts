@@ -105,7 +105,7 @@ export class SearchConfigurationService implements OnDestroy {
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService,) {
+              protected rdb: RemoteDataBuildService) {
 
     this.initDefaults();
   }

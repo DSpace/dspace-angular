@@ -131,6 +131,10 @@ submission:
     # NOTE: after how many time (milliseconds) submission is saved automatically
     # eg. timer: 5 * (1000 * 60); // 5 minutes
     timer: 0
+  # Always show the duplicate detection section if enabled, even if there are no potential duplicates detected
+  # (a message will be displayed to indicate no matches were found)
+  duplicateDetection:
+    alwaysShowSection: false
   icons:
     metadata:
       # NOTE: example of configuration
@@ -427,9 +431,67 @@ comcolSelectionSort:
 
 
 # Search settings
-search: 
+search:
   # Settings to enable/disable or configure advanced search filters.
   advancedFilters:
     enabled: false
     # List of filters to enable in "Advanced Search" dropdown
     filter: [ 'title', 'author', 'subject', 'entityType' ]
+
+
+# Notify metrics
+# Configuration for Notify Admin Dashboard for metrics visualization
+notifyMetrics:
+  # Configuration for received messages
+- title: 'admin-notify-dashboard.received-ldn'
+  boxes:
+  - color: '#B8DAFF'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.accepted'
+    config: 'NOTIFY.incoming.accepted'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description'
+  - color: '#D4EDDA'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.processed'
+    config: 'NOTIFY.incoming.processed'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description'
+  - color: '#FDBBC7'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.failure'
+    config: 'NOTIFY.incoming.failure'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description'
+  - color: '#FDBBC7'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted'
+    config: 'NOTIFY.incoming.untrusted'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description'
+  - color: '#43515F'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems'
+    textColor: '#fff'
+    config: 'NOTIFY.incoming.involvedItems'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description'
+# Configuration for outgoing messages
+- title: 'admin-notify-dashboard.generated-ldn'
+  boxes:
+  - color: '#B8DAFF'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.queued'
+    config: 'NOTIFY.outgoing.queued'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description'
+  - color: '#FDEEBB'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry'
+    config: 'NOTIFY.outgoing.queued_for_retry'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description'
+  - color: '#FDBBC7'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.failure'
+    config: 'NOTIFY.outgoing.failure'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description'
+  - color: '#43515F'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems'
+    textColor: '#fff'
+    config: 'NOTIFY.outgoing.involvedItems'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description'
+  - color: '#D4EDDA'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered'
+    config: 'NOTIFY.outgoing.delivered'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
+
+
+
+
+

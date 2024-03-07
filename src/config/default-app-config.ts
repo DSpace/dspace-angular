@@ -26,6 +26,9 @@ import { DiscoverySortConfig } from './discovery-sort.config';
 import { CommunityPageConfig } from './community-page-config.interface';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
+import {
+  AdminNotifyMetricsRow
+} from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 export class DefaultAppConfig implements AppConfig {
   production = false;
 
@@ -153,6 +156,9 @@ export class DefaultAppConfig implements AppConfig {
        * eg. timer: 5 * (1000 * 60); // 5 minutes
        */
       timer: 0
+    },
+    duplicateDetection: {
+      alwaysShowSection: false
     },
     typeBind: {
       field: 'dc.type'
@@ -506,4 +512,79 @@ export class DefaultAppConfig implements AppConfig {
       filter: ['title', 'author', 'subject', 'entityType']
     }
   };
+
+  notifyMetrics: AdminNotifyMetricsRow[] = [
+    {
+      title: 'admin-notify-dashboard.received-ldn',
+      boxes: [
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.accepted',
+          config: 'NOTIFY.incoming.accepted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description'
+        },
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.processed',
+          config: 'NOTIFY.incoming.processed',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.failure',
+          config: 'NOTIFY.incoming.failure',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted',
+          config: 'NOTIFY.incoming.untrusted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description'
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems',
+          textColor: '#fff',
+          config: 'NOTIFY.incoming.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description'
+        },
+      ]
+    },
+    {
+      title: 'admin-notify-dashboard.generated-ldn',
+      boxes: [
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered',
+          config: 'NOTIFY.outgoing.delivered',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
+        },
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued',
+          config: 'NOTIFY.outgoing.queued',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description'
+        },
+        {
+          color: '#FDEEBB',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry',
+          config: 'NOTIFY.outgoing.queued_for_retry',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description'
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.failure',
+          config: 'NOTIFY.outgoing.failure',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description'
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems',
+          textColor: '#fff',
+          config: 'NOTIFY.outgoing.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description'
+        },
+      ]
+    }
+  ];
 }

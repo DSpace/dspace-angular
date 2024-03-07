@@ -73,6 +73,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   protected subs: Subscription[] = [];
 
+  private filteredServicesByPattern = {};
+
   constructor(protected ldnServicesService: LdnServicesService,
               // protected formOperationsService: SectionFormOperationsService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
@@ -139,11 +141,14 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     if (hasPrevValueStored) {
       // when there is a previous value stored and it is different from the new one
       this.operationsBuilder.flushOperation(this.pathCombiner.getPath([pattern, '-']));
+      if (this.filteredServicesByPattern[pattern]?.includes(this.previousServices[pattern].services[index])){
+        this.operationsBuilder.remove(this.pathCombiner.getPath([pattern, index.toString()]));
+      }
     }
 
-    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored) || (!hasValue(selectedService) && hasPrevValueStored)) {
+    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored)) {
       // add the path when there is no previous value stored
-      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), hasValue(selectedService) ? [selectedService.id] : [], false, true);
+      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), [selectedService.id], false, true);
     }
     // set the previous value to the new value
     this.previousServices[pattern].services[index] = this.ldnServiceByPattern[pattern].services[index];
@@ -239,6 +244,14 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       filter((rd) => rd.hasSucceeded),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
+      tap(res => {
+        if (!this.filteredServicesByPattern[pattern]){
+          this.filteredServicesByPattern[pattern] = [];
+        }
+        if (this.filteredServicesByPattern[pattern].length === 0) {
+          this.filteredServicesByPattern[pattern].push(...res);
+        }
+      }),
       map((res: LdnService[]) => res.filter((service) => {
           if (!this.hasSectionData){
             this.hasSectionData = this.hasInboundPattern(service, pattern);

@@ -25,8 +25,7 @@ import { PatchData, PatchDataImpl } from '../../../core/data/base/patch-data';
 import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 
 /**
@@ -57,8 +56,8 @@ export class CoarNotifyConfigDataService extends IdentifiableDataService<Submiss
   }
 
 
-  create(object: SubmissionCoarNotifyConfig): Observable<RemoteData<SubmissionCoarNotifyConfig>> {
-    return this.createData.create(object);
+  create(object: SubmissionCoarNotifyConfig, ...params: RequestParam[]): Observable<RemoteData<SubmissionCoarNotifyConfig>> {
+    return this.createData.create(object, ...params);
   }
 
   patch(object: SubmissionCoarNotifyConfig, operations: Operation[]): Observable<RemoteData<SubmissionCoarNotifyConfig>> {
@@ -81,6 +80,7 @@ export class CoarNotifyConfigDataService extends IdentifiableDataService<Submiss
     return this.findAllData.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
+
   public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.delete(objectId, copyVirtualMetadata);
   }
@@ -101,15 +101,6 @@ export class CoarNotifyConfigDataService extends IdentifiableDataService<Submiss
     ).subscribe((request: RestRequest) => this.requestService.send(request));
 
     return this.rdbService.buildFromRequestUUID<SubmissionCoarNotifyConfig>(requestId);
-  }
-
-  public SubmissionCoarNotifyConfigModelWithNameExistsAndCanExecute(scriptName: string): Observable<boolean> {
-    return this.findById(scriptName).pipe(
-      getFirstCompletedRemoteData(),
-      map((rd: RemoteData<SubmissionCoarNotifyConfig>) => {
-        return hasValue(rd.payload);
-      }),
-    );
   }
 
   private getInvocationFormData(files: File[]): FormData {

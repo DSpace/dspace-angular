@@ -1,40 +1,40 @@
-import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { compare, Operation } from 'fast-json-patch';
-import { getTestScheduler } from 'jasmine-marbles';
-import { Observable, of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TestScheduler } from 'rxjs/testing';
+import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
+import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { GroupMock } from '../../shared/testing/group-mock';
 import { RequestParam } from '../cache/models/request-param.model';
-import { ChangeAnalyzer } from '../data/change-analyzer';
 import { PatchRequest, PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { EPersonDataService } from './eperson-data.service';
+import { editEPersonSelector, EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
 import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { compare, Operation } from 'fast-json-patch';
+import { Item } from '../shared/item.model';
+import { ChangeAnalyzer } from '../data/change-analyzer';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;
-  let store: Store<CoreState>;
+  let store: MockStore<CoreState>;
   let requestService: RequestService;
-  let scheduler: TestScheduler;
 
   let epeople;
 
@@ -44,50 +44,38 @@ describe('EPersonDataService', () => {
   let epeople$;
   let rdbService;
 
-  function initTestService() {
-    return new EPersonDataService(
-      requestService,
-      rdbService,
-      null,
-      halService,
-      new DummyChangeAnalyzer() as any,
-      null,
-      store,
-    );
-  }
+  const initialState = {
+    epeopleRegistry: {
+      editEPerson: null
+    },
+  };
 
-  function init() {
+  beforeEach(waitForAsync(() => {
     restEndpointURL = 'https://rest.api/dspace-spring-rest/api/eperson';
     epersonsEndpoint = `${restEndpointURL}/epersons`;
     epeople = [EPersonMock, EPersonMock2];
     epeople$ = createSuccessfulRemoteDataObject$(createPaginatedList([epeople]));
     rdbService = getMockRemoteDataBuildServiceHrefMap(undefined, { 'https://rest.api/dspace-spring-rest/api/eperson/epersons': epeople$ });
     halService = new HALEndpointServiceStub(restEndpointURL);
+    requestService = getMockRequestService(createRequestEntry$(epeople));
 
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        StoreModule.forRoot({}),
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
+      providers: [
+        EPersonDataService,
+        { provide: RequestService, useValue: requestService },
+        { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: HALEndpointService, useValue: halService },
+        provideMockStore({ initialState }),
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: DSOChangeAnalyzer, useClass: DummyChangeAnalyzer },
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
-      declarations: [],
-      providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
-  }
 
-  beforeEach(() => {
-    init();
-    requestService = getMockRequestService(createRequestEntry$(epeople));
-    store = new Store<CoreState>(undefined, undefined, undefined);
-    service = initTestService();
-    spyOn(store, 'dispatch');
-  });
+    service = TestBed.inject(EPersonDataService);
+    store = TestBed.inject(Store) as MockStore<CoreState>;
+    spyOn(store, 'dispatch').and.callThrough();
+  }));
 
   describe('searchByScope', () => {
     beforeEach(() => {
@@ -264,34 +252,29 @@ describe('EPersonDataService', () => {
   });
 
   describe('clearEPersonRequests', () => {
-    beforeEach(waitForAsync(() => {
-      scheduler = getTestScheduler();
-      halService = {
-        getEndpoint(linkPath: string): Observable<string> {
-          return observableOf(restEndpointURL + '/' + linkPath);
-        }
-      } as HALEndpointService;
-      initTestService();
-      service.clearEPersonRequests();
-    }));
-    it('should remove the eperson hrefs in the request service', () => {
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(epersonsEndpoint);
+    beforeEach(() => {
+      spyOn(halService, 'getEndpoint').and.callFake((linkPath: string) => {
+        return observableOf(`${restEndpointURL}/${linkPath}`);
+      });
     });
+    it('should remove the eperson hrefs in the request service', fakeAsync(() => {
+      service.clearEPersonRequests();
+      tick();
+
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(epersonsEndpoint);
+    }));
   });
 
   describe('getActiveEPerson', () => {
     it('should retrieve the ePerson currently getting edited, if any', () => {
-      service.editEPerson(EPersonMock);
+      // Update the state with the ePerson (the provideMockStore doesn't update itself when dispatch is called)
+      store.overrideSelector(editEPersonSelector, EPersonMock);
 
-      service.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
-        expect(activeEPerson).toEqual(EPersonMock);
-      });
+      expect(service.getActiveEPerson()).toBeObservable(cold('a', { a: EPersonMock }));
     });
 
     it('should retrieve the ePerson currently getting edited, null if none being edited', () => {
-      service.getActiveEPerson().subscribe((activeEPerson: EPerson) => {
-        expect(activeEPerson).toEqual(null);
-      });
+      expect(service.getActiveEPerson()).toBeObservable(cold('a', { a: null }));
     });
   });
 

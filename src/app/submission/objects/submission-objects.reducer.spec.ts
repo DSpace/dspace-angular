@@ -1,7 +1,7 @@
 import { submissionObjectReducer, SubmissionObjectState } from './submission-objects.reducer';
 import {
   CancelSubmissionFormAction,
-  ChangeSubmissionCollectionAction,
+  ChangeSubmissionCollectionAction, CleanDuplicateDetectionAction,
   CompleteInitSubmissionFormAction,
   DeleteSectionErrorsAction,
   DeleteUploadedFileAction,
@@ -273,7 +273,7 @@ describe('submissionReducer test suite', () => {
     expect(newState[826].sections.traditionalpagetwo.enabled).toBeTruthy();
   });
 
-  it('should enable submission section properly', () => {
+  it('should disable submission section properly', () => {
 
     let action: SubmissionObjectAction = new EnableSectionAction(submissionId, 'traditionalpagetwo');
     let newState = submissionObjectReducer(initState, action);
@@ -642,6 +642,22 @@ describe('submissionReducer test suite', () => {
     const newState = submissionObjectReducer(state, action);
 
     expect(newState[826].sections.upload.data).toEqual(expectedState);
+  });
+
+  it('should enable duplicates section properly', () => {
+
+    let action: SubmissionObjectAction = new EnableSectionAction(submissionId, 'duplicates');
+    let newState = submissionObjectReducer(initState, action);
+
+    expect(newState[826].sections.duplicates.enabled).toBeTruthy();
+  });
+
+  it('should clean duplicates section properly', () => {
+
+    let action = new CleanDuplicateDetectionAction(submissionId);
+    let newState = submissionObjectReducer(initState, action);
+
+    expect(newState[826].sections.duplicates.enabled).toBeFalsy();
   });
 
 });

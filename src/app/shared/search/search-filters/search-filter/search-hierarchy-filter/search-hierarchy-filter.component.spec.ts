@@ -1,5 +1,5 @@
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
@@ -59,7 +59,7 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [
         CommonModule,
         NgbModule,
@@ -128,10 +128,10 @@ describe('SearchHierarchyFilterComponent', () => {
       const newSelectedValue = 'new-selected-value';
 
       beforeEach(async () => {
-        showVocabularyTreeLink.nativeElement.click();
         fixture.componentInstance.selectedValues$ = observableOf(
           alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
         );
+        showVocabularyTreeLink.nativeElement.click();
         VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
           value: newSelectedValue,
         }));
@@ -143,8 +143,9 @@ describe('SearchHierarchyFilterComponent', () => {
 
       describe('when selecting a value from the vocabulary tree', () => {
 
-        it('should add a new search filter to the existing search filters', () => {
-          waitForAsync(() => expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+        it('should add a new search filter to the existing search filters', fakeAsync(() => {
+          tick();
+          expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
                 ...alreadySelectedValues,
@@ -152,8 +153,8 @@ describe('SearchHierarchyFilterComponent', () => {
               ].map((value => `${value},equals`)),
             },
             queryParamsHandling: 'merge',
-          }));
-        });
+          });
+        }));
       });
     });
   });

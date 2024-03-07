@@ -18,7 +18,7 @@ describe('findSuccessfulAccordingTo', () => {
     mockItem1.isWithdrawn = true;
 
     mockItem2 = new Item();
-    mockItem1.isWithdrawn = false;
+    mockItem2.isWithdrawn = false;
 
     predicate = (rd: RemoteData<Item>) => isNotEmpty(rd.payload) ? rd.payload.isWithdrawn : false;
   });
@@ -34,7 +34,7 @@ describe('findSuccessfulAccordingTo', () => {
     const source = hot('abcde', testRD);
     const result = source.pipe(findSuccessfulAccordingTo(predicate));
 
-    result.subscribe((value) => expect(value).toEqual(testRD.d));
+    expect(result).toBeObservable(hot('---(d|)', { d: testRD.d }));
   });
 
 });
