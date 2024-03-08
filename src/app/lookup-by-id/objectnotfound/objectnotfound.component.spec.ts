@@ -7,10 +7,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ObjectNotFoundComponent } from './objectnotfound.component';
-import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 describe('ObjectNotFoundComponent', () => {
   let comp: ObjectNotFoundComponent;
@@ -23,7 +23,7 @@ describe('ObjectNotFoundComponent', () => {
     params: observableOf({ id: testUUID, idType: uuidType }),
   });
   const serverResponseServiceStub = jasmine.createSpyObj('ServerResponseService', {
-    setNotFound: jasmine.createSpy('setNotFound')
+    setNotFound: jasmine.createSpy('setNotFound'),
   });
 
   const activatedRouteStubHandle = Object.assign(new ActivatedRouteStub(), {
@@ -35,8 +35,8 @@ describe('ObjectNotFoundComponent', () => {
         imports: [
           TranslateModule.forRoot(),
         ], providers: [
-          { provide: ServerResponseService, useValue: serverResponseServiceStub} ,
-          { provide: ActivatedRoute, useValue: activatedRouteStub }
+          { provide: ServerResponseService, useValue: serverResponseServiceStub } ,
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
         ],
         declarations: [ObjectNotFoundComponent],
         schemas: [NO_ERRORS_SCHEMA],
@@ -71,7 +71,7 @@ describe('ObjectNotFoundComponent', () => {
           TranslateModule.forRoot(),
         ], providers: [
           { provide: ServerResponseService, useValue: serverResponseServiceStub },
-          { provide: ActivatedRoute, useValue: activatedRouteStubHandle }
+          { provide: ActivatedRoute, useValue: activatedRouteStubHandle },
         ],
         declarations: [ObjectNotFoundComponent],
         schemas: [NO_ERRORS_SCHEMA],
