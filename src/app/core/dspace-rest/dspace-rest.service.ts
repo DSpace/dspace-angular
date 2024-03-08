@@ -3,6 +3,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
   HttpParams,
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
@@ -53,7 +54,21 @@ export class DspaceRestService {
    *      An Observable<string> containing the response from the server
    */
   get(absoluteURL: string): Observable<RawRestResponse> {
-    return this.request(RestRequestMethod.GET, absoluteURL);
+    const requestOptions = {
+      observe: 'response' as any,
+      headers: new HttpHeaders({ 'Content-Type': DEFAULT_CONTENT_TYPE }),
+    };
+    return this.http.get(absoluteURL, requestOptions).pipe(
+      map((res: HttpResponse<any>) => ({
+        payload: res.body,
+        statusCode: res.status,
+        statusText: res.statusText,
+      })),
+      catchError((err: unknown) => observableThrowError(() => {
+        console.log('Error: ', err);
+        return this.handleHttpError(err);
+      })),
+    );
   }
 
   /**
@@ -110,20 +125,7 @@ export class DspaceRestService {
         statusText: res.statusText,
       })),
       catchError((err: unknown) => observableThrowError(() => {
-        console.log('Error: ', err);
-        if (err instanceof HttpErrorResponse) {
-          const error = new RequestError(
-            (isNotEmpty(err?.error?.message)) ? err.error.message : err.message,
-          );
-
-          error.statusCode = err.status;
-          error.statusText = err.statusText;
-
-          return error;
-        } else {
-          console.error('Cannot construct RequestError from', err);
-          return err;
-        }
+        return this.handleHttpError(err);
       })),
     );
   }
@@ -147,6 +149,22 @@ export class DspaceRestService {
       }
     }
     return form;
+  }
+
+  protected handleHttpError(err: unknown): RequestError | unknown {
+    if (err instanceof HttpErrorResponse) {
+      const error = new RequestError(
+        (isNotEmpty(err?.error?.message)) ? err.error.message : err.message,
+      );
+
+      error.statusCode = err.status;
+      error.statusText = err.statusText;
+
+      return error;
+    } else {
+      console.error('Cannot construct RequestError from', err);
+      return err;
+    }
   }
 
 }
