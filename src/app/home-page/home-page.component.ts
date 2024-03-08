@@ -6,12 +6,13 @@ import { Site } from '../core/shared/site.model';
 import { environment } from '../../environments/environment';
 import { TranslateModule } from '@ngx-translate/core';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
-import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
+import {
+  ThemedTopLevelCommunityListComponent
+} from './top-level-community-list/themed-top-level-community-list.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
-import { NgIf, AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe, isPlatformServer, NgClass, NgIf } from '@angular/common';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
-import { isPlatformServer } from '@angular/common';
 import { ServerResponseService } from '../core/services/server-response.service';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import { LinkDefinition, LinkHeadService } from '../core/services/link-head.service';
@@ -20,6 +21,8 @@ import { isNotEmpty } from '../shared/empty.util';
 import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 import { ConfigurationSearchPageComponent } from '../search-page/configuration-search-page.component';
 import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
+import { EMPTY } from 'rxjs/internal/observable/empty';
+
 @Component({
     selector: 'ds-home-page',
     styleUrls: ['./home-page.component.scss'],
@@ -48,13 +51,13 @@ export class HomePageComponent implements OnInit, OnDestroy {
     // Get COAR REST API URLs from REST configuration
     // only if COAR configuration is enabled
     this.notifyInfoService.isCoarConfigEnabled().pipe(
-      switchMap((coarLdnEnabled: boolean) => {
+      switchMap((coarLdnEnabled: boolean) => coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : EMPTY /*{
         if (coarLdnEnabled) {
           return this.notifyInfoService.getCoarLdnLocalInboxUrls();
         }
-      })
+      }*/)
     ).subscribe((coarRestApiUrls: string[]) => {
-      if (coarRestApiUrls.length > 0) {
+      if (coarRestApiUrls?.length > 0) {
         this.initPageLinks(coarRestApiUrls);
       }
     });
