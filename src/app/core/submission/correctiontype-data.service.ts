@@ -19,7 +19,7 @@ import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../sh
 /**
  * A service that provides methods to make REST requests with correctiontypes endpoint.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(CorrectionType.type)
 export class CorrectionTypeDataService extends IdentifiableDataService<CorrectionType> {
   protected linkPath = 'correctiontypes';

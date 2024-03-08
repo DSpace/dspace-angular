@@ -90,6 +90,8 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
     'showThumbnails',
     'viewMode',
     'value',
+    'showLabel',
+    'viewMode'
   ];
 
   protected outputNames: (keyof this & string)[] = [

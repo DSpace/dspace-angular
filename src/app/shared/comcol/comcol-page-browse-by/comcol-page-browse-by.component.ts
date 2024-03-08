@@ -10,7 +10,7 @@ import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { FormsModule } from '@angular/forms';
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 export interface ComColPageNavOption {
@@ -34,7 +34,8 @@ export interface ComColPageNavOption {
     RouterLink,
     RouterLinkActive,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
+    NgIf
   ],
   standalone: true
 })

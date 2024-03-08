@@ -12,7 +12,7 @@ import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(NOTIFYREQUEST)
 export class NotifyRequestsStatusDataService extends IdentifiableDataService<NotifyRequestsStatus> {
 

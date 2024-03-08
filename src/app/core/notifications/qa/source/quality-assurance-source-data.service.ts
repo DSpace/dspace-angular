@@ -21,7 +21,7 @@ import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 /**
  * The service handling all Quality Assurance source REST requests.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(QUALITY_ASSURANCE_SOURCE_OBJECT)
 export class QualityAssuranceSourceDataService extends IdentifiableDataService<QualityAssuranceSourceObject> {
 

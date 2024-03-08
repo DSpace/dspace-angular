@@ -34,7 +34,7 @@ import {
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(QUALITY_ASSURANCE_EVENT_OBJECT)
 export class QualityAssuranceEventDataService extends IdentifiableDataService<QualityAssuranceEventObject> {
 
