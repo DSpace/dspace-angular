@@ -32,7 +32,7 @@ import { hasValue } from '../../../shared/empty.util';
 /**
  * A service responsible for fetching/sending data from/to the REST API on the CoarNotifyConfig endpoint
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(SUBMISSION_COAR_NOTIFY_CONFIG)
 export class CoarNotifyConfigDataService extends IdentifiableDataService<SubmissionCoarNotifyConfig> implements FindAllData<SubmissionCoarNotifyConfig>, DeleteData<SubmissionCoarNotifyConfig>, PatchData<SubmissionCoarNotifyConfig>, CreateData<SubmissionCoarNotifyConfig> {
   createData: CreateDataImpl<SubmissionCoarNotifyConfig>;

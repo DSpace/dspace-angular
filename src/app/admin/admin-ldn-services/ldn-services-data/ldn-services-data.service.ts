@@ -43,7 +43,7 @@ import {RequestParam} from '../../../core/cache/models/request-param.model';
  * @implements {PatchData<LdnService>}
  * @implements {CreateData<LdnService>}
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(LDN_SERVICE)
 export class LdnServicesService extends IdentifiableDataService<LdnService> implements FindAllData<LdnService>, DeleteData<LdnService>, PatchData<LdnService>, CreateData<LdnService> {
   createData: CreateDataImpl<LdnService>;

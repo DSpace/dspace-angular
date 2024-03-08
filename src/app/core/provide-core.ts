@@ -70,10 +70,18 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
+import { SuggestionTarget } from './notifications/models/suggestion-target.model';
+import { SuggestionSource } from './notifications/models/suggestion-source.model';
+import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
+import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
+import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { NotifyRequestsStatus } from '../item-page/simple/notify-requests-status/notify-requests-status.model';
 
 
 export const provideCore = () => {
-  console.log('provideCore');
   return makeEnvironmentProviders([
     { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
   ]);
@@ -153,9 +161,12 @@ export const models =
     ShortLivedToken,
     Registration,
     UsageReport,
+    QualityAssuranceTopicObject,
+    QualityAssuranceEventObject,
     Root,
     SearchConfig,
     SubmissionAccessesModel,
+    QualityAssuranceSourceObject,
     AccessStatusObject,
     ResearcherProfile,
     OrcidQueue,
@@ -164,5 +175,11 @@ export const models =
     IdentifierData,
     Subscription,
     ItemRequest,
-    BulkAccessConditionOptions
+    BulkAccessConditionOptions,
+    SuggestionTarget,
+    SuggestionSource,
+    LdnService,
+    Itemfilter,
+    SubmissionCoarNotifyConfig,
+    NotifyRequestsStatus,
   ];

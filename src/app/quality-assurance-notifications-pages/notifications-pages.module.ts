@@ -7,13 +7,11 @@ import {
   QualityAssuranceEventsPageComponent
 } from './quality-assurance-events-page/quality-assurance-events-page.component';
 import { NotificationsModule } from '../notifications/notifications.module';
-import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule.forRoot(),
     NotificationsModule,
     QualityAssuranceEventsPageComponent,
     QualityAssuranceTopicsPageComponent

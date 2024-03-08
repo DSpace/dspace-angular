@@ -12,7 +12,7 @@ import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/mod
 /**
  * A service that provides methods to handle submission item's accesses condition state.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SectionAccessesService {
 
   /**

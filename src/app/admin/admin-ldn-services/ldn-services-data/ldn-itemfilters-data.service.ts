@@ -20,7 +20,7 @@ import {PaginatedList} from '../../../core/data/paginated-list.model';
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(LDN_SERVICE_CONSTRAINT_FILTERS)
 export class LdnItemfiltersService extends IdentifiableDataService<Itemfilter> implements FindAllData<Itemfilter> {
   private findAllData: FindAllDataImpl<Itemfilter>;

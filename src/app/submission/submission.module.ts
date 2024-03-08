@@ -137,8 +137,8 @@ const DECLARATIONS = [
         SubmissionAccessesConfigDataService,
         SectionAccessesService,
         SectionFormOperationsService,
-    CoarNotifyConfigDataService,
-    LdnServicesService
+        CoarNotifyConfigDataService,
+        LdnServicesService
     ]
 })
 

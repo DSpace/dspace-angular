@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { CoreModule } from '../core/core.module';
 import { storeModuleConfig } from '../app.reducer';
 import { QualityAssuranceTopicsComponent } from './qa/topics/quality-assurance-topics.component';
 import { QualityAssuranceEventsComponent } from './qa/events/quality-assurance-events.component';
@@ -45,7 +44,6 @@ import { SuggestionsDataService } from '../core/notifications/suggestions-data.s
 const MODULES = [
   CommonModule,
   SearchModule,
-  CoreModule.forRoot(),
   StoreModule.forFeature('suggestionNotifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),
   EffectsModule.forFeature(notificationsEffects),
   TranslateModule
