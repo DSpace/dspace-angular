@@ -3,13 +3,15 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedHomePageComponent } from './themed-home-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { Route } from '@angular/router';
+import { provideSuggestionNotifications } from '../notifications/provide-suggestion-notifications';
 
 export const ROUTES: Route[] = [
   {
     path: '',
     component: ThemedHomePageComponent,
     providers: [
-      HomePageResolver
+      HomePageResolver,
+      provideSuggestionNotifications()
     ],
     pathMatch: 'full',
     data: {

@@ -10,16 +10,23 @@ import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/
 import {
   ThemedWorkspaceItemsDeletePageComponent
 } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
+import { provideSubmission } from '../submission/provide-submission';
+
+const providers = [
+  WorkspaceItemPageResolver,
+  ItemFromWorkspaceResolver,
+  provideSubmission(),
+];
 
 export const ROUTES: Route[] = [
   {
     path: '',
-    providers: [WorkspaceItemPageResolver, ItemFromWorkspaceResolver],
+    providers,
     redirectTo: '/home', pathMatch: 'full'
   },
   {
     path: ':id',
-    providers: [WorkspaceItemPageResolver, ItemFromWorkspaceResolver],
+    providers,
     resolve: {wsi: WorkspaceItemPageResolver},
     children: [
       {

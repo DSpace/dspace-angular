@@ -20,12 +20,13 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
 import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
+import { provideSubmission } from '../submission/provide-submission';
 
 export const ROUTES: Routes = [
   {
     path: ':id',
     resolve: {wfi: WorkflowItemPageResolver},
-    providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver],
+    providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver, provideSubmission()],
     children: [
       {
         canActivate: [AuthenticatedGuard],

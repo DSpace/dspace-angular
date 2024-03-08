@@ -21,7 +21,7 @@ import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(QUALITY_ASSURANCE_TOPIC_OBJECT)
 export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 

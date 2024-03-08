@@ -25,7 +25,7 @@ import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.ac
 /**
  * The service handling the Notifications State.
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class NotificationsStateService {
 
   /**

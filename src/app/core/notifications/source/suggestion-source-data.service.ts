@@ -22,7 +22,7 @@ import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.servic
 /**
  * Service that retrieves Suggestion Source data
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 @dataService(SUGGESTION_SOURCE)
 export class SuggestionSourceDataService extends IdentifiableDataService<SuggestionSource> {
 

@@ -33,6 +33,7 @@ import {
 import {
   QualityAssuranceEventsPageComponent
 } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';
+import { provideSuggestionNotifications } from '../../notifications/provide-suggestion-notifications';
 
 const providers = [
   I18nBreadcrumbResolver,
@@ -42,7 +43,8 @@ const providers = [
   QualityAssuranceEventsPageResolver,
   QualityAssuranceSourcePageResolver,
   QualityAssuranceBreadcrumbResolver,
-  QualityAssuranceBreadcrumbService
+  QualityAssuranceBreadcrumbService,
+  provideSuggestionNotifications(),
 ];
 
 export const ROUTES: Route[] = [

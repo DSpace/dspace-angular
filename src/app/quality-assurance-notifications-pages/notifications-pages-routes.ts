@@ -34,6 +34,7 @@ import {
 import { QualityAssuranceBreadcrumbResolver } from '../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import { QualityAssuranceBreadcrumbService } from '../core/breadcrumbs/quality-assurance-breadcrumb.service';
 import { SourceDataResolver } from './quality-assurance-source-page-component/quality-assurance-source-data.resolver';
+import { provideSuggestionNotifications } from '../notifications/provide-suggestion-notifications';
 
 const providers = [
   I18nBreadcrumbResolver,
@@ -45,7 +46,8 @@ const providers = [
   QualityAssuranceEventsPageResolver,
   QualityAssuranceSourcePageResolver,
   QualityAssuranceBreadcrumbResolver,
-  QualityAssuranceBreadcrumbService
+  QualityAssuranceBreadcrumbService,
+  provideSuggestionNotifications()
 ];
 
 export const ROUTES: Route[] = [
@@ -131,10 +133,3 @@ export const ROUTES: Route[] = [
     }
   }
 ];
-
-/**
- * Routing module for the Notifications section of the admin sidebar
- */
-export class NotificationsPageRoutingModule {
-
-}
