@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BreadcrumbsComponent as BaseComponent } from '../../../../app/breadcrumbs/breadcrumbs.component';
 
 /**
@@ -9,7 +10,7 @@ import { BreadcrumbsComponent as BaseComponent } from '../../../../app/breadcrum
   // templateUrl: './breadcrumbs.component.html',
   templateUrl: '../../../../app/breadcrumbs/breadcrumbs.component.html',
   // styleUrls: ['./breadcrumbs.component.scss']
-  styleUrls: ['../../../../app/breadcrumbs/breadcrumbs.component.scss']
+  styleUrls: ['../../../../app/breadcrumbs/breadcrumbs.component.scss'],
 })
 export class BreadcrumbsComponent extends BaseComponent {
 }

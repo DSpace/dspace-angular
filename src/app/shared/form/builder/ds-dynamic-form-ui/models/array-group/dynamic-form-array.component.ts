@@ -1,6 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
@@ -10,8 +16,9 @@ import {
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicTemplateDirective
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../../../../../empty.util';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
@@ -19,14 +26,14 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 @Component({
   selector: 'ds-dynamic-form-array',
   templateUrl: './dynamic-form-array.component.html',
-  styleUrls: ['./dynamic-form-array.component.scss']
+  styleUrls: ['./dynamic-form-array.component.scss'],
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
   @Input() bindId = true;
   @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicRowArrayModel;// DynamicRow?
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
@@ -62,14 +69,14 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
         index,
         arrayModel: this.model,
         model: this.model.groups[index].group[0],
-        control: (this.control as any).controls[index]
+        control: (this.control as any).controls[index],
       }, 'move');
     }
   }
 
   update(event: any, index: number) {
     const $event = Object.assign({}, event, {
-      context: { index: index - 1}
+      context: { index: index - 1 },
     });
 
     this.onChange($event);

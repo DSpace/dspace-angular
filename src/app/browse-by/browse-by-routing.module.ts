@@ -1,31 +1,36 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { BrowseByGuard } from './browse-by-guard';
+import { RouterModule } from '@angular/router';
+
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { BrowseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
+import { BrowseByGuard } from './browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from './browse-by-i18n-breadcrumb.resolver';
-import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-browse-by-switcher.component';
+import { BrowseByPageComponent } from './browse-by-page/browse-by-page.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: '',
-        resolve: { breadcrumb: BrowseByDSOBreadcrumbResolver },
+        resolve: {
+          breadcrumb: BrowseByDSOBreadcrumbResolver,
+          menu: DSOEditMenuResolver,
+        },
         children: [
           {
             path: ':id',
-            component: ThemedBrowseBySwitcherComponent,
+            component: BrowseByPageComponent,
             canActivate: [BrowseByGuard],
             resolve: { breadcrumb: BrowseByI18nBreadcrumbResolver },
-            data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' }
-          }
-        ]
-      }])
+            data: { title: 'browse.title.page', breadcrumbKey: 'browse.metadata' },
+          },
+        ],
+      }]),
   ],
   providers: [
     BrowseByI18nBreadcrumbResolver,
-    BrowseByDSOBreadcrumbResolver
-  ]
+    BrowseByDSOBreadcrumbResolver,
+  ],
 })
 export class BrowseByRoutingModule {
 

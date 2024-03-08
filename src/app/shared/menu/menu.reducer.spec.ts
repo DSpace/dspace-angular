@@ -1,4 +1,7 @@
+// eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
+
+import { initialMenusState } from './initial-menus-state';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -9,16 +12,16 @@ import {
   ExpandMenuPreviewAction,
   HideMenuAction,
   HideMenuSectionAction,
+  ReinitMenuAction,
   RemoveMenuSectionAction,
   ShowMenuAction,
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
-  ToggleMenuAction
+  ToggleMenuAction,
 } from './menu.actions';
 import { menusReducer } from './menu.reducer';
-import { initialMenusState} from './initial-menus-state';
-import { MenuSectionIndex } from './menu-section-Index.model';
 import { MenuID } from './menu-id.model';
+import { MenuSectionIndex } from './menu-section-Index.model';
 
 let visibleSection1;
 let dummyState;
@@ -56,10 +59,10 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 0,
-              text: 'menu.section.new'
+              text: 'menu.section.new',
             },
             icon: 'plus-circle',
-            index: 0
+            index: 0,
           },
           new_item: {
             id: 'new_item',
@@ -69,8 +72,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.new_item',
-              link: '/items/submission'
-            }
+              link: '/items/submission',
+            },
           },
           new_community: {
             id: 'new_community',
@@ -80,8 +83,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.new_community',
-              link: '/communities/submission'
-            }
+              link: '/communities/submission',
+            },
           },
           access_control: {
             id: 'access_control',
@@ -89,10 +92,10 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 0,
-              text: 'menu.section.access_control'
+              text: 'menu.section.access_control',
             },
             icon: 'key',
-            index: 4
+            index: 4,
           },
           access_control_people: {
             id: 'access_control_people',
@@ -102,8 +105,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.access_control_people',
-              link: '#'
-            }
+              link: '#',
+            },
           },
           access_control_groups: {
             id: 'access_control_groups',
@@ -113,8 +116,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.access_control_groups',
-              link: '#'
-            }
+              link: '#',
+            },
           },
           new_collection: {
             id: 'new_collection',
@@ -124,9 +127,9 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.new_collection',
-              link: '/collections/submission'
-            }
-          }
+              link: '/collections/submission',
+            },
+          },
         },
         sectionToSubsectionIndex: {
           access_control: [
@@ -136,10 +139,10 @@ describe('menusReducer', () => {
           new: [
             'new_collection',
             'new_item',
-            'new_community'
-          ]
-        }
-      }
+            'new_community',
+          ],
+        },
+      },
     };
   });
 
@@ -179,6 +182,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set collapsed to false for the correct menu in response to the EXPAND_MENU action', () => {
@@ -200,6 +204,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set collapsed to false for the correct menu in response to the TOGGLE_MENU action when collapsed is true', () => {
@@ -230,6 +235,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set previewCollapsed to true for the correct menu in response to the COLLAPSE_MENU_PREVIEW action', () => {
@@ -251,6 +257,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set previewCollapsed to false for the correct menu in response to the EXPAND_MENU_PREVIEW action', () => {
@@ -272,6 +279,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set visible to true for the correct menu in response to the SHOW_MENU action', () => {
@@ -293,6 +301,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set previewCollapsed to false for the correct menu in response to the HIDE_MENU action', () => {
@@ -314,6 +323,18 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
+  });
+
+  it('should reset the menu state to the initial state when performing the REINIT_MENUS action without affecting the previous state', () => {
+    dummyState[MenuID.ADMIN].visible = true;
+    const state = dummyState;
+    deepFreeze([state]);
+
+    const action = new ReinitMenuAction();
+    const menusState = menusReducer(state, action);
+    expect(menusState).toEqual(initialMenusState);
+
   });
 
   it('should set add a new section for the correct menu in response to the ADD_SECTION action', () => {
@@ -346,6 +367,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should remove a section for the correct menu in response to the REMOVE_SECTION action', () => {
@@ -382,6 +404,10 @@ describe('menusReducer', () => {
 
     const action = new ActivateMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set active to false for the correct menu section in response to the DEACTIVATE_SECTION action', () => {
@@ -400,6 +426,10 @@ describe('menusReducer', () => {
 
     const action = new DeactivateMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set active to false for the correct menu in response to the TOGGLE_ACTIVE_SECTION action when active is true', () => {
@@ -429,6 +459,7 @@ describe('menusReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set visible to true for the correct menu section in response to the SHOW_SECTION action', () => {
@@ -447,6 +478,10 @@ describe('menusReducer', () => {
 
     const action = new ShowMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set visible to false for the correct menu section in response to the HIDE_SECTION action', () => {
@@ -465,5 +500,9 @@ describe('menusReducer', () => {
 
     const action = new HideMenuSectionAction(menuID, topSectionID);
     menusReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 });

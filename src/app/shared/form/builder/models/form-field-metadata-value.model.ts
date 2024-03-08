@@ -1,6 +1,14 @@
-import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
+import {
+  MetadataValueInterface,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../../core/shared/metadata.models';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface OtherInformation {
@@ -11,6 +19,10 @@ export interface OtherInformation {
  * A class representing a specific input-form field's value
  */
 export class FormFieldMetadataValueObject implements MetadataValueInterface {
+
+  static readonly AUTHORITY_SPLIT: string = '::';
+  static readonly AUTHORITY_GENERATE: string = 'will be generated' + FormFieldMetadataValueObject.AUTHORITY_SPLIT;
+
   metadata?: string;
   value: any;
   display: string;
@@ -22,13 +34,13 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   otherInformation: OtherInformation;
 
   constructor(value: any = null,
-              language: any = null,
-              authority: string = null,
-              display: string = null,
-              place: number = 0,
-              confidence: number = null,
-              otherInformation: any = null,
-              metadata: string = null) {
+    language: any = null,
+    authority: string = null,
+    display: string = null,
+    place: number = 0,
+    confidence: number = null,
+    otherInformation: any = null,
+    metadata: string = null) {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
     this.authority = authority;
@@ -56,6 +68,13 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
    */
   hasAuthority(): boolean {
     return isNotEmpty(this.authority);
+  }
+
+  /**
+   * Returns true if this object has an authority value that needs to be generated
+   */
+  hasAuthorityToGenerate(): boolean {
+    return isNotEmpty(this.authority) && this.authority.startsWith(FormFieldMetadataValueObject.AUTHORITY_GENERATE);
   }
 
   /**

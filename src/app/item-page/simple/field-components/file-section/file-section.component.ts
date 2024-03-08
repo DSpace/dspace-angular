@@ -1,15 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { hasValue } from '../../../../shared/empty.util';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { hasValue } from '../../../../shared/empty.util';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 
 /**
  * This component renders the file section of the item
@@ -17,7 +27,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
  */
 @Component({
   selector: 'ds-item-page-file-section',
-  templateUrl: './file-section.component.html'
+  templateUrl: './file-section.component.html',
 })
 export class FileSectionComponent implements OnInit {
 
@@ -35,17 +45,32 @@ export class FileSectionComponent implements OnInit {
 
   isLastPage: boolean;
 
-  pageSize = 5;
+  pageSize: number;
+
+  primaryBitsreamId: string;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    public dsoNameService: DSONameService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
+    this.pageSize = this.appConfig.item.bitstream.pageSize;
   }
 
   ngOnInit(): void {
+    this.getPrimaryBitstreamId();
     this.getNextPage();
+  }
+
+  private getPrimaryBitstreamId() {
+    this.bitstreamDataService.findPrimaryBitstreamByItemAndName(this.item, 'ORIGINAL', true, true).subscribe((primaryBitstream: Bitstream | null) => {
+      if (!primaryBitstream) {
+        return;
+      }
+      this.primaryBitsreamId = primaryBitstream?.id;
+    });
   }
 
   /**
@@ -64,7 +89,7 @@ export class FileSectionComponent implements OnInit {
     }
     this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
       currentPage: this.currentPage,
-      elementsPerPage: this.pageSize
+      elementsPerPage: this.pageSize,
     }).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {

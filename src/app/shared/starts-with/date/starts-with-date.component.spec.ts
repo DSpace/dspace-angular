@@ -1,59 +1,59 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { StartsWithDateComponent } from './starts-with-date.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
-import { RouterStub } from '../../testing/router.stub';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { RouterStub } from '../../testing/router.stub';
+import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { StartsWithDateComponent } from './starts-with-date.component';
 
 describe('StartsWithDateComponent', () => {
   let comp: StartsWithDateComponent;
   let fixture: ComponentFixture<StartsWithDateComponent>;
-  let route: ActivatedRoute;
-  let router: Router;
-  let paginationService;
+
+  let route: ActivatedRouteStub;
+  let paginationService: PaginationServiceStub;
+  let router: RouterStub;
 
   const options = [2019, 2018, 2017, 2016, 2015];
 
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({}),
-    queryParams: observableOf({})
-  });
+  beforeEach(waitForAsync(async () => {
+    route = new ActivatedRouteStub();
+    router = new RouterStub();
+    paginationService = new PaginationServiceStub();
 
-  paginationService = new PaginationServiceStub();
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [StartsWithDateComponent, EnumKeysPipe],
       providers: [
-        { provide: 'startsWithOptions', useValue: options },
-        { provide: 'paginationId', useValue: 'page-id' },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: ActivatedRoute, useValue: route },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: new RouterStub() }
+        { provide: Router, useValue: router },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StartsWithDateComponent);
     comp = fixture.componentInstance;
+    comp.paginationId = 'page-id';
+    comp.startsWithOptions = options;
     fixture.detectChanges();
-    route = (comp as any).route;
-    router = (comp as any).router;
   });
 
   it('should create a FormGroup containing a startsWith FormControl', () => {
@@ -101,7 +101,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
     });
 
     it('should automatically fill in the input field', () => {
@@ -123,7 +123,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
       });
 
       it('should automatically fill in the input field', () => {
@@ -147,7 +147,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
       });
 
       it('should automatically fill in the input field', () => {
@@ -159,10 +159,6 @@ describe('StartsWithDateComponent', () => {
   describe('when filling in the input form', () => {
     let form;
     const expectedValue = '2015';
-    const extras: NavigationExtras = {
-      queryParams: Object.assign({ startsWith: expectedValue }),
-      queryParamsHandling: 'merge'
-    };
 
     beforeEach(() => {
       form = fixture.debugElement.query(By.css('form'));
@@ -176,7 +172,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
     });
   });
 

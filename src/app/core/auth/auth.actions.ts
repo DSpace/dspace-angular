@@ -1,12 +1,13 @@
 /* eslint-disable max-classes-per-file */
 // import @ngrx
 import { Action } from '@ngrx/store';
+
 // import type function
 import { type } from '../../shared/ngrx/type';
-// import models
-import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
+// import models
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
@@ -17,6 +18,7 @@ export const AuthActionTypes = {
   AUTHENTICATED_SUCCESS: type('dspace/auth/AUTHENTICATED_SUCCESS'),
   CHECK_AUTHENTICATION_TOKEN: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN'),
   CHECK_AUTHENTICATION_TOKEN_COOKIE: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_COOKIE'),
+  SET_AUTH_COOKIE_STATUS: type('dspace/auth/SET_AUTH_COOKIE_STATUS'),
   RETRIEVE_AUTH_METHODS: type('dspace/auth/RETRIEVE_AUTH_METHODS'),
   RETRIEVE_AUTH_METHODS_SUCCESS: type('dspace/auth/RETRIEVE_AUTH_METHODS_SUCCESS'),
   RETRIEVE_AUTH_METHODS_ERROR: type('dspace/auth/RETRIEVE_AUTH_METHODS_ERROR'),
@@ -37,7 +39,7 @@ export const AuthActionTypes = {
   RETRIEVE_AUTHENTICATED_EPERSON_ERROR: type('dspace/auth/RETRIEVE_AUTHENTICATED_EPERSON_ERROR'),
   REDIRECT_AFTER_LOGIN_SUCCESS: type('dspace/auth/REDIRECT_AFTER_LOGIN_SUCCESS'),
   SET_USER_AS_IDLE: type('dspace/auth/SET_USER_AS_IDLE'),
-  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE')
+  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE'),
 };
 
 
@@ -148,6 +150,19 @@ export class CheckAuthenticationTokenAction implements Action {
  */
 export class CheckAuthenticationTokenCookieAction implements Action {
   public type: string = AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE;
+}
+
+/**
+ * Sets the authentication cookie status to flag an external authentication response.
+ */
+export class SetAuthCookieStatus implements Action {
+  public type: string = AuthActionTypes.SET_AUTH_COOKIE_STATUS;
+
+  payload = false;
+
+  constructor(exists: boolean) {
+    this.payload = exists;
+  }
 }
 
 /**
@@ -413,18 +428,26 @@ export class UnsetUserAsIdleAction implements Action {
 }
 
 /**
+ * Authentication error actions that include Error payloads.
+ */
+export type AuthErrorActionsWithErrorPayload
+  = AuthenticatedErrorAction
+  | AuthenticationErrorAction
+  | LogOutErrorAction
+  | RetrieveAuthenticatedEpersonErrorAction;
+
+/**
  * Actions type.
  * @type {AuthActions}
  */
 export type AuthActions
   = AuthenticateAction
   | AuthenticatedAction
-  | AuthenticatedErrorAction
   | AuthenticatedSuccessAction
-  | AuthenticationErrorAction
   | AuthenticationSuccessAction
   | CheckAuthenticationTokenAction
   | CheckAuthenticationTokenCookieAction
+  | SetAuthCookieStatus
   | RedirectWhenAuthenticationIsRequiredAction
   | RedirectWhenTokenExpiredAction
   | AddAuthenticationMessageAction
@@ -437,10 +460,9 @@ export type AuthActions
   | RetrieveAuthMethodsErrorAction
   | RetrieveTokenAction
   | RetrieveAuthenticatedEpersonAction
-  | RetrieveAuthenticatedEpersonErrorAction
   | RetrieveAuthenticatedEpersonSuccessAction
   | SetRedirectUrlAction
   | RedirectAfterLoginSuccessAction
   | SetUserAsIdleAction
-  | UnsetUserAsIdleAction;
-
+  | UnsetUserAsIdleAction
+  | AuthErrorActionsWithErrorPayload;

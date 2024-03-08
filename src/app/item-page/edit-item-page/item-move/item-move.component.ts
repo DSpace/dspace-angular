@@ -1,25 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { ItemDataService } from '../../../core/data/item-data.service';
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Collection } from '../../../core/shared/collection.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { Item } from '../../../core/shared/item.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  getItemEditRoute,
+  getItemPageRoute,
+} from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-move',
-  templateUrl: './item-move.component.html'
+  templateUrl: './item-move.component.html',
 })
 /**
  * Component that handles the moving of an item to a different collection
@@ -57,19 +74,20 @@ export class ItemMoveComponent implements OnInit {
               private searchService: SearchService,
               private translateService: TranslateService,
               private requestService: RequestService,
+              protected dsoNameService: DSONameService,
   ) {}
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.dso), getFirstSucceededRemoteData()
+      map((data) => data.dso), getFirstSucceededRemoteData(),
     ) as Observable<RemoteData<Item>>;
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((item) => getItemPageRoute(item))
+      map((item) => getItemPageRoute(item)),
     );
     this.itemRD$.subscribe((rd) => {
-        this.item = rd.payload;
-      }
+      this.item = rd.payload;
+    },
     );
     this.itemRD$.pipe(
       getFirstSucceededRemoteData(),
@@ -88,7 +106,7 @@ export class ItemMoveComponent implements OnInit {
    */
   selectDso(data: any): void {
     this.selectedCollection = data;
-    this.selectedCollectionName = data.name;
+    this.selectedCollectionName = this.dsoNameService.getName(data);
     this.canSubmit = true;
   }
 
@@ -104,7 +122,7 @@ export class ItemMoveComponent implements OnInit {
    */
   moveToCollection() {
     this.processing = true;
-    const move$ = this.itemDataService.moveToCollection(this.item.id, this.selectedCollection)
+    const move$ = this.itemDataService.moveToCollection(this.item.id, this.selectedCollection, this.inheritPolicies)
       .pipe(getFirstCompletedRemoteData());
 
     move$.subscribe((response: RemoteData<any>) => {
@@ -122,9 +140,9 @@ export class ItemMoveComponent implements OnInit {
           this.item.id,
           false,
           true,
-          followLink('owningCollection')
-      )),
-      getFirstCompletedRemoteData()
+          followLink('owningCollection'),
+        )),
+      getFirstCompletedRemoteData(),
     ).subscribe(() => {
       this.processing = false;
       this.router.navigate([getItemEditRoute(this.item)]);

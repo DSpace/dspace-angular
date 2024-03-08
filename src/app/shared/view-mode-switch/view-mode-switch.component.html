@@ -1,5 +1,7 @@
 <div class="btn-group" data-toggle="buttons">
-    <a *ngIf="isToShow(viewModeEnum.ListElement)"
+    <button *ngIf="isToShow(viewModeEnum.ListElement)"
+            [attr.aria-current]="currentMode === viewModeEnum.ListElement"
+            [attr.aria-label]="'search.view-switch.show-list' | translate"
        routerLink="."
        [queryParams]="{view: 'list'}"
        queryParamsHandling="merge"
@@ -8,9 +10,11 @@
        [class.active]="currentMode === viewModeEnum.ListElement"
        class="btn btn-secondary"
        [attr.data-test]="'list-view' | dsBrowserOnly">
-          <i class="fas fa-list" title="{{'search.view-switch.show-list' | translate}}"></i>
-    </a>
-    <a *ngIf="isToShow(viewModeEnum.GridElement)"
+       <i class="fas fa-list"></i>
+    </button>
+    <button *ngIf="isToShow(viewModeEnum.GridElement)"
+            [attr.aria-current]="currentMode === viewModeEnum.GridElement"
+            [attr.aria-label]="'search.view-switch.show-grid' | translate"
        routerLink="."
        [queryParams]="{view: 'grid'}"
        queryParamsHandling="merge"
@@ -19,9 +23,9 @@
        [class.active]="currentMode === viewModeEnum.GridElement"
        class="btn btn-secondary"
        [attr.data-test]="'grid-view' | dsBrowserOnly">
-          <i class="fas fa-th-large" title="{{'search.view-switch.show-grid' | translate}}"></i>
-    </a>
-    <a *ngIf="isToShow(viewModeEnum.DetailedListElement)"
+       <i class="fas fa-th-large"></i>
+    </button>
+    <button *ngIf="isToShow(viewModeEnum.DetailedListElement)"
        routerLink="."
        [queryParams]="{view: 'detailed'}"
        queryParamsHandling="merge"
@@ -30,6 +34,6 @@
        [class.active]="currentMode === viewModeEnum.DetailedListElement"
        class="btn btn-secondary"
        [attr.data-test]="'detail-view' | dsBrowserOnly">
-      <i class="far fa-square" title="{{'search.view-switch.show-detail' | translate}}"></i>
-    </a>
+      <span class="far fa-square"></span><span class="sr-only">{{'search.view-switch.show-detail' | translate}}</span>
+    </button>
 </div>

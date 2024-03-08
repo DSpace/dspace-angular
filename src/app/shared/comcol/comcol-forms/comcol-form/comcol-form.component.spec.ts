@@ -1,12 +1,25 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../core/data/request.service';
@@ -15,11 +28,13 @@ import { Community } from '../../../../core/shared/community.model';
 import { hasValue } from '../../../empty.util';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComColFormComponent } from './comcol-form.component';
-import { Operation } from 'fast-json-patch';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<any>;
@@ -30,12 +45,12 @@ describe('ComColFormComponent', () => {
       const controls = {};
       if (hasValue(fModel)) {
         fModel.forEach((controlModel) => {
-          controls[controlModel.id] = new FormControl((controlModel as any).value);
+          controls[controlModel.id] = new UntypedFormControl((controlModel as any).value);
         });
-        return new FormGroup(controls);
+        return new UntypedFormGroup(controls);
       }
       return undefined;
-    }
+    },
   };
   const dcTitle = 'dc.title';
   const dcAbstract = 'dc.description.abstract';
@@ -46,22 +61,22 @@ describe('ComColFormComponent', () => {
     new DynamicInputModel({
       id: 'title',
       name: dcTitle,
-      value: newTitleMD[dcTitle][0].value
+      value: newTitleMD[dcTitle][0].value,
     }),
     new DynamicInputModel({
       id: 'abstract',
       name: dcAbstract,
-      value: abstractMD[dcAbstract][0].value
-    })
+      value: abstractMD[dcAbstract][0].value,
+    }),
   ];
 
   const logo = {
-    id: 'logo'
+    id: 'logo',
   };
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
-    deleteLogo: () => createSuccessfulRemoteDataObject$({})
+    deleteLogo: () => createSuccessfulRemoteDataObject$({}),
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -70,10 +85,10 @@ describe('ComColFormComponent', () => {
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
-    removeByHrefSubstring: {}
+    removeByHrefSubstring: {},
   });
   const objectCacheStub = jasmine.createSpyObj('objectCache', {
-    remove: {}
+    remove: {},
   });
 
   beforeEach(waitForAsync(() => {
@@ -86,16 +101,16 @@ describe('ComColFormComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: RequestService, useValue: requestServiceStub },
-        { provide: ObjectCacheService, useValue: objectCacheStub }
+        { provide: ObjectCacheService, useValue: objectCacheStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   describe('when the dso doesn\'t contain an ID (newly created)', () => {
     beforeEach(() => {
       initComponent(Object.assign(new Community(), {
-        _links: { self: { href: 'community-self' } }
+        _links: { self: { href: 'community-self' } },
       }));
     });
 
@@ -135,23 +150,23 @@ describe('ComColFormComponent', () => {
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
             dso: Object.assign({}, comp.dso, {
-                metadata: {
-                  'dc.title': [{
-                    value: 'New Community Title',
-                    language: null,
-                  }],
-                  'dc.description.abstract': [{
-                    value: 'Community description',
-                    language: null,
-                  }],
-                },
-                type: Community.type,
-              }
+              metadata: {
+                'dc.title': [{
+                  value: 'New Community Title',
+                  language: null,
+                }],
+                'dc.description.abstract': [{
+                  value: 'Community description',
+                  language: null,
+                }],
+              },
+              type: Community.type,
+            },
             ),
             uploader: undefined,
             deleteLogo: false,
             operations: operations,
-          }
+          },
         );
       });
     });
@@ -193,7 +208,7 @@ describe('ComColFormComponent', () => {
         initComponent(Object.assign(new Community(), {
           id: 'community-id',
           logo: createSuccessfulRemoteDataObject$(undefined),
-          _links: { self: { href: 'community-self' } }
+          _links: { self: { href: 'community-self' } },
         }));
       });
 
@@ -214,7 +229,7 @@ describe('ComColFormComponent', () => {
           _links: {
             self: { href: 'community-self' },
             logo: { href: 'community-logo' },
-          }
+          },
         }));
       });
 

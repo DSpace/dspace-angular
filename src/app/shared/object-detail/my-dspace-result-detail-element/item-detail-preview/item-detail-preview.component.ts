@@ -1,16 +1,19 @@
-import { Component, Input } from '@angular/core';
-
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { fadeInOut } from '../../../animations/fade';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Context } from '../../../../core/shared/context.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { Item } from '../../../../core/shared/item.model';
+import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
+import { fadeInOut } from '../../../animations/fade';
 import { SearchResult } from '../../../search/models/search-result.model';
 
 /**
@@ -20,10 +23,9 @@ import { SearchResult } from '../../../search/models/search-result.model';
   selector: 'ds-item-detail-preview',
   styleUrls: ['./item-detail-preview.component.scss'],
   templateUrl: './item-detail-preview.component.html',
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 export class ItemDetailPreviewComponent {
-
   /**
    * The item to display
    */
@@ -35,9 +37,9 @@ export class ItemDetailPreviewComponent {
   @Input() object: SearchResult<any>;
 
   /**
-   * Represent item's status
+   * Represents the badge context
    */
-  @Input() status: MyDspaceItemStatusType;
+  @Input() badgeContext: Context;
 
   /**
    * A boolean representing if to show submitter information
@@ -54,16 +56,12 @@ export class ItemDetailPreviewComponent {
    */
   public separator = ', ';
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {FileService} fileService
-   * @param {HALEndpointService} halService
-   * @param {BitstreamDataService} bitstreamDataService
-   */
-  constructor(private fileService: FileService,
-              private halService: HALEndpointService,
-              private bitstreamDataService: BitstreamDataService) {
+  constructor(
+    protected fileService: FileService,
+    protected halService: HALEndpointService,
+    protected bitstreamDataService: BitstreamDataService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   /**
@@ -83,7 +81,7 @@ export class ItemDetailPreviewComponent {
     return this.bitstreamDataService
       .findAllByItemAndBundleName(this.item, 'ORIGINAL', { elementsPerPage: Number.MAX_SAFE_INTEGER })
       .pipe(
-        getFirstSucceededRemoteListPayload()
+        getFirstSucceededRemoteListPayload(),
       );
   }
 }

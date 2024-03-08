@@ -1,17 +1,22 @@
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
   selector: 'ds-item-metadata-representation-list-element',
-  template: ''
+  template: '',
 })
 /**
  * An abstract class for displaying a single ItemMetadataRepresentation
  */
 export class ItemMetadataRepresentationListElementComponent extends MetadataRepresentationListElementComponent implements OnInit {
-  metadataRepresentation: ItemMetadataRepresentation;
+  @Input() mdRepresentation: ItemMetadataRepresentation;
 
   /**
    * Route to the item's page
@@ -19,6 +24,6 @@ export class ItemMetadataRepresentationListElementComponent extends MetadataRepr
   itemPageRoute: string;
 
   ngOnInit(): void {
-    this.itemPageRoute = getItemPageRoute(this.metadataRepresentation);
+    this.itemPageRoute = getItemPageRoute(this.mdRepresentation);
   }
 }

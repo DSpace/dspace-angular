@@ -1,18 +1,33 @@
-import { ItemStatusComponent } from './item-status.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { HostWindowService } from '../../../shared/host-window.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
-import { Item } from '../../../core/shared/item.model';
-import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { Item } from '../../../core/shared/item.model';
+import { HostWindowService } from '../../../shared/host-window.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+import { ItemStatusComponent } from './item-status.component';
+
+let mockIdentifierDataService: IdentifierDataService;
+let mockConfigurationDataService: ConfigurationDataService;
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;
@@ -24,23 +39,43 @@ describe('ItemStatusComponent', () => {
     handle: 'fake/handle',
     lastModified: '2018',
     _links: {
-      self: { href: 'test-item-selflink' }
-    }
+      self: { href: 'test-item-selflink' },
+    },
+  });
+
+  mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
+    getIdentifierDataFor: createSuccessfulRemoteDataObject$({ 'identifiers': [] }),
+    getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true'),
+  });
+
+  mockConfigurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'identifiers.item-status.register-doi',
+      values: [
+        'true',
+      ],
+    })),
   });
 
   const itemPageUrl = `/items/${mockItem.uuid}`;
 
   const routeStub = {
     parent: {
-      data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
-    }
+      data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+    },
   };
 
   let authorizationService: AuthorizationDataService;
+  let orcidAuthService: any;
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
+    });
+
+    orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
+      onlyAdminCanDisconnectProfileFromOrcid: observableOf ( true ),
+      isLinkedToOrcid: true,
     });
 
     TestBed.configureTestingModule({
@@ -50,7 +85,10 @@ describe('ItemStatusComponent', () => {
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: AuthorizationDataService, useValue: authorizationService },
-      ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        { provide: IdentifierDataService, useValue: mockIdentifierDataService },
+        { provide: ConfigurationDataService, useValue: mockConfigurationDataService },
+        { provide: OrcidAuthService, useValue: orcidAuthService },
+      ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -1,17 +1,39 @@
-import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { fadeIn, fadeInOut } from '../animations/fade';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { getStartsWithComponent, StartsWithType } from '../starts-with/starts-with-decorator';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { RouteService } from '../../core/services/route.service';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { RouteService } from '../../core/services/route.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../animations/fade';
 import { hasValue } from '../empty.util';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { StartsWithType } from '../starts-with/starts-with-decorator';
 
 @Component({
   selector: 'ds-browse-by',
@@ -19,13 +41,13 @@ import { hasValue } from '../empty.util';
   templateUrl: './browse-by.component.html',
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 /**
  * Component to display a browse-by page for any ListableObject
  */
-export class BrowseByComponent implements OnInit, OnDestroy {
+export class BrowseByComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
@@ -38,9 +60,10 @@ export class BrowseByComponent implements OnInit, OnDestroy {
   @Input() title: string;
 
   /**
-   * The parent name
+   * Whether the title should be displayed
    */
-  @Input() parentname: string;
+  @Input() displayTitle = true;
+
   /**
    * The list of objects to display
    */
@@ -65,7 +88,7 @@ export class BrowseByComponent implements OnInit, OnDestroy {
   /**
    * The list of options to render for the StartsWith component
    */
-  @Input() startsWithOptions = [];
+  @Input() startsWithOptions: (string | number)[] = [];
 
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
@@ -98,16 +121,6 @@ export class BrowseByComponent implements OnInit, OnDestroy {
   @Output() sortDirectionChange = new EventEmitter<SortDirection>();
 
   /**
-   * An object injector used to inject the startsWithOptions to the switchable StartsWith component
-   */
-  objectInjector: Injector;
-
-  /**
-   * Declare SortDirection enumeration to use it in the template
-   */
-  public sortDirections = SortDirection;
-
-  /**
    * Observable that tracks if the back button should be displayed based on the path parameters
    */
   shouldDisplayResetButton$: Observable<boolean>;
@@ -124,10 +137,24 @@ export class BrowseByComponent implements OnInit, OnDestroy {
 
   public constructor(private injector: Injector,
                      protected paginationService: PaginationService,
+                     protected translateService: TranslateService,
                      private routeService: RouteService,
   ) {
 
   }
+
+  /**
+   * The label used by the back button.
+   */
+  buttonLabel = this.translateService.get('browse.back.all-results');
+
+  /**
+   * The function used for back navigation in metadata browse.
+   */
+  back = () => {
+    const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
+    this.paginationService.updateRoute(this.paginationConfig.id, { page: page }, { [this.paginationConfig.id + '.return']: null, value: null, startsWith: null });
+  };
 
   /**
    * Go to the previous page
@@ -143,53 +170,20 @@ export class BrowseByComponent implements OnInit, OnDestroy {
     this.next.emit(true);
   }
 
-  /**
-   * Change the page size
-   * @param size
-   */
-  doPageSizeChange(size) {
-    this.paginationService.updateRoute(this.paginationConfig.id,{pageSize: size});
-  }
-
-  /**
-   * Change the sort direction
-   * @param direction
-   */
-  doSortDirectionChange(direction) {
-    this.paginationService.updateRoute(this.paginationConfig.id,{sortDirection: direction});
-  }
-
-  /**
-   * Get the switchable StartsWith component dependant on the type
-   */
-  getStartsWithComponent() {
-    return getStartsWithComponent(this.type);
-  }
-
   ngOnInit(): void {
-    this.objectInjector = Injector.create({
-      providers: [
-        { provide: 'startsWithOptions', useFactory: () => (this.startsWithOptions), deps:[] },
-        { provide: 'paginationId', useFactory: () => (this.paginationConfig?.id), deps:[] }
-      ],
-      parent: this.injector
-    });
-
     const startsWith$ = this.routeService.getQueryParameterValue('startsWith');
     const value$ = this.routeService.getQueryParameterValue('value');
 
     this.shouldDisplayResetButton$ = observableCombineLatest([startsWith$, value$]).pipe(
-      map(([startsWith, value]) => hasValue(startsWith) || hasValue(value))
+      map(([startsWith, value]) => hasValue(startsWith) || hasValue(value)),
     );
-    this.sub = this.routeService.getQueryParameterValue(this.paginationConfig.id + '.return').subscribe(this.previousPage$);
   }
 
-  /**
-   * Navigate back to the previous browse by page
-   */
-  back() {
-    const page = +this.previousPage$.value > 1 ? +this.previousPage$.value : 1;
-    this.paginationService.updateRoute(this.paginationConfig.id, {page: page}, {[this.paginationConfig.id + '.return']: null, value: null, startsWith: null});
+  ngOnChanges(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+    this.sub = this.routeService.getQueryParameterValue(this.paginationConfig.id + '.return').subscribe(this.previousPage$);
   }
 
   ngOnDestroy(): void {

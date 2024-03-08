@@ -1,18 +1,25 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SearchResult } from '../../search/models/search-result.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
 import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-search-result-list-element',
-  template: ``
+  template: ``,
 })
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**
@@ -22,9 +29,9 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   dsoTitle: string;
 
   public constructor(protected truncatableService: TruncatableService,
-                     protected dsoNameService: DSONameService,
+                     public dsoNameService: DSONameService,
                      @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
-    super();
+    super(dsoNameService);
   }
 
   /**
@@ -33,7 +40,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
-      this.dsoTitle = this.dsoNameService.getName(this.dso);
+      this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.dso);
     }
   }
 

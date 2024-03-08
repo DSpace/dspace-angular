@@ -1,13 +1,14 @@
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { Component } from '@angular/core';
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
+
+import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
+import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @metadataRepresentationComponent('Publication', MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-item-metadata-list-element',
-  templateUrl: './item-metadata-list-element.component.html'
+  templateUrl: './item-metadata-list-element.component.html',
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of items

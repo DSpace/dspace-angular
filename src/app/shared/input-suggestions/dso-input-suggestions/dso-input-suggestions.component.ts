@@ -1,10 +1,16 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  Input,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputSuggestionsComponent } from '../input-suggestions.component';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
-import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { hasValue } from '../../empty.util';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
+import { InputSuggestionsComponent } from '../input-suggestions.component';
 
 @Component({
   selector: 'ds-dso-input-suggestions',
@@ -16,9 +22,9 @@ import { hasValue } from '../../empty.util';
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
       // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => DsoInputSuggestionsComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 
 /**
@@ -42,16 +48,22 @@ export class DsoInputSuggestionsComponent extends InputSuggestionsComponent {
 
   currentObject: DSpaceObject;
 
+  constructor(
+    protected dsoNameService: DSONameService,
+  ) {
+    super();
+  }
+
   onSubmit(data: DSpaceObject) {
     if (hasValue(data)) {
-      this.value = data.name;
+      this.value = this.dsoNameService.getName(data);
       this.currentObject = data;
       this.submitSuggestion.emit(data);
     }
   }
 
   onClickSuggestion(data: DSpaceObject) {
-    this.value = data.name;
+    this.value = this.dsoNameService.getName(data);
     this.currentObject = data;
     this.clickSuggestion.emit(data);
     this.close();

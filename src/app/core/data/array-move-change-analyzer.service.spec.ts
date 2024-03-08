@@ -1,6 +1,7 @@
-import { ArrayMoveChangeAnalyzer } from './array-move-change-analyzer.service';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Operation } from 'fast-json-patch';
+
+import { ArrayMoveChangeAnalyzer } from './array-move-change-analyzer.service';
 
 /**
  * Helper class for creating move tests
@@ -28,7 +29,7 @@ describe('ArrayMoveChangeAnalyzer', () => {
         '4d7d0798-a8fa-45b8-b4fc-deb2819606c8',
         'e56eb99e-2f7c-4bee-9b3f-d3dcc83386b1',
         '0f608168-cdfc-46b0-92ce-889f7d3ac684',
-        '546f9f5c-15dc-4eec-86fe-648007ac9e1c'
+        '546f9f5c-15dc-4eec-86fe-648007ac9e1c',
       ];
     });
 
@@ -41,21 +42,28 @@ describe('ArrayMoveChangeAnalyzer', () => {
     ], new MoveTest(0, 3));
 
     testMove([
+      { op: 'move', from: '/2', path: '/3' },
       { op: 'move', from: '/0', path: '/3' },
-      { op: 'move', from: '/2', path: '/1' }
     ], new MoveTest(0, 3), new MoveTest(1, 2));
 
     testMove([
+      { op: 'move', from: '/3', path: '/4' },
       { op: 'move', from: '/0', path: '/1' },
-      { op: 'move', from: '/3', path: '/4' }
     ], new MoveTest(0, 1), new MoveTest(3, 4));
 
     testMove([], new MoveTest(0, 4), new MoveTest(4, 0));
 
     testMove([
+      { op: 'move', from: '/2', path: '/3' },
       { op: 'move', from: '/0', path: '/3' },
-      { op: 'move', from: '/2', path: '/1' }
     ], new MoveTest(0, 4), new MoveTest(1, 3), new MoveTest(2, 4));
+
+    testMove([
+      { op: 'move', from: '/3', path: '/4' },
+      { op: 'move', from: '/2', path: '/4' },
+      { op: 'move', from: '/1', path: '/3' },
+      { op: 'move', from: '/0', path: '/3' },
+    ], new MoveTest(4, 1), new MoveTest(4, 2), new MoveTest(0, 3));
   });
 
   describe('when some values are undefined (index 2 and 3)', () => {
@@ -65,7 +73,7 @@ describe('ArrayMoveChangeAnalyzer', () => {
         '4d7d0798-a8fa-45b8-b4fc-deb2819606c8',
         undefined,
         undefined,
-        '546f9f5c-15dc-4eec-86fe-648007ac9e1c'
+        '546f9f5c-15dc-4eec-86fe-648007ac9e1c',
       ];
     });
 

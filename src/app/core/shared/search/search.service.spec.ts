@@ -1,31 +1,41 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { SearchService } from './search.service';
-import { Router, UrlTree } from '@angular/router';
-import { RequestService } from '../../data/request.service';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { HALEndpointService } from '../hal-endpoint.service';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { RemoteData } from '../../data/remote-data';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { CommunityDataService } from '../../data/community-data.service';
-import { ViewMode } from '../view-mode.model';
-import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
-import { map } from 'rxjs/operators';
-import { RouteService } from '../../services/route.service';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SearchObjects } from '../../../shared/search/models/search-objects.model';
-import { PaginationService } from '../../pagination/pagination.service';
-import { SearchConfigurationService } from './search-configuration.service';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RequestEntry } from '../../data/request-entry.model';
+import { TestBed } from '@angular/core/testing';
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Angulartics2 } from 'angulartics2';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { SearchObjects } from '../../../shared/search/models/search-objects.model';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CommunityDataService } from '../../data/community-data.service';
+import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { PaginationService } from '../../pagination/pagination.service';
+import { RouteService } from '../../services/route.service';
+import { HALEndpointService } from '../hal-endpoint.service';
+import { ViewMode } from '../view-mode.model';
+import { SearchService } from './search.service';
+import { SearchConfigurationService } from './search-configuration.service';
+import anything = jasmine.anything;
 
 @Component({ template: '' })
 class DummyComponent {
@@ -36,17 +46,17 @@ describe('SearchService', () => {
     let searchService: SearchService;
     const router = new RouterStub();
     const route = new ActivatedRouteStub();
-    const searchConfigService = {paginationID: 'page-id'};
+    const searchConfigService = { paginationID: 'page-id' };
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
-          ])
+          ]),
         ],
         declarations: [
-          DummyComponent
+          DummyComponent,
         ],
         providers: [
           { provide: Router, useValue: router },
@@ -59,7 +69,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: {} },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
-          SearchService
+          SearchService,
         ],
       });
       searchService = TestBed.inject(SearchService);
@@ -79,7 +89,7 @@ describe('SearchService', () => {
     const halService = {
       /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
       getEndpoint: () => {
-      }
+      },
       /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
 
     };
@@ -89,7 +99,7 @@ describe('SearchService', () => {
         return observableCombineLatest([requestEntryObs, payloadObs]).pipe(
           map(([req, pay]) => {
             return { req, pay };
-          })
+          }),
         );
       },
       aggregate: (input: Observable<RemoteData<any>>[]): Observable<RemoteData<any[]>> => {
@@ -97,13 +107,14 @@ describe('SearchService', () => {
       },
       buildFromHref: (href: string): Observable<RemoteData<any>> => {
         return createSuccessfulRemoteDataObject$(Object.assign(new SearchObjects(), {
-          page: []
+          page: [],
         }));
-      }
+      },
     };
 
     const paginationService = new PaginationServiceStub();
-    const searchConfigService = {paginationID: 'page-id'};
+    const searchConfigService = { paginationID: 'page-id' };
+    const requestService = getMockRequestService();
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -111,15 +122,15 @@ describe('SearchService', () => {
           CommonModule,
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
-          ])
+          ]),
         ],
         declarations: [
-          DummyComponent
+          DummyComponent,
         ],
         providers: [
           { provide: Router, useValue: router },
           { provide: RouteService, useValue: routeServiceStub },
-          { provide: RequestService, useValue: getMockRequestService() },
+          { provide: RequestService, useValue: requestService },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
           { provide: CommunityDataService, useValue: {} },
@@ -127,7 +138,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: paginationService },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
-          SearchService
+          SearchService,
         ],
       });
       searchService = TestBed.inject(SearchService);
@@ -138,13 +149,13 @@ describe('SearchService', () => {
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.ListElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.ListElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.ListElement },
       );
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.GridElement);
-      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], {page: 1}, { view: ViewMode.GridElement }
+      expect(paginationService.updateRouteWithUrl).toHaveBeenCalledWith('page-id', ['/search'], { page: 1 }, { view: ViewMode.GridElement },
       );
     });
 
@@ -189,6 +200,24 @@ describe('SearchService', () => {
 
       it('should call getByHref on the request service with the correct request url', () => {
         expect((searchService as any).rdb.buildFromHref).toHaveBeenCalledWith(endPoint);
+      });
+    });
+
+    describe('when getFacetValuesFor is called with a filterQuery', () => {
+      it('should add the encoded filterQuery to the args list', () => {
+        jasmine.getEnv().allowRespy(true);
+        const spyRequest = spyOn((searchService as any), 'request').and.stub();
+        spyOn(requestService, 'send').and.returnValue(true);
+        const searchFilterConfig = new SearchFilterConfig();
+        searchFilterConfig._links = {
+          self: {
+            href: 'https://demo.dspace.org/',
+          },
+        };
+
+        searchService.getFacetValuesFor(searchFilterConfig, 1, undefined, 'filter&Query');
+
+        expect(spyRequest).toHaveBeenCalledWith(anything(), 'https://demo.dspace.org?page=0&size=5&prefix=filter%26Query');
       });
     });
   });

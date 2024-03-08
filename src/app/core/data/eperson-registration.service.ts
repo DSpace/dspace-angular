@@ -1,19 +1,33 @@
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { GetRequest, PostRequest } from './request.models';
 import { Observable } from 'rxjs';
-import { filter, find, map } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Registration } from '../shared/registration.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { ResponseParsingService } from './parsing.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { RegistrationResponseParsingService } from './registration-response-parsing.service';
-import { RemoteData } from './remote-data';
+import {
+  filter,
+  find,
+  map,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HttpHeaders } from '@angular/common/http';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { Registration } from '../shared/registration.model';
+import { ResponseParsingService } from './parsing.service';
+import { RegistrationResponseParsingService } from './registration-response-parsing.service';
+import { RemoteData } from './remote-data';
+import {
+  GetRequest,
+  PostRequest,
+} from './request.models';
+import { RequestService } from './request.service';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +69,7 @@ export class EpersonRegistrationService {
    * @param email
    * @param captchaToken the value of x-recaptcha-token header
    */
-  registerEmail(email: string, captchaToken: string = null): Observable<RemoteData<Registration>> {
+  registerEmail(email: string, captchaToken: string = null, type?: string): Observable<RemoteData<Registration>> {
     const registration = new Registration();
     registration.email = email;
 
@@ -70,16 +84,21 @@ export class EpersonRegistrationService {
     }
     options.headers = headers;
 
+    if (hasValue(type)) {
+      options.params = type ?
+        new HttpParams({ fromString: 'accountRequestType=' + type }) : new HttpParams();
+    }
+
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
         const request = new PostRequest(requestId, href, registration, options);
         this.requestService.send(request);
-      })
+      }),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID<Registration>(requestId).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
   }
 
@@ -99,7 +118,7 @@ export class EpersonRegistrationService {
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return RegistrationResponseParsingService;
-        }
+        },
       });
       this.requestService.send(request, true);
     });
@@ -111,7 +130,7 @@ export class EpersonRegistrationService {
         } else {
           return rd;
         }
-      })
+      }),
     );
   }
 

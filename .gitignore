@@ -39,3 +39,5 @@ package-lock.json
 /nbproject/
 
 junit.xml
+
+/src/mirador-viewer/config.local.js

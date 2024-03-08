@@ -1,50 +1,18 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
-import { typedObject } from '../cache/builders/build-decorators';
-import { excludeFromEquals } from '../utilities/equals.decorators';
-import { BROWSE_DEFINITION } from './browse-definition.resource-type';
-import { HALLink } from './hal-link.model';
-import { ResourceType } from './resource-type';
-import { SortOption } from './sort-option.model';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-decorator';
+import { autoserialize } from 'cerialize';
 
-@typedObject
-export class BrowseDefinition extends CacheableObject {
-  static type = BROWSE_DEFINITION;
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
+import { CacheableObject } from '../cache/cacheable-object.model';
+
+/**
+ * Base class for BrowseDefinition models
+ */
+export abstract class BrowseDefinition extends CacheableObject {
+
+  @autoserialize
+    id: string;
 
   /**
-   * The object type
+   * Get the render type of the BrowseDefinition model
    */
-  @excludeFromEquals
-  @autoserialize
-  type: ResourceType;
-
-  @autoserialize
-  id: string;
-
-  @autoserialize
-  metadataBrowse: boolean;
-
-  @autoserialize
-  sortOptions: SortOption[];
-
-  @autoserializeAs('order')
-  defaultSortOrder: string;
-
-  @autoserializeAs('metadata')
-  metadataKeys: string[];
-
-  @autoserialize
-  dataType: BrowseByDataType;
-
-  get self(): string {
-    return this._links.self.href;
-  }
-
-  @deserialize
-  _links: {
-    self: HALLink;
-    entries: HALLink;
-    items: HALLink;
-  };
+  abstract getRenderType(): BrowseByDataType;
 }

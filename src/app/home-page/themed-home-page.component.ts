@@ -1,6 +1,7 @@
+import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { HomePageComponent } from './home-page.component';
-import { Component } from '@angular/core';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -8,8 +9,6 @@ import { Component } from '@angular/core';
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedHomePageComponent extends ThemedComponent<HomePageComponent> {
-  protected inAndOutputNames: (keyof HomePageComponent & keyof this)[];
-
 
   protected getComponentName(): string {
     return 'HomePageComponent';

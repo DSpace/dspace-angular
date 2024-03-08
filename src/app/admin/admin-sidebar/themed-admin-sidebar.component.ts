@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { AdminSidebarComponent } from './admin-sidebar.component';
 
@@ -11,6 +16,19 @@ import { AdminSidebarComponent } from './admin-sidebar.component';
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedAdminSidebarComponent extends ThemedComponent<AdminSidebarComponent> {
+
+  /**
+   * Observable that emits the width of the sidebar when expanded
+   */
+  @Input() expandedSidebarWidth$: Observable<string>;
+
+  /**
+   * Observable that emits the width of the sidebar when collapsed
+   */
+  @Input() collapsedSidebarWidth$: Observable<string>;
+
+  protected inAndOutputNames: (keyof AdminSidebarComponent & keyof this)[] = ['collapsedSidebarWidth$', 'expandedSidebarWidth$'];
+
   protected getComponentName(): string {
     return 'AdminSidebarComponent';
   }

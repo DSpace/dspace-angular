@@ -1,5 +1,13 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 
@@ -11,18 +19,25 @@ import { MenuID } from '../shared/menu/menu-id.model';
   styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   /**
    * Whether user is authenticated.
    * @type {Observable<string>}
    */
   public isAuthenticated: Observable<boolean>;
-  public showAuth = false;
+  public isMobile$: Observable<boolean>;
+
   menuID = MenuID.PUBLIC;
+  maxMobileWidth = WidthCategory.SM;
 
   constructor(
-    private menuService: MenuService
+    protected menuService: MenuService,
+    protected windowService: HostWindowService,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.isMobile$ = this.windowService.isUpTo(this.maxMobileWidth);
   }
 
   public toggleNavbar(): void {

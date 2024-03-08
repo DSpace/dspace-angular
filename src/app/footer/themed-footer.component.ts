@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { FooterComponent } from './footer.component';
 
@@ -7,7 +8,7 @@ import { FooterComponent } from './footer.component';
  */
 @Component({
   selector: 'ds-themed-footer',
-  styleUrls: ['footer.component.scss'],
+  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedFooterComponent extends ThemedComponent<FooterComponent> {
@@ -20,6 +21,6 @@ export class ThemedFooterComponent extends ThemedComponent<FooterComponent> {
   }
 
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./footer.component`);
+    return import('./footer.component');
   }
 }

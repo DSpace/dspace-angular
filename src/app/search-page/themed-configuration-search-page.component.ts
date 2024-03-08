@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Context } from '../core/shared/context.model';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
-import { Observable } from 'rxjs';
-import { Context } from '../core/shared/context.model';
 
 /**
  * Themed wrapper for ConfigurationSearchPageComponent
@@ -28,31 +32,30 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch = true;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * Whether or not the search bar should be visible
    */
-  @Input()
-  searchEnabled = true;
+  @Input() searchEnabled: boolean;
 
   /**
    * The width of the sidebar (bootstrap columns)
    */
   @Input()
-  sideBarWidth = 3;
+    sideBarWidth: number;
 
   /**
    * The currently applied configuration (determines title of search)
    */
   @Input()
-  configuration$: Observable<string>;
+    configuration$: Observable<string>;
 
   /**
    * The current context
    */
   @Input()
-  context: Context;
+    context: Context;
 
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] =
     ['context', 'configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth'];
@@ -66,7 +69,7 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   }
 
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./configuration-search-page.component`);
+    return import('./configuration-search-page.component');
   }
 
 }

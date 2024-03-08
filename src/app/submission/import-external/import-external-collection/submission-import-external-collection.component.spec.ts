@@ -1,11 +1,21 @@
-import { Component, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { By } from '@angular/platform-browser';
 
 describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let comp: SubmissionImportExternalCollectionComponent;
@@ -23,9 +33,9 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       ],
       providers: [
         NgbActiveModal,
-        SubmissionImportExternalCollectionComponent
+        SubmissionImportExternalCollectionComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -64,21 +74,22 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       compAsAny = null;
     });
 
-    it('should emit from selectedEvent on selectObject', () => {
+    it('should emit from selectedEvent on selectObject and set loading to true', () => {
       spyOn(comp.selectedEvent, 'emit').and.callThrough();
 
       const entry = {
         communities: [
           { id: 'community1' },
-          { id: 'community2' }
+          { id: 'community2' },
         ],
         collection: {
-          id: 'collection'
-        }
+          id: 'collection',
+        },
       } as CollectionListEntry;
       comp.selectObject(entry);
 
       expect(comp.selectedEvent.emit).toHaveBeenCalledWith(entry);
+      expect(comp.loading).toBeTrue();
     });
 
     it('should dismiss modal on closeCollectionModal', () => {
@@ -122,7 +133,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {
-        const dropdownMenu = fixture.debugElement.query(By.css('ds-collection-dropdown')).nativeElement;
+        const dropdownMenu = fixture.debugElement.query(By.css('ds-themed-collection-dropdown')).nativeElement;
         expect(dropdownMenu.classList).toContain('d-none');
       });
     }));
@@ -133,7 +144,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

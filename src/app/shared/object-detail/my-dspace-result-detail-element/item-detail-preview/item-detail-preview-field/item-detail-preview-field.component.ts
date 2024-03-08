@@ -1,7 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
-import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { Item } from '../../../../../core/shared/item.model';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { SearchResult } from '../../../../search/models/search-result.model';
 
 /**
@@ -9,7 +12,7 @@ import { SearchResult } from '../../../../search/models/search-result.model';
  */
 @Component({
   selector: 'ds-item-detail-preview-field',
-  templateUrl: './item-detail-preview-field.component.html'
+  templateUrl: './item-detail-preview-field.component.html',
 })
 export class ItemDetailPreviewFieldComponent {
 

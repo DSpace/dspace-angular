@@ -1,13 +1,25 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { hasNoValue, hasValue } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+
 import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '../shared/empty.util';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -70,8 +82,9 @@ export class ThumbnailComponent implements OnChanges {
    * Resolve the thumbnail.
    * Use a default image if no actual image is available.
    */
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (hasNoValue(this.thumbnail)) {
+      this.setSrc(this.defaultImage);
       return;
     }
 
@@ -133,7 +146,7 @@ export class ThumbnailComponent implements OnChanges {
           } else {
             return observableOf(null);
           }
-        })
+        }),
       ).subscribe((url: string) => {
         if (hasValue(url)) {
           // If we got a URL, try to load it

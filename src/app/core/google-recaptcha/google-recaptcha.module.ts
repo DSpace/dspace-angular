@@ -1,22 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { GoogleRecaptchaComponent } from '../../shared/google-recaptcha/google-recaptcha.component';
 
+import { GoogleRecaptchaComponent } from '../../shared/google-recaptcha/google-recaptcha.component';
 import { GoogleRecaptchaService } from './google-recaptcha.service';
 
 const PROVIDERS = [
-  GoogleRecaptchaService
+  GoogleRecaptchaService,
 ];
 
 const COMPONENTS = [
-  GoogleRecaptchaComponent
+  GoogleRecaptchaComponent,
 ];
 
 @NgModule({
   imports: [ CommonModule ],
   providers: [...PROVIDERS],
   declarations: [...COMPONENTS],
-  exports: [...COMPONENTS]
+  exports: [...COMPONENTS],
 })
 
 /**

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
+import {
+  Component,
+  ElementRef,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { LangConfig } from '../../../config/lang-config.interface';
@@ -25,14 +28,18 @@ export class LangSwitchComponent implements OnInit {
   moreThanOneLanguage: boolean;
 
   constructor(
+    public el: ElementRef,
     public translate: TranslateService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
   ) {
   }
 
   ngOnInit(): void {
     this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
     this.moreThanOneLanguage = (this.activeLangs.length > 1);
+    if (!this.moreThanOneLanguage) {
+      this.el.nativeElement.parentElement.classList.add('d-none');
+    }
   }
 
   /**

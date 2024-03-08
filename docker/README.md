@@ -6,21 +6,45 @@
 If you wish to run DSpace on Docker in production, we recommend building your own Docker images. You are welcome to borrow ideas/concepts from the below images in doing so. But, the below images should not be used "as is" in any production scenario.
 ***
 
-## 'Dockerfile' in root directory 
+## Overview
+The scripts in this directory can be used to start the DSpace User Interface (frontend) in Docker.
+Optionally, the backend (REST API) might also be started in Docker.
+
+For additional options/settings in starting the backend (REST API) in Docker, see the Docker Compose
+documentation for the backend: https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/README.md
+
+## Root directory
+
+The root directory of this project contains all the Dockerfiles which may be referenced by
+the Docker compose scripts in this 'docker' folder.
+
+### Dockerfile
+
 This Dockerfile is used to build a *development* DSpace 7 Angular UI image, published as 'dspace/dspace-angular'
 
 ```
-docker build -t dspace/dspace-angular:dspace-7_x .
+docker build -t dspace/dspace-angular:latest .
 ```
 
 This image is built *automatically* after each commit is made to the `main` branch.
 
 Admins to our DockerHub repo can manually publish with the following command.
 ```
-docker push dspace/dspace-angular:dspace-7_x
+docker push dspace/dspace-angular:latest
 ```
 
-## docker directory
+### Dockerfile.dist
+
+The `Dockerfile.dist` is used to generate a *production* build and runtime environment.
+
+```bash
+# build the latest image
+docker build -f Dockerfile.dist -t dspace/dspace-angular:latest-dist .
+```
+
+A default/demo version of this image is built *automatically*.
+
+## 'docker' directory
 - docker-compose.yml
   - Starts DSpace Angular with Docker Compose from the current branch.  This file assumes that a DSpace 7 REST instance will also be started in Docker.
 - docker-compose-rest.yml
@@ -45,21 +69,45 @@ docker-compose -f docker/docker-compose.yml build
 
 ## To start DSpace (REST and Angular) from your branch
 
+This command provides a quick way to start both the frontend & backend from this single codebase
 ```
 docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d
 ```
 
+Keep in mind, you may also start the backend by cloning the 'DSpace/DSpace' GitHub repository separately. See the next section.
+
+
 ## Run DSpace REST and DSpace Angular from local branches.
+
+This section assumes that you have clones *both* the 'DSpace/DSpace' and 'DSpace/dspace-angular' GitHub
+repositories. When both are available locally, you can spin up both in Docker and have them work together.
+
 _The system will be started in 2 steps. Each step shares the same docker network._
 
-From DSpace/DSpace (build as needed)
+From 'DSpace/DSpace' clone (build first as needed):
 ```
 docker-compose -p d7 up -d
 ```
 
-From DSpace/DSpace-angular
+NOTE: More detailed instructions on starting the backend via Docker can be found in the [Docker Compose instructions for the Backend](https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/README.md).
+
+From 'DSpace/dspace-angular' clone (build first as needed)
 ```
 docker-compose -p d7 -f docker/docker-compose.yml up -d
+```
+
+At this point, you should be able to access the UI from http://localhost:4000,
+and the backend at http://localhost:8080/server/
+
+## Run DSpace Angular dist build with DSpace Demo site backend
+
+This allows you to run the Angular UI in *production* mode, pointing it at the demo or sandbox backend
+(https://demo.dspace.org/server/ or https://sandbox.dspace.org/server/).
+
+```
+docker-compose -f docker/docker-compose-dist.yml pull
+docker-compose -f docker/docker-compose-dist.yml build
+docker-compose -p d7 -f docker/docker-compose-dist.yml up -d
 ```
 
 ## Ingest test data from AIPDIR
@@ -87,9 +135,10 @@ Load assetstore content and trigger a re-index of the repository
 docker-compose -p d7 -f docker/cli.yml -f docker/cli.assetstore.yml run --rm dspace-cli
 ```
 
-## End to end testing of the rest api (runs in travis).
-_In this instance, only the REST api runs in Docker using the Entities dataset. Travis will perform CI testing of Angular using Node to drive the tests._
+## End to end testing of the REST API (runs in GitHub Actions CI).
+_In this instance, only the REST api runs in Docker using the Entities dataset. GitHub Actions will perform CI testing of Angular using Node to drive the tests.  See `.github/workflows/build.yml` for more details._
 
+This command is only really useful for testing our Continuous Integration process.
 ```
-docker-compose -p d7ci -f docker/docker-compose-travis.yml up -d
+docker-compose -p d7ci -f docker/docker-compose-ci.yml up -d
 ```

@@ -1,10 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Point, UsageReport } from '../../core/statistics/models/usage-report.model';
-import { Observable, of } from 'rxjs';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import {
+  getFinishedRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import {
+  Point,
+  UsageReport,
+} from '../../core/statistics/models/usage-report.model';
+import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Component representing a statistics table for a given usage report.
@@ -12,7 +28,7 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 @Component({
   selector: 'ds-statistics-table',
   templateUrl: './statistics-table.component.html',
-  styleUrls: ['./statistics-table.component.scss']
+  styleUrls: ['./statistics-table.component.scss'],
 })
 export class StatisticsTableComponent implements OnInit {
 
@@ -20,7 +36,7 @@ export class StatisticsTableComponent implements OnInit {
    * The usage report to display a statistics table for
    */
   @Input()
-  report: UsageReport;
+    report: UsageReport;
 
   /**
    * Boolean indicating whether the usage report has data
@@ -35,6 +51,7 @@ export class StatisticsTableComponent implements OnInit {
   constructor(
     protected dsoService: DSpaceObjectDataService,
     protected nameService: DSONameService,
+    private translateService: TranslateService,
   ) {
 
   }
@@ -54,9 +71,9 @@ export class StatisticsTableComponent implements OnInit {
     switch (this.report.reportType) {
       case 'TotalVisits':
         return this.dsoService.findById(point.id).pipe(
-          getFirstSucceededRemoteData(),
+          getFinishedRemoteData(),
           getRemoteDataPayload(),
-          map((item) => this.nameService.getName(item)),
+          map((item) => !isEmpty(item) ?  this.nameService.getName(item) : this.translateService.instant('statistics.table.no-name')),
         );
       case 'TopCities':
       case 'topCountries':
