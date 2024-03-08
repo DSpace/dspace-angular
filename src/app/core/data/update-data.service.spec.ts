@@ -1,26 +1,34 @@
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from './request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { HrefOnlyDataService } from './href-only-data.service';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RestResponse } from '../cache/response.models';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
-import { RequestEntry } from './request-entry.model';
-import { testPatchDataImplementation } from './base/patch-data.spec';
-import { UpdateDataServiceImpl } from './update-data.service';
-import { testSearchDataImplementation } from './base/search-data.spec';
-import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testCreateDataImplementation } from './base/create-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testPutDataImplementation } from './base/put-data.spec';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { HrefOnlyDataService } from './href-only-data.service';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { UpdateDataServiceImpl } from './update-data.service';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;
@@ -42,28 +50,28 @@ describe('VersionDataService test', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
 
   const versionHistory = Object.assign(new VersionHistory(), {
@@ -93,7 +101,7 @@ describe('VersionDataService test', () => {
       halService,
       notificationsService,
       comparatorEntry,
-      10 * 1000
+      10 * 1000,
     );
   }
 
@@ -102,7 +110,7 @@ describe('VersionDataService test', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: endpointURL })
+      getEndpoint: cold('a', { a: endpointURL }),
     });
     responseCacheEntry = new RequestEntry();
     responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -117,8 +125,8 @@ describe('VersionDataService test', () => {
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('(a|)', {
-        a: mockVersionRD
-      })
+        a: mockVersionRD,
+      }),
     });
 
     service = initTestService();

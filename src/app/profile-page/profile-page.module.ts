@@ -1,18 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
+
+import { NotificationsModule } from '../notifications/notifications.module';
+import { FormModule } from '../shared/form/form.module';
 import { SharedModule } from '../shared/shared.module';
-import { ProfilePageRoutingModule } from './profile-page-routing.module';
+import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
 import { ProfilePageComponent } from './profile-page.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageRoutingModule } from './profile-page-routing.module';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
-import {
-  ProfilePageResearcherFormComponent
-} from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ThemedProfilePageComponent } from './themed-profile-page.component';
-import { FormModule } from '../shared/form/form.module';
-import { UiSwitchModule } from 'ngx-ui-switch';
-import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
-import { NotificationsModule } from '../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -21,14 +20,14 @@ import { NotificationsModule } from '../notifications/notifications.module';
     SharedModule,
     FormModule,
     UiSwitchModule,
-    NotificationsModule
+    NotificationsModule,
   ],
   exports: [
     ProfilePageComponent,
     ThemedProfilePageComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
+    ProfilePageResearcherFormComponent,
   ],
   declarations: [
     ProfilePageComponent,
@@ -36,8 +35,8 @@ import { NotificationsModule } from '../notifications/notifications.module';
     ProfileClaimItemModalComponent,
     ProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    ProfilePageResearcherFormComponent
-  ]
+    ProfilePageResearcherFormComponent,
+  ],
 })
 export class ProfilePageModule {
 

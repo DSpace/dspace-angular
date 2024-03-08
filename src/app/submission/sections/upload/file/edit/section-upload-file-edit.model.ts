@@ -11,28 +11,28 @@ import {
 
 export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig = {
   id: 'metadata',
-  group: []
+  group: [],
 };
 export const BITSTREAM_METADATA_FORM_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
     container: 'form-group',
-    label: 'col-form-label'
+    label: 'col-form-label',
   },
   grid: {
-    label: 'col-sm-3'
-  }
+    label: 'col-sm-3',
+  },
 };
 export const BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfig = {
   id: 'accessConditionGroup',
-  group: []
+  group: [],
 };
 
 export const BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
     host: 'form-group access-condition-group col',
     container: 'pl-1 pr-1',
-    control: 'form-row '
-  }
+    control: 'form-row ',
+  },
 };
 
 export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayModelConfig = {
@@ -42,32 +42,32 @@ export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayMode
 export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLayout = {
   grid: {
     group: 'form-row pt-4',
-  }
+  },
 };
 
 export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG: DynamicSelectModelConfig<any> = {
   id: 'name',
   label: 'submission.sections.upload.form.access-condition-label',
   hint: 'submission.sections.upload.form.access-condition-hint',
-  options: []
+  options: [],
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayout = {
   element: {
     host: 'col-12',
-    label: 'col-form-label name-label'
-  }
+    label: 'col-form-label name-label',
+  },
 };
 export const BITSTREAM_FORM_PRIMARY_LAYOUT: DynamicFormControlLayout = {
   element: {
     host: 'col-12',
-    container: 'text-right'
+    container: 'text-right',
   },
 };
 
 export const BITSTREAM_FORM_PRIMARY: DynamicSwitchModelConfig = {
   id: 'primary',
   name: 'primary',
-  label: 'bitstream.edit.form.primaryBitstream.label'
+  label: 'bitstream.edit.form.primaryBitstream.label',
 };
 
 
@@ -82,24 +82,24 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
     {
       match: MATCH_ENABLED,
       operator: OR_OPERATOR,
-      when: []
-    }
+      when: [],
+    },
   ],
   required: true,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'submission.sections.upload.form.date-required-from'
-  }
+    required: 'submission.sections.upload.form.date-required-from',
+  },
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
-    label: 'col-form-label'
+    label: 'col-form-label',
   },
   grid: {
-    host: 'col-6'
-  }
+    host: 'col-6',
+  },
 };
 
 export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerModelConfig = {
@@ -113,22 +113,22 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
     {
       match: MATCH_ENABLED,
       operator: OR_OPERATOR,
-      when: []
-    }
+      when: [],
+    },
   ],
   required: true,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'submission.sections.upload.form.date-required-until'
-  }
+    required: 'submission.sections.upload.form.date-required-until',
+  },
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
-    label: 'col-form-label'
+    label: 'col-form-label',
   },
   grid: {
-    host: 'col-6'
-  }
+    host: 'col-6',
+  },
 };

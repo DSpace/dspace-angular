@@ -1,31 +1,43 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { SubscriptionsPageComponent } from './subscriptions-page.component';
+import { AuthService } from '../core/auth/auth.service';
+import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { PaginationService } from '../core/pagination/pagination.service';
+import { PageInfo } from '../core/shared/page-info.model';
+import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { AuthService } from '../core/auth/auth.service';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
   mockSubscriptionEperson,
   subscriptionMock,
-  subscriptionMock2
+  subscriptionMock2,
 } from '../shared/testing/subscriptions-data.mock';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { VarDirective } from '../shared/utils/var.directive';
-import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { PageInfo } from '../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
+import { SubscriptionsPageComponent } from './subscriptions-page.component';
 
 describe('SubscriptionsPageComponent', () => {
   let component: SubscriptionsPageComponent;
@@ -33,11 +45,11 @@ describe('SubscriptionsPageComponent', () => {
   let de: DebugElement;
 
   const authServiceStub = jasmine.createSpyObj('authorizationService', {
-    getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson)
+    getAuthenticatedUserFromStore: observableOf(mockSubscriptionEperson),
   });
 
   const subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
-    findByEPerson: jasmine.createSpy('findByEPerson')
+    findByEPerson: jasmine.createSpy('findByEPerson'),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -45,11 +57,11 @@ describe('SubscriptionsPageComponent', () => {
   const mockSubscriptionList = [subscriptionMock, subscriptionMock2];
 
   const emptyPageInfo = Object.assign(new PageInfo(), {
-    totalElements: 0
+    totalElements: 0,
   });
 
   const pageInfo = Object.assign(new PageInfo(), {
-    totalElements: 2
+    totalElements: 2,
   });
 
   beforeEach(waitForAsync(() => {
@@ -61,19 +73,19 @@ describe('SubscriptionsPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective],
       providers: [
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

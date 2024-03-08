@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 
 @Component({
   selector: 'ds-item-edit-bitstream-drag-handle',
@@ -14,7 +20,7 @@ export class ItemEditBitstreamDragHandleComponent implements OnInit, OnDestroy {
   /**
    * The view on the drag-handle
    */
-  @ViewChild('handleView', {static: true}) handleView;
+  @ViewChild('handleView', { static: true }) handleView;
 
   constructor(private viewContainerRef: ViewContainerRef) {
   }

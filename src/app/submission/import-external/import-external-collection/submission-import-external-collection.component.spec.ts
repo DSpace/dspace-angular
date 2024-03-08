@@ -1,11 +1,21 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { By } from '@angular/platform-browser';
 
 describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let comp: SubmissionImportExternalCollectionComponent;
@@ -23,9 +33,9 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       ],
       providers: [
         NgbActiveModal,
-        SubmissionImportExternalCollectionComponent
+        SubmissionImportExternalCollectionComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -70,11 +80,11 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       const entry = {
         communities: [
           { id: 'community1' },
-          { id: 'community2' }
+          { id: 'community2' },
         ],
         collection: {
-          id: 'collection'
-        }
+          id: 'collection',
+        },
       } as CollectionListEntry;
       comp.selectObject(entry);
 
@@ -134,7 +144,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

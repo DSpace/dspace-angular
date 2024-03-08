@@ -1,14 +1,22 @@
-import { ProcessOverviewComponent } from './process-overview.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA, TemplateRef } from '@angular/core';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import {
+  NO_ERRORS_SCHEMA,
+  TemplateRef,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BehaviorSubject } from 'rxjs';
-import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
+
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { ProcessOverviewComponent } from './process-overview.component';
 import { ProcessOverviewService } from './process-overview.service';
 
 describe('ProcessOverviewComponent', () => {
@@ -32,7 +40,7 @@ describe('ProcessOverviewComponent', () => {
       hasSelected: true,
       isToBeDeleted: true,
       toggleDelete: {},
-      getAmountOfSelectedProcesses: 5
+      getAmountOfSelectedProcesses: 5,
 
     });
 
@@ -41,7 +49,7 @@ describe('ProcessOverviewComponent', () => {
     });
 
     modalService = jasmine.createSpyObj('modalService', {
-      open: {}
+      open: {},
     });
   }
 
@@ -55,7 +63,7 @@ describe('ProcessOverviewComponent', () => {
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

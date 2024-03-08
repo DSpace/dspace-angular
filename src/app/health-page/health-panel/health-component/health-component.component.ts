@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
-
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { HealthComponent } from '../../models/health-component.model';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { HealthComponent } from '../../models/health-component.model';
 
 /**
  * A component to render a "health component" object.
@@ -15,7 +17,7 @@ import { AlertType } from '../../../shared/alert/alert-type';
 @Component({
   selector: 'ds-health-component',
   templateUrl: './health-component.component.html',
-  styleUrls: ['./health-component.component.scss']
+  styleUrls: ['./health-component.component.scss'],
 })
 export class HealthComponentComponent {
 

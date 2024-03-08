@@ -1,4 +1,8 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { RegisterEmailFormComponent } from './register-email-form.component';
 

@@ -4,18 +4,24 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Observable, filter, map } from 'rxjs';
 import {
-  NotifyRequestsStatus,
-  NotifyStatuses,
-} from '../notify-requests-status.model';
+  filter,
+  map,
+  Observable,
+} from 'rxjs';
+
 import { NotifyRequestsStatusDataService } from '../../../../core/data/notify-services-status-data.service';
-import { RequestStatusEnum } from '../notify-status.enum';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import {
+  NotifyRequestsStatus,
+  NotifyStatuses,
+} from '../notify-requests-status.model';
+import { RequestStatusEnum } from '../notify-status.enum';
+
 @Component({
   selector: 'ds-notify-requests-status',
   templateUrl: './notify-requests-status.component.html',
@@ -51,7 +57,7 @@ export class NotifyRequestsStatusComponent implements OnInit {
         filter((data: NotifyRequestsStatus) => hasValue(data)),
         map((data: NotifyRequestsStatus) => {
           return this.groupDataByStatus(data);
-        })
+        }),
       );
   }
 
@@ -70,7 +76,7 @@ export class NotifyRequestsStatusComponent implements OnInit {
         }
 
         statusMap.get(status)?.push(notifyStatus);
-      }
+      },
     );
 
     return statusMap;

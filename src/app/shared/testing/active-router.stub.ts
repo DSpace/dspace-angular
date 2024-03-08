@@ -1,6 +1,11 @@
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, convertToParamMap, Data, Params } from '@angular/router';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  Data,
+  Params,
+} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class ActivatedRouteStub {
 

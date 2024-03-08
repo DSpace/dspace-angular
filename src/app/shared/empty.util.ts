@@ -1,5 +1,8 @@
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
 /**
  * Returns true if the passed value is null.
@@ -196,9 +199,9 @@ export function isObjectEmpty(obj?: any): boolean {
   }
 
   for (const key in obj) {
-      if (obj.hasOwnProperty(key) && isNotEmpty(obj[key])) {
-        return false;
-      }
+    if (obj.hasOwnProperty(key) && isNotEmpty(obj[key])) {
+      return false;
+    }
   }
   return true;
 }

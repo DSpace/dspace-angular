@@ -1,14 +1,51 @@
-import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
-import { catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+  timer as observableTimer,
+} from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  startWith,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { submissionSelector, SubmissionState } from './submission.reducers';
-import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
+import { environment } from '../../environments/environment';
+import { ErrorResponse } from '../core/cache/response.models';
+import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
+import { RemoteData } from '../core/data/remote-data';
+import { RequestService } from '../core/data/request.service';
+import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
+import { RouteService } from '../core/services/route.service';
+import { Item } from '../core/shared/item.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { SubmissionObject } from '../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '../core/submission/submission-rest.service';
+import { SubmissionScopeType } from '../core/submission/submission-scope-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotUndefined,
+} from '../shared/empty.util';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '../shared/remote-data.utils';
+import { SubmissionError } from './objects/submission-error.model';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -19,33 +56,20 @@ import {
   SaveForLaterSubmissionFormAction,
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
-  SetActiveSectionAction
+  SetActiveSectionAction,
 } from './objects/submission-objects.actions';
 import {
   SubmissionObjectEntry,
-  SubmissionSectionEntry
+  SubmissionSectionEntry,
 } from './objects/submission-objects.reducer';
-import { submissionObjectFromIdSelector } from './selectors';
-import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { SectionDataObject } from './sections/models/section-data.model';
-import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { SubmissionObject } from '../core/submission/models/submission-object.model';
-import { RouteService } from '../core/services/route.service';
-import { SectionsType } from './sections/sections-type';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
-import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
-import { RemoteData } from '../core/data/remote-data';
-import { ErrorResponse } from '../core/cache/response.models';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { RequestService } from '../core/data/request.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { Item } from '../core/shared/item.model';
-import { environment } from '../../environments/environment';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
-import { SubmissionError } from './objects/submission-error.model';
+import { SectionDataObject } from './sections/models/section-data.model';
+import { SectionsType } from './sections/sections-type';
+import { submissionObjectFromIdSelector } from './selectors';
+import {
+  submissionSelector,
+  SubmissionState,
+} from './submission.reducers';
 
 /**
  * A service that provides methods used in submission process.
@@ -217,7 +241,7 @@ export class SubmissionService {
    */
   dispatchSave(submissionId, manual?: boolean) {
     this.getSubmissionSaveProcessingStatus(submissionId).pipe(
-      find((isPending: boolean) => !isPending)
+      find((isPending: boolean) => !isPending),
     ).subscribe(() => {
       this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
     });
@@ -505,7 +529,7 @@ export class SubmissionService {
             } else {
               this.router.navigateByUrl(previousUrl);
             }
-        })))
+          }))),
     ).subscribe();
   }
 
@@ -536,7 +560,7 @@ export class SubmissionService {
     selfUrl: string,
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
-    item: Item
+    item: Item,
   ) {
     this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item));
   }
@@ -552,9 +576,11 @@ export class SubmissionService {
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),
-      catchError((errorResponse: ErrorResponse) => {
-        return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode);
-      })
+      catchError((errorResponse: unknown) => {
+        if (errorResponse instanceof ErrorResponse) {
+          return createFailedRemoteDataObject$<SubmissionObject>(errorResponse.errorMessage, errorResponse.statusCode);
+        }
+      }),
     );
   }
 

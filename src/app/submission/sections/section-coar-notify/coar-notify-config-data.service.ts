@@ -1,31 +1,47 @@
 import { Injectable } from '@angular/core';
-import { dataService } from '../../../core/data/base/data-service.decorator';
-import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
-import { FindAllData, FindAllDataImpl } from '../../../core/data/base/find-all-data';
-import { DeleteData, DeleteDataImpl } from '../../../core/data/base/delete-data';
-import { RequestService } from '../../../core/data/request.service';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../../../core/data/base/create-data';
+import { dataService } from '../../../core/data/base/data-service.decorator';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../../../core/data/base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../../../core/data/base/find-all-data';
+import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../../../core/data/base/patch-data';
+import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { map, take } from 'rxjs/operators';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { RemoteData } from '../../../core/data/remote-data';
 import { MultipartPostRequest } from '../../../core/data/request.models';
+import { RequestService } from '../../../core/data/request.service';
 import { RestRequest } from '../../../core/data/rest-request.model';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from './section-coar-notify-service.resource-type';
 import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
-import { CreateData, CreateDataImpl } from '../../../core/data/base/create-data';
-import { PatchData, PatchDataImpl } from '../../../core/data/base/patch-data';
-import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
-import { Operation } from 'fast-json-patch';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
-import { RequestParam } from '../../../core/cache/models/request-param.model';
 
 
 /**
@@ -97,7 +113,7 @@ export class CoarNotifyConfigDataService extends IdentifiableDataService<Submiss
       map((endpoint: string) => {
         const body = this.getInvocationFormData(files);
         return new MultipartPostRequest(requestId, endpoint, body);
-      })
+      }),
     ).subscribe((request: RestRequest) => this.requestService.send(request));
 
     return this.rdbService.buildFromRequestUUID<SubmissionCoarNotifyConfig>(requestId);

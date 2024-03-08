@@ -1,14 +1,32 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { Router, EventType, Scroll } from '@angular/router';
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  EventType,
+  Router,
+  Scroll,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { BrowseService } from '../../../core/browse/browse.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 export interface ComColPageNavOption {
   id: string;
@@ -24,7 +42,7 @@ export interface ComColPageNavOption {
 @Component({
   selector: 'ds-comcol-page-browse-by',
   styleUrls: ['./comcol-page-browse-by.component.scss'],
-  templateUrl: './comcol-page-browse-by.component.html'
+  templateUrl: './comcol-page-browse-by.component.html',
 })
 export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
   /**
@@ -41,7 +59,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
 
   constructor(
     public router: Router,
-    private browseService: BrowseService
+    private browseService: BrowseService,
   ) {
   }
 
@@ -88,7 +106,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
       this.router.events,
     ]).subscribe(([navOptions, scrollEvent]: [ComColPageNavOption[], Scroll]) => {
       if (scrollEvent.type === EventType.Scroll) {
-        for (let option of navOptions) {
+        for (const option of navOptions) {
           if (option.routerLink === scrollEvent.routerEvent.urlAfterRedirects.split('?')[0]) {
             this.currentOption$.next(option);
           }
@@ -105,7 +123,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
     this.allOptions$.pipe(
       take(1),
     ).subscribe((allOptions: ComColPageNavOption[]) => {
-      for (let option of allOptions) {
+      for (const option of allOptions) {
         if (option.id === event.target.value) {
           this.currentOption$.next(option[0]);
           void this.router.navigate([option.routerLink], { queryParams: option.params });

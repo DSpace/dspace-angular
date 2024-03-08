@@ -1,6 +1,5 @@
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-
 import { Item } from './item.model';
 
 describe('Item', () => {
@@ -20,13 +19,13 @@ describe('Item', () => {
 
   it('should be possible to create an Item without any errors', () => {
     const thumbnail = {
-      content: thumbnailPath
+      content: thumbnailPath,
     };
 
     bitstreams = [{
-      content: bitstream1Path
+      content: bitstream1Path,
     }, {
-      content: bitstream2Path
+      content: bitstream2Path,
     }];
 
     remoteDataThumbnail = createSuccessfulRemoteDataObject$(thumbnail);
@@ -39,12 +38,12 @@ describe('Item', () => {
         {
           name: thumbnailBundleName,
           primaryBitstream: remoteDataThumbnail,
-          bitstreams: remoteDataThumbnailList
+          bitstreams: remoteDataThumbnailList,
         },
 
         {
           name: originalBundleName,
-          bitstreams: remoteDataFiles
+          bitstreams: remoteDataFiles,
         }];
 
     remoteDataBundles = createSuccessfulRemoteDataObject$(createPaginatedList(bundles));

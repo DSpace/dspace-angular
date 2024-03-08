@@ -1,13 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
+import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMessage } from './models/admin-notify-message.model';
+import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
 
 describe('AdminNotifyDashboardComponent', () => {
   let component: AdminNotifyDashboardComponent;
@@ -23,7 +26,7 @@ describe('AdminNotifyDashboardComponent', () => {
 
   const mockBoxes = [
     { title: 'admin-notify-dashboard.received-ldn', boxes: [ undefined, undefined, undefined, undefined, undefined ] },
-    { title: 'admin-notify-dashboard.generated-ldn', boxes: [ undefined, undefined, undefined, undefined, undefined ] }
+    { title: 'admin-notify-dashboard.generated-ldn', boxes: [ undefined, undefined, undefined, undefined, undefined ] },
   ];
 
   beforeEach(async () => {
@@ -38,9 +41,9 @@ describe('AdminNotifyDashboardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NgbNavModule],
       declarations: [ AdminNotifyDashboardComponent ],
-      providers: [{ provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results)}}]
+      providers: [{ provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } }],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifyDashboardComponent);
     component = fixture.componentInstance;

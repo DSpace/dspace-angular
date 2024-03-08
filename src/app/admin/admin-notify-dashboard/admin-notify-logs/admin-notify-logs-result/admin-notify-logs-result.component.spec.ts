@@ -1,17 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterStub } from '../../../../shared/testing/router.stub';
 import { RouteService } from '../../../../core/services/route.service';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
+import { RouterStub } from '../../../../shared/testing/router.stub';
+import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
 
 describe('AdminNotifyLogsResultComponent', () => {
   let component: AdminNotifyLogsResultComponent;
@@ -34,9 +40,9 @@ describe('AdminNotifyLogsResultComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: rdbService },
         provideMockStore({}),
-      ]
+      ],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifyLogsResultComponent);
     component = fixture.componentInstance;

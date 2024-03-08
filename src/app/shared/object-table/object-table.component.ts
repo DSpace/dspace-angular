@@ -1,15 +1,25 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { Context } from '../../core/shared/context.model';
-import { BehaviorSubject} from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { fadeIn } from '../animations/fade';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Context } from '../../core/shared/context.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { fadeIn } from '../animations/fade';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -17,7 +27,7 @@ import { fadeIn } from '../animations/fade';
   selector: 'ds-object-table',
   templateUrl: './object-table.component.html',
   styleUrls: ['./object-table.component.scss'],
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 
 /**

@@ -1,4 +1,8 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
 import { ObjectCacheEntry } from '../../core/cache/object-cache.reducer';
 

@@ -1,7 +1,12 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+} from '@angular/core';
+
+import { ThemeService } from '../theme-support/theme.service';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LoadingComponent } from './loading.component';
-import { ThemeService } from '../theme-support/theme.service';
 
 /**
  * Themed wrapper for LoadingComponent
@@ -21,7 +26,7 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
 
   constructor(
     protected cdr: ChangeDetectorRef,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
   ) {
     super(cdr, themeService);
   }

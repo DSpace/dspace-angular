@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 
 @Component({
   selector: 'ds-admin-notify-metrics',
@@ -14,7 +18,7 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 export class AdminNotifyMetricsComponent {
 
   @Input()
-  boxesConfig: AdminNotifyMetricsRow[];
+    boxesConfig: AdminNotifyMetricsRow[];
 
   private incomingConfiguration = 'NOTIFY.incoming';
   private involvedItemsSuffix = 'involvedItems';
@@ -33,7 +37,7 @@ export class AdminNotifyMetricsComponent {
       this.router.navigate([this.adminSearchPath], {
         queryParams: {
           configuration: searchConfig,
-          view: ViewMode.ListElement
+          view: ViewMode.ListElement,
         },
       });
 
@@ -46,7 +50,7 @@ export class AdminNotifyMetricsComponent {
     this.router.navigate([`${this.router.url}${selectedPath}`], {
       queryParams: {
         configuration: searchConfig,
-        view: ViewMode.Table
+        view: ViewMode.Table,
       },
     });
   }

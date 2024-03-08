@@ -1,23 +1,27 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { SupervisionOrderDataService } from './supervision-order-data.service';
-import { ActionType } from './models/action-type.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { PageInfo } from '../shared/page-info.model';
-import { buildPaginatedList } from '../data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from '../data/request-entry.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { GroupDataService } from '../eperson/group-data.service';
 import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { FindListOptions } from '../data/find-list-options.model';
+import { buildPaginatedList } from '../data/paginated-list.model';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { GroupDataService } from '../eperson/group-data.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PageInfo } from '../shared/page-info.model';
+import { ActionType } from './models/action-type.model';
+import { SupervisionOrderDataService } from './supervision-order-data.service';
 
 describe('SupervisionOrderService', () => {
   let scheduler: TestScheduler;
@@ -40,12 +44,12 @@ describe('SupervisionOrderService', () => {
     uuid: 'supervision-order-1',
     _links: {
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/supervisionorder/1'
+        href: 'https://rest.api/rest/api/supervisionorder/1',
       },
-    }
+    },
   };
 
   const anothersupervisionOrder: any = {
@@ -59,12 +63,12 @@ describe('SupervisionOrderService', () => {
     uuid: 'supervision-order-2',
     _links: {
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/supervisionorder/1'
+        href: 'https://rest.api/rest/api/supervisionorder/1',
       },
-    }
+    },
   };
   const endpointURL = `https://rest.api/rest/api/supervisionorder`;
   const requestURL = `https://rest.api/rest/api/supervisionorder/${supervisionOrder.id}`;
@@ -86,7 +90,7 @@ describe('SupervisionOrderService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: endpointURL })
+      getEndpoint: cold('a', { a: endpointURL }),
     });
 
     responseCacheEntry = new RequestEntry();
@@ -103,29 +107,29 @@ describe('SupervisionOrderService', () => {
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('a|', {
-        a: supervisionOrderRD
+        a: supervisionOrderRD,
       }),
       buildList: hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }),
       buildFromRequestUUID: hot('a|', {
-        a: supervisionOrderRD
+        a: supervisionOrderRD,
       }),
       buildFromRequestUUIDAndAwait: hot('a|', {
-        a: supervisionOrderRD
-      })
+        a: supervisionOrderRD,
+      }),
     });
     groupService = jasmine.createSpyObj('groupService', {
       getBrowseEndpoint: hot('a', {
-        a: groupEndpoint
+        a: groupEndpoint,
       }),
       getIDHrefObs: cold('a', {
-        a: 'https://rest.api/rest/api/group/groups/' + groupUUID
+        a: 'https://rest.api/rest/api/group/groups/' + groupUUID,
       }),
     });
     groupService = jasmine.createSpyObj('groupService', {
       getIDHrefObs: cold('a', {
-        a: 'https://rest.api/rest/api/group/groups/' + groupUUID
+        a: 'https://rest.api/rest/api/group/groups/' + groupUUID,
       }),
     });
     objectCache = new ObjectCacheServiceStub();
@@ -180,7 +184,7 @@ describe('SupervisionOrderService', () => {
     it('should return a RemoteData<supervisionOrder> for the object with the given id', () => {
       const result = service.create(supervisionOrder, itemUUID, groupUUID, supervisionOrderType);
       const expected = cold('a|', {
-        a: supervisionOrderRD
+        a: supervisionOrderRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -208,7 +212,7 @@ describe('SupervisionOrderService', () => {
     it('should return a RemoteData<supervisionOrder> for the object with the given id', () => {
       const result = service.findById(supervisionOrderId);
       const expected = cold('a|', {
-        a: supervisionOrderRD
+        a: supervisionOrderRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -218,7 +222,7 @@ describe('SupervisionOrderService', () => {
     it('should return a RemoteData<supervisionOrder> for the object with the given URL', () => {
       const result = service.findByHref(requestURL);
       const expected = cold('a|', {
-        a: supervisionOrderRD
+        a: supervisionOrderRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -249,7 +253,7 @@ describe('SupervisionOrderService', () => {
     it('should return a RemoteData<PaginatedList<supervisionOrder>) for the search', () => {
       const result = service.searchByGroup(groupUUID);
       const expected = cold('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -269,7 +273,7 @@ describe('SupervisionOrderService', () => {
     it('should return a RemoteData<PaginatedList<supervisionOrder>) for the search', () => {
       const result = service.searchByItem(itemUUID);
       const expected = cold('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       });
       expect(result).toBeObservable(expected);
     });

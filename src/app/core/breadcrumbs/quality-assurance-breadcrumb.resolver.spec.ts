@@ -1,4 +1,4 @@
-import {QualityAssuranceBreadcrumbResolver} from './quality-assurance-breadcrumb.resolver';
+import { QualityAssuranceBreadcrumbResolver } from './quality-assurance-breadcrumb.resolver';
 
 describe('QualityAssuranceBreadcrumbResolver', () => {
   describe('resolve', () => {
@@ -15,15 +15,15 @@ describe('QualityAssuranceBreadcrumbResolver', () => {
             return this[param];
           },
           sourceId: 'testSourceId',
-          topicId: 'testTopicId'
-        }
+          topicId: 'testTopicId',
+        },
       };
       qualityAssuranceBreadcrumbService = {};
       resolver = new QualityAssuranceBreadcrumbResolver(qualityAssuranceBreadcrumbService);
     });
 
     it('should resolve the breadcrumb config', () => {
-      const resolvedConfig = resolver.resolve(route as any, {url: fullPath + 'testSourceId'} as any);
+      const resolvedConfig = resolver.resolve(route as any, { url: fullPath + 'testSourceId' } as any);
       const expectedConfig = { provider: qualityAssuranceBreadcrumbService, key: expectedKey, url: fullPath };
       expect(resolvedConfig).toEqual(expectedConfig);
     });
