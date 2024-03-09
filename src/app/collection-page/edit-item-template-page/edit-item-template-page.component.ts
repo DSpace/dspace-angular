@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import {
+  first,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { ActivatedRoute } from '@angular/router';
-import { first, map, switchMap } from 'rxjs/operators';
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { AlertType } from '../../shared/alert/alert-type';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { getCollectionEditRoute } from '../collection-page-routing-paths';
 
 @Component({
   selector: 'ds-edit-item-template-page',

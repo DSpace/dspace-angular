@@ -1,11 +1,16 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ParameterSelectComponent } from './parameter-select.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
-import { By } from '@angular/platform-browser';
+import { ParameterSelectComponent } from './parameter-select.component';
 
 describe('ParameterSelectComponent', () => {
   let component: ParameterSelectComponent;
@@ -18,24 +23,27 @@ describe('ParameterSelectComponent', () => {
         new ScriptParameter(),
         {
           name: '-a',
-          type: ScriptParameterType.BOOLEAN
-        }
+          type: ScriptParameterType.BOOLEAN,
+        },
       ),
       Object.assign(
         new ScriptParameter(),
         {
           name: '-f',
-          type: ScriptParameterType.FILE
-        }
+          type: ScriptParameterType.FILE,
+        },
       ),
     ];
   }
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        TranslateModule.forRoot(),
+      ],
       declarations: [ParameterSelectComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

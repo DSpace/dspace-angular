@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThumbnailComponent as BaseComponent } from '../../../../app/thumbnail/thumbnail.component';
 
 @Component({

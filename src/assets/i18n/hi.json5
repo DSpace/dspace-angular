@@ -297,6 +297,413 @@
 
   "admin.access-control.groups.table.edit.buttons.remove": "\"{{name}}\" हटाएं",
 
+
+  //"admin.reports.collections.title": "Collection Filter Report",
+  // TODO New key - Add a translation
+  "admin.reports.collections.title": "Collection Filter Report",
+
+  //"admin.reports.collections.breadcrumbs": "Collection Filter Report",
+  // TODO New key - Add a translation
+  "admin.reports.collections.breadcrumbs": "Collection Filter Report",
+
+  //"admin.reports.collections.head": "Collection Filter Report",
+  // TODO New key - Add a translation
+  "admin.reports.collections.head": "Collection Filter Report",
+
+  //"admin.reports.button.show-collections": "Show Collections",
+  // TODO New key - Add a translation
+  "admin.reports.button.show-collections": "Show Collections",
+
+  //"admin.reports.collections.collections-report": "Collection Report",
+  // TODO New key - Add a translation
+  "admin.reports.collections.collections-report": "Collection Report",
+
+  //"admin.reports.collections.item-results": "Item Results",
+  // TODO New key - Add a translation
+  "admin.reports.collections.item-results": "Item Results",
+
+  //"admin.reports.collections.community": "Community",
+  // TODO New key - Add a translation
+  "admin.reports.collections.community": "Community",
+
+  //"admin.reports.collections.collection": "Collection",
+  // TODO New key - Add a translation
+  "admin.reports.collections.collection": "Collection",
+
+  //"admin.reports.collections.nb_items": "Nb. Items",
+  // TODO New key - Add a translation
+  "admin.reports.collections.nb_items": "Nb. Items",
+
+  //"admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
+  // TODO New key - Add a translation
+  "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
+
+
+  //"admin.reports.items.title": "Metadata Query Report",
+  // TODO New key - Add a translation
+  "admin.reports.items.title": "Metadata Query Report",
+
+  //"admin.reports.items.breadcrumbs": "Metadata Query Report",
+  // TODO New key - Add a translation
+  "admin.reports.items.breadcrumbs": "Metadata Query Report",
+
+  //"admin.reports.items.head": "Metadata Query Report",
+  // TODO New key - Add a translation
+  "admin.reports.items.head": "Metadata Query Report",
+
+  //"admin.reports.items.run": "Run Item Query",
+  // TODO New key - Add a translation
+  "admin.reports.items.run": "Run Item Query",
+
+  //"admin.reports.items.section.collectionSelector": "Collection Selector",
+  // TODO New key - Add a translation
+  "admin.reports.items.section.collectionSelector": "Collection Selector",
+
+  //"admin.reports.items.section.metadataFieldQueries": "Metadata Field Queries",
+  // TODO New key - Add a translation
+  "admin.reports.items.section.metadataFieldQueries": "Metadata Field Queries",
+
+  //"admin.reports.items.predefinedQueries": "Predefined Queries",
+  // TODO New key - Add a translation
+  "admin.reports.items.predefinedQueries": "Predefined Queries",
+
+  //"admin.reports.items.section.limitPaginateQueries": "Limit/Paginate Queries",
+  // TODO New key - Add a translation
+  "admin.reports.items.section.limitPaginateQueries": "Limit/Paginate Queries",
+
+  //"admin.reports.items.limit": "Limit/",
+  // TODO New key - Add a translation
+  "admin.reports.items.limit": "Limit/",
+
+  //"admin.reports.items.wholeRepo": "Whole Repository",
+  // TODO New key - Add a translation
+  "admin.reports.items.wholeRepo": "Whole Repository",
+
+  //"admin.reports.items.anyField": "Any field",
+  // TODO New key - Add a translation
+  "admin.reports.items.anyField": "Any field",
+
+  //"admin.reports.items.predicate.exists": "exists",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.exists": "exists",
+
+  //"admin.reports.items.predicate.doesNotExist": "does not exist",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.doesNotExist": "does not exist",
+
+  //"admin.reports.items.predicate.equals": "equals",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.equals": "equals",
+
+  //"admin.reports.items.predicate.doesNotEqual": "does not equal",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.doesNotEqual": "does not equal",
+
+  //"admin.reports.items.predicate.like": "like",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.like": "like",
+
+  //"admin.reports.items.predicate.notLike": "not like",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.notLike": "not like",
+
+  //"admin.reports.items.predicate.contains": "contains",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.contains": "contains",
+
+  //"admin.reports.items.predicate.doesNotContain": "does not contain",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.doesNotContain": "does not contain",
+
+  //"admin.reports.items.predicate.matches": "matches",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.matches": "matches",
+
+  //"admin.reports.items.predicate.doesNotMatch": "does not match",
+  // TODO New key - Add a translation
+  "admin.reports.items.predicate.doesNotMatch": "does not match",
+
+  //"admin.reports.items.preset.new": "New Query",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.new": "New Query",
+
+  //"admin.reports.items.preset.hasNoTitle": "Has No Title",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasNoTitle": "Has No Title",
+
+  //"admin.reports.items.preset.hasNoIdentifierUri": "Has No dc.identifier.uri",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasNoIdentifierUri": "Has No dc.identifier.uri",
+
+  //"admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
+
+  //"admin.reports.items.preset.hasCompoundAuthor": "Has compound dc.contributor.author",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasCompoundAuthor": "Has compound dc.contributor.author",
+
+  //"admin.reports.items.preset.hasCompoundCreator": "Has compound dc.creator",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasCompoundCreator": "Has compound dc.creator",
+
+  //"admin.reports.items.preset.hasUrlInDescription": "Has URL in dc.description",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasUrlInDescription": "Has URL in dc.description",
+
+  //"admin.reports.items.preset.hasFullTextInProvenance": "Has full text in dc.description.provenance",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasFullTextInProvenance": "Has full text in dc.description.provenance",
+
+  //"admin.reports.items.preset.hasNonFullTextInProvenance": "Has non-full text in dc.description.provenance",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasNonFullTextInProvenance": "Has non-full text in dc.description.provenance",
+
+  //"admin.reports.items.preset.hasEmptyMetadata": "Has empty metadata",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasEmptyMetadata": "Has empty metadata",
+
+  //"admin.reports.items.preset.hasUnbreakingDataInDescription": "Has unbreaking metadata in description",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasUnbreakingDataInDescription": "Has unbreaking metadata in description",
+
+  //"admin.reports.items.preset.hasXmlEntityInMetadata": "Has XML entity in metadata",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasXmlEntityInMetadata": "Has XML entity in metadata",
+
+  //"admin.reports.items.preset.hasNonAsciiCharInMetadata": "Has non-ascii character in metadata",
+  // TODO New key - Add a translation
+  "admin.reports.items.preset.hasNonAsciiCharInMetadata": "Has non-ascii character in metadata",
+
+  //"admin.reports.items.number": "No.",
+  // TODO New key - Add a translation
+  "admin.reports.items.number": "No.",
+
+  //"admin.reports.items.id": "UUID",
+  // TODO New key - Add a translation
+  "admin.reports.items.id": "UUID",
+
+  //"admin.reports.items.collection": "Collection",
+  // TODO New key - Add a translation
+  "admin.reports.items.collection": "Collection",
+
+  //"admin.reports.items.handle": "URI",
+  // TODO New key - Add a translation
+  "admin.reports.items.handle": "URI",
+
+  //"admin.reports.items.title": "Title",
+  // TODO New key - Add a translation
+  "admin.reports.items.title": "Title",
+
+
+  //"admin.reports.commons.filters": "Filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters": "Filters",
+
+  //"admin.reports.commons.additional-data": "Additional data to return",
+  // TODO New key - Add a translation
+  "admin.reports.commons.additional-data": "Additional data to return",
+
+  //"admin.reports.commons.previous-page": "Prev Page",
+  // TODO New key - Add a translation
+  "admin.reports.commons.previous-page": "Prev Page",
+
+  //"admin.reports.commons.next-page": "Next Page",
+  // TODO New key - Add a translation
+  "admin.reports.commons.next-page": "Next Page",
+
+  //"admin.reports.commons.page": "Page",
+  // TODO New key - Add a translation
+  "admin.reports.commons.page": "Page",
+
+  //"admin.reports.commons.of": "of",
+  // TODO New key - Add a translation
+  "admin.reports.commons.of": "of",
+
+  //"admin.reports.commons.export": "Export for Metadata Update",
+  // TODO New key - Add a translation
+  "admin.reports.commons.export": "Export for Metadata Update",
+
+  //"admin.reports.commons.filters.deselect_all": "Deselect all filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.deselect_all": "Deselect all filters",
+
+  //"admin.reports.commons.filters.select_all": "Select all filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.select_all": "Select all filters",
+
+  //"admin.reports.commons.filters.matches_all": "Matches all specified filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.matches_all": "Matches all specified filters",
+
+
+  //"admin.reports.commons.filters.property": "Item Property Filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.property": "Item Property Filters",
+
+  //"admin.reports.commons.filters.property.is_item": "Is Item - always true",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.property.is_item": "Is Item - always true",
+
+  //"admin.reports.commons.filters.property.is_withdrawn": "Withdrawn Items",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.property.is_withdrawn": "Withdrawn Items",
+
+  //"admin.reports.commons.filters.property.is_not_withdrawn": "Available Items - Not Withdrawn",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.property.is_not_withdrawn": "Available Items - Not Withdrawn",
+
+  //"admin.reports.commons.filters.property.is_discoverable": "Discoverable Items - Not Private",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.property.is_discoverable": "Discoverable Items - Not Private",
+
+  //"admin.reports.commons.filters.property.is_not_discoverable": "Not Discoverable - Private Item",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.property.is_not_discoverable": "Not Discoverable - Private Item",
+
+  //"admin.reports.commons.filters.property.all_filters.tooltip": "This filter includes all items that matched ALL specified filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.property.all_filters.tooltip": "This filter includes all items that matched ALL specified filters",
+
+  //"admin.reports.commons.filters.bitstream": "Basic Bitstream Filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream": "Basic Bitstream Filters",
+
+  //"admin.reports.commons.filters.bitstream.has_multiple_originals": "Item has Multiple Original Bitstreams",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream.has_multiple_originals": "Item has Multiple Original Bitstreams",
+
+  //"admin.reports.commons.filters.bitstream.has_no_originals": "Item has No Original Bitstreams",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream.has_no_originals": "Item has No Original Bitstreams",
+
+  //"admin.reports.commons.filters.bitstream.has_one_original": "Item has One Original Bitstream",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream.has_one_original": "Item has One Original Bitstream",
+
+  //"admin.reports.commons.filters.bitstream_mime": "Bitstream Filters by MIME Type",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime": "Bitstream Filters by MIME Type",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_doc_original": "Item has a Doc Original Bitstream (PDF, Office, Text, HTML, XML, etc)",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_doc_original": "Item has a Doc Original Bitstream (PDF, Office, Text, HTML, XML, etc)",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_image_original": "Item has an Image Original Bitstream",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_image_original": "Item has an Image Original Bitstream",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_unsupp_type": "Has Other Bitstream Types (not Doc or Image)",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_unsupp_type": "Has Other Bitstream Types (not Doc or Image)",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_mixed_original": "Item has multiple types of Original Bitstreams (Doc, Image, Other)",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_mixed_original": "Item has multiple types of Original Bitstreams (Doc, Image, Other)",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_pdf_original": "Item has a PDF Original Bitstream",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_pdf_original": "Item has a PDF Original Bitstream",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_jpg_original": "Item has JPG Original Bitstream",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_jpg_original": "Item has JPG Original Bitstream",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_small_pdf": "Has unusually small PDF",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_small_pdf": "Has unusually small PDF",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_large_pdf": "Has unusually large PDF",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_large_pdf": "Has unusually large PDF",
+
+  //"admin.reports.commons.filters.bitstream_mime.has_doc_without_text": "Has document bitstream without TEXT item",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bitstream_mime.has_doc_without_text": "Has document bitstream without TEXT item",
+
+  //"admin.reports.commons.filters.mime": "Supported MIME Type Filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.mime": "Supported MIME Type Filters",
+
+  //"admin.reports.commons.filters.mime.has_only_supp_image_type": "Item Image Bitstreams are Supported",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.mime.has_only_supp_image_type": "Item Image Bitstreams are Supported",
+
+  //"admin.reports.commons.filters.mime.has_unsupp_image_type": "Item has Image Bitstream that is Unsupported",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.mime.has_unsupp_image_type": "Item has Image Bitstream that is Unsupported",
+
+  //"admin.reports.commons.filters.mime.has_only_supp_doc_type": "Item Document Bitstreams are Supported",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.mime.has_only_supp_doc_type": "Item Document Bitstreams are Supported",
+
+  //"admin.reports.commons.filters.mime.has_unsupp_doc_type": "Item has Document Bitstream that is Unsupported",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.mime.has_unsupp_doc_type": "Item has Document Bitstream that is Unsupported",
+
+  //"admin.reports.commons.filters.bundle": "Bitstream Bundle Filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle": "Bitstream Bundle Filters",
+
+  //"admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle.has_unsupported_bundle": "Has bitstream in an unsupported bundle",
+
+  //"admin.reports.commons.filters.bundle.has_small_thumbnail": "Has unusually small thumbnail",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle.has_small_thumbnail": "Has unusually small thumbnail",
+
+  //"admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle.has_original_without_thumbnail": "Has original bitstream without thumbnail",
+
+  //"admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle.has_invalid_thumbnail_name": "Has invalid thumbnail name (assumes one thumbnail for each original)",
+
+  //"admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle.has_non_generated_thumb": "Has non-generated thumbnail",
+
+  //"admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle.no_license": "Doesn't have a license",
+
+  //"admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.bundle.has_license_documentation": "Has documentation in the license bundle",
+
+  //"admin.reports.commons.filters.permission": "Permission Filters",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.permission": "Permission Filters",
+
+  //"admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.permission.has_restricted_original": "Item has Restricted Original Bitstream",
+
+  //"admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.permission.has_restricted_original.tooltip": "Item has at least one original bitstream that is not accessible to Anonymous user",
+
+  //"admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail": "Item has Restricted Thumbnail",
+
+  //"admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.permission.has_restricted_thumbnail.tooltip": "Item has at least one thumbnail that is not accessible to Anonymous user",
+
+  //"admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.permission.has_restricted_metadata": "Item has Restricted Metadata",
+
+  //"admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
+  // TODO New key - Add a translation
+  "admin.reports.commons.filters.permission.has_restricted_metadata.tooltip": "Item has metadata that is not accessible to Anonymous user",
+
+
+  "admin.curation-tasks.breadcrumbs": "प्रणाली क्यूरेशन कार्य",
+
   "admin.access-control.groups.table.id": "पहचान",
 
   "admin.access-control.groups.table.members": "सदस्य",
@@ -2463,6 +2870,20 @@
 
   "menu.header.admin": "प्रबंधन",
 
+  // "menu.section.reports": "Reports",
+  // TODO New key - Add a translation
+  "menu.section.reports": "Reports",
+
+  // "menu.section.reports.collections": "Filtered Collections",
+  // TODO New key - Add a translation
+  "menu.section.reports.collections": "Filtered Collections",
+
+  // "menu.section.reports.queries": "Metadata Query",
+  // TODO New key - Add a translation
+  "menu.section.reports.queries": "Metadata Query",
+
+  "menu.section.admin_search": "व्यवस्थापक खोज",
+
   "menu.header.admin.description": "प्रबंधन मेनू",
 
   "menu.header.image.logo": "संग्रहालय चिन्ह",
@@ -2510,6 +2931,12 @@
   "menu.section.edit_item": "आइटम",
 
   "menu.section.export": "निर्यात करें",
+
+  //"menu.section.icon.reports": "Reports menu section",
+  // TODO New key - Add a translation
+  "menu.section.icon.reports": "Reports menu section",
+
+  "menu.section.icon.admin_search": "व्यवस्थापक खोज मेनू अनुभाग",
 
   "menu.section.export_collection": "संग्रह",
 
@@ -2572,6 +2999,12 @@
   "menu.section.new_process": "प्रक्रिया",
 
   "menu.section.pin": "साइडबार नत्थी करें",
+
+  //"menu.section.toggle.reports": "Toggle Reports section",
+  // TODO New key - Add a translation
+  "menu.section.toggle.reports": "Toggle Reports section",
+
+  "menu.section.toggle.access_control": "अभिगम नियंत्रण अनुभाग टॉगल करें",
 
   "menu.section.processes": "प्रक्रियाएं",
 

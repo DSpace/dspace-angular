@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { ConfigDataService } from './config-data.service';
 import { dataService } from '../data/base/data-service.decorator';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ConfigDataService } from './config-data.service';
 import { BULK_ACCESS_CONDITION_OPTIONS } from './models/config-type';
 
 /**

@@ -6,23 +6,24 @@ import {
   Input,
   Output,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormComponent,
+  DynamicFormComponentService,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormComponentService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 
 @Component({
   selector: 'ds-dynamic-form',
-  templateUrl: './ds-dynamic-form.component.html'
+  templateUrl: './ds-dynamic-form.component.html',
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 

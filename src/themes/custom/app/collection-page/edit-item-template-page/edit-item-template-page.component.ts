@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  EditItemTemplatePageComponent as BaseComponent
-} from '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component';
+
+import { EditItemTemplatePageComponent as BaseComponent } from '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component';
 
 @Component({
   selector: 'ds-edit-item-template-page',

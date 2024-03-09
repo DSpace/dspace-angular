@@ -1,13 +1,14 @@
-import { MenuSectionComponent } from './menu-section/menu-section.component';
-import { MenuComponent } from './menu.component';
-import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterModule } from '@angular/router';
-import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
-import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
-import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { MenuComponent } from './menu.component';
 import { ExternalLinkMenuItemComponent } from './menu-item/external-link-menu-item.component';
+import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
+import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
+import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
+import { MenuSectionComponent } from './menu-section/menu-section.component';
 
 const COMPONENTS = [
   MenuSectionComponent,
@@ -32,7 +33,7 @@ const PROVIDERS = [
 
 @NgModule({
   imports: [
-    ...MODULES
+    ...MODULES,
   ],
   declarations: [
     ...COMPONENTS,
@@ -43,8 +44,8 @@ const PROVIDERS = [
     ...ENTRY_COMPONENTS,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 
 /**

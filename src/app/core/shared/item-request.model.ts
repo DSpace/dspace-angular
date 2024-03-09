@@ -1,10 +1,14 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../cache/builders/build-decorators';
-import { excludeFromEquals } from '../utilities/equals.decorators';
-import { ResourceType } from './resource-type';
-import { ITEM_REQUEST } from './item-request.resource-type';
-import { HALLink } from './hal-link.model';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { HALLink } from './hal-link.model';
+import { ITEM_REQUEST } from './item-request.resource-type';
+import { ResourceType } from './resource-type';
 
 /**
  * Model class for an ItemRequest
@@ -18,70 +22,70 @@ export class ItemRequest implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * opaque string which uniquely identifies this request
    */
   @autoserialize
-  token: string;
+    token: string;
 
   /**
    * true if the request is for all bitstreams of the item.
    */
   @autoserialize
-  allfiles: boolean;
+    allfiles: boolean;
   /**
    * email address of the person requesting the files.
    */
   @autoserialize
-  requestEmail: string;
+    requestEmail: string;
   /**
    * Human-readable name of the person requesting the files.
    */
   @autoserialize
-  requestName: string;
+    requestName: string;
   /**
    * arbitrary message provided by the person requesting the files.
    */
   @autoserialize
-  requestMessage: string;
+    requestMessage: string;
   /**
    * date that the request was recorded.
    */
   @autoserialize
-  requestDate: string;
+    requestDate: string;
   /**
    * true if the request has been granted.
    */
   @autoserialize
-  acceptRequest: boolean;
+    acceptRequest: boolean;
   /**
    * date that the request was granted or denied.
    */
   @autoserialize
-  decisionDate: string;
+    decisionDate: string;
   /**
    * date on which the request is considered expired.
    */
   @autoserialize
-  expires: string;
+    expires: string;
   /**
    * UUID of the requested Item.
    */
   @autoserialize
-  itemId: string;
+    itemId: string;
   /**
    * UUID of the requested bitstream.
    */
   @autoserialize
-  bitstreamId: string;
+    bitstreamId: string;
 
   /**
    * The {@link HALLink}s for this ItemRequest
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     item: HALLink;
     bitstream: HALLink;

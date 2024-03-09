@@ -1,15 +1,24 @@
-import { ServerCheckGuard } from './server-check.guard';
-import { Router, NavigationStart, UrlTree, NavigationEnd, RouterEvent } from '@angular/router';
-
-import { of, ReplaySubject } from 'rxjs';
-import { RootDataService } from '../data/root-data.service';
+import {
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterEvent,
+  UrlTree,
+} from '@angular/router';
+import {
+  of,
+  ReplaySubject,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { RootDataService } from '../data/root-data.service';
+import { ServerCheckGuard } from './server-check.guard';
 import SpyObj = jasmine.SpyObj;
 
 describe('ServerCheckGuard', () => {
   let guard: ServerCheckGuard;
   let router: Router;
-  const eventSubject = new ReplaySubject<RouterEvent>(1);
+  let eventSubject: ReplaySubject<RouterEvent>;
   let rootDataServiceStub: SpyObj<RootDataService>;
   let testScheduler: TestScheduler;
   let redirectUrlTree: UrlTree;
@@ -21,13 +30,14 @@ describe('ServerCheckGuard', () => {
     rootDataServiceStub = jasmine.createSpyObj('RootDataService', {
       checkServerAvailability: jasmine.createSpy('checkServerAvailability'),
       invalidateRootCache: jasmine.createSpy('invalidateRootCache'),
-      findRoot: jasmine.createSpy('findRoot')
+      findRoot: jasmine.createSpy('findRoot'),
     });
     redirectUrlTree = new UrlTree();
+    eventSubject = new ReplaySubject<RouterEvent>(1);
     router = {
       events: eventSubject.asObservable(),
       navigateByUrl: jasmine.createSpy('navigateByUrl'),
-      parseUrl: jasmine.createSpy('parseUrl').and.returnValue(redirectUrlTree)
+      parseUrl: jasmine.createSpy('parseUrl').and.returnValue(redirectUrlTree),
     } as any;
     guard = new ServerCheckGuard(router, rootDataServiceStub);
   });
@@ -64,23 +74,24 @@ describe('ServerCheckGuard', () => {
   });
 
   describe(`listenForRouteChanges`, () => {
-    it(`should retrieve the root endpoint, without using the cache, when the method is first called`, () => {
-        testScheduler.run(() => {
-          guard.listenForRouteChanges();
-          expect(rootDataServiceStub.findRoot).toHaveBeenCalledWith(false);
-        });
+    it(`should invalidate the root cache, when the method is first called`, () => {
+      testScheduler.run(() => {
+        guard.listenForRouteChanges();
+        expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(1);
+      });
     });
 
     it(`should invalidate the root cache on every NavigationStart event`, () => {
-        testScheduler.run(() => {
-          guard.listenForRouteChanges();
-          eventSubject.next(new NavigationStart(1,''));
-          eventSubject.next(new NavigationEnd(1,'', ''));
-          eventSubject.next(new NavigationStart(2,''));
-          eventSubject.next(new NavigationEnd(2,'', ''));
-          eventSubject.next(new NavigationStart(3,''));
-        });
-        expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(3);
+      testScheduler.run(() => {
+        guard.listenForRouteChanges();
+        eventSubject.next(new NavigationStart(1,''));
+        eventSubject.next(new NavigationEnd(1,'', ''));
+        eventSubject.next(new NavigationStart(2,''));
+        eventSubject.next(new NavigationEnd(2,'', ''));
+        eventSubject.next(new NavigationStart(3,''));
+      });
+      // once when the method is first called, and then 3 times for NavigationStart events
+      expect(rootDataServiceStub.invalidateRootCache).toHaveBeenCalledTimes(1 + 3);
     });
   });
 });
