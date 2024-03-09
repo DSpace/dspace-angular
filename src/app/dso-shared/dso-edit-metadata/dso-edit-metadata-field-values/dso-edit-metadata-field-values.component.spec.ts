@@ -1,15 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values.component';
-import { DsoEditMetadataForm } from '../dso-edit-metadata-form';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
+
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { of } from 'rxjs/internal/observable/of';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { By } from '@angular/platform-browser';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { DsoEditMetadataForm } from '../dso-edit-metadata-form';
+import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values.component';
 
 describe('DsoEditMetadataFieldValuesComponent', () => {
   let component: DsoEditMetadataFieldValuesComponent;
@@ -58,7 +65,7 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

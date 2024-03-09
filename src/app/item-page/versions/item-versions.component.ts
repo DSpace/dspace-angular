@@ -1,7 +1,13 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { Version } from '../../core/shared/version.model';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -9,50 +15,60 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import { VersionHistory } from '../../core/shared/version-history.model';
+import {
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { VersionDataService } from '../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Item } from '../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
-import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import { Version } from '../../core/shared/version.model';
+import { VersionHistory } from '../../core/shared/version-history.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { AlertType } from '../../shared/alert/alert-type';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { AlertType } from '../../shared/alert/aletr-type';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { hasValue, hasValueOperator } from '../../shared/empty.util';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
-  getItemVersionRoute
+  getItemVersionRoute,
 } from '../item-page-routing-paths';
-import { UntypedFormBuilder } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Router } from '@angular/router';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
-  styleUrls: ['./item-versions.component.scss']
+  styleUrls: ['./item-versions.component.scss'],
 })
 
 /**
@@ -137,7 +153,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   options = Object.assign(new PaginationComponentOptions(), {
     id: 'ivo',
     currentPage: 1,
-    pageSize: this.pageSize
+    pageSize: this.pageSize,
   });
 
   /**
@@ -238,19 +254,19 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
       getFirstSucceededRemoteData(),
       switchMap((findRes: RemoteData<Version>) => {
         const payload = findRes.payload;
-        const summary = {summary: this.versionBeingEditedSummary,};
+        const summary = { summary: this.versionBeingEditedSummary };
         const updatedVersion = Object.assign({}, payload, summary);
         return this.versionService.update(updatedVersion).pipe(getFirstCompletedRemoteData<Version>());
       }),
     ).subscribe((updatedVersionRD: RemoteData<Version>) => {
-        if (updatedVersionRD.hasSucceeded) {
-          this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
-          this.getAllVersions(this.versionHistory$);
-        } else {
-          this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
-        }
-        this.disableVersionEditing();
+      if (updatedVersionRD.hasSucceeded) {
+        this.notificationsService.success(null, this.translateService.get(successMessageKey, { 'version': this.versionBeingEditedNumber }));
+        this.getAllVersions(this.versionHistory$);
+      } else {
+        this.notificationsService.warning(null, this.translateService.get(failureMessageKey, { 'version': this.versionBeingEditedNumber }));
       }
+      this.disableVersionEditing();
+    },
     );
   }
 
@@ -290,12 +306,12 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
           // Retrieve version history
           mergeMap((item: Item) => combineLatest([
             of(item),
-            this.versionHistoryService.getVersionHistoryFromVersion$(version)
+            this.versionHistoryService.getVersionHistoryFromVersion$(version),
           ])),
           // Delete item
           mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
             this.deleteItemAndGetResult$(item),
-            of(versionHistory)
+            of(versionHistory),
           ])),
           // Retrieve new latest version
           mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
@@ -304,14 +320,14 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
               tap(() => {
                 this.getAllVersions(of(versionHistory));
               }),
-            )
+            ),
           ])),
         ).subscribe(([deleteHasSucceeded, newLatestVersionItem]: [boolean, Item]) => {
           // Notify operation result and redirect to latest item
           if (deleteHasSucceeded) {
-            this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
+            this.notificationsService.success(null, this.translateService.get(successMessageKey, { 'version': versionNumber }));
           } else {
-            this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
+            this.notificationsService.error(null, this.translateService.get(failureMessageKey, { 'version': versionNumber }));
           }
           if (redirectToLatest) {
             const path = getItemEditVersionhistoryRoute(newLatestVersionItem);
@@ -337,7 +353,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     activeModal.componentInstance.createVersionEvent.pipe(
       mergeMap((summary: string) => combineLatest([
         of(summary),
-        version.item.pipe(getFirstSucceededRemoteDataPayload())
+        version.item.pipe(getFirstSucceededRemoteDataPayload()),
       ])),
       mergeMap(([summary, item]: [string, Item]) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
       getFirstCompletedRemoteData(),
@@ -402,7 +418,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     return combineLatest([includeSubmitter$, isAdmin$]).pipe(
       map(([includeSubmitter, isAdmin]) => {
         return includeSubmitter && isAdmin;
-      })
+      }),
     );
 
   }
@@ -424,7 +440,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     combineLatest([versionHistory$, currentPagination]).pipe(
       switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
         return this.versionHistoryService.getVersions(versionHistory.id,
-          new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
+          new PaginatedSearchOptions({ pagination: Object.assign({}, options, { currentPage: options.currentPage }) }),
           false, true, followLink('item'), followLink('eperson'));
       }),
       getFirstCompletedRemoteData(),
@@ -505,7 +521,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
       this.createVersionTitle$ = this.hasDraftVersion$.pipe(
         take(1),
-        switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion'))
+        switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion')),
       );
 
       this.getAllVersions(this.versionHistory$);
@@ -514,7 +530,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         getRemoteDataPayload(),
         hasValueOperator(),
         map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
-        startWith(false)
+        startWith(false),
       );
       this.itemPageRoutes$ = this.versionsRD$.pipe(
         getAllSucceededRemoteDataPayload(),
@@ -523,7 +539,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
           const itemPageRoutes = {};
           versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
           return itemPageRoutes;
-        })
+        }),
       );
     }
   }

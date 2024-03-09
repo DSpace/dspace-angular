@@ -1,9 +1,15 @@
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
-import { SectionsDirective } from '../sections.directive';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { SectionDataObject } from '../models/section-data.model';
+import { SectionsDirective } from '../sections.directive';
 import { rendersSectionType } from '../sections-decorator';
-import { AlertType } from '../../../shared/alert/aletr-type';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -11,7 +17,7 @@ import { AlertType } from '../../../shared/alert/aletr-type';
 @Component({
   selector: 'ds-submission-section-container',
   templateUrl: './section-container.component.html',
-  styleUrls: ['./section-container.component.scss']
+  styleUrls: ['./section-container.component.scss'],
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 
@@ -68,7 +74,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: [] },
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

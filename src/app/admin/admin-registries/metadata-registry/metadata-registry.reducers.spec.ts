@@ -1,3 +1,5 @@
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -8,11 +10,12 @@ import {
   MetadataRegistryEditFieldAction,
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
-  MetadataRegistrySelectSchemaAction
+  MetadataRegistrySelectSchemaAction,
 } from './metadata-registry.actions';
-import { metadataRegistryReducer, MetadataRegistryState } from './metadata-registry.reducers';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import {
+  metadataRegistryReducer,
+  MetadataRegistryState,
+} from './metadata-registry.reducers';
 
 class NullAction extends MetadataRegistryEditSchemaAction {
   type = null;
@@ -27,11 +30,11 @@ const schema: MetadataSchema = Object.assign(new MetadataSchema(),
     id: 'schema-id',
     _links: {
       self: {
-        href: 'http://rest.self/schema/dc'
+        href: 'http://rest.self/schema/dc',
       },
     },
     prefix: 'dc',
-    namespace: 'http://dublincore.org/documents/dcmi-terms/'
+    namespace: 'http://dublincore.org/documents/dcmi-terms/',
   });
 
 const schema2: MetadataSchema = Object.assign(new MetadataSchema(),
@@ -43,7 +46,7 @@ const schema2: MetadataSchema = Object.assign(new MetadataSchema(),
       },
     },
     prefix: 'dcterms',
-    namespace: 'http://purl.org/dc/terms/'
+    namespace: 'http://purl.org/dc/terms/',
   });
 
 const field: MetadataField = Object.assign(new MetadataField(),
@@ -57,7 +60,7 @@ const field: MetadataField = Object.assign(new MetadataField(),
     element: 'contributor',
     qualifier: 'author',
     scopeNote: 'Author of an item',
-    schema: schema
+    schema: schema,
   });
 
 const field2: MetadataField = Object.assign(new MetadataField(),
@@ -71,35 +74,35 @@ const field2: MetadataField = Object.assign(new MetadataField(),
     element: 'title',
     qualifier: null,
     scopeNote: 'Title of an item',
-    schema: schema
+    schema: schema,
   });
 
 const initialState: MetadataRegistryState = {
   editSchema: null,
   selectedSchemas: [],
   editField: null,
-  selectedFields: []
+  selectedFields: [],
 };
 
 const editState: MetadataRegistryState = {
   editSchema: schema,
   selectedSchemas: [],
   editField: field,
-  selectedFields: []
+  selectedFields: [],
 };
 
 const selectState: MetadataRegistryState = {
   editSchema: null,
   selectedSchemas: [schema2],
   editField: null,
-  selectedFields: [field2]
+  selectedFields: [field2],
 };
 
 const moreSelectState: MetadataRegistryState = {
   editSchema: null,
   selectedSchemas: [schema, schema2],
   editField: null,
-  selectedFields: [field, field2]
+  selectedFields: [field, field2],
 };
 
 describe('metadataRegistryReducer', () => {

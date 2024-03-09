@@ -1,29 +1,41 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  hasNoValue,
+  isNotNull,
+} from 'src/app/shared/empty.util';
 
-import { Collection } from '../../core/shared/collection.model';
-import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
-import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { RequestService } from '../../core/data/request.service';
+import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
-
+import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  collectionFormEntityTypeSelectionConfig,
+  collectionFormModels,
+} from './collection-form.models';
 
 /**
  * Form used for creating and editing collections
@@ -31,7 +43,7 @@ import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
 @Component({
   selector: 'ds-collection-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
@@ -92,30 +104,29 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     }
 
     const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
-      getFirstSucceededRemoteListPayload()
+      getFirstSucceededRemoteListPayload(),
     );
 
     // retrieve all entity types to populate the dropdowns selection
     entities$.subscribe((entityTypes: ItemType[]) => {
 
-        entityTypes
-          .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
-          .forEach((type: ItemType, index: number) => {
-          this.entityTypeSelection.add({
-            disabled: false,
-            label: type.label,
-            value: type.label
-          } as DynamicFormOptionConfig<string>);
-          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
-            this.entityTypeSelection.select(index);
-            this.entityTypeSelection.disabled = true;
-          }
-        });
+      entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
+      entityTypes.forEach((type: ItemType, index: number) => {
+        this.entityTypeSelection.add({
+          disabled: false,
+          label: type.label,
+          value: type.label,
+        } as DynamicFormOptionConfig<string>);
+        if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+          this.entityTypeSelection.select(index);
+          this.entityTypeSelection.disabled = true;
+        }
+      });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection];
+      this.formModel = entityTypes.length === 0 ? collectionFormModels : [...collectionFormModels, this.entityTypeSelection];
 
-        super.ngOnInit();
-        this.chd.detectChanges();
+      super.ngOnInit();
+      this.chd.detectChanges();
     });
 
   }

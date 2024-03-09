@@ -1,9 +1,14 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { SearchSidebarComponent } from './search-sidebar.component';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { SearchSidebarComponent } from './search-sidebar.component';
 
 describe('SearchSidebarComponent', () => {
   let comp: SearchSidebarComponent;

@@ -1,19 +1,24 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
-import { MenuService } from '../../../shared/menu/menu.service';
-import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
-import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
-import { MenuSection } from '../../../shared/menu/menu-section.model';
-import { MenuID } from '../../../shared/menu/menu-id.model';
-import { isEmpty } from '../../../shared/empty.util';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+
+import { isEmpty } from '../../../shared/empty.util';
+import { MenuService } from '../../../shared/menu/menu.service';
+import { MenuID } from '../../../shared/menu/menu-id.model';
+import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
+import { MenuSection } from '../../../shared/menu/menu-section.model';
+import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
 
 /**
  * Represents a non-expandable section in the admin sidebar
  */
 @Component({
-  /* eslint-disable @angular-eslint/component-selector */
-  selector: 'li[ds-admin-sidebar-section]',
+  selector: 'ds-admin-sidebar-section',
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
 
@@ -52,5 +57,13 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
     if (!this.isDisabled) {
       this.router.navigate(this.itemModel.link);
     }
+  }
+
+  adminMenuSectionId(sectionId: string) {
+    return `admin-menu-section-${sectionId}`;
+  }
+
+  adminMenuSectionTitleId(sectionId: string) {
+    return `admin-menu-section-${sectionId}-title`;
   }
 }

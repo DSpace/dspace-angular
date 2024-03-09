@@ -1,9 +1,17 @@
-import { Component, Inject, Input } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import {
+  Component,
+  Inject,
+  Input,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { map } from 'rxjs/operators';
+
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-labels',
@@ -39,7 +47,7 @@ export class SearchLabelsComponent {
             labels[key] = [...params[key].map((value) => value)];
           });
         return labels;
-      })
+      }),
     );
   }
 }

@@ -1,15 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
 
-import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../app.reducer';
-import { isAuthenticationLoading } from '../../../core/auth/selectors';
-import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
+import {
+  getProfileModuleRoute,
+  getSubscriptionsModuleRoute,
+} from '../../../app-routing-paths';
 import { AuthService } from '../../../core/auth/auth.service';
-import { getProfileModuleRoute, getSubscriptionsModuleRoute } from '../../../app-routing-paths';
+import { isAuthenticationLoading } from '../../../core/auth/selectors';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 
 /**
  * This component represents the user nav menu.
@@ -17,7 +26,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 @Component({
   selector: 'ds-user-menu',
   templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+  styleUrls: ['./user-menu.component.scss'],
 })
 export class UserMenuComponent implements OnInit {
 

@@ -1,11 +1,17 @@
-import { ThemedComponent } from '../../../../../theme-support/themed.component';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
-import { Context } from '../../../../../../core/shared/context.model';
-import { Item } from '../../../../../../core/shared/item.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { Collection } from '../../../../../../core/shared/collection.model';
+import { Context } from '../../../../../../core/shared/context.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
+import { Item } from '../../../../../../core/shared/item.model';
+import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../../../../../theme-support/themed.component';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 
 @Component({
@@ -15,7 +21,7 @@ import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-loo
 })
 export class ThemedDynamicLookupRelationExternalSourceTabComponent extends ThemedComponent<DsDynamicLookupRelationExternalSourceTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationExternalSourceTabComponent & keyof this)[] = ['label', 'listId',
-    'item', 'collection', 'relationship', 'context', 'repeatable', 'importedObject', 'externalSource'];
+    'item', 'collection', 'relationship', 'context', 'query', 'repeatable', 'importedObject', 'externalSource'];
 
   @Input() label: string;
 
@@ -28,6 +34,8 @@ export class ThemedDynamicLookupRelationExternalSourceTabComponent extends Theme
   @Input() relationship: RelationshipOptions;
 
   @Input() context: Context;
+
+  @Input() query: string;
 
   @Input() repeatable: boolean;
 

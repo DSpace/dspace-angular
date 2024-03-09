@@ -1,15 +1,21 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { rendersMenuItemForType } from '../menu-item.decorator';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+
 import { isNotEmpty } from '../../empty.util';
-import { ExternalLinkMenuItemModel } from './models/external-link.model';
+import { rendersMenuItemForType } from '../menu-item.decorator';
 import { MenuItemType } from '../menu-item-type.model';
+import { ExternalLinkMenuItemModel } from './models/external-link.model';
 
 /**
  * Component that renders a menu section of type EXTERNAL
  */
 @Component({
   selector: 'ds-external-link-menu-item',
-  templateUrl: './external-link-menu-item.component.html'
+  styleUrls: ['./menu-item.component.scss'],
+  templateUrl: './external-link-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.EXTERNAL)
 export class ExternalLinkMenuItemComponent implements OnInit {
@@ -18,7 +24,7 @@ export class ExternalLinkMenuItemComponent implements OnInit {
   hasLink: boolean;
 
   constructor(
-    @Inject('itemModelProvider') item: ExternalLinkMenuItemModel
+    @Inject('itemModelProvider') item: ExternalLinkMenuItemModel,
   ) {
     this.item = item;
   }

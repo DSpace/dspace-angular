@@ -1,4 +1,8 @@
-import { SearchFilterAction, SearchFilterActionTypes, SearchFilterInitializeAction } from './search-filter.actions';
+import {
+  SearchFilterAction,
+  SearchFilterActionTypes,
+  SearchFilterInitializeAction,
+} from './search-filter.actions';
 
 /**
  * Interface that represents the state for a single filters
@@ -32,8 +36,8 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: !initAction.initiallyExpanded,
-          page: 1
-        }
+          page: 1,
+        },
       });
       return state;
     }
@@ -42,8 +46,8 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: true,
-          page: state[action.filterName].page
-        }
+          page: state[action.filterName].page,
+        },
       });
     }
 
@@ -51,8 +55,8 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: false,
-          page: state[action.filterName].page
-        }
+          page: state[action.filterName].page,
+        },
       });
 
     }
@@ -62,8 +66,8 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,
-          page: (page >= 1 ? page : 1)
-        }
+          page: (page >= 1 ? page : 1),
+        },
       });
     }
 
@@ -71,8 +75,8 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,
-          page: state[action.filterName].page + 1
-        }
+          page: state[action.filterName].page + 1,
+        },
       });
 
     }
@@ -80,8 +84,8 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,
-          page: 1
-        }
+          page: 1,
+        },
       });
 
     }
@@ -90,8 +94,8 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: !state[action.filterName].filterCollapsed,
-          page: state[action.filterName].page
-        }
+          page: state[action.filterName].page,
+        },
       });
 
     }

@@ -1,8 +1,12 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 
+import { typedObject } from '../../../cache/builders/build-decorators';
 import { HALLink } from '../../../shared/hal-link.model';
 import { VOCABULARY_ENTRY_DETAIL } from './vocabularies.resource-type';
-import { typedObject } from '../../../cache/builders/build-decorators';
 import { VocabularyEntry } from './vocabulary-entry.model';
 
 /**
@@ -17,19 +21,19 @@ export class VocabularyEntryDetail extends VocabularyEntry {
    * The unique id of the entry
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * In an hierarchical vocabulary representing if entry is selectable as value
    */
   @autoserialize
-  selectable: boolean;
+    selectable: boolean;
 
   /**
    * The {@link HALLink}s for this ExternalSourceEntry
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     vocabulary: HALLink;
     parent: HALLink;
