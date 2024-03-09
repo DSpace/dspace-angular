@@ -18,8 +18,6 @@ import { TypeBadgeComponent } from './type-badge.component';
 export class ThemedTypeBadgeComponent extends ThemedComponent<TypeBadgeComponent> {
   @Input() object: DSpaceObject;
 
-  protected inAndOutputNames: (keyof TypeBadgeComponent & keyof this)[] = ['object'];
-
   protected getComponentName(): string {
     return 'TypeBadgeComponent';
   }

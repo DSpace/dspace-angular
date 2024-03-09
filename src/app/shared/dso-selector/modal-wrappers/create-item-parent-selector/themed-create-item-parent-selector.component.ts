@@ -18,8 +18,6 @@ export class ThemedCreateItemParentSelectorComponent
   extends ThemedComponent<CreateItemParentSelectorComponent> {
     @Input() entityType: string;
 
-    protected inAndOutputNames: (keyof CreateItemParentSelectorComponent & keyof this)[] = ['entityType'];
-
     protected getComponentName(): string {
       return 'CreateItemParentSelectorComponent';
     }

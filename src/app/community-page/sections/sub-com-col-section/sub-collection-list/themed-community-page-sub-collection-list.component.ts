@@ -15,7 +15,6 @@ import { CommunityPageSubCollectionListComponent } from './community-page-sub-co
 export class ThemedCollectionPageSubCollectionListComponent extends ThemedComponent<CommunityPageSubCollectionListComponent> {
   @Input() community: Community;
   @Input() pageSize: number;
-  protected inAndOutputNames: (keyof CommunityPageSubCollectionListComponent & keyof this)[] = ['community', 'pageSize'];
 
   protected getComponentName(): string {
     return 'CommunityPageSubCollectionListComponent';

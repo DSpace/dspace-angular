@@ -33,8 +33,6 @@ export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailReques
    */
   @Input() message: string;
 
-  protected inAndOutputNames: (keyof EmailRequestCopyComponent & keyof this)[] = ['send', 'subject', 'message'];
-
   protected getComponentName(): string {
     return 'EmailRequestCopyComponent';
   }

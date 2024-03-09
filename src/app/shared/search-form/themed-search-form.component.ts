@@ -38,19 +38,6 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   @Output() submitSearch: EventEmitter<any> = new EventEmitter();
 
-  protected inAndOutputNames: (keyof SearchFormComponent & keyof this)[] = [
-    'query',
-    'inPlaceSearch',
-    'scope',
-    'hideScopeInUrl',
-    'currentUrl',
-    'large',
-    'brandColor',
-    'searchPlaceholder',
-    'showScopeSelector',
-    'submitSearch',
-  ];
-
   protected getComponentName(): string {
     return 'SearchFormComponent';
   }

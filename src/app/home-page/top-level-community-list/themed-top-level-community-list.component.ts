@@ -9,7 +9,6 @@ import { TopLevelCommunityListComponent } from './top-level-community-list.compo
   templateUrl: '../../shared/theme-support/themed.component.html',
 })
 export class ThemedTopLevelCommunityListComponent extends ThemedComponent<TopLevelCommunityListComponent> {
-  protected inAndOutputNames: (keyof TopLevelCommunityListComponent & keyof this)[];
 
   protected getComponentName(): string {
     return 'TopLevelCommunityListComponent';

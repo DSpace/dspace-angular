@@ -41,7 +41,11 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
 
   protected subs: Subscription[] = [];
 
-  protected inAndOutputNames: (keyof T & keyof this)[] = [];
+  /**
+   * This variable should not be used anymore, since this has been split into separate lists that are automatically
+   * filled in.
+   */
+  private inAndOutputNames: (keyof T & keyof this)[];
 
   private inputNames: string[] = [];
 

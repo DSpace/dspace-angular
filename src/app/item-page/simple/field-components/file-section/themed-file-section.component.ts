@@ -15,8 +15,6 @@ export class ThemedFileSectionComponent extends ThemedComponent<FileSectionCompo
 
     @Input() item: Item;
 
-    protected inAndOutputNames: (keyof FileSectionComponent & keyof this)[] = ['item'];
-
     protected getComponentName(): string {
       return 'FileSectionComponent';
     }

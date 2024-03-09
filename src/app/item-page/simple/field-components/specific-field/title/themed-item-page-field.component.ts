@@ -17,10 +17,6 @@ import { ItemPageTitleFieldComponent } from './item-page-title-field.component';
 })
 export class ThemedItemPageTitleFieldComponent extends ThemedComponent<ItemPageTitleFieldComponent> {
 
-  protected inAndOutputNames: (keyof ItemPageTitleFieldComponent & keyof this)[] = [
-    'item',
-  ];
-
   @Input() item: Item;
 
   protected getComponentName(): string {

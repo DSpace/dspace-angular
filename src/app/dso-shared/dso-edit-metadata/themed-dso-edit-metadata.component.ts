@@ -19,8 +19,6 @@ export class ThemedDsoEditMetadataComponent extends ThemedComponent<DsoEditMetad
 
   @Input() updateDataService: UpdateDataService<DSpaceObject>;
 
-  protected inAndOutputNames: (keyof DsoEditMetadataComponent & keyof this)[] = ['dso', 'updateDataService'];
-
   protected getComponentName(): string {
     return 'DsoEditMetadataComponent';
   }

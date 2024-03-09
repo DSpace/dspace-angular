@@ -21,8 +21,6 @@ export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
    */
   @Input() inExpandableNavbar: boolean;
 
-  protected inAndOutputNames: (keyof UserMenuComponent & keyof this)[] = ['inExpandableNavbar'];
-
   protected getComponentName(): string {
     return 'UserMenuComponent';
   }

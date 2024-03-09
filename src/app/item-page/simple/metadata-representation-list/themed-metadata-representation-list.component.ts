@@ -13,7 +13,6 @@ import { MetadataRepresentationListComponent } from './metadata-representation-l
   templateUrl: '../../../shared/theme-support/themed.component.html',
 })
 export class ThemedMetadataRepresentationListComponent extends ThemedComponent<MetadataRepresentationListComponent> {
-  protected inAndOutputNames: (keyof MetadataRepresentationListComponent & keyof this)[] = ['parentItem', 'itemType', 'metadataFields', 'label', 'incrementBy'];
 
   @Input() parentItem: Item;
 

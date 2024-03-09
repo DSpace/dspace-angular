@@ -21,11 +21,6 @@ export class ThemedMediaViewerComponent extends ThemedComponent<MediaViewerCompo
   @Input() item: Item;
   @Input() mediaOptions: MediaViewerConfig;
 
-  protected inAndOutputNames: (keyof MediaViewerComponent & keyof this)[] = [
-    'item',
-    'mediaOptions',
-  ];
-
   protected getComponentName(): string {
     return 'MediaViewerComponent';
   }

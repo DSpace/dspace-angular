@@ -21,8 +21,6 @@ export class ThemedComcolPageBrowseByComponent extends ThemedComponent<ComcolPag
   @Input() id: string;
   @Input() contentType: string;
 
-  inAndOutputNames: (keyof ComcolPageBrowseByComponent & keyof this)[] = ['id', 'contentType'];
-
   protected getComponentName(): string {
     return 'ComcolPageBrowseByComponent';
   }

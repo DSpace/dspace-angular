@@ -19,9 +19,7 @@ import { BadgesComponent } from './badges.component';
 export class ThemedBadgesComponent extends ThemedComponent<BadgesComponent> {
   @Input() object: DSpaceObject;
   @Input() context: Context;
-  @Input() showAccessStatus = false;
-
-  protected inAndOutputNames: (keyof BadgesComponent & keyof this)[] = ['object', 'context', 'showAccessStatus'];
+  @Input() showAccessStatus: boolean;
 
   protected getComponentName(): string {
     return 'BadgesComponent';

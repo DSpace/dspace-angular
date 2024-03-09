@@ -25,14 +25,6 @@ export class ThemedThumbnailComponent extends ThemedComponent<ThumbnailComponent
 
   @Input() limitWidth?: boolean;
 
-  protected inAndOutputNames: (keyof ThumbnailComponent & keyof this)[] = [
-    'thumbnail',
-    'defaultImage',
-    'alt',
-    'placeholder',
-    'limitWidth',
-  ];
-
   protected getComponentName(): string {
     return 'ThumbnailComponent';
   }

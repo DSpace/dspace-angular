@@ -26,8 +26,6 @@ export class ThemedCollectionDropdownComponent extends ThemedComponent<Collectio
 
   @Output() selectionChange = new EventEmitter();
 
-  protected inAndOutputNames: (keyof CollectionDropdownComponent & keyof this)[] = ['entityType', 'searchComplete', 'theOnlySelectable', 'selectionChange'];
-
   protected getComponentName(): string {
     return 'CollectionDropdownComponent';
   }

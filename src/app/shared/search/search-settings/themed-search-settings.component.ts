@@ -19,10 +19,6 @@ export class ThemedSearchSettingsComponent extends ThemedComponent<SearchSetting
   @Input() currentSortOption: SortOptions;
   @Input() sortOptionsList: SortOptions[];
 
-
-  protected inAndOutputNames: (keyof SearchSettingsComponent & keyof this)[] = [
-    'currentSortOption', 'sortOptionsList'];
-
   protected getComponentName(): string {
     return 'SearchSettingsComponent';
   }

@@ -18,8 +18,6 @@ import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component
 export class ThemedMyDSpaceStatusBadgeComponent extends ThemedComponent<MyDSpaceStatusBadgeComponent> {
   @Input() context: Context;
 
-  protected inAndOutputNames: (keyof MyDSpaceStatusBadgeComponent & keyof this)[] = ['context'];
-
   protected getComponentName(): string {
     return 'MyDSpaceStatusBadgeComponent';
   }

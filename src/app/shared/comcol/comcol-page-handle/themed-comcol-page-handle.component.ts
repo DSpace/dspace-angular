@@ -24,8 +24,6 @@ export class ThemedComcolPageHandleComponent extends ThemedComponent<ComcolPageH
   // The value of "handle"
   @Input() content: string;
 
-  inAndOutputNames: (keyof ComcolPageHandleComponent & keyof this)[] = ['title', 'content'];
-
   protected getComponentName(): string {
     return 'ComcolPageHandleComponent';
   }

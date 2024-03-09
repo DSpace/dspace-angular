@@ -20,11 +20,6 @@ export class ThemedRegisterEmailFormComponent extends ThemedComponent<RegisterEm
 
   @Input() typeRequest: string;
 
-  protected inAndOutputNames: (keyof RegisterEmailFormComponent & keyof this)[] = [
-    'MESSAGE_PREFIX',
-    'typeRequest',
-  ];
-
   protected getComponentName(): string {
     return 'RegisterEmailFormComponent';
   }

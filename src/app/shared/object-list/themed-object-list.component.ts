@@ -156,36 +156,6 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter();
 
-  inAndOutputNames: (keyof ObjectListComponent & keyof this)[] = [
-    'config',
-    'sortConfig',
-    'hasBorder',
-    'hideGear',
-    'hidePagerWhenSinglePage',
-    'selectable',
-    'selectionConfig',
-    'linkType',
-    'context',
-    'hidePaginationDetail',
-    'importable',
-    'importConfig',
-    'showPaginator',
-    'showThumbnails',
-    'contentChange',
-    'prev',
-    'next',
-    'objects',
-    'change',
-    'pageChange',
-    'pageSizeChange',
-    'sortDirectionChange',
-    'paginationChange',
-    'deselectObject',
-    'selectObject',
-    'importObject',
-    'sortFieldChange',
-  ];
-
   protected getComponentName(): string {
     return 'ObjectListComponent';
   }

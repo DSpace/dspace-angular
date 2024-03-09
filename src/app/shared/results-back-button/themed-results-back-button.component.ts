@@ -16,9 +16,7 @@ export class ThemedResultsBackButtonComponent extends ThemedComponent<ResultsBac
 
   @Input() buttonLabel?: Observable<any>;
 
-  @Input() back: () => void;
-
-  protected inAndOutputNames: (keyof ResultsBackButtonComponent & keyof this)[] = ['back', 'buttonLabel'];
+  @Input() back;
 
   protected getComponentName(): string {
     return 'ResultsBackButtonComponent';

@@ -25,36 +25,6 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
-    'configurationList',
-    'context',
-    'configuration',
-    'fixedFilterQuery',
-    'useCachedVersionIfAvailable',
-    'inPlaceSearch',
-    'linkType',
-    'paginationId',
-    'searchEnabled',
-    'sideBarWidth',
-    'searchFormPlaceholder',
-    'selectable',
-    'selectionConfig',
-    'showCsvExport',
-    'showSidebar',
-    'showThumbnails',
-    'showViewModes',
-    'useUniquePageId',
-    'viewModeList',
-    'showScopeSelector',
-    'trackStatistics',
-    'query',
-    'scope',
-    'hideScopeInUrl',
-    'resultFound',
-    'deselectObject',
-    'selectObject',
-  ];
-
   @Input() configurationList: SearchConfigurationOption[];
 
   @Input() context: Context;

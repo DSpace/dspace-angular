@@ -54,22 +54,6 @@ export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> 
 
   @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter();
 
-  protected inAndOutputNames: (keyof BrowseByComponent & keyof this)[] = [
-    'title',
-    'displayTitle',
-    'objects$',
-    'paginationConfig',
-    'sortConfig',
-    'type',
-    'startsWithOptions',
-    'showPaginator',
-    'hideGear',
-    'prev',
-    'next',
-    'pageSizeChange',
-    'sortDirectionChange',
-  ];
-
   protected getComponentName(): string {
     return 'BrowseByComponent';
   }

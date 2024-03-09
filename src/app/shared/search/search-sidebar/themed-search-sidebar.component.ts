@@ -35,19 +35,14 @@ export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarC
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
   @Input() resultCount;
   @Input() viewModeList: ViewMode[];
-  @Input() showViewModes = true;
-  @Input() inPlaceSearch;
+  @Input() showViewModes: boolean;
+  @Input() inPlaceSearch: boolean;
   @Input() searchOptions: PaginatedSearchOptions;
   @Input() sortOptionsList: SortOptions[];
   @Input() refreshFilters: BehaviorSubject<boolean>;
   @Output() toggleSidebar = new EventEmitter<boolean>();
   @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter<SearchConfigurationOption>();
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
-
-  protected inAndOutputNames: (keyof SearchSidebarComponent & keyof this)[] = [
-    'configuration', 'configurationList', 'currentScope', 'currentSortOption',
-    'resultCount', 'filters', 'viewModeList', 'showViewModes', 'inPlaceSearch',
-    'searchOptions', 'sortOptionsList', 'refreshFilters', 'toggleSidebar', 'changeConfiguration', 'changeViewMode'];
 
   protected getComponentName(): string {
     return 'SearchSidebarComponent';
