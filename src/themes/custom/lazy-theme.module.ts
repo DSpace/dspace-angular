@@ -55,6 +55,7 @@ import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
 import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
+import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
@@ -227,6 +228,7 @@ const DECLARATIONS = [
   RegisterEmailFormComponent,
   SearchComponent,
   ItemListPreviewComponent,
+  MetadataImportPageComponent,
 ];
 
 @NgModule({

@@ -7,6 +7,7 @@ import { UploadModule } from '../shared/upload/upload.module';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
+import { ThemedMetadataImportPageComponent } from './admin-import-metadata-page/themed-metadata-import-page.component';
 import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
 import { AdminReportsModule } from './admin-reports/admin-reports.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -21,6 +22,12 @@ const ENTRY_COMPONENTS = [
   ExpandableAdminSidebarSectionComponent,
 ];
 
+const DECLARATIONS = [
+  AdminCurationTasksComponent,
+  MetadataImportPageComponent,
+  ThemedMetadataImportPageComponent,
+  BatchImportPageComponent,
+];
 
 @NgModule({
   imports: [
@@ -35,9 +42,7 @@ const ENTRY_COMPONENTS = [
     UploadModule,
   ],
   declarations: [
-    AdminCurationTasksComponent,
-    MetadataImportPageComponent,
-    BatchImportPageComponent,
+    ...DECLARATIONS,
   ],
 })
 export class AdminModule {
