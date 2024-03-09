@@ -1,9 +1,13 @@
-import { HandleService, CANONICAL_PREFIX_KEY } from './handle.service';
 import { TestBed } from '@angular/core/testing';
-import { ConfigurationDataServiceStub } from './testing/configuration-data.service.stub';
+
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from './remote-data.utils';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import {
+  CANONICAL_PREFIX_KEY,
+  HandleService,
+} from './handle.service';
+import { createSuccessfulRemoteDataObject$ } from './remote-data.utils';
+import { ConfigurationDataServiceStub } from './testing/configuration-data.service.stub';
 
 describe('HandleService', () => {
   let service: HandleService;

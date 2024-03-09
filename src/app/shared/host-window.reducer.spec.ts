@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
-import { hostWindowReducer } from './search/host-window.reducer';
+
 import { HostWindowResizeAction } from './host-window.actions';
+import { hostWindowReducer } from './search/host-window.reducer';
 
 class NullAction extends HostWindowResizeAction {
   type = null;
@@ -44,6 +45,10 @@ describe('hostWindowReducer', () => {
 
     const action = new HostWindowResizeAction(1024, 768);
     hostWindowReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
 });

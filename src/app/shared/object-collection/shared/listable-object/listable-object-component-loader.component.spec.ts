@@ -1,37 +1,44 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
-import { ListableObject } from '../listable-object.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { Context } from '../../../../core/shared/context.model';
+import { FileService } from '../../../../core/shared/file.service';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { By } from '@angular/platform-browser';
-import { ThemeService } from '../../../theme-support/theme.service';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ItemSearchResultListElementComponent } from '../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
 import { FileServiceStub } from '../../../testing/file-service.stub';
 import { TruncatableServiceStub } from '../../../testing/truncatable-service.stub';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment.test';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { FileService } from '../../../../core/shared/file.service';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
+import { ListableObject } from '../listable-object.model';
+import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 
 const testType = 'TestType';
 const testContext = Context.Search;
 const testViewMode = ViewMode.StandalonePage;
 
-class TestType extends ListableObject {
+export class TestType extends ListableObject {
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [testType];
   }
@@ -72,11 +79,11 @@ describe('ListableObjectComponentLoaderComponent', () => {
         { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
-      ]
+      ],
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-      }
+      },
     }).compileComponents();
   }));
 

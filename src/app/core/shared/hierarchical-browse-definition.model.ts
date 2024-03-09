@@ -1,11 +1,17 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
-import { HIERARCHICAL_BROWSE_DEFINITION } from './hierarchical-browse-definition.resource-type';
-import { HALLink } from './hal-link.model';
-import { ResourceType } from './resource-type';
 import { BrowseDefinition } from './browse-definition.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
+import { HALLink } from './hal-link.model';
+import { HIERARCHICAL_BROWSE_DEFINITION } from './hierarchical-browse-definition.resource-type';
+import { ResourceType } from './resource-type';
 
 /**
  * BrowseDefinition model for browses of type 'hierarchicalBrowse'
@@ -19,23 +25,23 @@ export class HierarchicalBrowseDefinition extends BrowseDefinition {
    * The object type
    */
   @excludeFromEquals
-  type: ResourceType = HIERARCHICAL_BROWSE_DEFINITION;
+    type: ResourceType = HIERARCHICAL_BROWSE_DEFINITION;
 
   @autoserialize
-  facetType: string;
+    facetType: string;
 
   @autoserialize
-  vocabulary: string;
+    vocabulary: string;
 
   @autoserializeAs('metadata')
-  metadataKeys: string[];
+    metadataKeys: string[];
 
   get self(): string {
     return this._links.self.href;
   }
 
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     vocabulary: HALLink;
   };

@@ -1,17 +1,28 @@
-import { DebugElement, Pipe, PipeTransform } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { of as observableOf } from 'rxjs';
 
-import { ThumbnailComponent } from './thumbnail.component';
-import { RemoteData } from '../core/data/remote-data';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { AuthService } from '../core/auth/auth.service';
-import { FileService } from '../core/shared/file.service';
-import { VarDirective } from '../shared/utils/var.directive';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { FileService } from '../core/shared/file.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../shared/remote-data.utils';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ThumbnailComponent } from './thumbnail.component';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
@@ -40,7 +51,7 @@ describe('ThumbnailComponent', () => {
       isAuthorized: observableOf(true),
     });
     fileService = jasmine.createSpyObj('FileService', {
-      retrieveFileDownloadLink: null
+      retrieveFileDownloadLink: null,
     });
     fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
 
@@ -49,8 +60,8 @@ describe('ThumbnailComponent', () => {
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: FileService, useValue: fileService }
-      ]
+        { provide: FileService, useValue: fileService },
+      ],
     }).compileComponents();
   }));
 
@@ -290,7 +301,7 @@ describe('ThumbnailComponent', () => {
         bundle: { href: 'bundle.url' },
         format: { href: 'format.url' },
         content: { href: CONTENT },
-        thumbnail: undefined
+        thumbnail: undefined,
       };
     });
 

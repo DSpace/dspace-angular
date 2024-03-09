@@ -1,25 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
   DynamicInputModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateService } from '@ngx-translate/core';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { LangConfig } from '../../../config/lang-config.interface';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import cloneDeep from 'lodash/cloneDeep';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../core/shared/operators';
+
+import { LangConfig } from '../../../config/lang-config.interface';
+import { environment } from '../../../environments/environment';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-profile-page-metadata-form',
-  templateUrl: './profile-page-metadata-form.component.html'
+  templateUrl: './profile-page-metadata-form.component.html',
 })
 /**
  * Component for a user to edit their metadata
@@ -51,10 +62,10 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       name: 'eperson.firstname',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'This field is required'
+        required: 'This field is required',
       },
       autoComplete: 'given-name',
     }),
@@ -63,10 +74,10 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       name: 'eperson.lastname',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'This field is required'
+        required: 'This field is required',
       },
       autoComplete: 'family-name',
     }),
@@ -77,8 +88,8 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     }),
     new DynamicSelectModel<string>({
       id: 'language',
-      name: 'eperson.language'
-    })
+      name: 'eperson.language',
+    }),
   ];
 
   /**
@@ -139,7 +150,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
           (fieldModel as DynamicSelectModel<string>).options =
             this.activeLangs.map((langConfig) => Object.assign({ value: langConfig.code, label: langConfig.label }));
         }
-      }
+      },
     );
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
   }
@@ -157,7 +168,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
             fieldModel.errorMessages[key] = this.translate.instant(this.ERROR_PREFIX + fieldModel.id + '.' + key);
           });
         }
-      }
+      },
     );
   }
 
@@ -191,22 +202,22 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       } else if (hasValue(fieldModel.value)) {
         newMetadata[fieldModel.name] = [{
           value: fieldModel.value,
-          language: null
+          language: null,
         } as any];
         changed = true;
       }
     });
 
     if (changed) {
-      this.epersonService.update(Object.assign(cloneDeep(this.user), {metadata: newMetadata})).pipe(
+      this.epersonService.update(Object.assign(cloneDeep(this.user), { metadata: newMetadata })).pipe(
         getFirstSucceededRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       ).subscribe((user) => {
         this.user = user;
         this.setFormValues();
         this.notificationsService.success(
           this.translate.instant(this.NOTIFICATION_PREFIX + 'success.title'),
-          this.translate.instant(this.NOTIFICATION_PREFIX + 'success.content')
+          this.translate.instant(this.NOTIFICATION_PREFIX + 'success.content'),
         );
       });
     }

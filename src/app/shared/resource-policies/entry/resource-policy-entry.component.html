@@ -32,7 +32,7 @@
             (click)="redirectToResourcePolicyEditPage()">
       <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     </button>
-    <button *ngIf="(groupName$ | async) !== undefined" class="btn btn-outline-primary btn-sm"
+    <button *ngIf="groupName$ | async | dsHasValue" class="btn btn-outline-primary btn-sm"
             [title]="'resource-policies.table.headers.edit.group' | translate"
             (click)="redirectToGroupEditPage()">
       <i class="fas fa-users fa-fw" aria-hidden="true"></i>

@@ -1,26 +1,31 @@
-import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ItemListElementComponent } from './item-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { getMockThemeService } from '../../../../mocks/theme-service.mock';
-import { ThemeService } from '../../../../theme-support/theme.service';
-import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../../testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '../../../../testing/authorization-service.stub';
 import { FileService } from '../../../../../core/shared/file.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
+import { getMockThemeService } from '../../../../mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../../testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../../../testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../testing/file-service.stub';
 import { TruncatableServiceStub } from '../../../../testing/truncatable-service.stub';
+import { ThemeService } from '../../../../theme-support/theme.service';
+import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { ItemListElementComponent } from './item-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -28,34 +33,34 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.publisher': [
       {
         language: 'en_US',
-        value: 'a publisher'
-      }
+        value: 'a publisher',
+      },
     ],
     'dc.date.issued': [
       {
         language: 'en_US',
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'This is the abstract'
-      }
-    ]
-  }
+        value: 'This is the abstract',
+      },
+    ],
+  },
 });
 
 describe('ItemListElementComponent', () => {
@@ -96,7 +101,7 @@ describe('ItemListElementComponent', () => {
         { provide: TruncatableService, useValue: truncatableService },
       ],
     }).overrideComponent(ItemListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

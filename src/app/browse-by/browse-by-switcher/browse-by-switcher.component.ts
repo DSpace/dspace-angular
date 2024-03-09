@@ -1,19 +1,27 @@
-import { Component, Input } from '@angular/core';
-import { getComponentByBrowseByType } from './browse-by-decorator';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
 import { BrowseByDataType } from './browse-by-data-type';
-import { Context } from '../../core/shared/context.model';
+import { getComponentByBrowseByType } from './browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-switcher',
-  templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html'
+  templateUrl: '../../shared/abstract-component-loader/abstract-component-loader.component.html',
 })
 export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<Component> {
 
   @Input() context: Context;
 
   @Input() browseByType: BrowseByDataType;
+
+  @Input() displayTitle: boolean;
+
+  @Input() scope: string;
 
   protected inputNamesDependentForComponent: (keyof this & string)[] = [
     'context',
@@ -23,6 +31,8 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
   protected inputNames: (keyof this & string)[] = [
     'context',
     'browseByType',
+    'displayTitle',
+    'scope',
   ];
 
   public getComponent(): GenericConstructor<Component> {

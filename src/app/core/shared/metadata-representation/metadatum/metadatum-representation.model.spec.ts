@@ -1,17 +1,17 @@
-import { MetadatumRepresentation } from './metadatum-representation.model';
-import { MetadataRepresentationType } from '../metadata-representation.model';
 import { MetadataValue } from '../../metadata.models';
+import { MetadataRepresentationType } from '../metadata-representation.model';
+import { MetadatumRepresentation } from './metadatum-representation.model';
 
 describe('MetadatumRepresentation', () => {
   const itemType = 'Person';
   const normalMetadatum = Object.assign(new MetadataValue(), {
     key: 'dc.contributor.author',
-    value: 'Test Author'
+    value: 'Test Author',
   });
   const authorityMetadatum = Object.assign(new MetadataValue(), {
     key: 'dc.contributor.author',
     value: 'Test Authority Author',
-    authority: '1234'
+    authority: '1234',
   });
 
   let metadatumRepresentation: MetadatumRepresentation;

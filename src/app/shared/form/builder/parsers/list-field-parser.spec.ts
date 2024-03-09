@@ -1,8 +1,8 @@
+import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ListFieldParser } from './list-field-parser';
-import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
-import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { ParserOptions } from './parser-options';
 
 describe('ListFieldParser test suite', () => {
@@ -14,13 +14,13 @@ describe('ListFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'list'
+        type: 'list',
       },
       label: 'Type',
       mandatory: 'false',
@@ -30,10 +30,10 @@ describe('ListFieldParser test suite', () => {
         {
           metadata: 'type',
           controlledVocabulary: 'type_programme',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

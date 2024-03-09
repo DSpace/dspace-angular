@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
+
+import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CommunityDataService } from '../data/community-data.service';
 import { Community } from '../shared/community.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
+import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 
 /**
  * The class that resolves the BreadcrumbConfig object for a Community
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommunityBreadcrumbResolver extends DSOBreadcrumbResolver<Community> {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: CommunityDataService) {

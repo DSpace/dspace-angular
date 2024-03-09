@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { hasNoValue } from '../../shared/empty.util';
-import { DEFAULT_THEME, resolveTheme } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
+
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { hasNoValue } from '../../shared/empty.util';
+import {
+  DEFAULT_THEME,
+  resolveTheme,
+} from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { BrowseByDataType } from './browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
