@@ -14,6 +14,7 @@ import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-co
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from './comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from './comcol-page-content/themed-comcol-page-content.component';
 import { ComcolPageHandleComponent } from './comcol-page-handle/comcol-page-handle.component';
 import { ThemedComcolPageHandleComponent } from './comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
@@ -23,6 +24,7 @@ import { ComcolSearchSectionComponent } from './sections/comcol-search-section/c
 
 const COMPONENTS = [
   ComcolPageContentComponent,
+  ThemedComcolPageContentComponent,
   ComcolPageHandleComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,

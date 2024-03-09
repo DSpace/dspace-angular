@@ -16,13 +16,19 @@ import {
 })
 export class ComcolPageContentComponent {
 
-  // Optional title
+  /**
+   * Optional title
+   */
   @Input() title: string;
 
-  // The content to render. Might be html
+  /**
+   * The content to render. Might be html
+   */
   @Input() content: string;
 
-  // flag whether the content contains html syntax or not
+  /**
+   * flag whether the content contains html syntax or not
+   */
   @Input() hasInnerHtml: boolean;
 
 }

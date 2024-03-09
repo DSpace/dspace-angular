@@ -13,12 +13,12 @@
           <ds-themed-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
           </ds-themed-comcol-page-handle>
           <!-- Introductory text -->
-          <ds-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
-          </ds-comcol-page-content>
+          <ds-themed-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
+          </ds-themed-comcol-page-content>
           <!-- News -->
-          <ds-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
+          <ds-themed-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
                                   [title]="'community.page.news'">
-          </ds-comcol-page-content>
+          </ds-themed-comcol-page-content>
         </header>
         <ds-dso-edit-menu></ds-dso-edit-menu>
       </div>
@@ -32,8 +32,8 @@
       </section>
       <footer *ngIf="communityPayload.copyrightText" class="border-top my-5 pt-4">
         <!-- Copyright -->
-        <ds-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
-        </ds-comcol-page-content>
+        <ds-themed-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
+        </ds-themed-comcol-page-content>
       </footer>
     </div>
   </div>
