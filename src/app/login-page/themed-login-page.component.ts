@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { LoginPageComponent } from './login-page.component';
 
@@ -8,7 +9,7 @@ import { LoginPageComponent } from './login-page.component';
 @Component({
   selector: 'ds-themed-login-page',
   styleUrls: [],
-  templateUrl: './../shared/theme-support/themed.component.html'
+  templateUrl: './../shared/theme-support/themed.component.html',
 })
 export class ThemedLoginPageComponent extends ThemedComponent<LoginPageComponent> {
   protected getComponentName(): string {

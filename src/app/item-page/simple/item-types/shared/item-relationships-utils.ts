@@ -1,18 +1,26 @@
-import { combineLatest as observableCombineLatest, Observable, zip as observableZip } from 'rxjs';
-import { distinctUntilChanged, map, mergeMap, switchMap } from 'rxjs/operators';
+import { InjectionToken } from '@angular/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  zip as observableZip,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
+
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData
-} from '../../../../core/shared/operators';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
-import { InjectionToken } from '@angular/core';
 
 export const PAGINATED_RELATIONS_TO_ITEMS_OPERATOR = new InjectionToken<(thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>>('paginatedRelationsToItems', {
   providedIn: 'root',
-  factory: () => paginatedRelationsToItems
+  factory: () => paginatedRelationsToItems,
 });
 
 /**
@@ -52,8 +60,8 @@ export const relationsToItems = (thisId: string) =>
     source.pipe(
       mergeMap((rels: Relationship[]) =>
         observableZip(
-          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
-        )
+          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem)),
+        ),
       ),
       map((arr) =>
         arr
@@ -65,7 +73,7 @@ export const relationsToItems = (thisId: string) =>
               return leftItem.payload;
             }
           })
-          .filter((item: Item) => hasValue(item))
+          .filter((item: Item) => hasValue(item)),
       ),
       distinctUntilChanged(compareArraysUsingIds()),
     );
@@ -77,50 +85,50 @@ export const relationsToItems = (thisId: string) =>
  * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
  */
 export const paginatedRelationsToItems = (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
-    source.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
-        return observableCombineLatest(
-          relationshipsRD.payload.page.map((rel: Relationship) =>
-            observableCombineLatest([
-              rel.leftItem.pipe(
-                getFirstCompletedRemoteData(),
-                map((rd: RemoteData<Item>) => {
-                  if (rd.hasSucceeded) {
-                    return rd.payload;
-                  } else {
-                    return null;
-                  }
-                })
-              ),
-              rel.rightItem.pipe(
-                getFirstCompletedRemoteData(),
-                map((rd: RemoteData<Item>) => {
-                  if (rd.hasSucceeded) {
-                    return rd.payload;
-                  } else {
-                    return null;
-                  }
-                })
-              ),
-              ]
-            )
-          )
-        ).pipe(
-          map((arr) =>
-            arr.map(([leftItem, rightItem]) => {
-                if (hasValue(leftItem) && leftItem.id === thisId) {
-                  return rightItem;
-                } else if (hasValue(rightItem) && rightItem.id === thisId) {
-                  return leftItem;
+  source.pipe(
+    getFirstCompletedRemoteData(),
+    switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
+      return observableCombineLatest(
+        relationshipsRD.payload.page.map((rel: Relationship) =>
+          observableCombineLatest([
+            rel.leftItem.pipe(
+              getFirstCompletedRemoteData(),
+              map((rd: RemoteData<Item>) => {
+                if (rd.hasSucceeded) {
+                  return rd.payload;
+                } else {
+                  return null;
                 }
-              })
-              .filter((item: Item) => hasValue(item))
+              }),
+            ),
+            rel.rightItem.pipe(
+              getFirstCompletedRemoteData(),
+              map((rd: RemoteData<Item>) => {
+                if (rd.hasSucceeded) {
+                  return rd.payload;
+                } else {
+                  return null;
+                }
+              }),
+            ),
+          ],
           ),
-          distinctUntilChanged(compareArraysUsingIds()),
-          map((relatedItems: Item[]) =>
-            Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } )})
-          )
-        );
-      })
-    );
+        ),
+      ).pipe(
+        map((arr) =>
+          arr.map(([leftItem, rightItem]) => {
+            if (hasValue(leftItem) && leftItem.id === thisId) {
+              return rightItem;
+            } else if (hasValue(rightItem) && rightItem.id === thisId) {
+              return leftItem;
+            }
+          })
+            .filter((item: Item) => hasValue(item)),
+        ),
+        distinctUntilChanged(compareArraysUsingIds()),
+        map((relatedItems: Item[]) =>
+          Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } ) }),
+        ),
+      );
+    }),
+  );

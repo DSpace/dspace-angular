@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+
 import { AuthService } from '../core/auth/auth.service';
 import { ServerResponseService } from '../core/services/server-response.service';
 
@@ -8,7 +12,7 @@ import { ServerResponseService } from '../core/services/server-response.service'
 @Component({
   selector: 'ds-forbidden',
   templateUrl: './forbidden.component.html',
-  styleUrls: ['./forbidden.component.scss']
+  styleUrls: ['./forbidden.component.scss'],
 })
 export class ForbiddenComponent implements OnInit {
 

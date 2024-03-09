@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Angulartics2, EventTrack } from 'angulartics2';
+import {
+  Angulartics2,
+  EventTrack,
+} from 'angulartics2';
+
 import { StatisticsService } from '../statistics.service';
 
 /**
  * Angulartics2DSpace is a angulartics2 plugin that provides DSpace with the events.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class Angulartics2DSpace {
 
   constructor(

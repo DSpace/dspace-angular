@@ -1,8 +1,21 @@
-import { Component, ComponentRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { ThemeService } from '../theme-support/theme.service';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue, isNotEmpty } from '../empty.util';
+import {
+  Component,
+  ComponentRef,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import { ThemeService } from '../theme-support/theme.service';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 
 /**

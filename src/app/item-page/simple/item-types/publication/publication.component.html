@@ -1,4 +1,4 @@
-<ds-themed-results-back-button *ngIf="showBackButton | async" [back]="back"></ds-themed-results-back-button>
+<ds-themed-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-themed-results-back-button>
 <div class="row" *ngIf="iiifEnabled">
   <div class="col-12">
     <ds-mirador-viewer  id="iiif-viewer"
@@ -86,7 +86,7 @@
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
     <ds-item-page-uri-field [item]="object"
       [fields]="['notify.relation.endorsedBy']"
-      [label]="'item.page.endorsment'">
+      [label]="'item.page.endorsement'">
     </ds-item-page-uri-field>
     <ds-item-page-uri-field [item]="object"
       [fields]="['datacite.relation.isReviewedBy']"

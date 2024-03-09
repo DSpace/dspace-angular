@@ -1,7 +1,14 @@
-import { ReferrerService } from './referrer.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { Inject, Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { ReferrerService } from './referrer.service';
 
 /**
  * A service to determine the referrer

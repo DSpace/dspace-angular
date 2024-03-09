@@ -1,30 +1,29 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs';
 
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
-import { RequestService } from '../data/request.service';
-import { UpdateDataServiceImpl } from '../data/update-data.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { RemoteData } from '../data/remote-data';
-import { SUGGESTION } from './models/suggestion-objects.resource-type';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { UpdateDataServiceImpl } from '../data/update-data.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { Suggestion } from './models/suggestion.model';
+import { SUGGESTION } from './models/suggestion-objects.resource-type';
 import { SuggestionSource } from './models/suggestion-source.model';
 import { SuggestionTarget } from './models/suggestion-target.model';
-import { Suggestion } from './models/suggestion.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { NoContent } from '../shared/NoContent.model';
-import {CoreState} from '../core-state.model';
-import {FindListOptions} from '../data/find-list-options.model';
 import { SuggestionSourceDataService } from './source/suggestion-source-data.service';
 import { SuggestionTargetDataService } from './target/suggestion-target-data.service';
 
@@ -214,7 +213,7 @@ export class SuggestionsDataService {
   ): Observable<RemoteData<PaginatedList<Suggestion>>> {
     options.searchParams = [
       new RequestParam('target', target),
-      new RequestParam('source', source)
+      new RequestParam('source', source),
     ];
 
     return this.suggestionsDataService.searchBy(this.searchFindByTargetAndSourceMethod, options, false, true, ...linksToFollow);

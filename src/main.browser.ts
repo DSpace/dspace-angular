@@ -2,14 +2,13 @@ import 'zone.js';
 import 'reflect-metadata';
 import 'core-js/es/reflect';
 
+import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { BrowserAppModule } from './modules/app/browser-app.module';
-
-import { environment } from './environments/environment';
 import { AppConfig } from './config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './config/config.util';
-import { enableProdMode } from '@angular/core';
+import { environment } from './environments/environment';
+import { BrowserAppModule } from './modules/app/browser-app.module';
 
 const bootstrap = () => platformBrowserDynamic()
   .bootstrapModule(BrowserAppModule, {});

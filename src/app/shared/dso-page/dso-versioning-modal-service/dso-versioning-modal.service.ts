@@ -1,27 +1,37 @@
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Version } from '../../../core/shared/version.model';
-import { map, startWith, switchMap, tap } from 'rxjs/operators';
-import { Item } from '../../../core/shared/item.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Router } from '@angular/router';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
+import { Item } from '../../../core/shared/item.model';
 import {
-  ItemVersionsSummaryModalComponent
-} from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { Version } from '../../../core/shared/version.model';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
+import { ItemVersionsSummaryModalComponent } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 
 /**
  * Service to take care of all the functionality related to the version creation modal
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DsoVersioningModalService {
 

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { ObjectSelectComponent } from '../object-select/object-select.component';
 import { isNotEmpty } from '../../empty.util';
 import { ObjectSelectService } from '../object-select.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ObjectSelectComponent } from '../object-select/object-select.component';
 
 @Component({
   selector: 'ds-collection-select',

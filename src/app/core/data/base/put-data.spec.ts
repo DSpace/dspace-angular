@@ -6,20 +6,27 @@
  * http://www.dspace.org/license/
  */
 
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { RemoteData } from '../remote-data';
-import { RequestEntryState } from '../request-entry-state.model';
-import { PutData, PutDataImpl } from './put-data';
-import { RestRequestMethod } from '../rest-request-method';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
 import { DSpaceObject } from '../../shared/dspace-object.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { FindListOptions } from '../find-list-options.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
+import { RestRequestMethod } from '../rest-request-method';
+import {
+  PutData,
+  PutDataImpl,
+} from './put-data';
 
 /**
  * Tests whether calls to `PutData` methods are correctly patched through in a concrete data service that implements it
@@ -127,7 +134,7 @@ describe('PutDataImpl', () => {
       metadata: {           // recognized properties will be serialized
         ['dc.title']: [
           { language: 'en', value: 'some object' },
-        ]
+        ],
       },
       data: [ 1, 2, 3, 4 ], // unrecognized properties won't be serialized
       _links: { self: { href: selfLink } },
@@ -144,7 +151,7 @@ describe('PutDataImpl', () => {
           method: RestRequestMethod.PUT,
           body: {  // _links are not serialized
             uuid: obj.uuid,
-            metadata: obj.metadata
+            metadata: obj.metadata,
           },
         }));
         done();

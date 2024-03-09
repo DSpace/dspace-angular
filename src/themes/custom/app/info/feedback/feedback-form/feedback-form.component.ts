@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  FeedbackFormComponent as BaseComponent
-} from '../../../../../../app/info/feedback/feedback-form/feedback-form.component';
+
+import { FeedbackFormComponent as BaseComponent } from '../../../../../../app/info/feedback/feedback-form/feedback-form.component';
 
 @Component({
   selector: 'ds-feedback-form',

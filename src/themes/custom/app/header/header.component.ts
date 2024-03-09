@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { HeaderComponent as BaseComponent } from '../../../../app/header/header.component';
 
 /**

@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
-import { HostWindowService, WidthCategory } from '../shared/host-window.service';
 
 /**
  * Represents the header with the logo and simple navigation

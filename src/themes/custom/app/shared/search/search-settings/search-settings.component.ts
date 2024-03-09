@@ -6,11 +6,10 @@
  * https://www.atmire.com/software-license/
  */
 import { Component } from '@angular/core';
-import {
-  SearchSettingsComponent as BaseComponent,
-} from '../../../../../../app/shared/search/search-settings/search-settings.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-page.component';
+
 import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-page.component';
+import { SearchSettingsComponent as BaseComponent } from '../../../../../../app/shared/search/search-settings/search-settings.component';
 
 
 @Component({
@@ -22,9 +21,9 @@ import { SearchConfigurationService } from '../../../../../../app/core/shared/se
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 
 })
 

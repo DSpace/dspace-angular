@@ -1,33 +1,60 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnInit, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, map, switchMap, take, tap, find, startWith, filter } from 'rxjs/operators';
+import {
+  Component,
+  Inject,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  finalize,
+  find,
+  map,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
+  getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload, getAllSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/alert-type';
 import { hasValue } from '../../shared/empty.util';
-import { ProcessStatus } from '../processes/process-status.model';
-import { Process } from '../processes/process.model';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { getProcessListRoute } from '../process-page-routing.paths';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { isPlatformBrowser } from '@angular/common';
 import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
+import { getProcessListRoute } from '../process-page-routing.paths';
+import { Process } from '../processes/process.model';
+import { ProcessStatus } from '../processes/process-status.model';
 
 @Component({
   selector: 'ds-process-detail',
@@ -101,7 +128,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
     protected http: HttpClient,
     protected modalService: NgbModal,
     protected notificationsService: NotificationsService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {}
 
   /**
@@ -125,7 +152,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
     this.isRefreshing$ = this.processRD$.pipe(
       find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload)),
       map(() => false),
-      startWith(true)
+      startWith(true),
     );
 
     this.filesRD$ = this.processRD$.pipe(
@@ -162,7 +189,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
         getFirstSucceededRemoteDataPayload(),
         switchMap((process: Process) => {
           return this.bitstreamDataService.findByHref(process._links.output.href, false);
-        })
+        }),
       );
       this.outputLogFileUrl$ = processOutputRD$.pipe(
         getFirstSucceededRemoteData(),
@@ -178,17 +205,17 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
             map((token: string) => {
               return hasValue(token) ? new URLCombiner(url, `?authentication-token=${token}`).toString() : url;
             }));
-        })
+        }),
       );
     });
-     this.outputLogFileUrl$.pipe(take(1),
+    this.outputLogFileUrl$.pipe(take(1),
       switchMap((url: string) => {
         return this.getTextFile(url);
       }),
-      finalize(() => this.zone.run(() => this.retrievingOutputLogs$.next(false)))
+      finalize(() => this.zone.run(() => this.retrievingOutputLogs$.next(false))),
     ).subscribe((logs: string) => {
-       this.outputLogs$.next(logs);
-     });
+      this.outputLogs$.next(logs);
+    });
   }
 
   getTextFile(filename: string): Observable<string> {
@@ -220,7 +247,7 @@ export class ProcessDetailComponent implements OnInit, OnDestroy {
   deleteProcess(process: Process) {
     this.isDeleting = true;
     this.processService.delete(process.processId).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('process.detail.delete.success'));

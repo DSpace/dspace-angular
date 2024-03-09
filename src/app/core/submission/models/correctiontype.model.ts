@@ -1,9 +1,13 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/cacheable-object.model';
+import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { HALLink } from '../../shared/hal-link.model';
 
 @typedObject
 /**
@@ -18,32 +22,32 @@ export class CorrectionType extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
   @autoserialize
   /**
    * The unique identifier for the correction type mode.
    */
-  id: string;
+    id: string;
   @autoserialize
   /**
    * The topic of the correction type mode.
    */
-  topic: string;
+    topic: string;
   @autoserialize
   /**
    * The discovery configuration for the correction type mode.
    */
-  discoveryConfiguration: string;
+    discoveryConfiguration: string;
   @autoserialize
   /**
    * The form used for creating a correction type.
    */
-  creationForm: string;
+    creationForm: string;
   @deserialize
   /**
    * Represents the links associated with the correction type mode.
    */
-  _links: {
+    _links: {
     self: HALLink;
   };
 }

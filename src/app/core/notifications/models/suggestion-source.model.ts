@@ -1,11 +1,14 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 
-import { SUGGESTION_SOURCE } from './suggestion-source-object.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { HALLink } from '../../shared/hal-link.model';
 import { typedObject } from '../../cache/builders/build-decorators';
-import {CacheableObject} from '../../cache/cacheable-object.model';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { SUGGESTION_SOURCE } from './suggestion-source-object.resource-type';
 
 /**
  * The interface representing the Suggestion Source model
@@ -21,26 +24,26 @@ export class SuggestionSource implements CacheableObject {
    * The Suggestion Target id
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The total number of suggestions provided by Suggestion Target for
    */
   @autoserialize
-  total: number;
+    total: number;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
     suggestiontargets: HALLink
   };

@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let item of itemsRD?.payload?.page">
-          <td><input #selectItemBtn [attr.aria-label]="(selectItemBtn.checked ? 'item.select.table.deselect' : 'item.select.table.select') | translate" [disabled]="!(canSelect(item) | async)" class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
+          <td><input #selectItemBtn [attr.aria-label]="(selectItemBtn.checked ? 'item.select.table.deselect' : 'item.select.table.select') | translate" [disabled]="(canSelect(item) | async) !== true" class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
           <td *ngIf="!hideCollection">
             <span *ngVar="(item.owningCollection | async)?.payload as collection">
               <a *ngIf="collection" [routerLink]="['/collections', collection?.id]">

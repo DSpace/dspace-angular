@@ -1,6 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  map,
+  Observable,
+  of,
+} from 'rxjs';
+
 import { NotifyInfoService } from './notify-info.service';
-import { Observable, map, of } from 'rxjs';
 
 @Component({
   selector: 'ds-notify-info',
@@ -33,7 +41,7 @@ export class NotifyInfoComponent implements OnInit {
         return urls.map(url => `
           <code><a href="${url}" target="_blank"><span class="api-url">${url}</span></a></code>
         `).join(',');
-      })
+      }),
     );
   }
 }

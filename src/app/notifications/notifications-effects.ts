@@ -5,5 +5,5 @@ import { SuggestionTargetsEffects } from './suggestion-targets/suggestion-target
 export const notificationsEffects = [
   QualityAssuranceTopicsEffects,
   QualityAssuranceSourceEffects,
-  SuggestionTargetsEffects
+  SuggestionTargetsEffects,
 ];

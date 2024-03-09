@@ -1,9 +1,13 @@
 import { first } from 'rxjs/operators';
-import { BrowseByGuard } from './browse-by-guard';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
+
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
 import { RouterStub } from '../shared/testing/router.stub';
+import { BrowseByGuard } from './browse-by-guard';
+import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 
 describe('BrowseByGuard', () => {
   describe('canActivate', () => {
@@ -22,11 +26,11 @@ describe('BrowseByGuard', () => {
 
     beforeEach(() => {
       translateService = {
-        instant: () => field
+        instant: () => field,
       };
 
       browseDefinitionService = {
-        findById: () => createSuccessfulRemoteDataObject$(browseDefinition)
+        findById: () => createSuccessfulRemoteDataObject$(browseDefinition),
       };
 
       router = new RouterStub() as any;
@@ -46,8 +50,8 @@ describe('BrowseByGuard', () => {
         },
         queryParams: {
           scope,
-          value
-        }
+          value,
+        },
       };
       guard.canActivate(scopedRoute as any, undefined)
         .pipe(first())
@@ -59,12 +63,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               scope,
               field,
-              value: '"' + value + '"'
+              value: '"' + value + '"',
             };
             expect(scopedRoute.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -78,8 +82,8 @@ describe('BrowseByGuard', () => {
           id,
         },
         queryParams: {
-          scope
-        }
+          scope,
+        },
       };
 
       guard.canActivate(scopedNoValueRoute as any, undefined)
@@ -92,12 +96,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               scope,
               field,
-              value: ''
+              value: '',
             };
             expect(scopedNoValueRoute.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -147,8 +151,8 @@ describe('BrowseByGuard', () => {
           id,
         },
         queryParams: {
-          value
-        }
+          value,
+        },
       };
       guard.canActivate(route as any, undefined)
         .pipe(first())
@@ -160,12 +164,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               scope: undefined,
               field,
-              value: '"' + value + '"'
+              value: '"' + value + '"',
             };
             expect(route.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -182,8 +186,8 @@ describe('BrowseByGuard', () => {
         },
         queryParams: {
           scope,
-          value
-        }
+          value,
+        },
       };
       guard.canActivate(scopedRoute as any, undefined)
         .pipe(first())

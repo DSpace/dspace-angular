@@ -102,8 +102,13 @@
              id="ldnUrl"
              name="ldnUrl"
              type="text">
-      <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" class="error-text">
-        {{ 'ldn-new-service.form.error.ldnurl' | translate }}
+      <div *ngIf="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched" >
+        <div *ngIf="formModel.get('ldnUrl').errors['required']" class="error-text">
+          {{ 'ldn-new-service.form.error.ldnurl' | translate }}
+        </div>
+        <div *ngIf="formModel.get('ldnUrl').errors['ldnUrlAlreadyAssociated']" class="error-text">
+          {{ 'ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated' | translate }}
+        </div>
       </div>
     </div>
 

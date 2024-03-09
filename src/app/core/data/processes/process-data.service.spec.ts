@@ -6,33 +6,42 @@
  * http://www.dspace.org/license/
  */
 
-import { testFindAllDataImplementation } from '../base/find-all-data.spec';
-import { ProcessDataService, TIMER_FACTORY } from './process-data.service';
-import { testDeleteDataImplementation } from '../base/delete-data.spec';
-import { waitForAsync, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { RequestService } from '../request.service';
-import { RemoteData } from '../remote-data';
-import { RequestEntryState } from '../request-entry-state.model';
+import {
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ReducerManager } from '@ngrx/store';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../process-page/processes/process-status.model';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { ReducerManager } from '@ngrx/store';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
-import { BitstreamFormatDataService } from '../bitstream-format-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TestScheduler } from 'rxjs/testing';
+import { testDeleteDataImplementation } from '../base/delete-data.spec';
+import { testFindAllDataImplementation } from '../base/find-all-data.spec';
 import { testSearchDataImplementation } from '../base/search-data.spec';
-import { PaginatedList } from '../paginated-list.model';
+import { BitstreamFormatDataService } from '../bitstream-format-data.service';
+import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
 import { FindListOptions } from '../find-list-options.model';
-import { of } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
+import {
+  ProcessDataService,
+  TIMER_FACTORY,
+} from './process-data.service';
 
 describe('ProcessDataService', () => {
   let testScheduler;
 
-  const mockTimer = (fn: () => {}, interval: number) => {
+  const mockTimer = (fn: () => any, interval: number) => {
     fn();
     return 555;
   };
@@ -66,7 +75,7 @@ describe('ProcessDataService', () => {
           { provide: BitstreamFormatDataService, useValue: null },
           { provide: NotificationsService, useValue: null },
           { provide: TIMER_FACTORY, useValue: mockTimer },
-        ]
+        ],
       });
 
       processDataService = TestBed.inject(ProcessDataService);
@@ -82,13 +91,13 @@ describe('ProcessDataService', () => {
 
         spyOn(processDataService, 'findById').and.returnValue(
           cold('c', {
-            'c': completedProcessRD
-          })
+            'c': completedProcessRD,
+          }),
         );
 
         let process$ = processDataService.autoRefreshUntilCompletion('instantly');
         expectObservable(process$).toBe('c', {
-          c: completedProcessRD
+          c: completedProcessRD,
         });
       });
 
@@ -101,9 +110,9 @@ describe('ProcessDataService', () => {
         const runningProcess = Object.assign(new Process(), {
           _links: {
             self: {
-              href: 'https://rest.api/processes/123'
-            }
-          }
+              href: 'https://rest.api/processes/123',
+            },
+          },
         });
         runningProcess.processStatus = ProcessStatus.RUNNING;
         const completedProcess = new Process();
@@ -114,14 +123,14 @@ describe('ProcessDataService', () => {
         spyOn(processDataService, 'findById').and.returnValue(
           cold('r 150ms c', {
             'r': runningProcessRD,
-            'c': completedProcessRD
-          })
+            'c': completedProcessRD,
+          }),
         );
 
         let process$ = processDataService.autoRefreshUntilCompletion('foo', 100);
         expectObservable(process$).toBe('r 150ms c', {
           'r': runningProcessRD,
-          'c': completedProcessRD
+          'c': completedProcessRD,
         });
       });
 
@@ -146,7 +155,7 @@ describe('ProcessDataService', () => {
           { provide: BitstreamFormatDataService, useValue: null },
           { provide: NotificationsService, useValue: null },
           { provide: TIMER_FACTORY, useValue: mockTimer },
-        ]
+        ],
       });
 
       processDataService = TestBed.inject(ProcessDataService);
@@ -156,9 +165,9 @@ describe('ProcessDataService', () => {
       const runningProcess = Object.assign(new Process(), {
         _links: {
           self: {
-            href: 'https://rest.api/processes/123'
-          }
-        }
+            href: 'https://rest.api/processes/123',
+          },
+        },
       });
       runningProcess.processStatus = ProcessStatus.RUNNING;
 
@@ -166,15 +175,15 @@ describe('ProcessDataService', () => {
         page: [runningProcess],
         _links: {
           self: {
-            href: 'https://rest.api/processesList/456'
-          }
-        }
+            href: 'https://rest.api/processesList/456',
+          },
+        },
       });
 
       const runningProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcessPagination);
 
       spyOn(processDataService, 'searchBy').and.returnValue(
-        of(runningProcessRD)
+        of(runningProcessRD),
       );
 
       expect(processDataService.searchBy).toHaveBeenCalledTimes(0);

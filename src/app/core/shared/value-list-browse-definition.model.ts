@@ -1,11 +1,15 @@
-import { inheritSerialization, deserialize } from 'cerialize';
+import {
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
-import { VALUE_LIST_BROWSE_DEFINITION } from './value-list-browse-definition.resource-type';
-import { ResourceType } from './resource-type';
-import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
 import { HALLink } from './hal-link.model';
-import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
+import { NonHierarchicalBrowseDefinition } from './non-hierarchical-browse-definition';
+import { ResourceType } from './resource-type';
+import { VALUE_LIST_BROWSE_DEFINITION } from './value-list-browse-definition.resource-type';
 
 /**
  * BrowseDefinition model for browses of type 'valueList'
@@ -19,14 +23,14 @@ export class ValueListBrowseDefinition extends NonHierarchicalBrowseDefinition {
    * The object type
    */
   @excludeFromEquals
-  type: ResourceType = VALUE_LIST_BROWSE_DEFINITION;
+    type: ResourceType = VALUE_LIST_BROWSE_DEFINITION;
 
   get self(): string {
     return this._links.self.href;
   }
 
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     entries: HALLink;
   };

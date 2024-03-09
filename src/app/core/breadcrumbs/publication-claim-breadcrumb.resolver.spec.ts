@@ -16,14 +16,14 @@ describe('PublicationClaimBreadcrumbResolver', () => {
             return this[param];
           },
           targetId: expectedId,
-        }
+        },
       };
       publicationClaimBreadcrumbService = {};
       resolver = new PublicationClaimBreadcrumbResolver(publicationClaimBreadcrumbService);
     });
 
     it('should resolve the breadcrumb config', () => {
-      const resolvedConfig = resolver.resolve(route as any, {url: fullPath } as any);
+      const resolvedConfig = resolver.resolve(route as any, { url: fullPath } as any);
       const expectedConfig = { provider: publicationClaimBreadcrumbService, key: expectedKey };
       expect(resolvedConfig).toEqual(expectedConfig);
     });

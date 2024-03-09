@@ -1,13 +1,18 @@
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
+
+import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
 
 /**
  * The class that resolves a BreadcrumbConfig object with an i18n key string for a route and related parents
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>> {
 
@@ -47,6 +52,6 @@ export class NavigationBreadcrumbResolver implements Resolve<BreadcrumbConfig<st
       return `${previous}:${baseUrl}${current.path}`;
     }, state.url);
 
-    return {provider: this.breadcrumbService, key: combinedParentBreadcrumbKeys, url: combinedUrls};
+    return { provider: this.breadcrumbService, key: combinedParentBreadcrumbKeys, url: combinedUrls };
   }
 }

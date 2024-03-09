@@ -1,16 +1,24 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { DSPACE_OBJECT } from '../../shared/dspace-object.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { EPerson } from './eperson.model';
 import { EPERSON } from './eperson.resource-type';
 import { GROUP } from './group.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -40,7 +48,7 @@ export class Group extends DSpaceObject {
    * The {@link HALLink}s for this Group
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     subgroups: HALLink;
     epersons: HALLink;

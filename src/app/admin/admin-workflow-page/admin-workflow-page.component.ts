@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+
 import { Context } from '../../core/shared/context.model';
 
 @Component({
   selector: 'ds-admin-workflow-page',
   templateUrl: './admin-workflow-page.component.html',
-  styleUrls: ['./admin-workflow-page.component.scss']
+  styleUrls: ['./admin-workflow-page.component.scss'],
 })
 
 /**

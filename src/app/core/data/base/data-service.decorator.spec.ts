@@ -6,11 +6,15 @@
  *
  * http://www.dspace.org/license/
  */
+import { v4 as uuidv4 } from 'uuid';
+
 import { ResourceType } from '../../shared/resource-type';
 import { BaseDataService } from './base-data.service';
+import {
+  dataService,
+  getDataServiceFor,
+} from './data-service.decorator';
 import { HALDataService } from './hal-data-service.interface';
-import { dataService, getDataServiceFor } from './data-service.decorator';
-import { v4 as uuidv4 } from 'uuid';
 
 class TestService extends BaseDataService<any> {
 }

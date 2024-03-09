@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { SiteDataService } from '../../core/data/site-data.service';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Site } from '../../core/shared/site.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { SiteDataService } from '../../core/data/site-data.service';
+import { Site } from '../../core/shared/site.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
 
 /**
  * Component representing the site-wide statistics page.
@@ -14,7 +18,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-site-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./site-statistics-page.component.scss']
+  styleUrls: ['./site-statistics-page.component.scss'],
 })
 export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
 

@@ -8,7 +8,7 @@
         <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
       </div>
       <div class="col-12 col-md-{{12 - sideBarWidth}}"
-           [class.invisible]="(isSidebarCollapsed$ | async) === false && (isXsOrSm$ | async) === true">
+           [class.invisible]="(isSidebarCollapsed$ | async) !== true && (isXsOrSm$ | async) === true">
         <ng-content></ng-content>
       </div>
     </div>

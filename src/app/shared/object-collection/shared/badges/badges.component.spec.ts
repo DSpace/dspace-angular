@@ -1,9 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BadgesComponent } from './badges.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ThemeService } from '../../../theme-support/theme.service';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { BadgesComponent } from './badges.component';
 
 describe('BadgesComponent', () => {
   let component: BadgesComponent;
@@ -12,10 +15,10 @@ describe('BadgesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ BadgesComponent ],
-      providers: [{provide: ThemeService, useValue: getMockThemeService()}],
-      schemas: [NO_ERRORS_SCHEMA]
+      providers: [{ provide: ThemeService, useValue: getMockThemeService() }],
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

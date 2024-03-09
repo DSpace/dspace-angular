@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
+
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -7,7 +8,7 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 
@@ -60,6 +61,7 @@ describe('filterReducer', () => {
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
     // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set filterCollapsed to false in response to the EXPAND action', () => {
@@ -78,6 +80,10 @@ describe('filterReducer', () => {
 
     const action = new SearchFilterExpandAction(filterName1);
     filterReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should flip the value of filterCollapsed in response to the TOGGLE action', () => {
@@ -99,6 +105,10 @@ describe('filterReducer', () => {
 
     const action = new SearchFilterToggleAction(filterName1);
     filterReducer(state, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should set filterCollapsed to true in response to the INITIALIZE action with isOpenByDefault to false when no state has been set for this filter', () => {

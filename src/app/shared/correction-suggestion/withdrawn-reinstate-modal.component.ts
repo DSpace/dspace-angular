@@ -1,13 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
+import {
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
+
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
 
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',
   templateUrl: './item-withdrawn-reinstate-modal.component.html',
-  styleUrls: ['./item-withdrawn-reinstate-modal.component.scss']
+  styleUrls: ['./item-withdrawn-reinstate-modal.component.scss'],
 })
 /**
  * Represents a modal component for withdrawing or reinstating an item.

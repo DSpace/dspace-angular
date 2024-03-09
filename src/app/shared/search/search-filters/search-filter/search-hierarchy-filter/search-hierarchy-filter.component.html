@@ -7,7 +7,7 @@
           </div>
         </ng-container>
         <div class="clearfix toggle-more-filters">
-            <a class="float-left" *ngIf="!(isLastPage$ | async)"
+            <a class="float-left" *ngIf="(isLastPage$ | async) !== true"
                (click)="showMore()" href="javascript:void(0);">
               {{"search.filters.filter.show-more" | translate}}
             </a>

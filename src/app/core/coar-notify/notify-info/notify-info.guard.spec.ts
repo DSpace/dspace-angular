@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 import { NotifyInfoGuard } from './notify-info.guard';
-import { Router } from '@angular/router';
 import { NotifyInfoService } from './notify-info.service';
-import { of } from 'rxjs';
 
 describe('NotifyInfoGuard', () => {
   let guard: NotifyInfoGuard;
@@ -16,9 +16,9 @@ describe('NotifyInfoGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         NotifyInfoGuard,
-        { provide: NotifyInfoService, useValue: notifyInfoServiceSpy},
-        { provide: Router, useValue: router}
-      ]
+        { provide: NotifyInfoService, useValue: notifyInfoServiceSpy },
+        { provide: Router, useValue: router },
+      ],
     });
     guard = TestBed.inject(NotifyInfoGuard);
   });

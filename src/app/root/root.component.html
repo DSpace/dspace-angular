@@ -3,7 +3,7 @@
 </button>
 
 <div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [@slideSidebarPadding]="{
-     value: (!(isSidebarVisible$ | async) ? 'hidden' : (slideSidebarOver$ | async) ? 'unpinned' : 'pinned'),
+     value: ((isSidebarVisible$ | async) !== true ? 'hidden' : (slideSidebarOver$ | async) ? 'unpinned' : 'pinned'),
      params: { collapsedWidth: (collapsedSidebarWidth$ | async), expandedWidth: (expandedSidebarWidth$ | async) }
     }">
   <ds-themed-admin-sidebar [expandedSidebarWidth$]="expandedSidebarWidth$" [collapsedSidebarWidth$]="collapsedSidebarWidth$"></ds-themed-admin-sidebar>

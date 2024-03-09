@@ -1,4 +1,9 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
+
 import { HardRedirectService } from './hard-redirect.service';
 
 export const LocationToken = new InjectionToken('Location');
@@ -10,7 +15,7 @@ export function locationProvider(): Location {
 /**
  * Service for performing hard redirects within the browser app module
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class BrowserHardRedirectService extends HardRedirectService {
 
   constructor(

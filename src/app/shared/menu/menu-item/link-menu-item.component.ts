@@ -1,9 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { LinkMenuItemModel } from './models/link.model';
-import { rendersMenuItemForType } from '../menu-item.decorator';
-import { isNotEmpty } from '../../empty.util';
-import { MenuItemType } from '../menu-item-type.model';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+
+import { isNotEmpty } from '../../empty.util';
+import { rendersMenuItemForType } from '../menu-item.decorator';
+import { MenuItemType } from '../menu-item-type.model';
+import { LinkMenuItemModel } from './models/link.model';
 
 /**
  * Component that renders a menu section of type LINK

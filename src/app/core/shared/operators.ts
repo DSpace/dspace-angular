@@ -1,6 +1,28 @@
-import { combineLatest as observableCombineLatest, Observable, interval } from 'rxjs';
-import { filter, find, map, switchMap, take, takeWhile, debounce, debounceTime } from 'rxjs/operators';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { InjectionToken } from '@angular/core';
+import {
+  combineLatest as observableCombineLatest,
+  interval,
+  MonoTypeOperatorFunction,
+  Observable,
+  SchedulerLike,
+} from 'rxjs';
+import {
+  debounce,
+  debounceTime,
+  filter,
+  find,
+  map,
+  switchMap,
+  take,
+  takeWhile,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -8,8 +30,6 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { InjectionToken } from '@angular/core';
-import { MonoTypeOperatorFunction, SchedulerLike } from 'rxjs/internal/types';
 
 /**
  * Use this method instead of the RxJs debounceTime if you're waiting for debouncing in tests;
@@ -23,7 +43,7 @@ export const debounceTimeWorkaround = <T>(dueTime: number, scheduler?: Scheduler
 
 export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) => (source: Observable<T>) => Observable<T>>('debounceTime', {
   providedIn: 'root',
-  factory: () => debounceTime
+  factory: () => debounceTime,
 });
 
 export const getRemoteDataPayload = <T>() =>
@@ -68,7 +88,7 @@ export const getFirstSucceededRemoteDataPayload = <T>() =>
   (source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
 /**
@@ -85,7 +105,7 @@ export const getFirstSucceededRemoteDataWithNotEmptyPayload = <T>() =>
   (source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
       getFirstSucceededRemoteWithNotEmptyData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
 /**
@@ -102,7 +122,7 @@ export const getAllSucceededRemoteDataPayload = <T>() =>
   (source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(
       getAllSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
 /**
@@ -124,7 +144,7 @@ export const getFirstSucceededRemoteListPayload = <T>() =>
     source.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      getPaginatedListPayload()
+      getPaginatedListPayload(),
     );
 
 /**
@@ -146,7 +166,7 @@ export const getAllSucceededRemoteListPayload = <T>() =>
     source.pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
-      getPaginatedListPayload()
+      getPaginatedListPayload(),
     );
 
 export const getFinishedRemoteData = <T>() =>
@@ -165,7 +185,7 @@ export const toDSpaceObjectListRD = <T extends DSpaceObject>() =>
         const dsoPage: T[] = rd.payload.page.filter((result) => hasValue(result)).map((searchResult: SearchResult<T>) => searchResult.indexableObject);
         const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
         return Object.assign(rd, { payload: payload });
-      })
+      }),
     );
 
 /**
@@ -179,7 +199,7 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => def.id === definitionID)
+        .find((def: BrowseDefinition) => def.id === definitionID),
       ),
       map((def: BrowseDefinition) => {
         if (isNotEmpty(def)) {
@@ -187,7 +207,7 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
         } else {
           throw new Error(`No metadata browse definition could be found for id '${definitionID}'`);
         }
-      })
+      }),
     );
 
 /**
@@ -196,7 +216,7 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
 export const getFirstOccurrence = () =>
   <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<RemoteData<T>> =>
     source.pipe(
-      map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined }))
+      map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined })),
     );
 
 /**
@@ -206,7 +226,7 @@ export const paginatedListToArray = () =>
   <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
     source.pipe(
       hasValueOperator(),
-      map((objectRD: RemoteData<PaginatedList<T>>) => objectRD.payload.page.filter((object: T) => hasValue(object)))
+      map((objectRD: RemoteData<PaginatedList<T>>) => objectRD.payload.page.filter((object: T) => hasValue(object))),
     );
 
 /**
@@ -223,13 +243,13 @@ export const metadataFieldsToString = () =>
         const fieldSchemaArray = fields.map((field: MetadataField) => {
           return field.schema.pipe(
             getFirstSucceededRemoteDataPayload(),
-            map((schema: MetadataSchema) => ({ field, schema }))
+            map((schema: MetadataSchema) => ({ field, schema })),
           );
         });
         return isNotEmpty(fieldSchemaArray) ? observableCombineLatest(fieldSchemaArray) : [[]];
       }),
       map((fieldSchemaArray: { field: MetadataField, schema: MetadataSchema }[]): string[] => {
         return fieldSchemaArray.map((fieldSchema: { field: MetadataField, schema: MetadataSchema }) => fieldSchema.schema.prefix + '.' + fieldSchema.field.toString());
-      })
+      }),
     );
 

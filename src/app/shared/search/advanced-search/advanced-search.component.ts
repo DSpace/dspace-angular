@@ -1,23 +1,37 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { slide } from '../../animations/slide';
-import { FormBuilder } from '@angular/forms';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
+
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { slide } from '../../animations/slide';
+
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
   animations: [slide],
 })
-  /**
+/**
    * This component represents the part of the search sidebar that contains advanced filters.
    */
 export class AdvancedSearchComponent implements OnInit {
-   /**
+  /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;
@@ -51,7 +65,7 @@ export class AdvancedSearchComponent implements OnInit {
         validators: [Validators.required],
       }),
       operator: new FormControl('equals',
-        { validators: [Validators.required], }),
+        { validators: [Validators.required] }),
 
     });
     this.collapsedSearch = this.isCollapsed();
@@ -74,7 +88,7 @@ export class AdvancedSearchComponent implements OnInit {
   }
   onSubmit(data) {
     if (this.advSearchForm.valid) {
-      let queryParams = { [this.paramName(data.filter)]: data.textsearch + ',' + data.operator };
+      const queryParams = { [this.paramName(data.filter)]: data.textsearch + ',' + data.operator };
       if (!this.inPlaceSearch) {
         this.router.navigate([this.searchService.getSearchLink()], { queryParams: queryParams, queryParamsHandling: 'merge' });
       } else {

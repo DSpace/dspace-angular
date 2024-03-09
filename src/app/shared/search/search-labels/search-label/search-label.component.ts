@@ -1,12 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../../empty.util';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { currentPath } from '../../../utils/route.utils';
+
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
+import { currentPath } from '../../../utils/route.utils';
 import { stripOperatorFromFilterValue } from '../../search.utils';
 
 @Component({
@@ -58,9 +69,9 @@ export class SearchLabelComponent implements OnInit {
         const page = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
         return {
           [field]: isNotEmpty(newValues) ? newValues : null,
-          [page]: 1
+          [page]: 1,
         };
-      })
+      }),
     );
   }
 

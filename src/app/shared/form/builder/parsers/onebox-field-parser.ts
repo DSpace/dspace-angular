@@ -1,20 +1,26 @@
-import { DynamicSelectModel, DynamicSelectModelConfig } from '@ng-dynamic-forms/core';
+import {
+  DynamicSelectModel,
+  DynamicSelectModelConfig,
+} from '@ng-dynamic-forms/core';
 
-import { FieldParser } from './field-parser';
+import { isNotEmpty } from '../../../empty.util';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
   DsDynamicQualdropModelConfig,
   DynamicQualdropModel,
   QUALDROP_GROUP_SUFFIX,
   QUALDROP_METADATA_SUFFIX,
-  QUALDROP_VALUE_SUFFIX
+  QUALDROP_VALUE_SUFFIX,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { isNotEmpty } from '../../../empty.util';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
   DsDynamicOneboxModelConfig,
-  DynamicOneboxModel
+  DynamicOneboxModel,
 } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FieldParser } from './field-parser';
 
 export class OneboxFieldParser extends FieldParser {
 
@@ -24,8 +30,8 @@ export class OneboxFieldParser extends FieldParser {
       const clsGroup = {
         element: {
           control: 'form-row',
-          hint: 'ds-form-qualdrop-hint'
-        }
+          hint: 'ds-form-qualdrop-hint',
+        },
       };
 
       const clsSelect = {
@@ -33,8 +39,8 @@ export class OneboxFieldParser extends FieldParser {
           control: 'ds-form-input-addon custom-select',
         },
         grid: {
-          host: 'col-sm-4 pr-0'
-        }
+          host: 'col-sm-4 pr-0',
+        },
       };
 
       const clsInput = {
@@ -42,8 +48,8 @@ export class OneboxFieldParser extends FieldParser {
           control: 'ds-form-input-value',
         },
         grid: {
-          host: 'col-sm-8 pl-0'
-        }
+          host: 'col-sm-8 pl-0',
+        },
       };
 
       const newId = this.configData.selectableMetadata[0].metadata

@@ -1,5 +1,8 @@
-  /* eslint-disable max-classes-per-file */
-import { getComponentByWorkflowTaskOption, rendersWorkflowTaskOption } from './claimed-task-actions-decorator';
+/* eslint-disable max-classes-per-file */
+import {
+  getComponentByWorkflowTaskOption,
+  rendersWorkflowTaskOption,
+} from './claimed-task-actions-decorator';
 
 describe('ClaimedTaskActions decorator function', () => {
   const option1 = 'test_option_1';

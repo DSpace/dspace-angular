@@ -12,12 +12,12 @@ export class FilteredCollections {
 
   public deserialize(object: any) {
     this.clear();
-    let summary = object.summary;
+    const summary = object.summary;
     this.summary.deserialize(summary);
-    let collections = object.collections;
+    const collections = object.collections;
     for (let i = 0; i < collections.length; i++) {
-      let collection = collections[i];
-      let coll = new FilteredCollection();
+      const collection = collections[i];
+      const coll = new FilteredCollection();
       coll.deserialize(collection);
       this.collections.push(coll);
     }

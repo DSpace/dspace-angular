@@ -1,15 +1,19 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { SelectableListService } from './selectable-list.service';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
+
+import { AppState } from '../../../app.reducer';
 import { hasValue } from '../../empty.util';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
-  SelectableListSelectSingleAction
+  SelectableListSelectSingleAction,
 } from './selectable-list.actions';
-import { AppState } from '../../../app.reducer';
+import { SelectableListService } from './selectable-list.service';
 
 export class SelectableObject extends ListableObject {
   constructor(private value: string) {
@@ -48,9 +52,9 @@ describe('SelectableListService', () => {
 
       providers: [
         {
-          provide: Store, useValue: store
-        }
-      ]
+          provide: Store, useValue: store,
+        },
+      ],
     }).compileComponents();
   }));
 

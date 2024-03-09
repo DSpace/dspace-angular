@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  FileDownloadLinkComponent as BaseComponent
-} from '../../../../../app/shared/file-download-link/file-download-link.component';
+
+import { FileDownloadLinkComponent as BaseComponent } from '../../../../../app/shared/file-download-link/file-download-link.component';
 
 @Component({
   selector: 'ds-file-download-link',

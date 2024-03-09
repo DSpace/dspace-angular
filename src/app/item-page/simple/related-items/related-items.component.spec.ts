@@ -1,31 +1,39 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RelatedItemsComponent } from './related-items-component';
-import { Item } from '../../../core/shared/item.model';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { of as observableOf } from 'rxjs';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+
 import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { createRelationshipsObservable } from '../item-types/shared/item.component.spec';
+import { RelatedItemsComponent } from './related-items-component';
 
 const parentItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
 });
 const mockItem1: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
 });
 const mockItem2: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
 });
 const mockItems = [mockItem1, mockItem2];
 const relationType = 'isItemOfItem';
@@ -33,14 +41,14 @@ let relationshipService: RelationshipDataService;
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('RelatedItemsComponent', () => {
@@ -51,7 +59,7 @@ describe('RelatedItemsComponent', () => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
         getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(mockItems)),
-      }
+      },
     );
 
     TestBed.configureTestingModule({
@@ -59,11 +67,11 @@ describe('RelatedItemsComponent', () => {
       declarations: [RelatedItemsComponent, VarDirective],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(RelatedItemsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -97,7 +105,7 @@ describe('RelatedItemsComponent', () => {
       expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, {
         elementsPerPage: comp.incrementBy,
         currentPage: 2,
-        fetchThumbnail: true
+        fetchThumbnail: true,
       }));
     });
 
@@ -124,19 +132,19 @@ describe('RelatedItemsComponent', () => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
         getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(mockItems)),
-      }
+      },
     );
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [RelatedItemsComponent, VarDirective],
       providers: [
-        {provide: RelationshipDataService, useValue: relationshipService},
-        {provide: APP_CONFIG, useValue: enviromentNoThumbs}
+        { provide: RelationshipDataService, useValue: relationshipService },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(RelatedItemsComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -151,7 +159,7 @@ describe('RelatedItemsComponent', () => {
     expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, {
       elementsPerPage: comp.incrementBy,
       currentPage: 2,
-      fetchThumbnail: false
+      fetchThumbnail: false,
     }));
   });
 });

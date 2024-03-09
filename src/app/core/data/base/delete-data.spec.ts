@@ -5,24 +5,35 @@
  *
  * http://www.dspace.org/license/
  */
-import { constructIdEndpointDefault } from './identifiable-data.service';
-import { RequestService } from '../request.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
-import { DeleteData, DeleteDataImpl } from './delete-data';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RestRequestMethod } from '../rest-request-method';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './delete-data';
+import { constructIdEndpointDefault } from './identifiable-data.service';
 
 /**
  * Tests whether calls to `DeleteData` methods are correctly patched through in a concrete data service that implements it
@@ -34,7 +45,7 @@ export function testDeleteDataImplementation(serviceFactory: () => DeleteData<an
     const ID = '2ce78f3a-791b-4d70-b5eb-753d587bbadd';
     const HREF = 'https://rest.api/core/items/' + ID;
     const COPY_VIRTUAL_METADATA = [
-      'a', 'b', 'c'
+      'a', 'b', 'c',
     ];
 
     beforeAll(() => {
@@ -105,13 +116,13 @@ describe('DeleteDataImpl', () => {
       },
       getByHref: () => {
         /* empty */
-      }
+      },
     } as any;
     notificationsService = {} as NotificationsService;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {

@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
-import { RegisterPageRoutingModule } from './register-page-routing.module';
-import { RegisterEmailComponent } from './register-email/register-email.component';
-import { CreateProfileComponent } from './create-profile/create-profile.component';
-import { RegisterEmailFormModule } from '../register-email-form/register-email-form.module';
+import { NgModule } from '@angular/core';
+
 import { ProfilePageModule } from '../profile-page/profile-page.module';
+import { RegisterEmailFormModule } from '../register-email-form/register-email-form.module';
+import { SharedModule } from '../shared/shared.module';
+import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
+import { RegisterEmailComponent } from './register-email/register-email.component';
 import { ThemedRegisterEmailComponent } from './register-email/themed-register-email.component';
+import { RegisterPageRoutingModule } from './register-page-routing.module';
 
 @NgModule({
   imports: [
@@ -21,9 +22,9 @@ import { ThemedRegisterEmailComponent } from './register-email/themed-register-e
     RegisterEmailComponent,
     ThemedRegisterEmailComponent,
     CreateProfileComponent,
-    ThemedCreateProfileComponent
+    ThemedCreateProfileComponent,
   ],
-  providers: []
+  providers: [],
 })
 
 /**

@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceService } from '../../notifications/qa/source/quality-assurance-source.service';
-import {environment} from '../../../environments/environment';
+
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
@@ -16,9 +23,9 @@ export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSo
    * Initialize the effect class variables.
    * @param {QualityAssuranceSourceService} qualityAssuranceSourceService
    */
-   constructor(
+  constructor(
     private qualityAssuranceSourceService: QualityAssuranceSourceService,
-    private router: Router
+    private router: Router,
   ) { }
   /**
    * Method for resolving the parameters in the current route.
@@ -28,12 +35,12 @@ export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSo
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<QualityAssuranceSourceObject[]> {
     return this.qualityAssuranceSourceService.getSources(this.pageSize, 0).pipe(
-        map((sources: PaginatedList<QualityAssuranceSourceObject>) => {
-          if (sources.page.length === 1) {
-             this.router.navigate([this.getResolvedUrl(route) + '/' + sources.page[0].id]);
-          }
-         return sources.page;
-        }));
+      map((sources: PaginatedList<QualityAssuranceSourceObject>) => {
+        if (sources.page.length === 1) {
+          this.router.navigate([this.getResolvedUrl(route) + '/' + sources.page[0].id]);
+        }
+        return sources.page;
+      }));
   }
 
   /**

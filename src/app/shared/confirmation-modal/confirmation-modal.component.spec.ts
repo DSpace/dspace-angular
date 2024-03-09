@@ -1,8 +1,18 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { ConfirmationModalComponent } from './confirmation-modal.component';
 
 describe('ConfirmationModalComponent', () => {
@@ -17,9 +27,9 @@ describe('ConfirmationModalComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ConfirmationModalComponent],
       providers: [
-        { provide: NgbActiveModal, useValue: modalStub }
+        { provide: NgbActiveModal, useValue: modalStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -75,7 +85,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component, 'close');
       debugElement.query(By.css('button.close')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -91,7 +101,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component.response, 'emit');
       debugElement.query(By.css('button.cancel')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -110,7 +120,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component.response, 'emit');
       debugElement.query(By.css('button.confirm')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

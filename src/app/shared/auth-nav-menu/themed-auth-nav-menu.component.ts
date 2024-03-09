@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../theme-support/themed.component';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
 

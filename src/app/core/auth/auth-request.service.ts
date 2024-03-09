@@ -1,18 +1,29 @@
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/operators';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import { isNotEmpty } from '../../shared/empty.util';
-import { GetRequest, PostRequest, } from '../data/request.models';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
+import {
+  GetRequest,
+  PostRequest,
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RestRequest } from '../data/rest-request.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { URLCombiner } from '../url-combiner/url-combiner';
 import { AuthStatus } from './models/auth-status.model';
 import { ShortLivedToken } from './models/short-lived-token.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { RestRequest } from '../data/rest-request.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 
 /**
  * Abstract service to send authentication requests
@@ -23,8 +34,8 @@ export abstract class AuthRequestService {
 
   constructor(protected halService: HALEndpointService,
               protected requestService: RequestService,
-              private rdbService: RemoteDataBuildService
-              ) {
+              private rdbService: RemoteDataBuildService,
+  ) {
   }
 
   /**
@@ -65,7 +76,7 @@ export abstract class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
       map((endpointURL: string) => new PostRequest(requestId, endpointURL, body, options)),
-      take(1)
+      take(1),
     ).subscribe((request: PostRequest) => {
       this.requestService.send(request);
     });
@@ -90,7 +101,7 @@ export abstract class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method, ...linksToFollow)),
       distinctUntilChanged(),
       map((endpointURL: string) => new GetRequest(requestId, endpointURL, undefined, options)),
-      take(1)
+      take(1),
     ).subscribe((request: GetRequest) => {
       this.requestService.send(request);
     });
@@ -125,7 +136,7 @@ export abstract class AuthRequestService {
         } else {
           return null;
         }
-      })
+      }),
     );
   }
 }

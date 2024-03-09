@@ -1,11 +1,15 @@
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
+import { typedObject } from '../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../core/cache/cacheable-object.model';
 import { HALLink } from '../../core/shared/hal-link.model';
-import { autoserialize, deserialize } from 'cerialize';
+import { ResourceType } from '../../core/shared/resource-type';
+import { excludeFromEquals } from '../../core/utilities/equals.decorators';
 import { SCRIPT } from './script.resource-type';
 import { ScriptParameter } from './script-parameter.model';
-import { typedObject } from '../../core/cache/builders/build-decorators';
-import { excludeFromEquals } from '../../core/utilities/equals.decorators';
-import { ResourceType } from '../../core/shared/resource-type';
-import { CacheableObject } from '../../core/cache/cacheable-object.model';
 
 /**
  * Object representing a script
@@ -19,37 +23,37 @@ export class Script implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The identifier of this script
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The name of this script
    */
   @autoserialize
-  name: string;
+    name: string;
 
   /**
    * A short description of this script
    */
   @autoserialize
-  description: string;
+    description: string;
 
   /**
    * The available parameters for this script
    */
   @autoserialize
-  parameters: ScriptParameter[];
+    parameters: ScriptParameter[];
 
   /**
    * The {@link HALLink}s for this Script
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
   };
 }

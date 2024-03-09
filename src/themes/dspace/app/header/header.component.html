@@ -8,7 +8,7 @@
       <a class="d-block my-2 my-md-0" routerLink="/home" [attr.aria-label]="'home.title' | translate">
         <img id="header-logo" src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate"/>
       </a>
-      <nav *ngIf="!(isMobile$ | async)" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
+      <nav *ngIf="(isMobile$ | async) !== true" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
         <ds-themed-navbar></ds-themed-navbar>
       </nav>
     </div>
@@ -24,7 +24,7 @@
 
       <div id="mobile-navbar-toggler" class="d-block d-lg-none ml-3" *ngIf="(isMobile$ | async)">
         <button id="navbar-toggler" class="btn" type="button" (click)="toggleNavbar()"
-                [attr.aria-label]="'nav.toggle' | translate" aria-controls="collapsible-mobile-navbar" [attr.aria-expanded]="!(isNavBarCollapsed$ | async)">
+                [attr.aria-label]="'nav.toggle' | translate" aria-controls="collapsible-mobile-navbar" [attr.aria-expanded]="(isNavBarCollapsed$ | async) !== true">
           <span class="fas fa-bars fa-fw fa-xl toggler-icon" aria-hidden="true"></span>
         </button>
       </div>

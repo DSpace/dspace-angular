@@ -1,4 +1,4 @@
-<div *ngIf="!(this.submitted$ | async); else waiting">
+<div *ngIf="(this.submitted$ | async) !== true; else waiting">
   <div *ngIf="this.canWithdraw; else reinstateHeader" class="modal-header">
     {{ 'item.qa.withdrawn.modal.header' | translate }}
     <button type="button" class="close" (click)="onModalClose()" aria-label="Close">

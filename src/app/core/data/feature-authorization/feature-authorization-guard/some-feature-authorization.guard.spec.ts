@@ -1,8 +1,16 @@
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { Observable, of as observableOf } from 'rxjs';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
 import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 /**
@@ -52,13 +60,13 @@ describe('SomeFeatureAuthorizationGuard', () => {
     authorizationService = Object.assign({
       isAuthorized(featureId?: FeatureID): Observable<boolean> {
         return observableOf(authorizedFeatureIds.indexOf(featureId) > -1);
-      }
+      },
     });
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
+      parseUrl: {},
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     guard = new SomeFeatureAuthorizationGuardImpl(authorizationService, router, authService, featureIds, objectUrl, ePersonUuid);
   }

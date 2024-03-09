@@ -7,7 +7,7 @@ export class PresetQuery {
   predicates: QueryPredicate[];
 
   static of(id: string, label: string, predicates: QueryPredicate[]) {
-    let query = new PresetQuery();
+    const query = new PresetQuery();
     query.id = id;
     query.label = label;
     query.predicates = predicates;

@@ -1,10 +1,17 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HoverClassDirective } from './hover-class.directive';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { HoverClassDirective } from './hover-class.directive';
+
 @Component({
-  template: `<div dsHoverClass="ds-hover"></div>`
+  template: `<div dsHoverClass="ds-hover"></div>`,
 })
 class TestComponent {
 }
@@ -16,7 +23,7 @@ describe('HoverClassDirective', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [TestComponent, HoverClassDirective]
+      declarations: [TestComponent, HoverClassDirective],
     }).createComponent(TestComponent);
 
     fixture.detectChanges();

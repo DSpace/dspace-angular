@@ -7,19 +7,19 @@
             <span>
               {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }}
               <span class="text-info"> {{resourceName}} </span>
-              <ng-container *ngIf="resourceType != 'item'">
+              <ng-container *ngIf="resourceType !== 'item'">
                 ({{resourceUUID}})
               </ng-container>
             </span>
             <div class="space-children-mr flex-shrink-0">
               <button class="btn btn-danger p-1"
-                      [disabled]="(!(canDelete() | async)) || (isProcessingDelete() | async)"
+                      [disabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
                       [title]="'resource-policies.delete.btn.title' | translate"
                       (click)="deleteSelectedResourcePolicies()">
                 <span *ngIf="(isProcessingDelete() | async)">
                   <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
                 </span>
-                <span *ngIf="!(isProcessingDelete() | async)">
+                <span *ngIf="(isProcessingDelete() | async) !== true">
                   <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
                   {{'resource-policies.delete.btn' | translate}}
                 </span>

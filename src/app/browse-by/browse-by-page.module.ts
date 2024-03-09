@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { BrowseByRoutingModule } from './browse-by-routing.module';
-import { BrowseByModule } from './browse-by.module';
-import { ItemDataService } from '../core/data/item-data.service';
+
 import { BrowseService } from '../core/browse/browse.service';
-import { BrowseByGuard } from './browse-by-guard';
+import { ItemDataService } from '../core/data/item-data.service';
 import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
-import { BrowseByPageComponent } from './browse-by-page/browse-by-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { BrowseByModule } from './browse-by.module';
+import { BrowseByGuard } from './browse-by-guard';
+import { BrowseByPageComponent } from './browse-by-page/browse-by-page.component';
+import { BrowseByRoutingModule } from './browse-by-routing.module';
 
 const DECLARATIONS = [
   BrowseByPageComponent,

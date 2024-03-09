@@ -1,19 +1,23 @@
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { LdnItemfiltersService } from './ldn-itemfilters-data.service';
-import { RequestService } from '../../../core/data/request.service';
+
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { RequestEntry } from '../../../core/data/request-entry.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestEntryState } from '../../../core/data/request-entry-state.model';
-import { cold, getTestScheduler } from 'jasmine-marbles';
 import { RestResponse } from '../../../core/cache/response.models';
-import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FindAllData } from '../../../core/data/base/find-all-data';
 import { testFindAllDataImplementation } from '../../../core/data/base/find-all-data.spec';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { RequestEntry } from '../../../core/data/request-entry.model';
+import { RequestEntryState } from '../../../core/data/request-entry-state.model';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { LdnItemfiltersService } from './ldn-itemfilters-data.service';
 
 describe('LdnItemfiltersService test', () => {
   let scheduler: TestScheduler;
@@ -60,12 +64,12 @@ describe('LdnItemfiltersService test', () => {
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of(endpointURL)
+      getEndpoint: of(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: createSuccessfulRemoteDataObject$({}, 500),
-      buildList: cold('a', { a: remoteDataMocks.Success })
+      buildList: cold('a', { a: remoteDataMocks.Success }),
     });
 
 

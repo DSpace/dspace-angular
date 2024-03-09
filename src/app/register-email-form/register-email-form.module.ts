@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { SharedModule } from '../shared/shared.module';
 import { RegisterEmailFormComponent } from './register-email-form.component';
 import { ThemedRegisterEmailFormComponent } from './themed-registry-email-form.component';
@@ -12,7 +13,7 @@ const DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     ...DECLARATIONS,
@@ -20,7 +21,7 @@ const DECLARATIONS = [
   providers: [],
   exports: [
     ...DECLARATIONS,
-  ]
+  ],
 })
 
 /**

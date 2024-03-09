@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ItemAlertsComponent as BaseComponent } from '../../../../../app/item-page/alerts/item-alerts.component';
 
 @Component({

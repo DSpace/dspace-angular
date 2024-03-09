@@ -1,8 +1,9 @@
-import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
-import { Collection } from '../shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getTestScheduler } from 'jasmine-marbles';
+
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { Collection } from '../shared/collection.model';
 import { CollectionBreadcrumbResolver } from './collection-breadcrumb.resolver';
+import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 
 describe('DSOBreadcrumbResolver', () => {
   describe('resolve', () => {
@@ -21,7 +22,7 @@ describe('DSOBreadcrumbResolver', () => {
       testCollection = Object.assign(new Collection(), { uuid });
       dsoBreadcrumbService = {};
       collectionService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
+        findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection),
       };
       resolver = new CollectionBreadcrumbResolver(dsoBreadcrumbService, collectionService);
     });

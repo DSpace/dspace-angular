@@ -1,23 +1,31 @@
 import { Injectable } from '@angular/core';
-
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,
   AddUserSuggestionsAction,
+  RefreshUserSuggestionsErrorAction,
   RetrieveAllTargetsErrorAction,
   RetrieveTargetsBySourceAction,
   SuggestionTargetActionTypes,
 } from './suggestion-targets.actions';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SuggestionsService } from '../suggestions.service';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-
 
 /**
  * Provides effect methods for the Suggestion Targets actions.
@@ -34,19 +42,19 @@ export class SuggestionTargetsEffects {
       return this.suggestionsService.getTargets(
         action.payload.source,
         action.payload.elementsPerPage,
-        action.payload.currentPage
+        action.payload.currentPage,
       ).pipe(
         map((targets: PaginatedList<SuggestionTarget>) =>
-          new AddTargetAction(targets.page, targets.totalPages, targets.currentPage, targets.totalElements)
+          new AddTargetAction(targets.page, targets.totalPages, targets.currentPage, targets.totalElements),
         ),
-        catchError((error: Error) => {
-          if (error) {
+        catchError((error: unknown) => {
+          if (error instanceof Error) {
             console.error(error.message);
           }
           return of(new RetrieveAllTargetsErrorAction());
-        })
+        }),
       );
-    })
+    }),
   ));
 
   /**
@@ -56,7 +64,7 @@ export class SuggestionTargetsEffects {
     ofType(SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('suggestion.target.error.service.retrieve'));
-    })
+    }),
   ), { dispatch: false });
 
   /**
@@ -71,12 +79,22 @@ export class SuggestionTargetsEffects {
             return this.suggestionsService.retrieveCurrentUserSuggestions(userId)
               .pipe(
                 map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
-                catchError((errors) => of(errors))
+                catchError((error: unknown) => {
+                  if (error instanceof Error) {
+                    console.error(error.message);
+                  }
+                  return of(new RefreshUserSuggestionsErrorAction());
+                }),
               );
           }),
-          catchError((errors) => of(errors))
+          catchError((error: unknown) => {
+            if (error instanceof Error) {
+              console.error(error.message);
+            }
+            return of(new RefreshUserSuggestionsErrorAction());
+          }),
         );
-    }))
+    })),
   );
 
   /**
@@ -92,7 +110,7 @@ export class SuggestionTargetsEffects {
     private store$: Store<any>,
     private translate: TranslateService,
     private notificationsService: NotificationsService,
-    private suggestionsService: SuggestionsService
+    private suggestionsService: SuggestionsService,
   ) {
   }
 }

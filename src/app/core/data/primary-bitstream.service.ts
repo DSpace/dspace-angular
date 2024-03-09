@@ -1,20 +1,28 @@
-import { Bitstream } from '../shared/bitstream.model';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
+import {
+  Observable,
+  switchMap,
+} from 'rxjs';
+
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable, switchMap } from 'rxjs';
-import { RemoteData } from './remote-data';
-import { Bundle } from '../shared/bundle.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HttpHeaders } from '@angular/common/http';
+import { Bitstream } from '../shared/bitstream.model';
+import { Bundle } from '../shared/bundle.model';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { PutRequest, PostRequest, DeleteRequest } from './request.models';
-import { getAllCompletedRemoteData } from '../shared/operators';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
+import { getAllCompletedRemoteData } from '../shared/operators';
 import { BundleDataService } from './bundle-data.service';
+import { RemoteData } from './remote-data';
+import {
+  DeleteRequest,
+  PostRequest,
+  PutRequest,
+} from './request.models';
+import { RequestService } from './request.service';
 
 @Injectable({
   providedIn: 'root',
@@ -63,8 +71,8 @@ export class PrimaryBitstreamService {
       requestId,
       endpointURL,
       primaryBitstreamSelfLink,
-      this.getHttpOptions()
-  );
+      this.getHttpOptions(),
+    );
 
     this.requestService.send(request);
 
@@ -81,7 +89,7 @@ export class PrimaryBitstreamService {
     return this.createAndSendRequest(
       PostRequest,
       bundle._links.primaryBitstream.href,
-      primaryBitstream.self
+      primaryBitstream.self,
     ) as Observable<RemoteData<Bundle>>;
   }
 
@@ -95,7 +103,7 @@ export class PrimaryBitstreamService {
     return this.createAndSendRequest(
       PutRequest,
       bundle._links.primaryBitstream.href,
-      primaryBitstream.self
+      primaryBitstream.self,
     ) as Observable<RemoteData<Bundle>>;
   }
 
@@ -107,12 +115,12 @@ export class PrimaryBitstreamService {
   delete(bundle: Bundle): Observable<RemoteData<Bundle>> {
     return this.createAndSendRequest(
       DeleteRequest,
-      bundle._links.primaryBitstream.href
+      bundle._links.primaryBitstream.href,
     ).pipe(
       getAllCompletedRemoteData(),
       switchMap((rd: RemoteData<NoContent>) => {
         return this.bundleDataService.findByHref(bundle.self, rd.hasFailed);
-      })
+      }),
     );
   }
 

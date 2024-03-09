@@ -1,18 +1,26 @@
-import { AuthorizationDataService } from './authorization-data.service';
-import { SiteDataService } from '../site-data.service';
-import { Site } from '../../shared/site.model';
-import { EPerson } from '../../eperson/models/eperson.model';
-import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { FeatureID } from './feature-id';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { hasValue } from '../../../shared/empty.util';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { Authorization } from '../../shared/authorization.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { Feature } from '../../shared/feature.model';
-import { FindListOptions } from '../find-list-options.model';
-import { testSearchDataImplementation } from '../base/search-data.spec';
 import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { Authorization } from '../../shared/authorization.model';
+import { Feature } from '../../shared/feature.model';
+import { Site } from '../../shared/site.model';
+import { testSearchDataImplementation } from '../base/search-data.spec';
+import { FindListOptions } from '../find-list-options.model';
+import { SiteDataService } from '../site-data.service';
+import { AuthorizationDataService } from './authorization-data.service';
+import { FeatureID } from './feature-id';
 
 describe('AuthorizationDataService', () => {
   let service: AuthorizationDataService;
@@ -23,19 +31,19 @@ describe('AuthorizationDataService', () => {
   let ePerson: EPerson;
 
   const requestService = jasmine.createSpyObj('requestService', {
-    setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+    setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
   });
 
   function init() {
     site = Object.assign(new Site(), {
       id: 'test-site',
       _links: {
-        self: { href: 'test-site-href' }
-      }
+        self: { href: 'test-site-href' },
+      },
     });
     ePerson = Object.assign(new EPerson(), {
       id: 'test-eperson',
-      uuid: 'test-eperson'
+      uuid: 'test-eperson',
     });
     siteService = jasmine.createSpyObj('siteService', {
       find: observableOf(site),
@@ -157,26 +165,26 @@ describe('AuthorizationDataService', () => {
     const validPayload = [
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: 'invalid-feature'
-        }))
+          id: 'invalid-feature',
+        })),
       }),
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: featureID
-        }))
-      })
+          id: featureID,
+        })),
+      }),
     ];
     const invalidPayload = [
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: 'invalid-feature'
-        }))
+          id: 'invalid-feature',
+        })),
       }),
       Object.assign(new Authorization(), {
         feature: createSuccessfulRemoteDataObject$(Object.assign(new Feature(), {
-          id: 'another-invalid-feature'
-        }))
-      })
+          id: 'another-invalid-feature',
+        })),
+      }),
     ];
     const emptyPayload = [];
 

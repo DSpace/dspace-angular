@@ -1,14 +1,22 @@
-import { link, typedObject } from '../cache/builders/build-decorators';
-import { AUTHORIZATION } from './authorization.resource-type';
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
-import { HALLink } from './hal-link.model';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { RemoteData } from '../data/remote-data';
 import { EPerson } from '../eperson/models/eperson.model';
 import { EPERSON } from '../eperson/models/eperson.resource-type';
-import { FEATURE } from './feature.resource-type';
+import { AUTHORIZATION } from './authorization.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { Feature } from './feature.model';
+import { FEATURE } from './feature.resource-type';
+import { HALLink } from './hal-link.model';
 import { ITEM } from './item.resource-type';
 
 /**
@@ -23,10 +31,10 @@ export class Authorization extends DSpaceObject {
    * Unique identifier for this authorization
    */
   @autoserialize
-  id: string;
+    id: string;
 
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     eperson: HALLink;
     feature: HALLink;
@@ -38,17 +46,17 @@ export class Authorization extends DSpaceObject {
    * Null if the authorization grants access to anonymous users
    */
   @link(EPERSON)
-  eperson?: Observable<RemoteData<EPerson>>;
+    eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The Feature enabled by this Authorization
    */
   @link(FEATURE)
-  feature?: Observable<RemoteData<Feature>>;
+    feature?: Observable<RemoteData<Feature>>;
 
   /**
    * The Object this authorization applies to
    */
   @link(ITEM)
-  object?: Observable<RemoteData<DSpaceObject>>;
+    object?: Observable<RemoteData<DSpaceObject>>;
 }

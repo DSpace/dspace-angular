@@ -1,16 +1,20 @@
-import { Component, Optional } from '@angular/core';
-import { hasValue } from '../shared/empty.util';
-import { KlaroService } from '../shared/cookies/klaro.service';
+import {
+  Component,
+  Optional,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { environment } from '../../environments/environment';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
-import { Observable } from 'rxjs';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-footer',
   styleUrls: ['footer.component.scss'],
-  templateUrl: 'footer.component.html'
+  templateUrl: 'footer.component.html',
 })
 export class FooterComponent {
   dateObj: number = Date.now();
@@ -27,7 +31,7 @@ export class FooterComponent {
   constructor(
     @Optional() private cookies: KlaroService,
     private authorizationService: AuthorizationDataService,
-    private notifyInfoService: NotifyInfoService
+    private notifyInfoService: NotifyInfoService,
   ) {
     this.showSendFeedback$ = this.authorizationService.isAuthorized(FeatureID.CanSendFeedback);
     this.notifyInfoService.isCoarConfigEnabled().subscribe(coarLdnEnabled => {

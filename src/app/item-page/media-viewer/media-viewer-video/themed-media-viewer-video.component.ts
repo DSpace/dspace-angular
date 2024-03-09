@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
-import { ThemedComponent } from '../../../shared/theme-support/themed.component';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
-import { MediaViewerVideoComponent } from './media-viewer-video.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { Bitstream } from '../../../core/shared/bitstream.model';
+import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { ThemedComponent } from '../../../shared/theme-support/themed.component';
+import { MediaViewerVideoComponent } from './media-viewer-video.component';
 
 /**
  * Themed wrapper for {@link MediaViewerVideoComponent}.

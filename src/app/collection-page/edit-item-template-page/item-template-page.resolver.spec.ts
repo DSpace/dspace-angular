@@ -1,9 +1,9 @@
 import { first } from 'rxjs/operators';
 
-import { ItemTemplatePageResolver } from './item-template-page.resolver';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ItemTemplatePageResolver } from './item-template-page.resolver';
 
 describe('ItemTemplatePageResolver', () => {
   describe('resolve', () => {
@@ -14,7 +14,7 @@ describe('ItemTemplatePageResolver', () => {
 
     beforeEach(() => {
       itemTemplateService = {
-        findByCollectionID: (id: string) => createSuccessfulRemoteDataObject$({ id })
+        findByCollectionID: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
       dsoNameService = new DSONameServiceMock();
       resolver = new ItemTemplatePageResolver(dsoNameService as DSONameService, itemTemplateService);
@@ -27,7 +27,7 @@ describe('ItemTemplatePageResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
             done();
-          }
+          },
         );
     });
   });

@@ -1,15 +1,23 @@
 /* eslint-disable max-classes-per-file */
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
-import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { ResourceType } from '../../../shared/resource-type';
+
+import {
+  link,
+  typedObject,
+} from '../../../cache/builders/build-decorators';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { RemoteData } from '../../../data/remote-data';
 import { HALLink } from '../../../shared/hal-link.model';
 import { Item } from '../../../shared/item.model';
 import { ITEM } from '../../../shared/item.resource-type';
-import { link, typedObject } from '../../../cache/builders/build-decorators';
-import { RemoteData } from '../../../data/remote-data';
-import {CacheableObject} from '../../../cache/cacheable-object.model';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';
 
 /**
  * The interface representing the Quality Assurance event message
@@ -96,62 +104,62 @@ export class QualityAssuranceEventObject implements CacheableObject {
    * The Quality Assurance event uuid inside DSpace
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The universally unique identifier of this Quality Assurance event
    */
   @autoserializeAs(String, 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * The Quality Assurance event original id (ex.: the source archive OAI-PMH identifier)
    */
   @autoserialize
-  originalId: string;
+    originalId: string;
 
   /**
    * The title of the article to which the suggestion refers
    */
   @autoserialize
-  title: string;
+    title: string;
 
   /**
    * Reliability of the suggestion (of the data inside 'message')
    */
   @autoserialize
-  trust: number;
+    trust: number;
 
   /**
    * The timestamp Quality Assurance event was saved in DSpace
    */
   @autoserialize
-  eventDate: string;
+    eventDate: string;
 
   /**
    * The Quality Assurance event status (ACCEPTED, REJECTED, DISCARDED, PENDING)
    */
   @autoserialize
-  status: string;
+    status: string;
 
   /**
    * The suggestion data. Data may vary depending on the source
    */
   @autoserialize
-  message: SourceQualityAssuranceEventMessageObject;
+    message: SourceQualityAssuranceEventMessageObject;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
     target: HALLink,
     related: HALLink
@@ -162,12 +170,12 @@ export class QualityAssuranceEventObject implements CacheableObject {
    * Will be undefined unless the {@item HALLink} has been resolved.
    */
   @link(ITEM)
-  target?: Observable<RemoteData<Item>>;
+    target?: Observable<RemoteData<Item>>;
 
   /**
    * The related project for this Event
    * Will be undefined unless the {@related HALLink} has been resolved.
    */
   @link(ITEM)
-  related?: Observable<RemoteData<Item>>;
+    related?: Observable<RemoteData<Item>>;
 }

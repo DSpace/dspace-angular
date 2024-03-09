@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { SubmissionSubmitComponent as BaseComponent } from '../../../../../app/submission/submit/submission-submit.component';
 
 /**
@@ -9,7 +10,7 @@ import { SubmissionSubmitComponent as BaseComponent } from '../../../../../app/s
   // styleUrls: ['./submission-submit.component.scss'],
   styleUrls: ['../../../../../app/submission/submit/submission-submit.component.scss'],
   // templateUrl: './submission-submit.component.html'
-  templateUrl: '../../../../../app/submission/submit/submission-submit.component.html'
+  templateUrl: '../../../../../app/submission/submit/submission-submit.component.html',
 })
 export class SubmissionSubmitComponent extends BaseComponent {
 }

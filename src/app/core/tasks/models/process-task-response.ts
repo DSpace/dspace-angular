@@ -5,7 +5,7 @@ export class ProcessTaskResponse {
   constructor(
     private isSuccessful: boolean,
     public statusCode?: number,
-    public errorMessage?: string
+    public errorMessage?: string,
   ) {
   }
 

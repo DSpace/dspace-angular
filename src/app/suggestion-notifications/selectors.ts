@@ -1,9 +1,16 @@
-import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
-import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../notifications/notifications.reducer';
+import {
+  createFeatureSelector,
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
 
-import {subStateSelector} from '../submission/selectors';
-import { SuggestionTargetState } from '../notifications/suggestion-targets/suggestion-targets.reducer';
 import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
+import {
+  suggestionNotificationsSelector,
+  SuggestionNotificationsState,
+} from '../notifications/notifications.reducer';
+import { SuggestionTargetState } from '../notifications/suggestion-targets/suggestion-targets.reducer';
+import { subStateSelector } from '../submission/selectors';
 
 /**
  * Returns the Reciter Suggestion Target state.
@@ -40,7 +47,7 @@ export function suggestionTargetObjectSelector(): MemoizedSelector<SuggestionNot
  * @return {boolean}
  */
 export const isSuggestionTargetLoadedSelector = createSelector(_getSuggestionTargetState,
-  (state: SuggestionNotificationsState) => state.suggestionTarget.loaded
+  (state: SuggestionNotificationsState) => state.suggestionTarget.loaded,
 );
 
 /**
@@ -49,7 +56,7 @@ export const isSuggestionTargetLoadedSelector = createSelector(_getSuggestionTar
  * @return {boolean}
  */
 export const isReciterSuggestionTargetProcessingSelector = createSelector(_getSuggestionTargetState,
-  (state: SuggestionNotificationsState) => state.suggestionTarget.processing
+  (state: SuggestionNotificationsState) => state.suggestionTarget.processing,
 );
 
 /**
@@ -58,7 +65,7 @@ export const isReciterSuggestionTargetProcessingSelector = createSelector(_getSu
  * @return {number}
  */
 export const getSuggestionTargetTotalPagesSelector = createSelector(_getSuggestionTargetState,
-  (state: SuggestionNotificationsState) => state.suggestionTarget.totalPages
+  (state: SuggestionNotificationsState) => state.suggestionTarget.totalPages,
 );
 
 /**
@@ -67,7 +74,7 @@ export const getSuggestionTargetTotalPagesSelector = createSelector(_getSuggesti
  * @return {number}
  */
 export const getSuggestionTargetCurrentPageSelector = createSelector(_getSuggestionTargetState,
-  (state: SuggestionNotificationsState) => state.suggestionTarget.currentPage
+  (state: SuggestionNotificationsState) => state.suggestionTarget.currentPage,
 );
 
 /**
@@ -76,7 +83,7 @@ export const getSuggestionTargetCurrentPageSelector = createSelector(_getSuggest
  * @return {number}
  */
 export const getSuggestionTargetTotalsSelector = createSelector(_getSuggestionTargetState,
-  (state: SuggestionNotificationsState) => state.suggestionTarget.totalElements
+  (state: SuggestionNotificationsState) => state.suggestionTarget.totalElements,
 );
 
 /**
@@ -85,7 +92,7 @@ export const getSuggestionTargetTotalsSelector = createSelector(_getSuggestionTa
  * @return {SuggestionTarget[]}
  */
 export const getCurrentUserSuggestionTargetsSelector = createSelector(_getSuggestionTargetState,
-  (state: SuggestionNotificationsState) => state.suggestionTarget.currentUserTargets
+  (state: SuggestionNotificationsState) => state.suggestionTarget.currentUserTargets,
 );
 
 /**
@@ -94,5 +101,5 @@ export const getCurrentUserSuggestionTargetsSelector = createSelector(_getSugges
  * @return {boolean}
  */
 export const getCurrentUserSuggestionTargetsVisitedSelector = createSelector(_getSuggestionTargetState,
-  (state: SuggestionNotificationsState) => state.suggestionTarget.currentUserTargetsVisited
+  (state: SuggestionNotificationsState) => state.suggestionTarget.currentUserTargetsVisited,
 );

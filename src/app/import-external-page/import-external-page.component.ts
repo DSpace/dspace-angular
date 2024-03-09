@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ds-import-external-page',
   templateUrl: './import-external-page.component.html',
-  styleUrls: ['./import-external-page.component.scss']
+  styleUrls: ['./import-external-page.component.scss'],
 })
 export class ImportExternalPageComponent {
 

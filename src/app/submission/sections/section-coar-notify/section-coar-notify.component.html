@@ -44,7 +44,7 @@
                     [scrollWindow]="false"
                   >
                     <button
-                      *ngIf="(filterServices(ldnPattern.pattern) | async)?.length == 0"
+                      *ngIf="(filterServices(ldnPattern.pattern) | async)?.length === 0"
                       class="dropdown-item collection-item text-truncate w-100"
                     >
                       {{'submission.section.section-coar-notify.dropdown.no-data' | translate}}
@@ -58,7 +58,7 @@
                     </button>
                     <button
                       *ngFor="let serviceOption of filterServices(ldnPattern.pattern ) | async"
-                      [ngClass]="{'bg-light': ldnServiceByPattern[ldnPattern.pattern ].services[serviceIndex]?.id == serviceOption.id}"
+                      [ngClass]="{'bg-light': ldnServiceByPattern[ldnPattern.pattern ].services[serviceIndex]?.id === serviceOption.id}"
                       class="dropdown-item collection-item text-truncate w-100"
                       (click)="onChange(ldnPattern.pattern, serviceIndex, serviceOption)"
                     >
@@ -92,7 +92,7 @@
             </small>
             <ng-container *ngIf="(getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)?.length > 0">
               <small class="row text-danger" *ngFor="let error of (getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)">
-                {{ error.message  | translate}}
+                {{ error.message | translate}}
               </small>
             </ng-container>
             <div

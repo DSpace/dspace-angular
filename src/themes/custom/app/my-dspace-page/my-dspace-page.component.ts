@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { pushInOut } from '../../../../app/shared/animations/push';
-import { MyDSpacePageComponent as BaseComponent, SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-page.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
 import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import {
+  MyDSpacePageComponent as BaseComponent,
+  SEARCH_CONFIG_SERVICE,
+} from '../../../../app/my-dspace-page/my-dspace-page.component';
+import { pushInOut } from '../../../../app/shared/animations/push';
 
 /**
  * This component represents the whole mydspace page
@@ -17,9 +24,9 @@ import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: MyDSpaceConfigurationService
-    }
-  ]
+      useClass: MyDSpaceConfigurationService,
+    },
+  ],
 })
 export class MyDSpacePageComponent extends BaseComponent {
 }

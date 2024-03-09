@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { type } from '../../shared/ngrx/type';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
 
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { type } from '../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -19,7 +19,8 @@ export const SuggestionTargetActionTypes = {
   RETRIEVE_TARGETS_BY_SOURCE_ERROR: type('dspace/integration/openaire/suggestions/target/RETRIEVE_TARGETS_BY_SOURCE_ERROR'),
   ADD_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/ADD_USER_SUGGESTIONS'),
   REFRESH_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/REFRESH_USER_SUGGESTIONS'),
-  MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED')
+  REFRESH_USER_SUGGESTIONS_ERROR: type('dspace/integration/openaire/suggestions/target/REFRESH_USER_SUGGESTIONS_ERROR'),
+  MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -49,7 +50,7 @@ export class RetrieveTargetsBySourceAction implements Action {
     this.payload = {
       source,
       elementsPerPage,
-      currentPage
+      currentPage,
     };
   }
 }
@@ -90,7 +91,7 @@ export class AddTargetAction implements Action {
       targets,
       totalPages,
       currentPage,
-      totalElements
+      totalElements,
     };
   }
 
@@ -124,6 +125,13 @@ export class AddUserSuggestionsAction implements Action {
  */
 export class RefreshUserSuggestionsAction implements Action {
   type = SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS;
+}
+
+/**
+ * NgRx action to signify an error while handling {@link RefreshUserSuggestionsAction}
+ */
+export class RefreshUserSuggestionsErrorAction implements Action {
+  type = SuggestionTargetActionTypes.REFRESH_USER_SUGGESTIONS_ERROR;
 }
 
 /**

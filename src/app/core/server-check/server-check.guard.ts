@@ -2,20 +2,23 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivateChild,
+  NavigationStart,
   Router,
   RouterStateSnapshot,
   UrlTree,
-  NavigationStart
 } from '@angular/router';
-
 import { Observable } from 'rxjs';
-import { take, map, filter } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { RootDataService } from '../data/root-data.service';
 import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
+import { RootDataService } from '../data/root-data.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * A guard that checks if root api endpoint is reachable.
@@ -30,7 +33,7 @@ export class ServerCheckGuard implements CanActivateChild {
    */
   canActivateChild(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> {
 
     return this.rootDataService.checkServerAvailability().pipe(
@@ -41,7 +44,7 @@ export class ServerCheckGuard implements CanActivateChild {
         } else {
           return true;
         }
-      })
+      }),
     );
   }
 

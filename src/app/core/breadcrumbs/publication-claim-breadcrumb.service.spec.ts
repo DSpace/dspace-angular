@@ -1,14 +1,18 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrumb.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { of } from 'rxjs';
+
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrumb.service';
 
 describe('PublicationClaimBreadcrumbService', () => {
   let service: PublicationClaimBreadcrumbService;
   let dsoNameService: any = {
-    getName: (str) => str
+    getName: (str) => str,
   };
   let translateService: any = {
     instant: (str) => str,
@@ -44,7 +48,7 @@ describe('PublicationClaimBreadcrumbService', () => {
     it('should return a breadcrumb based on a string', () => {
       const breadcrumbs = service.getBreadcrumbs(exampleKey);
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: [new Breadcrumb(ADMIN_PUBLICATION_CLAIMS_BREADCRUMB_KEY, ADMIN_PUBLICATION_CLAIMS_PATH),
-          new Breadcrumb(exampleKey, undefined)]
+        new Breadcrumb(exampleKey, undefined)],
       });
     });
   });

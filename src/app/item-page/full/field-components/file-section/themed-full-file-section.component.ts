@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { Item } from '../../../../core/shared/item.model';
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { FullFileSectionComponent } from './full-file-section.component';
-import { Item } from '../../../../core/shared/item.model';
 
 /**
  * Themed wrapper for {@link FullFileSectionComponent}

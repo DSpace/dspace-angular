@@ -1,15 +1,29 @@
-import { Router, UrlTree } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
 import { InjectionToken } from '@angular/core';
-import { RemoteData } from '../data/remote-data';
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  withLatestFrom,
+} from 'rxjs/operators';
+
+import {
+  getForbiddenRoute,
+  getPageNotFoundRoute,
+} from '../../app-routing-paths';
 import { getEndUserAgreementPath } from '../../info/info-routing-paths';
-import { getForbiddenRoute, getPageNotFoundRoute } from '../../app-routing-paths';
+import { AuthService } from '../auth/auth.service';
+import { RemoteData } from '../data/remote-data';
 
 export const REDIRECT_ON_4XX = new InjectionToken<<T>(router: Router, authService: AuthService) => (source: Observable<RemoteData<T>>) => Observable<RemoteData<T>>>('redirectOn4xx', {
   providedIn: 'root',
-  factory: () => redirectOn4xx
+  factory: () => redirectOn4xx,
 });
 /**
  * Operator that checks if a remote data object returned a 4xx error
@@ -41,7 +55,7 @@ export const redirectOn4xx = <T>(router: Router, authService: AuthService) =>
         }
         return true;
       }),
-      map(([rd,]: [RemoteData<T>, boolean]) => rd)
+      map(([rd]: [RemoteData<T>, boolean]) => rd),
     );
 /**
  * Operator that returns a UrlTree to a forbidden page or the login page when the boolean received is false

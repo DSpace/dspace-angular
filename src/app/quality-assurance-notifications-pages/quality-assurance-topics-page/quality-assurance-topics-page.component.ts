@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'ds-notification-qa-page',
-  templateUrl: './quality-assurance-topics-page.component.html'
+  templateUrl: './quality-assurance-topics-page.component.html',
 })
 export class QualityAssuranceTopicsPageComponent {
 

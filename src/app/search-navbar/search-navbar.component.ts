@@ -1,6 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { SearchService } from '../core/shared/search/search.service';
 import { expandSearchInput } from '../shared/animations/slide';
 
@@ -11,7 +16,7 @@ import { expandSearchInput } from '../shared/animations/slide';
   selector: 'ds-search-navbar',
   templateUrl: './search-navbar.component.html',
   styleUrls: ['./search-navbar.component.scss'],
-  animations: [expandSearchInput]
+  animations: [expandSearchInput],
 })
 export class SearchNavbarComponent {
 
@@ -66,7 +71,7 @@ export class SearchNavbarComponent {
     this.searchForm.reset();
 
     this.router.navigate(linkToNavigateTo, {
-      queryParams: queryParams
+      queryParams: queryParams,
     });
   }
 }

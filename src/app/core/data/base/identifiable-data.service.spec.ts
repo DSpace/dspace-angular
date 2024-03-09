@@ -5,21 +5,25 @@
  *
  * http://www.dspace.org/license/
  */
-import { FindListOptions } from '../find-list-options.model';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { TestScheduler } from 'rxjs/testing';
-import { RemoteData } from '../remote-data';
-import { RequestEntryState } from '../request-entry-state.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { RequestService } from '../request.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { IdentifiableDataService } from './identifiable-data.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { FindListOptions } from '../find-list-options.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
 import { EMBED_SEPARATOR } from './base-data.service';
+import { IdentifiableDataService } from './identifiable-data.service';
 
 const endpoint = 'https://rest.api/core';
 
@@ -63,12 +67,12 @@ describe('IdentifiableDataService', () => {
       },
       getByHref: () => {
         /* empty */
-      }
+      },
     } as any;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {
@@ -132,7 +136,7 @@ describe('IdentifiableDataService', () => {
         resourceIdMock,
         followLink('bundles', { shouldEmbed: false }),
         followLink('owningCollection', { shouldEmbed: false }),
-        followLink('templateItemOf')
+        followLink('templateItemOf'),
       );
       expect(result).toEqual(expected);
     });

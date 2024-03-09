@@ -58,3 +58,19 @@
 </ds-object-detail>
 
 
+<ds-object-table  [config]="config"
+                  [sortConfig]="sortConfig"
+                  [objects]="objects"
+                  [hideGear]="hideGear"
+                  [linkType]="linkType"
+                  [context]="context"
+                  [hidePaginationDetail]="hidePaginationDetail"
+                  [showPaginator]="showPaginator"
+                  [showThumbnails]="showThumbnails"
+                  (paginationChange)="onPaginationChange($event)"
+                  (pageChange)="onPageChange($event)"
+                  (pageSizeChange)="onPageSizeChange($event)"
+                  (sortDirectionChange)="onSortDirectionChange($event)"
+                  (sortFieldChange)="onSortFieldChange($event)"
+                  *ngIf="(currentMode$ | async) === viewModeEnum.Table">
+</ds-object-table>

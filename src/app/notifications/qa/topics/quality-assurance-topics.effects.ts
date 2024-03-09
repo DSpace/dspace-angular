@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
-
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   AddTopicsAction,
   QualityAssuranceTopicActionTypes,
   RetrieveAllTopicsAction,
   RetrieveAllTopicsErrorAction,
 } from './quality-assurance-topics.actions';
-import {
-  QualityAssuranceTopicObject
-} from '../../../core/notifications/qa/models/quality-assurance-topic.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  QualityAssuranceTopicDataService
-} from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 
 /**
  * Provides effect methods for the Quality Assurance topics actions.
@@ -39,19 +44,21 @@ export class QualityAssuranceTopicsEffects {
         action.payload.elementsPerPage,
         action.payload.currentPage,
         action.payload.source,
-        action.payload.target
+        action.payload.target,
       ).pipe(
         map((topics: PaginatedList<QualityAssuranceTopicObject>) =>
-          new AddTopicsAction(topics.page, topics.totalPages, topics.currentPage, topics.totalElements)
+          new AddTopicsAction(topics.page, topics.totalPages, topics.currentPage, topics.totalElements),
         ),
-        catchError((error: Error) => {
-          if (error) {
+        catchError((error: unknown) => {
+          if (error instanceof Error) {
             console.error(error.message);
+          } else {
+            console.error('Unexpected object thrown', error);
           }
           return observableOf(new RetrieveAllTopicsErrorAction());
-        })
+        }),
       );
-    })
+    }),
   ));
 
   /**
@@ -61,7 +68,7 @@ export class QualityAssuranceTopicsEffects {
     ofType(QualityAssuranceTopicActionTypes.RETRIEVE_ALL_TOPICS_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('quality-assurance.topic.error.service.retrieve'));
-    })
+    }),
   ), { dispatch: false });
 
   /**
@@ -71,7 +78,7 @@ export class QualityAssuranceTopicsEffects {
     ofType(QualityAssuranceTopicActionTypes.ADD_TOPICS),
     tap(() => {
       this.qualityAssuranceTopicDataService.clearFindAllTopicsRequests();
-    })
+    }),
   ), { dispatch: false });
 
   /**
@@ -89,6 +96,6 @@ export class QualityAssuranceTopicsEffects {
     private translate: TranslateService,
     private notificationsService: NotificationsService,
     private qualityAssuranceTopicService: QualityAssuranceTopicsService,
-    private qualityAssuranceTopicDataService: QualityAssuranceTopicDataService
+    private qualityAssuranceTopicDataService: QualityAssuranceTopicDataService,
   ) { }
 }

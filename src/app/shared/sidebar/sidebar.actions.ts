@@ -14,7 +14,7 @@ import { type } from '../ngrx/type';
 export const SidebarActionTypes = {
   COLLAPSE: type('dspace/sidebar/COLLAPSE'),
   EXPAND: type('dspace/sidebar/EXPAND'),
-  TOGGLE: type('dspace/sidebar/TOGGLE')
+  TOGGLE: type('dspace/sidebar/TOGGLE'),
 };
 
 /**

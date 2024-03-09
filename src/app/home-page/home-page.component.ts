@@ -1,21 +1,41 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, of as observableOf } from 'rxjs';
-import { Site } from '../core/shared/site.model';
 import { isPlatformServer } from '@angular/common';
-import { ServerResponseService } from '../core/services/server-response.service';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
+
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
-import { LinkDefinition, LinkHeadService } from '../core/services/link-head.service';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '../core/services/link-head.service';
+import { ServerResponseService } from '../core/services/server-response.service';
+import { Site } from '../core/shared/site.model';
 import { isNotEmpty } from '../shared/empty.util';
-import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 
 @Component({
   selector: 'ds-home-page',
   styleUrls: ['./home-page.component.scss'],
-  templateUrl: './home-page.component.html'
+  templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit, OnDestroy {
 
@@ -53,7 +73,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
     // only if COAR configuration is enabled
     this.subs.push(this.notifyInfoService.isCoarConfigEnabled().pipe(
       switchMap((coarLdnEnabled: boolean) => {
-        return coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : observableOf([]);
+        if (coarLdnEnabled) {
+          return this.notifyInfoService.getCoarLdnLocalInboxUrls();
+        } else {
+          return observableOf([]);
+        }
       }),
     ).subscribe((coarRestApiUrls: string[]) => {
       if (coarRestApiUrls.length > 0) {
@@ -71,9 +95,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
     let links = '';
     coarRestApiUrls.forEach((coarRestApiUrl: string) => {
       // Add link to head
-      let tag: LinkDefinition = {
+      const tag: LinkDefinition = {
         href: coarRestApiUrl,
-        rel: rel
+        rel: rel,
       };
       this.inboxLinks.push(tag);
       this.linkHeadService.addTag(tag);

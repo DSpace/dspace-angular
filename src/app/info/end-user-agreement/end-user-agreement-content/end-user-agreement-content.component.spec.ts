@@ -1,7 +1,12 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 
 describe('EndUserAgreementContentComponent', () => {
   let component: EndUserAgreementContentComponent;
@@ -11,7 +16,7 @@ describe('EndUserAgreementContentComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [EndUserAgreementContentComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

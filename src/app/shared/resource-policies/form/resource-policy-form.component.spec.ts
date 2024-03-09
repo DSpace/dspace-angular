@@ -1,44 +1,67 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
 import { delay } from 'rxjs/operators';
-import { TranslateModule } from '@ngx-translate/core';
+import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { createTestComponent } from '../../testing/utils.test';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { GroupMock } from '../../testing/group-mock';
-import { ResourcePolicyEvent, ResourcePolicyFormComponent } from './resource-policy-form.component';
-import { FormService } from '../../form/form.service';
-import { getMockFormService } from '../../mocks/form-service.mock';
-import { FormBuilderService } from '../../form/builder/form-builder.service';
-import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
-import { FormComponent } from '../../form/form.component';
-import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
+import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { EPersonMock } from '../../testing/eperson.mock';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '../../date.util';
 import { isNotEmptyOperator } from '../../empty.util';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RemoteData } from '../../../core/data/remote-data';
+import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
+import { FormBuilderService } from '../../form/builder/form-builder.service';
+import { FormComponent } from '../../form/form.component';
+import { FormService } from '../../form/form.service';
+import { getMockFormService } from '../../mocks/form-service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { RouterMock } from '../../mocks/router.mock';
-import { Store } from '@ngrx/store';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { EPersonMock } from '../../testing/eperson.mock';
+import { GroupMock } from '../../testing/group-mock';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreMock } from '../../testing/store.mock';
+import { createTestComponent } from '../../testing/utils.test';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from './resource-policy-form.component';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -49,8 +72,8 @@ export const mockResourcePolicyFormData = {
       display: 'name',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   description: [
     {
@@ -60,8 +83,8 @@ export const mockResourcePolicyFormData = {
       display: 'description',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   policyType: [
     {
@@ -71,8 +94,8 @@ export const mockResourcePolicyFormData = {
       display: 'TYPE_WORKFLOW',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   action: [
     {
@@ -82,8 +105,8 @@ export const mockResourcePolicyFormData = {
       display: 'WRITE',
       confidence: -1,
       place: 0,
-      otherInformation: null
-    }
+      otherInformation: null,
+    },
   ],
   date: {
     start: [
@@ -94,8 +117,8 @@ export const mockResourcePolicyFormData = {
         display: '2019-04-14',
         confidence: -1,
         place: 0,
-        otherInformation: null
-      }
+        otherInformation: null,
+      },
     ],
     end: [
       {
@@ -105,10 +128,10 @@ export const mockResourcePolicyFormData = {
         display: '2020-04-14',
         confidence: -1,
         place: 0,
-        otherInformation: null
-      }
+        otherInformation: null,
+      },
     ],
-  }
+  },
 };
 
 export const submittedResourcePolicy = Object.assign(new ResourcePolicy(), {
@@ -118,7 +141,7 @@ export const submittedResourcePolicy = Object.assign(new ResourcePolicy(), {
   action: ActionType.WRITE,
   startDate: dateToISOFormat('2019-04-14T00:00:00Z'),
   endDate: dateToISOFormat('2020-04-14T00:00:00Z'),
-  type: RESOURCE_POLICY
+  type: RESOURCE_POLICY,
 });
 
 describe('ResourcePolicyFormComponent test suite', () => {
@@ -142,36 +165,36 @@ describe('ResourcePolicyFormComponent test suite', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const epersonService = jasmine.createSpyObj('epersonService', {
     findByHref: jasmine.createSpy('findByHref'),
-    findAll: jasmine.createSpy('findAll')
+    findAll: jasmine.createSpy('findAll'),
   });
 
   const groupService = jasmine.createSpyObj('groupService', {
     findByHref: jasmine.createSpy('findByHref'),
-    findAll: jasmine.createSpy('findAll')
+    findAll: jasmine.createSpy('findAll'),
   });
 
   const mockPolicyRD: RemoteData<ResourcePolicy> = createSuccessfulRemoteDataObject(resourcePolicy);
   const activatedRouteStub = {
     parent: {
       data: observableOf({
-        dso: mockPolicyRD
-      })
-    }
+        dso: mockPolicyRD,
+      }),
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -183,13 +206,13 @@ describe('ResourcePolicyFormComponent test suite', () => {
         NgbModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
         EpersonGroupListComponent,
         ResourcePolicyFormComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -202,11 +225,11 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: RequestService, useValue: getMockRequestService() },
         FormBuilderService,
         ChangeDetectorRef,
-        ResourcePolicyFormComponent
+        ResourcePolicyFormComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -307,7 +330,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       compAsAny.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
+        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
       compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
     });
@@ -340,7 +363,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       compAsAny.isActive = true;
       comp.ngOnInit();
       comp.resourcePolicyTargetName$.pipe(
-        isNotEmptyOperator()
+        isNotEmptyOperator(),
       ).subscribe(() => {
         expect(compAsAny.resourcePolicyGrant).toEqual(GroupMock);
         done();
@@ -368,7 +391,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
+        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
       compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
       compAsAny.formService.isValid.and.returnValue(observableOf(true));
@@ -400,7 +423,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       eventPayload.object = submittedResourcePolicy;
       eventPayload.target = {
         type: 'group',
-        uuid: GroupMock.id
+        uuid: GroupMock.id,
       };
       eventPayload.updateTarget = false;
 
@@ -424,7 +447,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
       comp.resourcePolicy = resourcePolicy;
       comp.isProcessing = observableOf(false);
       compAsAny.ePersonService.findByHref.and.returnValue(
-        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100))
+        observableOf(createSuccessfulRemoteDataObject({})).pipe(delay(100)),
       );
       compAsAny.groupService.findByHref.and.returnValue(observableOf(createSuccessfulRemoteDataObject(GroupMock)));
       compAsAny.formService.isValid.and.returnValue(observableOf(false));
@@ -452,7 +475,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

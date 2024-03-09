@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+
 import { AppState } from '../../app.reducer';
 
 @Injectable()
@@ -10,7 +11,7 @@ export class NotificationsEffects {
    * Authenticate user.
    * @method authenticate
    */
- /* @Effect()
+  /* @Effect()
   public timer: Observable<Action> = this.actions$
     .pipe(ofType(NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER),
     // .debounceTime((action: any) => action.payload.options.timeOut)

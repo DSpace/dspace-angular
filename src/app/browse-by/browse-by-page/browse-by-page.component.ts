@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({

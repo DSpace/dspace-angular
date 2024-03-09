@@ -2,8 +2,8 @@
   <input type="text" class="form-control" (keyup.enter)="(searchString === '')?null:search()" [(ngModel)]="searchString" placeholder="{{'submission.import-external.search.placeholder' | translate}}" [attr.aria-label]="'submission.import-external.search.placeholder' | translate">
 </div>
 <div class="input-group mb-5">
-  <input *ngIf="!(isXsOrSm$ | async)" type="text" class="form-control" (keyup.enter)="(searchString === '')?null:search()" [(ngModel)]="searchString" placeholder="{{'submission.import-external.search.placeholder' | translate}}" [attr.aria-label]="'submission.import-external.search.placeholder' | translate">
-  <div [ngClass]="{'input-group-append': !(isXsOrSm$ | async)}" ngbDropdown role="group">
+  <input *ngIf="(isXsOrSm$ | async) !== true" type="text" class="form-control" (keyup.enter)="(searchString === '')?null:search()" [(ngModel)]="searchString" placeholder="{{'submission.import-external.search.placeholder' | translate}}" [attr.aria-label]="'submission.import-external.search.placeholder' | translate">
+  <div [ngClass]="{'input-group-append': (isXsOrSm$ | async) !== true}" ngbDropdown role="group">
     <button [attr.aria-label]="'submission.import-external.search.source.hint' |translate"
             class="btn btn-outline-secondary w-fx"
             title="{{'submission.import-external.search.source.hint' |translate}}"

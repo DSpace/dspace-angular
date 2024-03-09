@@ -1,14 +1,21 @@
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 
-import { link, typedObject } from '../../../core/cache/builders/build-decorators';
+import {
+  link,
+  typedObject,
+} from '../../../core/cache/builders/build-decorators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { EPERSON } from '../../../core/eperson/models/eperson.resource-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSPACE_OBJECT } from '../../../core/shared/dspace-object.resource-type';
 import { HALLink } from '../../../core/shared/hal-link.model';
 import { SUBSCRIPTION } from './subscription.resource-type';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPERSON } from '../../../core/eperson/models/eperson.resource-type';
-import { DSPACE_OBJECT } from '../../../core/shared/dspace-object.resource-type';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -37,7 +44,7 @@ export class Subscription extends DSpaceObject {
    * The {@link HALLink}s for this Subscription
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     eperson: HALLink;
     resource: HALLink;
@@ -48,14 +55,14 @@ export class Subscription extends DSpaceObject {
    * Will be undefined unless the logo {@link HALLink} has been resolved.
    */
   @link(EPERSON)
-  eperson?: Observable<RemoteData<EPerson>>;
+    eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The logo for this Community
    * Will be undefined unless the logo {@link HALLink} has been resolved.
    */
   @link(DSPACE_OBJECT)
-  resource?: Observable<RemoteData<DSpaceObject>>;
+    resource?: Observable<RemoteData<DSpaceObject>>;
   /**
    * The embedded ePerson & dSpaceObject for this Subscription
    */

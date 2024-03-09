@@ -25,7 +25,7 @@
           <div class="card-header">{{ 'person.page.orcid.missing-authorizations'| translate }}</div>
           <div class="card-body">
             <div class="container">
-              <ds-alert *ngIf="!(hasMissingOrcidAuthorizations() | async)" [type]="'alert-success'" data-test="noMissingOrcidAuthorizations">
+              <ds-alert *ngIf="(hasMissingOrcidAuthorizations() | async) !== true" [type]="'alert-success'" data-test="noMissingOrcidAuthorizations">
                 {{'person.page.orcid.no-missing-authorizations-message' | translate}}
               </ds-alert>
               <ds-alert *ngIf="(hasMissingOrcidAuthorizations() | async)" [type]="'alert-warning'" data-test="missingOrcidAuthorizations">
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <ds-alert *ngIf="(onlyAdminCanDisconnectProfileFromOrcid() | async) && !(ownerCanDisconnectProfileFromOrcid() | async)"
+    <ds-alert *ngIf="(onlyAdminCanDisconnectProfileFromOrcid() | async) && (ownerCanDisconnectProfileFromOrcid() | async) !== true"
               [type]="'alert-warning'" data-test="unlinkOnlyAdmin">
       {{ 'person.page.orcid.remove-orcid-message' | translate}}
     </ds-alert>
@@ -49,7 +49,7 @@
       <div class="col">
         <button type="submit" class="btn btn-danger float-right" (click)="unlinkOrcid()"
                 [disabled]="(unlinkProcessing | async)">
-          <span *ngIf="!(unlinkProcessing | async)"><i
+          <span *ngIf="(unlinkProcessing | async) !== true"><i
             class="fas fa-unlink"></i> {{ 'person.page.orcid.unlink' | translate }}</span>
           <span *ngIf="(unlinkProcessing | async)"><i
             class='fas fa-circle-notch fa-spin'></i> {{'person.page.orcid.unlink.processing' | translate}}</span>

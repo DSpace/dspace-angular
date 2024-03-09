@@ -1,10 +1,10 @@
-import {
-  createRelationshipsObservable,
-  getItemPageFieldsTest
-} from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import {
+  createRelationshipsObservable,
+  getItemPageFieldsTest,
+} from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ProjectComponent } from './project.component';
 
@@ -20,8 +20,8 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.identifier': [
       {
         language: 'en_US',
-        value: '1'
-      }
+        value: '1',
+      },
     ],
     // 'project.identifier.expectedcompletion': [
     //   {
@@ -32,17 +32,17 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.description': [
       {
         language: 'en_US',
-        value: 'keyword'
-      }
+        value: 'keyword',
+      },
     ],
     'dc.subject': [
       {
         language: 'en_US',
-        value: 'keyword'
-      }
-    ]
+        value: 'keyword',
+      },
+    ],
   },
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
 });
 
 describe('ProjectComponent', getItemPageFieldsTest(mockItem, ProjectComponent));

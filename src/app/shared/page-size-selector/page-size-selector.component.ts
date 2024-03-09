@@ -1,17 +1,28 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { map, take } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 @Component({
   selector: 'ds-page-size-selector',
   styleUrls: ['./page-size-selector.component.scss'],
-  templateUrl: './page-size-selector.component.html'
+  templateUrl: './page-size-selector.component.html',
 })
 
 /**
@@ -44,9 +55,9 @@ export class PageSizeSelectorComponent implements OnInit {
   reloadRPP(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.paginationOptions$.pipe(
-      take(1)
+      take(1),
     ).subscribe((pagination: PaginationComponentOptions) => {
-      this.paginationService.updateRoute(pagination.id, {page: 1, pageSize: +value});
+      this.paginationService.updateRoute(pagination.id, { page: 1, pageSize: +value });
     }) ;
   }
 }

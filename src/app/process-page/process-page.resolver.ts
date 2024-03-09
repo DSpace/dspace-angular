@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { RemoteData } from '../core/data/remote-data';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Process } from './processes/process.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
+
 import { ProcessDataService } from '../core/data/processes/process-data.service';
+import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { followLink } from '../shared/utils/follow-link-config.model';
+import { Process } from './processes/process.model';
 
 export const PROCESS_PAGE_FOLLOW_LINKS = [
   followLink('files'),

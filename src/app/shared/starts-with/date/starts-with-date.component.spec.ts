@@ -1,17 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { StartsWithDateComponent } from './starts-with-date.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
-import { RouterStub } from '../../testing/router.stub';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { RouterStub } from '../../testing/router.stub';
+import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { StartsWithDateComponent } from './starts-with-date.component';
 
 describe('StartsWithDateComponent', () => {
   let comp: StartsWithDateComponent;
@@ -36,7 +44,7 @@ describe('StartsWithDateComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: router },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -93,7 +101,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
     });
 
     it('should automatically fill in the input field', () => {
@@ -115,7 +123,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
       });
 
       it('should automatically fill in the input field', () => {
@@ -139,7 +147,7 @@ describe('StartsWithDateComponent', () => {
       });
 
       it('should add a startsWith query parameter', () => {
-        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+        expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
       });
 
       it('should automatically fill in the input field', () => {
@@ -164,7 +172,7 @@ describe('StartsWithDateComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
     });
   });
 

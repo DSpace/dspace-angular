@@ -1,7 +1,17 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ObjectListComponent } from './object-list.component';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { ObjectListComponent } from './object-list.component';
 import { SelectableListService } from './selectable-list/selectable-list.service';
 
 describe('ObjectListComponent', () => {
@@ -14,9 +24,9 @@ describe('ObjectListComponent', () => {
       imports: [],
       declarations: [ObjectListComponent],
       providers: [{ provide: SelectableListService, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ObjectListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

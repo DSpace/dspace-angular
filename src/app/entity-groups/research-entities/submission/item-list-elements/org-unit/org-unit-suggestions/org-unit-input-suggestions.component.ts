@@ -1,5 +1,11 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import { InputSuggestionsComponent } from '../../../../../../shared/input-suggestions/input-suggestions.component';
 
 @Component({
@@ -12,9 +18,9 @@ import { InputSuggestionsComponent } from '../../../../../../shared/input-sugges
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
       // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => OrgUnitInputSuggestionsComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 
 /**

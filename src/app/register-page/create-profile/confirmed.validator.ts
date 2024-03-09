@@ -11,7 +11,7 @@ export function ConfirmedValidator(controlName: string, matchingControlName: str
       return;
     }
     if (control.value !== matchingControl.value) {
-      matchingControl.setErrors({confirmedValidator: true});
+      matchingControl.setErrors({ confirmedValidator: true });
     } else {
       matchingControl.setErrors(null);
     }

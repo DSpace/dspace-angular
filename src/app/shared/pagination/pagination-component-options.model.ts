@@ -1,5 +1,5 @@
-import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Injectable } from '@angular/core';
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
 export class PaginationComponentOptions extends NgbPaginationConfig {

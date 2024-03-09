@@ -1,23 +1,49 @@
-import { combineLatest, Observable, shareReplay } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest,
+  Observable,
+  shareReplay,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { select, Store } from '@ngrx/store';
-import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
-
-import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
-import { isNotEmpty } from '../../../empty.util';
-import { fadeOut } from '../../../animations/fade';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import {
+  getForgotPasswordRoute,
+  getRegisterRoute,
+} from '../../../../app-routing-paths';
+import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction,
+} from '../../../../core/auth/auth.actions';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import {
+  getAuthenticationError,
+  getAuthenticationInfo,
+} from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core-state.model';
-import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { fadeOut } from '../../../animations/fade';
+import { isNotEmpty } from '../../../empty.util';
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
 /**
  * /users/sign-in
@@ -27,7 +53,7 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
   selector: 'ds-log-in-password',
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
-  animations: [fadeOut]
+  animations: [fadeOut],
 })
 @renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
@@ -105,16 +131,16 @@ export class LogInPasswordComponent implements OnInit {
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
 
     // set error
     this.error = this.store.pipe(select(
       getAuthenticationError),
-      map((error) => {
-        this.hasError = (isNotEmpty(error));
-        return error;
-      })
+    map((error) => {
+      this.hasError = (isNotEmpty(error));
+      return error;
+    }),
     );
 
     // set error
@@ -123,17 +149,21 @@ export class LogInPasswordComponent implements OnInit {
       map((message) => {
         this.hasMessage = (isNotEmpty(message));
         return message;
-      })
+      }),
     );
 
-    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(shareReplay(1));
-    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(
+      shareReplay({ refCount: false, bufferSize: 1 }),
+    );
+    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(
+      shareReplay({ refCount: false, bufferSize: 1 }),
+    );
     this.canShowDivider$ =
         combineLatest([this.canRegister$, this.canForgot$])
-            .pipe(
-                map(([canRegister, canForgot]) => canRegister || canForgot),
-                filter(Boolean)
-            );
+          .pipe(
+            map(([canRegister, canForgot]) => canRegister || canForgot),
+            filter(Boolean),
+          );
   }
 
   getRegisterRoute() {

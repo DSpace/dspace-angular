@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from '../../core/shared/item.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../core/shared/item.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
 
 /**
  * Component representing the statistics page for an item.
@@ -12,7 +16,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-item-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./item-statistics-page.component.scss']
+  styleUrls: ['./item-statistics-page.component.scss'],
 })
 export class ItemStatisticsPageComponent extends StatisticsPageComponent<Item> {
 
@@ -32,7 +36,7 @@ export class ItemStatisticsPageComponent extends StatisticsPageComponent<Item> {
     protected router: Router,
     protected usageReportService: UsageReportDataService,
     protected nameService: DSONameService,
-    protected authService: AuthService
+    protected authService: AuthService,
   ) {
     super(
       route,

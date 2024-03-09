@@ -1,11 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { ThemedComponent } from '../shared/theme-support/themed.component';
-import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { Context } from '../core/shared/context.model';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { ViewMode } from '../core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../shared/object-collection/collection-element-link.type';
 import { SelectionConfig } from '../shared/search/search-results/search-results.component';
-import { ViewMode } from '../core/shared/view-mode.model';
+import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { ThemedComponent } from '../shared/theme-support/themed.component';
+import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 
 /**
  * Themed wrapper for ConfigurationSearchPageComponent
@@ -16,7 +20,7 @@ import { ViewMode } from '../core/shared/view-mode.model';
 })
 export class ThemedConfigurationSearchPageComponent extends ThemedComponent<ConfigurationSearchPageComponent> {
 
-  @Input() configurationList: SearchConfigurationOption[] = [];
+  @Input() configurationList: SearchConfigurationOption[];
 
   @Input() context: Context;
 

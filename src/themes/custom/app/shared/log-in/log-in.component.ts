@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LogInComponent as BaseComponent } from '../../../../../app/shared/log-in/log-in.component';
 
 @Component({

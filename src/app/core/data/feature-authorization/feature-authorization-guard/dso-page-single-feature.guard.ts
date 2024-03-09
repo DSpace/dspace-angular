@@ -1,9 +1,13 @@
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { DsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { FeatureID } from '../feature-id';
-import { map } from 'rxjs/operators';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { FeatureID } from '../feature-id';
+import { DsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';
 
 /**
  * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for a specific feature

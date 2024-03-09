@@ -1,26 +1,32 @@
 /* eslint-disable max-classes-per-file */
+import { HttpHeaders } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { TasksService } from './tasks.service';
-import { RequestService } from '../data/request.service';
-import { TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { TaskObject } from './models/task-object.model';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HttpHeaders } from '@angular/common/http';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { compare, Operation } from 'fast-json-patch';
-import { of as observableOf } from 'rxjs';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data/find-list-options.model';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { ChangeAnalyzer } from '../data/change-analyzer';
+import { FindListOptions } from '../data/find-list-options.model';
+import {
+  TaskDeleteRequest,
+  TaskPostRequest,
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { TaskObject } from './models/task-object.model';
+import { TasksService } from './tasks.service';
 
 const LINK_NAME = 'test';
 
@@ -62,7 +68,7 @@ describe('TasksService', () => {
     },
     getObjectBySelfLink: () => {
       /* empty */
-    }
+    },
   } as any;
   const store = {} as Store<CoreState>;
 

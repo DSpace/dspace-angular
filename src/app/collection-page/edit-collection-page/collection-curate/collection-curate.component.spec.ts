@@ -1,12 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { CollectionCurateComponent } from './collection-curate.component';
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { Collection } from '../../../core/shared/collection.model';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { CollectionCurateComponent } from './collection-curate.component';
 
 describe('CollectionCurateComponent', () => {
   let comp: CollectionCurateComponent;
@@ -17,30 +25,30 @@ describe('CollectionCurateComponent', () => {
   let dsoNameService;
 
   const collection = Object.assign(new Collection(), {
-    metadata: {'dc.title': ['Collection Name'], 'dc.identifier.uri': [ { value: '123456789/1'}]}
+    metadata: { 'dc.title': ['Collection Name'], 'dc.identifier.uri': [ { value: '123456789/1' }] },
   });
 
   beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
         data: observableOf({
-          dso: createSuccessfulRemoteDataObject(collection)
-        })
-      }
+          dso: createSuccessfulRemoteDataObject(collection),
+        }),
+      },
     };
 
     dsoNameService = jasmine.createSpyObj('dsoNameService', {
-      getName: 'Collection Name'
+      getName: 'Collection Name',
     });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [CollectionCurateComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService}
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: DSONameService, useValue: dsoNameService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -58,7 +66,7 @@ describe('CollectionCurateComponent', () => {
     });
     it('should contain the collection information provided in the route', () => {
       comp.dsoRD$.subscribe((value) => {
-        expect(value.payload.handle
+        expect(value.payload.handle,
         ).toEqual('123456789/1');
       });
       comp.collectionName$.subscribe((value) => {

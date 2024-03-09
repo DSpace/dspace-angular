@@ -12,9 +12,9 @@ export class FilteredItems {
   public deserialize(object: any, offset: number = 0) {
     this.clear();
     this.itemCount = object.itemCount;
-    let items = object.items;
+    const items = object.items;
     for (let i = 0; i < items.length; i++) {
-      let item = items[i];
+      const item = items[i];
       item.index = this.items.length + offset + 1;
       this.items.push(item);
     }

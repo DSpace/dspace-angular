@@ -1,11 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RequestCopyEmail } from './request-copy-email.model';
 import { Location } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import { RequestCopyEmail } from './request-copy-email.model';
 
 @Component({
   selector: 'ds-email-request-copy',
   styleUrls: ['./email-request-copy.component.scss'],
-  templateUrl: './email-request-copy.component.html'
+  templateUrl: './email-request-copy.component.html',
 })
 /**
  * A form component for an email to send back to the user requesting an item

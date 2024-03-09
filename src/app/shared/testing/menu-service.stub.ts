@@ -1,26 +1,30 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { MenuID } from '../menu/menu-id.model';
 import { MenuSection } from '../menu/menu-section.model';
 import { MenuState } from '../menu/menu-state.model';
-import { MenuID } from '../menu/menu-id.model';
 
 export class MenuServiceStub {
   visibleSection1 = {
     id: 'section',
     visible: true,
-    active: false
+    active: false,
   } as any;
   visibleSection2 = {
     id: 'section_2',
-    visible: true
+    visible: true,
   } as any;
   hiddenSection3 = {
     id: 'section_3',
-    visible: false
+    visible: false,
   } as any;
   subSection4 = {
     id: 'section_4',
     visible: true,
-    parentID: 'section1'
+    parentID: 'section1',
   } as any;
 
   toggleMenu(): void { /***/

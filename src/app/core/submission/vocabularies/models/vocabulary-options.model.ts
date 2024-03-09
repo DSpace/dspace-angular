@@ -14,7 +14,7 @@ export class VocabularyOptions {
   closed: boolean;
 
   constructor(name: string,
-              closed: boolean = false) {
+    closed: boolean = false) {
     this.name = name;
     this.closed = closed;
   }

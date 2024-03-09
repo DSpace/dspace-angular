@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
@@ -10,13 +17,13 @@ import {
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicTemplateDirective
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-form-group',
   templateUrl: './dynamic-form-group.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
 

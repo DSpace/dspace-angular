@@ -1,20 +1,37 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { getItemPageRoute } from '../item-page-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { isNotEmpty } from '../../shared/empty.util';
+import { RemoteData } from '../../core/data/remote-data';
+import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { Item } from '../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { isNotEmpty } from '../../shared/empty.util';
+import { getItemPageRoute } from '../item-page-routing-paths';
 
 /**
  * A component that represents the orcid settings page
@@ -22,7 +39,7 @@ import { ResearcherProfile } from '../../core/profile/model/researcher-profile.m
 @Component({
   selector: 'ds-orcid-page',
   templateUrl: './orcid-page.component.html',
-  styleUrls: ['./orcid-page.component.scss']
+  styleUrls: ['./orcid-page.component.scss'],
 })
 export class OrcidPageComponent implements OnInit {
 
@@ -52,7 +69,7 @@ export class OrcidPageComponent implements OnInit {
     private itemService: ItemDataService,
     private orcidAuthService: OrcidAuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -69,7 +86,7 @@ export class OrcidPageComponent implements OnInit {
       const item$ = this.route.data.pipe(
         map((data) => data.dso as RemoteData<Item>),
         redirectOn4xx(this.router, this.authService),
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       );
 
       combineLatest([codeParam$, item$]).subscribe(([codeParam, item]) => {
@@ -111,7 +128,7 @@ export class OrcidPageComponent implements OnInit {
   updateItem(): void {
     this.clearRouteParams();
     this.itemService.findById(this.itemId, false).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((itemRD: RemoteData<Item>) => {
       if (itemRD.hasSucceeded) {
         this.item.next(itemRD.payload);
@@ -127,7 +144,7 @@ export class OrcidPageComponent implements OnInit {
    */
   private linkProfileToOrcid(person: Item, code: string) {
     this.orcidAuthService.linkOrcidByItem(person, code).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((profileRD: RemoteData<ResearcherProfile>) => {
       this.processingConnection.next(false);
       if (profileRD.hasSucceeded) {

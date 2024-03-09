@@ -1,10 +1,14 @@
-import { GroupPageGuard } from './group-page.guard';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { GroupPageGuard } from './group-page.guard';
 
 describe('GroupPageGuard', () => {
   const groupsEndpointUrl = 'https://test.org/api/eperson/groups';
@@ -13,7 +17,7 @@ describe('GroupPageGuard', () => {
   const routeSnapshotWithGroupId = {
     params: {
       groupId: groupUuid,
-    }
+    },
   } as unknown as ActivatedRouteSnapshot;
 
   let guard: GroupPageGuard;
@@ -50,10 +54,10 @@ describe('GroupPageGuard', () => {
 
       it('should return true', (done) => {
         guard.canActivate(
-          routeSnapshotWithGroupId, { url: 'current-url'} as any
+          routeSnapshotWithGroupId, { url: 'current-url' } as any,
         ).subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
-            FeatureID.CanManageGroup, groupEndpointUrl, undefined
+            FeatureID.CanManageGroup, groupEndpointUrl, undefined,
           );
           expect(result).toBeTrue();
           done();
@@ -68,10 +72,10 @@ describe('GroupPageGuard', () => {
 
       it('should not return true', (done) => {
         guard.canActivate(
-          routeSnapshotWithGroupId, { url: 'current-url'} as any
+          routeSnapshotWithGroupId, { url: 'current-url' } as any,
         ).subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
-            FeatureID.CanManageGroup, groupEndpointUrl, undefined
+            FeatureID.CanManageGroup, groupEndpointUrl, undefined,
           );
           expect(result).not.toBeTrue();
           done();

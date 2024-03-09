@@ -1,9 +1,13 @@
-import { ItemOperation } from './itemOperation.model';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemOperationComponent } from './item-operation.component';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ItemOperationComponent } from './item-operation.component';
+import { ItemOperation } from './itemOperation.model';
 
 describe('ItemOperationComponent', () => {
   let itemOperation: ItemOperation;
@@ -14,7 +18,7 @@ describe('ItemOperationComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [ItemOperationComponent]
+      declarations: [ItemOperationComponent],
     }).compileComponents();
   }));
 

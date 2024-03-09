@@ -1,27 +1,55 @@
-import { delay, exhaustMap, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  Action,
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  delay,
+  exhaustMap,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../shared/empty.util';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
+import { PatchRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { ApplyPatchObjectCacheAction } from './object-cache.actions';
+import { ObjectCacheEntry } from './object-cache.reducer';
+import { ObjectCacheService } from './object-cache.service';
 import {
   AddToSSBAction,
   CommitSSBAction,
   EmptySSBAction,
-  ServerSyncBufferActionTypes
+  ServerSyncBufferActionTypes,
 } from './server-sync-buffer.actions';
-import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { RequestService } from '../data/request.service';
-import { PatchRequest } from '../data/request.models';
-import { ObjectCacheService } from './object-cache.service';
-import { ApplyPatchObjectCacheAction } from './object-cache.actions';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { environment } from '../../../environments/environment';
-import { ObjectCacheEntry } from './object-cache.reducer';
-import { Operation } from 'fast-json-patch';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
-import { CoreState } from '../core-state.model';
+import {
+  ServerSyncBufferEntry,
+  ServerSyncBufferState,
+} from './server-sync-buffer.reducer';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -32,7 +60,7 @@ export class ServerSyncBufferEffects {
    * Then dispatch a CommitSSBAction
    * When the delay is running, no new AddToSSBActions are processed in this effect
    */
-   setTimeoutForServerSync = createEffect(() => this.actions$
+  setTimeoutForServerSync = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
@@ -41,7 +69,7 @@ export class ServerSyncBufferEffects {
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),
         );
-      })
+      }),
     ));
 
   /**
@@ -50,7 +78,7 @@ export class ServerSyncBufferEffects {
    * When the list of actions is not empty, also dispatch an EmptySSBAction
    * When the list is empty dispatch a NO_ACTION placeholder action
    */
-   commitServerSyncBuffer = createEffect(() => this.actions$
+  commitServerSyncBuffer = createEffect(() => this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.COMMIT),
       switchMap((action: CommitSSBAction) => {
@@ -78,14 +106,14 @@ export class ServerSyncBufferEffects {
             /* Add extra action to array, to make sure the ServerSyncBuffer is emptied afterwards */
             if (isNotEmpty(actions) && isNotUndefined(actions[0])) {
               return observableCombineLatest(...actions).pipe(
-              switchMap((array) => [...array, new EmptySSBAction(action.payload)])
-            );
+                switchMap((array) => [...array, new EmptySSBAction(action.payload)]),
+              );
             } else {
               return observableOf(new NoOpAction());
             }
-          })
+          }),
         );
-      })
+      }),
     ));
 
   /**
@@ -96,7 +124,7 @@ export class ServerSyncBufferEffects {
    */
   private applyPatch(href: string): Observable<Action> {
     const patchObject = this.objectCache.getByHref(href).pipe(
-      take(1)
+      take(1),
     );
 
     return patchObject.pipe(
@@ -108,7 +136,7 @@ export class ServerSyncBufferEffects {
           }
         }
         return new ApplyPatchObjectCacheAction(href);
-      })
+      }),
     );
   }
 

@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
 
 import { type } from '../../shared/ngrx/type';
-import { Operation } from 'fast-json-patch';
 import { CacheableObject } from './cacheable-object.model';
 
 /**
@@ -15,7 +15,7 @@ export const ObjectCacheActionTypes = {
   ADD_PATCH: type('dspace/core/cache/object/ADD_PATCH'),
   APPLY_PATCH: type('dspace/core/cache/object/APPLY_PATCH'),
   ADD_DEPENDENTS: type('dspace/core/cache/object/ADD_DEPENDENTS'),
-  REMOVE_DEPENDENTS: type('dspace/core/cache/object/REMOVE_DEPENDENTS')
+  REMOVE_DEPENDENTS: type('dspace/core/cache/object/REMOVE_DEPENDENTS'),
 };
 
 /**

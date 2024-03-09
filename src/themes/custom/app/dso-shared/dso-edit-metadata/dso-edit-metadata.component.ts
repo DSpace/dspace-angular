@@ -1,5 +1,6 @@
-import { DsoEditMetadataComponent as BaseComponent } from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { Component } from '@angular/core';
+
+import { DsoEditMetadataComponent as BaseComponent } from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 
 @Component({
   selector: 'ds-dso-edit-metadata',

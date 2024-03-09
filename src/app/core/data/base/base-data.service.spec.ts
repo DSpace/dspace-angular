@@ -5,26 +5,37 @@
  *
  * http://www.dspace.org/license/
  */
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { RemoteData } from '../remote-data';
-import { RequestEntryState } from '../request-entry-state.model';
-import { fakeAsync, tick } from '@angular/core/testing';
-import { BaseDataService } from './base-data.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
-import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
-import { HALLink } from '../../shared/hal-link.model';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { HALLink } from '../../shared/hal-link.model';
+import { FindListOptions } from '../find-list-options.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
+import { BaseDataService } from './base-data.service';
 
 const endpoint = 'https://rest.api/core';
 
@@ -65,7 +76,7 @@ describe('BaseDataService', () => {
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {
@@ -95,7 +106,7 @@ describe('BaseDataService', () => {
             href: 'follow-link-2-2',
           }),
         ],
-      }
+      },
     };
     const statusCodeSuccess = 200;
     const statusCodeError = 404;
@@ -635,7 +646,7 @@ describe('BaseDataService', () => {
     beforeEach(() => {
       getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2', 'request3'],
-        dependentRequestUUIDs: ['request4', 'request5']
+        dependentRequestUUIDs: ['request4', 'request5'],
       } as ObjectCacheEntry));
 
     });
@@ -783,7 +794,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
-        observableOf('dependsOnHref')
+        observableOf('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });
@@ -798,7 +809,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createFailedRemoteDataObject$('something went wrong'),
-        observableOf('dependsOnHref')
+        observableOf('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });

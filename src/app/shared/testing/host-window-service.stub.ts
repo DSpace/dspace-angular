@@ -1,4 +1,8 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { WidthCategory } from '../host-window.service';
 
 // declare a stub service

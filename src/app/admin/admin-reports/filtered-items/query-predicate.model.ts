@@ -1,4 +1,8 @@
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 
 export class QueryPredicate {
 
@@ -18,7 +22,7 @@ export class QueryPredicate {
   value: string;
 
   static of(field: string, operator: string, value: string = '') {
-    let pred = new QueryPredicate();
+    const pred = new QueryPredicate();
     pred.field = field;
     pred.operator = operator;
     pred.value = value;
@@ -29,7 +33,7 @@ export class QueryPredicate {
     return formBuilder.group({
       field: new FormControl(this.field),
       operator: new FormControl(this.operator),
-      value: new FormControl(this.value)
+      value: new FormControl(this.value),
     });
   }
 

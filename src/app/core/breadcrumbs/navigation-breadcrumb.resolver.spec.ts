@@ -18,25 +18,25 @@ describe('NavigationBreadcrumbResolver', () => {
           relatedRoutes: [
             {
               path: '',
-              data: {breadcrumbKey: relatedI18nKey},
-            }
-          ]
+              data: { breadcrumbKey: relatedI18nKey },
+            },
+          ],
         },
         routeConfig: {
-          path: 'example'
+          path: 'example',
         },
         parent: {
           routeConfig: {
-            path: ''
+            path: '',
           },
           url: [{
-            path: 'base'
-          }]
-        } as any
+            path: 'base',
+          }],
+        } as any,
       };
 
       state = {
-        url: '/base/example'
+        url: '/base/example',
       };
       expectedPath = '/base/example:/base';
       NavigationBreadcrumbService = {};

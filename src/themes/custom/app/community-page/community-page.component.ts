@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommunityPageComponent as BaseComponent} from '../../../../app/community-page/community-page.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
+import { CommunityPageComponent as BaseComponent } from '../../../../app/community-page/community-page.component';
 import { fadeInOut } from '../../../../app/shared/animations/fade';
 
 
@@ -10,7 +14,7 @@ import { fadeInOut } from '../../../../app/shared/animations/fade';
   // styleUrls: ['./community-page.component.scss']
   styleUrls: ['../../../../app/community-page/community-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 /**
  * This component represents a detail page for a single community
