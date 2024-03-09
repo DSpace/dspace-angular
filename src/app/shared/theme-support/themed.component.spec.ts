@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import {
   Component,
-  NO_ERRORS_SCHEMA,
+  Input,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -21,9 +21,9 @@ import { ThemedComponent } from './themed.component';
   templateUrl: './themed.component.html',
 })
 class TestThemedComponent extends ThemedComponent<TestComponent> {
-  protected inAndOutputNames: (keyof TestComponent & keyof this)[] = ['testInput'];
+  @Input() type: string;
 
-  testInput = 'unset';
+  @Input() testInput: string;
 
   protected getComponentName(): string {
     return 'TestComponent';
@@ -49,7 +49,6 @@ describe('ThemedComponent', () => {
       providers: [
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }
 
@@ -57,7 +56,7 @@ describe('ThemedComponent', () => {
     fixture = TestBed.createComponent(TestThemedComponent);
     component = fixture.componentInstance;
     spyOn(component as any, 'importThemedComponent').and.callThrough();
-    component.testInput = 'changed';
+    fixture.componentRef.setInput('testInput', 'changed');
     fixture.detectChanges();
   }
 

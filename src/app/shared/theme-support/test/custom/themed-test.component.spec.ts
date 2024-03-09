@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 // noinspection AngularMissingOrInvalidDeclarationInModule
 @Component({
@@ -6,6 +9,6 @@ import { Component } from '@angular/core';
   template: '',
 })
 export class TestComponent {
-  type = 'themed';
-  testInput = 'unset';
+  @Input() type = 'themed';
+  @Input() testInput = 'unset';
 }
