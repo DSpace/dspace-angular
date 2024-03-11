@@ -18,6 +18,7 @@ import {
   map,
   take,
 } from 'rxjs/operators';
+import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 import {
   SortDirection,
@@ -34,7 +35,6 @@ import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { HostWindowState } from '../search/host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
-import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 /**
  * The default pagination controls component.
