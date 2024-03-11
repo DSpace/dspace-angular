@@ -197,12 +197,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * @type {Array}
    */
   private subs: Subscription[] = [];
- 
+
   /**
    * Unique element 'id' property value, in case this class is used multiply
    * in one page.
    */
-  public elementId: String;
+  public elementId: string;
 
   /**
    * If showPaginator is set to true, emit when the previous button is clicked
