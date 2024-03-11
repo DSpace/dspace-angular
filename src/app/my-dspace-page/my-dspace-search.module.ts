@@ -26,6 +26,7 @@ import { ThemedItemListPreviewComponent } from '../shared/object-list/my-dspace-
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { MyDSpaceActionsModule } from '../shared/mydspace-actions/mydspace-actions.module';
 import { ClaimedDeclinedTaskSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-declined-task-search-result/claimed-declined-task-search-result-list-element.component';
+import { ThemedItemDetailPreviewFieldComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/themed-item-detail-preview-field.component';
 
 const ENTRY_COMPONENTS = [
   WorkspaceItemSearchResultListElementComponent,
@@ -49,6 +50,7 @@ const DECLARATIONS = [
   ItemCollectionComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
+  ThemedItemDetailPreviewFieldComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
 ];
