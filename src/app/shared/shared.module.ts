@@ -137,6 +137,9 @@ import { ObjectListComponent } from './object-list/object-list.component';
 import { CollectionSearchResultListElementComponent } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { CommunitySearchResultListElementComponent } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import {
+  ThemedItemSearchResultListElementComponent
+} from './object-list/search-result-list-element/item-search-result/item-types/item/themed-item-search-result-list-element.component';
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
 import { TabulatableResultListElementsComponent } from './object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { CollectionSidebarSearchListElementComponent } from './object-list/sidebar-search-list-element/collection/collection-sidebar-search-list-element.component';
@@ -337,6 +340,7 @@ const ENTRY_COMPONENTS = [
   ItemGridElementComponent,
   BitstreamListItemComponent,
   ItemSearchResultListElementComponent,
+  ThemedItemSearchResultListElementComponent,
   ItemSearchResultGridElementComponent,
   BrowseEntryListElementComponent,
   SearchResultDetailElementComponent,
