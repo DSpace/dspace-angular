@@ -4490,7 +4490,7 @@
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
 
-
+  "patent.page.titleprefix": "Patent",
 
   "patent.listelement.badge": "Patent",
 
