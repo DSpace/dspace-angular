@@ -1,25 +1,42 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatestWith,
+  Observable,
+  shareReplay,
+  Subscription as rxjsSubscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatestWith, Observable, shareReplay, Subscription as rxjsSubscription } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-
-import { Subscription } from '../shared/subscriptions/models/subscription.model';
-import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { PageInfo } from '../core/shared/page-info.model';
 import { AuthService } from '../core/auth/auth.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { getAllCompletedRemoteData } from '../core/shared/operators';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
-import { hasValue } from '../shared/empty.util';
+import { EPerson } from '../core/eperson/models/eperson.model';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { getAllCompletedRemoteData } from '../core/shared/operators';
+import { PageInfo } from '../core/shared/page-info.model';
 import { AlertType } from '../shared/alert/alert-type';
+import { hasValue } from '../shared/empty.util';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 
 @Component({
   selector: 'ds-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
-  styleUrls: ['./subscriptions-page.component.scss']
+  styleUrls: ['./subscriptions-page.component.scss'],
 })
 /**
  * List and allow to manage all the active subscription for the current user
@@ -37,7 +54,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'elp',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -60,7 +77,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
   constructor(
     private paginationService: PaginationService,
     private authService: AuthService,
-    private subscriptionService: SubscriptionsDataService
+    private subscriptionService: SubscriptionsDataService,
   ) {
 
   }
@@ -72,7 +89,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
     this.ePersonId$ = this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson: EPerson) => ePerson.id),
-      shareReplay()
+      shareReplay({ refCount: false }),
     );
     this.retrieveSubscriptions();
   }
@@ -88,9 +105,9 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
       tap(() => this.loading$.next(true)),
       switchMap(([currentPagination, ePersonId]) => this.subscriptionService.findByEPerson(ePersonId,{
         currentPage: currentPagination.currentPage,
-        elementsPerPage: currentPagination.pageSize
+        elementsPerPage: currentPagination.pageSize,
       })),
-      getAllCompletedRemoteData()
+      getAllCompletedRemoteData(),
     ).subscribe((res: RemoteData<PaginatedList<Subscription>>) => {
       if (res.hasSucceeded) {
         this.subscriptions$.next(res.payload);

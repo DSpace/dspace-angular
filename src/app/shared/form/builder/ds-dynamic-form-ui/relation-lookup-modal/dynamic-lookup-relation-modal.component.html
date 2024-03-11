@@ -77,13 +77,13 @@
     </div>
     <ng-container *ngIf="isEditRelationship">
       <button class="btn btn-danger discard"
-              [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+              [disabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending"
               (click)="discardEv()">
               <i class="fas fa-times"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
       </button>
       <button class="btn btn-primary submit"
-            [disabled]="(toAdd.length == 0 && toRemove.length == 0) || isPending"
+            [disabled]="(toAdd.length === 0 && toRemove.length === 0) || isPending"
               (click)="submitEv()">
               <span *ngIf="isPending" class="spinner-border spinner-border-sm" role="status"
                               aria-hidden="true"></span>

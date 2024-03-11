@@ -1,7 +1,15 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ContextHelpService } from '../../shared/context-help.service';
-import { Observable, Subscription } from 'rxjs';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { ContextHelpService } from '../../shared/context-help.service';
 
 /**
  * Renders a "context help toggle" button that toggles the visibility of tooltip buttons on the page.
@@ -10,7 +18,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ds-context-help-toggle',
   templateUrl: './context-help-toggle.component.html',
-  styleUrls: ['./context-help-toggle.component.scss']
+  styleUrls: ['./context-help-toggle.component.scss'],
 })
 export class ContextHelpToggleComponent implements OnInit {
   buttonVisible$: Observable<boolean>;

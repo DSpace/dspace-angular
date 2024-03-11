@@ -3,13 +3,13 @@ import {
   DynamicFormControlRelation,
   DynamicInputModel,
   DynamicInputModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
-import { LanguageCode } from '../../models/form-field-language-value.model';
 import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import {hasValue} from '../../../../empty.util';
+import { hasValue } from '../../../../empty.util';
+import { LanguageCode } from '../../models/form-field-language-value.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 

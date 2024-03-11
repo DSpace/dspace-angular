@@ -1,11 +1,16 @@
-import { DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicInputModel,
+  DynamicTextAreaModel,
+} from '@ng-dynamic-forms/core';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
+
 import { environment } from '../../../environments/environment';
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'entityType',
   name: 'dspace.entity.type',
-  disabled: false
+  disabled: false,
 };
 
 /**
@@ -18,10 +23,10 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     name: 'dc.title',
     required: true,
     validators: {
-      required: null
+      required: null,
     },
     errorMessages: {
-      required: 'Please enter a name for this title'
+      required: 'Please enter a name for this title',
     },
   }),
   new DynamicTextAreaModel({
@@ -48,5 +53,5 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     id: 'license',
     name: 'dc.rights.license',
     spellCheck: environment.form.spellCheck,
-  })
+  }),
 ];

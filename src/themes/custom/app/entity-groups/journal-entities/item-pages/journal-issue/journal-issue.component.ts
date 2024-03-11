@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
-import {
-  listableObjectComponent
-} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
-import {
-  JournalIssueComponent as BaseComponent
-} from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
+
 import { Context } from '../../../../../../../app/core/shared/context.model';
+import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
+import { JournalIssueComponent as BaseComponent } from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
+import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('JournalIssue', ViewMode.StandalonePage, Context.Any, 'custom')
 @Component({

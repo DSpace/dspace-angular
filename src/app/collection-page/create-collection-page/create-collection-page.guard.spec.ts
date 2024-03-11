@@ -1,8 +1,12 @@
-import { CreateCollectionPageGuard } from './create-collection-page.guard';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { Community } from '../../core/shared/community.model';
 import { first } from 'rxjs/operators';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+
+import { Community } from '../../core/shared/community.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { CreateCollectionPageGuard } from './create-collection-page.guard';
 
 describe('CreateCollectionPageGuard', () => {
   describe('canActivate', () => {
@@ -20,7 +24,7 @@ describe('CreateCollectionPageGuard', () => {
           } else if (id === 'error-id') {
             return createFailedRemoteDataObject$('not found', 404);
           }
-        }
+        },
       };
       router = new RouterMock();
 
@@ -32,7 +36,7 @@ describe('CreateCollectionPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(true)
+            expect(canActivate).toEqual(true),
         );
     });
 
@@ -41,7 +45,7 @@ describe('CreateCollectionPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(false)
+            expect(canActivate).toEqual(false),
         );
     });
 
@@ -50,7 +54,7 @@ describe('CreateCollectionPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(false)
+            expect(canActivate).toEqual(false),
         );
     });
 
@@ -59,7 +63,7 @@ describe('CreateCollectionPageGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) =>
-            expect(canActivate).toEqual(false)
+            expect(canActivate).toEqual(false),
         );
     });
   });

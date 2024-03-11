@@ -1,23 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship
-} from './existing-metadata-list-element.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
+import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
+import { RelationshipOptions } from '../../models/relationship-options.model';
+import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
+import {
+  ExistingMetadataListElementComponent,
+  ReorderableRelationship,
+} from './existing-metadata-list-element.component';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -52,14 +59,14 @@ describe('ExistingMetadataListElementComponent', () => {
       relationshipType: 'isPublicationOfAuthor',
       filter: 'test.filter',
       searchConfiguration: 'personConfiguration',
-      nameVariants: true
+      nameVariants: true,
     });
     relatedItem = Object.assign(new Item(), { uuid: uuid2 });
     leftItemRD$ = createSuccessfulRemoteDataObject$(relatedItem);
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace: () => observableOf({})
+      updatePlace: () => observableOf({}),
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
@@ -76,9 +83,9 @@ describe('ExistingMetadataListElementComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ExistingMetadataListElementComponent],
       providers: [
@@ -86,7 +93,7 @@ describe('ExistingMetadataListElementComponent', () => {
         { provide: Store, useValue: store },
         { provide: SubmissionService, useValue: submissionServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

@@ -1,18 +1,26 @@
 /* eslint-disable max-classes-per-file */
 import {
+  applyPatch,
+  Operation,
+} from 'fast-json-patch';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { CacheEntry } from './cache-entry';
+import { CacheableObject } from './cacheable-object.model';
+import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
   ObjectCacheAction,
-  ObjectCacheActionTypes, RemoveDependentsObjectCacheAction,
+  ObjectCacheActionTypes,
+  RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
   ResetObjectCacheTimestampsAction,
 } from './object-cache.actions';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { CacheEntry } from './cache-entry';
-import { applyPatch, Operation } from 'fast-json-patch';
-import { CacheableObject } from './cacheable-object.model';
 
 /**
  * An interface to represent a JsonPatch
@@ -177,8 +185,8 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       dependentRequestUUIDs: existing.dependentRequestUUIDs || [],
       isDirty: isNotEmpty(existing.patches),
       patches: existing.patches || [],
-      alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks]
-    } as ObjectCacheEntry
+      alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks],
+    } as ObjectCacheEntry,
   });
 }
 
@@ -217,7 +225,7 @@ function resetObjectCacheTimestamps(state: ObjectCacheState, action: ResetObject
   const newState = Object.create(null);
   Object.keys(state).forEach((key) => {
     newState[key] = Object.assign({}, state[key], {
-      timeCompleted: action.payload
+      timeCompleted: action.payload,
     });
   });
   return newState;
@@ -241,7 +249,7 @@ function addPatchObjectCache(state: ObjectCacheState, action: AddPatchObjectCach
     const patches = newState[uuid].patches;
     newState[uuid] = Object.assign({}, newState[uuid], {
       patches: [...patches, { operations } as Patch],
-      isDirty: true
+      isDirty: true,
     });
   }
   return newState;
@@ -286,8 +294,8 @@ function addDependentsObjectCacheState(state: ObjectCacheState, action: AddDepen
         ...new Set([
           ...newState[href]?.dependentRequestUUIDs || [],
           ...action.payload.dependentRequestUUIDs,
-        ])
-      ]
+        ]),
+      ],
     });
   }
 
@@ -308,7 +316,7 @@ function removeDependentsObjectCacheState(state: ObjectCacheState, action: Remov
 
   if (hasValue(newState[href])) {
     newState[href] = Object.assign({}, newState[href], {
-      dependentRequestUUIDs: []
+      dependentRequestUUIDs: [],
     });
   }
 

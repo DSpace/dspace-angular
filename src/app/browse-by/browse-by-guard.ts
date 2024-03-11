@@ -1,14 +1,30 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, Data } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { hasNoValue, hasValue } from '../shared/empty.util';
-import { map, switchMap } from 'rxjs/operators';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Data,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
-import { BrowseDefinition } from '../core/shared/browse-definition.model';
-import { RemoteData } from '../core/data/remote-data';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
+import { BrowseDefinitionDataService } from '../core/browse/browse-definition-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { BrowseDefinition } from '../core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../shared/empty.util';
 
 @Injectable()
 /**
@@ -47,7 +63,7 @@ export class BrowseByGuard implements CanActivate {
           void this.router.navigate([PAGE_NOT_FOUND_PATH]);
           return observableOf(false);
         }
-      })
+      }),
     );
   }
 

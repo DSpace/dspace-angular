@@ -1,5 +1,5 @@
 <div *ngIf="(systemWideAlert$ |async)?.active">
-    <div class="rounded-0 alert alert-warning w100">
+    <div class="rounded-0 alert alert-warning w100 m-0 px-1">
         <div class="container">
             <span class="font-weight-bold">
         <span *ngIf="(countDownDays|async) > 0 || (countDownHours| async) > 0 || (countDownMinutes|async) > 0 ">

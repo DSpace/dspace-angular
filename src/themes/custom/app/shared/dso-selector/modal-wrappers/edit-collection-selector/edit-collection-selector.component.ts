@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-    EditCollectionSelectorComponent as BaseComponent
-} from '../../../../../../../app/shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+
+import { EditCollectionSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 
 @Component({
   selector: 'ds-edit-collection-selector',

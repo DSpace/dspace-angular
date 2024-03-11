@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-results-back-button',

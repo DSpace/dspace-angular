@@ -5,12 +5,13 @@
  *
  * http://www.dspace.org/license/
  */
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared.module';
+import { NgModule } from '@angular/core';
 import { FileUploadModule } from 'ng2-file-upload';
-import { UploaderComponent } from './uploader/uploader.component';
+
+import { SharedModule } from '../shared.module';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
+import { UploaderComponent } from './uploader/uploader.component';
 
 const COMPONENTS = [
   UploaderComponent,
@@ -32,7 +33,7 @@ const COMPONENTS = [
   exports: [
     ...COMPONENTS,
     FileUploadModule,
-  ]
+  ],
 })
 export class UploadModule {
 }

@@ -1,5 +1,8 @@
-import { Directive, Host } from '@angular/core';
 import { NgForOf } from '@angular/common';
+import {
+  Directive,
+  Host,
+} from '@angular/core';
 
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 

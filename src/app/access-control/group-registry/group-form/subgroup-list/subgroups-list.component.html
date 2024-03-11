@@ -45,7 +45,7 @@
     </div>
   </ds-pagination>
 
-  <div *ngIf="(subGroups$ | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(subGroups$ | async)?.payload?.totalElements === 0" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-subgroups-yet' | translate}}
   </div>
@@ -124,7 +124,7 @@
     </div>
   </ds-pagination>
 
-  <div *ngIf="(searchResults$ | async)?.payload?.totalElements == 0 && searchDone" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(searchResults$ | async)?.payload?.totalElements === 0 && searchDone" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-items' | translate}}
   </div>

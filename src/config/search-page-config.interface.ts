@@ -1,5 +1,6 @@
-import { Config } from './config.interface';
 import { AdvancedSearchConfig } from './advance-search-config.interface';
+import { Config } from './config.interface';
+
 export interface SearchConfig extends Config {
 
     /**

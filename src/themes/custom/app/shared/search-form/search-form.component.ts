@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  SearchFormComponent as BaseComponent,
-} from '../../../../../app/shared/search-form/search-form.component';
+
+import { SearchFormComponent as BaseComponent } from '../../../../../app/shared/search-form/search-form.component';
 
 @Component({
   selector: 'ds-search-form',

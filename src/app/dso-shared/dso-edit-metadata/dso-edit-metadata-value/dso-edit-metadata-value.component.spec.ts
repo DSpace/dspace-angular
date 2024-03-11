@@ -1,33 +1,49 @@
-import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { of } from 'rxjs/internal/observable/of';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { Collection } from '../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Vocabulary } from 'src/app/core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service.stub';
-import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
-import { ConfidenceType } from 'src/app/core/shared/confidence-type';
-import { DynamicOneboxModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { Observable } from 'rxjs';
-import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { RegistryService } from 'src/app/core/registry/registry.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
 import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
+import { RegistryService } from 'src/app/core/registry/registry.service';
+import { ConfidenceType } from 'src/app/core/shared/confidence-type';
+import { Vocabulary } from 'src/app/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
+import { DynamicOneboxModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
+import { createPaginatedList } from 'src/app/shared/testing/utils.test';
+import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service.stub';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Item } from '../../../core/shared/item.model';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
+import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -51,16 +67,16 @@ describe('DsoEditMetadataValueComponent', () => {
   let dso: DSpaceObject;
 
   const collection =  Object.assign(new Collection(), {
-    uuid: 'fake-uuid'
+    uuid: 'fake-uuid',
   });
 
   const item = Object.assign(new Item(), {
     _links: {
-      self: { href: 'fake-item-url/item' }
+      self: { href: 'fake-item-url/item' },
     },
     id: 'item',
     uuid: 'item',
-    owningCollection: createSuccessfulRemoteDataObject$(collection)
+    owningCollection: createSuccessfulRemoteDataObject$(collection),
   });
 
   const mockVocabularyScrollable: Vocabulary = {
@@ -72,12 +88,12 @@ describe('DsoEditMetadataValueComponent', () => {
     type: 'vocabulary',
     _links: {
       self: {
-        href: 'self'
+        href: 'self',
       },
       entries: {
-        href: 'entries'
-      }
-    }
+        href: 'entries',
+      },
+    },
   };
 
   const mockVocabularyHierarchical: Vocabulary = {
@@ -89,12 +105,12 @@ describe('DsoEditMetadataValueComponent', () => {
     type: 'vocabulary',
     _links: {
       self: {
-        href: 'self'
+        href: 'self',
       },
       entries: {
-        href: 'entries'
-      }
-    }
+        href: 'entries',
+      },
+    },
   };
 
   const mockVocabularySuggester: Vocabulary = {
@@ -106,12 +122,12 @@ describe('DsoEditMetadataValueComponent', () => {
     type: 'vocabulary',
     _links: {
       self: {
-        href: 'self'
+        href: 'self',
       },
       entries: {
-        href: 'entries'
-      }
-    }
+        href: 'entries',
+      },
+    },
   };
 
   let metadataSchema: MetadataSchema;
@@ -139,7 +155,7 @@ describe('DsoEditMetadataValueComponent', () => {
       getName: 'Related Name',
     });
     itemService = jasmine.createSpyObj('itemService', {
-      findByHref: createSuccessfulRemoteDataObject$(item)
+      findByHref: createSuccessfulRemoteDataObject$(item),
     });
     vocabularyServiceStub = new VocabularyServiceStub();
     registryService = jasmine.createSpyObj('registryService', {
@@ -158,7 +174,7 @@ describe('DsoEditMetadataValueComponent', () => {
     editMetadataValue = new DsoEditMetadataValue(metadataValue);
     dso = Object.assign(new DSpaceObject(), {
       _links: {
-        self: { href: 'fake-dso-url/dso' }
+        self: { href: 'fake-dso-url/dso' },
       },
     });
 
@@ -175,7 +191,7 @@ describe('DsoEditMetadataValueComponent', () => {
         { provide: RegistryService, useValue: registryService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -365,7 +381,7 @@ describe('DsoEditMetadataValueComponent', () => {
         language: 'en',
         place: 0,
         authority: 'authority-key',
-        confidence: ConfidenceType.CF_UNCERTAIN
+        confidence: ConfidenceType.CF_UNCERTAIN,
       });
       editMetadataValue = new DsoEditMetadataValue(metadataValue);
       editMetadataValue.editing = true;

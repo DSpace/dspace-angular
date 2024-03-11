@@ -1,6 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CollectionPageComponent as BaseComponent} from '../../../../app/collection-page/collection-page.component';
-import { fadeIn, fadeInOut } from '../../../../app/shared/animations/fade';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
+import { CollectionPageComponent as BaseComponent } from '../../../../app/collection-page/collection-page.component';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../app/shared/animations/fade';
 
 
 @Component({
@@ -12,8 +19,8 @@ import { fadeIn, fadeInOut } from '../../../../app/shared/animations/fade';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 /**
  * This component represents a detail page for a single collection

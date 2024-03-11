@@ -1,11 +1,14 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import {QualityAssuranceBreadcrumbService} from './quality-assurance-breadcrumb.service';
+
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { QualityAssuranceBreadcrumbService } from './quality-assurance-breadcrumb.service';
 
 describe('QualityAssuranceBreadcrumbService', () => {
   let service: QualityAssuranceBreadcrumbService;
-  let dataService: any;
   let translateService: any = {
     instant: (str) => str,
   };
@@ -26,14 +29,14 @@ describe('QualityAssuranceBreadcrumbService', () => {
   }));
 
   beforeEach(() => {
-    service = new QualityAssuranceBreadcrumbService(dataService,translateService);
+    service = new QualityAssuranceBreadcrumbService(translateService);
   });
 
   describe('getBreadcrumbs', () => {
     it('should return a breadcrumb based on a string', () => {
       const breadcrumbs = service.getBreadcrumbs(exampleString, exampleURL);
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: [new Breadcrumb(exampleQaKey, exampleURL),
-          new Breadcrumb(exampleString, exampleURL + exampleString)]
+        new Breadcrumb(exampleString, exampleURL + exampleString)],
       });
     });
   });

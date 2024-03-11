@@ -22,7 +22,7 @@
     (click)="$event.preventDefault();confirmDiscard(content)">
     <span *ngIf="(processingDelete$ | async)"><i class='fas fa-circle-notch fa-spin'></i>
       {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-    <span *ngIf="!(processingDelete$ | async)"><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' |
+    <span *ngIf="(processingDelete$ | async) !== true"><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' |
       translate}}</span>
   </button>
 </div>

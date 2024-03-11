@@ -1,10 +1,15 @@
-import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers.component';
 
 describe('DsoEditMetadataHeadersComponent', () => {
   let component: DsoEditMetadataHeadersComponent;
@@ -16,7 +21,7 @@ describe('DsoEditMetadataHeadersComponent', () => {
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

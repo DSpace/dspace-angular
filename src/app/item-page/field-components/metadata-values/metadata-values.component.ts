@@ -1,9 +1,20 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { hasValue } from '../../../shared/empty.util';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
+import { hasValue } from '../../../shared/empty.util';
 import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
 
 /**
@@ -13,7 +24,7 @@ import { ImageField } from '../../simple/field-components/specific-field/item-pa
 @Component({
   selector: 'ds-metadata-values',
   styleUrls: ['./metadata-values.component.scss'],
-  templateUrl: './metadata-values.component.html'
+  templateUrl: './metadata-values.component.html',
 })
 export class MetadataValuesComponent implements OnChanges {
 
@@ -54,12 +65,15 @@ export class MetadataValuesComponent implements OnChanges {
    */
   renderMarkdown;
 
+
   @Input() browseDefinition?: BrowseDefinition;
 
   /**
    * Optional {@code ImageField} reference that represents an image to be displayed inline.
    */
   @Input() img?: ImageField;
+
+  hasValue = hasValue;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.renderMarkdown = !!this.appConfig.markdown.enabled && this.enableMarkdown;
@@ -90,10 +104,20 @@ export class MetadataValuesComponent implements OnChanges {
    * @param value the specific metadata value being linked
    */
   getQueryParams(value) {
-    let queryParams = {startsWith: value};
+    const queryParams = { startsWith: value };
     if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
-      return {value: value};
+      return { value: value };
     }
     return queryParams;
+  }
+
+
+  /**
+   * Checks if the given link value is an internal link.
+   * @param linkValue - The link value to check.
+   * @returns True if the link value starts with the base URL defined in the environment configuration, false otherwise.
+   */
+  hasInternalLink(linkValue: string): boolean {
+    return linkValue.startsWith(environment.ui.baseUrl);
   }
 }

@@ -3,12 +3,12 @@
     <!-- Default switch -->
     <div class="col-md-2 d-flex justify-content-center align-items-center" >
       <div class="custom-control custom-switch">
-        <input 
-        type="checkbox" 
-        class="custom-control-input" 
-        id="primaryBitstream{{fileIndex}}" 
+        <input
+        type="checkbox"
+        class="custom-control-input"
+        id="primaryBitstream{{fileIndex}}"
         [disabled]="processingSaveStatus$ | async"
-        [checked]="isPrimary" 
+        [checked]="isPrimary"
         (change)="togglePrimaryBitstream($event)">
         <label class="custom-control-label" for="primaryBitstream{{fileIndex}}">
           <span class="sr-only" *ngIf="!isPrimary">{{'submission.sections.upload.primary.make' | translate:{ fileName: fileName } }}</span>
@@ -38,7 +38,7 @@
                   [disabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
             <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+            <i *ngIf="(processingDelete$ | async) !== true" class="fa fa-trash fa-2x text-danger"></i>
           </button>
         </ng-container>
       </div>

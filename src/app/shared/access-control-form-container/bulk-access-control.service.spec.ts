@@ -2,13 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { BulkAccessControlService } from './bulk-access-control.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../notifications/notifications.service';
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { Process } from '../../process-page/processes/process.model';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { BulkAccessControlService } from './bulk-access-control.service';
 
 describe('BulkAccessControlService', () => {
   let service: BulkAccessControlService;
@@ -22,23 +22,23 @@ describe('BulkAccessControlService', () => {
         'startDate': {
           'year': 2026,
           'month': 5,
-          'day': 31
+          'day': 31,
         },
-        'endDate': null
-      }
+        'endDate': null,
+      },
     ],
     'state': {
       'item': {
         'toggleStatus': true,
-        'accessMode': 'replace'
+        'accessMode': 'replace',
       },
       'bitstream': {
         'toggleStatus': false,
         'accessMode': '',
         'changesLimit': '',
-        'selectedBitstreams': []
-      }
-    }
+        'selectedBitstreams': [],
+      },
+    },
   };
 
   beforeEach(() => {
@@ -46,13 +46,13 @@ describe('BulkAccessControlService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       providers: [
         BulkAccessControlService,
         { provide: ScriptDataService, useValue: spy },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
-      ]
+      ],
     });
     service = TestBed.inject(BulkAccessControlService);
     scriptServiceSpy = TestBed.inject(ScriptDataService) as jasmine.SpyObj<ScriptDataService>;

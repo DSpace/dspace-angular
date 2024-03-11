@@ -1,6 +1,9 @@
-import { FieldParser } from './field-parser';
-import { DynamicLookupModel, DynamicLookupModelConfig } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
+import {
+  DynamicLookupModel,
+  DynamicLookupModelConfig,
+} from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FieldParser } from './field-parser';
 
 export class LookupFieldParser extends FieldParser {
 

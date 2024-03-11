@@ -1,13 +1,19 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MyDSpaceActionsComponent } from '../mydspace-actions';
+
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**
  * This component represents mydspace actions related to Item object.

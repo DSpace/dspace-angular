@@ -1,6 +1,6 @@
 <div class="d-flex">
     <span class="mr-auto text-contents">
-        <ng-container *ngIf="!(metadataRepresentation$ | async)">
+        <ng-container *ngIf="(metadataRepresentation$ | async) === undefined">
             <ds-themed-loading [showMessage]="false"></ds-themed-loading>
         </ng-container>
         <ng-container *ngIf="(metadataRepresentation$ | async)">

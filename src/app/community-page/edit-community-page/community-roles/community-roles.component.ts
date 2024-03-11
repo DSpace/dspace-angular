@@ -1,11 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
-import { Community } from '../../../core/shared/community.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
+import { Community } from '../../../core/shared/community.model';
 import { HALLink } from '../../../core/shared/hal-link.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 
 /**
  * Component for managing a community's roles

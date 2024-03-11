@@ -1,14 +1,19 @@
-import { Item } from '../../../../../core/shared/item.model';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AccessStatusBadgeComponent } from './access-status-badge.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AccessStatusObject } from './access-status.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
 import { environment } from 'src/environments/environment';
+
+import { Item } from '../../../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { AccessStatusObject } from './access-status.model';
+import { AccessStatusBadgeComponent } from './access-status-badge.component';
 
 describe('ItemAccessStatusBadgeComponent', () => {
   let component: AccessStatusBadgeComponent;
@@ -26,32 +31,32 @@ describe('ItemAccessStatusBadgeComponent', () => {
 
   function init() {
     unknownStatus = Object.assign(new AccessStatusObject(), {
-      status: 'unknown'
+      status: 'unknown',
     });
 
     metadataOnlyStatus = Object.assign(new AccessStatusObject(), {
-      status: 'metadata.only'
+      status: 'metadata.only',
     });
 
     openAccessStatus = Object.assign(new AccessStatusObject(), {
-      status: 'open.access'
+      status: 'open.access',
     });
 
     embargoStatus = Object.assign(new AccessStatusObject(), {
-      status: 'embargo'
+      status: 'embargo',
     });
 
     restrictedStatus = Object.assign(new AccessStatusObject(), {
-      status: 'restricted'
+      status: 'restricted',
     });
 
     accessStatusDataService = jasmine.createSpyObj('accessStatusDataService', {
-      findAccessStatusFor: createSuccessfulRemoteDataObject$(unknownStatus)
+      findAccessStatusFor: createSuccessfulRemoteDataObject$(unknownStatus),
     });
 
     item = Object.assign(new Item(), {
       uuid: 'item-uuid',
-      type: 'item'
+      type: 'item',
     });
   }
 
@@ -61,8 +66,8 @@ describe('ItemAccessStatusBadgeComponent', () => {
       declarations: [AccessStatusBadgeComponent, TruncatePipe],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        {provide: AccessStatusDataService, useValue: accessStatusDataService}
-      ]
+        { provide: AccessStatusDataService, useValue: accessStatusDataService },
+      ],
     }).compileComponents();
   }
 

@@ -1,9 +1,15 @@
 import { Store } from '@ngrx/store';
-import { cold, hot } from 'jasmine-marbles';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { AppState } from '../app.reducer';
 
-import { HostWindowService, WidthCategory } from './host-window.service';
+import { AppState } from '../app.reducer';
+import {
+  HostWindowService,
+  WidthCategory,
+} from './host-window.service';
 import { CSSVariableServiceStub } from './testing/css-variable-service.stub';
 
 describe('HostWindowService', () => {
@@ -224,7 +230,7 @@ describe('HostWindowService', () => {
     it('should return SM if SM_MIN <= width < MD_MIN', () => {
       spyOn(service as any, 'getWidthObs').and
         .returnValue(hot('a-', {
-          a: GridBreakpoint.SM_MIN + Math.floor((GridBreakpoint.MD_MIN - GridBreakpoint.SM_MIN) / 2)
+          a: GridBreakpoint.SM_MIN + Math.floor((GridBreakpoint.MD_MIN - GridBreakpoint.SM_MIN) / 2),
         }));
 
       const result = service.widthCategory;
@@ -236,7 +242,7 @@ describe('HostWindowService', () => {
     it('should return MD if MD_MIN <= width < LG_MIN', () => {
       spyOn(service as any, 'getWidthObs').and
         .returnValue(hot('a-', {
-          a: GridBreakpoint.MD_MIN + Math.floor((GridBreakpoint.LG_MIN - GridBreakpoint.MD_MIN) / 2)
+          a: GridBreakpoint.MD_MIN + Math.floor((GridBreakpoint.LG_MIN - GridBreakpoint.MD_MIN) / 2),
         }));
 
       const result = service.widthCategory;
@@ -248,7 +254,7 @@ describe('HostWindowService', () => {
     it('should return LG if LG_MIN <= width < XL_MIN', () => {
       spyOn(service as any, 'getWidthObs').and
         .returnValue(hot('a-', {
-          a: GridBreakpoint.LG_MIN + Math.floor((GridBreakpoint.XL_MIN - GridBreakpoint.LG_MIN) / 2)
+          a: GridBreakpoint.LG_MIN + Math.floor((GridBreakpoint.XL_MIN - GridBreakpoint.LG_MIN) / 2),
         }));
 
       const result = service.widthCategory;

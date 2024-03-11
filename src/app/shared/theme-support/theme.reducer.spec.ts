@@ -3,12 +3,12 @@ import { themeReducer } from './theme.reducer';
 
 describe('themeReducer', () => {
   const testState = {
-    currentTheme: 'test'
+    currentTheme: 'test',
   };
 
   it('should set the current theme in response to the SET action', () => {
     const expectedState = {
-      currentTheme: 'newTheme'
+      currentTheme: 'newTheme',
     };
     const action = new SetThemeAction('newTheme');
     const newState = themeReducer(testState, action);

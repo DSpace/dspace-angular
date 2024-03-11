@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CollectionListEntry } from '../../shared/collection-dropdown/collection-dropdown.component';
@@ -11,7 +10,7 @@ import { CollectionListEntry } from '../../shared/collection-dropdown/collection
 @Component({
   selector: 'ds-collection-selector',
   templateUrl: './collection-selector.component.html',
-  styleUrls: ['./collection-selector.component.scss']
+  styleUrls: ['./collection-selector.component.scss'],
 })
 export class CollectionSelectorComponent {
 

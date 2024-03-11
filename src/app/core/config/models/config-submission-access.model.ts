@@ -1,9 +1,14 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
+import { HALLink } from '../../shared/hal-link.model';
 import { ConfigObject } from './config.model';
 import { AccessesConditionOption } from './config-accesses-conditions-options.model';
 import { SUBMISSION_ACCESSES_TYPE } from './config-type';
-import { HALLink } from '../../shared/hal-link.model';
 
 /**
  * Class for the configuration describing the item accesses condition
@@ -17,25 +22,25 @@ export class SubmissionAccessModel extends ConfigObject {
    * A list of available item access conditions
    */
   @autoserialize
-  accessConditionOptions: AccessesConditionOption[];
+    accessConditionOptions: AccessesConditionOption[];
 
   /**
    * Boolean that indicates whether the current item must be findable via search or browse.
    */
   @autoserialize
-  discoverable: boolean;
+    discoverable: boolean;
 
   /**
    * Boolean that indicates whether or not the user can change the discoverable flag.
    */
   @autoserialize
-  canChangeDiscoverable: boolean;
+    canChangeDiscoverable: boolean;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink
   };
 

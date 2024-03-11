@@ -19,7 +19,7 @@
                            [report]="report"
                            class="m-2 {{ report.id }}">
       </ds-statistics-table>
-      <div *ngIf="!(hasData$ | async)">
+      <div *ngIf="(hasData$ | async) !== true">
         {{ 'statistics.page.no-data' | translate }}
       </div>
     </ng-container>

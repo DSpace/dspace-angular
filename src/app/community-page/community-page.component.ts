@@ -1,26 +1,38 @@
-import { mergeMap, filter, map } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { Community } from '../core/shared/community.model';
-import { fadeInOut } from '../shared/animations/fade';
-import { hasValue } from '../shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../core/auth/auth.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { getCommunityPageRoute } from './community-page-routing-paths';
+import { RemoteData } from '../core/data/remote-data';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { Community } from '../core/shared/community.model';
+import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
+import { fadeInOut } from '../shared/animations/fade';
+import { hasValue } from '../shared/empty.util';
+import { getCommunityPageRoute } from './community-page-routing-paths';
 
 @Component({
   selector: 'ds-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
 })
 /**
  * This component represents a detail page for a single community
@@ -59,7 +71,7 @@ export class CommunityPageComponent implements OnInit {
   ngOnInit(): void {
     this.communityRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Community>),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn4xx(this.router, this.authService),
     );
     this.logoRD$ = this.communityRD$.pipe(
       map((rd: RemoteData<Community>) => rd.payload),
@@ -67,7 +79,7 @@ export class CommunityPageComponent implements OnInit {
       mergeMap((community: Community) => community.logo));
     this.communityPageRoute$ = this.communityRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((community) => getCommunityPageRoute(community.id))
+      map((community) => getCommunityPageRoute(community.id)),
     );
     this.isCommunityAdmin$ = this.authorizationDataService.isAuthorized(FeatureID.IsCommunityAdmin);
   }

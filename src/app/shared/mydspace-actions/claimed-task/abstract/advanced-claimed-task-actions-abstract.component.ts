@@ -1,13 +1,23 @@
-import { Component, OnInit, Injector } from '@angular/core';
-import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
+import {
+  Component,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationExtras,
+  Params,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
+import { RequestService } from '../../../../core/data/request.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { Params, Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
+import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 
 /**
  * Abstract component for rendering an advanced claimed task's action
@@ -17,7 +27,7 @@ import { RequestService } from '../../../../core/data/request.service';
  */
 @Component({
   selector: 'ds-advanced-claimed-task-action-abstract',
-  template: ''
+  template: '',
 })
 export abstract class AdvancedClaimedTaskActionsAbstractComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
 
@@ -53,7 +63,7 @@ export abstract class AdvancedClaimedTaskActionsAbstractComponent extends Claime
    */
   initPageRoute() {
     this.subs.push(this.object.workflowitem.pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     ).subscribe((workflowItem: WorkflowItem) => {
       this.workflowTaskPageRoute = getAdvancedWorkflowRoute(workflowItem.id);
     }));

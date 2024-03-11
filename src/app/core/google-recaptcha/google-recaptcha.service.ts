@@ -1,14 +1,32 @@
-import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { isNotEmpty } from '../../shared/empty.util';
 import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  Renderer2,
+  RendererFactory2,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { isNotEmpty } from '../../shared/empty.util';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
-import { map, switchMap, take } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { CookieService } from '../services/cookie.service';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 
 export const CAPTCHA_COOKIE = '_GRECAPTCHA';
 export const CAPTCHA_NAME = 'google-recaptcha';
@@ -64,7 +82,7 @@ export class GoogleRecaptchaService {
       getFirstCompletedRemoteData(),
       map((res: RemoteData<ConfigurationProperty>) => {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
-      })
+      }),
     );
     registrationVerification$.subscribe(registrationVerification => {
       if (registrationVerification) {
@@ -125,7 +143,7 @@ export class GoogleRecaptchaService {
    */
   public getRecaptchaToken(action) {
     return this.captchaKey().pipe(
-      switchMap((key) => grecaptcha.execute(key, {action: action}))
+      switchMap((key) => grecaptcha.execute(key, { action: action })),
     );
   }
 

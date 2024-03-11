@@ -1,11 +1,9 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { HealthPageComponent } from './health-page.component';
-import {
-  SiteAdministratorGuard
-} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 @NgModule({
   imports: [
@@ -18,10 +16,10 @@ import {
           title: 'health-page.title',
         },
         canActivate: [SiteAdministratorGuard],
-        component: HealthPageComponent
-      }
-    ])
-  ]
+        component: HealthPageComponent,
+      },
+    ]),
+  ],
 })
 export class HealthPageRoutingModule {
 

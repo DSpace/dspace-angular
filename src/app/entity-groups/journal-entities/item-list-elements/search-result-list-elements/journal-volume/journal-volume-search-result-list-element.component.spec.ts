@@ -1,15 +1,23 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
-import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
 
 let journalVolumeListElementComponent: JournalVolumeSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalVolumeSearchResultListElementComponent>;
@@ -23,23 +31,23 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'journal.title': [
           {
             language: 'en_US',
-            value: 'This is just another journal title'
-          }
+            value: 'This is just another journal title',
+          },
         ],
         'publicationvolume.volumeNumber': [
           {
             language: 'en_US',
-            value: '1234'
-          }
-        ]
-      }
-    })
+            value: '1234',
+          },
+        ],
+      },
+    }),
   });
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
@@ -50,23 +58,23 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
-        ]
-      }
-    })
+            value: 'This is just another title',
+          },
+        ],
+      },
+    }),
   });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('JournalVolumeSearchResultListElementComponent', () => {
@@ -76,12 +84,12 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -161,14 +169,14 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
       providers: [
-        {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: TruncatableService, useValue: {} },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -7,8 +7,8 @@
  */
 
 import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
-import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 import { testSearchDataImplementation } from '../../data/base/search-data.spec';
+import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 describe('VocabularyEntryDetailsDataService', () => {
   function initTestService() {

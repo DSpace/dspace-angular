@@ -1,32 +1,49 @@
-import { InitService } from './init.service';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { APP_INITIALIZER, Injectable } from '@angular/core';
-import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { MetadataService } from './core/metadata/metadata.service';
-import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { CommonModule } from '@angular/common';
-import { Store, StoreModule } from '@ngrx/store';
-import { authReducer } from './core/auth/auth.reducer';
-import { storeModuleConfig } from './app.reducer';
-import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
-import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { AuthService } from './core/auth/auth.service';
-import { AuthServiceMock } from './shared/mocks/auth.service.mock';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterMock } from './shared/mocks/router.mock';
-import { MockActivatedRoute } from './shared/mocks/active-router.mock';
-import { MenuService } from './shared/menu/menu.service';
-import { LocaleService } from './core/locale/locale.service';
-import { environment } from '../environments/environment';
+import {
+  APP_INITIALIZER,
+  Injectable,
+} from '@angular/core';
+import {
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { RouteService } from './core/services/route.service';
 import { getMockLocaleService } from './app.component.spec';
+import { storeModuleConfig } from './app.reducer';
+import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { authReducer } from './core/auth/auth.reducer';
+import { AuthService } from './core/auth/auth.service';
+import { LocaleService } from './core/locale/locale.service';
+import { MetadataService } from './core/metadata/metadata.service';
+import { RouteService } from './core/services/route.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { InitService } from './init.service';
+import { MenuService } from './shared/menu/menu.service';
+import { MockActivatedRoute } from './shared/mocks/active-router.mock';
+import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
+import { AuthServiceMock } from './shared/mocks/auth.service.mock';
+import { RouterMock } from './shared/mocks/router.mock';
+import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
 import { ThemeService } from './shared/theme-support/theme.service';
-import { getMockThemeService } from './shared/mocks/theme-service.mock';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
@@ -51,8 +68,8 @@ const initialState = {
     auth: {
       loading: false,
       blocking: true,
-    }
-  }
+    },
+  },
 };
 
 
@@ -74,7 +91,7 @@ describe('InitService', () => {
 
       expect(providers).toContain(objectContaining({
         provide: InitService,
-        useClass: ConcreteInitServiceMock
+        useClass: ConcreteInitServiceMock,
       }));
 
       expect(providers).toContain(objectContaining({
@@ -91,7 +108,7 @@ describe('InitService', () => {
     it('should call resolveAppConfig() in APP_CONFIG factory', () => {
       const factory = (
         ConcreteInitServiceMock.providers()
-                               .find((p: any) => p.provide === APP_CONFIG) as any
+          .find((p: any) => p.provide === APP_CONFIG) as any
       ).useFactory;
 
       // this factory is called _before_ InitService is instantiated
@@ -103,7 +120,7 @@ describe('InitService', () => {
     it('should defer to init() in APP_INITIALIZER factory', () => {
       const factory = (
         ConcreteInitServiceMock.providers()
-                               .find((p: any) => p.provide === APP_INITIALIZER) as any
+          .find((p: any) => p.provide === APP_INITIALIZER) as any
       ).useFactory;
 
       // we don't care about the dependencies here
@@ -142,7 +159,7 @@ describe('InitService', () => {
         'transfer',
       ]);
       transferStateSpy = jasmine.createSpyObj('dspaceTransferStateSpy', [
-        'get', 'hasKey'
+        'get', 'hasKey',
       ]);
       breadcrumbsServiceSpy = jasmine.createSpyObj('breadcrumbsServiceSpy', [
         'listenForRouteChanges',
@@ -163,8 +180,8 @@ describe('InitService', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
         ],
         providers: [
@@ -183,7 +200,7 @@ describe('InitService', () => {
           provideMockStore({ initialState }),
           AppComponent,
           RouteService,
-        ]
+        ],
       });
     }));
 

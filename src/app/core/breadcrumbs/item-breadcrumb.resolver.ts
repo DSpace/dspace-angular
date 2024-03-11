@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
 import { Item } from '../shared/item.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 
 /**
  * The class that resolves the BreadcrumbConfig object for an Item
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemBreadcrumbResolver extends DSOBreadcrumbResolver<Item> {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: ItemDataService) {

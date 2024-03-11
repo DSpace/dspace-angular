@@ -6,7 +6,7 @@
     </div>
     <div>
         <p>{{'bitstream-request-a-copy.intro' | translate}} <a [routerLink]="getItemPath()">{{itemName}}</a></p>
-        <p *ngIf="bitstream != undefined && allfiles.value === 'false'">{{'bitstream-request-a-copy.intro.bitstream.one' | translate}} {{bitstreamName}}</p>
+        <p *ngIf="bitstream !== undefined && allfiles.value === 'false'">{{'bitstream-request-a-copy.intro.bitstream.one' | translate}} {{bitstreamName}}</p>
         <p *ngIf="allfiles.value === 'true'">{{'bitstream-request-a-copy.intro.bitstream.all' | translate}}</p>
     </div>
     <form [class]="'ng-invalid'" [formGroup]="requestCopyForm" (ngSubmit)="onSubmit()">

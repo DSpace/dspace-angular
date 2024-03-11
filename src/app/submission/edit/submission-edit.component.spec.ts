@@ -1,25 +1,34 @@
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { SubmissionEditComponent } from './submission-edit.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-
-import { RouterStub } from '../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { SubmissionService } from '../submission.service';
+import { SubmissionEditComponent } from './submission-edit.component';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -43,7 +52,7 @@ describe('SubmissionEditComponent Component', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: ':id/edit', component: SubmissionEditComponent, pathMatch: 'full' },
-        ])
+        ]),
       ],
       declarations: [SubmissionEditComponent],
       providers: [
@@ -56,7 +65,7 @@ describe('SubmissionEditComponent Component', () => {
         { provide: ActivatedRoute, useValue: route },
 
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -78,7 +87,7 @@ describe('SubmissionEditComponent Component', () => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(
-      createSuccessfulRemoteDataObject$(submissionObject)
+      createSuccessfulRemoteDataObject$(submissionObject),
     );
 
     fixture.detectChanges();
@@ -94,7 +103,7 @@ describe('SubmissionEditComponent Component', () => {
   it('should redirect to mydspace when an empty SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
-    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({})
+    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({}),
     );
 
     fixture.detectChanges();

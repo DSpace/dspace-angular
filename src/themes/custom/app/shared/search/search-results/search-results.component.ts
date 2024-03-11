@@ -1,6 +1,10 @@
-import { SearchResultsComponent as BaseComponent } from '../../../../../../app/shared/search/search-results/search-results.component';
 import { Component } from '@angular/core';
-import { fadeIn, fadeInOut } from '../../../../../../app/shared/animations/fade';
+
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../../../app/shared/animations/fade';
+import { SearchResultsComponent as BaseComponent } from '../../../../../../app/shared/search/search-results/search-results.component';
 
 @Component({
   selector: 'ds-search-results',
@@ -9,8 +13,8 @@ import { fadeIn, fadeInOut } from '../../../../../../app/shared/animations/fade'
   // styleUrls: ['./search-results.component.scss'],
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
 })
 export class SearchResultsComponent extends BaseComponent {
 

@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
+import { Item } from '../../core/shared/item.model';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { MediaViewerComponent } from './media-viewer.component';
-import { Item } from '../../core/shared/item.model';
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 
 /**
  * Themed wrapper for {@link MediaViewerComponent}.

@@ -1,16 +1,20 @@
-import { Component, Injector } from '@angular/core';
+import {
+  Component,
+  Injector,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { RemoteData } from '../../../../core/data/remote-data';
+import { RequestService } from '../../../../core/data/request.service';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { take } from 'rxjs/operators';
 
 export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
 

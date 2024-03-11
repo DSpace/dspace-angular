@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
@@ -24,7 +29,7 @@ export class BitstreamFormatsResolver implements Resolve<RemoteData<BitstreamFor
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<BitstreamFormat>> {
     return this.bitstreamFormatDataService.findById(route.params.id)
       .pipe(
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       );
   }
 }

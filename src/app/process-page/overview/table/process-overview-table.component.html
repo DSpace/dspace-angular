@@ -57,7 +57,7 @@
 
       </ds-pagination>
 
-      <div *ngIf="processesRD?.payload?.totalElements == 0">
+      <div *ngIf="processesRD?.payload?.totalElements === 0">
         <p>{{'process.overview.table.empty' | translate}}</p>
       </div>
     </ng-container>

@@ -58,7 +58,7 @@
         </div>
 
         <div class="modal-body">
-            <div *ngIf="!(processBulkDeleteService.isProcessing$() |async)">{{'process.overview.delete.body' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</div>
+            <div *ngIf="(processBulkDeleteService.isProcessing$() | async) !== true">{{'process.overview.delete.body' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</div>
             <div *ngIf="processBulkDeleteService.isProcessing$() |async" class="alert alert-info">
                 <span class="spinner-border spinner-border-sm spinner-button" role="status" aria-hidden="true"></span>
                 <span> {{ 'process.overview.delete.processing' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</span>

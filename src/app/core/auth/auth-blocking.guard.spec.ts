@@ -1,12 +1,23 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
-import { AppState, storeModuleConfig } from '../../app.reducer';
-import { AuthBlockingGuard } from './auth-blocking.guard';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
 import { authReducer } from './auth.reducer';
+import { AuthBlockingGuard } from './auth-blocking.guard';
 
 describe('AuthBlockingGuard', () => {
   let guard: AuthBlockingGuard;
@@ -21,9 +32,9 @@ describe('AuthBlockingGuard', () => {
         loaded: false,
         blocking: undefined,
         loading: false,
-        authMethods: []
-      }
-    }
+        authMethods: [],
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -33,8 +44,8 @@ describe('AuthBlockingGuard', () => {
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: AuthBlockingGuard, useValue: guard }
-      ]
+        { provide: AuthBlockingGuard, useValue: guard },
+      ],
     }).compileComponents();
   }));
 
@@ -58,9 +69,9 @@ describe('AuthBlockingGuard', () => {
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'auth': {
-              blocking: true
-            }
-          })
+              blocking: true,
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -76,9 +87,9 @@ describe('AuthBlockingGuard', () => {
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'auth': {
-              blocking: false
-            }
-          })
+              blocking: false,
+            },
+          }),
         });
         mockStore.setState(state);
       });

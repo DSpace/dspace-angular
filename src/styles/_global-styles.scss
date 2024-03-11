@@ -33,11 +33,6 @@ body {
     margin: 0;
 }
 
-ds-admin-sidebar {
-    position: fixed;
-    z-index: var(--ds-sidebar-z-index);
-}
-
 .sticky-top {
     z-index: 0;
 }

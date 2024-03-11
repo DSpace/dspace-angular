@@ -1,9 +1,17 @@
-import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { Observable, of as observableOf } from 'rxjs';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
+import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
 
 /**
  * Test implementation of abstract class SingleFeatureAuthorizationGuard
@@ -48,13 +56,13 @@ describe('SingleFeatureAuthorizationGuard', () => {
     ePersonUuid = 'fake-eperson-uuid';
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
+      parseUrl: {},
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     guard = new SingleFeatureAuthorizationGuardImpl(authorizationService, router, authService, featureId, objectUrl, ePersonUuid);
   }

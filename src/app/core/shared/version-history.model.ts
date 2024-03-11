@@ -1,14 +1,22 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../data/remote-data';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
-import { Version } from './version.model';
-import { VERSION_HISTORY } from './version-history.resource-type';
-import { link, typedObject } from '../cache/builders/build-decorators';
+import { RemoteData } from '../data/remote-data';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
+import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
+import { VERSION_HISTORY } from './version-history.resource-type';
 
 /**
  * Class representing a DSpace Version History
@@ -19,7 +27,7 @@ export class VersionHistory extends DSpaceObject {
   static type = VERSION_HISTORY;
 
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     versions: HALLink;
     draftVersion: HALLink;
@@ -29,30 +37,30 @@ export class VersionHistory extends DSpaceObject {
    * The identifier of this Version History
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The summary of this Version History
    */
   @autoserialize
-  summary: string;
+    summary: string;
 
   /**
    * The name of the submitter of this Version History
    */
   @autoserialize
-  submitterName: string;
+    submitterName: string;
 
   /**
    * Whether exist a workspace item
    */
   @autoserialize
-  draftVersion: boolean;
+    draftVersion: boolean;
 
   /**
    * The list of versions within this history
    */
   @excludeFromEquals
   @link(VERSION, true)
-  versions: Observable<RemoteData<PaginatedList<Version>>>;
+    versions: Observable<RemoteData<PaginatedList<Version>>>;
 }

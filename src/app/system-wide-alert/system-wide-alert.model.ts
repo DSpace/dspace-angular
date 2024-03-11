@@ -1,4 +1,8 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../core/cache/builders/build-decorators';
 import { CacheableObject } from '../core/cache/cacheable-object.model';
 import { HALLink } from '../core/shared/hal-link.model';
@@ -18,38 +22,38 @@ export class SystemWideAlert implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The identifier for this system-wide alert
    */
   @autoserialize
-  alertId: string;
+    alertId: string;
 
   /**
    * The message for this system-wide alert
    */
   @autoserialize
-  message: string;
+    message: string;
 
   /**
    * A string representation of the date to which this system-wide alert will count down when active
    */
   @autoserialize
-  countdownTo: string;
+    countdownTo: string;
 
   /**
    * Whether the system-wide alert is active
    */
   @autoserialize
-  active: boolean;
+    active: boolean;
 
 
   /**
    * The {@link HALLink}s for this system-wide alert
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
   };
 }

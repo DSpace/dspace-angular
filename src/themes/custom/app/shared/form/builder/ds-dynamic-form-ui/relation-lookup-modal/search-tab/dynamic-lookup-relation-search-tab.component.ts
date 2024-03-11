@@ -1,7 +1,8 @@
-import { DsDynamicLookupRelationSearchTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { Component } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-page.component';
+
 import { SearchConfigurationService } from '../../../../../../../../../app/core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-page.component';
+import { DsDynamicLookupRelationSearchTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -12,9 +13,9 @@ import { SearchConfigurationService } from '../../../../../../../../../app/core/
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 export class DsDynamicLookupRelationSearchTabComponent extends BaseComponent {
 

@@ -1,12 +1,18 @@
-import { isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import groupBy from 'lodash/groupBy';
+import sortBy from 'lodash/sortBy';
+
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../shared/empty.util';
 import {
   MetadataMapInterface,
   MetadataValue,
   MetadataValueFilter,
-  MetadatumViewModel
+  MetadatumViewModel,
 } from './metadata.models';
-import groupBy from 'lodash/groupBy';
-import sortBy from 'lodash/sortBy';
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -33,7 +39,7 @@ export class Metadata {
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
   public static all(mapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                    filter?: MetadataValueFilter): MetadataValue[] {
+    filter?: MetadataValueFilter): MetadataValue[] {
     const mdMaps: MetadataMapInterface[] = mapOrMaps instanceof Array ? mapOrMaps : [mapOrMaps];
     const matches: MetadataValue[] = [];
     for (const mdMap of mdMaps) {
@@ -64,7 +70,7 @@ export class Metadata {
    * @returns {string[]} the matching string values or an empty array.
    */
   public static allValues(mapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                          filter?: MetadataValueFilter): string[] {
+    filter?: MetadataValueFilter): string[] {
     return Metadata.all(mapOrMaps, keyOrKeys, filter).map((mdValue) => mdValue.value);
   }
 
@@ -77,7 +83,7 @@ export class Metadata {
    * @returns {MetadataValue} the first matching value, or `undefined`.
    */
   public static first(mdMapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                      filter?: MetadataValueFilter): MetadataValue {
+    filter?: MetadataValueFilter): MetadataValue {
     const mdMaps: MetadataMapInterface[] = mdMapOrMaps instanceof Array ? mdMapOrMaps : [mdMapOrMaps];
     for (const mdMap of mdMaps) {
       for (const key of Metadata.resolveKeys(mdMap, keyOrKeys)) {
@@ -98,7 +104,7 @@ export class Metadata {
    * @returns {string} the first matching string value, or `undefined`.
    */
   public static firstValue(mdMapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                           filter?: MetadataValueFilter): string {
+    filter?: MetadataValueFilter): string {
     const value = Metadata.first(mdMapOrMaps, keyOrKeys, filter);
     return isUndefined(value) ? undefined : value.value;
   }
@@ -112,7 +118,7 @@ export class Metadata {
    * @returns {boolean} whether a match is found.
    */
   public static has(mdMapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                    filter?: MetadataValueFilter): boolean {
+    filter?: MetadataValueFilter): boolean {
     return isNotUndefined(Metadata.first(mdMapOrMaps, keyOrKeys, filter));
   }
 
@@ -188,7 +194,7 @@ export class Metadata {
               metadataValue,
               {
                 order: index,
-                key
+                key,
               }));
         metadatumList = [...metadatumList, ...fields];
       });
@@ -209,11 +215,11 @@ export class Metadata {
       .forEach((key: string) => {
         const orderedValues = sortBy(groupedList[key], ['order']);
         metadataMap[key] = orderedValues.map((value: MetadatumViewModel) => {
-            const val = Object.assign(new MetadataValue(), value);
-            delete (val as any).order;
-            delete (val as any).key;
-            return val;
-          }
+          const val = Object.assign(new MetadataValue(), value);
+          delete (val as any).order;
+          delete (val as any).key;
+          return val;
+        },
         );
       });
     return metadataMap;

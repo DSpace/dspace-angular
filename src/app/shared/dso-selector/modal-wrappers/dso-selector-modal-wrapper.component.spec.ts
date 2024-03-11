@@ -1,18 +1,34 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+  OnInit,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+} from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Component, DebugElement, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { MockComponent } from 'ng-mocks';
+
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from './dso-selector-modal-wrapper.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { By } from '@angular/platform-browser';
-import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
-import { MockComponent } from 'ng-mocks';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { hasValue } from '../../empty.util';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from './dso-selector-modal-wrapper.component';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;
@@ -24,8 +40,8 @@ describe('DSOSelectorModalWrapperComponent', () => {
   item.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Item title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
 
   const itemRD = createSuccessfulRemoteDataObject(item);
@@ -46,11 +62,11 @@ describe('DSOSelectorModalWrapperComponent', () => {
                   dso: itemRD,
                 },
               },
-            }
-          }
+            },
+          },
         },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -145,7 +161,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
 @Component({
   selector: 'ds-test-cmp',
-  templateUrl: './dso-selector-modal-wrapper.component.html'
+  templateUrl: './dso-selector-modal-wrapper.component.html',
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

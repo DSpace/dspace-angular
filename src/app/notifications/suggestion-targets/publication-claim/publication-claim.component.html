@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 id="header" class="border-bottom pb-2">{{'suggestion.title'| translate}}</h1>
+
+      <ds-loading class="container" *ngIf="(isTargetsLoading() | async)" message="{{'suggestion.loading' | translate}}"></ds-loading>
+      <ds-pagination *ngIf="(isTargetsLoading() | async) !== true"
+                     [paginationOptions]="paginationConfig"
+                     [collectionSize]="(totalElements$ | async)"
+                     [hideGear]="false"
+                     [retainScrollPosition]="false"
+                     (paginationChange)="getSuggestionTargets()">
+
+        <ds-loading class="container" *ngIf="(isTargetsProcessing() | async)" message="'suggestion.loading' | translate"></ds-loading>
+        <ng-container *ngIf="(isTargetsProcessing() | async) !== true">
+          <div *ngIf="(targets$ | async)?.length === 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+            {{'suggestion.noTargets' | translate}}
+          </div>
+          <div *ngIf="(targets$|async)?.length !== 0" class="table-responsive mt-2">
+            <table id="epeople" class="table table-striped table-hover table-bordered">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">{{'suggestion.table.name' | translate}}</th>
+                  <th scope="col">{{'suggestion.table.actions' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let targetElement of (targets$ | async); let i = index" class="text-center">
+                  <td>
+                    <a target="_blank" [routerLink]="['/entities/person/', getTargetUuid(targetElement)]">{{targetElement.display}}</a>
+                  </td>
+                  <td>
+                    <div class="btn-group edit-field">
+                      <button (click)="redirectToSuggestions(targetElement.id)"
+                              class="btn btn-outline-primary btn-sm"
+                              title="{{('suggestion.button.review.title' | translate: { total: targetElement.total.toString() }) +
+                                targetElement.display}}">
+                        <span>{{'suggestion.button.review' | translate: { total: targetElement.total.toString() } }} </span>
+                        <i class="fas fa-lightbulb"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </ds-pagination>
+    </div>
+  </div>
+</div>

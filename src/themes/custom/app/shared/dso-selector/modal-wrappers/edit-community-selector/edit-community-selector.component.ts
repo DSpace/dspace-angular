@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-    EditCommunitySelectorComponent as BaseComponent
-} from '../../../../../../../app/shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+
+import { EditCommunitySelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 
 @Component({
   selector: 'ds-edit-item-selector',

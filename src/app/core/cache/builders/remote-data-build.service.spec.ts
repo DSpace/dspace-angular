@@ -1,26 +1,43 @@
-import { createFailedRemoteDataObject, createPendingRemoteDataObject, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { buildPaginatedList, PaginatedList } from '../../data/paginated-list.model';
-import { Item } from '../../shared/item.model';
-import { PageInfo } from '../../shared/page-info.model';
-import { RemoteDataBuildService } from './remote-data-build.service';
-import { ObjectCacheService } from '../object-cache.service';
-import { ITEM } from '../../shared/item.resource-type';
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
-import { LinkService } from './link.service';
-import { RequestService } from '../../data/request.service';
-import { UnCacheableObject } from '../../shared/uncacheable-object.model';
-import { RemoteData } from '../../data/remote-data';
-import { Observable, of as observableOf } from 'rxjs';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { take } from 'rxjs/operators';
-import { HALLink } from '../../shared/hal-link.model';
-import { RequestEntryState } from '../../data/request-entry-state.model';
-import { RequestEntry } from '../../data/request-entry.model';
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-import { fakeAsync, tick } from '@angular/core/testing';
+
+import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
+import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import {
+  createFailedRemoteDataObject,
+  createPendingRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../../shared/remote-data.utils';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { RequestEntryState } from '../../data/request-entry-state.model';
+import { HALLink } from '../../shared/hal-link.model';
+import { Item } from '../../shared/item.model';
+import { ITEM } from '../../shared/item.resource-type';
+import { PageInfo } from '../../shared/page-info.model';
+import { UnCacheableObject } from '../../shared/uncacheable-object.model';
+import { ObjectCacheService } from '../object-cache.service';
+import { LinkService } from './link.service';
+import { RemoteDataBuildService } from './remote-data-build.service';
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;
@@ -49,7 +66,7 @@ describe('RemoteDataBuildService', () => {
     linkService = getMockLinkService();
     requestService = getMockRequestService();
     unCacheableObject = {
-      foo: 'bar'
+      foo: 'bar',
     };
     pageInfo = new PageInfo();
     selfLink1 = 'https://rest.api/some/object';
@@ -64,31 +81,31 @@ describe('RemoteDataBuildService', () => {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'Item nr 1'
-            }
-          ]
+              value: 'Item nr 1',
+            },
+          ],
         },
         _links: {
           self: {
-            href: selfLink1
-          }
-        }
+            href: selfLink1,
+          },
+        },
       }),
       Object.assign(new Item(), {
         metadata: {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'Item nr 2'
-            }
-          ]
+              value: 'Item nr 2',
+            },
+          ],
         },
         _links: {
           self: {
-            href: selfLink2
-          }
-        }
-      })
+            href: selfLink2,
+          },
+        },
+      }),
     ];
     paginatedList = buildPaginatedList(pageInfo, array);
     normalizedPaginatedList = buildPaginatedList(pageInfo, array, true);
@@ -96,43 +113,43 @@ describe('RemoteDataBuildService', () => {
     paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
     entrySuccessCacheable = {
       request: {
-        uuid: '17820127-0ee5-4ed4-b6da-e654bdff8487'
+        uuid: '17820127-0ee5-4ed4-b6da-e654bdff8487',
       },
       state: RequestEntryState.Success,
       response: {
         statusCode: 200,
         payloadLink: {
-          href: selfLink1
-        }
-      }
+          href: selfLink1,
+        },
+      },
     } as RequestEntry;
     entrySuccessUnCacheable = {
       request: {
-        uuid: '0aa5ec06-d6a7-4e73-952e-1e0462bd1501'
+        uuid: '0aa5ec06-d6a7-4e73-952e-1e0462bd1501',
       },
       state: RequestEntryState.Success,
       response: {
         statusCode: 200,
         unCacheableObject,
-      }
+      },
     } as RequestEntry;
     entrySuccessNoContent = {
       request: {
-        uuid: '780a7295-6102-4a43-9775-80f2a4ff673c'
+        uuid: '780a7295-6102-4a43-9775-80f2a4ff673c',
       },
       state: RequestEntryState.Success,
       response: {
-        statusCode: 204
+        statusCode: 204,
       },
     } as RequestEntry;
     entryError = {
       request: {
-        uuid: '1609dcbc-8442-4877-966e-864f151cc40c'
+        uuid: '1609dcbc-8442-4877-966e-864f151cc40c',
       },
       state: RequestEntryState.Error,
       response: {
         statusCode: 500,
-      }
+      },
     } as RequestEntry;
     requestEntry$ = observableOf(entrySuccessCacheable);
     linksToFollow = [
@@ -427,8 +444,8 @@ describe('RemoteDataBuildService', () => {
       beforeEach(() => {
         entry = {
           response: {
-            payloadLink: { href: 'payload-link' }
-          }
+            payloadLink: { href: 'payload-link' },
+          },
         };
       });
 
@@ -441,8 +458,8 @@ describe('RemoteDataBuildService', () => {
       beforeEach(() => {
         entry = {
           response: {
-            payloadLink: undefined
-          }
+            payloadLink: undefined,
+          },
         };
       });
 
@@ -459,8 +476,8 @@ describe('RemoteDataBuildService', () => {
       beforeEach(() => {
         entry = {
           response: {
-            unCacheableObject: Object.assign({})
-          }
+            unCacheableObject: Object.assign({}),
+          },
         };
       });
 
@@ -472,7 +489,7 @@ describe('RemoteDataBuildService', () => {
     describe('when the entry\'s response doesn\'t contain an uncacheable object', () => {
       beforeEach(() => {
         entry = {
-          response: {}
+          response: {},
         };
       });
 
@@ -487,7 +504,7 @@ describe('RemoteDataBuildService', () => {
       it(`should return a new instance of that type`, () => {
         const source: any = {
           type: ITEM,
-          uuid: 'some-uuid'
+          uuid: 'some-uuid',
         };
 
         const result = (service as any).plainObjectToInstance(source);
@@ -503,7 +520,7 @@ describe('RemoteDataBuildService', () => {
       it(`should return a new plain JS object`, () => {
         const source: any = {
           type: 'foobar',
-          uuid: 'some-uuid'
+          uuid: 'some-uuid',
         };
 
         const result = (service as any).plainObjectToInstance(source);
@@ -528,7 +545,7 @@ describe('RemoteDataBuildService', () => {
       beforeEach(() => {
         paginatedLinksToFollow = [
           followLink('page', {}, ...linksToFollow),
-          ...linksToFollow
+          ...linksToFollow,
         ];
       });
       describe(`and the given list doesn't have a page property already`, () => {
@@ -843,15 +860,15 @@ describe('RemoteDataBuildService', () => {
     it('should only emit after the callback is done', () => {
       testScheduler.run(({ cold: tsCold, expectObservable }) => {
         buildFromRequestUUIDSpy.and.returnValue(
-          tsCold('-p----s', RDs)
+          tsCold('-p----s', RDs),
         );
         callback.and.returnValue(
-          tsCold('      --t', BOOLEAN)
+          tsCold('      --t', BOOLEAN),
         );
 
         const done$ = service.buildFromRequestUUIDAndAwait('some-href', callback);
         expectObservable(done$).toBe(
-          '       -p------s', RDs       // resulting duration between pending & successful includes the callback
+          '       -p------s', RDs,       // resulting duration between pending & successful includes the callback
         );
       });
     });

@@ -1,4 +1,9 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
+
 import { hasValue } from '../../shared/empty.util';
 import { HALLink } from './hal-link.model';
 import { HALResource } from './hal-resource.model';
@@ -12,31 +17,31 @@ export class PageInfo implements HALResource {
    * The number of elements on a page
    */
   @autoserializeAs(Number, 'size')
-  elementsPerPage: number;
+    elementsPerPage: number;
 
   /**
    * The total number of elements in the entire set
    */
   @autoserialize
-  totalElements: number;
+    totalElements: number;
 
   /**
    * The total number of pages
    */
   @autoserialize
-  totalPages: number;
+    totalPages: number;
 
   /**
    * The number of the current page, zero-based
    */
   @autoserializeAs(Number, 'number')
-  currentPage: number;
+    currentPage: number;
 
   /**
    * The {@link HALLink}s for this PageInfo
    */
   @deserialize
-  _links: {
+    _links: {
     first: HALLink;
     prev: HALLink;
     next: HALLink;
@@ -50,7 +55,7 @@ export class PageInfo implements HALResource {
       totalElements: number,
       totalPages: number,
       currentPage: number
-    }
+    },
   ) {
     if (hasValue(options)) {
       this.elementsPerPage = options.elementsPerPage;

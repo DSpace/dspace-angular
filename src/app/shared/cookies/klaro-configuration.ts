@@ -1,7 +1,13 @@
+import {
+  IMPERSONATING_COOKIE,
+  REDIRECT_COOKIE,
+} from '../../core/auth/auth.service';
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
-import { IMPERSONATING_COOKIE, REDIRECT_COOKIE } from '../../core/auth/auth.service';
+import {
+  CAPTCHA_COOKIE,
+  CAPTCHA_NAME,
+} from '../../core/google-recaptcha/google-recaptcha.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
-import { CAPTCHA_COOKIE, CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 
 /**
  * Cookie for has_agreed_end_user
@@ -67,7 +73,7 @@ export const klaroConfiguration: any = {
       close: 'cookies.consent.close',
       consentModal: {
         title: 'cookies.consent.content-modal.title',
-        description: 'cookies.consent.content-modal.description'
+        description: 'cookies.consent.content-modal.description',
       },
       consentNotice: {
         changeDescription: 'cookies.consent.update',
@@ -80,11 +86,11 @@ export const klaroConfiguration: any = {
       poweredBy: 'Powered by Klaro!',
       privacyPolicy: {
         name: 'cookies.consent.content-modal.privacy-policy.name',
-        text: 'cookies.consent.content-modal.privacy-policy.text'
+        text: 'cookies.consent.content-modal.privacy-policy.text',
       },
       purposeItem: {
         service: 'cookies.consent.content-modal.service',
-        services: 'cookies.consent.content-modal.services'
+        services: 'cookies.consent.content-modal.services',
       },
       purposes: {
       },
@@ -92,20 +98,20 @@ export const klaroConfiguration: any = {
       service: {
         disableAll: {
           description: 'cookies.consent.app.disable-all.description',
-          title: 'cookies.consent.app.disable-all.title'
+          title: 'cookies.consent.app.disable-all.title',
         },
         optOut: {
           description: 'cookies.consent.app.opt-out.description',
-          title: 'cookies.consent.app.opt-out.title'
+          title: 'cookies.consent.app.opt-out.title',
         },
         purpose: 'cookies.consent.app.purpose',
         purposes: 'cookies.consent.app.purposes',
         required: {
           title: 'cookies.consent.app.required.title',
-          description: 'cookies.consent.app.required.description'
-        }
-      }
-    }
+          description: 'cookies.consent.app.required.description',
+        },
+      },
+    },
   },
   services: [
     {
@@ -115,16 +121,16 @@ export const klaroConfiguration: any = {
       cookies: [
         TOKENITEM,
         IMPERSONATING_COOKIE,
-        REDIRECT_COOKIE
-      ]
+        REDIRECT_COOKIE,
+      ],
     },
     {
       name: 'preferences',
       purposes: ['functional'],
       required: true,
       cookies: [
-        LANG_COOKIE
-      ]
+        LANG_COOKIE,
+      ],
     },
     {
       name: 'acknowledgement',
@@ -132,8 +138,8 @@ export const klaroConfiguration: any = {
       required: true,
       cookies: [
         [/^klaro-.+$/],
-        HAS_AGREED_END_USER
-      ]
+        HAS_AGREED_END_USER,
+      ],
     },
     {
       name: GOOGLE_ANALYTICS_KLARO_KEY,
@@ -184,11 +190,11 @@ export const klaroConfiguration: any = {
       required: false,
       cookies: [
         [/^klaro-.+$/],
-        CAPTCHA_COOKIE
+        CAPTCHA_COOKIE,
       ],
       onAccept: `window.refreshCaptchaScript?.call()`,
       onDecline: `window.refreshCaptchaScript?.call()`,
       onlyOnce: true,
-    }
+    },
   ],
 };

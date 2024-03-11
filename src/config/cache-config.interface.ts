@@ -1,5 +1,5 @@
-import { Config } from './config.interface';
 import { AutoSyncConfig } from './auto-sync-config.interface';
+import { Config } from './config.interface';
 
 export interface CacheConfig extends Config {
   msToLive: {

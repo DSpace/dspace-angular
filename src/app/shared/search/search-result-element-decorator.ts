@@ -26,5 +26,5 @@ export function searchResultFor(domainConstructor: GenericConstructor<ListableOb
  * @returns The component's constructor that matches the given DSpaceObject
  */
 export function getSearchResultFor(domainConstructor: GenericConstructor<ListableObject>) {
-    return searchResultMap.get(domainConstructor);
+  return searchResultMap.get(domainConstructor);
 }

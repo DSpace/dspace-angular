@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ObjectCacheService } from '../cache/object-cache.service';
+
 import { hasValue } from '../../shared/empty.util';
-import {
-  HIERARCHICAL_BROWSE_DEFINITION
-} from '../shared/hierarchical-browse-definition.resource-type';
-import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
-import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
-import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { Serializer } from '../serializer';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
+import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
+import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
+import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
 import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
+import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 
 /**
  * A ResponseParsingService used to parse a REST API response to a BrowseDefinition object

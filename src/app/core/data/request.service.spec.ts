@@ -1,14 +1,42 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { EMPTY, Observable, of as observableOf } from 'rxjs';
+import {
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import {
+  EMPTY,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { storeModuleConfig } from '../../app.reducer';
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { defaultUUID, getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
+import {
+  defaultUUID,
+  getMockUUIDService,
+} from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreReducers} from '../core.reducers';
+import { coreReducers } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction, RequestStaleAction } from './request.actions';
+import {
+  RequestConfigureAction,
+  RequestExecuteAction,
+  RequestStaleAction,
+} from './request.actions';
 import {
   DeleteRequest,
   GetRequest,
@@ -16,16 +44,12 @@ import {
   OptionsRequest,
   PatchRequest,
   PostRequest,
-  PutRequest
+  PutRequest,
 } from './request.models';
 import { RequestService } from './request.service';
-import { fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { storeModuleConfig } from '../../app.reducer';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { RequestEntry } from './request-entry.model';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
-import { CoreState } from '../core-state.model';
-import { RequestEntry } from './request-entry.model';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -53,19 +77,19 @@ describe('RequestService', () => {
       'cache/object-updates': {},
       'data/request': {},
       'index': {},
-    }
+    },
   };
 
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, storeModuleConfig)
+        StoreModule.forRoot(coreReducers, storeModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: RequestService, useValue: service }
-      ]
+        { provide: RequestService, useValue: service },
+      ],
     }).compileComponents();
   }));
 
@@ -84,7 +108,7 @@ describe('RequestService', () => {
       objectCache,
       uuidService,
       store,
-      undefined
+      undefined,
     );
     serviceAsAny = service as any;
   });
@@ -129,7 +153,7 @@ describe('RequestService', () => {
     describe('when the request has reached the store, before the server responds', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValue(observableOf({
-          state: RequestEntryState.ResponsePending
+          state: RequestEntryState.ResponsePending,
         } as RequestEntry));
       });
 
@@ -144,7 +168,7 @@ describe('RequestService', () => {
     describe('after the server responds', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValues(observableOf({
-          state: RequestEntryState.Success
+          state: RequestEntryState.Success,
         } as RequestEntry));
       });
 
@@ -166,22 +190,22 @@ describe('RequestService', () => {
         entry = {
           state: RequestEntryState.Success,
           response: {
-            timeCompleted: new Date().getTime()
+            timeCompleted: new Date().getTime(),
           },
-          request: new GetRequest('request-uuid', 'request-href')
+          request: new GetRequest('request-uuid', 'request-href'),
         };
 
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'data/request': {
-              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry,
             },
             'index': {
               'get-request/configured-to-cache-uuid': {
-                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -189,7 +213,7 @@ describe('RequestService', () => {
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByUUID(testUUID);
         const expected = cold('b', {
-          b: entry
+          b: entry,
         });
 
         expect(result).toBeObservable(expected);
@@ -220,24 +244,24 @@ describe('RequestService', () => {
         entry = {
           state: RequestEntryState.Success,
           response: {
-            timeCompleted: new Date().getTime()
+            timeCompleted: new Date().getTime(),
           },
-          request: new GetRequest('request-uuid', 'request-href')
+          request: new GetRequest('request-uuid', 'request-href'),
         };
         const state = Object.assign({}, initialState, {
           core: Object.assign({}, initialState.core, {
             'data/request': {
-              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry
+              '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': entry,
             },
             'index': {
               'get-request/configured-to-cache-uuid': {
-                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
+                '5f2a0d2a-effa-4d54-bd54-5663b960f9eb': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
               },
               'get-request/href-to-uuid': {
-                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });
@@ -245,7 +269,7 @@ describe('RequestService', () => {
       it('should return an Observable of the RequestEntry', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
-          c: entry
+          c: entry,
         });
 
         expect(result).toBeObservable(expected);
@@ -263,7 +287,7 @@ describe('RequestService', () => {
       it('should return an Observable of undefined', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
-          c: undefined
+          c: undefined,
         });
 
         expect(result).toBeObservable(expected);
@@ -527,9 +551,9 @@ describe('RequestService', () => {
       entry = {
         state: RequestEntryState.Success,
         response: {
-          timeCompleted: new Date().getTime()
+          timeCompleted: new Date().getTime(),
         },
-        request: request
+        request: request,
       };
     });
 
@@ -591,7 +615,7 @@ describe('RequestService', () => {
       };
       const queryParams = service.uriEncodeBody(body);
       expect(queryParams).toEqual(
-        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123'
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123',
       );
     });
 
@@ -604,7 +628,7 @@ describe('RequestService', () => {
       };
       const queryParams = service.uriEncodeBody(body);
       expect(queryParams).toEqual(
-        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2'
+        'property1=multiple%0Alines%0Ato%0Asend&property2=sp%26ci%40l%20characters&sp%26ci%40l-chars%20in%20prop=test123&arrayParam=arrayValue1&arrayParam=arrayValue2',
       );
     });
   });
@@ -644,11 +668,11 @@ describe('RequestService', () => {
     const href = 'https://rest.api/some/object';
     const freshRE: any = {
       request: { uuid, href },
-      state: RequestEntryState.Success
+      state: RequestEntryState.Success,
     };
     const staleRE: any = {
       request: { uuid, href },
-      state: RequestEntryState.SuccessStale
+      state: RequestEntryState.SuccessStale,
     };
 
     it(`should call getByHref to retrieve the RequestEntry matching the href`, () => {
@@ -668,14 +692,14 @@ describe('RequestService', () => {
       });
     });
 
-   it(`should emit true when the request in the store is stale`, () => {
-     spyOn(service, 'getByHref').and.returnValue(cold('a-b', {
-       a: freshRE,
-       b: staleRE
-     }));
-     const result$ = service.setStaleByHref(href);
-     expect(result$).toBeObservable(cold('--(c|)', { c: true }));
-   });
+    it(`should emit true when the request in the store is stale`, () => {
+      spyOn(service, 'getByHref').and.returnValue(cold('a-b', {
+        a: freshRE,
+        b: staleRE,
+      }));
+      const result$ = service.setStaleByHref(href);
+      expect(result$).toBeObservable(cold('--(c|)', { c: true }));
+    });
   });
 
   describe('setStaleByHrefSubstring', () => {
@@ -700,10 +724,10 @@ describe('RequestService', () => {
           core: Object.assign({}, initialState.core, {
             'index': {
               'get-request/href-to-uuid': {
-                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb'
-              }
-            }
-          })
+                'https://rest.api/endpoint/selfLink': '5f2a0d2a-effa-4d54-bd54-5663b960f9eb',
+              },
+            },
+          }),
         });
         mockStore.setState(state);
       });

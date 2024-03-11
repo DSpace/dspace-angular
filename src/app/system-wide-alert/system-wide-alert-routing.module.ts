@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  SiteAdministratorGuard
-} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+
+import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { SystemWideAlertFormComponent } from './alert-form/system-wide-alert-form.component';
 
 @NgModule({
@@ -14,8 +13,8 @@ import { SystemWideAlertFormComponent } from './alert-form/system-wide-alert-for
         component: SystemWideAlertFormComponent,
       },
 
-    ])
-  ]
+    ]),
+  ],
 })
 export class SystemWideAlertRoutingModule {
 

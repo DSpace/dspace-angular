@@ -1,22 +1,28 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ContextHelpService } from './context-help.service';
-import { StoreModule, Store } from '@ngrx/store';
-import { appReducers, storeModuleConfig } from '../app.reducer';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TestScheduler } from 'rxjs/testing';
+
+import {
+  appReducers,
+  storeModuleConfig,
+} from '../app.reducer';
+import { ContextHelpService } from './context-help.service';
 
 describe('ContextHelpService', () => {
   let service: ContextHelpService;
   let store;
   let testScheduler;
   const booleans = { f: false, t: true };
-  const mkContextHelp = (id: string) => ({ 0: {id, isTooltipVisible: false}, 1: {id, isTooltipVisible: true} });
+  const mkContextHelp = (id: string) => ({ 0: { id, isTooltipVisible: false }, 1: { id, isTooltipVisible: true } });
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(appReducers, storeModuleConfig)
-      ]
+        StoreModule.forRoot(appReducers, storeModuleConfig),
+      ],
     });
   });
 
@@ -31,7 +37,7 @@ describe('ContextHelpService', () => {
   });
 
   it('toggleIcons calls should be observable in shouldShowIcons$', () => {
-    testScheduler.run(({cold, expectObservable}) => {
+    testScheduler.run(({ cold, expectObservable }) => {
       const toggles = cold('-xxxxx');
       toggles.subscribe((_) => service.toggleIcons());
       expectObservable(service.shouldShowIcons$()).toBe('ftftft', booleans);
@@ -39,15 +45,15 @@ describe('ContextHelpService', () => {
   });
 
   it('add and remove calls should be observable in getContextHelp$', () => {
-    testScheduler.run(({cold, expectObservable}) => {
+    testScheduler.run(({ cold, expectObservable }) => {
       const modifications = cold('-abAcCB', {
-        a: () => service.add({id: 'a', isTooltipVisible: false}),
-        b: () => service.add({id: 'b', isTooltipVisible: false}),
-        c: () => service.add({id: 'c', isTooltipVisible: false}),
+        a: () => service.add({ id: 'a', isTooltipVisible: false }),
+        b: () => service.add({ id: 'b', isTooltipVisible: false }),
+        c: () => service.add({ id: 'c', isTooltipVisible: false }),
         A: () => service.remove('a'), B: () => service.remove('b'), C: () => service.remove('c'),
       });
       modifications.subscribe(mod => mod());
-      const match = (id) => ({ 0: undefined, 1: {id, isTooltipVisible: false} });
+      const match = (id) => ({ 0: undefined, 1: { id, isTooltipVisible: false } });
       expectObservable(service.getContextHelp$('a')).toBe('01-0---', match('a'));
       expectObservable(service.getContextHelp$('b')).toBe('0-1---0', match('b'));
       expectObservable(service.getContextHelp$('c')).toBe('0---10-', match('c'));
@@ -55,9 +61,9 @@ describe('ContextHelpService', () => {
   });
 
   it('toggleTooltip calls should be observable in getContextHelp$', () => {
-    service.add({id: 'a', isTooltipVisible: false});
-    service.add({id: 'b', isTooltipVisible: false});
-    testScheduler.run(({cold, expectObservable}) => {
+    service.add({ id: 'a', isTooltipVisible: false });
+    service.add({ id: 'b', isTooltipVisible: false });
+    testScheduler.run(({ cold, expectObservable }) => {
       const toggles = cold('-aaababbabba');
       toggles.subscribe(id => service.toggleTooltip(id));
       expectObservable(service.getContextHelp$('a')).toBe('0101-0--1--0', mkContextHelp('a'));
@@ -66,10 +72,10 @@ describe('ContextHelpService', () => {
   });
 
   it('hideTooltip and showTooltip calls should be observable in getContextHelp$', () => {
-    service.add({id: 'a', isTooltipVisible: false});
-    testScheduler.run(({cold, expectObservable}) => {
+    service.add({ id: 'a', isTooltipVisible: false });
+    testScheduler.run(({ cold, expectObservable }) => {
       const hideShowCalls = cold('-shssshhs', {
-        s: () => service.showTooltip('a'), h: () => service.hideTooltip('a')
+        s: () => service.showTooltip('a'), h: () => service.hideTooltip('a'),
       });
       hideShowCalls.subscribe(fn => fn());
       expectObservable(service.getContextHelp$('a')).toBe('010111001', mkContextHelp('a'));

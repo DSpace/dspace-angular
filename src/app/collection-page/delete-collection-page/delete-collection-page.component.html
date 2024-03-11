@@ -11,7 +11,7 @@
                     </button>
                     <button class="btn btn-danger" (click)="onConfirm(dso)" [disabled]="(processing$ | async)">
                       <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin'></i> {{'collection.delete.processing' | translate}}</span>
-                      <span *ngIf="!(processing$ | async)"><i class="fas fa-trash"></i> {{'collection.delete.confirm' | translate}}</span>
+                      <span *ngIf="(processing$ | async) !== true"><i class="fas fa-trash"></i> {{'collection.delete.confirm' | translate}}</span>
                     </button>
                   </div>
                 </div>

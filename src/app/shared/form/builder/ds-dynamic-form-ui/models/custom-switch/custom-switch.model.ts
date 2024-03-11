@@ -2,7 +2,7 @@ import {
   DynamicCheckboxModel,
   DynamicCheckboxModelConfig,
   DynamicFormControlLayout,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH = 'CUSTOM_SWITCH';

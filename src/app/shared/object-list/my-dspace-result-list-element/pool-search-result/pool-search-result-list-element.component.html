@@ -4,6 +4,19 @@
                                [showSubmitter]="showSubmitter"
                                [badgeContext]="badgeContext"
                                [workflowItem]="workflowitem$.value"></ds-themed-item-list-preview>
+
+  <!-- Display duplicate alert, if feature enabled and duplicates detected -->
+  <ng-container *ngVar="(duplicates$|async)?.length as duplicateCount">
+    <div [ngClass]="'row'" *ngIf="duplicateCount > 0">
+      <div [ngClass]="'col-2'"></div>
+      <div [ngClass]="'col-10'">
+        <div class="d-flex alert alert-warning w-100">
+          {{ duplicateCount }} {{ 'submission.workflow.tasks.duplicates' | translate }}
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
   <div class="row">
     <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 pl-3' : ''">
       <ds-pool-task-actions id="actions"

@@ -1,12 +1,24 @@
 /* eslint-disable max-classes-per-file */
-import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { MoveOperation, Operation } from 'fast-json-patch';
-import { MetadataPatchReplaceOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
-import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
-import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
+import {
+  MoveOperation,
+  Operation,
+} from 'fast-json-patch';
+
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
+import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
 import { MetadataPatchMoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
+import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
+import { MetadataPatchReplaceOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../core/shared/metadata.models';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 
 /**
  * Enumeration for the type of change occurring on a metadata value
@@ -411,7 +423,7 @@ export class DsoEditMetadataForm {
                   value: value.newValue.value,
                   language: value.newValue.language,
                   authority: value.newValue.authority,
-                  confidence: value.newValue.confidence
+                  confidence: value.newValue.confidence,
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
@@ -421,7 +433,7 @@ export class DsoEditMetadataForm {
                 value: value.newValue.value,
                 language: value.newValue.language,
                 authority: value.newValue.authority,
-                confidence: value.newValue.confidence
+                confidence: value.newValue.confidence,
               }));
             } else {
               console.warn('Illegal metadata change state detected for', value);

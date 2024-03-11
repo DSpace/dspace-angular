@@ -18,7 +18,7 @@
      [scrollWindow]="false"
      (scrolled)="onScrollDown()">
 
-  <li class="dropdown-item disabled" role="menuitem" *ngIf="searchListCollection?.length == 0 && !(isLoading | async)">
+  <li class="dropdown-item disabled" role="menuitem" *ngIf="searchListCollection?.length === 0 && (isLoading | async) !== true">
     {{'submission.sections.general.no-collection' | translate}}
   </li>
   <ng-container *ngIf="searchListCollection?.length > 0">

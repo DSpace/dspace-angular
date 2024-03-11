@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Policy } from '../../../../core/submission/models/sherpa-policies-details.model';
 import { AlertType } from '../../../../shared/alert/alert-type';
@@ -9,7 +12,7 @@ import { AlertType } from '../../../../shared/alert/alert-type';
 @Component({
   selector: 'ds-publisher-policy',
   templateUrl: './publisher-policy.component.html',
-  styleUrls: ['./publisher-policy.component.scss']
+  styleUrls: ['./publisher-policy.component.scss'],
 })
 export class PublisherPolicyComponent {
 

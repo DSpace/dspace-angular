@@ -17,21 +17,22 @@
 
 <ng-template #searchContent>
     <div class="row">
-        <div class="col-12" *ngIf="!(isXsOrSm$ | async)">
+        <div class="col-12" *ngIf="(isXsOrSm$ | async) !== true">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
             <ng-content select="[additionalSearchOptions]"></ng-content>
         </div>
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">
-                <ds-view-mode-switch *ngIf="inPlaceSearch" [viewModeList]="viewModeList"
+                <ds-view-mode-switch *ngIf="inPlaceSearch && showViewModes" [viewModeList]="viewModeList"
                     [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
                 <button (click)="openSidebar()" aria-controls="#search-body"
                         class="btn btn-outline-primary float-right open-sidebar"><i
                         class="fas fa-sliders"></i> {{"search.sidebar.open"
-                        | translate}}
+                       | translate}}
                 </button>
             </div>
-            <ds-themed-search-results *ngIf="inPlaceSearch" [searchResults]="resultsRD$ | async"
+            <ds-themed-search-results *ngIf="inPlaceSearch"
+                                      [searchResults]="resultsRD$ | async"
                                       [searchConfig]="searchOptions$ | async"
                                       [configuration]="(currentConfiguration$ | async)"
                                       [disableHeader]="!searchEnabled"
@@ -49,7 +50,7 @@
 </ng-template>
 
 <ng-template #sidebarContent>
-    <ds-themed-search-sidebar id="search-sidebar" *ngIf="!(isXsOrSm$ | async)"
+    <ds-themed-search-sidebar id="search-sidebar" *ngIf="(isXsOrSm$ | async) !== true"
                        [configurationList]="configurationList"
                        [configuration]="(currentConfiguration$ | async)"
                        [currentScope]="(currentScope$ | async)"

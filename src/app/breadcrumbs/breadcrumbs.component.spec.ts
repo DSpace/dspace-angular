@@ -1,15 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
+import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
+import { VarDirective } from '../shared/utils/var.directive';
+import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbsService } from './breadcrumbs.service';
-import { Breadcrumb } from './breadcrumb/breadcrumb.model';
-import { VarDirective } from '../shared/utils/var.directive';
-import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
-import { RouterTestingModule } from '@angular/router/testing';
-import { of as observableOf } from 'rxjs';
-import { DebugElement } from '@angular/core';
 
 describe('BreadcrumbsComponent', () => {
   let component: BreadcrumbsComponent;
@@ -50,7 +57,7 @@ describe('BreadcrumbsComponent', () => {
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
-          }
+          },
         }),
       ],
       providers: [

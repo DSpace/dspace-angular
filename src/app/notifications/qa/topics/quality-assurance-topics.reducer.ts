@@ -1,5 +1,8 @@
 import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceTopicActionTypes, QualityAssuranceTopicsActions } from './quality-assurance-topics.actions';
+import {
+  QualityAssuranceTopicActionTypes,
+  QualityAssuranceTopicsActions,
+} from './quality-assurance-topics.actions';
 
 /**
  * The interface representing the Quality Assurance topic state.
@@ -22,7 +25,7 @@ const qualityAssuranceTopicInitialState: QualityAssuranceTopicState = {
   loaded: false,
   totalPages: 0,
   currentPage: 0,
-  totalElements: 0
+  totalElements: 0,
 };
 
 /**
@@ -40,7 +43,7 @@ export function qualityAssuranceTopicsReducer(state = qualityAssuranceTopicIniti
     case QualityAssuranceTopicActionTypes.RETRIEVE_ALL_TOPICS: {
       return Object.assign({}, state, {
         topics: [],
-        processing: true
+        processing: true,
       });
     }
 
@@ -51,7 +54,7 @@ export function qualityAssuranceTopicsReducer(state = qualityAssuranceTopicIniti
         loaded: true,
         totalPages: action.payload.totalPages,
         currentPage: state.currentPage,
-        totalElements: action.payload.totalElements
+        totalElements: action.payload.totalElements,
       });
     }
 
@@ -61,7 +64,7 @@ export function qualityAssuranceTopicsReducer(state = qualityAssuranceTopicIniti
         loaded: true,
         totalPages: 0,
         currentPage: 0,
-        totalElements: 0
+        totalElements: 0,
       });
     }
 

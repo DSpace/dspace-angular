@@ -1,8 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { SeriesFieldParser } from './series-field-parser';
+import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
+import { SeriesFieldParser } from './series-field-parser';
 
 describe('SeriesFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -13,7 +13,7 @@ describe('SeriesFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
@@ -26,9 +26,9 @@ describe('SeriesFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'series',
-        }
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

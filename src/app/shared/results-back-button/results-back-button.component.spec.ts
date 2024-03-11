@@ -1,9 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ResultsBackButtonComponent } from './results-back-button.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
+
+import { ResultsBackButtonComponent } from './results-back-button.component';
 
 describe('ResultsBackButtonComponent', () => {
 
@@ -21,12 +29,12 @@ describe('ResultsBackButtonComponent', () => {
       TestBed.configureTestingModule({
         declarations: [ResultsBackButtonComponent],
         imports: [TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([])
+          RouterTestingModule.withRoutes([]),
         ],
         providers: [
-          { provide: TranslateService, useValue: translate }
+          { provide: TranslateService, useValue: translate },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 

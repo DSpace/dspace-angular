@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  RegisterEmailFormComponent as BaseComponent
-} from '../../../../app/register-email-form/register-email-form.component';
+
+import { RegisterEmailFormComponent as BaseComponent } from '../../../../app/register-email-form/register-email-form.component';
 
 @Component({
   selector: 'ds-register-email-form',

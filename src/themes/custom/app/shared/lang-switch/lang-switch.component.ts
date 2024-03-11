@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LangSwitchComponent as BaseComponent } from '../../../../../app/shared/lang-switch/lang-switch.component';
 
 @Component({

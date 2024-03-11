@@ -1,12 +1,19 @@
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { PaginatedList, buildPaginatedList } from '../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { RequestEntry } from '../../core/data/request-entry.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue } from '../empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { RequestEntry } from '../../core/data/request-entry.model';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>, buildList$?: Observable<RemoteData<PaginatedList<any>>>): RemoteDataBuildService {
   return {
@@ -16,7 +23,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
         return toRemoteDataObservable$;
       } else {
         return payload$.pipe(map((payload) => ({
-          payload
+          payload,
         } as RemoteData<any>)));
       }
     },
@@ -30,7 +37,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
     },
     buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
     buildFromRequestUUIDAndAwait: (id: string, callback: (rd?: RemoteData<any>) => Observable<any>) => createSuccessfulRemoteDataObject$({}),
-    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
+    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({}),
   } as RemoteDataBuildService;
 
 }
@@ -43,7 +50,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
         return toRemoteDataObservable$;
       } else {
         return payload$.pipe(map((payload) => ({
-          payload
+          payload,
         } as RemoteData<any>)));
       }
     },
@@ -63,12 +70,12 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
           } else {
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
           }
-        })
+        }),
       );
     },
     buildFromRequestUUID: (id: string) => createSuccessfulRemoteDataObject$({}),
     buildFromRequestUUIDAndAwait: (id: string, callback: (rd?: RemoteData<any>) => Observable<any>) => createSuccessfulRemoteDataObject$({}),
-    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({})
+    buildFromHref: (href: string) => createSuccessfulRemoteDataObject$({}),
   } as RemoteDataBuildService;
 
 }

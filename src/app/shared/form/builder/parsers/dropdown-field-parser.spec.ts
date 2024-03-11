@@ -1,6 +1,6 @@
+import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { DropdownFieldParser } from './dropdown-field-parser';
-import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { ParserOptions } from './parser-options';
 
 describe('DropdownFieldParser test suite', () => {
@@ -12,13 +12,13 @@ describe('DropdownFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'dropdown'
+        type: 'dropdown',
       },
       label: 'Type',
       mandatory: 'false',
@@ -28,10 +28,10 @@ describe('DropdownFieldParser test suite', () => {
         {
           metadata: 'type',
           controlledVocabulary: 'common_types_dataset',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

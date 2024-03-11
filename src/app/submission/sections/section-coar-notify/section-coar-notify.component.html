@@ -1,0 +1,149 @@
+<div class="container-fluid">
+  <ng-container *ngIf="patterns?.length > 0 ">
+    <div *ngFor="let ldnPattern of patterns; let i = index" class="col">
+      <div *ngIf="(filterServices(ldnPattern.pattern ) | async)?.length > 0">
+        <label class="row col-form-label">
+          {{'submission.section.section-coar-notify.control.' + ldnPattern.pattern + '.label' | translate }}
+        </label
+        >
+        <div *ngIf="ldnServiceByPattern[ldnPattern.pattern]?.services.length">
+          <div
+            *ngFor="
+            let service of ldnServiceByPattern[ldnPattern.pattern].services;
+            let serviceIndex = index
+          "
+          >
+            <div class="row">
+              <div ngbDropdown #myDropdown="ngbDropdown" [class.mt-2]="serviceIndex > 0" class="flex-grow-1">
+                <div class="position-relative right-addon"
+                     [attr.aria-label]="ldnPattern.pattern + '.dropdown'">
+                  <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+                     aria-hidden="true"></i>
+                  <input
+                    [attr.aria-label]="ldnPattern.pattern+'.dropdownanchor'"
+                    type="text"
+                    [readonly]="true"
+                    [ngClass]="{'border-danger': (getShownSectionErrors$(ldnPattern.pattern, serviceIndex) | async)?.length > 0}"
+                    class="form-control w-100 scrollable-dropdown-input"
+                    [value]="ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]?.name"
+                    (click)="myDropdown.open()"
+                  />
+                </div>
+                <div
+                  ngbDropdownMenu
+                  class="dropdown-menu scrollable-dropdown-menu w-100"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <div
+                    class="scrollable-menu"
+                    role="listbox"
+                    infiniteScroll
+                    [infiniteScrollDistance]="2"
+                    [infiniteScrollThrottle]="50"
+                    [scrollWindow]="false"
+                  >
+                    <button
+                      *ngIf="(filterServices(ldnPattern.pattern) | async)?.length === 0"
+                      class="dropdown-item collection-item text-truncate w-100"
+                    >
+                      {{'submission.section.section-coar-notify.dropdown.no-data' | translate}}
+                    </button>
+                    <button
+                      *ngIf="(filterServices(ldnPattern.pattern ) | async)?.length > 0"
+                      class="dropdown-item collection-item text-truncate w-100"
+                      (click)="onChange(ldnPattern.pattern, serviceIndex, null)"
+                    >
+                      {{'submission.section.section-coar-notify.dropdown.select-none' | translate}}
+                    </button>
+                    <button
+                      *ngFor="let serviceOption of filterServices(ldnPattern.pattern ) | async"
+                      [ngClass]="{'bg-light': ldnServiceByPattern[ldnPattern.pattern ].services[serviceIndex]?.id === serviceOption.id}"
+                      class="dropdown-item collection-item text-truncate w-100"
+                      (click)="onChange(ldnPattern.pattern, serviceIndex, serviceOption)"
+                    >
+                      <b>
+                        {{ serviceOption.name }}
+                      </b>
+                      <br />
+                      {{ serviceOption.description }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button *ngIf="ldnServiceByPattern[ldnPattern.pattern].services.length > 1"
+                      type="button" [class.mt-2]="serviceIndex > 0"
+                      class="btn btn-secondary ml-2"
+                      role="button"
+                      title="{{'form.remove' | translate}}"
+                      [attr.aria-label]="'form.remove' | translate"
+                      (click)="removeService(ldnPattern, serviceIndex)"
+              >
+                <span><i class="fas fa-trash" aria-hidden="true"></i></span>
+              </button>
+            </div>
+
+            <small
+              class="row text-muted"
+              *ngIf="!ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex] &&
+                    serviceIndex === ldnServiceByPattern[ldnPattern.pattern].services.length -1"
+            >
+              {{'submission.section.section-coar-notify.small.notification' | translate : {pattern : ldnPattern.pattern} }}
+            </small>
+            <ng-container *ngIf="(getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)?.length > 0">
+              <small class="row text-danger" *ngFor="let error of (getShownSectionErrors$(ldnPattern.pattern , serviceIndex) | async)">
+                {{ error.message | translate}}
+              </small>
+            </ng-container>
+            <div
+              class="row mt-1"
+              *ngIf="ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]"
+            >
+              <div
+                class="alert alert-info w-100 d-flex align-items-center flex-row"
+              >
+                <i class="fa-solid fa-circle-info fa-xl ml-2"></i>
+                <div class="ml-4">
+                  <div>{{ 'submission.section.section-coar-notify.selection.description' | translate }}</div>
+                  <div *ngIf="ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex]?.description; else noDesc">
+                    {{ ldnServiceByPattern[ldnPattern.pattern].services[serviceIndex].description }}
+                  </div>
+                  <ng-template #noDesc>
+                <span class="text-muted">
+                  {{ 'submission.section.section-coar-notify.selection.no-description' | translate }}
+                </span>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="(getShownSectionErrors$(ldnPattern.pattern, serviceIndex) | async)?.length > 0">
+              <div
+                class="alert alert-danger w-100 d-flex align-items-center flex-row"
+              >
+                <div class="ml-4">
+              <span>
+                {{ 'submission.section.section-coar-notify.notification.error' | translate }}
+              </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div *ngIf="ldnPattern.multipleRequest && (serviceIndex === ldnServiceByPattern[ldnPattern.pattern].services.length - 1)"
+                   (click)="addNewService(ldnPattern)"
+                   class="btn btn-link mt-2 pl-0"
+              >
+                <i class="fas fa-plus"></i>
+                {{ 'submission.sections.general.add-more' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+    <ng-container *ngIf="!hasSectionData">
+    <p>
+      {{ 'submission.section.section-coar-notify.info.no-pattern' | translate }}
+    </p>
+  </ng-container>
+</div>

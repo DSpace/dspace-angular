@@ -1,15 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { Community } from '../../../../core/shared/community.model';
-import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { hasNoValue, hasValue } from '../../../empty.util';
-import { followLink } from '../../../utils/follow-link-config.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { Community } from '../../../../core/shared/community.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../empty.util';
+import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 
 @Component({
   selector: 'ds-community-search-result-grid-element',
@@ -30,7 +37,7 @@ export class CommunitySearchResultGridElementComponent extends SearchResultGridE
     public dsoNameService: DSONameService,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected bitstreamDataService: BitstreamDataService
+    protected bitstreamDataService: BitstreamDataService,
   ) {
     super(dsoNameService, truncatableService, bitstreamDataService);
   }

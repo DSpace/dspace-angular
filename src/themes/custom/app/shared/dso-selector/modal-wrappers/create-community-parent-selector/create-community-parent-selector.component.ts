@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-    CreateCommunityParentSelectorComponent as BaseComponent
-} from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+
+import { CreateCommunityParentSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 
 @Component({
   selector: 'ds-create-community-parent-selector',

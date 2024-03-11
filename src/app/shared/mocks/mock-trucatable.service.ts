@@ -14,6 +14,6 @@ export const mockTruncatableService: any = {
   collapse: (id: string) => {
   },
   toggle: (id: string) => {
-  }
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };

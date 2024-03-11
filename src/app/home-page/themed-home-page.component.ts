@@ -1,6 +1,7 @@
+import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { HomePageComponent } from './home-page.component';
-import { Component } from '@angular/core';
 
 @Component({
   selector: 'ds-themed-home-page',

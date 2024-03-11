@@ -1,11 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -27,7 +39,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { PersonSearchResultListSubmissionElementComponent } from './person-search-result-list-submission-element.component';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 
 let personListElementComponent: PersonSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListSubmissionElementComponent>;
@@ -40,14 +51,14 @@ let mockRelationshipService;
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 function init() {
@@ -60,17 +71,17 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
+              value: 'This is just another title',
+            },
           ],
           'person.jobTitle': [
             {
               language: 'en_US',
-              value: 'Developer'
-            }
-          ]
-        }
-      })
+              value: 'Developer',
+            },
+          ],
+        },
+      }),
     });
   mockItemWithoutMetadata = Object.assign(
     new ItemSearchResult(),
@@ -81,16 +92,16 @@ function init() {
           'dc.title': [
             {
               language: 'en_US',
-              value: 'This is just another title'
-            }
-          ]
-        }
-      })
+              value: 'This is just another title',
+            },
+          ],
+        },
+      }),
     });
 
   nameVariant = 'Doe J.';
   mockRelationshipService = {
-    getNameVariant: () => observableOf(nameVariant)
+    getNameVariant: () => observableOf(nameVariant),
   };
 }
 
@@ -98,7 +109,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     init();
@@ -112,7 +123,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {}},
+        { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
@@ -122,12 +133,12 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -178,7 +189,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     init();
@@ -192,7 +203,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {}},
+        { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
@@ -202,12 +213,12 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
       ],
 
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

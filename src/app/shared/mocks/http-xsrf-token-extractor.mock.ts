@@ -6,7 +6,7 @@ import { HttpXsrfTokenExtractor } from '@angular/common/http';
  * the same fake XSRF token.
  */
 export class HttpXsrfTokenExtractorMock extends HttpXsrfTokenExtractor {
-    constructor(private token: string | null) { super(); }
+  constructor(private token: string | null) { super(); }
 
-    getToken(): string | null { return this.token; }
+  getToken(): string | null { return this.token; }
 }

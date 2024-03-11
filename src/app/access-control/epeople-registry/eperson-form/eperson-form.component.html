@@ -25,7 +25,7 @@
           </button>
         </div>
         <div *ngIf="displayResetPassword" between class="btn-group">
-          <button class="btn btn-primary" [disabled]="!(canReset$ | async)" type="button" (click)="resetPassword()">
+          <button class="btn btn-primary" [disabled]="(canReset$ | async) !== true" type="button" (click)="resetPassword()">
             <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
           </button>
         </div>
@@ -47,13 +47,13 @@
       <div *ngIf="epersonService.getActiveEPerson() | async">
         <h2>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h2>
 
-        <ds-themed-loading [showMessage]="false" *ngIf="!(groups | async)"></ds-themed-loading>
+        <ds-themed-loading [showMessage]="false" *ngIf="groups$ | async | dsHasNoValue"></ds-themed-loading>
 
         <ds-pagination
-          *ngIf="(groups | async)?.payload?.totalElements > 0"
+          *ngIf="(groups$ | async)?.payload?.totalElements > 0"
           [paginationOptions]="config"
-          [pageInfoState]="(groups | async)?.payload"
-          [collectionSize]="(groups | async)?.payload?.totalElements"
+          [pageInfoState]="groupsPageInfoState$"
+          [collectionSize]="(groups$ | async)?.payload?.totalElements"
           [hideGear]="true"
           [hidePagerWhenSinglePage]="true"
           (pageChange)="onPageChange($event)">
@@ -68,7 +68,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let group of (groups | async)?.payload?.page">
+              <tr *ngFor="let group of (groups$ | async)?.payload?.page">
                 <td class="align-middle">{{group.id}}</td>
                 <td class="align-middle">
                   <a (click)="groupsDataService.startEditingNewGroup(group)"
@@ -84,7 +84,7 @@
 
         </ds-pagination>
 
-        <div *ngIf="(groups | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+        <div *ngIf="(groups$ | async)?.payload?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
           <div>{{messagePrefix + '.memberOfNoGroups' | translate}}</div>
           <div>
             <button [routerLink]="[groupsDataService.getGroupRegistryRouterLink()]"

@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { type } from '../../../shared/ngrx/type';
+
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { type } from '../../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -38,7 +39,7 @@ export class RetrieveAllSourceAction implements Action {
   constructor(elementsPerPage: number, currentPage: number) {
     this.payload = {
       elementsPerPage,
-      currentPage
+      currentPage,
     };
   }
 }
@@ -80,7 +81,7 @@ export class AddSourceAction implements Action {
       source,
       totalPages,
       currentPage,
-      totalElements
+      totalElements,
     };
   }
 

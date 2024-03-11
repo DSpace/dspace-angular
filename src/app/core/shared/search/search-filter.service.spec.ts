@@ -1,5 +1,8 @@
-import { SearchFilterService } from './search-filter.service';
 import { Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
+
+import { FilterType } from '../../../shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -7,14 +10,15 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { FilterType } from '../../../shared/search/models/filter-type.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { of as observableOf } from 'rxjs';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
+import { SearchFilterService } from './search-filter.service';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -24,7 +28,7 @@ describe('SearchFilterService', () => {
     filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
 
   const value1 = 'random value';
@@ -33,7 +37,7 @@ describe('SearchFilterService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: observableOf(true),
   });
 
   const routeServiceStub: any = {
@@ -55,12 +59,12 @@ describe('SearchFilterService', () => {
       return observableOf({});
     },
     getRouteParameterValue: (param: string) => {
-    }
+    },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const activatedRoute: any = new ActivatedRouteStub();
   const searchServiceStub: any = {
-    uiSearchRoute: '/search'
+    uiSearchRoute: '/search',
   };
 
   beforeEach(() => {

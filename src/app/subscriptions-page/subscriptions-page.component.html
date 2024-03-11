@@ -7,7 +7,7 @@
           <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
           <ng-container *ngVar="(subscriptions$ | async) as subscriptions">
 
-            <ds-pagination *ngIf="subscriptions?.pageInfo?.totalElements > 0 && !(loading$ | async)"
+            <ds-pagination *ngIf="subscriptions?.pageInfo?.totalElements > 0 && (loading$ | async) !== true"
                            [paginationOptions]="config"
                            [collectionSize]="subscriptions?.pageInfo?.totalElements"
                            [hideGear]="true"
@@ -34,7 +34,7 @@
               </div>
             </ds-pagination>
 
-            <ds-alert *ngIf="subscriptions?.pageInfo?.totalElements == 0 && !(loading$ | async)" [type]="AlertType.Info" data-test="empty-alert">
+            <ds-alert *ngIf="subscriptions?.pageInfo?.totalElements === 0 && (loading$ | async) !== true" [type]="AlertType.Info" data-test="empty-alert">
               {{ 'subscriptions.table.empty.message' | translate }}
             </ds-alert>
 

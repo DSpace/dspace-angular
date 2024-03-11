@@ -1,6 +1,7 @@
 import { first } from 'rxjs/operators';
-import { CollectionPageResolver } from './collection-page.resolver';
+
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { CollectionPageResolver } from './collection-page.resolver';
 
 describe('CollectionPageResolver', () => {
   describe('resolve', () => {
@@ -11,7 +12,7 @@ describe('CollectionPageResolver', () => {
 
     beforeEach(() => {
       collectionService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$({ id })
+        findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
       store = jasmine.createSpyObj('store', {
         dispatch: {},
@@ -26,7 +27,7 @@ describe('CollectionPageResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
             done();
-          }
+          },
         );
     });
   });

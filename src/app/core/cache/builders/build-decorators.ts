@@ -1,26 +1,27 @@
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { InjectionToken } from '@angular/core';
 
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
-import {
-  getResourceTypeValueFor
-} from '../object-cache.reducer';
-import { InjectionToken } from '@angular/core';
 import { CacheableObject } from '../cacheable-object.model';
+import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { TypedObject } from '../typed-object.model';
 
 export const DATA_SERVICE_FACTORY = new InjectionToken<(resourceType: ResourceType) => GenericConstructor<any>>('getDataServiceFor', {
   providedIn: 'root',
-  factory: () => getDataServiceFor
+  factory: () => getDataServiceFor,
 });
 export const LINK_DEFINITION_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>>('getLinkDefinition', {
   providedIn: 'root',
-  factory: () => getLinkDefinition
+  factory: () => getLinkDefinition,
 });
 export const LINK_DEFINITION_MAP_FACTORY = new InjectionToken<<T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>>('getLinkDefinitions', {
   providedIn: 'root',
-  factory: () => getLinkDefinitions
+  factory: () => getLinkDefinitions,
 });
 
 const resolvedLinkKey = Symbol('resolvedLink');
@@ -122,7 +123,7 @@ export const link = <T extends HALResource>(
       resourceType,
       isList,
       linkName,
-      propertyName
+      propertyName,
     });
 
     linkMap.set(target.constructor, targetMap);

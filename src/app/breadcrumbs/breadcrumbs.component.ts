@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { BreadcrumbsService } from './breadcrumbs.service';
-import { Observable } from 'rxjs';
 
 /**
  * Component representing the breadcrumbs of a page
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'ds-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.scss']
+  styleUrls: ['./breadcrumbs.component.scss'],
 })
 export class BreadcrumbsComponent {
 

@@ -1,4 +1,8 @@
-import { Component, Type } from '@angular/core';
+import {
+  Component,
+  Type,
+} from '@angular/core';
+
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 
 const authMethodsMap: Map<AuthMethodType, Type<Component>> = new Map();

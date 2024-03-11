@@ -1,4 +1,5 @@
 import { Router } from '@angular/router';
+
 import { AppConfig } from '../../../config/app-config.interface';
 import { DefaultAppConfig } from '../../../config/default-app-config';
 import { ReloadGuard } from './reload.guard';
@@ -24,8 +25,8 @@ describe('ReloadGuard', () => {
         redirectUrl = '/redirect/url?param=extra';
         route = {
           queryParams: {
-            redirect: redirectUrl
-          }
+            redirect: redirectUrl,
+          },
         };
       });
 
@@ -38,7 +39,7 @@ describe('ReloadGuard', () => {
     describe('when the route\'s query params doesn\'t contain a redirect url', () => {
       beforeEach(() => {
         route = {
-          queryParams: {}
+          queryParams: {},
         };
       });
 

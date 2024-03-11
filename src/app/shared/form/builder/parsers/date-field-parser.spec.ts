@@ -1,7 +1,7 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { DateFieldParser } from './date-field-parser';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
+import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { DateFieldParser } from './date-field-parser';
 import { ParserOptions } from './parser-options';
 
 describe('DateFieldParser test suite', () => {
@@ -13,13 +13,13 @@ describe('DateFieldParser test suite', () => {
     readOnly: false,
     submissionScope: null,
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'date'
+        type: 'date',
       },
       label: 'Date of Issue.',
       mandatory: 'true',
@@ -29,9 +29,9 @@ describe('DateFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'date',
-        }
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });
