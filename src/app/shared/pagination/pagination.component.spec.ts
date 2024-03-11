@@ -27,6 +27,7 @@ import {
 import { FindListOptions } from '@dspace/core/data/find-list-options.model';
 import { PaginationService } from '@dspace/core/pagination/pagination.service';
 import { PaginationComponentOptions } from '@dspace/core/pagination/pagination-component-options.model';
+import { UUIDService } from '@dspace/core/shared/uuid.service';
 import { MockActivatedRoute } from '@dspace/core/testing/active-router.mock';
 import { HostWindowServiceMock } from '@dspace/core/testing/host-window-service.mock';
 import { RouterMock } from '@dspace/core/testing/router.mock';
@@ -46,7 +47,6 @@ import { HostWindowService } from '../host-window.service';
 import { RSSComponent } from '../rss-feed/rss.component';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
-import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -172,7 +172,7 @@ describe('Pagination component', () => {
           { path: 'home', component: TestComponent },
         ]),
         UUIDService,
-        ],
+      ],
       declarations: [
         PaginationComponent,
         TestComponent,
