@@ -18,6 +18,7 @@ import {
   map,
   take,
 } from 'rxjs/operators';
+import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 import {
   SortDirection,
@@ -208,6 +209,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
   private subs: Subscription[] = [];
 
   /**
+   * Unique element 'id' property value, in case this class is used multiply
+   * in one page.
+   */
+  public elementId: string;
+
+  /**
    * If showPaginator is set to true, emit when the previous button is clicked
    */
   @Output() prev = new EventEmitter<boolean>();
@@ -216,6 +223,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * If showPaginator is set to true, emit when the next button is clicked
    */
   @Output() next = new EventEmitter<boolean>();
+
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
@@ -278,7 +286,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   constructor(private cdRef: ChangeDetectorRef,
               private paginationService: PaginationService,
-              public hostWindowService: HostWindowService) {
+              public hostWindowService: HostWindowService,
+              private uuidService: UUIDService) {
+    this.elementId = uuidService.generate();
   }
 
   /**

@@ -28,6 +28,7 @@ import {
 } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject } from 'rxjs';
+import { UUIDService } from 'src/app/core/shared/uuid.service';
 
 import { storeModuleConfig } from '../../app.reducer';
 import {
@@ -168,7 +169,9 @@ describe('Pagination component', () => {
         NgbModule,
         RouterTestingModule.withRoutes([
           { path: 'home', component: TestComponent },
-        ])],
+        ]),
+        UUIDService,
+      ],
       declarations: [
         PaginationComponent,
         TestComponent,
@@ -181,6 +184,7 @@ describe('Pagination component', () => {
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
         PaginationComponent,
+        UUIDService,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
