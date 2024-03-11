@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
 
@@ -12,12 +13,12 @@ import { ThemedSubmissionImportExternalComponent } from '../submission/import-ex
         component: ThemedSubmissionImportExternalComponent,
         pathMatch: 'full',
         data: {
-          title: 'submission.import-external.page.title'
-        }
-      }
-    ])
+          title: 'submission.import-external.page.title',
+        },
+      },
+    ]),
   ],
-  providers: [ ]
+  providers: [ ],
 })
 export class ImportExternalRoutingModule {
 

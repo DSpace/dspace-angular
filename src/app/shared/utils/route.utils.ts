@@ -1,6 +1,10 @@
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { hasValue } from '../empty.util';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
+
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { hasValue } from '../empty.util';
 
 /**
  * Util function to retrieve the current path (without query parameters) the user is on

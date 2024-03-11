@@ -1,15 +1,22 @@
-import { Injectable, Injector } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ResourceType } from '../../../core/shared/resource-type';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { isEmpty } from '../../empty.util';
-import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
 import { getDataServiceFor } from '../../../core/data/base/data-service.decorator';
+import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { ResourceType } from '../../../core/shared/resource-type';
+import { isEmpty } from '../../empty.util';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -42,7 +49,7 @@ export class ResourcePolicyTargetResolver implements Resolve<RemoteData<DSpaceOb
     const provider = getDataServiceFor(new ResourceType(targetType));
     this.dataService = Injector.create({
       providers: [],
-      parent: this.parentInjector
+      parent: this.parentInjector,
     }).get(provider);
 
     return this.dataService.findById(policyTargetId).pipe(

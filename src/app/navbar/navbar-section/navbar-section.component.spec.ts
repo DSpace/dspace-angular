@@ -1,13 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { NavbarSectionComponent } from './navbar-section.component';
-import { HostWindowService } from '../../shared/host-window.service';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { of as observableOf } from 'rxjs';
+
+import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { Component } from '@angular/core';
 import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
-import { of as observableOf } from 'rxjs';
+import { NavbarSectionComponent } from './navbar-section.component';
 
 describe('NavbarSectionComponent', () => {
   let component: NavbarSectionComponent;
@@ -21,12 +25,12 @@ describe('NavbarSectionComponent', () => {
       providers: [
         { provide: 'sectionDataProvider', useValue: {} },
         { provide: MenuService, useValue: menuService },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) }
-      ]
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+      ],
     }).overrideComponent(NavbarSectionComponent, {
       set: {
-        entryComponents: [TestComponent]
-      }
+        entryComponents: [TestComponent],
+      },
     })
       .compileComponents();
   }));
@@ -48,7 +52,7 @@ describe('NavbarSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 }

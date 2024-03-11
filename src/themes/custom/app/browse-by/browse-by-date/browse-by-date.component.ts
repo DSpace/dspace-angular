@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BrowseByDateComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-date/browse-by-date.component';
 import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
 import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';

@@ -1,10 +1,20 @@
-import { Observable } from 'rxjs';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { cold, hot } from 'jasmine-marbles';
-import { MenuEffects } from './menu.effects';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import { Observable } from 'rxjs';
+
+import {
+  StoreAction,
+  StoreActionTypes,
+} from '../../store.actions';
 import { ReinitMenuAction } from './menu.actions';
-import { StoreAction, StoreActionTypes } from '../../store.actions';
+import { MenuEffects } from './menu.effects';
 
 describe('MenuEffects', () => {
   let menuEffects: MenuEffects;
@@ -29,8 +39,8 @@ describe('MenuEffects', () => {
         action = new StoreAction(StoreActionTypes.REHYDRATE, null);
       });
       it('should return a ReinitMenuAction', () => {
-        actions = hot('--a-', {a: action});
-        const expected = cold('--b-', {b: new ReinitMenuAction});
+        actions = hot('--a-', { a: action });
+        const expected = cold('--b-', { b: new ReinitMenuAction });
 
         expect(menuEffects.reinitDSOMenus).toBeObservable(expected);
       });

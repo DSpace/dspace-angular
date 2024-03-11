@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  listableObjectComponent
-} from '../../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../../../../../app/core/shared/view-mode.model';
-import {
-  ItemSearchResult
-} from '../../../../../../../../../app/shared/object-collection/shared/item-search-result.model';
-import {
-  ItemSearchResultListElementComponent as BaseComponent
-} from '../../../../../../../../../app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+
 import { Context } from '../../../../../../../../../app/core/shared/context.model';
+import { ViewMode } from '../../../../../../../../../app/core/shared/view-mode.model';
+import { ItemSearchResult } from '../../../../../../../../../app/shared/object-collection/shared/item-search-result.model';
+import { listableObjectComponent } from '../../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ItemSearchResultListElementComponent as BaseComponent } from '../../../../../../../../../app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.Any, 'custom')
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Any, 'custom')

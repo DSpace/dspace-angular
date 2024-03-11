@@ -1,25 +1,71 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
+import { Community } from '../../../core/shared/community.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CommunityAccessControlComponent } from './community-access-control.component';
 
-xdescribe('CommunityAccessControlComponent', () => {
+describe('CommunityAccessControlComponent', () => {
   let component: CommunityAccessControlComponent;
   let fixture: ComponentFixture<CommunityAccessControlComponent>;
+  const testCommunity = Object.assign(new Community(),
+    {
+      type: 'community',
+      metadata: {
+        'dc.title': [{ value: 'community' }],
+      },
+      uuid: 'communityUUID',
+      parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
+
+      _links: {
+        parentCommunity: 'site',
+        self: '/' + 'communityUUID',
+      },
+    },
+  );
+
+  const routeStub = {
+    parent: {
+      parent: {
+        data: of({
+          dso: createSuccessfulRemoteDataObject(testCommunity),
+        }),
+      },
+    },
+  };
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommunityAccessControlComponent ]
+      declarations: [ CommunityAccessControlComponent ],
+      providers: [{ provide: ActivatedRoute, useValue: routeStub }],
     })
-    .compileComponents();
+      .compileComponents();
   });
+
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CommunityAccessControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.ngOnInit();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set itemRD$', (done) => {
+    component.itemRD$.subscribe(result => {
+      expect(result).toEqual(createSuccessfulRemoteDataObject(testCommunity));
+      done();
+    });
   });
 });

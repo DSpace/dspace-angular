@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { type } from '../../../shared/ngrx/type';
+
 import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { type } from '../../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -25,6 +26,8 @@ export class RetrieveAllTopicsAction implements Action {
   payload: {
     elementsPerPage: number;
     currentPage: number;
+    source: string;
+    target?: string;
   };
 
   /**
@@ -35,10 +38,12 @@ export class RetrieveAllTopicsAction implements Action {
    * @param currentPage
    *    The page number to retrieve
    */
-  constructor(elementsPerPage: number, currentPage: number) {
+  constructor(elementsPerPage: number, currentPage: number, source: string, target?: string) {
     this.payload = {
       elementsPerPage,
-      currentPage
+      currentPage,
+      source,
+      target,
     };
   }
 }
@@ -80,7 +85,7 @@ export class AddTopicsAction implements Action {
       topics,
       totalPages,
       currentPage,
-      totalElements
+      totalElements,
     };
   }
 

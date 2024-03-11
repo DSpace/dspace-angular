@@ -1,8 +1,18 @@
-import { DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
-import { isEmpty, isNull } from '../../../../../empty.util';
+import {
+  DynamicFormControlLayout,
+  serializable,
+} from '@ng-dynamic-forms/core';
+
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
+import {
+  isEmpty,
+  isNull,
+} from '../../../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../ds-dynamic-form-constants';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-input.model';
 
 /**
  * Dynamic Group Model configuration interface
@@ -41,7 +51,7 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
     this.value = value;
   }
 
-/*  get value() {
+  /*  get value() {
     return (isEmpty(this.value)) ? null : this.value
   }*/
 

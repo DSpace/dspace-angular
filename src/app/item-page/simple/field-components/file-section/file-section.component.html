@@ -13,7 +13,7 @@
       <div *ngIf="!isLastPage" class="mt-1" id="view-more">
         <button class="bitstream-view-more btn btn-outline-secondary btn-sm" (click)="getNextPage()">{{'item.page.bitstreams.view-more' | translate}}</button>
       </div>
-      <div *ngIf="isLastPage && currentPage != 1" class="mt-1" id="collapse">
+      <div *ngIf="isLastPage && currentPage !== 1" class="mt-1" id="collapse">
         <button class="bitstream-collapse btn btn-outline-secondary btn-sm" (click)="currentPage = undefined; getNextPage();">{{'item.page.bitstreams.collapse' | translate}}</button>
       </div>
     </div>
